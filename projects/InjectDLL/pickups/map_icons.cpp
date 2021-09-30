@@ -30,6 +30,8 @@ namespace
         COUNT = 6,
     };
 
+    constexpr float COLOR_DIVIDER = 3.0f;
+
     std::mt19937 generator(40500);
     const std::unordered_map<std::string, std::pair<int, int>> TREE_OVERRIDES = {
         { "64590ed6, 476b6885, 8993bbb3, 7d01ee6d", std::make_pair(uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_DoubleJump) },
@@ -223,9 +225,33 @@ namespace
                 utils::create_message_provider(il2cpp::string_new(name.c_str())));
 
             auto player_info = multiplayer::get_player(it->second);
-            auto renderers = il2cpp::unity::get_components<app::Renderer>(info.icon->fields.IconGameObject, "UnityEngine", "Renderer");
+            auto color = player_info != nullptr ? player_info->color : app::Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+            auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(info.icon->fields.IconGameObject, "UnityEngine", "Renderer");
+            auto first = true;
             for (auto renderer : renderers)
-                shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &player_info->color);
+            {
+                auto prev_color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
+                app::Color actual_color = color;
+                if (prev_color.a > 0.5f)
+                {
+                    if (prev_color.a < 0.9f)
+                    {
+                        actual_color.r /= COLOR_DIVIDER;
+                        actual_color.g /= COLOR_DIVIDER;
+                        actual_color.b /= COLOR_DIVIDER;
+                    }
+                    else if (first)
+                    {
+                        actual_color.r = 1.0f;
+                        actual_color.g = 1.0f;
+                        actual_color.b = 1.0f;
+                        first = false;
+                    }
+
+                    actual_color.a = prev_color.a;
+                    shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &actual_color);
+                }
+            }
 
             for (auto& dot : info.dots)
                 GameObject::SetActive(dot.dot, false);
@@ -942,7 +968,11 @@ namespace
         // TODO: Add stuff like normal.
         if (map_visible)
         {
-            app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
+            app::Color color = player.color;
+            color.r = (color.r + 1.0f) / 2.0f;
+            color.g = (color.g + 1.0f) / 2.0f;
+            color.b = (color.b + 1.0f) / 2.0f;
+
             const int HALF_DOTS = DOT_COUNT / 2;
             for (int i = 0; i < HALF_DOTS; ++i)
             {
@@ -1047,32 +1077,51 @@ void refresh_icon_alphas(bool is_map_visible)
         {
             auto prev_color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
             color.a = prev_color.a;
-            shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+            if (color.a > 0.5f)
+            {
+                if (color.a < 0.9f)
+                {
+                    color.r /= COLOR_DIVIDER;
+                    color.g /= COLOR_DIVIDER;
+                    color.b /= COLOR_DIVIDER;
+                }
+
+                shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+            }
         }
     }
 
     map_visible = is_map_visible;
     for (auto& p : player_icon_map)
     {
-        app::Color color{ 1.0f, 1.0f, 1.0f, 1.0f };
         if (is_map_visible)
         {
             if (p.second.dots.empty())
                 return;
 
+            auto player = multiplayer::get_player(p.second.name);
             const int HALF_DOTS = DOT_COUNT / 2;
             for (int i = 0; i < HALF_DOTS; ++i)
             {
-                color.a = static_cast<float>(i) / HALF_DOTS;
                 auto& dot = p.second.dots[(p.second.next_index + HALF_DOTS + i) % DOT_COUNT];
+                app::Color color;
+                if (player != nullptr)
+                    color = player->color;
+                else
+                    color = shaders::UberShaderAPI::GetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor);
+
+                color.a = static_cast<float>(i) / HALF_DOTS;
                 shaders::UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
             }
         }
         else
         {
-            color.a = 0.0f;
             for (auto dot : p.second.dots)
+            {
+                auto color = shaders::UberShaderAPI::GetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor);
+                color.a = 0.0f;
                 shaders::UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+            }
         }
     }
 }
