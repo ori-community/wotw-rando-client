@@ -339,6 +339,7 @@ namespace textures
                 stbi_image_free(png_data);
                 files[value] = il2cpp::gchandle_new(texture, false);
                 data->texture = reinterpret_cast<app::Texture*>(texture);
+                Object::DontDestroyOnLoad(data->texture);
                 return data;
             }
             else
