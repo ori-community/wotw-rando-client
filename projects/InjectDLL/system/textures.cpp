@@ -36,7 +36,7 @@ namespace textures
         IL2CPP_BINDING(UnityEngine, Renderer, void, SetMaterial, (app::Renderer* this_ptr, app::Material* material));
         IL2CPP_BINDING(UnityEngine, Renderer, app::Material*, GetMaterial, (app::Renderer* this_ptr));
         IL2CPP_BINDING(UnityEngine, Renderer, app::Material*, GetSharedMaterial, (app::Renderer* this_ptr));
-        NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Material, void, .ctor, ctor_shader, (app::Shader* this_ptr, app::Material* other), (UnityEngine:Shader));
+        NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Material, void, .ctor, ctor_shader, (app::Material* this_ptr, app::Shader* shader), (UnityEngine:Shader));
         NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Material, void, .ctor, ctor, (app::Material* this_ptr, app::Material* other), (UnityEngine:Material));
         IL2CPP_BINDING(UnityEngine, Material, void, CopyPropertiesFromMaterial, (app::Material* this_ptr, app::Material* other));
         IL2CPP_BINDING(UnityEngine, Material, app::Shader*, get_shader, (app::Material* this_ptr));
@@ -45,7 +45,8 @@ namespace textures
     app::Material* copy_material(app::Material* source)
     {
         auto instanced_material = il2cpp::create_object<app::Material>("UnityEngine", "Material");
-        Material::ctor(instanced_material, source);
+        auto shader = Material::get_shader(source);
+        Material::ctor_shader(instanced_material, shader);
         Material::CopyPropertiesFromMaterial(instanced_material, source);
         return instanced_material;
     }

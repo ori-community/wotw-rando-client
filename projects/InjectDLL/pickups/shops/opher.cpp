@@ -257,7 +257,10 @@ namespace
         const auto key = get_key(this_ptr);
         const auto it = opher_weapon_costs.find(key);
         if (it != opher_weapon_costs.end())
-            return get_experience() >= it->second;
+        {
+            auto cost = uber_states::get_uber_state_value(uber_states::constants::OPHER_WEAPON_GROUP_ID, it->second);
+            return get_experience() >= cost;
+        }
 
         return WeaponmasterItem::get_IsAffordable(this_ptr);
     }
