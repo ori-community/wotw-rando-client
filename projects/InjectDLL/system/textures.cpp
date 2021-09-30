@@ -64,47 +64,38 @@ namespace textures
         if (default_material == default_materials.end())
             default_materials[renderer] = il2cpp::gchandle_new(Renderer::GetSharedMaterial(renderer), false);
 
-        auto material = materials[renderer];
-        if (material == 0)
+        app::Material* to_copy = nullptr;
+        if (base_material != 0)
         {
-            app::Material* to_copy = nullptr;
-            if (base_material != 0)
-            {
-                to_copy = il2cpp::gchandle_target<app::Material>(base_material);
-                if (!il2cpp::unity::is_valid(to_copy))
-                    to_copy = nullptr;
-            }
-
-            if (to_copy == nullptr)
-            {
-                to_copy = il2cpp::gchandle_target<app::Material>(default_materials[renderer]);
-                if (!il2cpp::unity::is_valid(to_copy))
-                    to_copy = nullptr;
-            }
-
-            if (to_copy == nullptr)
-            {
-                il2cpp::gchandle_free(default_materials[renderer]);
-                to_copy = Renderer::GetSharedMaterial(renderer);
-                default_materials[renderer] = il2cpp::gchandle_new(to_copy, false);
-                if (!il2cpp::unity::is_valid(to_copy))
-                    to_copy = nullptr;
-            }
-
-            if (to_copy == nullptr)
-            {
-                warn("textures", "failed to find a valid material to copy.");
-                return;
-            }
-
-            auto actual_material = copy_material(to_copy);
-            Object::DontDestroyOnLoad(actual_material);
-            material = il2cpp::gchandle_new(actual_material, false);
-            materials[renderer] = material;
+            to_copy = il2cpp::gchandle_target<app::Material>(base_material);
+            if (!il2cpp::unity::is_valid(to_copy))
+                to_copy = nullptr;
         }
 
-        auto mat = il2cpp::gchandle_target<app::Material>(material);
-        Renderer::SetMaterial(renderer, mat);
+        if (to_copy == nullptr)
+        {
+            to_copy = il2cpp::gchandle_target<app::Material>(default_materials[renderer]);
+            if (!il2cpp::unity::is_valid(to_copy))
+                to_copy = nullptr;
+        }
+
+        if (to_copy == nullptr)
+        {
+            il2cpp::gchandle_free(default_materials[renderer]);
+            to_copy = Renderer::GetSharedMaterial(renderer);
+            default_materials[renderer] = il2cpp::gchandle_new(to_copy, false);
+            if (!il2cpp::unity::is_valid(to_copy))
+                to_copy = nullptr;
+        }
+
+        if (to_copy == nullptr)
+        {
+            warn("textures", "failed to find a valid material to copy.");
+            return;
+        }
+
+        auto material = copy_material(to_copy);
+        Renderer::SetMaterial(renderer, material);
         
         if (texture != nullptr)
             shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, texture);
@@ -221,6 +212,7 @@ namespace textures
             }
             else if (type == L"map")
             {
+                warn("textures", "map texture designator is depracated and can have any number of sideffects.");
                 auto separator = value.find(':', 0);
                 if (separator == -1)
                 {
@@ -311,12 +303,12 @@ namespace textures
             }
             else if (type == L"file")
             {
-                auto it = files.find(value);
-                if (it != files.end())
-                {
-                    data->texture = reinterpret_cast<app::Texture*>(il2cpp::gchandle_target(it->second));
-                    return data;
-                }
+                //auto it = files.find(value);
+                //if (it != files.end())
+                //{
+                //    data->texture = reinterpret_cast<app::Texture*>(il2cpp::gchandle_target(it->second));
+                //    return data;
+                //}
 
                 auto path = base_path + convert_wstring_to_string(value);
                 replace_all(path, "/", "\\");
