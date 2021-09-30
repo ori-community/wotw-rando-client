@@ -105,9 +105,12 @@ namespace
     // ---------------------------------------------------
 
     IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr, app::String* replace, app::String* with));
-    IL2CPP_BINDING(, ShopkeeperUIDetails, void, UpdateDetails2, (app::ShopkeeperUIDetails* this_ptr));
-    IL2CPP_INTERCEPT(, ShopkeeperUIDetails, void, UpdateDetails, (app::ShopkeeperUIDetails* this_ptr))
-    {
+    IL2CPP_INTERCEPT(, ShopkeeperUIDetails, void, UpdateDetails2, (app::ShopkeeperUIDetails* this_ptr)) {
+        // TODO: Fix details panel on ophers shop.
+        ShopkeeperUIDetails::UpdateDetails2(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(, ShopkeeperUIDetails, void, UpdateDetails, (app::ShopkeeperUIDetails* this_ptr)) {
         if (this_ptr->fields.m_item == nullptr)
             return;
 
@@ -154,7 +157,7 @@ namespace
         if (locked || locked_shop_overwrite)
             this_ptr->fields.LockedDescription = description_box->fields.MessageProvider;
 
-        UpdateDetails2(this_ptr);
+        UpdateDetails2_intercept(this_ptr);
         description_box->fields.MessageProvider = temp;
 
         if (this_ptr->fields.ShowEquipStatus != false)
@@ -228,19 +231,22 @@ namespace shops
     std::shared_ptr<textures::TextureData> get_icon(ShopType type, void* shop_item)
     {
         std::shared_ptr<textures::TextureData> output;
-        switch (type)
+        if (shop_item != nullptr)
         {
-        case ShopType::Opher:
-            output = get_opher_icon(reinterpret_cast<app::WeaponmasterItem*>(shop_item));
-            break;
-        case ShopType::Twillen:
-            output = get_twillen_icon(reinterpret_cast<app::UpgradableShardItem*>(shop_item));
-            break;
-        case ShopType::Lupo:
-            output = get_lupo_icon(reinterpret_cast<app::MapmakerItem*>(shop_item));
-            break;
-        default:
-            break;
+            switch (type)
+            {
+            case ShopType::Opher:
+                output = get_opher_icon(reinterpret_cast<app::WeaponmasterItem*>(shop_item));
+                break;
+            case ShopType::Twillen:
+                output = get_twillen_icon(reinterpret_cast<app::UpgradableShardItem*>(shop_item));
+                break;
+            case ShopType::Lupo:
+                output = get_lupo_icon(reinterpret_cast<app::MapmakerItem*>(shop_item));
+                break;
+            default:
+                break;
+            }
         }
 
         if (output != nullptr)

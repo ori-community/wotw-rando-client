@@ -2,16 +2,18 @@
 #include <Common/ext.h>
 #include <csharp_bridge.h>
 #include <pickups/shops/general.h>
+#include <system\textures.h>
+#include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_manager.h>
+#include <utils\messaging.h>
+
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
-#include <utils\messaging.h>
 
 #include <functional>
 #include <set>
 #include <map>
-#include <system\textures.h>
 
 using namespace modloader;
 
@@ -184,10 +186,11 @@ namespace
                 return;
             }
 
-            auto locked = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsLocked")->fields;
-            if (il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsMaxLevel")->fields)
+            auto is_owned = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsOwned")->fields;
+            auto is_max_level = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsMaxLevel")->fields;
+            if (is_max_level)
             {
-                locked = true;
+                is_owned = true;
                 if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO))
                     GameObject::SetActive(this_ptr->fields.SpiritLightGO, false);
 
@@ -196,12 +199,13 @@ namespace
             }
 
             auto value = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "get_ItemCurrentLevel")->fields;
-            auto total = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "get_ItemMaxLevel")->fields;
-            if (total < value)
-                value = total;
+            auto max_level = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "get_ItemMaxLevel")->fields;
+            if (max_level < value)
+                value = max_level;
 
             if (il2cpp::unity::is_valid(this_ptr->fields.Backdrop))
-                SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr->fields.Backdrop, value, total);
+                SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr->fields.Backdrop, 0, 0);
+                //SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr->fields.Backdrop, value, max_level);
 
             auto cost = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "GetCostForLevel", &value)->fields;
             if (cost == 0)
@@ -229,8 +233,8 @@ namespace
                 TextBox::RenderText(text_box);
             }
 
-            auto disabled = locked || il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsOwned")->fields;
-            CleverMenuItem::set_IsDisabled(menu_item, disabled);
+            auto is_affordable = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsAffordable")->fields;
+            CleverMenuItem::set_IsDisabled(menu_item, is_owned || !is_affordable);
         }
         else
             ShopkeeperUISubItem::UpdateItem(this_ptr);
@@ -249,10 +253,17 @@ namespace
         return csharp_bridge::opher_bought_upgrade(required_type);
     }
 
+    IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_IsAffordable, (app::WeaponmasterItem* this_ptr)) {
+        const auto key = get_key(this_ptr);
+        const auto it = opher_weapon_costs.find(key);
+        if (it != opher_weapon_costs.end())
+            return get_experience() >= it->second;
+
+        return WeaponmasterItem::get_IsAffordable(this_ptr);
+    }
+
     IL2CPP_BINDING(, UISoundSettingsAsset, bool, PlaySoundEvent, (app::UISoundSettingsAsset* this_ptr, app::Event_1* sound_event));
-    IL2CPP_BINDING(, WeaponmasterItem, bool, get_IsAffordable, (app::WeaponmasterItem* this_ptr));
-    IL2CPP_INTERCEPT(, WeaponmasterItem, bool, TryPurchase, (app::WeaponmasterItem* this_ptr, app::Action_1_MessageProvider_* show_hint, app::UISoundSettingsAsset* sounds, app::ShopKeeperHints* hints))
-    {
+    IL2CPP_INTERCEPT(, WeaponmasterItem, bool, TryPurchase, (app::WeaponmasterItem* this_ptr, app::Action_1_MessageProvider_* show_hint, app::UISoundSettingsAsset* sounds, app::ShopKeeperHints* hints)) {
         app::MessageProvider* selected_hint;
         if (has_been_purchased_before(this_ptr))
             selected_hint = hints->fields.AlreadyOwned;
@@ -260,7 +271,7 @@ namespace
             selected_hint = hints->fields.ShardNotDiscovered;
         else if (!get_IsVisible_intercept(this_ptr))
             selected_hint = hints->fields.ShardNotDiscovered;
-        else if (!get_IsAffordable(this_ptr))
+        else if (!get_IsAffordable_intercept(this_ptr))
             selected_hint = hints->fields.NotEnoughSpiritLight;
         else
             return true;
@@ -270,6 +281,40 @@ namespace
             UISoundSettingsAsset::PlaySoundEvent(sounds, sounds->fields.InvalidItem);
 
         return false;
+    }
+
+    IL2CPP_INTERCEPT(, ShopkeeperUIItem, void, UpdateItem, (app::ShopkeeperUIItem* this_ptr, app::ShopkeeperItem* upgrade_item)) {
+        if (shops::is_in_shop(shops::ShopType::Opher))
+        {
+            auto is_max_level = il2cpp::invoke<app::Boolean__Boxed>(upgrade_item, "get_IsMaxLevel")->fields;
+            auto is_affordable = il2cpp::invoke<app::Boolean__Boxed>(upgrade_item, "get_IsAffordable")->fields;
+            auto is_locked = il2cpp::invoke<app::Boolean__Boxed>(upgrade_item, "get_IsLocked")->fields;
+            auto already_owned = has_been_purchased_before(reinterpret_cast<app::WeaponmasterItem*>(upgrade_item));
+
+            auto available = !is_locked && !is_max_level;
+            GameObject::SetActive(this_ptr->fields.LockedGO, is_locked);
+            GameObject::SetActive(this_ptr->fields.AlreadyOwnedGO, already_owned);// !(available && is_affordable) || (!is_locked && is_max_level));
+            GameObject::SetActive(this_ptr->fields.AvailableToBuyGO, available && is_affordable);
+            GameObject::SetActive(this_ptr->fields.TooExpensiveGO, available && !is_affordable);
+
+            auto ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AvailableToBuyGO, "", "ShopkeeperUISubItem");
+            ui_sub_item->fields.m_item = upgrade_item;
+            ShopkeeperUISubItem::UpdateItem(ui_sub_item);
+
+            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AlreadyOwnedGO, "", "ShopkeeperUISubItem");
+            ui_sub_item->fields.m_item = upgrade_item;
+            ShopkeeperUISubItem::UpdateItem(ui_sub_item);
+
+            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AlreadyOwnedGO, "", "ShopkeeperUISubItem");
+            ui_sub_item->fields.m_item = upgrade_item;
+            ShopkeeperUISubItem::UpdateItem(ui_sub_item);
+
+            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.LockedGO, "", "ShopkeeperUISubItem");
+            ui_sub_item->fields.m_item = upgrade_item;
+            ShopkeeperUISubItem::UpdateItem(ui_sub_item);
+        }
+        else
+            ShopkeeperUIItem::UpdateItem(this_ptr, upgrade_item);
     }
 }
 
