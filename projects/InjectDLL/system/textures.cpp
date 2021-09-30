@@ -322,7 +322,7 @@ namespace textures
                 if (png_data == nullptr)
                 {
                     modloader::warn("textures", format("failed to load texture %s (%s).", path.c_str(), stbi_failure_reason()));
-                    return data;
+                    return nullptr;
                 }
 
                 auto texture = il2cpp::create_object<app::Texture2D>("UnityEngine", "Texture2D");
