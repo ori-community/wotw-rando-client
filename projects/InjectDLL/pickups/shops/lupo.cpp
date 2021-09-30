@@ -42,11 +42,15 @@ namespace
 
     IL2CPP_INTERCEPT(, MapmakerUISubItem, void, UpdateUpgradeIcon, (app::MapmakerUISubItem* this_ptr)) {
         auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
-        auto texture = shops::get_lupo_icon(this_ptr->fields.m_upgradeItem);
+        auto texture = shops::get_icon(shops::ShopType::Lupo, this_ptr->fields.m_upgradeItem);
         if (texture != nullptr)
             texture->apply(renderer);
         else
+        {
             textures::apply_default(renderer);
+            shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture,
+                reinterpret_cast<app::Texture*>(this_ptr->fields.m_upgradeItem->fields.Icon));
+        }
     }
 
     IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
