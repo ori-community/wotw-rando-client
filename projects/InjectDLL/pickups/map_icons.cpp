@@ -1042,9 +1042,13 @@ void refresh_icon_alphas(bool is_map_visible)
     if (il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField))
     {
         auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(area_map->fields._PlayerPositionMarker_k__BackingField, "UnityEngine", "Renderer");
-        auto& color = multiplayer::get_local_player_color();
+        auto color = multiplayer::get_local_player_color();
         for (auto renderer : renderers)
+        {
+            auto prev_color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
+            color.a = prev_color.a;
             shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+        }
     }
 
     map_visible = is_map_visible;
