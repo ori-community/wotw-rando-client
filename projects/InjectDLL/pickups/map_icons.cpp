@@ -226,35 +226,38 @@ namespace
 
             auto player_info = multiplayer::get_player(it->second);
             auto color = player_info != nullptr ? player_info->color : app::Color{ 1.0f, 1.0f, 1.0f, 1.0f };
-            auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(info.icon->fields.IconGameObject, "UnityEngine", "Renderer");
-            auto first = true;
-            for (auto renderer : renderers)
+            if (il2cpp::unity::is_valid(info.icon->fields.IconGameObject))
             {
-                auto prev_color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
-                app::Color actual_color = color;
-                if (prev_color.a > 0.5f)
+                auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(info.icon->fields.IconGameObject, "UnityEngine", "Renderer");
+                auto first = true;
+                for (auto renderer : renderers)
                 {
-                    if (prev_color.a < 0.9f)
+                    auto prev_color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
+                    app::Color actual_color = color;
+                    if (prev_color.a > 0.5f)
                     {
-                        actual_color.r /= COLOR_DIVIDER;
-                        actual_color.g /= COLOR_DIVIDER;
-                        actual_color.b /= COLOR_DIVIDER;
-                    }
-                    else if (first)
-                    {
-                        actual_color.r = 1.0f;
-                        actual_color.g = 1.0f;
-                        actual_color.b = 1.0f;
-                        first = false;
-                    }
+                        if (prev_color.a < 0.9f)
+                        {
+                            actual_color.r /= COLOR_DIVIDER;
+                            actual_color.g /= COLOR_DIVIDER;
+                            actual_color.b /= COLOR_DIVIDER;
+                        }
+                        else if (first)
+                        {
+                            actual_color.r = 1.0f;
+                            actual_color.g = 1.0f;
+                            actual_color.b = 1.0f;
+                            first = false;
+                        }
 
-                    actual_color.a = prev_color.a;
-                    shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &actual_color);
+                        actual_color.a = prev_color.a;
+                        shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &actual_color);
+                    }
                 }
-            }
 
-            for (auto& dot : info.dots)
-                GameObject::SetActive(dot.dot, false);
+                for (auto& dot : info.dots)
+                    GameObject::SetActive(dot.dot, false);
+            }
         }
         else if (this_ptr->fields.m_areaMapIcon != nullptr)
         {
