@@ -84,6 +84,7 @@ namespace textures
             // Very awful code, if texture is no longer valid, reload it.
             if (!il2cpp::unity::is_valid(texture) && path._Starts_with(L"file:"))
             {
+                info("textures", "had to reload file texture.");
                 il2cpp::gchandle_free(local.texture.value());
                 auto it = files.find(path);
                 if (it != files.end())
