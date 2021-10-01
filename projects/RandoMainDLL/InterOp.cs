@@ -122,8 +122,20 @@ namespace RandoMainDLL {
       public extern static void clear_wheels();
     }
 
-    [DllImport("Il2CppModLoader.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static IntPtr get_base_path();
+    public static class Utils {
+      [DllImport("Il2CppModLoader.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static IntPtr get_base_path();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void reload_all_file_textures();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool get_debug_controls();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_debug_controls(bool value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static GameState get_game_state();
+    }
+
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void add_icon(AreaType area, int id, WorldMapIconType icon, float x, float y, int group_id, int state_id, bool allow_teleport);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -204,11 +216,6 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void register_state_redirect(int state, int value);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool get_debug_controls();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_debug_controls(bool value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void fill_health();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void fill_energy();
@@ -264,8 +271,6 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static Vector2 get_position();
 
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static GameState get_game_state();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static AreaType get_player_area();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

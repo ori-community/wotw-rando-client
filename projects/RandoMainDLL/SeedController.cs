@@ -821,7 +821,7 @@ namespace RandoMainDLL {
     public static string PickupCount => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}");
     public static string Progress => PickupCount + GoalModeMessages(progress: true);
     public static string GoalModeMessages(string met = "$", string unmet = "", bool progress = false, bool withRelics = true) {
-      if (InterOp.get_game_state() != GameState.Game)
+      if (InterOp.Utils.get_game_state() != GameState.Game)
         return ""; // don't even try!
       var goalMsgs = new List<String>();
       if (Flags.Contains(Flag.ALLWISPS)) {

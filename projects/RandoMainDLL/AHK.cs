@@ -47,7 +47,7 @@ namespace RandoMainDLL {
       if (cursorLock || disableDebug) {
         Randomizer.TitleScreenCallback = () => {
           if (disableDebug)
-            InterOp.set_debug_controls(false);
+            InterOp.Utils.set_debug_controls(false);
           if (cursorLock)
             InterOp.toggle_cursorlock();
         };

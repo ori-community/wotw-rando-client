@@ -46,12 +46,13 @@ namespace RandoMainDLL {
       CreateWheelItemInternal(9000, 0, "Show last pickup", "Displays the message associated\nwith the last pickup.", "shard:4", Color.White, ptr);
       CreateWheelItemInternal(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "shard:5", Color.White, ptr);
       CreateWheelItemInternal(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "shard:6", Color.White, ptr);
+      CreateWheelItemInternal(9000, 3, "Toggle keystones", "Toggle to always show the keystone ui.", "shard:1", Color.White, ptr);
+      CreateWheelItemInternal(9000, 4, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", "shard:2", Color.White, ptr);
       CreateWheelItemInternal(9000, 10, "Reload", "Reloads the seed file", "shard:2", Color.White, ptr);
       CreateWheelItemInternal(9000, 11, "Next", "Go to next page of actions", "shard:3", Color.White, ptr);
-      CreateWheelItemInternal(9001, 0, "Toggle keystones", "Toggle to always show the keystone ui.", "shard:1", Color.White, ptr);
-      CreateWheelItemInternal(9001, 1, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", "shard:2", Color.White, ptr);
-      CreateWheelItemInternal(9001, 2, "Toggle dev", "Toggles the dev flag.", "shard:4", Color.White, ptr);
-      CreateWheelItemInternal(9001, 3, "Toggle debug", "Toggle debug controls", "shard:5", Color.White, ptr);
+      CreateWheelItemInternal(9001, 0, "Toggle dev", "Toggles the dev flag.", "shard:4", Color.White, ptr);
+      CreateWheelItemInternal(9001, 1, "Toggle debug", "Toggle debug controls", "shard:5", Color.White, ptr);
+      CreateWheelItemInternal(9001, 2, "Reload file textures", "Reloads all textures with the file: designation", "shard:12", Color.White, ptr);
       CreateWheelItemInternal(9001, 4, "Display coordinates", "Displays your current/ncoordinates as a message", "shard:6", Color.White, ptr);
       CreateWheelItemInternal(9001, 5, "Teleport cheat", "Toggles cheat to teleport\nanywhere on the map", "shard:7", Color.White, ptr);
       CreateWheelItemInternal(9001, 6, "Unlock spoilers", "Unlock spoilers filter on the map", "shard:8", Color.White, ptr);
@@ -64,7 +65,8 @@ namespace RandoMainDLL {
     }
 
     public static void OnDevChanged() {
-      InterOp.Wheel.set_wheel_item_enabled(9001, 3, Randomizer.Dev);
+      InterOp.Wheel.set_wheel_item_enabled(9001, 1, Randomizer.Dev);
+      InterOp.Wheel.set_wheel_item_enabled(9001, 2, Randomizer.Dev);
       InterOp.Wheel.set_wheel_item_enabled(9001, 4, Randomizer.Dev);
       InterOp.Wheel.set_wheel_item_enabled(9001, 5, Randomizer.Dev);
       InterOp.Wheel.set_wheel_item_enabled(9001, 6, Randomizer.Dev);
@@ -91,6 +93,12 @@ namespace RandoMainDLL {
             case 2:
               Input.OnActionTriggered(Input.Action.WarpCredits);
               break;
+            case 3:
+              Input.OnActionTriggered(Input.Action.ToggleAlwaysShowKeystones);
+              break;
+            case 4:
+              Input.OnActionTriggered(Input.Action.ToggleCursorLock);
+              break;
             case 10:
               Input.OnActionTriggered(Input.Action.Reload);
               break;
@@ -105,16 +113,14 @@ namespace RandoMainDLL {
         case 9001:
           switch (item) {
             case 0:
-              Input.OnActionTriggered(Input.Action.ToggleAlwaysShowKeystones);
-              break;
-            case 1:
-              Input.OnActionTriggered(Input.Action.ToggleCursorLock);
-              break;
-            case 2:
               Input.OnActionTriggered(Input.Action.ShowDevFlag);
               break;
-            case 3:
+            case 1:
               Input.OnActionTriggered(Input.Action.ToggleDebug);
+              break;
+            case 2:
+              Msg.Print($"Reloading file textures", toMessageLog: true);
+              InterOp.Utils.reload_all_file_textures();
               break;
             case 4:
               Input.OnActionTriggered(Input.Action.PrintCoordinates);

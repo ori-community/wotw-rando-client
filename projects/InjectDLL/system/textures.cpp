@@ -85,21 +85,8 @@ namespace textures
             if (!il2cpp::unity::is_valid(texture) && path._Starts_with(L"file:"))
             {
                 info("textures", "had to reload file texture.");
-                il2cpp::gchandle_free(local.texture.value());
-                auto it = files.find(path);
-                if (it != files.end())
-                    files.erase(it);
-
-                load_texture();
+                reload_file_texture();
                 texture = il2cpp::gchandle_target<app::Texture>(local.texture.value());
-                auto& collection = file_instances[path];
-                for (auto it = collection.begin(); it != collection.end(); ++it)
-                {
-                    if ((*it).expired())
-                        it = collection.erase(it);
-                    else
-                        it->lock()->local.texture = local.texture;
-                }
             }
 
             shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, texture);
@@ -113,6 +100,24 @@ namespace textures
 
         if (local.color.has_value())
             shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &local.color.value());
+    }
+
+    void TextureData::reload_file_texture()
+    {
+        il2cpp::gchandle_free(local.texture.value());
+        auto it = files.find(path);
+        if (it != files.end())
+            files.erase(it);
+
+        load_texture();
+        auto& collection = file_instances[path];
+        for (auto it = collection.begin(); it != collection.end(); ++it)
+        {
+            if ((*it).expired())
+                it = collection.erase(it);
+            else
+                it->lock()->local.texture = local.texture;
+        }
     }
 
     void apply_default(app::Renderer* renderer)
@@ -344,5 +349,21 @@ namespace textures
             file_instances[data->path].push_back(data);
 
         return data;
+    }
+
+    INJECT_C_DLLEXPORT void reload_all_file_textures()
+    {
+        for (auto collection : file_instances)
+        {
+            for (auto it = collection.second.begin(); it != collection.second.end(); ++it)
+            {
+                if ((*it).expired())
+                    continue;
+
+                auto data = it->lock();
+                data->reload_file_texture();
+                break;
+            }
+        }
     }
 }

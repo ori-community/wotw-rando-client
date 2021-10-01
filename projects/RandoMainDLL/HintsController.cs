@@ -143,7 +143,7 @@ namespace RandoMainDLL {
         Msg.SendPlainText(new PlainText(pp.DisplayName, duration, pp.Pos, pp.Clear, pp.Immediate, pp.Quiet), justUnlocked);
         return;
       }
-      if (InterOp.get_game_state() != GameState.Game) {
+      if (InterOp.Utils.get_game_state() != GameState.Game) {
         if (!justUnlocked)
           Msg.SendPlainText(new PlainText(SeedController.Progress, duration), justUnlocked);
         return;

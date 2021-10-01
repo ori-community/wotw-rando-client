@@ -1,5 +1,6 @@
 #pragma once
 
+#include <macros.h>
 #include <utils/shaders.h>
 
 #include <memory>
@@ -16,6 +17,8 @@ namespace textures
         std::optional<app::Vector4> scroll_rot;
         std::optional<app::Color> color;
     };
+
+    INJECT_C_DLLEXPORT void reload_all_file_textures();
 
     class TextureData
     {
@@ -41,9 +44,11 @@ namespace textures
         MaterialParams local;
 
         void load_texture();
+        void reload_file_texture();
 
         friend std::shared_ptr<TextureData> create_texture();
         friend std::shared_ptr<TextureData> get_texture(std::wstring_view path);
+        friend void reload_all_file_textures();
     };
 
     std::shared_ptr<TextureData> create_texture();

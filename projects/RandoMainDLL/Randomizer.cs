@@ -65,7 +65,7 @@ namespace RandoMainDLL {
 
         R = new Random();
 
-        BasePath = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.get_base_path());
+        BasePath = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.Utils.get_base_path());
         Debug($"Init: set base path to {BasePath}");
 
         if (!Directory.Exists(SaveFolder)) 
@@ -98,7 +98,7 @@ namespace RandoMainDLL {
 
     public static void Update() {
       try {
-        var gs = InterOp.get_game_state();
+        var gs = InterOp.Utils.get_game_state();
         if (gs == GameState.TitleScreen) {
           UberStateController.SkipListeners = true;
           if (TitleScreenCallback != null)

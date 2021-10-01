@@ -313,7 +313,7 @@ namespace RandoMainDLL {
 
         BonusItemController.OnUberState(state);
         var zone = ZoneType.Void;
-        if (InterOp.get_game_state() == GameState.Game)
+        if (InterOp.Utils.get_game_state() == GameState.Game)
           zone = InterOp.get_player_area().toZone();
 
         if (shouldLogStateChange(state, found)) {

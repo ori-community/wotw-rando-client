@@ -89,7 +89,7 @@ namespace RandoMainDLL {
             ShopSlot.ResetSlotData();
             WebSocketClient.Connect();
             SeedController.ReadSeed();
-            if (InterOp.get_game_state() == GameState.Game) {
+            if (InterOp.Utils.get_game_state() == GameState.Game) {
               WheelManager.ResetWheels();
               PsuedoLocs.LOAD_SEED.OnCollect();
             }
@@ -111,8 +111,8 @@ namespace RandoMainDLL {
           Environment.Exit(Environment.ExitCode);
           break;
         case Action.ToggleDebug:
-          InterOp.set_debug_controls(!InterOp.get_debug_controls());
-          Msg.Print($"Debug {(InterOp.get_debug_controls() ? "enabled" : "disabled")}", toMessageLog: false);
+          InterOp.Utils.set_debug_controls(!InterOp.Utils.get_debug_controls());
+          Msg.Print($"Debug {(InterOp.Utils.get_debug_controls() ? "enabled" : "disabled")}", toMessageLog: false);
           break;
         case Action.ToggleCursorLock:
           Msg.Print($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", toMessageLog: false);
@@ -169,6 +169,6 @@ namespace RandoMainDLL {
     }
 
     public static bool tpCheatToggle = false;
-    public static bool TPToPickupsEnabled { get => tpCheatToggle && InterOp.get_debug_controls(); }
+    public static bool TPToPickupsEnabled { get => tpCheatToggle && InterOp.Utils.get_debug_controls(); }
   }
 }

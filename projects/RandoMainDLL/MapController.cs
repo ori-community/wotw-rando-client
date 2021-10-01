@@ -79,7 +79,7 @@ namespace RandoMainDLL {
       ShardType.Fracture,
     };
     public static void UpdateReachable(int sleepTime = 30) {
-      if (InterOp.get_game_state() == GameState.Game) {
+      if (InterOp.Utils.get_game_state() == GameState.Game) {
         var args = GetArgs();
         var t = new Thread(() => UpdateReachableAsync(args, sleepTime));
         t.Start();
