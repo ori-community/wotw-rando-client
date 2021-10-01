@@ -690,7 +690,7 @@ namespace uber_states
     INJECT_C_DLLEXPORT int get_uber_state_name(int group, int state, char* buffer, int len)
     {
         auto group_id = create_uber_id(group);
-        auto state_id = create_uber_id(state);
+        auto state_id = create_uber_id((group == 12) ? state / 31 : state);
         auto uber_state = get_uber_state(group_id, state_id);
         auto str = get_uber_state_name(uber_state);
         strcpy_s(buffer, len, str.c_str());
@@ -700,7 +700,7 @@ namespace uber_states
     INJECT_C_DLLEXPORT int get_uber_state_group_name(int group, int state, char* buffer, int len)
     {
         auto group_id = create_uber_id(group);
-        auto state_id = create_uber_id(state);
+        auto state_id = create_uber_id((group == 12) ? state / 31 : state);
         auto uber_state = get_uber_state(group_id, state_id);
         auto str = get_uber_state_group_name(uber_state);
         strcpy_s(buffer, len, str.c_str());
