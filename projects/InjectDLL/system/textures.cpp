@@ -24,6 +24,7 @@ namespace textures
     namespace
     {
         std::unordered_map<std::wstring, uint32_t> files;
+        std::unordered_map<std::wstring, std::vector<std::weak_ptr<TextureData>>> file_instances;
         std::unordered_map<app::Renderer*, MaterialParams> default_params;
 
         NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Texture2D, void, .ctor, ctor,
@@ -78,7 +79,30 @@ namespace textures
         }
 
         if (local.texture.has_value())
-            shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, il2cpp::gchandle_target<app::Texture>(local.texture.value()));
+        {
+            auto texture = il2cpp::gchandle_target<app::Texture>(local.texture.value());
+            // Very awful code, if texture is no longer valid, reload it.
+            if (!il2cpp::unity::is_valid(texture) && path._Starts_with(L"file:"))
+            {
+                il2cpp::gchandle_free(local.texture.value());
+                auto it = files.find(path);
+                if (it != files.end())
+                    files.erase(it);
+
+                load_texture();
+                texture = il2cpp::gchandle_target<app::Texture>(local.texture.value());
+                auto& collection = file_instances[path];
+                for (auto it = collection.begin(); it != collection.end(); ++it)
+                {
+                    if ((*it).expired())
+                        it = collection.erase(it);
+                    else
+                        it->lock()->local.texture = local.texture;
+                }
+            }
+
+            shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, texture);
+        }
 
         if (local.uvs.has_value())
             shaders::UberShaderAPI::SetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &local.uvs.value());
@@ -203,28 +227,28 @@ namespace textures
             }
             else if (type == L"file")
             {
-                auto it = files.find(value);
+                auto it = files.find(path);
                 if (it != files.end())
                 {
                     local.texture = it->second;
                     return;
                 }
 
-                auto path = base_path + convert_wstring_to_string(value);
-                replace_all(path, "/", "\\");
+                auto texture_path = base_path + convert_wstring_to_string(value);
+                replace_all(texture_path, "/", "\\");
 
                 int x;
                 int y;
                 int n = 4;
                 stbi_set_flip_vertically_on_load(true);
-                unsigned char* png_data = stbi_load(path.c_str(), &x, &y, &n, STBI_rgb_alpha);
+                unsigned char* png_data = stbi_load(texture_path.c_str(), &x, &y, &n, STBI_rgb_alpha);
                 if (png_data == nullptr)
                 {
                     auto icon = 0;
                     auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance->fields.Icons;
                     auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);
                     local.texture = il2cpp::gchandle_new_weak(icons->fields.InventoryIcon, true);
-                    modloader::warn("textures", format("failed to load texture %s (%s).", path.c_str(), stbi_failure_reason()));
+                    modloader::warn("textures", format("failed to load texture %s (%s).", texture_path.c_str(), stbi_failure_reason()));
                     return;
                 }
 
@@ -235,7 +259,7 @@ namespace textures
                 stbi_image_free(png_data);
                 Object::DontDestroyOnLoad(texture);
                 local.texture = il2cpp::gchandle_new(texture, false);
-                files[value] = local.texture.value();
+                files[path] = local.texture.value();
             }
             else
                 modloader::warn("textures", "unknown texture protocol used when loading texture.");
@@ -311,12 +335,13 @@ namespace textures
 
     std::shared_ptr<TextureData> get_texture(std::wstring_view path)
     {
-        if (!validate_path(path))
-            return nullptr;
-
         auto data = std::make_shared<TextureData>();
         data->path = std::wstring(path);
-        data->initialized = false;
+        data->initialized = true;
+        data->load_texture();
+        if (path._Starts_with(L"file:"))
+            file_instances[data->path].push_back(data);
+
         return data;
     }
 }

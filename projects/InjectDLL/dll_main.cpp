@@ -150,10 +150,10 @@ void mute_for(int frames)
 IL2CPP_BINDING(UnityEngine, Behaviour, void, set_enabled, (app::Behaviour*, bool));
 
 IL2CPP_INTERCEPT(, GameController, void, OnApplicationQuit, (app::GameController* this_ptr)) {
+    GameController::OnApplicationQuit(this_ptr);
     modloader::shutdown();
     if (csharp_bridge::shutdown != nullptr)
         csharp_bridge::shutdown();
-    GameController::OnApplicationQuit(this_ptr);
     // Force exit to prevent crash.
     exit(0);
 }

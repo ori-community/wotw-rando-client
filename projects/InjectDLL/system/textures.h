@@ -36,7 +36,7 @@ namespace textures
 
         std::wstring const& get_path() { return path; }
     private:
-        bool initialized = false;
+        bool initialized = true;
         std::wstring path;
         MaterialParams local;
 
