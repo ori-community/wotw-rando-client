@@ -155,7 +155,7 @@ IL2CPP_INTERCEPT(, GameController, void, OnApplicationQuit, (app::GameController
     if (csharp_bridge::shutdown != nullptr)
         csharp_bridge::shutdown();
     // Force exit to prevent crash.
-    exit(0);
+    quick_exit(0);
 }
 
 void on_fixed_update(app::GameController* this_ptr)
