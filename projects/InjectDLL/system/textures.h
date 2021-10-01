@@ -11,7 +11,7 @@ namespace textures
 {
     struct MaterialParams
     {
-        app::Texture* texture = nullptr;
+        std::optional<uint32_t> texture;
         std::optional<app::Vector4> uvs;
         std::optional<app::Vector4> scroll_rot;
         std::optional<app::Color> color;

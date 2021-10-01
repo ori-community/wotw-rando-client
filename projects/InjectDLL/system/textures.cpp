@@ -60,7 +60,7 @@ namespace textures
     void add_default_param(app::Renderer* renderer)
     {
         MaterialParams& mparams = default_params[renderer];
-        mparams.texture = shaders::UberShaderAPI::GetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture);
+        mparams.texture = il2cpp::gchandle_new_weak(shaders::UberShaderAPI::GetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture), true);
         mparams.uvs = shaders::UberShaderAPI::GetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture);
         mparams.scroll_rot = shaders::UberShaderAPI::GetTextureScrollRotData(renderer, app::UberShaderProperty_Texture__Enum_MainTexture);
         mparams.color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
@@ -77,8 +77,8 @@ namespace textures
             initialized = true;
         }
 
-        if (local.texture != nullptr)
-            shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, local.texture);
+        if (local.texture.has_value())
+            shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, il2cpp::gchandle_target<app::Texture>(local.texture.value()));
 
         if (local.uvs.has_value())
             shaders::UberShaderAPI::SetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &local.uvs.value());
@@ -96,7 +96,7 @@ namespace textures
             add_default_param(renderer);
 
         auto& param = default_params[renderer];
-        shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, param.texture);
+        shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, il2cpp::gchandle_target<app::Texture>(param.texture.value()));
         shaders::UberShaderAPI::SetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &param.uvs.value());
         shaders::UberShaderAPI::SetTextureScrollRotData(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, &param.scroll_rot.value());
         shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &param.color.value());
@@ -104,7 +104,7 @@ namespace textures
 
     void TextureData::set_texture(app::Texture* texture)
     {
-        local.texture = texture;
+        local.texture = il2cpp::gchandle_new_weak(texture, true);
     }
 
     void TextureData::set_uvs(app::Vector4 uvs)
@@ -124,7 +124,7 @@ namespace textures
 
     void TextureData::clear_overrides()
     {
-        local.texture = nullptr;
+        local.texture.reset();
         local.uvs.reset();
         local.scroll_rot.reset();
         local.color.reset();
@@ -150,30 +150,24 @@ namespace textures
                 auto actual_value = static_cast<app::SpiritShardType__Enum>(std::stoi(value));
                 auto settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
                 auto item = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
-                if (item == nullptr)
-                    return;
-
-                local.texture = reinterpret_cast<app::Texture*>(item == nullptr ? nullptr : item->fields.InventoryIcon);
+                if (item != nullptr)
+                    local.texture = il2cpp::gchandle_new_weak(item->fields.InventoryIcon, true);
             }
             else if (type == L"ability")
             {
                 auto actual_value = static_cast<app::AbilityType__Enum>(std::stoi(value));
                 auto settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings")->static_fields->Instance;
                 auto item = il2cpp::invoke<app::Texture2D>(settings->fields.CustomAbilityIcons, "GetValue", &actual_value);
-                if (item == nullptr)
-                    return;
-
-                local.texture = reinterpret_cast<app::Texture*>(item);
+                if (item != nullptr)
+                    local.texture = il2cpp::gchandle_new_weak(item, true);
             }
             else if (type == L"spell")
             {
                 auto actual_value = static_cast<app::EquipmentType__Enum>(std::stoi(value));
                 auto settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings")->static_fields->Instance;
                 auto item = il2cpp::invoke<app::SpellIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
-                if (item == nullptr)
-                    return;
-
-                local.texture = reinterpret_cast<app::Texture*>(item->fields.InventoryIcon);
+                if (item != nullptr)
+                    local.texture = il2cpp::gchandle_new_weak(item->fields.InventoryIcon, true);
             }
             else if (type == L"opher")
             {
@@ -181,7 +175,7 @@ namespace textures
                 auto screen = il2cpp::get_class<app::WeaponmasterScreen__Class>("", "WeaponmasterScreen")->static_fields->_Instance_k__BackingField;
                 auto items = screen->fields.WeaponmasterItems;
                 if (actual_value >= 0 && actual_value < items->max_length)
-                    local.texture = reinterpret_cast<app::Texture*>(items->vector[actual_value]->fields.Upgrade->fields.Icon);
+                    local.texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Upgrade->fields.Icon, true);
             }
             else if (type == L"lupo")
             {
@@ -189,7 +183,7 @@ namespace textures
                 auto screen = il2cpp::get_class<app::MapmakerScreen__Class>("", "MapmakerScreen")->static_fields->Instance;
                 auto items = screen->fields.Purchases;
                 if (actual_value >= 0 && actual_value < items->max_length)
-                    local.texture = reinterpret_cast<app::Texture*>(items->vector[actual_value]->fields.Icon);
+                    local.texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Icon, true);
             }
             else if (type == L"grom")
             {
@@ -197,7 +191,7 @@ namespace textures
                 auto screen = il2cpp::get_class<app::BuilderScreen__Class>("", "BuilderScreen")->static_fields->_Instance_k__BackingField;
                 auto items = screen->fields.BuilderItems;
                 if (actual_value >= 0 && actual_value < items->max_length)
-                    local.texture = reinterpret_cast<app::Texture*>(items->vector[actual_value]->fields.Project->fields.Icon);
+                    local.texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Project->fields.Icon, true);
             }
             else if (type == L"tuley")
             {
@@ -205,14 +199,14 @@ namespace textures
                 auto screen = il2cpp::get_class<app::GardenerScreen__Class>("", "GardenerScreen")->static_fields->_Instance_k__BackingField;
                 auto items = screen->fields.GardenerItems;
                 if (actual_value >= 0 && actual_value < items->max_length)
-                    local.texture = reinterpret_cast<app::Texture*>(items->vector[actual_value]->fields.Project->fields.Icon);
+                    local.texture = il2cpp::gchandle_new(items->vector[actual_value]->fields.Project->fields.Icon, true);
             }
             else if (type == L"file")
             {
                 auto it = files.find(value);
                 if (it != files.end())
                 {
-                    local.texture = reinterpret_cast<app::Texture*>(il2cpp::gchandle_target(it->second));
+                    local.texture = it->second;
                     return;
                 }
 
@@ -229,7 +223,7 @@ namespace textures
                     auto icon = 0;
                     auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance->fields.Icons;
                     auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);
-                    local.texture = reinterpret_cast<app::Texture*>(icons->fields.InventoryIcon);
+                    local.texture = il2cpp::gchandle_new_weak(icons->fields.InventoryIcon, true);
                     modloader::warn("textures", format("failed to load texture %s (%s).", path.c_str(), stbi_failure_reason()));
                     return;
                 }
@@ -240,8 +234,8 @@ namespace textures
                 Texture2D::Apply(texture, true, false);
                 stbi_image_free(png_data);
                 Object::DontDestroyOnLoad(texture);
-                files[value] = il2cpp::gchandle_new(texture, false);
-                local.texture = reinterpret_cast<app::Texture*>(texture);
+                local.texture = il2cpp::gchandle_new(texture, false);
+                files[value] = local.texture.value();
             }
             else
                 modloader::warn("textures", "unknown texture protocol used when loading texture.");
@@ -311,6 +305,8 @@ namespace textures
         }
         else if (type == L"file")
             return true;
+
+        return false;
     }
 
     std::shared_ptr<TextureData> get_texture(std::wstring_view path)
