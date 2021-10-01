@@ -36,12 +36,14 @@ namespace textures
 
         std::wstring const& get_path() { return path; }
     private:
+        bool initialized = false;
         std::wstring path;
         MaterialParams local;
 
+        void load_texture();
+
         friend std::shared_ptr<TextureData> create_texture();
         friend std::shared_ptr<TextureData> get_texture(std::wstring_view path);
-        friend std::shared_ptr<TextureData> get_texture_internal(std::shared_ptr<TextureData> data);
     };
 
     std::shared_ptr<TextureData> create_texture();
