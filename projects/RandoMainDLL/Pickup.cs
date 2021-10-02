@@ -347,9 +347,11 @@ namespace RandoMainDLL {
           case "ppm": // the format here is $(14|<Zone Number>,ppm)) so state() is time
             if (state.GroupID == 14) {
               // yes yes this is obviously horrible
-              if (state.ID == 100) return Math.Round(UberGet.Int(6, 2) / (state.ValueAsDouble() / 3600f), 2).ToString();  // total PPM (6|2 is total pickup count)
-              if (state.ID == 107) return Math.Round(UberGet.Int(14, 108) / (state.ValueAsDouble() / 3600f), 2).ToString(); // peak PPM (14|108 is peak PPM count)
-              return Math.Round(((ZoneType)state.ID).PickupState().GetValue().Byte / (state.ValueAsDouble() / 3600f), 2).ToString();
+              var val = state.ValueAsDouble();
+              if (val < 30) return "N/A"; // if you were in a zone for less than half a second, PPM is not meaningful
+              if (state.ID == 100) return Math.Round(UberGet.Int(6, 2) / (val / 3600f), 2).ToString();  // total PPM (6|2 is total pickup count)
+              if (state.ID == 107) return Math.Round(UberGet.Int(14, 108) / (val / 3600f), 2).ToString(); // peak PPM (14|108 is peak PPM count)
+              return Math.Round(((ZoneType)state.ID).PickupState().GetValue().Byte / (val / 3600f), 2).ToString();
             }
             return $"@Invalid PPM state {state.GroupID}|{state.ID}@";
           case "pcnt":

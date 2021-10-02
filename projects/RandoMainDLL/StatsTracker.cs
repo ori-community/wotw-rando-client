@@ -104,7 +104,7 @@ namespace RandoMainDLL {
       if(fc >= 10) { // only start updating peak PPM once the game has been going for a bit
         var time = UberGet.Int(Time);
         var currentPPM = fc / (double)time; // march, march!
-        if(currentPPM < UberGet.Int(BestPPMCount) / UberGet.AsDouble(BestPPMTime)) {
+        if(currentPPM > UberGet.Int(BestPPMCount) / (UberGet.AsDouble(BestPPMTime) + 1)) {
           UberSet.Int(BestPPMCount, fc);
           UberSet.Int(BestPPMTime, time);
         }
@@ -295,6 +295,7 @@ namespace RandoMainDLL {
       SaveThroughDeath.Add(Time);
       SaveThroughDeath.Add(Deaths);
       SaveThroughDeath.Add(Drought);
+      SaveThroughDeath.Add(TimeLostToDeaths);
 
     }
   }
