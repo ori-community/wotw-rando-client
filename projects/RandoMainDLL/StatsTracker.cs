@@ -68,6 +68,19 @@ namespace RandoMainDLL {
     public static UberId BestPPMTime = new UberId(14, 107);
     public static UberId BestPPMCount = new UberId(14, 108);
 
+    public static void OnNewGame() {
+      if(SavedUberStates.Count > 0) {
+        Randomizer.Log($"stats.OnNewGame: Clearing {SavedUberStates.Count} stats", false, "DEBUG");
+        SavedUberStates.Clear();
+      }
+      foreach (var uid in SaveThroughDeath) {
+        var us = uid.State();
+        if (us.ValueAsDouble() > 0) {
+          Randomizer.Log($"stats.OnNewGame: {uid.GroupID}.{uid.ID} needed reset: was {us.ValueAsDouble()}", false, "DEBUG");
+          us.Write(new UberValue(false));
+        }
+      }
+    }
     public static void Update(GameState gs) {
       if(gs == GameState.Game) {
         UberInc.Int(CurrentZone.TimeState());

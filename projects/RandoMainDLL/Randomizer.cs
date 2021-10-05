@@ -32,6 +32,7 @@ namespace RandoMainDLL {
       try {
         // overwrite the message log TODO: save a backup maybe?
         File.WriteAllText(Randomizer.MessageLog, "");
+        StatsTracking.OnNewGame();
         SeedController.ReadSeed();
         UberStateController.NeedsNewGameInit = true;
         UberStateController.UberStates.Clear();
