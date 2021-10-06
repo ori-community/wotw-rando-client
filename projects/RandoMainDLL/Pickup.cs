@@ -701,30 +701,27 @@ namespace RandoMainDLL {
     }
   }
   public class Icon : SystemCommand {
-    private readonly AreaType area;
     private readonly int id;
     private readonly float x;
     private readonly float y;
 
-    public Icon(AreaType area, int id, float x, float y) : base(SysCommandType.CreateWarp) {
-      this.area = area;
+    public Icon(int id, float x, float y) : base(SysCommandType.CreateWarp) {
       this.id = id;
       this.x = x;
       this.y = y;
     }
 
-    public Icon(AreaType area, int id) : base(SysCommandType.DestroyWarp) {
-      this.area = area;
+    public Icon(int id) : base(SysCommandType.DestroyWarp) {
       this.id = id;
     }
 
     public override void Grant(bool skipBase = false) {
       switch (type) {
         case SysCommandType.CreateWarp:
-          InterOp.add_icon(area, id, WorldMapIconType.SavePedestal, x, y, -1, -1, true);
+          InterOp.add_icon(AreaType.InkwaterMarsh, id, WorldMapIconType.SavePedestal, x, y, -1, -1, true);
           break;
         case SysCommandType.DestroyWarp:
-          InterOp.remove_icon(area, id);
+          InterOp.remove_icon(AreaType.InkwaterMarsh, id);
           break;
       }
       base.Grant(skipBase);
