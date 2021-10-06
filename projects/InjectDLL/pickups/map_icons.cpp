@@ -1074,22 +1074,25 @@ void refresh_icon_alphas(bool is_map_visible)
     auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
     if (il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField))
     {
-        auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(area_map->fields._PlayerPositionMarker_k__BackingField, "UnityEngine", "Renderer");
         auto color = multiplayer::get_local_player_color();
-        for (auto renderer : renderers)
+        if (color.r < 0.99f || color.g < 0.99f || color.b < 0.99f || color.a < 0.99f)
         {
-            auto prev_color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
-            color.a = prev_color.a;
-            if (color.a > 0.5f)
+            auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(area_map->fields._PlayerPositionMarker_k__BackingField, "UnityEngine", "Renderer");
+            for (auto renderer : renderers)
             {
-                if (color.a < 0.9f)
+                auto prev_color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
+                color.a = prev_color.a;
+                if (color.a > 0.5f)
                 {
-                    color.r /= COLOR_DIVIDER;
-                    color.g /= COLOR_DIVIDER;
-                    color.b /= COLOR_DIVIDER;
-                }
+                    if (color.a < 0.9f)
+                    {
+                        color.r /= COLOR_DIVIDER;
+                        color.g /= COLOR_DIVIDER;
+                        color.b /= COLOR_DIVIDER;
+                    }
 
-                shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+                    shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+                }
             }
         }
     }
