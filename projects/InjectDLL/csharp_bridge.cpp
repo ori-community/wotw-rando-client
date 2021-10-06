@@ -3,7 +3,7 @@
 
 namespace csharp_bridge
 {
-    signatures::f_void update = nullptr;
+    signatures::f_void_float update = nullptr;
     signatures::f_void_at on_tree = nullptr;
     signatures::f_void on_checkpoint = nullptr;
     signatures::f_void on_goal_mode_fail = nullptr;
@@ -67,7 +67,7 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
 
     std::string name(str);
     if (name == "update")
-        csharp_bridge::update = reinterpret_cast<f_void>(ptr);
+        csharp_bridge::update = reinterpret_cast<f_void_float>(ptr);
     else if (name == "on_tree")
         csharp_bridge::on_tree = reinterpret_cast<f_void_at>(ptr);
     else if (name == "on_checkpoint")

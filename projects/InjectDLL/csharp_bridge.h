@@ -40,7 +40,7 @@ namespace csharp_bridge
         using f_ull_str_bool = uint64_t(*)(const char*, bool);
     }
 
-    extern signatures::f_void update;
+    extern signatures::f_void_float update;
     extern signatures::f_void_at on_tree;
     extern signatures::f_void on_checkpoint;
     extern signatures::f_void on_goal_mode_fail;

@@ -79,7 +79,7 @@ namespace RandoMainDLL {
         MapController.InitLupoPrices();
         UberStateController.SkipListeners = true;
         UberStateController.UberStates.Clear();
-        UberStateController.TickingUberStates.Clear();
+        UberStateController.TimerUberStates.Clear();
         StatsTracking.OnLoad(DidWeJustDie);
         if (DidWeJustDie) {
           UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();

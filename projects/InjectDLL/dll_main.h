@@ -4,7 +4,7 @@
 #include <macros.h>
 #include <Il2CppModLoader/interception_macros.h>
 
-void on_fixed_update(app::GameController* this_ptr);
+void on_fixed_update(app::GameController* this_ptr, float delta);
 std::string pretty_time();
 void mute_for(int frames);
 

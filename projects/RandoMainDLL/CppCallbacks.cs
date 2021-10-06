@@ -16,7 +16,7 @@ namespace RandoMainDLL {
         // Be careful of referencing static variables without wrapping in () => {}, they may not be initialized.
         return new List<Method> {
           new Method() {
-            Delegate = new f_void(Randomizer.Update),
+            Delegate = new f_void_float(Randomizer.Update),
             CallbackName = "update"
           },
           new Method() {
@@ -32,7 +32,7 @@ namespace RandoMainDLL {
             CallbackName = "filter_enabled"
           },
           new Method() {
-            Delegate = new f_void(UberStateController.Update),
+            Delegate = new f_void(() => UberStateController.Update(0)),
             CallbackName = "on_checkpoint"
           },
           new Method() {

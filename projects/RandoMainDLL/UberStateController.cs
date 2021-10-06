@@ -6,7 +6,7 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class UberStateController {
-    public static HashSet<UberId> TickingUberStates = new HashSet<UberId>();
+    public static HashSet<UberId> TimerUberStates = new HashSet<UberId>();
     public static HashSet<UberId> SyncedUberStates = new HashSet<UberId>();
     public static Dictionary<UberId, UberState> UberStates = new Dictionary<UberId, UberState>();
     public static UberValue? ValueOpt(this UberState state) => state.GetUberId().ValueOpt();
@@ -252,8 +252,8 @@ namespace RandoMainDLL {
       if (state.Value.Int != 0 && found)
         return false;
 
-      // Don't log ticking uberstates.
-      if (TickingUberStates.Contains(state.GetUberId()))
+      // Don't log timer uberstates.
+      if (TimerUberStates.Contains(state.GetUberId()))
         return false;
 
       // Don't log vanilla stats and achievemnts.
@@ -326,7 +326,7 @@ namespace RandoMainDLL {
       }
     }
 
-    public static void Update() {
+    public static void Update(float delta) {
       try {
         if (NeedsNewGameInit)
           NewGameInit();
@@ -334,16 +334,16 @@ namespace RandoMainDLL {
         GrantOnNextUpdate.Clear();
         if (!SkipListeners) {
           // We do ToArray here so we can change the hashset while we are looping.
-          foreach (var state in TickingUberStates.ToArray()) {
+          foreach (var state in TimerUberStates.ToArray()) {
             // Maybe change this to use our own cache lookup?
             var value = InterOp.get_uber_state_value(state.GroupID, state.ID);
-            InterOp.set_uber_state_value(state.GroupID, state.ID, value + 1);
+            InterOp.set_uber_state_value(state.GroupID, state.ID, value + delta);
           }
 
           foreach (var timer in SeedController.TimerList) {
             if (timer.Toggle.GetValue().Bool) {
               var value = InterOp.get_uber_state_value(timer.Increment.GroupID, timer.Increment.ID);
-              InterOp.set_uber_state_value(timer.Increment.GroupID, timer.Increment.ID, value + 1);
+              InterOp.set_uber_state_value(timer.Increment.GroupID, timer.Increment.ID, value + delta);
             }
           }
         }
@@ -358,7 +358,7 @@ namespace RandoMainDLL {
         }
         while (WebSocketClient.UberStateQueue.TryTake(out var stateUpdate)) {
           var (id, val) = stateUpdate.FromNet();
-          if (id.State().ValueAsDouble() != val) 
+          if (id.State().ValueAsDouble() != val)
             InterOp.set_uber_state_value(id.GroupID, id.ID, val);
         }
       }

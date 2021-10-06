@@ -340,10 +340,8 @@ namespace RandoMainDLL {
         var withStateRepl = uberMsg.Replace(withUberNameRepl, (Match m) => {
         var state = new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State();
         switch (m.Groups.Count > 3 ? m.Groups[3].Value : "") {
-          case "tframes":
-            return secToStr(state.ValueAsDouble() / 60.0f);
           case "tsec":
-            return secToStr(state.ValueAsDouble());
+            return secToStr(state.IsFloatType ? state.Value.Float : state.Value.Int);
           // this is maybe insane
           case "ppm": // the format here is $(14|<Zone Number>,ppm)) so state() is time
             if (state.GroupID == 14) {
@@ -882,10 +880,10 @@ namespace RandoMainDLL {
     public override void Grant(bool skipBase = false) {
       switch (type) {
         case SysCommandType.StartTimer:
-          UberStateController.TickingUberStates.Add(id);
+          UberStateController.TimerUberStates.Add(id);
           break;
         case SysCommandType.StopTimer:
-          UberStateController.TickingUberStates.Remove(id);
+          UberStateController.TimerUberStates.Remove(id);
           break;
       }
       base.Grant(skipBase);

@@ -36,7 +36,7 @@ namespace RandoMainDLL {
         SeedController.ReadSeed();
         UberStateController.NeedsNewGameInit = true;
         UberStateController.UberStates.Clear();
-        UberStateController.TickingUberStates.Clear();
+        UberStateController.TimerUberStates.Clear();
         Msg.OnNewGame();
         SaveController.NewGame(slot);
         BonusItemController.Refresh();
@@ -97,7 +97,7 @@ namespace RandoMainDLL {
       SeedController.ReadSeed(true);
     }
 
-    public static void Update() {
+    public static void Update(float delta) {
       try {
         var gs = InterOp.Utils.get_game_state();
         if (gs == GameState.TitleScreen) {
@@ -106,7 +106,7 @@ namespace RandoMainDLL {
             OnTitleScreen();
         } else if (gs == GameState.Game) {
           UberStateController.SkipListeners = false;
-          UberStateController.Update();
+          UberStateController.Update(delta);
           if (InputUnlockCallback.Count != 0 && InterOp.player_can_move())
             OnInputUnlock();
 
@@ -120,7 +120,7 @@ namespace RandoMainDLL {
         BonusItemController.Update();
         WebSocketClient.Update();
         Multiplayer.Update();
-        StatsTracking.Update(gs);
+        StatsTracking.Update(gs, delta);
       } catch (Exception e) {
         Log($"Update error: {e.Message}\n{e.StackTrace}");
       }

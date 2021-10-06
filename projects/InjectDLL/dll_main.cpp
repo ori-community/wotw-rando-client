@@ -12,6 +12,7 @@
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
+
 #include <string>
 #include <functional>
 #include <iostream>
@@ -96,11 +97,12 @@ INJECT_C_DLLEXPORT void set_equipment(int32_t equip, bool value)
         trace(MessageType::Error, 3, "abilities", "Failed to set equipment: couldn't find reference to sein!");
 }
 
+STATIC_IL2CPP_BINDING(, TimeUtility, float, get_fixedDeltaTime, ());
 IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController* this_ptr))
 {
     GameController::FixedUpdate(this_ptr);
     ipc::update_pipe();
-    on_fixed_update(this_ptr);
+    on_fixed_update(this_ptr, TimeUtility::get_fixedDeltaTime());
 }
 
 //---------------------------------------------------Actual Functions------------------------------------------------
@@ -158,11 +160,11 @@ IL2CPP_INTERCEPT(, GameController, void, OnApplicationQuit, (app::GameController
     quick_exit(0);
 }
 
-void on_fixed_update(app::GameController* this_ptr)
+void on_fixed_update(app::GameController* this_ptr, float delta)
 {
     try
     {
-        csharp_bridge::update();
+        csharp_bridge::update(delta);
     }
     catch (int error)
     {

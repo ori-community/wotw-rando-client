@@ -67,6 +67,7 @@ namespace RandoMainDLL {
     public static UberId WarpsUsed = new UberId(14, 106);
     public static UberId BestPPMTime = new UberId(14, 107);
     public static UberId BestPPMCount = new UberId(14, 108);
+    public static UberId GameFinished = new UberId(34543, 11226);
 
     public static void OnNewGame() {
       if(SavedUberStates.Count > 0) {
@@ -81,12 +82,12 @@ namespace RandoMainDLL {
         }
       }
     }
-    public static void Update(GameState gs) {
-      if(gs == GameState.Game) {
-        UberInc.Int(CurrentZone.TimeState());
-        UberInc.Int(Time);
-        UberInc.Int(TimeSinceLastSave);
-        UberInc.Int(Drought);
+    public static void Update(GameState gs, float delta) {
+      if (gs == GameState.Game && !UberGet.Bool(GameFinished)) {
+        UberInc.Float(CurrentZone.TimeState(), delta);
+        UberInc.Float(Time, delta);
+        UberInc.Float(TimeSinceLastSave, delta);
+        UberInc.Float(Drought, delta);
       } 
     }
     public static HashSet<UberState> SavedUberStates = new HashSet<UberState>();
@@ -98,28 +99,28 @@ namespace RandoMainDLL {
     }
     public static void OnSave(bool deathSave) {
       if(deathSave) {
-        UberInc.Int(TimeLostToDeaths, UberGet.Int(TimeSinceLastSave));
+        UberInc.Float(TimeLostToDeaths, UberGet.Float(TimeSinceLastSave));
         SavedUberStates = SaveThroughDeath.Select(u => u.State()).ToHashSet();
       }
       else {
         SavedUberStates.Clear();
       }
-      UberSet.Int(TimeSinceLastSave, 0);
+      UberSet.Float(TimeSinceLastSave, 0);
     }
     public static void OnPickup(LocData loc) {
       var fc = ++SaveController.FoundCount;
       UberInc.Byte(loc.Zone.PickupState());
-      var thisDrought = UberGet.Int(Drought);
-      if (thisDrought > UberGet.Int(MaxDrought))
-        UberSet.Int(MaxDrought, thisDrought);
-      UberSet.Int(Drought, 0);
+      var thisDrought = UberGet.Float(Drought);
+      if (thisDrought > UberGet.Float(MaxDrought))
+        UberSet.Float(MaxDrought, thisDrought);
+      UberSet.Float(Drought, 0f);
 
       if(fc >= 10) { // only start updating peak PPM once the game has been going for a bit
-        var time = UberGet.Int(Time);
+        var time = UberGet.Float(Time);
         var currentPPM = fc / (double)time; // march, march!
         if(currentPPM > UberGet.Int(BestPPMCount) / (UberGet.AsDouble(BestPPMTime) + 1)) {
           UberSet.Int(BestPPMCount, fc);
-          UberSet.Int(BestPPMTime, time);
+          UberSet.Float(BestPPMTime, time);
         }
       }
     }
