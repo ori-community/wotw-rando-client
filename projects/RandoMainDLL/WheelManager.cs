@@ -88,7 +88,7 @@ namespace RandoMainDLL {
               Input.OnActionTriggered(Input.Action.ShowLastPickup);
               break;
             case 1:
-              Input.OnActionTriggered(Input.Action.ShowLastPickup);
+              Input.OnActionTriggered(Input.Action.ShowProgressWithHints);
               break;
             case 2:
               Input.OnActionTriggered(Input.Action.WarpCredits);
