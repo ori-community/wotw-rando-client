@@ -446,14 +446,12 @@ namespace RandoMainDLL {
         ShopSlot.ResetSlotData();
         if (PsuedoLocs.GAME_START.Pickup().NonEmpty || PsuedoLocs.LOAD_SEED.Pickup().NonEmpty) {
           Randomizer.InputUnlockCallback.Add(() => {
-            MapController.UpdateReachable(2000);
             PsuedoLocs.GAME_START.OnCollect();
             PsuedoLocs.LOAD_SEED.OnCollect();
             InterOp.save();
+            MapController.UpdateReachable();
           });
-        }
-        else
-       MapController.UpdateReachable();
+        } else MapController.UpdateReachable();
         InterOp.set_shard_slots(3);
         InterOp.save();
 
