@@ -453,7 +453,7 @@ namespace RandoMainDLL {
           });
         }
         else
-          MapController.UpdateReachable();
+       MapController.UpdateReachable();
         InterOp.set_shard_slots(3);
         InterOp.save();
 

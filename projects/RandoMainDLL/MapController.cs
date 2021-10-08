@@ -11,7 +11,7 @@ namespace RandoMainDLL {
   public static class MapController {
 
     public static void Update() {
-      if(reachCheckResult != "") {
+      if(reachCheckResult != null) {
         Reachable.Clear();
         foreach (var rawCond in reachCheckResult.Split(',')) {
           try {
@@ -32,7 +32,7 @@ namespace RandoMainDLL {
           catch (Exception e) { Randomizer.Error($"MapController.Update, while parsing |{rawCond}|", e); }
         }
         InterOp.refresh_inlogic_filter();
-        reachCheckResult = "";
+        reachCheckResult = null;
       }
     }
 
@@ -108,7 +108,7 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }
       Updating = false;
     }
-    private static string reachCheckResult = "";
+    private static string reachCheckResult = null;
     private static List<String> GetArgs() {
       var argsList = new List<string> {
           "reach-check",
