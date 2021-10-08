@@ -14,6 +14,12 @@ IniRead, bgcolour, %inipath%, Tracker, BackgroundColour, 585858
 IniRead, OnTopState, %inipath%, Tracker, AlwaysOnTop, 0
 IniRead, xpos, %inipath%, Tracker, xpos, 0
 IniRead, ypos, %inipath%, Tracker, ypos, 0
+if(xpos == "") {
+    xpos := A_ScreenWidth / 3
+}
+if(ypos == "") {
+    ypos := A_ScreenHeight / 3
+}
 if(launchWithTracker != "false"){
     WinWait, OriAndTheWilloftheWisps
     SetTimer, IsOriStillRunning, 500
