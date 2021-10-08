@@ -78,17 +78,16 @@ namespace RandoMainDLL {
       ShardType.Deflector,
       ShardType.Fracture,
     };
-    public static void UpdateReachable(int sleepTime = 30) {
+    public static void UpdateReachable() {
       if (InterOp.Utils.get_game_state() == GameState.Game) {
         var args = GetArgs();
-        var t = new Thread(() => UpdateReachableAsync(args, sleepTime));
+        var t = new Thread(() => UpdateReachableAsync(args));
         t.Start();
       }
     }
     public static bool Updating;
-    public static void UpdateReachableAsync(List<String> argsList, int sleepTime = 30) {
+    public static void UpdateReachableAsync(List<String> argsList) {
       try {
-        Thread.Sleep(sleepTime); // wait to let values update
         if (Updating)
           return;
         Updating = true;

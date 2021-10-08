@@ -766,7 +766,7 @@ namespace RandoMainDLL {
 
   public abstract class GrantIf : SystemCommand {
     public readonly Pickup Pickup;
-    public GrantIf(SysCommandType command, Pickup p) : base(command) { Pickup = p;  }
+    public GrantIf(SysCommandType command, Pickup p) : base(command) { Pickup = p; }
     public abstract bool IsCondMet();
     public override void Grant(bool skipBase = false) {
       if (IsCondMet())
