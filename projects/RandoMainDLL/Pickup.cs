@@ -67,6 +67,7 @@ namespace RandoMainDLL {
     EnableSync = 21,
     CreateWarp = 22,
     DestroyWarp = 23,
+    GrantIfBounds = 24,
   }
 
   public enum WheelCommandType : byte {
@@ -762,36 +763,16 @@ namespace RandoMainDLL {
       base.Grant(skipBase);
     }
   }
-  public class GrantIf : SystemCommand {
+
+  public abstract class GrantIf : SystemCommand {
     public readonly Pickup Pickup;
-    private readonly UberId targetState;
-    private readonly double targetValue;
-    public GrantIf(SysCommandType command, UberId s, double v, Pickup p) : base(command) {
-      targetState = s;
-      targetValue = v;
-      Pickup = p;
-    }
-    public bool IsCondMet() {
-      var state = targetState.State();
-      switch (type) {
-        case SysCommandType.GrantIfEqual:
-//          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?= {targetValue} -> {state.ValueAsDouble() == targetValue} => {Pickup.Name}", false);
-          return state.ValueAsDouble() == targetValue;
-        case SysCommandType.GrantIfGreater:
-//          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?> {targetValue} -> {state.ValueAsDouble() > targetValue} => {Pickup.Name}", false);
-          return state.ValueAsDouble() > targetValue;
-        case SysCommandType.GrantIfLess:
-//          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?< {targetValue} -> {state.ValueAsDouble() < targetValue} => {Pickup.Name}", false);
-          return state.ValueAsDouble() < targetValue;
-        default:
-          Randomizer.Error("IsCondMet", "this should literally never happen");
-          return false;
-      }
-    }
+    public GrantIf(SysCommandType command, Pickup p) : base(command) { }
+    public abstract bool IsCondMet();
     public override void Grant(bool skipBase = false) {
       if (IsCondMet())
         Pickup.Grant(skipBase);
     }
+    public override PickupType Type => PickupType.SystemCommand;
     public override string Name { get => type.ToString(); }
     public override string DisplayName => IsCondMet() ? Pickup.DisplayName : "";
     public override int Frames => IsCondMet() ? Pickup.Frames : base.Frames;
@@ -801,7 +782,49 @@ namespace RandoMainDLL {
     public override bool Quiet => IsCondMet() ? Pickup.Quiet : base.Quiet;
   }
 
+  public class GrantIfVal : GrantIf {
+    private readonly UberId targetState;
+    private readonly double targetValue;
+    public GrantIfVal(SysCommandType command, UberId s, double v, Pickup p) : base(command, p) {
+      targetState = s;
+      targetValue = v;
+    }
+    public override bool IsCondMet() {
+      var state = targetState.State();
+      switch (type) {
+        case SysCommandType.GrantIfEqual:
+          //          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?= {targetValue} -> {state.ValueAsDouble() == targetValue} => {Pickup.Name}", false);
+          return state.ValueAsDouble() == targetValue;
+        case SysCommandType.GrantIfGreater:
+          //          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?> {targetValue} -> {state.ValueAsDouble() > targetValue} => {Pickup.Name}", false);
+          return state.ValueAsDouble() > targetValue;
+        case SysCommandType.GrantIfLess:
+          //          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?< {targetValue} -> {state.ValueAsDouble() < targetValue} => {Pickup.Name}", false);
+          return state.ValueAsDouble() < targetValue;
+        default:
+          Randomizer.Error("IsCondMet", "this should literally never happen");
+          return false;
+      }
+    }
+  }
+  public class GrantIfBounds : GrantIf {
+    private readonly float x1;
+    private readonly float y1;
+    private readonly float x2;
+    private readonly float y2;
+    public GrantIfBounds(SysCommandType command, float _x1, float _y1, float _x2, float _y2, Pickup p) : base(command, p) {
+      x1 = _x1;
+      x2 = _x2;
+      y1 = _y1;
+      y2 = _y2;
+    }
 
+    public override bool IsCondMet() {
+      var pos = InterOp.get_position();
+      return pos.X >= x1 && pos.X <= x2 && pos.Y >= y1 && pos.Y <= y2;
+    }
+
+  }
 
 
   public class SetStateCommand : SystemCommand {
