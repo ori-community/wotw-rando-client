@@ -813,17 +813,10 @@ namespace RandoMainDLL {
     private readonly float x2;
     private readonly float y2;
     public GrantIfBounds(SysCommandType command, float _x1, float _y1, float _x2, float _y2, Pickup p) : base(command, p) {
-      if(_x2 < _x1 && _y2 < _y1) {
-        x1 = _x2;
-        x2 = _x1;
-        y1 = _y2;
-        y2 = _y1;
-      } else {
-        y1 = _y1;
-        y2 = _y2;
-        x1 = _x1;
-        x2 = _x2;
-      }
+      x1 = Math.Min(_x1, _x2);
+      x2 = Math.Max(_x1, _x2);
+      y1 = Math.Min(_y1, _y2);
+      y2 = Math.Max(_y1, _y2);
     }
 
     public override bool IsCondMet() {
