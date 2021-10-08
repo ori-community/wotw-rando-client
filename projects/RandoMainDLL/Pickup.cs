@@ -68,6 +68,9 @@ namespace RandoMainDLL {
     CreateWarp = 22,
     DestroyWarp = 23,
     GrantIfBounds = 24,
+    GrantIfCondEqual = 25,
+    GrantIfCondGreater = 26,
+    GrantIfCondLess = 27,
   }
 
   public enum WheelCommandType : byte {
@@ -793,12 +796,15 @@ namespace RandoMainDLL {
       var state = targetState.State();
       switch (type) {
         case SysCommandType.GrantIfEqual:
+        case SysCommandType.GrantIfCondEqual:
           //          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?= {targetValue} -> {state.ValueAsDouble() == targetValue} => {Pickup.Name}", false);
           return state.ValueAsDouble() == targetValue;
         case SysCommandType.GrantIfGreater:
+        case SysCommandType.GrantIfCondGreater:
           //          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?> {targetValue} -> {state.ValueAsDouble() > targetValue} => {Pickup.Name}", false);
           return state.ValueAsDouble() > targetValue;
         case SysCommandType.GrantIfLess:
+        case SysCommandType.GrantIfCondLess:
           //          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?< {targetValue} -> {state.ValueAsDouble() < targetValue} => {Pickup.Name}", false);
           return state.ValueAsDouble() < targetValue;
         default:

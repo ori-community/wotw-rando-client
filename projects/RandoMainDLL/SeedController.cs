@@ -373,6 +373,18 @@ namespace RandoMainDLL {
               );
               var p = BuildPickup((PickupType)extras[3].ParseToByte("BuildPickup.GrantIfValType"), extras[4], extras.Skip(5).ToList(), cond);
               return new GrantIfVal(t, guid, extras[2].ParseToDouble("BuildPickup.GrantIfValTargetValue"), p);
+            case SysCommandType.GrantIfCondEqual:
+            case SysCommandType.GrantIfCondGreater:
+            case SysCommandType.GrantIfCondLess:
+              if (extras.Count < 3) {
+                Randomizer.Log($"malformed command specifier {pickupData}", false);
+                return new Message($"Invalid command {pickupData}!");
+              }
+              return new GrantIfVal(t, 
+                cond.Id, 
+                extras[0].ParseToDouble("BuildPickup.GrantIfValTargetValue"), 
+                BuildPickup((PickupType)extras[1].ParseToByte("BuildPickup.GrantIfValType"), extras[2], extras.Skip(3).ToList(), cond)
+              );
             case SysCommandType.GrantIfBounds:
               if (extras.Count < 6) {
                 Randomizer.Log($"malformed command specifier {pickupData}", false);
@@ -384,8 +396,7 @@ namespace RandoMainDLL {
                 extras[2].ParseToFloat("BuildPickup.GrantIfBoundsX2"),
                 extras[3].ParseToFloat("BuildPickup.GrantIfBoundsY2"),
                 BuildPickup((PickupType)extras[4].ParseToByte("BuildPickup.GrantIfValType"), extras[5], extras.Skip(6).ToList(), cond)
-                );
-
+              );
             case SysCommandType.SetState: {
                 if (extras.Count != 2) {
                   Randomizer.Log($"malformed command specifier {pickupData}", false);
