@@ -62,9 +62,9 @@ namespace
         MapmakerUISubItem::UpdateUpgradeIcon_intercept(this_ptr);
 
         auto state = this_ptr->fields.m_upgradeItem->fields.UberState;
-        auto not_owned = this_ptr->fields.m_upgradeItem->fields.MaxLevel < state->fields.m_value;
+        auto owned = state->fields.m_value >= this_ptr->fields.m_upgradeItem->fields.MaxLevel;
         auto cost = MapmakerItem::GetCost_intercept(this_ptr->fields.m_upgradeItem);
-        auto can_afford = get_experience() < cost;
+        auto can_afford = get_experience() >= cost;
 
         GameObject::SetActive(this_ptr->fields.CostGO, cost != 0);
         if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO))
@@ -73,16 +73,25 @@ namespace
         if (GameObject::get_activeSelf(this_ptr->fields.CostGO))
         {
             auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, "CatlikeCoding.TextBox", "TextBox");
-            if (can_afford | not_owned)
-                text_box->fields.color = this_ptr->fields.PurchasableColor;
-            else
-                text_box->fields.color = this_ptr->fields.UnpurchaseableColor;
 
-            TextBox::SetText(text_box, il2cpp::string_new(std::to_string(cost)));
+            if (owned)
+            {
+                TextBox::SetText(text_box, il2cpp::string_new(""));
+            }
+            else
+            {
+                if (can_afford)
+                    text_box->fields.color = this_ptr->fields.PurchasableColor;
+                else
+                    text_box->fields.color = this_ptr->fields.UnpurchaseableColor;
+            
+                TextBox::SetText(text_box, il2cpp::string_new(std::to_string(cost)));
+            }
+
             TextBox::RenderText(text_box);
         }
 
-        CleverMenuItem::set_IsDisabled(il2cpp::unity::get_component<app::CleverMenuItem>(this_ptr, "", "CleverMenuItem"), !not_owned && can_afford);
+        CleverMenuItem::set_IsDisabled(il2cpp::unity::get_component<app::CleverMenuItem>(this_ptr, "", "CleverMenuItem"), owned || !can_afford);
     }
 
     IL2CPP_INTERCEPT(, MapmakerUIItem, void, UpdateMapmakerItem, (app::MapmakerUIItem* this_ptr, app::MapmakerItem* item)) {
