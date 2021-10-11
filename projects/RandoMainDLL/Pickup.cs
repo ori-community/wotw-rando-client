@@ -359,7 +359,7 @@ namespace RandoMainDLL {
             return $"@Invalid PPM state {state.GroupID}|{state.ID}@";
           case "pcnt":
             if (state.GroupID == 6 && state.ID == 2) return $"{UberGet.Int(6, 2)}/{SeedController.Total}";
-            if (state.GroupID != 14 || state.ID > 12) return $"@Invalid pcnt state {state.GroupID}|{state.ID}";
+            if (state.GroupID != 14 || state.ID > 13) return $"@Invalid pcnt state {state.GroupID}|{state.ID}";
             var z = (ZoneType)state.ID;
             return $"{UberGet.Byte(z.PickupState())}/{SeedController.CountByZone[z]}";
           default:

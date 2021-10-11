@@ -332,7 +332,8 @@ namespace uber_states
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Wastes Time", 9, 0),
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Ruins Time", 10, 0),
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Willow Time", 11, 0),
-                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Void Time", 12, 0),
+                                                                                                              // 12 would be shop time, which we could track, but don't currently
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Void Time", 13, 0),
 
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Marsh Deaths", 20, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Hollow Deaths", 21, 0),
@@ -346,7 +347,8 @@ namespace uber_states
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Wastes Deaths", 29, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Ruins Deaths", 30, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Willow Deaths", 31, 0),
-                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Void Deaths", 32, 0),
+                                                                                                                                                // 32 would be shop deaths but lol
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Void Deaths", 33, 0),
 
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Marsh Pickups", 40, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Hollow Pickups", 41, 0),
@@ -360,7 +362,9 @@ namespace uber_states
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Wastes Pickups", 49, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Ruins Pickups", 50, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Willow Pickups", 51, 0),
-                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Void Pickups", 52, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Shop Pickups", 52, 0),
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Void Pickups", 53, 0), 
+                                                                                                                                // TODO: unclear to me that we need to track void pickups
 
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Time", 100, 0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Deaths", 101, 0),
