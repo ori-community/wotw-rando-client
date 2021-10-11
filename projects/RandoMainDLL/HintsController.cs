@@ -34,8 +34,6 @@ namespace RandoMainDLL {
     Ruins,
     [Description("Willow's End")]
     Willow,
-    [Description("Shop")]
-    Shop,
     [Description("Unknown")]
     Void
   }
