@@ -41,6 +41,7 @@ namespace RandoMainDLL {
       {"Windswept Wastes", ZoneType.Wastes },
       {"Windtorn Ruins", ZoneType.Ruins },
       {"Willows End", ZoneType.Willow},
+      {"Shop", ZoneType.Shop},
     };
     public LocData(string rawLine) {
       // MarshSpawn.RockHC, Inkwater Marsh, Resource, Life, swampStateGroup, 21786, healthContainerA, 60210, -958, -4313
