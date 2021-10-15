@@ -229,7 +229,7 @@ namespace RandoMainDLL {
     }
     public override void Grant(bool skipBase = false) {
       UberStateController.SkipUberStateMapCount[Id] = SupCount;
-      InterOp.set_uber_state_value(Id.GroupID, Id.ID, Modifier(UberGet.value(Id)));
+      UberSet.Raw(Id.GroupID, Id.ID, Modifier(UberGet.value(Id)));
     }
     public override string DisplayName { get => ""; }
     public override string Name { get => $"{Id.GroupID},{Id.ID} -> {ModStr}"; }

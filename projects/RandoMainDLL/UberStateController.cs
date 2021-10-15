@@ -90,7 +90,7 @@ namespace RandoMainDLL {
     }
 
     public static void HandleSyncedUberStateChange(UberId id, double value) {
-      InterOp.set_uber_state_value(id.GroupID, id.ID, value);
+      UberSet.Raw(id.GroupID, id.ID, value);
     }
 
     private static bool FullSyncNextUpdate = false;
@@ -142,7 +142,7 @@ namespace RandoMainDLL {
 
     public static bool Write(this UberState state, UberValue value) {
       state.Value = value;
-      InterOp.set_uber_state_value(state.GroupID, state.ID, state.ValueAsDouble());
+      UberSet.Raw(state.GroupID, state.ID, state.ValueAsDouble());
       return true;
     }
 
@@ -323,13 +323,13 @@ namespace RandoMainDLL {
           foreach (var state in TimerUberStates.ToArray()) {
             // Maybe change this to use our own cache lookup?
             var value = InterOp.get_uber_state_value(state.GroupID, state.ID);
-            InterOp.set_uber_state_value(state.GroupID, state.ID, value + delta);
+            UberSet.Raw(state.GroupID, state.ID, value + delta);
           }
 
           foreach (var timer in SeedController.TimerList) {
             if (timer.Toggle.GetValue().Bool) {
               var value = InterOp.get_uber_state_value(timer.Increment.GroupID, timer.Increment.ID);
-              InterOp.set_uber_state_value(timer.Increment.GroupID, timer.Increment.ID, value + delta);
+              UberSet.Raw(timer.Increment.GroupID, timer.Increment.ID, value + delta);
             }
           }
         }
@@ -345,7 +345,7 @@ namespace RandoMainDLL {
         while (WebSocketClient.UberStateQueue.TryTake(out var stateUpdate)) {
           var (id, val) = stateUpdate.FromNet();
           if (UberGet.AsDouble(id) != val)
-            InterOp.set_uber_state_value(id.GroupID, id.ID, val);
+            UberSet.Raw(id.GroupID, id.ID, val);
         }
       }
       catch (Exception e) { Randomizer.Error("USC.Update", e, false); }

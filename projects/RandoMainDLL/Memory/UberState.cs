@@ -112,14 +112,14 @@ namespace RandoMainDLL.Memory {
     public static bool Bool(UberId id) => value(id).Bool;
   }
   public static class UberSet {
-    public static void Bool(UberId id, bool val) => id.State().Write(new UberValue(val));
-    public static void Bool(int groupId, int id, bool val) => Bool(new UberId(groupId, id), val);
-    public static void Int(UberId id, int val) => id.State().Write(new UberValue(val));
-    public static void Int(int groupId, int id, int val) => Int(new UberId(groupId, id), val);
-    public static void Float(UberId id, float val) => id.State().Write(new UberValue(val));
-    public static void Float(int groupId, int id, float val) => Float(new UberId(groupId, id), val);
-    public static void Byte(UberId id, byte val) => id.State().Write(new UberValue(val));
-    public static void Byte(int groupId, int id, byte val) => Byte(new UberId(groupId, id), val);
+    public static void Bool(UberId id, bool val) => Raw(id, Convert.ToDouble(val));
+    public static void Bool(int groupId, int id, bool val) => Raw(groupId, id, Convert.ToDouble(val));
+    public static void Int(UberId id, int val) => Raw(id, Convert.ToDouble(val));
+    public static void Int(int groupId, int id, int val) => Raw(groupId, id, Convert.ToDouble(val));
+    public static void Float(UberId id, float val) => Raw(id, Convert.ToDouble(val));
+    public static void Float(int groupId, int id, float val) => Raw(groupId, id, Convert.ToDouble(val));
+    public static void Byte(UberId id, byte val) => Raw(id, Convert.ToDouble(val));
+    public static void Byte(int groupId, int id, byte val) => Raw(groupId, id, Convert.ToDouble(val));
     public static void Raw(int groupId, int id, double val) => Raw(new UberId(groupId, id), val);
     public static void Raw(UberId id, double val) => InterOp.set_uber_state_value(id.GroupID, id.ID, val); // TODO maybe make the others just use this
   }
