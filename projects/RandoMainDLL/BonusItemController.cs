@@ -25,10 +25,10 @@ namespace RandoMainDLL {
       InterOp.refresh_ability_energy_modifiers();
     }
     public static void Update() {
-      double h = InterOp.get_uber_state_value(4, (int)BonusType.HealthRegen);
+      double h = UberGet.AsDouble(4, (int)BonusType.HealthRegen);
       if (h > 0)
         InterOp.add_health(Convert.ToSingle(h * 0.0028f));
-      double e = InterOp.get_uber_state_value(4, (int)BonusType.EnergyRegen);
+      double e = UberGet.AsDouble(4, (int)BonusType.EnergyRegen);
       if (e > 0)
         InterOp.add_energy(Convert.ToSingle(e * 0.00028f));
     }

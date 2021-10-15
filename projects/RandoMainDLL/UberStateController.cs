@@ -126,14 +126,14 @@ namespace RandoMainDLL {
         s.Type = InterOp.get_uber_state_type(id.GroupID, id.ID);
       }
 
-      s.Value = CreateValue(s.Type, InterOp.get_uber_state_value(id.GroupID, id.ID));
+      s.Value = CreateValue(s.Type, UberGet.AsDouble(id.GroupID, id.ID));
 
 
       return s;
     }
 
     public static UberValue GetValue(this UberId id) => InterOp.get_uber_state_exists(id.GroupID, id.ID) ? 
-      new UberValue(InterOp.get_uber_state_type(id.GroupID, id.ID), InterOp.get_uber_state_value(id.GroupID, id.ID)) :
+      new UberValue(InterOp.get_uber_state_type(id.GroupID, id.ID), UberGet.AsDouble(id.GroupID, id.ID)) :
       new UberValue();
     public static UberStateType UberType(this UberId id) => InterOp.get_uber_state_exists(id.GroupID, id.ID) ?
       InterOp.get_uber_state_type(id.GroupID, id.ID) : UberStateType.SerializedIntUberState;
@@ -322,13 +322,13 @@ namespace RandoMainDLL {
           // We do ToArray here so we can change the hashset while we are looping.
           foreach (var state in TimerUberStates.ToArray()) {
             // Maybe change this to use our own cache lookup?
-            var value = InterOp.get_uber_state_value(state.GroupID, state.ID);
+            var value = UberGet.AsDouble(state.GroupID, state.ID);
             UberSet.Raw(state.GroupID, state.ID, value + delta);
           }
 
           foreach (var timer in SeedController.TimerList) {
             if (timer.Toggle.GetValue().Bool) {
-              var value = InterOp.get_uber_state_value(timer.Increment.GroupID, timer.Increment.ID);
+              var value = UberGet.AsDouble(timer.Increment.GroupID, timer.Increment.ID);
               UberSet.Raw(timer.Increment.GroupID, timer.Increment.ID, value + delta);
             }
           }
