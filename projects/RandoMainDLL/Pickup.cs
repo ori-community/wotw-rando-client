@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using RandoMainDLL.Memory;
 
@@ -1076,18 +1075,13 @@ namespace RandoMainDLL {
     }.ToDictionary(e => e.Id, e => e);
   }
 
-  public abstract class Hint : Pickup {
-    public abstract string Desc { get; }
-  }
-
   public class SysMessage : Pickup {
     public override PickupType Type => PickupType.SysMessage;
     public readonly SysMessageType messageType;
     public readonly string extraData;
 
     public static Pickup Build(SysMessageType mt, string extra = "") {
-      if (mt == SysMessageType.ListHint)
-        return new ListHint(mt, extra);
+      if (mt == SysMessageType.ListHint) return new ListHint(mt, extra);
       return new SysMessage(mt, extra);
     }
     public SysMessage(SysMessageType mt, string extra = "") {
@@ -1137,85 +1131,6 @@ namespace RandoMainDLL {
       }
     }
 
-  }
-  public class ZoneHint : Hint {
-    public override PickupType Type => PickupType.ZoneHint;
-    public readonly ZoneType Zone;
-    public readonly HintType hintType;
-    public override int DefaultCost() => Zone == ZoneType.Woods ? 150 : 200;
-    public override string DisplayName => $"{Zone} hint";
-    public ZoneHint(ZoneType zone, HintType hint = HintType.Skills) {
-      Zone = zone;
-      HintsController.ZoneHints[zone] = hint;
-      hintType = hint;
-    }
-    public override string Desc => $"{hintType.GetDescription()} hint for #{Zone.GetDescription()}#";
-    public override void Grant(bool skipBase = false) {
-      int id = 10000 + (int)Zone;
-      byte setTo = Math.Max(UberGet.Byte(6, id), (byte)hintType);
-      UberSet.Byte(6, id, setTo);
-      HintsController.ProgressWithHints(Zone, true);
-      base.Grant(true);
-    }
-  }
-
-  public class CheckableHint : Hint {
-    public override PickupType Type => PickupType.CheckableHint;
-    public readonly List<Checkable> targets;
-    public readonly int baseCost;
-    public readonly int costModifier;
-    public override WorldMapIconType Icon => WorldMapIconType.QuestItem;
-
-    public override string DisplayName => $"{String.Join("/", targets.Select((t) => t.Name))} hint";
-    public CheckableHint(string raw) {
-      try {
-        targets = new List<Checkable>();
-        var parts = raw.Split(',');
-        if(parts.Length < 3) {
-          Randomizer.Warn("CheckableHint.Constructor", $"Couldn't parse checkable hint {raw}; not enough pieces");
-          return;
-        }
-        baseCost = parts[0].ParseToInt("hint base cost");
-        costModifier = parts[1].ParseToInt("hint cost modifier");
-        foreach(var part in parts.Skip(2)) {
-          var itemParts = part.Split('-');
-          if(itemParts.Length != 2) {
-            Randomizer.Warn("CheckableHint.Constructor", $"Couldn't parse fragment {part}; skipping!");
-            continue;
-          }
-          switch ((PickupType)itemParts[0].ParseToByte("hint frag ptype")) {
-            case PickupType.Ability:
-              targets.Add(((AbilityType)itemParts[1].ParseToByte("hint frag ability type")).p());
-              break;
-            case PickupType.QuestEvent:
-              targets.Add(((QuestEventType)itemParts[1].ParseToByte("hint frag quest event type")).p());
-              break;
-            case PickupType.Teleporter:
-              targets.Add(((TeleporterType)itemParts[1].ParseToByte("hint frag teleporter type")).p());
-              break;
-            case PickupType.Shard:
-              targets.Add(((ShardType)itemParts[1].ParseToByte("hint frag shard type")).p());
-              break;
-            default:
-              Randomizer.Warn("CheckableHint.Constructor", $"{part} does not correspond to a checkable: skipping!");
-              break;
-          }
-      }
-      HintsController.RegisterCheckable(this);
-      } catch (Exception e) { Randomizer.Error("CheckableHint.Constructor", e); }
-    }
-    public override string Desc { get {
-        if(targets.Count == 1)
-          return $"Will tell you what Zone {targets[0].DisplayName} is in";
-        var firstN = targets.Take(targets.Count - 1);
-        return $"Will tell you what Zone {string.Join(", ", firstN.Select((t) => t.DisplayName))} and {targets.Last().DisplayName} are in";
-      } }
-    public string Hint => string.Join(", ", targets.Select((c) => c.HintFrag()));
-    public override int DefaultCost() => baseCost - costModifier * (targets.Count((t) => t.Has()));
-    public override void Grant(bool skipBase = false) {
-      HintsController.OnGrantCheckable(this);
-      base.Grant(true);
-    }
   }
 
   namespace Wheel {

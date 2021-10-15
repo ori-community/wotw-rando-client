@@ -133,7 +133,7 @@ namespace RandoMainDLL {
       argsList.AddRange(TrackedShards.Where(sh => new Shard(sh).Has()).Select(t => $"sh:{(int)t}"));
       return argsList;
     }
-    private static bool isHint(this Pickup p) => p is CheckableHint || p is ZoneHint || (p is SysMessage s && s.messageType == SysMessageType.ListHint);
+    private static bool isHint(this Pickup p) => p is SysMessage s && s.messageType == SysMessageType.ListHint;
     public static int FilterIconType(int groupId, int id, int value) {
       var cond = new UberStateCondition(groupId, id, value);
       if (cond.Pickup().NonEmpty || cond.Loc() != LocData.Void)

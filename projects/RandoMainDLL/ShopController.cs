@@ -148,7 +148,7 @@ namespace RandoMainDLL {
     // can actually use this for all of them besides the water one since they're either unlocked at spawn
     private static readonly string lockedTillGlades = "Locked: enter Glades\nfrom Hollow to unlock";
 
-    public static string DescOrChatter(this Pickup pickup) => pickup is WeaponUpgrade wu ? wu.Desc : (pickup is Hint ch ? ch.Desc : Chatter());
+    public static string DescOrChatter(this Pickup pickup) => pickup is WeaponUpgrade wu ? wu.Desc : Chatter();
     public static void UpdateShopData() {
       foreach (var s in ShopSlot.Opher) {
         var t = s.Weapon;

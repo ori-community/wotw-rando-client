@@ -2,8 +2,6 @@
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
-using AutoHotkey.Interop;
-using RandoMainDLL.Memory;
 using System.Linq;
 
 namespace RandoMainDLL {

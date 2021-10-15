@@ -131,7 +131,6 @@ namespace RandoMainDLL {
         TimerList.Clear();
         Flags.Clear();
         Relic.Reset();
-        HintsController.Reset();
         string line = "";
         string coordsRaw = "";
         foreach (string rawLine in File.ReadLines(SeedFile)) {
@@ -194,10 +193,6 @@ namespace RandoMainDLL {
             }
             var pickup = BuildPickup(pickupType, frags[3], extras, cond);
             pickup.Muted = needsMute;
-            if (pickup.IsKeyItem())
-              HintsController.AddHint(cond.Loc().Zone, pickup as Checkable);
-            if (pickup is Checkable c)
-              HintsController.CheckableLocs[c] = cond.Loc().Zone;
             PickupMap[cond] = cond.Pickup().Concat(pickup);
           }
           catch (Exception e) {
@@ -484,11 +479,6 @@ namespace RandoMainDLL {
           }
         case PickupType.SysMessage:
           return SysMessage.Build((SysMessageType)pickupData.ParseToByte(), extras.FirstOrElse(""));
-        case PickupType.ZoneHint:
-          if (extras.Count == 1) return new ZoneHint((ZoneType)pickupData.ParseToByte(), (HintType)extras[0].ParseToByte()); // 12|x|y, y is hint type
-          return new ZoneHint((ZoneType)pickupData.ParseToByte());
-        case PickupType.CheckableHint:
-          return new CheckableHint(pickupData);
         case PickupType.Message:
           var messageParts = pickupData.Split(new string[] { @"`(" }, StringSplitOptions.None).ToList();
           List<string> msgs = new List<string>();
