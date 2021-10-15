@@ -75,10 +75,10 @@ namespace RandoMainDLL {
         SavedUberStates.Clear();
       }
       foreach (var uid in SaveThroughDeath) {
-        var us = uid.State();
-        if (us.ValueAsDouble() > 0) {
-          Randomizer.Log($"stats.OnNewGame: {uid.GroupID}.{uid.ID} needed reset: was {us.ValueAsDouble()}", false, "DEBUG");
-          us.Write(new UberValue(false));
+        var val = UberGet.AsDouble(uid);
+        if (val > 0) {
+          Randomizer.Debug($"stats.OnNewGame: {uid.GroupID}.{uid.ID} needed reset: was {val}", false);
+          UberSet.Raw(uid, 0);
         }
       }
     }
@@ -90,17 +90,16 @@ namespace RandoMainDLL {
         UberInc.Float(Drought, delta);
       } 
     }
-    public static HashSet<UberState> SavedUberStates = new HashSet<UberState>();
+    public static Dictionary<UberId, double> SavedUberStates = new Dictionary<UberId, double>();
     public static void OnLoad(bool deathLoad) {
-      if(deathLoad) {
-        foreach (var us in SavedUberStates) us.Write();
-      }
+      if(deathLoad) 
+        foreach (var kp in SavedUberStates) UberSet.Raw(kp.Key, kp.Value);
       SavedUberStates.Clear();
     }
     public static void OnSave(bool deathSave) {
       if(deathSave) {
         UberInc.Float(TimeLostToDeaths, UberGet.Float(TimeSinceLastSave));
-        SavedUberStates = SaveThroughDeath.Select(u => u.State()).ToHashSet();
+        SavedUberStates = SaveThroughDeath.ToDictionary(a => a, a => UberGet.AsDouble(a));
       }
       else {
         SavedUberStates.Clear();

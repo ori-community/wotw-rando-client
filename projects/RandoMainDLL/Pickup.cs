@@ -342,28 +342,28 @@ namespace RandoMainDLL {
     public override string DisplayName { get {
         var withUberNameRepl = uberNameFrag.Replace(MessageStr, (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup().DisplayName);
         var withStateRepl = uberMsg.Replace(withUberNameRepl, (Match m) => {
-        var state = new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt()).State();
+        var uid = new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt());
         switch (m.Groups.Count > 3 ? m.Groups[3].Value : "") {
           case "tsec":
-            return secToStr(state.ValueAsDouble());
+            return secToStr(UberGet.AsDouble(uid));
           // this is maybe insane
           case "ppm": // the format here is $(14|<Zone Number>,ppm)) so state() is time
-            if (state.GroupID == 14) {
+            if (uid.GroupID == 14) {
               // yes yes this is obviously horrible
-              var val = state.ValueAsDouble();
+              var val = UberGet.AsDouble(uid);
               if (val < 0.5) return "N/A"; // if you were in a zone for less than half a second, PPM is not meaningful
-              if (state.ID == 100) return Math.Round(UberGet.Int(6, 2) / (val / 60f), 2).ToString(CultureInfo.InvariantCulture);  // total PPM (6|2 is total pickup count)
-              if (state.ID == 107) return Math.Round(UberGet.Int(14, 108) / (val / 60f), 2).ToString(CultureInfo.InvariantCulture); // peak PPM (14|108 is peak PPM count)
-              return Math.Round(((ZoneType)state.ID).PickupState().GetValue().Byte / (val / 60f), 2).ToString(CultureInfo.InvariantCulture);
+              if (uid.ID == 100) return Math.Round(UberGet.Int(6, 2) / (val / 60f), 2).ToString(CultureInfo.InvariantCulture);  // total PPM (6|2 is total pickup count)
+              if (uid.ID == 107) return Math.Round(UberGet.Int(14, 108) / (val / 60f), 2).ToString(CultureInfo.InvariantCulture); // peak PPM (14|108 is peak PPM count)
+              return Math.Round(((ZoneType)uid.ID).PickupState().GetValue().Byte / (val / 60f), 2).ToString(CultureInfo.InvariantCulture);
             }
-            return $"@Invalid PPM state {state.GroupID}|{state.ID}@";
+            return $"@Invalid PPM state {uid.GroupID}|{uid.ID}@";
           case "pcnt":
-            if (state.GroupID == 6 && state.ID == 2) return $"{UberGet.Int(6, 2)}/{SeedController.Total}";
-            if (state.GroupID != 14 || state.ID > 13) return $"@Invalid pcnt state {state.GroupID}|{state.ID}";
-            var z = (ZoneType)state.ID;
+            if (uid.GroupID == 6 && uid.ID == 2) return $"{UberGet.Int(6, 2)}/{SeedController.Total}";
+            if (uid.GroupID != 14 || uid.ID > 13) return $"@Invalid pcnt state {uid.GroupID}|{uid.ID}";
+            var z = (ZoneType)uid.ID;
             return $"{UberGet.Byte(z.PickupState())}/{SeedController.CountByZone[z]}";
           default:
-            return state.FmtVal();
+            return uid.GetValue().FmtVal(uid.UberType());
           }
         });
         return nameFrag.Replace(withStateRepl, (Match m) => {
@@ -597,13 +597,11 @@ namespace RandoMainDLL {
     public static BonusItem Build(BonusType t, ZoneType z) => t == BonusType.Relic ? LegacyRelic.Build(z) : new BonusItem(t);
 
     public override void Grant(bool skipBase = false) {
-      var state = stateId.State();
-      state.Value.Byte += 1;
-      state.Write(state.Value);
+      UberInc.Byte(stateId);
       base.Grant(skipBase);
     }
     public override string Name { get => type.GetDescription() ?? $"Unknown Bonus Item {type}"; }
-    public override string DisplayName { get => $"#{type.GetDescription() ?? $"Unknown Bonus Item {type}"}{(stateId.State().Value.Byte > 1 ? $" x{stateId.State().Value.Byte}" : "")}#"; }
+    public override string DisplayName { get => $"#{type.GetDescription() ?? $"Unknown Bonus Item {type}"}{(UberGet.Byte(stateId) > 1 ? $" x{UberGet.Byte(stateId)}" : "")}#"; }
   }
 
   public class SystemCommand : Pickup {
@@ -741,23 +739,18 @@ namespace RandoMainDLL {
     }
 
     public bool StopActive() {
-      var state = targetState.State();
+
+      var val = UberGet.AsDouble(targetState);
       switch (type) {
         case SysCommandType.StopIfEqual:
-          Randomizer.Debug($"{state.ValueAsDouble()} ?= {targetValue} -> {state.ValueAsDouble() == targetValue}", false);
-          if (state.ValueAsDouble() == targetValue)
-            return true;
-          break;
+          if(Randomizer.Dev) Randomizer.Debug($"{val} ?= {targetValue} -> {val == targetValue}", false);
+         return val == targetValue;
         case SysCommandType.StopIfGreater:
-          Randomizer.Debug($"{state.ValueAsDouble()} ?> {targetValue} -> {state.ValueAsDouble() > targetValue}", false);
-          if (state.ValueAsDouble() > targetValue)
-            return true;
-          break;
+          if (Randomizer.Dev) Randomizer.Debug($"{val} ?> {targetValue} -> {val > targetValue}", false);
+          return val > targetValue;
         case SysCommandType.StopIfLess:
-          Randomizer.Debug($"{state.ValueAsDouble()} ?< {targetValue} -> {state.ValueAsDouble() < targetValue}", false);
-          if (state.ValueAsDouble() < targetValue)
-            return true;
-          break;
+          if (Randomizer.Dev) Randomizer.Debug($"{val} ?< {targetValue} -> {val < targetValue}", false);
+          return val < targetValue;
       }
       return false;
     }
@@ -793,20 +786,17 @@ namespace RandoMainDLL {
       targetValue = v;
     }
     public override bool IsCondMet() {
-      var state = targetState.State();
+      var val = UberGet.AsDouble(targetState);
       switch (type) {
         case SysCommandType.GrantIfEqual:
         case SysCommandType.GrantIfCondEqual:
-          //          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?= {targetValue} -> {state.ValueAsDouble() == targetValue} => {Pickup.Name}", false);
-          return state.ValueAsDouble() == targetValue;
+          return val == targetValue;
         case SysCommandType.GrantIfGreater:
         case SysCommandType.GrantIfCondGreater:
-          //          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?> {targetValue} -> {state.ValueAsDouble() > targetValue} => {Pickup.Name}", false);
-          return state.ValueAsDouble() > targetValue;
+          return val > targetValue;
         case SysCommandType.GrantIfLess:
         case SysCommandType.GrantIfCondLess:
-          //          if (Randomizer.Dev) Randomizer.Debug($"{state.ValueAsDouble()} ?< {targetValue} -> {state.ValueAsDouble() < targetValue} => {Pickup.Name}", false);
-          return state.ValueAsDouble() < targetValue;
+          return val < targetValue;
         default:
           Randomizer.Error("IsCondMet", "this should literally never happen");
           return false;

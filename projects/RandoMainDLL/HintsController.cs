@@ -111,7 +111,7 @@ namespace RandoMainDLL {
     }
 
     public static void OnGrantCheckable(CheckableHint ch) {
-      CheckableHints[ch].State().Write(new UberValue(true));
+      UberSet.Bool(CheckableHints[ch], true);
       Msg.SendPlainText(new PlainText($"Bought Hint: {ch.Hint}", 300));
     }
 

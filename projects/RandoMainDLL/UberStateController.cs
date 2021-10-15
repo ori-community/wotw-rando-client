@@ -9,8 +9,6 @@ namespace RandoMainDLL {
     public static HashSet<UberId> TimerUberStates = new HashSet<UberId>();
     public static HashSet<UberId> SyncedUberStates = new HashSet<UberId>();
     public static Dictionary<UberId, UberState> UberStates = new Dictionary<UberId, UberState>();
-    public static UberValue? ValueOpt(this UberState state) => state.GetUberId().ValueOpt();
-    public static UberValue ValueOr(this UberState state, UberValue value) => state.GetUberId().ValueOpt().GetValueOrDefault(value);
     public static UberValue GetValue(this UberState state) => state.GetUberId().GetValue();
     public static UberState State(this UberId id) {
       if (!UberStates.TryGetValue(id, out UberState s)) {
@@ -134,24 +132,12 @@ namespace RandoMainDLL {
       return s;
     }
 
-    public static UberValue? ValueOpt(this UberId id) {
-      if (UberStates.TryGetValue(id, out UberState curr)) 
-        return curr?.Value;
+    public static UberValue GetValue(this UberId id) => InterOp.get_uber_state_exists(id.GroupID, id.ID) ? 
+      new UberValue(InterOp.get_uber_state_type(id.GroupID, id.ID), InterOp.get_uber_state_value(id.GroupID, id.ID)) :
+      new UberValue();
+    public static UberStateType UberType(this UberId id) => InterOp.get_uber_state_exists(id.GroupID, id.ID) ?
+      InterOp.get_uber_state_type(id.GroupID, id.ID) : UberStateType.SerializedIntUberState;
 
-      var state = createUberStateEntry(id);
-
-      if (UberStates.TryGetValue(id, out curr)) 
-        return curr?.Value;
-
-      try {
-        UberStates.Add(id, state);
-      }
-      catch (Exception e) {
-        Randomizer.Warn($"ValueOpt ({id.GroupID}, {id.ID})", $"{e}", false);
-      }
-      return state?.Value;
-    }
-    public static UberValue GetValue(this UberId id) => id.ValueOpt().GetValueOrDefault(new UberValue(0));
     public static bool Write(this UberState state) => state.Write(state.Value);
 
     public static bool Write(this UberState state, UberValue value) {
@@ -351,14 +337,14 @@ namespace RandoMainDLL {
         if (FullSyncNextUpdate) {
           FullSyncNextUpdate = false;
           Randomizer.Debug($"Syncing {SyncedUberStates.Count} states", false);
-          WebSocketClient.SendBulk(SyncedUberStates.Where(uid => uid.State() != null).ToDictionary(uid => uid, (uid) => uid.State().ValueAsDouble()));
-          var bad = SyncedUberStates.Where(uid => uid.State() == null).ToList();
+          var bad = SyncedUberStates.Where(uid => !InterOp.get_uber_state_exists(uid.GroupID, uid.ID)).ToHashSet();
+          WebSocketClient.SendBulk(SyncedUberStates.Where(uid => !bad.Contains(uid)).ToDictionary(uid => uid, (uid) => UberGet.AsDouble(uid)));
           Randomizer.Debug($"Not sending {bad.Count} bad states", false);
           foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
         }
         while (WebSocketClient.UberStateQueue.TryTake(out var stateUpdate)) {
           var (id, val) = stateUpdate.FromNet();
-          if (id.State().ValueAsDouble() != val)
+          if (UberGet.AsDouble(id) != val)
             InterOp.set_uber_state_value(id.GroupID, id.ID, val);
         }
       }
@@ -383,9 +369,9 @@ namespace RandoMainDLL {
     }
     private static void GiveVoice() {
       // this is really questionable!!
-      var voiceState = new UberId(46462, 59806).State();
-      if (!voiceState.Value.Bool) {
-        voiceState.Write(new UberValue(true));
+      var vid = new UberId(46462, 59806);
+      if (!UberGet.Bool(vid)) {
+        UberSet.Bool(vid, true);
         InterOp.set_max_health(InterOp.get_max_health() + 10);
         InterOp.set_max_energy(InterOp.get_max_energy() + 1);
         InterOp.fill_health();

@@ -844,7 +844,7 @@ namespace RandoMainDLL {
       var goalMsgs = new List<String>();
       if (Flags.Contains(Flag.ALLWISPS)) {
         var max = UberStateController.Wisps.Count;
-        var amount = UberStateController.Wisps.Count((UberState s) => s.ValueOr(new UberValue(false)).Bool);
+        var amount = UberStateController.Wisps.Count((UberState s) => s.GetValue().Bool);
         var w = amount == max ? met : unmet;
         goalMsgs.Add($"{w}Wisps: {amount}/{max}{w}");
       }
@@ -855,7 +855,7 @@ namespace RandoMainDLL {
       }
       if (Flags.Contains(Flag.ALLQUESTS)) {
         var max = UberStateController.Quests.Count;
-        var amount = UberStateController.Quests.Count((UberState s) => s.ValueOr(new UberValue(0)).Int == s.Value.Int);
+        var amount = UberStateController.Quests.Count((UberState s) => s.GetValue().Int == s.Value.Int);
         var w = amount == max ? met : unmet;
         goalMsgs.Add($"{w}Quests: {amount}/{max}{w}");
       }
@@ -873,7 +873,7 @@ namespace RandoMainDLL {
 
       if (finished && Flags.Contains(Flag.ALLWISPS)) {
         foreach (var state in UberStateController.Wisps) {
-          finished = finished && state.ValueOr(new UberValue(false)).Bool;
+          finished = finished && state.GetValue().Bool;
           if (!finished)
             break;
         }
@@ -881,7 +881,7 @@ namespace RandoMainDLL {
 
       if (finished && Flags.Contains(Flag.ALLQUESTS)) {
         foreach (var state in UberStateController.Quests) {
-          finished = finished && state.ValueOr(new UberValue(0)).Int == state.Value.Int;
+          finished = finished && state.GetValue().Int == state.Value.Int;
           if (!finished)
             break;
         }

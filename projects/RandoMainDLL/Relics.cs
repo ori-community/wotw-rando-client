@@ -24,9 +24,7 @@ namespace RandoMainDLL {
       return ret;
     }
     public override void Grant(bool skipBase = false) {
-      var state = zoneId.State();
-      state.Value.Byte += 1;
-      state.Write(state.Value);
+      UberInc.Byte(zoneId);
       base.Grant(skipBase);
     }
     public override string DisplayName { get => flavorName == "" ? $"@{Zone} Relic@" : flavorName; }
@@ -106,9 +104,7 @@ namespace RandoMainDLL {
       return ret;
     }
     public override void Grant(bool skipBase = false) {
-      var state = zoneId.State();
-      state.Value.Byte += 1;
-      state.Write(state.Value);
+      UberInc.Byte(zoneId);
       base.Grant(skipBase);
     }
     public override string DisplayName { get => $"@{Zone} Relic@"; }

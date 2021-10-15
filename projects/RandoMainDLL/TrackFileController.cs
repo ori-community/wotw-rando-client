@@ -37,7 +37,7 @@ namespace RandoMainDLL {
         if (SaveController.HasAbility(AbilityType.DamageUpgrade1) && SaveController.HasAbility(AbilityType.DamageUpgrade2))
           upgraded.Add(trackName(AbilityType.DamageUpgrade1));
         events = SaveController.WorldEvents.Select((QuestEventType type) => type.GetDescription()).ToHashSet();
-        quests = UberStateController.Quests.Where((UberState s) => s.ValueOr(new UberValue(0)).Int == s.Value.Int).Select(s => s.Name).ToHashSet();
+        quests = UberStateController.Quests.Where((UberState s) => s.GetValue().Int == s.Value.Int).Select(s => s.Name).ToHashSet();
         teleporters = Teleporter.TeleporterStates.Keys.Where((TeleporterType t) => (new Teleporter(t)).Has()).Select((TeleporterType t) => t.GetDescription()).ToHashSet();
         flags = SeedController.Flags.Select(s => s.GetDescription()).ToHashSet();
       }

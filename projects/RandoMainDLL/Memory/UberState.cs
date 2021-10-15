@@ -101,14 +101,7 @@ namespace RandoMainDLL.Memory {
     public static UberValue value(int groupId, int id) => value(new UberId(groupId, id));
     public static UberValue value(UberId id) => id.GetValue();
     public static double AsDouble(int groupId, int id) => AsDouble(new UberId(groupId, id));
-    public static double AsDouble(UberId id) {
-      try {
-        return value(id.GroupID, id.ID).AsDouble(id.State().Type);
-      } catch (Exception e) {
-        Randomizer.Error($"({id.GroupID}, {id.ID}).AsDouble", e);
-        return 0d;
-      }
-    }
+    public static double AsDouble(UberId id) => InterOp.get_uber_state_value(id.GroupID, id.ID);
     public static byte Byte(int groupId, int id) => value(new UberId(groupId, id)).Byte;
     public static byte Byte(UberId id) => value(id).Byte;
     public static int Int(int groupId, int id) => value(new UberId(groupId, id)).Int;
@@ -127,6 +120,8 @@ namespace RandoMainDLL.Memory {
     public static void Float(int groupId, int id, float val) => Float(new UberId(groupId, id), val);
     public static void Byte(UberId id, byte val) => id.State().Write(new UberValue(val));
     public static void Byte(int groupId, int id, byte val) => Byte(new UberId(groupId, id), val);
+    public static void Raw(int groupId, int id, double val) => Raw(new UberId(groupId, id), val);
+    public static void Raw(UberId id, double val) => InterOp.set_uber_state_value(id.GroupID, id.ID, val); // TODO maybe make the others just use this
   }
   public static class UberInc {
     public static void Toggle(UberId id) => UberSet.Bool(id, UberGet.value(id).Bool);
@@ -171,9 +166,7 @@ namespace RandoMainDLL.Memory {
           return $"{Value.Float}";
       }
       return $"{Type}-{Value}";
-
     }
-
     public override string ToString() {
       switch (Type) {
         case UberStateType.SavePedestalUberState:
@@ -192,6 +185,28 @@ namespace RandoMainDLL.Memory {
 
   [StructLayout(LayoutKind.Explicit, Size = 4, Pack = 1)]
   public struct UberValue {
+
+    public UberValue(UberStateType t, double value) {
+      Byte = 0;
+      Bool = false;
+      Int = 0;
+      Float = 0f;
+      switch (t) {
+        case UberStateType.SavePedestalUberState:
+        case UberStateType.SerializedBooleanUberState:
+          Bool = (value > 0);
+          return;
+        case UberStateType.SerializedByteUberState:
+          Byte = Convert.ToByte(value);
+          return;
+        case UberStateType.SerializedIntUberState:
+          Int = Convert.ToInt32(value);
+          return;
+        case UberStateType.SerializedFloatUberState:
+          Float = Convert.ToSingle(value);
+          return;
+      }
+    }
     public UberValue(float f) {
       Byte = 0;
       Bool = false;
@@ -225,6 +240,21 @@ namespace RandoMainDLL.Memory {
     public byte Byte;
     [FieldOffset(0)]
     public bool Bool;
+
+    public string FmtVal(UberStateType Type) {
+      switch (Type) {
+        case UberStateType.SavePedestalUberState:
+        case UberStateType.SerializedBooleanUberState:
+          return $"{Bool}";
+        case UberStateType.SerializedByteUberState:
+          return $"{Byte}";
+        case UberStateType.SerializedIntUberState:
+          return $"{Int}";
+        case UberStateType.SerializedFloatUberState:
+          return $"{Float}";
+      }
+      return $"{Type}-{ToString()}";
+    }
 
     public override string ToString() => $"{Int}|{Float}";
   }
