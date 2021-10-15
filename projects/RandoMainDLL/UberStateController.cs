@@ -127,8 +127,6 @@ namespace RandoMainDLL {
       }
 
       s.Value = CreateValue(s.Type, UberGet.AsDouble(id.GroupID, id.ID));
-
-
       return s;
     }
 
