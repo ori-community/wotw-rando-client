@@ -243,6 +243,8 @@ namespace uber_states
                     // hate this, hope we don't end up needing more of these!
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "HollowTP", 106, false),
 
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Tuley Exists", 300, false),
+
                     // skills
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Bash", 1000, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "WallJump", 1003, false),

@@ -348,22 +348,49 @@ namespace RandoMainDLL {
       }
       catch (Exception e) { Randomizer.Error("USC.Update", e, false); }
     }
+
+    delegate void SpecialCallback(UberState state);
+    static Dictionary<UberId, SpecialCallback> SpecialHandlers = new Dictionary<UberId, SpecialCallback>() {
+      {
+        new UberId(5377, 53480),
+        (UberState state) => {
+          // lumaPoolsStateGroup.arenaBByteStateSerialized ; water dash version of the fight room
+          if (state.Value.Byte == 4)
+            UberSet.Byte(5377, 1373, 4);
+        }
+      },
+      {
+        new UberId(42178, 2654),
+        (UberState state) => {
+          // hubUberStateGroup.craftCutsceneState ; diamond in the rough
+          if (0 < state.Value.Byte && state.Value.Byte < 3) {
+            state.Write(new UberValue((byte)3));
+            // Give diamond in the rough pickup.
+            UberSet.Bool(23987, 14832, true);
+          }
+        }
+      },
+      {
+        new UberId(14019, 48794),
+        (UberState state) => {
+          if (state.Value.Int == 2)
+            Randomizer.InputUnlockCallback.Add(GiveVoice);
+        }
+      },
+      {
+        new UberId(937, 34641),
+        (UberState state) => {
+          // Wellspring quest
+          if (state.Value.Int == 4)
+            // Tuley exists.
+            UberSet.Bool(6, 300, true);
+        }
+      },
+    };
+
     private static void HandleSpecial(UberState state) {
-      // lumaPoolsStateGroup.arenaBByteStateSerialized ; water dash version of the fight room
-      if (state.GroupID == 5377 && state.ID == 53480 && state.Value.Byte == 4)
-        // lumaPoolsStateGroup.arenaByteStateSerialized
-        UberSet.Byte(5377, 1373, 4);
-      // hubUberStateGroup.craftCutsceneState ; diamond in the rough
-      else if (state.GroupID == 42178 && state.ID == 2654 && 0 < state.Value.Byte && state.Value.Byte < 3) {
-        state.Write(new UberValue((byte)3));
-        // Give diamond in the rough pickup.
-        UberSet.Bool(23987, 14832, true);
-      }
-      else if (state.GroupID == 937 && state.ID == 34641 && state.Value.Int == 3)
-        UberSet.Int(937, 34641, 4);
-      // the below is a fix for a vanilla bug where you can just miss getting voice if you
-      else if (state.GroupID == 14019 && state.ID == 48794 && state.Value.Int == 2) // (a) skip the kwolok cutscene too fast
-        Randomizer.InputUnlockCallback.Add(GiveVoice);
+      if (SpecialHandlers.TryGetValue(state.GetUberId(), out var callback))
+        callback(state);
     }
     private static void GiveVoice() {
       // this is really questionable!!
