@@ -92,16 +92,13 @@ namespace RandoMainDLL {
     }
     public static Dictionary<UberId, double> SavedUberStates = new Dictionary<UberId, double>();
     public static void OnLoad(bool deathLoad) {
-      if(deathLoad) 
+      if(deathLoad) {
         foreach (var kp in SavedUberStates) UberSet.Raw(kp.Key, kp.Value);
+      }
       SavedUberStates.Clear();
     }
     public static void OnSave(bool deathSave) {
-      if(deathSave) {
-        UberInc.Float(TimeLostToDeaths, UberGet.Float(TimeSinceLastSave));
-        SavedUberStates = SaveThroughDeath.ToDictionary(a => a, a => UberGet.AsDouble(a));
-      }
-      else {
+      if(!deathSave) {
         SavedUberStates.Clear();
       }
       UberSet.Float(TimeSinceLastSave, 0);
@@ -124,8 +121,10 @@ namespace RandoMainDLL {
       }
     }
     public static void OnDeath(string perpetrator, DamageType dt) {
+      UberInc.Float(TimeLostToDeaths, UberGet.Float(TimeSinceLastSave));
       UberInc.Byte(CurrentZone.DeathState());
       UberInc.Int(Deaths);
+      SavedUberStates = SaveThroughDeath.ToDictionary(a => a, a => UberGet.AsDouble(a));
     }
 
     public static void OnKill(string name, DamageType dt) {
