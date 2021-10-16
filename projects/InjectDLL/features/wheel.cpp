@@ -29,6 +29,8 @@ WheelBehavior wheel_behavior = WheelBehavior::Standalone;
 
 INJECT_C_DLLEXPORT void refresh_wheel();
 
+extern bool disable_has_ability_overwrite;
+
 namespace
 {
     struct CustomWheelEntry
@@ -89,14 +91,17 @@ namespace
             MoonTimelineUiFader::FadeIn(this_ptr);
     }
 
+    void update_wheel_position();
     IL2CPP_INTERCEPT(, EquipmentWheel, void, Show, (app::EquipmentWheel* this_ptr)) {
         is_wheel_visible = true;
         EquipmentWheel::Show(this_ptr);
+        update_wheel_position();
     }
 
     IL2CPP_INTERCEPT(, EquipmentWheel, void, ShowImmediate, (app::EquipmentWheel* this_ptr)) {
         is_wheel_visible = true;
         EquipmentWheel::ShowImmediate(this_ptr);
+        update_wheel_position();
     }
 
     IL2CPP_INTERCEPT(, EquipmentWheel, void, Hide, (app::EquipmentWheel* this_ptr, bool change)) {
@@ -166,6 +171,7 @@ namespace
         case WheelBehavior::Standalone:
         {
             custom_wheel_input = false;
+
             if (!il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd")->static_fields->OpenWeaponWheel->fields.IsPressed)
             {
                 auto* msm = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu;
@@ -274,6 +280,7 @@ namespace
     STATIC_IL2CPP_BINDING(Core, Input, app::Vector2, get_CursorPositionUI, ());
     IL2CPP_BINDING(, CleverMenuItem, app::Rect, get_Bounds, (app::CleverMenuItem* this_ptr));
     IL2CPP_INTERCEPT(, CleverMenuItemSelectionManager, app::CleverMenuItem*, get_CleverMenuItemUnderCursor, (app::CleverMenuItemSelectionManager* this_ptr)) {
+        disable_has_ability_overwrite = true;
         const int count = CleverMenuItemSelectionManager::get_MenuItemsCount(this_ptr);
         auto cursor = Input::get_CursorPositionUI();
         app::CleverMenuItem* item = nullptr;
@@ -302,6 +309,7 @@ namespace
             }
         }
 
+        disable_has_ability_overwrite = false;
         return item;
     }
 
@@ -482,6 +490,39 @@ namespace
         CleverMenuItemSelectionManager::SetCurrentItem(manager, closest, closest != -1);
         il2cpp::invoke(manager->fields.OnRadialItemChanged, "Invoke");
     }
+
+    IL2CPP_INTERCEPT(, CleverMenuItemSelectionManager, void, RefreshVisible, (app::CleverMenuItemSelectionManager* this_ptr)) {
+        CleverMenuItemSelectionManager::RefreshVisible(this_ptr);
+        // This is stupid but required because this function is called in a lambda.
+        if (is_wheel_visible)
+            update_wheel_position();
+    }
+
+    void update_wheel_position()
+    {
+        auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
+        auto* manager = wheel->fields.RadialSelection->fields.m_navigationManager;
+
+        // Trigger movement so wheel updates selection after refresh.
+        auto scheme = il2cpp::get_class<app::GameSettings__Class>("", "GameSettings")->static_fields->Instance->fields.m_currentControlSchemes;
+        switch (scheme)
+        {
+        case app::ControlScheme__Enum_Switch:
+        case app::ControlScheme__Enum_Controller:
+        case app::ControlScheme__Enum_Keyboard:
+            // TODO: Maybe use some other axis.
+            select_closest(manager, manager->fields.m_lastMenuAxis);
+            break;
+        case app::ControlScheme__Enum_KeyboardAndMouse:
+            auto item = CleverMenuItemSelectionManager::get_CleverMenuItemUnderCursor_intercept(manager);
+            if (il2cpp::unity::is_valid(item))
+            {
+                CleverMenuItemSelectionManager::SetCurrentMenuItem(manager, item, true);
+                CleverMenuItem::OnHighlight(item, true);
+            }
+            break;
+        }
+    }
 }
 
 INJECT_C_DLLEXPORT bool set_wheel_item_name(int wheel, int item, const wchar_t* name)
@@ -601,32 +642,11 @@ INJECT_C_DLLEXPORT bool clear_wheel_item(int wheel, int item)
 
 INJECT_C_DLLEXPORT void refresh_wheel()
 {
-    auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
     if (is_wheel_visible)
     {
         dont_fade = true;
-        auto* manager = wheel->fields.RadialSelection->fields.m_navigationManager;
-        auto last_axis = manager->fields.m_lastMenuAxis;
+        auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
         EquipmentWheel::ShowImmediate_intercept(wheel);
-
-        // Trigger movement so wheel updates selection after refresh.
-        auto scheme = il2cpp::get_class<app::GameSettings__Class>("", "GameSettings")->static_fields->Instance->fields.m_currentControlSchemes;
-        switch (scheme)
-        {
-        case app::ControlScheme__Enum_Switch:
-        case app::ControlScheme__Enum_Controller:
-        case app::ControlScheme__Enum_Keyboard:
-            select_closest(manager, last_axis);
-            break;
-        case app::ControlScheme__Enum_KeyboardAndMouse:
-            auto item = CleverMenuItemSelectionManager::get_CleverMenuItemUnderCursor_intercept(manager);
-            if (il2cpp::unity::is_valid(item))
-            {
-                CleverMenuItemSelectionManager::SetCurrentMenuItem(manager, item, true);
-                CleverMenuItem::OnHighlight(item, true);
-            }
-            break;
-        }
         dont_fade = false;
     }
 }

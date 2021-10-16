@@ -9,6 +9,8 @@
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
+bool disable_has_ability_overwrite = false;
+
 namespace
 {
     int time_override = 2;
@@ -32,13 +34,12 @@ namespace
     }
 
     // Fix for weapon wheel.
-    bool disable_has_ability_overwrite = false;
-    IL2CPP_INTERCEPT(, CleverMenuItemSelectionManager, app::CleverMenuItem*, get_CleverMenuItemUnderCursor, (app::CleverMenuItemSelectionManager* this_ptr)) {
-        disable_has_ability_overwrite = true;
-        auto ret = CleverMenuItemSelectionManager::get_CleverMenuItemUnderCursor(this_ptr);
-        disable_has_ability_overwrite = false;
-        return ret;
-    }
+    //IL2CPP_INTERCEPT(, CleverMenuItemSelectionManager, app::CleverMenuItem*, get_CleverMenuItemUnderCursor, (app::CleverMenuItemSelectionManager* this_ptr)) {
+    //    disable_has_ability_overwrite = true;
+    //    auto ret = CleverMenuItemSelectionManager::get_CleverMenuItemUnderCursor(this_ptr);
+    //    disable_has_ability_overwrite = false;
+    //    return ret;
+    //}
 
     // This is stupid and bad code but who cares nowdays.
     app::HasAbilityCondition* sword_wheel_condition = nullptr;

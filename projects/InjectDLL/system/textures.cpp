@@ -105,19 +105,17 @@ namespace textures
     void TextureData::reload_file_texture()
     {
         il2cpp::gchandle_free(local.texture.value());
+        local.texture.reset();
+
         auto it = files.find(path);
         if (it != files.end())
             files.erase(it);
 
         load_texture();
         auto& collection = file_instances[path];
-        for (auto it = collection.begin(); it != collection.end(); ++it)
-        {
-            if ((*it).expired())
-                it = collection.erase(it);
-            else
-                it->lock()->local.texture = local.texture;
-        }
+        for (auto data : collection)
+            if (!data.expired())
+                data.lock()->local.texture = local.texture;
     }
 
     void apply_default(app::Renderer* renderer)
