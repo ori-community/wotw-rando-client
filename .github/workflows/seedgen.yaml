@@ -24,6 +24,11 @@ jobs:
       - name: Checkout 🛎
         uses: actions/checkout@master
 
+      - name: Wait for other workflow runs to finish
+        uses: softprops/turnstyle@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Log in to the Container registry
         uses: docker/login-action@v1.10.0
         with:
