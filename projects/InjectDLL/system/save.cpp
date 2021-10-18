@@ -11,17 +11,33 @@
 
 using namespace modloader;
 
+extern bool temporary_glide_switch;
+
 namespace
 {
+    void handle_enter_switches()
+    {
+        if (temporary_glide_switch)
+            set_ability(app::AbilityType__Enum_Glide, false);
+    }
+
+    void handle_exit_switches()
+    {
+        if (temporary_glide_switch)
+            set_ability(app::AbilityType__Enum_Glide, true);
+    }
+
     STATIC_IL2CPP_BINDING(, SaveSlotsManager, int, get_CurrentSlotIndex, ());
     STATIC_IL2CPP_BINDING(, SaveSlotsManager, int, get_BackupIndex, ());
 
     IL2CPP_INTERCEPT(, GameController, void, CreateCheckpoint, (app::GameController* thisPtr, bool doPerformSave, bool respectRestrictCheckpointZone)) {
-      bool c = collecting_pickup; // fuck fuck fuck shit damn aaaaa
-      collecting_pickup = false;
-      csharp_bridge::on_checkpoint();
-      collecting_pickup = c;
-      GameController::CreateCheckpoint(thisPtr, doPerformSave, respectRestrictCheckpointZone);
+        handle_enter_switches();
+        bool c = collecting_pickup; // fuck fuck fuck shit damn aaaaa
+        collecting_pickup = false;
+        csharp_bridge::on_checkpoint();
+        collecting_pickup = c;
+        GameController::CreateCheckpoint(thisPtr, doPerformSave, respectRestrictCheckpointZone);
+        handle_exit_switches();
     }
     
     IL2CPP_INTERCEPT(, NewGameAction, void, Perform, (app::NewGameAction* this_ptr, app::IContext* context)) {
@@ -32,15 +48,19 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SaveGameController, void, SaveToFile, (app::SaveGameController* thisPtr, int32_t slotIndex, int32_t backupIndex, app::Byte__Array* bytes)) {
+        handle_enter_switches();
         uber_states::save_dynamic_redirects();
         csharp_bridge::on_save(slotIndex, backupIndex);
         SaveGameController::SaveToFile(thisPtr, slotIndex, backupIndex, bytes);
+        handle_exit_switches();
     }
 
     IL2CPP_INTERCEPT(, SaveSlotBackupsManager, void, PerformBackup, (app::SaveSlotBackupsManager* thisPtr, app::SaveSlotBackup* saveSlot, int32_t backupIndex, app::String* backupName)) {
+        handle_enter_switches();
         uber_states::save_dynamic_redirects();
         csharp_bridge::on_save(saveSlot->fields.Index, backupIndex);
         SaveSlotBackupsManager::PerformBackup(thisPtr, saveSlot, backupIndex, backupName);
+        handle_exit_switches();
     }
 
     IL2CPP_INTERCEPT(, SaveGameController, void, OnFinishedLoading, (app::SaveGameController* thisPtr)) {
