@@ -42,7 +42,7 @@ namespace RandoMainDLL {
         if (activeEntries[i].Resolve(time))
           activeEntries.RemoveAt(i--);
 
-      if (Randomizer.Dev) {
+/*      if (Randomizer.Dev) {
         if (!startedDebug) {
           InterOp.Messaging.text_box_create(CreditsBaseID, 0.5f, 0.5f, false, false);
           InterOp.Messaging.text_box_position(CreditsBaseID, 0.0f, 3.5f, ZValue);
@@ -52,7 +52,7 @@ namespace RandoMainDLL {
         }
 
         InterOp.Messaging.text_box_text(CreditsBaseID, $"Credits progress: {time}");
-      }
+      }*/
     }
 
     public static void CreditsProgress(float time) {
