@@ -13,7 +13,7 @@ namespace RandoMainDLL {
     public static void Update() {
       if(reachCheckResult != null) {
         Reachable.Clear();
-        foreach (var rawCond in reachCheckResult.Split(',')) {
+        if (reachCheckResult != "") foreach (var rawCond in reachCheckResult.Split(',')) {
           try {
             var frags = rawCond.Split('|');
             var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
