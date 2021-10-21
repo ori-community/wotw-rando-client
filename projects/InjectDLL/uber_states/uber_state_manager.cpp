@@ -508,6 +508,14 @@ namespace uber_states
             notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
         
+        IL2CPP_INTERCEPT(, GameMapSavePedestal, void, set_IsTeleporterActive, (app::GameMapSavePedestal* this_ptr, bool value)) {
+            const auto prev = convert_pedestal_state(SavePedestalUberState::ReadStateFromStore(this_ptr->fields.SeralizedState));
+            set_IsTeleporterActive(this_ptr, value);
+            const auto current = convert_pedestal_state(SavePedestalUberState::ReadStateFromStore(this_ptr->fields.SeralizedState));
+            if (prev != current)
+                notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr->fields.SeralizedState), prev, current);
+        }
+
         IL2CPP_INTERCEPT(Moon.UberStateVisualization, SerializedBoolUberStateWrapper, void, SetValue, (app::SerializedBoolUberStateWrapper* this_ptr, bool value)) {
             const auto cast_ptr = reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state);
             const auto prev = get_uber_state_value(cast_ptr);
