@@ -70,6 +70,7 @@ namespace RandoMainDLL {
     GrantIfCondEqual = 25,
     GrantIfCondGreater = 26,
     GrantIfCondLess = 27,
+    Unbind = 28,
   }
 
   public enum WheelCommandType : byte {
@@ -879,10 +880,23 @@ namespace RandoMainDLL {
       Equip = equip;
     }
     public override void Grant(bool skipBase = false) {
-      InterOp.bind(Slot, (int)Equip);
+      InterOp.bind(Slot, Equip);
       base.Grant(skipBase);
     }
     public override string DisplayName { get => $"Bind {Equip} to {Slot}"; }
+  }
+
+  public class UnbindCommand : SystemCommand {
+    EquipmentType Equip;
+
+    public UnbindCommand(EquipmentType equip) : base(SysCommandType.Unbind) {
+      Equip = equip;
+    }
+    public override void Grant(bool skipBase = false) {
+      InterOp.unbind(Equip);
+      base.Grant(skipBase);
+    }
+    public override string DisplayName { get => $"Unbind {Equip}"; }
   }
 
   public class TimerCommand : SystemCommand {

@@ -414,18 +414,31 @@ namespace RandoMainDLL {
               var warpX = extras[0].ParseToFloat("BuildPickup.PositionX");
               var warpY = extras[1].ParseToFloat("BuildPickup.PositionY");
               return new WarpCommand(warpX, warpY);
-            case SysCommandType.Bind:
+            case SysCommandType.Bind: {
+                if (extras.Count != 2) {
+                  Randomizer.Log($"malformed command specifier {pickupData}", false);
+                  return new Message($"Invalid command {pickupData}!");
+                }
+                var slot = extras[0].ParseToByte("BuildPickup.BindSlot");
+                var equip = extras[1].ParseToInt("BuildPickup.BindTarget");
+                if (!Enum.IsDefined(typeof(EquipmentType), equip)) {
+                  Randomizer.Log($"invalid equipment type {equip}", false);
+                  return new Message($"Invalid command {pickupData}!");
+                }
+                return new BindCommand(slot, (EquipmentType)equip);
+              }
+            case SysCommandType.Unbind: {
               if (extras.Count != 2) {
                 Randomizer.Log($"malformed command specifier {pickupData}", false);
                 return new Message($"Invalid command {pickupData}!");
               }
-              var slot = extras[0].ParseToByte("BuildPickup.BindSlot");
-              var equip = extras[1].ParseToInt("BuildPickup.BindTarget");
+              var equip = extras[0].ParseToByte("BuildPickup.UnbindTarget");
               if (!Enum.IsDefined(typeof(EquipmentType), equip)) {
                 Randomizer.Log($"invalid equipment type {equip}", false);
                 return new Message($"Invalid command {pickupData}!");
               }
-              return new BindCommand(slot, (EquipmentType)equip);
+              return new UnbindCommand((EquipmentType)equip);
+              }
 
             case SysCommandType.StartTimer:
             case SysCommandType.StopTimer:
