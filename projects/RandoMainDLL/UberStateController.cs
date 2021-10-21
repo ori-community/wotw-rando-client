@@ -450,7 +450,7 @@ namespace RandoMainDLL {
               slot = 0;
             }
           }
-          InterOp.bind(slot, 1002);
+          InterOp.bind(slot, EquipmentType.Weapon_Sword);
         }
 
         WheelManager.ResetWheels();
