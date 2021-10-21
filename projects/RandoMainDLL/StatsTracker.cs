@@ -98,7 +98,10 @@ namespace RandoMainDLL {
       SavedUberStates.Clear();
     }
     public static void OnSave(bool deathSave) {
-      if(!deathSave) {
+      if(deathSave) {
+        UberInc.Float(TimeLostToDeaths, UberGet.Float(TimeSinceLastSave));
+        SavedUberStates[TimeLostToDeaths] = UberGet.AsDouble(TimeLostToDeaths);
+      } else {
         SavedUberStates.Clear();
       }
       UberSet.Float(TimeSinceLastSave, 0);
@@ -121,7 +124,6 @@ namespace RandoMainDLL {
       }
     }
     public static void OnDeath(string perpetrator, DamageType dt) {
-      UberInc.Float(TimeLostToDeaths, UberGet.Float(TimeSinceLastSave));
       UberInc.Byte(CurrentZone.DeathState());
       UberInc.Int(Deaths);
       SavedUberStates = SaveThroughDeath.ToDictionary(a => a, a => UberGet.AsDouble(a));
