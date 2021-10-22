@@ -42,25 +42,25 @@ namespace RandoMainDLL {
       handles.Add(GCHandle.Alloc(callback));
       var ptr = Marshal.GetFunctionPointerForDelegate(callback);
 
-      CreateWheelItemInternal(0, 11, "Rando Actions", "Contains default\nrandomizer actions", "file:assets/icons/game/moki.png", Color.White, ptr);
+      CreateWheelItemInternal(0, 11, "Rando Actions", "Contains default\nrandomizer actions", "file:assets/icons/wheel/menu.blue.png", Color.White, ptr);
       CreateWheelItemInternal(9000, 0, "Show last pickup", "Displays the message associated\nwith the last pickup.", "shard:4", Color.White, ptr);
-      CreateWheelItemInternal(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "shard:5", Color.White, ptr);
-      CreateWheelItemInternal(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "shard:6", Color.White, ptr);
+      CreateWheelItemInternal(9000, 1, "Show progress, with hints.", "Displays current goal mode progress and bought hints.", "file:assets/icons/wheel/progress_summary.blue.png", Color.White, ptr);
+      CreateWheelItemInternal(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "file:assets/icons/wheel/warp_to_credits.blue.png", Color.White, ptr);
       CreateWheelItemInternal(9000, 3, "Toggle keystones", "Toggle to always show the keystone ui.", "shard:1", Color.White, ptr);
-      CreateWheelItemInternal(9000, 4, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", "shard:2", Color.White, ptr);
-      CreateWheelItemInternal(9000, 10, "Reload", "Reloads the seed file", "shard:2", Color.White, ptr);
-      CreateWheelItemInternal(9000, 11, "Next", "Go to next page of actions", "shard:3", Color.White, ptr);
-      CreateWheelItemInternal(9001, 0, "Toggle dev", "Toggles the dev flag.", "shard:4", Color.White, ptr);
+      CreateWheelItemInternal(9000, 4, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", "file:assets/icons/wheel/cursor_lock.blue.png", Color.White, ptr);
+      CreateWheelItemInternal(9000, 10, "Reload", "Reloads the seed file", "file:assets/icons/wheel/reload_seed.blue.png", Color.White, ptr);
+      CreateWheelItemInternal(9000, 11, "Next", "Go to next page of actions", "file:assets/icons/wheel/menu.blue.png", Color.White, ptr);
+      CreateWheelItemInternal(9001, 0, "Toggle dev", "Toggles the dev flag.", "file:assets/icons/wheel/dev_mode.blue.png", Color.White, ptr);
       CreateWheelItemInternal(9001, 1, "Toggle debug", "Toggle debug controls", "shard:5", Color.White, ptr);
       CreateWheelItemInternal(9001, 2, "Reload file textures", "Reloads all textures with the file: designation", "shard:12", Color.White, ptr);
-      CreateWheelItemInternal(9001, 4, "Display coordinates", "Displays your current/ncoordinates as a message", "shard:6", Color.White, ptr);
+      CreateWheelItemInternal(9001, 4, "Display coordinates", "Displays your current/ncoordinates as a message", "file:assets/icons/wheel/show_coordinates.blue.png", Color.White, ptr);
       CreateWheelItemInternal(9001, 5, "Teleport cheat", "Toggles cheat to teleport\nanywhere on the map", "shard:7", Color.White, ptr);
       CreateWheelItemInternal(9001, 6, "Unlock spoilers", "Unlock spoilers filter on the map", "shard:8", Color.White, ptr);
       CreateWheelItemInternal(9001, 7, "Toggle pickup names", "Sets the labels of pickups\non the spoiler/in logic filter\nto be the name of the pickup location.", "shard:9", Color.White, ptr);
       CreateWheelItemInternal(9001, 8, "Reload credits", "Reloads the credits file", "shard:12", Color.White, ptr);
       CreateWheelItemInternal(9001, 9, "Force Exit", "Forcibly exit the game.", "shard:10", Color.White, ptr);
-      CreateWheelItemInternal(9001, 10, "Clear messages", "Clears the message queue.", "shard:11", Color.White, ptr);
-      CreateWheelItemInternal(9001, 11, "Next", "Go to next page of actions", "shard:3", Color.White, ptr);
+      CreateWheelItemInternal(9001, 10, "Clear messages", "Clears the message queue.", "file:assets/icons/wheel/clear_messages.blue.png", Color.White, ptr);
+      CreateWheelItemInternal(9001, 11, "Next", "Go to next page of actions", "file:assets/icons/wheel/menu.blue.png", Color.White, ptr);
       OnDevChanged();
     }
 
