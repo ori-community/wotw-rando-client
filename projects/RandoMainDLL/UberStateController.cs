@@ -312,6 +312,10 @@ namespace RandoMainDLL {
 
     public static void Update(float delta) {
       try {
+        // We don't want to do any updates if we are doing a trial.
+        if (DoingTrial)
+          return;
+
         if (NeedsNewGameInit)
           NewGameInit();
         foreach(var tpt in GrantOnNextUpdate) tpt.p().Grant(true);
