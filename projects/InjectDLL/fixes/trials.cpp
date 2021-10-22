@@ -20,7 +20,7 @@ namespace
     }
 
     STATIC_IL2CPP_INTERCEPT(Moon.Race.Networking, WebService, void, UploadData, (app::String* site_id, app::ReplayData* data)) {
-
+        // NOOP
     }
 
     IL2CPP_INTERCEPT(, RaceHandler, void, SetRaceInProgressState, (app::RaceHandler* this_ptr, bool in_progress)) {

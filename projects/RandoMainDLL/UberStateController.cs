@@ -195,7 +195,16 @@ namespace RandoMainDLL {
       }
     }
 
-
+    private static HashSet<UberId> RaceIDs = new HashSet<UberId> {
+      new UberId(44964, 45951),
+      new UberId(44964, 25545),
+      new UberId(44964, 11512),
+      new UberId(44964, 54686),
+      new UberId(44964, 22703),
+      new UberId(44964, 23661),
+      new UberId(44964, 28552),
+      new UberId(44964, 30767)
+    };
 
     public static void OnUberStateChanged(int groupID, int stateID, byte type, double oldValue, double newValue) {
       if (DoingTrial) {
@@ -203,7 +212,8 @@ namespace RandoMainDLL {
         if (groupID == 28895 && (stateID == 29898 || stateID == 10823 || stateID == 37444 || stateID == 18358))
           InterOp.set_keystones(InterOp.get_keystones() + 1);
 
-        return;
+        if (!RaceIDs.Contains(new UberId(groupID, stateID)))
+          return;
       }
 
       if (uberStateLookup == null) {
