@@ -428,11 +428,11 @@ namespace RandoMainDLL {
                 return new BindCommand(slot, (EquipmentType)equip);
               }
             case SysCommandType.Unbind: {
-              if (extras.Count != 2) {
+              if (extras.Count != 1) {
                 Randomizer.Log($"malformed command specifier {pickupData}", false);
                 return new Message($"Invalid command {pickupData}!");
               }
-              var equip = extras[0].ParseToByte("BuildPickup.UnbindTarget");
+              var equip = extras[0].ParseToInt("BuildPickup.UnbindTarget");
               if (!Enum.IsDefined(typeof(EquipmentType), equip)) {
                 Randomizer.Log($"invalid equipment type {equip}", false);
                 return new Message($"Invalid command {pickupData}!");
