@@ -51,10 +51,6 @@ jobs:
           dotnet-version: 5.0.x
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
-      - name: Setup Rust
-        uses: ATiltedTree/setup-rust@v1
-        with:
-          rust-version: stable
       - name: Generate solution
         shell: cmd
         run: "gen_win64_vs2019.bat"
@@ -66,27 +62,6 @@ jobs:
             echo BUILD FAILED
             exit 1
           )
-      - name: Build Seedgen
-        shell: cmd
-        run: |
-          cd projects/SeedgenCli
-          cargo build --release
-          echo Copying seedgen.exe
-          copy ".\target\release\seedgen.exe" "C:\moon\randomizer\seedgen.exe"
-          echo Zipping headers_presets.zip
-          C:\ProgramData\Chocolatey\bin\7z.exe a -tzip C:\moon\randomizer\headers_presets.zip headers presets
-          echo Copying loc_data.csv
-          copy ".\loc_data.csv" "C:\moon\randomizer\loc_data.csv" /Y
-          echo Copying state_data.csv
-          copy ".\state_data.csv" "C:\moon\randomizer\state_data.csv" /Y
-          echo Copying areas.wotw
-          copy ".\areas.wotw" "C:\moon\randomizer\areas.wotw" /Y
-      - name: Write version file
-        shell: bash
-        run: |
-          echo Writing version file...
-          (if [[ -n "$GIT_TAG_NAME" ]]; then echo -n "$GIT_TAG_NAME"; else echo -n "develop"; fi) > VERSION
-          cp -f VERSION /c/moon/randomizer/VERSION
       - name: Compiling AHK scripts
         shell: cmd
         timeout-minutes: 1
