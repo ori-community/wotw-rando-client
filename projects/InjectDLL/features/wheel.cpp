@@ -30,6 +30,7 @@ WheelBehavior wheel_behavior = WheelBehavior::Standalone;
 INJECT_C_DLLEXPORT void refresh_wheel();
 
 extern bool disable_has_ability_overwrite;
+extern bool is_in_trial;
 
 namespace
 {
@@ -128,16 +129,24 @@ namespace
     STATIC_IL2CPP_BINDING(Game, UI, bool, get_WorldMapVisible, ());
     STATIC_IL2CPP_BINDING(Game, UI, bool, get_ShardShopVisible, ());
     STATIC_IL2CPP_BINDING(Game, UI, bool, IsInventoryVisible, ());
-    void show_custom_wheel(input::Action action)
+    bool can_show_wheel()
     {
         if (wheels.empty() || wheels[wheel_index].entries.empty())
-            return;
+            return false;
 
-        if (!is_wheel_visible && 
+        if (!is_wheel_visible &&
             (UI::get_MainMenuVisible() ||
             UI::get_WorldMapVisible() ||
             UI::get_ShardShopVisible() ||
             UI::IsInventoryVisible()))
+            return false;
+
+        return !is_in_trial;
+    }
+
+    void show_custom_wheel(input::Action action)
+    {
+        if (!can_show_wheel())
             return;
 
         auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;

@@ -3,6 +3,8 @@
 
 #include <csharp_bridge.h>
 
+bool is_in_trial = false;
+
 namespace
 {
     NAMED_IL2CPP_INTERCEPT_OVERLOAD(Moon.Race, LeaderBoardService, void, UploadReplay, UpdateReplayTrial,
@@ -24,6 +26,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, RaceHandler, void, SetRaceInProgressState, (app::RaceHandler* this_ptr, bool in_progress)) {
+        is_in_trial = in_progress;
         if (in_progress)
             csharp_bridge::on_race_start();
         else
