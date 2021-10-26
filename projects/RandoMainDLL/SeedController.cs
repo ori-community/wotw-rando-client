@@ -275,7 +275,10 @@ namespace RandoMainDLL {
     }
 
 
-    public static Pickup BuildPickup(PickupType type, string pickupData, List<String> extras, UberStateCondition cond) {
+    public static Pickup BuildPickup(PickupType type, string pickupData, List<string> extras, UberStateCondition cond) {
+      var command = pickupData;
+      if (extras.Count > 0)
+        command += "|" + string.Join("|", extras);
 
       switch (type) {
         case PickupType.Ability:
@@ -304,41 +307,41 @@ namespace RandoMainDLL {
             case SysCommandType.SetResource:
               if (extras.Count != 2) {
                 Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+                return new Message($"Invalid command {command}!");
               }
               return new SetResource((ResourceType)extras[0].ParseToByte("BuildPickup.SetResourceType"), extras[1].ParseToInt("BuildPickup.SetResourceValue"));
             case SysCommandType.SetHealth:
               if (extras.Count != 1) {
                 Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+                return new Message($"Invalid command {command}!");
               }
               return new SetHealth(extras[0].ParseToFloat("BuildPickup.SetHealthValue"));
             case SysCommandType.SetEnergy:
               if (extras.Count != 1) {
-                Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+                Randomizer.Log($"malformed command specifier {command}", false);
+                return new Message($"Invalid command {command}!");
               }
               return new SetEnergy(extras[0].ParseToFloat("BuildPickup.SetEnergyValue"));
             case SysCommandType.AHKSignal: {
                 if (extras.Count != 1) {
-                  Randomizer.Log($"malformed command specifier {pickupData}", false);
-                  return new Message($"Invalid command {pickupData}!");
+                  Randomizer.Log($"malformed command specifier {command}", false);
+                  return new Message($"Invalid command {command}!");
                 }
                 var value = (Input.Action)Enum.Parse(typeof(Input.Action), extras[0], true);
                 return new SendInputSignal(value);
               }
             case SysCommandType.SetSpiritLight:
               if (extras.Count != 1) {
-                Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+                Randomizer.Log($"malformed command specifier {command}", false);
+                return new Message($"Invalid command {command}!");
               }
               return new SetSpiritLight(extras[0].ParseToInt("BuildPickup.SetSpiritLightValue"));
             case SysCommandType.StopIfEqual:
             case SysCommandType.StopIfGreater:
             case SysCommandType.StopIfLess:
               if (extras.Count != 3) {
-                Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+                Randomizer.Log($"malformed command specifier {command}", false);
+                return new Message($"Invalid command {command}!");
               }
               var uid = new UberId(
                 extras[0].ParseToInt("BuildPickup.UberGroupId"),
@@ -349,8 +352,8 @@ namespace RandoMainDLL {
             case SysCommandType.GrantIfGreater:
             case SysCommandType.GrantIfLess:
               if (extras.Count < 5) {
-                Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+                Randomizer.Log($"malformed command specifier {command}", false);
+                return new Message($"Invalid command {command}!");
               }
               var guid = new UberId(
                 extras[0].ParseToInt("BuildPickup.UberGroupId"),
@@ -362,8 +365,8 @@ namespace RandoMainDLL {
             case SysCommandType.GrantIfCondGreater:
             case SysCommandType.GrantIfCondLess:
               if (extras.Count < 3) {
-                Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+                Randomizer.Log($"malformed command specifier {command}", false);
+                return new Message($"Invalid command {command}!");
               }
               return new GrantIfVal(t, 
                 cond.Id, 
@@ -372,8 +375,8 @@ namespace RandoMainDLL {
               );
             case SysCommandType.GrantIfBounds:
               if (extras.Count < 6) {
-                Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+                Randomizer.Log($"malformed command specifier {command}", false);
+                return new Message($"Invalid command {command}!");
               }
               return new GrantIfBounds(t,
                 extras[0].ParseToFloat("BuildPickup.GrantIfBoundsX1"),
@@ -384,13 +387,13 @@ namespace RandoMainDLL {
               );
             case SysCommandType.SetState: {
                 if (extras.Count != 2) {
-                  Randomizer.Log($"malformed command specifier {pickupData}", false);
-                  return new Message($"Invalid command {pickupData}!");
+                  Randomizer.Log($"malformed command specifier {command}", false);
+                  return new Message($"Invalid command {command}!");
                 }
                 var sysState = extras[0].ParseToByte("BuildPickup.SysState");
                 if (!Enum.IsDefined(typeof(SysState), sysState)) {
-                  Randomizer.Log($"invalid state {sysState}", false);
-                  return new Message($"Invalid command {pickupData}!");
+                  Randomizer.Log($"invalid state {sysState} in {command}", false);
+                  return new Message($"Invalid command {command}!");
                 }
 
                 var value = extras[1].ParseToInt("BuildPickup.Value");
@@ -398,34 +401,34 @@ namespace RandoMainDLL {
               }
             case SysCommandType.Warp:
               if (extras.Count != 2) {
-                Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+                Randomizer.Log($"malformed command specifier {command}", false);
+                return new Message($"Invalid command {command}!");
               }
               var warpX = extras[0].ParseToFloat("BuildPickup.PositionX");
               var warpY = extras[1].ParseToFloat("BuildPickup.PositionY");
               return new WarpCommand(warpX, warpY);
             case SysCommandType.Bind: {
                 if (extras.Count != 2) {
-                  Randomizer.Log($"malformed command specifier {pickupData}", false);
-                  return new Message($"Invalid command {pickupData}!");
+                  Randomizer.Log($"malformed command specifier {command}", false);
+                  return new Message($"Invalid command {command}!");
                 }
                 var slot = extras[0].ParseToByte("BuildPickup.BindSlot");
                 var equip = extras[1].ParseToInt("BuildPickup.BindTarget");
                 if (!Enum.IsDefined(typeof(EquipmentType), equip)) {
-                  Randomizer.Log($"invalid equipment type {equip}", false);
-                  return new Message($"Invalid command {pickupData}!");
+                  Randomizer.Log($"invalid equipment type {equip} in {command}", false);
+                  return new Message($"Invalid command {command}!");
                 }
                 return new BindCommand(slot, (EquipmentType)equip);
               }
             case SysCommandType.Unbind: {
               if (extras.Count != 1) {
-                Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+                Randomizer.Log($"malformed command specifier {command}", false);
+                return new Message($"Invalid command {command}!");
               }
               var equip = extras[0].ParseToInt("BuildPickup.UnbindTarget");
               if (!Enum.IsDefined(typeof(EquipmentType), equip)) {
-                Randomizer.Log($"invalid equipment type {equip}", false);
-                return new Message($"Invalid command {pickupData}!");
+                Randomizer.Log($"invalid equipment type {equip} in {command}", false);
+                return new Message($"Invalid command {command}!");
               }
               return new UnbindCommand((EquipmentType)equip);
               }
@@ -433,8 +436,8 @@ namespace RandoMainDLL {
             case SysCommandType.StartTimer:
             case SysCommandType.StopTimer:
               if (extras.Count != 2) {
-                Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+                Randomizer.Log($"malformed command specifier {command}", false);
+                return new Message($"Invalid command {command}!");
               }
               var incGroup = extras[0].ParseToInt("BuildPickup.IncGroup");
               var incState = extras[1].ParseToInt("BuildPickup.IncState");
@@ -444,8 +447,8 @@ namespace RandoMainDLL {
               );
             case SysCommandType.RedirectState:
               if (extras.Count != 2) {
-                Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+                Randomizer.Log($"malformed command specifier {command}", false);
+                return new Message($"Invalid command {command}!");
               }
               var redirectState = extras[0].ParseToInt("BuildPickup.RedirectState");
               var redirectValue = extras[1].ParseToInt("BuildPickup.RedirectValue");
@@ -453,8 +456,8 @@ namespace RandoMainDLL {
             case SysCommandType.EnableSync:
             case SysCommandType.DisableSync:
               if (extras.Count != 2) {
-                Randomizer.Log($"malformed command specifier {pickupData}", false);
-                return new Message($"Invalid command {pickupData}!");
+                Randomizer.Log($"malformed command specifier {command}", false);
+                return new Message($"Invalid command {command}!");
               }
               var suid = new UberId(
                 extras[0].ParseToInt("BuildPickup.UberGroupId"),
@@ -464,8 +467,8 @@ namespace RandoMainDLL {
             case SysCommandType.CreateWarp:
             case SysCommandType.DestroyWarp: {
                 if (extras.Count != (t == SysCommandType.CreateWarp ? 3 : 1)) {
-                  Randomizer.Log($"malformed command specifier {pickupData}", false);
-                  return new Message($"Invalid command {pickupData}!");
+                  Randomizer.Log($"malformed command specifier {command}", false);
+                  return new Message($"Invalid command {command}!");
                 }
                 var id = extras[0].ParseToInt("BuildPickup.Id");
                 if (t == SysCommandType.CreateWarp) {
@@ -572,8 +575,8 @@ namespace RandoMainDLL {
             case WheelCommandType.SetDescription:
             case WheelCommandType.SetTexture: {
                 if (extras.Count != 3) {
-                  Randomizer.Log($"malformed wheel command specifier {pickupData}", false);
-                  return new Message($"Invalid wheel command {pickupData}!");
+                  Randomizer.Log($"malformed wheel command specifier {command}", false);
+                  return new Message($"Invalid wheel command {command}!");
                 }
                 var wheel = extras[0].ParseToInt("BuildPickup.Wheel");
                 var item = extras[1].ParseToInt("BuildPickup.Item");
@@ -587,8 +590,8 @@ namespace RandoMainDLL {
               }
             case WheelCommandType.SetColor: {
                 if (extras.Count != 6) {
-                  Randomizer.Log($"malformed wheel command specifier {pickupData}", false);
-                  return new Message($"Invalid wheel command {pickupData}!");
+                  Randomizer.Log($"malformed wheel command specifier {command}", false);
+                  return new Message($"Invalid wheel command {command}!");
                 }
                 var wheel = extras[0].ParseToInt("BuildPickup.Wheel");
                 var item = extras[1].ParseToInt("BuildPickup.Item");
@@ -600,8 +603,8 @@ namespace RandoMainDLL {
               }
             case WheelCommandType.SetSticky: {
                 if (extras.Count != 2) {
-                  Randomizer.Log($"malformed wheel command specifier {pickupData}", false);
-                  return new Message($"Invalid wheel command {pickupData}!");
+                  Randomizer.Log($"malformed wheel command specifier {command}", false);
+                  return new Message($"Invalid wheel command {command}!");
                 }
                 var wheel = extras[0].ParseToInt("BuildPickup.Wheel");
                 var sticky = extras[1].ParseToBool("BuildPickup.Sticky");
@@ -610,8 +613,8 @@ namespace RandoMainDLL {
             case WheelCommandType.Action: {
                 // Check if we have everything before the pickup part.
                 if (extras.Count < 5) {
-                  Randomizer.Log($"malformed wheel command specifier {pickupData}", false);
-                  return new Message($"Invalid wheel command {pickupData}!");
+                  Randomizer.Log($"malformed wheel command specifier {command}", false);
+                  return new Message($"Invalid wheel command {command}!");
                 }
 
                 var wheel = extras[0].ParseToInt("BuildPickup.Wheel");
@@ -622,8 +625,8 @@ namespace RandoMainDLL {
               }
             case WheelCommandType.ClearItem: {
                 if (extras.Count != 2) {
-                  Randomizer.Log($"malformed wheel command specifier {pickupData}", false);
-                  return new Message($"Invalid wheel command {pickupData}!");
+                  Randomizer.Log($"malformed wheel command specifier {command}", false);
+                  return new Message($"Invalid wheel command {command}!");
                 }
                 var wheel = extras[0].ParseToInt("BuildPickup.Wheel");
                 var item = extras[1].ParseToInt("BuildPickup.Item");
@@ -631,8 +634,8 @@ namespace RandoMainDLL {
               }
             case WheelCommandType.SetActiveWheel: {
                 if (extras.Count != 1) {
-                  Randomizer.Log($"malformed wheel command specifier {pickupData}", false);
-                  return new Message($"Invalid wheel command {pickupData}!");
+                  Randomizer.Log($"malformed wheel command specifier {command}", false);
+                  return new Message($"Invalid wheel command {command}!");
                 }
                 var wheel = extras[0].ParseToInt("BuildPickup.Wheel");
                 return new Wheel.SetActiveWheelCommand(wheel);
@@ -640,7 +643,7 @@ namespace RandoMainDLL {
             case WheelCommandType.ClearAll:
               return new Wheel.WheelCommand(w);
             default: {
-                var err = $"Unknown pickup {type}|{pickupData}|{String.Join("|", extras)}";
+                var err = $"Unknown pickup {type}|{command}";
                 Randomizer.Error("BuildPickup", err, false);
                 return new Message(err);
               }
@@ -650,8 +653,8 @@ namespace RandoMainDLL {
             switch (s) {
               case ShopCommandType.Icon: {
                   if (extras.Count < 3) {
-                    Randomizer.Log($"malformed shop command specifier {pickupData}", false);
-                    return new Message($"Invalid shop command {pickupData}!");
+                    Randomizer.Log($"malformed shop command specifier {command}", false);
+                    return new Message($"Invalid shop command {command}!");
                   }
 
                   var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
@@ -660,13 +663,13 @@ namespace RandoMainDLL {
                   var uberId = new UberId(group, state);
                   if (ShopSlot.GetSlot(uberId) == null) {
                     Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
-                    return new Message($"Invalid shop command {pickupData}!");
+                    return new Message($"Invalid shop command {command}!");
                   }
 
                   return new Shop.IconCommand(uberId, texture);
                 }
               default: {
-                  var err = $"Unknown pickup {type}|{pickupData}|{String.Join("|", extras)}";
+                  var err = $"Unknown pickup {type}|{command}";
                   Randomizer.Error("BuildPickup", err, false);
                   return new Message(err);
                 }
@@ -675,9 +678,8 @@ namespace RandoMainDLL {
         case PickupType.UberState: {
             extras.Insert(0, pickupData);
             if (extras.Count < 4 || extras.Count > 5) {
-              var bad = String.Join("|", extras);
-              Randomizer.Log($"malformed UberModifier specifier {bad}", false);
-              return new Message($"Invalid UberModifier specifier {bad}!");
+              Randomizer.Log($"malformed UberModifier specifier {command}", false);
+              return new Message($"Invalid UberModifier specifier {command}!");
             }
             var uberId = new UberId(
                 extras[0].ParseToInt("BuildPickup.UberGroupId"),
@@ -688,7 +690,7 @@ namespace RandoMainDLL {
             return new UberStateModifier(uberId, modifier, extras[3], extras.Count == 5 ? extras[4].Replace("skip=", "").ParseToInt("BuildPickup.SupCount") : 0);
           }
         default: {
-            var err = $"Unknown pickup {type}|{pickupData}|{String.Join("|", extras)}";
+            var err = $"Unknown pickup {type}|{command}";
             Randomizer.Error("BuildPickup", err, false);
             return new Message(err);
           }
