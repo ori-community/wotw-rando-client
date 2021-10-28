@@ -214,6 +214,8 @@ namespace RandoMainDLL {
 
         if (!RaceIDs.Contains(new UberId(groupID, stateID)))
           return;
+
+        OnRaceEnd();
       }
 
       if (uberStateLookup == null) {
