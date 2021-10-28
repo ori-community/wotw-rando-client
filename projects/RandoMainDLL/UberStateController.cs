@@ -395,7 +395,7 @@ namespace RandoMainDLL {
         new UberId(937, 34641),
         (UberState state) => {
           // Wellspring quest
-          if (state.Value.Int == 4)
+          if (state.Value.Int >= 3)
             // Tuley exists.
             UberSet.Bool(6, 300, true);
         }
