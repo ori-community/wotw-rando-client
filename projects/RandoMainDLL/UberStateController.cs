@@ -402,6 +402,15 @@ namespace RandoMainDLL {
             UberSet.Bool(6, 300, true);
         }
       },
+      {
+        new UberId(58674, 32810),
+        (UberState state) => {
+          // Petrified forest chase state.
+          if (state.Value.Int == 7)
+            // Prevent from getting stuck on shriek killing you.
+            UberSet.Int(58674, 32810, 8);
+        }
+      },
     };
 
     private static void HandleSpecial(UberState state) {
