@@ -22,7 +22,7 @@ namespace
     STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
     bool is_aiming_launch()
     {
-        auto in_menu = il2cpp::get_class<app::UI__Class>("", "UI")->static_fields->m_sMenu->fields.m_equipmentWhellVisible;
+        auto in_menu = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu->fields.m_equipmentWhellVisible;
         in_menu |= UI::get_MainMenuVisible();
         in_menu |= UI::get_WorldMapVisible();
         in_menu |= UI::get_ShardShopVisible();
