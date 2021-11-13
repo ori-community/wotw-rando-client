@@ -122,6 +122,11 @@ namespace RandoMainDLL {
       public extern static void clear_wheels();
     }
 
+    public static class System {
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void report_uber_state_change(int group, int state, double value);
+    }
+
     public static class Utils {
       [DllImport("Il2CppModLoader.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static IntPtr get_base_path();

@@ -320,6 +320,8 @@ namespace RandoMainDLL {
           var pos = InterOp.get_position();
           Randomizer.Debug($"State change: {state.GroupName}.{state.Name} ({state.GroupID}|{state.ID}) {state.Type} {oldValFmt}->{state.FmtVal()} at ({Math.Round(pos.X)}, {Math.Round(pos.Y)}) in {zone}");
         }
+
+        InterOp.System.report_uber_state_change(state.GroupID, state.ID, state.ValueAsDouble());
       }
       catch (Exception e) {
         Randomizer.Error($"USC.Update {state}", e);

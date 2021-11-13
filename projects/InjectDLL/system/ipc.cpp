@@ -27,6 +27,8 @@ namespace ipc
 #if SYNCHRONOUS == 1
     namespace
     {
+        constexpr int SEND_QUEUE_LIMIT = 300;
+
         std::thread ipc_thread;
         std::mutex message_mutex;
         std::mutex send_mutex;
@@ -187,7 +189,10 @@ namespace ipc
     void send_message(std::string_view message)
     {
         send_mutex.lock();
-        sends.push_back(std::string(message));
+        if (sends.size() < SEND_QUEUE_LIMIT)
+            sends.push_back(std::string(message));
+        else
+            warn("ipc", "Send queue limit reached.");
         send_mutex.unlock();
     }
 
@@ -358,4 +363,14 @@ namespace ipc
         }
     }
 #endif
+}
+
+INJECT_C_DLLEXPORT void report_uber_state_change(int group, int state, double value)
+{
+    nlohmann::json response;
+    response["event"] = "on_uber_state_changed";
+    response["payload"]["group"] = group;
+    response["payload"]["state"] = state;
+    response["payload"]["value"] = value;
+    ipc::send_message(response.dump());
 }
