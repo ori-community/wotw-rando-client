@@ -16,6 +16,7 @@
 #include <mutex>
 #include <string>
 #include <vector>
+#include <json/json.hpp>
 
 using namespace modloader;
 
@@ -27,8 +28,9 @@ namespace ipc
     {
         std::thread ipc_thread;
         std::mutex message_mutex;
+        std::mutex send_mutex;
+        std::vector<std::string> sends;
         std::vector<std::string> messages;
-        std::vector<std::string> local_messages;
 
         HANDLE connect(int buffer_size)
         {
@@ -69,6 +71,7 @@ namespace ipc
         void pipe_handler()
         {
             DWORD bytes_read = 0;
+            DWORD bytes_written = 0;
             std::array<char, 64> message;
             HANDLE pipe = connect(message.size());
             if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE)
@@ -117,6 +120,27 @@ namespace ipc
                         message_mutex.unlock();
                     }
                 }
+
+                send_mutex.lock();
+                auto local_sends = sends;
+                sends.clear();
+                send_mutex.unlock();
+                for (auto message : local_sends)
+                {
+                    auto result = WriteFile(
+                        pipe,
+                        message.data(),
+                        message.size(),
+                        &bytes_written,
+                        nullptr
+                    );
+
+                    if (!result || bytes_written == 0)
+                    {
+                        auto error = GetLastError();
+                        warn("ipc", format("Failed to write data (%d).", error));
+                    }
+                }
             }
 
             disconnect(pipe);
@@ -133,25 +157,37 @@ namespace ipc
     void update_pipe()
     {
         message_mutex.lock();
-        if (!messages.empty())
-        {
-            local_messages = messages;
-            messages.clear();
-        }
+        auto local_messages = messages;
+        messages.clear();
         message_mutex.unlock();
 
         for (auto const& message : local_messages)
         {
-            if (message == "reload")
+            try
             {
-                info("ipc", "Received reload action request.");
-                csharp_bridge::on_action_triggered(input::Action::Reload);
+                nlohmann::json j(message);
+                auto evt = j["event"];
+                if (evt == "reload")
+                {
+                    info("ipc", "Received reload action request.");
+                    csharp_bridge::on_action_triggered(input::Action::Reload);
+                }
+                else
+                    info("ipc", format("Received unknown action request: %s", message.c_str()));
             }
-            else
-                info("ipc", format("Received unknown action request: %s", message.c_str()));
+            catch (nlohmann::json::parse_error& ex)
+            {
+                warn("ipc", "Error parsing ipc message.");
+                info("ipc", ex.what());
+            }
         }
+    }
 
-        local_messages.clear();
+    void send_message(std::string_view message)
+    {
+        send_mutex.lock();
+        sends.push_back(std::string(message));
+        send_mutex.unlock();
     }
 #else
     namespace
