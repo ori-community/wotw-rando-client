@@ -5,6 +5,7 @@
 #include <csharp_bridge.h>
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
+#include <uber_states\uber_state_manager.h>
 
 #include <windows.h>
 #include <stdio.h> 
@@ -154,6 +155,9 @@ namespace ipc
         CALL_ON_INIT(start_ipc_thread);
     }
 
+    using message_handler = void(*)(nlohmann::json& j);
+    std::unordered_map<std::string, message_handler> handlers;
+
     void update_pipe()
     {
         message_mutex.lock();
@@ -166,16 +170,13 @@ namespace ipc
             try
             {
                 nlohmann::json j(message);
-                auto evt = j["event"];
-                if (evt == "reload")
-                {
-                    info("ipc", "Received reload action request.");
-                    csharp_bridge::on_action_triggered(input::Action::Reload);
-                }
+                auto it = handlers.find(j.at("event").get<std::string>());
+                if (it != handlers.end())
+                    it->second(j);
                 else
                     info("ipc", format("Received unknown action request: %s", message.c_str()));
             }
-            catch (nlohmann::json::parse_error& ex)
+            catch (std::exception ex)
             {
                 warn("ipc", "Error parsing ipc message.");
                 info("ipc", ex.what());
@@ -189,6 +190,36 @@ namespace ipc
         sends.push_back(std::string(message));
         send_mutex.unlock();
     }
+
+    void reload(nlohmann::json& j)
+    {
+        info("ipc", "Received reload action request.");
+        csharp_bridge::on_action_triggered(input::Action::Reload);
+    }
+
+    void get_uberstates(nlohmann::json& j)
+    {
+        std::vector<float> values;
+        for (auto entry : j["payload"])
+        {
+            auto group = entry.at("group").get<int>();
+            auto state = entry.at("state").get<int>();
+            values.push_back(uber_states::get_uber_state_value(group, state));
+        }
+
+        nlohmann::json response;
+        response["event"] = "get_uberstates";
+        response["payload"] = values;
+        send_message(response.dump());
+    }
+
+    void initialize()
+    {
+        handlers["reload"] = reload;
+        handlers["get_uberstates"] = get_uberstates;
+    }
+
+    CALL_ON_INIT(initialize);
 #else
     namespace
     {
