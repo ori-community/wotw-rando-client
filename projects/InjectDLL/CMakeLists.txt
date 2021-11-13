@@ -21,6 +21,7 @@ set(
     "features/grenade.cpp"
     "features/instantiate_objects.cpp"
     "features/keystone_door.cpp"
+    "features/launch_no_deceleration.cpp"
     "features/messages.cpp"
     "features/map.cpp"
     "features/mouse_control.cpp"
