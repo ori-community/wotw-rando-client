@@ -110,21 +110,21 @@ namespace RandoMainDLL {
     private static string reachCheckResult = null;
     private static List<String> GetArgs() {
       var argsList = new List<string> {
-          "reach-check",
-          // TODO maybe we won't pass these explicitly? since it's samefolder shit
-          "--areas",
-          $"\"{Randomizer.BasePath}areas.wotw\"",
-          "--locations",
-          $"\"{Randomizer.BasePath}loc_data.csv\"",
-          "--uber-states",
-          $"\"{Randomizer.BasePath}state_data.csv\"",
-          $"\"{SeedController.SeedFile}\"",
-          $"{InterOp.get_max_health()}",
-          InterOp.get_max_energy().ToString(System.Globalization.CultureInfo.InvariantCulture),
-          $"{UberGet.value(6, 0).Int}",
-          $"{InterOp.get_ore()}",
-          $"{InterOp.get_experience()}",
-        };
+        "reach-check",
+        // TODO maybe we won't pass these explicitly? since it's samefolder shit
+        "--areas",
+        $"\"{Randomizer.BasePath}areas.wotw\"",
+        "--locations",
+        $"\"{Randomizer.BasePath}loc_data.csv\"",
+        "--uber-states",
+        $"\"{Randomizer.BasePath}state_data.csv\"",
+        $"\"{SeedController.SeedFile}\"",
+        $"{InterOp.get_max_health()}",
+        InterOp.get_max_energy().ToString(System.Globalization.CultureInfo.InvariantCulture),
+        $"{InterOp.get_keystones()}",
+        $"{UberGet.value(6, 5).Int}",
+        $"{UberGet.value(6, 3).Int}",
+      };
       argsList.AddRange(TrackedConds.Where(c => c.Met()).Select(t => $"u:{t.Id.GroupID},{t.Id.ID}"));
       argsList.AddRange(SaveController.SkillsFound.Select((AbilityType at) => $"s:{(int)at}"));
       argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
