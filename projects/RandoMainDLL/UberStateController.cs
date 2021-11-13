@@ -208,6 +208,10 @@ namespace RandoMainDLL {
 
     public static void OnUberStateChanged(int groupID, int stateID, byte type, double oldValue, double newValue) {
       if (DoingTrial) {
+        // We don't care about no resets.
+        if (newValue < 0.5f)
+          return;
+
         // Special case for reach trial.
         if (groupID == 28895 && (stateID == 29898 || stateID == 10823 || stateID == 37444 || stateID == 18358))
           InterOp.set_keystones(InterOp.get_keystones() + 1);
