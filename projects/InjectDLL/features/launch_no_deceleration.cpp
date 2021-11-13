@@ -15,10 +15,21 @@ namespace
     constexpr float NO_AIR_DECELERATION_DURATION = 0.2f;
     float aim_timer = 0.0f;
 
+    STATIC_IL2CPP_BINDING(Game, UI, bool, get_MainMenuVisible, ());
+    STATIC_IL2CPP_BINDING(Game, UI, bool, get_WorldMapVisible, ());
+    STATIC_IL2CPP_BINDING(Game, UI, bool, get_ShardShopVisible, ());
+    STATIC_IL2CPP_BINDING(Game, UI, bool, IsInventoryVisible, ());
     STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
     bool is_aiming_launch()
     {
-        aim_timer -= TimeUtility::get_deltaTime();
+        auto in_menu = il2cpp::get_class<app::UI__Class>("", "UI")->static_fields->m_sMenu->fields.m_equipmentWhellVisible;
+        in_menu |= UI::get_MainMenuVisible();
+        in_menu |= UI::get_WorldMapVisible();
+        in_menu |= UI::get_ShardShopVisible();
+        in_menu |= UI::IsInventoryVisible();
+        if (!in_menu)
+            aim_timer -= TimeUtility::get_deltaTime();
+
         auto* sein = get_sein();
         auto* wrapper = sein->fields.Abilities->fields.ChargeJumpWrapper;
         if (wrapper->fields.HasState && wrapper->fields.State->fields.m_state == app::SeinChargeJump_State__Enum_Aiming)
