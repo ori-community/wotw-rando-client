@@ -13,7 +13,7 @@ using namespace modloader;
 namespace
 {
     constexpr float NO_AIR_DECELERATION_DURATION = 0.2f;
-    constexpr float NO_AIR_DECELERATION_RESET_DURATION = 0.1f;
+    constexpr float NO_AIR_DECELERATION_RESET_DURATION = 0.2f;
     float aim_timer = 0.0f;
     float reset_timer = 0.0f;
 
