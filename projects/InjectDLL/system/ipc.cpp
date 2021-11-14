@@ -94,7 +94,10 @@ namespace ipc
                         disconnect(pipe);
                         pipe = connect(message.size());
                         if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE)
+                        {
+                            warn("ipc", "Failed to reconnect pipe, returning.");
                             return;
+                        }
                     }
                 }
 
@@ -123,25 +126,27 @@ namespace ipc
                         message_mutex.unlock();
                     }
                 }
-
-                send_mutex.lock();
-                auto local_sends = sends;
-                sends.clear();
-                send_mutex.unlock();
-                for (auto message : local_sends)
+                else
                 {
-                    auto result = WriteFile(
-                        pipe,
-                        message.data(),
-                        message.size(),
-                        &bytes_written,
-                        nullptr
-                    );
-
-                    if (!result || bytes_written == 0)
+                    send_mutex.lock();
+                    auto local_sends = sends;
+                    sends.clear();
+                    send_mutex.unlock();
+                    for (auto message : local_sends)
                     {
-                        auto error = GetLastError();
-                        warn("ipc", format("Failed to write data (%d).", error));
+                        auto result = WriteFile(
+                            pipe,
+                            message.data(),
+                            message.size(),
+                            &bytes_written,
+                            nullptr
+                        );
+
+                        if (!result || bytes_written == 0)
+                        {
+                            auto error = GetLastError();
+                            warn("ipc", format("Failed to write data (%d).", error));
+                        }
                     }
                 }
             }
