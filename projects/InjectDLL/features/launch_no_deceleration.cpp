@@ -1,12 +1,7 @@
 #include <dll_main.h>
-#include <features/invert_swim.h>
 
-#include <csharp_bridge.h>
-
-#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
-#include <uber_states\uber_state_manager.h>
 
 using namespace modloader;
 
@@ -14,15 +9,15 @@ namespace
 {
     constexpr float NO_AIR_DECELERATION_AIM_DURATION = 0.2f;
     constexpr float NO_AIR_DECELERATION_JUMP_DURATION = 0.2f;
-    float aim_timer = 0.0f;
-    float jump_timer = 0.0f;
+    float launch_aim_timeout = 0.0f;
+    float crouch_jump_timeout = 0.0f;
 
     STATIC_IL2CPP_BINDING(Game, UI, bool, get_MainMenuVisible, ());
     STATIC_IL2CPP_BINDING(Game, UI, bool, get_WorldMapVisible, ());
     STATIC_IL2CPP_BINDING(Game, UI, bool, get_ShardShopVisible, ());
     STATIC_IL2CPP_BINDING(Game, UI, bool, IsInventoryVisible, ());
     STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
-    bool can_reset(app::CharacterAirNoDeceleration* this_ptr)
+    bool can_reset_no_decel_flag()
     {
         auto in_menu = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu->fields.m_equipmentWhellVisible;
         in_menu |= UI::get_MainMenuVisible();
@@ -31,21 +26,21 @@ namespace
         in_menu |= UI::IsInventoryVisible();
         if (!in_menu)
         {
-            if (aim_timer >= 0.0f)
-                aim_timer -= TimeUtility::get_deltaTime();
-            if (jump_timer >= 0.0f)
-                jump_timer -= TimeUtility::get_deltaTime();
+            if (launch_aim_timeout > 0.0f)
+                launch_aim_timeout -= TimeUtility::get_deltaTime();
+            if (crouch_jump_timeout > 0.0f)
+                crouch_jump_timeout -= TimeUtility::get_deltaTime();
         }
 
         auto* sein = get_sein();
         auto* wrapper = sein->fields.Abilities->fields.ChargeJumpWrapper;
         if (wrapper->fields.HasState && wrapper->fields.State->fields.m_state == app::SeinChargeJump_State__Enum_Aiming)
         {
-            aim_timer = NO_AIR_DECELERATION_AIM_DURATION;
-            jump_timer = -1.0f;
+            launch_aim_timeout = NO_AIR_DECELERATION_AIM_DURATION;
+            crouch_jump_timeout = -1.0f;
         }
 
-        return aim_timer < 0.0f && jump_timer < 0.0f;
+        return launch_aim_timeout <= 0.0f && crouch_jump_timeout <= 0.0f;
     }
 
     IL2CPP_INTERCEPT(, CharacterAirNoDeceleration, void, UpdateCharacterState, (app::CharacterAirNoDeceleration* this_ptr)) {
@@ -62,7 +57,7 @@ namespace
 
             auto* left_right_movement = platform_behaviour->fields.LeftRightMovement;
             if (!left_right_movement->fields.m_settings->fields.LockInput &&
-                can_reset(this_ptr) &&
+                can_reset_no_decel_flag() &&
                 left_right_movement->fields.m_horizontalInput != 0.0)
                 this_ptr->fields.m_noDeceleration = false;
         }
@@ -70,6 +65,6 @@ namespace
 
     IL2CPP_INTERCEPT(, SeinJump, void, PerformCrouchJump, (app::SeinJump* this_ptr, bool* jumped_down_through_platform)) {
         SeinJump::PerformCrouchJump(this_ptr, jumped_down_through_platform);
-        jump_timer = NO_AIR_DECELERATION_JUMP_DURATION;
+        crouch_jump_timeout = NO_AIR_DECELERATION_JUMP_DURATION;
     }
 }
