@@ -27,6 +27,7 @@ namespace ipc
 #if SYNCHRONOUS == 1
     namespace
     {
+        constexpr int MESSAGE_SIZE = 8192;
         constexpr int SEND_QUEUE_LIMIT = 300;
 
         std::thread ipc_thread;
@@ -75,8 +76,8 @@ namespace ipc
         {
             DWORD bytes_read = 0;
             DWORD bytes_written = 0;
-            std::array<char, 64> message;
-            HANDLE pipe = connect(message.size());
+            std::array<char, MESSAGE_SIZE> message;
+            HANDLE pipe = connect(message.size() - 1);
             if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE)
                 return;
 
@@ -92,7 +93,7 @@ namespace ipc
                     {
                         warn("ipc", format("Failed to peek at pipe (%d).", error));
                         disconnect(pipe);
-                        pipe = connect(message.size());
+                        pipe = connect(message.size() - 1);
                         if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE)
                         {
                             warn("ipc", "Failed to reconnect pipe, returning.");
@@ -211,7 +212,7 @@ namespace ipc
     void get_uberstates(nlohmann::json& j)
     {
         std::vector<float> values;
-        for (auto entry : j["payload"])
+        for (auto entry : j.at("payload"))
         {
             auto group = entry.at("group").get<int>();
             auto state = entry.at("state").get<int>();
@@ -220,7 +221,7 @@ namespace ipc
 
         nlohmann::json response;
         response["event"] = "get_uberstates";
-        response["event_id"] = j["event_id"];
+        response["event_id"] = j.at("event_id").get<int>();
         response["payload"] = values;
         send_message(response.dump());
     }
