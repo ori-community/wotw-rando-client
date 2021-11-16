@@ -177,7 +177,7 @@ namespace ipc
         {
             try
             {
-                nlohmann::json j(message);
+                auto j = nlohmann::json::parse(message);
                 auto it = handlers.find(j.at("event").get<std::string>());
                 if (it != handlers.end())
                     it->second(j);
