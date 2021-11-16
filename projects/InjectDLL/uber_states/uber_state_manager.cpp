@@ -373,8 +373,22 @@ namespace uber_states
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Ruins Pickups", 50, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Willow Pickups", 51, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Shop Pickups", 52, 0),
-                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Void Pickups", 53, 0), 
+                    add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Void Pickups", 53, 0),
                                                                                                                                 // TODO: unclear to me that we need to track void pickups
+
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Marsh Pickups", 60, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Hollow Pickups", 61, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Glades Pickups", 62, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Wellspring Pickups", 63, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Burrows Pickups", 64, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Woods Pickups", 65, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Reach Pickups", 66, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Pools Pickups", 67, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Depths Pickups", 68, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Wastes Pickups", 69, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Ruins Pickups", 70, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Willow Pickups", 71, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Shop Pickups", 72, 0),
 
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Time", 100, 0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Deaths", 101, 0),
@@ -385,6 +399,7 @@ namespace uber_states
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "warps used", 106, 0),
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Peak PPM time", 107, 0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Peak PPM count", 108, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Pickup Count", 109, 0),
 
 
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "HCMapIconCost", 19397,  0),

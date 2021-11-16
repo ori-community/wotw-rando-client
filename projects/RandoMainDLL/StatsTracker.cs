@@ -57,6 +57,7 @@ namespace RandoMainDLL {
     public static UberId TimeState(this ZoneType zone) => new UberId(14, (int)zone);
     public static UberId DeathState(this ZoneType zone) => new UberId(14, 20 + (int)zone);
     public static UberId PickupState(this ZoneType zone) => new UberId(14, 40 + (int)zone);
+    public static UberId TotalPickupsState(this ZoneType zone) => new UberId(14, 60 + (int)zone);
 
     public static UberId Time = new UberId(14, 100);
     public static UberId Deaths = new UberId(14, 101);
@@ -67,6 +68,7 @@ namespace RandoMainDLL {
     public static UberId WarpsUsed = new UberId(14, 106);
     public static UberId BestPPMTime = new UberId(14, 107);
     public static UberId BestPPMCount = new UberId(14, 108);
+    public static UberId TotalPickupCount = new UberId(14, 109);
     public static UberId GameFinished = new UberId(34543, 11226);
 
     public static void OnNewGame() {
@@ -80,6 +82,11 @@ namespace RandoMainDLL {
           Randomizer.Debug($"stats.OnNewGame: {uid.GroupID}.{uid.ID} needed reset: was {val}", false);
           UberSet.Raw(uid, 0);
         }
+      }
+
+      UberSet.Int(TotalPickupCount, SeedController.Total);
+      foreach (ZoneType z in Enum.GetValues(typeof(ZoneType))) {
+        UberSet.Int(z.TotalPickupsState(), SeedController.CountByZone[z]);
       }
     }
     public static void Update(GameState gs, float delta) {
