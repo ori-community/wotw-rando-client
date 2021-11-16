@@ -187,6 +187,7 @@ namespace ipc
             {
                 warn("ipc", "Error parsing ipc message.");
                 info("ipc", ex.what());
+                info("ipc", message);
             }
         }
     }
