@@ -236,7 +236,7 @@ namespace RandoMainDLL {
         else if (enumsByName.TryGetValue(flag, out Flag f))
           Flags.Add(f);
         else
-          Randomizer.Warn("ParseFlags", $"Unknown flag {rawFlag}");
+          Randomizer.Debug($"Ignoring behaviorless flag {rawFlag}", false);
       }
     }
 
