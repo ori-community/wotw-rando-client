@@ -178,7 +178,7 @@ namespace ipc
             try
             {
                 auto j = nlohmann::json::parse(message);
-                auto it = handlers.find(j.at("request").get<std::string>());
+                auto it = handlers.find(j.at("method").get<std::string>());
                 if (it != handlers.end())
                     it->second(j);
                 else
@@ -376,7 +376,8 @@ namespace ipc
 INJECT_C_DLLEXPORT void report_uber_state_change(int group, int state, double value)
 {
     nlohmann::json response;
-    response["request"] = "notify_on_uber_state_changed";
+    response["type"] = "request";
+    response["method"] = "notify_on_uber_state_changed";
     response["payload"]["group"] = group;
     response["payload"]["state"] = state;
     response["payload"]["value"] = value;
