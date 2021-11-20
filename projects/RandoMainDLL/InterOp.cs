@@ -139,6 +139,9 @@ namespace RandoMainDLL {
       public extern static void set_debug_controls(bool value);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static GameState get_game_state();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool in_menu();
     }
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

@@ -5,6 +5,8 @@
 
 using namespace modloader;
 
+INJECT_C_DLLEXPORT bool in_menu();
+
 namespace
 {
     constexpr float NO_AIR_DECELERATION_AIM_DURATION = 0.2f;
@@ -19,12 +21,7 @@ namespace
     STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
     bool can_reset_no_decel_flag()
     {
-        auto in_menu = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu->fields.m_equipmentWhellVisible;
-        in_menu |= UI::get_MainMenuVisible();
-        in_menu |= UI::get_WorldMapVisible();
-        in_menu |= UI::get_ShardShopVisible();
-        in_menu |= UI::IsInventoryVisible();
-        if (!in_menu)
+        if (!in_menu())
         {
             if (launch_aim_timeout > 0.0f)
                 launch_aim_timeout -= TimeUtility::get_deltaTime();
@@ -67,4 +64,13 @@ namespace
         SeinJump::PerformCrouchJump(this_ptr, jumped_down_through_platform);
         crouch_jump_timeout = NO_AIR_DECELERATION_JUMP_DURATION;
     }
+}
+
+INJECT_C_DLLEXPORT bool in_menu()
+{
+    return il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu->fields.m_equipmentWhellVisible
+        || UI::get_MainMenuVisible()
+        || UI::get_WorldMapVisible()
+        || UI::get_ShardShopVisible()
+        || UI::IsInventoryVisible();
 }
