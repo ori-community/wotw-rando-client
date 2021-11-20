@@ -338,7 +338,7 @@ namespace RandoMainDLL {
           NewGameInit();
         foreach(var tpt in GrantOnNextUpdate) tpt.p().Grant(true);
         GrantOnNextUpdate.Clear();
-        if (!SkipListeners) {
+        if (!SkipListeners && !InterOp.Utils.in_menu()) {
           // We do ToArray here so we can change the hashset while we are looping.
           foreach (var state in TimerUberStates.ToArray()) {
             // Maybe change this to use our own cache lookup?
