@@ -445,16 +445,7 @@ namespace uber_states
             trace(MessageType::Info, 5, "initialize", "Custom uber states initialized.");
         }
 
-        void notify_uber_state_change(app::IUberState* uber_state, double prev, double current)
-        {
-            if (prev == current) return; // :upside_clown:
-            const auto state = get_uber_state_id(uber_state);
-            const auto group = get_uber_state_group_id(uber_state);
-            auto type = resolve_type(uber_state);
-            notify_uber_state_change(group->fields.m_id, state->fields.m_id, static_cast<uint8_t>(type), prev, current);
-        }
-
-        void notify_uber_state_change(int group, int state, uint8_t type, double prev, double current)
+        void notify_uber_state_change_raw(int group, int state, uint8_t type, double prev, double current)
         {
             if (group == 12) { // Multiworld bitfields
                 auto uprev = static_cast<int>(prev);
@@ -469,6 +460,15 @@ namespace uber_states
             }
 
             csharp_bridge::on_uber_state_applied(group, state, type, prev, current);
+        }
+
+        void notify_uber_state_change(app::IUberState* uber_state, double prev, double current)
+        {
+            if (prev == current) return; // :upside_clown:
+            const auto state = get_uber_state_id(uber_state);
+            const auto group = get_uber_state_group_id(uber_state);
+            auto type = resolve_type(uber_state);
+            notify_uber_state_change_raw(group->fields.m_id, state->fields.m_id, static_cast<uint8_t>(type), prev, current);
         }
 
         IL2CPP_INTERCEPT(Moon, SerializedBooleanUberState, void, set_Value, (app::SerializedBooleanUberState* this_ptr, bool value)) {
@@ -533,7 +533,7 @@ namespace uber_states
             const auto prev = this_ptr->fields.m_ore;
             set_Keystones(this_ptr, value);
             const auto current = value;
-            notify_uber_state_change(3, 103, 3, prev, current);
+            notify_uber_state_change_raw(3, 103, 3, prev, current);
         }
         
         IL2CPP_INTERCEPT(, GameMapSavePedestal, void, set_IsTeleporterActive, (app::GameMapSavePedestal* this_ptr, bool value)) {
