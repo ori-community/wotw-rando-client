@@ -3,7 +3,7 @@ name: Build WotW Rando
 on:
   push:
     branches:
-      - main
+      - '*'
     tags:
       - '*'
 
