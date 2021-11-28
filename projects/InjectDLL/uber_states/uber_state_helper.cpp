@@ -15,6 +15,9 @@
 
 using namespace modloader;
 
+IL2CPP_BINDING(, PlayerUberStateInventory, void, set_Keystones, (app::PlayerUberStateInventory* this_ptr, int value));
+IL2CPP_BINDING(, SeinLevel, void, set_Experience, (app::SeinLevel* this_ptr, int value));
+
 namespace
 {
     IL2CPP_BINDING(, SeinHealthController, void, GainHealth, (app::SeinHealthController* this_ptr, float amount, float visualSpeed, bool incrementStatistic));
@@ -208,10 +211,7 @@ INJECT_C_DLLEXPORT void set_ore(int32_t value)
 {
     auto sein = get_sein();
     if (sein != nullptr)
-    {
         SeinLevel::set_Ore(sein->fields.Level, value);
-        get_inventory()->fields.m_ore = value;
-    }
 }
 
 INJECT_C_DLLEXPORT int32_t get_experience()
@@ -223,7 +223,10 @@ INJECT_C_DLLEXPORT void set_experience(int32_t value)
 {
     bool temp = collecting_pickup;
     collecting_pickup = false;
-    get_inventory()->fields.m_experience = value;
+    auto sein = get_sein();
+    if (sein != nullptr)
+        SeinLevel::set_Experience(sein->fields.Level, value);
+
     collecting_pickup = temp;
 }
 
@@ -234,7 +237,7 @@ INJECT_C_DLLEXPORT int32_t get_keystones()
 
 INJECT_C_DLLEXPORT void set_keystones(int32_t value)
 {
-    get_inventory()->fields.m_keystones = value;
+    PlayerUberStateInventory::set_Keystones(get_inventory(), value);
 }
 
 
