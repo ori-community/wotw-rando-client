@@ -23,7 +23,7 @@ namespace uber_states
     int64_t make_virtual_key(int group, int state)
     {
         static_assert(sizeof(int) * 2 <= sizeof(int64_t));
-        return static_cast<int64_t>(group) << sizeof(group) | static_cast<int64_t>(state);
+        return (static_cast<int64_t>(group) << sizeof(int) * 8) | static_cast<int64_t>(state);
     }
 
     std::unordered_map<int64_t, VirtualUberState> virtual_states{
