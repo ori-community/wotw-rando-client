@@ -1,7 +1,10 @@
 #pragma once
 
 #include <macros.h>
+#include <csharp_bridge.h>
+
 #include <string>
+#include <unordered_map>
 
 namespace uber_states
 {
@@ -38,6 +41,26 @@ namespace uber_states
         const std::string MULTI_VARS_GROUP_NAME = "multi_vars";
         const std::string RANDO_STATS_GROUP_NAME = "rando_stats";
     }
+
+    struct VirtualUberState
+    {
+        using getter = double(*)();
+        using setter = void(*)(double);
+
+        getter value_get;
+        setter value_set;
+
+        csharp_bridge::UberStateType type;
+
+        int group;
+        int state;
+
+        std::string group_name;
+        std::string state_name;
+    };
+
+    extern std::unordered_map<int64_t, VirtualUberState> virtual_states;
+    int64_t make_virtual_key(int group, int state);
 
     // Mainly useful for reevaluating listeners when a state should have changed but it didn't.
     void apply_uber_state_no_notify(app::IUberState* uber_state);

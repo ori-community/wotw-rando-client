@@ -12,6 +12,95 @@
 using namespace modloader;
 namespace uber_states
 {
+    // 100 max health
+    // 101 max energy
+    // 102 ore
+    // 103 keystones
+    // 104 shard slots
+    // 105 health
+    // 106 energy
+    // 107 spirit light
+    int64_t make_virtual_key(int group, int state)
+    {
+        static_assert(sizeof(int) * 2 <= sizeof(int64_t));
+        return static_cast<int64_t>(group) << sizeof(group) | static_cast<int64_t>(state);
+    }
+
+    std::unordered_map<int64_t, VirtualUberState> virtual_states{
+        {
+            make_virtual_key(3, 100),
+            VirtualUberState{
+                []() { return static_cast<double>(get_max_health()); },
+                [](double value) { set_max_health(static_cast<int>(value)); },
+                csharp_bridge::UberStateType::VirtualIntUberState,
+                constants::GAME_STATE_GROUP_ID, 100, constants::GAME_STATE_GROUP_NAME, "max health"
+            }
+        },
+        {
+            make_virtual_key(3, 101),
+            VirtualUberState{
+                []() { return static_cast<double>(get_max_energy()); },
+                [](double value) { set_max_energy(static_cast<float>(value)); },
+                csharp_bridge::UberStateType::VirtualIntUberState,
+                constants::GAME_STATE_GROUP_ID, 101, constants::GAME_STATE_GROUP_NAME, "max energy"
+            }
+        },
+        {
+            make_virtual_key(3, 102),
+            VirtualUberState{
+                []() { return static_cast<double>(get_ore()); },
+                [](double value) { set_ore(static_cast<int>(value)); },
+                csharp_bridge::UberStateType::VirtualIntUberState,
+                constants::GAME_STATE_GROUP_ID, 102, constants::GAME_STATE_GROUP_NAME, "ore"
+            }
+        },
+        {
+            make_virtual_key(3, 103),
+            VirtualUberState{
+                []() { return static_cast<double>(get_keystones()); },
+                [](double value) { set_keystones(static_cast<int>(value)); },
+                csharp_bridge::UberStateType::VirtualIntUberState,
+                constants::GAME_STATE_GROUP_ID, 103, constants::GAME_STATE_GROUP_NAME, "keystones"
+            }
+        },
+        {
+            make_virtual_key(3, 104),
+            VirtualUberState{
+                []() { return static_cast<double>(get_shard_slots()); },
+                [](double value) { set_shard_slots(static_cast<int>(value)); },
+                csharp_bridge::UberStateType::VirtualIntUberState,
+                constants::GAME_STATE_GROUP_ID, 104, constants::GAME_STATE_GROUP_NAME, "shard slots"
+            }
+        },
+        {
+            make_virtual_key(3, 105),
+            VirtualUberState{
+                []() { return static_cast<double>(get_health()); },
+                [](double value) { set_health(static_cast<float>(value)); },
+                csharp_bridge::UberStateType::VirtualIntUberState,
+                constants::GAME_STATE_GROUP_ID, 105, constants::GAME_STATE_GROUP_NAME, "health"
+            }
+        },
+        {
+            make_virtual_key(3, 106),
+            VirtualUberState{
+                []() { return static_cast<double>(get_energy()); },
+                [](double value) { set_energy(static_cast<float>(value)); },
+                csharp_bridge::UberStateType::VirtualIntUberState,
+                constants::GAME_STATE_GROUP_ID, 106, constants::GAME_STATE_GROUP_NAME, "energy"
+            }
+        },
+        {
+            make_virtual_key(3, 107),
+            VirtualUberState{
+                []() { return static_cast<double>(get_experience()); },
+                [](double value) { set_experience(static_cast<int>(value)); },
+                csharp_bridge::UberStateType::VirtualIntUberState,
+                constants::GAME_STATE_GROUP_ID, 107, constants::GAME_STATE_GROUP_NAME, "spirit light"
+            }
+        },
+    };
+
     namespace
     {
         bool enable_real_uberstate_names = false;
@@ -212,14 +301,6 @@ namespace uber_states
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Load", 7, 0),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "Goal Modes Complete", 11, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GAME_STATE_GROUP_NAME, constants::GAME_STATE_GROUP_ID, "On Teleport", 20, false),
-                    // 100 max health
-                    // 101 max energy
-                    // 102 ore
-                    // 103 keystones
-                    // 104 shard slots
-                    // 105 health
-                    // 106 energy
-                    // 107 spirit light
                     // arguably these are just stats but w/e!!!
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Collected Keystones", 0, 0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATE_GROUP_NAME, constants::RANDO_STATE_GROUP_ID, "Purchased Keystones", 1, 0),
@@ -698,103 +779,38 @@ namespace uber_states
         }
     }
 
-
-    bool is_virtual_uber_state(int group, int state)
-    {
-        return (group == 3 && state == 100) ||
-            (group == 3 && state == 101) ||
-            (group == 3 && state == 102) ||
-            (group == 3 && state == 103) ||
-            (group == 3 && state == 104) ||
-            (group == 3 && state == 105) ||
-            (group == 3 && state == 106) ||
-            (group == 3 && state == 107);
-    }
-
-
-    void set_virtual_uber_state(int group, int state, double value)
-    {
-        switch (true) {
-            case (group == 3 && state == 100): 
-                set_max_health(value);
-                return;
-            case (group == 3 && state == 101): 
-                set_max_energy(value);
-                return;
-            case (group == 3 && state == 102): 
-                set_ore(value);
-                return;
-            case (group == 3 && state == 103): 
-                set_keystones(value);
-                return;
-            case (group == 3 && state == 104): 
-                set_shard_slots(value);
-                return;
-            case (group == 3 && state == 105): 
-                set_health(value);
-                return;
-            case (group == 3 && state == 106): 
-                set_energy(value);
-                return;
-            case (group == 3 && state == 107): 
-                set_experience(value);
-                return;
-        }
-
-        trace(MessageType::Error, 2, "uber_state", format("Failed to set virtual uber state %d|%d", group, state));
-    }
-
-
-    double get_virtual_uber_state(int group, int state)
-    {
-        switch (true) {
-            case (group == 3 && state == 100): return get_max_health();
-            case (group == 3 && state == 101): return get_max_energy();
-            case (group == 3 && state == 102): return get_ore();
-            case (group == 3 && state == 103): return get_keystones();
-            case (group == 3 && state == 104): return get_shard_slots();
-            case (group == 3 && state == 105): return get_health();
-            case (group == 3 && state == 106): return get_energy();
-            case (group == 3 && state == 107): return get_experience();
-        }
-
-        trace(MessageType::Error, 2, "uber_state", format("Failed to get virtual uber state %d|%d", group, state));
-        return 0.0;
-    }
-
-
     INJECT_C_DLLEXPORT void set_uber_state_value(int group, int state, double value)
     {
-        if (is_virtual_uber_state(group, state))
-        {
-            set_virtual_uber_state(group, state, value);
-            return;
-        }
-
-        auto group_id = create_uber_id(group);
-        auto state_id = create_uber_id((group == 12) ? state / 31 : state);
-        auto uber_state = get_uber_state(group_id, state_id);
-        if (uber_state != nullptr)
-            if (group == 12) {
-                int curr = static_cast<int>(get_uber_state_value(uber_state));
-                int8_t offset = state % 31;
-                if (value > 0.1f)
-                    curr |= 1 << offset; // or if it's true
-                else
-                    curr &= ~(1 << offset); // invert bit then and it
-                set_uber_state_value(uber_state, static_cast<double>(curr));
-            } else 
-                set_uber_state_value(uber_state, value);
+        auto it = virtual_states.find(make_virtual_key(group, state));
+        if (it != virtual_states.end())
+            it->second.value_set(value);
         else
-            trace(MessageType::Warning, 2, "uber_state", format("uber state (%d, %d) not found", group, state));
+        {
+            auto group_id = create_uber_id(group);
+            auto state_id = create_uber_id((group == 12) ? state / 31 : state);
+            auto uber_state = get_uber_state(group_id, state_id);
+            if (uber_state != nullptr)
+                if (group == 12) {
+                    int curr = static_cast<int>(get_uber_state_value(uber_state));
+                    int8_t offset = state % 31;
+                    if (value > 0.1f)
+                        curr |= 1 << offset; // or if it's true
+                    else
+                        curr &= ~(1 << offset); // invert bit then and it
+                    set_uber_state_value(uber_state, static_cast<double>(curr));
+                }
+                else
+                    set_uber_state_value(uber_state, value);
+            else
+                trace(MessageType::Warning, 2, "uber_state", format("uber state (%d, %d) not found", group, state));
+        }
     }
 
     INJECT_C_DLLEXPORT double get_uber_state_value(int group, int state)
     {
-        if (is_virtual_uber_state(group, state))
-        {
-            return get_virtual_uber_state(group, state);
-        }
+        auto it = virtual_states.find(make_virtual_key(group, state));
+        if (it != virtual_states.end())
+            return it->second.value_get();
 
         auto group_id = create_uber_id(group);
         auto state_id = create_uber_id((group == 12) ? state / 31 : state);
@@ -815,22 +831,37 @@ namespace uber_states
 
     INJECT_C_DLLEXPORT int get_uber_state_name(int group, int state, char* buffer, int len)
     {
-        auto group_id = create_uber_id(group);
-        auto state_id = create_uber_id((group == 12) ? state / 31 : state);
-        auto uber_state = get_uber_state(group_id, state_id);
-        auto str = get_uber_state_name(uber_state);
-        strcpy_s(buffer, len, str.c_str());
-        return str.size();
+        std::string name;
+        auto it = virtual_states.find(make_virtual_key(group, state));
+        if (it != virtual_states.end())
+            name = it->second.state_name;
+        else
+        {
+            auto group_id = create_uber_id(group);
+            auto state_id = create_uber_id((group == 12) ? state / 31 : state);
+            auto uber_state = get_uber_state(group_id, state_id);
+            name = get_uber_state_name(uber_state);
+        }
+        strcpy_s(buffer, len, name.c_str());
+        return name.size();
     }
 
     INJECT_C_DLLEXPORT int get_uber_state_group_name(int group, int state, char* buffer, int len)
     {
-        auto group_id = create_uber_id(group);
-        auto state_id = create_uber_id((group == 12) ? state / 31 : state);
-        auto uber_state = get_uber_state(group_id, state_id);
-        auto str = get_uber_state_group_name(uber_state);
-        strcpy_s(buffer, len, str.c_str());
-        return str.size();
+        std::string name;
+        auto it = virtual_states.find(make_virtual_key(group, state));
+        if (it != virtual_states.end())
+            name = it->second.group_name;
+        else
+        {
+            auto group_id = create_uber_id(group);
+            auto state_id = create_uber_id((group == 12) ? state / 31 : state);
+            auto uber_state = get_uber_state(group_id, state_id);
+            auto name = get_uber_state_group_name(uber_state);
+        }
+
+        strcpy_s(buffer, len, name.c_str());
+        return name.size();
     }
 
     INJECT_C_DLLEXPORT void refresh_uber_state(int group_id, int id) {

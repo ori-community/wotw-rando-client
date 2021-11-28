@@ -13,7 +13,8 @@ namespace csharp_bridge
         CountUberState,
         SavePedestalUberState,
         ConditionUberState,
-        PlayerUberStateDescriptor
+        PlayerUberStateDescriptor,
+        VirtualIntUberState
     };
 
     enum ShardType {

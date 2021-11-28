@@ -166,7 +166,7 @@ namespace RandoMainDLL {
       }
     }
 
-    private static bool serializableUberState(UberStateType type) {
+    private static bool shouldResolve(UberStateType type) {
       switch (type) {
         case UberStateType.PlayerUberStateDescriptor:
         case UberStateType.SavePedestalUberState:
@@ -174,14 +174,6 @@ namespace RandoMainDLL {
         case UberStateType.SerializedBooleanUberState:
         case UberStateType.SerializedIntUberState:
         case UberStateType.SerializedFloatUberState:
-          return true;
-        default:
-          return false;
-      }
-    }
-
-    private static bool virtualUberState(UberStateType type) {
-      switch (type) {
         case UberStateType.VirtualIntUberstate:
           return true;
         default:
@@ -198,6 +190,7 @@ namespace RandoMainDLL {
         case UberStateType.SerializedBooleanUberState:
           return new UberValue(!(Math.Abs(value) < 0.001f));
         case UberStateType.SerializedIntUberState:
+        case UberStateType.VirtualIntUberstate:
           return new UberValue((int)value);
         default:
           return new UberValue((float)value);
@@ -241,7 +234,7 @@ namespace RandoMainDLL {
         state.Value = CreateValue(state.Type, newValue);
         var value = CreateValue(state.Type, oldValue);
         ResolveUberStateChange(state, value);
-      } else if (serializableUberState((UberStateType)type)) {
+      } else if (shouldResolve((UberStateType)type)) {
         var state = createUberStateEntry(key);
         state.Value = CreateValue(state.Type, oldValue);
         uberStateLookup.Add(key, state);
@@ -249,8 +242,6 @@ namespace RandoMainDLL {
         state.Value = CreateValue(state.Type, newValue);
         var value = CreateValue(state.Type, oldValue);
         ResolveUberStateChange(state, value);
-      } else if (virtualUberState((UberStateType)type)) {
-        ResolveUberStateChange(state, value)
       }
     }
 
