@@ -530,7 +530,7 @@ namespace uber_states
         }
 
         IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateInventory, void, set_Keystones, (app::PlayerUberStateInventory* this_ptr, int value)) {
-            const auto prev = this->fields.m_ore;
+            const auto prev = this_ptr->fields.m_ore;
             set_Keystones(this_ptr, value);
             const auto current = value;
             notify_uber_state_change(3, 103, 3, prev, current);
