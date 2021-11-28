@@ -530,7 +530,7 @@ namespace uber_states
         }
 
         IL2CPP_INTERCEPT(, SeinInventory, void, set_Keystones, (app::SeinInventory* this_ptr, int value)) {
-            const auto prev = il2cpp::invoke(this_ptr, "get_Keystones");
+            const auto prev = il2cpp::invoke<app::Int32__Boxed>(this_ptr, "get_Keystones")->fields;
             set_Keystones(this_ptr, value);
             const auto current = value;
             trace(MessageType::Info, 5, "uberstates", format("keystone count set %d > %d", prev, current));
