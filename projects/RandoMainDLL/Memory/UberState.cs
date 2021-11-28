@@ -154,7 +154,7 @@ namespace RandoMainDLL.Memory {
 
     public bool IsObjectType => Type == UberStateType.SavePedestalUberState || Type == UberStateType.PlayerUberStateDescriptor;
     public bool IsBoolType => Type == UberStateType.SerializedBooleanUberState;
-    public bool IsIntType => Type == UberStateType.SerializedIntUberState;
+    public bool IsIntType => Type == UberStateType.SerializedIntUberState || Type == UberStateType.VirtualIntUberstate;
     public bool IsFloatType => Type == UberStateType.SerializedFloatUberState;
     public bool IsByteType => Type == UberStateType.SerializedByteUberState;
 
@@ -166,6 +166,7 @@ namespace RandoMainDLL.Memory {
         case UberStateType.SerializedByteUberState:
           return $"{Value.Byte}";
         case UberStateType.SerializedIntUberState:
+        case UberStateType.VirtualIntUberstate:
           return $"{Value.Int}";
         case UberStateType.SerializedFloatUberState:
           return $"{Value.Float}";
@@ -180,6 +181,7 @@ namespace RandoMainDLL.Memory {
         case UberStateType.SerializedByteUberState:
           return $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Byte}";
         case UberStateType.SerializedIntUberState:
+        case UberStateType.VirtualIntUberstate:
           return $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Int}";
         case UberStateType.SerializedFloatUberState:
           return $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Float}";
@@ -205,6 +207,7 @@ namespace RandoMainDLL.Memory {
           Byte = Convert.ToByte(value);
           return;
         case UberStateType.SerializedIntUberState:
+        case UberStateType.VirtualIntUberstate:
           Int = Convert.ToInt32(value);
           return;
         case UberStateType.SerializedFloatUberState:
@@ -254,6 +257,7 @@ namespace RandoMainDLL.Memory {
         case UberStateType.SerializedByteUberState:
           return $"{Byte}";
         case UberStateType.SerializedIntUberState:
+        case UberStateType.VirtualIntUberstate:
           return $"{Int}";
         case UberStateType.SerializedFloatUberState:
           return $"{Float}";
