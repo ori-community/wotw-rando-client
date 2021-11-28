@@ -448,21 +448,27 @@ namespace uber_states
         void notify_uber_state_change(app::IUberState* uber_state, double prev, double current)
         {
             if (prev == current) return; // :upside_clown:
-            auto uprev = static_cast<int>(prev);
-            auto ucurr = static_cast<int>(current);
             const auto state = get_uber_state_id(uber_state);
             const auto group = get_uber_state_group_id(uber_state);
-            if (group->fields.m_id == 12) {
+            auto type = resolve_type(uber_state);
+            notify_uber_state_change(group->fields.m_id, state->fields.m_id, static_cast<uint8_t>(type), prev, current);
+        }
+
+        void notify_uber_state_change(int group, int state, uint8_t type, double prev, double current)
+        {
+            if (group == 12) { // Multiworld bitfields
+                auto uprev = static_cast<int>(prev);
+                auto ucurr = static_cast<int>(current);
                 int delta = uprev ^ ucurr;
-                int real_state = static_cast<int>(log2(delta)) + 31 * state->fields.m_id;
+                int real_state = static_cast<int>(log2(delta)) + 31 * state;
                 if (ucurr > uprev)
                     csharp_bridge::on_uber_state_applied(12, real_state, 3, 0.0, 1.0);
                 else
                     csharp_bridge::on_uber_state_applied(12, real_state, 3, 1.0, 0.0);
                 return;
             }
-            auto type = resolve_type(uber_state);
-            csharp_bridge::on_uber_state_applied(group->fields.m_id, state->fields.m_id, static_cast<uint8_t>(type), prev, current);
+
+            csharp_bridge::on_uber_state_applied(group, state, type, prev, current);
         }
 
         IL2CPP_INTERCEPT(Moon, SerializedBooleanUberState, void, set_Value, (app::SerializedBooleanUberState* this_ptr, bool value)) {
@@ -521,6 +527,13 @@ namespace uber_states
             set_IsTeleporterActive(this_ptr, value);
             const auto current = convert_pedestal_state(ReadStateFromStore(this_ptr));
             notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
+        }
+
+        IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateInventory, void, set_Keystones, (app::PlayerUberStateInventory* this_ptr, int value)) {
+            const auto prev = this->fields.m_ore;
+            set_Keystones(this_ptr, value);
+            const auto current = value;
+            notify_uber_state_change(3, 103, 3, prev, current);
         }
         
         IL2CPP_INTERCEPT(, GameMapSavePedestal, void, set_IsTeleporterActive, (app::GameMapSavePedestal* this_ptr, bool value)) {
