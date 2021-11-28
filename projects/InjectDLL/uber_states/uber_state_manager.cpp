@@ -533,6 +533,7 @@ namespace uber_states
             const auto prev = this_ptr->fields.m_ore;
             set_Keystones(this_ptr, value);
             const auto current = value;
+            trace(MessageType::Info, 5, "uberstates", format("keystone count set %d > %d", prev, current));
             notify_uber_state_change_raw(3, 103, 3, prev, current);
         }
         
