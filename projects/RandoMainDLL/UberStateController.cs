@@ -180,6 +180,15 @@ namespace RandoMainDLL {
       }
     }
 
+    private static bool virtualUberState(UberStateType type) {
+      switch (type) {
+        case UberStateType.VirtualIntUberstate:
+          return true;
+        default:
+          return false;
+      }
+    }
+
     public static UberValue CreateValue(UberStateType type, double value) {
       switch (type) {
         case UberStateType.PlayerUberStateDescriptor:
@@ -240,6 +249,8 @@ namespace RandoMainDLL {
         state.Value = CreateValue(state.Type, newValue);
         var value = CreateValue(state.Type, oldValue);
         ResolveUberStateChange(state, value);
+      } else if (virtualUberState((UberStateType)type)) {
+        ResolveUberStateChange(state, value)
       }
     }
 

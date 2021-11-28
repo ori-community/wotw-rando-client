@@ -699,8 +699,78 @@ namespace uber_states
     }
 
 
+    bool is_virtual_uber_state(int group, int state)
+    {
+        return (group == 3 && state == 100) ||
+            (group == 3 && state == 101) ||
+            (group == 3 && state == 102) ||
+            (group == 3 && state == 103) ||
+            (group == 3 && state == 104) ||
+            (group == 3 && state == 105) ||
+            (group == 3 && state == 106) ||
+            (group == 3 && state == 107);
+    }
+
+
+    void set_virtual_uber_state(int group, int state, double value)
+    {
+        switch (true) {
+            case (group == 3 && state == 100): 
+                set_max_health(value);
+                return;
+            case (group == 3 && state == 101): 
+                set_max_energy(value);
+                return;
+            case (group == 3 && state == 102): 
+                set_ore(value);
+                return;
+            case (group == 3 && state == 103): 
+                set_keystones(value);
+                return;
+            case (group == 3 && state == 104): 
+                set_shard_slots(value);
+                return;
+            case (group == 3 && state == 105): 
+                set_health(value);
+                return;
+            case (group == 3 && state == 106): 
+                set_energy(value);
+                return;
+            case (group == 3 && state == 107): 
+                set_experience(value);
+                return;
+        }
+
+        trace(MessageType::Error, 2, "uber_state", format("Failed to set virtual uber state %d|%d", group, state));
+    }
+
+
+    double get_virtual_uber_state(int group, int state)
+    {
+        switch (true) {
+            case (group == 3 && state == 100): return get_max_health();
+            case (group == 3 && state == 101): return get_max_energy();
+            case (group == 3 && state == 102): return get_ore();
+            case (group == 3 && state == 103): return get_keystones();
+            case (group == 3 && state == 104): return get_shard_slots();
+            case (group == 3 && state == 105): return get_health();
+            case (group == 3 && state == 106): return get_energy();
+            case (group == 3 && state == 107): return get_experience();
+        }
+
+        trace(MessageType::Error, 2, "uber_state", format("Failed to get virtual uber state %d|%d", group, state));
+        return 0.0;
+    }
+
+
     INJECT_C_DLLEXPORT void set_uber_state_value(int group, int state, double value)
     {
+        if (is_virtual_uber_state(group, state))
+        {
+            set_virtual_uber_state(group, state, value);
+            return;
+        }
+
         auto group_id = create_uber_id(group);
         auto state_id = create_uber_id((group == 12) ? state / 31 : state);
         auto uber_state = get_uber_state(group_id, state_id);
@@ -721,6 +791,11 @@ namespace uber_states
 
     INJECT_C_DLLEXPORT double get_uber_state_value(int group, int state)
     {
+        if (is_virtual_uber_state(group, state))
+        {
+            return get_virtual_uber_state(group, state);
+        }
+
         auto group_id = create_uber_id(group);
         auto state_id = create_uber_id((group == 12) ? state / 31 : state);
         auto uber_state = get_uber_state(group_id, state_id);

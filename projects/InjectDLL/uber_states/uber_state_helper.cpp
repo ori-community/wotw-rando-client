@@ -84,6 +84,7 @@ namespace
         UberStateTypeResolver{ "Moon", "IntUberState", csharp_bridge::UberStateType::IntUberState },
         UberStateTypeResolver{ "Moon", "CountUberState", csharp_bridge::UberStateType::CountUberState },
         UberStateTypeResolver{ "Moon", "ConditionUberState", csharp_bridge::UberStateType::ConditionUberState },
+        UberStateTypeResolver{ "", "", csharp_bridge::UberStateType::VirtualIntUberstate },
     };
 }
 

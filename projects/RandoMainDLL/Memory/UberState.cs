@@ -13,7 +13,8 @@ namespace RandoMainDLL.Memory {
     CountUberState,
     SavePedestalUberState,
     ConditionUberState,
-    PlayerUberStateDescriptor
+    PlayerUberStateDescriptor,
+    VirtualIntUberstate,
   }
 
   public static class UberStateDefaults {
@@ -110,26 +111,6 @@ namespace RandoMainDLL.Memory {
     public static bool Bool(int groupId, int id) => value(new UberId(groupId, id)).Bool;
     public static bool Bool(UberId id) => value(id).Bool;
     public static double AsDouble(UberId id) {
-      if(id.GroupID == 3 && id.ID >= 100) switch (id.ID-100) {
-          case (int)ResourceType.Health:
-            return InterOp.get_max_health();
-          case (int)ResourceType.Energy:
-            return InterOp.get_max_energy();
-          case (int)ResourceType.Ore:
-            return InterOp.get_ore();
-          case (int)ResourceType.Keystone:
-            return InterOp.get_keystones();
-          case (int)ResourceType.ShardSlot:
-            return InterOp.get_shard_slots();
-          case 5: // health
-            return InterOp.get_health();
-          case 6: // energy
-            return InterOp.get_energy();
-          case 7: // exp
-            return InterOp.get_experience();
-          default:
-            break;
-      }
       return InterOp.get_uber_state_value(id.GroupID, id.ID);
     }
   }
@@ -144,35 +125,6 @@ namespace RandoMainDLL.Memory {
     public static void Byte(int groupId, int id, byte val) => Raw(groupId, id, Convert.ToDouble(val));
     public static void Raw(int groupId, int id, double val) => Raw(new UberId(groupId, id), val);
     public static void Raw(UberId id, double val) {
-      if (id.GroupID == 3 && id.ID >= 100) switch (id.ID - 100) {
-          case (int)ResourceType.Health:
-            InterOp.set_max_health(Convert.ToInt32(val));
-            return;
-          case (int)ResourceType.Energy:
-            InterOp.set_max_energy(Convert.ToInt32(val));
-            return;
-          case (int)ResourceType.Ore:
-            InterOp.set_ore(Convert.ToInt32(val));
-            return;
-          case (int)ResourceType.Keystone:
-            InterOp.set_keystones(Convert.ToInt32(val));
-            return;
-          case (int)ResourceType.ShardSlot:
-            InterOp.set_shard_slots(Convert.ToInt32(val));
-            return;
-          case 5: // health
-            InterOp.set_health(Convert.ToInt32(val));
-            return;
-          case 6: // energy
-            InterOp.set_energy(Convert.ToInt32(val));
-            return;
-          case 7: // exp
-            InterOp.set_experience(Convert.ToInt32(val));
-            return;
-          default:
-            break;
-        }
-
       InterOp.set_uber_state_value(id.GroupID, id.ID, val);
     }
   }
