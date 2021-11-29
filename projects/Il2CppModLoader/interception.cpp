@@ -21,8 +21,12 @@ namespace modloader
         // TODO: Handle bindings and intercepts separately so we can't call in the middle of a function chain.
         intercept* first_intercept = nullptr;
         intercept* last_intercept = nullptr;
+        intercept* first_binding = nullptr;
+        intercept* last_binding = nullptr;
         il2cpp_intercept* first_il2cpp_intercept = nullptr;
         il2cpp_intercept* last_il2cpp_intercept = nullptr;
+        il2cpp_intercept* first_il2cpp_binding = nullptr;
+        il2cpp_intercept* last_il2cpp_binding = nullptr;
 
         uint64_t game_assembly_address;
 
@@ -162,14 +166,14 @@ namespace modloader
             return method_info == nullptr ? nullptr : method_info->methodPointer;
         }
 
-        void il2cpp_intercepts()
+        void il2cpp_intercepts(il2cpp_intercept* last)
         {
             DetourRestoreAfterWith();
             DetourTransactionBegin();
             DetourUpdateThread(GetCurrentThread());
 
             std::unordered_map<long long, void*> intercept_cache;
-            auto current = last_il2cpp_intercept;
+            auto current = last;
             while (current != nullptr)
             {
                 Il2CppClass* klass;
@@ -228,7 +232,7 @@ namespace modloader
                 trace(MessageType::Debug, 3, "initialize", "Il2Cpp injection completed");
         }
 
-        void internal_intercepts()
+        void internal_intercepts(intercept* last)
         {
             std::unordered_map<std::string, uint64_t> binding_overrides;
             std::ifstream stream(base_path + modloader_path);
@@ -264,7 +268,7 @@ namespace modloader
             DetourUpdateThread(GetCurrentThread());
 
             std::unordered_map<long long, void*> intercept_cache;
-            auto current = last_intercept;
+            auto current = last;
             while (current != nullptr)
             {
                 auto it = binding_overrides.find(std::string(current->name));
@@ -301,8 +305,13 @@ namespace modloader
 
         void interception_init()
         {
-            internal_intercepts();
-            il2cpp_intercepts();
+            // intercepts
+            internal_intercepts(last_intercept);
+            il2cpp_intercepts(last_il2cpp_intercept);
+
+            // bindings
+            internal_intercepts(last_binding);
+            il2cpp_intercepts(last_il2cpp_binding);
         }
 
         void interception_detach()
@@ -354,13 +363,16 @@ namespace modloader
             else if (!ztatic)
                 trace(MessageType::Error, 3, "initalize", format("%s.%s.%s should not have 0 parameters as it is not a static method.", namezpace.data(), klass.data(), method_name.data()));
 
-            prev = last_il2cpp_intercept;
+            auto& first = p_intercept_pointer != nullptr ? first_il2cpp_intercept : first_il2cpp_binding;
+            auto& last = p_intercept_pointer != nullptr ? last_il2cpp_intercept : last_il2cpp_binding;
+
+            prev = last;
             if (prev != nullptr)
                 prev->next = prev;
 
-            last_il2cpp_intercept = this;
-            if (first_il2cpp_intercept == nullptr)
-                first_il2cpp_intercept = this;
+            last = this;
+            if (first == nullptr)
+                first = this;
         }
 
         intercept::intercept(uint64_t o, PVOID* oP, PVOID iP, std::string_view s)
@@ -370,13 +382,16 @@ namespace modloader
             , intercept_pointer(iP)
             , next(nullptr)
         {
-            prev = last_intercept;
+            auto& first = iP != nullptr ? first_intercept : first_binding;
+            auto& last = iP != nullptr ? last_intercept : last_binding;
+
+            prev = last;
             if (prev != nullptr)
                 prev->next = prev;
 
-            last_intercept = this;
-            if (first_intercept == nullptr)
-                first_intercept = this;
+            last = this;
+            if (first == nullptr)
+                first = this;
         }
     }
 }

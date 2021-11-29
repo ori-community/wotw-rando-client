@@ -3,7 +3,6 @@
 #include <constants.h>
 #include <dll_main.h>
 #include <pickups/pickups.h>
-#include <pickups/ore.h>
 #include <uber_states/uber_state_manager.h>
 
 #include <Common/ext.h>
@@ -15,11 +14,11 @@
 
 using namespace modloader;
 
-IL2CPP_BINDING(, PlayerUberStateInventory, void, set_Keystones, (app::PlayerUberStateInventory* this_ptr, int value));
-IL2CPP_BINDING(, SeinLevel, void, set_Experience, (app::SeinLevel* this_ptr, int value));
-
 namespace
 {
+    IL2CPP_BINDING(, PlayerUberStateInventory, void, set_Keystones, (app::PlayerUberStateInventory* this_ptr, int value));
+    IL2CPP_BINDING(, SeinLevel, void, set_Experience, (app::SeinLevel* this_ptr, int value));
+    IL2CPP_BINDING(, SeinLevel, void, set_Ore, (app::SeinLevel* this_ptr, int32_t value));
     IL2CPP_BINDING(, SeinHealthController, void, GainHealth, (app::SeinHealthController* this_ptr, float amount, float visualSpeed, bool incrementStatistic));
     IL2CPP_BINDING(, SeinHealthController, void, set_Amount, (app::SeinHealthController* this_ptr, float value));
     IL2CPP_BINDING(, SeinHealthController, void, set_BaseMaxHealth, (app::SeinHealthController* this_ptr, int value));
