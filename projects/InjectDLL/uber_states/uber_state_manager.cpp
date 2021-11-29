@@ -610,12 +610,53 @@ namespace uber_states
             notify_uber_state_change(reinterpret_cast<app::IUberState*>(this_ptr), prev, current);
         }
 
+        IL2CPP_INTERCEPT(, SeinHealthController, void, set_BaseMaxHealth, (app::SeinHealthController* this_ptr, int value)) {
+            const auto prev = il2cpp::invoke<app::Int32__Boxed>(this_ptr, "get_BaseMaxHealth")->fields;
+            set_BaseMaxHealth(this_ptr, value);
+            const auto current = value;
+            notify_uber_state_change_raw(3, 100, 11, prev, current);
+        }
+
+        IL2CPP_INTERCEPT(, SeinEnergy, void, set_BaseMaxEnergy, (app::SeinEnergy* this_ptr, float value)) {
+            const auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_BaseMaxEnergy")->fields;
+            set_BaseMaxEnergy(this_ptr, value);
+            const auto current = value;
+            notify_uber_state_change_raw(3, 101, 11, prev, current);
+        }
+
         IL2CPP_INTERCEPT(, SeinInventory, void, set_Keystones, (app::SeinInventory* this_ptr, int value)) {
             const auto prev = il2cpp::invoke<app::Int32__Boxed>(this_ptr, "get_Keystones")->fields;
             set_Keystones(this_ptr, value);
             const auto current = value;
-            trace(MessageType::Info, 5, "uberstates", format("keystone count set %d > %d", prev, current));
-            notify_uber_state_change_raw(3, 103, 3, prev, current);
+            notify_uber_state_change_raw(3, 103, 11, prev, current);
+        }
+
+        IL2CPP_INTERCEPT(, PlayerSpiritShards, void, SetGlobalShardSlotCount, (app::PlayerSpiritShards* this_ptr, int value)) {
+            const auto prev = this_ptr->fields.m_shardSlotCount;
+            SetGlobalShardSlotCount(this_ptr, value);
+            const auto current = value;
+            notify_uber_state_change_raw(3, 104, 11, prev, current);
+        }
+
+        IL2CPP_INTERCEPT(, SeinHealthController, void, set_Amount, (app::SeinHealthController* this_ptr, float value)) {
+            const auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_Amount")->fields;
+            set_Amount(this_ptr, value);
+            const auto current = value;
+            notify_uber_state_change_raw(3, 105, 11, prev, current);
+        }
+
+        IL2CPP_INTERCEPT(, SeinEnergy, void, set_Current, (app::SeinEnergy* this_ptr, float value)) {
+            const auto prev = il2cpp::invoke<app::Single__Boxed>(this_ptr, "get_Current")->fields;
+            set_Current(this_ptr, value);
+            const auto current = value;
+            notify_uber_state_change_raw(3, 106, 11, prev, current);
+        }
+
+        IL2CPP_INTERCEPT(, SeinLevel, void, set_Experience, (app::SeinLevel* this_ptr, int value)) {
+            const auto prev = il2cpp::invoke<app::Int32__Boxed>(this_ptr, "get_Experience")->fields;
+            set_Experience(this_ptr, value);
+            const auto current = value;
+            notify_uber_state_change_raw(3, 107, 11, prev, current);
         }
         
         IL2CPP_INTERCEPT(, GameMapSavePedestal, void, set_IsTeleporterActive, (app::GameMapSavePedestal* this_ptr, bool value)) {
