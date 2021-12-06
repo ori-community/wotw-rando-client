@@ -121,7 +121,7 @@ namespace RandoMainDLL {
         UberSet.Float(MaxDrought, thisDrought);
       UberSet.Float(Drought, 0f);
 
-      if(fc >= 10) { // only start updating peak PPM once the game has been going for a bit
+      if(fc >= 20) { // only start updating peak PPM once the game has been going for a bit
         var time = UberGet.Float(Time);
         var currentPPM = fc / (double)time; // march, march!
         if(currentPPM > UberGet.Int(BestPPMCount) / (UberGet.AsDouble(BestPPMTime) + 1)) {
