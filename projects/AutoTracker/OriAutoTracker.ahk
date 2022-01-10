@@ -14,11 +14,20 @@ IniRead, bgcolour, %inipath%, Tracker, BackgroundColour, 585858
 IniRead, OnTopState, %inipath%, Tracker, AlwaysOnTop, 0
 IniRead, xpos, %inipath%, Tracker, xpos, 0
 IniRead, ypos, %inipath%, Tracker, ypos, 0
+SysGet, xVirtualScreen, 76
+SysGet, yVirtualScreen, 77
+
 if(xpos == "") {
     xpos := A_ScreenWidth / 3
 }
+else if(xpos < xVirtualScreen){
+	xpos := xVirtualScreen
+}
 if(ypos == "") {
     ypos := A_ScreenHeight / 3
+}
+else if(ypos < yVirtualScreen){
+	ypos := yVirtualScreen
 }
 if(launchWithTracker != "false"){
     WinWait, OriAndTheWilloftheWisps
