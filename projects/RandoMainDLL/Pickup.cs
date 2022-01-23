@@ -536,7 +536,7 @@ namespace RandoMainDLL {
       "Money", "Cash", "BTC", "Munny", "Nuyen", "Rings", "Rupees", "Coins",
       "Echoes", "Sovereigns", "Points", "Drams", "Doubloons", "Spheres",
       "Silver", "Slivers", "Rubies", "Emeralds", "Notes", "Yen", "Zloty",
-      "Likes", "Comments", "Subs", "Bananas", "Sapphires", "Diamonds",
+      "Likes", "Comments", "Subs", "Bananas", "Sapphires", "Diamonds", "Fun",
       "Minerals", "Vespine Gas", "Sheep", "Brick", "Wheat", "Wood", "Quills"
     };
     public override string Name { get => $"{Amount} Spirit Light"; }
