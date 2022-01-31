@@ -789,17 +789,6 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, AreaMapIconManager, void, ShowAreaIcons, (app::AreaMapIconManager* this_ptr)) {
-        switch (this_ptr->fields.Filter)
-        {
-        case (int)NewFilters::Spoilers:
-        case (int)NewFilters::InLogic:
-            uber_states::set_uber_state_value(uber_states::constants::MAP_FILTER_GROUP_ID, 70, 0);
-            break;
-        default:
-            uber_states::set_uber_state_value(uber_states::constants::MAP_FILTER_GROUP_ID, 70, 1);
-            break;
-        }
-
         // Start ShowAreaIcons function.
         auto world = il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
         for (auto i = 0; i < world->fields.RuntimeAreas->fields._size; ++i)
