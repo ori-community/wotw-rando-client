@@ -18,8 +18,8 @@ namespace RandoMainDLL {
             var frags = rawCond.Split('|');
             var cond = new UberStateCondition(int.Parse(frags[0]), frags[1]);
             if (cond.Loc().Type == LocType.Shop) {
-              if (cond.Pickup().isHint() || cond.Met())
-                continue; // bought it or it's a hint. Either way it's known to be non progression, so it does not show on the map
+              if (cond.Met())
+                continue; // already bought
               if (ShopSlot.Twillen.Any(e => e.State.Equals(cond.Id)))
                 Reachable.Add(new UberStateCondition(2, "20000"));
               else if (ShopSlot.Opher.Any(e => e.State.Equals(cond.Id)))
@@ -133,7 +133,6 @@ namespace RandoMainDLL {
       argsList.AddRange(TrackedShards.Where(sh => new Shard(sh).Has()).Select(t => $"sh:{(int)t}"));
       return argsList;
     }
-    private static bool isHint(this Pickup p) => p is SysMessage s && s.messageType == SysMessageType.ListHint;
     public static int FilterIconType(int groupId, int id, int value) {
       var cond = new UberStateCondition(groupId, id, value);
       if (cond.Pickup().NonEmpty || cond.Loc() != LocData.Void)
