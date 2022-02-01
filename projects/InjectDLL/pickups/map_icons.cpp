@@ -46,6 +46,8 @@ namespace
         { "e0eda584, 48cbb5c7, cb914bab, fa693844", std::make_pair(uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_DamageUpgradeA) },
         { "1c2f12f9, 4b5ac685, ff9bd6a4, cbe66a48", std::make_pair(uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_Digging) },
         { "1f79d15a, 4192137e, a40d0c9e, 3e289606", std::make_pair(uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_Grenade) },
+        { "718c895b, 431b8c79, fdc0efa5, a0709f87", std::make_pair(uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_Bow) },
+        // Sword Tree has no icon in the base game, we add that manually
     };
 
     enum class ExtraIconCreation
@@ -299,8 +301,6 @@ namespace
                 { true, 21786, 37225, -1.f }, {} },
             //{ app::WorldMapIconType__Enum_EnergyFragment, -421.697601f, -4273.036133f, false, true,
             //    { true, 21786, 10295, -1.f }, {} },
-            { app::WorldMapIconType__Enum_AbilityPedestal, -457.110748f, -4260.f, false, ExtraIconCreation::SpoilerAndNormal,
-                { true, uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_Bow, -1.f  }, {} },
             { app::WorldMapIconType__Enum_Mapmaker, -589.f, -4348.f, false, ExtraIconCreation::Spoiler,
                 { true, 48248, 18767, -1.f  }, {} },
             { app::WorldMapIconType__Enum_Weaponmaster, -597.f, -4293.f, false, ExtraIconCreation::Spoiler,
@@ -628,7 +628,7 @@ namespace
                 {
                     // This should no longer be called as we have overridden every single tree icon.
                     console::console_send(format(
-                        "tree icon { guid: [%0x, %0x, %0x, %0x], pos: [%d, %d] }",
+                        "tree icon { guid: [%0x, %0x, %0x, %0x], pos: [%f, %f] }",
                         item->fields.Guid->fields.A,
                         item->fields.Guid->fields.B,
                         item->fields.Guid->fields.C,
