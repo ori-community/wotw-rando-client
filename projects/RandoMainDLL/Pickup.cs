@@ -146,6 +146,7 @@ namespace RandoMainDLL {
     MapRelicList = 1,
     PickupCount = 2,
     GoalProgress = 3,
+    ListHint = 4,
   }
 
   public abstract class Pickup {
@@ -1093,7 +1094,10 @@ namespace RandoMainDLL {
     public readonly SysMessageType messageType;
     public readonly string extraData;
 
-    public static Pickup Build(SysMessageType mt, string extra = "") => new SysMessage(mt, extra);
+    public static Pickup Build(SysMessageType mt, string extra = "") {
+      if (mt == SysMessageType.ListHint) return new ListHint(mt, extra);
+      return new SysMessage(mt, extra);
+    }
     public SysMessage(SysMessageType mt, string extra = "") {
       messageType = mt;
       extraData = extra;
