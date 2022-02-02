@@ -417,6 +417,14 @@ namespace RandoMainDLL {
             UberSet.Int(58674, 32810, 8);
         }
       },
+      {
+        new UberId(16155, 28478),
+        (UberState state) => {
+          // Finish willow stone if the vine gets destroyed
+          if (state.Value.Bool)
+            UberSet.Byte(16155, 12971, 4);
+        }
+      },
     };
 
     private static void HandleSpecial(UberState state) {
