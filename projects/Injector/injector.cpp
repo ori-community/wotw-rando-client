@@ -224,17 +224,7 @@ int actual_main()
     auto dll_path = base_path + "\\" + dll_name;
     std::cout << "loading dll: " << dll_path << std::endl;
     if (load_dll(process_handle, load_function, dll_path.c_str(), dll_path.size()))
-    {
-        std::thread thread(listen_for_ori);
-        
-        logstream << "injected successfully, press any key to exit Ori" << std::endl;
-        while (!kbhit() && !shutting_down) {}
-
-        // This might be bad, if we do this while we are in
-        // the middle of saving we might corrupt the save...
-        TerminateProcess(process_handle, 0);
-        shutting_down = true;
-    }
+        logstream << "injected successfully" << std::endl;
     else
         logstream << "failed to inject" << std::endl;
 
