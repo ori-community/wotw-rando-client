@@ -94,6 +94,13 @@ namespace
 
     IL2CPP_BINDING(, SeinLogicCycle, app::SeinLogicCycle_StateFlags__Enum, GetFlags, (app::SeinLogicCycle* this_ptr, app::SeinLogicCycle_StateFlags__Enum test));
     
+    bool is_on_screen_positions_initialized()
+    {
+        auto on_screen_positions = il2cpp::get_class<app::OnScreenPositions__Class>("", "OnScreenPositions");
+        auto mono_instance = reinterpret_cast<app::MonoSingleInstance_1_OnScreenPositions___Class*>(on_screen_positions->_0.parent);
+        return mono_instance->static_fields->m_initialized;
+    }
+
     void print_csstring(app::String* str)
     {
         auto cppstr = convert_csstring(str);
@@ -559,12 +566,18 @@ INJECT_C_DLLEXPORT void clear_visible_hints()
 }
 
 INJECT_C_DLLEXPORT bool hints_ready() {
+    if (!is_on_screen_positions_initialized())
+        return false;
+
     return OnScreenPositions::get_TopCenter().y > 0 &&
         should_handle_messages();
 }
 
 INJECT_C_DLLEXPORT void display_hint(const wchar_t* hint, float duration, float ypos, bool mute)
 {
+    if (!is_on_screen_positions_initialized())
+        return;
+
     auto pos = OnScreenPositions::get_TopCenter();
     pos.y = ypos;
     messages.push_back({ pos, hint, duration, mute, false });
@@ -572,12 +585,14 @@ INJECT_C_DLLEXPORT void display_hint(const wchar_t* hint, float duration, float 
 
 INJECT_C_DLLEXPORT void display_below(const wchar_t* hint, float duration, bool mute)
 {
-    messages.push_back({ OnScreenPositions::get_BottomCenter(), hint, duration, mute, true });
+    if (is_on_screen_positions_initialized())
+        messages.push_back({ OnScreenPositions::get_BottomCenter(), hint, duration, mute, true });
 }
 
 INJECT_C_DLLEXPORT void update_map_hint(const wchar_t* info)
 {
-    messages.push_back({ OnScreenPositions::get_BottomCenter(), info, 20, true, true });
+    if (is_on_screen_positions_initialized())
+        messages.push_back({ OnScreenPositions::get_BottomCenter(), info, 20, true, true });
 }
 
 app::MessageBox* get_message_box(PermanentRandoMessage& message)
