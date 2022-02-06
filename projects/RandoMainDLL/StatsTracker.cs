@@ -79,7 +79,7 @@ namespace RandoMainDLL {
       foreach (var uid in SaveThroughDeath) {
         var val = UberGet.AsDouble(uid);
         if (val > 0) {
-          Randomizer.Debug($"stats.OnNewGame: {uid.GroupID}.{uid.ID} needed reset: was {val}", false);
+          Randomizer.Debug($"stats.OnNewGame: {uid} needed reset: was {val}", false);
           UberSet.Raw(uid, 0);
         }
       }

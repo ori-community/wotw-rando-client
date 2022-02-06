@@ -233,7 +233,7 @@ namespace RandoMainDLL {
       UberSet.Raw(Id.GroupID, Id.ID, Modifier(UberGet.value(Id)));
     }
     public override string DisplayName { get => ""; }
-    public override string Name { get => $"{Id.GroupID},{Id.ID} -> {ModStr}"; }
+    public override string Name { get => $"{Id} -> {ModStr}"; }
   }
 
 
@@ -356,10 +356,10 @@ namespace RandoMainDLL {
               if (uid.ID == 107) return Math.Round(UberGet.Int(14, 108) / (val / 60f), 2).ToString(CultureInfo.InvariantCulture); // peak PPM (14|108 is peak PPM count)
               return Math.Round(((ZoneType)uid.ID).PickupState().GetValue().Byte / (val / 60f), 2).ToString(CultureInfo.InvariantCulture);
             }
-            return $"@Invalid PPM state {uid.GroupID}|{uid.ID}@";
+            return $"@Invalid PPM state {uid}@";
           case "pcnt":
             if (uid.GroupID == 6 && uid.ID == 2) return $"{UberGet.Int(6, 2)}/{SeedController.Total}";
-            if (uid.GroupID != 14 || uid.ID > 13) return $"@Invalid pcnt state {uid.GroupID}|{uid.ID}";
+            if (uid.GroupID != 14 || uid.ID > 13) return $"@Invalid pcnt state {uid}";
             var z = (ZoneType)uid.ID;
             return $"{UberGet.Byte(z.PickupState())}/{SeedController.CountByZone[z]}";
           default:
