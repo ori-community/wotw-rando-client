@@ -28,6 +28,7 @@ set(
     "features/goal_mode_check.cpp"
     "features/invert_swim.cpp"
     "features/no_energy.cpp"
+    "features/secrets.cpp"
     "features/sein_ui.cpp"
     "features/start_anywhere.cpp"
     "features/water.cpp"

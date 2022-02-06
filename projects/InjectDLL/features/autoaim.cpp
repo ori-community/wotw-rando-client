@@ -10,13 +10,13 @@ namespace
 
     bool overwrite_attackables = false;
     IL2CPP_INTERCEPT(, SeinSpiritSpearSpell, void, FindClosestAttackTarget, (app::SeinSpiritSpearSpell* this_ptr)) {
-        overwrite_attackables = !uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, AUTOAIM_ID);
+        overwrite_attackables = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, AUTOAIM_ID) < 0.5f;
         SeinSpiritSpearSpell::FindClosestAttackTarget(this_ptr);
         overwrite_attackables = false;
     }
 
     IL2CPP_INTERCEPT(, SeinChakramSpell, void, UpdateCharacterState, (app::SeinChakramSpell* this_ptr)) {
-        this_ptr->fields.AutoAimEnabled = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, AUTOAIM_ID);
+        this_ptr->fields.AutoAimEnabled = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, AUTOAIM_ID) > 0.5f;
         // Maybe we still want this on?
         if (this_ptr->fields.m_prefabChakramProjectile != nullptr)
             this_ptr->fields.m_prefabChakramProjectile->fields.AutoAimEnabled = this_ptr->fields.AutoAimEnabled;
@@ -25,7 +25,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SeinBowAttack, void, UpdateCharacterState, (app::SeinBowAttack* this_ptr)) {
-        overwrite_attackables = !uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, AUTOAIM_ID);
+        overwrite_attackables = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, AUTOAIM_ID) < 0.5f;
         SeinBowAttack::UpdateCharacterState(this_ptr);
         overwrite_attackables = false;
     }
