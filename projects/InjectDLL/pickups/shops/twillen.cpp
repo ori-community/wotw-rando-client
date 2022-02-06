@@ -57,13 +57,13 @@ namespace
 
     IL2CPP_BINDING(, SpiritShardsShopScreen, app::PlayerUberStateShards_Shard*, get_SelectedSpiritShard, (app::SpiritShardsShopScreen* this_ptr));
 
-    bool overwrite_shard_text = false;
+    bool overwrite_shard = false;
     app::PlayerUberStateShards_Shard* selected_shard;
     IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, UpdateContextCanvasShards, (app::SpiritShardsShopScreen* this_ptr)) {
-        overwrite_shard_text = true;
+        overwrite_shard = shops::is_in_shop(shops::ShopType::Twillen);
         selected_shard = get_SelectedSpiritShard(this_ptr);
         UpdateContextCanvasShards(this_ptr);
-        overwrite_shard_text = false;
+        overwrite_shard = false;
     }
 
     NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, void, RunSetDirtyCallback, (app::PlayerUberStateShards_Shard* this_ptr));
@@ -109,6 +109,8 @@ namespace
         return it->second.texture_data;
     }
 
+    std::unordered_map<app::SpiritShardType__Enum, std::shared_ptr<textures::TextureData>> shard_textures;
+
     bool locked_shard_overwrite = false;
     IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
     IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr, app::String* replace, app::String* with));
@@ -118,9 +120,9 @@ namespace
         app::MessageProvider* description_provider = nullptr;
         app::MessageProvider* locked_provider = nullptr;
 
-        auto* const item = overwrite_shard_text ? selected_shard : this_ptr->fields.m_item;
+        auto* const item = overwrite_shard ? selected_shard : this_ptr->fields.m_item;
         auto type = item->fields.m_type;
-        if (overwrite_shard_text)
+        if (overwrite_shard)
         {
             const auto it = twillen_overrides.find(static_cast<uint8_t>(type));
             if (it != twillen_overrides.end())
@@ -140,8 +142,29 @@ namespace
         if (settings != nullptr)
         {
             auto* const renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
-            auto texture = shops::get_icon(shops::ShopType::Twillen, item);
-            texture->apply(renderer);
+            if (overwrite_shard)
+            {
+                auto texture = shops::get_icon(shops::ShopType::Twillen, item);
+                texture->apply(renderer);
+            }
+            else
+            {
+                auto it = shard_textures.find(type);
+                if (it == shard_textures.end())
+                {
+
+                    auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")
+                        ->static_fields->Instance->fields.Icons;
+                    auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &type);
+
+                    auto texture = textures::create_texture();
+                    texture->set_texture(reinterpret_cast<app::Texture*>(icons->fields.InventoryIcon));
+                    shard_textures[type] = texture;
+                    it = shard_textures.find(type);
+                }
+
+                it->second->apply(renderer);
+            }
 
             auto message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
             auto* const name_box = message_box_components[0];
@@ -177,7 +200,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SpiritShardUIShardDetails, void, ShowEmptyDetails, (app::SpiritShardUIShardDetails* this_ptr)) {
-        if (overwrite_shard_text && selected_shard != nullptr)
+        if (overwrite_shard && selected_shard != nullptr)
         {
             const auto it = twillen_overrides.find(static_cast<uint8_t>(selected_shard->fields.m_type));
             if (it != twillen_overrides.end())
