@@ -72,7 +72,7 @@ namespace RandoMainDLL {
       return Target.HasValue ? value >= Target.Value : value > 0;
     }
 
-    public override string ToString() => $"({Id.GroupID}, {Id.ID}){(Target.HasValue ? $"={Target.Value}" : "")}";
+    public override string ToString() => $"{Id}{(Target.HasValue ? $"={Target.Value}" : "")}";
     public override int GetHashCode() => Id.GetHashCode() + Target.GetValueOrDefault(-1);
     public override bool Equals(object obj) => obj is UberStateCondition other && (Id.Equals(other.Id) && Target == other.Target);
   }

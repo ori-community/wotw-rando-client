@@ -85,7 +85,7 @@ namespace RandoMainDLL.Memory {
     public static UberId FromLong(long num) => new UberId((int)((num >> 32) & 0xffffffff), (int)(num & 0xffffffff));
     public override int GetHashCode() => ID.GetHashCode() + GroupID.GetHashCode();
     public override bool Equals(object obj) => obj is UberId other ? (ID == other.ID && GroupID == other.GroupID) : false;
-    public override string ToString() => $"({GroupID}, {ID})";
+    public override string ToString() => $"{GroupID}|{ID}";
   }
 
   [StructLayout(LayoutKind.Sequential, Pack = 1)]

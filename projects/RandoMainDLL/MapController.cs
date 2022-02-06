@@ -125,7 +125,7 @@ namespace RandoMainDLL {
         $"{UberGet.value(6, 5).Int}",
         $"{UberGet.value(6, 3).Int}",
       };
-      argsList.AddRange(TrackedConds.Where(c => c.Met()).Select(t => $"u:{t.Id.GroupID},{t.Id.ID}"));
+      argsList.AddRange(TrackedConds.Where(condition => condition.Met()).Select(condition => $"u:{condition}"));
       argsList.AddRange(SaveController.SkillsFound.Select((AbilityType at) => $"s:{(int)at}"));
       argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
       if (new QuestEvent(QuestEventType.Water).Has())
