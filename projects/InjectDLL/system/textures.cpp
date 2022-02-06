@@ -170,6 +170,7 @@ namespace textures
     {
         try
         {
+            local.texture = 0;
             auto separator = path.find(':', 0);
             auto type = std::wstring(path.substr(0, separator));
             auto value = std::wstring(path.substr(separator + 1));
@@ -345,6 +346,9 @@ namespace textures
         data->load_texture();
         if (path._Starts_with(L"file:"))
             file_instances[data->path].push_back(data);
+
+        if (data->local.texture == 0)
+            return nullptr;
 
         return data;
     }
