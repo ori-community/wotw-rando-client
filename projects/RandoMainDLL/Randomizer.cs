@@ -20,7 +20,7 @@ namespace RandoMainDLL {
 
     private static BlockingCollection<string> logQueue = new BlockingCollection<string>();
 
-    public static int Bootstrap(IntPtr args, int sizeInBytes) {
+    public static int Bootstrap(string dllPath) {
        if (!Initialize())
         return 1;
 
