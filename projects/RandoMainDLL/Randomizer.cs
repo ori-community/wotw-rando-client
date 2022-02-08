@@ -31,7 +31,7 @@ namespace RandoMainDLL {
     public static void OnNewGame(int slot) {
       try {
         // overwrite the message log TODO: save a backup maybe?
-        File.WriteAllText(Randomizer.MessageLog, "");
+        File.WriteAllText(MessageLog, "");
         StatsTracking.OnNewGame();
         SeedController.ReadSeed();
         UberStateController.NeedsNewGameInit = true;
@@ -52,6 +52,13 @@ namespace RandoMainDLL {
           logThread = new Thread(() => {
             while (true) {
               try {
+                if (Msg.ClearLog) {
+                  int maxLogLines = Dev ? 1000 : 500;
+                  var logLines = File.ReadAllLines(LogFile);
+                  if (logLines.Length > maxLogLines)
+                    File.WriteAllLines(LogFile, logLines.Skip(logLines.Length / 2));
+                }
+
                 var txt = logQueue.Take();
                 while (logQueue.TryTake(out var line))
                   txt += line;

@@ -15,11 +15,9 @@ namespace RandoMainDLL {
     public static int FramesTillNextSend = 0;
     public static string TextPrefix = String.Empty;
 
+    public static bool ClearLog = false;
     public static void Init() {
-      int maxLogLines = Randomizer.Dev ? 1000 : 500;
-      var logLines = File.ReadAllLines(Randomizer.LogFile);
-      if (logLines.Length > maxLogLines)
-        File.WriteAllLines(Randomizer.LogFile, logLines.Skip(logLines.Length / 2));
+      ClearLog = true;
     }
 
     public static void Clear() {
