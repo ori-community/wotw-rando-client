@@ -67,9 +67,21 @@ namespace RandoMainDLL {
         Target = null;
       }
     }
-    public bool Met() {
-      var value = UberGet.AsDouble(Id);
+
+    private bool CheckTarget(double value) {
       return Target.HasValue ? value >= Target.Value : value > 0;
+    }
+    public bool Met() {
+      return CheckTarget(UberGet.AsDouble(Id));
+    }
+    // Check if this condition just got satisfied by this uberstate change.
+    public bool Met(UberState state, UberValue old) {
+      if (state.GroupID != Id.GroupID || state.ID != Id.ID)
+        return false;
+
+      var prev = CheckTarget(old.AsDouble(state.Type));
+      var next = CheckTarget(state.ValueAsDouble());
+      return !prev && next;
     }
 
     public override string ToString() => $"{Id}{(Target.HasValue ? $"={Target.Value}" : "")}";

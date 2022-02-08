@@ -272,6 +272,10 @@ namespace RandoMainDLL {
       return state.GroupID == 937 && state.ID == 34641 && state.ValueAsDouble() > 4;
     }
 
+    public static bool shouldTriggerReachableCheck(UberState state, UberValue old) {
+      return MapController.TrackedConds.Any(c => c.Met(state, old));
+    }
+
     public static void ResolveUberStateChange(UberState state, UberValue old) {
       try {
         UberId key = state.GetUberId();
@@ -322,6 +326,9 @@ namespace RandoMainDLL {
         }
 
         InterOp.System.report_uber_state_change(state.GroupID, state.ID, state.ValueAsDouble());
+        if (shouldTriggerReachableCheck(state, old)) {
+          MapController.UpdateReachable();
+        }
       }
       catch (Exception e) {
         Randomizer.Error($"USC.Update {state}", e);
