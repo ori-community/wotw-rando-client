@@ -21,7 +21,6 @@ namespace multiplayer
     constexpr float SPRITE_OFFSET = 0.4f;
     constexpr float SPRITE_SCALE = 0.6f;
 
-    bool is_showing = true;
     std::vector<PlayerInfo> players;
     std::unordered_map<std::wstring, int> player_map;
     std::unordered_map<int, int> player_avatar_map;
@@ -80,11 +79,11 @@ namespace multiplayer
         auto moki = il2cpp::unity::find_child(icons->fields.Moki, "npcMokiMapIcon");
         auto icon = reinterpret_cast<app::GameObject*>(Object::Instantiate(reinterpret_cast<app::Object*>(moki)));
         player.avatar_icon = il2cpp::gchandle_new(icon, false);
-        GameObject::SetActive(icon, is_showing);
+        GameObject::SetActive(icon, player.visible);
         auto transform = il2cpp::unity::get_transform(icon);
         app::Vector3 scale{ SPRITE_SCALE, SPRITE_SCALE, 1.0f };
         Transform::set_localScale(transform, &scale);
-        utils::set_color(icon, player.color, true);
+        utils::set_color(icon, player.color, false);
     }
 
     void create_avatar(PlayerInfo& info)
@@ -92,35 +91,35 @@ namespace multiplayer
         info.avatar_id = get_free_id();
         text_box_create(info.avatar_id, 0.1f, 0.1f, false, false);
         text_box_text(info.avatar_id, info.name.c_str());
-        text_box_color(
-            info.avatar_id,
-            static_cast<int>(info.color.r * 255),
-            static_cast<int>(info.color.g * 255),
-            static_cast<int>(info.color.b * 255),
-            static_cast<int>(info.color.a * 255)
-        );
+        //text_box_color(
+        //    info.avatar_id,
+        //    static_cast<int>(info.color.r * 255),
+        //    static_cast<int>(info.color.g * 255),
+        //    static_cast<int>(info.color.b * 255),
+        //    static_cast<int>(info.color.a * 255)
+        //);
         text_box_position(info.avatar_id, 0.0f, 0.0f, 0.0f);
-        text_box_visibility(info.avatar_id, is_showing);
+        text_box_visibility(info.avatar_id, info.visible);
         text_box_creation_callback(info.avatar_id, avatar_callback);
         player_avatar_map[info.avatar_id] = player_map[info.id];
     }
 
     void update_avatar_color(PlayerInfo& info)
     {
-        if (info.avatar_id != 0)
+        /*if (info.avatar_id != 0)
             text_box_color(
                 info.avatar_id,
                 static_cast<int>(info.color.r * 255),
                 static_cast<int>(info.color.g * 255),
                 static_cast<int>(info.color.b * 255),
                 static_cast<int>(info.color.a * 255)
-            );
+            );*/
 
         if (info.avatar_icon != 0)
         {
             auto icon = il2cpp::gchandle_target<app::GameObject>(info.avatar_icon);
             if (il2cpp::unity::is_valid(icon))
-                utils::set_color(icon, info.color, true);
+                utils::set_color(icon, info.color, false);
         }
     }
 
@@ -238,18 +237,19 @@ namespace multiplayer
                 create_avatar(player);
 
             move_avatar(player);
-            if (should_show != is_showing)
+            bool visible = player.online && should_show;
+            if (visible != player.visible)
             {
-                text_box_visibility(player.avatar_id, should_show);
+                text_box_visibility(player.avatar_id, visible);
                 if (player.avatar_icon != 0)
                 {
                     auto go = il2cpp::gchandle_target<app::GameObject>(player.avatar_icon);
-                    GameObject::SetActive(go, should_show);
+                    GameObject::SetActive(go, visible);
                 }
+
+                player.visible = visible;
             }
         }
-
-        is_showing = should_show;
     }
 }
 
