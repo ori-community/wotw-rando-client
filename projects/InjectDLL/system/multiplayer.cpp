@@ -84,6 +84,7 @@ namespace multiplayer
         app::Vector3 scale{ SPRITE_SCALE, SPRITE_SCALE, 1.0f };
         Transform::set_localScale(transform, &scale);
         utils::set_color(icon, player.color, false);
+        move_avatar(player);
     }
 
     void create_avatar(PlayerInfo& info)
