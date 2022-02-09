@@ -12,6 +12,7 @@ namespace multiplayer
         std::wstring name;
         app::Vector2 position;
         bool online = true;
+        bool visible = true;
         app::Color color;
         std::shared_ptr<textures::TextureData> texture;
         int avatar_id = 0;
