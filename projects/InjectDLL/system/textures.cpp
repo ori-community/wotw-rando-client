@@ -102,6 +102,25 @@ namespace textures
             shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &local.color.value());
     }
 
+    app::Texture2D* TextureData::get()
+    {
+        if (!local.texture.has_value())
+            return nullptr;
+
+        auto texture = il2cpp::gchandle_target<app::Texture2D>(local.texture.value());
+        if (!il2cpp::unity::is_valid(texture) && path._Starts_with(L"file:"))
+        {
+            info("textures", "had to reload file texture.");
+            reload_file_texture();
+            texture = il2cpp::gchandle_target<app::Texture2D>(local.texture.value());
+        }
+
+        if (!il2cpp::unity::is_valid(texture))
+            return nullptr;
+
+        return texture;
+    }
+
     void TextureData::reload_file_texture()
     {
         il2cpp::gchandle_free(local.texture.value());
@@ -178,17 +197,23 @@ namespace textures
             {
                 auto actual_value = static_cast<app::SpiritShardType__Enum>(std::stoi(value));
                 auto settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
-                auto item = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
-                if (item != nullptr)
-                    local.texture = il2cpp::gchandle_new_weak(item->fields.InventoryIcon, true);
+                if (settings != nullptr)
+                {
+                    auto item = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
+                    if (item != nullptr)
+                        local.texture = il2cpp::gchandle_new_weak(item->fields.InventoryIcon, true);
+                }
             }
             else if (type == L"ability")
             {
                 auto actual_value = static_cast<app::AbilityType__Enum>(std::stoi(value));
                 auto settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings")->static_fields->Instance;
-                auto item = il2cpp::invoke<app::Texture2D>(settings->fields.CustomAbilityIcons, "GetValue", &actual_value);
-                if (item != nullptr)
-                    local.texture = il2cpp::gchandle_new_weak(item, true);
+                if (settings != nullptr)
+                {
+                    auto item = il2cpp::invoke<app::Texture2D>(settings->fields.CustomAbilityIcons, "GetValue", &actual_value);
+                    if (item != nullptr)
+                        local.texture = il2cpp::gchandle_new_weak(item, true);
+                }
             }
             else if (type == L"spell")
             {
@@ -202,33 +227,45 @@ namespace textures
             {
                 auto actual_value = std::stoi(value);
                 auto screen = il2cpp::get_class<app::WeaponmasterScreen__Class>("", "WeaponmasterScreen")->static_fields->_Instance_k__BackingField;
-                auto items = screen->fields.WeaponmasterItems;
-                if (actual_value >= 0 && actual_value < items->max_length)
-                    local.texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Upgrade->fields.Icon, true);
+                if (screen != nullptr)
+                {
+                    auto items = screen->fields.WeaponmasterItems;
+                    if (actual_value >= 0 && actual_value < items->max_length)
+                        local.texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Upgrade->fields.Icon, true);
+                }
             }
             else if (type == L"lupo")
             {
                 auto actual_value = std::stoi(value);
                 auto screen = il2cpp::get_class<app::MapmakerScreen__Class>("", "MapmakerScreen")->static_fields->Instance;
-                auto items = screen->fields.Purchases;
-                if (actual_value >= 0 && actual_value < items->max_length)
-                    local.texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Icon, true);
+                if (screen != nullptr)
+                {
+                    auto items = screen->fields.Purchases;
+                    if (actual_value >= 0 && actual_value < items->max_length)
+                        local.texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Icon, true);
+                }
             }
             else if (type == L"grom")
             {
                 auto actual_value = std::stoi(value);
                 auto screen = il2cpp::get_class<app::BuilderScreen__Class>("", "BuilderScreen")->static_fields->_Instance_k__BackingField;
-                auto items = screen->fields.BuilderItems;
-                if (actual_value >= 0 && actual_value < items->max_length)
-                    local.texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Project->fields.Icon, true);
+                if (screen != nullptr)
+                {
+                    auto items = screen->fields.BuilderItems;
+                    if (actual_value >= 0 && actual_value < items->max_length)
+                        local.texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Project->fields.Icon, true);
+                }
             }
             else if (type == L"tuley")
             {
                 auto actual_value = std::stoi(value);
                 auto screen = il2cpp::get_class<app::GardenerScreen__Class>("", "GardenerScreen")->static_fields->_Instance_k__BackingField;
-                auto items = screen->fields.GardenerItems;
-                if (actual_value >= 0 && actual_value < items->max_length)
-                    local.texture = il2cpp::gchandle_new(items->vector[actual_value]->fields.Project->fields.Icon, true);
+                if (screen != nullptr)
+                {
+                    auto items = screen->fields.GardenerItems;
+                    if (actual_value >= 0 && actual_value < items->max_length)
+                        local.texture = il2cpp::gchandle_new(items->vector[actual_value]->fields.Project->fields.Icon, true);
+                }
             }
             else if (type == L"file")
             {

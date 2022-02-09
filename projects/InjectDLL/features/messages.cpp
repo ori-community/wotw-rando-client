@@ -145,6 +145,8 @@ namespace
         bool should_show_box = true;
         bool should_play_sound = true;
         bool alive = true;
+        bool visible = true;
+        bool last_visible = true;
         float fadein = 0.5f;
         float fadeout = 0.5f;
         app::Color color = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -153,6 +155,7 @@ namespace
         app::VerticalAnchorMode__Enum vertical_anchor = app::VerticalAnchorMode__Enum_Middle;
         float line_spacing = 1.0f;
         uint32_t handle = -1;
+        creation_callback callback = nullptr;
     };
 
     std::unordered_map<int, PermanentRandoMessage> permanent_messages;
@@ -465,7 +468,10 @@ namespace
         }
 
         Transform::set_position(transform, &message.pos);
-        GameObject::SetActive(go, true);
+        GameObject::SetActive(go, message.visible);
+
+        if (message.callback != nullptr)
+            message.callback(message.id);
 
         return go;
     }
@@ -509,8 +515,9 @@ namespace
                 message_box->fields.Visibility->fields.m_timeSpeed = message.second.fadeout > 0.0f ? 1.00000000 / message.second.fadeout : 1.0f;
                 il2cpp::gchandle_free(message.second.handle);
                 dead_messages.emplace(message.second.id);
-                continue;
             }
+
+            GameObject::SetActive(go, message.second.visible);
         }
 
         for (auto id : dead_messages)
@@ -549,27 +556,27 @@ void update_color(app::GameObject* go, app::Color color)
 }
 
 void hide_below_hint() {
-    //if (below_hint_box != nullptr)
-    //    MessageBox::HideMessageScreenImmediately(below_hint_box, 0);
+    if (below_hint_box != nullptr)
+        MessageBox::HideMessageScreenImmediately(below_hint_box, 0);
 }
 
 INJECT_C_DLLEXPORT void clear_visible_hints()
 {
-    //if (!should_handle_messages())
-    //    return;
-    //
-    //for (auto* box : tracked_boxes)
-    //{
-    //    if (box != npc_box && is_visible(box))
-    //        MessageBox::HideMessageScreenImmediately(box, 0);
-    //}
-    //
-    //tracked_boxes.clear();
-    //if (last_handle)
-    //{
-    //    il2cpp::gchandle_free(last_handle);
-    //    last_handle = 0;
-    //}
+    if (!should_handle_messages())
+        return;
+    
+    for (auto* box : tracked_boxes)
+    {
+        if (box != npc_box && is_visible(box))
+            MessageBox::HideMessageScreenImmediately(box, 0);
+    }
+    
+    tracked_boxes.clear();
+    if (last_handle)
+    {
+        il2cpp::gchandle_free(last_handle);
+        last_handle = 0;
+    }
 }
 
 INJECT_C_DLLEXPORT bool hints_ready() {
@@ -582,24 +589,24 @@ INJECT_C_DLLEXPORT bool hints_ready() {
 
 INJECT_C_DLLEXPORT void display_hint(const wchar_t* hint, float duration, float ypos, bool mute)
 {
-    //if (!is_on_screen_positions_initialized())
-    //    return;
-    //
-    //auto pos = OnScreenPositions::get_TopCenter();
-    //pos.y = ypos;
-    //messages.push_back({ pos, hint, duration, mute, false });
+    if (!is_on_screen_positions_initialized())
+        return;
+    
+    auto pos = OnScreenPositions::get_TopCenter();
+    pos.y = ypos;
+    messages.push_back({ pos, hint, duration, mute, false });
 }
 
 INJECT_C_DLLEXPORT void display_below(const wchar_t* hint, float duration, bool mute)
 {
-    //if (is_on_screen_positions_initialized())
-    //    messages.push_back({ OnScreenPositions::get_BottomCenter(), hint, duration, mute, true });
+    if (is_on_screen_positions_initialized())
+        messages.push_back({ OnScreenPositions::get_BottomCenter(), hint, duration, mute, true });
 }
 
 INJECT_C_DLLEXPORT void update_map_hint(const wchar_t* info)
 {
-    //if (is_on_screen_positions_initialized())
-    //    messages.push_back({ OnScreenPositions::get_BottomCenter(), info, 20, true, true });
+    if (is_on_screen_positions_initialized())
+        messages.push_back({ OnScreenPositions::get_BottomCenter(), info, 20, true, true });
 }
 
 app::MessageBox* get_message_box(PermanentRandoMessage& message)
@@ -609,6 +616,28 @@ app::MessageBox* get_message_box(PermanentRandoMessage& message)
 
     auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message.handle));
     return reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(go, "", "MessageBox"));
+}
+
+app::GameObject* text_box_get_go(int id)
+{
+    auto& message = permanent_messages.find(id);
+    if (message == permanent_messages.end())
+        return nullptr;
+
+    if (message->second.handle == -1)
+        return nullptr;
+
+    return reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message->second.handle));
+}
+
+bool text_box_creation_callback(int id, creation_callback func)
+{
+    auto& message = permanent_messages.find(id);
+    if (message == permanent_messages.end())
+        return false;
+
+    message->second.callback = func;
+    return true;
 }
 
 int id = 1;
@@ -747,6 +776,16 @@ INJECT_C_DLLEXPORT bool text_box_line_spacing(int id, float spacing)
         MessageBox::RefreshText(message_box);
     }
 
+    return true;
+}
+
+INJECT_C_DLLEXPORT bool text_box_visibility(int id, bool value)
+{
+    auto& message = permanent_messages.find(id);
+    if (message == permanent_messages.end())
+        return false;
+
+    message->second.visible = value;
     return true;
 }
 

@@ -4,6 +4,7 @@
 #include <system/multiplayer.h>
 #include <uber_states/uber_state_manager.h>
 #include <utils/messaging.h>
+#include <utils/misc.h>
 #include <utils/shaders.h>
 
 #include <Common/ext.h>
@@ -29,8 +30,6 @@ namespace
         Spoilers = 5,
         COUNT = 6,
     };
-
-    constexpr float COLOR_DIVIDER = 3.0f;
 
     std::mt19937 generator(40500);
     const std::unordered_map<std::string, std::pair<int, int>> TREE_OVERRIDES = {
@@ -230,33 +229,7 @@ namespace
             auto color = player_info != nullptr ? player_info->color : app::Color{ 1.0f, 1.0f, 1.0f, 1.0f };
             if (il2cpp::unity::is_valid(info.icon->fields.IconGameObject))
             {
-                auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(info.icon->fields.IconGameObject, "UnityEngine", "Renderer");
-                auto first = true;
-                for (auto renderer : renderers)
-                {
-                    auto prev_color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
-                    app::Color actual_color = color;
-                    if (prev_color.a > 0.5f)
-                    {
-                        if (prev_color.a < 0.9f)
-                        {
-                            actual_color.r /= COLOR_DIVIDER;
-                            actual_color.g /= COLOR_DIVIDER;
-                            actual_color.b /= COLOR_DIVIDER;
-                        }
-                        else if (first)
-                        {
-                            actual_color.r = 1.0f;
-                            actual_color.g = 1.0f;
-                            actual_color.b = 1.0f;
-                            first = false;
-                        }
-
-                        actual_color.a = prev_color.a;
-                        shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &actual_color);
-                    }
-                }
-
+                utils::set_color(info.icon->fields.IconGameObject, color, true);
                 for (auto& dot : info.dots)
                     GameObject::SetActive(dot.dot, false);
             }
@@ -1081,25 +1054,7 @@ void refresh_icon_alphas(bool is_map_visible)
     {
         auto color = multiplayer::get_local_player_color();
         if (color.r < 0.99f || color.g < 0.99f || color.b < 0.99f || color.a < 0.99f)
-        {
-            auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(area_map->fields._PlayerPositionMarker_k__BackingField, "UnityEngine", "Renderer");
-            for (auto renderer : renderers)
-            {
-                auto prev_color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
-                color.a = prev_color.a;
-                if (color.a > 0.5f)
-                {
-                    if (color.a < 0.9f)
-                    {
-                        color.r /= COLOR_DIVIDER;
-                        color.g /= COLOR_DIVIDER;
-                        color.b /= COLOR_DIVIDER;
-                    }
-
-                    shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
-                }
-            }
-        }
+            utils::set_color(area_map->fields._PlayerPositionMarker_k__BackingField, color, false);
     }
 
     map_visible = is_map_visible;

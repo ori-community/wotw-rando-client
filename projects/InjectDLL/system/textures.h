@@ -30,6 +30,7 @@ namespace textures
         ~TextureData();
 
         void apply(app::Renderer* renderer);
+        app::Texture2D* get();
 
         void set_texture(app::Texture* texture);
         void set_uvs(app::Vector4 uvs);
