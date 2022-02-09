@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <system/textures.h>
 
 namespace multiplayer
 {
@@ -12,6 +13,8 @@ namespace multiplayer
         app::Vector2 position;
         bool online = true;
         app::Color color;
+        std::shared_ptr<textures::TextureData> texture;
+        int avatar_id = 0;
     };
 
     std::vector<PlayerInfo> const& get_players();

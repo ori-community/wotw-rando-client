@@ -426,7 +426,7 @@ namespace
         message_box->fields.Visibility->fields.TransitionOutDuration = message.fadeout;
         message_box->fields.Visibility->fields.WaitDuration = 1.0f;
         message_box->fields.Visibility->fields.m_delayTime = 1.0f;
-        message_box->fields.Visibility->fields.m_timeSpeed = 1.00000000 / message.fadein;
+        message_box->fields.Visibility->fields.m_timeSpeed = message.fadein > 0.0f ? 1.0f / message.fadein : 1.0f;
         
         message_box->fields.Visibility->fields.DestroyOnHide = true;
 
@@ -494,9 +494,10 @@ namespace
             auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message.second.handle));
             if (!il2cpp::unity::is_valid(go))
             {
-                // Something else killed this game object.
+                // Something else killed this game object, reinitialize it.
                 il2cpp::gchandle_free(message.second.handle);
-                dead_messages.emplace(message.second.id);
+                message.second.handle = -1;
+                create_permanent_box(message.second);
                 continue;
             }
 
@@ -505,7 +506,7 @@ namespace
             if (!message.second.alive)
             {
                 message_box->fields.Visibility->fields.m_delayTime = 0.0f;
-                message_box->fields.Visibility->fields.m_timeSpeed = 1.00000000 / message.second.fadeout;
+                message_box->fields.Visibility->fields.m_timeSpeed = message.second.fadeout > 0.0f ? 1.00000000 / message.second.fadeout : 1.0f;
                 il2cpp::gchandle_free(message.second.handle);
                 dead_messages.emplace(message.second.id);
                 continue;
@@ -541,28 +542,34 @@ namespace
     }
 }
 
+void update_color(app::GameObject* go, app::Color color)
+{
+    auto message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(go, "", "MessageBox");
+    message_box->fields.TextBox->fields.color = color;
+}
+
 void hide_below_hint() {
-    if (below_hint_box != nullptr)
-        MessageBox::HideMessageScreenImmediately(below_hint_box, 0);
+    //if (below_hint_box != nullptr)
+    //    MessageBox::HideMessageScreenImmediately(below_hint_box, 0);
 }
 
 INJECT_C_DLLEXPORT void clear_visible_hints()
 {
-    if (!should_handle_messages())
-        return;
-
-    for (auto* box : tracked_boxes)
-    {
-        if (box != npc_box && is_visible(box))
-            MessageBox::HideMessageScreenImmediately(box, 0);
-    }
-
-    tracked_boxes.clear();
-    if (last_handle)
-    {
-        il2cpp::gchandle_free(last_handle);
-        last_handle = 0;
-    }
+    //if (!should_handle_messages())
+    //    return;
+    //
+    //for (auto* box : tracked_boxes)
+    //{
+    //    if (box != npc_box && is_visible(box))
+    //        MessageBox::HideMessageScreenImmediately(box, 0);
+    //}
+    //
+    //tracked_boxes.clear();
+    //if (last_handle)
+    //{
+    //    il2cpp::gchandle_free(last_handle);
+    //    last_handle = 0;
+    //}
 }
 
 INJECT_C_DLLEXPORT bool hints_ready() {
@@ -575,24 +582,24 @@ INJECT_C_DLLEXPORT bool hints_ready() {
 
 INJECT_C_DLLEXPORT void display_hint(const wchar_t* hint, float duration, float ypos, bool mute)
 {
-    if (!is_on_screen_positions_initialized())
-        return;
-
-    auto pos = OnScreenPositions::get_TopCenter();
-    pos.y = ypos;
-    messages.push_back({ pos, hint, duration, mute, false });
+    //if (!is_on_screen_positions_initialized())
+    //    return;
+    //
+    //auto pos = OnScreenPositions::get_TopCenter();
+    //pos.y = ypos;
+    //messages.push_back({ pos, hint, duration, mute, false });
 }
 
 INJECT_C_DLLEXPORT void display_below(const wchar_t* hint, float duration, bool mute)
 {
-    if (is_on_screen_positions_initialized())
-        messages.push_back({ OnScreenPositions::get_BottomCenter(), hint, duration, mute, true });
+    //if (is_on_screen_positions_initialized())
+    //    messages.push_back({ OnScreenPositions::get_BottomCenter(), hint, duration, mute, true });
 }
 
 INJECT_C_DLLEXPORT void update_map_hint(const wchar_t* info)
 {
-    if (is_on_screen_positions_initialized())
-        messages.push_back({ OnScreenPositions::get_BottomCenter(), info, 20, true, true });
+    //if (is_on_screen_positions_initialized())
+    //    messages.push_back({ OnScreenPositions::get_BottomCenter(), info, 20, true, true });
 }
 
 app::MessageBox* get_message_box(PermanentRandoMessage& message)
@@ -602,6 +609,12 @@ app::MessageBox* get_message_box(PermanentRandoMessage& message)
 
     auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message.handle));
     return reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(go, "", "MessageBox"));
+}
+
+int id = 1;
+INJECT_C_DLLEXPORT int get_free_id()
+{
+    return id++;
 }
 
 INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, bool should_show_box, bool should_play_sound)
