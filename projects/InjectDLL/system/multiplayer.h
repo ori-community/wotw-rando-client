@@ -15,6 +15,10 @@ namespace multiplayer
         app::Color color;
         std::shared_ptr<textures::TextureData> texture;
         int avatar_id = 0;
+        uint64_t avatar_icon = 0;
+        float last_facing_pos = 0.0f;
+        float last_facing = 1.0f;
+        int facing = 1;
     };
 
     std::vector<PlayerInfo> const& get_players();

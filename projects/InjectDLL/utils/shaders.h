@@ -44,4 +44,5 @@ namespace shaders
     DECLARE_BINDING(, UberShaderAPI, float, GetFloat, (app::Renderer* renderer, app::UberShaderProperty_Float__Enum prop));
 
     ShaderInfo get_info(app::Renderer* renderer);
+    void set_color(app::GameObject* go, app::Color& color);
 }

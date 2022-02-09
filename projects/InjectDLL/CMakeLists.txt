@@ -81,6 +81,7 @@ set(
     "uber_states/uber_state_helper.cpp"
     "uber_states/state_applier.cpp"
     "utils/messaging.cpp"
+    "utils/misc.cpp"
     "utils/shaders.cpp"
     "utils/stb_image.cpp"
 )
@@ -114,6 +115,7 @@ set(
     "uber_states/uber_state_manager.h"
     "uber_states/uber_state_helper.h"
     "utils/messaging.h"
+    "utils/misc.h"
     "utils/shaders.h"
     "utils/stb_image.h"
 )
