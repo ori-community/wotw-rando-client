@@ -33,7 +33,7 @@ namespace RandoMainDLL {
     public const string RAND = "Random Spawn";
     public const string RELIC_HUNT = "World Tour";
 
-    public static readonly Dictionary<string, string> FALLBACK_NAMES = new() {
+    public static readonly Dictionary<string, string> FALLBACK_NAMES = new Dictionary<string, string>() {
       { "NoHints", "No Hints" },
       { "NoKSDoors", "No KS Doors" },
       { "ForceWisps", "Force Wisps" },
@@ -484,15 +484,20 @@ namespace RandoMainDLL {
               return new SyncToggler(t, suid);
             case SysCommandType.CreateWarp:
             case SysCommandType.DestroyWarp: {
-                if (extras.Count != (t == SysCommandType.CreateWarp ? 3 : 1)) {
+                if (t == SysCommandType.CreateWarp ? !extras.Count.In(3, 4) : extras.Count != 1) {
                   Randomizer.Log($"malformed command specifier {command}", false);
                   return new Message($"Invalid command {command}!");
                 }
+
                 var id = extras[0].ParseToInt("BuildPickup.Id");
                 if (t == SysCommandType.CreateWarp) {
                   var x = extras[1].ParseToFloat("BuildPickup.X");
                   var y = extras[2].ParseToFloat("BuildPickup.Y");
-                  return new Icon(id, x, y);
+                  var label = "";
+                  if (extras.Count > 3)
+                    label = extras[3];
+                  
+                  return new Icon(id, x, y, label);
                 }
                 else {
                   return new Icon(id);

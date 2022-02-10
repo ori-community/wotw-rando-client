@@ -706,11 +706,13 @@ namespace RandoMainDLL {
     private readonly int id;
     private readonly float x;
     private readonly float y;
+    private readonly string label;
 
-    public Icon(int id, float x, float y) : base(SysCommandType.CreateWarp) {
+    public Icon(int id, float x, float y, string label) : base(SysCommandType.CreateWarp) {
       this.id = id;
       this.x = x;
       this.y = y;
+      this.label = label;
     }
 
     public Icon(int id) : base(SysCommandType.DestroyWarp) {
@@ -721,6 +723,7 @@ namespace RandoMainDLL {
       switch (type) {
         case SysCommandType.CreateWarp:
           InterOp.add_icon(AreaType.InkwaterMarsh, id, WorldMapIconType.SavePedestal, x, y, -1, -1, true);
+          InterOp.set_icon_label(AreaType.InkwaterMarsh, id, label);
           break;
         case SysCommandType.DestroyWarp:
           InterOp.remove_icon(AreaType.InkwaterMarsh, id);

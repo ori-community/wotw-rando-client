@@ -71,6 +71,8 @@ namespace
         float y;
         bool can_teleport;
         ExtraIconCreation creation;
+        bool use_custom_label = false;
+        std::wstring custom_label;
         
         ExtraState collected;
         ExtraState custom;
@@ -236,12 +238,32 @@ namespace
         }
         else if (this_ptr->fields.m_areaMapIcon != nullptr)
         {
-            auto it = spoiler_states.find(stringify_guid(this_ptr->fields.Guid));
+            bool label_set = false;
+            auto guid = stringify_guid(this_ptr->fields.Guid);
+            auto ex = extra_icons_map.find(guid);
+            if (ex != extra_icons_map.end() && ex->second->use_custom_label)
+            {
+                AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, utils::create_message_provider(il2cpp::string_new(ex->second->custom_label)));
+                label_set = true;
+            }
+
+            auto it = spoiler_states.find(guid);
             if (it != spoiler_states.end())
             {
-                wchar_t buffer[128] = { 0 };
-                csharp_bridge::filter_icon_text(reinterpret_cast<void*>(buffer), 127 * sizeof(wchar_t), it->second.group_id, it->second.state_id, static_cast<int>(it->second.value), current_filter);
-                AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, utils::create_message_provider(il2cpp::string_new(buffer)));
+                if (!label_set)
+                {
+                    wchar_t buffer[128] = { 0 };
+                    csharp_bridge::filter_icon_text(
+                        reinterpret_cast<void*>(buffer),
+                        127 * sizeof(wchar_t),
+                        it->second.group_id,
+                        it->second.state_id,
+                        static_cast<int>(it->second.value),
+                        current_filter
+                    );
+                    AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, utils::create_message_provider(il2cpp::string_new(buffer)));
+                }
+
                 const auto spoiler_active = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
                 if (spoiler_active ^ it->second.has_spoiler_icon)
                 {
@@ -258,164 +280,162 @@ namespace
     void initialize()
     {
         extra_icons[app::GameWorldAreaID__Enum_InkwaterMarsh] = {
-            { app::WorldMapIconType__Enum_AbilityPedestal, -296.395905f, -4480.f, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_AbilityPedestal, -296.395905f, -4480.f, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 { true, uber_states::constants::TREE_GROUP_ID, app::AbilityType__Enum_Sword, -1.f }, {} },
             
-            { app::WorldMapIconType__Enum_QuestItem, -695, -4417, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -695, -4417, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 48248, 51645, 3.f } }, // MarshSpawn.TheMissingKey
-            { app::WorldMapIconType__Enum_QuestItem, -932, -4494, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -932, -4494, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 48248, 18458, 4.f } }, // MarshSpawn.IntoTheBurrows
-            { app::WorldMapIconType__Enum_QuestItem, -391, -4414, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -391, -4414, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 15983, 3.f } }, // MarshSpawn.ALittleBraver
 
-            { app::WorldMapIconType__Enum_Keystone, -461.027069f, -4195.8754808f, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_Keystone, -461.027069f, -4195.8754808f, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 { true, 21786, 27433, -1.f }, {} },
-            { app::WorldMapIconType__Enum_Keystone, -393.719452f, -4188.882813f, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_Keystone, -393.719452f, -4188.882813f, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 { true, 21786, 37225, -1.f }, {} },
-            //{ app::WorldMapIconType__Enum_EnergyFragment, -421.697601f, -4273.036133f, false, true,
-            //    { true, 21786, 10295, -1.f }, {} },
-            { app::WorldMapIconType__Enum_Mapmaker, -589.f, -4348.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Mapmaker, -589.f, -4348.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 48248, 18767, -1.f  }, {} },
-            { app::WorldMapIconType__Enum_Weaponmaster, -597.f, -4293.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Weaponmaster, -597.f, -4293.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, uber_states::constants::OPHER_WEAPON_GROUP_ID, 20000, -1.f  }, {} },
-            { app::WorldMapIconType__Enum_RaceStart, -614.200012f, -4317.200195f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_RaceStart, -614.200012f, -4317.200195f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 44964, 45951, 2.f }, {} }, // MarshPastOpher.SpiritTrial
         };
 
 
         extra_icons[app::GameWorldAreaID__Enum_KwoloksHollow] = {
-            { app::WorldMapIconType__Enum_QuestItem, -110, -4220, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -110, -4220, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 26318, 1.f } }, // EastHollow.HandToHandMap
-            { app::WorldMapIconType__Enum_QuestItem, 240, -4207, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, 240, -4207, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 50597, 4.f } }, // EastHollow.KwoloksWisdom,
-            { app::WorldMapIconType__Enum_Mapmaker, -146.f, -4321.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Mapmaker, -146.f, -4321.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 48248, 3638, -1.f  }, {} },
-            { app::WorldMapIconType__Enum_Shardtrader, -281.f, -4239.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Shardtrader, -281.f, -4239.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, uber_states::constants::TWILLEN_SHARD_GROUP_ID, 20000, -1.f  }, {} },
-            { app::WorldMapIconType__Enum_RaceStart, -115.000000f, -4257.200195f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_RaceStart, -115.000000f, -4257.200195f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 44964, 25545, 2.f }, {} }, // WestHollow.SpiritTrial
         };
 
         extra_icons[app::GameWorldAreaID__Enum_WellspringGlades] = {
-            { app::WorldMapIconType__Enum_QuestItem, -282, -4155, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -282, -4155, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 26318, 2.f } }, // GladesTown.HandToHandPouch
-            { app::WorldMapIconType__Enum_QuestItem, -426, -4155, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -426, -4155, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 26318, 6.f } }, // GladesTown.HandToHandLantern
-            { app::WorldMapIconType__Enum_QuestItem, -410, -4142, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -410, -4142, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 26318, 9.f } }, // GladesTown.HandToHandCanteen
-            { app::WorldMapIconType__Enum_QuestItem, -110, -4090, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -110, -4090, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 26318, 4.f } }, // GladesTown.HandToHandSoup
-            { app::WorldMapIconType__Enum_QuestItem, -385, -4161, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -385, -4161, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 27804, 2.f } }, // GladesTown.FamilyReunionKey
-            { app::WorldMapIconType__Enum_QuestItem, -366, -4185, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -366, -4185, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 2782, -1.f } }, // GladesTown.AcornQI
-            { app::WorldMapIconType__Enum_QuestItem, -358, -4185, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -358, -4185, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 33776, 3.f } }, // GladesTown.IntoTheDarkness
-            { app::WorldMapIconType__Enum_QuestItem, -320, -4152, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -320, -4152, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 44578, 2.f } }, // GladesTown.RebuildTheGlades
-            { app::WorldMapIconType__Enum_QuestItem, -408, -4162, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -408, -4162, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 23987, 14832, -1.f } }, // GladesTown.ADiamondInTheRough
-            { app::WorldMapIconType__Enum_QuestItem, -170, -4138, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -170, -4138, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 26394, 2.f } }, // GladesTown.RegrowTheGlades
-            { app::WorldMapIconType__Enum_Weaponmaster, -204.f, -4147.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Weaponmaster, -204.f, -4147.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, uber_states::constants::OPHER_WEAPON_GROUP_ID, 20000, -1.f  }, {} },
-            { app::WorldMapIconType__Enum_Mapmaker, -209.f, -4163.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Mapmaker, -209.f, -4163.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 48248, 20000, -1.f  }, {} },
-            { app::WorldMapIconType__Enum_Shardtrader, -410.f, -4162.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Shardtrader, -410.f, -4162.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, uber_states::constants::TWILLEN_SHARD_GROUP_ID, 20000, -1.f  }, {} },
         };
 
         extra_icons[app::GameWorldAreaID__Enum_WaterMill] = {
-            { app::WorldMapIconType__Enum_QuestItem, -811, -3973, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -811, -3973, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 20667, 3.f } }, // OuterWellspring.TheLostCompass
-            { app::WorldMapIconType__Enum_QuestItem, -1168, -3733, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -1168, -3733, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 26318, 3.f } }, // InnerWellspring.HandToHandHerbs
-            { app::WorldMapIconType__Enum_QuestItem, -1159, -3635, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -1159, -3635, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 37858, 12379, -1.f } }, // InnerWellspring.WaterEscape
-            { app::WorldMapIconType__Enum_Mapmaker, -1190.f, -3861.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Mapmaker, -1190.f, -3861.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 48248, 1590, -1.f  }, {} },
-            { app::WorldMapIconType__Enum_Weaponmaster, -1260.f, -3677.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Weaponmaster, -1260.f, -3677.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, uber_states::constants::OPHER_WEAPON_GROUP_ID, 20000, -1.f  }, {} },
-            { app::WorldMapIconType__Enum_RaceStart, -668.349976f, -3935.040283f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_RaceStart, -668.349976f, -3935.040283f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 44964, 11512, 2.f }, {} }, // OuterWellspring.SpiritTrial
         };
 
         extra_icons[app::GameWorldAreaID__Enum_LumaPools] = {
-            { app::WorldMapIconType__Enum_QuestItem, -1173, -4154, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -1173, -4154, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 53103, -1.f } }, // EastPools.KwoloksWisdomAmulet
-            { app::WorldMapIconType__Enum_QuestItem, -1284, -4126, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -1284, -4126, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 26318, 8.f } }, // EastPools.HandToHandSpyglass
-            { app::WorldMapIconType__Enum_QuestEnd, -1928, -4066, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestEnd, -1928, -4066, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 945, 49747, -1.f } }, // WestPools.ForestsStrength
-            { app::WorldMapIconType__Enum_Mapmaker, -1391.f, -4167.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Mapmaker, -1391.f, -4167.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 48248, 1557, -1.f  }, {} },
-            { app::WorldMapIconType__Enum_RaceStart, -1416.753174f, -4124.448242f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_RaceStart, -1416.753174f, -4124.448242f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 44964, 54686, 2.f }, {} }, // EastPools.SpiritTrial
         };
 
         extra_icons[app::GameWorldAreaID__Enum_SilentWoodland] = {
-            { app::WorldMapIconType__Enum_Keystone, 907.865112f, -4121.716309f, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_Keystone, 907.865112f, -4121.716309f, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 { true, 58674, 19769, -1.f }, {} },
-            { app::WorldMapIconType__Enum_QuestItem, 513, -4158, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, 513, -4158, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 59708, 1.f } }, // WoodsEntry.LastTreeBranch
-            { app::WorldMapIconType__Enum_QuestItem, 469, -4180, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, 469, -4180, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 57399, -1.f } }, // WoodsEntry.DollQI
-            { app::WorldMapIconType__Enum_QuestItem, 513, -4159, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, 513, -4159, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 7470, -1.f } }, // WoodsEntry.TreeSeed
-            { app::WorldMapIconType__Enum_RaceStart, 819.549988f, -4045.100098f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_RaceStart, 819.549988f, -4045.100098f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 44964, 22703, 2.f }, {} }, // WoodsMain.SpiritTrial
         };
 
         extra_icons[app::GameWorldAreaID__Enum_BaursReach] = {
-            { app::WorldMapIconType__Enum_Experience, 68.761978f, -3730.634521f, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_Experience, 68.761978f, -3730.634521f, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 { true, 28895, 46404, -1.f }, {} }, // UpperReach.RevisitEX
 
-            { app::WorldMapIconType__Enum_QuestItem, -244, -3989, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, -244, -3989, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 26318, 5.f } }, // LowerReach.HandToHandHat
-            { app::WorldMapIconType__Enum_QuestEnd, -31, -3711, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestEnd, -31, -3711, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 28895, 25522, -1.f } }, // UpperReach.ForestsMemory
-            { app::WorldMapIconType__Enum_Mapmaker, -275.f, -3996.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Mapmaker, -275.f, -3996.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 48248, 29604, -1.f  }, {} },
-            { app::WorldMapIconType__Enum_RaceStart, 76.593750f, -4035.282715f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_RaceStart, 76.593750f, -4035.282715f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 44964, 23661, 2.f }, {} }, // LowerReach.SpiritTrial
         };
 
         extra_icons[app::GameWorldAreaID__Enum_MouldwoodDepths] = {
-            { app::WorldMapIconType__Enum_QuestItem, 317, -4508, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, 317, -4508, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 26318, 7.f } }, // LowerDepths.HandToHandSilk
-            { app::WorldMapIconType__Enum_QuestEnd, 687, -4386, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestEnd, 687, -4386, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 18793, 63291, -1.f } }, // UpperDepths.ForestsEyes
-            { app::WorldMapIconType__Enum_Mapmaker, 682.f, -4576.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Mapmaker, 682.f, -4576.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 48248, 48423, -1.f  }, {} },
-            { app::WorldMapIconType__Enum_RaceStart, 478.299988f, -4515.700195f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_RaceStart, 478.299988f, -4515.700195f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 44964, 28552, 2.f }, {} }, // LowerDepths.SpiritTrial
         };
 
         extra_icons[app::GameWorldAreaID__Enum_WindsweptWastes] = {
-            { app::WorldMapIconType__Enum_QuestItem, 1641, -4003, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, 1641, -4003, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 58342, -1.f } }, // LowerWastes.EerieGem
-            { app::WorldMapIconType__Enum_QuestItem, 1685, -3923, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, 1685, -3923, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 26318, 10.f } }, // LowerWastes.HandToHandMapstone
-            { app::WorldMapIconType__Enum_Mapmaker, 1647.f, -3899.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Mapmaker, 1647.f, -3899.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 48248, 61146, -1.f  }, {} },
-            { app::WorldMapIconType__Enum_RaceStart, 1526.199951f, -4007.700195f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_RaceStart, 1526.199951f, -4007.700195f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 44964, 30767, 2.f }, {} }, // LowerWastes.SpiritTrial
         };
 
         extra_icons[app::GameWorldAreaID__Enum_WindtornRuins] = {
-            { app::WorldMapIconType__Enum_QuestItem, 1969, -4024, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestItem, 1969, -4024, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 14019, 26318, 11.f } }, // WindtornRuins.HandToHandComplete
-            { app::WorldMapIconType__Enum_QuestEnd, 2056, -3568, false, ExtraIconCreation::SpoilerAndNormal,
+            { app::WorldMapIconType__Enum_QuestEnd, 2056, -3568, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
                 {}, { true, 10289, 22102, -1.f } }, // UpperDepths.WindtornRuins.Seir
         };
 
         extra_icons[app::GameWorldAreaID__Enum_MidnightBurrow] = {
-            { app::WorldMapIconType__Enum_Mapmaker, -870.f, -4555.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Mapmaker, -870.f, -4555.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 48248, 45538, -1.f  }, {} }
         };
 
         extra_icons[app::GameWorldAreaID__Enum_WillowsEnd] = {
-            { app::WorldMapIconType__Enum_Mapmaker, 474.f, -3859.f, false, ExtraIconCreation::Spoiler,
+            { app::WorldMapIconType__Enum_Mapmaker, 474.f, -3859.f, false, ExtraIconCreation::Spoiler, false, L"",
                 { true, 48248, 4045, -1.f  }, {} }
         };
 
@@ -1132,6 +1152,8 @@ INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, int id, app::W
         y,
         allow_teleport,
         ExtraIconCreation::Normal,
+        false,
+        L"",
         state,
         {}
     };
@@ -1163,6 +1185,19 @@ INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, int id, app::W
             }
         }
     }
+}
+
+INJECT_C_DLLEXPORT void set_icon_label(app::GameWorldAreaID__Enum area, int id, const wchar_t* label)
+{
+    auto& area_header_icons = header_icons[area];
+    auto it = area_header_icons.find(id);
+    if (it != area_header_icons.end())
+    {
+        it->second.custom_label = label;
+        it->second.use_custom_label = !it->second.custom_label.empty();
+    }
+    else
+        return; // TODO: Add warning
 }
 
 void update_player_icons()
