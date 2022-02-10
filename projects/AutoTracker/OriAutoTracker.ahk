@@ -318,16 +318,16 @@ CheckFlags:
         GuiControl, Main:Hide, img\Quest.png
         GuiControl, Main:Hide, img\MapStone.png
 
-        if (InStr(Flags, "ForceWisps")) {
+        if (InStr(Flags, "Force Wisps")) {
             GuiControl, Main:Show, img\Wisp.png
         }
-        if (InStr(Flags, "ForceTrees")) {
+        if (InStr(Flags, "Force Trees")) {
             GuiControl, Main:Show, img\SkillTree.png
         }
-        if (InStr(Flags, "ForceQuests")) {
+        if (InStr(Flags, "Force Quests")) {
             GuiControl, Main:Show, img\Quest.png
         }
-        if (InStr(Flags, "WorldTour")) {
+        if (InStr(Flags, "World Tour")) {
             GuiControl, Main:Show, img\MapStone.png
         }
     }
