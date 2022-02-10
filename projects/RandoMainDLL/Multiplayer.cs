@@ -54,15 +54,20 @@ namespace RandoMainDLL {
       var toAdd = players.Keys.Except(currentPlayers);
       var toRemove = currentPlayers.Except(players.Keys);
 
-      foreach (var player in toRemove)
+      foreach (var player in toRemove) {
         InterOp.Multiplayer.remove_player(player);
+        Randomizer.Log($"Removed player {player}", false);
+      }
 
-      foreach (var player in toAdd)
+      foreach (var player in toAdd) {
         InterOp.Multiplayer.add_player(player, players[player].info.Name);
+        Randomizer.Log($"Added player {player}", false);
+      }
 
       currentPlayers = players.Keys.ToHashSet();
       foreach (var player in players) {
         InterOp.Multiplayer.set_player_online(player.Key, player.Value.info.HasConnectedMultiverseId);
+        Randomizer.Log($"Player {player} is online: {player.Value.info.HasConnectedMultiverseId}", false);
         InterOp.Multiplayer.set_player_color(player.Key, player.Value.r, player.Value.g, player.Value.b, player.Value.a);
       }
 
