@@ -21,16 +21,29 @@ namespace RandoMainDLL {
     GOAL_MODES_COMPLETED = 11,
     ON_TELEPORT = 20
   }
-  public struct Flag {
-    public const string NOHINTS = "NoHints";
-    public const string NOKEYSTONES = "NoKSDoors";
-    public const string ALLWISPS = "ForceWisps";
-    public const string ALLTREES = "ForceTrees";
-    public const string ALLQUESTS = "ForceQuests";
-    public const string NOSWORD = "NoFreeSword";
-    public const string RAIN = "RainyMarsh";
-    public const string RAND = "RandomSpawn";
-    public const string RELIC_HUNT = "WorldTour";
+
+  public static class Flag {
+    public const string NOHINTS = "No Hints";
+    public const string NOKEYSTONES = "No KS Doors";
+    public const string ALLWISPS = "Force Wisps";
+    public const string ALLTREES = "Force Trees";
+    public const string ALLQUESTS = "Force Quests";
+    public const string NOSWORD = "No Free Sword";
+    public const string RAIN = "Rainy Marsh";
+    public const string RAND = "Random Spawn";
+    public const string RELIC_HUNT = "World Tour";
+
+    public static readonly Dictionary<string, string> FALLBACK_NAMES = new() {
+      { "NoHints", "No Hints" },
+      { "NoKSDoors", "No KS Doors" },
+      { "ForceWisps", "Force Wisps" },
+      { "ForceTrees", "Force Trees" },
+      { "ForceQuests", "Force Quests" },
+      { "NoFreeSword", "No Free Sword" },
+      { "RainyMarsh", "Rainy Marsh" },
+      { "RandomSpawn", "Random Spawn" },
+      { "WorldTour", "World Tour" },
+    };
   }
 
   public class UberStateCondition {
@@ -235,8 +248,13 @@ namespace RandoMainDLL {
         var flag = rawFlag.Trim();
         if (flag.ToLower() == "nosword")
           Flags.Add(Flag.NOSWORD);
-        else
+        else {
+          // TODO: Remove with 2.0
+          if (Flag.FALLBACK_NAMES.ContainsKey(flag))
+            flag = Flag.FALLBACK_NAMES[flag];
+
           Flags.Add(flag);
+        }
       }
     }
 
