@@ -22,15 +22,15 @@ namespace RandoMainDLL {
     ON_TELEPORT = 20
   }
   public struct Flag {
-    public const string NOHINTS = "No Hints";
-    public const string NOKEYSTONES = "No KS Doors";
-    public const string ALLWISPS = "Force Wisps";
-    public const string ALLTREES = "Force Trees";
-    public const string ALLQUESTS = "Force Quests";
-    public const string NOSWORD = "No Free Sword";
-    public const string RAIN = "Rainy Marsh";
-    public const string RAND = "Random Spawn";
-    public const string RELIC_HUNT = "World Tour";
+    public const string NOHINTS = "NoHints";
+    public const string NOKEYSTONES = "NoKSDoors";
+    public const string ALLWISPS = "ForceWisps";
+    public const string ALLTREES = "ForceTrees";
+    public const string ALLQUESTS = "ForceQuests";
+    public const string NOSWORD = "NoFreeSword";
+    public const string RAIN = "RainyMarsh";
+    public const string RAND = "RandomSpawn";
+    public const string RELIC_HUNT = "WorldTour";
   }
 
   public class UberStateCondition {
