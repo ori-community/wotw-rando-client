@@ -21,25 +21,16 @@ namespace RandoMainDLL {
     GOAL_MODES_COMPLETED = 11,
     ON_TELEPORT = 20
   }
-  public enum Flag {
-    [Description("No Hints")]
-    NOHINTS,
-    [Description("No KS Doors")]
-    NOKEYSTONES,
-    [Description("Force Wisps")]
-    ALLWISPS,
-    [Description("Force Trees")]
-    ALLTREES,
-    [Description("Force Quests")]
-    ALLQUESTS,
-    [Description("No Free Sword")]
-    NOSWORD,
-    [Description("Rainy Marsh")]
-    RAIN,
-    [Description("Random Spawn")]
-    RAND,
-    [Description("World Tour")]
-    RELIC_HUNT,
+  public struct Flag {
+    public const string NOHINTS = "No Hints";
+    public const string NOKEYSTONES = "No KS Doors";
+    public const string ALLWISPS = "Force Wisps";
+    public const string ALLTREES = "Force Trees";
+    public const string ALLQUESTS = "Force Quests";
+    public const string NOSWORD = "No Free Sword";
+    public const string RAIN = "Rainy Marsh";
+    public const string RAND = "Random Spawn";
+    public const string RELIC_HUNT = "World Tour";
   }
 
   public class UberStateCondition {
@@ -133,7 +124,7 @@ namespace RandoMainDLL {
     private static string seedName = "";
     public static Dictionary<UberStateCondition, Pickup> PickupMap = new Dictionary<UberStateCondition, Pickup>();
     public static List<TimerDefinition> TimerList = new List<TimerDefinition>();
-    public static HashSet<Flag> Flags = new HashSet<Flag>();
+    public static HashSet<String> Flags = new HashSet<String>();
     public static string SeedFile = "";
     public static string SeedName { get => SeedFile.Contains("\\") ? SeedFile.Substring(1 + SeedFile.LastIndexOf('\\')) : SeedFile; }
     public static void ReadSeed(bool init = false) {
@@ -223,7 +214,7 @@ namespace RandoMainDLL {
           InterOp.clear_start_position();
         }
         if (!init) {
-          var flagPart = Flags.Count > 0 ? $"\nFlags: {String.Join(", ", Flags.Select((Flag flag) => flag.GetDescription()))}" : "";
+          var flagPart = Flags.Count > 0 ? $"\nFlags: {String.Join(", ", Flags)}" : "";
           Msg.Print($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 300);
           MapController.UpdateReachable();
         }
@@ -240,15 +231,12 @@ namespace RandoMainDLL {
     public static void ProcessFlags(string flagline) {
       if (Flags.Count > 0)
         Randomizer.Warn("ProcessFlags", "called with non-empty flagline. Check seed for extra flaglines");
-      var enumsByName = Enum.GetValues(typeof(Flag)).Cast<Flag>().ToDictionary(f => f.GetDescription().ToLower().Replace(" ", ""));
       foreach (var rawFlag in flagline.Replace("Flags:", "").Trim().Split(',')) {
-        var flag = rawFlag.Trim().ToLower();
-        if (flag == "nosword")
+        var flag = rawFlag.Trim();
+        if (flag.ToLower() == "nosword")
           Flags.Add(Flag.NOSWORD);
-        else if (enumsByName.TryGetValue(flag, out Flag f))
-          Flags.Add(f);
         else
-          Randomizer.Debug($"Ignoring behaviorless flag {rawFlag}", false);
+          Flags.Add(flag);
       }
     }
 
