@@ -34,7 +34,7 @@ if(launchWithTracker != "false"){
     SetTimer, IsOriStillRunning, 500
 }
 
-version := "v0.2.1"
+version := "v0.2.2"
 global TRACKFILE := A_ScriptDir . "\trackfile.json"
 global SEEDPATH := A_ScriptDir . "\.currentseedpath"
 global MESSAGELOG := A_ScriptDir . "\.messagelog"
