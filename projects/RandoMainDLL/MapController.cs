@@ -9,9 +9,21 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
 
   public static class MapController {
+    public static bool Updating;
+    private static int updateCount = 0;
 
     public static void Update() {
-      if(reachCheckResult != null) {
+      // Queue up requested reach check.
+      if (!Updating && InterOp.Utils.get_game_state() == GameState.Game && updateCount > 0) {
+        updateCount = 0;
+        Updating = true;
+        var args = GetArgs();
+        var t = new Thread(() => UpdateReachableAsync(args));
+        t.Start();
+      }
+
+      // Parse reach check result.
+      if (reachCheckResult != null) {
         Reachable.Clear();
         if (reachCheckResult != "") foreach (var rawCond in reachCheckResult.Split(',')) {
           try {
@@ -78,19 +90,14 @@ namespace RandoMainDLL {
       ShardType.Deflector,
       ShardType.Fracture,
     };
+
     public static void UpdateReachable() {
       if (InterOp.Utils.get_game_state() == GameState.Game) {
-        var args = GetArgs();
-        var t = new Thread(() => UpdateReachableAsync(args));
-        t.Start();
+        ++updateCount;
       }
     }
-    public static bool Updating;
     public static void UpdateReachableAsync(List<String> argsList) {
       try {
-        if (Updating)
-          return;
-        Updating = true;
         var proc = new System.Diagnostics.Process();
         proc.StartInfo.FileName = $"{Randomizer.BasePath}\\seedgen.exe";
         proc.StartInfo.Arguments = String.Join(" ", argsList);
