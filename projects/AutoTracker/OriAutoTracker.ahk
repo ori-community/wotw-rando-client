@@ -34,7 +34,7 @@ if(launchWithTracker != "false"){
     SetTimer, IsOriStillRunning, 500
 }
 
-version := "v0.2.1"
+version := "v0.2.2"
 global TRACKFILE := A_ScriptDir . "\trackfile.json"
 global SEEDPATH := A_ScriptDir . "\.currentseedpath"
 global MESSAGELOG := A_ScriptDir . "\.messagelog"
@@ -216,7 +216,6 @@ Gui, Add, Text, vGorlekOre x240 y535 w50, 0
 
 Gui, Main:Show, x%xpos% y%ypos%, Ori WotW AutoTracker %version%
 
-gosub CheckFlags
 update()
 gosub ParseOnTopState
 
@@ -308,31 +307,6 @@ IsOriStillRunning:
     ExitApp
 return
 
-CheckFlags:
-    FileRead, seed, .currentseedpath
-    FileReadLine, Flags, %seed%, 1
-
-    if (seed != "") {
-        GuiControl, Main:Hide, img\Wisp.png
-        GuiControl, Main:Hide, img\SkillTree.png
-        GuiControl, Main:Hide, img\Quest.png
-        GuiControl, Main:Hide, img\MapStone.png
-
-        if (InStr(Flags, "Force Wisps")) {
-            GuiControl, Main:Show, img\Wisp.png
-        }
-        if (InStr(Flags, "Force Trees")) {
-            GuiControl, Main:Show, img\SkillTree.png
-        }
-        if (InStr(Flags, "Force Quests")) {
-            GuiControl, Main:Show, img\Quest.png
-        }
-        if (InStr(Flags, "World Tour")) {
-            GuiControl, Main:Show, img\MapStone.png
-        }
-    }
-return
-
 TogglePickup:
     PickupTrackerState := !PickupTrackerState
     if (PickupTrackerState) {
@@ -391,9 +365,6 @@ parsechanges(Folder, Changes) {
         If (change.Action == 3 and change.Name == TRACKFILE) {
             update()
         }
-        if (change.Action == 3 and change.Name == SEEDPATH) {
-            gosub CheckFlags
-        }
 }
 
 
@@ -416,6 +387,29 @@ update() {
     }
 
     inventory := JSON.Load(jsonString)
+
+    GuiControl, Main:Hide, img\Wisp.png
+    GuiControl, Main:Hide, img\SkillTree.png
+    GuiControl, Main:Hide, img\Quest.png
+    GuiControl, Main:Hide, img\MapStone.png
+
+    For i, flag in inventory.flags {
+        if (flag == "Force Wisps") {
+            GuiControl, Main:Show, img\Wisp.png
+        }
+
+        if (flag == "Force Trees") {
+            GuiControl, Main:Show, img\SkillTree.png
+        }
+
+        if (flag == "Force Quests") {
+            GuiControl, Main:Show, img\Quest.png
+        }
+        
+        if (flag == "World Tour") {
+            GuiControl, Main:Show, img\MapStone.png
+        }
+    }
 
     skills := inventory.skills
     upgraded := inventory.upgraded
