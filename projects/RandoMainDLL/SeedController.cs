@@ -147,6 +147,7 @@ namespace RandoMainDLL {
         TimerList.Clear();
         Flags.Clear();
         Relic.Reset();
+        InterOp.clear_icons();
         string line = "";
         string coordsRaw = "";
         foreach (string rawLine in File.ReadLines(SeedFile)) {
