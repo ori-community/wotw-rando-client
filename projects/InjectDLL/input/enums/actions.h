@@ -58,6 +58,7 @@ namespace input
 
         ToggleCursorLock,
         ToggleAlwaysShowKeystones,
+        ToggleAutoaim,
 
         ShowDevFlag,
         ToggleDebug,

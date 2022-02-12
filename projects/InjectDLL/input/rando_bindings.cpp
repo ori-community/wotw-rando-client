@@ -210,6 +210,7 @@ namespace input
         add_on_pressed_callback(Action::WarpCredits, csharp_callback);
         add_on_pressed_callback(Action::ToggleCursorLock, csharp_callback);
         add_on_pressed_callback(Action::ToggleAlwaysShowKeystones, csharp_callback);
+        add_on_pressed_callback(Action::ToggleAutoaim, csharp_callback);
         add_on_pressed_callback(Action::ShowDevFlag, csharp_callback);
         add_on_pressed_callback(Action::ToggleDebug, csharp_callback);
         add_on_pressed_callback(Action::PrintCoordinates, csharp_callback);

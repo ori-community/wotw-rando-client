@@ -65,6 +65,7 @@ namespace RandoMainDLL {
 
       ToggleCursorLock,
       ToggleAlwaysShowKeystones,
+      ToggleAutoaim,
 
       ShowDevFlag,
       ToggleDebug,
@@ -119,6 +120,9 @@ namespace RandoMainDLL {
           break;
         case Action.ToggleAlwaysShowKeystones:
           Msg.Print($"Always show keystones: {InterOp.toggle_always_show_keystones()}", toMessageLog: false);
+          break;
+        case Action.ToggleAutoaim:
+          UberSet.Bool(4, 37, !UberGet.Bool(4, 37));
           break;
         case Action.Binding1:
           PsuedoLocs.BINDING_ONE.OnCollect();
