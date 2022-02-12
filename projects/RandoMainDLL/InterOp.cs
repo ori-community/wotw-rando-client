@@ -151,6 +151,8 @@ namespace RandoMainDLL {
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void remove_icon(AreaType area, int id);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void clear_icons();
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void refresh_ability_energy_modifiers();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

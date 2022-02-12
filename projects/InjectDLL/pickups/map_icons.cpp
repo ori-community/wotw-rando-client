@@ -1200,6 +1200,31 @@ INJECT_C_DLLEXPORT void set_icon_label(app::GameWorldAreaID__Enum area, int id, 
         return; // TODO: Add warning
 }
 
+INJECT_C_DLLEXPORT void clear_icons()
+{
+    if (initialized)
+    {
+        for (auto& area : header_icons)
+        {
+            for (auto& icon : area.second)
+            {
+                if (icon.second.runtime_icon != nullptr)
+                {
+                    RuntimeWorldMapIcon::Hide_intercept(icon.second.runtime_icon);
+                    il2cpp::invoke(icon.second.runtime_icon->fields.Area->fields.Icons, "Remove", icon.second.runtime_icon);
+                }
+                if (icon.second.spoiler_icon != nullptr)
+                {
+                    RuntimeWorldMapIcon::Hide_intercept(icon.second.spoiler_icon);
+                    il2cpp::invoke(icon.second.spoiler_icon->fields.Area->fields.Icons, "Remove", icon.second.spoiler_icon);
+                }
+            }
+        }
+    }
+
+    header_icons.clear();
+}
+
 void update_player_icons()
 {
     for (auto& player : player_icon_map)
