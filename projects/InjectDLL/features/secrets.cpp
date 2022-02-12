@@ -4,7 +4,7 @@
 
 namespace
 {
-    constexpr int ALWAYSSHOWSECRETS_ID = 37;
+    constexpr int ALWAYSSHOWSECRETS_ID = 38;
 
     IL2CPP_INTERCEPT_OVERLOAD(, PlayerSpiritShards, bool, IsGlobalShardEquipped, (app::PlayerSpiritShards* this_ptr, app::SpiritShardType__Enum value),
         (SpiritShardType)) {
