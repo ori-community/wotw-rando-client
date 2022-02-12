@@ -218,8 +218,14 @@ void set_no_pause(bool value)
     no_pause = value;
 }
 
+void on_shutdown()
+{
+    ipc::join_ipc_thread();
+}
+
 void initialize_main()
 {
+    add_shutdown_handler(&on_shutdown);
     set_mouse_controls();
     set_no_pause(true);
     csharp_bridge::post_initialize();

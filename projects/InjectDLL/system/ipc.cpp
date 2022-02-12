@@ -166,6 +166,12 @@ namespace ipc
     using message_handler = void(*)(nlohmann::json& j);
     std::unordered_map<std::string, message_handler> handlers;
 
+    void join_ipc_thread()
+    {
+        if (ipc_thread.joinable())
+            ipc_thread.join();
+    }
+
     void update_pipe()
     {
         message_mutex.lock();

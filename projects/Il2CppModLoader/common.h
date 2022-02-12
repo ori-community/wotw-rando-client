@@ -7,6 +7,7 @@
 
 namespace modloader
 {
+    using shutdown_handler = void(*)();
     extern IL2CPP_MODLOADER_DLLEXPORT std::string base_path;
 
     struct IL2CPP_MODLOADER_DLLEXPORT Initialization
@@ -24,6 +25,7 @@ namespace modloader
     IL2CPP_MODLOADER_DLLEXPORT void debug(std::string const& group, std::string const& message);
     IL2CPP_MODLOADER_DLLEXPORT void send_trace(MessageType type, int level, std::string const& group, std::string const& message);
 
+    IL2CPP_MODLOADER_DLLEXPORT void add_shutdown_handler(shutdown_handler handler);
     IL2CPP_MODLOADER_DLLEXPORT void shutdown();
 
     IL2CPP_MODLOADER_DLLEXPORT extern bool shutdown_thread;
