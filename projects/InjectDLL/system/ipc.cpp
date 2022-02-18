@@ -224,7 +224,7 @@ namespace ipc
         for (int i = 0; i < count; ++i)
         {
             memset(buffer, 0, size);
-            csharp_bridge::get_flag(i, buffer, size);
+            csharp_bridge::get_flag(i, buffer, size - 1);
             values.push_back(buffer);
         }
 

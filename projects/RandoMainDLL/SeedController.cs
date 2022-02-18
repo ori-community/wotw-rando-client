@@ -147,7 +147,7 @@ namespace RandoMainDLL {
     }
     public static void GetFlag(int flag, IntPtr buffer, int size) {
       var flagName = Flags.ElementAt(flag);
-      Marshal.Copy(flagName.ToCharArray(), 0, buffer, size);
+      Marshal.Copy(flagName.ToCharArray(), 0, buffer, Math.Min(flagName.Length, size));
     }
 
     public static void ReadSeed(bool init = false) {
