@@ -71,7 +71,7 @@ namespace uber_states
             {
                 auto value = state.second.get();
                 auto it = cached_values.find(state.first);
-                if (it == cached_values.end() || (std::abs(it->second - value) < 0.1))
+                if (it == cached_values.end() || (std::abs(it->second - value) >= 0.1))
                 {
                     cached_values[state.first] = value;
                     report_uber_state_change(state.first.first, state.first.second, value);
