@@ -87,15 +87,17 @@ namespace
     };
 }
 
-
-
 INJECT_C_DLLEXPORT void set_debug_controls(bool value)
 {
   auto cheats = get_cheats();
-  cheats->Instance->fields.DebugEnabled = value;
-  cheats->DebugWasEnabled = value;
-  cheats->DebugAlwaysEnabled = value;
-  il2cpp::get_class<app::DebugValues__Class>("Game", "DebugValues")->static_fields->DebugControlsEnabled = value;
+  if (cheats->Instance->fields.DebugEnabled != value)
+  {
+      cheats->Instance->fields.DebugEnabled = value;
+      cheats->DebugWasEnabled = value;
+      cheats->DebugAlwaysEnabled = value;
+      il2cpp::get_class<app::DebugValues__Class>("Game", "DebugValues")->static_fields->DebugControlsEnabled = value;
+      
+  }
 }
 
 INJECT_C_DLLEXPORT bool get_debug_controls()

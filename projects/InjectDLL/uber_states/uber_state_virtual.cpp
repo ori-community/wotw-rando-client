@@ -1,7 +1,8 @@
 #include <uber_states/uber_state_virtual.h>
 
-#include <Il2CppModLoader/common.h>
 #include <constants.h>
+#include <ipc.h>
+#include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Common/ext.h>
@@ -53,7 +54,30 @@ namespace uber_states
                     []() -> double { return get_keystones(); }
                 }
             },
+            {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 100),
+                {
+                    "Debug Enabled",
+                    [](double x) { set_debug_controls(x > 0.5); },
+                    []() -> double { return get_debug_controls() ? 1.0 : 0.0; }
+                }
+            },
         };
+
+        std::unordered_map<std::pair<int, int>, double, pair_hash> cached_values;
+        IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController* this_ptr)) {
+            GameController::Update(this_ptr);
+            for (const auto& state : virtual_states)
+            {
+                auto value = state.second.get();
+                auto it = cached_values.find(state.first);
+                if (it == cached_values.end() || (std::abs(it->second - value) < 0.1))
+                {
+                    cached_values[state.first] = value;
+                    report_uber_state_change(state.first.first, state.first.second, value);
+                }
+            }
+        }
     }
 
     bool is_virtual_state(int group, int state)
@@ -83,5 +107,10 @@ namespace uber_states
     {
         auto it = virtual_states.find(std::make_pair(group, state));
         return it->second.set(value);
+    }
+
+    void virtual_notify_change(int group, int state)
+    {
+        report_uber_state_change(group, state, get_virtual_value(group, state));
     }
 }

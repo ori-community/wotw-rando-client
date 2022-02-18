@@ -252,10 +252,24 @@ namespace ipc
         send_message(response.dump());
     }
 
+    void set_uberstate(nlohmann::json& j)
+    {
+        auto p = j.at("payload");
+        auto group = p.at("group").get<int>();
+        auto state = p.at("state").get<int>();
+
+        nlohmann::json response;
+        response["type"] = "response";
+        response["id"] = j.at("id").get<int>();
+        response["payload"] = uber_states::get_uber_state_value(group, state);;
+        send_message(response.dump());
+    }
+
     void initialize()
     {
         handlers["reload"] = reload;
         handlers["get_uberstates"] = get_uberstates;
+        handlers["set_uberstate"] = set_uberstate;
         handlers["get_flags"] = get_flags;
     }
 
