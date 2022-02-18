@@ -437,7 +437,7 @@ namespace RandoMainDLL {
     public static AbilityType GetAbilityType(this UberState state) {
       foreach (var val in Enum.GetValues(typeof(AbilityType))) {
         var value = (AbilityType)val;
-        if (value != AbilityType.NONE && value.State() == state.GetUberId()) {
+        if (value != AbilityType.NONE && value.State().Equals(state.GetUberId())) {
           return value;
         }
       }
