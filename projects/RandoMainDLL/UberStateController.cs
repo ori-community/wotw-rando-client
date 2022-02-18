@@ -434,9 +434,28 @@ namespace RandoMainDLL {
       },
     };
 
+    public static AbilityType GetAbilityType(this UberState state) {
+      foreach (var val in Enum.GetValues(typeof(AbilityType))) {
+        var value = (AbilityType)val;
+        if (value != AbilityType.NONE && value.State() == state.GetUberId()) {
+          return value;
+        }
+      }
+
+      return AbilityType.NONE;
+    }
+
     private static void HandleSpecial(UberState state) {
       if (SpecialHandlers.TryGetValue(state.GetUberId(), out var callback))
         callback(state);
+      var abilityType = state.GetAbilityType();
+      if (abilityType != AbilityType.NONE) {
+        InterOp.set_ability(abilityType, state.Value.Bool);
+        if (abilityType.Equip().HasValue)
+          InterOp.set_equipment(abilityType.Equip().Value, state.Value.Bool);
+
+        BonusItemController.Refresh();
+      }
     }
     private static void GiveVoice() {
       // this is really questionable!!

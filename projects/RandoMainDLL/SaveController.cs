@@ -45,12 +45,7 @@ namespace RandoMainDLL {
     public static int FoundCount { get => UberGet.Int(6, 2); set => UberSet.Int(6, 2, value); }
     public static bool HasAbility(AbilityType ability) => ability.Have();
     public static void SetAbility(AbilityType ability, bool setTo = true) {
-      UberSet.Bool(ability.State(), setTo);      
-      InterOp.set_ability(ability, setTo);
-      if (ability.Equip().HasValue)
-        InterOp.set_equipment(ability.Equip().Value, setTo);
-
-      BonusItemController.Refresh();
+      UberSet.Bool(ability.State(), setTo);
       TrackFileController.Write();
     }
     public static void SetEvent(QuestEventType ev, bool setTo = true) {
