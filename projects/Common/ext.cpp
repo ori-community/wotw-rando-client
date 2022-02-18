@@ -50,14 +50,14 @@ void replace_all(std::wstring& str, std::wstring_view find, std::wstring_view re
         str.replace(str.begin() + i, str.begin() + i + find.size(), replace);
 }
 
-std::wstring convert_string_to_wstring(std::string const& str)
+std::wstring convert_string_to_wstring(std::string_view str)
 {
-    CA2W ca2w(str.c_str());
+    CA2W ca2w(str.data());
     return std::wstring(ca2w);
 }
 
-std::string convert_wstring_to_string(std::wstring const& str)
+std::string convert_wstring_to_string(std::wstring_view str)
 {
-    CW2A cw2a(str.c_str());
+    CW2A cw2a(str.data());
     return std::string(cw2a);
 }

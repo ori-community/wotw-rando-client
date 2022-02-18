@@ -220,12 +220,12 @@ namespace ipc
         std::vector<std::string> values;
         auto count = csharp_bridge::get_flag_count();
         constexpr int size = 256;
-        char buffer[size];
+        wchar_t buffer[size];
         for (int i = 0; i < count; ++i)
         {
             memset(buffer, 0, size);
             csharp_bridge::get_flag(i, buffer, size - 1);
-            values.push_back(buffer);
+            values.push_back(convert_wstring_to_string(buffer));
         }
 
         nlohmann::json response;
