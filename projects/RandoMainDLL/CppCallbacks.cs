@@ -208,6 +208,14 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void(Randomizer.PostInitialize),
             CallbackName = "post_initialize"
+          },
+          new Method() {
+            Delegate = new f_int(SeedController.GetFlagCount),
+            CallbackName = "get_flag_count"
+          },
+          new Method() {
+            Delegate = new f_void_int_ptr_int(SeedController.GetFlag),
+            CallbackName = "get_flag"
           }
         };
       }
@@ -223,6 +231,7 @@ namespace RandoMainDLL {
     public delegate void f_void_float_float(float i, float j);
     public delegate void f_void_ptr_int_int_int_int_int(IntPtr buffer, int i, int j, int k, int l, int m);
     public delegate void f_void_int_int_byte_double_double(int i, int j, byte b, double f, double g);
+    public delegate void f_void_int_ptr_int(int i, IntPtr j, int k);
     public delegate void f_void_str([MarshalAs(UnmanagedType.LPStr)] string str);
     public delegate void f_void_str_dt([MarshalAs(UnmanagedType.LPStr)] string str, DamageType dt);
     public delegate void f_void_st(ShardType st);

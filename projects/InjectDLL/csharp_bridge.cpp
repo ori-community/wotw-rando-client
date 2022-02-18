@@ -58,6 +58,9 @@ namespace csharp_bridge
     signatures::f_void_float credits_progress = nullptr;
     signatures::f_void shutdown = nullptr;
     signatures::f_void post_initialize = nullptr;
+
+    signatures::f_int get_flag_count = nullptr;
+    signatures::f_void_int_ptr_int get_flag = nullptr;
 }
 
 INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
@@ -160,4 +163,8 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         csharp_bridge::shutdown = reinterpret_cast<f_void>(ptr);
     else if (name == "post_initialize")
         csharp_bridge::post_initialize = reinterpret_cast<f_void>(ptr);
+    else if (name == "get_flag_count")
+        csharp_bridge::get_flag_count = reinterpret_cast<f_int>(ptr);
+    else if (name == "get_flag")
+        csharp_bridge::get_flag = reinterpret_cast<f_void_int_ptr_int>(ptr);
 }

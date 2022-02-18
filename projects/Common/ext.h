@@ -6,6 +6,14 @@
 #include <string_view>
 #include <sstream>
 
+struct pair_hash
+{
+    template <class T1, class T2>
+    std::size_t operator() (const std::pair<T1, T2>& pair) const {
+        return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
+    }
+};
+
 // Calls to these methods are destructive to pointers returned previously.
 const char* format(const char* str, ...);
 const char* format(const char* str, va_list ls);

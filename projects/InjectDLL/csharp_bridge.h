@@ -20,6 +20,7 @@ namespace csharp_bridge
         using f_void_float_float = void(*)(float, float);
         using f_void_ptr_int_int_int_int_int = void(*)(void*, int, int, int, int, int);
         using f_void_int_int_byte_double_double = void(*)(int, int, uint8_t, double, double);
+        using f_void_int_ptr_int = void(*)(int, void*, int);
         using f_void_string = void(*)(const char*);
         using f_void_string_dt = void(*)(const char*, app::DamageType__Enum);
         using f_void_st = void(*)(ShardType);
@@ -94,4 +95,7 @@ namespace csharp_bridge
     extern signatures::f_void_float credits_progress;
     extern signatures::f_void shutdown;
     extern signatures::f_void post_initialize;
+
+    extern signatures::f_int get_flag_count;
+    extern signatures::f_void_int_ptr_int get_flag;
 }

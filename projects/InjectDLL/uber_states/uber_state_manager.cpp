@@ -6,8 +6,11 @@
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Common/ext.h>
 #include <uber_states/uber_state_helper.h>
+#include <uber_states/uber_state_virtual.h>
 
 #include <csharp_bridge.h>
+
+#include <unordered_map>
 
 using namespace modloader;
 namespace uber_states
@@ -688,26 +691,35 @@ namespace uber_states
 
     INJECT_C_DLLEXPORT void set_uber_state_value(int group, int state, double value)
     {
-        auto group_id = create_uber_id(group);
-        auto state_id = create_uber_id((group == 12) ? state / 31 : state);
-        auto uber_state = get_uber_state(group_id, state_id);
-        if (uber_state != nullptr)
-            if (group == 12) {
-                int curr = static_cast<int>(get_uber_state_value(uber_state));
-                int8_t offset = state % 31;
-                if (value > 0.1f)
-                    curr |= 1 << offset; // or if it's true
-                else
-                    curr &= ~(1 << offset); // invert bit then and it
-                set_uber_state_value(uber_state, static_cast<double>(curr));
-            } else 
-                set_uber_state_value(uber_state, value);
+        if (is_virtual_state(group, state))
+            set_virtual_value(group, state, value);
         else
-            trace(MessageType::Warning, 2, "uber_state", format("uber state (%d, %d) not found", group, state));
+        {
+            auto group_id = create_uber_id(group);
+            auto state_id = create_uber_id((group == 12) ? state / 31 : state);
+            auto uber_state = get_uber_state(group_id, state_id);
+            if (uber_state != nullptr)
+                if (group == 12) {
+                    int curr = static_cast<int>(get_uber_state_value(uber_state));
+                    int8_t offset = state % 31;
+                    if (value > 0.1f)
+                        curr |= 1 << offset; // or if it's true
+                    else
+                        curr &= ~(1 << offset); // invert bit then and it
+                    set_uber_state_value(uber_state, static_cast<double>(curr));
+                }
+                else
+                    set_uber_state_value(uber_state, value);
+            else
+                trace(MessageType::Warning, 2, "uber_state", format("uber state (%d, %d) not found", group, state));
+        }
     }
 
     INJECT_C_DLLEXPORT double get_uber_state_value(int group, int state)
     {
+        if (is_virtual_state(group, state))
+            return get_virtual_value(group, state);
+
         auto group_id = create_uber_id(group);
         auto state_id = create_uber_id((group == 12) ? state / 31 : state);
         auto uber_state = get_uber_state(group_id, state_id);

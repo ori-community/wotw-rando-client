@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using RandoMainDLL.Memory;
@@ -140,6 +141,15 @@ namespace RandoMainDLL {
     public static HashSet<String> Flags = new HashSet<String>();
     public static string SeedFile = "";
     public static string SeedName { get => SeedFile.Contains("\\") ? SeedFile.Substring(1 + SeedFile.LastIndexOf('\\')) : SeedFile; }
+
+    public static int GetFlagCount() {
+      return Flags.Count;
+    }
+    public static void GetFlag(int flag, IntPtr buffer, int size) {
+      var flagName = Flags.ElementAt(flag);
+      Marshal.Copy(flagName.ToCharArray(), 0, buffer, size);
+    }
+
     public static void ReadSeed(bool init = false) {
       SeedFile = File.ReadAllText(Randomizer.SeedPathFile);
       if (File.Exists(SeedFile)) {

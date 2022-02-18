@@ -215,6 +215,26 @@ namespace ipc
         csharp_bridge::on_action_triggered(input::Action::Reload);
     }
 
+    void get_flags(nlohmann::json& j)
+    {
+        std::vector<std::string> values;
+        auto count = csharp_bridge::get_flag_count();
+        constexpr int size = 256;
+        char buffer[size];
+        for (int i = 0; i < count; ++i)
+        {
+            memset(buffer, 0, size);
+            csharp_bridge::get_flag(i, buffer, size);
+            values.push_back(buffer);
+        }
+
+        nlohmann::json response;
+        response["type"] = "response";
+        response["id"] = j.at("id").get<int>();
+        response["payload"] = values;
+        send_message(response.dump());
+    }
+
     void get_uberstates(nlohmann::json& j)
     {
         std::vector<float> values;
@@ -236,6 +256,7 @@ namespace ipc
     {
         handlers["reload"] = reload;
         handlers["get_uberstates"] = get_uberstates;
+        handlers["get_flags"] = get_flags;
     }
 
     CALL_ON_INIT(initialize);

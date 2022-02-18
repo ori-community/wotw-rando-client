@@ -160,7 +160,6 @@ namespace RandoMainDLL {
         Msg.Print(message, 180, toMessageLog: false);
     }
 
-
     public delegate void Callback();
     public static List<Callback> InputUnlockCallback = new List<Callback>();
     public static Callback TitleScreenCallback;
