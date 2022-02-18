@@ -257,12 +257,8 @@ namespace ipc
         auto p = j.at("payload");
         auto group = p.at("group").get<int>();
         auto state = p.at("state").get<int>();
-
-        nlohmann::json response;
-        response["type"] = "response";
-        response["id"] = j.at("id").get<int>();
-        response["payload"] = uber_states::get_uber_state_value(group, state);;
-        send_message(response.dump());
+        auto value = p.at("value").get<double>();
+        uber_states::set_uber_state_value(group, state, value);
     }
 
     void initialize()
