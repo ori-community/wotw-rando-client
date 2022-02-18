@@ -38,7 +38,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 0),
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 1),
                 {
                     "Gorlek Ore",
                     [](double x) { set_ore(x); },
@@ -46,7 +46,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 0),
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 2),
                 {
                     "Keystones",
                     [](double x) { set_keystones(x); },
