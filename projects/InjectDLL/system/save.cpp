@@ -1,4 +1,5 @@
 #include <dll_main.h>
+#include <ipc.h>
 #include <macros.h>
 #include <csharp_bridge.h>
 #include <features/instantiate_objects.h>
@@ -45,6 +46,7 @@ namespace
         NewGameAction::Perform(this_ptr, context);
         perform_preload();
         uber_states::load_dynamic_redirects();
+        report_load();
     }
 
     IL2CPP_INTERCEPT(, SaveGameController, void, SaveToFile, (app::SaveGameController* thisPtr, int32_t slotIndex, int32_t backupIndex, app::Byte__Array* bytes)) {
@@ -68,6 +70,7 @@ namespace
         SaveGameController::OnFinishedLoading(thisPtr);
         perform_preload();
         uber_states::load_dynamic_redirects();
+        report_load();
     }
 
     IL2CPP_INTERCEPT(, SaveGameController, void, RestoreCheckpoint, (app::SaveGameController* thisPtr)) {
@@ -75,12 +78,14 @@ namespace
         SaveGameController::RestoreCheckpoint(thisPtr);
         perform_preload();
         uber_states::load_dynamic_redirects();
+        report_load();
     }
 
     IL2CPP_INTERCEPT(, SeinHealthController, void, OnRespawn, (app::SeinHealthController* thisPtr)) {
         csharp_bridge::on_load(SaveSlotsManager::get_CurrentSlotIndex(), SaveSlotsManager::get_BackupIndex());
         SeinHealthController::OnRespawn(thisPtr);
         uber_states::load_dynamic_redirects();
+        report_load();
     }
 
     STATIC_IL2CPP_INTERCEPT(, SaveSlotsManager, void, CopySlot, (int32_t from, int32_t to)) {

@@ -10,5 +10,5 @@ namespace ipc
     void join_ipc_thread();
 }
 
+INJECT_C_DLLEXPORT void report_load();
 INJECT_C_DLLEXPORT void report_uber_state_change(int group, int state, double value);
-
