@@ -450,9 +450,15 @@ namespace RandoMainDLL {
         callback(state);
       var abilityType = state.GetAbilityType();
       if (abilityType != AbilityType.NONE) {
+        var hasEquip = abilityType.Equip().HasValue;
+        if (hasEquip && !state.Value.Bool) {
+          InterOp.unbind(abilityType.Equip().Value);
+        }
+
         InterOp.set_ability(abilityType, state.Value.Bool);
-        if (abilityType.Equip().HasValue)
+        if (abilityType.Equip().HasValue) {
           InterOp.set_equipment(abilityType.Equip().Value, state.Value.Bool);
+        }
 
         BonusItemController.Refresh();
       }
