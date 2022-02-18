@@ -125,6 +125,8 @@ namespace RandoMainDLL {
     public static class System {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void report_uber_state_change(int group, int state, double value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void report_seed_reload();
     }
 
     public static class Utils {

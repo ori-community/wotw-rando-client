@@ -400,6 +400,14 @@ namespace ipc
 #endif
 }
 
+INJECT_C_DLLEXPORT void report_seed_reload()
+{
+    nlohmann::json response;
+    response["type"] = "request";
+    response["method"] = "notify_on_reload";
+    ipc::send_message(response.dump());
+}
+
 INJECT_C_DLLEXPORT void report_uber_state_change(int group, int state, double value)
 {
     nlohmann::json response;
