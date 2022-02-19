@@ -55,6 +55,38 @@ namespace uber_states
                 }
             },
             {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 10),
+                {
+                    "Max Health",
+                    [](double x) { set_max_health(static_cast<int32_t>(x)); },
+                    []() -> double { return get_max_health(); }
+                }
+            },
+            {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 11),
+                {
+                    "Health",
+                    [](double x) { set_health(x); },
+                    []() -> double { return get_health(); }
+                }
+            },
+            {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 12),
+                {
+                    "Max Energy",
+                    [](double x) { set_max_energy(x); },
+                    []() -> double { return get_max_energy(); }
+                }
+            },
+            {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 13),
+                {
+                    "Energy",
+                    [](double x) { set_energy(x); },
+                    []() -> double { return get_energy(); }
+                }
+            },
+            {
                 std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 100),
                 {
                     "Debug Enabled",
