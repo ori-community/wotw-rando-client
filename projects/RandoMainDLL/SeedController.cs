@@ -108,6 +108,10 @@ namespace RandoMainDLL {
 
     public static bool GrantingGoalModeLoc = false;
 
+    public static readonly Regex PTR_REGEX = new Regex(@"\$\(([0-9]+)\|([0-9]+)\)", RegexOptions.Compiled);
+    public static readonly Regex RANGE_REGEX = new Regex(@"\[([^,\]]+),([^,\]]+)\]", RegexOptions.Compiled);
+    public static readonly Regex UBER_MSG_REGEX = new Regex(@"\$\(([0-9]+);([0-9]+)\)", RegexOptions.Compiled);
+
     public static SeedGenSettings Settings = new SeedGenSettings();
     public enum FakeUberGroups {
       TREE = 0,
@@ -115,7 +119,6 @@ namespace RandoMainDLL {
       TWILLEN_SHARD = 2,
       MISC_CONTROL = 3
     }
-
 
     public static bool HasPickup(this UberStateCondition cond) => PickupMap.ContainsKey(cond);
     public static Pickup Pickup(this UberStateCondition cond) => PickupMap.GetOrElse(cond, Multi.Empty);
@@ -195,9 +198,8 @@ namespace RandoMainDLL {
             }
             line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
             if (line == "") continue;
-            var ptrRegex = new Regex(@"\$\(([0-9]+)\|([0-9]+)\)", RegexOptions.Compiled);
-            ptrRegex.Replace(line, (Match m) => m.Groups[1].Value.Replace("|", ";"));
-            line = ptrRegex.Replace(line, "$($1;$2)");
+            PTR_REGEX.Replace(line, (Match m) => m.Groups[1].Value.Replace("|", ";"));
+            line = PTR_REGEX.Replace(line, "$($1;$2)");
             var frags = line.Split('|').ToList();
             var cond = new UberStateCondition(frags[0].ParseToInt(), frags[1]);
             var pickupType = (PickupType)frags[2].ParseToByte();
@@ -757,8 +759,7 @@ namespace RandoMainDLL {
       int sign = mod.StartsWith("-") ? -1 : 1;
       if (isModifier)
         mod = mod.Substring(1);
-      Regex rangeRegex = new Regex(@"\[([^,\]]+),([^,\]]+)\]");
-      var m = rangeRegex.Match(mod);
+      var m = RANGE_REGEX.Match(mod);
       var start = genFromFrag(m.Groups[1].Value, type);
       var end = genFromFrag(m.Groups[2].Value, type);
 
@@ -838,8 +839,7 @@ namespace RandoMainDLL {
     }
 
     private static Func<double> genFromFrag(string frag, UberStateType targetType) {
-      Regex uberMsg = new Regex(@"\$\(([0-9]+);([0-9]+)\)", RegexOptions.Compiled);
-      var m = uberMsg.Match(frag);
+      var m = UBER_MSG_REGEX.Match(frag);
       if (m.Success) {
         var uid = new UberId(m.Groups[1].Value.ParseToInt("genFromFrag.GID"), m.Groups[2].Value.ParseToInt("genFromFrag.GID"));
         return () => UberGet.AsDouble(uid);
