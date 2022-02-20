@@ -269,7 +269,10 @@ namespace ipc
         auto p = j.at("payload");
         auto id = p.at("action_id").get<input::Action>();
         auto pressed = p.at("pressed").get<bool>();
-        input::simulate(id, pressed);
+        if (pressed)
+            action_pressed(id);
+        else
+            action_released(id);
     }
 
     void set_velocity(nlohmann::json& j)
