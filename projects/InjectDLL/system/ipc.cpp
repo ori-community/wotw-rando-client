@@ -8,6 +8,7 @@
 #include <Il2CppModLoader/common.h>
 #include <uber_states/uber_state_manager.h>
 #include <input/rando_bindings.h>
+#include <input/simulator.h>
 
 #include <windows.h>
 #include <stdio.h> 
@@ -268,6 +269,7 @@ namespace ipc
         auto p = j.at("payload");
         auto id = p.at("action_id").get<input::Action>();
         auto pressed = p.at("pressed").get<bool>();
+        input::simulate(id, pressed);
     }
 
     void set_velocity(nlohmann::json& j)
