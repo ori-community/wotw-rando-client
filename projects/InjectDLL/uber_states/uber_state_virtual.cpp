@@ -6,6 +6,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Common/ext.h>
+#include <features/mouse_control.h>
 #include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_manager.h>
 
@@ -92,6 +93,22 @@ namespace uber_states
                     "Debug Enabled",
                     [](double x) { set_debug_controls(x > 0.5); },
                     []() -> double { return get_debug_controls() ? 1.0 : 0.0; }
+                }
+            },
+            {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 110),
+                {
+                    "Invert x axis",
+                    [](double x) { set_axis_inverted(true, x > 0.5); },
+                    []() -> double { return get_axis_inverted(true) ? 1.0 : 0.0; }
+                }
+            },
+            {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 111),
+                {
+                    "Invert y axis",
+                    [](double x) { set_axis_inverted(false, x > 0.5); },
+                    []() -> double { return get_axis_inverted(false) ? 1.0 : 0.0; }
                 }
             },
         };

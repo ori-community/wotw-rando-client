@@ -13,6 +13,9 @@
 
 namespace
 {
+    bool invert_x = false;
+    bool invert_y = false;
+
     bool dig_mouse_control = false;
     bool swim_dash_mouse_control = false;
     bool grapple_mouse_control = false;
@@ -99,8 +102,11 @@ namespace
         else
             ret = Input::get_Axis();
 
-        if (ret.x > 0.1f)
-            Input::get_Axis();
+        if (invert_x)
+            ret.x = -ret.x;
+
+        if (invert_y)
+            ret.y = -ret.y;
 
         return ret;
     }
@@ -141,4 +147,14 @@ INJECT_C_DLLEXPORT void set_mouse_controls()
     dig_mouse_control = csharp_bridge::check_ini("BurrowMouseControl");
     swim_dash_mouse_control = csharp_bridge::check_ini("WaterDashMouseControl");
     grapple_mouse_control = csharp_bridge::check_ini("GrappleMouseControl");
+}
+
+INJECT_C_DLLEXPORT bool get_axis_inverted(bool horizontal)
+{
+    return horizontal ? invert_x : invert_y;
+}
+
+INJECT_C_DLLEXPORT void set_axis_inverted(bool horizontal, bool value)
+{
+    horizontal ? invert_x : invert_y = value;
 }
