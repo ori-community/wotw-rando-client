@@ -156,5 +156,5 @@ INJECT_C_DLLEXPORT bool get_axis_inverted(bool horizontal)
 
 INJECT_C_DLLEXPORT void set_axis_inverted(bool horizontal, bool value)
 {
-    horizontal ? invert_x : invert_y = value;
+    (horizontal ? invert_x : invert_y) = value;
 }
