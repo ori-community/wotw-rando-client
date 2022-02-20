@@ -2,10 +2,12 @@
 
 #include <ipc.h>
 
+#include <dll_main.h>
 #include <csharp_bridge.h>
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
-#include <uber_states\uber_state_manager.h>
+#include <uber_states/uber_state_manager.h>
+#include <input/rando_bindings.h>
 
 #include <windows.h>
 #include <stdio.h> 
@@ -261,12 +263,55 @@ namespace ipc
         uber_states::set_uber_state_value(group, state, value);
     }
 
+    void action(nlohmann::json& j)
+    {
+        auto p = j.at("payload");
+        auto id = p.at("action_id").get<input::Action>();
+        auto pressed = p.at("pressed").get<bool>();
+    }
+
+    void set_velocity(nlohmann::json& j)
+    {
+        auto p = j.at("payload");
+        auto x = p.at("x").get<float>();
+        auto y = p.at("y").get<float>();
+        auto z = p.at("z").get<float>();
+        auto sein = get_sein();
+        if (sein != nullptr)
+        {
+            auto& speed = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed;
+            speed.x = x;
+            speed.y = y;
+            speed.z = z;
+        }
+    }
+
+    void get_velocity(nlohmann::json& j)
+    {
+        app::Vector3 v;
+        nlohmann::json response;
+        response["type"] = "response";
+        response["id"] = j.at("id").get<int>();
+
+        auto sein = get_sein();
+        if (sein != nullptr)
+            v = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed;
+
+        response["payload"]["x"] = v.x;
+        response["payload"]["y"] = v.y;
+        response["payload"]["z"] = v.z;
+        send_message(response.dump());
+    }
+
     void initialize()
     {
         handlers["reload"] = reload;
         handlers["get_uberstates"] = get_uberstates;
         handlers["set_uberstate"] = set_uberstate;
         handlers["get_flags"] = get_flags;
+        handlers["action"] = action;
+        handlers["set_velocity"] = set_velocity;
+        handlers["get_velocity"] = get_velocity;
     }
 
     CALL_ON_INIT(initialize);

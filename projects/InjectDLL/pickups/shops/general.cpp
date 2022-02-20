@@ -61,6 +61,7 @@ namespace
         ShopkeeperScreen::Show(this_ptr);
     }
 
+    float angle = 0.0f;
     float stop_overwrite_time = 4.0f;
     STATIC_IL2CPP_BINDING(, TimeUtility, float, get_fixedDeltaTime, ());
     IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController* this_ptr)) {

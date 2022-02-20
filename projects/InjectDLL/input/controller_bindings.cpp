@@ -35,6 +35,8 @@ namespace input
         NAMED_IL2CPP_BINDING(SmartInput, ControllerButtonInput, void, .ctor, ctor, (app::ControllerButtonInput* this_ptr, app::XboxControllerInput_Button__Enum button));
         IL2CPP_BINDING(SmartInput, CompoundAxisInput, void, Add, (app::CompoundAxisInput* this_ptr, app::IAxisInput* button));
         IL2CPP_BINDING(SmartInput, CompoundButtonInput, void, Add, (app::CompoundButtonInput* this_ptr, app::IButtonInput* button));
+        IL2CPP_BINDING(SmartInput, CompoundAxisInput, float, GetValue, (app::CompoundAxisInput* this_ptr));
+        IL2CPP_BINDING(SmartInput, CompoundButtonInput, bool, GetValue, (app::CompoundButtonInput* this_ptr));
 
         app::IAxisInput* get_axis_input(app::XboxControllerInput_Axis__Enum button)
         {
@@ -238,8 +240,6 @@ namespace input
         }
     }
 
-    IL2CPP_BINDING(SmartInput, CompoundAxisInput, float, GetValue, (app::CompoundAxisInput* this_ptr));
-    IL2CPP_BINDING(SmartInput, CompoundButtonInput, bool, GetValue, (app::CompoundButtonInput* this_ptr));
     bool is_controller_pressed(Action action)
     {
         auto& entries = bindings[action];

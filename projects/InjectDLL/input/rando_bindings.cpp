@@ -4,6 +4,7 @@
 #include <macros.h>
 #include <input/controller_bindings.h>
 #include <input/helpers.h>
+#include <input/simulator.h>
 #include <Common/ext.h>
 
 #include <Il2CppModLoader/common.h>
@@ -84,6 +85,7 @@ namespace input
 
         IL2CPP_INTERCEPT(, PlayerInput, void, ClearControls, (app::PlayerInput* this_ptr)) {
             PlayerInput::ClearControls(this_ptr);
+            clear_simulators();
             for (auto& binding : bindings)
                 binding.second.kbm_bindings.clear();
         }
@@ -91,6 +93,7 @@ namespace input
         IL2CPP_INTERCEPT(, PlayerInput, void, AddKeyboardControls, (app::PlayerInput* this_ptr)) {
             PlayerInput::AddKeyboardControls(this_ptr);
             read_bindings(base_path + KEYBOARD_REBIND_FILE, handle_binding);
+            register_simulators(this_ptr);
         }
 
         bool is_pressed(Action action)
@@ -226,17 +229,19 @@ namespace input
 INJECT_C_DLLEXPORT bool action_pressed(input::Action action)
 {
     if (action < input::Action::OpenRandoWheel)
-        return false;
+        input::simulate(action, true);
+    else
+        simulate_action(action, true);
 
-    simulate_action(action, true);
     return true;
 }
 
 INJECT_C_DLLEXPORT bool action_released(input::Action action)
 {
     if (action < input::Action::OpenRandoWheel)
-        return false;
+        input::simulate(action, false);
+    else
+        simulate_action(action, false);
 
-    simulate_action(action, false);
     return true;
 }

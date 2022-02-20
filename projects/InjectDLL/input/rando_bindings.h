@@ -1,3 +1,4 @@
+#include <macros.h>
 #include <input\enums\actions.h>
 #include <input\enums\buttons.h>
 
@@ -14,3 +15,6 @@ namespace input
 
     bool is_pressed(Action action);
 }
+
+INJECT_C_DLLEXPORT bool action_pressed(input::Action action);
+INJECT_C_DLLEXPORT bool action_released(input::Action action);
