@@ -19,6 +19,25 @@ namespace modloader
         Initialization* next;
     };
 
+    template<typename T>
+    struct ScopedSetter
+    {
+        T& variable;
+        T value;
+
+        ScopedSetter(T& variable, T value)
+            : variable(variable)
+            , value(variable)
+        {
+            variable = value;
+        }
+
+        ~ScopedSetter()
+        {
+            variable = value;
+        }
+    };
+
     IL2CPP_MODLOADER_DLLEXPORT void trace(MessageType type, int level, std::string const& group, std::string const& message);
     IL2CPP_MODLOADER_DLLEXPORT void info(std::string const& group, std::string const& message);
     IL2CPP_MODLOADER_DLLEXPORT void warn(std::string const& group, std::string const& message);

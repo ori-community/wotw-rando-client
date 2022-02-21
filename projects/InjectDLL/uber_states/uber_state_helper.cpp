@@ -17,11 +17,15 @@ using namespace modloader;
 
 namespace
 {
+    IL2CPP_BINDING(, CapsuleCrushDetector, void, KillOri, (app::CapsuleCrushDetector* this_ptr));
+    IL2CPP_BINDING(, SeinHealthController, void, RestoreAllHealth, (app::SeinHealthController* this_ptr, float visualSpeed));
+    IL2CPP_BINDING(, SeinHealthController, void, LoseHealth, (app::SeinHealthController* this_ptr, float amount, float visualSpeed));
     IL2CPP_BINDING(, SeinHealthController, void, GainHealth, (app::SeinHealthController* this_ptr, float amount, float visualSpeed, bool incrementStatistic));
     IL2CPP_BINDING(, SeinHealthController, void, set_Amount, (app::SeinHealthController* this_ptr, float value));
     IL2CPP_BINDING(, SeinHealthController, void, set_BaseMaxHealth, (app::SeinHealthController* this_ptr, int value));
     IL2CPP_BINDING(, SeinHealthController, int,  get_BaseMaxHealth, (app::SeinHealthController* this_ptr));
     IL2CPP_BINDING(, SeinEnergy, void, Gain, (app::SeinEnergy* this_ptr, float amount));
+    IL2CPP_BINDING(, SeinEnergy, void, RestoreAllEnergy, (app::SeinEnergy* this_ptr));
     IL2CPP_BINDING(, SeinEnergy, void, set_Current, (app::SeinEnergy* this_ptr, float value));
     IL2CPP_BINDING(, SeinEnergy, float, get_BaseMaxEnergy, (app::SeinEnergy* this_ptr));
     IL2CPP_BINDING(, SeinEnergy, void,  set_BaseMaxEnergy, (app::SeinEnergy* this_ptr, float amount));
@@ -106,48 +110,59 @@ INJECT_C_DLLEXPORT bool get_debug_controls()
 }
 
 INJECT_C_DLLEXPORT void add_health(float inc) {
+    ScopedSetter cp(collecting_pickup, false);
     auto sein = get_sein();
-    bool temp = collecting_pickup;
-    collecting_pickup = false;
     if (sein != nullptr)
-        SeinHealthController::GainHealth(sein->fields.Mortality->fields.Health, inc, 4, false);
-    collecting_pickup = temp;
+    {
+        auto health = get_health();
+        if (inc >= 0.0f)
+            SeinHealthController::GainHealth(sein->fields.Mortality->fields.Health, inc, 4, false);
+        else if (health - inc < 0.0f)
+            CapsuleCrushDetector::KillOri(sein->fields.Mortality->fields.CrushDetector);
+        else
+            SeinHealthController::LoseHealth(sein->fields.Mortality->fields.Health, inc, 4);
+    }
 }
 
 INJECT_C_DLLEXPORT void set_health(float val) {
+    ScopedSetter cp(collecting_pickup, false);
     auto sein = get_sein();
-    bool temp = collecting_pickup;
-    collecting_pickup = false;
     if (sein != nullptr)
-        SeinHealthController::set_Amount(sein->fields.Mortality->fields.Health, val);
-    collecting_pickup = temp;
+    {
+        if (val < 0.0f)
+            CapsuleCrushDetector::KillOri(sein->fields.Mortality->fields.CrushDetector);
+        else
+            SeinHealthController::set_Amount(sein->fields.Mortality->fields.Health, val);
+    }
 }
 
 INJECT_C_DLLEXPORT void fill_health() {
-  add_health(10000);
+    ScopedSetter cp(collecting_pickup, false);
+    auto sein = get_sein();
+    if (sein != nullptr)
+        SeinHealthController::RestoreAllHealth(sein->fields.Mortality->fields.Health, 4);
 }
 
 INJECT_C_DLLEXPORT void add_energy(float inc) {
-    bool temp = collecting_pickup;
-    collecting_pickup = false;
+    ScopedSetter cp(collecting_pickup, false);
     auto sein = get_sein();
     if (sein != nullptr)
         SeinEnergy::Gain(sein->fields.Energy, inc);
-    collecting_pickup = temp;
 }
 
 INJECT_C_DLLEXPORT void set_energy(float val) {
-    bool temp = collecting_pickup;
-    collecting_pickup = false;
+    ScopedSetter cp(collecting_pickup, false);
     auto sein = get_sein();
     if (sein != nullptr)
         SeinEnergy::set_Current(sein->fields.Energy, val);
-    collecting_pickup = temp;
 }
 
 
 INJECT_C_DLLEXPORT void fill_energy() {
-  add_energy(10000);
+    ScopedSetter cp(collecting_pickup, false);
+    auto sein = get_sein();
+    if (sein != nullptr)
+        SeinEnergy::RestoreAllEnergy(sein->fields.Energy);
 }
 
 INJECT_C_DLLEXPORT int32_t get_health()
@@ -166,10 +181,9 @@ INJECT_C_DLLEXPORT void set_max_health(int32_t value) {
     warn("set_max_health", "No sein!!! D:");
     return;
   }
-  bool temp = collecting_pickup;
-  collecting_pickup = false;
+
+  ScopedSetter cp(collecting_pickup, false);
   SeinHealthController::set_BaseMaxHealth(sein->fields.Mortality->fields.Health, value);
-  collecting_pickup = temp;
 }
 
 INJECT_C_DLLEXPORT void set_max_energy(float value) {
@@ -178,10 +192,9 @@ INJECT_C_DLLEXPORT void set_max_energy(float value) {
       warn("set_max_energy", "No sein!!! D:");
       return;
     }
-    bool temp = collecting_pickup;
-    collecting_pickup = false;
+
+    ScopedSetter cp(collecting_pickup, false);
     SeinEnergy::set_BaseMaxEnergy(sein->fields.Energy, value);
-    collecting_pickup = temp;
 }
 
 INJECT_C_DLLEXPORT int32_t get_max_health() {
@@ -223,10 +236,8 @@ INJECT_C_DLLEXPORT int32_t get_experience()
 
 INJECT_C_DLLEXPORT void set_experience(int32_t value)
 {
-    bool temp = collecting_pickup;
-    collecting_pickup = false;
+    ScopedSetter cp(collecting_pickup, false);
     get_inventory()->fields.m_experience = value;
-    collecting_pickup = temp;
 }
 
 INJECT_C_DLLEXPORT int32_t get_keystones()
