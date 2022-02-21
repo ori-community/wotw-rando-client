@@ -6,6 +6,7 @@
 #include <csharp_bridge.h>
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
+#include <features/messages.h>
 #include <uber_states/uber_state_manager.h>
 #include <input/rando_bindings.h>
 #include <input/simulator.h>
@@ -308,6 +309,67 @@ namespace ipc
         send_message(response.dump());
     }
 
+    void message(nlohmann::json& j)
+    {
+        auto p = j.at("payload");
+        auto message_id = 0;
+        if (!p.contains("message_id"))
+        {
+            auto message_id = get_free_id();
+            float fadein = p.value("fadein", 0.5f);
+            float fadeout = p.value("fadeout", 0.5f);
+            bool should_show_box = p.value("should_show_box", false);
+            bool should_play_sound = p.value("should_play_sound", false);
+
+            text_box_create(message_id, fadein, fadeout, should_show_box, should_play_sound);
+
+            nlohmann::json response;
+            response["type"] = "response";
+            response["id"] = j.at("id").get<int>();
+            response["message_id"] = message_id;
+            send_message(response.dump());
+        }
+        else
+        {
+            message_id = p.at("message_id").get<int>();
+            if (p.contains("destroy") && p.at("destroy").get<bool>())
+            {
+                text_box_destroy(message_id);
+                return;
+            }
+        }
+
+        if (p.contains("text"))
+            text_box_text(message_id, convert_string_to_wstring(p.at("text").get<std::string>()).c_str());
+        if (p.contains("position"))
+        {
+            auto pos = p.at("position");
+            auto screen_position = p.value("screen_position", ScreenPosition::MiddleCenter);
+            app::Vector3 position;
+            get_screen_position(screen_position, &position);
+            position.x += pos.at("x").get<float>();
+            position.y += pos.at("y").get<float>();
+            position.z += pos.at("z").get<float>();
+            text_box_position(message_id, position.x, position.y, position.z);
+        }
+        if (p.contains("color"))
+        {
+            auto color = p.at("color");
+            text_box_color(message_id, color.at("r").get<int>(), color.at("g").get<int>(), color.at("b").get<int>(), color.at("a").get<int>());
+        }
+        if (p.contains("alignment"))
+            text_box_alignment(message_id, p.at("text").get<app::AlignmentMode__Enum>());
+        if (p.contains("anchor"))
+            text_box_anchor(message_id,
+                p.value("horizontal", app::HorizontalAnchorMode__Enum_Center),
+                p.value("vertical", app::VerticalAnchorMode__Enum_Middle));
+        if (p.contains("line_spacing"))
+            text_box_line_spacing(message_id, p.at("line_spacing").get<float>());
+        if (p.contains("visible"))
+            text_box_visibility(message_id, p.at("visible").get<bool>());
+
+    }
+
     void initialize()
     {
         handlers["reload"] = reload;
@@ -317,6 +379,7 @@ namespace ipc
         handlers["action"] = action;
         handlers["set_velocity"] = set_velocity;
         handlers["get_velocity"] = get_velocity;
+        handlers["message"] = message;
     }
 
     CALL_ON_INIT(initialize);
@@ -458,6 +521,37 @@ namespace ipc
         }
     }
 #endif
+    
+    NLOHMANN_JSON_SERIALIZE_ENUM(ScreenPosition, {
+        { ScreenPosition::TopLeft, "TopLeft" },
+        { ScreenPosition::TopCenter, "TopCenter" },
+        { ScreenPosition::TopRight, "TopRight" },
+        { ScreenPosition::MiddleLeft, "MiddleLeft" },
+        { ScreenPosition::MiddleCenter, "MiddleCenter" },
+        { ScreenPosition::MiddleRight, "MiddleRight" },
+        { ScreenPosition::BottomLeft, "BottomLeft" },
+        { ScreenPosition::BottomCenter, "BottomCenter" },
+        { ScreenPosition::BottomRight, "BottomRight" },
+    });
+
+    NLOHMANN_JSON_SERIALIZE_ENUM(app::AlignmentMode__Enum, {
+        { AlignmentMode__Enum_Left, "Left" },
+        { AlignmentMode__Enum_Center, "Center" },
+        { AlignmentMode__Enum_Right, "Right" },
+        { AlignmentMode__Enum_Justify, "Justify" },
+    });
+
+    NLOHMANN_JSON_SERIALIZE_ENUM(app::HorizontalAnchorMode__Enum, {
+        { HorizontalAnchorMode__Enum_Left, "Left" },
+        { HorizontalAnchorMode__Enum_Center, "Center" },
+        { HorizontalAnchorMode__Enum_Right, "Right" },
+    });
+
+    NLOHMANN_JSON_SERIALIZE_ENUM(app::VerticalAnchorMode__Enum, {
+        { VerticalAnchorMode__Enum_Top, "Top" },
+        { VerticalAnchorMode__Enum_Middle, "Middle" },
+        { VerticalAnchorMode__Enum_Bottom, "Bottom" },
+    });
 }
 
 INJECT_C_DLLEXPORT void report_seed_reload()

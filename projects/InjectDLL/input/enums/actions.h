@@ -134,5 +134,5 @@ namespace input
         { Action::UnlockSpoilers, "UnlockSpoilers" },
         { Action::TogglePickupNamesOnSpoiler, "TogglePickupNamesOnSpoiler" },
         { Action::ForceExit, "ForceExit" },
-    })
+    });
 }

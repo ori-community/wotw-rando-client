@@ -89,8 +89,16 @@ namespace
     IL2CPP_BINDING(, MessageBox, void, HideMessageScreenImmediately, (app::MessageBox* this_ptr, int32_t action));
     IL2CPP_BINDING(, MessageBox, void, HideMessageScreen, (app::MessageBox* this_ptr, int32_t action));
 
+    STATIC_IL2CPP_BINDING(, MessageParserUtility, app::String*, ProcessString, (app::String* message));
+    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopLeft, ());
     STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopCenter, ());
+    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopRight, ());
+    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_MiddleLeft, ());
+    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_MiddleCenter, ());
+    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_MiddleRight, ());
+    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomLeft, ());
     STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomCenter, ());
+    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomRight, ());
 
     IL2CPP_BINDING(, SeinLogicCycle, app::SeinLogicCycle_StateFlags__Enum, GetFlags, (app::SeinLogicCycle* this_ptr, app::SeinLogicCycle_StateFlags__Enum test));
     
@@ -579,6 +587,49 @@ INJECT_C_DLLEXPORT void clear_visible_hints()
     }
 }
 
+INJECT_C_DLLEXPORT void get_screen_position(ScreenPosition position, app::Vector3* output)
+{
+    if (is_on_screen_positions_initialized())
+    {
+        switch (position)
+        {
+        case ScreenPosition::TopLeft:
+            *output = OnScreenPositions::get_TopLeft();
+            break;
+        case ScreenPosition::TopCenter:
+            *output = OnScreenPositions::get_TopCenter();
+            break;
+        case ScreenPosition::TopRight:
+            *output = OnScreenPositions::get_TopRight();
+            break;
+        case ScreenPosition::MiddleLeft:
+            *output = OnScreenPositions::get_MiddleLeft();
+            break;
+        case ScreenPosition::MiddleCenter:
+            *output = OnScreenPositions::get_MiddleCenter();
+            break;
+        case ScreenPosition::MiddleRight:
+            *output = OnScreenPositions::get_MiddleRight();
+            break;
+        case ScreenPosition::BottomLeft:
+            *output = OnScreenPositions::get_BottomLeft();
+            break;
+        case ScreenPosition::BottomCenter:
+            *output = OnScreenPositions::get_BottomCenter();
+            break;
+        case ScreenPosition::BottomRight:
+            *output = OnScreenPositions::get_BottomRight();
+            break;
+        }
+    }
+    else
+    {
+        output->x = 0.0f;
+        output->y = 0.0f;
+        output->z = 0.0f;
+    }
+}
+
 INJECT_C_DLLEXPORT bool hints_ready() {
     if (!is_on_screen_positions_initialized())
         return false;
@@ -665,7 +716,6 @@ INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, boo
     return true;
 }
 
-STATIC_IL2CPP_BINDING(, MessageParserUtility, app::String*, ProcessString, (app::String* message));
 INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text)
 {
     auto& message = permanent_messages.find(id);

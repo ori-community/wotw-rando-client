@@ -2,6 +2,19 @@
 
 #include <macros.h>
 
+enum class ScreenPosition
+{
+    TopLeft = 0,
+    TopCenter = 1,
+    TopRight = 2,
+    MiddleLeft = 3,
+    MiddleCenter = 4,
+    MiddleRight = 5,
+    BottomLeft = 6,
+    BottomCenter = 7,
+    BottomRight = 8
+};
+
 using creation_callback = void(*)(int id);
 
 void hide_below_hint();
@@ -13,6 +26,7 @@ void update_color(app::GameObject* go, app::Color color);
 app::GameObject* text_box_get_go(int id);
 bool text_box_creation_callback(int id, creation_callback func);
 
+INJECT_C_DLLEXPORT void get_screen_position(ScreenPosition position, app::Vector3* output);
 INJECT_C_DLLEXPORT int get_free_id();
 INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, bool should_show_box, bool should_play_sound);
 INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text);
