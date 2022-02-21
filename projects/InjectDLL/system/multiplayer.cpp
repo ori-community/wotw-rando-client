@@ -44,8 +44,6 @@ namespace multiplayer
         return local_player_color;
     }
 
-    STATIC_IL2CPP_BINDING(UnityEngine, Sprite, app::Sprite*, Create, (app::Texture2D* texture, app::Rect* rect, app::Vector2* pivot));
-
     IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_position, (app::Transform* this_ptr));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* pos));
     IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_localScale, (app::Transform* this_ptr));
