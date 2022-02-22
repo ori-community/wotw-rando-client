@@ -121,6 +121,22 @@ namespace uber_states
                     []() -> double { return static_cast<double>(get_player_area()); }
                 }
             },
+            {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 500),
+                {
+                    "Total Relics",
+                    [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 500) is read only."); },
+                    []() -> double { return static_cast<double>(csharp_bridge::get_relic_count(true)); }
+                }
+            },
+            {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 501),
+                {
+                    "Current Relics",
+                    [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 501) is read only."); },
+                    []() -> double { return static_cast<double>(csharp_bridge::get_relic_count(false)); }
+                }
+            },
         };
 
         std::unordered_map<uber_id, double, pair_hash> cached_values;

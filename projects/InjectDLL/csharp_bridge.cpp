@@ -61,6 +61,7 @@ namespace csharp_bridge
 
     signatures::f_int get_flag_count = nullptr;
     signatures::f_void_int_ptr_int get_flag = nullptr;
+    signatures::f_int_bool get_relic_count = nullptr;
 }
 
 INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
@@ -167,4 +168,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         csharp_bridge::get_flag_count = reinterpret_cast<f_int>(ptr);
     else if (name == "get_flag")
         csharp_bridge::get_flag = reinterpret_cast<f_void_int_ptr_int>(ptr);
+    else if (name == "get_relic_count")
+        csharp_bridge::get_relic_count = reinterpret_cast<f_int_bool>(ptr);
 }

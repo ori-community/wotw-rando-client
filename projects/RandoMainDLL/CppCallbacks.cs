@@ -216,6 +216,10 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void_int_ptr_int(SeedController.GetFlag),
             CallbackName = "get_flag"
+          },
+          new Method() {
+            Delegate = new f_int_bool(Relic.RelicCount),
+            CallbackName = "get_relic_count"
           }
         };
       }
@@ -249,6 +253,7 @@ namespace RandoMainDLL {
     public delegate int f_int_int_int(int i, int j);
     public delegate int f_int_int_int_int(int i, int j, int k);
     public delegate int f_int_st(ShardType st);
+    public delegate int f_int_bool(bool b);
     public delegate ulong f_ull();
     public delegate ulong f_ull_str_bool([MarshalAs(UnmanagedType.LPStr)] string str, bool b);
   }

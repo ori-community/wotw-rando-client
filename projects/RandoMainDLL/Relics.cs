@@ -68,6 +68,12 @@ namespace RandoMainDLL {
       return $"{c}Relics ({cur}/{tot}):{c} {s}";
     }
 
+    public static int RelicCount(bool total) {
+      return RelicZones.Aggregate(0, (i, z) => {
+        return i + (total ? Counts[z] : UberGet.value(ZoneToId[z]).Byte);
+      });
+    }
+
     public static bool Valid { get => !SeedController.Flags.Contains(Flag.RELIC_HUNT) || RelicZones.All(z => Counts[z] <= UberGet.value(ZoneToId[z]).Byte); }
 
     public override PickupType Type => PickupType.Relic;

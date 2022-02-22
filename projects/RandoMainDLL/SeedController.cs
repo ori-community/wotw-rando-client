@@ -528,6 +528,7 @@ namespace RandoMainDLL {
           List<string> msgs = new List<string>();
           int frames = 240;
           float? pos = null;
+          bool hide = false;
           bool squelch = false;
           bool clear = true;
           bool immediate = false;
@@ -547,6 +548,10 @@ namespace RandoMainDLL {
             }
             else if (extra.ToLowerInvariant() == "mute") {
               squelch = true;
+              continue;
+            }
+            else if (extra.ToLowerInvariant() == "hide") {
+              hide = true;
               continue;
             }
             else if (extra.ToLowerInvariant() == "noclear") {
@@ -585,6 +590,10 @@ namespace RandoMainDLL {
               }
               else if (cmd.ToLowerInvariant() == "mute") {
                 squelch = true;
+                continue;
+              }
+              else if (cmd.ToLowerInvariant() == "hide") {
+                hide = true;
                 continue;
               }
               else if (cmd.ToLowerInvariant() == "noclear") {

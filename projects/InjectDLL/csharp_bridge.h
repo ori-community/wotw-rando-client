@@ -36,6 +36,7 @@ namespace csharp_bridge
         using f_int_int = int(*)(int);
         using f_int_int_int = int(*)(int, int);
         using f_int_int_int_int = int(*)(int, int, int);
+        using f_int_bool = int(*)(bool);
         using f_int_st = int(*)(ShardType);
         using f_ull_str = uint64_t(*)(const char*);
         using f_ull_str_bool = uint64_t(*)(const char*, bool);
@@ -98,4 +99,5 @@ namespace csharp_bridge
 
     extern signatures::f_int get_flag_count;
     extern signatures::f_void_int_ptr_int get_flag;
+    extern signatures::f_int_bool get_relic_count;
 }
