@@ -759,22 +759,36 @@ namespace uber_states
 
     INJECT_C_DLLEXPORT int get_uber_state_name(int group, int state, char* buffer, int len)
     {
+        if (is_virtual_state(group, state))
+        {
+            auto str = get_virtual_name(group, state);
+            strcpy_s(buffer, len, str.c_str());
+            return len < str.size() ? len : str.size();
+        }
+
         auto group_id = create_uber_id(group);
         auto state_id = create_uber_id((group == 12) ? state / 31 : state);
         auto uber_state = get_uber_state(group_id, state_id);
         auto str = get_uber_state_name(uber_state);
         strcpy_s(buffer, len, str.c_str());
-        return str.size();
+        return len < str.size() ? len : str.size();
     }
 
     INJECT_C_DLLEXPORT int get_uber_state_group_name(int group, int state, char* buffer, int len)
     {
+        if (is_virtual_state(group, state))
+        {
+            auto str = get_virtual_group_name(group);
+            strcpy_s(buffer, len, str.c_str());
+            return len < str.size() ? len : str.size();
+        }
+
         auto group_id = create_uber_id(group);
         auto state_id = create_uber_id((group == 12) ? state / 31 : state);
         auto uber_state = get_uber_state(group_id, state_id);
         auto str = get_uber_state_group_name(uber_state);
         strcpy_s(buffer, len, str.c_str());
-        return str.size();
+        return len < str.size() ? len : str.size();
     }
 
     INJECT_C_DLLEXPORT void refresh_uber_state(int group_id, int id) {
