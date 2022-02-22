@@ -738,21 +738,21 @@ namespace
 
     bool should_show(app::AreaMapIconManager* manager, app::RuntimeWorldMapIcon* icon)
     {
+        const auto is_spoiler = icon->fields.IsCollectedState != nullptr &&
+            icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
+            icon->fields.IsCollectedState->fields._.m_id->fields.m_id == 70;
+        if (is_spoiler)
+            return false;
+
         switch (icon->fields.Icon)
         {
         case app::WorldMapIconType__Enum_SavePedestal:
-            return csharp_bridge::check_ini("AlwaysShowWarps") && (static_cast<NewFilters>(manager->fields.Filter) > NewFilters::Collectibles);
+            return csharp_bridge::check_ini("AlwaysShowWarps") &&
+                (static_cast<NewFilters>(manager->fields.Filter) > NewFilters::Collectibles);
         case app::WorldMapIconType__Enum_KeystoneDoorOpen:
         case app::WorldMapIconType__Enum_KeystoneDoorTwo:
         case app::WorldMapIconType__Enum_KeystoneDoorFour:
         {
-            const auto is_spoiler = icon->fields.IsCollectedState != nullptr &&
-                icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
-                icon->fields.IsCollectedState->fields._.m_id->fields.m_id == 70;
-
-            if (is_spoiler)
-                return false;
-
             auto is_open = il2cpp::unity::is_valid(icon->fields.IsCollectedState)
                 ? icon->fields.IsCollectedState->fields.m_value : false;
             return !is_open && csharp_bridge::check_ini("AlwaysShowKeystoneDoors") && (static_cast<NewFilters>(manager->fields.Filter) > NewFilters::Collectibles);
