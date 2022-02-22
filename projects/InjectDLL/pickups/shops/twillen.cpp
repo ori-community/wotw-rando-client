@@ -228,7 +228,7 @@ namespace
             {
                 auto shard = shards_to_buy->fields._items->vector[i];
                 auto desc = il2cpp::invoke<app::SpiritShardDescription>(settings->fields.Descriptions, "GetValue", &shard);
-                desc->fields.InitialBuyCost = csharp_bridge::twillen_shard_cost(static_cast<csharp_bridge::ShardType>(shard));
+                desc->fields.InitialBuyCost = shards_to_buy->fields._items->vector[i];
             }
         }
 
@@ -262,7 +262,10 @@ namespace
 
     IL2CPP_BINDING(, MessageProvider, app::String__Array*, GetAllMessages, (app::MessageProvider* this_ptr));
     IL2CPP_BINDING(, MessageBox, void, SetMessage, (app::MessageBox* this_ptr, app::MessageDescriptor* descriptor, app::String* replace, app::String* with));
-    IL2CPP_BINDING(, SpiritShardDescription, int, get_BuyCost, (app::SpiritShardDescription* this_ptr));
+    IL2CPP_INTERCEPT(, SpiritShardDescription, int, get_BuyCost, (app::SpiritShardDescription* this_ptr)) {
+        return csharp_bridge::twillen_shard_cost(static_cast<csharp_bridge::ShardType>(this_ptr->fields.InitialBuyCost));
+    }
+
     NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_InitialPurchaseAffordable, (app::PlayerUberStateShards_Shard* this_ptr));
     IL2CPP_INTERCEPT(, SpiritShardShopUIItem, void, UpdateShard, (app::SpiritShardShopUIItem* this_ptr, app::PlayerUberStateShards_Shard* shard)) {
         auto owned = true;
