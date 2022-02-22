@@ -32,26 +32,6 @@ namespace uber_states
             getter get;
         };
 
-        enum class VirtualUberStateType
-        {
-            Bool,
-            Int,
-            Float
-        };
-
-        struct VirtualNonSerializedUberState
-        {
-            std::string name;
-            VirtualUberStateType type;
-
-            union
-            {
-                bool b;
-                int i;
-                float f;
-            };
-        };
-
         std::unordered_map<uber_id, VirtualUberState, pair_hash> virtual_states = {
             {
                 std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 0),
@@ -131,6 +111,14 @@ namespace uber_states
                     "Invert y axis",
                     [](double x) { set_axis_inverted(false, x > 0.5); },
                     []() -> double { return get_axis_inverted(false) ? 1.0 : 0.0; }
+                }
+            },
+            {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 200),
+                {
+                    "Area",
+                    [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 200) is read only."); },
+                    []() -> double { return static_cast<double>(get_player_area()); }
                 }
             },
         };
