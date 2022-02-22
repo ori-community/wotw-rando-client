@@ -40,9 +40,21 @@ namespace
 
     std::unordered_map<uint64_t, shops::ShopItem> lupo_overrides;
 
+    uint64_t get_key(app::MapmakerItem* item)
+    {
+        const auto state_id = item->fields.UberState->fields._.m_id->fields.m_id;
+        const auto group_id = item->fields.UberState->fields.Group->fields._.m_id->fields.m_id;
+        return static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
+    }
+
     IL2CPP_INTERCEPT(, MapmakerUISubItem, void, UpdateUpgradeIcon, (app::MapmakerUISubItem* this_ptr)) {
-        auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+        const auto key = get_key(this_ptr->fields.m_upgradeItem);
+        const auto it = lupo_overrides.find(key);
         auto texture = shops::get_icon(shops::ShopType::Lupo, this_ptr->fields.m_upgradeItem);
+        if (it != lupo_overrides.end() && !it->second.is_visible)
+            texture = shops::get_icon(shops::ShopType::Lupo, nullptr);
+
+        auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
         if (texture != nullptr)
             texture->apply(renderer);
         else
@@ -61,23 +73,27 @@ namespace
     IL2CPP_INTERCEPT(, MapmakerUISubItem, void, UpdateItem, (app::MapmakerUISubItem* this_ptr)) {
         MapmakerUISubItem::UpdateUpgradeIcon_intercept(this_ptr);
 
+        auto visible = true;
+        const auto key = get_key(this_ptr->fields.m_upgradeItem);
+        const auto it = lupo_overrides.find(key);
+        if (it != lupo_overrides.end())
+            visible = it->second.is_visible;
+
         auto state = this_ptr->fields.m_upgradeItem->fields.UberState;
         auto owned = state->fields.m_value >= this_ptr->fields.m_upgradeItem->fields.MaxLevel;
         auto cost = MapmakerItem::GetCost_intercept(this_ptr->fields.m_upgradeItem);
-        auto can_afford = get_experience() >= cost;
+        auto can_afford = get_experience() >= cost && (it == lupo_overrides.end() || !it->second.is_locked);
 
-        GameObject::SetActive(this_ptr->fields.CostGO, cost != 0);
+        GameObject::SetActive(this_ptr->fields.CostGO, cost != 0 && visible);
         if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO))
-            GameObject::SetActive(this_ptr->fields.SpiritLightGO, cost != 0);
+            GameObject::SetActive(this_ptr->fields.SpiritLightGO, cost != 0 && visible);
 
         if (GameObject::get_activeSelf(this_ptr->fields.CostGO))
         {
             auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, "CatlikeCoding.TextBox", "TextBox");
 
             if (owned)
-            {
                 TextBox::SetText(text_box, il2cpp::string_new(""));
-            }
             else
             {
                 if (can_afford)
@@ -95,9 +111,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, MapmakerUIItem, void, UpdateMapmakerItem, (app::MapmakerUIItem* this_ptr, app::MapmakerItem* item)) {
-        const auto state_id = item->fields.UberState->fields._.m_id->fields.m_id;
-        const auto group_id = item->fields.UberState->fields.Group->fields._.m_id->fields.m_id;
-        const auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
+        const auto key = get_key(item);
         const auto it = lupo_overrides.find(key);
         if (it != lupo_overrides.end())
         {
@@ -129,10 +143,10 @@ namespace shops
     }
 }
 
-INJECT_C_DLLEXPORT void set_lupo_item(int group_id, int state_id, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked)
+INJECT_C_DLLEXPORT void set_lupo_item(int group_id, int state_id, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool is_locked, bool is_visible)
 {
     const auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
     const auto it = lupo_overrides.find(key);
     auto& item = lupo_overrides[key];
-    set_item(item, name, description, texture, locked, false);
+    set_item(item, name, description, texture, locked, false, is_locked, is_visible);
 }
