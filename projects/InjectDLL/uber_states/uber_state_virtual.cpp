@@ -137,6 +137,69 @@ namespace uber_states
                     []() -> double { return static_cast<double>(csharp_bridge::get_relic_count(false)); }
                 }
             },
+            {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 502),
+                {
+                    "Current Trees",
+                    [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 502) is read only."); },
+                    []() -> double {
+                        return uber_states::get_uber_state_value(0, app::AbilityType__Enum_Sword)
+                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_DoubleJump)
+                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_MeditateSpell)
+                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_Bow)
+                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_DashNew)
+                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_Bash)
+                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_SpiritLeash)
+                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_WaterDash)
+                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_GlowSpell)
+                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_Grenade)
+                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_Digging)
+                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_ChargeJump)
+                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_DamageUpgradeA)
+                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_DamageUpgradeB);
+                    }
+                }
+            },
+            {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 503),
+                {
+                    "Current Wisps",
+                    [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 503) is read only."); },
+                    []() -> double {
+                        return uber_states::get_uber_state_value(28895, 25522) // Reach
+                            + uber_states::get_uber_state_value(18793, 63291) // Mouldwood
+                            + uber_states::get_uber_state_value(945, 49747) // Pools
+                            + uber_states::get_uber_state_value(10289, 22102) // Wastes
+                            + uber_states::get_uber_state_value(46462, 59806); // Hollow
+                    }
+                }
+            },
+            {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 504),
+                {
+                    "Current Quests",
+                    [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 504) is read only."); },
+                    []() -> double {
+                        return static_cast<int>(uber_states::get_uber_state_value(937, 34641) > 3.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 35399) > 2.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 35087) > 2.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 45931) > 2.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 8973) > 2.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(48248, 51645) > 2.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(48248, 18458) > 3.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 20667) > 2.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 15983) > 2.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 27804) > 3.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 59708) > 2.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 61011) > 4.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 26318) > 10.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 33776) > 2.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 50597) > 3.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 44578) > 1.5)
+                            + static_cast<int>(uber_states::get_uber_state_value(14019, 26394) > 1.5);
+                    }
+                }
+            },
         };
 
         std::unordered_map<uber_id, double, pair_hash> cached_values;
