@@ -323,7 +323,7 @@ INJECT_C_DLLEXPORT void set_ability_level(app::AbilityType__Enum type, int value
 INJECT_C_DLLEXPORT app::GameWorldAreaID__Enum get_player_area()
 {
     app::GameWorld* game_world = il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
-    if (game_world->fields.CurrentArea == nullptr || game_world->fields.CurrentArea->fields.Area == nullptr)
+    if (game_world == nullptr || game_world->fields.CurrentArea == nullptr || game_world->fields.CurrentArea->fields.Area == nullptr)
         return app::GameWorldAreaID__Enum_None;
     return game_world->fields.CurrentArea->fields.Area->fields.WorldMapAreaUniqueID;
 }
