@@ -96,14 +96,6 @@ namespace input
             register_simulators(this_ptr);
         }
 
-        bool is_pressed(Action action)
-        {
-            if (action < Action::OpenRandoWheel)
-                return false;
-
-            return bindings[action].is_pressed;
-        }
-
         STATIC_IL2CPP_BINDING(UnityEngine, Input, bool, GetKeyInt, (app::KeyCode__Enum key));
         STATIC_IL2CPP_BINDING(UnityEngine, Input, bool, GetMouseButton, (int button));
         bool is_pressed(KeyboardMouseInput const& input)
@@ -163,6 +155,14 @@ namespace input
                         action(binding.first, false);
             }
         }
+    }
+
+    bool is_pressed(Action action)
+    {
+        if (action < Action::OpenRandoWheel)
+            return false;
+
+        return bindings[action].is_pressed;
     }
 
     void add_on_pressed_callback(Action action, rando_input_callback callback)
