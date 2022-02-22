@@ -19,6 +19,8 @@ namespace uber_states
 {
     namespace
     {
+        using uber_id = std::pair<int, int>;
+
         // TODO: Maybe add an on_changed callback and implement the uberstate notify for these.
         struct VirtualUberState
         {
@@ -30,7 +32,27 @@ namespace uber_states
             getter get;
         };
 
-        std::unordered_map<std::pair<int, int>, VirtualUberState, pair_hash> virtual_states = {
+        enum class VirtualUberStateType
+        {
+            Bool,
+            Int,
+            Float
+        };
+
+        struct VirtualNonSerializedUberState
+        {
+            std::string name;
+            VirtualUberStateType type;
+
+            union
+            {
+                bool b;
+                int i;
+                float f;
+            };
+        };
+
+        std::unordered_map<uber_id, VirtualUberState, pair_hash> virtual_states = {
             {
                 std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 0),
                 {
@@ -113,7 +135,7 @@ namespace uber_states
             },
         };
 
-        std::unordered_map<std::pair<int, int>, double, pair_hash> cached_values;
+        std::unordered_map<uber_id, double, pair_hash> cached_values;
         IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController* this_ptr)) {
             GameController::Update(this_ptr);
             for (const auto& state : virtual_states)

@@ -11,6 +11,7 @@ set(
     "csharp_bridge.cpp"
     "dll_main.cpp"
     "dev/object_visualizer.cpp"
+    "features/ability_tracker.cpp"
     "features/autoaim.cpp"
     "features/bingo_tracking.cpp"
     "features/chaos.cpp"
