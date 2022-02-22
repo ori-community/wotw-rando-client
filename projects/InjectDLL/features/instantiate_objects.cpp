@@ -168,7 +168,6 @@ namespace
                 if (scene->fields.SceneRoot != nullptr)
                 {
                     ScenesManager::EnableDisabledScene(scenes->static_fields->Manager, scene, true);
-                    ScenesManager::PreventUnloading(scenes->static_fields->Manager, meta, true);
                     it = preload_areas_wait.erase(it);
                     continue;
                 }
