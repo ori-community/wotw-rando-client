@@ -694,6 +694,3 @@ INJECT_C_DLLEXPORT void clear_wheels()
     wheel_index = 0;
     wheels.clear();
 }
-
-INJECT_C_DLLEXPORT extern bool create_text_box(int id, const wchar_t* text, float x, float y, float fadein, float fadeout, bool should_show_box);
-INJECT_C_DLLEXPORT extern bool destroy_text_box(int id);
