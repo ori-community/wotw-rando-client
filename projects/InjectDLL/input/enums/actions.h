@@ -46,6 +46,7 @@ namespace input
         MapFocusObjective,
 
         OpenRandoWheel,
+        QuickBuy,
 
         // Legacy actions.
         Binding1,

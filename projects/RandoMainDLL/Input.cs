@@ -51,6 +51,7 @@ namespace RandoMainDLL {
       MapFocusObjective,
 
       OpenRandoWheel,
+      QuickBuy,
 
       // Legacy actions.
       Binding1,

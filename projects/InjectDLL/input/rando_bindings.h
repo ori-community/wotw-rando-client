@@ -6,7 +6,7 @@
 
 namespace input
 {
-    using rando_input_callback = void(*)(Action action);
+    using rando_input_callback = void(*)(Action action, bool pressed);
 
     // The methods below will only work for Action::OpenRandoWheel and higher.
 

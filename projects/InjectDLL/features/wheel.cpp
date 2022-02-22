@@ -144,59 +144,61 @@ namespace
         return !is_in_trial;
     }
 
-    void show_custom_wheel(input::Action action)
+    void handle_custom_wheel(input::Action action, bool pressed)
     {
-        if (!can_show_wheel())
-            return;
-
-        auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
-        switch (wheel_behavior)
+        if (pressed)
         {
-        case WheelBehavior::Standalone:
-            custom_wheel_input = true;
-            if (is_wheel_visible)
-                refresh_wheel();
-            else
+            if (!can_show_wheel())
+                return;
+
+            auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
+            switch (wheel_behavior)
             {
-                auto* msm = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu;
-                MenuScreenManager::ShowEquipmentWheel(msm);
+            case WheelBehavior::Standalone:
+                custom_wheel_input = true;
+                if (is_wheel_visible)
+                    refresh_wheel();
+                else
+                {
+                    auto* msm = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu;
+                    MenuScreenManager::ShowEquipmentWheel(msm);
+                }
+
+                break;
+            case WheelBehavior::Toggle:
+                // TODO: implement toggle behavior
+                break;
             }
-
-            break;
-        case WheelBehavior::Toggle:
-            // TODO: implement toggle behavior
-            break;
         }
-    }
-
-    void hide_custom_wheel(input::Action action)
-    {
-        if (wheels.empty() || wheels[wheel_index].entries.empty())
-            return;
-
-        auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
-        switch (wheel_behavior)
+        else
         {
-        case WheelBehavior::Standalone:
-        {
-            custom_wheel_input = false;
+            if (wheels.empty() || wheels[wheel_index].entries.empty())
+                return;
 
-            if (!il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd")->static_fields->OpenWeaponWheel->fields.IsPressed)
+            auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
+            switch (wheel_behavior)
             {
-                auto* msm = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu;
-                MenuScreenManager::HideEquipmentWhell(msm);
+            case WheelBehavior::Standalone:
+            {
+                custom_wheel_input = false;
+
+                if (!il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd")->static_fields->OpenWeaponWheel->fields.IsPressed)
+                {
+                    auto* msm = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu;
+                    MenuScreenManager::HideEquipmentWhell(msm);
+                }
+                else
+                    refresh_wheel();
+
+                if (!wheels[wheel_index].sticky)
+                    wheel_index = 0;
+
+                break;
             }
-            else
-                refresh_wheel();
-
-            if (!wheels[wheel_index].sticky)
-                wheel_index = 0;
-
-            break;
-        }
-        case WheelBehavior::Toggle:
-            // TODO: implement toggle behavior
-            break;
+            case WheelBehavior::Toggle:
+                // TODO: implement toggle behavior
+                break;
+            }
         }
     }
 
@@ -207,8 +209,8 @@ namespace
         empty_name = il2cpp::gchandle_new(utils::create_message_provider(il2cpp::string_new("Empty")), false);
         empty_description = il2cpp::gchandle_new(utils::create_message_provider(il2cpp::string_new(" ")), false);
 
-        input::add_on_pressed_callback(input::Action::OpenRandoWheel, show_custom_wheel);
-        input::add_on_released_callback(input::Action::OpenRandoWheel, hide_custom_wheel);
+        input::add_on_pressed_callback(input::Action::OpenRandoWheel, handle_custom_wheel);
+        input::add_on_released_callback(input::Action::OpenRandoWheel, handle_custom_wheel);
     }
 
     bool override_set_active = false;

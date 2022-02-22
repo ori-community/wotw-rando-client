@@ -2,6 +2,7 @@
 #include <dll_main.h>
 #include <Common/ext.h>
 #include <pickups/shops/general.h>
+#include <input/rando_bindings.h>
 #include <uber_states/uber_state_manager.h>
 #include <utils/messaging.h>
 #include <Il2CppModLoader/common.h>
@@ -24,18 +25,12 @@ namespace
 
     constexpr float NORMAL_PURCHASE_TIME = 0.4f;
     constexpr float FAST_PURCHASE_TIME = 0.01f;
+    bool quick_buy = false;
 
     IL2CPP_INTERCEPT(, PurchaseThingScreen, void, PurchaseInput, (app::PurchaseThingScreen* this_ptr))
     {
         this_ptr->fields.PurchaseCooldown = 0.1f;
-        this_ptr->fields.PurchaseTime = NORMAL_PURCHASE_TIME;
-        auto* const input_cmd = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
-        if (input_cmd->static_fields->DialogueOption1 != nullptr &&
-            input_cmd->static_fields->DialogueOption1->fields.IsPressed)
-        {
-            this_ptr->fields.PurchaseTime = FAST_PURCHASE_TIME;
-        }
-
+        this_ptr->fields.PurchaseTime = quick_buy ? FAST_PURCHASE_TIME : NORMAL_PURCHASE_TIME;
         PurchaseThingScreen::PurchaseInput(this_ptr);
     }
     // Generic --------------------------------
@@ -164,6 +159,19 @@ namespace
         if (this_ptr->fields.ShowEquipStatus != false)
             SpellUIShardEquipStatus::SetEquipment(this_ptr->fields.m_equipStatus, app::EquipmentType__Enum_None);
     }
+
+    void handle_quick_buy(input::Action action, bool pressed)
+    {
+        quick_buy = pressed;
+    }
+
+    void initialize()
+    {
+        input::add_on_pressed_callback(input::Action::QuickBuy, handle_quick_buy);
+        input::add_on_released_callback(input::Action::QuickBuy, handle_quick_buy);
+    }
+
+    CALL_ON_INIT(initialize);
 }
 
 namespace shops

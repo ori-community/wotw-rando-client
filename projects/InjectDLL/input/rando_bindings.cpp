@@ -156,11 +156,11 @@ namespace input
                 binding.second.is_pressed = pressed;
                 if (binding.second.is_just_pressed)
                     for (auto action : binding.second.on_pressed_actions)
-                        action(binding.first);
+                        action(binding.first, true);
 
                 if (is_just_released)
                     for (auto action : binding.second.on_release_actions)
-                        action(binding.first);
+                        action(binding.first, false);
             }
         }
     }
@@ -191,11 +191,11 @@ namespace input
             binding.is_just_pressed = value;
             auto& callbacks = value ? binding.on_pressed_actions : binding.on_release_actions;
             for (auto callback : callbacks)
-                callback(action);
+                callback(action, value);
         }
     }
 
-    void csharp_callback(Action action)
+    void csharp_callback(Action action, bool pressed)
     {
         csharp_bridge::on_action_triggered(action);
     }
