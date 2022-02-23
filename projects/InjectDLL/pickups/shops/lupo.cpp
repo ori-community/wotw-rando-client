@@ -126,7 +126,10 @@ namespace
     IL2CPP_INTERCEPT(, MapmakerUIDetails, void, UpdateDetails, (app::MapmakerUIDetails* this_ptr)) {
         auto item = this_ptr->fields.m_item;
         auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
-        shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, item->fields.Icon);
+
+        //shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, item->fields.Icon);
+        auto icon = shops::get_icon(shops::ShopType::Lupo, item);
+        icon->apply(renderer);
 
         auto can_afford = false;
         auto owned = item->fields.MaxLevel >= uber_states::get_uber_state_value(item->fields.UberState);
