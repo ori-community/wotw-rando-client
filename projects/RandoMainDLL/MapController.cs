@@ -38,6 +38,8 @@ namespace RandoMainDLL {
                 Reachable.Add(new UberStateCondition(1, "20000"));
               else if (ShopSlot.LupoStore.Any(e => e.State.Equals(cond.Id)))
                 Reachable.Add(new UberStateCondition(48248, "20000"));
+              //else if (ShopSlot.GromStore.Any(e => e.State.Equals(cond.Id)))
+              //  Reachable.Add(new UberStateCondition(3, "20000"));
             }
             Reachable.Add(cond);
           }

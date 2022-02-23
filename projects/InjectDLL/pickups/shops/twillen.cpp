@@ -5,6 +5,7 @@
 #include <uber_states/uber_state_manager.h>
 #include <uber_states/uber_state_helper.h>
 #include <system/textures.h>
+#include <system/text_database.h>
 #include <utils/messaging.h>
 
 #include <Il2CppModLoader/common.h>
@@ -49,11 +50,12 @@ namespace
 
     NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_VisibleInShop, (app::PlayerUberStateShards_Shard* this_ptr)) {
         const auto it = twillen_overrides.find(static_cast<uint8_t>(this_ptr->fields.m_type));
-        return it != twillen_overrides.end() ? it->second.is_visible : true;
+        return it != twillen_overrides.end() ? it->second.is_visible : false;
     }
 
     NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_PurchasableInShop, (app::PlayerUberStateShards_Shard* this_ptr)) {
-        return true;
+        const auto it = twillen_overrides.find(static_cast<uint8_t>(this_ptr->fields.m_type));
+        return it != twillen_overrides.end() ? !it->second.is_locked : false;
     }
 
     IL2CPP_BINDING(, SpiritShardsShopScreen, app::PlayerUberStateShards_Shard*, get_SelectedSpiritShard, (app::SpiritShardsShopScreen* this_ptr));
@@ -124,13 +126,25 @@ namespace
         auto* const item = overwrite_shard ? selected_shard : this_ptr->fields.m_item;
         auto type = item->fields.m_type;
         const auto it = twillen_overrides.find(static_cast<uint8_t>(type));
-        if (overwrite_shard && it != twillen_overrides.end())
+        if (overwrite_shard)
         {
-            name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-            description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
-            locked_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
-            if (it->second.is_locked)
+            if (it != twillen_overrides.end())
+            {
+                name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
+                description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
+                locked_provider = it->second.is_visible
+                    ? reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked))
+                    : text_database::get_provider(*static_text_entries::UndiscoveredDescription);
+            }
+            else
+            {
+                name_provider = text_database::get_provider(*static_text_entries::EmptyName);
+                description_provider = text_database::get_provider(*static_text_entries::Empty);
+                locked_provider = it->second.is_visible
+                    ? text_database::get_provider(*static_text_entries::Locked)
+                    : text_database::get_provider(*static_text_entries::UndiscoveredDescription);
                 type = app::SpiritShardType__Enum_None;
+            }
         }
 
         auto* const settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
@@ -202,19 +216,14 @@ namespace
     IL2CPP_INTERCEPT(, SpiritShardUIShardDetails, void, ShowEmptyDetails, (app::SpiritShardUIShardDetails* this_ptr)) {
         if (overwrite_shard && selected_shard != nullptr)
         {
-            const auto it = twillen_overrides.find(static_cast<uint8_t>(selected_shard->fields.m_type));
-            if (it != twillen_overrides.end())
-            {
-                locked_shard_overwrite = true;
-                this_ptr->fields.m_item = selected_shard;
-                UpdateDetails_intercept(this_ptr);
-                this_ptr->fields.m_item = nullptr;
-                locked_shard_overwrite = false;
-                return;
-            }
+            locked_shard_overwrite = true;
+            this_ptr->fields.m_item = selected_shard;
+            UpdateDetails_intercept(this_ptr);
+            this_ptr->fields.m_item = nullptr;
+            locked_shard_overwrite = false;
         }
-
-        ShowEmptyDetails(this_ptr);
+        else
+            ShowEmptyDetails(this_ptr);
     }
 
     IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, Show, (app::SpiritShardsShopScreen* this_ptr)) {

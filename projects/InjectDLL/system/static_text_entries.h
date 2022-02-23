@@ -8,6 +8,7 @@ namespace text_database
         EmptyName,
 
         // Shops
+        Locked,
         Undiscovered,
         UndiscoveredDescription,
 

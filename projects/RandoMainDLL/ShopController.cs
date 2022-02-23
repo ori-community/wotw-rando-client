@@ -76,7 +76,19 @@ namespace RandoMainDLL {
     public static LupoStoreSlot ShardIcons = new LupoStoreSlot(41666, "Shard Icons");
 
     public static List<LupoStoreSlot> LupoStore = new List<LupoStoreSlot> { HealthIcons, EnergyIcons, ShardIcons };
-    public static List<ShopSlot> All = new List<List<ShopSlot>>() {OpherUpgrades.ToList<ShopSlot>(), Opher.ToList<ShopSlot>(), Twillen.ToList<ShopSlot>(), LupoStore.ToList<ShopSlot>() }.SelectMany(p => p).ToList();
+
+    public static GromSlot SpiritWell = new GromSlot(16825, "Spirit Well");
+    public static GromSlot ShardShop = new GromSlot(7528, "Shard Shop");
+    public static GromSlot HousesA = new GromSlot(51230, "Houses A");
+    public static GromSlot HousesB = new GromSlot(23607, "Houses B");
+    public static GromSlot HousesC = new GromSlot(40448, "Houses C");
+    public static GromSlot RemoveThorns = new GromSlot(18751, "Remove Thorns");
+    public static GromSlot OpenCave = new GromSlot(16586, "Open Cave");
+    public static GromSlot Beutify = new GromSlot(15068, "Beutify");
+
+    public static List<GromSlot> GromStore = new List<GromSlot> { SpiritWell, ShardShop, HousesA, HousesB, HousesC, RemoveThorns, OpenCave, Beutify };
+
+    public static List<ShopSlot> All = new List<List<ShopSlot>>() { OpherUpgrades.ToList<ShopSlot>(), Opher.ToList<ShopSlot>(), Twillen.ToList<ShopSlot>(), LupoStore.ToList<ShopSlot>(), GromStore.ToList<ShopSlot>() }.SelectMany(p => p).ToList();
 
     public static void ResetSlotData() {
       foreach (var slot in All) {
@@ -124,6 +136,15 @@ namespace RandoMainDLL {
     public TwillenSlot(ShardType st) => Shard = st;
   }
 
+  public class GromSlot : ShopSlot {
+    public readonly int Project;
+    private readonly string name;
+    public override string Name => name;
+    public override UberId CostState => new UberId(16, 100000 + Project);
+    public override UberId State => new UberId(16, Project);
+    public GromSlot(int _project, string _name) => (Project, name) = (_project, _name);
+  }
+
   public static class ShopController {
     public static UberId UpgradedState(this AbilityType at) => new UberId(1, 1000 + (int)at);
     public static bool Upgraded(this AbilityType at) => UberGet.Bool(at.UpgradedState());
@@ -150,6 +171,9 @@ namespace RandoMainDLL {
     public static HashSet<string> Strings = new HashSet<string>();
     private static readonly HashSet<AbilityType> costsEnergy = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.SpiritArc, AbilityType.Regenerate, AbilityType.Flash };
 
+    // TODO: Use the text_database for these.
+    private static readonly string UndiscoveredTitle = "Undiscovered";
+    private static readonly string UndiscoveredDescription = "What could it be?";
     public static string DescOrChatter(this Pickup pickup) => pickup is WeaponUpgrade wu ? wu.Desc : Chatter();
     public static void UpdateShopData() {
       foreach (var s in ShopSlot.Opher) {
@@ -158,27 +182,45 @@ namespace RandoMainDLL {
           var pickup = s.Contents;
           if (pickup.NonEmpty)
             InterOp.Shop.set_opher_item((int)t, 255, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
+          else
+            InterOp.Shop.set_opher_item((int)t, 255, UndiscoveredTitle, UndiscoveredDescription, null, UndiscoveredDescription, false, true, false);
         }
         else {
           var pickup = s.Contents;
           var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
           if (pickup.NonEmpty)
             InterOp.Shop.set_opher_item(i, 255, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
+          else
+            InterOp.Shop.set_opher_item(i, 255, UndiscoveredTitle, UndiscoveredDescription, null, UndiscoveredDescription, false, true, false);
         }
       }
       foreach(var s in ShopSlot.OpherUpgrades) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
           InterOp.Shop.set_opher_item(255, (int)s.Weapon, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
+        else
+          InterOp.Shop.set_opher_item(255, (int)s.Weapon, UndiscoveredTitle, UndiscoveredDescription, null, UndiscoveredDescription, false, true, false);
       }
       foreach (var s in ShopSlot.Twillen) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
           InterOp.Shop.set_twillen_item((int)s.Shard, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), s.IsLocked, s.IsVisible);
+        else
+          InterOp.Shop.set_twillen_item((int)s.Shard, UndiscoveredTitle, UndiscoveredDescription, null, UndiscoveredDescription, true, false);
       }
       foreach (var s in ShopSlot.LupoStore) {
         var pickup = s.Contents;
-        InterOp.Shop.set_lupo_item(s.State.GroupID, s.State.ID, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), s.IsLocked, s.IsVisible);
+        if (pickup.NonEmpty)
+          InterOp.Shop.set_lupo_item(s.State.GroupID, s.State.ID, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), s.IsLocked, s.IsVisible);
+        else
+          InterOp.Shop.set_lupo_item(s.State.GroupID, s.State.ID, UndiscoveredTitle, UndiscoveredDescription, null, UndiscoveredDescription, true, false);
+      }
+      foreach (var s in ShopSlot.GromStore) {
+        var pickup = s.Contents;
+        if (pickup.NonEmpty)
+          InterOp.Shop.set_grom_item(s.State.ID, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), s.IsLocked, s.IsVisible);
+        else
+          InterOp.Shop.set_grom_item(s.State.ID, UndiscoveredTitle, UndiscoveredDescription, null, UndiscoveredDescription, true, false);
       }
     }
 

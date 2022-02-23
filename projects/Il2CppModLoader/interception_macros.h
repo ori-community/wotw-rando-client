@@ -1,6 +1,7 @@
 #pragma once
 
-#include "interception.h"
+#include <Il2CppModLoader/interception.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 
 #define DECLARE_BINDING(namezpace, klass_name, return_type, name, params) \
 namespace klass_name { \
@@ -137,3 +138,7 @@ return_type name##_intercept params
 #define INTERNAL_BINDING(address, return_type, name, params) \
 return_type (*name) params = nullptr; \
 modloader::intercept::intercept binding_##name (address, reinterpret_cast<void**>(&name), nullptr, #name);
+
+#define GUARD(namezpace, nested, klass_name, name, ...) \
+{ auto klass = std::string_view( #nested ).empty() ? il2cpp::get_class(#namezpace, #klass_name) : il2cpp::get_nested_class(#namezpace, #nested, #klass_name); \
+if (!il2cpp::is_assignable(this_ptr, klass)) return name(this_ptr, __VA_ARGS__ ); } \

@@ -29,8 +29,9 @@ namespace shops
     bool is_in_shop(ShopType type);
     ShopType get_open_shop();
 
-    void set_providers(ShopType type, app::ShopkeeperItem* shop_item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider);
-    void set_opher_providers(app::ShopkeeperItem* shop_item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider);
+    void set_providers(ShopType type, app::ShopkeeperItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider);
+    void set_opher_providers(app::WeaponmasterItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider);
+    void set_grom_providers(app::BuilderItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider);
 
     std::shared_ptr<textures::TextureData> get_icon(ShopType type, void* shop_item);
     std::shared_ptr<textures::TextureData> get_opher_icon(app::WeaponmasterItem* shop_item);

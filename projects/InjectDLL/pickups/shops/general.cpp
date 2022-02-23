@@ -1,22 +1,18 @@
 #include <csharp_bridge.h>
 #include <dll_main.h>
+#include <Common/ext.h>
 #include <pickups/shops/general.h>
 #include <input/rando_bindings.h>
-#include <system/text_database.h>
 #include <uber_states/uber_state_manager.h>
 #include <utils/messaging.h>
-
-#include <Common/ext.h>
-
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
-#include <dev/object_visualizer.h>
-#include <Il2CppModLoader/console.h>
-
 using namespace modloader;
 using namespace shops;
+
+#define GROM_ENABLED 0
 
 namespace
 {
@@ -123,6 +119,9 @@ namespace
         auto open_shop = shops::get_open_shop();
         shops::set_providers(open_shop, this_ptr->fields.m_item, name_provider, description_provider, locked_provider);
 
+        auto renderer_components = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+        auto* const renderer = renderer_components[0];
+
         auto message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
         auto* const name_box = message_box_components[0];
 
@@ -135,8 +134,8 @@ namespace
 
         if (!is_visible)
         {
-            name_box->fields.MessageProvider = text_database::get_provider(*static_text_entries::Undiscovered);
-            description_box->fields.MessageProvider = text_database::get_provider(*static_text_entries::UndiscoveredDescription);
+            name_box->fields.MessageProvider = utils::create_message_provider("Unknown");;
+            description_box->fields.MessageProvider = utils::create_message_provider("What could it be?");;
         }
         else if (is_locked || locked_shop_overwrite)
         {
@@ -162,6 +161,125 @@ namespace
 
         if (this_ptr->fields.ShowEquipStatus != false)
             SpellUIShardEquipStatus::SetEquipment(this_ptr->fields.m_equipStatus, app::EquipmentType__Enum_None);
+    }
+
+    bool should_special_handle_shop()
+    {
+#if GROM_ENABLED == 1
+        return shops::is_in_shop(shops::ShopType::Opher)
+            || shops::is_in_shop(shops::ShopType::Grom);
+#else
+        return shops::is_in_shop(shops::ShopType::Opher);
+#endif
+    }
+
+    IL2CPP_BINDING(UnityEngine, GameObject, bool, get_activeSelf, (app::GameObject* this_ptr));
+    IL2CPP_BINDING(, CleverMenuItem, void, set_IsDisabled, (app::CleverMenuItem* this_ptr, bool disabled));
+    IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RenderText, (app::TextBox* this_ptr));
+    IL2CPP_BINDING_OVERLOAD(CatlikeCoding.TextBox, TextBox, void, SetText, (app::TextBox* this_ptr, app::String* text), (System:String));
+    IL2CPP_BINDING(, SpiritShardUIShardBackdrop, void, SetUpgradeCount, (app::SpiritShardUIShardBackdrop* this_ptr, int actual, int total));
+    IL2CPP_INTERCEPT(, ShopkeeperUISubItem, void, UpdateItem, (app::ShopkeeperUISubItem* this_ptr)) {
+        if (should_special_handle_shop())
+        {
+            const auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsVisible")->fields;
+            const auto is_owned = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsOwned")->fields;
+            const auto is_affordable = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsAffordable")->fields;
+            const auto is_locked = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsLocked")->fields;
+            const auto is_max_level = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsMaxLevel")->fields;
+            
+            auto menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(this_ptr, "", "CleverMenuItem");
+            auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+            auto texture_data = shops::get_icon(get_open_shop(), this_ptr->fields.m_item);
+            texture_data->apply(renderer);
+            if (this_ptr->fields.m_item == nullptr)
+            {
+                CleverMenuItem::set_IsDisabled(menu_item, true);
+                return;
+            }
+
+            if (!is_visible || is_max_level)
+            {
+                if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO))
+                    GameObject::SetActive(this_ptr->fields.SpiritLightGO, false);
+
+                if (il2cpp::unity::is_valid(this_ptr->fields.OreGO))
+                    GameObject::SetActive(this_ptr->fields.OreGO, false);
+            }
+
+            auto value = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "get_ItemCurrentLevel")->fields;
+            auto max_level = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "get_ItemMaxLevel")->fields;
+            if (max_level < value)
+                value = max_level;
+
+            if (il2cpp::unity::is_valid(this_ptr->fields.Backdrop))
+                SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr->fields.Backdrop, 0, 0);
+            //SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr->fields.Backdrop, value, max_level);
+
+            auto cost = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "GetCostForLevel", &value)->fields;
+            if (cost == 0)
+            {
+                if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO))
+                    GameObject::SetActive(this_ptr->fields.SpiritLightGO, false);
+
+                if (il2cpp::unity::is_valid(this_ptr->fields.OreGO))
+                    GameObject::SetActive(this_ptr->fields.OreGO, false);
+            }
+            else
+            {
+                if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO))
+                    GameObject::SetActive(this_ptr->fields.SpiritLightGO, !this_ptr->fields.ShowOre);
+
+                if (il2cpp::unity::is_valid(this_ptr->fields.OreGO))
+                    GameObject::SetActive(this_ptr->fields.OreGO, this_ptr->fields.ShowOre);
+            }
+
+            if (il2cpp::unity::is_valid(this_ptr->fields.CostGO) && GameObject::get_activeSelf(this_ptr->fields.CostGO))
+            {
+                auto text = il2cpp::string_new(std::to_string(cost));
+                auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, "CatlikeCoding.TextBox", "TextBox");
+                TextBox::SetText(text_box, text);
+                TextBox::RenderText(text_box);
+            }
+
+            CleverMenuItem::set_IsDisabled(menu_item, is_owned || is_max_level || !is_affordable);
+        }
+        else
+            ShopkeeperUISubItem::UpdateItem(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(, ShopkeeperUIItem, void, UpdateItem, (app::ShopkeeperUIItem* this_ptr, app::ShopkeeperItem* item)) {
+        if (should_special_handle_shop())
+        {
+            const auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsVisible")->fields;
+            const auto is_owned = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsOwned")->fields;
+            const auto is_affordable = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsAffordable")->fields;
+            const auto is_locked = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsLocked")->fields;
+            const auto is_max_level = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsMaxLevel")->fields;
+
+            auto available = !is_locked && !is_max_level;
+            GameObject::SetActive(this_ptr->fields.LockedGO, !is_visible || is_locked);
+            GameObject::SetActive(this_ptr->fields.AlreadyOwnedGO, is_visible && is_owned);// !(available && is_affordable) || (!is_locked && is_max_level));
+            GameObject::SetActive(this_ptr->fields.AvailableToBuyGO, is_visible && available && is_affordable);
+            GameObject::SetActive(this_ptr->fields.TooExpensiveGO, is_visible && available && !is_affordable);
+
+            auto ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.LockedGO, "", "ShopkeeperUISubItem");
+            ui_sub_item->fields.m_item = item;
+            ShopkeeperUISubItem::UpdateItem_intercept(ui_sub_item);
+
+            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AlreadyOwnedGO, "", "ShopkeeperUISubItem");
+            ui_sub_item->fields.m_item = item;
+            ShopkeeperUISubItem::UpdateItem_intercept(ui_sub_item);
+
+            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AvailableToBuyGO, "", "ShopkeeperUISubItem");
+            ui_sub_item->fields.m_item = item;
+            ShopkeeperUISubItem::UpdateItem_intercept(ui_sub_item);
+
+            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.TooExpensiveGO, "", "ShopkeeperUISubItem");
+            ui_sub_item->fields.m_item = item;
+            ShopkeeperUISubItem::UpdateItem_intercept(ui_sub_item);
+        }
+        else
+            ShopkeeperUIItem::UpdateItem(this_ptr, item);
     }
 
     void handle_quick_buy(input::Action action, bool pressed)
@@ -195,7 +313,15 @@ namespace shops
             return mapmaker_screen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(mapmaker_screen));
         }
         case ShopType::Grom:
+        {
+#if GROM_ENABLED == 1
+            auto* const builder_screen_class = il2cpp::get_class<app::BuilderScreen__Class>("", "BuilderScreen");
+            auto* const builder_screen = builder_screen_class->static_fields->_Instance_k__BackingField;
+            return builder_screen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(builder_screen));
+#else
             return false;
+#endif
+        }
         case ShopType::Opher:
         {
             const auto weaponmasterScreen = il2cpp::get_class<app::WeaponmasterScreen__Class>("", "WeaponmasterScreen")->static_fields->_Instance_k__BackingField;
@@ -226,13 +352,20 @@ namespace shops
         return ShopType::None;
     }
 
-    void set_providers(ShopType type, app::ShopkeeperItem* shop_item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider)
+    void set_providers(ShopType type, app::ShopkeeperItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider)
     {
         switch (type)
         {
         case ShopType::Opher:
         {
-            set_opher_providers(shop_item, name_provider, description_provider, locked_provider);
+            set_opher_providers(reinterpret_cast<app::WeaponmasterItem*>(item), name_provider, description_provider, locked_provider);
+            break;
+        }
+        case ShopType::Grom:
+        {
+#if GROM_ENABLED == 1
+            set_grom_providers(reinterpret_cast<app::BuilderItem*>(item), name_provider, description_provider, locked_provider);
+#endif
             break;
         }
         default:
@@ -293,7 +426,9 @@ namespace shops
         provider = utils::create_message_provider(description);
         item.description = il2cpp::gchandle_new(provider, false);
         provider = utils::create_message_provider(locked);
-        if (item.texture_data == nullptr || item.texture_data->get_path() != texture)
+        if (texture == nullptr)
+            item.texture_data = nullptr;
+        else if (item.texture_data == nullptr || item.texture_data->get_path() != texture)
             item.texture_data = textures::get_texture(texture);
 
         item.locked = il2cpp::gchandle_new(provider, false);

@@ -844,6 +844,11 @@ namespace il2cpp
         return is_assignable(reinterpret_cast<Il2CppObject*>(obj)->klass, namezpace, name);
     }
 
+    bool is_assignable(void* obj, Il2CppClass* iklass)
+    {
+        return is_assignable(reinterpret_cast<Il2CppObject*>(obj)->klass, iklass);
+    }
+
     MethodInfo* resolve_generic_method(uint64_t address)
     {
         return *reinterpret_cast<MethodInfo**>(modloader::intercept::resolve_rva(address));

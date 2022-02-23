@@ -137,6 +137,24 @@ namespace uber_states
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TWILLEN_SHARD_GROUP_NAME, constants::TWILLEN_SHARD_GROUP_ID, "Has bought everything", 20000, false),
 
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Spirit Well", 16825, 0),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Shard Shop", 7528, 0),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Houses A", 51230, 0),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Houses B", 23607, 0),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Houses C", 40448, 0),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Remove Thorns", 18751, 0),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Open Cave", 16586, 0),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Beutify", 15068, 0),
+
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Spirit Well cost", 116825, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Shard Shop cost", 107528, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Houses A cost", 151230, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Houses B cost", 123607, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Houses C cost", 140448, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Remove Thorns cost", 118751, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Open Cave cost", 116586, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::GROM_SHOP_GROUP_NAME, constants::GROM_SHOP_GROUP_ID, "Beutify cost", 115068, 0),
+
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Hammer speed multiplier", 0, 1),
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Sword speed multiplier", 1, 1),
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Blaze cost multiplier", 2, 1),

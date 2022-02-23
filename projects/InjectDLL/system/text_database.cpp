@@ -24,6 +24,7 @@ namespace text_database
     {
         register_text(*static_text_entries::Empty, " ");
         register_text(*static_text_entries::EmptyName, "Empty");
+        register_text(*static_text_entries::Locked, "Locked");
         register_text(*static_text_entries::Undiscovered, "Undiscovered");
         register_text(*static_text_entries::UndiscoveredDescription, "What could it be?");
         register_text(*static_text_entries::LupoWillowSalesPitch,

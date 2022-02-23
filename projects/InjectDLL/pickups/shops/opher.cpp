@@ -3,6 +3,7 @@
 #include <csharp_bridge.h>
 #include <pickups/shops/general.h>
 #include <system\textures.h>
+#include <system/text_database.h>
 #include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_manager.h>
 #include <utils\messaging.h>
@@ -133,6 +134,8 @@ namespace
             const auto it = opher_overrides.find(key);
             if (it != opher_overrides.end() && it->second.texture_data != nullptr)
                 return it->second.is_visible;
+
+            return false;
         }
 
         return true; //get_IsVisible(this_ptr);
@@ -146,15 +149,11 @@ namespace
             const auto it = opher_overrides.find(key);
             if (it != opher_overrides.end() && it->second.texture_data != nullptr)
                 return it->second.is_locked;
+            
+            return true;
         }
 
         return false; // get_IsLocked(this_ptr);
-    }
-
-    // When does this happen?
-    IL2CPP_INTERCEPT(, WeaponmasterItem, app::MessageProvider*, get_ItemNextLevelDescription, (app::WeaponmasterItem* this_ptr))
-    {
-        return WeaponmasterItem::get_ItemNextLevelDescription(this_ptr);
     }
 
     IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_UsesEnergy, (app::WeaponmasterItem* this_ptr))
@@ -165,92 +164,6 @@ namespace
             return WeaponmasterItem::get_UsesEnergy(this_ptr);
 
         return it->second.uses_energy;
-    }
-
-    IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
-    IL2CPP_BINDING(UnityEngine, GameObject, bool, get_activeSelf, (app::GameObject* this_ptr));
-    IL2CPP_BINDING(, CleverMenuItem, void, set_IsDisabled, (app::CleverMenuItem* this_ptr, bool disabled));
-    IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RenderText, (app::TextBox* this_ptr));
-    IL2CPP_BINDING_OVERLOAD(CatlikeCoding.TextBox, TextBox, void, SetText, (app::TextBox* this_ptr, app::String* text), (System:String));
-    IL2CPP_BINDING(, SpiritShardUIShardBackdrop, void, SetUpgradeCount, (app::SpiritShardUIShardBackdrop* this_ptr, int actual, int total));
-    IL2CPP_INTERCEPT(, ShopkeeperUISubItem, void, UpdateItem, (app::ShopkeeperUISubItem* this_ptr)) {
-        if (shops::is_in_shop(shops::ShopType::Opher))
-        {
-            auto menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(this_ptr, "", "CleverMenuItem");
-            auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
-            auto texture_data = shops::get_icon(shops::ShopType::Opher, this_ptr->fields.m_item);
-            texture_data->apply(renderer);
-            if (this_ptr->fields.m_item == nullptr)
-            {
-                CleverMenuItem::set_IsDisabled(menu_item, true);
-                return;
-            }
-
-            auto is_owned = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsOwned")->fields;
-            auto is_max_level = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsMaxLevel")->fields;
-            if (is_max_level)
-            {
-                is_owned = true;
-                if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO))
-                    GameObject::SetActive(this_ptr->fields.SpiritLightGO, false);
-
-                if (il2cpp::unity::is_valid(this_ptr->fields.OreGO))
-                    GameObject::SetActive(this_ptr->fields.OreGO, false);
-            }
-
-            auto value = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "get_ItemCurrentLevel")->fields;
-            auto max_level = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "get_ItemMaxLevel")->fields;
-            if (max_level < value)
-                value = max_level;
-
-            if (il2cpp::unity::is_valid(this_ptr->fields.Backdrop))
-                SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr->fields.Backdrop, 0, 0);
-                //SpiritShardUIShardBackdrop::SetUpgradeCount(this_ptr->fields.Backdrop, value, max_level);
-
-            auto cost = il2cpp::invoke<app::Int32__Boxed>(this_ptr->fields.m_item, "GetCostForLevel", &value)->fields;
-            if (cost == 0)
-            {
-                if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO))
-                    GameObject::SetActive(this_ptr->fields.SpiritLightGO, false);
-
-                if (il2cpp::unity::is_valid(this_ptr->fields.OreGO))
-                    GameObject::SetActive(this_ptr->fields.OreGO, false);
-            }
-            else
-            {
-                if (il2cpp::unity::is_valid(this_ptr->fields.SpiritLightGO))
-                    GameObject::SetActive(this_ptr->fields.SpiritLightGO, !this_ptr->fields.ShowOre);
-
-                if (il2cpp::unity::is_valid(this_ptr->fields.OreGO))
-                    GameObject::SetActive(this_ptr->fields.OreGO, this_ptr->fields.ShowOre);
-            }
-
-            if (il2cpp::unity::is_valid(this_ptr->fields.CostGO) && GameObject::get_activeSelf(this_ptr->fields.CostGO))
-            {
-                auto text = il2cpp::string_new(std::to_string(cost));
-                auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, "CatlikeCoding.TextBox", "TextBox");
-                TextBox::SetText(text_box, text);
-                TextBox::RenderText(text_box);
-            }
-
-            auto is_affordable = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsAffordable")->fields;
-            CleverMenuItem::set_IsDisabled(menu_item, is_owned || !is_affordable);
-        }
-        else
-            ShopkeeperUISubItem::UpdateItem(this_ptr);
-    }
-
-    bool has_been_purchased_before(app::WeaponmasterItem* item)
-    {
-        const app::AbilityType__Enum granted_type = item->fields.Upgrade->fields.AcquiredAbilityType;
-        const app::AbilityType__Enum required_type = item->fields.Upgrade->fields.RequiredAbility;
-        if (granted_type != app::AbilityType__Enum_None)
-            return csharp_bridge::opher_bought_weapon(granted_type);
-
-        if (required_type == app::AbilityType__Enum_None) // fast travel; 255, 255 -> 105, 0
-            return csharp_bridge::opher_bought_weapon(app::AbilityType__Enum_TeleportSpell);
-
-        return csharp_bridge::opher_bought_upgrade(required_type);
     }
 
     IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_IsAffordable, (app::WeaponmasterItem* this_ptr)) {
@@ -268,12 +181,12 @@ namespace
     IL2CPP_BINDING(, UISoundSettingsAsset, bool, PlaySoundEvent, (app::UISoundSettingsAsset* this_ptr, app::Event_1* sound_event));
     IL2CPP_INTERCEPT(, WeaponmasterItem, bool, TryPurchase, (app::WeaponmasterItem* this_ptr, app::Action_1_MessageProvider_* show_hint, app::UISoundSettingsAsset* sounds, app::ShopKeeperHints* hints)) {
         app::MessageProvider* selected_hint;
-        if (has_been_purchased_before(this_ptr))
-            selected_hint = hints->fields.AlreadyOwned;
+        if (!get_IsVisible_intercept(this_ptr))
+            selected_hint = hints->fields.ShardNotDiscovered;
         else if (get_IsLocked_intercept(this_ptr))
             selected_hint = hints->fields.ShardNotDiscovered;
-        else if (!get_IsVisible_intercept(this_ptr))
-            selected_hint = hints->fields.ShardNotDiscovered;
+        else if (get_IsOwned_intercept(this_ptr))
+            selected_hint = hints->fields.AlreadyOwned;
         else if (!get_IsAffordable_intercept(this_ptr))
             selected_hint = hints->fields.NotEnoughSpiritLight;
         else
@@ -285,48 +198,12 @@ namespace
 
         return false;
     }
-
-    IL2CPP_INTERCEPT(, ShopkeeperUIItem, void, UpdateItem, (app::ShopkeeperUIItem* this_ptr, app::ShopkeeperItem* upgrade_item)) {
-        if (shops::is_in_shop(shops::ShopType::Opher))
-        {
-            auto is_max_level = il2cpp::invoke<app::Boolean__Boxed>(upgrade_item, "get_IsMaxLevel")->fields;
-            auto is_affordable = il2cpp::invoke<app::Boolean__Boxed>(upgrade_item, "get_IsAffordable")->fields;
-            auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(upgrade_item, "get_IsVisible")->fields;
-            auto is_locked = il2cpp::invoke<app::Boolean__Boxed>(upgrade_item, "get_IsLocked")->fields;
-            auto already_owned = has_been_purchased_before(reinterpret_cast<app::WeaponmasterItem*>(upgrade_item));
-
-            auto available = is_visible && !is_locked && !is_max_level;
-            GameObject::SetActive(this_ptr->fields.LockedGO, is_locked || !is_visible);
-            GameObject::SetActive(this_ptr->fields.AlreadyOwnedGO, already_owned);
-            GameObject::SetActive(this_ptr->fields.AvailableToBuyGO, available && is_affordable);
-            GameObject::SetActive(this_ptr->fields.TooExpensiveGO, available && !is_affordable);
-
-            auto ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AvailableToBuyGO, "", "ShopkeeperUISubItem");
-            ui_sub_item->fields.m_item = upgrade_item;
-            ShopkeeperUISubItem::UpdateItem(ui_sub_item);
-
-            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AlreadyOwnedGO, "", "ShopkeeperUISubItem");
-            ui_sub_item->fields.m_item = upgrade_item;
-            ShopkeeperUISubItem::UpdateItem(ui_sub_item);
-
-            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AlreadyOwnedGO, "", "ShopkeeperUISubItem");
-            ui_sub_item->fields.m_item = upgrade_item;
-            ShopkeeperUISubItem::UpdateItem(ui_sub_item);
-
-            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.LockedGO, "", "ShopkeeperUISubItem");
-            ui_sub_item->fields.m_item = upgrade_item;
-            ShopkeeperUISubItem::UpdateItem(ui_sub_item);
-        }
-        else
-            ShopkeeperUIItem::UpdateItem(this_ptr, upgrade_item);
-    }
 }
 
 namespace shops
 {
-    void set_opher_providers(app::ShopkeeperItem* shop_item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider)
+    void set_opher_providers(app::WeaponmasterItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider)
     {
-        auto* const item = reinterpret_cast<app::WeaponmasterItem*>(shop_item);
         const auto key = get_key(item);
         const auto it = opher_overrides.find(key);
         if (it != opher_overrides.end())
@@ -334,6 +211,12 @@ namespace shops
             name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
             description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
             locked_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
+        }
+        else
+        {
+            name_provider = text_database::get_provider(*static_text_entries::Empty);
+            description_provider = text_database::get_provider(*static_text_entries::Empty);
+            locked_provider = text_database::get_provider(*static_text_entries::Locked);
         }
     }
 
