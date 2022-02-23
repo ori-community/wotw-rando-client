@@ -746,8 +746,16 @@ INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z)
     message->second.pos.z = z;
     if (message->second.handle != -1) {
         auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message->second.handle));
-        auto transform = il2cpp::unity::get_transform(go);
-        Transform::set_position(transform, &message->second.pos);
+        if (il2cpp::unity::is_valid(go))
+        {
+            auto transform = il2cpp::unity::get_transform(go);
+            Transform::set_position(transform, &message->second.pos);
+        }
+        else
+        {
+            il2cpp::gchandle_free(message->second.handle);
+            message->second.handle = -1;
+        }
     }
 
     return true;
