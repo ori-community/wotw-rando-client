@@ -122,10 +122,39 @@ namespace
         MapmakerUIItem::UpdateMapmakerItem(this_ptr, item);
     }
 
-    // Todo: Add this in so we see the correct icons in the mapmaker details.
-    //IL2CPP_INTERCEPT(, MapmakerUIDetails, void, UpdateDetails, (app::MapmakerUIDetails* this_ptr)) {
-    //    
-    //}
+    IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr));
+    IL2CPP_INTERCEPT(, MapmakerUIDetails, void, UpdateDetails, (app::MapmakerUIDetails* this_ptr)) {
+        auto item = this_ptr->fields.m_item;
+        auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+        shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, item->fields.Icon);
+
+        auto can_afford = false;
+        auto owned = item->fields.MaxLevel >= uber_states::get_uber_state_value(item->fields.UberState);
+        if (il2cpp::unity::is_valid(item->fields.UberState) && !owned)
+            can_afford = MapmakerItem::GetCost_intercept(item) <= get_experience();
+
+        auto color = can_afford ? this_ptr->fields.PurchasableColor : this_ptr->fields.NotPurchasableColor;
+        shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+
+        auto name_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
+        auto name_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.NameGO, "CatlikeCoding.TextBox", "TextBox");
+        name_text_component->fields.color = color;
+        name_message_box->fields.MessageProvider = this_ptr->fields.m_item->fields.Name;
+        MessageBox::RefreshText(name_message_box);
+
+        auto description_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, "", "MessageBox");
+        auto description_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.DescriptionGO, "CatlikeCoding.TextBox", "TextBox");
+        if (description_text_component != nullptr)
+        {
+            description_text_component->fields.color = color;
+            description_message_box->fields.MessageProvider = this_ptr->fields.m_item->fields.Description;
+            MessageBox::RefreshText(description_message_box);
+
+            GameObject::SetActive(this_ptr->fields.PurchasableGO, !owned && can_afford);
+            GameObject::SetActive(this_ptr->fields.TooExpensiveGO, !owned && !can_afford);
+            GameObject::SetActive(this_ptr->fields.OwnedGO, owned);
+        }
+    }
 }
 
 namespace shops

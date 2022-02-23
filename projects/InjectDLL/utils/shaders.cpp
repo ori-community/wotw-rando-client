@@ -15,7 +15,7 @@ namespace shaders
     NAMED_STATIC_IL2CPP_BINDING_OVERLOAD(, UberShaderAPI, bool, HasProperty, HasPropertyFloat,
         (app::Renderer* renderer, app::UberShaderProperty_Float__Enum prop), (UnityEngine:Renderer, UberShaderProperty_Float));
 
-    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTexture, (app::Renderer* renderer, app::UberShaderProperty_Texture__Enum prop, app::Texture const* texture));
+    STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTexture, (app::Renderer* renderer, app::UberShaderProperty_Texture__Enum prop, void const* texture));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTextureScale, (app::Renderer* renderer, app::UberShaderProperty_Texture__Enum prop, app::Vector2 const* scale));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTextureOffset, (app::Renderer* renderer, app::UberShaderProperty_Texture__Enum prop, app::Vector2 const* offset));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetTextureAtlasUVs, (app::Renderer* this_ptr, app::UberShaderProperty_Texture__Enum p, app::Vector4 const* atlas_uvs));

@@ -54,6 +54,7 @@ namespace uber_states
     app::IUberState* get_uber_state_untyped(app::UberID& group_id, app::UberID& state_id);
 
     void set_uber_state_value(app::IUberState* uber_state, double value);
+    double get_uber_state_value(void* uber_state);
     double get_uber_state_value(app::IUberState* uber_state);
     INJECT_C_DLLEXPORT void set_uber_state_value(int group, int state, double value);
     INJECT_C_DLLEXPORT double get_uber_state_value(int group, int state);

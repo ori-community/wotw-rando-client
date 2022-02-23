@@ -681,6 +681,11 @@ namespace uber_states
         }
     }
 
+    double get_uber_state_value(void* uber_state)
+    {
+        return get_uber_state_value(reinterpret_cast<app::IUberState*>(uber_state));
+    }
+
     double get_uber_state_value(app::IUberState* uber_state)
     {
         if (il2cpp::is_assignable(uber_state, "Moon", "SerializedIntUberState"))
