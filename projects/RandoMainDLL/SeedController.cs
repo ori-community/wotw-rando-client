@@ -528,6 +528,7 @@ namespace RandoMainDLL {
           List<string> msgs = new List<string>();
           int frames = 240;
           float? pos = null;
+          bool hide = false;
           bool squelch = false;
           bool clear = true;
           bool immediate = false;
@@ -547,6 +548,10 @@ namespace RandoMainDLL {
             }
             else if (extra.ToLowerInvariant() == "mute") {
               squelch = true;
+              continue;
+            }
+            else if (extra.ToLowerInvariant() == "hide") {
+              hide = true;
               continue;
             }
             else if (extra.ToLowerInvariant() == "noclear") {
@@ -585,6 +590,10 @@ namespace RandoMainDLL {
               }
               else if (cmd.ToLowerInvariant() == "mute") {
                 squelch = true;
+                continue;
+              }
+              else if (cmd.ToLowerInvariant() == "hide") {
+                hide = true;
                 continue;
               }
               else if (cmd.ToLowerInvariant() == "noclear") {
@@ -690,7 +699,7 @@ namespace RandoMainDLL {
             var s = (ShopCommandType)pickupData.ParseToByte();
             switch (s) {
               case ShopCommandType.Icon: {
-                  if (extras.Count != 3) {
+                  if (extras.Count < 3) {
                     Randomizer.Log($"malformed shop command specifier {command}", false);
                     return new Message($"Invalid shop command {command}!");
                   }
@@ -705,75 +714,6 @@ namespace RandoMainDLL {
                   }
 
                   return new Shop.IconCommand(uberId, texture);
-                }
-              case ShopCommandType.Title: {
-                  if (extras.Count.In(2, 3)) {
-                    Randomizer.Log($"malformed shop command specifier {command}", false);
-                    return new Message($"Invalid shop command {command}!");
-                  }
-
-                  var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
-                  var state = extras[1].ParseToInt("BuildPickup.ShopState");
-                  var title = extras.Count == 3 ? extras[2] : null;
-                  var uberId = new UberId(group, state);
-                  if (ShopSlot.GetSlot(uberId) == null) {
-                    Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
-                    return new Message($"Invalid shop command {command}!");
-                  }
-
-                  return new Shop.TitleCommand(uberId, title);
-                }
-              case ShopCommandType.Description: {
-                  if (extras.Count.In(2, 3)) {
-                    Randomizer.Log($"malformed shop command specifier {command}", false);
-                    return new Message($"Invalid shop command {command}!");
-                  }
-
-                  var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
-                  var state = extras[1].ParseToInt("BuildPickup.ShopState");
-                  var description = extras.Count == 3 ? extras[2] : null;
-                  var uberId = new UberId(group, state);
-                  if (ShopSlot.GetSlot(uberId) == null) {
-                    Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
-                    return new Message($"Invalid shop command {command}!");
-                  }
-
-                  return new Shop.DescriptionCommand(uberId, description);
-                }
-              case ShopCommandType.LockedDescription: {
-                  if (extras.Count != 3) {
-                    Randomizer.Log($"malformed shop command specifier {command}", false);
-                    return new Message($"Invalid shop command {command}!");
-                  }
-
-                  var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
-                  var state = extras[1].ParseToInt("BuildPickup.ShopState");
-                  var description = extras[2];
-                  var uberId = new UberId(group, state);
-                  if (ShopSlot.GetSlot(uberId) == null) {
-                    Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
-                    return new Message($"Invalid shop command {command}!");
-                  }
-
-                  return new Shop.LockedDescriptionCommand(uberId, description);
-                }
-              case ShopCommandType.LockedAndVisible: {
-                  if (extras.Count != 4) {
-                    Randomizer.Log($"malformed shop command specifier {command}", false);
-                    return new Message($"Invalid shop command {command}!");
-                  }
-
-                  var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
-                  var state = extras[1].ParseToInt("BuildPickup.ShopState");
-                  var isLocked = extras[2].ParseToBool("BuildPickup.Locked");
-                  var isVisible = extras[3].ParseToBool("BuildPickup.Visible");
-                  var uberId = new UberId(group, state);
-                  if (ShopSlot.GetSlot(uberId) == null) {
-                    Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
-                    return new Message($"Invalid shop command {command}!");
-                  }
-
-                  return new Shop.LockedAndVisibleCommand(uberId, isLocked, isVisible);
                 }
               default: {
                   var err = $"Unknown pickup {type}|{command}";

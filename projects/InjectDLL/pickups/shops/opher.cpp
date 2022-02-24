@@ -129,10 +129,10 @@ namespace
     {
         if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterItem") && this_ptr->fields.Upgrade != nullptr)
         {
-            const auto key = get_key(this_ptr);
-            const auto it = opher_overrides.find(key);
-            if (it != opher_overrides.end() && it->second.texture_data != nullptr)
-                return it->second.is_visible;
+            const auto acquired = this_ptr->fields.Upgrade->fields.AcquiredAbilityType;
+            const auto required = this_ptr->fields.Upgrade->fields.RequiredAbility;
+            if (acquired == app::AbilityType__Enum_WaterBreath && required == app::AbilityType__Enum_None)
+                return uber_states::get_uber_state_value(37858, 10720) > 1.5f; // Watermill escape.
         }
 
         return true; //get_IsVisible(this_ptr);
@@ -142,10 +142,10 @@ namespace
     {
         if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterItem") && this_ptr->fields.Upgrade != nullptr)
         {
-            const auto key = get_key(this_ptr);
-            const auto it = opher_overrides.find(key);
-            if (it != opher_overrides.end() && it->second.texture_data != nullptr)
-                return it->second.is_locked;
+            const auto acquired = this_ptr->fields.Upgrade->fields.AcquiredAbilityType;
+            const auto required = this_ptr->fields.Upgrade->fields.RequiredAbility;
+            if (acquired == app::AbilityType__Enum_WaterBreath && required == app::AbilityType__Enum_None)
+                return uber_states::get_uber_state_value(37858, 10720) < 1.5f; // Watermill escape.
         }
 
         return false; // get_IsLocked(this_ptr);
@@ -347,8 +347,8 @@ namespace shops
     }
 }
 
-INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool uses_energy, bool is_locked, bool is_visible) {
+INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool uses_energy) {
     const auto key = opher_key(acquired, required);
     auto& item = opher_overrides[key];
-    set_item(item, name, description, texture, locked, uses_energy, is_locked, is_visible);
+    set_item(item, name, description, texture, locked, uses_energy);
 }

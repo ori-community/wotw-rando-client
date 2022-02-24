@@ -86,11 +86,7 @@ namespace RandoMainDLL {
   }
 
   public enum ShopCommandType : byte {
-    Icon = 0,
-    Title = 1,
-    Description = 2,
-    LockedDescription = 3,
-    LockedAndVisible = 4
+    Icon = 0
   }
 
   public enum TeleporterType : byte {
@@ -1342,78 +1338,12 @@ namespace RandoMainDLL {
       }
 
       public override void Grant(bool skipBase = false) {
-        var slot = ShopSlot.GetSlot(SlotId);
-        slot.Texture = Texture;
-      }
-    }
-
-    public class TitleCommand : ShopCommand {
-
-      public readonly string Title;
-
-      public override string Name { get => $"title '{Title}' for {SlotId}"; }
-      public override string DisplayName { get => ""; }
-
-      public TitleCommand(UberId slotId, string title) : base(ShopCommandType.Title, slotId) {
-        Title = title;
-      }
-
-      public override void Grant(bool skipBase = false) {
-        var slot = ShopSlot.GetSlot(SlotId);
-        slot.Title = Title;
-      }
-    }
-
-    public class DescriptionCommand : ShopCommand {
-
-      public readonly string Description;
-
-      public override string Name { get => $"description '{Description}' for {SlotId}"; }
-      public override string DisplayName { get => ""; }
-
-      public DescriptionCommand(UberId slotId, string description) : base(ShopCommandType.Description, slotId) {
-        Description = description;
-      }
-
-      public override void Grant(bool skipBase = false) {
-        var slot = ShopSlot.GetSlot(SlotId);
-        slot.Description = Description;
-      }
-    }
-
-    public class LockedDescriptionCommand : ShopCommand {
-
-      public readonly string LockedDescription;
-
-      public override string Name { get => $"description to random chatter for {SlotId}"; }
-      public override string DisplayName { get => ""; }
-
-      public LockedDescriptionCommand(UberId slotId, string lockedDescription) : base(ShopCommandType.LockedDescription, slotId) {
-        LockedDescription = lockedDescription;
-      }
-
-      public override void Grant(bool skipBase = false) {
-        var slot = ShopSlot.GetSlot(SlotId);
-        slot.LockedDescription = LockedDescription;
-      }
-    }
-
-    public class LockedAndVisibleCommand : ShopCommand {
-      public readonly bool IsLocked;
-      public readonly bool IsVisible;
-
-      public override string Name { get => $"description to random chatter for {SlotId}"; }
-      public override string DisplayName { get => ""; }
-
-      public LockedAndVisibleCommand(UberId slotId, bool isLocked, bool isVisible) : base(ShopCommandType.LockedAndVisible, slotId) {
-        IsLocked = isLocked;
-        IsVisible = isVisible;
-      }
-
-      public override void Grant(bool skipBase = false) {
-        var slot = ShopSlot.GetSlot(SlotId);
-        slot.IsLocked = IsLocked;
-        slot.IsVisible = IsVisible;
+        switch (CommandType) {
+          case ShopCommandType.Icon:
+            var slot = ShopSlot.GetSlot(SlotId);
+            slot.Texture = Texture;
+            break;
+        }
       }
     }
   }

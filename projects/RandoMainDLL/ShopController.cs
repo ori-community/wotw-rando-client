@@ -7,12 +7,7 @@ namespace RandoMainDLL {
 
   public abstract class ShopSlot {
     public ShopSlot() {
-      Title = null;
       Texture = "";
-      Description = null;
-      LockedDescription = "";
-      IsLocked = false;
-      IsVisible = true;
     }
 
     public abstract UberId State { get; }
@@ -29,22 +24,12 @@ namespace RandoMainDLL {
     }
 
     public bool Bought { get => UberGet.Bool(State); }
-
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string LockedDescription { get; set; }
-    public bool IsLocked { get; set; }
-    public bool IsVisible { get; set; }
+    
     public string Texture { get; set; }
     public Pickup Contents => State.toCond().Pickup();
 
     public void Reset() {
-      Title = null;
       Texture = "";
-      Description = null;
-      LockedDescription = "";
-      IsLocked = false;
-      IsVisible = true;
     }
 
     public static OpherSlot Sentry = new OpherSlot(AbilityType.Sentry);
@@ -150,8 +135,18 @@ namespace RandoMainDLL {
         throw new ArgumentException($"{lupoItemStateId} is not a lupo id");
       return ShopSlot.LupoStore[slot];
     }
+    private static int KSBought { get => Math.Min(KS_MAX, SaveController.KSBought); }
+    private static int KS_MAX { get => !SeedController.HasInternalSpoilers ? 4 : 8; }
+    private static int KS_INC { get => !SeedController.HasInternalSpoilers ? 200 : 50; }
+    private static int KS_START { get => !SeedController.HasInternalSpoilers ? 200 : 100; }
+    private static int KS_PRICE { get => KS_START + KS_INC * KSBought; }
     public static HashSet<string> Strings = new HashSet<string>();
     private static readonly HashSet<AbilityType> costsEnergy = new HashSet<AbilityType> { AbilityType.Sentry, AbilityType.SpiritStar, AbilityType.Spike, AbilityType.Blaze, AbilityType.SpiritArc, AbilityType.Regenerate, AbilityType.Flash };
+    private static string bmKeysDesc { get => $"Never logically required\\nNext will cost: {(KSBought == KS_MAX ? $"@{KS_PRICE}@" : $"{KS_PRICE + KS_INC}" /* look at this! the function-y props? the inline teriary? the nested string interpolations? this awful comment dragging it out? *chef's kiss */ )}"; }
+    private static readonly string bmKeysName = "Black Market Keystone";
+    private static readonly string bmKeysTexture = "";
+    // can actually use this for all of them besides the water one since they're either unlocked at spawn
+    private static readonly string lockedTillGlades = "Locked: enter Glades\nfrom Hollow to unlock";
 
     public static string DescOrChatter(this Pickup pickup) => pickup is WeaponUpgrade wu ? wu.Desc : Chatter();
     public static void UpdateShopData() {
@@ -160,28 +155,32 @@ namespace RandoMainDLL {
         if (t == AbilityType.WaterBreath) {
           var pickup = s.Contents;
           if (pickup.NonEmpty)
-            InterOp.Shop.set_opher_item((int)t, 255, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.LockedDescription, pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
+            InterOp.Shop.set_opher_item((int)t, 255, pickup.ShopName, pickup.DescOrChatter(), s.Texture, "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type));
+        }
+        else if (KSOverride(t)) {
+          var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
+          InterOp.Shop.set_opher_item(i, 255, bmKeysName, bmKeysDesc, bmKeysTexture, "", false);
         }
         else {
           var pickup = s.Contents;
           var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
           if (pickup.NonEmpty)
-            InterOp.Shop.set_opher_item(i, 255, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.LockedDescription, pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
+            InterOp.Shop.set_opher_item(i, 255, pickup.ShopName, pickup.DescOrChatter(), s.Texture, lockedTillGlades, pickup is Ability a && costsEnergy.Contains(a.type));
         }
       }
       foreach(var s in ShopSlot.OpherUpgrades) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.Shop.set_opher_item(255, (int)s.Weapon, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.LockedDescription, pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
+          InterOp.Shop.set_opher_item(255, (int)s.Weapon, pickup.ShopName, pickup.DescOrChatter(), s.Texture, "Locked: escape Wellspring to unlock", pickup is Ability a && costsEnergy.Contains(a.type));
       }
       foreach (var s in ShopSlot.Twillen) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.Shop.set_twillen_item((int)s.Shard, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.LockedDescription, s.IsLocked, s.IsVisible);
+          InterOp.Shop.set_twillen_item((int)s.Shard, pickup.ShopName, pickup.DescOrChatter(), s.Texture, lockedTillGlades);
       }
       foreach (var s in ShopSlot.LupoStore) {
         var pickup = s.Contents;
-        InterOp.Shop.set_lupo_item(s.State.GroupID, s.State.ID, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.LockedDescription, s.IsLocked, s.IsVisible);
+        InterOp.Shop.set_lupo_item(s.State.GroupID, s.State.ID, pickup.ShopName, pickup.DescOrChatter(), s.Texture, "n/a");
       }
     }
 
@@ -228,6 +227,14 @@ namespace RandoMainDLL {
 
     public static void OnBuyOpherWeapon(AbilityType at) {
       var slot = at.Slot();
+      if (KSOverride(at)) {
+        (new Resource(ResourceType.Keystone)).Grant();
+        SaveController.KSBought++;
+        SaveController.FoundCount--;
+        slot.Cost = KS_PRICE;
+        InterOp.Shop.set_opher_item(255, 255, bmKeysName, bmKeysDesc, bmKeysTexture, "", false);
+        return;
+      }
       UberSet.Bool(slot.State, true);
 
       Pickup item = slot.Contents;
@@ -235,7 +242,21 @@ namespace RandoMainDLL {
       return;
     }
 
+    public static void SetCostsAfterInit() {
+      if (!SeedController.Settings.LegacySeedgen)
+        return;
+      foreach(var slot in ShopSlot.All) {
+        if (slot is OpherSlot ws && KSOverride(ws.Weapon))
+          slot.Cost = KS_PRICE;
+        else
+          slot.Cost = (int)Math.Floor(slot.CostMultiplier * slot.Contents.DefaultCost());
+        Randomizer.Log($"Legacy costs: set {slot.Name} to {slot.Cost}", false);
+      }
+    }
+
     public static void OnBuyOpherUpgrade(AbilityType slot) => UberSet.Bool(slot.UpgradedState(), true);
+
+    public static bool KSOverride(AbilityType a) => SeedController.Settings.LegacySeedgen && a == AbilityType.TeleportSpell && !SeedController.KSDoorsOpen;
 
     public static void OnBuyTwillenShard(ShardType st) {
       var slot = st.Slot();

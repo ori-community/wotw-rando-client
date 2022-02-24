@@ -48,8 +48,7 @@ namespace
     }
 
     NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_VisibleInShop, (app::PlayerUberStateShards_Shard* this_ptr)) {
-        const auto it = twillen_overrides.find(static_cast<uint8_t>(this_ptr->fields.m_type));
-        return it != twillen_overrides.end() ? it->second.is_visible : true;
+        return true;
     }
 
     NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_PurchasableInShop, (app::PlayerUberStateShards_Shard* this_ptr)) {
@@ -123,14 +122,15 @@ namespace
 
         auto* const item = overwrite_shard ? selected_shard : this_ptr->fields.m_item;
         auto type = item->fields.m_type;
-        const auto it = twillen_overrides.find(static_cast<uint8_t>(type));
-        if (overwrite_shard && it != twillen_overrides.end())
+        if (overwrite_shard)
         {
-            name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-            description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
-            locked_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
-            if (it->second.is_locked)
-                type = app::SpiritShardType__Enum_None;
+            const auto it = twillen_overrides.find(static_cast<uint8_t>(type));
+            if (it != twillen_overrides.end())
+            {
+                name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
+                description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
+                locked_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
+            }
         }
 
         auto* const settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
@@ -279,7 +279,6 @@ namespace
 
             auto cost = csharp_bridge::twillen_shard_cost(static_cast<csharp_bridge::ShardType>(shard->fields.m_type));
             auto purchasable = PlayerUberStateShards::Shard::get_PurchasableInShop_intercept(shard);
-
             auto affordable = get_experience() >= cost;
             auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.IconGO, "UnityEngine", "Renderer");
             auto background_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.Background, "UnityEngine", "Renderer");
@@ -322,9 +321,9 @@ namespace shops
     }
 }
 
-INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool is_locked, bool is_visible)
+INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked)
 {
     const auto key = static_cast<uint8_t>(shard);
     auto& item = twillen_overrides[key];
-    set_item(item, name, description, texture, locked, false, is_locked, is_visible);
+    set_item(item, name, description, texture, locked, false);
 }

@@ -274,7 +274,7 @@ namespace shops
         return default_texture;
     }
 
-    void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool uses_energy, bool is_locked, bool is_visible)
+    void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool uses_energy)
     {
         if (item.name != 0)
             il2cpp::gchandle_free(item.name);
@@ -293,7 +293,5 @@ namespace shops
 
         item.locked = il2cpp::gchandle_new(provider, false);
         item.uses_energy = uses_energy;
-        item.is_locked = is_locked;
-        item.is_visible = is_visible;
     }
 }

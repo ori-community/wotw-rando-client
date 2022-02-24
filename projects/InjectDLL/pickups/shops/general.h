@@ -22,8 +22,6 @@ namespace shops
         uint32_t locked = 0;
         std::shared_ptr<textures::TextureData> texture_data;
         bool uses_energy = false;
-        bool is_locked = false;
-        bool is_visible = true;
     };
 
     bool is_in_shop(ShopType type);
@@ -37,5 +35,5 @@ namespace shops
     std::shared_ptr<textures::TextureData> get_twillen_icon(app::UpgradableShardItem* shop_item);
     std::shared_ptr<textures::TextureData> get_lupo_icon(app::MapmakerItem* shop_item);
 
-    void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool uses_energy, bool is_locked, bool is_visible);
+    void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool uses_energy);
 }
