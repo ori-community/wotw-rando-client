@@ -1344,6 +1344,7 @@ namespace RandoMainDLL {
       public override void Grant(bool skipBase = false) {
         var slot = ShopSlot.GetSlot(SlotId);
         slot.Texture = Texture;
+        ShopController.UpdateShopData();
       }
     }
 
@@ -1361,6 +1362,7 @@ namespace RandoMainDLL {
       public override void Grant(bool skipBase = false) {
         var slot = ShopSlot.GetSlot(SlotId);
         slot.Title = Title;
+        ShopController.UpdateShopData();
       }
     }
 
@@ -1378,6 +1380,7 @@ namespace RandoMainDLL {
       public override void Grant(bool skipBase = false) {
         var slot = ShopSlot.GetSlot(SlotId);
         slot.Description = Description;
+        ShopController.UpdateShopData();
       }
     }
 
@@ -1395,6 +1398,7 @@ namespace RandoMainDLL {
       public override void Grant(bool skipBase = false) {
         var slot = ShopSlot.GetSlot(SlotId);
         slot.LockedDescription = LockedDescription;
+        ShopController.UpdateShopData();
       }
     }
 
@@ -1414,6 +1418,7 @@ namespace RandoMainDLL {
         var slot = ShopSlot.GetSlot(SlotId);
         slot.IsLocked = IsLocked;
         slot.IsVisible = IsVisible;
+        ShopController.UpdateShopData();
       }
     }
   }
