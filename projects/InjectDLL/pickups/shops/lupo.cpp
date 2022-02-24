@@ -115,8 +115,21 @@ namespace
         const auto it = lupo_overrides.find(key);
         if (it != lupo_overrides.end())
         {
-            item->fields.Name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-            item->fields.Description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
+            if (!it->second.is_visible)
+            {
+                item->fields.Name = utils::create_message_provider(il2cpp::string_new("Undiscovered"));
+                item->fields.Description = utils::create_message_provider(il2cpp::string_new("What could it be?"));
+            }
+            else if (it->second.is_locked)
+            {
+                item->fields.Name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
+                item->fields.Description = utils::create_message_provider(il2cpp::string_new("Locked"));
+            }
+            else
+            {
+                item->fields.Name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
+                item->fields.Description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
+            }
         }
 
         MapmakerUIItem::UpdateMapmakerItem(this_ptr, item);
@@ -168,8 +181,14 @@ namespace shops
         const auto group_id = shop_item->fields.UberState->fields.Group->fields._.m_id->fields.m_id;
         const auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
         const auto it = lupo_overrides.find(key);
-        if (it != lupo_overrides.end() && it->second.texture_data != nullptr)
-            return it->second.texture_data;
+        if (it != lupo_overrides.end())
+        {
+            if (it->second.is_locked || !it->second.is_visible)
+                return nullptr;
+
+            if (it->second.texture_data != nullptr)
+                return it->second.texture_data;
+        }
 
         return nullptr;
     }
