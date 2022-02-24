@@ -494,7 +494,6 @@ namespace RandoMainDLL {
         UnsharableIds.Clear();
         InterOp.clear_quest_messages();
         Randomizer.Log($"New Game Init - {SeedController.SeedName}", false);
-        ShopController.SetCostsAfterInit();
 
         foreach (UberState s in DefaultUberStates) { s.Write(); }
         foreach (UberState s in Kuberstates) { s.Write(); }
