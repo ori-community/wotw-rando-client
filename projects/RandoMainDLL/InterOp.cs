@@ -83,8 +83,6 @@ namespace RandoMainDLL {
       public extern static void set_lupo_item(int group_id, int state_id, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description, [MarshalAs(UnmanagedType.LPWStr)] string texture, [MarshalAs(UnmanagedType.LPWStr)] string locked, bool is_locked, bool is_visible);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_opher_item(int acquired, int required, [MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.LPWStr)] string description, [MarshalAs(UnmanagedType.LPWStr)] string texture, [MarshalAs(UnmanagedType.LPWStr)] string locked, bool uses_energy, bool is_locked, bool is_visible);
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void set_lupo_area_price(AreaType area, int price);
     }
 
     public static class Wheel {

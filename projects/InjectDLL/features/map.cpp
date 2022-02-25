@@ -3,10 +3,11 @@
 #include <csharp_bridge.h>
 #include <unordered_map>
 #include <features/messages.h>
+#include <uber_states/uber_state_manager.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
-#include <Il2CppModLoader\il2cpp_helpers.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 
 using namespace modloader;
 
@@ -14,46 +15,43 @@ extern void refresh_icon_alphas(bool is_map_visible);
 
 namespace
 {
+    app::GameWorld* get_game_world()
+    {
+        return il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
+    }
+
     IL2CPP_BINDING(, GameWorld, app::GameWorldArea*, GetArea, (app::GameWorld* thisPtr, app::GameWorldAreaID__Enum areaID))
     IL2CPP_BINDING(, GameWorld, app::RuntimeGameWorldArea*, FindRuntimeArea, (app::GameWorld* thisPtr, app::GameWorldArea* area));
     IL2CPP_BINDING(, RuntimeGameWorldArea, void, DiscoverAllAreas, (app::RuntimeGameWorldArea* thisPtr));
 
-    app::GameWorld* game_world_instance = 0;
-    std::unordered_map<app::GameWorldAreaID__Enum, int> saved_area_prices;
+    bool overwriting_area = false;
+    IL2CPP_INTERCEPT(, CartographerEntity, app::GameWorldArea*, get_CurrentArea, (app::CartographerEntity* this_ptr)) {
+        auto game_world = get_game_world();
+        auto area = CartographerEntity::get_CurrentArea(this_ptr);
+        // Do this so we get a sales dialog instead of getting the map for free.
+        if (area->fields.WorldMapAreaUniqueID == app::GameWorldAreaID__Enum_WillowsEnd && game_world != nullptr)
+            return GameWorld::GetArea(game_world, app::GameWorldAreaID__Enum_WindsweptWastes);
 
-    NESTED_IL2CPP_INTERCEPT(, GameWorldArea, LupoAreaData, int, GetAreaMapSpiritLevelCost, (app::GameWorldArea_LupoAreaData* this_ptr)) {
-        return this_ptr->AreaMapSpiritLevelCost;
+        return get_CurrentArea(this_ptr);
     }
 
     IL2CPP_INTERCEPT(, CartographerEntity, int, get_MapCost, (app::CartographerEntity* this_ptr)) {
         this_ptr->fields.MapQuestCompletedMapCostModifier = 1.f;
-        return CartographerEntity::get_MapCost(this_ptr);
+        auto area = CartographerEntity::get_CurrentArea(this_ptr);
+        auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
+        return uber_states::get_uber_state_value(uber_states::constants::LUPO_GROUP_ID, id);
+        //return CartographerEntity::get_MapCost(this_ptr);
     }
 
     void set_lupo_price(app::GameWorldAreaID__Enum area, int32_t price)
     {
-        auto* gw_area = GameWorld::GetArea(game_world_instance, area);
+        auto game_world = get_game_world();
+        auto* gw_area = GameWorld::GetArea(game_world, area);
         if (gw_area != nullptr)
         {
             gw_area->fields.LupoData.AreaMapSpiritLevelCost = price;
             gw_area->fields.LupoDataOnCondition.AreaMapSpiritLevelCost = price;
         }
-    }
-
-    bool found_game_world()
-    {
-	    return game_world_instance != 0;
-    }
-
-    IL2CPP_INTERCEPT(, GameWorld, void, Awake, (app::GameWorld* thisPtr)) {
-	    if (game_world_instance != thisPtr)
-	    {
-            trace(MessageType::Debug, 5, "game", "Found GameWorld instance!");
-		    game_world_instance = thisPtr;
-            for (const auto& pair : saved_area_prices)
-                set_lupo_price(pair.first, pair.second);
-	    }
-	    GameWorld::Awake(thisPtr);
     }
     
     IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, IsVisible, (app::RuntimeWorldMapIcon* thisPtr, app::AreaMapUI* areaMap)) {
@@ -142,18 +140,19 @@ namespace
 }
 
 INJECT_C_DLLEXPORT bool discover_everything() {
-    if (game_world_instance)
+    auto game_world = get_game_world();
+    if (game_world)
     {
         // 15 is the max value of app::GameWorldAreaID__Enum when this was written.
         for (int32_t i = 0; i <= 15; i++)
         {
-            auto area = GameWorld::GetArea(game_world_instance, static_cast<app::GameWorldAreaID__Enum>(i));
+            auto area = GameWorld::GetArea(game_world, static_cast<app::GameWorldAreaID__Enum>(i));
             if (!area) {
                 //Areas: None, WeepingRidge, GorlekMines, Riverlands would crash the game
                 continue;
             }
 
-            auto runtimeArea = GameWorld::FindRuntimeArea(game_world_instance, area);
+            auto runtimeArea = GameWorld::FindRuntimeArea(game_world, area);
             if (!runtimeArea)
                 continue;
 
@@ -167,11 +166,4 @@ INJECT_C_DLLEXPORT bool discover_everything() {
         trace(MessageType::Warning, 3, "game", "Tried to discover all, but haven't found the GameWorld Instance yet :(");
         return false;
     }
-}
-
-INJECT_C_DLLEXPORT void set_lupo_area_price(app::GameWorldAreaID__Enum area, int32_t price)
-{
-    saved_area_prices[area] = price;
-    if (game_world_instance != nullptr)
-        set_lupo_price(area, price);
 }

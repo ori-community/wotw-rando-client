@@ -426,6 +426,15 @@ namespace uber_states
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Peak PPM count", 108, 0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_STATS_GROUP_NAME, constants::RANDO_STATS_GROUP_ID, "Total Pickup Count", 109, 0),
 
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Marsh Map Cost", app::GameWorldAreaID__Enum_InkwaterMarsh, 200),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Hollow Map Cost", app::GameWorldAreaID__Enum_KwoloksHollow, 150),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Wellspring Map Cost", app::GameWorldAreaID__Enum_WaterMill, 150),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Burrow Map Cost", app::GameWorldAreaID__Enum_MidnightBurrow, 50),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Reach Map Cost", app::GameWorldAreaID__Enum_BaursReach, 150),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Pools Map Cost", app::GameWorldAreaID__Enum_LumaPools, 150),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Depths Map Cost", app::GameWorldAreaID__Enum_MouldwoodDepths, 150),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Wastes Map Cost", app::GameWorldAreaID__Enum_WindsweptWastes, 150),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Willows End Map Cost", app::GameWorldAreaID__Enum_WillowsEnd, 0),
 
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "HCMapIconCost", 19397,  0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "ECMapIconCost", 57988,  0),
