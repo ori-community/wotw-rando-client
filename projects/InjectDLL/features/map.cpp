@@ -8,6 +8,7 @@
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
+#include <utils\messaging.h>
 
 using namespace modloader;
 
@@ -15,6 +16,41 @@ extern void refresh_icon_alphas(bool is_map_visible);
 
 namespace
 {
+    enum class LupoSelection
+    {
+        Intro = 0,
+        SalesPitch = 1,
+        NoSale = 2,
+        Broke = 3,
+        Thanks = 4
+    };
+
+    using lupo_text = std::array<std::vector<std::string>, 5>;
+    std::unordered_map<app::GameWorldAreaID__Enum, lupo_text> text_overrides;
+    //{
+    //    {
+    //        app::GameWorldAreaID__Enum_WillowsEnd,
+    //        lupo_text {
+    //            std::vector<std::string>{
+    //                "I am texting everything",
+    //                "twice"
+    //            },
+    //            std::vector<std::string>{
+    //                "Sirius has more money then you"
+    //            },
+    //            std::vector<std::string>{
+    //                "Fun for the whole family [AreaMapCost] #Spirit Light#[SpiritLight]"
+    //            },
+    //            std::vector<std::string>{
+    //                "Hello mister"
+    //            },
+    //            std::vector<std::string>{
+    //                "And don't come again!"
+    //            }
+    //        }
+    //    }
+    //};
+
     app::GameWorld* get_game_world()
     {
         return il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
@@ -23,24 +59,41 @@ namespace
     IL2CPP_BINDING(, GameWorld, app::GameWorldArea*, GetArea, (app::GameWorld* thisPtr, app::GameWorldAreaID__Enum areaID))
     IL2CPP_BINDING(, GameWorld, app::RuntimeGameWorldArea*, FindRuntimeArea, (app::GameWorld* thisPtr, app::GameWorldArea* area));
     IL2CPP_BINDING(, RuntimeGameWorldArea, void, DiscoverAllAreas, (app::RuntimeGameWorldArea* thisPtr));
-
-    bool overwriting_area = false;
-    IL2CPP_INTERCEPT(, CartographerEntity, app::GameWorldArea*, get_CurrentArea, (app::CartographerEntity* this_ptr)) {
-        auto game_world = get_game_world();
-        auto area = CartographerEntity::get_CurrentArea(this_ptr);
-        // Do this so we get a sales dialog instead of getting the map for free.
-        if (area->fields.WorldMapAreaUniqueID == app::GameWorldAreaID__Enum_WillowsEnd && game_world != nullptr)
-            return GameWorld::GetArea(game_world, app::GameWorldAreaID__Enum_WindsweptWastes);
-
-        return get_CurrentArea(this_ptr);
-    }
+    IL2CPP_BINDING(, CartographerEntity, app::GameWorldArea*, get_CurrentArea, (app::CartographerEntity* this_ptr));
 
     IL2CPP_INTERCEPT(, CartographerEntity, int, get_MapCost, (app::CartographerEntity* this_ptr)) {
         this_ptr->fields.MapQuestCompletedMapCostModifier = 1.f;
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
         return uber_states::get_uber_state_value(uber_states::constants::LUPO_GROUP_ID, id);
-        //return CartographerEntity::get_MapCost(this_ptr);
+    }
+
+    using normal_function = app::MessageProvider*(*)(app::CartographerEntity*);
+    app::MessageProvider* handle_lupo_message(app::CartographerEntity* this_ptr, LupoSelection selection, normal_function normal)
+    {
+        auto area = CartographerEntity::get_CurrentArea(this_ptr);
+        auto it = text_overrides.find(area->fields.WorldMapAreaUniqueID);
+        return it == text_overrides.end() ? normal(this_ptr) : utils::create_message_provider(it->second[static_cast<int>(selection)]);
+    }
+    
+    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_IntroMessageProvider, (app::CartographerEntity* this_ptr)) {
+        return handle_lupo_message(this_ptr, LupoSelection::Intro, get_IntroMessageProvider);
+    }
+
+    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_NoSaleMessage, (app::CartographerEntity* this_ptr)) {
+        return handle_lupo_message(this_ptr, LupoSelection::NoSale, get_NoSaleMessage);
+    }
+
+    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_SalesPitchMessage, (app::CartographerEntity* this_ptr)) {
+        return handle_lupo_message(this_ptr, LupoSelection::SalesPitch, get_SalesPitchMessage);
+    }
+    
+    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_InsufficientFundsMessage, (app::CartographerEntity* this_ptr)) {
+        return handle_lupo_message(this_ptr, LupoSelection::Broke, get_InsufficientFundsMessage);
+    }
+
+    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_ThanksMessage, (app::CartographerEntity* this_ptr)) {
+        return handle_lupo_message(this_ptr, LupoSelection::Thanks, get_ThanksMessage);
     }
 
     void set_lupo_price(app::GameWorldAreaID__Enum area, int32_t price)

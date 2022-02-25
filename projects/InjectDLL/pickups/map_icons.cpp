@@ -225,7 +225,7 @@ namespace
             info.shown = true;
             auto& name = info.name;
             AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon,
-                utils::create_message_provider(il2cpp::string_new(name.c_str())));
+                utils::create_message_provider(name.c_str()));
 
             auto player_info = multiplayer::get_player(it->second);
             auto color = player_info != nullptr ? player_info->color : app::Color{ 1.0f, 1.0f, 1.0f, 1.0f };
@@ -243,7 +243,7 @@ namespace
             auto ex = extra_icons_map.find(guid);
             if (ex != extra_icons_map.end() && ex->second->use_custom_label)
             {
-                AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, utils::create_message_provider(il2cpp::string_new(ex->second->custom_label)));
+                AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, utils::create_message_provider(ex->second->custom_label));
                 label_set = true;
             }
 
@@ -261,7 +261,7 @@ namespace
                         static_cast<int>(it->second.value),
                         current_filter
                     );
-                    AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, utils::create_message_provider(il2cpp::string_new(buffer)));
+                    AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon, utils::create_message_provider(buffer));
                 }
 
                 const auto spoiler_active = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
@@ -862,7 +862,7 @@ namespace
     {
         app::AreaMapIconFilterFooterLabel label;
         label.Filter = static_cast<app::AreaMapIconFilter__Enum>(filter);
-        label.Footer = utils::create_message_provider(il2cpp::string_new("Filter: " + message));
+        label.Footer = utils::create_message_provider("Filter: " + message);
         return label;
     }
 

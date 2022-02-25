@@ -117,13 +117,13 @@ namespace
         {
             if (!it->second.is_visible)
             {
-                item->fields.Name = utils::create_message_provider(il2cpp::string_new("Undiscovered"));
-                item->fields.Description = utils::create_message_provider(il2cpp::string_new("What could it be?"));
+                item->fields.Name = utils::create_message_provider("Undiscovered");
+                item->fields.Description = utils::create_message_provider("What could it be?");
             }
             else if (it->second.is_locked)
             {
                 item->fields.Name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-                item->fields.Description = utils::create_message_provider(il2cpp::string_new("Locked"));
+                item->fields.Description = utils::create_message_provider("Locked");
             }
             else
             {

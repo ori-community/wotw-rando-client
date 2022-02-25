@@ -434,7 +434,7 @@ namespace uber_states
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Pools Map Cost", app::GameWorldAreaID__Enum_LumaPools, 150),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Depths Map Cost", app::GameWorldAreaID__Enum_MouldwoodDepths, 150),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Wastes Map Cost", app::GameWorldAreaID__Enum_WindsweptWastes, 150),
-                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Willows End Map Cost", app::GameWorldAreaID__Enum_WillowsEnd, 0),
+                    add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Willows End Map Cost", app::GameWorldAreaID__Enum_WillowsEnd, 50),
 
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "HCMapIconCost", 19397,  0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "ECMapIconCost", 57988,  0),

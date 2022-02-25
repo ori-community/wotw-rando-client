@@ -459,7 +459,7 @@ namespace
         message_box->fields.TextBox->fields.LineSpacing = message.line_spacing;
 
         create_styles(message_box, message.text);
-        message_box->fields.MessageProvider = utils::create_message_provider(il2cpp::string_new(message.text));
+        message_box->fields.MessageProvider = utils::create_message_provider(message.text);
         MessageBox::RefreshText(message_box);
 
         auto transform = il2cpp::unity::get_transform(go);
@@ -726,9 +726,7 @@ INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text)
     auto message_box = get_message_box(message->second);
     if (message_box != nullptr) {
         create_styles(message_box, text);
-        auto new_str = il2cpp::string_new(text);
-        auto test = il2cpp::convert_csstring(MessageParserUtility::ProcessString(new_str));
-        message_box->fields.MessageProvider = utils::create_message_provider(new_str);
+        message_box->fields.MessageProvider = utils::create_message_provider(text);
         MessageBox::RefreshText(message_box);
     }
 

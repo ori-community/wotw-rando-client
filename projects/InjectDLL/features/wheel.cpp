@@ -206,8 +206,8 @@ namespace
     uint32_t empty_description = 0;
     void initialize_wheel()
     {
-        empty_name = il2cpp::gchandle_new(utils::create_message_provider(il2cpp::string_new("Empty")), false);
-        empty_description = il2cpp::gchandle_new(utils::create_message_provider(il2cpp::string_new(" ")), false);
+        empty_name = il2cpp::gchandle_new(utils::create_message_provider("Empty"), false);
+        empty_description = il2cpp::gchandle_new(utils::create_message_provider(" "), false);
 
         input::add_on_pressed_callback(input::Action::OpenRandoWheel, handle_custom_wheel);
         input::add_on_released_callback(input::Action::OpenRandoWheel, handle_custom_wheel);
@@ -339,8 +339,8 @@ namespace
 
             if (entry != nullptr)
             {
-                name_message_box->fields.MessageProvider = utils::create_message_provider(il2cpp::string_new(entry->name));
-                description_message_box->fields.MessageProvider = utils::create_message_provider(il2cpp::string_new(entry->description));
+                name_message_box->fields.MessageProvider = utils::create_message_provider(entry->name);
+                description_message_box->fields.MessageProvider = utils::create_message_provider(entry->description);
             }
             else
             {

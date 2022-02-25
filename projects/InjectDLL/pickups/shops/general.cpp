@@ -283,11 +283,11 @@ namespace shops
         if (item.locked != 0)
             il2cpp::gchandle_free(item.locked);
 
-        auto* provider = utils::create_message_provider(il2cpp::string_new(name));
+        auto* provider = utils::create_message_provider(name);
         item.name = il2cpp::gchandle_new(provider, false);
-        provider = utils::create_message_provider(il2cpp::string_new(description));
+        provider = utils::create_message_provider(description);
         item.description = il2cpp::gchandle_new(provider, false);
-        provider = utils::create_message_provider(il2cpp::string_new(locked));
+        provider = utils::create_message_provider(locked);
         if (item.texture_data == nullptr || item.texture_data->get_path() != texture)
             item.texture_data = textures::get_texture(texture);
 
