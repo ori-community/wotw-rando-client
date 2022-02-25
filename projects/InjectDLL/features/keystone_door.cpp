@@ -5,7 +5,7 @@
 
 namespace
 {
-    bool kwolok_door_available = true;
+    constexpr int KWOLOK_DOOR_AVAILABLE_ID = 6;
 
     IL2CPP_BINDING(, SeinLogicCycle, app::SeinLogicCycle_StateFlags__Enum, GetFlags, (app::SeinLogicCycle* this_ptr, app::SeinLogicCycle_StateFlags__Enum test));
     IL2CPP_INTERCEPT(, SeinLogicCycle, bool, get_AllowInteraction, (app::SeinLogicCycle* this_ptr)) {
@@ -41,14 +41,9 @@ namespace
             auto state_id = uber_states::get_uber_state_id(descriptor);
             auto group_id = uber_states::get_uber_state_group_id(descriptor);
             if (group_id->fields.m_id == 21786 && (state_id->fields.m_id == 27433 || state_id->fields.m_id == 37225))
-                return kwolok_door_available;
+                return uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, KWOLOK_DOOR_AVAILABLE_ID) > 0.5;
         }
 
         return UberStateValueCondition::Validate(this_ptr, context);
     }
-}
-
-INJECT_C_DLLEXPORT void set_kvolok_door_availability(bool value)
-{
-    kwolok_door_available = value;
 }
