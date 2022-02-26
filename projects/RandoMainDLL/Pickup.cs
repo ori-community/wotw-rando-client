@@ -840,7 +840,8 @@ namespace RandoMainDLL {
     public override void Grant(bool skipBase = false) {
       switch (state) {
         case SysState.KwolokDoorAvailable:
-          Msg.Print("Deprecated: use Uberstate 7|6");
+          UberSet.Bool(new UberId(7, 6), value > 0);
+          Randomizer.Log("SetStateCommand kwolok door is depracated, use Uberstate 7|6");
           break;
         case SysState.Rain:
           Msg.Print("Deprecated: use Uberstate 7|2");
