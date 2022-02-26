@@ -25,31 +25,21 @@ namespace
         Thanks = 4
     };
 
-    using lupo_text = std::array<std::vector<std::string>, 5>;
-    std::unordered_map<app::GameWorldAreaID__Enum, lupo_text> text_overrides;
-    //{
-    //    {
-    //        app::GameWorldAreaID__Enum_WillowsEnd,
-    //        lupo_text {
-    //            std::vector<std::string>{
-    //                "I am texting everything",
-    //                "twice"
-    //            },
-    //            std::vector<std::string>{
-    //                "Sirius has more money then you"
-    //            },
-    //            std::vector<std::string>{
-    //                "Fun for the whole family [AreaMapCost] #Spirit Light#[SpiritLight]"
-    //            },
-    //            std::vector<std::string>{
-    //                "Hello mister"
-    //            },
-    //            std::vector<std::string>{
-    //                "And don't come again!"
-    //            }
-    //        }
-    //    }
-    //};
+    using lupo_text = std::unordered_map<LupoSelection, std::vector<std::string>>;
+    std::unordered_map<app::GameWorldAreaID__Enum, lupo_text> text_overrides {
+        {
+            app::GameWorldAreaID__Enum_WillowsEnd,
+            {
+                {
+                    LupoSelection::SalesPitch,
+                    {
+                        "Given the circumstances I would usually give you this for free,\n"
+                        "but a speedrunner has got to eat...  [AreaMapCost] #Spirit Light#[SpiritLight]"
+                    }
+                }
+            }
+        }
+    };
 
     app::GameWorld* get_game_world()
     {
@@ -73,7 +63,14 @@ namespace
     {
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto it = text_overrides.find(area->fields.WorldMapAreaUniqueID);
-        return it == text_overrides.end() ? normal(this_ptr) : utils::create_message_provider(it->second[static_cast<int>(selection)]);
+        if (it != text_overrides.end())
+        {
+            auto message = it->second.find(selection);
+            if (message != it->second.end())
+                return utils::create_message_provider(message->second);
+        }
+
+        return normal(this_ptr);
     }
     
     IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_IntroMessageProvider, (app::CartographerEntity* this_ptr)) {
