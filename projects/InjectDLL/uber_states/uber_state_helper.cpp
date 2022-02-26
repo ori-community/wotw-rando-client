@@ -5,6 +5,7 @@
 #include <pickups/pickups.h>
 #include <pickups/ore.h>
 #include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_virtual.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
@@ -386,6 +387,10 @@ INJECT_C_DLLEXPORT UberStateDef* get_uber_states(int& size)
 
 INJECT_C_DLLEXPORT csharp_bridge::UberStateType get_uber_state_type(int group, int state)
 {
+    // TODO: Make this better
+    if (uber_states::is_virtual_state(group, state))
+        return csharp_bridge::UberStateType::SerializedFloatUberState;
+
     if (group == 12)
         return csharp_bridge::UberStateType::SerializedBooleanUberState;
 
@@ -397,6 +402,9 @@ INJECT_C_DLLEXPORT csharp_bridge::UberStateType get_uber_state_type(int group, i
 
 INJECT_C_DLLEXPORT bool get_uber_state_exists(int group, int state)
 {
+    if (uber_states::is_virtual_state(group, state))
+        return true;
+
     auto group_id = uber_states::create_uber_id(group);
     auto state_id = uber_states::create_uber_id((group == 12) ? state / 31 : state);
     return uber_states::get_uber_state(group_id, state_id) != nullptr;
