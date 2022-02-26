@@ -60,7 +60,6 @@ namespace uber_states
     double get_uber_state_value(app::IUberState* uber_state);
     INJECT_C_DLLEXPORT void set_uber_state_value(int group, int state, double value);
     INJECT_C_DLLEXPORT double get_uber_state_value(int group, int state);
-    INJECT_C_DLLEXPORT void refresh_player_uber_descriptor();
 
     template<typename Return = app::IUberState>
     Return* get_uber_state(int group_id, int state_id)

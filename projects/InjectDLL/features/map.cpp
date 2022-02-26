@@ -4,11 +4,12 @@
 #include <unordered_map>
 #include <features/messages.h>
 #include <uber_states/uber_state_manager.h>
+#include <system/text_database.h>
+#include <utils/messaging.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
-#include <utils\messaging.h>
 
 using namespace modloader;
 
@@ -25,20 +26,16 @@ namespace
         Thanks = 4
     };
 
-    using lupo_text = std::unordered_map<LupoSelection, std::vector<std::string>>;
-    std::unordered_map<app::GameWorldAreaID__Enum, lupo_text> text_overrides {
-        {
-            app::GameWorldAreaID__Enum_WillowsEnd,
-            {
-                {
-                    LupoSelection::SalesPitch,
-                    {
-                        "Given the circumstances I would usually give you this for free,\n"
-                        "but a speedrunner has got to eat...  [AreaMapCost] #Spirit Light#[SpiritLight]"
-                    }
-                }
-            }
-        }
+    std::unordered_map<app::GameWorldAreaID__Enum, static_text_entries> text_overrides {
+        { app::GameWorldAreaID__Enum_InkwaterMarsh, static_text_entries::LupoMarshIntroduction},
+        { app::GameWorldAreaID__Enum_KwoloksHollow, static_text_entries::LupoHollowIntroduction },
+        { app::GameWorldAreaID__Enum_WaterMill, static_text_entries::LupoWellspringIntroduction },
+        { app::GameWorldAreaID__Enum_MidnightBurrow, static_text_entries::LupoBurrowIntroduction },
+        { app::GameWorldAreaID__Enum_BaursReach, static_text_entries::LupoReachIntroduction },
+        { app::GameWorldAreaID__Enum_LumaPools, static_text_entries::LupoPoolsIntroduction },
+        { app::GameWorldAreaID__Enum_MouldwoodDepths, static_text_entries::LupoDepthsIntroduction },
+        { app::GameWorldAreaID__Enum_WindsweptWastes, static_text_entries::LupoWastesIntroduction },
+        { app::GameWorldAreaID__Enum_WillowsEnd, static_text_entries::LupoWillowIntroduction },
     };
 
     app::GameWorld* get_game_world()
@@ -62,13 +59,9 @@ namespace
     app::MessageProvider* handle_lupo_message(app::CartographerEntity* this_ptr, LupoSelection selection, normal_function normal)
     {
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
-        auto it = text_overrides.find(area->fields.WorldMapAreaUniqueID);
-        if (it != text_overrides.end())
-        {
-            auto message = it->second.find(selection);
-            if (message != it->second.end())
-                return utils::create_message_provider(message->second);
-        }
+        auto text_override = *text_overrides[area->fields.WorldMapAreaUniqueID] + static_cast<int>(selection);
+        if (text_database::has_text(text_override))
+            return text_database::get_provider(text_override);
 
         return normal(this_ptr);
     }

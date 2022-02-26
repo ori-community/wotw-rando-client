@@ -3,6 +3,7 @@
 #include <dev/object_visualizer.h>
 #include <input/rando_bindings.h>
 #include <system/textures.h>
+#include <system/text_database.h>
 #include <uber_states/uber_state_manager.h>
 #include <utils/messaging.h>
 #include <utils/shaders.h>
@@ -202,13 +203,8 @@ namespace
         }
     }
 
-    uint32_t empty_name = 0;
-    uint32_t empty_description = 0;
     void initialize_wheel()
     {
-        empty_name = il2cpp::gchandle_new(utils::create_message_provider("Empty"), false);
-        empty_description = il2cpp::gchandle_new(utils::create_message_provider(" "), false);
-
         input::add_on_pressed_callback(input::Action::OpenRandoWheel, handle_custom_wheel);
         input::add_on_released_callback(input::Action::OpenRandoWheel, handle_custom_wheel);
     }
@@ -344,8 +340,8 @@ namespace
             }
             else
             {
-                name_message_box->fields.MessageProvider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(empty_name));
-                description_message_box->fields.MessageProvider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(empty_description));
+                name_message_box->fields.MessageProvider = text_database::get_provider(*static_text_entries::EmptyName);
+                description_message_box->fields.MessageProvider = text_database::get_provider(*static_text_entries::Empty);
             }
 
             GameObject::SetActive(this_ptr->fields.UsesEnergyGO, false);

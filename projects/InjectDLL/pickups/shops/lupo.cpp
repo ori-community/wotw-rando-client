@@ -3,6 +3,7 @@
 #include <pickups/shops/general.h>
 #include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_manager.h>
+#include <system/text_database.h>
 #include <utils/messaging.h>
 
 #include <Il2CppModLoader/common.h>
@@ -117,13 +118,14 @@ namespace
         {
             if (!it->second.is_visible)
             {
-                item->fields.Name = utils::create_message_provider("Undiscovered");
-                item->fields.Description = utils::create_message_provider("What could it be?");
+                item->fields.Name = text_database::get_provider(*static_text_entries::Undiscovered);
+                item->fields.Description = text_database::get_provider(*static_text_entries::UndiscoveredDescription);
             }
+            // TODO: Move below to text_database
             else if (it->second.is_locked)
             {
                 item->fields.Name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-                item->fields.Description = utils::create_message_provider("Locked");
+                item->fields.Description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
             }
             else
             {

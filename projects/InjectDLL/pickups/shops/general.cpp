@@ -283,6 +283,7 @@ namespace shops
         if (item.locked != 0)
             il2cpp::gchandle_free(item.locked);
 
+        // TODO: Move below to text_database
         auto* provider = utils::create_message_provider(name);
         item.name = il2cpp::gchandle_new(provider, false);
         provider = utils::create_message_provider(description);
