@@ -10,7 +10,6 @@ namespace RandoMainDLL {
       Title = null;
       Texture = "";
       Description = null;
-      LockedDescription = "";
       IsLocked = false;
       IsVisible = true;
     }
@@ -32,7 +31,6 @@ namespace RandoMainDLL {
 
     public string Title { get; set; }
     public string Description { get; set; }
-    public string LockedDescription { get; set; }
     public bool IsLocked { get; set; }
     public bool IsVisible { get; set; }
     public string Texture { get; set; }
@@ -42,7 +40,6 @@ namespace RandoMainDLL {
       Title = null;
       Texture = "";
       Description = null;
-      LockedDescription = "";
       IsLocked = false;
       IsVisible = true;
     }
@@ -160,28 +157,28 @@ namespace RandoMainDLL {
         if (t == AbilityType.WaterBreath) {
           var pickup = s.Contents;
           if (pickup.NonEmpty)
-            InterOp.Shop.set_opher_item((int)t, 255, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.LockedDescription, pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
+            InterOp.Shop.set_opher_item((int)t, 255, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
         }
         else {
           var pickup = s.Contents;
           var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
           if (pickup.NonEmpty)
-            InterOp.Shop.set_opher_item(i, 255, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.LockedDescription, pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
+            InterOp.Shop.set_opher_item(i, 255, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
         }
       }
       foreach(var s in ShopSlot.OpherUpgrades) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.Shop.set_opher_item(255, (int)s.Weapon, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.LockedDescription, pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
+          InterOp.Shop.set_opher_item(255, (int)s.Weapon, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
       }
       foreach (var s in ShopSlot.Twillen) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.Shop.set_twillen_item((int)s.Shard, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.LockedDescription, s.IsLocked, s.IsVisible);
+          InterOp.Shop.set_twillen_item((int)s.Shard, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), s.IsLocked, s.IsVisible);
       }
       foreach (var s in ShopSlot.LupoStore) {
         var pickup = s.Contents;
-        InterOp.Shop.set_lupo_item(s.State.GroupID, s.State.ID, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.LockedDescription, s.IsLocked, s.IsVisible);
+        InterOp.Shop.set_lupo_item(s.State.GroupID, s.State.ID, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), s.IsLocked, s.IsVisible);
       }
     }
 

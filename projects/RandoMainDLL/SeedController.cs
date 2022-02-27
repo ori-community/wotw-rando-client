@@ -740,23 +740,6 @@ namespace RandoMainDLL {
 
                   return new Shop.DescriptionCommand(uberId, description);
                 }
-              case ShopCommandType.LockedDescription: {
-                  if (extras.Count != 3) {
-                    Randomizer.Log($"malformed shop command specifier {command}", false);
-                    return new Message($"Invalid shop command {command}!");
-                  }
-
-                  var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
-                  var state = extras[1].ParseToInt("BuildPickup.ShopState");
-                  var description = extras[2];
-                  var uberId = new UberId(group, state);
-                  if (ShopSlot.GetSlot(uberId) == null) {
-                    Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
-                    return new Message($"Invalid shop command {command}!");
-                  }
-
-                  return new Shop.LockedDescriptionCommand(uberId, description);
-                }
               case ShopCommandType.LockedAndVisible: {
                   if (extras.Count != 4) {
                     Randomizer.Log($"malformed shop command specifier {command}", false);

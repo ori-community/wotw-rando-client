@@ -89,8 +89,7 @@ namespace RandoMainDLL {
     Icon = 0,
     Title = 1,
     Description = 2,
-    LockedDescription = 3,
-    LockedAndVisible = 4
+    LockedAndVisible = 3
   }
 
   public enum TeleporterType : byte {
@@ -1381,24 +1380,6 @@ namespace RandoMainDLL {
       public override void Grant(bool skipBase = false) {
         var slot = ShopSlot.GetSlot(SlotId);
         slot.Description = Description;
-        ShopController.UpdateShopData();
-      }
-    }
-
-    public class LockedDescriptionCommand : ShopCommand {
-
-      public readonly string LockedDescription;
-
-      public override string Name { get => $"description to random chatter for {SlotId}"; }
-      public override string DisplayName { get => ""; }
-
-      public LockedDescriptionCommand(UberId slotId, string lockedDescription) : base(ShopCommandType.LockedDescription, slotId) {
-        LockedDescription = lockedDescription;
-      }
-
-      public override void Grant(bool skipBase = false) {
-        var slot = ShopSlot.GetSlot(SlotId);
-        slot.LockedDescription = LockedDescription;
         ShopController.UpdateShopData();
       }
     }
