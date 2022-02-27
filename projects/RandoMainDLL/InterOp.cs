@@ -12,11 +12,9 @@ namespace RandoMainDLL {
   public static class InterOp {
     public static class TextDatabase {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static int text_database_reserve_id();
+      public extern static void text_database_register_text(int id, bool dynamic, [MarshalAs(UnmanagedType.LPWStr)] string text);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void text_database_register_text(int id, [MarshalAs(UnmanagedType.LPWStr)] string text);
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void text_database_clear_text(int id);
+      public extern static void text_database_clear_text(int id, bool dynamic);
     }
 
     public static class Messaging {

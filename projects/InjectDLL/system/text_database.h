@@ -20,5 +20,4 @@ namespace text_database
     app::MessageProvider* get_provider(int id);
 }
 
-INJECT_C_DLLEXPORT int text_database_reserve_id();
 INJECT_C_DLLEXPORT void text_database_clear_dynamic();

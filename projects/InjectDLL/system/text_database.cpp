@@ -18,6 +18,7 @@ namespace text_database
     // Start dynamic entries after all static values.
     int next_text_id = static_cast<int>(StaticTextEntries::TOTAL) + 1;
     std::unordered_map<int, TextEntry> text_entries;
+    std::unordered_map<int, int> dynamic_to_index;
 
     void initialize()
     {
@@ -124,20 +125,35 @@ namespace text_database
         auto& entry = text_entries[id];
         return get_provider(entry, true);
     }
+
+    int get_index_from_dynamic(int id)
+    {
+        auto it = text_database::dynamic_to_index.find(id);
+        if (it == text_database::dynamic_to_index.end())
+        {
+            text_database::dynamic_to_index[id] = text_database::next_text_id++;
+            it = text_database::dynamic_to_index.find(id);
+        }
+
+        return it->second;
+    }
 }
 
-INJECT_C_DLLEXPORT int text_database_reserve_id()
+INJECT_C_DLLEXPORT void text_database_register_text(int id, bool dynamic, const char* text)
 {
-    return text_database::next_text_id++;
-}
+    if (!dynamic && id >= *static_text_entries::TOTAL + 1)
+        modloader::warn("text_database", "calling register_text with dynamic=false and a dynamic id.");
 
-INJECT_C_DLLEXPORT void text_database_register_text(int id, const char* text)
-{
+    id = dynamic ? text_database::get_index_from_dynamic(id) : id;
     text_database::register_text(id, text);
 }
 
-INJECT_C_DLLEXPORT void text_database_clear_text(int id)
+INJECT_C_DLLEXPORT void text_database_clear_text(int id, bool dynamic)
 {
+    if (!dynamic && id >= *static_text_entries::TOTAL + 1)
+        modloader::warn("text_database", "calling register_text with dynamic=false and a dynamic id.");
+
+    id = dynamic ? text_database::get_index_from_dynamic(id) : id;
     text_database::clear_text(id);
 }
 
@@ -146,5 +162,6 @@ INJECT_C_DLLEXPORT void text_database_clear_dynamic()
     for (auto i = static_cast<int>(text_database::StaticTextEntries::TOTAL) + 1; i < text_database::next_text_id; ++i)
         text_database::clear_text(i);
 
+    text_database::dynamic_to_index.clear();
     text_database::next_text_id = static_cast<int>(text_database::StaticTextEntries::TOTAL) + 1;
 }

@@ -12,6 +12,9 @@
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
+#include <dev/object_visualizer.h>
+#include <Il2CppModLoader/console.h>
+
 using namespace modloader;
 using namespace shops;
 
@@ -120,18 +123,6 @@ namespace
         auto open_shop = shops::get_open_shop();
         shops::set_providers(open_shop, this_ptr->fields.m_item, name_provider, description_provider, locked_provider);
 
-        if (open_shop == shops::ShopType::Opher)
-        {
-            auto texture = shops::get_icon(open_shop, this_ptr->fields.m_item);
-            if (texture != nullptr)
-            {
-                auto renderer_components = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
-                auto* const renderer = renderer_components[0];
-                texture->apply(renderer);
-                GameObject::SetActive(this_ptr->fields.IconGO, true);
-            }
-        }
-
         auto message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
         auto* const name_box = message_box_components[0];
 
@@ -150,8 +141,7 @@ namespace
         else if (is_locked || locked_shop_overwrite)
         {
             name_box->fields.MessageProvider = name_provider == nullptr ? this_ptr->fields.LockedName : name_provider;
-            description_box->fields.MessageProvider = description_provider == nullptr ? this_ptr->fields.LockedDescription : description_provider;
-            //description_box->fields.MessageProvider = locked_provider == nullptr ? this_ptr->fields.LockedDescription : locked_provider;
+            description_box->fields.MessageProvider = locked_provider == nullptr ? this_ptr->fields.LockedDescription : locked_provider;
         }
         else
         {
