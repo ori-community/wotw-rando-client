@@ -12,6 +12,7 @@ set(
     "dll_main.cpp"
     "dev/object_visualizer.cpp"
     "features/ability_tracker.cpp"
+    "features/air_no_deceleration.cpp"
     "features/autoaim.cpp"
     "features/bingo_tracking.cpp"
     "features/chaos.cpp"

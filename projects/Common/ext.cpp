@@ -61,3 +61,13 @@ std::string convert_wstring_to_string(std::wstring_view str)
     CW2A cw2a(str.data());
     return std::string(cw2a);
 }
+
+bool eps_equals(double a, double b, double eps)
+{
+    return std::abs(a - b) < eps;
+}
+
+bool eps_equals(float a, float b, float eps)
+{
+    return std::abs(a - b) < eps;
+}
