@@ -1,10 +1,13 @@
 #include <csharp_bridge.h>
 #include <dll_main.h>
-#include <Common/ext.h>
 #include <pickups/shops/general.h>
 #include <input/rando_bindings.h>
+#include <system/text_database.h>
 #include <uber_states/uber_state_manager.h>
 #include <utils/messaging.h>
+
+#include <Common/ext.h>
+
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -117,13 +120,17 @@ namespace
         auto open_shop = shops::get_open_shop();
         shops::set_providers(open_shop, this_ptr->fields.m_item, name_provider, description_provider, locked_provider);
 
-        auto renderer_components = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
-        auto* const renderer = renderer_components[0];
-
-        //auto texture = shops::get_icon(open_shop, this_ptr->fields.m_item);
-        //texture->apply(renderer);
-        //if (open_shop == shops::ShopType::Opher)
-        //    GameObject::SetActive(this_ptr->fields.IconGO, true);
+        if (open_shop == shops::ShopType::Opher)
+        {
+            auto texture = shops::get_icon(open_shop, this_ptr->fields.m_item);
+            if (texture != nullptr)
+            {
+                auto renderer_components = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+                auto* const renderer = renderer_components[0];
+                texture->apply(renderer);
+                GameObject::SetActive(this_ptr->fields.IconGO, true);
+            }
+        }
 
         auto message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
         auto* const name_box = message_box_components[0];
@@ -131,13 +138,20 @@ namespace
         message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.DescriptionGO, "", "MessageBox");
         auto* const description_box = message_box_components[0];
 
-        const auto locked = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsLocked")->fields;
+        const auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsVisible")->fields;
+        const auto is_locked = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsLocked")->fields;
         auto* const empty_str = il2cpp::string_new("");
 
-        if (locked || locked_shop_overwrite)
+        if (!is_visible)
         {
-            name_box->fields.MessageProvider = this_ptr->fields.LockedName;
-            description_box->fields.MessageProvider = locked_provider == nullptr ? this_ptr->fields.LockedDescription : locked_provider;
+            name_box->fields.MessageProvider = text_database::get_provider(*static_text_entries::Undiscovered);
+            description_box->fields.MessageProvider = text_database::get_provider(*static_text_entries::UndiscoveredDescription);
+        }
+        else if (is_locked || locked_shop_overwrite)
+        {
+            name_box->fields.MessageProvider = name_provider == nullptr ? this_ptr->fields.LockedName : name_provider;
+            description_box->fields.MessageProvider = description_provider == nullptr ? this_ptr->fields.LockedDescription : description_provider;
+            //description_box->fields.MessageProvider = locked_provider == nullptr ? this_ptr->fields.LockedDescription : locked_provider;
         }
         else
         {
@@ -150,7 +164,7 @@ namespace
 
         // Need to do this as UpdateDetails2 overwrites the messageprovider.
         auto* const temp = this_ptr->fields.LockedDescription;
-        if (locked || locked_shop_overwrite)
+        if (is_locked || locked_shop_overwrite)
             this_ptr->fields.LockedDescription = description_box->fields.MessageProvider;
 
         UpdateDetails2_intercept(this_ptr);

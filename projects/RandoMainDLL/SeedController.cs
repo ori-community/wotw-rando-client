@@ -707,7 +707,7 @@ namespace RandoMainDLL {
                   return new Shop.IconCommand(uberId, texture);
                 }
               case ShopCommandType.Title: {
-                  if (extras.Count.In(2, 3)) {
+                  if (!extras.Count.In(2, 3)) {
                     Randomizer.Log($"malformed shop command specifier {command}", false);
                     return new Message($"Invalid shop command {command}!");
                   }
@@ -724,7 +724,7 @@ namespace RandoMainDLL {
                   return new Shop.TitleCommand(uberId, title);
                 }
               case ShopCommandType.Description: {
-                  if (extras.Count.In(2, 3)) {
+                  if (!extras.Count.In(2, 3)) {
                     Randomizer.Log($"malformed shop command specifier {command}", false);
                     return new Message($"Invalid shop command {command}!");
                   }

@@ -291,12 +291,13 @@ namespace
         {
             auto is_max_level = il2cpp::invoke<app::Boolean__Boxed>(upgrade_item, "get_IsMaxLevel")->fields;
             auto is_affordable = il2cpp::invoke<app::Boolean__Boxed>(upgrade_item, "get_IsAffordable")->fields;
+            auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(upgrade_item, "get_IsVisible")->fields;
             auto is_locked = il2cpp::invoke<app::Boolean__Boxed>(upgrade_item, "get_IsLocked")->fields;
             auto already_owned = has_been_purchased_before(reinterpret_cast<app::WeaponmasterItem*>(upgrade_item));
 
-            auto available = !is_locked && !is_max_level;
-            GameObject::SetActive(this_ptr->fields.LockedGO, is_locked);
-            GameObject::SetActive(this_ptr->fields.AlreadyOwnedGO, already_owned);// !(available && is_affordable) || (!is_locked && is_max_level));
+            auto available = is_visible && !is_locked && !is_max_level;
+            GameObject::SetActive(this_ptr->fields.LockedGO, is_locked || !is_visible);
+            GameObject::SetActive(this_ptr->fields.AlreadyOwnedGO, already_owned);
             GameObject::SetActive(this_ptr->fields.AvailableToBuyGO, available && is_affordable);
             GameObject::SetActive(this_ptr->fields.TooExpensiveGO, available && !is_affordable);
 
