@@ -740,8 +740,8 @@ namespace RandoMainDLL {
 
                   return new Shop.DescriptionCommand(uberId, description);
                 }
-              case ShopCommandType.LockedAndVisible: {
-                  if (extras.Count != 4) {
+              case ShopCommandType.Locked: {
+                  if (extras.Count != 3) {
                     Randomizer.Log($"malformed shop command specifier {command}", false);
                     return new Message($"Invalid shop command {command}!");
                   }
@@ -749,14 +749,30 @@ namespace RandoMainDLL {
                   var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
                   var state = extras[1].ParseToInt("BuildPickup.ShopState");
                   var isLocked = extras[2].ParseToBool("BuildPickup.Locked");
-                  var isVisible = extras[3].ParseToBool("BuildPickup.Visible");
                   var uberId = new UberId(group, state);
                   if (ShopSlot.GetSlot(uberId) == null) {
                     Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
                     return new Message($"Invalid shop command {command}!");
                   }
 
-                  return new Shop.LockedAndVisibleCommand(uberId, isLocked, isVisible);
+                  return new Shop.LockedCommand(uberId, isLocked);
+                }
+              case ShopCommandType.Visible: {
+                  if (extras.Count != 3) {
+                    Randomizer.Log($"malformed shop command specifier {command}", false);
+                    return new Message($"Invalid shop command {command}!");
+                  }
+
+                  var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
+                  var state = extras[1].ParseToInt("BuildPickup.ShopState");
+                  var isVisible = extras[2].ParseToBool("BuildPickup.Visible");
+                  var uberId = new UberId(group, state);
+                  if (ShopSlot.GetSlot(uberId) == null) {
+                    Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
+                    return new Message($"Invalid shop command {command}!");
+                  }
+
+                  return new Shop.VisibleCommand(uberId, isVisible);
                 }
               default: {
                   var err = $"Unknown pickup {type}|{command}";

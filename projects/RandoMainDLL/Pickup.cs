@@ -89,7 +89,8 @@ namespace RandoMainDLL {
     Icon = 0,
     Title = 1,
     Description = 2,
-    LockedAndVisible = 3
+    Locked = 3,
+    Visible = 4
   }
 
   public enum TeleporterType : byte {
@@ -1384,22 +1385,36 @@ namespace RandoMainDLL {
       }
     }
 
-    public class LockedAndVisibleCommand : ShopCommand {
-      public readonly bool IsLocked;
+    public class VisibleCommand : ShopCommand {
       public readonly bool IsVisible;
 
-      public override string Name { get => $"description to random chatter for {SlotId}"; }
+      public override string Name { get => $"visible {IsVisible} for {SlotId}"; }
       public override string DisplayName { get => ""; }
 
-      public LockedAndVisibleCommand(UberId slotId, bool isLocked, bool isVisible) : base(ShopCommandType.LockedAndVisible, slotId) {
-        IsLocked = isLocked;
+      public VisibleCommand(UberId slotId, bool isVisible) : base(ShopCommandType.Visible, slotId) {
         IsVisible = isVisible;
       }
 
       public override void Grant(bool skipBase = false) {
         var slot = ShopSlot.GetSlot(SlotId);
-        slot.IsLocked = IsLocked;
         slot.IsVisible = IsVisible;
+        ShopController.UpdateShopData();
+      }
+    }
+
+    public class LockedCommand : ShopCommand {
+      public readonly bool IsLocked;
+
+      public override string Name { get => $"locked {IsLocked} for {SlotId}"; }
+      public override string DisplayName { get => ""; }
+
+      public LockedCommand(UberId slotId, bool isLocked) : base(ShopCommandType.Locked, slotId) {
+        IsLocked = isLocked;
+      }
+
+      public override void Grant(bool skipBase = false) {
+        var slot = ShopSlot.GetSlot(SlotId);
+        slot.IsLocked = IsLocked;
         ShopController.UpdateShopData();
       }
     }
