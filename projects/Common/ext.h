@@ -1,6 +1,7 @@
 #pragma once
 
-#include <algorithm> 
+#include <algorithm>
+#include <array>
 #include <cctype>
 #include <string>
 #include <string_view>
@@ -11,6 +12,20 @@ struct pair_hash
     template <class T1, class T2>
     std::size_t operator() (const std::pair<T1, T2>& pair) const {
         return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
+    }
+};
+
+struct array_hash
+{
+    template <typename T, int N>
+    std::size_t operator() (const std::array<T, N>& arr) const {
+        static_assert(N > 0);
+        auto hasher = std::hash<T>();
+        auto hash = arr[0];
+        for (int i = 1; i < N; ++i)
+            hash ^= hasher(arr[i]);
+
+        return hash;
     }
 };
 

@@ -762,14 +762,24 @@ namespace
         }
     }
 
-    bool shown_by_filter(app::AreaMapIconManager* manager, app::RuntimeWorldMapIcon* icon)
+    enum class FilterResult
     {
+        Show,
+        ShowTransparent,
+        Hide
+    };
+
+    FilterResult shown_by_filter(app::AreaMapIconManager* manager, app::RuntimeWorldMapIcon* icon)
+    {
+        if (icon == nullptr)
+            return FilterResult::Hide;
+
         // Always show warps check
         if(should_show(manager, icon))
-            return true;
+            return FilterResult::Show;
 
         if (player_map.find(icon) != player_map.end())
-            return true;
+            return FilterResult::Show;
 
         const auto filter = static_cast<NewFilters>(manager->fields.Filter);
         // If we are in original filters then use the original function.
@@ -780,7 +790,7 @@ namespace
                 icon->fields.IsCollectedState->fields._.m_id->fields.m_id == 70;
 
             if (is_spoiler)
-                return false;
+                return FilterResult::Hide;
 
             // if our custom state is bigger or equal to expected value dont show.
             const auto it = extra_states.find(stringify_guid(icon->fields.Guid));
@@ -788,23 +798,37 @@ namespace
             {
                 const auto value = it->second->custom.value < 0 ? 1.f : it->second->custom.value;
                 if (uber_states::get_uber_state_value(it->second->custom.group, it->second->custom.state) >= value)
-                    return false;
+                    return FilterResult::Hide;
             }
 
-            return AreaMapIconManager::IsIconShownByFilter(icon->fields.Icon, manager->fields.Filter);
+            return AreaMapIconManager::IsIconShownByFilter(icon->fields.Icon, manager->fields.Filter) ? FilterResult::Show : FilterResult::Hide;
         }
         else if (filter == NewFilters::Spoilers)
         {
             if (icon->fields.IsCollectedState == nullptr)
-                return false;
+                return FilterResult::Hide;
 
-            return icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
+            const auto is_spoiler = icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
                 icon->fields.IsCollectedState->fields._.m_id->fields.m_id == 70;
+
+            if (!is_spoiler)
+                return FilterResult::Hide;
+
+            auto it = spoiler_states.find(stringify_guid(icon->fields.Guid));
+            if (it != spoiler_states.end())
+            {
+                const auto value = uber_states::get_uber_state_value(it->second.group_id, it->second.state_id);
+                // Hide pickups that have been collected.
+                const auto compare = it->second.value < 0 ? 1.f : it->second.value;
+                return value < compare ? FilterResult::ShowTransparent : FilterResult::Show;
+            }
+
+            return FilterResult::Show;
         }
         else if (filter == NewFilters::InLogic)
         {
             if (icon->fields.IsCollectedState == nullptr)
-                return false;
+                return FilterResult::Hide;
             
             const auto is_spoiler = icon->fields.IsCollectedState->fields.Group->fields._.m_id->fields.m_id == uber_states::constants::MAP_FILTER_GROUP_ID &&
                 icon->fields.IsCollectedState->fields._.m_id->fields.m_id == 70;
@@ -814,16 +838,83 @@ namespace
                 auto it = spoiler_states.find(stringify_guid(icon->fields.Guid));
                 if (it != spoiler_states.end())
                 {
+                    const auto transparency = uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, ICON_TRANSPARENCY_ID);
                     const auto value = uber_states::get_uber_state_value(it->second.group_id, it->second.state_id);
                     // Hide pickups that have been collected.
                     const auto compare = it->second.value < 0 ? 1.f : it->second.value;
-                    if (value < compare && csharp_bridge::filter_icon_show(it->second.group_id, it->second.state_id, static_cast<int>(it->second.value)))
-                        return true;
+                    if (value >= compare)
+                        return FilterResult::Hide;
+
+                    if (csharp_bridge::filter_icon_show(it->second.group_id, it->second.state_id, static_cast<int>(it->second.value)))
+                        return FilterResult::Show;
+                    else
+                        return eps_equals(transparency, 0.0) ? FilterResult::Hide : FilterResult::ShowTransparent;
                 }
             }
         }
 
-        return false;
+        return FilterResult::Hide;
+    }
+
+    using color_key = std::array<int, 5>;
+    std::unordered_map<color_key, app::Color, array_hash> original_color;
+    void set_icon_opacity(app::RuntimeWorldMapIcon* icon, float alpha, bool grayscale)
+    {
+        if (!il2cpp::unity::is_valid(icon->fields.IconGameObject))
+            return;
+
+        auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(icon->fields.IconGameObject, "UnityEngine", "Renderer");
+        for (auto i = 0; i < renderers.size(); ++i)
+        {
+            auto renderer = renderers[i];
+            color_key key = {
+                icon->fields.Guid->fields.A,
+                icon->fields.Guid->fields.B,
+                icon->fields.Guid->fields.C,
+                icon->fields.Guid->fields.D,
+                i
+            };
+
+            auto it = original_color.find(key);
+            if (it == original_color.end())
+            {
+                auto color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
+                original_color[key] = color;
+                it = original_color.find(key);
+            }
+
+            auto color = it->second;
+            color.a *= alpha;
+            shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+        }
+    }
+
+    void handle_show_toggle(app::RuntimeWorldMapIcon* icon, FilterResult result)
+    {
+        if (icon == nullptr)
+            return;
+
+        switch (result)
+        {
+        case FilterResult::Show:
+        {
+            RuntimeWorldMapIcon::Show_intercept(icon);
+            set_icon_opacity(icon, 1.0f, false);
+            break;
+        }
+        case FilterResult::ShowTransparent:
+        {
+            RuntimeWorldMapIcon::Show_intercept(icon);
+            const auto transparency = uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, ICON_TRANSPARENCY_ID);
+            set_icon_opacity(icon, transparency, true);
+            break;
+        }
+        default:
+        {
+            RuntimeWorldMapIcon::Hide_intercept(icon);
+            break;
+        }
+        }
     }
 
     IL2CPP_INTERCEPT(, AreaMapIconManager, void, ShowAreaIcons, (app::AreaMapIconManager* this_ptr)) {
@@ -847,12 +938,7 @@ namespace
                 for (auto j = 0; j < runtime_area->fields.Icons->fields._size; ++j)
                 {
                     auto icon = runtime_area->fields.Icons->fields._items->vector[j];
-
-                    // Difference in original function.
-                    if (shown_by_filter(this_ptr, icon))
-                        RuntimeWorldMapIcon::Show_intercept(icon);
-                    else
-                        RuntimeWorldMapIcon::Hide_intercept(icon);
+                    handle_show_toggle(icon, shown_by_filter(this_ptr, icon));
                 }
             }
         }
@@ -1204,12 +1290,7 @@ INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, int id, app::W
                 auto* icon_manager = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")
                     ->static_fields->Instance->fields._IconManager_k__BackingField;
 
-                if (icon.runtime_icon != nullptr && !shown_by_filter(icon_manager, icon.runtime_icon))
-                    RuntimeWorldMapIcon::Hide_intercept(icon.runtime_icon);
-
-                if (icon.spoiler_icon != nullptr && !shown_by_filter(icon_manager, icon.spoiler_icon))
-                    RuntimeWorldMapIcon::Hide_intercept(icon.spoiler_icon);
-
+                handle_show_toggle(icon.runtime_icon, shown_by_filter(icon_manager, icon.runtime_icon));
                 break;
             }
         }
