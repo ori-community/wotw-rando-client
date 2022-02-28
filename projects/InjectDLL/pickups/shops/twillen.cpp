@@ -248,17 +248,23 @@ namespace
     IL2CPP_INTERCEPT(, SpiritShardUIItem, void, UpdateShardIcon, (app::SpiritShardUIItem* this_ptr)) {
         if (shops::is_in_shop(shops::ShopType::Twillen))
         {
-            GameObject::SetActive(this_ptr->fields.IconGO, true);
             auto renderer = il2cpp::unity::get_components<app::Renderer>(
                 this_ptr->fields.IconGO, "UnityEngine", "Renderer")[0];
             auto shard = this_ptr->fields.m_spiritShard != nullptr ?
                 this_ptr->fields.m_spiritShard->fields.m_type : app::SpiritShardType__Enum_None;
+            auto is_visible = this_ptr->fields.m_spiritShard != nullptr ? 
+                PlayerUberStateShards::Shard::get_VisibleInShop_intercept(this_ptr->fields.m_spiritShard) :
+                false;
+            auto is_locked = this_ptr->fields.m_spiritShard != nullptr ?
+                !PlayerUberStateShards::Shard::get_PurchasableInShop_intercept(this_ptr->fields.m_spiritShard) :
+                true;
+            GameObject::SetActive(this_ptr->fields.IconGO, is_visible);
 
             auto texture = get_shard_icon(shard);
-            if (texture != nullptr)
-                texture->apply(renderer);
-            else
-                shops::get_icon(shops::ShopType::None, nullptr)->apply(renderer);
+            if (texture == nullptr)
+                texture = shops::get_icon(shops::ShopType::None, nullptr);
+
+            texture->apply(renderer);
         }
         else
         {
@@ -278,14 +284,12 @@ namespace
     NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_InitialPurchaseAffordable, (app::PlayerUberStateShards_Shard* this_ptr));
     IL2CPP_INTERCEPT(, SpiritShardShopUIItem, void, UpdateShard, (app::SpiritShardShopUIItem* this_ptr, app::PlayerUberStateShards_Shard* shard)) {
         auto owned = true;
-        auto cost_enabled = false;
+        auto visible = false;
         if (shard != nullptr)
         {
             SpiritShardUIItem::UpdateShardIcon_intercept(this_ptr->fields.Shard);
             owned = csharp_bridge::twillen_bought_shard(static_cast<csharp_bridge::ShardType>(shard->fields.m_type));
-            if (PlayerUberStateShards::Shard::get_VisibleInShop_intercept(shard))
-                cost_enabled = !owned;
-
+            visible = PlayerUberStateShards::Shard::get_VisibleInShop_intercept(shard);
             auto cost = csharp_bridge::twillen_shard_cost(static_cast<csharp_bridge::ShardType>(shard->fields.m_type));
             auto purchasable = PlayerUberStateShards::Shard::get_PurchasableInShop_intercept(shard);
 
@@ -312,12 +316,12 @@ namespace
             MessageBox::SetMessage(il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.CostGO, "", "MessageBox"), &descriptor, empty, empty);
 
             auto enabled = purchasable && !owned && affordable;
-            GameObject::SetActive(this_ptr->fields.PurchasableGO, enabled);
-            GameObject::SetActive(this_ptr->fields.NotPurchasableGO, !enabled);
+            GameObject::SetActive(this_ptr->fields.PurchasableGO, visible && enabled);
+            GameObject::SetActive(this_ptr->fields.NotPurchasableGO, visible && !enabled);
         }
 
-        GameObject::SetActive(this_ptr->fields.CostGO, cost_enabled);
-        GameObject::SetActive(this_ptr->fields.SpiritLightGO, cost_enabled);
+        GameObject::SetActive(this_ptr->fields.CostGO, visible && !owned);
+        GameObject::SetActive(this_ptr->fields.SpiritLightGO, visible && !owned);
         GameObject::SetActive(this_ptr->fields.AlreadyOwnedGO, owned);
     }
 }
