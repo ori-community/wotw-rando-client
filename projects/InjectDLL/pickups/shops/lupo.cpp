@@ -190,8 +190,8 @@ namespace
             }
             else if (it->second.is_locked)
             {
-                name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
-                description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
+                name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
+                description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
             }
             else
             {
