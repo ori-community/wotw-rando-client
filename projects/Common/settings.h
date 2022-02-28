@@ -40,4 +40,15 @@ void load_settings_from_file(IniSettings& settings);
 void save_settings_to_file(IniSettings& settings);
 
 IniOption* find_option(IniSettings& settings, std::string const& section, std::string const& name);
-bool check_option_flag(IniSettings& settings, std::string const& section, std::string const& name, bool default_value = false);
+
+template<typename T>
+T check_option(IniSettings& settings, std::string const& section, std::string const& name, T default_value);
+
+template<>
+bool check_option(IniSettings& settings, std::string const& section, std::string const& name, bool default_value);
+template<>
+float check_option(IniSettings& settings, std::string const& section, std::string const& name, float default_value);
+template<>
+int check_option(IniSettings& settings, std::string const& section, std::string const& name, int default_value);
+template<>
+std::string check_option(IniSettings& settings, std::string const& section, std::string const& name, std::string default_value);

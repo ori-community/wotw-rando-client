@@ -7,6 +7,7 @@
 
 #include <assert.h>
 #include <windows.h>
+#include <ext.h>
 
 void load_settings_from_file(IniSettings& settings)
 {
@@ -124,10 +125,99 @@ IniOption* find_option(IniSettings& settings, std::string const& section, std::s
     return nullptr;
 }
 
-bool check_option_flag(IniSettings& settings, std::string const& section, std::string const& name, bool default_value)
+
+template<>
+bool check_option(IniSettings& settings, std::string const& section, std::string const& name, bool default_value)
 {
     auto option = find_option(settings, section, name);
-    return (option != nullptr && option->type == IniVarType::Bool) ? option->value.b : default_value;
+    if (option == nullptr)
+        return default_value;
+
+    switch (option->type)
+    {
+    case IniVarType::Bool:
+        return static_cast<float>(option->value.b);
+    case IniVarType::Float:
+        return !eps_equals(option->value.f, 0.0f);
+    case IniVarType::Int:
+        return option->value.i > 0;
+    case IniVarType::String:
+    {
+        std::string value = option->value.s.data();
+        std::transform(value.begin(), value.end(), value.begin(),
+            [](char c) { return std::tolower(c); });
+        
+        return value == "true" || value == "1" || value == "t";
+    }
+    default:
+        return default_value;
+    }
+}
+
+template<>
+float check_option(IniSettings& settings, std::string const& section, std::string const& name, float default_value)
+{
+    auto option = find_option(settings, section, name);
+    if (option == nullptr)
+        return default_value;
+
+    switch (option->type)
+    {
+    case IniVarType::Bool:
+        return static_cast<float>(option->value.b);
+    case IniVarType::Float:
+        return option->value.f;
+    case IniVarType::Int:
+        return static_cast<float>(option->value.i);
+    case IniVarType::String:
+        return std::atof(option->value.s.data());
+    default:
+        return default_value;
+    }
+}
+
+template<>
+int check_option(IniSettings& settings, std::string const& section, std::string const& name, int default_value)
+{
+    auto option = find_option(settings, section, name);
+    if (option == nullptr)
+        return default_value;
+
+    switch (option->type)
+    {
+    case IniVarType::Bool:
+        return static_cast<int>(option->value.b);
+    case IniVarType::Float:
+        return static_cast<int>(option->value.f);
+    case IniVarType::Int:
+        return option->value.i;
+    case IniVarType::String:
+        return std::atoi(option->value.s.data());
+    default:
+        return default_value;
+    }
+}
+
+template<>
+std::string check_option(IniSettings& settings, std::string const& section, std::string const& name, std::string default_value)
+{
+    auto option = find_option(settings, section, name);
+    if (option == nullptr)
+        return default_value;
+
+    switch (option->type)
+    {
+        case IniVarType::Bool:
+            return std::to_string(option->value.b);
+        case IniVarType::Float:
+            return std::to_string(option->value.f);
+        case IniVarType::Int:
+            return std::to_string(option->value.i);
+        case IniVarType::String:
+            return option->value.s.data();
+        default:
+            return default_value;
+    }
 }
 
 IniSettings create_randomizer_settings(const std::string& path)

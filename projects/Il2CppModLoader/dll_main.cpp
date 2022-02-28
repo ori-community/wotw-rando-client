@@ -248,15 +248,15 @@ namespace modloader
         trace(MessageType::Info, 5, "initialize", "Loading settings.");
         auto settings = create_randomizer_settings(base_path);
         load_settings_from_file(settings);
-        auto wait_for_debugger = check_option_flag(settings, "Flags", "WaitForDebugger");
+        auto wait_for_debugger = check_option(settings, "Flags", "WaitForDebugger", false);
         while (wait_for_debugger && !::IsDebuggerPresent())
             ::Sleep(100); // to avoid 100% CPU load
 
         initialize_trace_file();
         trace(MessageType::Info, 5, "initialize", "Mod Loader initialization.");
 
-        trace_enabled = check_option_flag(settings, "Flags", "TraceEnabled");
-        trace_pinging_enabled = !check_option_flag(settings, "Flags", "TracePingingDisabled", true);
+        trace_enabled = check_option(settings, "Flags", "TraceEnabled", false);
+        trace_pinging_enabled = !check_option(settings, "Flags", "TracePingingDisabled", true);
         if (trace_enabled)
         {
             trace(MessageType::Info, 5, "initialize", "Initializing network tracing.");
@@ -270,7 +270,7 @@ namespace modloader
             network::start_peer(network_data);
         }
 
-        if (check_option_flag(settings, "Flags", "Dev"))
+        if (check_option(settings, "Flags", "Dev", false))
         {
             trace(MessageType::Info, 5, "initialize", "Initializing console.");
             console::console_initialize();
