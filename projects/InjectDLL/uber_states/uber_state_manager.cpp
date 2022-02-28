@@ -363,7 +363,7 @@ namespace uber_states
 
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "chaos_trigger_min", CHAOS_TRIGGER_MIN_ID, 30.f),
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "chaos_trigger_min", CHAOS_TRIGGER_MAX_ID, 60.f),
-                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "icon_transparency", ICON_TRANSPARENCY_ID, check_option(settings, "Values", "MapIconTransparency", false)),
+                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "icon_transparency", ICON_TRANSPARENCY_ID, check_option(settings, "Values", "MapIconTransparency", 0.0f)),
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::MAP_FILTER_GROUP_NAME, constants::MAP_FILTER_GROUP_ID, "spoiler_icon_tag", 70, false),
 
