@@ -213,6 +213,14 @@ IL2CPP_INTERCEPT(, GameController, void, OnApplicationFocus, (app::GameControlle
     GameController::OnApplicationFocus(this_ptr, focusStatus);
 }
 
+bool is_paused()
+{
+    auto ui = reinterpret_cast<app::UI__Class*>(il2cpp::get_class("Game", "UI"));
+    return !il2cpp::unity::is_valid(ui) ||
+        !il2cpp::unity::is_valid(ui->static_fields->m_sMenu) ||
+        ui->static_fields->m_sMenu->fields.m_isPaused;
+}
+
 void set_no_pause(bool value)
 {
     no_pause = value;

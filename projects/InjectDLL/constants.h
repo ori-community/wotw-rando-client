@@ -23,3 +23,10 @@ const std::set<app::AbilityType__Enum> tree_abilities{
 };
 
 constexpr double PI = 3.14159265358979323846;
+
+#pragma region Uberstate constants
+constexpr int CHAOS_MODE_ID = 7;
+constexpr int CHAOS_TRIGGER_MIN_ID = 500;
+constexpr int CHAOS_TRIGGER_MAX_ID = 501;
+constexpr int FORCE_AIR_NO_DECELERATION_ID = 301;
+#pragma endregion

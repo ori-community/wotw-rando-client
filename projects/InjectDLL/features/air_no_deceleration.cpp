@@ -1,5 +1,7 @@
-#include <Common/ext.h>
+#include <constants.h>
 #include <uber_states/uber_state_manager.h>
+
+#include <Common/ext.h>
 
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
@@ -7,7 +9,6 @@
 namespace
 {
     bool toggle_default = false;
-    constexpr int FORCE_DECELERATION = 300;
     IL2CPP_INTERCEPT(, CharacterAirNoDeceleration, void, UpdateCharacterState, (app::CharacterAirNoDeceleration* this_ptr)) {
         if (toggle_default)
         {
@@ -29,7 +30,7 @@ namespace
             if (!left_right_movement->fields.m_settings->fields.LockInput && !eps_equals(left_right_movement->fields.m_horizontalInput, 0.0f))
                 this_ptr->fields.m_noDeceleration = false;
 
-            auto value = uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, FORCE_DECELERATION);
+            auto value = uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, FORCE_AIR_NO_DECELERATION_ID);
             if (value > 0.5)
                 this_ptr->fields.m_noDeceleration = value < 1.5;
         }
