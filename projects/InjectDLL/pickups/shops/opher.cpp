@@ -132,7 +132,7 @@ namespace
         {
             const auto key = get_key(this_ptr);
             const auto it = opher_overrides.find(key);
-            if (it != opher_overrides.end() && it->second.texture_data != nullptr)
+            if (it != opher_overrides.end())
                 return it->second.is_visible;
 
             return false;
@@ -147,7 +147,7 @@ namespace
         {
             const auto key = get_key(this_ptr);
             const auto it = opher_overrides.find(key);
-            if (it != opher_overrides.end() && it->second.texture_data != nullptr)
+            if (it != opher_overrides.end())
                 return it->second.is_locked;
             
             return true;

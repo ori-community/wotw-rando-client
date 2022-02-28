@@ -257,10 +257,10 @@ namespace
             const auto is_max_level = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsMaxLevel")->fields;
 
             auto available = !is_locked && !is_max_level;
-            GameObject::SetActive(this_ptr->fields.LockedGO, !is_visible || is_locked);
+            GameObject::SetActive(this_ptr->fields.LockedGO, !is_visible);
             GameObject::SetActive(this_ptr->fields.AlreadyOwnedGO, is_visible && is_owned);// !(available && is_affordable) || (!is_locked && is_max_level));
             GameObject::SetActive(this_ptr->fields.AvailableToBuyGO, is_visible && available && is_affordable);
-            GameObject::SetActive(this_ptr->fields.TooExpensiveGO, is_visible && available && !is_affordable);
+            GameObject::SetActive(this_ptr->fields.TooExpensiveGO, is_visible && !is_max_level && (!is_affordable || is_locked));
 
             auto ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.LockedGO, "", "ShopkeeperUISubItem");
             ui_sub_item->fields.m_item = item;
