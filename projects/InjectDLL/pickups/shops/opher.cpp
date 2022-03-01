@@ -202,7 +202,7 @@ namespace
 
 namespace shops
 {
-    void set_opher_providers(app::WeaponmasterItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider)
+    void set_opher_providers(app::WeaponmasterItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider)
     {
         const auto key = get_key(item);
         const auto it = opher_overrides.find(key);
@@ -210,13 +210,6 @@ namespace shops
         {
             name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
             description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
-            locked_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
-        }
-        else
-        {
-            name_provider = text_database::get_provider(*static_text_entries::Empty);
-            description_provider = text_database::get_provider(*static_text_entries::Empty);
-            locked_provider = text_database::get_provider(*static_text_entries::Locked);
         }
     }
 
@@ -231,8 +224,8 @@ namespace shops
     }
 }
 
-INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool uses_energy, bool is_locked, bool is_visible) {
+INJECT_C_DLLEXPORT void set_opher_item(int acquired, int required, const wchar_t* name, const wchar_t* description, const wchar_t* texture, bool uses_energy, bool is_locked, bool is_visible) {
     const auto key = opher_key(acquired, required);
     auto& item = opher_overrides[key];
-    set_item(item, name, description, texture, locked, uses_energy, is_locked, is_visible);
+    set_item(item, name, description, texture, uses_energy, is_locked, is_visible);
 }

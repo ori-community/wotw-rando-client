@@ -123,7 +123,7 @@ namespace
 
 namespace shops
 {
-    void set_grom_providers(app::BuilderItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider)
+    void set_grom_providers(app::BuilderItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider)
     {
         const auto key = get_key(item->fields.Project);
         const auto it = grom_overrides.find(key);
@@ -131,12 +131,6 @@ namespace shops
         {
             name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
             description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
-            locked_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
-        }
-        else
-        {
-            name_provider = description_provider = text_database::get_provider(*static_text_entries::Empty);
-            locked_provider = text_database::get_provider(*static_text_entries::Locked);
         }
     }
 
@@ -151,8 +145,8 @@ namespace shops
     }
 }
 
-INJECT_C_DLLEXPORT void set_grom_item(int state, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool is_locked, bool is_visible) {
-    set_item(grom_overrides[state], name, description, texture, locked, false, is_locked, is_visible);
+INJECT_C_DLLEXPORT void set_grom_item(int state, const wchar_t* name, const wchar_t* description, const wchar_t* texture, bool is_locked, bool is_visible) {
+    set_item(grom_overrides[state], name, description, texture, false, is_locked, is_visible);
 }
 
 //BuilderScreen
