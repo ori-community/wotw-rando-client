@@ -534,7 +534,7 @@ namespace RandoMainDLL {
       "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", "EXP",
       "Experience", "XP", "Gil", "GP", "Dollars", "Tokens", "Tickets",
       "Pounds Sterling", "Brownie Points", "Euros", "Credits", "Bells", "Fish",
-      "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos",
+      "Zenny", "Pesos", "Hryvnia", "Poké", "Glod", "Dollerydoos",
       "Boonbucks", "Pieces of Eight", "Shillings", "Farthings", "Kalganids",
       "Quatloos", "Etherium", "Dogecoin", "Crowns", "Solari", "Widgets",
       "Money", "Cash", "BTC", "Munny", "Nuyen", "Rings", "Rupees", "Coins",
