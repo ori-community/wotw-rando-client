@@ -50,6 +50,8 @@ namespace RandoMainDLL {
       MapFocusOri,
       MapFocusObjective,
 
+      RANDO_ACTIONS_START,
+
       OpenRandoWheel,
       QuickBuy,
 
