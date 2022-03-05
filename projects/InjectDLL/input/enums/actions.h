@@ -45,6 +45,8 @@ namespace input
         MapFocusOri,
         MapFocusObjective,
 
+        RANDO_ACTIONS_START,
+
         OpenRandoWheel,
         QuickBuy,
 
