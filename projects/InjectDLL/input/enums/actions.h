@@ -115,6 +115,7 @@ namespace input
         { Action::MapFocusOri, "MapFocusOri" },
         { Action::MapFocusObjective, "MapFocusObjective" },
         { Action::OpenRandoWheel, "OpenRandoWheel" },
+        { Action::QuickBuy, "QuickBuy" },
         { Action::Binding1, "Binding1" },
         { Action::Binding2, "Binding2" },
         { Action::Binding3, "Binding3" },
