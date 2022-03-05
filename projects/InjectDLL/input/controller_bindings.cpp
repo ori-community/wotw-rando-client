@@ -222,7 +222,7 @@ namespace input
 
     void refresh_controller_controls()
     {
-        for (auto action = static_cast<Action>(static_cast<int>(Action::RANDO_ACTIONS_START) + 1) action < Action::TOTAL; action = static_cast<Action>(static_cast<int>(action) + 1))
+        for (auto action = static_cast<Action>(static_cast<int>(Action::RANDO_ACTIONS_START) + 1); action < Action::TOTAL; action = static_cast<Action>(static_cast<int>(action) + 1))
         {
             auto& entries = bindings[action];
             for (auto const& buttons : entries)
