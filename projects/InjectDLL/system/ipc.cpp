@@ -163,7 +163,7 @@ namespace ipc
         {
             ipc_thread = std::thread(pipe_handler);
 
-            for (auto action = static_cast<Action>(0); action < Action::TOTAL; action = static_cast<Action>(static_cast<int>(action) + 1))
+            for (auto action = static_cast<input::Action>(0); action < input::Action::TOTAL; action = static_cast<input::Action>(static_cast<int>(action) + 1))
             {
                 input::add_on_pressed_callback(action, report_input);
                 input::add_on_released_callback(action, report_input);
