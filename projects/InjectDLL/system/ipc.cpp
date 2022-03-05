@@ -159,12 +159,18 @@ namespace ipc
             disconnect(pipe);
         }
 
-        void start_ipc_thread()
+        void initialize()
         {
             ipc_thread = std::thread(pipe_handler);
+
+            for (auto action = static_cast<Action>(0); action < Action::TOTAL; action = static_cast<Action>(static_cast<int>(action) + 1))
+            {
+                input::add_on_pressed_callback(action, report_input);
+                input::add_on_released_callback(action, report_input);
+            }
         }
 
-        CALL_ON_INIT(start_ipc_thread);
+        CALL_ON_INIT(initialize);
     }
 
     using message_handler = void(*)(nlohmann::json& j);
@@ -578,5 +584,15 @@ INJECT_C_DLLEXPORT void report_uber_state_change(int group, int state, double va
     response["payload"]["group"] = group;
     response["payload"]["state"] = state;
     response["payload"]["value"] = value;
+    ipc::send_message(response.dump());
+}
+
+INJECT_C_DLLEXPORT void report_input(input::Action type, bool pressed)
+{
+    nlohmann::json response;
+    response["type"] = "request";
+    response["method"] = "notify_input";
+    response["payload"]["type"] = type;
+    response["payload"]["pressed"] = pressed;
     ipc::send_message(response.dump());
 }
