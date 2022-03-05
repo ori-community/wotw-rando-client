@@ -159,18 +159,12 @@ namespace ipc
             disconnect(pipe);
         }
 
-        void initialize()
+        void start_ipc_thread()
         {
             ipc_thread = std::thread(pipe_handler);
-
-            for (auto action = static_cast<input::Action>(0); action < input::Action::TOTAL; action = static_cast<input::Action>(static_cast<int>(action) + 1))
-            {
-                input::add_on_pressed_callback(action, report_input);
-                input::add_on_released_callback(action, report_input);
-            }
         }
 
-        CALL_ON_INIT(initialize);
+        CALL_ON_INIT(start_ipc_thread);
     }
 
     using message_handler = void(*)(nlohmann::json& j);
@@ -386,6 +380,12 @@ namespace ipc
         handlers["set_velocity"] = set_velocity;
         handlers["get_velocity"] = get_velocity;
         handlers["message"] = message;
+
+        for (auto action = static_cast<input::Action>(0); action < input::Action::TOTAL; action = static_cast<input::Action>(static_cast<int>(action) + 1))
+        {
+            input::add_on_pressed_callback(action, report_input);
+            input::add_on_released_callback(action, report_input);
+        }
     }
 
     CALL_ON_INIT(initialize);
