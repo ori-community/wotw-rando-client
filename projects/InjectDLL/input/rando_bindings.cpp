@@ -52,7 +52,7 @@ namespace input
 
         void add_keyboard_binding(Action action, KeyboardMouseInput input)
         {
-            if (action < Action::OpenRandoWheel)
+            if (action < Action::RANDO_ACTIONS_START)
                 return;
 
             if (input.codes.empty() && input.mouse_buttons.empty())
@@ -159,7 +159,7 @@ namespace input
 
     bool is_pressed(Action action)
     {
-        if (action < Action::OpenRandoWheel)
+        if (action < Action::RANDO_ACTIONS_START)
             return false;
 
         return bindings[action].is_pressed;
@@ -167,7 +167,7 @@ namespace input
 
     void add_on_pressed_callback(Action action, rando_input_callback callback)
     {
-        if (action < Action::OpenRandoWheel)
+        if (action < Action::RANDO_ACTIONS_START)
             return;
 
         bindings[action].on_pressed_actions.push_back(callback);
@@ -175,7 +175,7 @@ namespace input
 
     void add_on_released_callback(Action action, rando_input_callback callback)
     {
-        if (action < Action::OpenRandoWheel)
+        if (action < Action::RANDO_ACTIONS_START)
             return;
 
         bindings[action].on_release_actions.push_back(callback);
@@ -228,7 +228,7 @@ namespace input
 
 INJECT_C_DLLEXPORT bool action_pressed(input::Action action)
 {
-    if (action < input::Action::OpenRandoWheel)
+    if (action < input::Action::RANDO_ACTIONS_START)
         input::simulate(action, true);
     else
         simulate_action(action, true);
@@ -238,7 +238,7 @@ INJECT_C_DLLEXPORT bool action_pressed(input::Action action)
 
 INJECT_C_DLLEXPORT bool action_released(input::Action action)
 {
-    if (action < input::Action::OpenRandoWheel)
+    if (action < input::Action::RANDO_ACTIONS_START)
         input::simulate(action, false);
     else
         simulate_action(action, false);
