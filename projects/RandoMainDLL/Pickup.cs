@@ -71,6 +71,8 @@ namespace RandoMainDLL {
     GrantIfCondGreater = 26,
     GrantIfCondLess = 27,
     Unbind = 28,
+    SaveString = 29,
+    AppendString = 30,
   }
 
   public enum WheelCommandType : byte {
@@ -342,9 +344,26 @@ namespace RandoMainDLL {
     private static readonly Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,;]([0-9]+)[\|,;]?([a-z]*)?\)", RegexOptions.Compiled);
     private static readonly Regex nameFrag = new Regex(@"\$\[([0-9]+)[\|,;](.*?)\]", RegexOptions.Compiled);
     private static readonly Regex uberNameFrag = new Regex(@"\$\[\(([0-9]+)\|(.*?)\)\]", RegexOptions.Compiled);
+    private static readonly Regex dbStringFrag = new Regex(@"\$\{([0-9]+)}", RegexOptions.Compiled);
     private static readonly Func<double, String> secToStr = (double sec) => (sec < 3600) ? TimeSpan.FromSeconds(sec).ToString(@"mm\:ss\.f") : TimeSpan.FromSeconds(sec).ToString(@"hh\:mm\:ss\.f");
     public override string DisplayName { get {
-        var withUberNameRepl = uberNameFrag.Replace(MessageStr, (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup().DisplayName);
+        var withDbStringRepl = MessageStr;
+        bool isMatch;
+        do {
+          isMatch = false;
+          withDbStringRepl = dbStringFrag.Replace(withDbStringRepl, (Match m) => {
+            isMatch = true;
+            var id = m.Groups[1].Value.ParseToInt("databaseStringId");
+            if (!InterOp.TextDatabase.text_database_has_text(id, true)) {
+              Randomizer.Warn("MessageDisplay", $"No entry in text database found for {{{id}}}");
+              return "";
+            }
+            var text = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.TextDatabase.text_database_get_text(id, true));
+            return text;
+          });
+        } while (isMatch);
+
+        var withUberNameRepl = uberNameFrag.Replace(withDbStringRepl, (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup().DisplayName);
         var withStateRepl = uberMsg.Replace(withUberNameRepl, (Match m) => {
         var uid = new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt());
         switch (m.Groups.Count > 3 ? m.Groups[3].Value : "") {
@@ -926,6 +945,42 @@ namespace RandoMainDLL {
     }
     public override string Name { get => $"On trigger {id}"; }
     public override string DisplayName { get => ""; }
+  }
+
+  public class SaveStringCommand : SystemCommand {
+    private readonly int id;
+    private readonly string text;
+
+    public SaveStringCommand(int id, string text) : base(SysCommandType.SaveString) {
+      this.id = id;
+      this.text = text;
+    }
+    public override void Grant(bool skipBase = false) {
+      InterOp.TextDatabase.text_database_clear_text(this.id, true);
+      InterOp.TextDatabase.text_database_register_text(this.id, true, this.text);
+      base.Grant(skipBase);
+    }
+  }
+  public class AppendStringCommand : SystemCommand {
+    private readonly int id;
+    private readonly string text;
+
+    public AppendStringCommand(int id, string text) : base(SysCommandType.SaveString) {
+      this.id = id;
+      this.text = text;
+    }
+    public override void Grant(bool skipBase = false) {
+      string appended;
+      if (InterOp.TextDatabase.text_database_has_text(this.id, true)) {
+        var existing = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.TextDatabase.text_database_get_text(this.id, true));
+        appended = existing + this.text;
+        InterOp.TextDatabase.text_database_clear_text(this.id, true);
+      } else {
+        appended = this.text;
+      }
+      InterOp.TextDatabase.text_database_register_text(this.id, true, appended);
+      base.Grant(skipBase);
+    }
   }
 
   public class Resource : Pickup {

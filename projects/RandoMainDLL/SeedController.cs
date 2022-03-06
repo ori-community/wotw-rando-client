@@ -161,6 +161,7 @@ namespace RandoMainDLL {
         Flags.Clear();
         Relic.Reset();
         InterOp.clear_icons();
+        InterOp.TextDatabase.text_database_clear_dynamic();
         string line = "";
         string coordsRaw = "";
         foreach (string rawLine in File.ReadLines(SeedFile)) {
@@ -517,6 +518,16 @@ namespace RandoMainDLL {
                 else {
                   return new Icon(id);
                 }
+              }
+            case SysCommandType.SaveString: {
+                var id = extras[0].ParseToInt("BuildPickup.Id");
+                var text = string.Join("|", extras.Skip(1));
+                return new SaveStringCommand(id, text);
+              }
+            case SysCommandType.AppendString: {
+                var id = extras[0].ParseToInt("BuildPickup.Id");
+                var text = string.Join("|", extras.Skip(1));
+                return new AppendStringCommand(id, text);
               }
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
