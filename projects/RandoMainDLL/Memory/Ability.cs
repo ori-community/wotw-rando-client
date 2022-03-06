@@ -14,10 +14,11 @@ namespace RandoMainDLL.Memory {
     Feather = 14,
     [Description("Water Breath")]
     WaterBreath = 23,
-    [Description("Light Burst")]
+    [Description("Grenade")]
     LightBurst = 51,
     Grapple = 57,
     Flash = 62,
+    [Description("Spear")]
     Spike = 74,
     Regenerate = 77,
     [Description("Bow")]
