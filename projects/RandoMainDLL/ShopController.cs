@@ -84,7 +84,7 @@ namespace RandoMainDLL {
     public static GromSlot HousesC = new GromSlot(40448, "Houses C");
     public static GromSlot RemoveThorns = new GromSlot(18751, "Remove Thorns");
     public static GromSlot OpenCave = new GromSlot(16586, "Open Cave");
-    public static GromSlot Beutify = new GromSlot(15068, "Beutify");
+    public static GromSlot Beutify = new GromSlot(15068, "Beautify");
 
     public static List<GromSlot> GromStore = new List<GromSlot> { SpiritWell, ShardShop, HousesA, HousesB, HousesC, RemoveThorns, OpenCave, Beutify };
 
@@ -260,6 +260,13 @@ namespace RandoMainDLL {
       "Look...",
       "Don't worry about it",
       "I used to give out\ncoupons for these",
+      "Take it, please",
+      "I think Howl coughed\nthis thing up",
+      "Found it in Shriek's um... leavings",
+      "Don't forget to take a picture\nfor social media",
+      "9/10 dentists recommend this",
+      "This one's good luck",
+      "Better than a bowl of Marshclam Soup",
     };
 
     private static Dictionary<AbilityType, int> WepCostOverrides = new Dictionary<AbilityType, int>();
