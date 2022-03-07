@@ -14,7 +14,7 @@ namespace text_database
 
     bool has_text(int id);
     int get_text_count(int id);
-    std::string get_text(int id, int i = 0);
+    std::string_view get_text(int id, int i = 0);
     std::wstring get_text_w(int id, int i = 0);
     std::vector<std::string> const& get_all_text(int id);
     app::MessageProvider* get_provider(int id);
