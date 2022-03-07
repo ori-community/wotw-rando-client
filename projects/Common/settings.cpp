@@ -233,6 +233,15 @@ IniSettings create_randomizer_settings(const std::string& path)
     strcpy_s(option.value.s.data(), option.value.s.size(), "C:\\Program Files (x86)\\Steam\\steam.exe");
     file.options.push_back(option);
 
+    option.name = "URL";
+    strcpy_s(option.value.s.data(), option.value.s.size(), "wotw.orirando.com");
+    file.options.push_back(option);
+
+    option.type = IniVarType::Int;
+    option.name = "UdpPort";
+    option.value.i = 31415;
+    file.options.push_back(option);
+
     option.section = "Flags";
     option.type = IniVarType::Bool;
 
@@ -240,15 +249,11 @@ IniSettings create_randomizer_settings(const std::string& path)
     option.value.b = false;
     file.options.push_back(option);
 
-    option.name = "SkipUpdate";
+    option.name = "Dev";
     option.value.b = false;
     file.options.push_back(option);
 
     option.name = "MuteInjectLogs";
-    option.value.b = false;
-    file.options.push_back(option);
-
-    option.name = "MuteCSLogs";
     option.value.b = false;
     file.options.push_back(option);
 
@@ -260,27 +265,31 @@ IniSettings create_randomizer_settings(const std::string& path)
     option.value.b = false;
     file.options.push_back(option);
 
-    option.name = "CursorLock";
+    option.name = "HideQuestFilter";
     option.value.b = false;
     file.options.push_back(option);
 
-    option.name = "InvertSwim";
+    option.name = "HideWarpFilter";
     option.value.b = false;
     file.options.push_back(option);
 
-    option.name = "DisableQuestFocus";
+    option.name = "AlwaysShowWarps";
     option.value.b = false;
     file.options.push_back(option);
 
-    option.name = "Dev";
+    option.name = "AlwaysShowKeystones";
     option.value.b = false;
     file.options.push_back(option);
 
-    option.name = "TraceEnabled";
+    option.name = "AlwaysShowKeystoneDoors";
     option.value.b = false;
     file.options.push_back(option);
 
-    option.name = "TracePingingDisabled";
+    option.name = "WorldMapEnabled";
+    option.value.b = true;
+    file.options.push_back(option);
+
+    option.name = "GrappleMouseControl";
     option.value.b = false;
     file.options.push_back(option);
 
@@ -292,12 +301,63 @@ IniSettings create_randomizer_settings(const std::string& path)
     option.value.b = false;
     file.options.push_back(option);
 
-    option.name = "GrappleMouseControl";
+    option.name = "DisableNetcode";
+    option.value.b = false;
+    file.options.push_back(option);
+
+    option.name = "LaunchWithTracker";
+    option.value.b = false;
+    file.options.push_back(option);
+
+    option.name = "UseBuiltinTracker";
+    option.value.b = false;
+    file.options.push_back(option);
+
+    option.name = "DisableQuestFocus";
+    option.value.b = false;
+    file.options.push_back(option);
+
+    option.name = "BoringMoney";
     option.value.b = false;
     file.options.push_back(option);
 
     option.name = "WaitForDebugger";
     option.value.b = false;
+    file.options.push_back(option);
+
+    option.name = "InvertSwim";
+    option.value.b = false;
+    file.options.push_back(option);
+
+    option.name = "DisableDebugControls";
+    option.value.b = true;
+    file.options.push_back(option);
+
+    option.name = "CursorLock";
+    option.value.b = false;
+    file.options.push_back(option);
+
+    option.name = "UpdateToPrereleaseVersions";
+    option.value.b = false;
+    file.options.push_back(option);
+
+    option.name = "ShowStatsAfterFinish";
+    option.value.b = true;
+    file.options.push_back(option);
+
+    option.name = "DisableShowSecrets";
+    option.value.b = false;
+    file.options.push_back(option);
+
+    option.name = "DisableAutoAim";
+    option.value.b = false;
+    file.options.push_back(option);
+
+    option.section = "Values";
+    option.type = IniVarType::Float;
+
+    option.name = "MapIconTransparency";
+    option.value.f = 0.25f;
     file.options.push_back(option);
 
     return file;

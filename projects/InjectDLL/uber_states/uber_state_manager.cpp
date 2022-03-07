@@ -70,8 +70,7 @@ namespace uber_states
         IL2CPP_INTERCEPT(Moon, UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection* this_ptr)) {
             if (!initialized)
             {
-                IniSettings settings;
-                settings.path = base_path + "settings.ini";
+                IniSettings settings = create_randomizer_settings(base_path + "settings.ini");
                 load_settings_from_file(settings);
                 std::vector<app::IUberState*> states = {
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "sword", app::AbilityType__Enum_Sword, false),

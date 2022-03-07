@@ -84,7 +84,7 @@ namespace RandoMainDLL {
     public static GromSlot HousesC = new GromSlot(40448, "Houses C");
     public static GromSlot RemoveThorns = new GromSlot(18751, "Remove Thorns");
     public static GromSlot OpenCave = new GromSlot(16586, "Open Cave");
-    public static GromSlot Beutify = new GromSlot(15068, "Beutify");
+    public static GromSlot Beutify = new GromSlot(15068, "Beautify");
 
     public static List<GromSlot> GromStore = new List<GromSlot> { SpiritWell, ShardShop, HousesA, HousesB, HousesC, RemoveThorns, OpenCave, Beutify };
 
@@ -181,46 +181,46 @@ namespace RandoMainDLL {
         if (t == AbilityType.WaterBreath) {
           var pickup = s.Contents;
           if (pickup.NonEmpty)
-            InterOp.Shop.set_opher_item((int)t, 255, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
+            InterOp.Shop.set_opher_item((int)t, 255, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
           else
-            InterOp.Shop.set_opher_item((int)t, 255, UndiscoveredTitle, UndiscoveredDescription, null, UndiscoveredDescription, false, true, false);
+            InterOp.Shop.set_opher_item((int)t, 255, UndiscoveredTitle, UndiscoveredDescription, null, false, true, false);
         }
         else {
           var pickup = s.Contents;
           var i = t == AbilityType.TeleportSpell ? 255 : (int)t;
           if (pickup.NonEmpty)
-            InterOp.Shop.set_opher_item(i, 255, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
+            InterOp.Shop.set_opher_item(i, 255, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
           else
-            InterOp.Shop.set_opher_item(i, 255, UndiscoveredTitle, UndiscoveredDescription, null, UndiscoveredDescription, false, true, false);
+            InterOp.Shop.set_opher_item(i, 255, UndiscoveredTitle, UndiscoveredDescription, null, false, true, false);
         }
       }
       foreach(var s in ShopSlot.OpherUpgrades) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.Shop.set_opher_item(255, (int)s.Weapon, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
+          InterOp.Shop.set_opher_item(255, (int)s.Weapon, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, pickup is Ability a && costsEnergy.Contains(a.type), s.IsLocked, s.IsVisible);
         else
-          InterOp.Shop.set_opher_item(255, (int)s.Weapon, UndiscoveredTitle, UndiscoveredDescription, null, UndiscoveredDescription, false, true, false);
+          InterOp.Shop.set_opher_item(255, (int)s.Weapon, UndiscoveredTitle, UndiscoveredDescription, null, false, true, false);
       }
       foreach (var s in ShopSlot.Twillen) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.Shop.set_twillen_item((int)s.Shard, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), s.IsLocked, s.IsVisible);
+          InterOp.Shop.set_twillen_item((int)s.Shard, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.IsLocked, s.IsVisible);
         else
-          InterOp.Shop.set_twillen_item((int)s.Shard, UndiscoveredTitle, UndiscoveredDescription, null, UndiscoveredDescription, true, false);
+          InterOp.Shop.set_twillen_item((int)s.Shard, UndiscoveredTitle, UndiscoveredDescription, null, true, false);
       }
       foreach (var s in ShopSlot.LupoStore) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.Shop.set_lupo_item(s.State.GroupID, s.State.ID, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), s.IsLocked, s.IsVisible);
+          InterOp.Shop.set_lupo_item(s.State.GroupID, s.State.ID, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.IsLocked, s.IsVisible);
         else
-          InterOp.Shop.set_lupo_item(s.State.GroupID, s.State.ID, UndiscoveredTitle, UndiscoveredDescription, null, UndiscoveredDescription, true, false);
+          InterOp.Shop.set_lupo_item(s.State.GroupID, s.State.ID, UndiscoveredTitle, UndiscoveredDescription, null, true, false);
       }
       foreach (var s in ShopSlot.GromStore) {
         var pickup = s.Contents;
         if (pickup.NonEmpty)
-          InterOp.Shop.set_grom_item(s.State.ID, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.Description ?? pickup.DescOrChatter(), s.IsLocked, s.IsVisible);
+          InterOp.Shop.set_grom_item(s.State.ID, s.Title ?? pickup.ShopName, s.Description ?? pickup.DescOrChatter(), s.Texture, s.IsLocked, s.IsVisible);
         else
-          InterOp.Shop.set_grom_item(s.State.ID, UndiscoveredTitle, UndiscoveredDescription, null, UndiscoveredDescription, true, false);
+          InterOp.Shop.set_grom_item(s.State.ID, UndiscoveredTitle, UndiscoveredDescription, null, true, false);
       }
     }
 
@@ -260,6 +260,13 @@ namespace RandoMainDLL {
       "Look...",
       "Don't worry about it",
       "I used to give out\ncoupons for these",
+      "Take it, please",
+      "I think Howl coughed\nthis thing up",
+      "Found it in Shriek's um... leavings",
+      "Don't forget to take a picture\nfor social media",
+      "9/10 dentists recommend this",
+      "This one's good luck",
+      "Better than a bowl of Marshclam Soup",
     };
 
     private static Dictionary<AbilityType, int> WepCostOverrides = new Dictionary<AbilityType, int>();

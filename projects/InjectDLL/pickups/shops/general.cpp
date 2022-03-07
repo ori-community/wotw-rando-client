@@ -5,6 +5,7 @@
 #include <input/rando_bindings.h>
 #include <uber_states/uber_state_manager.h>
 #include <utils/messaging.h>
+#include <system/text_database.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -114,10 +115,9 @@ namespace
 
         app::MessageProvider* name_provider = nullptr;
         app::MessageProvider* description_provider = nullptr;
-        app::MessageProvider* locked_provider = nullptr;
 
         auto open_shop = shops::get_open_shop();
-        shops::set_providers(open_shop, this_ptr->fields.m_item, name_provider, description_provider, locked_provider);
+        shops::set_providers(open_shop, this_ptr->fields.m_item, name_provider, description_provider);
 
         auto renderer_components = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
         auto* const renderer = renderer_components[0];
@@ -130,24 +130,26 @@ namespace
 
         const auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsVisible")->fields;
         const auto is_locked = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsLocked")->fields;
-        auto* const empty_str = il2cpp::string_new("");
 
-        if (!is_visible)
-        {
-            name_box->fields.MessageProvider = utils::create_message_provider("Unknown");;
-            description_box->fields.MessageProvider = utils::create_message_provider("What could it be?");;
-        }
+        if (name_provider != nullptr)
+            name_box->fields.MessageProvider = name_provider;
+        else if (!is_visible)
+            name_box->fields.MessageProvider = text_database::get_provider(*static_text_entries::Undiscovered);
         else if (is_locked || locked_shop_overwrite)
-        {
-            name_box->fields.MessageProvider = name_provider == nullptr ? this_ptr->fields.LockedName : name_provider;
-            description_box->fields.MessageProvider = locked_provider == nullptr ? this_ptr->fields.LockedDescription : locked_provider;
-        }
+            name_box->fields.MessageProvider = this_ptr->fields.LockedName;
         else
-        {
-            name_box->fields.MessageProvider = name_provider == nullptr ? il2cpp::invoke<app::MessageProvider>(this_ptr->fields.m_item, "get_ItemName") : name_provider;
-            description_box->fields.MessageProvider = description_provider == nullptr ? il2cpp::invoke<app::MessageProvider>(this_ptr->fields.m_item, "get_ItemDescription") : description_provider;
-        }
+            name_box->fields.MessageProvider = il2cpp::invoke<app::MessageProvider>(this_ptr->fields.m_item, "get_ItemName");
 
+        if (description_provider != nullptr)
+            description_box->fields.MessageProvider = description_provider;
+        else if (!is_visible)
+            description_box->fields.MessageProvider = text_database::get_provider(*static_text_entries::UndiscoveredDescription);
+        else if (is_locked || locked_shop_overwrite)
+            description_box->fields.MessageProvider = this_ptr->fields.LockedDescription;
+        else
+            description_box->fields.MessageProvider = il2cpp::invoke<app::MessageProvider>(this_ptr->fields.m_item, "get_ItemDescription");
+
+        auto* const empty_str = il2cpp::string_new("");
         MessageBox::RefreshText(name_box, empty_str, empty_str);
         MessageBox::RefreshText(description_box, empty_str, empty_str);
 
@@ -352,19 +354,19 @@ namespace shops
         return ShopType::None;
     }
 
-    void set_providers(ShopType type, app::ShopkeeperItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider, app::MessageProvider*& locked_provider)
+    void set_providers(ShopType type, app::ShopkeeperItem* item, app::MessageProvider*& name_provider, app::MessageProvider*& description_provider)
     {
         switch (type)
         {
         case ShopType::Opher:
         {
-            set_opher_providers(reinterpret_cast<app::WeaponmasterItem*>(item), name_provider, description_provider, locked_provider);
+            set_opher_providers(reinterpret_cast<app::WeaponmasterItem*>(item), name_provider, description_provider);
             break;
         }
         case ShopType::Grom:
         {
 #if GROM_ENABLED == 1
-            set_grom_providers(reinterpret_cast<app::BuilderItem*>(item), name_provider, description_provider, locked_provider);
+            set_grom_providers(reinterpret_cast<app::BuilderItem*>(item), name_provider, description_provider);
 #endif
             break;
         }
@@ -411,27 +413,23 @@ namespace shops
         return default_texture;
     }
 
-    void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool uses_energy, bool is_locked, bool is_visible)
+    void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, const wchar_t* texture, bool uses_energy, bool is_locked, bool is_visible)
     {
         if (item.name != 0)
             il2cpp::gchandle_free(item.name);
         if (item.description != 0)
             il2cpp::gchandle_free(item.description);
-        if (item.locked != 0)
-            il2cpp::gchandle_free(item.locked);
 
         // TODO: Move below to text_database
         auto* provider = utils::create_message_provider(name);
         item.name = il2cpp::gchandle_new(provider, false);
         provider = utils::create_message_provider(description);
         item.description = il2cpp::gchandle_new(provider, false);
-        provider = utils::create_message_provider(locked);
         if (texture == nullptr)
             item.texture_data = nullptr;
         else if (item.texture_data == nullptr || item.texture_data->get_path() != texture)
             item.texture_data = textures::get_texture(texture);
 
-        item.locked = il2cpp::gchandle_new(provider, false);
         item.uses_energy = uses_energy;
         item.is_locked = is_locked;
         item.is_visible = is_visible;

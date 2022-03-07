@@ -183,20 +183,27 @@ namespace
 
         if (it != lupo_overrides.end())
         {
-            if (!it->second.is_visible)
-            {
-                name = text_database::get_provider(*static_text_entries::Undiscovered);
-                description = text_database::get_provider(*static_text_entries::UndiscoveredDescription);
-            }
-            else if (it->second.is_locked)
-            {
+            if (it->second.name != 0)
                 name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-                description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
-            }
-            else
-            {
-                name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
+            if (it->second.description != 0)
                 description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
+
+            if (!il2cpp::unity::is_valid(name))
+            {
+                if (!it->second.is_visible)
+                    name = text_database::get_provider(*static_text_entries::Undiscovered);
+                else if (it->second.is_locked)
+                    name = text_database::get_provider(*static_text_entries::Locked);
+                else
+                    name = text_database::get_provider(*static_text_entries::Empty);
+            }
+
+            if (!il2cpp::unity::is_valid(description))
+            {
+                if (!it->second.is_visible)
+                    description = text_database::get_provider(*static_text_entries::UndiscoveredDescription);
+                else
+                    description = text_database::get_provider(*static_text_entries::Empty);
             }
         }
         else
@@ -235,21 +242,27 @@ namespace
 
         if (it != lupo_overrides.end())
         {
-            if (!is_visible)
-            {
-                item->fields.Name = text_database::get_provider(*static_text_entries::Undiscovered);
-                item->fields.Description = text_database::get_provider(*static_text_entries::UndiscoveredDescription);
-            }
-            // TODO: Move below to text_database
-            else if (is_locked)
-            {
+            if (it->second.name != 0)
                 item->fields.Name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-                item->fields.Description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked));
-            }
-            else
-            {
-                item->fields.Name = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
+            if (it->second.description != 0)
                 item->fields.Description = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
+
+            if (il2cpp::unity::is_valid(item->fields.Name))
+            {
+                if (!is_visible)
+                    item->fields.Name = text_database::get_provider(*static_text_entries::Undiscovered);
+                else if (is_locked)
+                    item->fields.Name = text_database::get_provider(*static_text_entries::Locked);
+                else
+                    item->fields.Name = text_database::get_provider(*static_text_entries::Empty);
+            }
+
+            if (il2cpp::unity::is_valid(item->fields.Description))
+            {
+                if (!is_visible)
+                    item->fields.Description = text_database::get_provider(*static_text_entries::UndiscoveredDescription);
+                else
+                    item->fields.Description = text_database::get_provider(*static_text_entries::Empty);
             }
         }
 
@@ -292,10 +305,10 @@ namespace shops
     }
 }
 
-INJECT_C_DLLEXPORT void set_lupo_item(int group_id, int state_id, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool is_locked, bool is_visible)
+INJECT_C_DLLEXPORT void set_lupo_item(int group_id, int state_id, const wchar_t* name, const wchar_t* description, const wchar_t* texture, bool is_locked, bool is_visible)
 {
     const auto key = static_cast<uint64_t>(group_id & 0xFFFFFFFF) | (static_cast<uint64_t>(state_id & 0xFFFFFFFF) << 8);
     const auto it = lupo_overrides.find(key);
     auto& item = lupo_overrides[key];
-    set_item(item, name, description, texture, locked, false, is_locked, is_visible);
+    set_item(item, name, description, texture, false, is_locked, is_visible);
 }

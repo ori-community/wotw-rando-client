@@ -121,7 +121,6 @@ namespace
     IL2CPP_INTERCEPT(, SpiritShardUIShardDetails, void, UpdateDetails, (app::SpiritShardUIShardDetails* this_ptr)) {
         app::MessageProvider* name_provider = nullptr;
         app::MessageProvider* description_provider = nullptr;
-        app::MessageProvider* locked_provider = nullptr;
 
         auto* const item = overwrite_shard ? selected_shard : this_ptr->fields.m_item;
         auto type = item->fields.m_type;
@@ -130,20 +129,32 @@ namespace
         {
             if (it != twillen_overrides.end())
             {
-                name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
-                description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
-                locked_provider = it->second.is_visible
-                    ? reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.locked))
-                    : text_database::get_provider(*static_text_entries::UndiscoveredDescription);
+                if (it->second.name != 0)
+                    name_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.name));
+                if (it->second.description != 0)
+                    description_provider = reinterpret_cast<app::MessageProvider*>(il2cpp::gchandle_target(it->second.description));
             }
             else
-            {
-                name_provider = text_database::get_provider(*static_text_entries::EmptyName);
-                description_provider = text_database::get_provider(*static_text_entries::Empty);
-                locked_provider = it->second.is_visible
-                    ? text_database::get_provider(*static_text_entries::Locked)
-                    : text_database::get_provider(*static_text_entries::UndiscoveredDescription);
                 type = app::SpiritShardType__Enum_None;
+
+            auto is_visible = PlayerUberStateShards::Shard::get_VisibleInShop_intercept(item);
+            auto is_locked = PlayerUberStateShards::Shard::get_PurchasableInShop(item);
+            if (!il2cpp::unity::is_valid(name_provider))
+            {
+                if (!is_visible)
+                    name_provider = text_database::get_provider(*static_text_entries::Undiscovered);
+                else if (is_locked)
+                    name_provider = text_database::get_provider(*static_text_entries::Locked);
+                else
+                    name_provider = text_database::get_provider(*static_text_entries::EmptyName);
+            }
+
+            if (!il2cpp::unity::is_valid(description_provider))
+            {
+                if (!is_visible)
+                    name_provider = text_database::get_provider(*static_text_entries::UndiscoveredDescription);
+                else
+                    name_provider = text_database::get_provider(*static_text_entries::Empty);
             }
         }
 
@@ -186,10 +197,15 @@ namespace
             message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.DescriptionGO, "", "MessageBox");
             auto* const description_box = message_box_components[0];
 
-            if (type == 0)
+            if (overwrite_shard)
+            {
+                name_box->fields.MessageProvider = name_provider;
+                description_box->fields.MessageProvider = description_provider;
+            }
+            else if (type == 0)
             {
                 name_box->fields.MessageProvider = this_ptr->fields.LockedName;
-                description_box->fields.MessageProvider = locked_provider == nullptr ? this_ptr->fields.LockedDescription : locked_provider;
+                description_box->fields.MessageProvider = this_ptr->fields.LockedDescription;
             }
             else
             {
@@ -335,9 +351,9 @@ namespace shops
     }
 }
 
-INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* texture, const wchar_t* locked, bool is_locked, bool is_visible)
+INJECT_C_DLLEXPORT void set_twillen_item(int shard, const wchar_t* name, const wchar_t* description, const wchar_t* texture, bool is_locked, bool is_visible)
 {
     const auto key = static_cast<uint8_t>(shard);
     auto& item = twillen_overrides[key];
-    set_item(item, name, description, texture, locked, false, is_locked, is_visible);
+    set_item(item, name, description, texture, false, is_locked, is_visible);
 }

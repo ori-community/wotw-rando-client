@@ -71,6 +71,8 @@ namespace RandoMainDLL {
     GrantIfCondGreater = 26,
     GrantIfCondLess = 27,
     Unbind = 28,
+    SaveString = 29,
+    AppendString = 30,
   }
 
   public enum WheelCommandType : byte {
@@ -342,9 +344,26 @@ namespace RandoMainDLL {
     private static readonly Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,;]([0-9]+)[\|,;]?([a-z]*)?\)", RegexOptions.Compiled);
     private static readonly Regex nameFrag = new Regex(@"\$\[([0-9]+)[\|,;](.*?)\]", RegexOptions.Compiled);
     private static readonly Regex uberNameFrag = new Regex(@"\$\[\(([0-9]+)\|(.*?)\)\]", RegexOptions.Compiled);
+    private static readonly Regex dbStringFrag = new Regex(@"\$\{([0-9]+)}", RegexOptions.Compiled);
     private static readonly Func<double, String> secToStr = (double sec) => (sec < 3600) ? TimeSpan.FromSeconds(sec).ToString(@"mm\:ss\.f") : TimeSpan.FromSeconds(sec).ToString(@"hh\:mm\:ss\.f");
     public override string DisplayName { get {
-        var withUberNameRepl = uberNameFrag.Replace(MessageStr, (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup().DisplayName);
+        var withDbStringRepl = MessageStr;
+        bool isMatch;
+        do {
+          isMatch = false;
+          withDbStringRepl = dbStringFrag.Replace(withDbStringRepl, (Match m) => {
+            isMatch = true;
+            var id = m.Groups[1].Value.ParseToInt("databaseStringId");
+            if (!InterOp.TextDatabase.text_database_has_text(id, true)) {
+              Randomizer.Warn("MessageDisplay", $"No entry in text database found for {{{id}}}");
+              return "";
+            }
+            var text = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.TextDatabase.text_database_get_text(id, true));
+            return text;
+          });
+        } while (isMatch);
+
+        var withUberNameRepl = uberNameFrag.Replace(withDbStringRepl, (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup().DisplayName);
         var withStateRepl = uberMsg.Replace(withUberNameRepl, (Match m) => {
         var uid = new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt());
         switch (m.Groups.Count > 3 ? m.Groups[3].Value : "") {
@@ -534,7 +553,7 @@ namespace RandoMainDLL {
       "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", "EXP",
       "Experience", "XP", "Gil", "GP", "Dollars", "Tokens", "Tickets",
       "Pounds Sterling", "Brownie Points", "Euros", "Credits", "Bells", "Fish",
-      "Zenny", "Pesos", "Exalted Orbs", "Poké", "Glod", "Dollerydoos",
+      "Zenny", "Pesos", "Hryvnia", "Poké", "Glod", "Dollerydoos",
       "Boonbucks", "Pieces of Eight", "Shillings", "Farthings", "Kalganids",
       "Quatloos", "Etherium", "Dogecoin", "Crowns", "Solari", "Widgets",
       "Money", "Cash", "BTC", "Munny", "Nuyen", "Rings", "Rupees", "Coins",
@@ -928,6 +947,42 @@ namespace RandoMainDLL {
     public override string DisplayName { get => ""; }
   }
 
+  public class SaveStringCommand : SystemCommand {
+    private readonly int id;
+    private readonly string text;
+
+    public SaveStringCommand(int id, string text) : base(SysCommandType.SaveString) {
+      this.id = id;
+      this.text = text;
+    }
+    public override void Grant(bool skipBase = false) {
+      InterOp.TextDatabase.text_database_clear_text(this.id, true);
+      InterOp.TextDatabase.text_database_register_text(this.id, true, this.text);
+      base.Grant(skipBase);
+    }
+  }
+  public class AppendStringCommand : SystemCommand {
+    private readonly int id;
+    private readonly string text;
+
+    public AppendStringCommand(int id, string text) : base(SysCommandType.SaveString) {
+      this.id = id;
+      this.text = text;
+    }
+    public override void Grant(bool skipBase = false) {
+      string appended;
+      if (InterOp.TextDatabase.text_database_has_text(this.id, true)) {
+        var existing = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.TextDatabase.text_database_get_text(this.id, true));
+        appended = existing + this.text;
+        InterOp.TextDatabase.text_database_clear_text(this.id, true);
+      } else {
+        appended = this.text;
+      }
+      InterOp.TextDatabase.text_database_register_text(this.id, true, appended);
+      base.Grant(skipBase);
+    }
+  }
+
   public class Resource : Pickup {
     public Resource(ResourceType resource) => type = resource;
 
@@ -1082,18 +1137,18 @@ namespace RandoMainDLL {
       new WeaponUpgrade(WeaponUpgradeType.RapidSmash, AbilityType.SpiritSmash, "Rapid Smash", "*Hammer* attacks are 25% faster"),
       new WeaponUpgrade(WeaponUpgradeType.RapidSword, AbilityType.SpiritEdge, "Rapid Sword", "*Sword* attacks are 25% faster"),
       new WeaponUpgrade(WeaponUpgradeType.BlazeEfficiency, AbilityType.Blaze, "Blaze Efficiency", "*Blaze* costs 50% less energy"),
-      new WeaponUpgrade(WeaponUpgradeType.SpikeEfficiency, AbilityType.Spike, "Spike Efficiency", "*Spike* costs 50% less energy"),
-      new WeaponUpgrade(WeaponUpgradeType.StarEfficiency, AbilityType.SpiritStar, "Star Efficiency", "*Shuriken* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.SpikeEfficiency, AbilityType.Spike, "Spear Efficiency", "*Spear* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.StarEfficiency, AbilityType.SpiritStar, "Shuriken Efficiency", "*Shuriken* costs 50% less energy"),
       new WeaponUpgrade(WeaponUpgradeType.SentryEfficiency, AbilityType.Sentry, "Sentry Efficiency", "*Sentry* costs 50% less energy"),
-      new WeaponUpgrade(WeaponUpgradeType.BowEfficiency, AbilityType.SpiritArc, "Bow Efficiency", "*Spirit Arc* costs 50% less energy"),
-      new WeaponUpgrade(WeaponUpgradeType.RegenerationEfficiency, AbilityType.Regenerate, "Regen Efficiency", "*Regenerate* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.BowEfficiency, AbilityType.SpiritArc, "Bow Efficiency", "*Bow* costs 50% less energy"),
+      new WeaponUpgrade(WeaponUpgradeType.RegenerationEfficiency, AbilityType.Regenerate, "Regenerate Efficiency", "*Regenerate* costs 50% less energy"),
       new WeaponUpgrade(WeaponUpgradeType.FlashEfficiency, AbilityType.Flash, "Flash Efficiency", "*Flash* uses 50% less energy"),
       new WeaponUpgrade(WeaponUpgradeType.LightBurstEfficiency, AbilityType.LightBurst, "Grenade Efficiency", "*Grenade* costs 50% less energy"),
       new WeaponUpgrade(WeaponUpgradeType.ShockSmash, AbilityType.SpiritSmash, "Shock Smash", "Drop attacks with *Hammer* create a shockwave"),
       new WeaponUpgrade(WeaponUpgradeType.StaticStar, AbilityType.SpiritStar, "Static Star", "Tap to pause the *Shuriken*'s flight and spin it in place"),
       new WeaponUpgrade(WeaponUpgradeType.RapidSentry, AbilityType.Sentry, "Sentry Speed", "Doubles *Sentry* attack speed"),
       new WeaponUpgrade(WeaponUpgradeType.ChargeBlaze, AbilityType.Blaze, "Charge Blaze", "Charge up *Blaze* to damage and set all enemies in sight on fire"),
-      new WeaponUpgrade(WeaponUpgradeType.ExplodingSpike, AbilityType.Spike, "Exploding Spike", "*Spike* explodes on hit"),
+      new WeaponUpgrade(WeaponUpgradeType.ExplodingSpike, AbilityType.Spike, "Exploding Spike", "*Spear* explodes on hit"),
     }.ToDictionary(e => e.Id, e => e);
   }
 
