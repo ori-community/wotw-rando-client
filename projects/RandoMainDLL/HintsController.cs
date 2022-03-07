@@ -77,15 +77,14 @@ namespace RandoMainDLL {
     public static void ProgressWithHints(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
       var zone = _zone == ZoneType.Void ? StatsTracking.CurrentZone : _zone;
       var pp = new UberId(13, (int)zone).toCond().Pickup();
+      int duration = justUnlocked ? 300 : 240;
       if (pp.NonEmpty) {
-        pp.Grant();
+        Msg.SendPlainText(new PlainText(pp.DisplayName, duration, pp.Pos, pp.Clear, pp.Immediate, pp.Quiet), justUnlocked);
         return;
       }
       if (InterOp.Utils.get_game_state() != GameState.Game) {
-        if (!justUnlocked) {
-          int duration = justUnlocked ? 300 : 240;
+        if (!justUnlocked)
           Msg.SendPlainText(new PlainText(SeedController.Progress, duration), justUnlocked);
-        }
         return;
       }
     }
