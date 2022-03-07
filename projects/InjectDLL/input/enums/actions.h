@@ -75,7 +75,7 @@ namespace input
         ForceExit,
 
         // Passthrough actions. Used by the Launcher
-        ToggleBingoBoardVisibility,
+        ToggleBingoBoardOverlay,
 
         TOTAL
     };
@@ -141,6 +141,6 @@ namespace input
         { Action::UnlockSpoilers, "UnlockSpoilers" },
         { Action::TogglePickupNamesOnSpoiler, "TogglePickupNamesOnSpoiler" },
         { Action::ForceExit, "ForceExit" },
-        { Action::ToggleBingoBoardVisibility, "ToggleBingoBoardVisibility" },
+        { Action::ToggleBingoBoardOverlay, "ToggleBingoBoardOverlay" },
     });
 }
