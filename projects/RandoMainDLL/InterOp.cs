@@ -22,6 +22,8 @@ namespace RandoMainDLL {
       public extern static void text_database_clear_text(int id, bool dynamic);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void text_database_clear_dynamic();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void text_database_reset_static();
     }
 
     public static class Messaging {

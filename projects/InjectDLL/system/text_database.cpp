@@ -103,14 +103,15 @@ namespace text_database
         return entry.text.size();
     }
 
-    std::string& get_text(int id, int i)
+    std::string_view get_text(int id, int i)
     {
         auto& entry = text_entries[id];
         return entry.text.at(i);
     }
 
-    std::wstring& get_text_w(int id, int i)
+    std::wstring get_text_w(int id, int i)
     {
+        // Can't return a wstring_view here as we are converting the data so it would get destroyed as we returned.
         auto& entry = text_entries[id];
         return convert_string_to_wstring(entry.text.at(i));
     }
@@ -164,8 +165,8 @@ INJECT_C_DLLEXPORT const char* text_database_get_text(int id, bool dynamic)
         modloader::warn("text_database", "calling get_text with dynamic=false and a dynamic id.");
 
     id = dynamic ? text_database::get_index_from_dynamic(id) : id;
-    std::string& text = text_database::get_text(id);
-    return text.c_str();
+    auto text = text_database::get_text(id);
+    return text.data();
 }
 
 INJECT_C_DLLEXPORT void text_database_clear_text(int id, bool dynamic)
@@ -175,6 +176,14 @@ INJECT_C_DLLEXPORT void text_database_clear_text(int id, bool dynamic)
 
     id = dynamic ? text_database::get_index_from_dynamic(id) : id;
     text_database::clear_text(id);
+}
+
+INJECT_C_DLLEXPORT void text_database_reset_static()
+{
+    for (auto i = 0; i < *text_database::StaticTextEntries::TOTAL; ++i)
+        text_database::clear_text(i);
+
+    text_database::initialize();
 }
 
 INJECT_C_DLLEXPORT void text_database_clear_dynamic()
