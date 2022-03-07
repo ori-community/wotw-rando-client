@@ -2,6 +2,7 @@
 
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Common/ext.h>
 
 using namespace modloader;
 
@@ -40,30 +41,19 @@ namespace
 
         return aim_timer > 0.0f;
     }
+}
 
-    IL2CPP_INTERCEPT(, CharacterAirNoDeceleration, void, UpdateCharacterState, (app::CharacterAirNoDeceleration* this_ptr)) {
-        auto* platform_behaviour = this_ptr->fields.PlatformBehaviour;
-        auto* platform_movement = platform_behaviour->fields.PlatformMovement;
-        if (!il2cpp::invoke<app::Boolean__Boxed>(platform_movement, "get_IsSuspended")->fields)
-        {
-            if (il2cpp::invoke<app::Boolean__Boxed>(platform_movement, "get_IsOnGround")->fields)
-                this_ptr->fields.m_noDeceleration = false;
+void handle_launch_no_deceleration(app::CharacterAirNoDeceleration* this_ptr)
+{
+    auto* left_right_movement = this_ptr->fields.PlatformBehaviour->fields.LeftRightMovement;
+    if (!left_right_movement->fields.m_settings->fields.LockInput &&
+        !is_aiming_launch(this_ptr) &&
+        !eps_equals(left_right_movement->fields.m_horizontalInput, 0.0f))
+    {
+        if (this_ptr->fields.m_noDeceleration)
+            reset_timer = NO_AIR_DECELERATION_RESET_DURATION;
 
-            if (0.00000000 <= il2cpp::invoke<app::Single__Boxed>(platform_movement, "get_LocalSpeedY")->fields &&
-                platform_movement->fields._.Ceiling->fields.IsOn)
-                this_ptr->fields.m_noDeceleration = false;
-
-            auto* left_right_movement = platform_behaviour->fields.LeftRightMovement;
-            if (!left_right_movement->fields.m_settings->fields.LockInput &&
-                !is_aiming_launch(this_ptr) &&
-                left_right_movement->fields.m_horizontalInput != 0.0)
-            {
-                if (this_ptr->fields.m_noDeceleration)
-                    reset_timer = NO_AIR_DECELERATION_RESET_DURATION;
-
-                this_ptr->fields.m_noDeceleration = false;
-            }
-        }
+        this_ptr->fields.m_noDeceleration = false;
     }
 }
 

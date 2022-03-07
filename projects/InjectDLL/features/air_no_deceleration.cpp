@@ -6,6 +6,8 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 
+extern void handle_launch_no_deceleration(app::CharacterAirNoDeceleration* this_ptr);
+
 namespace
 {
     bool toggle_default = false;
@@ -26,13 +28,26 @@ namespace
                 && platform_movement->fields._.Ceiling->fields.IsOn)
                 this_ptr->fields.m_noDeceleration = false;
 
-            auto left_right_movement = this_ptr->fields.PlatformBehaviour->fields.LeftRightMovement;
-            if (!left_right_movement->fields.m_settings->fields.LockInput && !eps_equals(left_right_movement->fields.m_horizontalInput, 0.0f))
-                this_ptr->fields.m_noDeceleration = false;
+            handle_launch_no_deceleration(this_ptr);
 
             auto value = uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, FORCE_AIR_NO_DECELERATION_ID);
             if (value > 0.5)
                 this_ptr->fields.m_noDeceleration = value < 1.5;
+        }
+    }
+
+    IL2CPP_INTERCEPT(, CharacterAirNoDeceleration, void, UpdateCharacterState, (app::CharacterAirNoDeceleration* this_ptr)) {
+
+
+        auto* left_right_movement = platform_behaviour->fields.LeftRightMovement;
+        if (!left_right_movement->fields.m_settings->fields.LockInput &&
+            !is_aiming_launch(this_ptr) &&
+            left_right_movement->fields.m_horizontalInput != 0.0)
+        {
+            if (this_ptr->fields.m_noDeceleration)
+                reset_timer = NO_AIR_DECELERATION_RESET_DURATION;
+
+            this_ptr->fields.m_noDeceleration = false;
         }
     }
 }
