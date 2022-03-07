@@ -35,19 +35,4 @@ namespace
                 this_ptr->fields.m_noDeceleration = value < 1.5;
         }
     }
-
-    IL2CPP_INTERCEPT(, CharacterAirNoDeceleration, void, UpdateCharacterState, (app::CharacterAirNoDeceleration* this_ptr)) {
-
-
-        auto* left_right_movement = platform_behaviour->fields.LeftRightMovement;
-        if (!left_right_movement->fields.m_settings->fields.LockInput &&
-            !is_aiming_launch(this_ptr) &&
-            left_right_movement->fields.m_horizontalInput != 0.0)
-        {
-            if (this_ptr->fields.m_noDeceleration)
-                reset_timer = NO_AIR_DECELERATION_RESET_DURATION;
-
-            this_ptr->fields.m_noDeceleration = false;
-        }
-    }
 }
