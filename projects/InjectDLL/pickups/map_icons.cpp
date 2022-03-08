@@ -816,14 +816,9 @@ namespace
 
             auto it = spoiler_states.find(stringify_guid(icon->fields.Guid));
             if (it != spoiler_states.end())
-            {
-                const auto value = uber_states::get_uber_state_value(it->second.group_id, it->second.state_id);
-                // Hide pickups that have been collected.
-                const auto compare = it->second.value < 0 ? 1.f : it->second.value;
-                return value < compare ? FilterResult::ShowTransparent : FilterResult::Show;
-            }
+                return FilterResult::Show;
 
-            return FilterResult::Show;
+            return FilterResult::Hide;
         }
         else if (filter == NewFilters::InLogic)
         {

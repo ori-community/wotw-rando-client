@@ -143,9 +143,12 @@ namespace RandoMainDLL {
           PsuedoLocs.BINDING_FIVE.OnCollect();
           break;
         case Action.UnlockSpoilers:
-          if (SeedController.Settings.RaceMode) return; // no cheat
+          if (SeedController.Settings.RaceMode) {
+            Msg.Print("Not allowed in race mode.", toMessageLog: false);
+            return; // no cheat
+          }
           UberSet.Bool(GameComplete, true);
-          Msg.Print("spoiler unlocked", toMessageLog: false);
+          Msg.Print("Spoiler unlocked", toMessageLog: false);
           break;
         case Action.TeleportCheat:
           if (SeedController.Settings.RaceMode) return; // no cheat
