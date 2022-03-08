@@ -122,6 +122,13 @@ namespace input
             return true;
         }
 
+        IL2CPP_INTERCEPT(, SavePedestalController, void, BeginTeleportation, (app::SavePedestalController* this_ptr, app::Vector2* teleport_target_world_position)) {
+            auto player_input = il2cpp::get_class<app::PlayerInput__Class>("", "PlayerInput")->static_fields->Instance;
+            auto prev = player_input->fields.Active;
+            SavePedestalController::BeginTeleportation(this_ptr, teleport_target_world_position);
+            player_input->fields.Active = prev;
+        }
+
         IL2CPP_INTERCEPT(, PlayerInput, void, RefreshControls, (app::PlayerInput* this_ptr)) {
             PlayerInput::RefreshControls(this_ptr);
             refresh_controller_controls();
