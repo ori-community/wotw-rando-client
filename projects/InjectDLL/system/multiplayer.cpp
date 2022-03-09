@@ -320,6 +320,7 @@ INJECT_C_DLLEXPORT void remove_player(const wchar_t* id)
         auto player_it = multiplayer::players.begin() + it->second;
         multiplayer::destroy_avatar(*player_it);
         multiplayer::player_avatar_map.erase(player_it->avatar_id);
+        multiplayer::player_map.erase(player_it->name);
         player_it = multiplayer::players.erase(multiplayer::players.begin() + it->second);
         for (; player_it != multiplayer::players.end(); ++player_it)
         {
