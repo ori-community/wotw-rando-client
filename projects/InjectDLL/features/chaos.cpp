@@ -41,7 +41,7 @@ namespace
     {
         if (chaos_text_box_id < 0)
         {
-            chaos_text_box_id = get_free_id();
+            chaos_text_box_id = reserve_id();
             text_box_create(chaos_text_box_id, 0.25f, 0.25f, false, false);
             text_box_position(chaos_text_box_id, 0.0f, 1.0f, 0.0f);
         }
