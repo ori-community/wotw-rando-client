@@ -143,7 +143,7 @@ namespace RandoMainDLL {
           break;
         case Action.UnlockSpoilers:
           if (SeedController.Settings.RaceMode) {
-            Msg.Print("Not allowed in race mode.", toMessageLog: false);
+            MessageController.ShowSingleMessage("Not allowed in race mode.", list: ListType.Wheel);
             return; // no cheat
           }
           UberSet.Bool(GameComplete, true);
