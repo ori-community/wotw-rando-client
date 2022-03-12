@@ -290,7 +290,7 @@ namespace RandoMainDLL {
           return;
 
         var oldValFmt = old.FmtVal(state.Type); // get this now because we overwrite the value by reference 
-        if (ShouldRevert(state)) {
+        if (ShouldRevert(state, old)) {
           Randomizer.Log($"Reverting state change of {state.Name} from {oldValFmt} to {state.FmtVal()}", false);
           oldState.Write();
           return;
@@ -399,6 +399,9 @@ namespace RandoMainDLL {
           }
         }
       },
+      { new UberId(37858, 12379), // wellspring escape complete
+        (UberState state) => UberSet.Int(937, 34641, 3) // kwolokGroupDescriptor.cleanseWellspringQuestUberState
+      },
       {
         new UberId(14019, 48794),
         (UberState state) => {
@@ -478,10 +481,10 @@ namespace RandoMainDLL {
       if (SeedController.Flags.Contains(Flag.ALLWISPS))
         HintsController.ProgressWithHints();
     }
-    private static bool ShouldRevert(UberState state) {
+    private static bool ShouldRevert(UberState state, UberValue old) {
       if (NeedsNewGameInit || SkipListeners)
         return false;
-      if (state.GroupID == 937 && state.ID == 34641 && state.Value.Int < 2 && !AHK.IniFlag("ShowShortCutscenes"))
+      if (state.GroupID == 937 && state.ID == 34641 && state.Value.Int < old.Int)
         return true;
       // questUberStateGroup.findKuQuest
       else if (state.GroupID == 14019 && state.ID == 34504 && state.Value.Int < 4)
