@@ -45,7 +45,7 @@ namespace
         { std::make_pair(app::GameWorldAreaID__Enum_WindsweptWastes, 6092), std::make_pair(1992, -3900) },  // East Wastes
         { std::make_pair(app::GameWorldAreaID__Enum_WindsweptWastes, 6119), std::make_pair(2043, -3677) },  // Outer Ruins
         { std::make_pair(app::GameWorldAreaID__Enum_WindtornRuins, 5448), std::make_pair(2130, -3982) },    // Ruins
-        { std::make_pair(app::GameWorldAreaID__Enum_LumaPools, 6073), std::make_pair(-1316, -4151) },       // East Pools
+        //{ std::make_pair(app::GameWorldAreaID__Enum_LumaPools, 6073), std::make_pair(-1316, -4151) },       // East Pools
         { std::make_pair(app::GameWorldAreaID__Enum_LumaPools, 6148), std::make_pair(-1656, -4168) },       // West Pools
         { std::make_pair(app::GameWorldAreaID__Enum_WillowsEnd, 6124), std::make_pair(421, -3862) },        // Willow
     };
