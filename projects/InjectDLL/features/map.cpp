@@ -43,17 +43,6 @@ namespace
         return il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
     }
 
-    void set_lupo_price(app::GameWorldAreaID__Enum area, int32_t price)
-    {
-        auto game_world = get_game_world();
-        auto* gw_area = GameWorld::GetArea(game_world, area);
-        if (gw_area != nullptr)
-        {
-            gw_area->fields.LupoData.AreaMapSpiritLevelCost = price;
-            gw_area->fields.LupoDataOnCondition.AreaMapSpiritLevelCost = price;
-        }
-    }
-
     IL2CPP_BINDING(, GameWorld, app::GameWorldArea*, GetArea, (app::GameWorld* thisPtr, app::GameWorldAreaID__Enum areaID))
     IL2CPP_BINDING(, GameWorld, app::RuntimeGameWorldArea*, FindRuntimeArea, (app::GameWorld* thisPtr, app::GameWorldArea* area));
     IL2CPP_BINDING(, RuntimeGameWorldArea, void, DiscoverAllAreas, (app::RuntimeGameWorldArea* thisPtr));
