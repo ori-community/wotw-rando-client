@@ -745,11 +745,11 @@ namespace RandoMainDLL {
     public override void Grant(bool skipBase = false) {
       switch (type) {
         case SysCommandType.CreateWarp:
-          InterOp.add_icon(AreaType.InkwaterMarsh, id, WorldMapIconType.SavePedestal, x, y, -1, -1, true);
-          InterOp.set_icon_label(AreaType.InkwaterMarsh, id, label);
+          InterOp.Map.add_icon(AreaType.InkwaterMarsh, id, WorldMapIconType.SavePedestal, x, y, -1, -1, true);
+          InterOp.Map.set_icon_label(AreaType.InkwaterMarsh, id, label);
           break;
         case SysCommandType.DestroyWarp:
-          InterOp.remove_icon(AreaType.InkwaterMarsh, id);
+          InterOp.Map.remove_icon(AreaType.InkwaterMarsh, id);
           break;
       }
       base.Grant(skipBase);

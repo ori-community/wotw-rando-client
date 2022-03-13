@@ -31,7 +31,7 @@ namespace RandoMainDLL {
 
     public static HashSet<ZoneType> RelicZones { get => Counts.Where(a => a.Value > 0).Select(a => a.Key).ToHashSet(); }
 
-    public static ZoneType CurrentZone { get => InterOp.get_player_area().toZone(); }
+    public static ZoneType CurrentZone { get => InterOp.Map.get_player_area().toZone(); }
 
     public static String MapMessage(ZoneType zone) {
       var rzs = RelicZones;

@@ -160,7 +160,7 @@ namespace RandoMainDLL {
         TimerList.Clear();
         Flags.Clear();
         Relic.Reset();
-        InterOp.clear_icons();
+        InterOp.Map.clear_icons();
         InterOp.TextDatabase.text_database_clear_dynamic();
         string line = "";
         string coordsRaw = "";

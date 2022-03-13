@@ -41,7 +41,7 @@ namespace RandoMainDLL {
     public static ZoneType CurrentZone {
       get {
         try {
-          return InterOp.get_player_area().toZone();
+          return InterOp.Map.get_player_area().toZone();
         }
         catch (Exception e) {
           Randomizer.Error("Hints.CurrentZone", e, false);

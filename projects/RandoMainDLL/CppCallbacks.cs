@@ -170,6 +170,10 @@ namespace RandoMainDLL {
             CallbackName = "on_map_tp_active"
           },
           new Method() {
+            Delegate = new f_void_tp(UberStateController.FoundTP),
+            CallbackName = "on_found_tp"
+          },
+          new Method() {
             Delegate = new f_void_str_dt(StatsTracking.OnKill),
             CallbackName = "on_enemy_death"
           },
@@ -241,6 +245,7 @@ namespace RandoMainDLL {
     public delegate void f_void_st(ShardType st);
     public delegate void f_void_st_int_int(ShardType t, int l, int s);
     public delegate void f_void_gwa(AreaType at);
+    public delegate void f_void_tp(TeleporterType t);
     public delegate bool f_bool();
     public delegate bool f_bool_at(AbilityType at);
     public delegate bool f_bool_int(int i);

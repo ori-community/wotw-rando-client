@@ -73,6 +73,14 @@ namespace RandoMainDLL {
       PsuedoLocs.ON_TELEPORT.OnCollect();
     }
 
+    public static void FoundTP(TeleporterType type) {
+      // If water is not lowered don't grant.
+      if (type == TeleporterType.EastPools && !UberGet.Bool(5377, 63173))
+        return;
+
+      GrantOnNextUpdate.Add(type);
+    }
+    
     public static void MapTPActivated(float x, float y) {
       if (TPsByPos.TryGetValue(Tuple.Create((int)Math.Truncate(x), (int)Math.Truncate(y)), out var tpt))
         GrantOnNextUpdate.Add(tpt);
@@ -318,7 +326,7 @@ namespace RandoMainDLL {
         BonusItemController.OnUberState(state);
         var zone = ZoneType.Void;
         if (InterOp.Utils.get_game_state() == GameState.Game)
-          zone = InterOp.get_player_area().toZone();
+          zone = InterOp.Map.get_player_area().toZone();
 
         if (shouldLogStateChange(state, found)) {
           var pos = InterOp.get_position();
@@ -435,6 +443,13 @@ namespace RandoMainDLL {
             UberSet.Byte(16155, 12971, 4);
         }
       },
+      {
+        new UberId(5377, 63173),
+        (UberState state) => {
+          if (state.Value.Bool && InterOp.Map.is_visited(AreaType.LumaPools, 6073))
+            TeleporterType.EastPools.p().Grant();
+        }
+      },
     };
 
     public static AbilityType GetAbilityType(this UberState state) {
@@ -511,7 +526,7 @@ namespace RandoMainDLL {
         if (!AHK.IniFlag("ShowLongCutscenes"))
           foreach (UberState s in LongCutscenes) { s.Write(); }
 
-        InterOp.discover_everything();
+        InterOp.Map.discover_everything();
         if (SeedController.Settings.LegacySeedgen && !SeedController.Flags.Contains(Flag.NOSWORD)) {
           SaveController.SetAbility(AbilityType.SpiritEdge);
           var slotRaw = AHK.IniString("Misc", "SpawnSlot");

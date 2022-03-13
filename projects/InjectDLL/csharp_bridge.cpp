@@ -48,6 +48,7 @@ namespace csharp_bridge
     signatures::f_void_int_int_byte_double_double on_uber_state_applied = nullptr;
     signatures::f_void_a on_action_triggered = nullptr;
 
+    signatures::f_void_int on_found_tp = nullptr;
     signatures::f_void_float_float on_map_tp_active = nullptr;
     signatures::f_void_string on_teleporter_activated = nullptr;
     signatures::f_bool_int_int_int filter_icon_show = nullptr;
@@ -69,6 +70,7 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
     using namespace csharp_bridge;
     using namespace signatures;
 
+    // TODO: Make this into a map instead of using a chain of if else.
     std::string name(str);
     if (name == "update")
         csharp_bridge::update = reinterpret_cast<f_void_float>(ptr);
@@ -170,4 +172,6 @@ INJECT_C_DLLEXPORT void register_delegate(const char* str, uint64_t ptr)
         csharp_bridge::get_flag = reinterpret_cast<f_void_int_ptr_int>(ptr);
     else if (name == "get_relic_count")
         csharp_bridge::get_relic_count = reinterpret_cast<f_int_bool>(ptr);
+    else if (name == "on_found_tp")
+        csharp_bridge::on_found_tp = reinterpret_cast<f_void_int>(ptr);
 }
