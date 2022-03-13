@@ -70,6 +70,10 @@ namespace
         app::Vector3 pos{ 0.0f, 0.0f, 0.0f};
         std::wstring text;
         bool should_show_box = true;
+        float box_top_padding = 0.25f;
+        float box_left_padding = 1.0f;
+        float box_right_padding = 1.0f;
+        float box_bottom_padding = 0.25f;
         bool should_play_sound = true;
         bool alive = true;
         bool recreate = false;
@@ -259,6 +263,10 @@ namespace
             return;
 
         auto scaler = il2cpp::unity::get_component_in_children<app::ScaleToTextBox>(go, "", "ScaleToTextBox");
+        scaler->fields.TopLeftPadding.y = message.box_top_padding;
+        scaler->fields.TopLeftPadding.x = message.box_left_padding;
+        scaler->fields.BottomRightPadding.y = message.box_bottom_padding;
+        scaler->fields.BottomRightPadding.x = message.box_right_padding;
         ScaleToTextBox::UpdateSize(scaler);
     }
 
@@ -581,6 +589,21 @@ INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z)
     message->second.pos.x = x;
     message->second.pos.y = y;
     message->second.pos.z = z;
+    refresh(message->second);
+
+    return true;
+}
+
+INJECT_C_DLLEXPORT bool text_box_padding(int id, float top, float left, float right, float bottom)
+{
+    auto& message = permanent_messages.find(id);
+    if (message == permanent_messages.end())
+        return false;
+
+    message->second.box_top_padding = top;
+    message->second.box_left_padding = left;
+    message->second.box_right_padding = right;
+    message->second.box_bottom_padding = bottom;
     refresh(message->second);
 
     return true;

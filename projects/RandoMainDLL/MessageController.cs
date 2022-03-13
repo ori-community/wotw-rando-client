@@ -45,25 +45,35 @@ namespace RandoMainDLL {
     Debug = 3
   }
 
+  public struct Padding {
+    public Padding(float top, float left, float right, float bottom) {
+      Top = top;
+      Left = left;
+      Right = right;
+      Bottom = bottom;
+    }
+
+    public float Top;
+    public float Left;
+    public float Right;
+    public float Bottom;
+  }
+
   public static class MessageController {
     private static readonly int MAX_PICKUP_COUNT = 5;
     private static readonly TextMessage INFO = new TextMessage(ReserveID(), new TextMessageDescriptor() { ShowsBox = false });
-    private static readonly TextMessage PICKUP = new TextMessage(ReserveID(), new TextMessageDescriptor() { Muted = false, ShowsBox = true });
+    // private static readonly TextMessage PICKUP = new TextMessage(ReserveID(), new TextMessageDescriptor() { Muted = false, ShowsBox = true });
     private static readonly Dictionary<ListType, TextMessage> SINGLE_MESSAGES;
 
+    private static List<TextMessage> activePickupTextMessages = new List<TextMessage>();
     private static PickupMessage lastPickup;
-    private static List<PickupMessage> pickupQueue = new List<PickupMessage>();
-    private static List<PickupMessage> priorityPickupQueue = new List<PickupMessage>();
-    private static List<PickupMessage> activePickups = new List<PickupMessage>();
+    private static Queue<PickupMessage> pickupQueue = new Queue<PickupMessage>();
+    private static Queue<PickupMessage> priorityPickupQueue = new Queue<PickupMessage>();
+    // private static List<PickupMessage> activePickups = new List<PickupMessage>();
     private static List<TextMessage> activeTimedMessages = new List<TextMessage>();
     private static Dictionary<int, TextMessage> activeIdTimedMessages = new Dictionary<int, TextMessage>();
 
     static MessageController() {
-      // TODO: Put these in good positions.
-      PICKUP.ScreenPosition = ScreenPosition.TopCenter;
-      PICKUP.Position = new Vector3(0f, 0.2f, 0f);
-      PICKUP.Vertical = VerticalAnchor.Top;
-
       INFO.ScreenPosition = ScreenPosition.BottomCenter;
       INFO.Position = new Vector3(0f, 0.5f, 0f);
 
@@ -110,14 +120,14 @@ namespace RandoMainDLL {
       switch (list) {
         default:
           activeTimedMessages.Clear();
-          activePickups.Clear();
           pickupQueue.Clear();
+          priorityPickupQueue.Clear();
           break;
       }
     }
 
     public static void ShowLastPickup() {
-      pickupQueue.Add(new PickupMessage(lastPickup));
+      pickupQueue.Enqueue(new PickupMessage(lastPickup));
     }
 
     // I hate this.
@@ -131,7 +141,7 @@ namespace RandoMainDLL {
         File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(text, "[$#@*]", "")}\n");
 
       var message = new PickupMessage(text, time);
-      (priority ? priorityPickupQueue : pickupQueue).Add(message);
+      (priority ? priorityPickupQueue : pickupQueue).Enqueue(message);
       lastPickup = message;
     }
 
@@ -209,7 +219,7 @@ namespace RandoMainDLL {
       }
     }
 
-    private static bool HandleMessage(TextMessage message, float dt) {
+    private static bool HandleMessageTimer(TextMessage message, float dt) {
       if (message.Destroyed)
         return false;
 
@@ -222,22 +232,26 @@ namespace RandoMainDLL {
       return false;
     }
 
+    private static float Lerp(float a, float b, float t) {
+      return a * (1 - t) + b * t;
+    }
+
     public static void Tick() {
       float dt = InterOp.get_fixed_delta_time();
 
       foreach (var message in SINGLE_MESSAGES)
-        HandleMessage(message.Value, dt);
+        HandleMessageTimer(message.Value, dt);
 
       for (var i = activeTimedMessages.Count - 1; i >= 0; --i) {
         var message = activeTimedMessages[i];
-        if (HandleMessage(message, dt)) {
+        if (HandleMessageTimer(message, dt)) {
           activeTimedMessages.RemoveAt(i);
         }
       }
 
       List<int> toRemove = new List<int>();
       foreach (var message in activeIdTimedMessages) {
-        if (HandleMessage(message.Value, dt)) {
+        if (HandleMessageTimer(message.Value, dt)) {
           toRemove.Add(message.Key);
         }
       }
@@ -245,60 +259,41 @@ namespace RandoMainDLL {
       foreach (var key in toRemove)
         activeIdTimedMessages.Remove(key);
 
-      if (priorityPickupQueue.Count > 0) {
-        var message =  priorityPickupQueue.First();
-        if (!PICKUP.IsDelayed)
-          message.Time -= dt;
+      var lines = 0;
+      for (var i = 0; i < activePickupTextMessages.Count; i++) {
+        var targetY = 0.2f + (lines * -0.5f);
+        var message = activePickupTextMessages[i];
+        message.Position = new Vector3(0, Lerp(message.Position.Y, targetY, 10f * dt), 0);
 
-        PICKUP.Destroyed = message.Time < 0.0;
-        if (PICKUP.Destroyed)
-          priorityPickupQueue.RemoveAt(0);
+        lines += message.Text.Split('\n').Length;
 
-        if (priorityPickupQueue.Count > 0) {
-          // Since we refresh the message add the fadeout time to the message timer.
-          // TODO: Add an is_delayed interop instead on the Time -= dt.
-          message = priorityPickupQueue.First();
-          PICKUP.Text = message.Text;
-          PICKUP.Destroyed = false;
-        }
+        HandleMessageTimer(message, dt);
       }
-      else if (activePickups.Count != 0 || pickupQueue.Count != 0) {
-        // Add new messages.
-        for (int i = activePickups.Count; i < MAX_PICKUP_COUNT && pickupQueue.Count() > 0; ++i) {
-          activePickups.Add(pickupQueue.ElementAt(0));
-          pickupQueue.RemoveAt(0);
-        }
 
-        // Reorder old messages.
-        toRemove.Clear();
-        activePickups.Sort((a, b) => {
-          var sign = Math.Sign(a.Time - b.Time);
-          if (sign != 0)
-            return sign;
+      activePickupTextMessages.RemoveAll(m => m.Destroyed);
 
-          return a.Text.CompareTo(b.Text);
-        });
+      while (activePickupTextMessages.Count < MAX_PICKUP_COUNT && (pickupQueue.Count > 0 || priorityPickupQueue.Count > 0)) {
+        var pickupMessage = priorityPickupQueue.Count > 0
+          ? priorityPickupQueue.Dequeue()
+          : pickupQueue.Dequeue();
 
-        // Display messges
-        string text = "";
-        var stop = -1;
-        for (var i = 0; i < activePickups.Count; ++i) {
-          var message = activePickups[i];
-          if (!PICKUP.IsDelayed)
-            message.Time -= dt;
+        var desc = new TextMessageDescriptor();
+        desc.Alignment = Alignment.Center;
+        desc.Position.Y = 0.2f * (lines + 1) * -0.5f;
+        desc.ShowsBox = true;
+        desc.AllowRepositioning = true;
+        desc.ScreenPosition = ScreenPosition.TopCenter;
+        desc.Text = pickupMessage.Text;
+        desc.Time = pickupMessage.Time;
+        desc.Vertical = VerticalAnchor.Top;
+        desc.Muted = false;
+        desc.Padding = new Padding(0f, 1f, 1f, 0f);
 
-          if (message.Time >= 0.0f)
-            text += (text != "" ? $"\n{message.Text}" : message.Text);
-          else
-            stop = i;
-        }
+        lines += pickupMessage.Text.Split('\n').Length;
 
-        // Remove messages
-        if (stop > -1)
-          activePickups.RemoveRange(0, stop + 1);
-
-        PICKUP.Destroyed = text == "";
-        PICKUP.Text = text;
+        var textMessage = new TextMessage(ReserveID(), desc);
+        textMessage.Destroyed = false;
+        activePickupTextMessages.Add(textMessage);
       }
     }
 
@@ -320,6 +315,7 @@ namespace RandoMainDLL {
       Time = desc.Time;
       Text = desc.Text;
       Position = desc.Position;
+      Padding = desc.Padding;
       Size = desc.Size;
       Alignment = desc.Alignment;
       Horizontal = desc.Horizontal;
@@ -337,6 +333,7 @@ namespace RandoMainDLL {
     public float Time = 3f;
     public string Text = "TEST";
     public Vector3 Position = new Vector3();
+    public Padding Padding = new Padding(0.25f, 1.0f, 1.0f, 0.25f);
     public float Size = 1f;
     public Alignment Alignment = Alignment.Center;
     public HorizontalAnchor Horizontal = HorizontalAnchor.Center;
@@ -381,12 +378,13 @@ namespace RandoMainDLL {
       get { return destroyed; }
       set {
         if (destroyed != value) {
-          if (destroyed) {
+          if (!value) {
             InterOp.Messaging.text_box_create(ID, descriptor.FadeIn, descriptor.FadeOut, descriptor.ShowsBox, !descriptor.Muted);
             InterOp.Messaging.text_box_text(ID, descriptor.Text);
             InterOp.Messaging.text_box_size(ID, descriptor.Size);
             InterOp.Messaging.text_box_alignment(ID, descriptor.Alignment);
             InterOp.Messaging.text_box_anchor(ID, descriptor.Horizontal, descriptor.Vertical);
+            InterOp.Messaging.text_box_padding(ID, descriptor.Padding.Top, descriptor.Padding.Left, descriptor.Padding.Right, descriptor.Padding.Bottom);
             updatePosition();
           }
           else
@@ -424,6 +422,15 @@ namespace RandoMainDLL {
         descriptor.Position = value;
         if (!destroyed)
           updatePosition();
+      }
+    }
+
+    public Padding Padding {
+      get { return descriptor.Padding; }
+      set {
+        descriptor.Padding = value;
+        if (!destroyed)
+          InterOp.Messaging.text_box_padding(ID, value.Top, value.Left, value.Right, value.Bottom);
       }
     }
 
