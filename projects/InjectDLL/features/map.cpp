@@ -43,6 +43,17 @@ namespace
         return il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
     }
 
+    void set_lupo_price(app::GameWorldAreaID__Enum area, int32_t price)
+    {
+        auto game_world = get_game_world();
+        auto* gw_area = GameWorld::GetArea(game_world, area);
+        if (gw_area != nullptr)
+        {
+            gw_area->fields.LupoData.AreaMapSpiritLevelCost = price;
+            gw_area->fields.LupoDataOnCondition.AreaMapSpiritLevelCost = price;
+        }
+    }
+
     IL2CPP_BINDING(, GameWorld, app::GameWorldArea*, GetArea, (app::GameWorld* thisPtr, app::GameWorldAreaID__Enum areaID))
     IL2CPP_BINDING(, GameWorld, app::RuntimeGameWorldArea*, FindRuntimeArea, (app::GameWorld* thisPtr, app::GameWorldArea* area));
     IL2CPP_BINDING(, RuntimeGameWorldArea, void, DiscoverAllAreas, (app::RuntimeGameWorldArea* thisPtr));
@@ -67,6 +78,11 @@ namespace
     }
     
     IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_IntroMessageProvider, (app::CartographerEntity* this_ptr)) {
+        auto area = CartographerEntity::get_CurrentArea(this_ptr);
+        auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
+        auto cost = uber_states::get_uber_state_value(uber_states::constants::LUPO_GROUP_ID, id);
+        area->fields.LupoData.AreaMapSpiritLevelCost = cost;
+        area->fields.LupoDataOnCondition.AreaMapSpiritLevelCost = cost;
         return handle_lupo_message(this_ptr, LupoSelection::Intro, get_IntroMessageProvider);
     }
 
@@ -84,17 +100,6 @@ namespace
 
     IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_ThanksMessage, (app::CartographerEntity* this_ptr)) {
         return handle_lupo_message(this_ptr, LupoSelection::Thanks, get_ThanksMessage);
-    }
-
-    void set_lupo_price(app::GameWorldAreaID__Enum area, int32_t price)
-    {
-        auto game_world = get_game_world();
-        auto* gw_area = GameWorld::GetArea(game_world, area);
-        if (gw_area != nullptr)
-        {
-            gw_area->fields.LupoData.AreaMapSpiritLevelCost = price;
-            gw_area->fields.LupoDataOnCondition.AreaMapSpiritLevelCost = price;
-        }
     }
     
     IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, IsVisible, (app::RuntimeWorldMapIcon* thisPtr, app::AreaMapUI* areaMap)) {
