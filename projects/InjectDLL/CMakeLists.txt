@@ -46,6 +46,7 @@ set(
     "fixes/deflector.cpp"
     "fixes/feedinggrounds.cpp"
     "fixes/flap.cpp"
+    "fixes/instant_tp_activation.cpp"
     "fixes/teleporters.cpp"
     "fixes/trials.cpp"
     "input/controller_bindings.cpp"

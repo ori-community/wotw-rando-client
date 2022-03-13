@@ -88,6 +88,7 @@ namespace csharp_bridge
     extern signatures::f_void_a on_action_triggered;
 
     // Map
+    extern signatures::f_void_int on_found_tp;
     extern signatures::f_void_string on_teleporter_activated;
     extern signatures::f_void_float_float on_map_tp_active;
     extern signatures::f_bool_int_int_int filter_icon_show;

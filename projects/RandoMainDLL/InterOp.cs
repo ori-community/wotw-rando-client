@@ -71,6 +71,25 @@ namespace RandoMainDLL {
       public extern static void get_screen_position(ScreenPosition position, ref Vector3 output);
     }
 
+    public static class Map {
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool is_visited(AreaType area, int index);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void add_icon(AreaType area, int id, WorldMapIconType icon, float x, float y, int group_id, int state_id, bool allow_teleport);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_icon_label(AreaType area, int id, [MarshalAs(UnmanagedType.LPWStr)] string label);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void remove_icon(AreaType area, int id);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void clear_icons();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void discover_everything();
+
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static AreaType get_player_area();
+    }
+
     public static class Multiplayer {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void add_player([MarshalAs(UnmanagedType.LPWStr)] string id, [MarshalAs(UnmanagedType.LPWStr)] string name);
@@ -161,14 +180,6 @@ namespace RandoMainDLL {
     }
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void add_icon(AreaType area, int id, WorldMapIconType icon, float x, float y, int group_id, int state_id, bool allow_teleport);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_icon_label(AreaType area, int id, [MarshalAs(UnmanagedType.LPWStr)] string label);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void remove_icon(AreaType area, int id);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void clear_icons();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void refresh_ability_energy_modifiers();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -188,8 +199,6 @@ namespace RandoMainDLL {
     public extern static void set_ability(AbilityType ability, bool value);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_equipment(EquipmentType ability, bool value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void discover_everything();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void save();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -274,15 +283,15 @@ namespace RandoMainDLL {
     [return: MarshalAs(UnmanagedType.U1)]
     public extern static bool has_shard(ShardType type);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+    [return: MarshalAs(UnmanagedType.U1)]
+    public extern static bool is_shard_equipped(ShardType type);
+    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void set_shard(ShardType type, bool value);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void refresh_shards();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static Vector2 get_position();
-
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static AreaType get_player_area();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void teleport(float x, float y, bool wait_for_load);
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

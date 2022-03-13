@@ -746,11 +746,11 @@ namespace RandoMainDLL {
     public override void Grant(bool skipBase = false) {
       switch (type) {
         case SysCommandType.CreateWarp:
-          InterOp.add_icon(AreaType.InkwaterMarsh, id, WorldMapIconType.SavePedestal, x, y, -1, -1, true);
-          InterOp.set_icon_label(AreaType.InkwaterMarsh, id, label);
+          InterOp.Map.add_icon(AreaType.InkwaterMarsh, id, WorldMapIconType.SavePedestal, x, y, -1, -1, true);
+          InterOp.Map.set_icon_label(AreaType.InkwaterMarsh, id, label);
           break;
         case SysCommandType.DestroyWarp:
-          InterOp.remove_icon(AreaType.InkwaterMarsh, id);
+          InterOp.Map.remove_icon(AreaType.InkwaterMarsh, id);
           break;
       }
       base.Grant(skipBase);
@@ -1029,10 +1029,14 @@ namespace RandoMainDLL {
         case ResourceType.Health:
           InterOp.set_max_health(InterOp.get_max_health() + 5);
           InterOp.fill_health();
+          if (UberGet.Bool(4, 150) && InterOp.is_shard_equipped(ShardType.Overflow))
+            InterOp.fill_energy();
           break;
         case ResourceType.Energy:
           InterOp.set_max_energy(InterOp.get_max_energy() + 0.5f);
           InterOp.fill_energy();
+          if (UberGet.Bool(4, 150) && InterOp.is_shard_equipped(ShardType.Overflow))
+            InterOp.fill_health();
           break;
         case ResourceType.Ore:
           InterOp.set_ore(InterOp.get_ore() + 1);
