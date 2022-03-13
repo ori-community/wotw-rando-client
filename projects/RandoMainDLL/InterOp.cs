@@ -43,6 +43,9 @@ namespace RandoMainDLL {
       public extern static bool text_box_padding(int id, float top, float left, float right, float bottom);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool text_box_fade(int id, float fadeIn, float fadeOut);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool text_box_size(int id, float size);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]

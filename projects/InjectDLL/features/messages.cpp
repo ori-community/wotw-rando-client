@@ -303,6 +303,10 @@ namespace
         // Line spacing
         message_box->fields.TextBox->fields.LineSpacing = message.line_spacing;
 
+        // Fade times
+        message_box->fields.Visibility->fields.TransitionInDuration = message.fadein;
+        message_box->fields.Visibility->fields.TransitionOutDuration = message.fadeout;
+
         MessageBox::RefreshText(message_box);
         message_box->fields.TextBox->fields.m_initializeAfterEnabling = true;
         scale_background(message);
@@ -604,6 +608,19 @@ INJECT_C_DLLEXPORT bool text_box_padding(int id, float top, float left, float ri
     message->second.box_left_padding = left;
     message->second.box_right_padding = right;
     message->second.box_bottom_padding = bottom;
+    refresh(message->second);
+
+    return true;
+}
+
+INJECT_C_DLLEXPORT bool text_box_fade(int id, float fadeIn, float fadeOut)
+{
+    auto& message = permanent_messages.find(id);
+    if (message == permanent_messages.end())
+        return false;
+
+    message->second.fadein = fadeIn;
+    message->second.fadeout = fadeOut;
     refresh(message->second);
 
     return true;

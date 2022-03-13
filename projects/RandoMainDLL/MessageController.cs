@@ -268,6 +268,8 @@ namespace RandoMainDLL {
         lines += message.Text.Split('\n').Length;
 
         HandleMessageTimer(message, dt);
+
+        message.FadeOut = activePickupTextMessages.Count == 1 ? 0.5f : 0.1f;
       }
 
       activePickupTextMessages.RemoveAll(m => m.Destroyed);
@@ -506,12 +508,18 @@ namespace RandoMainDLL {
 
     public float FadeIn {
       get { return descriptor.FadeIn; }
-      set { descriptor.FadeIn = value; }
+      set {
+        descriptor.FadeIn = value;
+        InterOp.Messaging.text_box_fade(ID, value, FadeOut);
+      }
     }
 
     public float FadeOut {
       get { return descriptor.FadeOut; }
-      set { descriptor.FadeOut = value; }
+      set { 
+        descriptor.FadeOut = value;
+        InterOp.Messaging.text_box_fade(ID, FadeIn, value);
+      }
     }
 
     public TextMessageDescriptor Descriptor { get { return new TextMessageDescriptor(descriptor); } }
