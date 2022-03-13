@@ -1028,10 +1028,14 @@ namespace RandoMainDLL {
         case ResourceType.Health:
           InterOp.set_max_health(InterOp.get_max_health() + 5);
           InterOp.fill_health();
+          if (UberGet.Bool(4, 150) && InterOp.is_shard_equipped(ShardType.Overflow))
+            InterOp.fill_energy();
           break;
         case ResourceType.Energy:
           InterOp.set_max_energy(InterOp.get_max_energy() + 0.5f);
           InterOp.fill_energy();
+          if (UberGet.Bool(4, 150) && InterOp.is_shard_equipped(ShardType.Overflow))
+            InterOp.fill_health();
           break;
         case ResourceType.Ore:
           InterOp.set_ore(InterOp.get_ore() + 1);
