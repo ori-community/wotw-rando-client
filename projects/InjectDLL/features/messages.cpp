@@ -547,7 +547,6 @@ INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, boo
             return false;
 
         it->second.recreate = true;
-        it->second.should_show_box = false;
         it->second.alive = true;
         it->second.fadein = fadein;
         it->second.fadeout = fadeout;
@@ -558,7 +557,6 @@ INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, boo
 
     RandoMessage message;
     message.id = id;
-    message.should_show_box = false;
     message.alive = true;
     message.fadein = fadein;
     message.fadeout = fadeout;
