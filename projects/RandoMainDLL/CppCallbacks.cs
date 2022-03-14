@@ -37,7 +37,7 @@ namespace RandoMainDLL {
           },
           new Method() {
             Delegate = new f_void(() => MessageController.ShowTimedMessage(
-              text: SeedController.GoalModeMessages(unmet: "@"), time: 300, position: new Vector2(0f, -2f))),
+              text: SeedController.GoalModeMessages(unmet: "@"), time: 5f, position: new Vector2(0f, -2f))),
             CallbackName = "on_goal_mode_fail"
           },
           new Method() {
