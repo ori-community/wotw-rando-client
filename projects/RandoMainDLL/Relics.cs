@@ -23,7 +23,7 @@ namespace RandoMainDLL {
       Counts[zone] += 1;
       return ret;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       UberInc.Byte(zoneId);
       base.Grant(skipBase);
     }
@@ -109,7 +109,7 @@ namespace RandoMainDLL {
       Relic.Counts[zone] += 1;
       return ret;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       UberInc.Byte(zoneId);
       base.Grant(skipBase);
     }

@@ -178,20 +178,17 @@ namespace RandoMainDLL {
       Grant(skipBase);
       Frames = origFrames;
     }
-    public virtual void GrantAtPosition(bool skipBase = false, Vector2? position = null) {
+    
+    public virtual void Grant(bool skipBase = false, Vector2? position = null) {
       if (!skipBase && Frames > 0 && DisplayName.Length > 0 && !Muted)
         MessageController.ShowPickup(DisplayName, Frames / 60.0f, pickupPosition: position);
-    }
-    
-    public virtual void Grant(bool skipBase = false) {
-      GrantAtPosition(skipBase);
     }
     
     public bool Collect(UberStateCondition foundAt) {
       if (NonEmpty) {
         SeedController.GrantingGoalModeLoc = foundAt.IsGoal();
         var loc = foundAt.Loc();
-        GrantAtPosition(position: loc.Position);
+        Grant(position: loc.Position);
         SeedController.GrantingGoalModeLoc = false;
         if (loc.Type != LocType.Unknown || foundAt.Id.GroupID == 12) {
           if(loc.Type != LocType.Unknown) 
@@ -239,7 +236,7 @@ namespace RandoMainDLL {
       Modifier = modifier;
       ModStr = modstr;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       UberStateController.SkipUberStateMapCount[Id] = SupCount;
       UberSet.Raw(Id.GroupID, Id.ID, Modifier(UberGet.value(Id)));
     }
@@ -277,7 +274,7 @@ namespace RandoMainDLL {
     public List<Pickup> Children;
     public override PickupType Type => PickupType.Multi;
     private string nameAfterGrant = null;
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       if (!NonEmpty) return;
       nameAfterGrant = "";
       bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
@@ -335,7 +332,7 @@ namespace RandoMainDLL {
     public bool Prepend { get; }
     public string MessageStr;
     public bool Squelch = false;
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       if (Prepend)
         MessageController.PrependText(DisplayName);
       // don't print during multis
@@ -456,10 +453,10 @@ namespace RandoMainDLL {
       { TeleporterType.Glades, new List<UberState> { UberStateDefaults.savePedistalGladesTown} },
     };
 
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       if (!Has()) // don't write to these if they're already set; on that path lies dumb-ass loops
         states.ForEach(s => s.Write(s.Type == UberStateType.SerializedBooleanUberState ? new UberValue(true) : new UberValue((byte)3)));
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
 
     public override int DefaultCost() => 250;
@@ -471,9 +468,9 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.Teleporter;
     public readonly TeleporterType type;
     private List<UberState> states() => Teleporter.TeleporterStates.GetOrElse(type, new List<UberState>());
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       states().ForEach((s) => s.Write(new UberValue(false)));
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
     public override string Name { get => $"Lose {type.GetDescription() ?? $"Unknown Teleporter {type}"}"; }
     public override string DisplayName { get => $"Removed {type.GetDescription() ?? $"Unknown Teleporter {type}"}"; }
@@ -488,9 +485,9 @@ namespace RandoMainDLL {
     public override bool Has() => SaveController.HasAbility(type);
     public override int DefaultCost() => (type == AbilityType.Blaze) ? 420 : 500;
 
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       SaveController.SetAbility(type);
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
 
     public override string Name { get => type.GetDescription() ?? $"Unknown Ability {type}"; }
@@ -501,9 +498,9 @@ namespace RandoMainDLL {
     public RemoveAbility(AbilityType ability) => type = ability;
     public override PickupType Type => PickupType.Ability;
     public readonly AbilityType type;
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       SaveController.SetAbility(type, false);
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
     public override string Name { get => $"Lose {type.GetDescription() ?? $"Unknown Ability {type}"}"; }
     public override string DisplayName { get => $"Removed {type.GetDescription() ?? $"Unknown Ability {type}"}"; }
@@ -518,10 +515,10 @@ namespace RandoMainDLL {
     public override bool Has() {
       return InterOp.has_shard(type);
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       InterOp.set_shard(type, true);
       InterOp.refresh_shards();
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
 
     public override int DefaultCost() => 300;
@@ -532,10 +529,10 @@ namespace RandoMainDLL {
     public RemoveShard(ShardType shard) => type = shard;
     public override PickupType Type => PickupType.Shard;
     public readonly ShardType type;
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       InterOp.set_shard(type, false);
       InterOp.refresh_shards();
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
     public override string Name { get => $"Lose {type.GetDescription() ?? $"Unknown Shard {type}"}"; }
     public override string DisplayName { get => $"Removed {type.GetDescription() ?? $"Unknown Shard {type}"}"; }
@@ -548,11 +545,11 @@ namespace RandoMainDLL {
     public readonly int Amount;
     public readonly int Hash;
 
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       InterOp.set_experience(InterOp.get_experience() + Amount);
       UberInc.Int(6, 3, Amount);
       InterOp.shake_spiritlight();
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
 
     private static readonly List<string> MoneyNames = new List<string>() {
@@ -583,13 +580,13 @@ namespace RandoMainDLL {
     public override bool Has() => type.Have();
     public override WorldMapIconType Icon => WorldMapIconType.QuestEnd;
 
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       SaveController.SetEvent(type);
       // put this behind a switch statement if we ever add another world event
       UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
       UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
       UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
     public override string Name { get => type.GetDescription() ?? $"Unknown Event {type}"; }
     public override string DisplayName { get => $"*{Name}*"; }
@@ -602,13 +599,13 @@ namespace RandoMainDLL {
     public readonly QuestEventType type;
 
     public override int DefaultCost() => 400;
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       SaveController.SetEvent(type, false);
       // put this behind a switch statement if we ever add another world event
       UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
       UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
       UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
     public override string Name { get => $"Lose {type.GetDescription() ?? $"Unknown Event {type}"}"; }
     public override string DisplayName { get => $"Removed {type.GetDescription() ?? $"Unknown Event {type}"}"; }
@@ -625,9 +622,9 @@ namespace RandoMainDLL {
     }
     public static BonusItem Build(BonusType t, ZoneType z) => t == BonusType.Relic ? LegacyRelic.Build(z) : new BonusItem(t);
 
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       UberInc.Byte(stateId);
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
     public override string Name { get => type.GetDescription() ?? $"Unknown Bonus Item {type}"; }
     public override string DisplayName { get => $"#{type.GetDescription() ?? $"Unknown Bonus Item {type}"}{(UberGet.Byte(stateId) > 1 ? $" x{UberGet.Byte(stateId)}" : "")}#"; }
@@ -637,7 +634,7 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.SystemCommand;
     public readonly SysCommandType type;
     public SystemCommand(SysCommandType command) => type = command;
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       switch (type) {
         case SysCommandType.Save:
           InterOp.save();
@@ -658,7 +655,7 @@ namespace RandoMainDLL {
       resourceType = r;
       newResourceValue = v;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       switch (resourceType) {
         case ResourceType.Health:
           InterOp.set_max_health(newResourceValue);
@@ -684,7 +681,7 @@ namespace RandoMainDLL {
     public SetHealth(float v) : base(SysCommandType.SetHealth) {
       newHealth = v;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       InterOp.set_health(newHealth);
     }
   }
@@ -693,7 +690,7 @@ namespace RandoMainDLL {
     public SendInputSignal(Input.Action a) : base(SysCommandType.AHKSignal) {
       action = a;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       Input.OnActionTriggered(action);
     }
     public override string Name => $"ahkSignal(\"{Enum.GetName(typeof(Input.Action), action)}\")";
@@ -703,7 +700,7 @@ namespace RandoMainDLL {
     public SetEnergy(float v) : base(SysCommandType.SetEnergy) {
       newEnergy = v;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       InterOp.set_energy(newEnergy);
     }
   }
@@ -712,14 +709,14 @@ namespace RandoMainDLL {
     public SetSpiritLight(int v) : base(SysCommandType.SetSpiritLight) {
       newSL = v;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       InterOp.set_experience(newSL);
     }
   }
   public class SyncToggler : SystemCommand {
     private readonly UberId state;
     public SyncToggler(SysCommandType type, UberId s) : base(type) => state = s;
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       switch (type) {
         case SysCommandType.DisableSync:
           UberStateController.UnsharableIds.Add(state);
@@ -728,7 +725,7 @@ namespace RandoMainDLL {
           UberStateController.UnsharableIds.Remove(state);
           break;
       }
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
   }
   public class Icon : SystemCommand {
@@ -748,7 +745,7 @@ namespace RandoMainDLL {
       this.id = id;
     }
 
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       switch (type) {
         case SysCommandType.CreateWarp:
           InterOp.Map.add_icon(AreaType.InkwaterMarsh, id, WorldMapIconType.SavePedestal, x, y, -1, -1, true);
@@ -758,7 +755,7 @@ namespace RandoMainDLL {
           InterOp.Map.remove_icon(AreaType.InkwaterMarsh, id);
           break;
       }
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
   }
 
@@ -787,8 +784,8 @@ namespace RandoMainDLL {
       return false;
     }
 
-    public override void Grant(bool skipBase = false) {
-      base.Grant(skipBase);
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
+      base.Grant(skipBase, position);
     }
   }
 
@@ -796,7 +793,7 @@ namespace RandoMainDLL {
     public readonly Pickup Pickup;
     public GrantIf(SysCommandType command, Pickup p) : base(command) { Pickup = p; }
     public abstract bool IsCondMet();
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       if (IsCondMet())
         Pickup.Grant(skipBase);
     }
@@ -862,7 +859,7 @@ namespace RandoMainDLL {
       this.state = state;
       this.value = value;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       switch (state) {
         case SysState.KwolokDoorAvailable:
           UberSet.Bool(new UberId(7, 6), value > 0);
@@ -885,7 +882,7 @@ namespace RandoMainDLL {
       this.state = state;
       this.value = value;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       InterOp.register_state_redirect(state, value);
     }
   }
@@ -897,9 +894,9 @@ namespace RandoMainDLL {
       X = x;
       Y = y;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       InterOp.teleport(X, Y, true);
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
     public override string DisplayName { get => $"Warp to {X}, {Y}"; }
   }
@@ -912,9 +909,9 @@ namespace RandoMainDLL {
       Slot = slot;
       Equip = equip;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       InterOp.bind(Slot, Equip);
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
     public override string DisplayName { get => $"Bind {Equip} to {Slot}"; }
   }
@@ -925,9 +922,9 @@ namespace RandoMainDLL {
     public UnbindCommand(EquipmentType equip) : base(SysCommandType.Unbind) {
       Equip = equip;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       InterOp.unbind(Equip);
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
     public override string DisplayName { get => $"Unbind {Equip}"; }
   }
@@ -938,7 +935,7 @@ namespace RandoMainDLL {
     public TimerCommand(SysCommandType type, UberId id) : base(type) {
       this.id = id;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       switch (type) {
         case SysCommandType.StartTimer:
           UberStateController.TimerUberStates.Add(id);
@@ -947,7 +944,7 @@ namespace RandoMainDLL {
           UberStateController.TimerUberStates.Remove(id);
           break;
       }
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
     public override string Name { get => $"On trigger {id}"; }
     public override string DisplayName { get => ""; }
@@ -961,10 +958,10 @@ namespace RandoMainDLL {
       this.id = id;
       this.text = text;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       InterOp.TextDatabase.text_database_clear_text(this.id, true);
       InterOp.TextDatabase.text_database_register_text(this.id, true, this.text);
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
   }
   public class AppendStringCommand : SystemCommand {
@@ -975,7 +972,7 @@ namespace RandoMainDLL {
       this.id = id;
       this.text = text;
     }
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       string appended;
       if (InterOp.TextDatabase.text_database_has_text(this.id, true)) {
         var existing = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.TextDatabase.text_database_get_text(this.id, true));
@@ -985,7 +982,7 @@ namespace RandoMainDLL {
         appended = this.text;
       }
       InterOp.TextDatabase.text_database_register_text(this.id, true, appended);
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
   }
 
@@ -1029,7 +1026,7 @@ namespace RandoMainDLL {
     }
 
 
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       switch (type) {
         case ResourceType.Health:
           InterOp.set_max_health(InterOp.get_max_health() + 5);
@@ -1057,7 +1054,7 @@ namespace RandoMainDLL {
           InterOp.set_shard_slots(InterOp.get_shard_slots() + 1);
           break;
       }
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
     public override string DisplayName { get => type.GetDescription() ?? $"Unknown resource type {type}"; }
   }
@@ -1104,7 +1101,7 @@ namespace RandoMainDLL {
     }
     public UberId UberId() => new UberId(4, (int)Id + 50);
     public byte Value() => UberGet.Byte(UberId());
-    public override void Grant(bool skipBase = false) {
+    public override void Grant(bool skipBase = false, Vector2? position = null) {
       UberInc.Byte(UberId());
       switch (Id) {
         case WeaponUpgradeType.RapidSmash:
@@ -1140,7 +1137,7 @@ namespace RandoMainDLL {
           Randomizer.Log($"Unknown upgrade {Id}, can't apply");
           break;
       }
-      base.Grant(skipBase);
+      base.Grant(skipBase, position);
     }
 
     public static Dictionary<WeaponUpgradeType, WeaponUpgrade> ById = new List<WeaponUpgrade> {
@@ -1225,7 +1222,7 @@ namespace RandoMainDLL {
       public override PickupType Type => PickupType.Wheel;
       public readonly WheelCommandType type;
       public WheelCommand(WheelCommandType command) => type = command;
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         switch (type) {
           case WheelCommandType.ClearAll:
             WheelManager.ResetWheels();
@@ -1239,7 +1236,7 @@ namespace RandoMainDLL {
     public class SetActiveWheelCommand : WheelCommand {
       public readonly int wheel;
       public SetActiveWheelCommand(int wheel) : base(WheelCommandType.SetActiveWheel) => this.wheel = wheel;
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         InterOp.Wheel.set_active_wheel(wheel);
       }
     }
@@ -1251,7 +1248,7 @@ namespace RandoMainDLL {
         this.wheel = wheel;
         this.sticky = sticky;
       }
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         InterOp.Wheel.set_wheel_sticky(wheel, sticky);
       }
     }
@@ -1265,7 +1262,7 @@ namespace RandoMainDLL {
         this.item = item;
         this.name = name;
       }
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         InterOp.Wheel.set_wheel_item_name(wheel, item, name);
       }
     }
@@ -1279,7 +1276,7 @@ namespace RandoMainDLL {
         this.item = item;
         this.description = description;
       }
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         InterOp.Wheel.set_wheel_item_description(wheel, item, description);
       }
     }
@@ -1293,7 +1290,7 @@ namespace RandoMainDLL {
         this.item = item;
         this.texture = texture;
       }
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         InterOp.Wheel.set_wheel_item_texture(wheel, item, texture);
       }
     }
@@ -1313,7 +1310,7 @@ namespace RandoMainDLL {
         this.b = b;
         this.a = a;
       }
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         InterOp.Wheel.set_wheel_item_color(wheel, item, r, g, b, a);
       }
     }
@@ -1325,7 +1322,7 @@ namespace RandoMainDLL {
         this.wheel = wheel;
         this.item = item;
       }
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         InterOp.Wheel.clear_wheel_item(wheel, item);
         var key = new ActionCommand.ActionKey(wheel, item, 0);
         ActionCommand.linkedPickups.Remove(key);
@@ -1366,7 +1363,7 @@ namespace RandoMainDLL {
         key = new ActionKey(wheel, item, binding);
         this.pickup = pickup;
       }
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         linkedPickups[key] = pickup;
         InterOp.Wheel.set_wheel_item_callback(key.wheel, key.item, WheelManager.CallbackHandle(Callback));
       }
@@ -1407,7 +1404,7 @@ namespace RandoMainDLL {
         Texture = texture;
       }
 
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         var slot = ShopSlot.GetSlot(SlotId);
         slot.Texture = Texture;
         ShopController.UpdateShopData();
@@ -1425,7 +1422,7 @@ namespace RandoMainDLL {
         Title = title;
       }
 
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         var slot = ShopSlot.GetSlot(SlotId);
         slot.Title = Title;
         ShopController.UpdateShopData();
@@ -1443,7 +1440,7 @@ namespace RandoMainDLL {
         Description = description;
       }
 
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         var slot = ShopSlot.GetSlot(SlotId);
         slot.Description = Description;
         ShopController.UpdateShopData();
@@ -1460,7 +1457,7 @@ namespace RandoMainDLL {
         IsVisible = isVisible;
       }
 
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         var slot = ShopSlot.GetSlot(SlotId);
         slot.IsVisible = IsVisible;
         ShopController.UpdateShopData();
@@ -1477,7 +1474,7 @@ namespace RandoMainDLL {
         IsLocked = isLocked;
       }
 
-      public override void Grant(bool skipBase = false) {
+      public override void Grant(bool skipBase = false, Vector2? position = null) {
         var slot = ShopSlot.GetSlot(SlotId);
         slot.IsLocked = IsLocked;
         ShopController.UpdateShopData();
