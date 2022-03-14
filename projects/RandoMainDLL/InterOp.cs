@@ -75,6 +75,10 @@ namespace RandoMainDLL {
       public extern static void update_map_hint([MarshalAs(UnmanagedType.LPWStr)] string info);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void get_screen_position(ScreenPosition position, ref Vector3 output);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static Vector2 world_to_ui_position(ref Vector2 pos);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static Vector2 ui_to_world_position(ref Vector2 pos);
     }
 
     public static class Map {

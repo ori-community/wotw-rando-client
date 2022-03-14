@@ -66,7 +66,6 @@ namespace RandoMainDLL {
     private static readonly Dictionary<ListType, TextMessage> SINGLE_MESSAGES;
 
     private static List<TextMessage> activePickupTextMessages = new List<TextMessage>();
-    private static List<TextMessage> activeInWorldPickupMessages = new List<TextMessage>();
     private static PickupMessage lastPickup;
     private static Queue<PickupMessage> pickupQueue = new Queue<PickupMessage>();
     private static Queue<PickupMessage> priorityPickupQueue = new Queue<PickupMessage>();
@@ -228,6 +227,8 @@ namespace RandoMainDLL {
         return false;
 
       message.Time -= dt;
+      message.TimeActive += dt;
+      
       if (message.Time < 0.0f) {
         message.Destroyed = true;
         return true;
@@ -263,24 +264,22 @@ namespace RandoMainDLL {
       foreach (var key in toRemove)
         activeIdTimedMessages.Remove(key);
 
-      foreach (var message in activeInWorldPickupMessages) {
-        HandleMessageTimer(message, dt);
-      }
-      
       var lines = 0;
       for (var i = 0; i < activePickupTextMessages.Count; i++) {
         var targetY = 0.2f + (lines * -0.6f);
         var message = activePickupTextMessages[i];
-        message.Position = new Vector3(0, Lerp(message.Position.Y, targetY, 10f * dt), 0);
+        
+        HandleMessageTimer(message, dt);
+
+        message.Position =
+          new Vector3(new Vector2(message.Position.X, message.Position.Y).Lerp(new Vector2(0, targetY),
+            dt * 15f * Math.Min(1f, message.TimeActive * 2.0f + 0.1f)), 0f);
 
         lines += message.Text.Split('\n').Length;
-
-        HandleMessageTimer(message, dt);
 
         message.FadeOut = activePickupTextMessages.Count == 1 ? 0.5f : 0.1f;
       }
 
-      activeInWorldPickupMessages.RemoveAll(m => m.Destroyed);
       activePickupTextMessages.RemoveAll(m => m.Destroyed);
 
       while (activePickupTextMessages.Count < MAX_PICKUP_LINE_COUNT) {
@@ -297,12 +296,12 @@ namespace RandoMainDLL {
         if (pickupMessage.Position != null) {
           var distanceToPlayer = InterOp.get_position().DistanceTo(pickupMessage.Position.Value);
 
-          if (distanceToPlayer < 10f) {
+          if (distanceToPlayer < 20f) {
             displayMessageInGameWorld = true;
           }
         }
         
-        if (lines != 0 && !displayMessageInGameWorld && lines + pickupMessageLines > MAX_PICKUP_LINE_COUNT)
+        if (lines != 0 && lines + pickupMessageLines > MAX_PICKUP_LINE_COUNT)
           break;
 
         if (priorityPickupQueue.Count > 0) {
@@ -317,15 +316,18 @@ namespace RandoMainDLL {
         desc.AllowRepositioning = true;
 
         if (displayMessageInGameWorld) {
-          desc.UseInGameCoordinates = true;
-          desc.Position = new Vector3(pickupMessage.Position.Value, 0);
-          desc.Position.Y += 2.0f;
+          var pos = new Vector2(pickupMessage.Position.Value);
+          var offset = new Vector3();
+          InterOp.Messaging.world_to_ui_position(ref pos);
+          InterOp.Messaging.get_screen_position(ScreenPosition.TopCenter, ref offset);
+          desc.Position = new Vector3(pos, 0) - offset;
+          desc.FadeIn = 0.2f;
         } else {
           desc.Position.Y = 0.2f * (lines + 1) * -0.6f;
-          desc.ScreenPosition = ScreenPosition.TopCenter;
-          lines += pickupMessageLines;
         }
 
+        desc.ScreenPosition = ScreenPosition.TopCenter;
+        lines += pickupMessageLines;
         desc.Text = pickupMessage.Text;
         desc.Time = pickupMessage.Time;
         desc.Vertical = VerticalAnchor.Top;
@@ -333,11 +335,7 @@ namespace RandoMainDLL {
         desc.Padding = new Padding(0f, 1f, 1f, 0f);
 
         var textMessage = new TextMessage(ReserveID(), desc) { Destroyed = false };
-        if (displayMessageInGameWorld) {
-          activeInWorldPickupMessages.Add(textMessage);
-        } else {
-          activePickupTextMessages.Add(textMessage);
-        }
+        activePickupTextMessages.Add(textMessage);
       }
     }
 
@@ -375,6 +373,7 @@ namespace RandoMainDLL {
     public ListType Type = ListType.None;
     public bool AllowRepositioning = true;
     public float Time = 3f;
+    public float TimeActive = 0f;
     public string Text = "TEST";
     public Vector3 Position = new Vector3();
     public bool UseInGameCoordinates = false;
@@ -549,6 +548,11 @@ namespace RandoMainDLL {
     public float Time {
       get { return descriptor.Time; }
       set { descriptor.Time = value; }
+    }
+    
+    public float TimeActive {
+      get { return descriptor.TimeActive; }
+      set { descriptor.TimeActive = value; }
     }
 
     public bool Muted {

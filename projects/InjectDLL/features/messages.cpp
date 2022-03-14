@@ -535,6 +535,49 @@ INJECT_C_DLLEXPORT void get_screen_position(ScreenPosition position, app::Vector
     }
 }
 
+enum ConvertPositionType {
+    UI_TO_WORLD,
+    WORLD_TO_UI,
+};
+
+void convert_position(app::Vector2* position, ConvertPositionType type)
+{
+    app::Vector3 pos = { position->x, position->y, 0.0f };
+
+    auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
+    if (!il2cpp::unity::is_valid(cameras->static_fields->Current) || !il2cpp::unity::is_valid(cameras->static_fields->System->fields.GUICamera))
+        return;
+
+    auto world_camera = GameplayCamera::get_Camera(cameras->static_fields->Current);
+    auto ui_camera = cameras->static_fields->System->fields.GUICamera->fields.Camera;
+    if (!il2cpp::unity::is_valid(world_camera) || !il2cpp::unity::is_valid(ui_camera))
+        return;
+
+    switch (type) {
+        case UI_TO_WORLD:
+            pos = Camera::WorldToScreenPoint(ui_camera, &pos);
+            pos = Camera::ScreenToWorldPoint(world_camera, &pos);
+            break;
+        case WORLD_TO_UI:
+            pos = Camera::WorldToScreenPoint(world_camera, &pos);
+            pos = Camera::ScreenToWorldPoint(ui_camera, &pos);
+            break;
+    }
+
+    position->x = pos.x;
+    position->y = pos.y;
+}
+
+INJECT_C_DLLEXPORT void world_to_ui_position(app::Vector2* position)
+{
+    return convert_position(position, WORLD_TO_UI);
+}
+
+INJECT_C_DLLEXPORT void ui_to_world_position(app::Vector2* position)
+{
+    return convert_position(position, UI_TO_WORLD);
+}
+
 app::MessageBox* get_message_box(RandoMessage& message)
 {
     if (message.handle == -1 || message.recreate)

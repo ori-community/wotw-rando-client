@@ -39,6 +39,14 @@ namespace RandoMainDLL.Memory {
       c.Z = a.Z + b.Z;
       return c;
     }
+    
+    public static Vector3 operator -(Vector3 a, Vector3 b) {
+      Vector3 c = new Vector3();
+      c.X = a.X - b.X;
+      c.Y = a.Y - b.Y;
+      c.Z = a.Z - b.Z;
+      return c;
+    }
 
     [FieldOffset(0)]
     public float X;

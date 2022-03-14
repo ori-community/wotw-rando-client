@@ -14,6 +14,11 @@ namespace RandoMainDLL.Memory {
       Y = y;
     }
 
+    public Vector2(Vector2 copyFrom) {
+      X = copyFrom.X;
+      Y = copyFrom.Y;
+    }
+
     public static Vector2 operator -(Vector2 one, Vector2 two) => new Vector2() { X = one.X - two.X, Y = one.Y - two.Y };
     public static Vector2 operator +(Vector2 one, Vector2 two) => new Vector2() { X = one.X + two.X, Y = one.Y + two.Y };
     public static Vector2 operator *(Vector2 one, Vector2 two) => new Vector2() { X = one.X * two.X, Y = one.Y * two.Y };
@@ -23,6 +28,10 @@ namespace RandoMainDLL.Memory {
 
     public float DistanceTo(Vector2 t) {
       return Math.Abs((this - t).Length);
+    }
+
+    public Vector2 Lerp(Vector2 to, float t) {
+      return new Vector2(X + (t * (to.X - X)), Y + (t * (to.Y - Y)));
     }
 
     public float Length {
