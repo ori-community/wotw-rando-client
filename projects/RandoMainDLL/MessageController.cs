@@ -284,8 +284,9 @@ namespace RandoMainDLL {
         var pickupMessage = priorityPickupQueue.Count > 0
           ? priorityPickupQueue.First()
           : pickupQueue.First();
+        var pickupMessageLines = pickupMessage.Text.Split('\n').Length;
 
-        if (lines != 0 && lines + pickupMessage.Text.Split('\n').Length > MAX_PICKUP_LINE_COUNT)
+        if (lines != 0 && lines + pickupMessageLines > MAX_PICKUP_LINE_COUNT)
           break;
 
         if (priorityPickupQueue.Count > 0) {
@@ -306,7 +307,7 @@ namespace RandoMainDLL {
         desc.Muted = false;
         desc.Padding = new Padding(0f, 1f, 1f, 0f);
 
-        lines += pickupMessage.Text.Split('\n').Length;
+        lines += pickupMessageLines;
 
         var textMessage = new TextMessage(ReserveID(), desc);
         textMessage.Destroyed = false;
