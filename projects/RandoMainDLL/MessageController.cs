@@ -60,7 +60,7 @@ namespace RandoMainDLL {
   }
 
   public static class MessageController {
-    private static readonly int MAX_PICKUP_COUNT = 5;
+    private const int MAX_PICKUP_LINE_COUNT = 5;
     private static readonly TextMessage INFO = new TextMessage(ReserveID(), new TextMessageDescriptor() { ShowsBox = false });
     // private static readonly TextMessage PICKUP = new TextMessage(ReserveID(), new TextMessageDescriptor() { Muted = false, ShowsBox = true });
     private static readonly Dictionary<ListType, TextMessage> SINGLE_MESSAGES;
@@ -264,7 +264,7 @@ namespace RandoMainDLL {
 
       var lines = 0;
       for (var i = 0; i < activePickupTextMessages.Count; i++) {
-        var targetY = 0.2f + (lines * -0.5f);
+        var targetY = 0.2f + (lines * -0.6f);
         var message = activePickupTextMessages[i];
         message.Position = new Vector3(0, Lerp(message.Position.Y, targetY, 10f * dt), 0);
 
@@ -277,14 +277,26 @@ namespace RandoMainDLL {
 
       activePickupTextMessages.RemoveAll(m => m.Destroyed);
 
-      while (activePickupTextMessages.Count < MAX_PICKUP_COUNT && (pickupQueue.Count > 0 || priorityPickupQueue.Count > 0)) {
+      while (activePickupTextMessages.Count < MAX_PICKUP_LINE_COUNT) {
+        if (pickupQueue.Count == 0 && priorityPickupQueue.Count == 0)
+          break;
+
         var pickupMessage = priorityPickupQueue.Count > 0
-          ? priorityPickupQueue.Dequeue()
-          : pickupQueue.Dequeue();
+          ? priorityPickupQueue.First()
+          : pickupQueue.First();
+
+        if (lines != 0 && lines + pickupMessage.Text.Split('\n').Length > MAX_PICKUP_LINE_COUNT)
+          break;
+
+        if (priorityPickupQueue.Count > 0) {
+          priorityPickupQueue.Dequeue();
+        } else {
+          pickupQueue.Dequeue();
+        }
 
         var desc = new TextMessageDescriptor();
         desc.Alignment = Alignment.Center;
-        desc.Position.Y = 0.2f * (lines + 1) * -0.5f;
+        desc.Position.Y = 0.2f * (lines + 1) * -0.6f;
         desc.ShowsBox = true;
         desc.AllowRepositioning = true;
         desc.ScreenPosition = ScreenPosition.TopCenter;
