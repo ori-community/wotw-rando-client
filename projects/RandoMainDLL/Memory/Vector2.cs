@@ -21,6 +21,16 @@ namespace RandoMainDLL.Memory {
     public static Vector2 operator *(int two, Vector2 one) => new Vector2() { X = one.X * two, Y = one.Y * two };
     public static float operator !(Vector2 one) => (float)Math.Sqrt(one.X * one.X + one.Y * one.Y);
 
+    public float DistanceTo(Vector2 t) {
+      return Math.Abs((this - t).Length);
+    }
+
+    public float Length {
+      get {
+        return (float) Math.Sqrt(Math.Pow(X, 2) + Math.Pow(Y, 2));
+      }
+    }
+
     public override string ToString() => $"{X:0.00}, {Y:0.00}";
   }
 }

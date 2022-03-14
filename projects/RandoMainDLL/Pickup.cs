@@ -178,16 +178,21 @@ namespace RandoMainDLL {
       Grant(skipBase);
       Frames = origFrames;
     }
-    public virtual void Grant(bool skipBase = false) {
+    public virtual void GrantAtPosition(bool skipBase = false, Vector2? position = null) {
       if (!skipBase && Frames > 0 && DisplayName.Length > 0 && !Muted)
-        MessageController.ShowPickup(DisplayName, Frames / 60.0f);
+        MessageController.ShowPickup(DisplayName, Frames / 60.0f, pickupPosition: position);
     }
+    
+    public virtual void Grant(bool skipBase = false) {
+      GrantAtPosition(skipBase);
+    }
+    
     public bool Collect(UberStateCondition foundAt) {
       if (NonEmpty) {
         SeedController.GrantingGoalModeLoc = foundAt.IsGoal();
-        Grant();
-        SeedController.GrantingGoalModeLoc = false;
         var loc = foundAt.Loc();
+        GrantAtPosition(position: loc.Position);
+        SeedController.GrantingGoalModeLoc = false;
         if (loc.Type != LocType.Unknown || foundAt.Id.GroupID == 12) {
           if(loc.Type != LocType.Unknown) 
             StatsTracking.OnPickup(loc);

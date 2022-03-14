@@ -29,7 +29,7 @@ INJECT_C_DLLEXPORT int reserve_id();
 INJECT_C_DLLEXPORT void get_screen_position(ScreenPosition position, app::Vector3* output);
 INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, bool should_show_box, bool should_play_sound);
 INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text);
-INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z);
+INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z, bool use_in_game_coordinates);
 INJECT_C_DLLEXPORT bool text_box_color(int id, int r, int g, int b, int a);
 INJECT_C_DLLEXPORT bool text_box_alignment(int id, app::AlignmentMode__Enum alignment);
 INJECT_C_DLLEXPORT bool text_box_anchor(int id, app::HorizontalAnchorMode__Enum horizontal, app::VerticalAnchorMode__Enum vertical);

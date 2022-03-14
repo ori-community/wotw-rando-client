@@ -350,7 +350,7 @@ namespace ipc
             position.x += pos.at("x").get<float>();
             position.y += pos.at("y").get<float>();
             position.z += pos.at("z").get<float>();
-            text_box_position(message_id, position.x, position.y, position.z);
+            text_box_position(message_id, position.x, position.y, position.z, pos.at("use_in_game_coordinates").get<bool>());
         }
         if (p.contains("color"))
         {

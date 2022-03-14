@@ -99,7 +99,7 @@ namespace multiplayer
         //    static_cast<int>(info.color.b * 255),
         //    static_cast<int>(info.color.a * 255)
         //);
-        text_box_position(info.avatar_id, 0.0f, 0.0f, 0.0f);
+        text_box_position(info.avatar_id, 0.0f, 0.0f, 0.0f, true);
         text_box_visibility(info.avatar_id, info.visible);
         text_box_creation_callback(info.avatar_id, avatar_callback);
         player_avatar_map[info.avatar_id] = player_map[info.id];
@@ -170,10 +170,7 @@ namespace multiplayer
             return;
 
         app::Vector3 pos{ info.position.x, info.position.y + TEXT_OFFSET, 0.0f };
-        pos = Camera::WorldToScreenPoint(world_camera, &pos);
-        pos = Camera::ScreenToWorldPoint(ui_camera, &pos);
-        pos.z = 0.0f;
-        text_box_position(info.avatar_id, pos.x, pos.y, pos.z);
+        text_box_position(info.avatar_id, pos.x, pos.y, pos.z, true);
 
         if (info.avatar_icon == 0)
             return;

@@ -67,6 +67,7 @@ namespace
     struct RandoMessage
     {
         int id = 0;
+        bool use_in_game_coordinates = false;
         app::Vector3 pos{ 0.0f, 0.0f, 0.0f};
         std::wstring text;
         bool should_show_box = true;
@@ -181,7 +182,7 @@ namespace
 
         auto style = create_style("hex_" + text);
         style->fields.hasColor = true;
-        style->fields.color.rgba = 
+        style->fields.color.rgba =
             ((color_channels >> 24) & 0xff) |
             ((color_channels << 8) & 0xff0000) |
             ((color_channels >> 8) & 0xff00) |
@@ -275,12 +276,38 @@ namespace
             message.should_refresh = true;
     }
 
+    STATIC_IL2CPP_BINDING(UnityEngine, Camera, app::Camera*, get_current, ());
+    IL2CPP_BINDING(UnityEngine, Camera, app::Vector3, WorldToScreenPoint, (app::Camera* camera, app::Vector3* pos));
+    IL2CPP_BINDING(UnityEngine, Camera, app::Vector3, ScreenToWorldPoint, (app::Camera* camera, app::Vector3* pos));
+    IL2CPP_BINDING(, GameplayCamera, app::Camera*, get_Camera, (app::GameplayCamera* camera));
+    void do_position_refresh(RandoMessage &message)
+    {
+        app::Vector3 pos = { message.pos.x, message.pos.y, 0.0f };
+
+        if (message.use_in_game_coordinates) {
+            auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
+            if (!il2cpp::unity::is_valid(cameras->static_fields->Current) || !il2cpp::unity::is_valid(cameras->static_fields->System->fields.GUICamera))
+                return;
+
+            auto world_camera = GameplayCamera::get_Camera(cameras->static_fields->Current);
+            auto ui_camera = cameras->static_fields->System->fields.GUICamera->fields.Camera;
+            if (!il2cpp::unity::is_valid(world_camera) || !il2cpp::unity::is_valid(ui_camera))
+                return;
+
+            pos = Camera::WorldToScreenPoint(world_camera, &pos);
+            pos = Camera::ScreenToWorldPoint(ui_camera, &pos);
+            pos.z = 0.0f;
+        }
+
+        auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message.handle));
+        auto transform = il2cpp::unity::get_transform(go);
+        Transform::set_position(transform, &pos);
+    }
+
     void do_refresh(RandoMessage& message, app::MessageBox* message_box)
     {
         // Position
-        auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message.handle));
-        auto transform = il2cpp::unity::get_transform(go);
-        Transform::set_position(transform, &message.pos);
+        do_position_refresh(message);
 
         // Text
         create_color_styles(message_box, message.text);
@@ -335,7 +362,7 @@ namespace
             message_box->fields.Visibility->fields.m_time = 0.0f;
         message_box->fields.Visibility->fields.m_delayTime = instant ? 1.0f : 0.0f;
         message_box->fields.Visibility->fields.m_timeSpeed = message.fadein > 0.0f ? 1.0f / message.fadein : 1.0f;
-        
+
         message_box->fields.Visibility->fields.DestroyOnHide = true;
 
         message_box->fields.StartId = 0;
@@ -355,7 +382,7 @@ namespace
         message_box->fields.TextBox->fields.horizontalAnchor = message.horizontal_anchor;
         message_box->fields.TextBox->fields.LineSpacing = message.line_spacing;
         message_box->fields.TextBox->fields.currentStyle.size = message.size;
-        
+
         create_color_styles(message_box, message.text);
         message_box->fields.MessageProvider = utils::create_message_provider(message.text);
         MessageBox::RefreshText(message_box);
@@ -397,6 +424,10 @@ namespace
             if (message.second.delay > 0.0f)
             {
                 message.second.delay -= TimeUtility::get_deltaTime();
+
+                if (message.second.use_in_game_coordinates)
+                    do_position_refresh(message.second);
+
                 // Wait for message to disappear before removing from the list (so we have the chance to recreate it).
                 if (!message.second.recreate && message.second.delay < 0.0f)
                     dead_messages.emplace(message.second.id);
@@ -422,15 +453,15 @@ namespace
             auto message_box = reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(go, "", "MessageBox"));
             if (message.second.should_refresh)
                 do_refresh(message.second, message_box);
+            else if (message.second.use_in_game_coordinates)
+                do_position_refresh(message.second);
 
             message_box->fields.Visibility->fields.m_delayTime = 1.0f;
             if (!message.second.alive)
             {
                 message_box->fields.Visibility->fields.m_delayTime = 0.0f;
                 message_box->fields.Visibility->fields.m_timeSpeed = message.second.fadeout > 0.0f ? 1.00000000 / message.second.fadeout : 1.0f;
-                il2cpp::gchandle_free(message.second.handle);
-                message.second.handle = -1;
-                if (message.second.recreate)
+                 if (message.second.recreate || message.second.fadeout > 0.0f)
                     message.second.delay = message.second.fadeout;
                 else
                     dead_messages.emplace(message.second.id);
@@ -441,10 +472,13 @@ namespace
 
         for (auto id : dead_messages)
         {
-            //permanent_messages.erase(id);
             auto it = permanent_messages.find(id);
             if (it != permanent_messages.end())
+            {
+                il2cpp::gchandle_free(it->second.handle);
+                it->second.handle = -1;
                 permanent_messages.erase(it);
+            }
         }
 
         QuestsController::Update(this_ptr);
@@ -581,7 +615,7 @@ INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text)
     return true;
 }
 
-INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z)
+INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z, bool use_in_game_coordinates)
 {
     auto& message = permanent_messages.find(id);
     if (message == permanent_messages.end())
@@ -590,6 +624,7 @@ INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z)
     message->second.pos.x = x;
     message->second.pos.y = y;
     message->second.pos.z = z;
+    message->second.use_in_game_coordinates = use_in_game_coordinates;
     refresh(message->second);
 
     return true;

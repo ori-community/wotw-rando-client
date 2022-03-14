@@ -24,6 +24,7 @@ namespace RandoMainDLL {
     public ZoneType Zone;
     public LocType Type;
     public UberStateCondition Cond;
+    public Vector2? Position;
 
     public string FullName { get => $"{Area}.{Name}"; }
     public LocData(ZoneType zone, LocType type) { Zone = zone; Type = type; }
@@ -49,6 +50,13 @@ namespace RandoMainDLL {
       var lineParts = rawLine.Replace(", ",",").Split(',');
       var nameParts = lineParts[0].Split('.');
 
+      var PositionX = lineParts[8];
+      var PositionY = lineParts[9];
+
+      if (PositionX != "0" && PositionY != "0") {
+        Position = new Vector2(float.Parse(PositionX), float.Parse(PositionY));
+      }
+      
       Area = nameParts[0];
       Name = nameParts[1];
       Zone = NameToZone.GetOrElse(lineParts[1], ZoneType.Void, "LocData: NameToZone");

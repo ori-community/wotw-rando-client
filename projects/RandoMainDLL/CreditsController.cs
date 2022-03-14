@@ -47,7 +47,7 @@ namespace RandoMainDLL {
         if (debugID == 0) {
           debugID = InterOp.Messaging.reserve_id();
           InterOp.Messaging.text_box_create(debugID, 0.5f, 0.5f, false, false);
-          InterOp.Messaging.text_box_position(debugID, 0.0f, 3.5f, ZValue);
+          InterOp.Messaging.text_box_position(debugID, 0.0f, 3.5f, ZValue, false);
           InterOp.Messaging.text_box_alignment(debugID, Alignment.Center);
           InterOp.Messaging.text_box_anchor(debugID, HorizontalAnchor.Center, VerticalAnchor.Top);
         }
@@ -284,7 +284,7 @@ namespace RandoMainDLL {
           var mID = messageID(id);
           InterOp.Messaging.text_box_create(mID, fadeIn, fadeOut, false, false);
           InterOp.Messaging.text_box_text(mID, ProcessText(text));
-          InterOp.Messaging.text_box_position(mID, x, y, ZValue);
+          InterOp.Messaging.text_box_position(mID, x, y, ZValue, false);
           InterOp.Messaging.text_box_alignment(mID, alignment);
           InterOp.Messaging.text_box_anchor(mID, horizontal, vertical);
           started = true;
@@ -325,7 +325,7 @@ namespace RandoMainDLL {
         var x = Lerp(x1, x2, weight);
         var y = Lerp(y1, y2, weight);
         var mID = messageID(id);
-        InterOp.Messaging.text_box_position(mID, x, y, ZValue);
+        InterOp.Messaging.text_box_position(mID, x, y, ZValue, false);
         return finished;
       }
 
