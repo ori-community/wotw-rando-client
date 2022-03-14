@@ -22,7 +22,7 @@ std::ostream& logstream = std::cout;
 
 std::string steam_process_name = "oriwotw.exe";
 std::string store_process_name = "oriandthewillofthewisps-pc.exe";
-std::string base_path = "C:\\moon\\";
+std::string base_path = "C:\\moon\\randomizer\\";
 std::string dll_name = "InjectLoader.dll";
 std::string settings_name = "settings.ini";
 
