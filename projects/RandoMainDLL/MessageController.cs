@@ -122,6 +122,9 @@ namespace RandoMainDLL {
           activeTimedMessages.Clear();
           pickupQueue.Clear();
           priorityPickupQueue.Clear();
+          foreach (var textMessage in activePickupTextMessages) {
+            textMessage.Destroyed = true;
+          }
           break;
       }
     }

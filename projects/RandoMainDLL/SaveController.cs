@@ -75,6 +75,7 @@ namespace RandoMainDLL {
         UberStateController.TimerUberStates.Clear();
         StatsTracking.OnLoad(DidWeJustDie);
         if (DidWeJustDie) {
+          MessageController.Clear();
           UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
           UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
           UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
