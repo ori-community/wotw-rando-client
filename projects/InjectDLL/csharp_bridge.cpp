@@ -1,6 +1,8 @@
 #include <csharp_bridge.h>
 #include <macros.h>
 
+#define DELEGATE_ENTRY(name) { #name, reinterpret_cast<void**>(&(name)) }
+
 namespace csharp_bridge
 {
     signatures::f_void_float update = nullptr;
@@ -64,16 +66,8 @@ namespace csharp_bridge
     signatures::f_int get_flag_count = nullptr;
     signatures::f_void_int_ptr_int get_flag = nullptr;
     signatures::f_int_bool get_relic_count = nullptr;
-}
 
-#define DELEGATE_ENTRY(name) { #name, reinterpret_cast<void**>(&(name)) }
-
-INJECT_C_DLLEXPORT void register_delegate(const char* name, uint64_t ptr)
-{
-    using namespace csharp_bridge;
-    using namespace signatures;
-
-    std::unordered_map<std::string_view, void**> ptr_map{
+    const std::unordered_map<std::string_view, void**> ptr_map {
             DELEGATE_ENTRY(update),
             DELEGATE_ENTRY(on_tree),
             DELEGATE_ENTRY(on_checkpoint),
@@ -126,6 +120,12 @@ INJECT_C_DLLEXPORT void register_delegate(const char* name, uint64_t ptr)
             DELEGATE_ENTRY(get_relic_count),
             DELEGATE_ENTRY(on_found_tp),
     };
+}
+
+INJECT_C_DLLEXPORT void register_delegate(const char* name, uint64_t ptr)
+{
+    using namespace csharp_bridge;
+    using namespace signatures;
 
     auto it = ptr_map.find(name);
     if (it != ptr_map.end())
