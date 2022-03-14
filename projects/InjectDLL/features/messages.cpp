@@ -251,7 +251,6 @@ namespace
         }
     }
 
-    // TODO: Allow setting padding on the Background, should call scale_background every time they or the contents are changed.
     IL2CPP_BINDING(, ScaleToTextBox, void, UpdateSize, (app::ScaleToTextBox* this_ptr));
     void scale_background(RandoMessage& message)
     {
