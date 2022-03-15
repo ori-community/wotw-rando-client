@@ -1,5 +1,6 @@
 #include <dll_main.h>
 #include <pickups/pickups.h>
+#include <uber_states/uber_state_manager.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -55,7 +56,12 @@ namespace
             SeinUI::ShakeSeeds(get_ui()->static_fields->SeinUI);
     }
 
-    IL2CPP_INTERCEPT(, SeinPickupProcessor, void, PerformPickupSequence, (app::SeinPickupProcessor* thisPtr, app::SeinPickupProcessor_CollectableInfo* info)) {
+    IL2CPP_INTERCEPT(, SeinPickupProcessor, void, PerformPickupSequence, (app::SeinPickupProcessor* this_ptr, app::SeinPickupProcessor_CollectableInfo* info)) {}
 
+    IL2CPP_INTERCEPT(, PickupBase, void, Collected, (app::SeinPickupProcessor* this_ptr)) {
+        if (uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, PREVENT_PICKUP_ID) > 0.5)
+            return;
+
+        PickupBase::Collected(this_ptr);
     }
 }
