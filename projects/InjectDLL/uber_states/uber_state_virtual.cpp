@@ -114,6 +114,20 @@ namespace uber_states
                 }
             },
             {
+                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 112),
+                {
+                    "Player input active",
+                    [](double x) {
+                        auto player_input = il2cpp::get_class<app::PlayerInput__Class>("", "PlayerInput")->static_fields->Instance;
+                        player_input->fields.Active = x > 0.5;
+                    },
+                    []() -> double {
+                        auto player_input = il2cpp::get_class<app::PlayerInput__Class>("", "PlayerInput")->static_fields->Instance;
+                        return static_cast<double>(player_input->fields.Active);
+                    }
+                }
+            },
+            {
                 std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 200),
                 {
                     "Area",
@@ -197,20 +211,6 @@ namespace uber_states
                             + static_cast<int>(uber_states::get_uber_state_value(14019, 50597) > 3.5)
                             + static_cast<int>(uber_states::get_uber_state_value(14019, 44578) > 1.5)
                             + static_cast<int>(uber_states::get_uber_state_value(14019, 26394) > 1.5);
-                    }
-                }
-            },
-            {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 504),
-                {
-                    "Player input active",
-                    [](double x) {
-                        auto player_input = il2cpp::get_class<app::PlayerInput__Class>("", "PlayerInput")->static_fields->Instance;
-                        player_input->fields.Active = x > 0.5;
-                    },
-                    []() -> double {
-                        auto player_input = il2cpp::get_class<app::PlayerInput__Class>("", "PlayerInput")->static_fields->Instance;
-                        return static_cast<double>(player_input->fields.Active);
                     }
                 }
             }
