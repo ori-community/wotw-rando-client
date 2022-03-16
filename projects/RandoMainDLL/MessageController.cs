@@ -15,14 +15,32 @@ namespace RandoMainDLL {
   }
 
   public enum HorizontalAnchor : int {
+    /// <summary>
+    /// Align the content's left edge to the anchor point
+    /// </summary>
     Left = 0,
+    /// <summary>
+    /// Align the content's center point to the anchor point
+    /// </summary>
     Center = 1,
+    /// <summary>
+    /// Align the content's right edge to the anchor point
+    /// </summary>
     Right = 2
   }
 
   public enum VerticalAnchor : int {
+    /// <summary>
+    /// Align the content's top edge to the anchor point
+    /// </summary>
     Top = 0,
+    /// <summary>
+    /// Align the content's center point to the anchor point
+    /// </summary>
     Middle = 1,
+    /// <summary>
+    /// Align the content's bottom edge the anchor point
+    /// </summary>
     Bottom = 2
   }
 
@@ -372,16 +390,34 @@ namespace RandoMainDLL {
 
     public ListType Type = ListType.None;
     public bool AllowRepositioning = true;
+    /// <summary>
+    /// Display time in seconds
+    /// </summary>
     public float Time = 3f;
     public float TimeActive = 0f;
     public string Text = "TEST";
+    /// <summary>
+    /// Offset from the <cref>ScreenPosition</cref>
+    /// </summary>
     public Vector3 Position = new Vector3();
     public bool UseInGameCoordinates = false;
     public Padding Padding = new Padding(0.25f, 1.0f, 1.0f, 0.25f);
     public float Size = 1f;
+    /// <summary>
+    /// Text Alignment within a message
+    /// </summary>
     public Alignment Alignment = Alignment.Center;
+    /// <summary>
+    /// Horizontal placement of the message relative to its <cref>ScreenPosition</cref> and offset
+    /// </summary>
     public HorizontalAnchor Horizontal = HorizontalAnchor.Center;
+    /// <summary>
+    /// Vertical placement of the message relative to its <cref>ScreenPosition</cref> and offset
+    /// </summary>
     public VerticalAnchor Vertical = VerticalAnchor.Middle;
+    /// <summary>
+    /// Anchor point of the message relative to the screen
+    /// </summary>
     public ScreenPosition ScreenPosition = ScreenPosition.MiddleCenter;
   }
 
