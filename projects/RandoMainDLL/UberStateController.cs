@@ -234,6 +234,10 @@ namespace RandoMainDLL {
         PopulateUberStates();
       }
 
+      if (groupID == 15 && stateID == 112 && newValue > 0.5) {
+        Randomizer.Log("Player input disabled", false);
+      }
+
       UberId key = new UberId(groupID, stateID);
       if (uberStateLookup.TryGetValue(key, out UberState cachedState)) {
         UberState state = cachedState.Clone();
