@@ -392,7 +392,10 @@ namespace RandoMainDLL {
         return nameFrag.Replace(withStateRepl, (Match m) => {
           var ptype = (PickupType)m.Groups[1].Value.ParseToByte("rawName type");
           var rest = m.Groups[2].Value.Split('|').ToList();
-          return SeedController.BuildPickup(ptype, rest[0], rest.Skip(1).ToList(), null).DisplayName;
+          if(rest.Last() == "nocolor")
+            return SeedController.BuildPickup(ptype, rest[0], rest.Skip(1).SkipLast(1).ToList(), null).Name;
+          else
+            return SeedController.BuildPickup(ptype, rest[0], rest.Skip(1).ToList(), null).DisplayName;
         });
       }
     }
