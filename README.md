@@ -7,7 +7,7 @@ read the wiki: https://wiki.orirando.com/
 
 ## Discord links:
 orirando.com/discord for the main ori speedrunning discord
-https://discord.gg/ArJxPvhm for the development discord
+https://discord.gg/tpn9WydSQz for the development discord
 
 ## Dev instructions
 First you will have to generate the solution file, for this you will need cmake version 3.17 or higher
