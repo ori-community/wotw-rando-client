@@ -6,9 +6,9 @@ namespace RandoMainDLL {
   public enum BonusType {
     [Description("Relic")]
     Relic = 20,
-    [Description("Health Regen")]
+    [Description("Health Regeneration")]
     HealthRegen = 30,
-    [Description("Energy Regen")]
+    [Description("Energy Regeneration")]
     EnergyRegen = 31,
     [Description("Extra Double Jump")]
     ExtraDoubleJump = 35,
