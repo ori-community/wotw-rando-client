@@ -395,7 +395,11 @@ namespace RandoMainDLL {
         return nameFrag.Replace(withStateRepl, (Match m) => {
           var ptype = (PickupType)m.Groups[1].Value.ParseToByte("rawName type");
           var rest = m.Groups[2].Value.Split('|').ToList();
-          return SeedController.BuildPickup(ptype, rest[0], rest.Skip(1).ToList(), null).DisplayName;
+          if(rest.Last() == "nocolor") {
+            rest.RemoveAt(rest.Count - 1);
+            return SeedController.BuildPickup(ptype, rest[0], rest.Skip(1).ToList(), null).Name;
+          }
+            return SeedController.BuildPickup(ptype, rest[0], rest.Skip(1).ToList(), null).DisplayName;
         });
       }
     }
@@ -556,7 +560,7 @@ namespace RandoMainDLL {
       "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", "EXP",
       "Experience", "XP", "Gil", "GP", "Dollars", "Tokens", "Tickets",
       "Pounds Sterling", "Brownie Points", "Euros", "Credits", "Bells", "Fish",
-      "Zenny", "Pesos", "Hryvnia", "Poké", "Glod", "Dollerydoos",
+      "Zenny", "Pesos", "Exalted Orbs", "Hryvnia", "Poké", "Glod", "Dollerydoos",
       "Boonbucks", "Pieces of Eight", "Shillings", "Farthings", "Kalganids",
       "Quatloos", "Etherium", "Dogecoin", "Crowns", "Solari", "Widgets",
       "Money", "Cash", "BTC", "Munny", "Nuyen", "Rings", "Rupees", "Coins",

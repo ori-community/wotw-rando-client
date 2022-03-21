@@ -234,6 +234,10 @@ namespace RandoMainDLL {
         PopulateUberStates();
       }
 
+      if (groupID == 15 && stateID == 112 && newValue > 0.5) {
+        Randomizer.Log("Player input disabled", false);
+      }
+
       UberId key = new UberId(groupID, stateID);
       if (uberStateLookup.TryGetValue(key, out UberState cachedState)) {
         UberState state = cachedState.Clone();
@@ -447,7 +451,7 @@ namespace RandoMainDLL {
         new UberId(5377, 63173),
         (UberState state) => {
           if (state.Value.Bool && InterOp.Map.is_visited(AreaType.LumaPools, 6073))
-            TeleporterType.EastPools.p().Grant();
+            InterOp.set_uber_state_value(945, 26601, 3); // Give LumaPools tp.
         }
       },
     };

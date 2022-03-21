@@ -361,7 +361,7 @@ namespace dev
                 auto group_name = il2cpp::convert_csstring(csgroup);
 
                 indent(visualizer);
-                visualizer.stream << "bool_uber_state: {" << visualizer.new_line;
+                visualizer.stream << "serialized_uber_state: {" << visualizer.new_line;
                 indent(visualizer, 1);
                 auto state_id = il2cpp::invoke<app::UberID>(state, "get_ID");
                 visualizer.stream << state_name << "(" << state_id->fields.m_id << ")" << visualizer.new_line;
@@ -370,6 +370,57 @@ namespace dev
                 visualizer.stream << group_name << "(" << group_id->fields.m_id << ")" << visualizer.new_line;
                 indent(visualizer, -1);
                 visualizer.stream << "}" << visualizer.new_line;
+            }
+
+            void visualize_respawner(Visualizer& visualizer, Il2CppObject* obj)
+            {
+                auto respawner = reinterpret_cast<app::Respawner*>(obj);
+
+
+                switch (visualizer.current_state.id)
+                {
+                case 0:
+                {
+                    indent(visualizer);
+                    visualizer.stream << "Respawner: {" << visualizer.new_line;
+                    indent(visualizer, 1);
+                    visualizer.stream << "min_distance_from_player: " << respawner->fields.MinDistanceFromPlayer << visualizer.new_line;
+                    indent(visualizer);
+                    visualizer.stream << "respawn_on_timeout: " << respawner->fields.RespawnOnTimeout << visualizer.new_line;
+                    indent(visualizer);
+                    visualizer.stream << "respawn_on_screen: " << respawner->fields.RespawnOnScreen << visualizer.new_line;
+                    indent(visualizer);
+                    visualizer.stream << "respawn_time: " << respawner->fields.RespawnTime << visualizer.new_line;
+                    indent(visualizer);
+                    visualizer.stream << "timer: " << respawner->fields.m_timer << visualizer.new_line;
+                    indent(visualizer, 0, 1);
+                    visualizer.stream << "timer_uberstate: {" << visualizer.new_line;
+                    visualize_object_internal(visualizer, respawner->fields.TimerUberState);
+                    visualize_object_internal(visualizer, obj, 1);
+                    break;
+                }
+                case 1:
+                {
+                    indent(visualizer, -1);
+                    visualizer.stream << "}" << visualizer.new_line;
+                    indent(visualizer, 0, 1);
+                    visualizer.stream << "respawn_target: {" << visualizer.new_line;
+                    visualize_object_internal(visualizer, respawner->fields.RespawnTarget);
+                    visualize_object_internal(visualizer, obj, 2);
+                    break;
+                }
+                case 2:
+                {
+                    indent(visualizer, -1);
+                    visualizer.stream << "}" << visualizer.new_line;
+                    indent(visualizer, -1);
+                    visualizer.stream << "}" << visualizer.new_line;
+                    break;
+                }
+                default:
+                    break;
+                }
+
             }
 
             std::unordered_map<std::string, void (*)(Visualizer& visualizer, Il2CppObject* obj)> visualizers = {
@@ -394,6 +445,8 @@ namespace dev
                 { "SceneRoot", visualize_scene_root },
                 { "UnityEngine.GameObject", visualize_game_object },
 				{ "UnityEngine.Object", visualize_unity_object },
+
+                { "Respawner", visualize_respawner },
             };
         }
 

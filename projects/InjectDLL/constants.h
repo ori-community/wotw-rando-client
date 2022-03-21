@@ -28,6 +28,7 @@ constexpr double PI = 3.14159265358979323846;
 constexpr int CHAOS_MODE_ID = 7;
 constexpr int CHAOS_TRIGGER_MIN_ID = 500;
 constexpr int CHAOS_TRIGGER_MAX_ID = 501;
+constexpr int PREVENT_PICKUP_ID = 8;
 constexpr int FORCE_AIR_NO_DECELERATION_ID = 301;
 constexpr int ICON_TRANSPARENCY_ID = 1000;
 #pragma endregion
