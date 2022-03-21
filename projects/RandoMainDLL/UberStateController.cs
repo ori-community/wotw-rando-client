@@ -451,7 +451,7 @@ namespace RandoMainDLL {
         new UberId(5377, 63173),
         (UberState state) => {
           if (state.Value.Bool && InterOp.Map.is_visited(AreaType.LumaPools, 6073))
-            TeleporterType.EastPools.p().Grant();
+            InterOp.set_uber_state_value(945, 26601, 3); // Give LumaPools tp.
         }
       },
     };
