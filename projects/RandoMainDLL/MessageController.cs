@@ -79,6 +79,7 @@ namespace RandoMainDLL {
 
   public static class MessageController {
     private const int MAX_PICKUP_LINE_COUNT = 5;
+    private const int MAX_PICKUP_MESSAGES_QUEUED = 5;
     private static readonly TextMessage INFO = new TextMessage(ReserveID(), new TextMessageDescriptor() { ShowsBox = false });
     // private static readonly TextMessage PICKUP = new TextMessage(ReserveID(), new TextMessageDescriptor() { Muted = false, ShowsBox = true });
     private static readonly Dictionary<ListType, TextMessage> SINGLE_MESSAGES;
@@ -147,8 +148,14 @@ namespace RandoMainDLL {
       }
     }
 
+    public static void LimitPickupQueue() {
+      if (pickupQueue.Count > MAX_PICKUP_MESSAGES_QUEUED)
+        pickupQueue.Dequeue();
+    }
+
     public static void ShowLastPickup() {
       pickupQueue.Enqueue(new PickupMessage(lastPickup));
+      LimitPickupQueue();
     }
 
     // I hate this.
@@ -164,6 +171,7 @@ namespace RandoMainDLL {
       var message = new PickupMessage(text, time, pickupPosition);
       (priority ? priorityPickupQueue : pickupQueue).Enqueue(message);
       lastPickup = message;
+      LimitPickupQueue();
     }
 
     public static void ShowSingleMessage(string text, float time = 3f, ListType list = ListType.Hint, bool log = false) {
