@@ -230,11 +230,10 @@ namespace
             auto player_info = multiplayer::get_player(it->second);
             auto color = player_info != nullptr ? player_info->color : app::Color{ 1.0f, 1.0f, 1.0f, 1.0f };
             if (il2cpp::unity::is_valid(info.icon->fields.IconGameObject))
-            {
                 utils::set_color(info.icon->fields.IconGameObject, color, true);
-                for (auto& dot : info.dots)
-                    GameObject::SetActive(dot.dot, false);
-            }
+
+            for (auto& dot : info.dots)
+                GameObject::SetActive(dot.dot, false);
         }
         else if (this_ptr->fields.m_areaMapIcon != nullptr)
         {
@@ -858,6 +857,10 @@ namespace
         if (!il2cpp::unity::is_valid(icon->fields.IconGameObject))
             return;
 
+        auto is_player = player_map.find(icon);
+        if (is_player != player_map.end())
+            return;
+
         auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(icon->fields.IconGameObject, "UnityEngine", "Renderer");
         for (auto i = 0; i < renderers.size(); ++i)
         {
@@ -1190,22 +1193,20 @@ void refresh_icon_alphas(bool is_map_visible)
     map_visible = is_map_visible;
     for (auto& p : player_icon_map)
     {
+        auto player = multiplayer::get_player(p.first);
+        auto color = player != nullptr ? player->color : app::Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+        if (il2cpp::unity::is_valid(p.second.icon->fields.IconGameObject))
+            utils::set_color(p.second.icon->fields.IconGameObject, color, true);
+
         if (is_map_visible)
         {
             if (p.second.dots.empty())
                 return;
 
-            auto player = multiplayer::get_player(p.second.name);
             const int HALF_DOTS = DOT_COUNT / 2;
             for (int i = 0; i < HALF_DOTS; ++i)
             {
                 auto& dot = p.second.dots[(p.second.next_index + HALF_DOTS + i) % DOT_COUNT];
-                app::Color color;
-                if (player != nullptr)
-                    color = player->color;
-                else
-                    color = shaders::UberShaderAPI::GetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor);
-
                 color.a = static_cast<float>(i) / HALF_DOTS;
                 shaders::UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
             }
