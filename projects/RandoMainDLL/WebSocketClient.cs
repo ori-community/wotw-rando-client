@@ -9,6 +9,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using RandoMainDLL.Memory;
+using Vector2 = RandoMainDLL.Memory.Vector2;
 
 namespace RandoMainDLL {
   public static class WebSocketClient {
@@ -206,10 +207,35 @@ namespace RandoMainDLL {
             foreach (var us in messages.Updates)
               UberStateQueue.Add(us);
             break;
-          case 6:
-            var printMsg = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
-            MessageController.ShowTimedMessage(text: printMsg.Text, time: printMsg.Frames / 60f, position: new Vector2(0f, printMsg.Ypos), log: true);
+          case 13: {
+            var message = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
+            MessageController.ShowTimedMessage(
+              text: message.Text,
+              time: message.Time,
+              position: new Vector2(message.Position),
+              showsBox: message.WithBox,
+              alignment: (Alignment)message.Alignment,
+              vertical: (VerticalAnchor)message.VerticalAnchor,
+              horizontal: (HorizontalAnchor)message.HorizontalAnchor,
+              screen: (ScreenPosition)message.ScreenPosition,
+              queue: message.HasQueue ? message.Queue : null,
+              priority: message.Prioritized,
+              replace: message.Replace,
+              log: true
+            );
             break;
+          }
+          case 14: {
+            var message = PrintPickupMessage.Parser.ParseFrom(packet.Packet_);
+            MessageController.ShowPickup(
+              text: message.Text,
+              time: message.Time,
+              priority: message.Prioritized,
+              pickupPosition: message.PickupPosition != null ? new Vector2(message.PickupPosition) : null,
+              log: true
+            );
+            break;
+          }
           case 5:
             var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);
             UberStateController.SyncedUberStates = init.UberId.Select(s => s.IdFromMsg()).ToHashSet(); // LINQ BAAAYBEEEEEE

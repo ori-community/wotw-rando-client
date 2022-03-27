@@ -5,9 +5,8 @@ include(CSharpUtilities)
 
 file(MAKE_DIRECTORY ${PROJECT_DIR}/Generated/)
 execute_process(
-	COMMAND ${CMAKE_ROOT_DIRECTORY}/ext/protobuf-3.13.0/bin/protoc
+	COMMAND ${CMAKE_ROOT_DIRECTORY}/ext/protoc-3.19.4-win64/bin/protoc
 		-I=${PROJECT_DIR}/proto/
-		--experimental_allow_proto3_optional
 		--csharp_out=${PROJECT_DIR}/Generated/
 		${PROJECT_DIR}/proto/packets.proto
 )

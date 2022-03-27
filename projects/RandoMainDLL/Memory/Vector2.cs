@@ -19,6 +19,11 @@ namespace RandoMainDLL.Memory {
       Y = copyFrom.Y;
     }
 
+    public Vector2(Network.Vector2 copyFrom) {
+      X = copyFrom.X;
+      Y = copyFrom.Y;
+    }
+
     public static Vector2 operator -(Vector2 one, Vector2 two) => new Vector2() { X = one.X - two.X, Y = one.Y - two.Y };
     public static Vector2 operator +(Vector2 one, Vector2 two) => new Vector2() { X = one.X + two.X, Y = one.Y + two.Y };
     public static Vector2 operator *(Vector2 one, Vector2 two) => new Vector2() { X = one.X * two.X, Y = one.Y * two.Y };

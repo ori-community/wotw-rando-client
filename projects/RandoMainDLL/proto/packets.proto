@@ -25,10 +25,34 @@ message InitBingoMessage {
   repeated UberId uberId = 1;
 }
 
+message Vector2 {
+  float x = 1;
+  float y = 2;
+}
+
 message PrintTextMessage {
-  int32 frames = 1;
-  float ypos = 2;
-  string text = 3;
+  float time = 1;
+  string text = 2;
+  Vector2 position = 3;
+  int32 screenPosition = 4;
+  bool useInGameCoordinates = 5;
+  float fadeInLength = 6;
+  float fadeOutLength = 7;
+  int32 alignment = 8;
+  int32 horizontalAnchor = 9;
+  int32 verticalAnchor = 10;
+  bool withSound = 11;
+  bool withBox = 12;
+  optional string queue = 13;
+  bool prioritized = 14;
+  bool replace = 15;
+}
+
+message PrintPickupMessage {
+  float time = 1;
+  string text = 2;
+  bool prioritized = 3;
+  optional Vector2 pickupPosition = 4;
 }
 
 message AuthenticateMessage {
