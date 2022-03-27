@@ -66,7 +66,7 @@ namespace RandoMainDLL {
                 File.AppendAllText(LogFile, txt);
               } catch (Exception e) {
                 if (Dev)
-                  MessageController.ShowSingleMessage($"error logging: {e}", log: false, list: ListType.Debug);
+                  MessageController.ShowTimedMessage($"error logging: {e}", log: false, queue: "debug");
               }
             }
           });
@@ -164,7 +164,7 @@ namespace RandoMainDLL {
         return;
       logQueue.Add($"{DateTime.Now:[yyyy-MM-dd HH:mm:ss.fff]} [{level}]: {message}\n");
       if (Dev && printIfDev)
-        queuedCommands.Add(() => MessageController.ShowSingleMessage(text: message, list: ListType.Debug));
+        queuedCommands.Add(() => MessageController.ShowTimedMessage(text: message, queue: "debug"));
     }
 
     public delegate void Callback();

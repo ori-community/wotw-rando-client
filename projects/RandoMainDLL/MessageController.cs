@@ -5,6 +5,7 @@ using System.IO;
 using AutoHotkey.Interop;
 using RandoMainDLL.Memory;
 using System.Linq;
+using System.ComponentModel;
 
 namespace RandoMainDLL {
   public enum Alignment : int {
@@ -56,13 +57,6 @@ namespace RandoMainDLL {
     BottomRight = 8
   }
 
-  public enum ListType {
-    None = 0,
-    Wheel = 1,
-    Hint = 2,
-    Debug = 3
-  }
-
   public struct Padding {
     public Padding(float top, float left, float right, float bottom) {
       Top = top;
@@ -77,17 +71,55 @@ namespace RandoMainDLL {
     public float Bottom;
   }
 
+  public class MessageQueue<T> where T : class {
+    public readonly Queue<T> Normal = new Queue<T>();
+    public readonly Queue<T> Priority = new Queue<T>();
+
+    public ScreenPosition? OverrideScreenPosition = null;
+    public Vector3? OverridePosition = null;
+
+    public void Add(T value, bool priority) {
+      (priority ? Priority : Normal).Enqueue(value);
+    }
+
+    public void Clear() {
+      Normal.Clear();
+      Priority.Clear();
+    }
+
+    public bool Empty() => Priority.Count == 0 && Normal.Count == 0;
+
+    public T Peek() {
+      if (Priority.Count > 0)
+        return Priority.Peek();
+
+      if (Normal.Count > 0)
+        return Priority.Peek();
+
+      return null;
+    }
+
+    public T Next() {
+      if (Priority.Count > 0)
+        return Priority.Dequeue();
+      
+      if (Normal.Count > 0)
+        return Priority.Dequeue();
+
+      return null;
+    }
+  }
+
   public static class MessageController {
     private const int MAX_PICKUP_LINE_COUNT = 5;
     private const int MAX_PICKUP_MESSAGES_QUEUED = 5;
     private static readonly TextMessage INFO = new TextMessage(ReserveID(), new TextMessageDescriptor() { ShowsBox = false });
     // private static readonly TextMessage PICKUP = new TextMessage(ReserveID(), new TextMessageDescriptor() { Muted = false, ShowsBox = true });
-    private static readonly Dictionary<ListType, TextMessage> SINGLE_MESSAGES;
 
     private static List<TextMessage> activePickupTextMessages = new List<TextMessage>();
     private static PickupMessage lastPickup;
-    private static Queue<PickupMessage> pickupQueue = new Queue<PickupMessage>();
-    private static Queue<PickupMessage> priorityPickupQueue = new Queue<PickupMessage>();
+    private static Dictionary<string, MessageQueue<TextMessage>> queues = new Dictionary<string, MessageQueue<TextMessage>>();
+    private static MessageQueue<PickupMessage> pickupQueue = new MessageQueue<PickupMessage>();
     // private static List<PickupMessage> activePickups = new List<PickupMessage>();
     private static List<TextMessage> activeTimedMessages = new List<TextMessage>();
     private static Dictionary<int, TextMessage> activeIdTimedMessages = new Dictionary<int, TextMessage>();
@@ -96,32 +128,18 @@ namespace RandoMainDLL {
       INFO.ScreenPosition = ScreenPosition.BottomCenter;
       INFO.Position = new Vector3(0f, 0.5f, 0f);
 
-      SINGLE_MESSAGES = new Dictionary<ListType, TextMessage>() {
-        {
-          ListType.Wheel,
-          new TextMessage(ReserveID()){
-            ScreenPosition = ScreenPosition.TopCenter,
-            Position = new Vector3(0, -1, 0),
-            Type = ListType.Wheel
-          }
-        },
-        {
-          ListType.Hint,
-          new TextMessage(ReserveID()){
-            ScreenPosition = ScreenPosition.TopCenter,
-            Position = new Vector3(0, -1, 0),
-            Type = ListType.Hint
-          }
-        },
-        {
-          ListType.Debug,
-          new TextMessage(ReserveID()){
-            ScreenPosition = ScreenPosition.TopCenter,
-            Position = new Vector3(0, -1, 0),
-            Type = ListType.Debug
-          }
-        },
-      };
+      queues.Add("wheel", new MessageQueue<TextMessage> { OverrideScreenPosition = ScreenPosition.TopCenter, OverridePosition = new Vector3(0, -1, 0) });
+      queues.Add("hint", new MessageQueue<TextMessage> { OverrideScreenPosition = ScreenPosition.TopCenter, OverridePosition = new Vector3(0, -1, 0) });
+      queues.Add("debug", new MessageQueue<TextMessage> { OverrideScreenPosition = ScreenPosition.TopCenter, OverridePosition = new Vector3(0, -1, 0) });
+    }
+
+    private static MessageQueue<TextMessage> getOrCreateQueue(string queue) {
+      if (!queues.TryGetValue(queue, out var messageQueue)) {
+        messageQueue = new MessageQueue<TextMessage>();
+        queues.Add(queue, messageQueue);
+      }
+
+      return messageQueue;
     }
 
     public static void SetInfoVisibility(bool open) {
@@ -135,26 +153,27 @@ namespace RandoMainDLL {
       INFO.Text = text == "" ? " " : text;
     }
 
-    public static void Clear(ListType list = ListType.None) {
-      switch (list) {
-        default:
-          activeTimedMessages.Clear();
-          pickupQueue.Clear();
-          priorityPickupQueue.Clear();
-          foreach (var textMessage in activePickupTextMessages) {
-            textMessage.Destroyed = true;
-          }
-          break;
+    public static void Clear(string queue = null) {
+      if (queue == null) {
+        activeTimedMessages.Clear();
+        pickupQueue.Clear();
+        foreach (var q in queues)
+          q.Value.Clear();
+
+        foreach (var textMessage in activePickupTextMessages)
+          textMessage.Destroyed = true;
       }
+      else
+        queues.GetOrElse(queue, null)?.Clear();
     }
 
     public static void LimitPickupQueue() {
-      if (pickupQueue.Count > MAX_PICKUP_MESSAGES_QUEUED)
-        pickupQueue.Dequeue();
+      if (pickupQueue.Normal.Count > MAX_PICKUP_MESSAGES_QUEUED)
+        pickupQueue.Normal.Dequeue();
     }
 
     public static void ShowLastPickup() {
-      pickupQueue.Enqueue(new PickupMessage(lastPickup));
+      pickupQueue.Normal.Enqueue(new PickupMessage(lastPickup));
       LimitPickupQueue();
     }
 
@@ -169,25 +188,9 @@ namespace RandoMainDLL {
         File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(text, "[$#@*]", "")}\n");
 
       var message = new PickupMessage(text, time, pickupPosition);
-      (priority ? priorityPickupQueue : pickupQueue).Enqueue(message);
+      (priority ? pickupQueue.Priority : pickupQueue.Normal).Enqueue(message);
       lastPickup = message;
       LimitPickupQueue();
-    }
-
-    public static void ShowSingleMessage(string text, float time = 3f, ListType list = ListType.Hint, bool log = false) {
-      if (!SINGLE_MESSAGES.ContainsKey(list)) {
-        Randomizer.Log($"ListType unsupported in ShowSingleMessage: {list}", level: "WARNING");
-        return;
-      }
-
-      if (log) {
-        File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(text, "[$#@*]", "")}\n");
-      }
-
-      var message = SINGLE_MESSAGES[list];
-      message.Text = text;
-      message.Time = time;
-      message.Destroyed = false;
     }
 
     public static void ShowTimedMessage(
@@ -200,8 +203,10 @@ namespace RandoMainDLL {
       HorizontalAnchor horizontal = HorizontalAnchor.Center,
       VerticalAnchor vertical = VerticalAnchor.Middle,
       ScreenPosition screen = ScreenPosition.MiddleCenter,
-      ListType list = ListType.None,
       int id = -1,
+      string queue = null,
+      bool priority = false,
+      bool replace = false,
       bool log = false)
     {
       if (log) {
@@ -227,30 +232,33 @@ namespace RandoMainDLL {
       desc.Horizontal = horizontal;
       desc.Vertical = vertical;
       desc.ScreenPosition = screen;
-      desc.Type = list;
 
-      switch (list) {
-        case ListType.Wheel:
-        case ListType.Hint:
-        case ListType.Debug: {
-            Randomizer.Log($"ListType unsupported in ShowTimedMessage: {list}", level: "WARNING");
-            break;
-          }
-        default: {
-            var message = new TextMessage(ReserveID(), desc);
-            message.Destroyed = false;
-            if (id >= 0)
-              activeIdTimedMessages[id] = message;
-            else
-              activeTimedMessages.Add(message);
-            break;
-          }
+      var message = new TextMessage(ReserveID(), desc);
+      if (queue == null) {
+        message.Destroyed = false;
+        if (id >= 0)
+          activeIdTimedMessages[id] = message;
+        else
+          activeTimedMessages.Add(message);
+      }
+      else {
+        var messageQueue = getOrCreateQueue(queue);
+        if (replace)
+          messageQueue.Clear();
+
+        if (messageQueue.OverrideScreenPosition.HasValue)
+          message.ScreenPosition = messageQueue.OverrideScreenPosition.Value;
+
+        if (messageQueue.OverridePosition.HasValue)
+          message.Position = messageQueue.OverridePosition.Value;
+
+        messageQueue.Add(message, priority);
       }
     }
 
     private static bool HandleMessageTimer(TextMessage message, float dt) {
       if (message.Destroyed)
-        return false;
+        return true;
 
       message.Time -= dt;
       message.TimeActive += dt;
@@ -270,52 +278,53 @@ namespace RandoMainDLL {
     public static void Tick() {
       float dt = InterOp.get_fixed_delta_time();
 
-      foreach (var message in SINGLE_MESSAGES)
-        HandleMessageTimer(message.Value, dt);
-
       for (var i = activeTimedMessages.Count - 1; i >= 0; --i) {
         var message = activeTimedMessages[i];
-        if (HandleMessageTimer(message, dt)) {
+        if (HandleMessageTimer(message, dt))
           activeTimedMessages.RemoveAt(i);
-        }
       }
 
       List<int> toRemove = new List<int>();
-      foreach (var message in activeIdTimedMessages) {
-        if (HandleMessageTimer(message.Value, dt)) {
+      foreach (var message in activeIdTimedMessages)
+        if (HandleMessageTimer(message.Value, dt))
           toRemove.Add(message.Key);
-        }
-      }
 
       foreach (var key in toRemove)
         activeIdTimedMessages.Remove(key);
+
+      foreach (var queue in queues) {
+        var message = queue.Value.Peek();
+        if (message != null) {
+          message.Destroyed = false;
+          if (HandleMessageTimer(message, dt))
+            queue.Value.Next();
+        }
+      }
 
       var lines = 0;
       for (var i = 0; i < activePickupTextMessages.Count; i++) {
         var targetY = 0.2f + (lines * -0.6f);
         var message = activePickupTextMessages[i];
-        
-        HandleMessageTimer(message, dt);
 
-        message.Position =
-          new Vector3(new Vector2(message.Position.X, message.Position.Y).Lerp(new Vector2(0, targetY),
-            dt * 15f * Math.Min(1f, message.TimeActive * 2.0f + 0.1f)), 0f);
+        if (HandleMessageTimer(message, dt)) {
+          message.Position =
+            new Vector3(new Vector2(message.Position.X, message.Position.Y).Lerp(new Vector2(0, targetY),
+              dt * 15f * Math.Min(1f, message.TimeActive * 2.0f + 0.1f)), 0f);
 
-        lines += message.Text.Split('\n').Length;
+          lines += message.Text.Split('\n').Length;
 
-        message.FadeOut = activePickupTextMessages.Count == 1 ? 0.5f : 0.1f;
+          message.FadeOut = activePickupTextMessages.Count == 1 ? 0.5f : 0.1f;
+        }
       }
 
       activePickupTextMessages.RemoveAll(m => m.Destroyed);
 
-      while (activePickupTextMessages.Count < MAX_PICKUP_LINE_COUNT) {
-        if (pickupQueue.Count == 0 && priorityPickupQueue.Count == 0)
-          break;
-
-        var pickupMessage = priorityPickupQueue.Count > 0
-          ? priorityPickupQueue.First()
-          : pickupQueue.First();
+      while (activePickupTextMessages.Count < MAX_PICKUP_LINE_COUNT && !pickupQueue.Empty()) {
+        var pickupMessage = pickupQueue.Next();
         var pickupMessageLines = pickupMessage.Text.Split('\n').Length;
+
+        if (lines != 0 && lines + pickupMessageLines > MAX_PICKUP_LINE_COUNT)
+          break;
 
         var displayMessageInGameWorld = false;
         
@@ -325,15 +334,6 @@ namespace RandoMainDLL {
           if (distanceToPlayer < 20f) {
             displayMessageInGameWorld = true;
           }
-        }
-        
-        if (lines != 0 && lines + pickupMessageLines > MAX_PICKUP_LINE_COUNT)
-          break;
-
-        if (priorityPickupQueue.Count > 0) {
-          priorityPickupQueue.Dequeue();
-        } else {
-          pickupQueue.Dequeue();
         }
 
         var desc = new TextMessageDescriptor();
@@ -378,7 +378,6 @@ namespace RandoMainDLL {
       Muted = desc.Muted;
       ShowsBox = desc.ShowsBox;
 
-      Type = desc.Type;
       AllowRepositioning = desc.AllowRepositioning;
       Time = desc.Time;
       Text = desc.Text;
@@ -396,7 +395,6 @@ namespace RandoMainDLL {
     public bool Muted = true;
     public bool ShowsBox = false;
 
-    public ListType Type = ListType.None;
     public bool AllowRepositioning = true;
     /// <summary>
     /// Display time in seconds
@@ -577,11 +575,6 @@ namespace RandoMainDLL {
         if (!destroyed)
           updatePosition();
       }
-    }
-
-    public ListType Type {
-      get { return descriptor.Type; }
-      set { descriptor.Type = value; }
     }
 
     public bool AllowRepositioning {

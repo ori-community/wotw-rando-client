@@ -85,7 +85,6 @@ namespace RandoMainDLL {
           time: duration,
           position: pos,
           screen: ScreenPosition.TopCenter,
-          list: ListType.None,
           muted: pp.Quiet,
           log: justUnlocked
         );
@@ -97,7 +96,6 @@ namespace RandoMainDLL {
           position: pos,
           screen: ScreenPosition.TopCenter,
           time: duration,
-          list: ListType.None,
           muted: pp.Quiet,
           log: justUnlocked
         );

@@ -227,7 +227,7 @@ namespace RandoMainDLL {
         }
         if (Settings.NetcodeEnabled) {
           if (AHK.IniFlag("DisableNetcode"))
-            MessageController.ShowSingleMessage("Warning: can't connect because netcode is disabled via settings", list: ListType.Debug, log: true);
+            MessageController.ShowTimedMessage("Warning: can't connect because netcode is disabled via settings", queue: "debug", log: true);
 
           WebSocketClient.Connect();
         }

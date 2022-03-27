@@ -107,7 +107,7 @@ namespace RandoMainDLL {
         case Action.ShowDevFlag:
           Randomizer.Dev = !Randomizer.Dev;
           Randomizer.Log($"Dev: {Randomizer.Dev}", false);
-          MessageController.ShowSingleMessage($"Dev: {Randomizer.Dev}", list: ListType.Wheel);
+          MessageController.ShowTimedMessage($"Dev: {Randomizer.Dev}", queue: "wheel");
           WheelManager.OnDevChanged();
           break;
         case Action.ForceExit:
@@ -115,13 +115,13 @@ namespace RandoMainDLL {
           break;
         case Action.ToggleDebug:
           InterOp.Utils.set_debug_controls(!InterOp.Utils.get_debug_controls());
-          MessageController.ShowSingleMessage($"Debug {(InterOp.Utils.get_debug_controls() ? "enabled" : "disabled")}", list: ListType.Wheel);
+          MessageController.ShowTimedMessage($"Debug {(InterOp.Utils.get_debug_controls() ? "enabled" : "disabled")}", queue: "wheel");
           break;
         case Action.ToggleCursorLock:
-          MessageController.ShowSingleMessage($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", list: ListType.Wheel);
+          MessageController.ShowTimedMessage($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", queue: "wheel");
           break;
         case Action.ToggleAlwaysShowKeystones:
-          MessageController.ShowSingleMessage($"Always show keystones: {InterOp.toggle_always_show_keystones()}", list: ListType.Wheel);
+          MessageController.ShowTimedMessage($"Always show keystones: {InterOp.toggle_always_show_keystones()}", queue: "wheel");
           break;
         case Action.ToggleAutoaim:
           UberSet.Bool(4, 37, !UberGet.Bool(4, 37));
@@ -143,30 +143,30 @@ namespace RandoMainDLL {
           break;
         case Action.UnlockSpoilers:
           if (SeedController.Settings.RaceMode) {
-            MessageController.ShowSingleMessage("Not allowed in race mode.", list: ListType.Wheel);
+            MessageController.ShowTimedMessage("Not allowed in race mode.", queue: "wheel");
             return; // no cheat
           }
           UberSet.Bool(GameComplete, true);
-          MessageController.ShowSingleMessage("spoiler unlocked", list: ListType.Wheel);
+          MessageController.ShowTimedMessage("spoiler unlocked", queue: "wheel");
           break;
         case Action.TeleportCheat:
           if (SeedController.Settings.RaceMode) return; // no cheat
           tpCheatToggle = !tpCheatToggle;
-          MessageController.ShowSingleMessage($"TPCheat {(tpCheatToggle ? "enabled" : "disabled")}", list: ListType.Wheel);
+          MessageController.ShowTimedMessage($"TPCheat {(tpCheatToggle ? "enabled" : "disabled")}", queue: "wheel");
           break;
         case Action.WarpCredits:
           if (UberGet.Bool(GameComplete))
             InterOp.start_credits();
           else
-            MessageController.ShowSingleMessage($"Credit warp not unlocked!", list: ListType.Wheel);
+            MessageController.ShowTimedMessage($"Credit warp not unlocked!", queue: "wheel");
           break;
         case Action.PrintCoordinates:
           var pos = InterOp.get_position();
-          MessageController.ShowSingleMessage($"{pos.X}, {pos.Y}", list: ListType.Wheel);
+          MessageController.ShowTimedMessage($"{pos.X}, {pos.Y}", queue: "wheel");
           break;
         case Action.TogglePickupNamesOnSpoiler:
           MapController.NameLabels = !MapController.NameLabels;
-          MessageController.ShowSingleMessage($"Loc name labels {(MapController.NameLabels ? "enabled" : "disabled")}", list: ListType.Wheel);
+          MessageController.ShowTimedMessage($"Loc name labels {(MapController.NameLabels ? "enabled" : "disabled")}", queue: "wheel");
           break;
         case Action.ClearMessages:
           MessageController.Clear();

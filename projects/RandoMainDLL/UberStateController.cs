@@ -538,7 +538,7 @@ namespace RandoMainDLL {
           if (slotRaw != string.Empty) {
             slot = slotRaw.ParseToInt("Spawn Slot Ini") - 1;
             if (slot > 2 || slot < 0) {
-              MessageController.ShowSingleMessage($"Ignoring invalid slot specifier {slotRaw}", list: ListType.Debug);
+              MessageController.ShowTimedMessage($"Ignoring invalid slot specifier {slotRaw}", queue: "debug");
               slot = 0;
             }
           }
