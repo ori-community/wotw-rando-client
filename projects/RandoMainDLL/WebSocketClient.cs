@@ -209,7 +209,7 @@ namespace RandoMainDLL {
             break;
           case 13: {
             var message = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
-            MessageController.ShowTimedMessage(
+            MessageController.ShowMessage(
               text: message.Text,
               time: message.Time,
               position: new Vector2(message.Position),
@@ -231,7 +231,7 @@ namespace RandoMainDLL {
               text: message.Text,
               time: message.Time,
               priority: message.Prioritized,
-              pickupPosition: message.PickupPosition != null ? new Vector2(message.PickupPosition) : null,
+              pickupPosition: message.PickupPosition != null ? new Vector2?(new Vector2(message.PickupPosition)) : null,
               log: true
             );
             break;

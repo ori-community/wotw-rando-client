@@ -39,7 +39,7 @@ namespace RandoMainDLL {
         UberStateController.TimerUberStates.Clear();
         SaveController.NewGame(slot);
         BonusItemController.Refresh();
-        MessageController.ShowTimedMessage("*Good Luck! <3*", position: new Vector2(0f, -3f));
+        MessageController.ShowMessage("*Good Luck! <3*", position: new Vector2(0f, -3f));
       }
       catch (Exception e) {
         Randomizer.Error("OnNewGame", e);
@@ -66,7 +66,7 @@ namespace RandoMainDLL {
                 File.AppendAllText(LogFile, txt);
               } catch (Exception e) {
                 if (Dev)
-                  MessageController.ShowTimedMessage($"error logging: {e}", log: false, queue: "debug");
+                  MessageController.ShowMessage($"error logging: {e}", log: false, queue: "debug");
               }
             }
           });
@@ -164,7 +164,7 @@ namespace RandoMainDLL {
         return;
       logQueue.Add($"{DateTime.Now:[yyyy-MM-dd HH:mm:ss.fff]} [{level}]: {message}\n");
       if (Dev && printIfDev)
-        queuedCommands.Add(() => MessageController.ShowTimedMessage(text: message, queue: "debug"));
+        queuedCommands.Add(() => MessageController.ShowMessage(text: message, queue: "debug"));
     }
 
     public delegate void Callback();

@@ -80,7 +80,7 @@ namespace RandoMainDLL {
       float duration = justUnlocked ? 5f : 4f;
       if (pp.NonEmpty) {
         Vector2? pos = pp.Pos.HasValue ? new Vector2?(new Vector2() { X = 0.0f, Y = pp.Pos.Value }) : null;
-        MessageController.ShowTimedMessage(
+        MessageController.ShowMessage(
           text: pp.DisplayName,
           time: duration,
           position: pos,
@@ -91,7 +91,7 @@ namespace RandoMainDLL {
       }
       else if (InterOp.Utils.get_game_state() != GameState.Game && !justUnlocked) {
         Vector2? pos = pp.Pos.HasValue ? new Vector2?(new Vector2() { X = 0.0f, Y = pp.Pos.Value }) : null;
-        MessageController.ShowTimedMessage(
+        MessageController.ShowMessage(
           text: SeedController.Progress,
           position: pos,
           screen: ScreenPosition.TopCenter,

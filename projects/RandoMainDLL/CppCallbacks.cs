@@ -36,7 +36,7 @@ namespace RandoMainDLL {
             CallbackName = "on_checkpoint"
           },
           new Method() {
-            Delegate = new f_void(() => MessageController.ShowTimedMessage(
+            Delegate = new f_void(() => MessageController.ShowMessage(
               text: SeedController.GoalModeMessages(unmet: "@"), time: 5f, position: new Vector2(0f, -2f))),
             CallbackName = "on_goal_mode_fail"
           },

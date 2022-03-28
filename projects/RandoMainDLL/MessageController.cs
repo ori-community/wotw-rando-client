@@ -193,10 +193,10 @@ namespace RandoMainDLL {
       LimitPickupQueue();
     }
 
-    public static void ShowTimedMessage(
+    public static void ShowMessage(
       string text,
       Vector2? position = null,
-      float time = 3f,
+      float? time = 3f,
       bool muted = true,
       bool showsBox = false,
       Alignment alignment = Alignment.Center,
@@ -223,25 +223,35 @@ namespace RandoMainDLL {
       desc.ShowsBox = showsBox;
       desc.Time = time;
       desc.Text = text;
-      if (position.HasValue) {
+      if (position.HasValue)
         desc.Position = new Vector3(position.Value, 0.0f);
-        desc.AllowRepositioning = false;
-      }
 
       desc.Alignment = alignment;
       desc.Horizontal = horizontal;
       desc.Vertical = vertical;
       desc.ScreenPosition = screen;
 
-      var message = new TextMessage(ReserveID(), desc);
       if (queue == null) {
-        message.Destroyed = false;
-        if (id >= 0)
-          activeIdTimedMessages[id] = message;
-        else
+        if (id >= 0) {
+          if (!activeIdTimedMessages.ContainsKey(id)) {
+            var message = new TextMessage(ReserveID(), desc);
+            message.Destroyed = false;
+            activeIdTimedMessages[id] = message;
+          }
+          else
+            activeIdTimedMessages[id].Descriptor = desc;
+        }
+        else {
+          var message = new TextMessage(ReserveID(), desc);
+          message.Destroyed = false;
           activeTimedMessages.Add(message);
+        }
       }
       else {
+        if (id >= 0)
+          Randomizer.Log("Provided id with a queued message, unsupported.", false, "WARNING");
+
+        var message = new TextMessage(ReserveID(), desc);
         var messageQueue = getOrCreateQueue(queue);
         if (replace)
           messageQueue.Clear();
@@ -260,6 +270,9 @@ namespace RandoMainDLL {
       if (message.Destroyed)
         return true;
 
+      if (!message.Time.HasValue)
+        return false;
+
       message.Time -= dt;
       message.TimeActive += dt;
       
@@ -269,10 +282,6 @@ namespace RandoMainDLL {
       }
 
       return false;
-    }
-
-    private static float Lerp(float a, float b, float t) {
-      return a * (1 - t) + b * t;
     }
 
     public static void Tick() {
@@ -339,7 +348,6 @@ namespace RandoMainDLL {
         var desc = new TextMessageDescriptor();
         desc.Alignment = Alignment.Center;
         desc.ShowsBox = true;
-        desc.AllowRepositioning = true;
 
         if (displayMessageInGameWorld) {
           var pos = new Vector2(pickupMessage.Position.Value);
@@ -378,7 +386,6 @@ namespace RandoMainDLL {
       Muted = desc.Muted;
       ShowsBox = desc.ShowsBox;
 
-      AllowRepositioning = desc.AllowRepositioning;
       Time = desc.Time;
       Text = desc.Text;
       Position = desc.Position;
@@ -395,11 +402,10 @@ namespace RandoMainDLL {
     public bool Muted = true;
     public bool ShowsBox = false;
 
-    public bool AllowRepositioning = true;
     /// <summary>
     /// Display time in seconds
     /// </summary>
-    public float Time = 3f;
+    public float? Time = 3f;
     public float TimeActive = 0f;
     public string Text = "TEST";
     /// <summary>
@@ -577,12 +583,7 @@ namespace RandoMainDLL {
       }
     }
 
-    public bool AllowRepositioning {
-      get { return descriptor.AllowRepositioning; }
-      set { descriptor.AllowRepositioning = value; }
-    }
-
-    public float Time {
+    public float? Time {
       get { return descriptor.Time; }
       set { descriptor.Time = value; }
     }
@@ -606,7 +607,8 @@ namespace RandoMainDLL {
       get { return descriptor.FadeIn; }
       set {
         descriptor.FadeIn = value;
-        InterOp.Messaging.text_box_fade(ID, value, FadeOut);
+        if (!destroyed)
+          InterOp.Messaging.text_box_fade(ID, value, FadeOut);
       }
     }
 
@@ -614,11 +616,27 @@ namespace RandoMainDLL {
       get { return descriptor.FadeOut; }
       set { 
         descriptor.FadeOut = value;
-        InterOp.Messaging.text_box_fade(ID, FadeIn, value);
+        if (!destroyed)
+          InterOp.Messaging.text_box_fade(ID, FadeIn, value);
       }
     }
 
-    public TextMessageDescriptor Descriptor { get { return new TextMessageDescriptor(descriptor); } }
+    public TextMessageDescriptor Descriptor {
+      get { return descriptor; }
+      set {
+        descriptor = value;
+        if (!destroyed) {
+          updatePosition();
+          InterOp.Messaging.text_box_text(ID, descriptor.Text);
+          InterOp.Messaging.text_box_padding(ID, descriptor.Padding.Top, descriptor.Padding.Left, descriptor.Padding.Right, descriptor.Padding.Bottom);
+          InterOp.Messaging.text_box_size(ID, descriptor.Size);
+          InterOp.Messaging.text_box_alignment(ID, descriptor.Alignment);
+          InterOp.Messaging.text_box_anchor(ID, descriptor.Horizontal, descriptor.Vertical);
+          InterOp.Messaging.text_box_fade(ID, FadeIn, descriptor.FadeIn);
+          InterOp.Messaging.text_box_fade(ID, FadeIn, descriptor.FadeOut);
+        }
+      }
+    }
 
     private TextMessageDescriptor descriptor;
     private bool destroyed = true;

@@ -127,7 +127,7 @@ namespace RandoMainDLL {
               Input.OnActionTriggered(Input.Action.ToggleDebug);
               break;
             case 2:
-              MessageController.ShowTimedMessage($"Reloading file textures", queue: "debug");
+              MessageController.ShowMessage($"Reloading file textures", queue: "debug");
               InterOp.Utils.reload_all_file_textures();
               break;
             case 4:
@@ -143,7 +143,7 @@ namespace RandoMainDLL {
               Input.OnActionTriggered(Input.Action.TogglePickupNamesOnSpoiler);
               break;
             case 8:
-              MessageController.ShowTimedMessage("Reloading credits file", queue: "debug");
+              MessageController.ShowMessage("Reloading credits file", queue: "debug");
               CreditsController.ReloadFile();
               break;
             case 9:
