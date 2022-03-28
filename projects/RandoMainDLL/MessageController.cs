@@ -193,6 +193,10 @@ namespace RandoMainDLL {
       LimitPickupQueue();
     }
 
+    public static bool DestroyMessage(int id) {
+      return activeIdTimedMessages.Remove(id);
+    }
+
     public static void ShowMessage(
       string text,
       Vector2? position = null,
