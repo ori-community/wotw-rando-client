@@ -94,7 +94,7 @@ namespace RandoMainDLL {
         return Priority.Peek();
 
       if (Normal.Count > 0)
-        return Priority.Peek();
+        return Normal.Peek();
 
       return null;
     }
@@ -104,7 +104,7 @@ namespace RandoMainDLL {
         return Priority.Dequeue();
       
       if (Normal.Count > 0)
-        return Priority.Dequeue();
+        return Normal.Dequeue();
 
       return null;
     }
@@ -306,7 +306,7 @@ namespace RandoMainDLL {
         var targetY = 0.2f + (lines * -0.6f);
         var message = activePickupTextMessages[i];
 
-        if (HandleMessageTimer(message, dt)) {
+        if (!HandleMessageTimer(message, dt)) {
           message.Position =
             new Vector3(new Vector2(message.Position.X, message.Position.Y).Lerp(new Vector2(0, targetY),
               dt * 15f * Math.Min(1f, message.TimeActive * 2.0f + 0.1f)), 0f);
