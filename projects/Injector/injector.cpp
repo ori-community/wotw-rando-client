@@ -163,7 +163,6 @@ int actual_main()
     dev_mode = check_option(settings, "Flags", "Dev", false);
 
     auto inject_delay = check_option(settings, "Values", "InjectDelay", 0);
-    Sleep(inject_delay);
 
     auto i = 0;
     for (; i < 300; i++) {
@@ -179,6 +178,8 @@ int actual_main()
         logstream << "failed to find window" << std::endl;
         return -1;
     }
+
+    Sleep(inject_delay);
 
     auto load_function = reinterpret_cast<PTHREAD_START_ROUTINE>(GetProcAddress(GetModuleHandle("Kernel32"), "LoadLibraryA"));
     if (load_function == nullptr)
