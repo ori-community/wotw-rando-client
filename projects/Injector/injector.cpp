@@ -162,6 +162,9 @@ int actual_main()
     auto use_win_store = check_option(settings, "Flags", "UseWinStore", false);
     dev_mode = check_option(settings, "Flags", "Dev", false);
 
+    auto inject_delay = check_option(settings, "Values", "InjectDelay", 0);
+    Sleep(inject_delay);
+
     auto i = 0;
     for (; i < 300; i++) {
         if (FindWindow(nullptr, "OriAndTheWilloftheWisps") != nullptr)
