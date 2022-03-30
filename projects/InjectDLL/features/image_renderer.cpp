@@ -18,6 +18,61 @@
 using namespace modloader;
 
 namespace {
+
+    bool operator== (const app::Vector3& c1, const app::Vector3& c2)
+    {
+        return (
+            c1.x == c2.x &&
+            c1.y == c2.y &&
+            c1.z == c2.z
+        );
+    }
+
+    bool operator!= (const app::Vector3& c1, const app::Vector3& c2)
+    {
+        return !(c1 == c2);
+    }
+
+    template<typename T>
+    struct DirtyValue
+    {
+    public:
+        DirtyValue(T v)
+        {
+            _value = v;
+            dirty = true;
+        }
+
+        T& operator=(T && other)
+        {
+            if (_value == other)
+                return _value;
+
+            dirty = true;
+            _value = std::move(other);
+            return _value;
+        }
+
+        T& operator=(const T& other)
+        {
+            if (_value == other)
+                return _value;
+
+            dirty = true;
+            _value = other;
+            return _value;
+        }
+
+        T& operator*() { return _value; }
+
+        void set_dirty(bool value = false) { dirty = value; }
+        bool is_dirty() { return dirty; }
+        T& value() { return _value; }
+    private:
+        bool dirty = true;
+        T _value;
+    };
+
     struct AnimationEntry
     {
         std::wstring texture;
@@ -35,14 +90,15 @@ namespace {
         bool alive = true;
         bool active = false;
         uint32_t game_object_handle = -1;
-        Layer layer = Layer::UI;
-        app::Vector3 position{ 0.f, 0.f, 0.f };
-        app::Vector3 scale{ 1.f, 1.f, 1.f };
-        float rotation = 0;
+        DirtyValue<Layer> layer = Layer::UI;
+        DirtyValue<app::Vector3> position = app::Vector3{ 0.f, 0.f, 0.f };
+        DirtyValue<app::Vector3> scale = app::Vector3{ 1.f, 1.f, 1.f };
+        DirtyValue<float> rotation = 0;
 
+        std::wstring current_texture;
         AnimationEndHandling end_handler = AnimationEndHandling::Freeze;
         float time = 0;
-        int entry = 0;
+        DirtyValue<int> entry = 0;
         std::vector<AnimationEntry> entries;
     };
 
@@ -110,14 +166,14 @@ namespace {
     bool update_animation(Sprite& sprite, float dt)
     {
         sprite.time += dt;
-        auto& entry = sprite.entries[sprite.entry];
+        auto& entry = sprite.entries[*sprite.entry];
         if (sprite.time < entry.duration)
             return true;
 
-        if (sprite.entry + 1 < sprite.entries.size())
+        if (*sprite.entry + 1 < sprite.entries.size())
         {
             sprite.time -= entry.duration;
-            ++sprite.entry;
+            sprite.entry = *sprite.entry + 1;
             return true;
         }
 
@@ -142,26 +198,6 @@ namespace {
         return true;
     }
 
-    STATIC_IL2CPP_BINDING(UnityEngine, Camera, app::Camera*, get_current, ());
-    IL2CPP_BINDING(UnityEngine, Camera, app::Vector3, WorldToScreenPoint, (app::Camera* camera, app::Vector3* pos));
-    IL2CPP_BINDING(UnityEngine, Camera, app::Vector3, ScreenToWorldPoint, (app::Camera* camera, app::Vector3* pos));
-    IL2CPP_BINDING(, GameplayCamera, app::Camera*, get_Camera, (app::GameplayCamera* camera));
-    void convert_from_world(app::Vector3& pos)
-    {
-        auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
-        if (!il2cpp::unity::is_valid(cameras->static_fields->Current) || !il2cpp::unity::is_valid(cameras->static_fields->System->fields.GUICamera))
-            return;
-
-        auto world_camera = GameplayCamera::get_Camera(cameras->static_fields->Current);
-        auto ui_camera = cameras->static_fields->System->fields.GUICamera->fields.Camera;
-        if (!il2cpp::unity::is_valid(world_camera) || !il2cpp::unity::is_valid(ui_camera))
-            return;
-
-        pos = Camera::WorldToScreenPoint(world_camera, &pos);
-        pos = Camera::ScreenToWorldPoint(ui_camera, &pos);
-        pos.z = 0.0f;
-    }
-    
     STATIC_IL2CPP_BINDING(UnityEngine, Quaternion, app::Quaternion, Euler, (float x, float y, float z));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* pos));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform* this_ptr, app::Vector3* scale));
@@ -169,46 +205,76 @@ namespace {
     app::Vector4 shader_scale_and_offset{ 0, 0, 1, 1 };
     void update_game_object(Sprite& sprite)
     {
-        auto& entry = sprite.entries[sprite.entry];
+        auto& entry = sprite.entries[*sprite.entry];
         auto game_object = il2cpp::gchandle_target<app::GameObject>(sprite.game_object_handle);
         auto transform = il2cpp::unity::get_transform(game_object);
         
-        auto pos = sprite.position;
-        pos.x += entry.position.x;
-        pos.y += entry.position.y;
-        pos.z += entry.position.z;
+        bool tranform_changed = false;
+        if (sprite.position.is_dirty() || sprite.entry.is_dirty())
+        {
+            auto pos = *sprite.position;
+            pos.x += entry.position.x;
+            pos.y += entry.position.y;
+            pos.z += entry.position.z;
+            Transform::set_position(transform, &pos);
+            sprite.position.set_dirty(false);
+            tranform_changed = true;
+        }
 
-        auto scale = sprite.scale;
-        scale.x += entry.scale.x;
-        scale.y += entry.scale.y;
-        scale.z += entry.scale.z;
+        if (sprite.position.is_dirty() || sprite.entry.is_dirty())
+        {
+            auto scale = *sprite.scale;
+            scale.x += entry.scale.x;
+            scale.y += entry.scale.y;
+            scale.z += entry.scale.z;
+            Transform::set_localScale(transform, &scale);
+            sprite.scale.set_dirty(false);
+            tranform_changed = true;
+        }
 
-        auto angle = sprite.rotation + entry.rotation;
-        auto rotation = Quaternion::Euler(0, 0, angle);
+        if (sprite.rotation.is_dirty() || sprite.entry.is_dirty())
+        {
+            auto angle = *sprite.rotation + entry.rotation;
+            auto rotation = Quaternion::Euler(0, 0, angle);
+            Transform::set_rotation(transform, &rotation);
+            sprite.rotation.set_dirty(false);
+            tranform_changed = true;
+        }
 
-        Transform::set_position(transform, &pos);
-        Transform::set_localScale(transform, &scale);
-        Transform::set_rotation(transform, &rotation);
+        if (tranform_changed)
+        {
+            auto order = il2cpp::unity::get_component<app::UberShaderRuntimeRenderOrder>(game_object, "", "UberShaderRuntimeRenderOrder");
+            il2cpp::invoke(order, "SetRenderQueueOn", transform);
+        }
+
+        if (sprite.layer.is_dirty())
+        {
+            il2cpp::invoke(game_object, "set_layer", &sprite.layer.value());
+            sprite.layer.set_dirty(false);
+        }
 
         auto renderer = il2cpp::unity::get_component<app::Renderer>(game_object, "UnityEngine", "MeshRenderer");
-        if (entry.texture_data == nullptr && !entry.texture.empty())
-            entry.texture_data = textures::get_texture(entry.texture);
-
-        il2cpp::invoke(game_object, "set_layer", &sprite.layer);
-        il2cpp::invoke(game_object, "set_moonOffsetZ", &entry.offset_z);
-
         bool hidden = false;
         il2cpp::invoke(renderer, "set_moonHidden", &hidden);
         il2cpp::invoke(renderer, "set_moonHidden2", &hidden);
         il2cpp::invoke(renderer, "set_moonHidden3", &hidden);
-        
-        auto order = il2cpp::unity::get_component<app::UberShaderRuntimeRenderOrder>(game_object, "", "UberShaderRuntimeRenderOrder");
-        il2cpp::invoke(order, "SetRenderQueueOn", transform);
 
-        if (entry.texture_data != nullptr)
+        if (sprite.entry.is_dirty())
         {
-            shaders::UberShaderAPI::SetVector(renderer, app::UberShaderProperty_Vector__Enum_MainTexScaleAndOffset, &shader_scale_and_offset);
-            entry.texture_data->apply(renderer, entry.texture_params.has_value() ? &entry.texture_params.value() : nullptr);
+            if (entry.texture_data == nullptr && !entry.texture.empty())
+                entry.texture_data = textures::get_texture(entry.texture);
+
+            il2cpp::invoke(renderer, "set_moonOffsetZ", &entry.offset_z);
+
+            if (entry.texture_data != nullptr && sprite.current_texture != entry.texture)
+            {
+                shaders::UberShaderAPI::SetVector(renderer, app::UberShaderProperty_Vector__Enum_MainTexScaleAndOffset, &shader_scale_and_offset);
+                entry.texture_data->apply_texture(renderer);
+                sprite.current_texture = entry.texture;
+            }
+
+            entry.texture_data->apply_params(renderer, entry.texture_params.has_value() ? &entry.texture_params.value() : nullptr);
+            sprite.entry.set_dirty(false);
         }
     }
 
@@ -360,12 +426,9 @@ INJECT_C_DLLEXPORT int sprite_create(float x, float y, float z, float rotation, 
 {
     auto id = next_entry++;
     auto& sprite = sprites[id];
-    sprite.position.x = x;
-    sprite.position.y = y;
-    sprite.position.z = z;
+    sprite.position = app::Vector3{ x, y, z };
     sprite.rotation = rotation;
-    sprite.scale.x = scale_x;
-    sprite.scale.y = scale_y;
+    sprite.scale = app::Vector3{ scale_x, scale_y, 1.0f };
     sprite.layer = layer;
     sprite.end_handler = end_handler;
     return id;
@@ -383,6 +446,7 @@ INJECT_C_DLLEXPORT void sprite_animation_entry(int id, float x, float y, float z
         entry.rotation = rotation;
         entry.scale.x = scale_x;
         entry.scale.y = scale_y;
+        entry.scale.z = 1.0f;
         entry.duration = duration;
         entry.texture = texture;
         entry.texture_data = textures::get_texture(texture);

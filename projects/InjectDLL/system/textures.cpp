@@ -86,6 +86,12 @@ namespace textures
 
     void TextureData::apply(app::Renderer* renderer, MaterialParams* extra)
     {
+        apply_texture(renderer);
+        apply_params(renderer, extra);
+    }
+
+    void TextureData::apply_texture(app::Renderer* renderer)
+    {
         if (default_params.find(renderer) == default_params.end())
             add_default_param(renderer);
 
@@ -101,6 +107,12 @@ namespace textures
             if (texture_ptr != nullptr)
                 shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, texture_ptr);
         }
+    }
+
+    void TextureData::apply_params(app::Renderer* renderer, MaterialParams* extra)
+    {
+        if (default_params.find(renderer) == default_params.end())
+            add_default_param(renderer);
 
         auto param = extra != nullptr ? extra : &local;
         if (param->uvs.has_value())

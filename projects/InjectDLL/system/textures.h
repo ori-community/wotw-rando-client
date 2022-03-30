@@ -30,6 +30,8 @@ namespace textures
 
         void apply(app::Material* mat);
         void apply(app::Renderer* renderer, MaterialParams* extra = nullptr);
+        void apply_texture(app::Renderer* renderer);
+        void apply_params(app::Renderer* renderer, MaterialParams* extra = nullptr);
         app::Texture2D* get();
 
         void set_texture(app::Texture* texture_ptr);
