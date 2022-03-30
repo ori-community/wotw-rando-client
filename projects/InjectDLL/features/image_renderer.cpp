@@ -288,7 +288,7 @@ namespace {
             color.a *= sprite.color_modulate.value().a;
             params.color = color;
 
-            entry.texture_data->apply_params(renderer, entry.texture_params.has_value() ? &entry.texture_params.value() : nullptr);
+            entry.texture_data->apply_params(renderer, &params);
             sprite.color_modulate.set_dirty(false);
             sprite.entry.set_dirty(false);
         }

@@ -98,11 +98,12 @@ namespace RandoMainDLL {
         v += p;
 
         var id = InterOp.Sprite.sprite_load("assets/animations/firework.json", v.X, v.Y, z, 1.0f, 1.0f, 1.0f, 0.0f);
+        RGB color = new HSL { H = Randomizer.R.Next(0, 360), S = 0.9f, L = 0.5f }.ToRGB();
         InterOp.Sprite.sprite_set_color_modulate(
           id,
-          (float)Randomizer.R.NextDouble() * 0.5f + 0.5f,
-          (float)Randomizer.R.NextDouble() * 0.5f + 0.5f,
-          (float)Randomizer.R.NextDouble() * 0.5f + 0.5f,
+          color.R,
+          color.G,
+          color.B,
           1.0f
         );
         InterOp.Sprite.sprite_set_active(id, true);
@@ -152,7 +153,8 @@ namespace RandoMainDLL {
           UberSet.Bool(4, 37, !UberGet.Bool(4, 37));
           break;
         case Action.Binding1:
-          PsuedoLocs.BINDING_ONE.OnCollect();
+          //PsuedoLocs.BINDING_ONE.OnCollect();
+          doFirework(8);
           break;
         case Action.Binding2:
           PsuedoLocs.BINDING_TWO.OnCollect();
