@@ -123,24 +123,22 @@ namespace {
         return go;
     }
 
-    //STATIC_IL2CPP_BINDING(RootMotion, LayerMaskExtensions, app::String*, MaskToString, (app::LayerMask original));
-    STATIC_IL2CPP_BINDING(UnityEngine, LayerMask, app::String*, LayerToName, (int layer));
-    bool create_ui_sprite(Sprite& sprite)
+    app::GameObject* find_prefab()
     {
-        modloader::console::console_send("layer names: {");
-        for (int i = 0; i < 32; ++i)
-        {
-            auto name = LayerMask::LayerToName(i);
-            modloader::console::console_send(format("    %d: %s", i, il2cpp::convert_csstring(name).c_str()));
-        }
-        modloader::console::console_send("}");
-
         auto controller = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->MessageController;
         auto message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(controller->fields.HintSmallMessage, "", "MessageBox");
         auto icon_renderer = reinterpret_cast<app::MoonIconRenderer*>(
             message_box->fields.TextBox->fields.styleCollection->fields.styles->vector[1]->fields.renderer);
         auto icon = icon_renderer->fields.Icons->fields.Icons->fields._items->vector[0]->fields.Icon;
-        auto go = create_sprite(sprite, il2cpp::unity::get_children(icon)[0]);
+        return il2cpp::unity::get_children(icon)[0];
+    }
+
+    //STATIC_IL2CPP_BINDING(RootMotion, LayerMaskExtensions, app::String*, MaskToString, (app::LayerMask original));
+    STATIC_IL2CPP_BINDING(UnityEngine, LayerMask, app::String*, LayerToName, (int layer));
+    bool create_ui_sprite(Sprite& sprite)
+    {
+        static app::GameObject* icon = find_prefab();
+        auto go = create_sprite(sprite, icon);
         return true;
     }
 
@@ -332,7 +330,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AnimationEndHandling, {
     { AnimationEndHandling::DeactivateOnEnd, "DeactivateOnEnd" },
 });
 
-INJECT_C_DLLEXPORT int sprite_load(const char* path, float x, float y, float z, float sx, float sy, float sz, float angle)
+INJECT_C_DLLEXPORT bool sprite_preload(const char* path)
 {
     std::string spath(path);
     auto it = loaded_sprites.find(spath);
@@ -349,7 +347,7 @@ INJECT_C_DLLEXPORT int sprite_load(const char* path, float x, float y, float z, 
             catch (nlohmann::json::parse_error& ex)
             {
                 trace(MessageType::Warning, 3, "sprite_renderer", format("failed to parse '%s%s' error '%d' at byte '%d'", base_path.c_str(), path, ex.id, ex.byte));
-                return -1;
+                return false;
             }
 
             try
@@ -398,27 +396,34 @@ INJECT_C_DLLEXPORT int sprite_load(const char* path, float x, float y, float z, 
                 }
 
                 loaded_sprites[spath] = sprite;
-                it = loaded_sprites.find(spath);
             }
             catch (std::exception& ex)
             {
                 trace(MessageType::Warning, 3, "sprite_renderer", format("failed to read '%s%s' error '%s'", base_path.c_str(), path, ex.what()));
-                return -1;
+                return false;
             }
         }
         else
         {
             trace(MessageType::Warning, 3, "sprite_renderer", format("failed to open '%s%s'", base_path.c_str(), path));
-            return -1;
+            return false;
         }
     }
 
-    it->second.position = { x, y, z };
-    it->second.scale = { sx, sy, sz };
-    it->second.rotation = angle;
+    return true;
+}
 
+INJECT_C_DLLEXPORT int sprite_load(const char* path, float x, float y, float z, float sx, float sy, float sz, float angle)
+{
+    if (!sprite_preload(path))
+        return -1;
+
+    auto sprite = loaded_sprites[path];
+    sprite.position = { x, y, z };
+    sprite.scale = { sx, sy, sz };
+    sprite.rotation = angle;
     auto id = next_entry++;
-    sprites[id] = it->second;
+    sprites[id] = sprite;
     return id;
 }
 

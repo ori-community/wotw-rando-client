@@ -12,6 +12,9 @@ namespace RandoMainDLL {
   public static class InterOp {
     public static class Sprite {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool sprite_preload([MarshalAs(UnmanagedType.LPStr)] string path);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static int sprite_load([MarshalAs(UnmanagedType.LPStr)] string path, float x, float y, float z, float sx, float sy, float sz, float angle);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void sprite_set_animation_entry(int id, int entry);
