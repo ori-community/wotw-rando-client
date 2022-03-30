@@ -85,9 +85,6 @@ namespace {
             message_box->fields.TextBox->fields.styleCollection->fields.styles->vector[1]->fields.renderer);
         auto icon = icon_renderer->fields.Icons->fields.Icons->fields._items->vector[0]->fields.Icon;
         auto go = create_sprite(sprite, il2cpp::unity::get_children(icon)[0]);
-
-        auto order = il2cpp::unity::get_component(go, "", "UberShaderRuntimeRenderOrder");
-        Object::Destroy(order);
         return true;
     }
 
@@ -201,6 +198,9 @@ namespace {
         il2cpp::invoke(renderer, "set_moonHidden", &hidden);
         il2cpp::invoke(renderer, "set_moonHidden2", &hidden);
         il2cpp::invoke(renderer, "set_moonHidden3", &hidden);
+        
+        auto order = il2cpp::unity::get_component<app::UberShaderRuntimeRenderOrder>(game_object, "", "UberShaderRuntimeRenderOrder");
+        il2cpp::invoke(order, "SetRenderQueueOn", transform);
 
         if (entry.texture_data != nullptr)
         {
