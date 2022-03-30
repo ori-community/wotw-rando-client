@@ -207,7 +207,6 @@ namespace {
         auto game_object = il2cpp::gchandle_target<app::GameObject>(sprite.game_object_handle);
         auto transform = il2cpp::unity::get_transform(game_object);
         
-        bool tranform_changed = false;
         if (sprite.position.is_dirty() || sprite.entry.is_dirty())
         {
             auto pos = *sprite.position;
@@ -216,7 +215,6 @@ namespace {
             pos.z += entry.position.z;
             Transform::set_position(transform, &pos);
             sprite.position.set_dirty(false);
-            tranform_changed = true;
         }
 
         if (sprite.position.is_dirty() || sprite.entry.is_dirty())
@@ -227,7 +225,6 @@ namespace {
             scale.z += entry.scale.z;
             Transform::set_localScale(transform, &scale);
             sprite.scale.set_dirty(false);
-            tranform_changed = true;
         }
 
         if (sprite.rotation.is_dirty() || sprite.entry.is_dirty())
@@ -236,14 +233,11 @@ namespace {
             auto rotation = Quaternion::Euler(0, 0, angle);
             Transform::set_rotation(transform, &rotation);
             sprite.rotation.set_dirty(false);
-            tranform_changed = true;
         }
 
-        if (tranform_changed)
-        {
-            auto order = il2cpp::unity::get_component<app::UberShaderRuntimeRenderOrder>(game_object, "", "UberShaderRuntimeRenderOrder");
-            il2cpp::invoke(order, "SetRenderQueueOn", transform);
-        }
+        auto order = il2cpp::unity::get_component<app::UberShaderRuntimeRenderOrder>(game_object, "", "UberShaderRuntimeRenderOrder");
+        il2cpp::invoke(order, "SetRenderQueueOn", transform);
+
 
         if (sprite.layer.is_dirty())
         {
