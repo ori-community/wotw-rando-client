@@ -332,13 +332,14 @@ namespace RandoMainDLL {
 
       activePickupTextMessages.RemoveAll(m => m.Destroyed);
 
-      while (activePickupTextMessages.Count < MAX_PICKUP_LINE_COUNT && !pickupQueue.Empty()) {
-        var pickupMessage = pickupQueue.Next();
+      while (lines < MAX_PICKUP_LINE_COUNT && !pickupQueue.Empty()) {
+        var pickupMessage = pickupQueue.Peek();
         var pickupMessageLines = pickupMessage.Text.Split('\n').Length;
 
         if (lines != 0 && lines + pickupMessageLines > MAX_PICKUP_LINE_COUNT)
           break;
 
+        pickupQueue.Next();
         var displayMessageInGameWorld = false;
         
         if (pickupMessage.Position != null) {
