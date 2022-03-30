@@ -25,7 +25,17 @@ namespace {
             c1.x == c2.x &&
             c1.y == c2.y &&
             c1.z == c2.z
-        );
+            );
+    }
+
+    bool operator== (const app::Color& c1, const app::Color& c2)
+    {
+        return (
+            c1.r == c2.r &&
+            c1.g == c2.g &&
+            c1.b == c2.b &&
+            c1.a == c2.a
+            );
     }
 
     bool operator!= (const app::Vector3& c1, const app::Vector3& c2)
@@ -100,6 +110,7 @@ namespace {
         float time = 0;
         DirtyValue<int> entry = 0;
         std::vector<AnimationEntry> entries;
+        DirtyValue<app::Color> color_modulate = app::Color { 1.f, 1.f, 1.f, 1.f };
     };
 
     int next_entry = 0;
@@ -251,6 +262,7 @@ namespace {
         il2cpp::invoke(renderer, "set_moonHidden2", &hidden);
         il2cpp::invoke(renderer, "set_moonHidden3", &hidden);
 
+
         if (sprite.entry.is_dirty())
         {
             if (entry.texture_data == nullptr && !entry.texture.empty())
@@ -264,8 +276,20 @@ namespace {
                 entry.texture_data->apply_texture(renderer);
                 sprite.current_texture = entry.texture;
             }
+        }
+
+        if (sprite.entry.is_dirty() || sprite.color_modulate.is_dirty())
+        {
+            auto params = entry.texture_params.value_or(textures::MaterialParams());
+            auto color = params.color.value_or(app::Color{ 1.f, 1.f, 1.f, 1.f });
+            color.r *= sprite.color_modulate.value().r;
+            color.g *= sprite.color_modulate.value().g;
+            color.b *= sprite.color_modulate.value().b;
+            color.a *= sprite.color_modulate.value().a;
+            params.color = color;
 
             entry.texture_data->apply_params(renderer, entry.texture_params.has_value() ? &entry.texture_params.value() : nullptr);
+            sprite.color_modulate.set_dirty(false);
             sprite.entry.set_dirty(false);
         }
     }
@@ -432,6 +456,19 @@ INJECT_C_DLLEXPORT int sprite_create(float x, float y, float z, float rotation, 
     sprite.layer = layer;
     sprite.end_handler = end_handler;
     return id;
+}
+
+INJECT_C_DLLEXPORT void sprite_set_color_modulate(int id, float r, float g, float b, float a)
+{
+    auto it = sprites.find(id);
+    if (it != sprites.end())
+    {
+        it->second.color_modulate = app::Color{
+            r, g, b, a,
+        };
+    }
+    else
+        modloader::warn("sprite_renderer", format("sprite_set_color_modulate: sprite '%d' does not exist.", id));
 }
 
 INJECT_C_DLLEXPORT void sprite_animation_entry(int id, float x, float y, float z, float rotation, float scale_x, float scale_y, float duration, const wchar_t* texture)

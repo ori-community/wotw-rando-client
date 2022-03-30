@@ -84,10 +84,10 @@ namespace RandoMainDLL {
 
     private static readonly UberId GameComplete = new UberId(34543, 11226);
 
-    private static void doFirework() {
+    public static void doFirework(int count = 16) {
       var p = InterOp.get_position();
 
-      for (var i = 0; i < 16; ++i) {
+      for (var i = 0; i < count; ++i) {
         var distance = Randomizer.R.NextDouble() * 5.0f + 4.0f;
         var angle = Randomizer.R.NextDouble() * Math.PI;
         var Z_DIST = 20.0f;
@@ -98,6 +98,13 @@ namespace RandoMainDLL {
         v += p;
 
         var id = InterOp.Sprite.sprite_load("assets/animations/firework.json", v.X, v.Y, z, 1.0f, 1.0f, 1.0f, 0.0f);
+        InterOp.Sprite.sprite_set_color_modulate(
+          id,
+          (float)Randomizer.R.NextDouble() * 0.5f + 0.5f,
+          (float)Randomizer.R.NextDouble() * 0.5f + 0.5f,
+          (float)Randomizer.R.NextDouble() * 0.5f + 0.5f,
+          1.0f
+        );
         InterOp.Sprite.sprite_set_active(id, true);
       }
     }

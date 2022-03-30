@@ -23,6 +23,8 @@ namespace RandoMainDLL {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void sprite_set_scale(int id, float x, float y, float z);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void sprite_set_color_modulate(int id, float r, float g, float b, float a);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void sprite_set_rotation(int id, float angle);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void sprite_set_active(int id, bool value);
