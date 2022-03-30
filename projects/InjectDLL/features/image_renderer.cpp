@@ -27,12 +27,12 @@ namespace {
         app::Vector3 scale{ 0.f, 0.f, 0.f };
         float rotation = 0;
         float duration = 0;
-        int sorting_order = 0;
         float offset_z = 0.0f;
     };
 
     struct Sprite
     {
+        bool alive = true;
         bool active = false;
         uint32_t game_object_handle = -1;
         Layer layer = Layer::UI;
@@ -107,18 +107,18 @@ namespace {
         return active;
     }
 
-    void update_animation(Sprite& sprite, float dt)
+    bool update_animation(Sprite& sprite, float dt)
     {
         sprite.time += dt;
         auto& entry = sprite.entries[sprite.entry];
         if (sprite.time < entry.duration)
-            return;
+            return true;
 
         if (sprite.entry + 1 < sprite.entries.size())
         {
             sprite.time -= entry.duration;
             ++sprite.entry;
-            return;
+            return true;
         }
 
         switch (sprite.end_handler)
@@ -131,11 +131,15 @@ namespace {
             sprite.entry = 0;
             sprite.time = 0;
             break;
+        case AnimationEndHandling::DestroyOnEnd:
+            return false;
         case AnimationEndHandling::Loop:
             sprite.time -= entry.duration;
             sprite.entry = 0;
             break;
         }
+
+        return true;
     }
 
     STATIC_IL2CPP_BINDING(UnityEngine, Camera, app::Camera*, get_current, ());
@@ -192,7 +196,6 @@ namespace {
 
         il2cpp::invoke(game_object, "set_layer", &sprite.layer);
         il2cpp::invoke(game_object, "set_moonOffsetZ", &entry.offset_z);
-        il2cpp::invoke(renderer, "set_sortingOrder", &entry.sorting_order);
 
         bool hidden = false;
         il2cpp::invoke(renderer, "set_moonHidden", &hidden);
@@ -205,7 +208,7 @@ namespace {
         if (entry.texture_data != nullptr)
         {
             shaders::UberShaderAPI::SetVector(renderer, app::UberShaderProperty_Vector__Enum_MainTexScaleAndOffset, &shader_scale_and_offset);
-            entry.texture_data->apply(renderer);
+            entry.texture_data->apply(renderer, entry.texture_params.has_value() ? &entry.texture_params.value() : nullptr);
         }
     }
 
@@ -213,50 +216,57 @@ namespace {
     IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController* this_ptr)) {
         GameController::Update(this_ptr);
         float dt = TimeUtility::get_deltaTime();
+        std::vector<int> remove;
         for (auto& pair : sprites)
         {
             if (update_active(pair.second))
             {
-                update_animation(pair.second, dt);
-                update_game_object(pair.second);
+                if (update_animation(pair.second, dt))
+                    update_game_object(pair.second);
+                else
+                    remove.push_back(pair.first);
             }
         }
+
+        for (auto id : remove)
+            sprite_destroy(id);
     }
-    
-    NLOHMANN_JSON_SERIALIZE_ENUM(Layer, {
-        { Layer::UI, "UI" },
-        { Layer::Sein, "Sein" },
-        { Layer::Solids, "Solids" },
-        { Layer::Art, "Art" },
-        { Layer::Character, "Character" },
-        { Layer::CharacterMovement, "CharacterMovement" },
-        { Layer::WorldMap, "WorldMap" },
-        { Layer::Items, "Items" },
-        { Layer::KillCharacter, "KillCharacter" },
-        { Layer::KillEverything, "KillEverything" },
-        { Layer::PushPullBlock, "PushPullBlock" },
-        { Layer::Platform, "Platform" },
-        { Layer::ResampleBuffer, "ResampleBuffer" },
-        { Layer::CharacterMovementIgnorePlatforms, "CharacterMovementIgnorePlatforms" },
-        { Layer::ArtReflected, "ArtReflected" },
-        { Layer::Debris, "Debris" },
-        { Layer::DebrisNoCollsion, "DebrisNoCollsion" },
-        { Layer::ArtBlurred, "ArtBlurred" },
-        { Layer::Projectile, "Projectile" },
-        { Layer::EarlyZ, "EarlyZ" },
-        { Layer::ArtBlurredReflected, "ArtBlurredReflected" },
-        { Layer::Laser, "Laser" },
-        { Layer::TerrainCollisionIgnorePlayerAndEnemies, "TerrainCollisionIgnorePlayerAndEnemies" },
-    });
-
-    NLOHMANN_JSON_SERIALIZE_ENUM(AnimationEndHandling, {
-        { AnimationEndHandling::Freeze, "Freeze" },
-        { AnimationEndHandling::Loop, "Loop" },
-        { AnimationEndHandling::DeactivateOnEnd, "DeactivateOnEnd" },
-    });
 }
+    
+NLOHMANN_JSON_SERIALIZE_ENUM(Layer, {
+    { Layer::UI, "UI" },
+    { Layer::Sein, "Sein" },
+    { Layer::Solids, "Solids" },
+    { Layer::Art, "Art" },
+    { Layer::Character, "Character" },
+    { Layer::CharacterMovement, "CharacterMovement" },
+    { Layer::WorldMap, "WorldMap" },
+    { Layer::Items, "Items" },
+    { Layer::KillCharacter, "KillCharacter" },
+    { Layer::KillEverything, "KillEverything" },
+    { Layer::PushPullBlock, "PushPullBlock" },
+    { Layer::Platform, "Platform" },
+    { Layer::ResampleBuffer, "ResampleBuffer" },
+    { Layer::CharacterMovementIgnorePlatforms, "CharacterMovementIgnorePlatforms" },
+    { Layer::ArtReflected, "ArtReflected" },
+    { Layer::Debris, "Debris" },
+    { Layer::DebrisNoCollsion, "DebrisNoCollsion" },
+    { Layer::ArtBlurred, "ArtBlurred" },
+    { Layer::Projectile, "Projectile" },
+    { Layer::EarlyZ, "EarlyZ" },
+    { Layer::ArtBlurredReflected, "ArtBlurredReflected" },
+    { Layer::Laser, "Laser" },
+    { Layer::TerrainCollisionIgnorePlayerAndEnemies, "TerrainCollisionIgnorePlayerAndEnemies" },
+});
 
-INJECT_C_DLLEXPORT int sprite_load(const char* path)
+NLOHMANN_JSON_SERIALIZE_ENUM(AnimationEndHandling, {
+    { AnimationEndHandling::Freeze, "Freeze" },
+    { AnimationEndHandling::Loop, "Loop" },
+    { AnimationEndHandling::DestroyOnEnd, "DestroyOnEnd" },
+    { AnimationEndHandling::DeactivateOnEnd, "DeactivateOnEnd" },
+});
+
+INJECT_C_DLLEXPORT int sprite_load(const char* path, float x, float y, float z, float sx, float sy, float sz, float angle)
 {
     std::string spath(path);
     auto it = loaded_sprites.find(spath);
@@ -279,13 +289,9 @@ INJECT_C_DLLEXPORT int sprite_load(const char* path)
             try
             {
                 Sprite sprite;
-                sprite.layer = j.value("layer", Layer::UI);
-                sprite.position = j.value("position", app::Vector3{ 0.f, 0.f, 0.f });
-                sprite.scale = j.value("scale", app::Vector3{ 1.f, 1.f, 1.f });
-                sprite.rotation = j.value("rotation", 0.f);
-
-                sprite.end_handler = j.value("end_handler", AnimationEndHandling::Freeze);
-                sprite.time = j.value("time", 0.f);
+                sprite.layer = j.value<Layer>("layer", Layer::UI);
+                sprite.end_handler = j.value<AnimationEndHandling>("end_handler", AnimationEndHandling::Freeze);
+                sprite.time = 0.f;
                 auto entries = j.at("entries");
                 for (auto entry : entries)
                 {
@@ -295,15 +301,30 @@ INJECT_C_DLLEXPORT int sprite_load(const char* path)
                     anim_entry.rotation = entry.value("rotation", 0.0f);
                     anim_entry.duration = entry.value("duration", 1.0f);
                     anim_entry.offset_z = entry.value("offset_z", 1.0f);
-                    anim_entry.sorting_order = entry.value("sorting_order", 0);
                     anim_entry.texture = convert_string_to_wstring(entry.value("texture", std::string("")));
+                    app::Vector2 texture_size;
+                    auto has_texture_size = entry.contains("texture_size");
+                    if (has_texture_size)
+                        texture_size = entry.value("texture_size", app::Vector2{ 1.f, 1.f });
+
                     if (entry.contains("texture_params"))
                     {
                         auto params = entry["texture_params"];
                         textures::MaterialParams mat_params;
-                        mat_params.color = entry.value("color", app::Color{ 0.f, 0.f, 0.f, 1.0f });
-                        mat_params.scroll_rot = entry.value("scroll_rot", app::Vector4{ 0.f, 0.f, 0.f, 1.0f });
-                        mat_params.uvs = entry.value("uvs", app::Vector4{ 0.f, 0.f, 0.f, 1.0f });
+                        mat_params.color = params.value("color", app::Color{ 1.f, 1.f, 1.f, 1.f });
+                        mat_params.scroll_rot = params.value("scroll_rot", app::Vector4{ 0.f, 0.f, 0.f, 0.f });
+                        mat_params.uvs = params.value("uvs", app::Vector4{ 0.f, 0.f, 1.f, 1.f });
+                        auto& value = mat_params.uvs.value();
+                        if (has_texture_size)
+                        {
+                            value.x /= texture_size.x;
+                            value.y /= texture_size.y;
+                            value.z /= texture_size.x;
+                            value.w /= texture_size.y;
+                        }
+
+
+                        value.y = 1.f - value.y - value.w;
                         anim_entry.texture_params = std::optional(mat_params);
                     }
 
@@ -313,7 +334,7 @@ INJECT_C_DLLEXPORT int sprite_load(const char* path)
                 loaded_sprites[spath] = sprite;
                 it = loaded_sprites.find(spath);
             }
-            catch (std::exception ex)
+            catch (std::exception& ex)
             {
                 trace(MessageType::Warning, 3, "sprite_renderer", format("failed to read '%s%s' error '%s'", base_path.c_str(), path, ex.what()));
                 return -1;
@@ -325,6 +346,10 @@ INJECT_C_DLLEXPORT int sprite_load(const char* path)
             return -1;
         }
     }
+
+    it->second.position = { x, y, z };
+    it->second.scale = { sx, sy, sz };
+    it->second.rotation = angle;
 
     auto id = next_entry++;
     sprites[id] = it->second;
@@ -382,6 +407,33 @@ INJECT_C_DLLEXPORT void sprite_set_animation_entry(int id, int entry)
     }
     else
         modloader::warn("sprite_renderer", format("sprite_set_animation_entry: sprite '%d' does not exist.", id));
+}
+
+INJECT_C_DLLEXPORT void sprite_set_position(int id, float x, float y, float z)
+{
+    auto it = sprites.find(id);
+    if (it != sprites.end())
+        it->second.position = { x, y, z };
+    else
+        modloader::warn("sprite_renderer", format("sprite_set_position: sprite '%d' does not exist.", id));
+}
+
+INJECT_C_DLLEXPORT void sprite_set_scale(int id, float x, float y, float z)
+{
+    auto it = sprites.find(id);
+    if (it != sprites.end())
+        it->second.scale = { x, y, z };
+    else
+        modloader::warn("sprite_renderer", format("sprite_set_scale: sprite '%d' does not exist.", id));
+}
+
+INJECT_C_DLLEXPORT void sprite_set_rotation(int id, float angle)
+{
+    auto it = sprites.find(id);
+    if (it != sprites.end())
+        it->second.rotation = angle;
+    else
+        modloader::warn("sprite_renderer", format("sprite_set_rotation: sprite '%d' does not exist.", id));
 }
 
 INJECT_C_DLLEXPORT void sprite_set_active(int id, bool value)

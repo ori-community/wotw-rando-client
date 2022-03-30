@@ -3,6 +3,9 @@
 #include <json/json.hpp>
 
 namespace app {
+    void to_json(nlohmann::json& j, const Vector2& s);
+    void from_json(const nlohmann::json& j, Vector2& s);
+
     void to_json(nlohmann::json& j, const Vector3& s);
     void from_json(const nlohmann::json& j, Vector3& s);
 

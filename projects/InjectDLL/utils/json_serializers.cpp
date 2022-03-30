@@ -1,6 +1,20 @@
 #include <utils/json_serializers.h>
 
 namespace app {
+    void to_json(nlohmann::json& j, const Vector2& s)
+    {
+        j = {
+            { "x", s.x },
+            { "y", s.y },
+        };
+    }
+
+    void from_json(const nlohmann::json& j, Vector2& s)
+    {
+        s.x = j.value("x", 0.0f);
+        s.y = j.value("y", 0.0f);
+    }
+
     void to_json(nlohmann::json& j, const Vector3& s)
     {
         j = {

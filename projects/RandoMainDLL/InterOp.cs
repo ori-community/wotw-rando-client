@@ -10,6 +10,25 @@ namespace RandoMainDLL {
   }
 
   public static class InterOp {
+    public static class Sprite {
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static int sprite_load([MarshalAs(UnmanagedType.LPStr)] string path, float x, float y, float z, float sx, float sy, float sz, float angle);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void sprite_set_animation_entry(int id, int entry);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void sprite_set_position(int id, float x, float y, float z);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void sprite_set_scale(int id, float x, float y, float z);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void sprite_set_rotation(int id, float angle);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void sprite_set_active(int id, bool value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void sprite_destroy(int id);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void clear_sprites();
+    }
+
     public static class TextDatabase {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void text_database_register_text(int id, bool dynamic, [MarshalAs(UnmanagedType.LPWStr)] string text);

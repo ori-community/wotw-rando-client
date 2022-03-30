@@ -127,7 +127,24 @@ namespace RandoMainDLL {
           UberSet.Bool(4, 37, !UberGet.Bool(4, 37));
           break;
         case Action.Binding1:
-          PsuedoLocs.BINDING_ONE.OnCollect();
+          //PsuedoLocs.BINDING_ONE.OnCollect();
+          {
+            var p = InterOp.get_position();
+
+            for (var i = 0; i < 16; ++i)
+            {
+              var distance = Randomizer.R.NextDouble() * 3.0f + 2.0f;
+              var angle = Randomizer.R.NextDouble() * Math.PI - Math.PI / 2.0 + Math.PI;
+              var z = (float)(Randomizer.R.NextDouble() * 5.0 - 2.5);
+              Vector2 v;
+              v.X = (float)(Math.Cos(angle) * distance);
+              v.Y = (float)(Math.Sin(angle) * distance);
+              v += p;
+
+              var id = InterOp.Sprite.sprite_load("assets/animations/firework.json", v.X, v.Y, z, 1.0f, 1.0f, 1.0f, 0.0f);
+              InterOp.Sprite.sprite_set_active(id, true);
+            }
+          }
           break;
         case Action.Binding2:
           PsuedoLocs.BINDING_TWO.OnCollect();
