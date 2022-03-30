@@ -172,7 +172,14 @@ namespace il2cpp
 
         app::Transform* get_transform(void* object)
         {
-            auto go = reinterpret_cast<app::GameObject*>(object);
+            app::GameObject* go = nullptr;
+            if (il2cpp::is_assignable(object, "UnityEngine", "GameObject"))
+                go = reinterpret_cast<app::GameObject*>(object);
+            else if (il2cpp::is_assignable(object, "UnityEngine", "Component"))
+                go = get_game_object(object);
+            else
+                trace(modloader::MessageType::Error, 1, "il2cpp", "Tried to get transform of non gameobject/component class");
+
             return GameObject::get_transform(go);
         }
 

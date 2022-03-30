@@ -67,6 +67,29 @@ namespace textures
         mparams.color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
     }
 
+    void TextureData::apply(app::Material* mat)
+    {
+        if (!initialized)
+        {
+            load_texture();
+            initialized = true;
+        }
+
+        if (local.texture.has_value())
+        {
+            auto texture = il2cpp::gchandle_target<app::Texture>(local.texture.value());
+            // Very awful code, if texture is no longer valid, reload it.
+            if (!il2cpp::unity::is_valid(texture) && path._Starts_with(L"file:"))
+            {
+                info("textures", "had to reload file texture.");
+                reload_file_texture();
+                texture = il2cpp::gchandle_target<app::Texture>(local.texture.value());
+            }
+
+            il2cpp::invoke(mat, "set_mainTexture", texture);
+        }
+    }
+
     void TextureData::apply(app::Renderer* renderer)
     {
         if (default_params.find(renderer) == default_params.end())

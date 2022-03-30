@@ -1,10 +1,12 @@
-#include <Il2CppModLoader/interception_macros.h>
-#include <Il2CppModLoader/il2cpp_helpers.h>
-#include <Il2CppModLoader/console.h>
 #include <dev/object_visualizer.h>
+#include <utils/shaders.h>
 
 #include <Common/ext.h>
+
 #include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/console.h>
+#include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 
 #include <unordered_map>
 
@@ -15,6 +17,8 @@ namespace dev
     namespace visualize
     {
         namespace {
+            using visualize_func = void (*)(Visualizer& visualizer, Il2CppObject* obj);
+
             IL2CPP_BINDING(, NewSetupStateController, app::Int32__Array*, GetAllStateGUIDs, (app::NewSetupStateController* this_ptr));
             IL2CPP_BINDING(, NewSetupStateController, app::String*, GetStateName, (app::NewSetupStateController* this_ptr, int32_t state_guid));
             IL2CPP_BINDING(, SetupStateModifier, app::String*, get_Name, (app::SetupStateModifier* this_ptr));
@@ -27,12 +31,13 @@ namespace dev
 					return format("%s.%s", klass->namespaze, klass->name);
 			}
 
-			std::string get_full_name(Il2CppObject* obj)
+			std::string get_full_name(void* obj)
 			{
-				if (std::string(obj->klass->namespaze).empty())
-					return obj->klass->name;
+                auto cast = reinterpret_cast<Il2CppObject*>(obj);
+				if (std::string(cast->klass->namespaze).empty())
+					return cast->klass->name;
 				else
-					return format("%s.%s", obj->klass->namespaze, obj->klass->name);
+					return format("%s.%s", cast->klass->namespaze, cast->klass->name);
 			}
 
             void indent(Visualizer& visualizer, int pre = 0, int post = 0)
@@ -108,6 +113,166 @@ namespace dev
                 default:
                     break;
                 }
+            }
+
+            void visualize_vector2(Visualizer& visualizer, Il2CppObject* obj)
+            {
+                auto vec = reinterpret_cast<app::Vector2*>(&obj);
+                indent(visualizer);
+                visualizer.stream << "{ " << vec->x << ", " << vec->y << " }" << visualizer.new_line;
+            }
+
+            void visualize_vector3(Visualizer& visualizer, Il2CppObject* obj)
+            {
+                auto vec = reinterpret_cast<app::Vector3*>(&obj);
+                indent(visualizer);
+                visualizer.stream << "{ " << vec->x << ", " << vec->y << ", " << vec->z << " }" << visualizer.new_line;
+            }
+
+            void visualize_vector4(Visualizer& visualizer, Il2CppObject* obj)
+            {
+                auto vec = reinterpret_cast<app::Vector4*>(&obj);
+                indent(visualizer);
+                visualizer.stream << "{ " << vec->x << ", " << vec->y << ", " << vec->z << ", " << vec->w << " }" << visualizer.new_line;
+            }
+
+            void visualize_color32(Visualizer& visualizer, Il2CppObject* obj)
+            {
+                auto color = reinterpret_cast<app::Color32*>(&obj);
+                indent(visualizer);
+                visualizer.stream << "{ " << color->r << ", " << color->g << ", " << color->b << ", " << color->a << " }" << visualizer.new_line;
+            }
+
+            void visualize_int(Visualizer& visualizer, Il2CppObject* obj)
+            {
+                auto i = reinterpret_cast<int*>(&obj);
+                indent(visualizer);
+                visualizer.stream << i << visualizer.new_line;
+            }
+
+            void visualize_array(Visualizer& visualizer, app::Array* arr, const char* name, visualize_func vis)
+            {
+                if (!il2cpp::unity::is_valid(arr))
+                {
+                    indent(visualizer);
+                    visualizer.stream << name << ": nullptr" << visualizer.new_line;
+                    return;
+                }
+
+                indent(visualizer, 0, 1);
+                visualizer.stream << name << ": {" << visualizer.new_line;
+                auto element = reinterpret_cast<char*>(arr->vector);
+                for (int i = 0; i < arr->max_length; ++i)
+                    vis(visualizer, reinterpret_cast<Il2CppObject*>(element[i * arr->klass->_1.element_size]));
+
+                indent(visualizer, -1);
+                visualizer.stream << "}" << visualizer.new_line;
+            }
+
+            void visualize_unity_mesh(Visualizer& visualizer, Il2CppObject* obj)
+            {
+                if (!il2cpp::unity::is_valid(obj))
+                {
+                    indent(visualizer);
+                    visualizer.stream << "nullptr" << visualizer.new_line;
+                    return;
+                }
+
+                auto name = il2cpp::unity::get_object_name(obj);
+                auto mesh = reinterpret_cast<app::Mesh*>(obj);
+                indent(visualizer, 0, 1);
+                visualizer.stream << get_full_name(obj) << " - " << name << " {" << visualizer.new_line;
+
+                auto vertices = il2cpp::invoke<app::Array>(mesh, "get_vertices");
+                visualize_array(visualizer, vertices, "vertices", &visualize_vector3);
+                auto normals = il2cpp::invoke<app::Array>(mesh, "get_normals");
+                visualize_array(visualizer, normals, "normals", &visualize_vector3);
+                auto uv = il2cpp::invoke<app::Array>(mesh, "get_uv");
+                visualize_array(visualizer, uv, "uv", &visualize_vector2);
+                auto uv2 = il2cpp::invoke<app::Array>(mesh, "get_uv2");
+                visualize_array(visualizer, uv2, "uv2", &visualize_vector2);
+                auto uv3 = il2cpp::invoke<app::Array>(mesh, "get_uv3");
+                visualize_array(visualizer, uv3, "uv3", &visualize_vector2);
+                auto uv4 = il2cpp::invoke<app::Array>(mesh, "get_uv4");
+                visualize_array(visualizer, uv4, "uv4", &visualize_vector2);
+                auto colors = il2cpp::invoke<app::Array>(mesh, "get_colors32");
+                visualize_array(visualizer, colors, "colors", &visualize_color32);
+                auto triangles = il2cpp::invoke<app::Array>(mesh, "get_triangles");
+                visualize_array(visualizer, triangles, "triangles", &visualize_int);
+
+                indent(visualizer, -1);
+                visualizer.stream << "}" << visualizer.new_line;
+            }
+
+            void visualize_unity_mesh_filter(Visualizer& visualizer, Il2CppObject* obj)
+            {
+                auto name = il2cpp::unity::get_object_name(obj);
+                auto mesh_filter = reinterpret_cast<app::MeshFilter*>(obj);
+                indent(visualizer);
+                visualizer.stream << get_full_name(obj) << " - " << name << visualizer.new_line;
+
+                auto mesh = il2cpp::invoke<app::Mesh>(mesh_filter, "get_mesh");
+                indent(visualizer, 1, 1);
+                visualizer.stream << "mesh:" << visualizer.new_line;
+                visualize_unity_mesh(visualizer, reinterpret_cast<Il2CppObject*>(mesh));
+
+                auto shared_mesh = il2cpp::invoke<app::Mesh>(mesh_filter, "get_sharedMesh");
+                indent(visualizer, -1, 1);
+                visualizer.stream << "shared_mesh:" << visualizer.new_line;
+                visualize_unity_mesh(visualizer, reinterpret_cast<Il2CppObject*>(shared_mesh));
+                visualizer.current_state.indent_level -= 1;
+            }
+
+            void visualize_unity_material(Visualizer& visualizer, Il2CppObject* obj)
+            {
+                auto name = il2cpp::unity::get_object_name(obj);
+                auto renderer = reinterpret_cast<app::Material*>(obj);
+
+                indent(visualizer);
+                visualizer.stream << get_full_name(obj) << " - " << name << visualizer.new_line;
+
+                auto shader = il2cpp::invoke<app::Shader>(renderer, "get_shader");
+                indent(visualizer, 1);
+                visualizer.stream << "shader:" << visualizer.new_line;
+                indent(visualizer, 1, -1);
+                visualizer.stream << get_full_name(shader) << " - " << shader << visualizer.new_line;
+                indent(visualizer, 0, -1);
+                auto render_queue = il2cpp::invoke<app::Int32__Boxed>(renderer, "get_renderQueue")->fields;
+                visualizer.stream << "renderQueue: " << render_queue << visualizer.new_line;
+            }
+
+            void visualize_unity_renderer(Visualizer& visualizer, Il2CppObject* obj)
+            {
+                auto name = il2cpp::unity::get_object_name(obj);
+                auto renderer = reinterpret_cast<app::Renderer*>(obj);
+                indent(visualizer);
+                visualizer.stream << get_full_name(obj) << " - " << name << visualizer.new_line;
+
+                auto rendering_layer_mask = il2cpp::invoke<app::UInt32__Boxed>(renderer, "get_renderingLayerMask")->fields;
+                indent(visualizer, 1);
+                visualizer.stream << "rendering_layer_mask: " << rendering_layer_mask << visualizer.new_line;
+
+                auto sorting_layer_id = il2cpp::invoke<app::Int32__Boxed>(renderer, "get_sortingLayerID")->fields;
+                indent(visualizer, 0);
+                visualizer.stream << "sorting_layer_id: " << sorting_layer_id << visualizer.new_line;
+
+                auto sorting_order = il2cpp::invoke<app::Int32__Boxed>(renderer, "get_sortingOrder")->fields;
+                indent(visualizer);
+                visualizer.stream << "sorting_order: " << sorting_order << visualizer.new_line;
+
+                auto moon_offset_z = il2cpp::invoke<app::Single__Boxed>(renderer, "get_moonOffsetZ")->fields;
+                indent(visualizer);
+                visualizer.stream << "moon_offset_z: " << moon_offset_z << visualizer.new_line;
+
+                auto mat = shaders::UberShaderAPI::GetEditableMaterial(renderer);
+                indent(visualizer, 0, 1);
+                visualizer.stream << "editable_material: " << visualizer.new_line;
+                visualize_unity_material(visualizer, reinterpret_cast<Il2CppObject*>(mat));
+
+                auto shared_mat = shaders::UberShaderAPI::GetSharedMaterial(renderer);
+                indent(visualizer, -1, 1);
+                visualizer.stream << "shared_material: " << visualizer.new_line;
+                visualize_unity_material(visualizer, reinterpret_cast<Il2CppObject*>(shared_mat));
             }
 
             void visualize_scene_root(Visualizer& visualizer, Il2CppObject* obj)
@@ -423,7 +588,7 @@ namespace dev
 
             }
 
-            std::unordered_map<std::string, void (*)(Visualizer& visualizer, Il2CppObject* obj)> visualizers = {
+            std::unordered_map<std::string, visualize_func> visualizers = {
                 { "NewSetupStateController", visualize_new_setup_state_controller },
                 { "SetupStateModifier", visualize_setup_state_modifier },
                 { "StateCondition", visualize_state_condition },
@@ -445,6 +610,9 @@ namespace dev
                 { "SceneRoot", visualize_scene_root },
                 { "UnityEngine.GameObject", visualize_game_object },
 				{ "UnityEngine.Object", visualize_unity_object },
+                { "UnityEngine.Mesh", visualize_unity_mesh },
+                { "UnityEngine.MeshFilter", visualize_unity_mesh_filter },
+                { "UnityEngine.Renderer", visualize_unity_renderer },
 
                 { "Respawner", visualize_respawner },
             };

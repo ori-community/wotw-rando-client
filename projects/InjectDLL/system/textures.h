@@ -29,6 +29,7 @@ namespace textures
 
         ~TextureData();
 
+        void apply(app::Material* mat);
         void apply(app::Renderer* renderer);
         app::Texture2D* get();
 
