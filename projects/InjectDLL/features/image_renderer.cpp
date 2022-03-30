@@ -2,6 +2,7 @@
 
 #include <dev/object_visualizer.h>
 #include <system/textures.h>
+#include <utils/json_serializers.h>
 
 #include <Common/ext.h>
 
@@ -21,6 +22,7 @@ namespace {
     {
         std::wstring texture;
         std::shared_ptr<textures::TextureData> texture_data = nullptr;
+        std::optional<textures::MaterialParams> texture_params;
         app::Vector3 position{ 0.f, 0.f, 0.f };
         app::Vector3 scale{ 0.f, 0.f, 0.f };
         float rotation = 0;
@@ -221,7 +223,6 @@ namespace {
         }
     }
     
-
     NLOHMANN_JSON_SERIALIZE_ENUM(Layer, {
         { Layer::UI, "UI" },
         { Layer::Sein, "Sein" },
@@ -247,29 +248,12 @@ namespace {
         { Layer::Laser, "Laser" },
         { Layer::TerrainCollisionIgnorePlayerAndEnemies, "TerrainCollisionIgnorePlayerAndEnemies" },
     });
+
     NLOHMANN_JSON_SERIALIZE_ENUM(AnimationEndHandling, {
         { AnimationEndHandling::Freeze, "Freeze" },
         { AnimationEndHandling::Loop, "Loop" },
         { AnimationEndHandling::DeactivateOnEnd, "DeactivateOnEnd" },
     });
-}
-
-namespace app {
-    void to_json(nlohmann::json& j, const Vector3& s)
-    {
-        j = {
-            { "x", s.x },
-            { "y", s.y },
-            { "z", s.z },
-        };
-    }
-
-    void from_json(const nlohmann::json& j, Vector3& s)
-    {
-        s.x = j.value("x", 0.0f);
-        s.y = j.value("y", 0.0f);
-        s.z = j.value("z", 0.0f);
-    }
 }
 
 INJECT_C_DLLEXPORT int sprite_load(const char* path)
@@ -306,13 +290,23 @@ INJECT_C_DLLEXPORT int sprite_load(const char* path)
                 for (auto entry : entries)
                 {
                     AnimationEntry anim_entry;
-                    anim_entry.position = j.value("position", app::Vector3{ 0.f, 0.f, 0.f });
-                    anim_entry.scale = j.value("scale", app::Vector3{ 0.f, 0.f, 0.f });
-                    anim_entry.rotation = j.value("rotation", 0.0f);
-                    anim_entry.duration = j.value("duration", 1.0f);
-                    anim_entry.offset_z = j.value("offset_z", 1.0f);
-                    anim_entry.sorting_order = j.value("sorting_order", 0);
-                    anim_entry.texture = convert_string_to_wstring(j.value("texture", std::string("")));
+                    anim_entry.position = entry.value("position", app::Vector3{ 0.f, 0.f, 0.f });
+                    anim_entry.scale = entry.value("scale", app::Vector3{ 0.f, 0.f, 0.f });
+                    anim_entry.rotation = entry.value("rotation", 0.0f);
+                    anim_entry.duration = entry.value("duration", 1.0f);
+                    anim_entry.offset_z = entry.value("offset_z", 1.0f);
+                    anim_entry.sorting_order = entry.value("sorting_order", 0);
+                    anim_entry.texture = convert_string_to_wstring(entry.value("texture", std::string("")));
+                    if (entry.contains("texture_params"))
+                    {
+                        auto params = entry["texture_params"];
+                        textures::MaterialParams mat_params;
+                        mat_params.color = entry.value("color", app::Color{ 0.f, 0.f, 0.f, 1.0f });
+                        mat_params.scroll_rot = entry.value("scroll_rot", app::Vector4{ 0.f, 0.f, 0.f, 1.0f });
+                        mat_params.uvs = entry.value("uvs", app::Vector4{ 0.f, 0.f, 0.f, 1.0f });
+                        anim_entry.texture_params = std::optional(mat_params);
+                    }
+
                     sprite.entries.push_back(anim_entry);
                 }
 
