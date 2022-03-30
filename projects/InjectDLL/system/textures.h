@@ -12,7 +12,6 @@ namespace textures
 {
     struct MaterialParams
     {
-        std::optional<uint32_t> texture;
         std::optional<app::Vector4> uvs;
         std::optional<app::Vector4> scroll_rot;
         std::optional<app::Color> color;
@@ -30,10 +29,10 @@ namespace textures
         ~TextureData();
 
         void apply(app::Material* mat);
-        void apply(app::Renderer* renderer);
+        void apply(app::Renderer* renderer, MaterialParams* extra = nullptr);
         app::Texture2D* get();
 
-        void set_texture(app::Texture* texture);
+        void set_texture(app::Texture* texture_ptr);
         void set_uvs(app::Vector4 uvs);
         void set_scroll_rot(app::Vector4 scroll_rot);
         void set_color(app::Color color);
@@ -43,6 +42,7 @@ namespace textures
     private:
         bool initialized = true;
         std::wstring path;
+        std::optional<uint32_t> texture;
         MaterialParams local;
 
         void load_texture();
