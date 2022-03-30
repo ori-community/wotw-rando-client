@@ -37,9 +37,6 @@ public struct HSL {
   }
 
   public RGB ToRGB() {
-    float r;
-    float g;
-    float b;
     if (S == 0)
       return new RGB { R = L, G = L, B = L };
     else {
