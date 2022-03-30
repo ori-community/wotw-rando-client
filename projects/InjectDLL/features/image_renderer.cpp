@@ -366,6 +366,7 @@ INJECT_C_DLLEXPORT bool sprite_preload(const char* path)
                     anim_entry.duration = entry.value("duration", 1.0f);
                     anim_entry.offset_z = entry.value("offset_z", 1.0f);
                     anim_entry.texture = convert_string_to_wstring(entry.value("texture", std::string("")));
+                    anim_entry.texture_data = textures::get_texture(anim_entry.texture);
                     app::Vector2 texture_size;
                     auto has_texture_size = entry.contains("texture_size");
                     if (has_texture_size)
