@@ -1,4 +1,4 @@
-#include <features/death_listener.h>
+#include <features/trackers/death_listener.h>
 
 #include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/interception_macros.h>

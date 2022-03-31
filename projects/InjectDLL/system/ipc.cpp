@@ -6,7 +6,7 @@
 #include <csharp_bridge.h>
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
-#include <features/messages.h>
+#include <system/messages.h>
 #include <uber_states/uber_state_manager.h>
 #include <input/rando_bindings.h>
 #include <input/simulator.h>

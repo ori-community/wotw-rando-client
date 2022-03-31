@@ -1,6 +1,6 @@
 #include <dll_main.h>
 #include <csharp_bridge.h>
-#include <features\invert_swim.h>
+#include <features/controls/invert_swim.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>

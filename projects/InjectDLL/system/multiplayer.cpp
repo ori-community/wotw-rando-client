@@ -1,6 +1,6 @@
 #include <multiplayer.h>
 #include <macros.h>
-#include <features/messages.h>
+#include <system/messages.h>
 #include <utils/misc.h>
 
 #include <Common/ext.h>

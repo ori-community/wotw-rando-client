@@ -1,4 +1,4 @@
-#include <features/mouse_control.h>
+#include <features/controls/mouse_control.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <dll_main.h>
 #include <csharp_bridge.h>

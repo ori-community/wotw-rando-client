@@ -1,5 +1,5 @@
 #include <dll_main.h>
-#include <features/invert_swim.h>
+#include <features/controls/invert_swim.h>
 
 #include <csharp_bridge.h>
 

@@ -4,8 +4,8 @@
 #include <dll_main.h>
 #include <macros.h>
 #include <pickups/ore.h>
-#include <features/invert_swim.h>
-#include <features/mouse_control.h>
+#include <features/controls/invert_swim.h>
+#include <features/controls/mouse_control.h>
 #include <csharp_bridge.h>
 
 #include <Il2CppModLoader/common.h>

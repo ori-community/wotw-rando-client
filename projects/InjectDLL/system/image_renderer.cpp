@@ -1,4 +1,4 @@
-#include <features/image_renderer.h>
+#include <system/image_renderer.h>
 
 #include <dev/object_visualizer.h>
 #include <system/textures.h>

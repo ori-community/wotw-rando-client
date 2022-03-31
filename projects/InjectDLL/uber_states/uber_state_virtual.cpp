@@ -6,7 +6,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Common/ext.h>
-#include <features/mouse_control.h>
+#include <features/controls/mouse_control.h>
 #include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_manager.h>
 
