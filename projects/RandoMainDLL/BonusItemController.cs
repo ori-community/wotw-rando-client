@@ -18,15 +18,15 @@ namespace RandoMainDLL {
 
   public static class BonusItemController {
     public static void Refresh() {
-      InterOp.refresh_ability_energy_modifiers();
+      InterOp.Ability.refresh_ability_energy_modifiers();
     }
     public static void Update() {
       double h = UberGet.AsDouble(4, (int)BonusType.HealthRegen);
       if (h > 0)
-        InterOp.add_health(Convert.ToSingle(h * 0.0028f));
+        InterOp.Player.add_health(Convert.ToSingle(h * 0.0028f));
       double e = UberGet.AsDouble(4, (int)BonusType.EnergyRegen);
       if (e > 0)
-        InterOp.add_energy(Convert.ToSingle(e * 0.00028f));
+        InterOp.Player.add_energy(Convert.ToSingle(e * 0.00028f));
     }
 
     public static void OnUberState(UberState state) {

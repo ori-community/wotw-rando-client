@@ -22,8 +22,8 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void_at((AbilityType at) => {
               UberSet.Bool(at.TreeState(), true);
-              InterOp.fill_health();
-              InterOp.fill_energy();
+              InterOp.Player.fill_health();
+              InterOp.Player.fill_energy();
             }),
             CallbackName = "on_tree"
           },

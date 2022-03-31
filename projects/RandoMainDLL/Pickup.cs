@@ -517,11 +517,11 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.Shard;
     public readonly ShardType type;
     public override bool Has() {
-      return InterOp.has_shard(type);
+      return InterOp.Shard.has_shard(type);
     }
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.set_shard(type, true);
-      InterOp.refresh_shards();
+      InterOp.Shard.set_shard(type, true);
+      InterOp.Shard.refresh_shards();
       base.Grant(skipBase, position);
     }
 
@@ -534,8 +534,8 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.Shard;
     public readonly ShardType type;
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.set_shard(type, false);
-      InterOp.refresh_shards();
+      InterOp.Shard.set_shard(type, false);
+      InterOp.Shard.refresh_shards();
       base.Grant(skipBase, position);
     }
     public override string Name { get => $"Lose {type.GetDescription() ?? $"Unknown Shard {type}"}"; }
@@ -550,9 +550,9 @@ namespace RandoMainDLL {
     public readonly int Hash;
 
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.set_experience(InterOp.get_experience() + Amount);
+      InterOp.Player.set_experience(InterOp.Player.get_experience() + Amount);
       UberInc.Int(6, 3, Amount);
-      InterOp.shake_spiritlight();
+      InterOp.UI.shake_spiritlight();
       base.Grant(skipBase, position);
     }
 
@@ -641,10 +641,10 @@ namespace RandoMainDLL {
     public override void Grant(bool skipBase = false, Vector2? position = null) {
       switch (type) {
         case SysCommandType.Save:
-          InterOp.save();
+          InterOp.System.save();
           break;
         case SysCommandType.Checkpoint:
-          InterOp.checkpoint();
+          InterOp.System.checkpoint();
           break;
       }
     }
@@ -662,19 +662,19 @@ namespace RandoMainDLL {
     public override void Grant(bool skipBase = false, Vector2? position = null) {
       switch (resourceType) {
         case ResourceType.Health:
-          InterOp.set_max_health(newResourceValue);
+          InterOp.Player.set_max_health(newResourceValue);
           break;
         case ResourceType.Energy:
-          InterOp.set_max_energy(newResourceValue);
+          InterOp.Player.set_max_energy(newResourceValue);
           break;
         case ResourceType.Ore:
-          InterOp.set_ore(newResourceValue);
+          InterOp.Player.set_ore(newResourceValue);
           break;
         case ResourceType.Keystone:
-          InterOp.set_keystones(newResourceValue);
+          InterOp.Player.set_keystones(newResourceValue);
           break;
         case ResourceType.ShardSlot:
-          InterOp.set_shard_slots(newResourceValue);
+          InterOp.Shard.set_shard_slots(newResourceValue);
           break;
       }
     }
@@ -686,7 +686,7 @@ namespace RandoMainDLL {
       newHealth = v;
     }
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.set_health(newHealth);
+      InterOp.Player.set_health(newHealth);
     }
   }
   public class SendInputSignal : SystemCommand {
@@ -705,7 +705,7 @@ namespace RandoMainDLL {
       newEnergy = v;
     }
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.set_energy(newEnergy);
+      InterOp.Player.set_energy(newEnergy);
     }
   }
   public class SetSpiritLight : SystemCommand {
@@ -714,7 +714,7 @@ namespace RandoMainDLL {
       newSL = v;
     }
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.set_experience(newSL);
+      InterOp.Player.set_experience(newSL);
     }
   }
   public class SyncToggler : SystemCommand {
@@ -849,7 +849,7 @@ namespace RandoMainDLL {
     }
 
     public override bool IsCondMet() {
-      var pos = InterOp.get_position();
+      var pos = InterOp.Player.get_position();
       return pos.X >= x1 && pos.X <= x2 && pos.Y >= y1 && pos.Y <= y2;
     }
   }
@@ -899,7 +899,7 @@ namespace RandoMainDLL {
       Y = y;
     }
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.teleport(X, Y, true);
+      InterOp.Player.teleport(X, Y, true);
       base.Grant(skipBase, position);
     }
     public override string DisplayName { get => $"Warp to {X}, {Y}"; }
@@ -914,7 +914,7 @@ namespace RandoMainDLL {
       Equip = equip;
     }
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.bind(Slot, Equip);
+      InterOp.Ability.bind(Slot, Equip);
       base.Grant(skipBase, position);
     }
     public override string DisplayName { get => $"Bind {Equip} to {Slot}"; }
@@ -927,7 +927,7 @@ namespace RandoMainDLL {
       Equip = equip;
     }
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.unbind(Equip);
+      InterOp.Ability.unbind(Equip);
       base.Grant(skipBase, position);
     }
     public override string DisplayName { get => $"Unbind {Equip}"; }
@@ -1033,29 +1033,29 @@ namespace RandoMainDLL {
     public override void Grant(bool skipBase = false, Vector2? position = null) {
       switch (type) {
         case ResourceType.Health:
-          InterOp.set_max_health(InterOp.get_max_health() + 5);
-          InterOp.fill_health();
-          if (UberGet.Bool(4, 150) && InterOp.is_shard_equipped(ShardType.Overflow))
-            InterOp.fill_energy();
+          InterOp.Player.set_max_health(InterOp.Player.get_max_health() + 5);
+          InterOp.Player.fill_health();
+          if (UberGet.Bool(4, 150) && InterOp.Shard.is_shard_equipped(ShardType.Overflow))
+            InterOp.Player.fill_energy();
           break;
         case ResourceType.Energy:
-          InterOp.set_max_energy(InterOp.get_max_energy() + 0.5f);
-          InterOp.fill_energy();
-          if (UberGet.Bool(4, 150) && InterOp.is_shard_equipped(ShardType.Overflow))
-            InterOp.fill_health();
+          InterOp.Player.set_max_energy(InterOp.Player.get_max_energy() + 0.5f);
+          InterOp.Player.fill_energy();
+          if (UberGet.Bool(4, 150) && InterOp.Shard.is_shard_equipped(ShardType.Overflow))
+            InterOp.Player.fill_health();
           break;
         case ResourceType.Ore:
-          InterOp.set_ore(InterOp.get_ore() + 1);
+          InterOp.Player.set_ore(InterOp.Player.get_ore() + 1);
           UberInc.Int(6, 5);
-          InterOp.shake_ore();
+          InterOp.UI.shake_ore();
           break;
         case ResourceType.Keystone:
-          InterOp.set_keystones(InterOp.get_keystones() + 1);
+          InterOp.Player.set_keystones(InterOp.Player.get_keystones() + 1);
           UberInc.Int(6, 0);
-          InterOp.shake_keystone();
+          InterOp.UI.shake_keystone();
           break;
         case ResourceType.ShardSlot:
-          InterOp.set_shard_slots(InterOp.get_shard_slots() + 1);
+          InterOp.Shard.set_shard_slots(InterOp.Shard.get_shard_slots() + 1);
           break;
       }
       base.Grant(skipBase, position);

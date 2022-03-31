@@ -29,9 +29,9 @@ namespace RandoMainDLL {
         teleporters = new HashSet<String>();
       }
       try {
-        keystones = InterOp.get_keystones();
-        spiritLight = InterOp.get_experience();
-        ore = InterOp.get_ore();
+        keystones = InterOp.Player.get_keystones();
+        spiritLight = InterOp.Player.get_experience();
+        ore = InterOp.Player.get_ore();
         skills = SaveController.SkillsFound.Select((AbilityType type) => trackName(type)).ToHashSet();
         upgraded = ShopController.UpgradedWeapons.Select((AbilityType type) => $"{type.GetDescription().Replace(" ", "")}").ToHashSet();
         if (SaveController.HasAbility(AbilityType.DamageUpgrade1) && SaveController.HasAbility(AbilityType.DamageUpgrade2))
@@ -60,7 +60,10 @@ namespace RandoMainDLL {
         return;
       }
       try {
-        if (Last == null || Last.ore != InterOp.get_ore() || Last.spiritLight != InterOp.get_experience() || Last.keystones != InterOp.get_keystones())
+        if (Last == null
+          || Last.ore != InterOp.Player.get_ore()
+          || Last.spiritLight != InterOp.Player.get_experience()
+          || Last.keystones != InterOp.Player.get_keystones())
           Write();
       } catch (Exception e) {
         Randomizer.Error("Track.Update", e);

@@ -85,7 +85,7 @@ namespace RandoMainDLL {
     private static readonly UberId GameComplete = new UberId(34543, 11226);
 
     public static void doFirework(int count = 16) {
-      var p = InterOp.get_position();
+      var p = InterOp.Player.get_position();
 
       for (var i = 0; i < count; ++i) {
         var distance = Randomizer.R.NextDouble() * 5.0f + 4.0f;
@@ -147,7 +147,7 @@ namespace RandoMainDLL {
           MessageController.ShowMessage($"Cursor Lock {(InterOp.toggle_cursorlock() ? "enabled" : "disabled")}", queue: "wheel");
           break;
         case Action.ToggleAlwaysShowKeystones:
-          MessageController.ShowMessage($"Always show keystones: {InterOp.toggle_always_show_keystones()}", queue: "wheel");
+          MessageController.ShowMessage($"Always show keystones: {InterOp.UI.toggle_always_show_keystones()}", queue: "wheel");
           break;
         case Action.ToggleAutoaim:
           UberSet.Bool(4, 37, !UberGet.Bool(4, 37));
@@ -188,7 +188,7 @@ namespace RandoMainDLL {
             MessageController.ShowMessage($"Credit warp not unlocked!", queue: "wheel");
           break;
         case Action.PrintCoordinates:
-          var pos = InterOp.get_position();
+          var pos = InterOp.Player.get_position();
           MessageController.ShowMessage($"{pos.X}, {pos.Y}", queue: "wheel");
           break;
         case Action.TogglePickupNamesOnSpoiler:

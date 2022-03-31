@@ -45,7 +45,7 @@ namespace RandoMainDLL {
           }
           catch (Exception e) { Randomizer.Error($"MapController.Update, while parsing |{rawCond}|", e); }
         }
-        InterOp.refresh_inlogic_filter();
+        InterOp.Map.refresh_inlogic_filter();
         reachCheckResult = null;
       }
     }
@@ -128,9 +128,9 @@ namespace RandoMainDLL {
         "--uber-states",
         $"\"{Randomizer.BasePath}state_data.csv\"",
         $"\"{SeedController.SeedFile}\"",
-        $"{InterOp.get_max_health()}",
-        InterOp.get_max_energy().ToString(System.Globalization.CultureInfo.InvariantCulture),
-        $"{InterOp.get_keystones()}",
+        $"{InterOp.Player.get_max_health()}",
+        InterOp.Player.get_max_energy().ToString(System.Globalization.CultureInfo.InvariantCulture),
+        $"{InterOp.Player.get_keystones()}",
         $"{UberGet.value(6, 5).Int}",
         $"{UberGet.value(6, 3).Int}",
       };

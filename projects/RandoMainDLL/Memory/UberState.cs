@@ -112,25 +112,25 @@ namespace RandoMainDLL.Memory {
     public static double AsDouble(UberId id) {
       if(id.GroupID == 3 && id.ID >= 100) switch (id.ID-100) {
           case (int)ResourceType.Health:
-            return InterOp.get_max_health();
+            return InterOp.Player.get_max_health();
           case (int)ResourceType.Energy:
-            return InterOp.get_max_energy();
+            return InterOp.Player.get_max_energy();
           case (int)ResourceType.Ore:
-            return InterOp.get_ore();
+            return InterOp.Player.get_ore();
           case (int)ResourceType.Keystone:
-            return InterOp.get_keystones();
+            return InterOp.Player.get_keystones();
           case (int)ResourceType.ShardSlot:
-            return InterOp.get_shard_slots();
+            return InterOp.Shard.get_shard_slots();
           case 5: // health
-            return InterOp.get_health();
+            return InterOp.Player.get_health();
           case 6: // energy
-            return InterOp.get_energy();
+            return InterOp.Player.get_energy();
           case 7: // exp
-            return InterOp.get_experience();
+            return InterOp.Player.get_experience();
           default:
             break;
       }
-      return InterOp.get_uber_state_value(id.GroupID, id.ID);
+      return InterOp.UberState.get_uber_state_value(id.GroupID, id.ID);
     }
   }
   public static class UberSet {
@@ -146,34 +146,34 @@ namespace RandoMainDLL.Memory {
     public static void Raw(UberId id, double val) {
       if (id.GroupID == 3 && id.ID >= 100) switch (id.ID - 100) {
           case (int)ResourceType.Health:
-            InterOp.set_max_health(Convert.ToInt32(val));
+            InterOp.Player.set_max_health(Convert.ToInt32(val));
             return;
           case (int)ResourceType.Energy:
-            InterOp.set_max_energy(Convert.ToInt32(val));
+            InterOp.Player.set_max_energy(Convert.ToInt32(val));
             return;
           case (int)ResourceType.Ore:
-            InterOp.set_ore(Convert.ToInt32(val));
+            InterOp.Player.set_ore(Convert.ToInt32(val));
             return;
           case (int)ResourceType.Keystone:
-            InterOp.set_keystones(Convert.ToInt32(val));
+            InterOp.Player.set_keystones(Convert.ToInt32(val));
             return;
           case (int)ResourceType.ShardSlot:
-            InterOp.set_shard_slots(Convert.ToInt32(val));
+            InterOp.Shard.set_shard_slots(Convert.ToInt32(val));
             return;
           case 5: // health
-            InterOp.set_health(Convert.ToInt32(val));
+            InterOp.Player.set_health(Convert.ToInt32(val));
             return;
           case 6: // energy
-            InterOp.set_energy(Convert.ToInt32(val));
+            InterOp.Player.set_energy(Convert.ToInt32(val));
             return;
           case 7: // exp
-            InterOp.set_experience(Convert.ToInt32(val));
+            InterOp.Player.set_experience(Convert.ToInt32(val));
             return;
           default:
             break;
         }
 
-      InterOp.set_uber_state_value(id.GroupID, id.ID, val);
+      InterOp.UberState.set_uber_state_value(id.GroupID, id.ID, val);
     }
   }
   public static class UberInc {

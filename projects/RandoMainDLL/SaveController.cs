@@ -93,7 +93,7 @@ namespace RandoMainDLL {
     }
     private static bool DidWeJustDie = false;
     public static void OnSave(int slot, int backupSlot = -1) {
-      DidWeJustDie = InterOp.get_health() == 0;
+      DidWeJustDie = InterOp.Player.get_health() == 0;
       StatsTracking.OnSave(DidWeJustDie);
       if (DidWeJustDie) return;
 

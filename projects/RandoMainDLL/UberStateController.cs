@@ -107,15 +107,15 @@ namespace RandoMainDLL {
     }
 
     private static UberState createUberStateEntry(UberId id) {
-      if (!InterOp.get_uber_state_exists(id.GroupID, id.ID)) {
+      if (!InterOp.UberState.get_uber_state_exists(id.GroupID, id.ID)) {
         Randomizer.Error("cuse", $"Failed to find {id} in uber state system.", false);
         return null;
       }
       
       byte[] buffer = new byte[256];
-      int len = InterOp.get_uber_state_name(id.GroupID, id.ID, buffer, buffer.Length);
+      int len = InterOp.UberState.get_uber_state_name(id.GroupID, id.ID, buffer, buffer.Length);
       string name = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
-      len = InterOp.get_uber_state_group_name(id.GroupID, id.ID, buffer, buffer.Length);
+      len = InterOp.UberState.get_uber_state_group_name(id.GroupID, id.ID, buffer, buffer.Length);
       string groupName = System.Text.Encoding.ASCII.GetString(buffer, 0, len);
 
       var s = new UberState() {
@@ -131,18 +131,18 @@ namespace RandoMainDLL {
       else {
         s.Name = name;
         s.GroupName = groupName;
-        s.Type = InterOp.get_uber_state_type(id.GroupID, id.ID);
+        s.Type = InterOp.UberState.get_uber_state_type(id.GroupID, id.ID);
       }
 
       s.Value = CreateValue(s.Type, UberGet.AsDouble(id.GroupID, id.ID));
       return s;
     }
 
-    public static UberValue GetValue(this UberId id) => InterOp.get_uber_state_exists(id.GroupID, id.ID) ? 
-      new UberValue(InterOp.get_uber_state_type(id.GroupID, id.ID), UberGet.AsDouble(id.GroupID, id.ID)) :
+    public static UberValue GetValue(this UberId id) => InterOp.UberState.get_uber_state_exists(id.GroupID, id.ID) ? 
+      new UberValue(InterOp.UberState.get_uber_state_type(id.GroupID, id.ID), UberGet.AsDouble(id.GroupID, id.ID)) :
       new UberValue();
-    public static UberStateType UberType(this UberId id) => InterOp.get_uber_state_exists(id.GroupID, id.ID) ?
-      InterOp.get_uber_state_type(id.GroupID, id.ID) : UberStateType.SerializedIntUberState;
+    public static UberStateType UberType(this UberId id) => InterOp.UberState.get_uber_state_exists(id.GroupID, id.ID) ?
+      InterOp.UberState.get_uber_state_type(id.GroupID, id.ID) : UberStateType.SerializedIntUberState;
 
     public static bool Write(this UberState state) => state.Write(state.Value);
 
@@ -157,7 +157,7 @@ namespace RandoMainDLL {
       uberStateLookup = new Dictionary<UberId, UberState>();
       unsafe {
         var size = 0;
-        var states = InterOp.get_uber_states(ref size);
+        var states = InterOp.UberState.get_uber_states(ref size);
         for (var i = 0; i < size; ++i) {
           var def = states[i];
           if (def.GroupID == 12) continue; // this is banned for reasons
@@ -222,7 +222,7 @@ namespace RandoMainDLL {
 
         // Special case for reach trial.
         if (groupID == 28895 && (stateID == 29898 || stateID == 10823 || stateID == 37444 || stateID == 18358))
-          InterOp.set_keystones(InterOp.get_keystones() + 1);
+          InterOp.Player.set_keystones(InterOp.Player.get_keystones() + 1);
 
         if (!RaceIDs.Contains(new UberId(groupID, stateID)))
           return;
@@ -333,7 +333,7 @@ namespace RandoMainDLL {
           zone = InterOp.Map.get_player_area().toZone();
 
         if (shouldLogStateChange(state, found)) {
-          var pos = InterOp.get_position();
+          var pos = InterOp.Player.get_position();
           Randomizer.Debug($"State change: {state.GroupName}.{state.Name} ({state.GroupID}|{state.ID}) {state.Type} {oldValFmt}->{state.FmtVal()} at ({Math.Round(pos.X)}, {Math.Round(pos.Y)}) in {zone}");
         }
 
@@ -376,7 +376,7 @@ namespace RandoMainDLL {
         if (FullSyncNextUpdate) {
           FullSyncNextUpdate = false;
           Randomizer.Debug($"Syncing {SyncedUberStates.Count} states", false);
-          var bad = SyncedUberStates.Where(uid => !InterOp.get_uber_state_exists(uid.GroupID, uid.ID)).ToHashSet();
+          var bad = SyncedUberStates.Where(uid => !InterOp.UberState.get_uber_state_exists(uid.GroupID, uid.ID)).ToHashSet();
           WebSocketClient.SendBulk(SyncedUberStates.Where(uid => !bad.Contains(uid)).ToDictionary(uid => uid, (uid) => UberGet.AsDouble(uid)));
           Randomizer.Debug($"Not sending {bad.Count} bad states", false);
           foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
@@ -451,7 +451,7 @@ namespace RandoMainDLL {
         new UberId(5377, 63173),
         (UberState state) => {
           if (state.Value.Bool && InterOp.Map.is_visited(AreaType.LumaPools, 6073))
-            InterOp.set_uber_state_value(945, 26601, 3); // Give LumaPools tp.
+            InterOp.UberState.set_uber_state_value(945, 26601, 3); // Give LumaPools tp.
         }
       },
     };
@@ -474,12 +474,12 @@ namespace RandoMainDLL {
       if (abilityType != AbilityType.NONE) {
         var hasEquip = abilityType.Equip().HasValue;
         if (hasEquip && !state.Value.Bool) {
-          InterOp.unbind(abilityType.Equip().Value);
+          InterOp.Ability.unbind(abilityType.Equip().Value);
         }
 
-        InterOp.set_ability(abilityType, state.Value.Bool);
+        InterOp.Ability.set_ability(abilityType, state.Value.Bool);
         if (abilityType.Equip().HasValue) {
-          InterOp.set_equipment(abilityType.Equip().Value, state.Value.Bool);
+          InterOp.Ability.set_equipment(abilityType.Equip().Value, state.Value.Bool);
         }
 
         BonusItemController.Refresh();
@@ -490,11 +490,11 @@ namespace RandoMainDLL {
       var vid = new UberId(46462, 59806);
       if (!UberGet.Bool(vid)) {
         UberSet.Bool(vid, true);
-        InterOp.set_max_health(InterOp.get_max_health() + 10);
-        InterOp.set_max_energy(InterOp.get_max_energy() + 1);
-        InterOp.fill_health();
-        InterOp.fill_energy();
-        InterOp.save();
+        InterOp.Player.set_max_health(InterOp.Player.get_max_health() + 10);
+        InterOp.Player.set_max_energy(InterOp.Player.get_max_energy() + 1);
+        InterOp.Player.fill_health();
+        InterOp.Player.fill_energy();
+        InterOp.System.save();
       }
       // should happen in both branches
       if (SeedController.Flags.Contains(Flag.ALLWISPS))
@@ -512,7 +512,7 @@ namespace RandoMainDLL {
     }
 
     public static void NewGameInit() {
-      if (!InterOp.is_loading_game()) {
+      if (!InterOp.System.is_loading_game()) {
         UnsharableIds.Clear();
         InterOp.Messaging.clear_quest_messages();
         Randomizer.Log($"New Game Init - {SeedController.SeedName}", false);
@@ -542,7 +542,7 @@ namespace RandoMainDLL {
               slot = 0;
             }
           }
-          InterOp.bind(slot, EquipmentType.Weapon_Sword);
+          InterOp.Ability.bind(slot, EquipmentType.Weapon_Sword);
         }
 
         WheelManager.ResetWheels();
@@ -551,12 +551,12 @@ namespace RandoMainDLL {
           Randomizer.InputUnlockCallback.Add(() => {
             PsuedoLocs.GAME_START.OnCollect();
             PsuedoLocs.LOAD_SEED.OnCollect();
-            InterOp.save();
+            InterOp.System.save();
             MapController.UpdateReachable();
           });
         } else MapController.UpdateReachable();
-        InterOp.set_shard_slots(3);
-        InterOp.save();
+        InterOp.Shard.set_shard_slots(3);
+        InterOp.System.save();
 
         NeedsNewGameInit = false;
       }

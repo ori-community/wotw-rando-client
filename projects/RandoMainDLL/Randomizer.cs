@@ -118,7 +118,7 @@ namespace RandoMainDLL {
         } else if (gs == GameState.Game) {
           UberStateController.SkipListeners = false;
           UberStateController.Update(delta);
-          if (InputUnlockCallback.Count != 0 && InterOp.player_can_move())
+          if (InputUnlockCallback.Count != 0 && InterOp.Player.player_can_move())
             OnInputUnlock();
 
           SeedController.UpdateGoal();

@@ -289,7 +289,7 @@ namespace RandoMainDLL {
     }
 
     public static void Tick() {
-      float dt = InterOp.get_fixed_delta_time();
+      float dt = InterOp.System.get_fixed_delta_time();
 
       for (var i = activeTimedMessages.Count - 1; i >= 0; --i) {
         var message = activeTimedMessages[i];
@@ -343,7 +343,7 @@ namespace RandoMainDLL {
         var displayMessageInGameWorld = false;
         
         if (pickupMessage.Position != null) {
-          var distanceToPlayer = InterOp.get_position().DistanceTo(pickupMessage.Position.Value);
+          var distanceToPlayer = InterOp.Player.get_position().DistanceTo(pickupMessage.Position.Value);
 
           if (distanceToPlayer < 20f) {
             displayMessageInGameWorld = true;

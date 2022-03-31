@@ -190,7 +190,6 @@ namespace RandoMainDLL {
               catch (Exception e) { Randomizer.Error("SeedController.ReadSeed<Settings>", e, true); }
             }
             else if (rawLine.StartsWith("MULTISTATES: ")) {
-              InterOp.set_multi_bool_count(rawLine.Replace("MULTISTATES: ", "").ParseToInt("ReadSeed.Multistates"));
               continue;
             }
             else if (rawLine.StartsWith("timer: ")) {
@@ -238,10 +237,10 @@ namespace RandoMainDLL {
           var coords = coordsRaw.Split(',').ToList();
           var x = coords[0].ParseToFloat("SpawnX");
           var y = coords[1].ParseToFloat("SpawnY");
-          InterOp.set_start_position(x, y);
+          InterOp.Player.set_start_position(x, y);
         }
         else
-          InterOp.clear_start_position();
+          InterOp.Player.clear_start_position();
 
         InterOp.System.report_seed_reload();
         if (!init) {
@@ -291,7 +290,7 @@ namespace RandoMainDLL {
       if (!int.TryParse(entries[3], out int incState))
         throw new Exception("Malformed timer expression: non integer state");
 
-      if (InterOp.get_uber_state_type(toggleGroup, toggleState) != UberStateType.SerializedBooleanUberState)
+      if (InterOp.UberState.get_uber_state_type(toggleGroup, toggleState) != UberStateType.SerializedBooleanUberState)
         throw new Exception("Malformed timer expression: toggle state not a boolean");
 
       TimerList.Add(new TimerDefinition(toggleGroup, toggleState, incGroup, incState));
@@ -304,7 +303,7 @@ namespace RandoMainDLL {
       baseCond.OnCollect();
       valueCond.OnCollect();
       if (baseCond.Loc().Type == LocType.Shard)
-        InterOp.refresh_shards();
+        InterOp.Shard.refresh_shards();
       return baseCond.HasPickup() || valueCond.HasPickup();
     }
 

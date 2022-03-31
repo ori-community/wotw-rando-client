@@ -10,6 +10,28 @@ namespace RandoMainDLL {
   }
 
   public static class InterOp {
+    public static class Ability {
+      public delegate void AbilityOverride(AbilityType type);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void register_ability_override(AbilityType type, AbilityOverride callback);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void clear_ability_override(AbilityType type);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void refresh_ability_energy_modifiers();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_ability(AbilityType ability, bool value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_equipment(EquipmentType ability, bool value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void bind(int slot, EquipmentType equip_type);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void unbind(EquipmentType equip_type);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_ability_level(AbilityType type, int value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void explode_grenades();
+    }
+
     public static class Sprite {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
@@ -122,6 +144,10 @@ namespace RandoMainDLL {
 
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static AreaType get_player_area();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void refresh_inlogic_filter();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_start_in_logic_filter(bool value);
     }
 
     public static class Multiplayer {
@@ -141,6 +167,73 @@ namespace RandoMainDLL {
       public extern static void update_player_position([MarshalAs(UnmanagedType.LPWStr)] string id, float x, float y);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_player_online([MarshalAs(UnmanagedType.LPWStr)] string id, bool online);
+    }
+
+    public static class Player {
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void fill_health();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void fill_energy();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void add_health(float inc);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void add_energy(float inc);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static int get_health();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static float get_energy();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_max_health(int value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_health(float value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_energy(float value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_max_energy(float value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static int get_max_health();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static float get_max_energy();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static int get_ore();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_ore(int value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static int get_experience();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_experience(int value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static int get_keystones();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_keystones(int value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static Vector2 get_position();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void teleport(float x, float y, bool wait_for_load);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_start_position(float x, float y);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void clear_start_position();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool player_can_move();
+    }
+
+    public static class Shard {
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static int get_shard_slots();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_shard_slots(int value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool has_shard(ShardType type);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool is_shard_equipped(ShardType type);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_shard(ShardType type, bool value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void refresh_shards();
     }
 
     public static class Shop {
@@ -191,9 +284,55 @@ namespace RandoMainDLL {
 
     public static class System {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void play_sound(SoundEvent evt);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void report_uber_state_change(int group, int state, double value);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void report_seed_reload();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void save();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void checkpoint();
+
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool is_loading_game();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static float get_fixed_delta_time();
+    }
+
+    public static class UberState {
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void refresh_uber_state(int group_id, int id);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_uber_state_value(int group, int state, double value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static double get_uber_state_value(int group, int state);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      unsafe public extern static UberStateDef* get_uber_states(ref int size);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool get_uber_state_exists(int group, int state);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static int get_uber_state_name(int group, int state, byte[] buf, int len);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static int get_uber_state_group_name(int group, int state, byte[] buf, int len);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static UberStateType get_uber_state_type(int group, int state);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_real_uberstate_names(bool value);
+    }
+
+    public static class UI {
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void shake_spiritlight();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void shake_keystone();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void shake_ore();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool toggle_always_show_keystones();
     }
 
     public static class Utils {
@@ -214,143 +353,15 @@ namespace RandoMainDLL {
     }
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void refresh_ability_energy_modifiers();
-
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void refresh_inlogic_filter();
-
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void play_sound(SoundEvent evt);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void shake_spiritlight();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void shake_keystone();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void shake_ore();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void start_credits();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_ability(AbilityType ability, bool value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_equipment(EquipmentType ability, bool value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void save();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void checkpoint();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool player_can_move();
     [DllImport("Il2CPPModLoader.dll", CallingConvention = CallingConvention.Cdecl)]
     [return: MarshalAs(UnmanagedType.U1)]
     public extern static bool toggle_cursorlock();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void bind(int slot, EquipmentType equip_type);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void unbind(EquipmentType equip_type);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void refresh_uber_state(int group_id, int id);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_uber_state_value(int group, int state, double value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static double get_uber_state_value(int group, int state);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    unsafe public extern static UberStateDef* get_uber_states(ref int size);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool get_uber_state_exists(int group, int state);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static int get_uber_state_name(int group, int state, byte[] buf, int len);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static int get_uber_state_group_name(int group, int state, byte[] buf, int len);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static UberStateType get_uber_state_type(int group, int state);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_real_uberstate_names(bool value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void register_state_redirect(int state, int value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void fill_health();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void fill_energy();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void add_health(float inc);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void add_energy(float inc);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static int get_health();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static float get_energy();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_max_health(int value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_health(float value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_energy(float value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_max_energy(float value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static int get_max_health();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static float get_max_energy();
-
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static int get_ore();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_ore(int value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static int get_experience();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_experience(int value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static int get_keystones();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_keystones(int value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static int get_shard_slots();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_shard_slots(int value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_ability_level(AbilityType type, int value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_multi_bool_count(int value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool has_shard(ShardType type);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool is_shard_equipped(ShardType type);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_shard(ShardType type, bool value);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void refresh_shards();
-
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static Vector2 get_position();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void teleport(float x, float y, bool wait_for_load);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_start_position(float x, float y);
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void clear_start_position();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool is_loading_game();
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void register_delegate([MarshalAs(UnmanagedType.LPStr)] string s, IntPtr del);
-
-
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    [return: MarshalAs(UnmanagedType.U1)]
-    public extern static bool toggle_always_show_keystones();
-
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void set_start_in_logic_filter(bool value);
-
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void explode_grenades();
-    [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static float get_fixed_delta_time();
 
     private static List<GCHandle> handles;
     public static void RegisterCSharpBindings() {

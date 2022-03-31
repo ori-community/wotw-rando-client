@@ -54,14 +54,14 @@ namespace RandoMainDLL {
       }
 
       if (IniFlag("AlwaysShowKeystones"))
-        InterOp.toggle_always_show_keystones();
+        InterOp.UI.toggle_always_show_keystones();
 
       if (IniFlag("dev")) {
-        InterOp.set_real_uberstate_names(true);
+        InterOp.UberState.set_real_uberstate_names(true);
         Randomizer.Dev = true;
       }
 
-      InterOp.set_start_in_logic_filter(IniFlag("DisableStartingInLogicFilter"));
+      InterOp.Map.set_start_in_logic_filter(IniFlag("DisableStartingInLogicFilter"));
     }
 
     public static bool CanReload() {
