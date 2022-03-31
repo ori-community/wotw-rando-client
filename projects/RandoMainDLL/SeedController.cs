@@ -153,6 +153,36 @@ namespace RandoMainDLL {
       Marshal.Copy(flagName.ToCharArray(), 0, buffer, Math.Min(flagName.Length, size));
     }
 
+    private static bool isLoadingEmpty = false;
+    public static bool LoadEmpty {
+      get {
+        return isLoadingEmpty;
+      }
+      set {
+        isLoadingEmpty = value;
+        if (isLoadingEmpty)
+          loadEmpty();
+        else
+          ReadSeed();
+      }
+    }
+
+    private static void loadEmpty() {
+      PickupMap.Clear();
+      TimerList.Clear();
+      Flags.Clear();
+      Relic.Reset();
+      InterOp.Map.clear_icons();
+      InterOp.TextDatabase.text_database_clear_dynamic();
+    }
+
+    public static void ReadSeedOrEmpty(bool init = false) {
+      if (LoadEmpty)
+        loadEmpty();
+      else
+        ReadSeed(init);
+    }
+
     public static void ReadSeed(bool init = false) {
       SeedFile = File.ReadAllText(Randomizer.SeedPathFile);
       if (File.Exists(SeedFile)) {

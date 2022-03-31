@@ -11,9 +11,10 @@ namespace RandoMainDLL {
 
   public static class InterOp {
     public static class Ability {
-      public delegate void AbilityOverride(AbilityType type);
+      public delegate void ability_override(AbilityType type);
+
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void register_ability_override(AbilityType type, AbilityOverride callback);
+      public extern static void register_ability_override(AbilityType type, ability_override callback);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void clear_ability_override(AbilityType type);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -52,6 +53,12 @@ namespace RandoMainDLL {
       public extern static void sprite_set_active(int id, bool value);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void sprite_destroy(int id);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool sprite_is_active(int id);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool sprite_is_destroyed(int id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void clear_sprites();
     }
@@ -166,6 +173,8 @@ namespace RandoMainDLL {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void update_player_position([MarshalAs(UnmanagedType.LPWStr)] string id, float x, float y);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static Vector2 get_player_position([MarshalAs(UnmanagedType.LPWStr)] string id);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_player_online([MarshalAs(UnmanagedType.LPWStr)] string id, bool online);
     }
 
@@ -208,6 +217,12 @@ namespace RandoMainDLL {
       public extern static void set_keystones(int value);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static Vector2 get_position();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_position(Vector2 position);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static Vector2 get_velocity();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_velocity(Vector2 velocity);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void teleport(float x, float y, bool wait_for_load);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

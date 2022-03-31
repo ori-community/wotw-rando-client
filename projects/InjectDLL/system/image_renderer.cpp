@@ -231,9 +231,9 @@ namespace {
         if (sprite.position.is_dirty() || sprite.entry.is_dirty())
         {
             auto scale = *sprite.scale;
-            scale.x += entry.scale.x;
-            scale.y += entry.scale.y;
-            scale.z += entry.scale.z;
+            scale.x *= entry.scale.x;
+            scale.y *= entry.scale.y;
+            scale.z *= entry.scale.z;
             Transform::set_localScale(transform, &scale);
             sprite.scale.set_dirty(false);
         }
@@ -248,7 +248,6 @@ namespace {
 
         auto order = il2cpp::unity::get_component<app::UberShaderRuntimeRenderOrder>(game_object, "", "UberShaderRuntimeRenderOrder");
         il2cpp::invoke(order, "SetRenderQueueOn", transform);
-
 
         if (sprite.layer.is_dirty())
         {
@@ -561,6 +560,17 @@ INJECT_C_DLLEXPORT void sprite_destroy(int id)
     auto target = il2cpp::gchandle_target(handle);
     if (il2cpp::unity::is_valid(target))
         Object::Destroy(target);
+}
+
+INJECT_C_DLLEXPORT bool sprite_is_destroyed(int id)
+{
+    return sprites.find(id) == sprites.end();
+}
+
+INJECT_C_DLLEXPORT bool sprite_is_active(int id)
+{
+    auto it = sprites.find(id);
+    return it != sprites.end() && it->second.active;
 }
 
 INJECT_C_DLLEXPORT void clear_sprites()

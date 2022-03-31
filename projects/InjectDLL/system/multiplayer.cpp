@@ -358,6 +358,15 @@ INJECT_C_DLLEXPORT void update_player_position(const wchar_t* id, float x, float
     }
 }
 
+INJECT_C_DLLEXPORT app::Vector2 get_player_position(const wchar_t* id)
+{
+    auto it = multiplayer::player_map.find(id);
+    if (it != multiplayer::player_map.end())
+        return multiplayer::players[it->second].position;
+    else
+        return app::Vector2{ 0.f, 0.f };
+}
+
 INJECT_C_DLLEXPORT void set_player_online(const wchar_t* id, bool online)
 {
     auto it = multiplayer::player_map.find(id);

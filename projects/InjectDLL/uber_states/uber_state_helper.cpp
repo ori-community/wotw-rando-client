@@ -39,6 +39,8 @@ namespace
     IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateAbilities, void, SetAbilityLevel, (app::PlayerUberStateAbilities* this_ptr, app::AbilityType__Enum type, int level));
     STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID* groupID, app::UberID* stateID));
     STATIC_IL2CPP_BINDING(Moon, UberStateCollection, Il2CppObject*, get_Descriptors, ());
+    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* this_ptr));
+    IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter* this_ptr, app::Vector3 value));
 
     app::CheatsHandler__StaticFields* get_cheats()
     {
@@ -252,17 +254,50 @@ INJECT_C_DLLEXPORT void set_keystones(int32_t value)
     get_inventory()->fields.m_keystones = value;
 }
 
-
 INJECT_C_DLLEXPORT app::Vector2 get_position()
 {
     auto sein = get_sein();
     if (sein != nullptr)
     {
-        auto pos = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition;
+        auto pos = SeinCharacter::get_Position(sein);
         return app::Vector2{ pos.x, pos.y };
     }
     else
         return app::Vector2{ 0, 0 };
+}
+
+INJECT_C_DLLEXPORT void set_position(app::Vector2 position)
+{
+    auto sein = get_sein();
+    if (sein != nullptr)
+    {
+        app::Vector3 pos{ position.x, position.y, 0.f };
+        SeinCharacter::set_Position(sein, pos);
+    }
+}
+
+INJECT_C_DLLEXPORT app::Vector2 get_velocity()
+{
+    auto sein = get_sein();
+    if (sein != nullptr)
+    {
+        auto& speed = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed;
+        return app::Vector2{ speed.x, speed.y };
+    }
+
+    return app::Vector2{ 0.f, 0.f };
+}
+
+INJECT_C_DLLEXPORT void set_velocity(app::Vector2 velocity)
+{
+    auto sein = get_sein();
+    if (sein != nullptr)
+    {
+        auto& speed = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed;
+        speed.x = velocity.x;
+        speed.y = velocity.y;
+        speed.z = 0.f;
+    }
 }
 
 INJECT_C_DLLEXPORT app::GameStateMachine_State__Enum get_game_state()

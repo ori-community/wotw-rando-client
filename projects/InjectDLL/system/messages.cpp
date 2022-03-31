@@ -245,10 +245,7 @@ namespace
 
             box->fields.TextBox->fields.styleCollection->fields.styles = reinterpret_cast<app::TextStyle__Array*>(arr);
             for (auto i = 0; i < box->fields.TextBox->fields.styleCollection->fields.styles->max_length; ++i)
-            {
                 auto name = il2cpp::convert_csstring(box->fields.TextBox->fields.styleCollection->fields.styles->vector[i]->fields.name);
-                console::console_send("style: '" + name + "' - " + std::to_string(i));
-            }
         }
     }
 
@@ -283,7 +280,6 @@ namespace
     void do_position_refresh(RandoMessage &message)
     {
         app::Vector3 pos = { message.pos.x, message.pos.y, 0.0f };
-
         if (message.use_in_game_coordinates) {
             auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
             if (!il2cpp::unity::is_valid(cameras->static_fields->Current) || !il2cpp::unity::is_valid(cameras->static_fields->System->fields.GUICamera))
@@ -363,7 +359,7 @@ namespace
         message_box->fields.Visibility->fields.m_delayTime = instant ? 1.0f : 0.0f;
         message_box->fields.Visibility->fields.m_timeSpeed = message.fadein > 0.0f ? 1.0f / message.fadein : 1.0f;
 
-        message_box->fields.Visibility->fields.DestroyOnHide = true;
+        message_box->fields.Visibility->fields.DestroyOnHide = false;
 
         message_box->fields.StartId = 0;
         message_box->fields.LockInput = false;
@@ -409,6 +405,23 @@ namespace
     }
 
     bool clear_on_next_update = false;
+
+    bool handle_visibility(RandoMessage& message, app::MessageBox* message_box)
+    {
+        auto visible = message.visible && message.alive;
+        message_box->fields.Visibility->fields.m_timeSpeed = visible
+            ? (message.fadein > 0.0f ? 1.0f / message.fadein : 1.0f)
+            : -(message.fadeout > 0.0f ? 1.0f / message.fadeout : 1.0f);
+        if (!message.alive)
+        {
+            if (message.recreate || message.fadeout > 0.0f)
+                message.delay = message.fadeout * (1.f - message_box->fields.Visibility->fields.m_delayTime);
+            else
+                return true;
+        }
+
+        return false;
+    }
 
     STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
     IL2CPP_INTERCEPT(, QuestsController, void, Update, (app::QuestsController* this_ptr)) {
@@ -456,18 +469,10 @@ namespace
             else if (message.second.use_in_game_coordinates)
                 do_position_refresh(message.second);
 
-            message_box->fields.Visibility->fields.m_delayTime = 1.0f;
-            if (!message.second.alive)
-            {
-                message_box->fields.Visibility->fields.m_delayTime = 0.0f;
-                message_box->fields.Visibility->fields.m_timeSpeed = message.second.fadeout > 0.0f ? 1.00000000 / message.second.fadeout : 1.0f;
-                 if (message.second.recreate || message.second.fadeout > 0.0f)
-                    message.second.delay = message.second.fadeout;
-                else
-                    dead_messages.emplace(message.second.id);
-            }
+            if (handle_visibility(message.second, message_box))
+                dead_messages.emplace(message.second.id);
 
-            GameObject::SetActive(go, message.second.visible);
+            GameObject::SetActive(go, true);
         }
 
         for (auto id : dead_messages)
@@ -475,6 +480,7 @@ namespace
             auto it = permanent_messages.find(id);
             if (it != permanent_messages.end())
             {
+                il2cpp::unity::destroy_object(il2cpp::gchandle_target(it->second.handle));
                 il2cpp::gchandle_free(it->second.handle);
                 it->second.handle = -1;
                 permanent_messages.erase(it);
