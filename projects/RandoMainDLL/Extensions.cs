@@ -220,11 +220,12 @@ namespace RandoMainDLL {
         return new ConstantValue<bool>(ParseToBool(val, caller));
     }
 
+    public static R CallOrElse<T, R>(this T self, Func<T, R> func, R d) => self == null ? d : func(self);
     public static TVal? Get<TKey, TVal>(this IDictionary<TKey, TVal> self, TKey key) where TVal : struct => self.TryGetValue(key, out TVal ret) ? ret : (TVal?)null;
 
-    public static TVal GetOrElse<TKey, TVal>(this IDictionary<TKey, TVal> self, TKey key, TVal alt) => self.TryGetValue(key, out TVal ret) ? ret : alt;
+    public static TVal GetOrElse<TKey, TVal>(this IDictionary<TKey, TVal> self, TKey key, TVal alt) => self != null && self.TryGetValue(key, out TVal ret) ? ret : alt;
     public static TVal GetOrElse<TKey, TVal>(this IDictionary<TKey, TVal> self, TKey key, TVal alt, String caller) {
-      if (self.TryGetValue(key, out TVal ret))
+      if (self != null && self.TryGetValue(key, out TVal ret))
         return ret;
       Randomizer.Warn(caller, $"didn't contain {key}: using {alt}");
       return alt;

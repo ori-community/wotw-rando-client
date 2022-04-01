@@ -158,14 +158,8 @@ namespace RandoMainDLL {
       MISC_CONTROL = 3
     }
 
-    public static bool HasPickup(this UberStateCondition cond) {
-      var dict = PickupMap.GetOrElse(cond.Id, null);
-      return dict == null ? false : dict.ContainsKey(cond);
-    }
-    public static Pickup Pickup(this UberStateCondition cond) {
-      var dict = PickupMap.GetOrElse(cond.Id, null);
-      return dict == null ? Multi.Empty : dict.GetOrElse(cond, Multi.Empty);
-    }
+    public static bool HasPickup(this UberStateCondition cond) => PickupMap.GetOrElse(cond.Id, null).CallOrElse((d) => d.ContainsKey(cond), false);
+    public static Pickup Pickup(this UberStateCondition cond) => PickupMap.GetOrElse(cond.Id, null).GetOrElse(cond, Multi.Empty);
     public static Pickup Pickup(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().Pickup();
 
     public static bool IsGoal(this UberStateCondition goalCond) {
