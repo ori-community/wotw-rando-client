@@ -36,6 +36,10 @@ namespace multiplayer
         auto it = multiplayer::player_map.find(str);
         if (it == player_map.end())
             return nullptr;
+        
+        if (it->second >= players.size())
+            return nullptr;
+
         return &players[it->second];
     }
 
@@ -63,7 +67,11 @@ namespace multiplayer
         if (area_map == nullptr)
             return;
 
-        auto& player = players[player_avatar_map[id]];
+        auto player_index = player_avatar_map.find(id);
+        if (player_index == player_avatar_map.end() || player_index->second >= players.size())
+            return;
+
+        auto& player = players[player_index->second];
         if (player.avatar_icon != 0)
         {
             auto target = il2cpp::gchandle_target(player.avatar_icon);
@@ -309,6 +317,7 @@ INJECT_C_DLLEXPORT void clear_players()
 
     multiplayer::players.clear();
     multiplayer::player_map.clear();
+    multiplayer::player_avatar_map.clear();
     multiplayer::local_player_color = { 1.0f, 1.0f, 1.0f, 1.0f };
 }
 

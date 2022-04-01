@@ -557,7 +557,7 @@ namespace RandoMainDLL {
       "Spirit Light", "Gallons", "Spirit Bucks", "Gold", "Geo", "EXP",
       "Experience", "XP", "Gil", "GP", "Dollars", "Tokens", "Tickets",
       "Pounds Sterling", "Brownie Points", "Euros", "Credits", "Bells", "Fish",
-      "Zenny", "Pesos", "Exalted Orbs", "Hryvnia", "Poké", "Glod", "Dollerydoos",
+      "Zenny", "Pesos", "Exalted Orbs", "Hryvnia", "Poké", "Glod", "Dollerydoos", 
       "Boonbucks", "Pieces of Eight", "Shillings", "Farthings", "Kalganids",
       "Quatloos", "Etherium", "Dogecoin", "Crowns", "Solari", "Widgets",
       "Money", "Cash", "BTC", "Munny", "Nuyen", "Rings", "Rupees", "Coins",
@@ -565,7 +565,8 @@ namespace RandoMainDLL {
       "Silver", "Slivers", "Rubies", "Emeralds", "Notes", "Yen", "Zloty",
       "Likes", "Comments", "Subs", "Bananas", "Sapphires", "Diamonds", "Fun",
       "Minerals", "Vespine Gas", "Sheep", "Brick", "Wheat", "Wood", "Quills",
-      "Stonks", "Leaves", "Marbles", "Stamps", "Hugs"
+      "Bits", "Bytes", "Nuts", "Bolts", "Souls", "Runes", "Pons", "Boxings",
+      "Stonks", "Leaves", "Marbles", "Stamps", "Hugs", "Nobles",
     };
     public override string Name { get => $"{Amount} Spirit Light"; }
     public override string DisplayName { get => AHK.IniFlag("BoringMoney") ? Name : $"{Amount} {MoneyNames[new Random(Hash).Next(MoneyNames.Count)]}"; }
