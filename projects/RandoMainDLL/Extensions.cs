@@ -79,6 +79,24 @@ namespace RandoMainDLL {
           return Convert.ToDouble(v.Int);
       }
     }
+
+    public static bool AsBool(this UberValue v, UberStateType t) {
+      switch (t) {
+        case UberStateType.SavePedestalUberState:
+        case UberStateType.ByteUberState:
+        case UberStateType.SerializedByteUberState:
+          return Convert.ToBoolean(v.Byte);
+        case UberStateType.BooleanUberState:
+        case UberStateType.SerializedBooleanUberState:
+          return v.Bool;
+        case UberStateType.SerializedFloatUberState:
+          return Convert.ToBoolean(v.Float);
+        case UberStateType.IntUberState:
+        case UberStateType.SerializedIntUberState:
+        default:
+          return Convert.ToBoolean(v.Int);
+      }
+    }
     public static void Refresh(this UberId id) => InterOp.UberState.refresh_uber_state(id.GroupID, id.ID);
     public static EquipmentType? Equip(this AbilityType t) => AbilityToEquip.Get(t);
     public static Dictionary<AbilityType, EquipmentType> AbilityToEquip = new Dictionary<AbilityType, EquipmentType>() {

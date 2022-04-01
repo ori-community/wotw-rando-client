@@ -366,7 +366,7 @@ namespace RandoMainDLL {
           }
 
           foreach (var timer in SeedController.TimerList) {
-            if (timer.Toggle.GetValue().Bool) {
+            if (timer.Toggle.Met()) {
               var value = UberGet.AsDouble(timer.Increment.GroupID, timer.Increment.ID);
               UberSet.Raw(timer.Increment.GroupID, timer.Increment.ID, value + delta);
             }

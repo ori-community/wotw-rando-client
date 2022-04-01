@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RandoMainDLL.Memory;
 using Vector2 = RandoMainDLL.Memory.Vector2;
+using System.IO;
 
 namespace RandoMainDLL {
   public static class WebSocketClient {
@@ -182,15 +183,24 @@ namespace RandoMainDLL {
 
     public static void SendAuthenticate(string jwt) {
       try {
-        var authenticate = new AuthenticateMessage();
-        authenticate.Jwt = jwt;
         Packet packet = new Packet {
           Id = 9,
-          Packet_ = authenticate.ToByteString()
+          Packet_ = new AuthenticateMessage() { Jwt = jwt }.ToByteString()
         };
         SendQueue.Add(packet);
       }
       catch (Exception e) { Randomizer.Error("SendAuthenticate", e, false); }
+    }
+
+    public static void SendSeedRequest(string seed, bool init) {
+      try {
+        Packet packet = new Packet {
+          Id = 15,
+          Packet_ = new RequestSeedMessage() { Name = seed, Init = init }.ToByteString()
+        };
+        SendQueue.Add(packet);
+      }
+      catch (Exception e) { Randomizer.Error("SendSeedRequest", e, false); }
     }
 
     private static void HandleMessage(object sender, MessageEventArgs args) {
@@ -252,6 +262,12 @@ namespace RandoMainDLL {
             break;
           case 8:
             Multiplayer.Queue.Add(packet);
+            break;
+          case 16:
+            var seedMessage = ReceiveSeedMessage.Parser.ParseFrom(packet.Packet_);
+            File.WriteAllText(Randomizer.SeedPathFile, seedMessage.Name);
+            SeedController.SeedFile = seedMessage.Name;
+            SeedController.ParseLines(seedMessage.Seed.Split('\n'), seedMessage.Init);
             break;
           default:
             break;

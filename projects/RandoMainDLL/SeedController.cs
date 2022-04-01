@@ -95,12 +95,12 @@ namespace RandoMainDLL {
   }
 
   public class TimerDefinition {
-    public TimerDefinition(int toggleGroup, int toggleState, int incGroup, int incState) {
-      Toggle = new UberId(toggleGroup, toggleState);
+    public TimerDefinition(UberStateCondition toggle, int incGroup, int incState) {
+      Toggle = toggle;
       Increment = new UberId(incGroup, incState);
     }
 
-    public UberId Toggle;
+    public UberStateCondition Toggle;
     public UberId Increment;
   }
 
@@ -153,132 +153,107 @@ namespace RandoMainDLL {
       Marshal.Copy(flagName.ToCharArray(), 0, buffer, Math.Min(flagName.Length, size));
     }
 
-    private static bool isLoadingEmpty = false;
-    public static bool LoadEmpty {
-      get {
-        return isLoadingEmpty;
-      }
-      set {
-        isLoadingEmpty = value;
-        if (isLoadingEmpty)
-          loadEmpty();
-        else
-          ReadSeed();
-      }
-    }
-
-    private static void loadEmpty() {
+    public static void ParseLines(string[] lines, bool init) {
       PickupMap.Clear();
       TimerList.Clear();
       Flags.Clear();
       Relic.Reset();
       InterOp.Map.clear_icons();
       InterOp.TextDatabase.text_database_clear_dynamic();
-    }
+      string line = "";
+      string coordsRaw = "";
+      foreach (string rawLine in lines) {
+        try {
+          if (rawLine.StartsWith("Flags: ")) {
+            ProcessFlags(rawLine);
+            continue;
+          }
+          else if (rawLine.StartsWith("Spawn: ")) {
+            coordsRaw = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim().Substring(6);
+            continue;
+          }
+          else if (rawLine.StartsWith("// Seed: ")) {
+            seedName = rawLine.Replace("// Seed: ", "");
+            continue;
+          }
+          else if (rawLine.StartsWith("// Slug: ")) {
+            slug = rawLine.Replace("// Slug: ", "");
+            continue;
+          }
+          else if (rawLine.StartsWith("// Config: ")) {
+            var configRaw = rawLine.Replace("// Config: ", "");
+            try {
+              Settings = JsonConvert.DeserializeObject<SeedGenSettings>(configRaw);
+            }
+            catch (Exception e) { Randomizer.Error("SeedController.ReadSeed<Settings>", e, true); }
+          }
+          else if (rawLine.StartsWith("MULTISTATES: ")) {
+            continue;
+          }
+          else if (rawLine.StartsWith("timer: ")) {
+            ProcessTimer(rawLine.Substring("timer: ".Length));
+            continue;
+          }
+          line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
+          if (line == "") continue;
+          PTR_REGEX.Replace(line, (Match m) => m.Groups[1].Value.Replace("|", ";"));
+          line = PTR_REGEX.Replace(line, "$($1;$2)");
+          var frags = line.Split('|').ToList();
+          var cond = new UberStateCondition(frags[0].ParseToInt(), frags[1]);
+          var pickupType = (PickupType)frags[2].ParseToByte();
 
-    public static void ReadSeedOrEmpty(bool init = false) {
-      if (LoadEmpty)
-        loadEmpty();
+          var extras = frags.Skip(4).ToList();
+          bool needsMute = false;
+          if (pickupType != PickupType.Message && extras.Contains("mute")) {
+            extras.Remove("mute");
+            needsMute = true;
+          }
+          var pickup = BuildPickup(pickupType, frags[3], extras, cond);
+          pickup.Muted = needsMute;
+          PickupMap[cond] = cond.Pickup().Concat(pickup);
+        }
+        catch (Exception e) {
+          Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
+        }
+      }
+      Total = 0;
+      foreach (ZoneType z in Enum.GetValues(typeof(ZoneType))) {
+        CountByZone[z] = PickupMap.Count(p => p.Key.Loc().Zone == z);
+        if (z != ZoneType.Void)
+          Total += CountByZone[z];
+      }
+      if (Settings.NetcodeEnabled) {
+        if (AHK.IniFlag("DisableNetcode"))
+          MessageController.ShowMessage("Warning: can't connect because netcode is disabled via settings", queue: "debug", log: true);
+
+        WebSocketClient.Connect();
+      }
       else
-        ReadSeed(init);
+        WebSocketClient.Disconnect();
+
+      if (coordsRaw != "") {
+        var coords = coordsRaw.Split(',').ToList();
+        var x = coords[0].ParseToFloat("SpawnX");
+        var y = coords[1].ParseToFloat("SpawnY");
+        InterOp.Player.set_start_position(x, y);
+      }
+      else
+        InterOp.Player.clear_start_position();
+
+      InterOp.System.report_seed_reload();
+      if (!init) {
+        var flagPart = Flags.Count > 0 ? $"\nFlags: {string.Join(", ", Flags)}" : "";
+        MessageController.ShowPickup($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 5f, true, true);
+        MapController.UpdateReachable();
+      }
     }
 
     public static void ReadSeed(bool init = false) {
       SeedFile = File.ReadAllText(Randomizer.SeedPathFile);
-      if (File.Exists(SeedFile)) {
-        PickupMap.Clear();
-        TimerList.Clear();
-        Flags.Clear();
-        Relic.Reset();
-        InterOp.Map.clear_icons();
-        InterOp.TextDatabase.text_database_clear_dynamic();
-        string line = "";
-        string coordsRaw = "";
-        foreach (string rawLine in File.ReadLines(SeedFile)) {
-          try {
-            if (rawLine.StartsWith("Flags: ")) {
-              ProcessFlags(rawLine);
-              continue;
-            }
-            else if (rawLine.StartsWith("Spawn: ")) {
-              coordsRaw = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim().Substring(6);
-              continue;
-            }
-            else if (rawLine.StartsWith("// Seed: ")) {
-              seedName = rawLine.Replace("// Seed: ", "");
-              continue;
-            }
-            else if (rawLine.StartsWith("// Slug: ")) {
-              slug = rawLine.Replace("// Slug: ", "");
-              continue;
-            }
-            else if (rawLine.StartsWith("// Config: ")) {
-              var configRaw = rawLine.Replace("// Config: ", "");
-              try {
-                Settings = JsonConvert.DeserializeObject<SeedGenSettings>(configRaw);
-              }
-              catch (Exception e) { Randomizer.Error("SeedController.ReadSeed<Settings>", e, true); }
-            }
-            else if (rawLine.StartsWith("MULTISTATES: ")) {
-              continue;
-            }
-            else if (rawLine.StartsWith("timer: ")) {
-              ProcessTimer(rawLine.Substring("timer: ".Length));
-              continue;
-            }
-            line = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim();
-            if (line == "") continue;
-            PTR_REGEX.Replace(line, (Match m) => m.Groups[1].Value.Replace("|", ";"));
-            line = PTR_REGEX.Replace(line, "$($1;$2)");
-            var frags = line.Split('|').ToList();
-            var cond = new UberStateCondition(frags[0].ParseToInt(), frags[1]);
-            var pickupType = (PickupType)frags[2].ParseToByte();
-
-            var extras = frags.Skip(4).ToList();
-            bool needsMute = false;
-            if (pickupType != PickupType.Message && extras.Contains("mute")) {
-              extras.Remove("mute");
-              needsMute = true;
-            }
-            var pickup = BuildPickup(pickupType, frags[3], extras, cond);
-            pickup.Muted = needsMute;
-            PickupMap[cond] = cond.Pickup().Concat(pickup);
-          }
-          catch (Exception e) {
-            Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
-          }
-        }
-        Total = 0;
-        foreach (ZoneType z in Enum.GetValues(typeof(ZoneType))) {
-          CountByZone[z] = PickupMap.Count(p => p.Key.Loc().Zone == z);
-          if(z != ZoneType.Void)
-            Total += CountByZone[z];
-        }
-        if (Settings.NetcodeEnabled) {
-          if (AHK.IniFlag("DisableNetcode"))
-            MessageController.ShowMessage("Warning: can't connect because netcode is disabled via settings", queue: "debug", log: true);
-
-          WebSocketClient.Connect();
-        }
-        else
-          WebSocketClient.Disconnect();
-
-        if (coordsRaw != "") {
-          var coords = coordsRaw.Split(',').ToList();
-          var x = coords[0].ParseToFloat("SpawnX");
-          var y = coords[1].ParseToFloat("SpawnY");
-          InterOp.Player.set_start_position(x, y);
-        }
-        else
-          InterOp.Player.clear_start_position();
-
-        InterOp.System.report_seed_reload();
-        if (!init) {
-          var flagPart = Flags.Count > 0 ? $"\nFlags: {string.Join(", ", Flags)}" : "";
-          MessageController.ShowPickup($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 5f, true, true);
-          MapController.UpdateReachable();
-        }
-      }
+      if (SeedFile.StartsWith("server:"))
+        WebSocketClient.SendSeedRequest(SeedFile.Substring("server:".Length), init);
+      else if (File.Exists(SeedFile))
+        ParseLines(File.ReadAllLines(SeedFile), init);
       else
         MessageController.ShowPickup($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 6f, true, true);
     }
@@ -311,19 +286,13 @@ namespace RandoMainDLL {
       if (!int.TryParse(entries[0], out int toggleGroup))
         throw new Exception("Malformed timer expression: non integer group");
 
-      if (!int.TryParse(entries[1], out int toggleState))
-        throw new Exception("Malformed timer expression: non integer state");
-
       if (!int.TryParse(entries[2], out int incGroup))
         throw new Exception("Malformed timer expression: non integer group");
 
       if (!int.TryParse(entries[3], out int incState))
         throw new Exception("Malformed timer expression: non integer state");
 
-      if (InterOp.UberState.get_uber_state_type(toggleGroup, toggleState) != UberStateType.SerializedBooleanUberState)
-        throw new Exception("Malformed timer expression: toggle state not a boolean");
-
-      TimerList.Add(new TimerDefinition(toggleGroup, toggleState, incGroup, incState));
+      TimerList.Add(new TimerDefinition(new UberStateCondition(toggleGroup, entries[1]), incGroup, incState));
     }
 
     public static bool OnUberState(UberState state) {
@@ -557,6 +526,19 @@ namespace RandoMainDLL {
                 var id = extras[0].ParseToInt("BuildPickup.Id");
                 var text = string.Join("|", extras.Skip(1));
                 return new AppendStringCommand(id, text);
+              }
+            case SysCommandType.TeleportPlayer: {
+                if (!extras.Count.In(2, 3)) {
+                  Randomizer.Log($"malformed command specifier {command}", false);
+                  return new Message($"Invalid command {command}!");
+                }
+
+                var location = new Vector2() {
+                  X = extras[0].ParseToFloat("BuildPickup.X"),
+                  Y = extras[1].ParseToFloat("BuildPickup.Y")
+                };
+                var waitForLoad = extras.Count == 3 ? extras[2].ParseToBool("BuildPickup.WaitForLoad") : true;
+                return new TeleportPlayer(location, waitForLoad);
               }
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());

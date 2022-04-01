@@ -65,6 +65,17 @@ message AuthenticatedMessage {
   bytes udpKey = 3;
 }
 
+message RequestSeedMessage {
+  string name = 1;
+  bool init = 2;
+}
+
+message ReceiveSeedMessage {
+  string name = 1;
+  string seed = 2;
+  bool init = 3;
+}
+
 message PlayerPositionMessage  {
   float x = 1;
   float y = 2;
