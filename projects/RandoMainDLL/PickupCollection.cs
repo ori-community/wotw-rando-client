@@ -47,6 +47,13 @@ namespace RandoMainDLL {
       return Tuple.Create<UberStateCondition, Pickup>(null, Multi.Empty);
     }
 
+    public Pickup Pickup(UberStateCondition cond) {
+      if (cond.TargetHandler == UberStateCondition.Handler.Equals)
+        return UberStateEqualsPickups.GetOrElse(cond, Multi.Empty);
+      else
+        return UberStatePickups.GetOrElse(cond.Id, null).GetOrElse(cond, Multi.Empty);
+    }
+
     public Pickup Pickup(UberId id, double value) {
       return PickupWithCondition(id, value).Item2;
     }
@@ -67,20 +74,6 @@ namespace RandoMainDLL {
           collected |= condition.Value.Collect(condition.Key);
 
       var eq = GetEqCondition(state);
-      if (eq.Item2 != null)
-        collected |= eq.Item2.Collect(eq.Item1);
-
-      return collected;
-    }
-
-    public bool Collect(UberStateCondition cond) {
-      var collected = false;
-      var conditions = GetConditions(cond.Id);
-      foreach (var condition in conditions)
-        if (condition.Key.Met(cond.Target))
-          collected |= condition.Value.Collect(condition.Key);
-
-      var eq = GetEqCondition(cond.Id, cond.Target);
       if (eq.Item2 != null)
         collected |= eq.Item2.Collect(eq.Item1);
 

@@ -173,8 +173,11 @@ namespace RandoMainDLL {
     }
 
     public static Tuple<UberStateCondition, Pickup> PickupWithCondition(this UberId id, int value) => PickupMap.PickupWithCondition(id, value);
-    public static Pickup Pickup(this UberStateCondition cond) => PickupMap.Pickup(cond.Id, cond.Target);
-    public static Pickup Pickup(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().Pickup();
+    public static Pickup Pickup(this UberId id, int value) => id.PickupWithCondition(value).Item2;
+    public static Pickup Pickup(this PsuedoLocs gameCond) => PickupMap.Pickup(new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond), 1);
+
+    // Note this gets the pickups on this condition exactly, even if the target value could satisfy another entry.
+    public static Pickup Pickup(this UberStateCondition cond) => PickupMap.Pickup(cond);
 
     public static bool IsGoal(this UberStateCondition goalCond) {
       var loc = goalCond.Loc();
@@ -190,8 +193,8 @@ namespace RandoMainDLL {
     public static bool HasPickup(this UberState state, double value) => PickupMap.HasPickup(state.GetUberId(), value);
     public static bool OnCollect(this UberState state, UberValue old) => PickupMap.Collect(state, old);
 
-    public static bool OnCollect(this PsuedoLocs gameCond) => PickupMap.Collect(new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond());
-    public static bool OnCollect(this UberStateCondition cond) => PickupMap.Collect(cond);
+    public static bool OnCollect(this PsuedoLocs gameCond) => PickupMap.Collect(
+      new UberState() { GroupID = (int)FakeUberGroups.MISC_CONTROL, ID = (int)gameCond, Value = new UberValue(true) }, new UberValue(false));
 
     private static string slug = "";
     private static string seedName = "";

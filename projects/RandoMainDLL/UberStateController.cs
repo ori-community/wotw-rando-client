@@ -312,7 +312,7 @@ namespace RandoMainDLL {
         UberStates[key].Value = state.Value;
         if (SkipUberStateMapCount.GetOrElse(key, 0) > 0) {
           var id = state.GetUberId();
-          var p = id.toCond().Pickup().Concat(id.toCond(state.ValueAsInt()).Pickup());
+          var p = id.Pickup(state.ValueAsInt());
           if (p.NonEmpty) {
             SkipUberStateMapCount[key] -= 1;
             Randomizer.Log($"Suppressed granting {p} from {id}={state.ValueAsInt()}. Will suppress {SkipUberStateMapCount[key]} more times", false, "DEBUG");

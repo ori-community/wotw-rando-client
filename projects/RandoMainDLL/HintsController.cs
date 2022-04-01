@@ -66,7 +66,7 @@ namespace RandoMainDLL {
     };
 
     public static void OnMapPan(AreaType type) {
-      var pp = new UberId(13, 100 + (int)type.toZone()).toCond().Pickup();
+      var pp = new UberId(13, 100 + (int)type.toZone()).Pickup(1);
       var msg = pp.DisplayName;
       if (msg.Count(c => c == '\n') == 2) // if there's exactly 3 lines, insert an extra linebreak at the top
         msg = "\n" + msg;                 // so the middle text isn't obscured by the filter button
@@ -76,7 +76,7 @@ namespace RandoMainDLL {
 
     public static void ProgressWithHints(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
       var zone = _zone == ZoneType.Void ? StatsTracking.CurrentZone : _zone;
-      var pp = new UberId(13, (int)zone).toCond().Pickup();
+      var pp = new UberId(13, (int)zone).Pickup(1);
       float duration = justUnlocked ? 5f : 4f;
       if (pp.NonEmpty) {
         Vector2? pos = pp.Pos.HasValue ? new Vector2?(new Vector2() { X = 0.0f, Y = pp.Pos.Value }) : null;

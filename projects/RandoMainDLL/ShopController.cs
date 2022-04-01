@@ -34,7 +34,7 @@ namespace RandoMainDLL {
     public bool IsLocked { get; set; }
     public bool IsVisible { get; set; }
     public string Texture { get; set; }
-    public Pickup Contents => State.toCond().Pickup();
+    public Pickup Contents => State.Pickup(1);
 
     public void Reset() {
       Title = null;
