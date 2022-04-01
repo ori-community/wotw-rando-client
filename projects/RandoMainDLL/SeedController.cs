@@ -172,8 +172,6 @@ namespace RandoMainDLL {
       MISC_CONTROL = 3
     }
 
-    public static bool HasPickup(this UberId id) => PickupMap.HasPickup(id);
-    public static bool HasPickup(this UberStateCondition cond) => cond.Pickup() != null;
     public static Tuple<UberStateCondition, Pickup> PickupWithCondition(this UberId id, int value) => PickupMap.PickupWithCondition(id, value);
     public static Pickup Pickup(this UberStateCondition cond) => PickupMap.Pickup(cond.Id, cond.Target);
     public static Pickup Pickup(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().Pickup();
@@ -189,7 +187,7 @@ namespace RandoMainDLL {
       return false;
     }
 
-    public static bool HasPickup(this UberState state) => PickupMap.HasPickup(state.GetUberId());
+    public static bool HasPickup(this UberState state, double value) => PickupMap.HasPickup(state.GetUberId(), value);
     public static bool OnCollect(this UberState state, UberValue old) => PickupMap.Collect(state, old);
 
     public static bool OnCollect(this PsuedoLocs gameCond) => PickupMap.Collect(new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond());
@@ -354,8 +352,7 @@ namespace RandoMainDLL {
     }
 
     public static bool OnUberState(UberState state, UberValue old) {
-      state.OnCollect(old);
-      return state.HasPickup();
+      return state.OnCollect(old);
     }
 
     public static Pickup BuildPickup(PickupType type, string pickupData, List<string> extras, UberStateCondition cond) {
