@@ -277,7 +277,7 @@ namespace RandoMainDLL {
         case UberStateCondition.Handler.GreaterOrEquals:
           return ">=";
         case UberStateCondition.Handler.Equals:
-          return "==";
+          return "=";
         default:
           return "";
       }

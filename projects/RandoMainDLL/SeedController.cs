@@ -59,12 +59,12 @@ namespace RandoMainDLL {
     public UberId Id;
     public int Target;
     public Handler TargetHandler;
-    public UberStateCondition(UberId id, int target, Handler handler = Handler.GreaterOrEquals) {
+    public UberStateCondition(UberId id, int target, Handler handler = Handler.Equals) {
       TargetHandler = handler;
       Id = id;
       Target = target;
     }
-    public UberStateCondition(int groupId, int id, int target, Handler handler = Handler.GreaterOrEquals) {
+    public UberStateCondition(int groupId, int id, int target, Handler handler = Handler.Equals) {
       TargetHandler = handler;
       Id = new UberId(groupId, id);
       if (target > 0)
@@ -82,19 +82,9 @@ namespace RandoMainDLL {
         }
       }
 
-      // This is for backwards compatibility.
-      if (rawTarget.Contains("=")) {
-        //Randomizer.Warn("UberStateCondition", "Use of depracated '=' sign", false);
-        var idAndTarget = rawTarget.Split('=');
-        Id = new UberId(groupId, idAndTarget[0].ParseToInt("UberStateCondition.Id"));
-        Target = idAndTarget[1].ParseToInt("UberStateCondition.Target");
-        TargetHandler = Handler.GreaterOrEquals;
-      }
-      else {
-        Id = new UberId(groupId, int.Parse(rawTarget));
-        Target = 0;
-        TargetHandler = Handler.Greater;
-      }
+      Id = new UberId(groupId, int.Parse(rawTarget));
+      Target = 0;
+      TargetHandler = Handler.Greater;
     }
 
     private bool CheckTarget(double value) {
