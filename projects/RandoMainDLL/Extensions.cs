@@ -264,5 +264,22 @@ namespace RandoMainDLL {
     public static bool In<T>(this T obj, params T[] args) {
       return args.Contains(obj);
     }
+
+    public static string Symbol(this UberStateCondition.Handler handler) {
+      switch (handler) {
+        case UberStateCondition.Handler.Less:
+          return "<";
+        case UberStateCondition.Handler.LessOrEquals:
+          return "<=";
+        case UberStateCondition.Handler.Greater:
+          return ">";
+        case UberStateCondition.Handler.GreaterOrEquals:
+          return ">=";
+        case UberStateCondition.Handler.Equals:
+          return "==";
+        default:
+          return "";
+      }
+    }
   }
 }

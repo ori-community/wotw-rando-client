@@ -48,31 +48,71 @@ namespace RandoMainDLL {
   }
 
   public class UberStateCondition {
+    public enum Handler {
+      Less,
+      LessOrEquals,
+      Greater,
+      GreaterOrEquals,
+      Equals
+    }
+
     public UberId Id;
-    public int? Target;
-    public UberStateCondition(UberId id, int? target) {
+    public int Target;
+    public Handler TargetHandler;
+    public UberStateCondition(UberId id, int target, Handler handler = Handler.GreaterOrEquals) {
+      TargetHandler = handler;
       Id = id;
       Target = target;
     }
-    public UberStateCondition(int groupId, int id, int target) {
+    public UberStateCondition(int groupId, int id, int target, Handler handler = Handler.GreaterOrEquals) {
+      TargetHandler = handler;
       Id = new UberId(groupId, id);
       if (target > 0)
         Target = target;
     }
     public UberStateCondition(int groupId, string rawTarget) {
+      foreach (Handler value in Enum.GetValues(typeof(Handler))) {
+        var symbol = value.Symbol();
+        if (rawTarget.Contains(symbol)) {
+          var idAndTarget = rawTarget.Split(new string[] { symbol }, StringSplitOptions.None);
+          Id = new UberId(groupId, idAndTarget[0].ParseToInt("UberStateCondition.Id"));
+          Target = idAndTarget[1].ParseToInt("UberStateCondition.Target");
+          TargetHandler = Handler.GreaterOrEquals;
+          return;
+        }
+      }
+
+      // This is for backwards compatibility.
       if (rawTarget.Contains("=")) {
+        //Randomizer.Warn("UberStateCondition", "Use of depracated '=' sign", false);
         var idAndTarget = rawTarget.Split('=');
         Id = new UberId(groupId, idAndTarget[0].ParseToInt("UberStateCondition.Id"));
         Target = idAndTarget[1].ParseToInt("UberStateCondition.Target");
+        TargetHandler = Handler.GreaterOrEquals;
       }
       else {
         Id = new UberId(groupId, int.Parse(rawTarget));
-        Target = null;
+        Target = 0;
+        TargetHandler = Handler.Greater;
       }
     }
 
     private bool CheckTarget(double value) {
-      return Target.HasValue ? value >= Target.Value : value > 0;
+      switch (TargetHandler) {
+        case Handler.Less:
+          return value < Target;
+        case Handler.LessOrEquals:
+          return value <= Target;
+        case Handler.Greater:
+          return value > Target;
+        case Handler.GreaterOrEquals:
+          return value >= Target;
+        case Handler.Equals:
+          return value == Target;
+        default:
+          return false;
+      }
+
     }
     public bool Met() {
       return CheckTarget(UberGet.AsDouble(Id));
@@ -87,8 +127,8 @@ namespace RandoMainDLL {
       return !prev && next;
     }
 
-    public override string ToString() => $"{Id}{(Target.HasValue ? $"={Target.Value}" : "")}";
-    public override int GetHashCode() => Id.GetHashCode() + Target.GetValueOrDefault(-1);
+    public override string ToString() => $"{Id}{TargetHandler.Symbol()}{Target}";
+    public override int GetHashCode() => Id.GetHashCode() + TargetHandler.GetHashCode() + Target;
     public override bool Equals(object obj) => obj is UberStateCondition other && (Id.Equals(other.Id) && Target == other.Target);
   }
 
@@ -128,7 +168,7 @@ namespace RandoMainDLL {
         return true;
       if (Flags.Contains(Flag.ALLWISPS) && UberStateController.Wisps.Exists(w => w.GetUberId().Equals(goalCond.Id)))
         return true;
-      if (Flags.Contains(Flag.ALLQUESTS) && UberStateController.Quests.Exists(q => q.GetUberId().Equals(goalCond.Id) && q.ValueAsInt() == goalCond.Target.GetValueOrDefault()))
+      if (Flags.Contains(Flag.ALLQUESTS) && UberStateController.Quests.Exists(q => q.GetUberId().Equals(goalCond.Id) && q.ValueAsInt() == goalCond.Target))
         return true;
       return false;
     }
