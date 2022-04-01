@@ -322,7 +322,7 @@ namespace RandoMainDLL {
     public static void ReadSeed(bool init = false) {
       SeedFile = File.ReadAllText(Randomizer.SeedPathFile);
       if (SeedFile.StartsWith("server:"))
-        WebSocketClient.SendSeedRequest(SeedFile.Substring("server:".Length), init);
+        WebSocketClient.SendSeedRequest(init);
       else if (File.Exists(SeedFile))
         ParseLines(File.ReadAllLines(SeedFile), init);
       else

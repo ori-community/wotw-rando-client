@@ -192,11 +192,11 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("SendAuthenticate", e, false); }
     }
 
-    public static void SendSeedRequest(string seed, bool init) {
+    public static void SendSeedRequest(bool init) {
       try {
         Packet packet = new Packet {
           Id = 15,
-          Packet_ = new RequestSeedMessage() { Name = seed, Init = init }.ToByteString()
+          Packet_ = new RequestSeedMessage() { Init = init }.ToByteString()
         };
         SendQueue.Add(packet);
       }
@@ -265,8 +265,8 @@ namespace RandoMainDLL {
             break;
           case 16:
             var seedMessage = ReceiveSeedMessage.Parser.ParseFrom(packet.Packet_);
-            File.WriteAllText(Randomizer.SeedPathFile, seedMessage.Name);
-            SeedController.SeedFile = seedMessage.Name;
+            SeedController.SeedFile = "server: " + seedMessage.Name;
+            File.WriteAllText(Randomizer.SeedPathFile, SeedController.SeedFile);
             SeedController.ParseLines(seedMessage.Seed.Split('\n'), seedMessage.Init);
             break;
           default:
