@@ -143,23 +143,25 @@ namespace RandoMainDLL {
       return argsList;
     }
     public static int FilterIconType(int groupId, int id, int value) {
-      var cond = new UberStateCondition(groupId, id, value);
-      if (cond.Pickup().NonEmpty || cond.Loc() != LocData.Void)
-        return (int)cond.Pickup().Icon;
+      var condAndPickup = new UberId(groupId, id).PickupWithCondition(value);
+      if (condAndPickup.Item2.NonEmpty || condAndPickup.Item1.Loc() != LocData.Void)
+        return (int)condAndPickup.Item2.Icon;
       else
         return (int)WorldMapIconType.Eyestone;
     }
     public static void FilterIconText(IntPtr buffer, int length, int groupId, int id, int value, int filterId) {
-      var cond = new UberStateCondition(groupId, id, value);
+      var condAndPickup = new UberId(groupId, id).PickupWithCondition(value);
       var f = (FilterType)filterId;
 
-      string text = ((f == FilterType.InLogic || f == FilterType.Spoilers) && UberGet.value(34543, 11226).Bool ? cond.SpoilerName() : LocName(cond)) ?? " ";
+      string text = ((f == FilterType.InLogic || f == FilterType.Spoilers) && UberGet.value(34543, 11226).Bool
+        ? condAndPickup.Item1.SpoilerName(condAndPickup.Item2)
+        : LocName(condAndPickup.Item1)) ?? " ";
       length = Math.Min(text.Length, length);
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
     }
 
-    public static string SpoilerName(this UberStateCondition cond) {
-      var pick = cond.Pickup();
+    public static string SpoilerName(this UberStateCondition cond, Pickup pick) {
+      //var pick = cond.Pickup();
       string text = pick.Name;
       if (!pick.NonEmpty && cond.Loc() == LocData.Void)
         text = " ";
@@ -199,7 +201,7 @@ namespace RandoMainDLL {
       }
     }
     public static bool NameLabels = false;
-    public static bool FilterIconShow(int groupId, int id, int value) => Reachable.Contains(new UberStateCondition(groupId, id, value));
+    public static bool FilterIconShow(int groupId, int id, int value) => Reachable.Contains(new UberStateCondition(groupId, id, value, UberStateCondition.Handler.Equals));
     public static HashSet<UberStateCondition> Reachable = new HashSet<UberStateCondition>();
   }
 }

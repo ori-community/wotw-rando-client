@@ -73,7 +73,6 @@ namespace RandoMainDLL {
     Unbind = 28,
     SaveString = 29,
     AppendString = 30,
-    TeleportPlayer = 31,
   }
 
   public enum WheelCommandType : byte {
@@ -653,18 +652,6 @@ namespace RandoMainDLL {
     }
     public override string Name { get => type.ToString(); }
     public override string DisplayName { get => ""; }
-  }
-
-  public class TeleportPlayer : SystemCommand {
-    private readonly Vector2 location;
-    private readonly bool waitForLoad;
-    public TeleportPlayer(Vector2 l, bool w) : base(SysCommandType.TeleportPlayer) {
-      location = l;
-      waitForLoad = w;
-    }
-    public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.Player.teleport(location.X, location.Y, waitForLoad);
-    }
   }
 
   public class SetResource : SystemCommand {

@@ -59,12 +59,12 @@ namespace RandoMainDLL {
     public UberId Id;
     public int Target;
     public Handler TargetHandler;
-    public UberStateCondition(UberId id, int target, Handler handler = Handler.Equals) {
+    public UberStateCondition(UberId id, int target, Handler handler) {
       TargetHandler = handler;
       Id = id;
       Target = target;
     }
-    public UberStateCondition(int groupId, int id, int target, Handler handler = Handler.Equals) {
+    public UberStateCondition(int groupId, int id, int target, Handler handler) {
       TargetHandler = handler;
       Id = new UberId(groupId, id);
       if (target > 0)
@@ -107,6 +107,9 @@ namespace RandoMainDLL {
     public bool Met() {
       return CheckTarget(UberGet.AsDouble(Id));
     }
+    public bool Met(double value) {
+      return CheckTarget(value);
+    }
     // Check if this condition just got satisfied by this uberstate change.
     public bool Met(UberState state, UberValue old) {
       if (state.GroupID != Id.GroupID || state.ID != Id.ID)
@@ -148,7 +151,17 @@ namespace RandoMainDLL {
       MISC_CONTROL = 3
     }
 
+    public static bool HasPickup(this UberId id) => PickupMap.TryGetValue(id, out var value);
     public static bool HasPickup(this UberStateCondition cond) => PickupMap.GetOrElse(cond.Id, null).CallOrElse((d) => d.ContainsKey(cond), false);
+    public static Tuple<UberStateCondition, Pickup> PickupWithCondition(this UberId id, int value) {
+      var dict = PickupMap.GetOrElse(id, null);
+      if (dict != null)
+        foreach (var cond in dict)
+          if (cond.Key.Met(value))
+            return Tuple.Create(cond.Key, cond.Value);
+
+      return Tuple.Create((UberStateCondition)null, (Pickup)Multi.Empty);
+    }
     public static Pickup Pickup(this UberStateCondition cond) => PickupMap.GetOrElse(cond.Id, null).GetOrElse(cond, Multi.Empty);
     public static Pickup Pickup(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().Pickup();
 
@@ -574,19 +587,6 @@ namespace RandoMainDLL {
                 var id = extras[0].ParseToInt("BuildPickup.Id");
                 var text = string.Join("|", extras.Skip(1));
                 return new AppendStringCommand(id, text);
-              }
-            case SysCommandType.TeleportPlayer: {
-                if (!extras.Count.In(2, 3)) {
-                  Randomizer.Log($"malformed command specifier {command}", false);
-                  return new Message($"Invalid command {command}!");
-                }
-
-                var location = new Vector2() {
-                  X = extras[0].ParseToFloat("BuildPickup.X"),
-                  Y = extras[1].ParseToFloat("BuildPickup.Y")
-                };
-                var waitForLoad = extras.Count == 3 ? extras[2].ParseToBool("BuildPickup.WaitForLoad") : true;
-                return new TeleportPlayer(location, waitForLoad);
               }
             default:
               return new SystemCommand((SysCommandType)pickupData.ParseToByte());
