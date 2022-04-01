@@ -66,7 +66,7 @@ namespace uber_states
         IL2CPP_INTERCEPT(Moon, UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection* this_ptr)) {
             if (!initialized)
             {
-                IniSettings settings = create_randomizer_settings(base_path + "settings.ini");
+                IniSettings settings = create_randomizer_settings(base_path);
                 load_settings_from_file(settings);
                 std::vector<app::IUberState*> states = {
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "sword", app::AbilityType__Enum_Sword, false),
@@ -170,7 +170,7 @@ namespace uber_states
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Extra Double Jumps", 35, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Extra Dashes", 36, 0),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Autoaim", 37, !check_option(settings, "Flags", "DisableAutoaim", false)),
-                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "AlwaysShowSecrets", 38, !check_option(settings, "Flags", "DisableAutoaim", false)),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "AlwaysShowSecrets", 38, !check_option(settings, "Flags", "DisableShowSecrets", false)),
 
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Extra Grenades", 40, 0),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Grenades explode on collision", 41, true),
