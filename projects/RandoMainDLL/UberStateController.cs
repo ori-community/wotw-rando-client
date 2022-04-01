@@ -310,20 +310,17 @@ namespace RandoMainDLL {
 
         HandleSpecial(state);
         UberStates[key].Value = state.Value;
-        var id = state.GetUberId();
-        bool found = false;
-        if (value.Int > 0) {
-          if (SkipUberStateMapCount.GetOrElse(key, 0) > 0) {
-            var p = id.toCond().Pickup().Concat(id.toCond(state.ValueAsInt()).Pickup());
-            if (p.NonEmpty) {
-              SkipUberStateMapCount[key] -= 1;
-              Randomizer.Log($"Suppressed granting {p} from {id}={state.ValueAsInt()}. Will suppress {SkipUberStateMapCount[key]} more times", false, "DEBUG");
-              return;
-            }
+        if (SkipUberStateMapCount.GetOrElse(key, 0) > 0) {
+          var id = state.GetUberId();
+          var p = id.toCond().Pickup().Concat(id.toCond(state.ValueAsInt()).Pickup());
+          if (p.NonEmpty) {
+            SkipUberStateMapCount[key] -= 1;
+            Randomizer.Log($"Suppressed granting {p} from {id}={state.ValueAsInt()}. Will suppress {SkipUberStateMapCount[key]} more times", false, "DEBUG");
+            return;
           }
-          found = SeedController.OnUberState(state);
         }
 
+        bool found = SeedController.OnUberState(state, old);
         if (SyncedUberStates.Contains(key) && !UnsharableIds.Contains(key) && !SharingExceptions(state))
           WebSocketClient.SendUpdate(key, state.ValueAsDouble());
 
