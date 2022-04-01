@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -47,12 +49,12 @@ namespace RandoMainDLL {
     };
   }
 
-  public class UberStateCondition {
+  public class UberStateCondition : IComparable<UberStateCondition> {
     public enum Handler {
-      Less,
-      LessOrEquals,
       Greater,
       GreaterOrEquals,
+      Less,
+      LessOrEquals,
       Equals
     }
 
@@ -123,6 +125,25 @@ namespace RandoMainDLL {
     public override string ToString() => $"{Id}{TargetHandler.Symbol()}{Target}";
     public override int GetHashCode() => Id.GetHashCode() + TargetHandler.GetHashCode() + Target;
     public override bool Equals(object obj) => obj is UberStateCondition other && (Id.Equals(other.Id) && Target == other.Target);
+    public string ToReachString() {
+      if (TargetHandler == Handler.Greater && Target == 0)
+        return $"{Id}";
+      else
+        return ToString();
+    }
+
+    public int CompareTo(UberStateCondition other) {
+      if (Id.GroupID != other.Id.GroupID)
+        return other.Id.GroupID - Id.GroupID;
+
+      if (Id.ID != other.Id.ID)
+        return other.Id.ID - Id.ID;
+
+      if (TargetHandler != other.TargetHandler)
+        return (int)TargetHandler - (int)other.TargetHandler;
+
+      return Target - other.Target;
+    }
   }
 
   public class TimerDefinition {
@@ -151,18 +172,10 @@ namespace RandoMainDLL {
       MISC_CONTROL = 3
     }
 
-    public static bool HasPickup(this UberId id) => PickupMap.TryGetValue(id, out var value);
-    public static bool HasPickup(this UberStateCondition cond) => PickupMap.GetOrElse(cond.Id, null).CallOrElse((d) => d.ContainsKey(cond), false);
-    public static Tuple<UberStateCondition, Pickup> PickupWithCondition(this UberId id, int value) {
-      var dict = PickupMap.GetOrElse(id, null);
-      if (dict != null)
-        foreach (var cond in dict)
-          if (cond.Key.Met(value))
-            return Tuple.Create(cond.Key, cond.Value);
-
-      return Tuple.Create((UberStateCondition)null, (Pickup)Multi.Empty);
-    }
-    public static Pickup Pickup(this UberStateCondition cond) => PickupMap.GetOrElse(cond.Id, null).GetOrElse(cond, Multi.Empty);
+    public static bool HasPickup(this UberId id) => PickupMap.HasPickup(id);
+    public static bool HasPickup(this UberStateCondition cond) => cond.Pickup() != null;
+    public static Tuple<UberStateCondition, Pickup> PickupWithCondition(this UberId id, int value) => PickupMap.PickupWithCondition(id, value);
+    public static Pickup Pickup(this UberStateCondition cond) => PickupMap.Pickup(cond.Id, cond.Target);
     public static Pickup Pickup(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().Pickup();
 
     public static bool IsGoal(this UberStateCondition goalCond) {
@@ -176,35 +189,15 @@ namespace RandoMainDLL {
       return false;
     }
 
-    public static bool HasPickup(this UberState state) => PickupMap.ContainsKey(state.GetUberId());
-    public static bool OnCollect(this UberState state, UberValue old) {
-      var output = false;
-      var refreshShards = false;
-      Dictionary<UberStateCondition, Pickup> conditions;
-      if (PickupMap.TryGetValue(state.GetUberId(), out conditions)) {
-        foreach (var entry in conditions)
-          if (entry.Key.Met(state, old)) {
-            output |= entry.Value.Collect(entry.Key);
-            if (entry.Key.Loc().Type == LocType.Shard)
-              refreshShards = true;
-          }
-      }
+    public static bool HasPickup(this UberState state) => PickupMap.HasPickup(state.GetUberId());
+    public static bool OnCollect(this UberState state, UberValue old) => PickupMap.Collect(state, old);
 
-      if (refreshShards)
-        InterOp.Shard.refresh_shards();
+    public static bool OnCollect(this PsuedoLocs gameCond) => PickupMap.Collect(new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond());
+    public static bool OnCollect(this UberStateCondition cond) => PickupMap.Collect(cond);
 
-      return output;
-    }
-
-    public static bool OnCollect(this UberStateCondition cond) {
-      var dict = PickupMap.GetOrElse(cond.Id, null);
-      return dict == null ? false : dict.GetOrElse(cond, Multi.Empty).Collect(cond);
-    }
-
-    public static bool OnCollect(this PsuedoLocs gameCond) => new UberId((int)FakeUberGroups.MISC_CONTROL, (int)gameCond).toCond().OnCollect();
     private static string slug = "";
     private static string seedName = "";
-    public static Dictionary<UberId, Dictionary<UberStateCondition, Pickup>> PickupMap = new Dictionary<UberId, Dictionary<UberStateCondition, Pickup>>();
+    public static PickupDictionary PickupMap = new PickupDictionary();
     public static List<TimerDefinition> TimerList = new List<TimerDefinition>();
     public static HashSet<String> Flags = new HashSet<String>();
     public static string SeedFile = "";
@@ -275,10 +268,7 @@ namespace RandoMainDLL {
           }
           var pickup = BuildPickup(pickupType, frags[3], extras, cond);
           pickup.Muted = needsMute;
-          if (!PickupMap.ContainsKey(cond.Id))
-            PickupMap[cond.Id] = new Dictionary<UberStateCondition, Pickup>();
-
-          PickupMap[cond.Id][cond] = cond.Pickup().Concat(pickup);
+          PickupMap.Add(cond, pickup);
         }
         catch (Exception e) {
           Randomizer.Log($"Error parsing line: '{line}'\nError: {e.Message} \nStacktrace: {e.StackTrace}", false);
@@ -286,7 +276,7 @@ namespace RandoMainDLL {
       }
       Total = 0;
       foreach (ZoneType z in Enum.GetValues(typeof(ZoneType))) {
-        CountByZone[z] = PickupMap.Aggregate(0, (s, d) => s + d.Value.Count(p => p.Key.Loc().Zone == z));
+        CountByZone[z] = PickupMap.PickupCount(z);
         if (z != ZoneType.Void)
           Total += CountByZone[z];
       }

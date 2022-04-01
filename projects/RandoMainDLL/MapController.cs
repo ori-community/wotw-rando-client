@@ -134,7 +134,7 @@ namespace RandoMainDLL {
         $"{UberGet.value(6, 5).Int}",
         $"{UberGet.value(6, 3).Int}",
       };
-      argsList.AddRange(TrackedConds.Where(condition => condition.Met()).Select(condition => $"u:{condition}"));
+      argsList.AddRange(TrackedConds.Where(condition => condition.Met()).Select(condition => $"u:{condition.ToReachString()}"));
       argsList.AddRange(SaveController.SkillsFound.Select((AbilityType at) => $"s:{(int)at}"));
       argsList.AddRange(Teleporter.TeleporterStates.Keys.Where(t => new Teleporter(t).Has()).Select(t => $"t:{(int)t}"));
       if (new QuestEvent(QuestEventType.Water).Has())
@@ -201,7 +201,10 @@ namespace RandoMainDLL {
       }
     }
     public static bool NameLabels = false;
-    public static bool FilterIconShow(int groupId, int id, int value) => Reachable.Contains(new UberStateCondition(groupId, id, value, UberStateCondition.Handler.Equals));
+    public static bool FilterIconShow(int groupId, int id, int value) {
+      return Reachable.Contains(new UberStateCondition(groupId, id, value,
+        value == -1 ? UberStateCondition.Handler.Greater : UberStateCondition.Handler.Equals));
+    }
     public static HashSet<UberStateCondition> Reachable = new HashSet<UberStateCondition>();
   }
 }
