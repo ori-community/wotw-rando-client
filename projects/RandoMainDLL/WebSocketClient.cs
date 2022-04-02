@@ -248,15 +248,15 @@ namespace RandoMainDLL {
             var message = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
             MessageController.ShowMessage(
               text: message.Text,
-              time: message.Time,
+              time: message.HasTime ? new float?(message.Time) : null,
               position: new Vector2(message.Position),
-              id: message.Id,
+              id: message.HasId ? message.Id : -1,
               showsBox: message.WithBox,
               alignment: (Alignment)message.Alignment,
               vertical: (VerticalAnchor)message.VerticalAnchor,
               horizontal: (HorizontalAnchor)message.HorizontalAnchor,
               screen: (ScreenPosition)message.ScreenPosition,
-              queue: message.HasQueue ? message.Queue : null,
+              queue: message.Queue,
               priority: message.Prioritized,
               log: true
             );
