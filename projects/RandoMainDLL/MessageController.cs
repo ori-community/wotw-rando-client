@@ -71,6 +71,43 @@ namespace RandoMainDLL {
     public float Bottom;
   }
 
+  public interface IDAble<T> where T : class {
+    int? ID { get; }
+    void Update(T id);
+  }
+
+  public class IDAbleMessageQueue<T> : MessageQueue<T> where T : class, IDAble<T> {
+    public readonly Dictionary<int, T> Ids = new Dictionary<int, T>();
+
+    public override void Add(T value, bool priority) {
+      var id = value.ID;
+      if (id.HasValue) {
+        if (Ids.TryGetValue(id.Value, out T message)) {
+          message.Update(value);
+          return;
+        }
+        else
+          Ids.Add(id.Value, value);
+      }
+
+      base.Add(value, priority);
+    }
+
+    public override void Clear() {
+      Ids.Clear();
+      base.Clear();
+    }
+
+
+    public override T Next() {
+      var next = base.Next();
+      if (next.ID.HasValue && Ids.ContainsKey(next.ID.Value))
+        Ids.Remove(next.ID.Value);
+
+      return next;
+    }
+  }
+
   public class MessageQueue<T> where T : class {
     public readonly Queue<T> Normal = new Queue<T>();
     public readonly Queue<T> Priority = new Queue<T>();
@@ -78,11 +115,11 @@ namespace RandoMainDLL {
     public ScreenPosition? OverrideScreenPosition = null;
     public Vector3? OverridePosition = null;
 
-    public void Add(T value, bool priority) {
+    public virtual void Add(T value, bool priority) {
       (priority ? Priority : Normal).Enqueue(value);
     }
 
-    public void Clear() {
+    public virtual void Clear() {
       Normal.Clear();
       Priority.Clear();
     }
@@ -99,7 +136,7 @@ namespace RandoMainDLL {
       return null;
     }
 
-    public T Next() {
+    public virtual T Next() {
       if (Priority.Count > 0)
         return Priority.Dequeue();
       
@@ -113,12 +150,12 @@ namespace RandoMainDLL {
   public static class MessageController {
     private const int MAX_PICKUP_LINE_COUNT = 5;
     private const int MAX_PICKUP_MESSAGES_QUEUED = 5;
-    private static readonly TextMessage INFO = new TextMessage(ReserveID(), new TextMessageDescriptor() { ShowsBox = false });
-    // private static readonly TextMessage PICKUP = new TextMessage(ReserveID(), new TextMessageDescriptor() { Muted = false, ShowsBox = true });
+    private static readonly TextMessage INFO = new TextMessage(null, new TextMessageDescriptor() { ShowsBox = false });
+    // private static readonly TextMessage PICKUP = new TextMessage(new TextMessageDescriptor() { Muted = false, ShowsBox = true });
 
     private static List<TextMessage> activePickupTextMessages = new List<TextMessage>();
     private static PickupMessage lastPickup;
-    private static Dictionary<string, MessageQueue<TextMessage>> queues = new Dictionary<string, MessageQueue<TextMessage>>();
+    private static Dictionary<string, IDAbleMessageQueue<TextMessage>> queues = new Dictionary<string, IDAbleMessageQueue<TextMessage>>();
     private static MessageQueue<PickupMessage> pickupQueue = new MessageQueue<PickupMessage>();
     // private static List<PickupMessage> activePickups = new List<PickupMessage>();
     private static List<TextMessage> activeTimedMessages = new List<TextMessage>();
@@ -128,14 +165,14 @@ namespace RandoMainDLL {
       INFO.ScreenPosition = ScreenPosition.BottomCenter;
       INFO.Position = new Vector3(0f, 0.5f, 0f);
 
-      queues.Add("wheel", new MessageQueue<TextMessage> { OverrideScreenPosition = ScreenPosition.TopCenter, OverridePosition = new Vector3(0, -1, 0) });
-      queues.Add("hint", new MessageQueue<TextMessage> { OverrideScreenPosition = ScreenPosition.TopCenter, OverridePosition = new Vector3(0, -1, 0) });
-      queues.Add("debug", new MessageQueue<TextMessage> { OverrideScreenPosition = ScreenPosition.TopCenter, OverridePosition = new Vector3(0, -1, 0) });
+      queues.Add("wheel", new IDAbleMessageQueue<TextMessage> { OverrideScreenPosition = ScreenPosition.TopCenter, OverridePosition = new Vector3(0, -1, 0) });
+      queues.Add("hint", new IDAbleMessageQueue<TextMessage> { OverrideScreenPosition = ScreenPosition.TopCenter, OverridePosition = new Vector3(0, -1, 0) });
+      queues.Add("debug", new IDAbleMessageQueue<TextMessage> { OverrideScreenPosition = ScreenPosition.TopCenter, OverridePosition = new Vector3(0, -1, 0) });
     }
 
     private static MessageQueue<TextMessage> getOrCreateQueue(string queue) {
       if (!queues.TryGetValue(queue, out var messageQueue)) {
-        messageQueue = new MessageQueue<TextMessage>();
+        messageQueue = new IDAbleMessageQueue<TextMessage>();
         queues.Add(queue, messageQueue);
       }
 
@@ -210,7 +247,6 @@ namespace RandoMainDLL {
       int id = -1,
       string queue = null,
       bool priority = false,
-      bool replace = false,
       bool log = false)
     {
       if (log) {
@@ -238,7 +274,7 @@ namespace RandoMainDLL {
       if (queue == null) {
         if (id >= 0) {
           if (!activeIdTimedMessages.ContainsKey(id)) {
-            var message = new TextMessage(ReserveID(), desc);
+            var message = new TextMessage(id, desc);
             message.Destroyed = false;
             activeIdTimedMessages[id] = message;
           }
@@ -246,19 +282,14 @@ namespace RandoMainDLL {
             activeIdTimedMessages[id].Descriptor = desc;
         }
         else {
-          var message = new TextMessage(ReserveID(), desc);
+          var message = new TextMessage(null, desc);
           message.Destroyed = false;
           activeTimedMessages.Add(message);
         }
       }
       else {
-        if (id >= 0)
-          Randomizer.Log("Provided id with a queued message, unsupported.", false, "WARNING");
-
-        var message = new TextMessage(ReserveID(), desc);
+        var message = new TextMessage(id, desc);
         var messageQueue = getOrCreateQueue(queue);
-        if (replace)
-          messageQueue.Clear();
 
         if (messageQueue.OverrideScreenPosition.HasValue)
           message.ScreenPosition = messageQueue.OverrideScreenPosition.Value;
@@ -373,7 +404,7 @@ namespace RandoMainDLL {
         desc.Muted = false;
         desc.Padding = new Padding(0f, 1f, 1f, 0f);
 
-        var textMessage = new TextMessage(ReserveID(), desc) { Destroyed = false };
+        var textMessage = new TextMessage(null, desc) { Destroyed = false };
         activePickupTextMessages.Add(textMessage);
       }
     }
@@ -458,9 +489,9 @@ namespace RandoMainDLL {
     public Vector2? Position;
   }
 
-  public class TextMessage {
-    public TextMessage(int id, TextMessageDescriptor desc = null) {
-      ID = id;
+  public class TextMessage : IDAble<TextMessage> {
+    public TextMessage(int? cid, TextMessageDescriptor desc = null) {
+      CID = cid;
       descriptor = desc != null ? desc : new TextMessageDescriptor();
     }
 
@@ -468,7 +499,8 @@ namespace RandoMainDLL {
       Destroyed = true;
     }
 
-    public readonly int ID;
+    public int ID = -1;
+    public readonly int? CID;
 
     public bool IsDelayed {
       get { return InterOp.Messaging.text_box_is_delayed(ID); }
@@ -479,6 +511,8 @@ namespace RandoMainDLL {
       set {
         if (destroyed != value) {
           if (!value) {
+            if (ID == -1)
+              ID = MessageController.ReserveID();
             InterOp.Messaging.text_box_create(ID, descriptor.FadeIn, descriptor.FadeOut, descriptor.ShowsBox, !descriptor.Muted);
             InterOp.Messaging.text_box_text(ID, descriptor.Text);
             InterOp.Messaging.text_box_size(ID, descriptor.Size);
@@ -502,6 +536,10 @@ namespace RandoMainDLL {
       actual.Y += descriptor.Position.Y;
       actual.Z += descriptor.Position.Z;
       InterOp.Messaging.text_box_position(ID, actual.X, actual.Y, actual.Z, descriptor.UseInGameCoordinates);
+    }
+
+    public void Update(TextMessage id) {
+      Descriptor = id.Descriptor;
     }
 
     public string Text {
@@ -642,6 +680,8 @@ namespace RandoMainDLL {
         }
       }
     }
+
+    int? IDAble<TextMessage>.ID => CID;
 
     private TextMessageDescriptor descriptor;
     private bool destroyed = true;

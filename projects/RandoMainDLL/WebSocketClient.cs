@@ -250,6 +250,7 @@ namespace RandoMainDLL {
               text: message.Text,
               time: message.Time,
               position: new Vector2(message.Position),
+              id: message.Id,
               showsBox: message.WithBox,
               alignment: (Alignment)message.Alignment,
               vertical: (VerticalAnchor)message.VerticalAnchor,
@@ -257,7 +258,6 @@ namespace RandoMainDLL {
               screen: (ScreenPosition)message.ScreenPosition,
               queue: message.HasQueue ? message.Queue : null,
               priority: message.Prioritized,
-              replace: message.Replace,
               log: true
             );
             break;
