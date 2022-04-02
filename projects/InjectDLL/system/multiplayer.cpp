@@ -212,7 +212,7 @@ namespace multiplayer
             Transform::set_position(transform, &pos);
             utils::set_color(info.avatar.icon, info.color, false);
 
-            auto text_box = il2cpp::unity::get_component<app::TextBox>(info.map_avatar.text, "CatlikeCoding.TextBox", "TextBox");
+            auto text_box = il2cpp::unity::get_component<app::TextBox>(info.avatar.text, "CatlikeCoding.TextBox", "TextBox");
             text_box->fields.color = { 1.f, 1.f, 1.f, 1.f };
 
             pos = { 0.f, SPRITE_OFFSET, 0.f};
