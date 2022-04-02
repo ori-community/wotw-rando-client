@@ -297,8 +297,6 @@ namespace RandoMainDLL {
             SeedController.ParseLines(seedMessage.Seed.Split('\n'), seedMessage.Init);
             break;
           case Packet.Types.PacketID.PlayerUsedCatchingAbility:
-            HideAndSeek.Queue.Add(packet);
-            break;
           case Packet.Types.PacketID.PlayerCaught:
             HideAndSeek.Queue.Add(packet);
             break;
