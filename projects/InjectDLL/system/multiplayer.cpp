@@ -99,15 +99,8 @@ namespace multiplayer
         player.previous_dot_position = player.position;
     }
     
-    void add_dot(PlayerInfo& player)
+    void update_dot_colors(PlayerInfo& player)
     {
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
-
-        auto& dot = player.dots[player.next_dot_index];
-        GameObject::SetActive(dot.dot, true);
-        app::Vector3 pos{ player.position.x, player.position.y, 0.0f };
-        IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
-    
         app::Color color = player.color;
         color.r = (color.r + 1.0f) / 2.0f;
         color.g = (color.g + 1.0f) / 2.0f;
@@ -120,6 +113,18 @@ namespace multiplayer
             auto& dot = player.dots[(player.next_dot_index + HALF_DOTS + i) % DOT_COUNT];
             shaders::UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
         }
+    }
+
+    void add_dot(PlayerInfo& player)
+    {
+        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+
+        auto& dot = player.dots[player.next_dot_index];
+        GameObject::SetActive(dot.dot, true);
+        app::Vector3 pos{ player.position.x, player.position.y, 0.0f };
+        IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
+    
+        update_dot_colors(player);
 
         player.previous_dot_position = player.position;
         player.time_until_next_dot = DOT_TIMEOUT;
@@ -249,6 +254,8 @@ namespace multiplayer
 
         if (info.map_avatar.handle != 0 && il2cpp::unity::is_valid(info.map_avatar.icon))
             utils::set_color(info.map_avatar.icon, info.color, false);
+
+        update_dot_colors(info);
     }
 
     void destroy_icons(PlayerInfo& info)
