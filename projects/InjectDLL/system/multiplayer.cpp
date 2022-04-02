@@ -122,66 +122,67 @@ namespace multiplayer
         return squared_distance >= DOT_MIN_DISTANCE * DOT_MIN_DISTANCE && player.time_until_next_dot < 0.0f;
     }
 
-    uint64_t create_avatar_icon(PlayerInfo const& info)
+    PlayerInfo::Icon create_avatar_icon(PlayerInfo const& info)
     {
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
-        if (area_map == nullptr)
-            return 0;
-
         auto icons = area_map->fields._IconManager_k__BackingField->fields.Icons;
-        app::GameObject* obj;
+        PlayerInfo::Icon icon;
         switch (info.icon)
         {
         case PlayerIcon::Kii:
         {
-            obj = il2cpp::unity::instantiate_object(icons->fields.Siira);
-            auto text_box = il2cpp::unity::get_component_in_children<app::TextBox>(obj, "CatlikeCoding.TextBox", "TextBox");
-            il2cpp::invoke(text_box, "SetText", il2cpp::string_new(info.name));
-            GameObject::SetActive(il2cpp::unity::find_child(obj, "questObjective2MapIcon"), false);
+            icon.root = il2cpp::unity::instantiate_object(icons->fields.Siira);
+            icon.icon = il2cpp::unity::find_child(icon.root, "iconGameObject");
+            GameObject::SetActive(il2cpp::unity::find_child(icon.root, "questObjective2MapIcon"), false);
             break;
         }
         default: // Moki
         {
-            obj = il2cpp::unity::instantiate_object(icons->fields.Moki);
-            auto text_box = il2cpp::unity::get_component_in_children<app::TextBox>(obj, "CatlikeCoding.TextBox", "TextBox");
-            il2cpp::invoke(text_box, "SetText", il2cpp::string_new(info.name));
-            GameObject::SetActive(il2cpp::unity::find_child(obj, "questObjective2MapIcon"), false);
+            icon.root = il2cpp::unity::instantiate_object(icons->fields.Moki);
+            icon.icon = il2cpp::unity::find_child(icon.root, "iconGameObject");
+            GameObject::SetActive(il2cpp::unity::find_child(icon.root, "questObjective2MapIcon"), false);
             break;
         }
         }
 
-        return il2cpp::gchandle_new(obj, false);
+        auto text_box = il2cpp::unity::get_component_in_children<app::TextBox>(icon.root, "CatlikeCoding.TextBox", "TextBox");
+        icon.text = il2cpp::unity::get_game_object(text_box);
+        il2cpp::invoke(text_box, "SetText", il2cpp::string_new(info.name));
+
+        icon.handle = il2cpp::gchandle_new(icon.root, false);
+        auto icon_transform = il2cpp::unity::get_transform(info.map_avatar.icon);
+        app::Vector3 scale{ SPRITE_SCALE, SPRITE_SCALE, 1.0f };
+        Transform::set_localScale(icon_transform, &scale);
+
+        return icon;
     }
 
     void create_icons(PlayerInfo& info)
     {
         // Avatar
         {
-            info.avatar_icon = create_avatar_icon(info);
-            auto icon = il2cpp::gchandle_target<app::GameObject>(info.avatar_icon);
-            GameObject::set_layer(icon, static_cast<int>(Layer::Sein));
-            GameObject::SetActive(icon, info.visible);
-            auto transform = il2cpp::unity::get_transform(icon);
-            app::Vector3 pos{ info.position.x, info.position.y + SPRITE_OFFSET, 0 };
+            // TODO: Maybe return a structure with pointers to the base object, text_box and renderer so we can move them around.
+            info.avatar = create_avatar_icon(info);
+            GameObject::set_layer(info.map_avatar.root, static_cast<int>(Layer::Sein));
+            GameObject::SetActive(info.map_avatar.root, info.visible);
+            auto transform = il2cpp::unity::get_transform(info.map_avatar.root);
+            app::Vector3 pos{ info.position.x, info.position.y, 0 };
             Transform::set_position(transform, &pos);
-            app::Vector3 scale{ SPRITE_SCALE, SPRITE_SCALE, 1.0f };
-            Transform::set_localScale(transform, &scale);
-            utils::set_color(icon, info.color, false);
+            utils::set_color(info.map_avatar.icon, info.color, false);
         }
 
         // Map Icon
         {
-            info.map_avatar_icon = create_avatar_icon(info);
-            auto icon = il2cpp::gchandle_target<app::GameObject>(info.map_avatar_icon);
-            GameObject::set_layer(icon, static_cast<int>(Layer::WorldMap));
-            GameObject::SetActive(icon, info.visible);
-            auto transform = il2cpp::unity::get_transform(icon);
+            info.map_avatar = create_avatar_icon(info);
+            GameObject::set_layer(info.map_avatar.root, static_cast<int>(Layer::WorldMap));
+            GameObject::SetActive(info.map_avatar.root, info.visible);
+            auto transform = il2cpp::unity::get_transform(info.map_avatar.root);
             // TODO: Maybe use icon scaler here?
-            app::Vector3 pos{ info.position.x, info.position.y + SPRITE_OFFSET, 0 };
+            app::Vector3 pos{ info.position.x, info.position.y, 0 };
             Transform::set_position(transform, &pos);
             app::Vector3 scale{ MAP_SPRITE_SCALE, MAP_SPRITE_SCALE, 1.0f };
             Transform::set_localScale(transform, &scale);
-            utils::set_color(icon, info.color, false);
+            utils::set_color(info.map_avatar.icon, info.color, false);
         }
     }
 
@@ -196,43 +197,33 @@ namespace multiplayer
 
     void update_avatar_color(PlayerInfo& info)
     {
-        if (info.avatar_icon != 0)
-        {
-            auto icon = il2cpp::gchandle_target<app::GameObject>(info.avatar_icon);
-            if (il2cpp::unity::is_valid(icon))
-                utils::set_color(icon, info.color, false);
-        }
+        if (info.avatar.handle != 0 && il2cpp::unity::is_valid(info.avatar.icon))
+            utils::set_color(info.avatar.icon, info.color, false);
 
-        if (info.map_avatar_icon != 0)
-        {
-            auto icon = il2cpp::gchandle_target<app::GameObject>(info.map_avatar_icon);
-            if (il2cpp::unity::is_valid(icon))
-                utils::set_color(icon, info.color, false);
-        }
+        if (info.map_avatar.handle != 0 && il2cpp::unity::is_valid(info.map_avatar.icon))
+            utils::set_color(info.map_avatar.icon, info.color, false);
     }
 
     void destroy_icons(PlayerInfo& info)
     {
-        if (info.avatar_icon != 0)
+        if (info.avatar.handle != 0)
         {
-            auto target = il2cpp::gchandle_target(info.avatar_icon);
+            auto target = il2cpp::gchandle_target(info.avatar.handle);
             if (il2cpp::unity::is_valid(target))
-            {
-                il2cpp::gchandle_free(info.avatar_icon);
                 il2cpp::unity::destroy_object(target);
-                info.avatar_icon = 0;
-            }
+
+            il2cpp::gchandle_free(info.avatar.handle);
+            info.avatar = {};
         }
 
-        if (info.map_avatar_icon != 0)
+        if (info.map_avatar.handle != 0)
         {
-            auto target = il2cpp::gchandle_target(info.map_avatar_icon);
+            auto target = il2cpp::gchandle_target(info.map_avatar.handle);
             if (il2cpp::unity::is_valid(target))
-            {
-                il2cpp::gchandle_free(info.map_avatar_icon);
                 il2cpp::unity::destroy_object(target);
-                info.map_avatar_icon = 0;
-            }
+
+            il2cpp::gchandle_free(info.map_avatar.handle);
+            info.map_avatar = {};
         }
     }
 
@@ -262,19 +253,17 @@ namespace multiplayer
     STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
     void update_avatar_facing(PlayerInfo& info)
     {
-        if (info.avatar_icon != 0)
+        if (info.avatar.handle != 0)
         {
-            auto go = il2cpp::gchandle_target(info.avatar_icon);
-            auto transform = il2cpp::unity::get_transform(go);
+            auto transform = il2cpp::unity::get_transform(info.avatar.icon);
             app::Vector3 scale = Transform::get_localScale(transform);
             scale.x = lerp(scale.x, info.facing * SPRITE_SCALE, 20.0f * TimeUtility::get_deltaTime());
             Transform::set_localScale(transform, &scale);
         }
 
-        if (info.map_avatar_icon != 0)
+        if (info.map_avatar.handle != 0)
         {
-            auto go = il2cpp::gchandle_target(info.map_avatar_icon);
-            auto transform = il2cpp::unity::get_transform(go);
+            auto transform = il2cpp::unity::get_transform(info.map_avatar.icon);
             app::Vector3 scale = Transform::get_localScale(transform);
             scale.x = lerp(scale.x, info.facing * MAP_SPRITE_SCALE, 20.0f * TimeUtility::get_deltaTime());
             Transform::set_localScale(transform, &scale);
@@ -327,11 +316,8 @@ namespace multiplayer
             bool visible = player.online && should_show;
             if (visible != player.visible)
             {
-                if (player.avatar_icon != 0)
-                {
-                    auto go = il2cpp::gchandle_target<app::GameObject>(player.avatar_icon);
-                    GameObject::SetActive(go, visible);
-                }
+                if (player.avatar.handle != 0)
+                    GameObject::SetActive(player.avatar.root, visible);
 
                 player.visible = visible;
             }
@@ -445,21 +431,17 @@ INJECT_C_DLLEXPORT void update_player_position(const wchar_t* id, float x, float
         info.position.y = y;
 
         // Avatar
-        if (info.avatar_icon != 0)
+        if (info.avatar.handle != 0)
         {
-            auto go = il2cpp::gchandle_target(info.avatar_icon);
-            auto transform = il2cpp::unity::get_transform(go);
-
+            auto transform = il2cpp::unity::get_transform(info.avatar.root);
             app::Vector3 pos { info.position.x, info.position.y + multiplayer::SPRITE_OFFSET, 0.0f };
             multiplayer::Transform::set_position(transform, &pos);
         }
 
         // Map Avatar
-        if (info.map_avatar_icon != 0)
+        if (info.map_avatar.handle != 0)
         {
-            auto go = il2cpp::gchandle_target(info.map_avatar_icon);
-            auto transform = il2cpp::unity::get_transform(go);
-
+            auto transform = il2cpp::unity::get_transform(info.map_avatar.root);
             // TODO: Maybe use icon scaler here?
             app::Vector3 pos{ info.position.x, info.position.y, 0.0f };
             multiplayer::Transform::set_position(transform, &pos);
@@ -486,10 +468,8 @@ INJECT_C_DLLEXPORT void set_player_online(const wchar_t* id, bool online)
     {
         multiplayer::PlayerInfo& info = multiplayer::players[it->second];
         info.online = online;
-        if (info.map_avatar_icon != 0) {
-            auto go = il2cpp::gchandle_target<app::GameObject>(info.map_avatar_icon);
-            multiplayer::GameObject::SetActive(go, info.online);
-        }
+        if (info.map_avatar.handle != 0)
+            multiplayer::GameObject::SetActive(info.map_avatar.root, info.online);
 
         for (auto const& dot : info.dots)
             multiplayer::GameObject::SetActive(dot.dot, info.online);

@@ -13,6 +13,14 @@ namespace multiplayer
 
     struct PlayerInfo
     {
+        struct Icon
+        {
+            uint64_t handle = 0;
+            app::GameObject* root = nullptr;
+            app::GameObject* text = nullptr;
+            app::GameObject* icon = nullptr;
+        };
+
         std::wstring id;
         std::wstring name;
         app::Vector2 position;
@@ -22,8 +30,8 @@ namespace multiplayer
         PlayerIcon icon;
 
         // Internal
-        uint64_t avatar_icon = 0;
-        uint64_t map_avatar_icon = 0;
+        Icon avatar;
+        Icon map_avatar;
         float last_facing_pos = 0.0f;
         float last_facing = 1.0f;
         int facing = 1;
