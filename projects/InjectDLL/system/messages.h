@@ -18,7 +18,6 @@ enum class ScreenPosition
 using creation_callback = void(*)(int id);
 
 void hide_below_hint();
-extern bool area_map_open;
 app::MessageBox* send_msg(const wchar_t* hint, float duration, app::Vector3 pos, bool mute);
 void update_color(app::GameObject* go, app::Color color);
 
@@ -27,8 +26,6 @@ bool text_box_creation_callback(int id, creation_callback func);
 
 INJECT_C_DLLEXPORT int reserve_id();
 INJECT_C_DLLEXPORT void get_screen_position(ScreenPosition position, app::Vector3* output);
-INJECT_C_DLLEXPORT void world_to_ui_position(app::Vector2* position);
-INJECT_C_DLLEXPORT void ui_to_world_position(app::Vector2* position);
 INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, bool should_show_box, bool should_play_sound);
 INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text);
 INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z, bool use_in_game_coordinates);

@@ -7,6 +7,7 @@
 void on_fixed_update(app::GameController* this_ptr, float delta);
 std::string pretty_time();
 void mute_for(int frames);
+bool is_area_map_open();
 
 app::GameController* get_game_controller();
 app::SeinCharacter* get_sein();

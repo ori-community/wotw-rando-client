@@ -92,6 +92,7 @@ set(
     "utils/json_serializers.cpp"
     "utils/messaging.cpp"
     "utils/misc.cpp"
+    "utils/position_converter.cpp"
     "utils/shaders.cpp"
     "utils/stb_image.cpp"
 )
@@ -136,6 +137,7 @@ set(
     "utils/json_serializers.h"
     "utils/messaging.h"
     "utils/misc.h"
+    "utils/position_converter.h"
     "utils/shaders.h"
     "utils/stb_image.h"
 )

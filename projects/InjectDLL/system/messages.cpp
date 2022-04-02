@@ -3,6 +3,7 @@
 #include <dev/object_visualizer.h>
 #include <system/messages.h>
 #include <utils/messaging.h>
+#include <utils/position_converter.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/console.h>
@@ -18,8 +19,6 @@
 #include <xstring>
 
 using namespace modloader;
-
-bool area_map_open = false;
 
 namespace
 {
@@ -273,27 +272,11 @@ namespace
             message.should_refresh = true;
     }
 
-    STATIC_IL2CPP_BINDING(UnityEngine, Camera, app::Camera*, get_current, ());
-    IL2CPP_BINDING(UnityEngine, Camera, app::Vector3, WorldToScreenPoint, (app::Camera* camera, app::Vector3* pos));
-    IL2CPP_BINDING(UnityEngine, Camera, app::Vector3, ScreenToWorldPoint, (app::Camera* camera, app::Vector3* pos));
-    IL2CPP_BINDING(, GameplayCamera, app::Camera*, get_Camera, (app::GameplayCamera* camera));
     void do_position_refresh(RandoMessage &message)
     {
         app::Vector3 pos = { message.pos.x, message.pos.y, 0.0f };
-        if (message.use_in_game_coordinates) {
-            auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
-            if (!il2cpp::unity::is_valid(cameras->static_fields->Current) || !il2cpp::unity::is_valid(cameras->static_fields->System->fields.GUICamera))
-                return;
-
-            auto world_camera = GameplayCamera::get_Camera(cameras->static_fields->Current);
-            auto ui_camera = cameras->static_fields->System->fields.GUICamera->fields.Camera;
-            if (!il2cpp::unity::is_valid(world_camera) || !il2cpp::unity::is_valid(ui_camera))
-                return;
-
-            pos = Camera::WorldToScreenPoint(world_camera, &pos);
-            pos = Camera::ScreenToWorldPoint(ui_camera, &pos);
-            pos.z = 0.0f;
-        }
+        if (message.use_in_game_coordinates)
+            pos = world_to_ui_position(pos);
 
         auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message.handle));
         auto transform = il2cpp::unity::get_transform(go);
@@ -539,49 +522,6 @@ INJECT_C_DLLEXPORT void get_screen_position(ScreenPosition position, app::Vector
         output->y = 0.0f;
         output->z = 0.0f;
     }
-}
-
-enum ConvertPositionType {
-    UI_TO_WORLD,
-    WORLD_TO_UI,
-};
-
-void convert_position(app::Vector2* position, ConvertPositionType type)
-{
-    app::Vector3 pos = { position->x, position->y, 0.0f };
-
-    auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
-    if (!il2cpp::unity::is_valid(cameras->static_fields->Current) || !il2cpp::unity::is_valid(cameras->static_fields->System->fields.GUICamera))
-        return;
-
-    auto world_camera = GameplayCamera::get_Camera(cameras->static_fields->Current);
-    auto ui_camera = cameras->static_fields->System->fields.GUICamera->fields.Camera;
-    if (!il2cpp::unity::is_valid(world_camera) || !il2cpp::unity::is_valid(ui_camera))
-        return;
-
-    switch (type) {
-        case UI_TO_WORLD:
-            pos = Camera::WorldToScreenPoint(ui_camera, &pos);
-            pos = Camera::ScreenToWorldPoint(world_camera, &pos);
-            break;
-        case WORLD_TO_UI:
-            pos = Camera::WorldToScreenPoint(world_camera, &pos);
-            pos = Camera::ScreenToWorldPoint(ui_camera, &pos);
-            break;
-    }
-
-    position->x = pos.x;
-    position->y = pos.y;
-}
-
-INJECT_C_DLLEXPORT void world_to_ui_position(app::Vector2* position)
-{
-    return convert_position(position, WORLD_TO_UI);
-}
-
-INJECT_C_DLLEXPORT void ui_to_world_position(app::Vector2* position)
-{
-    return convert_position(position, UI_TO_WORLD);
 }
 
 app::MessageBox* get_message_box(RandoMessage& message)
@@ -830,7 +770,7 @@ INJECT_C_DLLEXPORT bool should_handle_messages()
         const auto builder_is_open = UI::get_BuilderScreenVisible();
         const auto gardener_is_open = UI::get_GardenerScreenVisible();
 
-        if (area_map_open ||
+        if (is_area_map_open() ||
             map_is_open ||
             shard_is_open ||
             weapon_is_open ||

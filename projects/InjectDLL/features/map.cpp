@@ -17,6 +17,8 @@ extern void refresh_icon_alphas(bool is_map_visible);
 
 namespace
 {
+    bool area_map_open = false;
+
     enum class LupoSelection
     {
         Intro = 0,
@@ -204,4 +206,9 @@ INJECT_C_DLLEXPORT bool discover_everything() {
         trace(MessageType::Warning, 3, "game", "Tried to discover all, but haven't found the GameWorld Instance yet :(");
         return false;
     }
+}
+
+bool is_area_map_open()
+{
+    return area_map_open;
 }

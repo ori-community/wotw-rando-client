@@ -129,9 +129,9 @@ namespace RandoMainDLL {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void get_screen_position(ScreenPosition position, ref Vector3 output);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static Vector2 world_to_ui_position(ref Vector2 pos);
+      public extern static Vector2 world_to_ui_position_2d(ref Vector2 pos);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static Vector2 ui_to_world_position(ref Vector2 pos);
+      public extern static Vector2 ui_to_world_position_2d(ref Vector2 pos);
     }
 
     public static class Map {

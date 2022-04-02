@@ -19,7 +19,7 @@ namespace dev
     namespace visualize
     {
         namespace {
-            using visualize_func = void (*)(Visualizer& visualizer, Il2CppObject* obj);
+            using visualize_func = void (*)(Visualizer& visualizer, void* obj);
 
             IL2CPP_BINDING(, NewSetupStateController, app::Int32__Array*, GetAllStateGUIDs, (app::NewSetupStateController* this_ptr));
             IL2CPP_BINDING(, NewSetupStateController, app::String*, GetStateName, (app::NewSetupStateController* this_ptr, int32_t state_guid));
@@ -73,14 +73,14 @@ namespace dev
                 visualizer.visualizer_queue.insert(it, std::make_pair(reinterpret_cast<Il2CppObject*>(obj), state));
             }
 
-			void visualize_unity_object(Visualizer& visualizer, Il2CppObject* obj)
+			void visualize_unity_object(Visualizer& visualizer, void* obj)
 			{
 				auto name = il2cpp::unity::get_object_name(obj);
 				indent(visualizer);
 				visualizer.stream << get_full_name(obj) << " - " << name << visualizer.new_line;
 			}
 
-            void visualize_game_object(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_game_object(Visualizer& visualizer, void* obj)
             {
                 auto game_object = reinterpret_cast<app::GameObject*>(obj);
                 switch (visualizer.current_state.id)
@@ -90,7 +90,10 @@ namespace dev
                     auto name = il2cpp::unity::get_object_name(game_object);
                     indent(visualizer);
                     visualizer.stream << get_full_name(obj) << " - " << name << visualizer.new_line;
-                    indent(visualizer, 1, 1);
+                    auto layer = il2cpp::invoke<app::Int32__Boxed>(game_object, "get_layer")->fields;
+                    indent(visualizer, 1);
+                    visualizer.stream << "layer: " << layer << visualizer.new_line;
+                    indent(visualizer, 0, 1);
                     auto components = il2cpp::unity::get_components(game_object);
                     visualizer.stream << "components (" << components.size() << "):" << visualizer.new_line;
                     for (auto component : components)
@@ -117,42 +120,37 @@ namespace dev
                 }
             }
 
-            void visualize_vector2(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_vector2(Visualizer& visualizer, void* obj)
             {
-                auto vec = reinterpret_cast<app::Vector2*>(&obj);
-                indent(visualizer);
+                auto vec = reinterpret_cast<app::Vector2*>(obj);
                 visualizer.stream << "{ " << vec->x << ", " << vec->y << " }" << visualizer.new_line;
             }
 
-            void visualize_vector3(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_vector3(Visualizer& visualizer, void* obj)
             {
-                auto vec = reinterpret_cast<app::Vector3*>(&obj);
-                indent(visualizer);
+                auto vec = reinterpret_cast<app::Vector3*>(obj);
                 visualizer.stream << "{ " << vec->x << ", " << vec->y << ", " << vec->z << " }" << visualizer.new_line;
             }
 
-            void visualize_vector4(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_vector4(Visualizer& visualizer, void* obj)
             {
-                auto vec = reinterpret_cast<app::Vector4*>(&obj);
-                indent(visualizer);
+                auto vec = reinterpret_cast<app::Vector4*>(obj);
                 visualizer.stream << "{ " << vec->x << ", " << vec->y << ", " << vec->z << ", " << vec->w << " }" << visualizer.new_line;
             }
 
-            void visualize_color32(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_color32(Visualizer& visualizer, void* obj)
             {
-                auto color = reinterpret_cast<app::Color32*>(&obj);
-                indent(visualizer);
+                auto color = reinterpret_cast<app::Color32*>(obj);
                 visualizer.stream << "{ " << color->r << ", " << color->g << ", " << color->b << ", " << color->a << " }" << visualizer.new_line;
             }
 
-            void visualize_int(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_int(Visualizer& visualizer, void* obj)
             {
-                auto i = reinterpret_cast<int*>(&obj);
-                indent(visualizer);
+                auto i = reinterpret_cast<int*>(obj);
                 visualizer.stream << i << visualizer.new_line;
             }
 
-            void visualize_array(Visualizer& visualizer, app::Array* arr, const char* name, visualize_func vis)
+            void visualize_array(Visualizer& visualizer, app::Array* arr, const char* name, visualize_func vis, bool is_value_type = true, bool do_element_indent = true)
             {
                 if (!il2cpp::unity::is_valid(arr))
                 {
@@ -165,13 +163,54 @@ namespace dev
                 visualizer.stream << name << ": {" << visualizer.new_line;
                 auto element = reinterpret_cast<char*>(arr->vector);
                 for (int i = 0; i < arr->max_length; ++i)
-                    vis(visualizer, reinterpret_cast<Il2CppObject*>(element[i * arr->klass->_1.element_size]));
+                {
+                    if (do_element_indent)
+                        indent(visualizer);
+
+                    if (is_value_type)
+                        vis(visualizer, reinterpret_cast<Il2CppObject*>(&element[i * arr->klass->_1.element_size]));
+                    else if (is_value_type)
+                        vis(visualizer, reinterpret_cast<Il2CppObject*>(element[i * arr->klass->_1.element_size]));
+                }
 
                 indent(visualizer, -1);
                 visualizer.stream << "}" << visualizer.new_line;
             }
 
-            void visualize_unity_mesh(Visualizer& visualizer, Il2CppObject* obj)
+            IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_position, (app::Transform* this_ptr));
+            IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_localPosition, (app::Transform* this_ptr));
+            IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_localScale, (app::Transform* this_ptr));
+            IL2CPP_BINDING(UnityEngine, Transform, app::Quaternion, get_rotation, (app::Transform* this_ptr));
+            IL2CPP_BINDING(UnityEngine, Quaternion, app::Vector3, get_eulerAngles, (app::Quaternion__Boxed* this_ptr));
+            void visualize_transform(Visualizer& visualizer, void* obj)
+            {
+                auto transform = reinterpret_cast<app::Transform*>(obj);
+                auto name = il2cpp::unity::get_object_name(transform);
+                indent(visualizer);
+                visualizer.stream << get_full_name(obj) << " - " << name << visualizer.new_line;
+
+                auto world_position = Transform::get_position(transform);
+                auto position = Transform::get_localPosition(transform);
+                auto scale = Transform::get_localScale(transform);
+                auto rotation = Transform::get_rotation(transform);
+                auto boxed_rotation = il2cpp::box_value<app::Quaternion__Boxed>(il2cpp::get_class("UnityEngine", "Quaternion"), rotation);
+                auto euler = Quaternion::get_eulerAngles(boxed_rotation);
+
+                indent(visualizer, 1);
+                visualizer.stream << "world_position: ";
+                visualize_vector3(visualizer, &world_position);
+                indent(visualizer);
+                visualizer.stream << "position: ";
+                visualize_vector3(visualizer, &position);
+                indent(visualizer);
+                visualizer.stream << "scale: ";
+                visualize_vector3(visualizer, &scale);
+                indent(visualizer);
+                visualizer.stream << "rotation: ";
+                visualize_vector3(visualizer, &euler);
+            }
+
+            void visualize_unity_mesh(Visualizer& visualizer, void* obj)
             {
                 if (!il2cpp::unity::is_valid(obj))
                 {
@@ -215,7 +254,7 @@ namespace dev
                 visualizer.stream << "}" << visualizer.new_line;
             }
 
-            void visualize_unity_mesh_filter(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_unity_mesh_filter(Visualizer& visualizer, void* obj)
             {
                 auto name = il2cpp::unity::get_object_name(obj);
                 auto mesh_filter = reinterpret_cast<app::MeshFilter*>(obj);
@@ -237,7 +276,7 @@ namespace dev
                 visualizer.current_state.indent_level -= 1;
             }
 
-            void visualize_unity_material(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_unity_material(Visualizer& visualizer, void* obj)
             {
                 auto name = il2cpp::unity::get_object_name(obj);
                 auto renderer = reinterpret_cast<app::Material*>(obj);
@@ -255,7 +294,7 @@ namespace dev
                 visualizer.stream << "renderQueue: " << render_queue << visualizer.new_line;
             }
 
-            void visualize_unity_renderer(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_unity_renderer(Visualizer& visualizer, void* obj)
             {
                 auto name = il2cpp::unity::get_object_name(obj);
                 auto renderer = reinterpret_cast<app::Renderer*>(obj);
@@ -289,7 +328,7 @@ namespace dev
                 visualize_unity_material(visualizer, reinterpret_cast<Il2CppObject*>(shared_mat));
             }
 
-            void visualize_scene_root(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_scene_root(Visualizer& visualizer, void* obj)
             {
                 auto name = il2cpp::unity::get_object_name(obj);
                 indent(visualizer);
@@ -301,7 +340,7 @@ namespace dev
                     visualize_object_internal(visualizer, scene_root->fields.SceneResources->fields._items->vector[i]);
             }
 
-            void visualize_new_setup_state_controller(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_new_setup_state_controller(Visualizer& visualizer, void* obj)
             {
                 auto controller = reinterpret_cast<app::NewSetupStateController*>(obj);
                 auto guid_str = il2cpp::convert_csstring(controller->fields.m_guidStr);
@@ -337,7 +376,7 @@ namespace dev
                 }
             }
 
-            void visualize_setup_state_modifier(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_setup_state_modifier(Visualizer& visualizer, void* obj)
             {
                 auto item = reinterpret_cast<app::SetupStateModifier*>(obj);
 
@@ -383,7 +422,7 @@ namespace dev
                 }
             }
 
-            void visualize_setup_state_modifier_data(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_setup_state_modifier_data(Visualizer& visualizer, void* obj)
             {
                 auto item = reinterpret_cast<app::SetupStateModifierData*>(obj);
                 indent(visualizer, 0, 1);
@@ -393,7 +432,7 @@ namespace dev
                 //item->fields.m_modifierDataClassID.
             }
 
-            void visualize_state_condition(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_state_condition(Visualizer& visualizer, void* obj)
             {
                 auto item = reinterpret_cast<app::StateCondition*>(obj);
                 indent(visualizer, 0, 1);
@@ -403,7 +442,7 @@ namespace dev
                 visualize_object_internal(visualizer, item->fields.DesiredState);
             }
 
-            void visualize_uber_state_bool_condition(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_uber_state_bool_condition(Visualizer& visualizer, void* obj)
             {
                 auto item = reinterpret_cast<app::UberStateBoolCondition*>(obj);
                 indent(visualizer, 0, 1);
@@ -413,7 +452,7 @@ namespace dev
                 visualize_object_internal(visualizer, item->fields.BooleanDescriptor);
             }
 
-            void visualize_uber_state_value_condition(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_uber_state_value_condition(Visualizer& visualizer, void* obj)
             {
                 auto item = reinterpret_cast<app::UberStateValueCondition*>(obj);
                 indent(visualizer, 0, 1);
@@ -444,7 +483,7 @@ namespace dev
                 }
             }
 
-            void visualize_desired_uber_state_composite(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_desired_uber_state_composite(Visualizer& visualizer, void* obj)
             {
                 auto item = reinterpret_cast<app::DesiredUberStateComposite*>(obj);
                 switch (visualizer.current_state.id)
@@ -484,7 +523,7 @@ namespace dev
 
             }
 
-            void visualize_desired_bool_uber_state(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_desired_bool_uber_state(Visualizer& visualizer, void* obj)
             {
                 auto item = reinterpret_cast<app::DesiredUberStateBool*>(obj);
                 indent(visualizer);
@@ -492,7 +531,7 @@ namespace dev
                 visualize_object_internal(visualizer, item->fields._.Descriptor);
             }
 
-            void visualize_desired_byte_uber_state(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_desired_byte_uber_state(Visualizer& visualizer, void* obj)
             {
                 auto item = reinterpret_cast<app::DesiredUberStateByte*>(obj);
                 indent(visualizer, 0, 1);
@@ -514,7 +553,7 @@ namespace dev
                 }
             }
 
-            void visualize_desired_float_uber_state(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_desired_float_uber_state(Visualizer& visualizer, void* obj)
             {
                 auto item = reinterpret_cast<app::DesiredUberStateFloat*>(obj);
                 indent(visualizer);
@@ -522,7 +561,7 @@ namespace dev
                 visualize_object_internal(visualizer, item->fields.Descriptor);
             }
 
-            void visualize_desired_int_uber_state(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_desired_int_uber_state(Visualizer& visualizer, void* obj)
             {
                 auto item = reinterpret_cast<app::DesiredUberStateInt*>(obj);
                 indent(visualizer);
@@ -530,7 +569,7 @@ namespace dev
                 visualize_object_internal(visualizer, item->fields.Descriptor);
             }
 
-            void visualize_serialized_uber_state(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_serialized_uber_state(Visualizer& visualizer, void* obj)
             {
                 auto state = reinterpret_cast<app::IUberState*>(obj);
                 auto csstate = il2cpp::invoke<app::String>(state, "get_Name");
@@ -551,7 +590,7 @@ namespace dev
                 visualizer.stream << "}" << visualizer.new_line;
             }
 
-            void visualize_respawner(Visualizer& visualizer, Il2CppObject* obj)
+            void visualize_respawner(Visualizer& visualizer, void* obj)
             {
                 auto respawner = reinterpret_cast<app::Respawner*>(obj);
 
@@ -623,6 +662,7 @@ namespace dev
 
                 { "SceneRoot", visualize_scene_root },
                 { "UnityEngine.GameObject", visualize_game_object },
+                { "UnityEngine.Transform", visualize_transform },
 				{ "UnityEngine.Object", visualize_unity_object },
                 { "UnityEngine.Mesh", visualize_unity_mesh },
                 { "UnityEngine.MeshFilter", visualize_unity_mesh_filter },

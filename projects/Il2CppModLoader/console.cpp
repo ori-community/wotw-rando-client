@@ -1,7 +1,9 @@
 #include <common.h>
 #include <Common/ext.h>
 #include <console.h>
+#include <interception_macros.h>
 
+#include <mutex>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -21,10 +23,15 @@ namespace modloader::console
             return command;
         }
 
+        struct Action {
+            bool should_run_on_main_thread;
+            dev_command func;
+        };
+
         struct Command
         {
             std::map<std::string, Command> sub_commands;
-            std::vector<dev_command> actions;
+            std::vector<Action> actions;
         };
 
         Command root;
@@ -40,13 +47,13 @@ namespace modloader::console
         std::regex float_regex("^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$");
     }
 
-    void register_command(std::vector<std::string> const& path, dev_command command)
+    void register_command(std::vector<std::string> const& path, dev_command command, bool should_run_on_game_thread)
     {
         Command* current = &root;
         for (const auto& entry : path)
             current = &current->sub_commands[entry];
 
-        current->actions.push_back(command);
+        current->actions.push_back(Action{ should_run_on_game_thread, command });
     }
 
     Command* find_command(std::vector<std::string> const& path)
@@ -62,6 +69,26 @@ namespace modloader::console
         }
 
         return current;
+    }
+
+    using command_queue = std::vector<std::tuple<std::string, std::vector<CommandParam>, dev_command>>;
+    std::mutex command_mutex;
+    command_queue queued_commands;
+    IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController* this_ptr)) {
+        GameController::Update(this_ptr);
+        command_mutex.lock();
+        if (queued_commands.empty())
+        {
+            command_mutex.unlock();
+            return;
+        }
+
+        command_queue local = queued_commands;
+        queued_commands.clear();
+        command_mutex.unlock();
+
+        for (auto const& command : local)
+            std::get<2>(command)(std::get<0>(command), std::get<1>(command));
     }
 
     bool handle_message(std::string const& message)
@@ -103,7 +130,16 @@ namespace modloader::console
             }
 
             for (auto const& action : command->actions)
-                action(path_str, params);
+            {
+                if (action.should_run_on_main_thread)
+                {
+                    command_mutex.lock();
+                    queued_commands.push_back(std::make_tuple(path_str, params, action.func));
+                    command_mutex.unlock();
+                }
+                else
+                    action.func(path_str, params);
+            }
 
             return true;
         }

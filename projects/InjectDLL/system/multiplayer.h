@@ -26,12 +26,14 @@ namespace multiplayer
         app::Vector2 position;
         bool online = true;
         bool visible = true;
+        bool map_visible = false;
         app::Color color;
         PlayerIcon icon;
 
         // Internal
         Icon avatar;
         Icon map_avatar;
+        float map_scale;
         float last_facing_pos = 0.0f;
         float last_facing = 1.0f;
         int facing = 1;

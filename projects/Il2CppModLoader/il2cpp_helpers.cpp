@@ -22,7 +22,7 @@ namespace il2cpp
         STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Equality, (void* o1, void* o2));
         STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Inequality, (void* o1, void* o2));
         STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Implicit, (void* this_ptr));
-        STATIC_IL2CPP_BINDING(UnityEngine, Object, app::Object*, Instantiate, (app::Object* this_ptr));
+        STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (void* object), (UnityEngine:Object));
         STATIC_IL2CPP_BINDING(UnityEngine, Object, void, Destroy, (app::Object* this_ptr));
         IL2CPP_BINDING(UnityEngine, Object, app::String*, get_name, (app::Object* this_ptr));
 

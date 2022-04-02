@@ -357,7 +357,7 @@ namespace RandoMainDLL {
         if (displayMessageInGameWorld) {
           var pos = new Vector2(pickupMessage.Position.Value);
           var offset = new Vector3();
-          InterOp.Messaging.world_to_ui_position(ref pos);
+          InterOp.Messaging.world_to_ui_position_2d(ref pos);
           InterOp.Messaging.get_screen_position(ScreenPosition.TopCenter, ref offset);
           desc.Position = new Vector3(pos, 0) - offset;
           desc.FadeIn = 0.2f;

@@ -33,7 +33,8 @@ namespace
     IL2CPP_BINDING(, PlayerSpiritShards, void, RefreshHasShard, (app::PlayerSpiritShards* thisPtr));
     IL2CPP_BINDING(, PlayerSpiritShards, void, SetGlobalShardSlotCount, (app::PlayerSpiritShards* thisPtr, int32_t count));
     IL2CPP_BINDING(, PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
-    IL2CPP_BINDING(, PlayerSpiritShards, bool, IsGlobalShardEquipped, (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type));
+    IL2CPP_BINDING_OVERLOAD(, PlayerSpiritShards, bool, IsGlobalShardEquipped, (app::PlayerSpiritShards* this_ptr, app::SpiritShardType__Enum value),
+        (SpiritShardType));
     IL2CPP_BINDING_OVERLOAD(, PlayerSpiritShards, app::PlayerUberStateShards_Shard*, AddNewShardToInventory,
         (app::PlayerSpiritShards* thisPtr, csharp_bridge::ShardType type), (SpiritShardType));
     IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateAbilities, void, SetAbilityLevel, (app::PlayerUberStateAbilities* this_ptr, app::AbilityType__Enum type, int level));
@@ -336,7 +337,7 @@ INJECT_C_DLLEXPORT bool is_shard_equipped(csharp_bridge::ShardType type)
 {
     auto shards = get_player_spirit_shards();
     if (shards != nullptr)
-        return PlayerSpiritShards::IsGlobalShardEquipped(shards, type);
+        return PlayerSpiritShards::IsGlobalShardEquipped(shards, static_cast<app::SpiritShardType__Enum>(type));
     else
         return false;
 }

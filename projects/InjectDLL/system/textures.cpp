@@ -217,6 +217,9 @@ namespace textures
             auto separator = path.find(':', 0);
             auto type = std::wstring(path.substr(0, separator));
             auto value = std::wstring(path.substr(separator + 1));
+            if (type.empty())
+                return;
+
             if (type == L"shard")
             {
                 auto actual_value = static_cast<app::SpiritShardType__Enum>(std::stoi(value));
@@ -328,7 +331,10 @@ namespace textures
                 files[path] = texture.value();
             }
             else
-                modloader::warn("textures", "unknown texture protocol used when loading texture.");
+            {
+                auto stype = convert_wstring_to_string(type);
+                modloader::warn("textures", format("unknown texture protocol used when loading texture '%s'.", stype.c_str()));
+            }
         }
         catch (std::exception e)
         {
