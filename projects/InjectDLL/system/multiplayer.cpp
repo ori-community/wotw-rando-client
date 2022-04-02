@@ -127,7 +127,7 @@ namespace multiplayer
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
 
         auto& dot = player.dots[player.next_dot_index];
-        GameObject::SetActive(dot.dot, true);
+        GameObject::SetActive(dot.dot, player.map_visible);
         app::Vector3 pos{ player.position.x, player.position.y, 0.0f };
         IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
     
