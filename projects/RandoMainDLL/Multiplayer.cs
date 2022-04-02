@@ -70,14 +70,13 @@ namespace RandoMainDLL {
         float b = (int.Parse(world.Color.Substring(5, 2), System.Globalization.NumberStyles.HexNumber)) / 255.0f;
         float a = 1.0f;
         foreach (var member in world.Members) {
-          if (member.Id != Id)
-            players.Add(member.Id, new PlayerInfo {
-              UniverseId = universe.Id,
-              WorldId = world.Id,
-              User = member,
-              Color = new RGBA { R = r, G = g, B = b, A = a }
-            });
-          else {
+          players.Add(member.Id, new PlayerInfo {
+            UniverseId = universe.Id,
+            WorldId = world.Id,
+            User = member,
+            Color = new RGBA { R = r, G = g, B = b, A = a }
+          });
+          if (member.Id == Id) {
             UniverseId = universe.Id;
             WorldId = world.Id;
             InterOp.Multiplayer.set_local_player_color(r, g, b, a);
@@ -89,17 +88,26 @@ namespace RandoMainDLL {
       var toRemove = currentPlayers.Keys.Except(players.Keys);
 
       foreach (var player in toRemove) {
+        if (player == Id)
+          continue;
+
         InterOp.Multiplayer.remove_player(player);
         Randomizer.Log($"Removed player {player}", false);
       }
 
       foreach (var player in toAdd) {
+        if (player == Id)
+          continue;
+
         InterOp.Multiplayer.add_player(player, players[player].User.Name, InterOp.Multiplayer.PlayerIcon.Moki);
         Randomizer.Log($"Added player {player}", false);
       }
 
       currentPlayers = players;
       foreach (var player in players) {
+        if (player.Key == Id)
+          continue;
+
         InterOp.Multiplayer.set_player_online(player.Key, player.Value.User.HasConnectedMultiverseId);
         Randomizer.Log($"Player {player} is online: {player.Value.User.HasConnectedMultiverseId}", false);
         InterOp.Multiplayer.set_player_color(player.Key,
@@ -119,7 +127,7 @@ namespace RandoMainDLL {
     }
 
     public static void UpdatePlayerPosition(string id, float x, float y) {
-      if (currentPlayers.Any(p => p.Key == id)) {
+      if (id != Id && currentPlayers.Any(p => p.Key == id)) {
         InterOp.Multiplayer.update_player_position(id, x, y);
       }
       else {
