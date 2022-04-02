@@ -222,7 +222,7 @@ namespace RandoMainDLL {
 
         var useCatch = new PlayerUseCatchingAbilityMessage();
         Packet packet = new Packet {
-          Id = Packet.Types.PacketID.PlayerPositionMessage,
+          Id = Packet.Types.PacketID.PlayerUseCatchingAbility,
           Packet_ = useCatch.ToByteString()
         };
         SendQueue.Add(packet);
