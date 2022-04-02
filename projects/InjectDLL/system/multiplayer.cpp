@@ -30,7 +30,7 @@ INJECT_C_DLLEXPORT void set_player_online(const wchar_t* id, bool online);
 namespace multiplayer
 {
     constexpr float TEXT_OFFSET = 1.2f;
-    constexpr float TEXT_SCALE = 1.0f;
+    constexpr float TEXT_SCALE = 4.0f;
     constexpr float SPRITE_OFFSET = 0.4f;
     constexpr float SPRITE_SCALE = 1.6f;
 
@@ -170,11 +170,11 @@ namespace multiplayer
         }
         }
 
-        set_layer_recursive(icon.root, layer);
         auto text_box = il2cpp::unity::get_component<app::TextBox>(icon.text, "CatlikeCoding.TextBox", "TextBox");
         GameObject::SetActive(icon.text, true);
         TextBox::SetText(text_box, il2cpp::string_new(info.name));
         TextBox::RenderText(text_box);
+        set_layer_recursive(icon.root, layer);
 
         icon.handle = il2cpp::gchandle_new(icon.root, false);
         return icon;
@@ -198,6 +198,9 @@ namespace multiplayer
             Transform::set_position(transform, &pos);
             utils::set_color(info.avatar.icon, info.color, false);
 
+            auto text_box = il2cpp::unity::get_component<app::TextBox>(info.map_avatar.text, "CatlikeCoding.TextBox", "TextBox");
+            text_box->fields.color = { 1.f, 1.f, 1.f, 1.f };
+
             pos = { 0.f, SPRITE_OFFSET, 0.f};
             transform = il2cpp::unity::get_transform(info.avatar.icon);
             Transform::set_localPosition(transform, &pos);
@@ -217,6 +220,7 @@ namespace multiplayer
         {
             info.map_avatar = create_avatar_icon(info, static_cast<int>(Layer::UI));
             GameObject::SetActive(info.map_avatar.root, info.map_visible);
+            
             auto transform = il2cpp::unity::get_transform(info.map_avatar.icon);
             auto scale = Transform::get_localScale(transform);
             info.map_scale = scale.x;
@@ -355,6 +359,8 @@ namespace multiplayer
         for (auto& player : players)
         {
             update_avatar_facing(player);
+
+            // Visibility toggles.
             bool visible = player.online && should_show;
             if (visible != player.visible)
             {
@@ -374,13 +380,6 @@ namespace multiplayer
                     GameObject::SetActive(dot.dot, map_visible);
 
                 player.map_visible = map_visible;
-            }
-
-            if (player.avatar.handle != 0)
-            {
-                app::Vector3 text_position{ player.position.x, player.position.y + TEXT_OFFSET, 0.f };
-                text_position = world_to_ui_position(text_position);
-                Transform::set_position(il2cpp::unity::get_transform(player.avatar.text), &text_position);
             }
         }
     }
@@ -457,6 +456,7 @@ INJECT_C_DLLEXPORT void add_player(const wchar_t* id, const wchar_t* name, multi
         info.name = name;
         info.online = true;
         info.color = { 1.0f, 1.0f, 1.0f, 1.0f};
+        info.icon = icon;
         multiplayer::destroy_icons(info);
         multiplayer::create_icons(info);
     }
@@ -468,6 +468,7 @@ INJECT_C_DLLEXPORT void add_player(const wchar_t* id, const wchar_t* name, multi
         info.position = { 0 };
         info.online = true;
         info.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+        info.icon = icon;
         multiplayer::player_map[id] = multiplayer::players.size() - 1;
         multiplayer::create_avatar(info);
     }
