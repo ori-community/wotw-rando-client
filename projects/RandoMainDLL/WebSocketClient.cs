@@ -203,6 +203,18 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("SendSeedRequest", e, false); }
     }
 
+    public static void SendPlayerUseCatch() {
+      try {
+        var useCatch = new PlayerUseCatchingAbilityMessage();
+        Packet packet = new Packet {
+          Id = Packet.Types.PacketID.PlayerPositionMessage,
+          Packet_ = useCatch.ToByteString()
+        };
+        SendQueue.Add(packet);
+      }
+      catch (Exception e) { Randomizer.Error("SendPlayerUseCatch", e, false); }
+    }
+
     private static void HandleMessage(object sender, MessageEventArgs args) {
       try {
         var data = args.RawData;
@@ -268,6 +280,9 @@ namespace RandoMainDLL {
             SeedController.SeedFile = "server: " + seedMessage.Name;
             File.WriteAllText(Randomizer.SeedPathFile, SeedController.SeedFile);
             SeedController.ParseLines(seedMessage.Seed.Split('\n'), seedMessage.Init);
+            break;
+          case Packet.Types.PacketID.PlayerUsedCatchingAbility:
+            HideAndSeek.Queue.Add(packet);
             break;
           case Packet.Types.PacketID.PlayerCaught:
             HideAndSeek.Queue.Add(packet);

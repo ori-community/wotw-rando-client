@@ -170,8 +170,7 @@ namespace RandoMainDLL {
         return;
 
       showSeekerAbilityAnimation(InterOp.Player.get_position());
-      // Maybe send this on the WebSocket instead?
-      UDPSocketClient.SendPlayerUseCatch();
+      WebSocketClient.SendPlayerUseCatch();
       cooldown = seekerCooldown;
     }
 
