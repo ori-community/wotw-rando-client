@@ -554,7 +554,7 @@ INJECT_C_DLLEXPORT void remove_player(const wchar_t* id)
         auto player_it = multiplayer::players.begin() + it->second;
         multiplayer::destroy_avatar(*player_it);
         multiplayer::player_map.erase(player_it->id);
-        player_it = multiplayer::players.erase(multiplayer::players.begin() + it->second);
+        player_it = multiplayer::players.erase(player_it);
         for (; player_it != multiplayer::players.end(); ++player_it)
         {
             auto index = multiplayer::player_map[player_it->id] - 1;
