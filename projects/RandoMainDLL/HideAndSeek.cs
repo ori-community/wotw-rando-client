@@ -6,9 +6,12 @@ using AutoHotkey.Interop;
 using RandoMainDLL.Memory;
 using System.Linq;
 using RandoMainDLL.Wheel;
+using System.Collections.Concurrent;
+using Network;
 
 namespace RandoMainDLL {
   public static class HideAndSeek {
+    public static BlockingCollection<Packet> Queue = new BlockingCollection<Packet>();
 
     private static readonly string FIREWORK_ANIMATION = "assets/animations/firework.json";
     private static readonly float FIREWORK_HEIGHT = 1.5f;
@@ -17,7 +20,7 @@ namespace RandoMainDLL {
 
     private class Firework {
       public int ID;
-      public Vector2 Position;
+      public Memory.Vector2 Position;
       public float Scale;
       public float Angle;
       public float Time;
@@ -43,7 +46,7 @@ namespace RandoMainDLL {
 
     private static bool updateAnimation(CaughtAnimation animation, float dt) {
       animation.ElapsedTime += dt;
-      Vector2 position = animation.Player == Multiplayer.Id || animation.Player == null
+      Memory.Vector2 position = animation.Player == Multiplayer.Id || animation.Player == null
         ? InterOp.Player.get_position()
         : InterOp.Multiplayer.get_player_position(animation.Player);
 
@@ -66,7 +69,7 @@ namespace RandoMainDLL {
       return false;
     }
 
-    private static Vector2 freezePosition;
+    private static Memory.Vector2 freezePosition;
     private static float freezeTimer = 0f;
     public static void Update(float delta) {
       IsPlaying = true;
@@ -77,10 +80,11 @@ namespace RandoMainDLL {
         return;
       }
 
+      HandlePackets();
       if (freezeTimer > 0f) {
         freezeTimer -= delta;
         InterOp.Player.set_position(freezePosition);
-        InterOp.Player.set_velocity(new Vector2());
+        InterOp.Player.set_velocity(new Memory.Vector2());
       }
 
       cooldown -= delta;
@@ -101,7 +105,7 @@ namespace RandoMainDLL {
       animations.Clear();
     }
 
-    public static void PlayerCaught(string id) {
+    private static void playerCaught(string id) {
       if (id == Multiplayer.Id || id == null) {
         freezeTimer = 2f;
         freezePosition = InterOp.Player.get_position();
@@ -119,28 +123,28 @@ namespace RandoMainDLL {
       InterOp.Messaging.text_box_text(animation.Textbox, "Caught");
       InterOp.Messaging.text_box_color(animation.Textbox, 240, 240, 30, 255);
       InterOp.Messaging.text_box_size(animation.Textbox, 5f);
-      Vector2 position = Multiplayer.Id == animation.Player
+      Memory.Vector2 position = Multiplayer.Id == animation.Player
         ? InterOp.Player.get_position()
         : InterOp.Multiplayer.get_player_position(animation.Player);
       InterOp.Messaging.text_box_position(animation.Textbox, position.X, position.Y + FIREWORK_HEIGHT, -0.1f, true);
 
       animation.Fireworks = new List<Firework>() {
         new Firework {
-          Position = new Vector2(-1.3f, FIREWORK_HEIGHT - 0.5f),
+          Position = new Memory.Vector2(-1.3f, FIREWORK_HEIGHT - 0.5f),
           Scale = 0.4f,
           Angle = 30,
           Time = 0.0f,
           Color = new RGB{ R = 1.0f, G = 0.1f, B = 0.1f }
         }.Create(),
         new Firework {
-          Position = new Vector2(1.3f, FIREWORK_HEIGHT),
+          Position = new Memory.Vector2(1.3f, FIREWORK_HEIGHT),
           Scale = 0.8f,
           Angle = -20,
           Time = 0.3f,
           Color = new RGB{ R = 0.1f, G = 1.0f, B = 0.7f }
         }.Create(),
         new Firework {
-          Position = new Vector2(-1f, FIREWORK_HEIGHT + 0.5f),
+          Position = new Memory.Vector2(-1f, FIREWORK_HEIGHT + 0.5f),
           Scale = 0.6f,
           Angle = 10,
           Time = 0.6f,
@@ -165,9 +169,32 @@ namespace RandoMainDLL {
       if (cooldown > 0f)
         return;
 
-      // TODO: Spawn animation.
-      // TODO: Send server message.
+      showSeekerAbilityAnimation(InterOp.Player.get_position());
+      // Maybe send this on the WebSocket instead?
+      UDPSocketClient.SendPlayerUseCatch();
       cooldown = seekerCooldown;
+    }
+
+    private static void showSeekerAbilityAnimation(Memory.Vector2 position) {
+      // TODO: Spawn animation.
+    }
+
+    private static void HandlePackets() {
+      while (Queue.TryTake(out var packet)) {
+        switch (packet.Id) {
+          case Packet.Types.PacketID.PlayerUsedCatchingAbility:
+            var usedCatch = PlayerUsedCatchingAbilityMessage.Parser.ParseFrom(packet.Packet_);
+            var position = InterOp.Multiplayer.get_player_position(usedCatch.Id);
+            showSeekerAbilityAnimation(position);
+            break;
+          case Packet.Types.PacketID.PlayerCaught:
+            var caught = PlayerCaughtMessage.Parser.ParseFrom(packet.Packet_);
+            playerCaught(caught.Id);
+            break;
+          default:
+            break;
+        }
+      }
     }
   }
 }

@@ -104,6 +104,7 @@ set(
     "enum_definitions.h"
     "macros.h"
     "dev/object_visualizer.h"
+    "enums/layer.h"
     "features/chaos.h"
     "features/instantiate_objects.h"
     "features/controls/ability_overrides.h"

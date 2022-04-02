@@ -30,7 +30,6 @@ namespace RandoMainDLL {
     public static void ClearMultiverse() {
       currentPlayers.Clear();
       InterOp.Multiplayer.clear_players();
-      InterOp.Multiplayer.refresh_players();
     }
 
     public static void UpdateMultivere(MultiverseInfoMessage multiverse) {
@@ -60,7 +59,7 @@ namespace RandoMainDLL {
       }
 
       foreach (var player in toAdd) {
-        InterOp.Multiplayer.add_player(player, players[player].info.Name);
+        InterOp.Multiplayer.add_player(player, players[player].info.Name, InterOp.Multiplayer.PlayerIcon.Moki);
         Randomizer.Log($"Added player {player}", false);
       }
 
@@ -70,8 +69,6 @@ namespace RandoMainDLL {
         Randomizer.Log($"Player {player} is online: {player.Value.info.HasConnectedMultiverseId}", false);
         InterOp.Multiplayer.set_player_color(player.Key, player.Value.r, player.Value.g, player.Value.b, player.Value.a);
       }
-
-      InterOp.Multiplayer.refresh_players();
     }
 
     public static void UpdatePlayerPosition(string id, float x, float y) {
@@ -89,15 +86,15 @@ namespace RandoMainDLL {
 
       while (Queue.TryTake(out var packet)) {
         switch (packet.Id) {
-          case 8:
+          case Packet.Types.PacketID.MultiverseInfoMessage:
             var multiverse = MultiverseInfoMessage.Parser.ParseFrom(packet.Packet_);
             UpdateMultivere(multiverse);
             break;
-          case 11:
+          case Packet.Types.PacketID.UpdatePlayerPositionMessage:
             var position = UpdatePlayerPositionMessage.Parser.ParseFrom(packet.Packet_);
             UpdatePlayerPosition(position.PlayerId, position.X, position.Y);
             break;
-          case 12:
+          case Packet.Types.PacketID.AuthenticatedMessage:
             var authenticated = AuthenticatedMessage.Parser.ParseFrom(packet.Packet_);
             SetCurrentUser(authenticated.User);
             break;

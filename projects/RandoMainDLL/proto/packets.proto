@@ -3,7 +3,36 @@ syntax = "proto3";
 package Network;
 
 message Packet {
-  int32 id = 1;
+  enum PacketID {
+    Invalid = 0;
+    SyncBoardMessage = 1;
+    RequestUpdatesMessage = 2;
+    UberStateUpdateMessage = 3;
+    SyncBingoUniversesMessage = 4;
+    InitBingoMessage = 5;
+    PrintTextMessage_Deprecated = 6;
+    UberStateBatchUpdateMessage = 7;
+    MultiverseInfoMessage = 8;
+    AuthenticateMessage = 9;
+    PlayerPositionMessage = 10;
+    UpdatePlayerPositionMessage = 11;
+    AuthenticatedMessage = 12;
+    PrintTextMessage = 13;
+    PrintPickupMessage = 14;
+    RequestSeedMessage = 15;
+    ReceiveSeedMessage = 16;
+    PlayerUseCatchingAbility = 17;
+    PlayerUsedCatchingAbility = 18;
+    PlayerCaught = 19;
+
+    TrackerUpdate = 100;
+    ResetTracker = 101;
+    TrackerFlagsUpdate = 102;
+    RequestFullUpdate = 103;
+    SetTrackerEndpointId = 104;
+  }
+
+  PacketID id = 1;
   bytes packet = 2;
 }
 
@@ -115,6 +144,16 @@ message MultiverseInfoMessage {
   bool hasBingoBoard = 3;
   repeated UserInfo spectators = 4;
   optional int64 seedId = 5;
+}
+
+message PlayerUseCatchingAbilityMessage {}
+
+message PlayerUsedCatchingAbilityMessage {
+  string id = 1;
+}
+
+message PlayerCaughtMessage {
+  string id = 1;
 }
 
 message UdpPacket {

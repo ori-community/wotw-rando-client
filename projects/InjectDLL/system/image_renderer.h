@@ -1,6 +1,7 @@
 #pragma once
 
 #include <macros.h>
+#include <enums/layer.h>
 
 enum class AnimationEndHandling
 {
@@ -8,33 +9,6 @@ enum class AnimationEndHandling
     DeactivateOnEnd,
     DestroyOnEnd,
     Loop
-};
-
-enum class Layer : int32_t
-{
-    UI = 8,
-    Sein = 9,
-    Solids = 10,
-    Art = 11,
-    Character = 12,
-    CharacterMovement = 13,
-    WorldMap = 14,
-    Items = 15,
-    KillCharacter = 16,
-    KillEverything = 17,
-    PushPullBlock = 18,
-    Platform = 19,
-    ResampleBuffer = 20,
-    CharacterMovementIgnorePlatforms = 21,
-    ArtReflected = 22,
-    Debris = 23,
-    DebrisNoCollsion = 24,
-    ArtBlurred = 25,
-    Projectile = 26,
-    EarlyZ = 27,
-    ArtBlurredReflected = 28,
-    Laser = 30,
-    TerrainCollisionIgnorePlayerAndEnemies = 31
 };
 
 INJECT_C_DLLEXPORT bool sprite_preload(const char* path);

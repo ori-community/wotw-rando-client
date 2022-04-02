@@ -162,19 +162,19 @@ namespace RandoMainDLL {
         var batch = new UberStateBatchUpdateMessage();
         batch.Updates.AddRange(updates.Select((kv) => kv.Key.MakeUpdateMsg(kv.Value)));
         Packet packet = new Packet {
-          Id = 7,
+          Id = Packet.Types.PacketID.UberStateBatchUpdateMessage,
           Packet_ = batch.ToByteString()
         };
         SendQueue.Add(packet);
 
       }
       catch (Exception e) { Randomizer.Error("SendBulk", e, false);  }
+    }
 
-}
     public static void SendUpdate(Memory.UberId id, double value) {
       try {
         Packet packet = new Packet {
-          Id = 3,
+          Id = Packet.Types.PacketID.UberStateUpdateMessage,
           Packet_ = id.MakeUpdateMsg(value).ToByteString()
         };
         SendQueue.Add(packet);
@@ -184,7 +184,7 @@ namespace RandoMainDLL {
     public static void SendAuthenticate(string jwt) {
       try {
         Packet packet = new Packet {
-          Id = 9,
+          Id = Packet.Types.PacketID.AuthenticateMessage,
           Packet_ = new AuthenticateMessage() { Jwt = jwt }.ToByteString()
         };
         SendQueue.Add(packet);
@@ -195,7 +195,7 @@ namespace RandoMainDLL {
     public static void SendSeedRequest(bool init) {
       try {
         Packet packet = new Packet {
-          Id = 15,
+          Id = Packet.Types.PacketID.RequestSeedMessage,
           Packet_ = new RequestSeedMessage() { Init = init }.ToByteString()
         };
         SendQueue.Add(packet);
@@ -212,12 +212,12 @@ namespace RandoMainDLL {
         }
         var packet = Packet.Parser.ParseFrom(data);
         switch (packet.Id) {
-          case 7:
+          case Packet.Types.PacketID.UberStateBatchUpdateMessage:
             var messages = UberStateBatchUpdateMessage.Parser.ParseFrom(packet.Packet_);
             foreach (var us in messages.Updates)
               UberStateQueue.Add(us);
             break;
-          case 13: {
+          case Packet.Types.PacketID.PrintTextMessage: {
             var message = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
             MessageController.ShowMessage(
               text: message.Text,
@@ -235,7 +235,7 @@ namespace RandoMainDLL {
             );
             break;
           }
-          case 14: {
+          case Packet.Types.PacketID.PrintPickupMessage: {
             var message = PrintPickupMessage.Parser.ParseFrom(packet.Packet_);
             MessageController.ShowPickup(
               text: message.Text,
@@ -246,28 +246,31 @@ namespace RandoMainDLL {
             );
             break;
           }
-          case 5:
+          case Packet.Types.PacketID.InitBingoMessage:
             var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);
             UberStateController.SyncedUberStates = init.UberId.Select(s => s.IdFromMsg()).ToHashSet(); // LINQ BAAAYBEEEEEE
             break;
-          case 3:
+          case Packet.Types.PacketID.UberStateUpdateMessage:
             try {
               UberStateQueue.Add(UberStateUpdateMessage.Parser.ParseFrom(packet.Packet_));
             } catch(Exception e) { Randomizer.Error("UberStateQueue.Add", e); }
             break;
-          case 12:
+          case Packet.Types.PacketID.AuthenticatedMessage:
             var authenticated = AuthenticatedMessage.Parser.ParseFrom(packet.Packet_);
             UDPSocketClient.Start(authenticated.UdpId, authenticated.UdpKey.ToByteArray());
             Multiplayer.Queue.Add(packet);
             break;
-          case 8:
+          case Packet.Types.PacketID.MultiverseInfoMessage:
             Multiplayer.Queue.Add(packet);
             break;
-          case 16:
+          case Packet.Types.PacketID.ReceiveSeedMessage:
             var seedMessage = ReceiveSeedMessage.Parser.ParseFrom(packet.Packet_);
             SeedController.SeedFile = "server: " + seedMessage.Name;
             File.WriteAllText(Randomizer.SeedPathFile, SeedController.SeedFile);
             SeedController.ParseLines(seedMessage.Seed.Split('\n'), seedMessage.Init);
+            break;
+          case Packet.Types.PacketID.PlayerCaught:
+            HideAndSeek.Queue.Add(packet);
             break;
           default:
             break;

@@ -130,12 +130,27 @@ namespace RandoMainDLL {
         playerPosition.X = x;
         playerPosition.Y = y;
         Packet packet = new Packet {
-          Id = 10,
+          Id = Packet.Types.PacketID.PlayerPositionMessage,
           Packet_ = playerPosition.ToByteString()
         };
         SendQueue.Add(packet);
       }
       catch (Exception e) { Randomizer.Error("SendPlayerPosition", e, false); }
+    }
+
+    public static void SendPlayerUseCatch() {
+      if (!IsStarted)
+        return;
+
+      try {
+        var useCatch = new PlayerUseCatchingAbilityMessage();
+        Packet packet = new Packet {
+          Id = Packet.Types.PacketID.PlayerPositionMessage,
+          Packet_ = useCatch.ToByteString()
+        };
+        SendQueue.Add(packet);
+      }
+      catch (Exception e) { Randomizer.Error("SendPlayerUseCatch", e, false); }
     }
 
     private static void HandleMessage(byte[] data) {
@@ -154,7 +169,11 @@ namespace RandoMainDLL {
           EncryptDecrypt(ref data, key);
           var packet = Packet.Parser.ParseFrom(data);
           switch (packet.Id) {
-            case 11:
+            case Packet.Types.PacketID.PlayerUsedCatchingAbility:
+              // Maybe put it in WebSocket instead?
+              HideAndSeek.Queue.Add(packet);
+              break;
+            case Packet.Types.PacketID.UpdatePlayerPositionMessage:
               Multiplayer.Queue.Add(packet);
               break;
             default:

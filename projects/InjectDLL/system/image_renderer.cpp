@@ -313,32 +313,6 @@ namespace {
             sprite_destroy(id);
     }
 }
-    
-NLOHMANN_JSON_SERIALIZE_ENUM(Layer, {
-    { Layer::UI, "UI" },
-    { Layer::Sein, "Sein" },
-    { Layer::Solids, "Solids" },
-    { Layer::Art, "Art" },
-    { Layer::Character, "Character" },
-    { Layer::CharacterMovement, "CharacterMovement" },
-    { Layer::WorldMap, "WorldMap" },
-    { Layer::Items, "Items" },
-    { Layer::KillCharacter, "KillCharacter" },
-    { Layer::KillEverything, "KillEverything" },
-    { Layer::PushPullBlock, "PushPullBlock" },
-    { Layer::Platform, "Platform" },
-    { Layer::ResampleBuffer, "ResampleBuffer" },
-    { Layer::CharacterMovementIgnorePlatforms, "CharacterMovementIgnorePlatforms" },
-    { Layer::ArtReflected, "ArtReflected" },
-    { Layer::Debris, "Debris" },
-    { Layer::DebrisNoCollsion, "DebrisNoCollsion" },
-    { Layer::ArtBlurred, "ArtBlurred" },
-    { Layer::Projectile, "Projectile" },
-    { Layer::EarlyZ, "EarlyZ" },
-    { Layer::ArtBlurredReflected, "ArtBlurredReflected" },
-    { Layer::Laser, "Laser" },
-    { Layer::TerrainCollisionIgnorePlayerAndEnemies, "TerrainCollisionIgnorePlayerAndEnemies" },
-});
 
 NLOHMANN_JSON_SERIALIZE_ENUM(AnimationEndHandling, {
     { AnimationEndHandling::Freeze, "Freeze" },

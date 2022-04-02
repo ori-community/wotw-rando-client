@@ -158,8 +158,15 @@ namespace RandoMainDLL {
     }
 
     public static class Multiplayer {
+      public enum PlayerIcon : int { 
+        Moki,
+        Kii
+      }
+
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void add_player([MarshalAs(UnmanagedType.LPWStr)] string id, [MarshalAs(UnmanagedType.LPWStr)] string name);
+      public extern static void add_player([MarshalAs(UnmanagedType.LPWStr)] string id, [MarshalAs(UnmanagedType.LPWStr)] string name, PlayerIcon icon);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_player_icon([MarshalAs(UnmanagedType.LPWStr)] string id, PlayerIcon icon);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_player_color([MarshalAs(UnmanagedType.LPWStr)] string id, float r, float g, float b, float a);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -168,8 +175,6 @@ namespace RandoMainDLL {
       public extern static void remove_player([MarshalAs(UnmanagedType.LPWStr)] string id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void clear_players();
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void refresh_players();
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void update_player_position([MarshalAs(UnmanagedType.LPWStr)] string id, float x, float y);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]

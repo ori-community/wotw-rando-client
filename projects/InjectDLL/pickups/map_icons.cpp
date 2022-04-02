@@ -95,32 +95,8 @@ namespace
         ExtraIcon* parent;
     };
 
-    constexpr int DOT_COUNT = 64;
-    constexpr float DOT_TIMEOUT = 0.25f;
-    constexpr float DOT_MIN_DISTANCE = 2.0f;
-    struct PlayerMapInfo
-    {
-        struct Dot
-        {
-            app::GameObject* dot;
-            app::Renderer* renderer;
-        };
-
-        int next_index;
-        float time = 0.0f;
-        app::Vector2 pos;
-        app::RuntimeWorldMapIcon* icon;
-        std::vector<Dot> dots;
-        std::wstring name;
-        bool shown;
-    };
-
-    bool map_visible = false;
     bool start_in_logic_filter = true;
     std::unordered_map<app::GameWorldAreaID__Enum, std::unordered_map<int, ExtraIcon>> header_icons;
-    std::unordered_map<app::RuntimeWorldMapIcon*, std::wstring> player_map;
-    std::unordered_map<std::wstring, PlayerMapInfo> player_icon_map;
-
     std::unordered_map<std::string, SpoilerState> spoiler_states;
     std::unordered_map<app::GameWorldAreaID__Enum, std::vector<ExtraIcon>> extra_icons;
     std::unordered_map<app::GameWorldAreaID__Enum, std::vector<ExtraIcon>> extra_spoiler_icons;
@@ -218,24 +194,7 @@ namespace
 
         RuntimeWorldMapIcon::Show(this_ptr);
 
-        auto it = player_map.find(this_ptr);
-        if (it != player_map.end())
-        {
-            auto& info = player_icon_map[it->second];
-            info.shown = true;
-            auto& name = info.name;
-            AreaMapIcon::SetMessageProvider(this_ptr->fields.m_areaMapIcon,
-                utils::create_message_provider(name.c_str()));
-
-            auto player_info = multiplayer::get_player(it->second);
-            auto color = player_info != nullptr ? player_info->color : app::Color{ 1.0f, 1.0f, 1.0f, 1.0f };
-            if (il2cpp::unity::is_valid(info.icon->fields.IconGameObject))
-                utils::set_color(info.icon->fields.IconGameObject, color, true);
-
-            for (auto& dot : info.dots)
-                GameObject::SetActive(dot.dot, false);
-        }
-        else if (this_ptr->fields.m_areaMapIcon != nullptr)
+        if (this_ptr->fields.m_areaMapIcon != nullptr)
         {
             bool label_set = false;
             auto guid = stringify_guid(this_ptr->fields.Guid);
@@ -572,29 +531,6 @@ namespace
         RuntimeWorldMapIcon::Show_intercept(icon);
     }
 
-    PlayerMapInfo& resolve_player_icon(app::RuntimeGameWorldArea* area, multiplayer::PlayerInfo const& player) {
-        auto* runtime_icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
-        runtime_icon->fields.Guid = create_guid();
-        auto guid = stringify_guid(runtime_icon->fields.Guid);
-
-        // Custom spoiler state.
-        runtime_icon->fields.Icon = app::WorldMapIconType__Enum_Moki;
-        runtime_icon->fields.Position.x = player.position.x;
-        runtime_icon->fields.Position.y = player.position.y;
-        runtime_icon->fields.Area = area;
-        runtime_icon->fields.IsSecret = false;
-        runtime_icon->fields.IsCollectedState = nullptr;
-        runtime_icon->fields.Condition = nullptr;
-        runtime_icon->fields.SpecialState = nullptr;
-
-        il2cpp::invoke(area->fields.Icons, "Add", runtime_icon);
-        RuntimeWorldMapIcon::Show_intercept(runtime_icon);
-
-        player_map[runtime_icon] = player.id;
-        player_icon_map[player.id] = { 0, 0.0f, { 0.0f, 0.0f }, runtime_icon, {}, player.name, true };
-        return player_icon_map[player.id];
-    }
-    
     void resolve_icons(app::RuntimeGameWorldArea* area)
     {
         for (auto i = 0; i < area->fields.Icons->fields._size; ++i)
@@ -658,21 +594,6 @@ namespace
             if (should_create(icon.creation, ExtraIconCreation::Spoiler))
                 spoiler_resolver(area, icon);
         }
-
-        // Add multiplayer icons
-        if (area->fields.Area->fields.WorldMapAreaUniqueID == app::GameWorldAreaID__Enum_InkwaterMarsh)
-        {
-            // Destroy the dots.
-            for (auto& p : player_icon_map)
-                for (auto& dot : p.second.dots)
-                    il2cpp::unity::destroy_object(dot.dot);
-
-            player_map.clear();
-            player_icon_map.clear();
-            auto const& players = multiplayer::get_players();
-            for (auto const& player : players)
-                resolve_player_icon(area, player);
-        }
     }
 
     std::unordered_map<app::GameWorldAreaID__Enum, app::RuntimeGameWorldArea*> areas;
@@ -700,14 +621,6 @@ namespace
 
     IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, void, Hide, (app::RuntimeWorldMapIcon* this_ptr)) {
         RuntimeWorldMapIcon::Hide(this_ptr);
-        auto it = player_map.find(this_ptr);
-        if (it != player_map.end())
-        {
-            auto& info = player_icon_map[it->second];
-            info.shown = false;
-            for (auto& dot : info.dots)
-                GameObject::SetActive(dot.dot, false);
-        }
     }
 
     STATIC_IL2CPP_BINDING(, AreaMapIconManager, bool, IsIconShownByFilter, (app::WorldMapIconType__Enum icon, app::AreaMapIconFilter__Enum filter));
@@ -775,9 +688,6 @@ namespace
 
         // Always show warps check
         if(should_show(manager, icon))
-            return FilterResult::Show;
-
-        if (player_map.find(icon) != player_map.end())
             return FilterResult::Show;
 
         const auto filter = static_cast<NewFilters>(manager->fields.Filter);
@@ -855,10 +765,6 @@ namespace
     void set_icon_opacity(app::RuntimeWorldMapIcon* icon, float alpha, bool grayscale)
     {
         if (!il2cpp::unity::is_valid(icon->fields.IconGameObject))
-            return;
-
-        auto is_player = player_map.find(icon);
-        if (is_player != player_map.end())
             return;
 
         auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(icon->fields.IconGameObject, "UnityEngine", "Renderer");
@@ -1034,150 +940,8 @@ namespace
     IL2CPP_INTERCEPT(, AreaMapUI, void, CycleFilter, (app::AreaMapUI* this_ptr)) {
         cycle_filter(this_ptr);
     }
-
-    IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, void, UpdateLabelState, (app::RuntimeWorldMapIcon* this_ptr)) {
-        RuntimeWorldMapIcon::UpdateLabelState(this_ptr);
-        auto it = player_map.find(this_ptr);
-        if (it != player_map.end())
-        {
-            auto const* player = multiplayer::get_player(it->second);
-            if (player != nullptr && player->online)
-                GameObject::SetActive(this_ptr->fields.m_areaMapIcon->fields.Label, true);
-            else
-                GameObject::SetActive(this_ptr->fields.m_areaMapIcon->fields.Label, false);
-        }
-    }
-
-    IL2CPP_BINDING(, IconPlacementScaler, void, PlaceIcon, (app::IconPlacementScaler* this_ptr, app::GameObject* icon, app::Vector3* location, bool is_teleportable));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* value));
-    STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (app::Object* object), (UnityEngine:Object));
-    void initialize_dots(multiplayer::PlayerInfo const& player, PlayerMapInfo& info)
-    {
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
-        while (info.dots.size() <= DOT_COUNT)
-        {
-            auto& dot = info.dots.emplace_back();
-            dot.dot = reinterpret_cast<app::GameObject*>(Object::Instantiate(
-                reinterpret_cast<app::Object*>(area_map->fields.TrailPrefab)));
-            dot.renderer = il2cpp::unity::get_components<app::Renderer>(
-                il2cpp::unity::get_children(dot.dot)[0], "UnityEngine", "Renderer")[0];
-            GameObject::SetActive(dot.dot, false);
-            app::Vector3 pos{ player.position.x, player.position.y, 0.0f };
-            IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
-            info.pos = player.position;
-        }
-    }
-
-    void add_dot(multiplayer::PlayerInfo const& player, PlayerMapInfo& info)
-    {
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
-
-        {
-            auto& dot = info.dots[info.next_index];
-            GameObject::SetActive(dot.dot, true);
-            app::Vector3 pos{ player.position.x, player.position.y, 0.0f };
-            IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
-        }
-
-        // TODO: Add stuff like normal.
-        if (map_visible)
-        {
-            app::Color color = player.color;
-            color.r = (color.r + 1.0f) / 2.0f;
-            color.g = (color.g + 1.0f) / 2.0f;
-            color.b = (color.b + 1.0f) / 2.0f;
-
-            const int HALF_DOTS = DOT_COUNT / 2;
-            for (int i = 0; i < HALF_DOTS; ++i)
-            {
-                color.a = static_cast<float>(i) / HALF_DOTS;
-                auto& dot = info.dots[(info.next_index + HALF_DOTS + i) % DOT_COUNT];
-                shaders::UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
-            }
-        }
-
-        info.next_index = (info.next_index + 1) % DOT_COUNT;
-    }
-
-    STATIC_IL2CPP_BINDING(, TimeUtility, float, get_fixedDeltaTime, ());
-    void update_dots(multiplayer::PlayerInfo const& player, PlayerMapInfo& info)
-    {
-        std::vector<PlayerMapInfo::Dot>& dots = info.dots;
-        if (player.online)
-        {
-            initialize_dots(player, info);
-            info.time -= TimeUtility::get_fixedDeltaTime();
-            auto dx = info.pos.x - player.position.x;
-            auto dy = info.pos.y - player.position.y;
-            auto squared_distance = dx * dx + dy * dy;
-            if (squared_distance >= DOT_MIN_DISTANCE * DOT_MIN_DISTANCE && info.time < 0.0f)
-            {
-                add_dot(player, info);
-                info.time = DOT_TIMEOUT;
-                info.pos = player.position;
-            }
-        }
-    }
-
-    IL2CPP_BINDING(, AreaMapUI, void, PlaceDot, (app::AreaMapUI* this_ptr, int dot_index, int time_since_creation, const app::Vector2* point));
+    
     IL2CPP_BINDING(, AreaMapUI, void, AddIcon, (app::AreaMapUI* this_ptr, app::GameObject* icon, app::Vector3* location, bool convert, bool isTeleportable));
-    IL2CPP_INTERCEPT(, GameMapUI, void, FixedUpdate, (app::GameMapUI* this_ptr)) {
-        GameMapUI::FixedUpdate(this_ptr);
-
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
-        auto const& players = multiplayer::get_players();
-        for (auto const& player : players)
-        {
-            auto it = player_icon_map.find(player.id);
-            if (it != player_icon_map.end())
-            {
-                if (!it->second.shown && player.online)
-                    RuntimeWorldMapIcon::Show_intercept(it->second.icon);
-                else if (it->second.shown && !player.online)
-                    RuntimeWorldMapIcon::Hide_intercept(it->second.icon);
-
-                auto icon = it->second.icon;
-                icon->fields.Position.x = player.position.x;
-                icon->fields.Position.y = player.position.y;
-                if (icon->fields.IconGameObject != nullptr && il2cpp::unity::is_valid(icon->fields.IconGameObject))
-                {
-                    app::Vector3 position{ player.position.x, player.position.y, 0.0f };
-                    AreaMapUI::AddIcon(area_map, icon->fields.IconGameObject, &position, false, false);
-                }
-            }
-            else
-            {
-                auto area = areas.find(app::GameWorldAreaID__Enum_InkwaterMarsh);
-                if (area != areas.end())
-                {
-                    auto& info = resolve_player_icon(area->second, player);
-                    if (!info.shown && player.online)
-                        RuntimeWorldMapIcon::Show_intercept(info.icon);
-                    else if (info.shown && !player.online)
-                        RuntimeWorldMapIcon::Hide_intercept(info.icon);
-                }
-            }
-
-            it = player_icon_map.find(player.id);
-            if (it != player_icon_map.end())
-                update_dots(player, it->second);
-        }
-
-        // We have players that have left the game.
-        if (players.size() < player_icon_map.size())
-        {
-            // Hide removed players.
-            for (auto& player_pair : player_icon_map)
-            {
-                if (player_pair.second.shown)
-                {
-                    auto player = multiplayer::get_player(player_pair.first);
-                    if (player == nullptr)
-                        RuntimeWorldMapIcon::Hide_intercept(player_pair.second.icon);
-                }
-            }
-        }
-    }
 }
 
 void refresh_icon_alphas(bool is_map_visible)
@@ -1188,38 +952,6 @@ void refresh_icon_alphas(bool is_map_visible)
         auto color = multiplayer::get_local_player_color();
         if (color.r < 0.99f || color.g < 0.99f || color.b < 0.99f || color.a < 0.99f)
             utils::set_color(area_map->fields._PlayerPositionMarker_k__BackingField, color, false);
-    }
-
-    map_visible = is_map_visible;
-    for (auto& p : player_icon_map)
-    {
-        auto player = multiplayer::get_player(p.first);
-        auto color = player != nullptr ? player->color : app::Color{ 1.0f, 1.0f, 1.0f, 1.0f };
-        if (il2cpp::unity::is_valid(p.second.icon->fields.IconGameObject))
-            utils::set_color(p.second.icon->fields.IconGameObject, color, true);
-
-        if (is_map_visible)
-        {
-            if (p.second.dots.empty())
-                return;
-
-            const int HALF_DOTS = DOT_COUNT / 2;
-            for (int i = 0; i < HALF_DOTS; ++i)
-            {
-                auto& dot = p.second.dots[(p.second.next_index + HALF_DOTS + i) % DOT_COUNT];
-                color.a = static_cast<float>(i) / HALF_DOTS;
-                shaders::UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
-            }
-        }
-        else
-        {
-            for (auto dot : p.second.dots)
-            {
-                auto color = shaders::UberShaderAPI::GetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor);
-                color.a = 0.0f;
-                shaders::UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
-            }
-        }
     }
 }
 
@@ -1329,21 +1061,6 @@ INJECT_C_DLLEXPORT void clear_icons()
     }
 
     header_icons.clear();
-}
-
-void update_player_icons()
-{
-    for (auto& player : player_icon_map)
-    {
-        if (player.second.icon == nullptr)
-            continue;
-
-        auto info = multiplayer::get_player(player.first);
-        if (info == nullptr || !info->online)
-            RuntimeWorldMapIcon::Hide_intercept(player.second.icon);
-        else
-            RuntimeWorldMapIcon::Show_intercept(player.second.icon);
-    }
 }
 
 INJECT_C_DLLEXPORT void refresh_inlogic_filter() {
