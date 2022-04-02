@@ -121,6 +121,9 @@ namespace multiplayer
 
     void add_dot(PlayerInfo& player)
     {
+        if (player.dots.size() != DOT_COUNT)
+            return;
+
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
 
         auto& dot = player.dots[player.next_dot_index];
