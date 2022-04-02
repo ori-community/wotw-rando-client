@@ -102,6 +102,9 @@ namespace multiplayer
     
     void update_dot_colors(PlayerInfo& player)
     {
+        if (player.dots.size() != DOT_COUNT)
+            return;
+
         app::Color color = player.color;
         color.r = (color.r + 1.0f) / 2.0f;
         color.g = (color.g + 1.0f) / 2.0f;
@@ -195,7 +198,12 @@ namespace multiplayer
 
     void create_icons(PlayerInfo& info)
     {
+        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        if (!il2cpp::unity::is_valid(area_map))
+            return;
+
         // Avatar
+        if (info.avatar.handle == 0)
         {
             info.avatar = create_avatar_icon(info, static_cast<int>(Layer::Sein));
             GameObject::SetActive(info.avatar.root, info.visible);
@@ -223,6 +231,7 @@ namespace multiplayer
         }
 
         // Map Icon
+        if (info.map_avatar.handle == 0)
         {
             info.map_avatar = create_avatar_icon(info, static_cast<int>(Layer::UI));
             GameObject::SetActive(info.map_avatar.root, info.map_visible);
@@ -241,6 +250,10 @@ namespace multiplayer
 
     void create_avatar(PlayerInfo& info)
     {
+        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        if (!il2cpp::unity::is_valid(area_map))
+            return;
+
         // Icons
         create_icons(info);
 
@@ -366,6 +379,9 @@ namespace multiplayer
         auto should_show = should_show_avatar();
         for (auto& player : players)
         {
+            if (player.avatar.handle == 0 || player.map_avatar.handle == 0)
+                multiplayer::create_avatar(player);
+
             update_avatar_facing(player);
 
             // Visibility toggles.
