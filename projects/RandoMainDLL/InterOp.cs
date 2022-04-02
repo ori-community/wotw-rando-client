@@ -225,6 +225,8 @@ namespace RandoMainDLL {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static Vector2 get_position();
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static Vector3 get_head_position();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_position(Vector2 position);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static Vector2 get_velocity();

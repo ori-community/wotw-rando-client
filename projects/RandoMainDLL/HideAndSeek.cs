@@ -14,8 +14,13 @@ namespace RandoMainDLL {
   public static class HideAndSeek {
     public static BlockingCollection<Packet> Queue = new BlockingCollection<Packet>();
 
+    private static readonly string COOLDOWN_ANIMATION = "assets/animations/cooldown.json";
     private static readonly string CATCHING_ANIMATION = "assets/animations/catching.json";
     private static readonly string FIREWORK_ANIMATION = "assets/animations/firework.json";
+    private static readonly float COOLDOWN_FADE = 0.2f;
+    private static float COOLDOWN_SCALE = 0.3f;
+    private static float COOLDOWN_HEIGHT = 0.8f;
+    private static float COOLDOWN_LOCAL_HEIGHT = 0.6f;
     private static readonly float FIREWORK_HEIGHT = 1.5f;
 
     private static readonly Dictionary<string, SeekerWorldInfo> seekers = new Dictionary<string, SeekerWorldInfo>();
@@ -35,7 +40,6 @@ namespace RandoMainDLL {
 
         isSeeker = value;
         if (isSeeker) {
-          preloadAnimations();
           if (AbilityDelegate == null) {
             AbilityDelegate = new InterOp.Ability.ability_override(UseSeekerAbility);
             AbilityDelegateHandle = GCHandle.Alloc(AbilityDelegate, GCHandleType.Normal);
@@ -53,8 +57,41 @@ namespace RandoMainDLL {
     }
 
     private static void preloadAnimations() {
+      InterOp.Sprite.sprite_preload(COOLDOWN_ANIMATION);
       InterOp.Sprite.sprite_preload(CATCHING_ANIMATION);
       InterOp.Sprite.sprite_preload(FIREWORK_ANIMATION);
+    }
+
+    private class CooldownAnimation {
+      public int ID;
+      public string Player;
+      public float Time;
+      public float ElapsedTime;
+    }
+
+    private static List<CooldownAnimation> cooldownAnimations = new List<CooldownAnimation>();
+
+    private static bool updateCooldownAnimation(CooldownAnimation animation, float dt) {
+      animation.ElapsedTime += dt;
+      var isLocal = animation.Player == Multiplayer.Id || animation.Player == null;
+      Memory.Vector2 position = isLocal
+        ? new Memory.Vector2(InterOp.Player.get_head_position())
+        : InterOp.Multiplayer.get_player_position(animation.Player);
+
+      position.Y += isLocal ? COOLDOWN_LOCAL_HEIGHT : COOLDOWN_HEIGHT;
+      InterOp.Sprite.sprite_set_position(animation.ID, position.X, position.Y, 0f);
+      if (animation.ElapsedTime < COOLDOWN_FADE)
+        InterOp.Sprite.sprite_set_color_modulate(animation.ID, 1f, 1f, 1f, animation.ElapsedTime / COOLDOWN_FADE); // Fade In
+      else if ((animation.Time - animation.ElapsedTime) < COOLDOWN_FADE)
+        InterOp.Sprite.sprite_set_color_modulate(animation.ID, 1f, 1f, 1f, (animation.Time - animation.ElapsedTime) / COOLDOWN_FADE); // Fade out
+      else
+        InterOp.Sprite.sprite_set_color_modulate(animation.ID, 1f, 1f, 1f, 1f);
+
+      var finished = animation.ElapsedTime > animation.Time;
+      if (finished)
+        InterOp.Sprite.sprite_destroy(animation.ID);
+
+      return finished;
     }
 
     private class Firework {
@@ -112,9 +149,9 @@ namespace RandoMainDLL {
     private static float freezeTimer = 0f;
     public static void Update(float delta) {
       if (!IsPlaying) {
-        if (caughtAnimations.Count > 0)
+        if (caughtAnimations.Count > 0 || cooldownAnimations.Count > 0)
           ClearAnimations();
-
+      
         return;
       }
 
@@ -130,6 +167,11 @@ namespace RandoMainDLL {
         if (updateCaughtAnimation(caughtAnimations[i], delta))
           caughtAnimations.RemoveAt(i);
       }
+
+      for (var i = cooldownAnimations.Count() - 1; i >= 0 && i < cooldownAnimations.Count(); --i) {
+        if (updateCooldownAnimation(cooldownAnimations[i], delta))
+          cooldownAnimations.RemoveAt(i);
+      }
     }
 
     public static void ClearAnimations() {
@@ -141,6 +183,11 @@ namespace RandoMainDLL {
       }
 
       caughtAnimations.Clear();
+
+      foreach (var animation in cooldownAnimations)
+        InterOp.Sprite.sprite_destroy(animation.ID);
+
+      cooldownAnimations.Clear();
     }
 
     private static void playerCaught(string id) {
@@ -193,23 +240,50 @@ namespace RandoMainDLL {
       caughtAnimations.Add(animation);
     }
 
-    private static readonly float seekerCooldown = 2.0f;
     private static float cooldown = 0f;
     private static void UseSeekerAbility(AbilityType type) {
       if (cooldown > 0f)
         return;
 
       // Should never use the default unless we are debugging.
-      var radius = Multiplayer.Id != null && seekers.TryGetValue(Multiplayer.Id, out var world) ? world.Radius : 16f;
+      SeekerWorldInfo world = null;
+      var hasWorld = Multiplayer.Id != null && seekers.TryGetValue(Multiplayer.Id, out world);
+      var cooldownTime = hasWorld ? world.Cooldown : 2f;
+      var radius = hasWorld ? world.Radius : 16f;
+
+      startCooldownAnimation(Multiplayer.Id);
       showSeekerAbilityAnimation(InterOp.Player.get_position(), radius);
       WebSocketClient.SendPlayerUseCatch();
-      cooldown = seekerCooldown;
+      cooldown = cooldownTime;
     }
 
     private static void showSeekerAbilityAnimation(Memory.Vector2 position, float radius) {
       var id = InterOp.Sprite.sprite_load(CATCHING_ANIMATION, position.X, position.Y, 0f, radius, radius, 1f, 0f);
       InterOp.Sprite.sprite_set_color_modulate(id, 1f, .1f, .1f, 1f);
       InterOp.Sprite.sprite_set_active(id, true);
+    }
+
+    private static void startCooldownAnimation(string player) {
+      bool isLocal = player == Multiplayer.Id || player == null;
+      Memory.Vector2 position = isLocal
+        ? new Memory.Vector2(InterOp.Player.get_head_position())
+        : InterOp.Multiplayer.get_player_position(player);
+
+      var t = InterOp.Player.get_position();
+      position.Y += isLocal ? COOLDOWN_LOCAL_HEIGHT : COOLDOWN_HEIGHT;
+      var animation = new CooldownAnimation {
+        Player = player,
+        ID = InterOp.Sprite.sprite_load(COOLDOWN_ANIMATION, position.X, position.Y, -0.01f, COOLDOWN_SCALE, COOLDOWN_SCALE, 1f, 0f),
+        Time = player != null ? seekers[player].Cooldown : 2f,
+        ElapsedTime = 0f
+      };
+
+      if (animation.ID == -1)
+        return;
+
+      InterOp.Sprite.sprite_set_color_modulate(animation.ID, 1f, 1f, 1f, 0f);
+      InterOp.Sprite.sprite_set_active(animation.ID, true);
+      cooldownAnimations.Add(animation);
     }
 
     private static void HandlePackets() {
@@ -219,6 +293,7 @@ namespace RandoMainDLL {
             var usedCatch = PlayerUsedCatchingAbilityMessage.Parser.ParseFrom(packet.Packet_);
             var position = InterOp.Multiplayer.get_player_position(usedCatch.Id);
             showSeekerAbilityAnimation(position, seekers[usedCatch.Id].Radius);
+            startCooldownAnimation(usedCatch.Id);
             break;
           case Packet.Types.PacketID.PlayerCaught:
             var caught = PlayerCaughtMessage.Parser.ParseFrom(packet.Packet_);
@@ -237,6 +312,7 @@ namespace RandoMainDLL {
     }
 
     public static void ParseHandlerInfo(HideAndSeekGameHandlerClientInfo info) {
+      preloadAnimations();
       foreach (var world in info.SeekerWorlds) {
         if (world.Id == Multiplayer.WorldId)
           IsSeeker = true;

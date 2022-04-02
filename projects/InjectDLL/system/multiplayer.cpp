@@ -14,6 +14,7 @@
 #include <Il2CppModLoader/il2cpp_helpers.h>
 
 #include <unordered_map>
+#include <fstream>
 
 using namespace modloader;
 

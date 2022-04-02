@@ -156,6 +156,7 @@ message MultiverseInfoMessage {
 message SeekerWorldInfo {
   int64 id = 1;
   float radius = 2;
+  float cooldown = 3;
 }
 
 message HideAndSeekGameHandlerClientInfo {

@@ -110,7 +110,6 @@ namespace RandoMainDLL {
       GameType = multiverse.HandlerType;
       switch (multiverse.HandlerType) {
         case MultiverseInfoMessage.Types.GameHandlerType.Normal:
-          // On normal we don't need to do anything.
           break;
         case MultiverseInfoMessage.Types.GameHandlerType.HideAndSeek:
           var info = HideAndSeekGameHandlerClientInfo.Parser.ParseFrom(multiverse.HandlerInfo);

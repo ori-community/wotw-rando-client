@@ -42,6 +42,7 @@ namespace
     STATIC_IL2CPP_BINDING(Moon, UberStateCollection, Il2CppObject*, get_Descriptors, ());
     IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* this_ptr));
     IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter* this_ptr, app::Vector3 value));
+    IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_position, (app::Transform* this_ptr));
 
     app::CheatsHandler__StaticFields* get_cheats()
     {
@@ -253,6 +254,38 @@ INJECT_C_DLLEXPORT int32_t get_keystones()
 INJECT_C_DLLEXPORT void set_keystones(int32_t value)
 {
     get_inventory()->fields.m_keystones = value;
+}
+
+INJECT_C_DLLEXPORT app::Vector3 get_head_position()
+{
+    auto sein = get_sein();
+    if (!il2cpp::unity::is_valid(sein))
+        return app::Vector3{ 0.f, 0.f, 0.f };
+
+    std::vector<std::string_view> path{
+        "ori3D",
+        "mirrorHolder",
+        "rigHolder",
+        "oriRig",
+        "Skeleton_GRP",
+        "root_JNT",
+        "pelvis_JNT",
+        "spine_joint01_JNT",
+        "spine_joint02_JNT",
+        "spine_joint03_JNT",
+        "spine_joint04_JNT",
+        "headC_joint01_JNT"
+    };
+
+    auto head = il2cpp::unity::find_child(il2cpp::unity::get_game_object(sein), path);
+    if (!il2cpp::unity::is_valid(head))
+    {
+        auto pos = get_position();
+        return app::Vector3{ pos.x, pos.y, 0.f };
+    }
+
+    auto transform = il2cpp::unity::get_transform(head);
+    return Transform::get_position(transform);
 }
 
 INJECT_C_DLLEXPORT app::Vector2 get_position()
