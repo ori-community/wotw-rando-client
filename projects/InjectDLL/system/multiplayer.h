@@ -22,7 +22,6 @@ namespace multiplayer
         PlayerIcon icon;
 
         // Internal
-        int text_box = 0;
         uint64_t avatar_icon = 0;
         uint64_t map_avatar_icon = 0;
         float last_facing_pos = 0.0f;

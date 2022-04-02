@@ -22,6 +22,8 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT bool equals(void* o1, void* o2);
         IL2CPP_MODLOADER_DLLEXPORT bool not_equals(void* o1, void* o2);
         IL2CPP_MODLOADER_DLLEXPORT app::Type* get_type(std::string_view namezpace, std::string_view name);
+
+        IL2CPP_MODLOADER_DLLEXPORT void* instantiate_object_untyped(void* object);
         IL2CPP_MODLOADER_DLLEXPORT void destroy_object(void* object);
         IL2CPP_MODLOADER_DLLEXPORT app::Transform* get_parent(app::Transform* object);
         IL2CPP_MODLOADER_DLLEXPORT app::Transform* get_transform(void* object);
@@ -44,6 +46,12 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT std::string get_object_name(void* object);
         IL2CPP_MODLOADER_DLLEXPORT std::string get_scene_name(app::Scene& scene);
         IL2CPP_MODLOADER_DLLEXPORT std::string get_scene_path(app::Scene& scene);
+
+        template<typename T>
+        T* instantiate_object(T* object)
+        {
+            return reinterpret_cast<T*>(instantiate_object_untyped(object));
+        }
 
         template<typename Return = app::Component>
         Return* add_component(app::GameObject* game_object, std::string_view namezpace, std::string_view name)

@@ -22,6 +22,7 @@ namespace il2cpp
         STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Equality, (void* o1, void* o2));
         STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Inequality, (void* o1, void* o2));
         STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Implicit, (void* this_ptr));
+        STATIC_IL2CPP_BINDING(UnityEngine, Object, app::Object*, Instantiate, (app::Object* this_ptr));
         STATIC_IL2CPP_BINDING(UnityEngine, Object, void, Destroy, (app::Object* this_ptr));
         IL2CPP_BINDING(UnityEngine, Object, app::String*, get_name, (app::Object* this_ptr));
 
@@ -278,6 +279,11 @@ namespace il2cpp
             auto type_str = il2cpp::string_new(qualified);
             auto runtime_type = Type::GetType(type_str, false);
             return ScriptableObject::CreateInstance(runtime_type);
+        }
+        
+        void* instantiate_object_untyped(void* object)
+        {
+            return Object::Instantiate(reinterpret_cast<app::Object*>(object));
         }
 
         void destroy_object(void* object)

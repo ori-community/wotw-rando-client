@@ -1,5 +1,6 @@
 #include <multiplayer.h>
 #include <macros.h>
+#include <dev/object_visualizer.h>
 #include <enums/layer.h>
 #include <system/messages.h>
 #include <utils/misc.h>
@@ -23,7 +24,6 @@ namespace multiplayer
 
     std::vector<PlayerInfo> players;
     std::unordered_map<std::wstring, int> player_map;
-    std::unordered_map<int, int> player_text_box_map;
     app::Color local_player_color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
     std::vector<PlayerInfo> const& get_players()
@@ -121,33 +121,43 @@ namespace multiplayer
         auto squared_distance = dx * dx + dy * dy;
         return squared_distance >= DOT_MIN_DISTANCE * DOT_MIN_DISTANCE && player.time_until_next_dot < 0.0f;
     }
-    
-    uint64_t create_avatar_icon(PlayerIcon icon)
+
+    uint64_t create_avatar_icon(PlayerInfo const& info)
     {
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
         if (area_map == nullptr)
             return 0;
 
         auto icons = area_map->fields._IconManager_k__BackingField->fields.Icons;
-        app::GameObject* prefab;
-        switch (icon)
+        app::GameObject* obj;
+        switch (info.icon)
         {
         case PlayerIcon::Kii:
-            prefab = il2cpp::unity::find_child(icons->fields.Siira, "npcMokiMapIcon");
-            break;
-        default: // Moki
-            prefab = il2cpp::unity::find_child(icons->fields.Moki, "npcMokiMapIcon");
+        {
+            obj = il2cpp::unity::instantiate_object(icons->fields.Siira);
+            auto text_box = il2cpp::unity::get_component_in_children<app::TextBox>(obj, "CatlikeCoding.TextBox", "TextBox");
+            il2cpp::invoke(text_box, "SetText", il2cpp::string_new(info.name));
+            GameObject::SetActive(il2cpp::unity::find_child(obj, "questObjective2MapIcon"), false);
             break;
         }
+        default: // Moki
+        {
+            obj = il2cpp::unity::instantiate_object(icons->fields.Moki);
+            auto text_box = il2cpp::unity::get_component_in_children<app::TextBox>(obj, "CatlikeCoding.TextBox", "TextBox");
+            il2cpp::invoke(text_box, "SetText", il2cpp::string_new(info.name));
+            GameObject::SetActive(il2cpp::unity::find_child(obj, "questObjective2MapIcon"), false);
+            break;
+        }
+        }
 
-        return il2cpp::gchandle_new(reinterpret_cast<app::GameObject*>(Object::Instantiate(reinterpret_cast<app::Object*>(prefab))), false);
+        return il2cpp::gchandle_new(obj, false);
     }
 
     void create_icons(PlayerInfo& info)
     {
         // Avatar
         {
-            info.avatar_icon = create_avatar_icon(info.icon);
+            info.avatar_icon = create_avatar_icon(info);
             auto icon = il2cpp::gchandle_target<app::GameObject>(info.avatar_icon);
             GameObject::set_layer(icon, static_cast<int>(Layer::Sein));
             GameObject::SetActive(icon, info.visible);
@@ -161,7 +171,7 @@ namespace multiplayer
 
         // Map Icon
         {
-            info.map_avatar_icon = create_avatar_icon(info.icon);
+            info.map_avatar_icon = create_avatar_icon(info);
             auto icon = il2cpp::gchandle_target<app::GameObject>(info.map_avatar_icon);
             GameObject::set_layer(icon, static_cast<int>(Layer::WorldMap));
             GameObject::SetActive(icon, info.visible);
@@ -177,14 +187,6 @@ namespace multiplayer
 
     void create_avatar(PlayerInfo& info)
     {
-        // Text Box
-        info.text_box = reserve_id();
-        text_box_create(info.text_box, 0.1f, 0.1f, false, false);
-        text_box_text(info.text_box, info.name.c_str());
-        text_box_position(info.text_box, 0.0f, 0.0f, 0.0f, true);
-        text_box_visibility(info.text_box, info.visible);
-        player_text_box_map[info.text_box] = player_map[info.id];
-
         // Icons
         create_icons(info);
 
@@ -236,14 +238,7 @@ namespace multiplayer
 
     void destroy_avatar(PlayerInfo& info)
     {
-        if (info.text_box != 0)
-        {
-            text_box_destroy(info.text_box);
-            info.text_box = 0;
-        }
-
         destroy_icons(info);
-
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
         for (auto const& dot : info.dots)
         {
@@ -332,7 +327,6 @@ namespace multiplayer
             bool visible = player.online && should_show;
             if (visible != player.visible)
             {
-                text_box_visibility(player.text_box, visible);
                 if (player.avatar_icon != 0)
                 {
                     auto go = il2cpp::gchandle_target<app::GameObject>(player.avatar_icon);
@@ -355,6 +349,8 @@ INJECT_C_DLLEXPORT void add_player(const wchar_t* id, const wchar_t* name, multi
         info.name = name;
         info.online = true;
         info.color = { 1.0f, 1.0f, 1.0f, 1.0f};
+        multiplayer::destroy_icons(info);
+        multiplayer::create_icons(info);
     }
     else
     {
@@ -411,7 +407,6 @@ INJECT_C_DLLEXPORT void clear_players()
 
     multiplayer::players.clear();
     multiplayer::player_map.clear();
-    multiplayer::player_text_box_map.clear();
     multiplayer::local_player_color = { 1.0f, 1.0f, 1.0f, 1.0f };
 }
 
@@ -422,16 +417,12 @@ INJECT_C_DLLEXPORT void remove_player(const wchar_t* id)
     {
         auto player_it = multiplayer::players.begin() + it->second;
         multiplayer::destroy_avatar(*player_it);
-        multiplayer::player_text_box_map.erase(player_it->text_box);
         multiplayer::player_map.erase(player_it->name);
         player_it = multiplayer::players.erase(multiplayer::players.begin() + it->second);
         for (; player_it != multiplayer::players.end(); ++player_it)
         {
             auto index = multiplayer::player_map[player_it->id] - 1;
             multiplayer::player_map[player_it->id] = index;
-            auto it = multiplayer::player_text_box_map.find(multiplayer::players[index].text_box);
-            if (it != multiplayer::player_text_box_map.end())
-                it->second = index;
         }
     }
     else
@@ -452,9 +443,6 @@ INJECT_C_DLLEXPORT void update_player_position(const wchar_t* id, float x, float
 
         info.position.x = x;
         info.position.y = y;
-
-        // TextBox
-        text_box_position(info.text_box, x, y + multiplayer::TEXT_OFFSET, 0.0f, true);
 
         // Avatar
         if (info.avatar_icon != 0)

@@ -12,6 +12,8 @@
 
 using namespace modloader;
 
+#define TRY(x) try {x} catch(...) {}
+
 namespace dev
 {
     namespace visualize
@@ -183,22 +185,31 @@ namespace dev
                 indent(visualizer, 0, 1);
                 visualizer.stream << get_full_name(obj) << " - " << name << " {" << visualizer.new_line;
 
-                auto vertices = il2cpp::invoke<app::Array>(mesh, "get_vertices");
-                visualize_array(visualizer, vertices, "vertices", &visualize_vector3);
-                auto normals = il2cpp::invoke<app::Array>(mesh, "get_normals");
-                visualize_array(visualizer, normals, "normals", &visualize_vector3);
-                auto uv = il2cpp::invoke<app::Array>(mesh, "get_uv");
-                visualize_array(visualizer, uv, "uv", &visualize_vector2);
-                auto uv2 = il2cpp::invoke<app::Array>(mesh, "get_uv2");
-                visualize_array(visualizer, uv2, "uv2", &visualize_vector2);
-                auto uv3 = il2cpp::invoke<app::Array>(mesh, "get_uv3");
-                visualize_array(visualizer, uv3, "uv3", &visualize_vector2);
-                auto uv4 = il2cpp::invoke<app::Array>(mesh, "get_uv4");
-                visualize_array(visualizer, uv4, "uv4", &visualize_vector2);
-                auto colors = il2cpp::invoke<app::Array>(mesh, "get_colors32");
-                visualize_array(visualizer, colors, "colors", &visualize_color32);
-                auto triangles = il2cpp::invoke<app::Array>(mesh, "get_triangles");
-                visualize_array(visualizer, triangles, "triangles", &visualize_int);
+                if (il2cpp::invoke<app::Boolean__Boxed>(mesh, "get_canAccess")->fields)
+                {
+                    auto vertices = il2cpp::invoke<app::Array>(mesh, "get_vertices");
+                    visualize_array(visualizer, vertices, "vertices", &visualize_vector3);
+                    auto normals = il2cpp::invoke<app::Array>(mesh, "get_normals");
+                    visualize_array(visualizer, normals, "normals", &visualize_vector3);
+                    auto uv = il2cpp::invoke<app::Array>(mesh, "get_uv");
+                    visualize_array(visualizer, uv, "uv", &visualize_vector2);
+                    auto uv2 = il2cpp::invoke<app::Array>(mesh, "get_uv2");
+                    visualize_array(visualizer, uv2, "uv2", &visualize_vector2);
+                    auto uv3 = il2cpp::invoke<app::Array>(mesh, "get_uv3");
+                    visualize_array(visualizer, uv3, "uv3", &visualize_vector2);
+                    auto uv4 = il2cpp::invoke<app::Array>(mesh, "get_uv4");
+                    visualize_array(visualizer, uv4, "uv4", &visualize_vector2);
+                    auto colors = il2cpp::invoke<app::Array>(mesh, "get_colors32");
+                    visualize_array(visualizer, colors, "colors", &visualize_color32);
+                    // This sometimes crashes.
+                    //auto triangles = il2cpp::invoke<app::Array>(mesh, "get_triangles");
+                    //visualize_array(visualizer, triangles, "triangles", &visualize_int);
+                }
+                else
+                {
+                    indent(visualizer);
+                    visualizer.stream << "*NO ACCESS*" << visualizer.new_line;
+                }
 
                 indent(visualizer, -1);
                 visualizer.stream << "}" << visualizer.new_line;
@@ -211,12 +222,15 @@ namespace dev
                 indent(visualizer);
                 visualizer.stream << get_full_name(obj) << " - " << name << visualizer.new_line;
 
-                auto mesh = il2cpp::invoke<app::Mesh>(mesh_filter, "get_mesh");
-                indent(visualizer, 1, 1);
-                visualizer.stream << "mesh:" << visualizer.new_line;
-                visualize_unity_mesh(visualizer, reinterpret_cast<Il2CppObject*>(mesh));
-
-                auto shared_mesh = il2cpp::invoke<app::Mesh>(mesh_filter, "get_sharedMesh");
+                // This sometimes crashes.
+                //app::Mesh* mesh = nullptr;
+                //TRY(mesh = il2cpp::invoke<app::Mesh>(mesh_filter, "get_mesh"););
+                //indent(visualizer, 1, 1);
+                //visualizer.stream << "mesh:" << visualizer.new_line;
+                //visualize_unity_mesh(visualizer, reinterpret_cast<Il2CppObject*>(mesh));
+                
+                app::Mesh* shared_mesh = nullptr;
+                TRY(shared_mesh = il2cpp::invoke<app::Mesh>(mesh_filter, "get_sharedMesh"););
                 indent(visualizer, -1, 1);
                 visualizer.stream << "shared_mesh:" << visualizer.new_line;
                 visualize_unity_mesh(visualizer, reinterpret_cast<Il2CppObject*>(shared_mesh));
@@ -649,7 +663,7 @@ namespace dev
                 visualizer.visualizer_queue.erase(visualizer.visualizer_queue.begin());
                 visualizer.last_queue_size = visualizer.visualizer_queue.size();
 
-                if (current.first == nullptr)
+                if (current.first == nullptr || (il2cpp::is_assignable(current.first, "UnityEngine", "Object") && !il2cpp::unity::is_valid(current.first)))
                 {
                     indent(visualizer);
                     visualizer.stream << "nullptr" << visualizer.new_line;
