@@ -139,11 +139,27 @@ message UniverseInfo {
 }
 
 message MultiverseInfoMessage {
+  enum GameHandlerType {
+    Normal = 0;
+    HideAndSeek = 1;
+  }
+
   int64 id = 1;
   repeated UniverseInfo universes = 2;
   bool hasBingoBoard = 3;
   repeated UserInfo spectators = 4;
   optional int64 seedId = 5;
+  GameHandlerType handlerType = 6;
+  bytes handlerInfo = 7;
+}
+
+message SeekerWorldInfo {
+  int64 id = 1;
+  float radius = 2;
+}
+
+message HideAndSeekGameHandlerClientInfo {
+  repeated SeekerWorldInfo seekerWorlds = 1;
 }
 
 message PlayerUseCatchingAbilityMessage {}

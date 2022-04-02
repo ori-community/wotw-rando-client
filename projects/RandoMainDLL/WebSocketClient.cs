@@ -159,6 +159,9 @@ namespace RandoMainDLL {
 
     public static void SendBulk(Dictionary<Memory.UberId, double> updates) {
       try {
+        if (!WantConnection)
+          return;
+
         var batch = new UberStateBatchUpdateMessage();
         batch.Updates.AddRange(updates.Select((kv) => kv.Key.MakeUpdateMsg(kv.Value)));
         Packet packet = new Packet {
@@ -173,6 +176,9 @@ namespace RandoMainDLL {
 
     public static void SendUpdate(Memory.UberId id, double value) {
       try {
+        if (!WantConnection)
+          return;
+
         Packet packet = new Packet {
           Id = Packet.Types.PacketID.UberStateUpdateMessage,
           Packet_ = id.MakeUpdateMsg(value).ToByteString()
@@ -183,6 +189,9 @@ namespace RandoMainDLL {
 
     public static void SendAuthenticate(string jwt) {
       try {
+        if (!WantConnection)
+          return;
+
         Packet packet = new Packet {
           Id = Packet.Types.PacketID.AuthenticateMessage,
           Packet_ = new AuthenticateMessage() { Jwt = jwt }.ToByteString()
@@ -194,6 +203,9 @@ namespace RandoMainDLL {
 
     public static void SendSeedRequest(bool init) {
       try {
+        if (!WantConnection)
+          return;
+
         Packet packet = new Packet {
           Id = Packet.Types.PacketID.RequestSeedMessage,
           Packet_ = new RequestSeedMessage() { Init = init }.ToByteString()
@@ -205,6 +217,9 @@ namespace RandoMainDLL {
 
     public static void SendPlayerUseCatch() {
       try {
+        if (!WantConnection)
+          return;
+
         var useCatch = new PlayerUseCatchingAbilityMessage();
         Packet packet = new Packet {
           Id = Packet.Types.PacketID.PlayerPositionMessage,

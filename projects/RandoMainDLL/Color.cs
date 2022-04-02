@@ -1,10 +1,18 @@
-﻿public struct RGB {
+﻿public struct RGBA {
   public float R;
   public float G;
   public float B;
+  public float A;
 
-  public bool Equals(RGB rgb) {
-    return R == rgb.R && G == rgb.G && B == rgb.B;
+  public RGBA(float r, float g, float b, float a = 1f) {
+    R = r;
+    G = g;
+    B = b;
+    A = a;
+  }
+
+  public bool Equals(RGBA rgb) {
+    return R == rgb.R && G == rgb.G && B == rgb.B && A == rgb.A;
   }
 }
 
@@ -36,18 +44,19 @@ public struct HSL {
     return v1;
   }
 
-  public RGB ToRGB() {
+  public RGBA ToRGBA() {
     if (S == 0)
-      return new RGB { R = L, G = L, B = L };
+      return new RGBA { R = L, G = L, B = L };
     else {
       float hue = (float)H / 360;
       float v2 = L < 0.5 ? L * (1 + S) : L + S - L * S;
       float v1 = 2 * L - v2;
 
-      return new RGB {
+      return new RGBA {
         R = hueToRGB(v1, v2, hue + 1.0f / 3),
         G = hueToRGB(v1, v2, hue),
-        B = hueToRGB(v1, v2, hue - 1.0f / 3)
+        B = hueToRGB(v1, v2, hue - 1.0f / 3),
+        A = 1f
       };
     }
   }

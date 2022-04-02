@@ -228,7 +228,7 @@ namespace {
             sprite.position.set_dirty(false);
         }
 
-        if (sprite.position.is_dirty() || sprite.entry.is_dirty())
+        if (sprite.scale.is_dirty() || sprite.entry.is_dirty())
         {
             auto scale = *sprite.scale;
             scale.x *= entry.scale.x;
@@ -545,6 +545,15 @@ INJECT_C_DLLEXPORT bool sprite_is_active(int id)
 {
     auto it = sprites.find(id);
     return it != sprites.end() && it->second.active;
+}
+
+INJECT_C_DLLEXPORT void reload_sprites()
+{
+    std::vector<std::string> paths;
+    std::transform(loaded_sprites.begin(), loaded_sprites.end(), std::back_inserter(paths), [](auto p) -> auto { return p.first; });
+    loaded_sprites.clear();
+    for (auto const& path : paths)
+        sprite_preload(path.c_str());
 }
 
 INJECT_C_DLLEXPORT void clear_sprites()

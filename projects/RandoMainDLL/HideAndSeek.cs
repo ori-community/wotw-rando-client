@@ -8,15 +8,54 @@ using System.Linq;
 using RandoMainDLL.Wheel;
 using System.Collections.Concurrent;
 using Network;
+using System.Runtime.InteropServices;
 
 namespace RandoMainDLL {
   public static class HideAndSeek {
     public static BlockingCollection<Packet> Queue = new BlockingCollection<Packet>();
 
+    private static readonly string CATCHING_ANIMATION = "assets/animations/catching.json";
     private static readonly string FIREWORK_ANIMATION = "assets/animations/firework.json";
     private static readonly float FIREWORK_HEIGHT = 1.5f;
 
-    public static bool IsPlaying { get; set; }
+    private static readonly Dictionary<string, SeekerWorldInfo> seekers = new Dictionary<string, SeekerWorldInfo>();
+    private static readonly HashSet<long> seekerIds = new HashSet<long>();
+
+    private static InterOp.Ability.ability_override AbilityDelegate = null;
+    private static GCHandle AbilityDelegateHandle;
+
+    public static bool IsPlaying { get { return Multiplayer.GameType == MultiverseInfoMessage.Types.GameHandlerType.HideAndSeek; } }
+
+    private static bool isSeeker = false;
+    public static bool IsSeeker {
+      get { return isSeeker; }
+      private set {
+        if (value == isSeeker)
+          return;
+
+        isSeeker = value;
+        if (isSeeker) {
+          preloadAnimations();
+          if (AbilityDelegate == null) {
+            AbilityDelegate = new InterOp.Ability.ability_override(UseSeekerAbility);
+            AbilityDelegateHandle = GCHandle.Alloc(AbilityDelegate, GCHandleType.Normal);
+          }
+          InterOp.Ability.register_ability_override(AbilityType.Blaze, Marshal.GetFunctionPointerForDelegate(AbilityDelegate));
+        }
+        else {
+          if (AbilityDelegate != null) {
+            AbilityDelegateHandle.Free();
+            AbilityDelegate = null;
+          }
+          InterOp.Ability.clear_ability_override(AbilityType.Blaze);
+        }
+      }
+    }
+
+    private static void preloadAnimations() {
+      InterOp.Sprite.sprite_preload(CATCHING_ANIMATION);
+      InterOp.Sprite.sprite_preload(FIREWORK_ANIMATION);
+    }
 
     private class Firework {
       public int ID;
@@ -24,11 +63,11 @@ namespace RandoMainDLL {
       public float Scale;
       public float Angle;
       public float Time;
-      public RGB Color;
+      public RGBA Color;
 
       public Firework Create() {
         ID = InterOp.Sprite.sprite_load(FIREWORK_ANIMATION, Position.X, Position.Y, 0f, Scale, Scale, 1f, Angle);
-        InterOp.Sprite.sprite_set_color_modulate(ID, Color.R, Color.G, Color.B, 1.0f);
+        InterOp.Sprite.sprite_set_color_modulate(ID, Color.R, Color.G, Color.B, Color.A);
         return this;
       }
     }
@@ -42,9 +81,9 @@ namespace RandoMainDLL {
       public List<Firework> Fireworks;
     }
 
-    private static List<CaughtAnimation> animations = new List<CaughtAnimation>();
+    private static List<CaughtAnimation> caughtAnimations = new List<CaughtAnimation>();
 
-    private static bool updateAnimation(CaughtAnimation animation, float dt) {
+    private static bool updateCaughtAnimation(CaughtAnimation animation, float dt) {
       animation.ElapsedTime += dt;
       Memory.Vector2 position = animation.Player == Multiplayer.Id || animation.Player == null
         ? InterOp.Player.get_position()
@@ -72,9 +111,8 @@ namespace RandoMainDLL {
     private static Memory.Vector2 freezePosition;
     private static float freezeTimer = 0f;
     public static void Update(float delta) {
-      IsPlaying = true;
       if (!IsPlaying) {
-        if (animations.Count > 0)
+        if (caughtAnimations.Count > 0)
           ClearAnimations();
 
         return;
@@ -88,21 +126,21 @@ namespace RandoMainDLL {
       }
 
       cooldown -= delta;
-      for (var i = animations.Count() - 1; i >= 0 && i < animations.Count(); --i) {
-        if (updateAnimation(animations[i], delta))
-          animations.RemoveAt(i);
+      for (var i = caughtAnimations.Count() - 1; i >= 0 && i < caughtAnimations.Count(); --i) {
+        if (updateCaughtAnimation(caughtAnimations[i], delta))
+          caughtAnimations.RemoveAt(i);
       }
     }
 
     public static void ClearAnimations() {
-      foreach (var animation in animations) {
+      foreach (var animation in caughtAnimations) {
         InterOp.Messaging.text_box_destroy(animation.Textbox);
         foreach (var firework in animation.Fireworks)
           if (!InterOp.Sprite.sprite_is_destroyed(firework.ID))
             InterOp.Sprite.sprite_destroy(firework.ID);
       }
 
-      animations.Clear();
+      caughtAnimations.Clear();
     }
 
     private static void playerCaught(string id) {
@@ -134,33 +172,25 @@ namespace RandoMainDLL {
           Scale = 0.4f,
           Angle = 30,
           Time = 0.0f,
-          Color = new RGB{ R = 1.0f, G = 0.1f, B = 0.1f }
+          Color = new RGBA(1f, .1f, .1f)
         }.Create(),
         new Firework {
           Position = new Memory.Vector2(1.3f, FIREWORK_HEIGHT),
           Scale = 0.8f,
           Angle = -20,
           Time = 0.3f,
-          Color = new RGB{ R = 0.1f, G = 1.0f, B = 0.7f }
+          Color = new RGBA(.1f, 1f, .7f)
         }.Create(),
         new Firework {
           Position = new Memory.Vector2(-1f, FIREWORK_HEIGHT + 0.5f),
           Scale = 0.6f,
           Angle = 10,
           Time = 0.6f,
-          Color = new RGB{ R = 1.0f, G = 0.7f, B = 0.1f }
+          Color = new RGBA(1f, .7f, .1f)
         }.Create()
       };
 
-      animations.Add(animation);
-    }
-
-    public static void SetSeeker(bool value) {
-      if (value) {
-        InterOp.Ability.register_ability_override(AbilityType.Blaze, new InterOp.Ability.ability_override(UseSeekerAbility));
-      }
-      else
-        InterOp.Ability.clear_ability_override(AbilityType.Blaze);
+      caughtAnimations.Add(animation);
     }
 
     private static readonly float seekerCooldown = 2.0f;
@@ -169,13 +199,17 @@ namespace RandoMainDLL {
       if (cooldown > 0f)
         return;
 
-      showSeekerAbilityAnimation(InterOp.Player.get_position());
+      // Should never use the default unless we are debugging.
+      var radius = Multiplayer.Id != null && seekers.TryGetValue(Multiplayer.Id, out var world) ? world.Radius : 16f;
+      showSeekerAbilityAnimation(InterOp.Player.get_position(), radius);
       WebSocketClient.SendPlayerUseCatch();
       cooldown = seekerCooldown;
     }
 
-    private static void showSeekerAbilityAnimation(Memory.Vector2 position) {
-      // TODO: Spawn animation.
+    private static void showSeekerAbilityAnimation(Memory.Vector2 position, float radius) {
+      var id = InterOp.Sprite.sprite_load(CATCHING_ANIMATION, position.X, position.Y, 0f, radius, radius, 1f, 0f);
+      InterOp.Sprite.sprite_set_color_modulate(id, 1f, .1f, .1f, 1f);
+      InterOp.Sprite.sprite_set_active(id, true);
     }
 
     private static void HandlePackets() {
@@ -184,7 +218,7 @@ namespace RandoMainDLL {
           case Packet.Types.PacketID.PlayerUsedCatchingAbility:
             var usedCatch = PlayerUsedCatchingAbilityMessage.Parser.ParseFrom(packet.Packet_);
             var position = InterOp.Multiplayer.get_player_position(usedCatch.Id);
-            showSeekerAbilityAnimation(position);
+            showSeekerAbilityAnimation(position, seekers[usedCatch.Id].Radius);
             break;
           case Packet.Types.PacketID.PlayerCaught:
             var caught = PlayerCaughtMessage.Parser.ParseFrom(packet.Packet_);
@@ -192,6 +226,25 @@ namespace RandoMainDLL {
             break;
           default:
             break;
+        }
+      }
+    }
+
+    public static void ClearInfo() {
+      IsSeeker = false;
+      seekers.Clear();
+      seekerIds.Clear();
+    }
+
+    public static void ParseHandlerInfo(HideAndSeekGameHandlerClientInfo info) {
+      foreach (var world in info.SeekerWorlds) {
+        if (world.Id == Multiplayer.WorldId)
+          IsSeeker = true;
+
+        var players = Multiplayer.GetPlayersFromWorld(world.Id);
+        foreach (var player in players) {
+          seekers.Add(player.User.Id, world);
+          InterOp.Multiplayer.set_player_icon(player.User.Id, InterOp.Multiplayer.PlayerIcon.Kii);
         }
       }
     }

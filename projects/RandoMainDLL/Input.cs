@@ -98,13 +98,13 @@ namespace RandoMainDLL {
         v += p;
 
         var id = InterOp.Sprite.sprite_load("assets/animations/firework.json", v.X, v.Y, z, 1.0f, 1.0f, 1.0f, 0.0f);
-        RGB color = new HSL { H = Randomizer.R.Next(0, 360), S = 0.9f, L = 0.5f }.ToRGB();
+        RGBA color = new HSL { H = Randomizer.R.Next(0, 360), S = 0.9f, L = 0.5f }.ToRGBA();
         InterOp.Sprite.sprite_set_color_modulate(
           id,
           color.R,
           color.G,
           color.B,
-          1.0f
+          color.A
         );
         InterOp.Sprite.sprite_set_active(id, true);
       }

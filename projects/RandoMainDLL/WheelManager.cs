@@ -55,6 +55,7 @@ namespace RandoMainDLL {
       CreateWheelItemInternal(9001, 0, "Toggle dev", "Toggles the dev flag.", "file:assets/icons/wheel/dev_mode.blue.png", Color.White, ptr);
       CreateWheelItemInternal(9001, 1, "Toggle debug", "Toggle debug controls", "file:assets/icons/wheel/toggle_debug.blue.png", Color.White, ptr);
       CreateWheelItemInternal(9001, 2, "Reload file textures", "Reloads all textures with the file: designation", "file:assets/icons/wheel/reload_file_textures.blue.png", Color.White, ptr);
+      CreateWheelItemInternal(9001, 3, "Reload sprites", "Reloads all sprite animations", "file:assets/icons/wheel/reload_file_textures.blue.png", Color.White, ptr);
       CreateWheelItemInternal(9001, 4, "Display coordinates", "Displays your current/ncoordinates as a message", "file:assets/icons/wheel/show_coordinates.blue.png", Color.White, ptr);
       CreateWheelItemInternal(9001, 5, "Teleport cheat", "Toggles cheat to teleport\nanywhere on the map", "file:assets/icons/wheel/teleport_cheat.blue.png", Color.White, ptr);
       CreateWheelItemInternal(9001, 6, "Unlock spoilers", "Unlock spoilers filter on the map", "file:assets/icons/wheel/unlock_spoilers.blue.png", Color.White, ptr);
@@ -129,6 +130,10 @@ namespace RandoMainDLL {
             case 2:
               MessageController.ShowMessage($"Reloading file textures", queue: "debug");
               InterOp.Utils.reload_all_file_textures();
+              break;
+            case 3:
+              MessageController.ShowMessage($"Reloading sprite animations", queue: "debug");
+              InterOp.Sprite.reload_sprites();
               break;
             case 4:
               Input.OnActionTriggered(Input.Action.PrintCoordinates);

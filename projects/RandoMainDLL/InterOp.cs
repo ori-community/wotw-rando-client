@@ -14,7 +14,7 @@ namespace RandoMainDLL {
       public delegate void ability_override(AbilityType type);
 
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void register_ability_override(AbilityType type, ability_override callback);
+      public extern static void register_ability_override(AbilityType type, IntPtr callback);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void clear_ability_override(AbilityType type);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -61,6 +61,8 @@ namespace RandoMainDLL {
       public extern static bool sprite_is_destroyed(int id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void clear_sprites();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void reload_sprites();
     }
 
     public static class TextDatabase {
