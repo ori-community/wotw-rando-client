@@ -149,6 +149,17 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new_full(Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds);
     }
 
+    template<typename R = Il2CppArraySize, typename T>
+    R* array_new(Il2CppClass* element, std::vector<T> items)
+    {
+        auto arr = untyped::array_new(element, items.size());
+        auto elements = reinterpret_cast<T*>(arr->vector);
+        for (auto i = 0; i < items.size(); ++i)
+            elements[i] = items[i];
+
+        return reinterpret_cast<R*>(arr);
+    }
+
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
     IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new(void* obj, bool pinned);
     IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new_weak(void* obj, bool track_ressurection);

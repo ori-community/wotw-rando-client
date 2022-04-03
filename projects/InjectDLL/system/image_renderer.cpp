@@ -122,6 +122,7 @@ namespace {
     STATIC_IL2CPP_BINDING(UnityEngine, Object, void, Destroy, (void* this_ptr));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform* this_ptr, app::Transform* parent));
     IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
+    IL2CPP_BINDING(UnityEngine, Renderer, app::Bounds, get_bounds, (app::Renderer* renderer));
 
     app::GameObject* create_sprite(Sprite& sprite, app::GameObject* obj)
     {
@@ -145,7 +146,27 @@ namespace {
         auto icon_renderer = reinterpret_cast<app::MoonIconRenderer*>(
             message_box->fields.TextBox->fields.styleCollection->fields.styles->vector[1]->fields.renderer);
         auto icon_obj = icon_renderer->fields.Icons->fields.Icons->fields._items->vector[0]->fields.Icon;
-        icon = il2cpp::unity::get_children(icon_obj)[0];
+        icon = il2cpp::unity::instantiate_object(il2cpp::unity::get_children(icon_obj)[0]);
+        GameObject::SetActive(icon, false);
+
+        auto mesh = il2cpp::create_object<app::Mesh>("UnityEngine", "Mesh");
+        il2cpp::invoke(mesh, ".ctor");
+        auto vertices = il2cpp::array_new(il2cpp::get_class("UnityEngine", "Vector3"), std::vector<app::Vector3>{
+            { -0.5f, -0.5f, 0 }, { 0.5f, -0.5f, 0 }, { -0.5f, 0.5f, 0 }, { 0.5f, 0.5f, 0 }});
+        auto triangles = il2cpp::array_new(il2cpp::get_class("System", "Int32"), std::vector<int>{0, 2, 1, 2, 3, 1});
+        auto normals = il2cpp::array_new(il2cpp::get_class("UnityEngine", "Vector3"), std::vector<app::Vector3>{
+            { 0, 0, 1 }, { 0, 0, 1 }, { 0, 0, 1 }, { 0, 0, 1 }});
+        auto uv = il2cpp::array_new(il2cpp::get_class("UnityEngine", "Vector2"), std::vector<app::Vector2>{
+            { 0, 0 }, { 1, 0 }, { 0, 1 }, { 1, 1 }});
+
+        il2cpp::invoke(mesh, "set_vertices", vertices);
+        il2cpp::invoke(mesh, "set_triangles", triangles);
+        il2cpp::invoke(mesh, "set_normals", normals);
+        il2cpp::invoke(mesh, "set_uv", uv);
+
+        auto mesh_filter = il2cpp::unity::get_component<app::MeshFilter>(icon, "UnityEngine", "MeshFilter");
+        il2cpp::invoke(mesh_filter, "set_mesh", mesh);
+
         return icon;
     }
 
@@ -579,8 +600,6 @@ INJECT_C_DLLEXPORT void clear_sprites()
     loaded_sprites.clear();
 }
 
-
-IL2CPP_BINDING(UnityEngine, Renderer, app::Bounds, get_bounds, (app::Renderer* renderer));
 INJECT_C_DLLEXPORT app::Vector2 sprite_bounds()
 {
     auto prefab = find_prefab();
