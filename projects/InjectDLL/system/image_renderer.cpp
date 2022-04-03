@@ -136,20 +136,24 @@ namespace {
 
     app::GameObject* find_prefab()
     {
+        static app::GameObject* icon = nullptr;
+        if (il2cpp::unity::is_valid(icon))
+            return icon;
+
         auto controller = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->MessageController;
         auto message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(controller->fields.HintSmallMessage, "", "MessageBox");
         auto icon_renderer = reinterpret_cast<app::MoonIconRenderer*>(
             message_box->fields.TextBox->fields.styleCollection->fields.styles->vector[1]->fields.renderer);
-        auto icon = icon_renderer->fields.Icons->fields.Icons->fields._items->vector[0]->fields.Icon;
-        return il2cpp::unity::get_children(icon)[0];
+        auto icon_obj = icon_renderer->fields.Icons->fields.Icons->fields._items->vector[0]->fields.Icon;
+        icon = il2cpp::unity::get_children(icon_obj)[0];
+        return icon;
     }
 
     //STATIC_IL2CPP_BINDING(RootMotion, LayerMaskExtensions, app::String*, MaskToString, (app::LayerMask original));
     STATIC_IL2CPP_BINDING(UnityEngine, LayerMask, app::String*, LayerToName, (int layer));
     bool create_ui_sprite(Sprite& sprite)
     {
-        static app::GameObject* icon = find_prefab();
-        auto go = create_sprite(sprite, icon);
+        auto go = create_sprite(sprite, find_prefab());
         return true;
     }
 
@@ -208,6 +212,7 @@ namespace {
     }
 
     STATIC_IL2CPP_BINDING(UnityEngine, Quaternion, app::Quaternion, Euler, (float x, float y, float z));
+    IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_localScale, (app::Transform* this_ptr));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* pos));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform* this_ptr, app::Vector3* scale));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_rotation, (app::Transform* this_ptr, app::Quaternion* rot));
@@ -572,4 +577,14 @@ INJECT_C_DLLEXPORT void clear_sprites()
 
     sprites.clear();
     loaded_sprites.clear();
+}
+
+
+IL2CPP_BINDING(UnityEngine, Renderer, app::Bounds, get_bounds, (app::Renderer* renderer));
+INJECT_C_DLLEXPORT app::Vector2 sprite_bounds()
+{
+    auto prefab = find_prefab();
+    auto renderer = il2cpp::unity::get_component<app::Renderer>(prefab, "UnityEngine", "Renderer");
+    auto bounds = Renderer::get_bounds(renderer);
+    return app::Vector2{ bounds.m_Extents.x, bounds.m_Extents.y };
 }

@@ -63,6 +63,8 @@ namespace RandoMainDLL {
       public extern static void clear_sprites();
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void reload_sprites();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static Vector2 sprite_bounds();
     }
 
     public static class TextDatabase {

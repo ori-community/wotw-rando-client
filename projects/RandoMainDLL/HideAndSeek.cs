@@ -258,7 +258,11 @@ namespace RandoMainDLL {
     }
 
     private static void showSeekerAbilityAnimation(Memory.Vector2 position, float radius) {
-      var id = InterOp.Sprite.sprite_load(CATCHING_ANIMATION, position.X, position.Y, 0f, radius, radius, 1f, 0f);
+      // Width of circle from the middle of the rim divided by the width of the texture.
+      var spriteFraction = 920f / 1256f;
+      radius /= spriteFraction;
+      var bounds = InterOp.Sprite.sprite_bounds();
+      var id = InterOp.Sprite.sprite_load(CATCHING_ANIMATION, position.X, position.Y, 0f, radius / bounds.X, radius / bounds.Y, 1f, 0f);
       InterOp.Sprite.sprite_set_color_modulate(id, 1f, .1f, .1f, 1f);
       InterOp.Sprite.sprite_set_active(id, true);
     }
