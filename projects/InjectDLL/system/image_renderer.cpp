@@ -92,30 +92,46 @@ namespace {
         app::Vector3 scale{ 0.f, 0.f, 0.f };
         float rotation = 0;
         float duration = 0;
-        float offset_z = 0.0f;
+        float real_duration = 0;
+        float offset_z = 0.f;
     };
 
     struct Sprite
     {
+        bool visible = true;
+        float start_time = 0.f;
+        uint32_t game_object_handle = -1;
+
+        DirtyValue<Layer> layer = Layer::UI;
+        app::Vector3 position{ 0.f, 0.f, 0.f };
+        app::Vector3 scale{ 0.f, 0.f, 0.f };
+        float rotation = 0;
+
+        std::wstring current_texture;
+        DirtyValue<int> entry = 0;
+        std::vector<AnimationEntry> entries;
+        SpriteEndHandling end_handler;
+    };
+
+    struct Animation
+    {
         bool alive = true;
         bool active = false;
-        uint32_t game_object_handle = -1;
-        DirtyValue<Layer> layer = Layer::UI;
         DirtyValue<app::Vector3> position = app::Vector3{ 0.f, 0.f, 0.f };
         DirtyValue<app::Vector3> scale = app::Vector3{ 1.f, 1.f, 1.f };
         DirtyValue<float> rotation = 0;
-
-        std::wstring current_texture;
+        DirtyValue<app::Color> color_modulate = app::Color{ 1.f, 1.f, 1.f, 1.f };
         AnimationEndHandling end_handler = AnimationEndHandling::Freeze;
         float time = 0;
-        DirtyValue<int> entry = 0;
-        std::vector<AnimationEntry> entries;
-        DirtyValue<app::Color> color_modulate = app::Color { 1.f, 1.f, 1.f, 1.f };
+        float duration = 0;
+
+        bool sprites_exist = false;
+        std::vector<Sprite> sprites;
     };
 
     int next_entry = 0;
-    std::unordered_map<std::string, Sprite> loaded_sprites;
-    std::unordered_map<int, Sprite> sprites;
+    std::unordered_map<std::string, Animation> loaded_animations;
+    std::unordered_map<int, Animation> animations;
 
     STATIC_IL2CPP_BINDING(UnityEngine, Shader, app::Shader*, Find, (app::String* name));
     STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (void* object), (UnityEngine:Object));
@@ -178,55 +194,105 @@ namespace {
         return true;
     }
 
-    bool update_active(Sprite& sprite)
+    void destroy_sprite(Sprite& sprite)
+    {
+        if (sprite.game_object_handle == -1)
+            return;
+
+        auto game_object = il2cpp::gchandle_target<app::GameObject>(sprite.game_object_handle);
+        il2cpp::gchandle_free(sprite.game_object_handle);
+        sprite.game_object_handle = -1;
+
+        if (il2cpp::unity::is_valid(game_object))
+            Object::Destroy(game_object);
+    }
+
+    bool update_active(Animation& anim)
     {
         auto sein = il2cpp::get_class<app::Characters__Class>("Game", "Characters")->static_fields->m_sein;
-        auto active = sprite.active && !sprite.entries.empty() && il2cpp::unity::is_valid(sein);
-        if (active && (sprite.game_object_handle == -1 || !il2cpp::unity::is_valid(il2cpp::gchandle_target(sprite.game_object_handle))))
-            return create_ui_sprite(sprite);
-        else if (!active && sprite.game_object_handle != -1)
+        auto active = anim.active && il2cpp::unity::is_valid(sein);
+        if (active && !anim.sprites_exist)
         {
-            auto game_object = il2cpp::gchandle_target<app::GameObject>(sprite.game_object_handle);
-            il2cpp::gchandle_free(sprite.game_object_handle);
-            sprite.game_object_handle = -1;
+            auto created = true;
+            for (auto& sprite : anim.sprites)
+            {
+                sprite.entry = 0;
+                if (sprite.game_object_handle == -1 || !il2cpp::unity::is_valid(il2cpp::gchandle_target(sprite.game_object_handle)))
+                    created &= create_ui_sprite(sprite);
+            }
 
-            if (il2cpp::unity::is_valid(game_object))
-                Object::Destroy(game_object);
+            if (!created)
+                for (auto& sprite : anim.sprites)
+                    destroy_sprite(sprite);
+
+            anim.sprites_exist = created;
+            return created;
+        }
+        else if (!active && anim.sprites_exist)
+        {
+            for (auto& sprite : anim.sprites)
+                destroy_sprite(sprite);
+
+            anim.sprites_exist = false;
         }
 
         return active;
     }
 
-    bool update_animation(Sprite& sprite, float dt)
+    bool update_sprite(Animation& anim, Sprite& sprite)
     {
-        sprite.time += dt;
-        auto& entry = sprite.entries[*sprite.entry];
-        if (sprite.time < entry.duration)
-            return true;
+        sprite.visible = anim.time >= sprite.start_time;
+        if (!sprite.visible)
+            return false;
 
+        auto& entry = sprite.entries[*sprite.entry];
+        if (anim.time < entry.real_duration)
+            return false;
+
+        sprite.entry = *sprite.entry + 1;
         if (*sprite.entry + 1 < sprite.entries.size())
-        {
-            sprite.time -= entry.duration;
-            sprite.entry = *sprite.entry + 1;
-            return true;
-        }
+            return false;
 
         switch (sprite.end_handler)
         {
-        case AnimationEndHandling::Freeze:
-            sprite.time = entry.duration;
+        case SpriteEndHandling::Freeze:
             break;
-        case AnimationEndHandling::DeactivateOnEnd:
-            sprite.active = false;
-            sprite.entry = 0;
-            sprite.time = 0;
+        case SpriteEndHandling::Hide:
+            sprite.visible = false;
             break;
-        case AnimationEndHandling::DestroyOnEnd:
-            return false;
-        case AnimationEndHandling::Loop:
-            sprite.time -= entry.duration;
-            sprite.entry = 0;
-            break;
+        }
+
+        return true;
+    }
+
+    bool update_animation(Animation& anim, float dt)
+    {
+        anim.time += dt;
+        bool at_end = true;
+        for (auto& sprite : anim.sprites)
+            at_end &= update_sprite(anim, sprite);
+
+        if (at_end)
+        {
+            switch (anim.end_handler)
+            {
+            case AnimationEndHandling::Freeze:
+                anim.time = anim.duration;
+                break;
+            case AnimationEndHandling::DeactivateOnEnd:
+                anim.active = false;
+                anim.time = 0;
+                for (auto& sprite : anim.sprites)
+                    sprite.entry = 0;
+                break;
+            case AnimationEndHandling::DestroyOnEnd:
+                return false;
+            case AnimationEndHandling::Loop:
+                anim.time -= anim.duration;
+                for (auto& sprite : anim.sprites)
+                    sprite.entry = 0;
+                break;
+            }
         }
 
         return true;
@@ -238,85 +304,95 @@ namespace {
     IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform* this_ptr, app::Vector3* scale));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_rotation, (app::Transform* this_ptr, app::Quaternion* rot));
     app::Vector4 shader_scale_and_offset{ 0, 0, 1, 1 };
-    void update_game_object(Sprite& sprite)
+    void update_game_object(Animation& anim)
     {
-        auto& entry = sprite.entries[*sprite.entry];
-        auto game_object = il2cpp::gchandle_target<app::GameObject>(sprite.game_object_handle);
-        auto transform = il2cpp::unity::get_transform(game_object);
-        
-        if (sprite.position.is_dirty() || sprite.entry.is_dirty())
+        for (auto& sprite : anim.sprites)
         {
-            auto pos = *sprite.position;
-            pos.x += entry.position.x;
-            pos.y += entry.position.y;
-            pos.z += entry.position.z;
-            Transform::set_position(transform, &pos);
-            sprite.position.set_dirty(false);
-        }
+            auto& entry = sprite.entries[*sprite.entry];
+            auto game_object = il2cpp::gchandle_target<app::GameObject>(sprite.game_object_handle);
+            auto transform = il2cpp::unity::get_transform(game_object);
 
-        if (sprite.scale.is_dirty() || sprite.entry.is_dirty())
-        {
-            auto scale = *sprite.scale;
-            scale.x *= entry.scale.x;
-            scale.y *= entry.scale.y;
-            scale.z *= entry.scale.z;
-            Transform::set_localScale(transform, &scale);
-            sprite.scale.set_dirty(false);
-        }
-
-        if (sprite.rotation.is_dirty() || sprite.entry.is_dirty())
-        {
-            auto angle = *sprite.rotation + entry.rotation;
-            auto rotation = Quaternion::Euler(0, 0, angle);
-            Transform::set_rotation(transform, &rotation);
-            sprite.rotation.set_dirty(false);
-        }
-
-        auto order = il2cpp::unity::get_component<app::UberShaderRuntimeRenderOrder>(game_object, "", "UberShaderRuntimeRenderOrder");
-        il2cpp::invoke(order, "SetRenderQueueOn", transform);
-
-        if (sprite.layer.is_dirty())
-        {
-            il2cpp::invoke(game_object, "set_layer", &sprite.layer.value());
-            sprite.layer.set_dirty(false);
-        }
-
-        auto renderer = il2cpp::unity::get_component<app::Renderer>(game_object, "UnityEngine", "MeshRenderer");
-        bool hidden = false;
-        il2cpp::invoke(renderer, "set_moonHidden", &hidden);
-        il2cpp::invoke(renderer, "set_moonHidden2", &hidden);
-        il2cpp::invoke(renderer, "set_moonHidden3", &hidden);
-
-
-        if (sprite.entry.is_dirty())
-        {
-            if (entry.texture_data == nullptr && !entry.texture.empty())
-                entry.texture_data = textures::get_texture(entry.texture);
-
-            il2cpp::invoke(renderer, "set_moonOffsetZ", &entry.offset_z);
-
-            if (entry.texture_data != nullptr && sprite.current_texture != entry.texture)
+            if (anim.position.is_dirty() || sprite.entry.is_dirty())
             {
-                shaders::UberShaderAPI::SetVector(renderer, app::UberShaderProperty_Vector__Enum_MainTexScaleAndOffset, &shader_scale_and_offset);
-                entry.texture_data->apply_texture(renderer);
-                sprite.current_texture = entry.texture;
+                auto pos = *anim.position;
+                pos.x += sprite.position.x;
+                pos.y += sprite.position.y;
+                pos.z += sprite.position.z;
+                pos.x += entry.position.x;
+                pos.y += entry.position.y;
+                pos.z += entry.position.z;
+                Transform::set_position(transform, &pos);
+            }
+
+            if (anim.scale.is_dirty() || sprite.entry.is_dirty())
+            {
+                auto scale = *anim.scale;
+                scale.x += sprite.scale.x;
+                scale.y += sprite.scale.y;
+                scale.z += sprite.scale.z;
+                scale.x *= entry.scale.x;
+                scale.y *= entry.scale.y;
+                scale.z *= entry.scale.z;
+                Transform::set_localScale(transform, &scale);
+            }
+
+            if (anim.rotation.is_dirty() || sprite.entry.is_dirty())
+            {
+                auto angle = *anim.rotation + sprite.rotation + entry.rotation;
+                auto rotation = Quaternion::Euler(0, 0, angle);
+                Transform::set_rotation(transform, &rotation);
+            }
+
+            auto order = il2cpp::unity::get_component<app::UberShaderRuntimeRenderOrder>(game_object, "", "UberShaderRuntimeRenderOrder");
+            il2cpp::invoke(order, "SetRenderQueueOn", transform);
+
+            if (sprite.layer.is_dirty())
+            {
+                il2cpp::invoke(game_object, "set_layer", &sprite.layer.value());
+                sprite.layer.set_dirty(false);
+            }
+
+            auto renderer = il2cpp::unity::get_component<app::Renderer>(game_object, "UnityEngine", "MeshRenderer");
+            bool hidden = false;
+            il2cpp::invoke(renderer, "set_moonHidden", &hidden);
+            il2cpp::invoke(renderer, "set_moonHidden2", &hidden);
+            il2cpp::invoke(renderer, "set_moonHidden3", &hidden);
+
+
+            if (sprite.entry.is_dirty())
+            {
+                if (entry.texture_data == nullptr && !entry.texture.empty())
+                    entry.texture_data = textures::get_texture(entry.texture);
+
+                il2cpp::invoke(renderer, "set_moonOffsetZ", &entry.offset_z);
+
+                if (entry.texture_data != nullptr && sprite.current_texture != entry.texture)
+                {
+                    shaders::UberShaderAPI::SetVector(renderer, app::UberShaderProperty_Vector__Enum_MainTexScaleAndOffset, &shader_scale_and_offset);
+                    entry.texture_data->apply_texture(renderer);
+                    sprite.current_texture = entry.texture;
+                }
+            }
+
+            if (sprite.entry.is_dirty() || anim.color_modulate.is_dirty())
+            {
+                auto params = entry.texture_params.value_or(textures::MaterialParams());
+                auto color = params.color.value_or(app::Color{ 1.f, 1.f, 1.f, 1.f });
+                color.r *= anim.color_modulate.value().r;
+                color.g *= anim.color_modulate.value().g;
+                color.b *= anim.color_modulate.value().b;
+                color.a *= anim.color_modulate.value().a;
+                params.color = color;
+
+                entry.texture_data->apply_params(renderer, &params);
+                sprite.entry.set_dirty(false);
             }
         }
 
-        if (sprite.entry.is_dirty() || sprite.color_modulate.is_dirty())
-        {
-            auto params = entry.texture_params.value_or(textures::MaterialParams());
-            auto color = params.color.value_or(app::Color{ 1.f, 1.f, 1.f, 1.f });
-            color.r *= sprite.color_modulate.value().r;
-            color.g *= sprite.color_modulate.value().g;
-            color.b *= sprite.color_modulate.value().b;
-            color.a *= sprite.color_modulate.value().a;
-            params.color = color;
-
-            entry.texture_data->apply_params(renderer, &params);
-            sprite.color_modulate.set_dirty(false);
-            sprite.entry.set_dirty(false);
-        }
+        anim.position.set_dirty(false);
+        anim.scale.set_dirty(false);
+        anim.rotation.set_dirty(false);
+        anim.color_modulate.set_dirty(false);
     }
 
     STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
@@ -324,7 +400,7 @@ namespace {
         GameController::Update(this_ptr);
         float dt = TimeUtility::get_deltaTime();
         std::vector<int> remove;
-        for (auto& pair : sprites)
+        for (auto& pair : animations)
         {
             if (update_active(pair.second))
             {
@@ -336,7 +412,71 @@ namespace {
         }
 
         for (auto id : remove)
-            sprite_destroy(id);
+            anim_destroy(id);
+    }
+
+    Animation parse_anim(nlohmann::json j)
+    {
+        Animation anim;
+        anim.time = 0.f;
+        anim.duration = 0.f;
+        anim.end_handler = j.value<AnimationEndHandling>("end_handler", AnimationEndHandling::Freeze);
+        auto sprite_entries = j.at("entries");
+        for (auto sprite_entry : sprite_entries)
+        {
+            Sprite& sprite = anim.sprites.emplace_back();
+            sprite.layer = sprite_entries.value<Layer>("layer", Layer::UI);
+            sprite.position = sprite_entries.value("position", app::Vector3{ 0.f, 0.f, 0.f });
+            sprite.scale = sprite_entries.value("scale", app::Vector3{ 0.f, 0.f, 0.f });
+            sprite.rotation = sprite_entries.value("rotation", 0.0f);
+            auto entries = sprite_entries.at("entries");
+            float sprite_duration = 0.f;
+            for (auto& entry : entries)
+            {
+                AnimationEntry anim_entry;
+                anim_entry.position = entry.value("position", app::Vector3{ 0.f, 0.f, 0.f });
+                anim_entry.scale = entry.value("scale", app::Vector3{ 0.f, 0.f, 0.f });
+                anim_entry.rotation = entry.value("rotation", 0.0f);
+                anim_entry.duration = entry.value("duration", 1.0f);
+                sprite_duration += anim_entry.duration;
+                anim_entry.real_duration = sprite_duration;
+                anim_entry.offset_z = entry.value("offset_z", 1.0f);
+                anim_entry.texture = convert_string_to_wstring(entry.value("texture", std::string("")));
+                anim_entry.texture_data = textures::get_texture(anim_entry.texture);
+                app::Vector2 texture_size;
+                auto has_texture_size = entry.contains("texture_size");
+                if (has_texture_size)
+                    texture_size = entry.value("texture_size", app::Vector2{ 1.f, 1.f });
+
+                if (entry.contains("texture_params"))
+                {
+                    auto params = entry["texture_params"];
+                    textures::MaterialParams mat_params;
+                    mat_params.color = params.value("color", app::Color{ 1.f, 1.f, 1.f, 1.f });
+                    mat_params.scroll_rot = params.value("scroll_rot", app::Vector4{ 0.f, 0.f, 0.f, 0.f });
+                    mat_params.uvs = params.value("uvs", app::Vector4{ 0.f, 0.f, 1.f, 1.f });
+                    auto& value = mat_params.uvs.value();
+                    if (has_texture_size)
+                    {
+                        value.x /= texture_size.x;
+                        value.y /= texture_size.y;
+                        value.z /= texture_size.x;
+                        value.w /= texture_size.y;
+                    }
+
+
+                    value.y = 1.f - value.y - value.w;
+                    anim_entry.texture_params = std::optional(mat_params);
+                }
+
+                sprite.entries.push_back(anim_entry);
+            }
+
+            anim.duration = std::max(anim.duration, sprite_duration);
+        }
+
+
+        return anim;
     }
 }
 
@@ -347,11 +487,16 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AnimationEndHandling, {
     { AnimationEndHandling::DeactivateOnEnd, "DeactivateOnEnd" },
 });
 
-INJECT_C_DLLEXPORT bool sprite_preload(const char* path)
+NLOHMANN_JSON_SERIALIZE_ENUM(SpriteEndHandling, {
+    { SpriteEndHandling::Freeze, "Freeze" },
+    { SpriteEndHandling::Hide, "Hide" },
+});
+
+INJECT_C_DLLEXPORT bool anim_preload(const char* path)
 {
     std::string spath(path);
-    auto it = loaded_sprites.find(spath);
-    if (it == loaded_sprites.end())
+    auto it = loaded_animations.find(spath);
+    if (it == loaded_animations.end())
     {
         std::ifstream stream(base_path + path);
         if (stream.is_open())
@@ -363,67 +508,24 @@ INJECT_C_DLLEXPORT bool sprite_preload(const char* path)
             }
             catch (nlohmann::json::parse_error& ex)
             {
-                trace(MessageType::Warning, 3, "sprite_renderer", format("failed to parse '%s%s' error '%d' at byte '%d'", base_path.c_str(), path, ex.id, ex.byte));
+                trace(MessageType::Warning, 3, "anim_renderer", format("failed to parse '%s%s' error '%d' at byte '%d'", base_path.c_str(), path, ex.id, ex.byte));
                 return false;
             }
 
             try
             {
-                Sprite sprite;
-                sprite.layer = j.value<Layer>("layer", Layer::UI);
-                sprite.end_handler = j.value<AnimationEndHandling>("end_handler", AnimationEndHandling::Freeze);
-                sprite.time = 0.f;
-                auto entries = j.at("entries");
-                for (auto entry : entries)
-                {
-                    AnimationEntry anim_entry;
-                    anim_entry.position = entry.value("position", app::Vector3{ 0.f, 0.f, 0.f });
-                    anim_entry.scale = entry.value("scale", app::Vector3{ 0.f, 0.f, 0.f });
-                    anim_entry.rotation = entry.value("rotation", 0.0f);
-                    anim_entry.duration = entry.value("duration", 1.0f);
-                    anim_entry.offset_z = entry.value("offset_z", 1.0f);
-                    anim_entry.texture = convert_string_to_wstring(entry.value("texture", std::string("")));
-                    anim_entry.texture_data = textures::get_texture(anim_entry.texture);
-                    app::Vector2 texture_size;
-                    auto has_texture_size = entry.contains("texture_size");
-                    if (has_texture_size)
-                        texture_size = entry.value("texture_size", app::Vector2{ 1.f, 1.f });
-
-                    if (entry.contains("texture_params"))
-                    {
-                        auto params = entry["texture_params"];
-                        textures::MaterialParams mat_params;
-                        mat_params.color = params.value("color", app::Color{ 1.f, 1.f, 1.f, 1.f });
-                        mat_params.scroll_rot = params.value("scroll_rot", app::Vector4{ 0.f, 0.f, 0.f, 0.f });
-                        mat_params.uvs = params.value("uvs", app::Vector4{ 0.f, 0.f, 1.f, 1.f });
-                        auto& value = mat_params.uvs.value();
-                        if (has_texture_size)
-                        {
-                            value.x /= texture_size.x;
-                            value.y /= texture_size.y;
-                            value.z /= texture_size.x;
-                            value.w /= texture_size.y;
-                        }
-
-
-                        value.y = 1.f - value.y - value.w;
-                        anim_entry.texture_params = std::optional(mat_params);
-                    }
-
-                    sprite.entries.push_back(anim_entry);
-                }
-
-                loaded_sprites[spath] = sprite;
+                Animation anim = parse_anim(j);
+                loaded_animations[spath] = anim;
             }
             catch (std::exception& ex)
             {
-                trace(MessageType::Warning, 3, "sprite_renderer", format("failed to read '%s%s' error '%s'", base_path.c_str(), path, ex.what()));
+                trace(MessageType::Warning, 3, "anim_renderer", format("failed to read '%s%s' error '%s'", base_path.c_str(), path, ex.what()));
                 return false;
             }
         }
         else
         {
-            trace(MessageType::Warning, 3, "sprite_renderer", format("failed to open '%s%s'", base_path.c_str(), path));
+            trace(MessageType::Warning, 3, "anim_renderer", format("failed to open '%s%s'", base_path.c_str(), path));
             return false;
         }
     }
@@ -431,176 +533,122 @@ INJECT_C_DLLEXPORT bool sprite_preload(const char* path)
     return true;
 }
 
-INJECT_C_DLLEXPORT int sprite_load(const char* path, float x, float y, float z, float sx, float sy, float sz, float angle)
+INJECT_C_DLLEXPORT int anim_load(const char* path, float x, float y, float z, float sx, float sy, float sz, float angle)
 {
-    if (!sprite_preload(path))
+    if (!anim_preload(path))
         return -1;
 
-    auto sprite = loaded_sprites[path];
+    auto sprite = loaded_animations[path];
     sprite.position = { x, y, z };
     sprite.scale = { sx, sy, sz };
     sprite.rotation = angle;
     auto id = next_entry++;
-    sprites[id] = sprite;
+    animations[id] = sprite;
     return id;
 }
 
-INJECT_C_DLLEXPORT int sprite_create(float x, float y, float z, float rotation, float scale_x, float scale_y, Layer layer, AnimationEndHandling end_handler)
+INJECT_C_DLLEXPORT void anim_set_color_modulate(int id, float r, float g, float b, float a)
 {
-    auto id = next_entry++;
-    auto& sprite = sprites[id];
-    sprite.position = app::Vector3{ x, y, z };
-    sprite.rotation = rotation;
-    sprite.scale = app::Vector3{ scale_x, scale_y, 1.0f };
-    sprite.layer = layer;
-    sprite.end_handler = end_handler;
-    return id;
-}
-
-INJECT_C_DLLEXPORT void sprite_set_color_modulate(int id, float r, float g, float b, float a)
-{
-    auto it = sprites.find(id);
-    if (it != sprites.end())
+    auto it = animations.find(id);
+    if (it != animations.end())
     {
         it->second.color_modulate = app::Color{
             r, g, b, a,
         };
     }
     else
-        modloader::warn("sprite_renderer", format("sprite_set_color_modulate: sprite '%d' does not exist.", id));
+        modloader::warn("anim_renderer", format("anim_set_color_modulate: animation '%d' does not exist.", id));
 }
 
-INJECT_C_DLLEXPORT void sprite_animation_entry(int id, float x, float y, float z, float rotation, float scale_x, float scale_y, float duration, const wchar_t* texture)
+INJECT_C_DLLEXPORT void anim_set_time(int id, float time)
 {
-    auto it = sprites.find(id);
-    if (it != sprites.end())
-    {
-        AnimationEntry entry;
-        entry.position.x = x;
-        entry.position.y = y;
-        entry.position.z = z;
-        entry.rotation = rotation;
-        entry.scale.x = scale_x;
-        entry.scale.y = scale_y;
-        entry.scale.z = 1.0f;
-        entry.duration = duration;
-        entry.texture = texture;
-        entry.texture_data = textures::get_texture(texture);
-        it->second.entries.push_back(entry);
-    }
+    auto it = animations.find(id);
+    if (it != animations.end())
+        it->second.time = time;
     else
-        modloader::warn("sprite_renderer", format("sprite_animation_entry: sprite '%d' does not exist.", id));
+        modloader::warn("anim_renderer", format("anim_set_time: animation '%d' does not exist.", id));
 }
 
-INJECT_C_DLLEXPORT void sprite_set_animation_entry(int id, int entry)
+INJECT_C_DLLEXPORT void anim_set_position(int id, float x, float y, float z)
 {
-    auto it = sprites.find(id);
-    if (it != sprites.end())
-    {
-        if (entry < it->second.entries.size())
-        {
-            it->second.entry = entry;
-            it->second.time = 0;
-        }
-        else
-            modloader::warn("sprite_renderer", format("sprite '%d' does not have frame '%d'.", id, entry));
-    }
-    else
-        modloader::warn("sprite_renderer", format("sprite_set_animation_entry: sprite '%d' does not exist.", id));
-}
-
-INJECT_C_DLLEXPORT void sprite_set_position(int id, float x, float y, float z)
-{
-    auto it = sprites.find(id);
-    if (it != sprites.end())
+    auto it = animations.find(id);
+    if (it != animations.end())
         it->second.position = { x, y, z };
     else
-        modloader::warn("sprite_renderer", format("sprite_set_position: sprite '%d' does not exist.", id));
+        modloader::warn("anim_renderer", format("anim_set_position: animation '%d' does not exist.", id));
 }
 
-INJECT_C_DLLEXPORT void sprite_set_scale(int id, float x, float y, float z)
+INJECT_C_DLLEXPORT void anim_set_scale(int id, float x, float y, float z)
 {
-    auto it = sprites.find(id);
-    if (it != sprites.end())
+    auto it = animations.find(id);
+    if (it != animations.end())
         it->second.scale = { x, y, z };
     else
-        modloader::warn("sprite_renderer", format("sprite_set_scale: sprite '%d' does not exist.", id));
+        modloader::warn("anim_renderer", format("anim_set_scale: animation '%d' does not exist.", id));
 }
 
-INJECT_C_DLLEXPORT void sprite_set_rotation(int id, float angle)
+INJECT_C_DLLEXPORT void anim_set_rotation(int id, float angle)
 {
-    auto it = sprites.find(id);
-    if (it != sprites.end())
+    auto it = animations.find(id);
+    if (it != animations.end())
         it->second.rotation = angle;
     else
-        modloader::warn("sprite_renderer", format("sprite_set_rotation: sprite '%d' does not exist.", id));
+        modloader::warn("anim_renderer", format("anim_set_rotation: animation '%d' does not exist.", id));
 }
 
-INJECT_C_DLLEXPORT void sprite_set_active(int id, bool value)
+INJECT_C_DLLEXPORT void anim_set_active(int id, bool value)
 {
-    auto it = sprites.find(id);
-    if (it != sprites.end())
+    auto it = animations.find(id);
+    if (it != animations.end())
         it->second.active = value;
     else
-        modloader::warn("sprite_renderer", format("sprite_set_active: sprite '%d' does not exist.", id));
+        modloader::warn("anim_renderer", format("anim_set_active: animation '%d' does not exist.", id));
 }
 
-INJECT_C_DLLEXPORT void sprite_destroy(int id)
+INJECT_C_DLLEXPORT void anim_destroy(int id)
 {
-    auto it = sprites.find(id);
-    if (it == sprites.end())
+    auto it = animations.find(id);
+    if (it == animations.end())
         return;
 
-    auto handle = it->second.game_object_handle;
-    sprites.erase(it);
+    for (auto& sprite : it->second.sprites)
+        destroy_sprite(sprite);
 
-    if (handle == -1)
-        return;
-
-    auto target = il2cpp::gchandle_target(handle);
-    if (il2cpp::unity::is_valid(target))
-        Object::Destroy(target);
+    animations.erase(it);
 }
 
-INJECT_C_DLLEXPORT bool sprite_is_destroyed(int id)
+INJECT_C_DLLEXPORT bool anim_is_destroyed(int id)
 {
-    return sprites.find(id) == sprites.end();
+    return animations.find(id) == animations.end();
 }
 
-INJECT_C_DLLEXPORT bool sprite_is_active(int id)
+INJECT_C_DLLEXPORT bool anim_is_active(int id)
 {
-    auto it = sprites.find(id);
-    return it != sprites.end() && it->second.active;
+    auto it = animations.find(id);
+    return it != animations.end() && it->second.active;
 }
 
-INJECT_C_DLLEXPORT void reload_sprites()
+INJECT_C_DLLEXPORT void reload_animations()
 {
     std::vector<std::string> paths;
-    std::transform(loaded_sprites.begin(), loaded_sprites.end(), std::back_inserter(paths), [](auto p) -> auto { return p.first; });
-    loaded_sprites.clear();
+    std::transform(loaded_animations.begin(), loaded_animations.end(), std::back_inserter(paths), [](auto p) -> auto { return p.first; });
+    animations.clear();
     for (auto const& path : paths)
-        sprite_preload(path.c_str());
+        anim_preload(path.c_str());
 }
 
-INJECT_C_DLLEXPORT void clear_sprites()
+INJECT_C_DLLEXPORT void clear_animations()
 {
     next_entry = 0;
-    for (auto sprite : sprites)
-    {
-        auto handle = sprite.second.game_object_handle;
-        if (handle == -1)
-            continue;
+    for (auto& anim : animations)
+        for (auto& sprite : anim.second.sprites)
+            destroy_sprite(sprite);
 
-        auto target = il2cpp::gchandle_target(handle);
-        if (il2cpp::unity::is_valid(target))
-            Object::Destroy(target);
-    }
-
-    sprites.clear();
-    loaded_sprites.clear();
+    animations.clear();
+    loaded_animations.clear();
 }
 
-INJECT_C_DLLEXPORT app::Vector2 sprite_bounds()
+INJECT_C_DLLEXPORT app::Vector2 anim_bounds()
 {
     auto prefab = find_prefab();
     auto renderer = il2cpp::unity::get_component<app::Renderer>(prefab, "UnityEngine", "Renderer");

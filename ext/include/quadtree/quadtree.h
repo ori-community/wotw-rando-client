@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include <array>
 #include <algorithm>
 #include <memory>
 #include <type_traits>
@@ -20,8 +21,7 @@ class Quadtree
     static_assert(std::is_arithmetic_v<Float>);
 
 public:
-    Quadtree(const Box<Float>& box, const GetBox& getBox = GetBox(),
-        const Equal& equal = Equal()) :
+    Quadtree(const Box<Float>& box, const GetBox& getBox = GetBox(), const Equal& equal = Equal()) :
         mBox(box), mRoot(std::make_unique<Node>()), mGetBox(getBox), mEqual(equal)
     {
 

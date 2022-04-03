@@ -33,38 +33,38 @@ namespace RandoMainDLL {
       public extern static void explode_grenades();
     }
 
-    public static class Sprite {
+    public static class Animation {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
-      public extern static bool sprite_preload([MarshalAs(UnmanagedType.LPStr)] string path);
+      public extern static bool anim_preload([MarshalAs(UnmanagedType.LPStr)] string path);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static int sprite_load([MarshalAs(UnmanagedType.LPStr)] string path, float x, float y, float z, float sx, float sy, float sz, float angle);
+      public extern static int anim_load([MarshalAs(UnmanagedType.LPStr)] string path, float x, float y, float z, float sx, float sy, float sz, float angle);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void sprite_set_animation_entry(int id, int entry);
+      public extern static void anim_set_time(int id, float time);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void sprite_set_position(int id, float x, float y, float z);
+      public extern static void anim_set_position(int id, float x, float y, float z);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void sprite_set_scale(int id, float x, float y, float z);
+      public extern static void anim_set_scale(int id, float x, float y, float z);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void sprite_set_color_modulate(int id, float r, float g, float b, float a);
+      public extern static void anim_set_color_modulate(int id, float r, float g, float b, float a);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void sprite_set_rotation(int id, float angle);
+      public extern static void anim_set_rotation(int id, float angle);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void sprite_set_active(int id, bool value);
+      public extern static void anim_set_active(int id, bool value);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void sprite_destroy(int id);
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      [return: MarshalAs(UnmanagedType.U1)]
-      public extern static bool sprite_is_active(int id);
+      public extern static void anim_destroy(int id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
-      public extern static bool sprite_is_destroyed(int id);
+      public extern static bool anim_is_active(int id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void clear_sprites();
+      [return: MarshalAs(UnmanagedType.U1)]
+      public extern static bool anim_is_destroyed(int id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void reload_sprites();
+      public extern static void clear_animations();
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static Vector2 sprite_bounds();
+      public extern static void reload_animations();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static Vector2 anim_bounds();
     }
 
     public static class TextDatabase {

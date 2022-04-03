@@ -97,16 +97,16 @@ namespace RandoMainDLL {
         v.Y = (float)(Math.Sin(angle) * distance);
         v += p;
 
-        var id = InterOp.Sprite.sprite_load("assets/animations/firework.json", v.X, v.Y, z, 1.0f, 1.0f, 1.0f, 0.0f);
+        var id = InterOp.Animation.anim_load("assets/animations/firework.json", v.X, v.Y, z, 1.0f, 1.0f, 1.0f, 0.0f);
         RGBA color = new HSL { H = Randomizer.R.Next(0, 360), S = 0.9f, L = 0.5f }.ToRGBA();
-        InterOp.Sprite.sprite_set_color_modulate(
+        InterOp.Animation.anim_set_color_modulate(
           id,
           color.R,
           color.G,
           color.B,
           color.A
         );
-        InterOp.Sprite.sprite_set_active(id, true);
+        InterOp.Animation.anim_set_active(id, true);
       }
     }
 

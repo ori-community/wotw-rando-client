@@ -57,9 +57,9 @@ namespace RandoMainDLL {
     }
 
     private static void preloadAnimations() {
-      InterOp.Sprite.sprite_preload(COOLDOWN_ANIMATION);
-      InterOp.Sprite.sprite_preload(CATCHING_ANIMATION);
-      InterOp.Sprite.sprite_preload(FIREWORK_ANIMATION);
+      InterOp.Animation.anim_preload(COOLDOWN_ANIMATION);
+      InterOp.Animation.anim_preload(CATCHING_ANIMATION);
+      InterOp.Animation.anim_preload(FIREWORK_ANIMATION);
     }
 
     private class CooldownAnimation {
@@ -79,17 +79,17 @@ namespace RandoMainDLL {
         : InterOp.Multiplayer.get_player_position(animation.Player);
 
       position.Y += isLocal ? COOLDOWN_LOCAL_HEIGHT : COOLDOWN_HEIGHT;
-      InterOp.Sprite.sprite_set_position(animation.ID, position.X, position.Y, 0f);
+      InterOp.Animation.anim_set_position(animation.ID, position.X, position.Y, 0f);
       if (animation.ElapsedTime < COOLDOWN_FADE)
-        InterOp.Sprite.sprite_set_color_modulate(animation.ID, 1f, 1f, 1f, animation.ElapsedTime / COOLDOWN_FADE); // Fade In
+        InterOp.Animation.anim_set_color_modulate(animation.ID, 1f, 1f, 1f, animation.ElapsedTime / COOLDOWN_FADE); // Fade In
       else if ((animation.Time - animation.ElapsedTime) < COOLDOWN_FADE)
-        InterOp.Sprite.sprite_set_color_modulate(animation.ID, 1f, 1f, 1f, (animation.Time - animation.ElapsedTime) / COOLDOWN_FADE); // Fade out
+        InterOp.Animation.anim_set_color_modulate(animation.ID, 1f, 1f, 1f, (animation.Time - animation.ElapsedTime) / COOLDOWN_FADE); // Fade out
       else
-        InterOp.Sprite.sprite_set_color_modulate(animation.ID, 1f, 1f, 1f, 1f);
+        InterOp.Animation.anim_set_color_modulate(animation.ID, 1f, 1f, 1f, 1f);
 
       var finished = animation.ElapsedTime > animation.Time;
       if (finished)
-        InterOp.Sprite.sprite_destroy(animation.ID);
+        InterOp.Animation.anim_destroy(animation.ID);
 
       return finished;
     }
@@ -103,8 +103,8 @@ namespace RandoMainDLL {
       public RGBA Color;
 
       public Firework Create() {
-        ID = InterOp.Sprite.sprite_load(FIREWORK_ANIMATION, Position.X, Position.Y, 0f, Scale, Scale, 1f, Angle);
-        InterOp.Sprite.sprite_set_color_modulate(ID, Color.R, Color.G, Color.B, Color.A);
+        ID = InterOp.Animation.anim_load(FIREWORK_ANIMATION, Position.X, Position.Y, 0f, Scale, Scale, 1f, Angle);
+        InterOp.Animation.anim_set_color_modulate(ID, Color.R, Color.G, Color.B, Color.A);
         return this;
       }
     }
@@ -128,9 +128,9 @@ namespace RandoMainDLL {
 
       InterOp.Messaging.text_box_position(animation.Textbox, position.X, position.Y + FIREWORK_HEIGHT, 0f, true);
       foreach (var firework in animation.Fireworks) {
-        if (!InterOp.Sprite.sprite_is_destroyed(firework.ID) && animation.ElapsedTime > firework.Time) {
-          InterOp.Sprite.sprite_set_active(firework.ID, true);
-          InterOp.Sprite.sprite_set_position(firework.ID, position.X + firework.Position.X, position.Y + firework.Position.Y, 0f);
+        if (!InterOp.Animation.anim_is_destroyed(firework.ID) && animation.ElapsedTime > firework.Time) {
+          InterOp.Animation.anim_set_active(firework.ID, true);
+          InterOp.Animation.anim_set_position(firework.ID, position.X + firework.Position.X, position.Y + firework.Position.Y, 0f);
         }
       }
 
@@ -178,14 +178,14 @@ namespace RandoMainDLL {
       foreach (var animation in caughtAnimations) {
         InterOp.Messaging.text_box_destroy(animation.Textbox);
         foreach (var firework in animation.Fireworks)
-          if (!InterOp.Sprite.sprite_is_destroyed(firework.ID))
-            InterOp.Sprite.sprite_destroy(firework.ID);
+          if (!InterOp.Animation.anim_is_destroyed(firework.ID))
+            InterOp.Animation.anim_destroy(firework.ID);
       }
 
       caughtAnimations.Clear();
 
       foreach (var animation in cooldownAnimations)
-        InterOp.Sprite.sprite_destroy(animation.ID);
+        InterOp.Animation.anim_destroy(animation.ID);
 
       cooldownAnimations.Clear();
     }
@@ -261,10 +261,10 @@ namespace RandoMainDLL {
       // Width of circle from the middle of the rim divided by the width of the texture.
       var spriteFraction = 920f / 1256f;
       radius /= spriteFraction;
-      var bounds = InterOp.Sprite.sprite_bounds();
-      var id = InterOp.Sprite.sprite_load(CATCHING_ANIMATION, position.X, position.Y, 0f, radius / bounds.X, radius / bounds.Y, 1f, 0f);
-      InterOp.Sprite.sprite_set_color_modulate(id, 1f, .1f, .1f, 1f);
-      InterOp.Sprite.sprite_set_active(id, true);
+      var bounds = InterOp.Animation.anim_bounds();
+      var id = InterOp.Animation.anim_load(CATCHING_ANIMATION, position.X, position.Y, 0f, radius / bounds.X, radius / bounds.Y, 1f, 0f);
+      InterOp.Animation.anim_set_color_modulate(id, 1f, .1f, .1f, 1f);
+      InterOp.Animation.anim_set_active(id, true);
     }
 
     private static void startCooldownAnimation(string player) {
@@ -277,7 +277,7 @@ namespace RandoMainDLL {
       position.Y += isLocal ? COOLDOWN_LOCAL_HEIGHT : COOLDOWN_HEIGHT;
       var animation = new CooldownAnimation {
         Player = player,
-        ID = InterOp.Sprite.sprite_load(COOLDOWN_ANIMATION, position.X, position.Y, -0.01f, COOLDOWN_SCALE, COOLDOWN_SCALE, 1f, 0f),
+        ID = InterOp.Animation.anim_load(COOLDOWN_ANIMATION, position.X, position.Y, -0.01f, COOLDOWN_SCALE, COOLDOWN_SCALE, 1f, 0f),
         Time = player != null ? seekers[player].Cooldown : 2f,
         ElapsedTime = 0f
       };
@@ -285,8 +285,8 @@ namespace RandoMainDLL {
       if (animation.ID == -1)
         return;
 
-      InterOp.Sprite.sprite_set_color_modulate(animation.ID, 1f, 1f, 1f, 0f);
-      InterOp.Sprite.sprite_set_active(animation.ID, true);
+      InterOp.Animation.anim_set_color_modulate(animation.ID, 1f, 1f, 1f, 0f);
+      InterOp.Animation.anim_set_active(animation.ID, true);
       cooldownAnimations.Add(animation);
     }
 
