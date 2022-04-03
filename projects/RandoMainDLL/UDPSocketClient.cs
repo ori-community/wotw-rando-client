@@ -93,9 +93,14 @@ namespace RandoMainDLL {
                 if (!isReceiving) {
                   isReceiving = true;
                   client.BeginReceive((IAsyncResult result) => {
-                    UdpClient c = (UdpClient)result.AsyncState;
-                    HandleMessage(c.EndReceive(result, ref endPoint));
-                    isReceiving = false;
+                    try {
+                      UdpClient c = (UdpClient)result.AsyncState;
+                      HandleMessage(c.EndReceive(result, ref endPoint));
+                      isReceiving = false;
+                    }
+                    catch (Exception ex) {
+                      Randomizer.Warn("UDPSocket.UpdateThread/BeginReceive", $"caught error {ex}");
+                    }
                   }, client);
                 }
 
