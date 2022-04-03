@@ -96,11 +96,12 @@ namespace RandoMainDLL {
                     try {
                       UdpClient c = (UdpClient)result.AsyncState;
                       HandleMessage(c.EndReceive(result, ref endPoint));
-                      isReceiving = false;
                     }
                     catch (Exception ex) {
                       Randomizer.Warn("UDPSocket.UpdateThread/BeginReceive", $"caught error {ex}");
                     }
+
+                    isReceiving = false;
                   }, client);
                 }
 
