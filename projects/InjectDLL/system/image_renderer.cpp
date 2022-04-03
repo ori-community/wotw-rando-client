@@ -427,15 +427,16 @@ namespace {
             Sprite& sprite = anim.sprites.emplace_back();
             sprite.layer = sprite_entries.value<Layer>("layer", Layer::UI);
             sprite.position = sprite_entries.value("position", app::Vector3{ 0.f, 0.f, 0.f });
-            sprite.scale = sprite_entries.value("scale", app::Vector3{ 0.f, 0.f, 0.f });
+            sprite.scale = sprite_entries.value("scale", app::Vector3{ 1.f, 1.f, 1.f });
             sprite.rotation = sprite_entries.value("rotation", 0.0f);
+            sprite.start_time = sprite_entries.value("start_time", 0.0f);
             auto entries = sprite_entries.at("entries");
             float sprite_duration = 0.f;
             for (auto& entry : entries)
             {
                 AnimationEntry anim_entry;
                 anim_entry.position = entry.value("position", app::Vector3{ 0.f, 0.f, 0.f });
-                anim_entry.scale = entry.value("scale", app::Vector3{ 0.f, 0.f, 0.f });
+                anim_entry.scale = entry.value("scale", app::Vector3{ 1.f, 1.f, 1.f });
                 anim_entry.rotation = entry.value("rotation", 0.0f);
                 anim_entry.duration = entry.value("duration", 1.0f);
                 sprite_duration += anim_entry.duration;
