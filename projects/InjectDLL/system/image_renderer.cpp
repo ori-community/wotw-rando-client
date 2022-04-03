@@ -633,7 +633,7 @@ INJECT_C_DLLEXPORT void reload_animations()
 {
     std::vector<std::string> paths;
     std::transform(loaded_animations.begin(), loaded_animations.end(), std::back_inserter(paths), [](auto p) -> auto { return p.first; });
-    animations.clear();
+    loaded_animations.clear();
     for (auto const& path : paths)
         anim_preload(path.c_str());
 }
