@@ -425,12 +425,12 @@ namespace {
         for (auto sprite_entry : sprite_entries)
         {
             Sprite& sprite = anim.sprites.emplace_back();
-            sprite.layer = sprite_entries.value<Layer>("layer", Layer::UI);
-            sprite.position = sprite_entries.value("position", app::Vector3{ 0.f, 0.f, 0.f });
-            sprite.scale = sprite_entries.value("scale", app::Vector3{ 1.f, 1.f, 1.f });
-            sprite.rotation = sprite_entries.value("rotation", 0.0f);
-            sprite.start_time = sprite_entries.value("start_time", 0.0f);
-            auto entries = sprite_entries.at("entries");
+            sprite.layer = sprite_entry.value<Layer>("layer", Layer::UI);
+            sprite.position = sprite_entry.value("position", app::Vector3{ 0.f, 0.f, 0.f });
+            sprite.scale = sprite_entry.value("scale", app::Vector3{ 1.f, 1.f, 1.f });
+            sprite.rotation = sprite_entry.value("rotation", 0.0f);
+            sprite.start_time = sprite_entry.value("start_time", 0.0f);
+            auto entries = sprite_entry.at("entries");
             float sprite_duration = 0.f;
             for (auto& entry : entries)
             {

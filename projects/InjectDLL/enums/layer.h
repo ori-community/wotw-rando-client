@@ -57,4 +57,4 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Layer, {
     { Layer::ArtBlurredReflected, "ArtBlurredReflected" },
     { Layer::Laser, "Laser" },
     { Layer::TerrainCollisionIgnorePlayerAndEnemies, "TerrainCollisionIgnorePlayerAndEnemies" },
-    });
+});
