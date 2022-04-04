@@ -42,6 +42,27 @@ namespace shaders
     STATIC_IL2CPP_BINDING(, UberShaderAPI, app::Color, GetColor, (app::Renderer* renderer, app::UberShaderProperty_Color__Enum prop));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, float, GetFloat, (app::Renderer* renderer, app::UberShaderProperty_Float__Enum prop));
 
+
+    void set_float(app::Material* mat, std::string_view name, float value)
+    {
+        Material::SetFloat(mat, il2cpp::string_new(name), value);
+    }
+
+    void set_color(app::Material* mat, std::string_view name, app::Color value)
+    {
+        Material::SetColor(mat, il2cpp::string_new(name), &value);
+    }
+
+    void set_texture(app::Material* mat, std::string_view name, app::Texture* value)
+    {
+        Material::SetTexture(mat, il2cpp::string_new(name), value);
+    }
+
+    void set_vector(app::Material* mat, std::string_view name, app::Vector4 value)
+    {
+        Material::SetVector(mat, il2cpp::string_new(name), &value);
+    }
+
     ShaderInfo get_info(app::Renderer* renderer)
     {
         ShaderInfo info;

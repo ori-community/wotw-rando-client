@@ -502,7 +502,7 @@ namespace il2cpp
 
     app::String* string_new(std::string_view str)
     {
-        return reinterpret_cast<app::String*>(il2cpp_string_new_wrapper(str.data()));
+        return reinterpret_cast<app::String*>(il2cpp_string_new_len(str.data(), str.size()));
     }
 
     app::String* string_new(std::string_view str, uint32_t len)

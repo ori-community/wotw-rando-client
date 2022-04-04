@@ -263,7 +263,7 @@ namespace RandoMainDLL {
       radius /= spriteFraction;
       var bounds = InterOp.Animation.anim_bounds();
       var id = InterOp.Animation.anim_load(CATCHING_ANIMATION, position.X, position.Y, 0f, radius / bounds.X, radius / bounds.Y, 1f, 0f);
-      InterOp.Animation.anim_set_color_modulate(id, 1f, .1f, .1f, 1f);
+      InterOp.Animation.anim_set_color_modulate(id, 1f, 1f, 1f, 1f);
       InterOp.Animation.anim_set_active(id, true);
     }
 

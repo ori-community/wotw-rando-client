@@ -154,13 +154,6 @@ namespace {
         auto parent = il2cpp::unity::get_parent(il2cpp::unity::get_transform(sein));
         Transform::set_parent(il2cpp::unity::get_transform(go), parent);
         GameObject::SetActive(go, true);
-        auto renderer = il2cpp::unity::get_component<app::Renderer>(go, "UnityEngine", "Renderer");
-        auto mat = shaders::UberShaderAPI::GetEditableMaterial(renderer);
-        //_UberShaderParams
-        //auto param = app::Vector4{ 1, 0, 0, 0 };
-        //shaders::Material::SetVector(mat, il2cpp::string_new("_UberShaderParams"), &param);
-        //shaders::Material::SetInt(mat, il2cpp::string_new("_UberShaderBlendModeSrc"), sprite.src_blend);
-        //shaders::Material::SetInt(mat, il2cpp::string_new("_UberShaderBlendModeDst"), sprite.dst_blend);
         return go;
     }
 
@@ -177,6 +170,8 @@ namespace {
         );
     }
 
+    bool use_prefab = true;
+    bool custom_shader = false;
     app::GameObject* find_prefab()
     {
         static app::GameObject* icon = nullptr;
@@ -185,7 +180,6 @@ namespace {
 
         app::Renderer* renderer = nullptr;
         app::MeshFilter* mesh_filter = nullptr;
-        bool use_prefab = true;
         if (use_prefab)
         {
             auto controller = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->MessageController;
@@ -201,7 +195,6 @@ namespace {
         }
         else
         {
-            // TODO: Figure out why this doesn't work.
             icon = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
             il2cpp::invoke(icon, ".ctor");
             il2cpp::invoke(icon, "set_name", il2cpp::string_new("custom_rando_image"));
@@ -209,6 +202,8 @@ namespace {
             renderer = il2cpp::unity::add_component<app::Renderer>(icon, "UnityEngine", "MeshRenderer");
             auto order = il2cpp::unity::add_component<app::UberShaderRuntimeRenderOrder>(icon, "", "UberShaderRuntimeRenderOrder");
             order->fields.m_isInScene = true;
+            bool enabled = true;
+            il2cpp::invoke(renderer, "set_enabled", &enabled);
         }
 
         GameObject::SetActive(icon, false);
@@ -228,20 +223,26 @@ namespace {
 
         il2cpp::invoke(mesh_filter, "set_mesh", mesh);
 
-        //auto shader = Shader::Find(il2cpp::string_new("Standard"));
-        //auto mat = il2cpp::create_object<app::Material>("UnityEngine", "Material");
-        //Material::ctor_shader(mat, shader);
-        //il2cpp::invoke(renderer, "set_sharedMaterial", mat);
+        if (custom_shader)
+        {
+            auto shader = Shader::Find(il2cpp::string_new("Hidden/UberShader/59F9A629AA8A0ABB2D0B3EAE1933B13F"));
+            auto mat = il2cpp::create_object<app::Material>("UnityEngine", "Material");
+            Material::ctor_shader(mat, shader);
 
-        //auto keywords = il2cpp::array_new(il2cpp::get_class("System", "String"), std::vector<app::String*>{
-        //    il2cpp::string_new("")
-        //});
-        //il2cpp::invoke(mat, "set_shaderKeywords", keywords);
-        //bool enabled = true;
-        //il2cpp::invoke(renderer, "set_enabled", &enabled);
-        //auto culling_mask = il2cpp::invoke<app::UInt32__Boxed>(renderer, "get_cullingCategoryMask")->fields;
-        //auto rendering_layer_mask = il2cpp::invoke<app::UInt32__Boxed>(renderer, "get_renderingLayerMask")->fields;
-        //auto materials = il2cpp::invoke<app::Material__Array>(renderer, "get_sharedMaterials");
+            auto keywords = il2cpp::array_new(il2cpp::get_class("System", "String"), std::vector<app::String*>{
+                il2cpp::string_new("DISABLE_ALPHA_CUTOFF")
+            });
+            il2cpp::invoke(mat, "set_shaderKeywords", keywords);
+
+            shaders::set_float(mat, "_UberShaderAlphaMask", 9);
+            shaders::set_float(mat, "_UberShaderCulling", 0);
+            shaders::set_vector(mat, "_DepthFlipScreen", { 0.008251436, 0, 0, 0 });
+            shaders::set_vector(mat, "_Screen", { 0, 0, 0, 1 });
+            shaders::set_vector(mat, "_UberShaderParams", { 0, 0, 1, 1 });
+            shaders::set_vector(mat, "_UberShaderParams2", { 1, 1, 0, 1 });
+
+            il2cpp::invoke(renderer, "set_sharedMaterial", mat);
+        }
 
         return icon;
     }
@@ -437,17 +438,7 @@ namespace {
                 color.b *= anim.color_modulate.value().b;
                 color.a *= anim.color_modulate.value().a;
                 params.color = color;
-
                 entry.texture_data->apply_params(renderer, &params);
-                //if (entry.texture_params->uvs.has_value())
-                //{
-                //    auto const& uv_vec = entry.texture_params->uvs.value();
-                //    auto uv = make_uvs(uv_vec.x, uv_vec.y, uv_vec.z, uv_vec.w);
-                //    auto mesh_filter = il2cpp::unity::get_component<app::MeshFilter>(game_object, "UnityEngine", "MeshFilter");
-                //    auto mesh = MeshFilter::get_mesh(mesh_filter);
-                //    Mesh::set_uv(mesh, uv);
-                //}
-
                 sprite.entry.set_dirty(false);
             }
         }
