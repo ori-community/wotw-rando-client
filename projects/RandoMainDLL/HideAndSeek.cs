@@ -18,9 +18,9 @@ namespace RandoMainDLL {
     private static readonly string CATCHING_ANIMATION = "assets/animations/catching.json";
     private static readonly string FIREWORK_ANIMATION = "assets/animations/firework.json";
     private static readonly float COOLDOWN_FADE = 0.2f;
-    private static float COOLDOWN_SCALE = 0.3f;
+    private static float COOLDOWN_SCALE = 1.5f;
     private static float COOLDOWN_HEIGHT = 0.8f;
-    private static float COOLDOWN_LOCAL_HEIGHT = 0.6f;
+    private static float COOLDOWN_LOCAL_HEIGHT = 0.7f;
     private static readonly float FIREWORK_HEIGHT = 1.5f;
 
     private static readonly Dictionary<string, SeekerWorldInfo> seekers = new Dictionary<string, SeekerWorldInfo>();
@@ -259,7 +259,7 @@ namespace RandoMainDLL {
 
     private static void showSeekerAbilityAnimation(Memory.Vector2 position, float radius) {
       // Width of circle from the middle of the rim divided by the width of the texture.
-      var spriteFraction = 920f / 1256f;
+      var spriteFraction = 420f / 512f;
       radius /= spriteFraction;
       var bounds = InterOp.Animation.anim_bounds();
       var id = InterOp.Animation.anim_load(CATCHING_ANIMATION, position.X, position.Y, 0f, radius / bounds.X, radius / bounds.Y, 1f, 0f);

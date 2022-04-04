@@ -90,6 +90,7 @@ namespace {
         std::optional<textures::MaterialParams> texture_params;
         app::Vector3 position{ 0.f, 0.f, 0.f };
         app::Vector3 scale{ 0.f, 0.f, 0.f };
+        float aspect_ratio = 1.f;
         float rotation = 0;
         float duration = 0;
         float real_duration = 0;
@@ -172,6 +173,7 @@ namespace {
 
     bool use_prefab = true;
     bool custom_shader = false;
+    float dst_blend = 1;
     app::GameObject* find_prefab()
     {
         static app::GameObject* icon = nullptr;
@@ -382,12 +384,13 @@ namespace {
             if (anim.scale.is_dirty() || sprite.entry.is_dirty())
             {
                 auto scale = *anim.scale;
-                scale.x += sprite.scale.x;
-                scale.y += sprite.scale.y;
-                scale.z += sprite.scale.z;
+                scale.x *= sprite.scale.x;
+                scale.y *= sprite.scale.y;
+                scale.z *= sprite.scale.z;
                 scale.x *= entry.scale.x;
                 scale.y *= entry.scale.y;
                 scale.z *= entry.scale.z;
+                scale.y *= entry.aspect_ratio;
                 Transform::set_localScale(transform, &scale);
             }
 
@@ -503,7 +506,10 @@ namespace {
                 app::Vector2 texture_size;
                 auto has_texture_size = entry.contains("texture_size");
                 if (has_texture_size)
+                {
                     texture_size = entry.value("texture_size", app::Vector2{ 1.f, 1.f });
+                    anim_entry.aspect_ratio = texture_size.y / texture_size.x;
+                }
 
                 if (entry.contains("texture_params"))
                 {
@@ -517,6 +523,7 @@ namespace {
                     auto& value = mat_params.uvs.value();
                     if (has_texture_size)
                     {
+                        anim_entry.aspect_ratio = value.w / value.z;
                         value.x /= texture_size.x;
                         value.y /= texture_size.y;
                         value.z /= texture_size.x;
