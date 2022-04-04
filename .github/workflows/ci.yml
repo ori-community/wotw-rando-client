@@ -42,7 +42,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
       - name: Install MSVC developer tools
-        uses: ilammy/msvc-dev-cmd@v1
+        uses: microsoft/setup-msbuild@v1.1
         with:
           arch: x64
       - name: Setup dotnet
@@ -50,7 +50,7 @@ jobs:
         with:
           dotnet-version: 5.0.x
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.0.2
+        uses: microsoft/setup-msbuild@v1.1
       - name: Generate solution
         shell: cmd
         run: "gen_win64_vs2019.bat"
