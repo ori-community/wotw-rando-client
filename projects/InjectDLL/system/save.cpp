@@ -2,7 +2,6 @@
 #include <ipc.h>
 #include <macros.h>
 #include <csharp_bridge.h>
-#include <features/instantiate_objects.h>
 #include <pickups/pickups.h>
 #include <system/textures.h>
 #include <uber_states/state_applier.h>
@@ -44,7 +43,6 @@ namespace
     IL2CPP_INTERCEPT(, NewGameAction, void, Perform, (app::NewGameAction* this_ptr, app::IContext* context)) {
         csharp_bridge::new_game(SaveSlotsManager::get_CurrentSlotIndex());
         NewGameAction::Perform(this_ptr, context);
-        perform_preload();
         uber_states::load_dynamic_redirects();
         report_load();
     }
@@ -68,7 +66,6 @@ namespace
     IL2CPP_INTERCEPT(, SaveGameController, void, OnFinishedLoading, (app::SaveGameController* thisPtr)) {
         csharp_bridge::on_load(SaveSlotsManager::get_CurrentSlotIndex(), SaveSlotsManager::get_BackupIndex());
         SaveGameController::OnFinishedLoading(thisPtr);
-        perform_preload();
         uber_states::load_dynamic_redirects();
         report_load();
     }
@@ -76,7 +73,6 @@ namespace
     IL2CPP_INTERCEPT(, SaveGameController, void, RestoreCheckpoint, (app::SaveGameController* thisPtr)) {
         csharp_bridge::on_load(SaveSlotsManager::get_CurrentSlotIndex(), SaveSlotsManager::get_BackupIndex());
         SaveGameController::RestoreCheckpoint(thisPtr);
-        perform_preload();
         uber_states::load_dynamic_redirects();
         report_load();
     }

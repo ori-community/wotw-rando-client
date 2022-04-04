@@ -35,6 +35,7 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> get_children(app::GameObject* game_object);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::string_view name);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string_view> const& path);
+        IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string> const& path);
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::Component*> get_components_untyped(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component");
         IL2CPP_MODLOADER_DLLEXPORT int32_t get_scene_count();
         IL2CPP_MODLOADER_DLLEXPORT app::Scene get_scene_at(int32_t i);

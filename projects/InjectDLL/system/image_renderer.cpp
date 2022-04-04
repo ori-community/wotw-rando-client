@@ -138,8 +138,6 @@ namespace {
 
     NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Material, void, .ctor, ctor_shader, (app::Material* this_ptr, app::Shader* shader), (UnityEngine:Shader));
     STATIC_IL2CPP_BINDING(UnityEngine, Shader, app::Shader*, Find, (app::String* name));
-    STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (void* object), (UnityEngine:Object));
-    STATIC_IL2CPP_BINDING(UnityEngine, Object, void, Destroy, (void* this_ptr));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform* this_ptr, app::Transform* parent));
     IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
     IL2CPP_BINDING(UnityEngine, Renderer, app::Bounds, get_bounds, (app::Renderer* this_ptr));
@@ -150,7 +148,7 @@ namespace {
     app::GameObject* create_sprite(Sprite& sprite, app::GameObject* obj)
     {
         auto sein = il2cpp::get_class<app::Characters__Class>("Game", "Characters")->static_fields->m_sein;
-        auto go = reinterpret_cast<app::GameObject*>(Object::Instantiate(obj));
+        auto go = reinterpret_cast<app::GameObject*>(il2cpp::unity::instantiate_object(obj));
         sprite.game_object_handle = il2cpp::gchandle_new(go, false);
         auto parent = il2cpp::unity::get_parent(il2cpp::unity::get_transform(sein));
         Transform::set_parent(il2cpp::unity::get_transform(go), parent);
@@ -259,7 +257,7 @@ namespace {
         sprite.game_object_handle = -1;
 
         if (il2cpp::unity::is_valid(game_object))
-            Object::Destroy(game_object);
+            il2cpp::unity::destroy_object(game_object);
     }
 
     bool update_active(Animation& anim)

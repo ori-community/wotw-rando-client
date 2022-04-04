@@ -40,24 +40,24 @@ namespace {
     }
 }
 
-INJECT_C_DLLEXPORT app::Vector3 world_to_ui_position(app::Vector3 position)
+INJECT_C_DLLEXPORT app::Vector3 world_to_ui_position(app::Vector3 const& position)
 {
     return convert_position(position, WORLD_TO_UI);
 }
 
-INJECT_C_DLLEXPORT app::Vector3 ui_to_world_position(app::Vector3 position)
+INJECT_C_DLLEXPORT app::Vector3 ui_to_world_position(app::Vector3 const& position)
 {
     return convert_position(position, UI_TO_WORLD);
 }
 
-INJECT_C_DLLEXPORT app::Vector2 world_to_ui_position_2d(app::Vector2 position)
+INJECT_C_DLLEXPORT app::Vector2 world_to_ui_position_2d(app::Vector2 const& position)
 {
     app::Vector3 input{ position.x, position.y, 0.f };
     input = convert_position(input, WORLD_TO_UI);
     return { input.x, input.y };
 }
 
-INJECT_C_DLLEXPORT app::Vector2 ui_to_world_position_2d(app::Vector2 position)
+INJECT_C_DLLEXPORT app::Vector2 ui_to_world_position_2d(app::Vector2 const& position)
 {
     app::Vector3 input{ position.x, position.y, 0.f };
     input = convert_position(input, UI_TO_WORLD);

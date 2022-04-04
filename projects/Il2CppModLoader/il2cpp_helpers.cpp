@@ -219,6 +219,19 @@ namespace il2cpp
             return game_object;
         }
 
+        IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string> const& path)
+        {
+            for (auto const& name : path)
+            {
+                if (game_object == nullptr)
+                    break;
+
+                game_object = find_child(game_object, name);
+            }
+
+            return game_object;
+        }
+
         bool is_valid(void* obj)
         {
             return obj != nullptr && Object::op_Implicit(obj);
