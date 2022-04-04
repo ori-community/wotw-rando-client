@@ -106,7 +106,7 @@ namespace RandoMainDLL {
           color.B,
           color.A
         );
-        InterOp.Animation.anim_set_active(id, true);
+        InterOp.Animation.anim_set_state(id, InterOp.Animation.AnimState.Active);
       }
     }
 

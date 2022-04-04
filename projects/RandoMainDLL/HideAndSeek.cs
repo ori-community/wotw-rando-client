@@ -129,7 +129,7 @@ namespace RandoMainDLL {
       InterOp.Messaging.text_box_position(animation.Textbox, position.X, position.Y + FIREWORK_HEIGHT, 0f, true);
       foreach (var firework in animation.Fireworks) {
         if (!InterOp.Animation.anim_is_destroyed(firework.ID) && animation.ElapsedTime > firework.Time) {
-          InterOp.Animation.anim_set_active(firework.ID, true);
+          InterOp.Animation.anim_set_state(firework.ID, InterOp.Animation.AnimState.Active);
           InterOp.Animation.anim_set_position(firework.ID, position.X + firework.Position.X, position.Y + firework.Position.Y, 0f);
         }
       }
@@ -264,7 +264,7 @@ namespace RandoMainDLL {
       var bounds = InterOp.Animation.anim_bounds();
       var id = InterOp.Animation.anim_load(CATCHING_ANIMATION, position.X, position.Y, 0f, radius / bounds.X, radius / bounds.Y, 1f, 0f);
       InterOp.Animation.anim_set_color_modulate(id, 1f, 1f, 1f, 1f);
-      InterOp.Animation.anim_set_active(id, true);
+      InterOp.Animation.anim_set_state(id, InterOp.Animation.AnimState.Active);
     }
 
     private static void startCooldownAnimation(string player) {
@@ -273,7 +273,6 @@ namespace RandoMainDLL {
         ? new Memory.Vector2(InterOp.Player.get_head_position())
         : InterOp.Multiplayer.get_player_position(player);
 
-      var t = InterOp.Player.get_position();
       position.Y += isLocal ? COOLDOWN_LOCAL_HEIGHT : COOLDOWN_HEIGHT;
       var animation = new CooldownAnimation {
         Player = player,
@@ -286,7 +285,7 @@ namespace RandoMainDLL {
         return;
 
       InterOp.Animation.anim_set_color_modulate(animation.ID, 1f, 1f, 1f, 0f);
-      InterOp.Animation.anim_set_active(animation.ID, true);
+      InterOp.Animation.anim_set_state(animation.ID, InterOp.Animation.AnimState.Active);
       cooldownAnimations.Add(animation);
     }
 

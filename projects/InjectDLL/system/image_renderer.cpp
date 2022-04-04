@@ -119,7 +119,7 @@ namespace {
     struct Animation
     {
         bool alive = true;
-        bool active = false;
+        AnimState state = AnimState::Disabled;
         DirtyValue<app::Vector3> position = app::Vector3{ 0.f, 0.f, 0.f };
         DirtyValue<app::Vector3> scale = app::Vector3{ 1.f, 1.f, 1.f };
         DirtyValue<float> rotation = 0;
@@ -265,7 +265,7 @@ namespace {
     bool update_active(Animation& anim)
     {
         auto sein = il2cpp::get_class<app::Characters__Class>("Game", "Characters")->static_fields->m_sein;
-        auto active = anim.active && il2cpp::unity::is_valid(sein);
+        auto active = anim.state != AnimState::Disabled && il2cpp::unity::is_valid(sein);
         if (active && !anim.sprites_exist)
         {
             auto created = true;
@@ -324,6 +324,9 @@ namespace {
 
     bool update_animation(Animation& anim, float dt)
     {
+        if (anim.state != AnimState::Active)
+            return true;
+
         anim.time += dt;
         bool at_end = true;
         for (auto& sprite : anim.sprites)
@@ -337,7 +340,7 @@ namespace {
                 anim.time = anim.duration;
                 break;
             case AnimationEndHandling::DeactivateOnEnd:
-                anim.active = false;
+                anim.state = AnimState::Disabled;
                 anim.time = 0;
                 for (auto& sprite : anim.sprites)
                     sprite.entry = 0;
@@ -662,13 +665,13 @@ INJECT_C_DLLEXPORT void anim_set_rotation(int id, float angle)
         modloader::warn("anim_renderer", format("anim_set_rotation: animation '%d' does not exist.", id));
 }
 
-INJECT_C_DLLEXPORT void anim_set_active(int id, bool value)
+INJECT_C_DLLEXPORT void anim_set_state(int id, AnimState state)
 {
     auto it = animations.find(id);
     if (it != animations.end())
-        it->second.active = value;
+        it->second.state = state;
     else
-        modloader::warn("anim_renderer", format("anim_set_active: animation '%d' does not exist.", id));
+        modloader::warn("anim_renderer", format("anim_set_state: animation '%d' does not exist.", id));
 }
 
 INJECT_C_DLLEXPORT void anim_destroy(int id)
@@ -688,10 +691,10 @@ INJECT_C_DLLEXPORT bool anim_is_destroyed(int id)
     return animations.find(id) == animations.end();
 }
 
-INJECT_C_DLLEXPORT bool anim_is_active(int id)
+INJECT_C_DLLEXPORT bool anim_check_state(int id, AnimState state)
 {
     auto it = animations.find(id);
-    return it != animations.end() && it->second.active;
+    return it != animations.end() && it->second.state == state;
 }
 
 INJECT_C_DLLEXPORT void reload_animations()

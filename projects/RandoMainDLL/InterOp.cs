@@ -34,6 +34,12 @@ namespace RandoMainDLL {
     }
 
     public static class Animation {
+      public enum AnimState {
+        Disabled,
+        Active,
+        ActiveButFrozen
+      }
+
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool anim_preload([MarshalAs(UnmanagedType.LPStr)] string path);
@@ -50,12 +56,11 @@ namespace RandoMainDLL {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void anim_set_rotation(int id, float angle);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void anim_set_active(int id, bool value);
+      public extern static void anim_set_state(int id, AnimState state);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void anim_destroy(int id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      [return: MarshalAs(UnmanagedType.U1)]
-      public extern static bool anim_is_active(int id);
+      public extern static AnimState anim_get_state(int id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool anim_is_destroyed(int id);
