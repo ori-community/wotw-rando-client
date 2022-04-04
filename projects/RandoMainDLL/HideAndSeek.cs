@@ -19,7 +19,7 @@ namespace RandoMainDLL {
     private static readonly string FIREWORK_ANIMATION = "assets/animations/firework.json";
     private static readonly float COOLDOWN_FADE = 0.2f;
     private static float COOLDOWN_SCALE = 1.5f;
-    private static float COOLDOWN_HEIGHT = 0.8f;
+    private static float COOLDOWN_HEIGHT = 1.0f;
     private static float COOLDOWN_LOCAL_HEIGHT = 0.7f;
     private static readonly float FIREWORK_HEIGHT = 1.5f;
 
