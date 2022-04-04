@@ -59,6 +59,7 @@ namespace RandoMainDLL {
     }
 
     public void Clear() {
+      UberStateEqualsPickups.Clear();
       UberStatePickups.Clear();
     }
 
