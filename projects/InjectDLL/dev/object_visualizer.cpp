@@ -261,16 +261,9 @@ namespace dev
                 indent(visualizer);
                 visualizer.stream << get_full_name(obj) << " - " << name << visualizer.new_line;
 
-                // This sometimes crashes.
-                //app::Mesh* mesh = nullptr;
-                //TRY(mesh = il2cpp::invoke<app::Mesh>(mesh_filter, "get_mesh"););
-                //indent(visualizer, 1, 1);
-                //visualizer.stream << "mesh:" << visualizer.new_line;
-                //visualize_unity_mesh(visualizer, reinterpret_cast<Il2CppObject*>(mesh));
-                
                 app::Mesh* shared_mesh = nullptr;
                 TRY(shared_mesh = il2cpp::invoke<app::Mesh>(mesh_filter, "get_sharedMesh"););
-                indent(visualizer, -1, 1);
+                indent(visualizer, 1, 1);
                 visualizer.stream << "shared_mesh:" << visualizer.new_line;
                 visualize_unity_mesh(visualizer, reinterpret_cast<Il2CppObject*>(shared_mesh));
                 visualizer.current_state.indent_level -= 1;

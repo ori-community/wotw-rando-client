@@ -10,6 +10,7 @@
 #include <uber_states/uber_state_manager.h>
 #include <input/rando_bindings.h>
 #include <input/simulator.h>
+#include <utils/json_serializers.h>
 
 #include <windows.h>
 #include <stdio.h> 
@@ -538,25 +539,6 @@ namespace ipc
         { ScreenPosition::BottomLeft, "BottomLeft" },
         { ScreenPosition::BottomCenter, "BottomCenter" },
         { ScreenPosition::BottomRight, "BottomRight" },
-    });
-
-    NLOHMANN_JSON_SERIALIZE_ENUM(app::AlignmentMode__Enum, {
-        { AlignmentMode__Enum_Left, "Left" },
-        { AlignmentMode__Enum_Center, "Center" },
-        { AlignmentMode__Enum_Right, "Right" },
-        { AlignmentMode__Enum_Justify, "Justify" },
-    });
-
-    NLOHMANN_JSON_SERIALIZE_ENUM(app::HorizontalAnchorMode__Enum, {
-        { HorizontalAnchorMode__Enum_Left, "Left" },
-        { HorizontalAnchorMode__Enum_Center, "Center" },
-        { HorizontalAnchorMode__Enum_Right, "Right" },
-    });
-
-    NLOHMANN_JSON_SERIALIZE_ENUM(app::VerticalAnchorMode__Enum, {
-        { VerticalAnchorMode__Enum_Top, "Top" },
-        { VerticalAnchorMode__Enum_Middle, "Middle" },
-        { VerticalAnchorMode__Enum_Bottom, "Bottom" },
     });
 }
 

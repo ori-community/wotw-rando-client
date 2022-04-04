@@ -125,6 +125,37 @@ namespace textures
             shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &param->color.value());
     }
 
+    void TextureData::apply_texture_unity(app::Renderer* renderer)
+    {
+        if (!initialized)
+        {
+            load_texture();
+            initialized = true;
+        }
+
+        if (texture.has_value())
+        {
+            auto texture_ptr = get();
+            if (texture_ptr != nullptr)
+            {
+                auto mat = shaders::UberShaderAPI::GetEditableMaterial(renderer);
+                shaders::Material::SetTexture(mat, il2cpp::string_new("_MainTex"), reinterpret_cast<app::Texture*>(texture_ptr));
+            }
+        }
+    }
+
+    void TextureData::apply_params_unity(app::Renderer* renderer, MaterialParams* extra)
+    {
+        auto param = extra != nullptr ? extra : &local;
+        // UVs need to be set on the mesh, no support for texture scroll rotation.
+
+        if (param->color.has_value())
+        {
+            auto mat = shaders::UberShaderAPI::GetEditableMaterial(renderer);
+            shaders::Material::SetColor(mat, il2cpp::string_new("_Color"), &param->color.value());
+        }
+    }
+
     app::Texture2D* TextureData::get()
     {
         if (!texture.has_value())
@@ -322,7 +353,9 @@ namespace textures
                 }
 
                 auto texture_ptr = il2cpp::create_object<app::Texture2D>("UnityEngine", "Texture2D");
-                Texture2D::ctor(texture_ptr, x, y, app::TextureFormat__Enum_RGBA32, false, false);
+
+                auto format = n == 3 ? app::TextureFormat__Enum_RGB24 : app::TextureFormat__Enum_RGBA32;
+                Texture2D::ctor(texture_ptr, x, y, format, false, false);
                 Texture2D::LoadRawTextureData(texture_ptr, png_data, x * y * n);
                 Texture2D::Apply(texture_ptr, true, false);
                 stbi_image_free(png_data);

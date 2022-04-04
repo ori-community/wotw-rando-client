@@ -101,6 +101,8 @@ namespace {
         bool visible = true;
         float start_time = 0.f;
         uint32_t game_object_handle = -1;
+        app::BlendMode__Enum src_blend = app::BlendMode__Enum_SrcAlpha;
+        app::BlendMode__Enum dst_blend = app::BlendMode__Enum_OneMinusSrcAlpha;
 
         DirtyValue<Layer> layer = Layer::UI;
         app::Vector3 position{ 0.f, 0.f, 0.f };
@@ -133,13 +135,17 @@ namespace {
     std::unordered_map<std::string, Animation> loaded_animations;
     std::unordered_map<int, Animation> animations;
 
+    NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Material, void, .ctor, ctor_shader, (app::Material* this_ptr, app::Shader* shader), (UnityEngine:Shader));
     STATIC_IL2CPP_BINDING(UnityEngine, Shader, app::Shader*, Find, (app::String* name));
     STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (void* object), (UnityEngine:Object));
     STATIC_IL2CPP_BINDING(UnityEngine, Object, void, Destroy, (void* this_ptr));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform* this_ptr, app::Transform* parent));
     IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
-    IL2CPP_BINDING(UnityEngine, Renderer, app::Bounds, get_bounds, (app::Renderer* renderer));
+    IL2CPP_BINDING(UnityEngine, Renderer, app::Bounds, get_bounds, (app::Renderer* this_ptr));
+    IL2CPP_BINDING(UnityEngine, MeshFilter, app::Mesh*, get_mesh, (app::MeshFilter* this_ptr));
+    IL2CPP_BINDING(UnityEngine, Mesh, void, set_uv, (app::Mesh* this_ptr, app::Vector2__Array* arr));
 
+    IL2CPP_BINDING(UnityEngine, Material, float, GetFloat, (app::Material* this_ptr, app::String* name));
     app::GameObject* create_sprite(Sprite& sprite, app::GameObject* obj)
     {
         auto sein = il2cpp::get_class<app::Characters__Class>("Game", "Characters")->static_fields->m_sein;
@@ -148,7 +154,27 @@ namespace {
         auto parent = il2cpp::unity::get_parent(il2cpp::unity::get_transform(sein));
         Transform::set_parent(il2cpp::unity::get_transform(go), parent);
         GameObject::SetActive(go, true);
+        auto renderer = il2cpp::unity::get_component<app::Renderer>(go, "UnityEngine", "Renderer");
+        auto mat = shaders::UberShaderAPI::GetEditableMaterial(renderer);
+        //_UberShaderParams
+        //auto param = app::Vector4{ 1, 0, 0, 0 };
+        //shaders::Material::SetVector(mat, il2cpp::string_new("_UberShaderParams"), &param);
+        //shaders::Material::SetInt(mat, il2cpp::string_new("_UberShaderBlendModeSrc"), sprite.src_blend);
+        //shaders::Material::SetInt(mat, il2cpp::string_new("_UberShaderBlendModeDst"), sprite.dst_blend);
         return go;
+    }
+
+    app::Vector2__Array* make_uvs(float x = 0, float y = 0, float w = 1, float h = 1)
+    {
+        return il2cpp::array_new<app::Vector2__Array>(
+            il2cpp::get_class("UnityEngine", "Vector2"),
+            std::vector<app::Vector2>{
+                { x, y },
+                { x + w, y },
+                { x, y + h },
+                { x + w, y + h }
+            }
+        );
     }
 
     app::GameObject* find_prefab()
@@ -157,14 +183,35 @@ namespace {
         if (il2cpp::unity::is_valid(icon))
             return icon;
 
-        auto controller = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->MessageController;
-        auto message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(controller->fields.HintSmallMessage, "", "MessageBox");
-        auto icon_renderer = reinterpret_cast<app::MoonIconRenderer*>(
-            message_box->fields.TextBox->fields.styleCollection->fields.styles->vector[1]->fields.renderer);
-        auto icon_obj = icon_renderer->fields.Icons->fields.Icons->fields._items->vector[0]->fields.Icon;
-        icon = il2cpp::unity::instantiate_object(il2cpp::unity::get_children(icon_obj)[0]);
-        GameObject::SetActive(icon, false);
+        app::Renderer* renderer = nullptr;
+        app::MeshFilter* mesh_filter = nullptr;
+        bool use_prefab = true;
+        if (use_prefab)
+        {
+            auto controller = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->MessageController;
+            auto message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(controller->fields.HintSmallMessage, "", "MessageBox");
+            auto icon_renderer = reinterpret_cast<app::MoonIconRenderer*>(
+                message_box->fields.TextBox->fields.styleCollection->fields.styles->vector[1]->fields.renderer);
+            auto icon_obj = icon_renderer->fields.Icons->fields.Icons->fields._items->vector[0]->fields.Icon;
+            auto prefab = il2cpp::unity::get_children(icon_obj)[0];
+            icon = il2cpp::unity::instantiate_object(il2cpp::unity::get_children(icon_obj)[0]);
+            mesh_filter = il2cpp::unity::get_component<app::MeshFilter>(icon, "UnityEngine", "MeshFilter");
+            renderer = il2cpp::unity::get_component<app::Renderer>(icon, "UnityEngine", "MeshRenderer");
+            il2cpp::invoke(icon, "set_name", il2cpp::string_new("custom_rando_image"));
+        }
+        else
+        {
+            // TODO: Figure out why this doesn't work.
+            icon = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
+            il2cpp::invoke(icon, ".ctor");
+            il2cpp::invoke(icon, "set_name", il2cpp::string_new("custom_rando_image"));
+            mesh_filter = il2cpp::unity::add_component<app::MeshFilter>(icon, "UnityEngine", "MeshFilter");
+            renderer = il2cpp::unity::add_component<app::Renderer>(icon, "UnityEngine", "MeshRenderer");
+            auto order = il2cpp::unity::add_component<app::UberShaderRuntimeRenderOrder>(icon, "", "UberShaderRuntimeRenderOrder");
+            order->fields.m_isInScene = true;
+        }
 
+        GameObject::SetActive(icon, false);
         auto mesh = il2cpp::create_object<app::Mesh>("UnityEngine", "Mesh");
         il2cpp::invoke(mesh, ".ctor");
         auto vertices = il2cpp::array_new(il2cpp::get_class("UnityEngine", "Vector3"), std::vector<app::Vector3>{
@@ -172,26 +219,31 @@ namespace {
         auto triangles = il2cpp::array_new(il2cpp::get_class("System", "Int32"), std::vector<int>{0, 2, 1, 2, 3, 1});
         auto normals = il2cpp::array_new(il2cpp::get_class("UnityEngine", "Vector3"), std::vector<app::Vector3>{
             { 0, 0, 1 }, { 0, 0, 1 }, { 0, 0, 1 }, { 0, 0, 1 }});
-        auto uv = il2cpp::array_new(il2cpp::get_class("UnityEngine", "Vector2"), std::vector<app::Vector2>{
-            { 0, 0 }, { 1, 0 }, { 0, 1 }, { 1, 1 }});
+        auto uv = make_uvs();
 
         il2cpp::invoke(mesh, "set_vertices", vertices);
         il2cpp::invoke(mesh, "set_triangles", triangles);
         il2cpp::invoke(mesh, "set_normals", normals);
-        il2cpp::invoke(mesh, "set_uv", uv);
+        Mesh::set_uv(mesh, uv);
 
-        auto mesh_filter = il2cpp::unity::get_component<app::MeshFilter>(icon, "UnityEngine", "MeshFilter");
         il2cpp::invoke(mesh_filter, "set_mesh", mesh);
 
-        return icon;
-    }
+        //auto shader = Shader::Find(il2cpp::string_new("Standard"));
+        //auto mat = il2cpp::create_object<app::Material>("UnityEngine", "Material");
+        //Material::ctor_shader(mat, shader);
+        //il2cpp::invoke(renderer, "set_sharedMaterial", mat);
 
-    //STATIC_IL2CPP_BINDING(RootMotion, LayerMaskExtensions, app::String*, MaskToString, (app::LayerMask original));
-    STATIC_IL2CPP_BINDING(UnityEngine, LayerMask, app::String*, LayerToName, (int layer));
-    bool create_ui_sprite(Sprite& sprite)
-    {
-        auto go = create_sprite(sprite, find_prefab());
-        return true;
+        //auto keywords = il2cpp::array_new(il2cpp::get_class("System", "String"), std::vector<app::String*>{
+        //    il2cpp::string_new("")
+        //});
+        //il2cpp::invoke(mat, "set_shaderKeywords", keywords);
+        //bool enabled = true;
+        //il2cpp::invoke(renderer, "set_enabled", &enabled);
+        //auto culling_mask = il2cpp::invoke<app::UInt32__Boxed>(renderer, "get_cullingCategoryMask")->fields;
+        //auto rendering_layer_mask = il2cpp::invoke<app::UInt32__Boxed>(renderer, "get_renderingLayerMask")->fields;
+        //auto materials = il2cpp::invoke<app::Material__Array>(renderer, "get_sharedMaterials");
+
+        return icon;
     }
 
     void destroy_sprite(Sprite& sprite)
@@ -218,7 +270,7 @@ namespace {
             {
                 sprite.entry = 0;
                 if (sprite.game_object_handle == -1 || !il2cpp::unity::is_valid(il2cpp::gchandle_target(sprite.game_object_handle)))
-                    created &= create_ui_sprite(sprite);
+                    created &= create_sprite(sprite, find_prefab()) != nullptr;
             }
 
             if (!created)
@@ -249,9 +301,11 @@ namespace {
         if (anim.time < entry.real_duration)
             return false;
 
-        sprite.entry = *sprite.entry + 1;
         if (*sprite.entry + 1 < sprite.entries.size())
+        {
+            sprite.entry = *sprite.entry + 1;
             return false;
+        }
 
         switch (sprite.end_handler)
         {
@@ -385,6 +439,15 @@ namespace {
                 params.color = color;
 
                 entry.texture_data->apply_params(renderer, &params);
+                //if (entry.texture_params->uvs.has_value())
+                //{
+                //    auto const& uv_vec = entry.texture_params->uvs.value();
+                //    auto uv = make_uvs(uv_vec.x, uv_vec.y, uv_vec.z, uv_vec.w);
+                //    auto mesh_filter = il2cpp::unity::get_component<app::MeshFilter>(game_object, "UnityEngine", "MeshFilter");
+                //    auto mesh = MeshFilter::get_mesh(mesh_filter);
+                //    Mesh::set_uv(mesh, uv);
+                //}
+
                 sprite.entry.set_dirty(false);
             }
         }
@@ -430,6 +493,8 @@ namespace {
             sprite.scale = sprite_entry.value("scale", app::Vector3{ 1.f, 1.f, 1.f });
             sprite.rotation = sprite_entry.value("rotation", 0.0f);
             sprite.start_time = sprite_entry.value("start_time", 0.0f);
+            sprite.src_blend = sprite_entry.value("src_blend", app::BlendMode__Enum_SrcAlpha);
+            sprite.dst_blend = sprite_entry.value("dst_blend", app::BlendMode__Enum_OneMinusSrcAlpha);
             auto entries = sprite_entry.at("entries");
             float sprite_duration = 0.f;
             for (auto& entry : entries)
@@ -456,6 +521,8 @@ namespace {
                     mat_params.color = params.value("color", app::Color{ 1.f, 1.f, 1.f, 1.f });
                     mat_params.scroll_rot = params.value("scroll_rot", app::Vector4{ 0.f, 0.f, 0.f, 0.f });
                     mat_params.uvs = params.value("uvs", app::Vector4{ 0.f, 0.f, 1.f, 1.f });
+                    //if (params.contains("uvs"))
+                    //    mat_params.uvs = params.at("uvs").get<app::Vector4>();
                     auto& value = mat_params.uvs.value();
                     if (has_texture_size)
                     {

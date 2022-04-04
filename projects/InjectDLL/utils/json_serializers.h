@@ -14,4 +14,37 @@ namespace app {
 
     void to_json(nlohmann::json& j, const Color& s);
     void from_json(const nlohmann::json& j, Color& s);
+
+    NLOHMANN_JSON_SERIALIZE_ENUM(BlendMode__Enum, {
+        { BlendMode__Enum_Zero, "Zero" },
+        { BlendMode__Enum_One, "One" },
+        { BlendMode__Enum_DstColor, "DstColor" },
+        { BlendMode__Enum_SrcColor, "SrcColor" },
+        { BlendMode__Enum_OneMinusDstColor, "OneMinusDstColor" },
+        { BlendMode__Enum_SrcAlpha, "SrcAlpha" },
+        { BlendMode__Enum_OneMinusSrcColor, "OneMinusSrcColor" },
+        { BlendMode__Enum_DstAlpha, "DstAlpha" },
+        { BlendMode__Enum_OneMinusDstAlpha, "OneMinusDstAlpha" },
+        { BlendMode__Enum_SrcAlphaSaturate, "SrcAlphaSaturate" },
+        { BlendMode__Enum_OneMinusSrcAlpha, "OneMinusSrcAlpha" },
+    });
+
+    NLOHMANN_JSON_SERIALIZE_ENUM(AlignmentMode__Enum, {
+        { AlignmentMode__Enum_Left, "Left" },
+        { AlignmentMode__Enum_Center, "Center" },
+        { AlignmentMode__Enum_Right, "Right" },
+        { AlignmentMode__Enum_Justify, "Justify" },
+    });
+
+    NLOHMANN_JSON_SERIALIZE_ENUM(HorizontalAnchorMode__Enum, {
+        { HorizontalAnchorMode__Enum_Left, "Left" },
+        { HorizontalAnchorMode__Enum_Center, "Center" },
+        { HorizontalAnchorMode__Enum_Right, "Right" },
+    });
+
+    NLOHMANN_JSON_SERIALIZE_ENUM(VerticalAnchorMode__Enum, {
+        { VerticalAnchorMode__Enum_Top, "Top" },
+        { VerticalAnchorMode__Enum_Middle, "Middle" },
+        { VerticalAnchorMode__Enum_Bottom, "Bottom" },
+    });
 }
