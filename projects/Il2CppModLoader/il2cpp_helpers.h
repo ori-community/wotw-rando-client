@@ -160,6 +160,8 @@ namespace il2cpp
         return reinterpret_cast<R*>(arr);
     }
 
+    void load_all_types();
+
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
     IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new(void* obj, bool pinned);
     IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new_weak(void* obj, bool track_ressurection);

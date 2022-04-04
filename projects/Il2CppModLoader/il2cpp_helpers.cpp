@@ -84,6 +84,8 @@ namespace il2cpp
         INTERNAL_BINDING(0x262470, Il2CppArraySize*, il2cpp_array_new, (Il2CppClass* element, il2cpp_array_size_t length));
         INTERNAL_BINDING(0x2624A0, Il2CppArraySize*, il2cpp_array_new_specific, (Il2CppClass* array_klass , il2cpp_array_size_t length));
         INTERNAL_BINDING(0x2624B0, Il2CppArraySize*, il2cpp_array_new_full, (Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds));
+        
+        IL2CPP_BINDING(System.Reflection, Assembly, app::Type__Array*, GetTypes, (Il2CppAssembly* this_ptr));
 
         thread_local std::string buffer;
         std::string const& get_full_name(std::string_view namezpace, std::string_view name, std::string_view nested = "")
@@ -472,6 +474,27 @@ namespace il2cpp
         Il2CppArraySize* array_new_full(Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds)
         {
             return il2cpp_array_new_full(array_klass, lengths, lower_bounds);
+        }
+    }
+
+    void load_all_types()
+    {
+        Il2CppClass* klass = nullptr;
+        size_t i = 0;
+        size_t size = 0;
+        auto domain = il2cpp_domain_get();
+        auto assemblies = il2cpp_domain_get_assemblies(domain, &size);
+        trace(modloader::MessageType::Info, 4, "il2cpp", "loading classes");
+        for (auto i = 0; i < size; ++i)
+        {
+            //auto types = Assembly::GetTypes(assemblies[i]);
+            //for (auto j = 0; j < types->max_length; ++j)
+            //{
+            //    auto klass = il2cpp_class_from_type(reinterpret_cast<Il2CppType*>(types->vector[j]));
+            //    auto full_name = std::string(format("%s.%s", klass->namespaze, klass->name));
+            //    resolved_classes[full_name] = klass;
+            //    trace(modloader::MessageType::Info, 4, "il2cpp", format(" - %s", full_name.c_str()));
+            //}
         }
     }
 

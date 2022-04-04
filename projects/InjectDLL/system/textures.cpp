@@ -180,6 +180,8 @@ namespace textures
         il2cpp::gchandle_free(texture.value());
         texture.reset();
 
+        // TODO: Add refcount decrement.
+
         auto it = files.find(path);
         if (it != files.end())
             files.erase(it);
@@ -238,6 +240,43 @@ namespace textures
         data->path = L"custom";
         data->initialized = true;
         return data;
+    }
+
+    app::GameObject* texture_holder = nullptr;
+    constexpr int HOLDER_SIZE = 500;
+    int texture_count_0 = 0;
+    app::GameObject* get_or_create_texture_holder()
+    {
+        if (texture_holder != nullptr)
+            return texture_holder;
+
+        texture_holder = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
+        il2cpp::invoke(texture_holder, ".ctor");
+        il2cpp::invoke(texture_holder, "set_name", il2cpp::string_new("rando_texture_holder"));
+        Object::DontDestroyOnLoad(texture_holder);
+        // TODO: Use UberShaderPrefabWarmer if we can figure out how to find the List<Texture> class.
+        auto holder = il2cpp::unity::add_component<app::SpiritShardUIShardBackdrop>(texture_holder, "", "SpiritShardUIShardBackdrop");
+        il2cpp::invoke(holder, ".ctor");
+        holder->fields.Socket_0 = reinterpret_cast<app::Texture__Array*>(il2cpp::untyped::array_new(il2cpp::get_class("UnityEngine", "Texture"), HOLDER_SIZE));
+        return texture_holder;
+    }
+
+    void dont_unload_texture(app::Texture* texture)
+    {
+        auto go = get_or_create_texture_holder();
+        auto holder = il2cpp::unity::get_component<app::SpiritShardUIShardBackdrop>(go, "", "SpiritShardUIShardBackdrop");
+        if (texture_count_0 >= HOLDER_SIZE)
+            return;
+
+        holder->fields.Socket_0->vector[texture_count_0++] = texture;
+    }
+
+    void clear_holder()
+    {
+        auto go = get_or_create_texture_holder();
+        auto holder = il2cpp::unity::get_component<app::SpiritShardUIShardBackdrop>(go, "", "SpiritShardUIShardBackdrop");
+        for (auto i = 0; i < HOLDER_SIZE; ++i)
+            holder->fields.Socket_0->vector[i] = nullptr;
     }
 
     void TextureData::load_texture()
@@ -359,9 +398,9 @@ namespace textures
                 Texture2D::LoadRawTextureData(texture_ptr, png_data, x * y * n);
                 Texture2D::Apply(texture_ptr, true, false);
                 stbi_image_free(png_data);
-                Object::DontDestroyOnLoad(texture_ptr);
                 texture = il2cpp::gchandle_new(texture_ptr, false);
                 files[path] = texture.value();
+                dont_unload_texture(reinterpret_cast<app::Texture*>(texture_ptr));
             }
             else
             {
@@ -455,6 +494,7 @@ namespace textures
 
     INJECT_C_DLLEXPORT void reload_all_file_textures()
     {
+        clear_holder();
         for (auto collection : file_instances)
         {
             for (auto it = collection.second.begin(); it != collection.second.end(); ++it)

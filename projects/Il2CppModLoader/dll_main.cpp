@@ -288,6 +288,8 @@ namespace modloader
         trace(MessageType::Info, 5, "initialize", "Performing intercepts.");
         intercept::interception_init();
 
+        il2cpp::load_all_types();
+
         auto product = il2cpp::convert_csstring(Application::get_productName());
         auto version = il2cpp::convert_csstring(Application::get_version());
         auto unity_version = il2cpp::convert_csstring(Application::get_unityVersion());
