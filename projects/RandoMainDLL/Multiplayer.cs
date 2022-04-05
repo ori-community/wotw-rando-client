@@ -12,11 +12,13 @@ using RandoMainDLL.Memory;
 namespace RandoMainDLL {
 
   public static class Multiplayer {
-    public struct PlayerInfo {
+    public class PlayerInfo {
       public long UniverseId;
       public long WorldId;
       public UserInfo User;
       public RGBA Color;
+      public bool VisibleInWorld;
+      public bool VisibleOnMap;
     }
 
     public static BlockingCollection<Packet> Queue = new BlockingCollection<Packet>();
@@ -38,8 +40,8 @@ namespace RandoMainDLL {
       return currentPlayers.Where(w => w.Value.WorldId == id).Select(p => p.Value);
     }
 
-    public static PlayerInfo? GetPlayerInfo(string id) {
-      return currentPlayers.TryGetValue(id, out var info) ? new PlayerInfo?(info) : null;
+    public static PlayerInfo GetPlayerInfo(string id) {
+      return currentPlayers.TryGetValue(id, out var info) ? info : null;
     }
 
     public static void SetCurrentUser(UserInfo user) {
@@ -70,11 +72,14 @@ namespace RandoMainDLL {
         float b = (int.Parse(world.Color.Substring(5, 2), System.Globalization.NumberStyles.HexNumber)) / 255.0f;
         float a = 1.0f;
         foreach (var member in world.Members) {
+          var found = currentPlayers.TryGetValue(member.Id, out var current);
           players.Add(member.Id, new PlayerInfo {
             UniverseId = universe.Id,
             WorldId = world.Id,
             User = member,
-            Color = new RGBA { R = r, G = g, B = b, A = a }
+            Color = new RGBA { R = r, G = g, B = b, A = a },
+            VisibleInWorld = found ? current.VisibleInWorld : true,
+            VisibleOnMap = found ? current.VisibleOnMap : true,
           });
           if (member.Id == Id) {
             UniverseId = universe.Id;
@@ -114,6 +119,21 @@ namespace RandoMainDLL {
           player.Value.Color.R, player.Value.Color.G, player.Value.Color.B, player.Value.Color.A);
       }
 
+      if (multiverse.Visibility != null)
+        UpdateVisibility(multiverse.Visibility);
+      else {
+        foreach (var player in currentPlayers) {
+          if (player.Key == Id)
+            continue;
+
+          InterOp.Multiplayer.set_player_visibility(
+            player.Key,
+            player.Value.VisibleInWorld,
+            player.Value.VisibleOnMap
+          );
+        }
+      }
+
       clearGameHandlers();
       GameType = multiverse.HandlerType;
       switch (multiverse.HandlerType) {
@@ -124,6 +144,8 @@ namespace RandoMainDLL {
           HideAndSeek.ParseHandlerInfo(info);
           break;
       }
+
+
     }
 
     public static void UpdatePlayerPosition(string id, float x, float y) {
@@ -132,6 +154,23 @@ namespace RandoMainDLL {
       }
       else {
         Randomizer.Log($"Got player position from unknown player {id}: {x}, {y}", false);
+      }
+    }
+
+    public static void UpdateVisibility(VisibilityMessage visibility) {
+      var hiddenInWorld = visibility.HiddenInWorld.ToHashSet();
+      var hiddenOnMap = visibility.HiddenOnMap.ToHashSet();
+      foreach (var player in currentPlayers) {
+        if (player.Key == Id)
+          continue;
+
+        player.Value.VisibleInWorld = !hiddenInWorld.Contains(player.Key);
+        player.Value.VisibleOnMap = !hiddenOnMap.Contains(player.Key);
+        InterOp.Multiplayer.set_player_visibility(
+          player.Key,
+          player.Value.VisibleInWorld,
+          player.Value.VisibleOnMap
+        );
       }
     }
 
@@ -152,6 +191,10 @@ namespace RandoMainDLL {
           case Packet.Types.PacketID.AuthenticatedMessage:
             var authenticated = AuthenticatedMessage.Parser.ParseFrom(packet.Packet_);
             SetCurrentUser(authenticated.User);
+            break;
+          case Packet.Types.PacketID.Visibility:
+            var visibility = VisibilityMessage.Parser.ParseFrom(packet.Packet_);
+            UpdateVisibility(visibility);
             break;
           default:
             break;

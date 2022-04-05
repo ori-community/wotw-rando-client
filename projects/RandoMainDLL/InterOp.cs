@@ -190,6 +190,8 @@ namespace RandoMainDLL {
       public extern static Vector2 get_player_position([MarshalAs(UnmanagedType.LPWStr)] string id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_player_online([MarshalAs(UnmanagedType.LPWStr)] string id, bool online);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_player_visibility([MarshalAs(UnmanagedType.LPWStr)] string id, bool world, bool map);
     }
 
     public static class Player {

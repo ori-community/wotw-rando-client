@@ -24,6 +24,7 @@ message Packet {
     PlayerUseCatchingAbility = 17;
     PlayerUsedCatchingAbility = 18;
     PlayerCaught = 19;
+    Visibility = 20;
 
     TrackerUpdate = 100;
     ResetTracker = 101;
@@ -151,6 +152,12 @@ message MultiverseInfoMessage {
   optional int64 seedId = 5;
   GameHandlerType handlerType = 6;
   bytes handlerInfo = 7;
+  optional VisibilityMessage visibility = 8;
+}
+
+message VisibilityMessage {
+  repeated string hidden_in_world = 1;
+  repeated string hidden_on_map = 2;
 }
 
 message SeekerWorldInfo {

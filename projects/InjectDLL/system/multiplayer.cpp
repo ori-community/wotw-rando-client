@@ -21,6 +21,7 @@ using namespace modloader;
 INJECT_C_DLLEXPORT void add_player(const wchar_t* id, const wchar_t* name, multiplayer::PlayerIcon icon);
 INJECT_C_DLLEXPORT void set_player_icon(const wchar_t* id, multiplayer::PlayerIcon icon);
 INJECT_C_DLLEXPORT void set_player_color(const wchar_t* id, float r, float g, float b, float a);
+INJECT_C_DLLEXPORT void set_player_visibility(const wchar_t* id, bool world, bool map);
 INJECT_C_DLLEXPORT void set_local_player_color(float r, float g, float b, float a);
 INJECT_C_DLLEXPORT void clear_players();
 INJECT_C_DLLEXPORT void remove_player(const wchar_t* id);
@@ -92,7 +93,7 @@ namespace multiplayer
             dot.transform = il2cpp::unity::get_transform(dot.dot);
             dot.renderer = il2cpp::unity::get_components<app::Renderer>(
                 il2cpp::unity::get_children(dot.dot)[0], "UnityEngine", "Renderer")[0];
-            GameObject::SetActive(dot.dot, player.map_visible);
+            GameObject::SetActive(dot.dot, player.map_avatar.visible);
             app::Vector3 pos{ player.position.x, player.position.y, 0.0f };
             IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
         }
@@ -127,7 +128,7 @@ namespace multiplayer
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
 
         auto& dot = player.dots[player.next_dot_index];
-        GameObject::SetActive(dot.dot, player.map_visible);
+        GameObject::SetActive(dot.dot, player.map_avatar.visible);
         app::Vector3 pos{ player.position.x, player.position.y, 0.0f };
         IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
     
@@ -209,7 +210,7 @@ namespace multiplayer
         if (info.avatar.handle == 0)
         {
             info.avatar = create_avatar_icon(info, static_cast<int>(Layer::Sein));
-            GameObject::SetActive(info.avatar.root, info.visible);
+            GameObject::SetActive(info.avatar.root, info.avatar.visible);
             app::Vector3 pos{ info.position.x, info.position.y, 0.f };
             auto transform = il2cpp::unity::get_transform(info.avatar.root);
             Transform::set_position(transform, &pos);
@@ -237,7 +238,7 @@ namespace multiplayer
         if (info.map_avatar.handle == 0)
         {
             info.map_avatar = create_avatar_icon(info, static_cast<int>(Layer::UI));
-            GameObject::SetActive(info.map_avatar.root, info.map_visible);
+            GameObject::SetActive(info.map_avatar.root, info.map_avatar.visible);
             
             auto transform = il2cpp::unity::get_transform(info.map_avatar.icon);
             auto scale = Transform::get_localScale(transform);
@@ -388,17 +389,17 @@ namespace multiplayer
             update_avatar_facing(player);
 
             // Visibility toggles.
-            bool visible = player.online && should_show;
-            if (visible != player.visible)
+            bool visible = player.online && should_show && player.world_visible;
+            if (visible != player.avatar.visible)
             {
                 if (player.avatar.handle != 0)
                     GameObject::SetActive(player.avatar.root, visible);
 
-                player.visible = visible;
+                player.avatar.visible = visible;
             }
 
-            bool map_visible = player.online && is_area_map_open();
-            if (map_visible != player.map_visible)
+            bool map_visible = player.online && is_area_map_open() && player.map_visible;
+            if (map_visible != player.map_avatar.visible)
             {
                 if (player.map_avatar.handle != 0)
                     GameObject::SetActive(player.map_avatar.root, map_visible);
@@ -406,7 +407,7 @@ namespace multiplayer
                 for (auto& dot : player.dots)
                     GameObject::SetActive(dot.dot, map_visible);
 
-                player.map_visible = map_visible;
+                player.map_avatar.visible = map_visible;
             }
         }
     }
@@ -449,7 +450,7 @@ namespace multiplayer
             auto id = convert_wstring_to_string(player.id);
             console::console_send(format("player: %s", id.c_str()));
             console::console_send(format("position: %d, %d", player.position.x, player.position.y));
-            console::console_send(format("visible: %d", player.visible));
+            console::console_send(format("visible: %d", player.world_visible));
             console::console_send(format("map_visible: %d", player.map_visible));
             console::console_send(format("online: %d", player.online));
 
@@ -529,6 +530,19 @@ INJECT_C_DLLEXPORT void set_player_color(const wchar_t* id, float r, float g, fl
     }
     else
         warn("multiplayer", "setting player color on missing player, skipping.");
+}
+
+INJECT_C_DLLEXPORT void set_player_visibility(const wchar_t* id, bool world, bool map)
+{
+    auto it = multiplayer::player_map.find(id);
+    if (it != multiplayer::player_map.end())
+    {
+        auto& info = multiplayer::players[it->second];
+        info.world_visible = world;
+        info.map_visible = map;
+    }
+    else
+        warn("multiplayer", "setting player visibility on missing player, skipping.");
 }
 
 INJECT_C_DLLEXPORT void set_local_player_color(float r, float g, float b, float a)

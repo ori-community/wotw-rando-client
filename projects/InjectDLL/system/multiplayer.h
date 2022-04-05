@@ -16,6 +16,7 @@ namespace multiplayer
         struct Icon
         {
             uint64_t handle = 0;
+            bool visible = true;
             app::GameObject* root = nullptr;
             app::GameObject* text = nullptr;
             app::GameObject* icon = nullptr;
@@ -25,8 +26,8 @@ namespace multiplayer
         std::wstring name;
         app::Vector2 position;
         bool online = true;
-        bool visible = true;
-        bool map_visible = false;
+        bool world_visible = true;
+        bool map_visible = true;
         app::Color color;
         PlayerIcon icon;
 

@@ -288,6 +288,7 @@ namespace RandoMainDLL {
             Multiplayer.Queue.Add(packet);
             break;
           case Packet.Types.PacketID.MultiverseInfoMessage:
+          case Packet.Types.PacketID.Visibility:
             Multiplayer.Queue.Add(packet);
             break;
           case Packet.Types.PacketID.ReceiveSeedMessage:
