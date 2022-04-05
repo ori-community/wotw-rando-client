@@ -161,6 +161,8 @@ namespace RandoMainDLL {
           var packet = Packet.Parser.ParseFrom(data);
           switch (packet.Id) {
             case Packet.Types.PacketID.UpdatePlayerPositionMessage:
+            case Packet.Types.PacketID.UpdatePlayerWorldPositionMessage:
+            case Packet.Types.PacketID.UpdatePlayerMapPositionMessage:
               Multiplayer.Queue.Add(packet);
               break;
             default:

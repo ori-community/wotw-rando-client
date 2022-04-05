@@ -16,6 +16,7 @@ namespace multiplayer
         struct Icon
         {
             uint64_t handle = 0;
+            app::Vector2 position = {0};
             bool visible = true;
             app::GameObject* root = nullptr;
             app::GameObject* text = nullptr;
@@ -24,17 +25,15 @@ namespace multiplayer
 
         std::wstring id;
         std::wstring name;
-        app::Vector2 position;
         bool online = true;
         bool world_visible = true;
         bool map_visible = true;
-        app::Color color;
-        PlayerIcon icon;
+        app::Color color = { 1, 1, 1, 1 };
+        PlayerIcon icon = PlayerIcon::Moki;
 
         // Internal
         Icon avatar;
         Icon map_avatar;
-        float map_scale;
         float last_facing_pos = 0.0f;
         float last_facing = 1.0f;
         int facing = 1;
@@ -47,14 +46,12 @@ namespace multiplayer
             app::Renderer* renderer;
         };
 
-        app::Vector2 previous_dot_position;
+        app::Vector2 previous_dot_position = {0};
         float time_until_next_dot = 0;
         int next_dot_index = 0;
         std::vector<Dot> dots;
     };
 
-    //std::vector<PlayerInfo> const& get_players();
-    //PlayerInfo const* get_player(std::wstring str);
     app::Color const& get_local_player_color();
 }
 

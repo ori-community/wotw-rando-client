@@ -25,6 +25,8 @@ message Packet {
     PlayerUsedCatchingAbility = 18;
     PlayerCaught = 19;
     Visibility = 20;
+    UpdatePlayerWorldPositionMessage = 21;
+    UpdatePlayerMapPositionMessage = 22;
 
     TrackerUpdate = 100;
     ResetTracker = 101;
@@ -111,6 +113,18 @@ message PlayerPositionMessage  {
 }
 
 message UpdatePlayerPositionMessage  {
+  string playerId = 1;
+  float x = 2;
+  float y = 3;
+}
+
+message UpdatePlayerMapPositionMessage  {
+  string playerId = 1;
+  float x = 2;
+  float y = 3;
+}
+
+message UpdatePlayerWorldPositionMessage  {
   string playerId = 1;
   float x = 2;
   float y = 3;

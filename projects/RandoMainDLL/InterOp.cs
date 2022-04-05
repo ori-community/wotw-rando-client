@@ -189,6 +189,10 @@ namespace RandoMainDLL {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static Vector2 get_player_position([MarshalAs(UnmanagedType.LPWStr)] string id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void update_player_map_position([MarshalAs(UnmanagedType.LPWStr)] string id, float x, float y);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static Vector2 get_player_map_position([MarshalAs(UnmanagedType.LPWStr)] string id);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_player_online([MarshalAs(UnmanagedType.LPWStr)] string id, bool online);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_player_visibility([MarshalAs(UnmanagedType.LPWStr)] string id, bool world, bool map);

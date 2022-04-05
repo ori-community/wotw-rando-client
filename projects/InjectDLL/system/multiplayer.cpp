@@ -26,8 +26,6 @@ INJECT_C_DLLEXPORT void set_local_player_color(float r, float g, float b, float 
 INJECT_C_DLLEXPORT void clear_players();
 INJECT_C_DLLEXPORT void remove_player(const wchar_t* id);
 INJECT_C_DLLEXPORT void update_player_position(const wchar_t* id, float x, float y);
-INJECT_C_DLLEXPORT app::Vector2 get_player_position(const wchar_t* id);
-INJECT_C_DLLEXPORT void set_player_online(const wchar_t* id, bool online);
 
 namespace multiplayer
 {
@@ -94,11 +92,11 @@ namespace multiplayer
             dot.renderer = il2cpp::unity::get_components<app::Renderer>(
                 il2cpp::unity::get_children(dot.dot)[0], "UnityEngine", "Renderer")[0];
             GameObject::SetActive(dot.dot, player.map_avatar.visible);
-            app::Vector3 pos{ player.position.x, player.position.y, 0.0f };
+            app::Vector3 pos{ player.map_avatar.position.x, player.map_avatar.position.y, 0.0f };
             IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
         }
 
-        player.previous_dot_position = player.position;
+        player.previous_dot_position = player.map_avatar.position;
     }
     
     void update_dot_colors(PlayerInfo& player)
@@ -129,12 +127,12 @@ namespace multiplayer
 
         auto& dot = player.dots[player.next_dot_index];
         GameObject::SetActive(dot.dot, player.map_avatar.visible);
-        app::Vector3 pos{ player.position.x, player.position.y, 0.0f };
+        app::Vector3 pos{ player.map_avatar.position.x, player.map_avatar.position.y, 0.0f };
         IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
     
         update_dot_colors(player);
 
-        player.previous_dot_position = player.position;
+        player.previous_dot_position = player.map_avatar.position;
         player.time_until_next_dot = DOT_TIMEOUT;
         player.next_dot_index = (player.next_dot_index + 1) % DOT_COUNT;
     }
@@ -143,8 +141,8 @@ namespace multiplayer
     bool should_make_dot(PlayerInfo& player)
     {
         player.time_until_next_dot -= TimeUtility::get_fixedDeltaTime();
-        auto dx = player.previous_dot_position.x - player.position.x;
-        auto dy = player.previous_dot_position.y - player.position.y;
+        auto dx = player.previous_dot_position.x - player.map_avatar.position.x;
+        auto dy = player.previous_dot_position.y - player.map_avatar.position.y;
         auto squared_distance = dx * dx + dy * dy;
         return squared_distance >= DOT_MIN_DISTANCE * DOT_MIN_DISTANCE && player.time_until_next_dot < 0.0f;
     }
@@ -195,7 +193,7 @@ namespace multiplayer
 
     void set_map_position(PlayerInfo& info)
     {
-        app::Vector3 pos{ info.position.x, info.position.y, 0.f };
+        app::Vector3 pos{ info.map_avatar.position.x, info.map_avatar.position.y, 0.f };
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
         IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, info.map_avatar.root, &pos, false);
     }
@@ -211,7 +209,7 @@ namespace multiplayer
         {
             info.avatar = create_avatar_icon(info, static_cast<int>(Layer::Sein));
             GameObject::SetActive(info.avatar.root, info.avatar.visible);
-            app::Vector3 pos{ info.position.x, info.position.y, 0.f };
+            app::Vector3 pos{ info.avatar.position.x, info.avatar.position.y, 0.f };
             auto transform = il2cpp::unity::get_transform(info.avatar.root);
             Transform::set_position(transform, &pos);
             utils::set_color(info.avatar.icon, info.color, false);
@@ -449,7 +447,8 @@ namespace multiplayer
             console::console_send("_______________________");
             auto id = convert_wstring_to_string(player.id);
             console::console_send(format("player: %s", id.c_str()));
-            console::console_send(format("position: %d, %d", player.position.x, player.position.y));
+            console::console_send(format("position: %d, %d", player.avatar.position.x, player.avatar.position.y));
+            console::console_send(format("map_position: %d, %d", player.map_avatar.position.x, player.map_avatar.position.y));
             console::console_send(format("visible: %d", player.world_visible));
             console::console_send(format("map_visible: %d", player.map_visible));
             console::console_send(format("online: %d", player.online));
@@ -493,7 +492,6 @@ INJECT_C_DLLEXPORT void add_player(const wchar_t* id, const wchar_t* name, multi
         multiplayer::PlayerInfo& info = multiplayer::players.emplace_back();
         info.id = id;
         info.name = name;
-        info.position = { 0 };
         info.online = true;
         info.color = { 1.0f, 1.0f, 1.0f, 1.0f };
         info.icon = icon;
@@ -591,16 +589,33 @@ INJECT_C_DLLEXPORT void update_player_position(const wchar_t* id, float x, float
             info.last_facing_pos = x;
         }
 
-        info.position.x = x;
-        info.position.y = y;
+        info.avatar.position.x = x;
+        info.avatar.position.y = y;
 
         // Avatar
         if (info.avatar.handle != 0)
         {
             auto transform = il2cpp::unity::get_transform(info.avatar.root);
-            app::Vector3 pos { info.position.x, info.position.y, 0.0f };
+            app::Vector3 pos { info.avatar.position.x, info.avatar.position.y, 0.0f };
             multiplayer::Transform::set_position(transform, &pos);
         }
+    }
+}
+
+INJECT_C_DLLEXPORT void update_player_map_position(const wchar_t* id, float x, float y)
+{
+    auto it = multiplayer::player_map.find(id);
+    if (it != multiplayer::player_map.end())
+    {
+        multiplayer::PlayerInfo& info = multiplayer::players[it->second];
+        if (abs(x - info.last_facing_pos) > 0.1f)
+        {
+            info.facing = x < info.last_facing_pos ? 1 : -1;
+            info.last_facing_pos = x;
+        }
+
+        info.map_avatar.position.x = x;
+        info.map_avatar.position.y = y;
 
         // Map Avatar
         if (info.map_avatar.handle != 0)
@@ -615,7 +630,16 @@ INJECT_C_DLLEXPORT app::Vector2 get_player_position(const wchar_t* id)
 {
     auto it = multiplayer::player_map.find(id);
     if (it != multiplayer::player_map.end())
-        return multiplayer::players[it->second].position;
+        return multiplayer::players[it->second].avatar.position;
+    else
+        return app::Vector2{ 0.f, 0.f };
+}
+
+INJECT_C_DLLEXPORT app::Vector2 get_player_map_position(const wchar_t* id)
+{
+    auto it = multiplayer::player_map.find(id);
+    if (it != multiplayer::player_map.end())
+        return multiplayer::players[it->second].map_avatar.position;
     else
         return app::Vector2{ 0.f, 0.f };
 }

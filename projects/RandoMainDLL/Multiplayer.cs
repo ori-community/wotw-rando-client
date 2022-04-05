@@ -144,13 +144,20 @@ namespace RandoMainDLL {
           HideAndSeek.ParseHandlerInfo(info);
           break;
       }
-
-
     }
 
-    public static void UpdatePlayerPosition(string id, float x, float y) {
+    public static void UpdatePlayerWorldPosition(string id, float x, float y) {
       if (id != Id && currentPlayers.Any(p => p.Key == id)) {
         InterOp.Multiplayer.update_player_position(id, x, y);
+      }
+      else {
+        Randomizer.Log($"Got player position from unknown player {id}: {x}, {y}", false);
+      }
+    }
+
+    public static void UpdatePlayerMapPosition(string id, float x, float y) {
+      if (id != Id && currentPlayers.Any(p => p.Key == id)) {
+        InterOp.Multiplayer.update_player_map_position(id, x, y);
       }
       else {
         Randomizer.Log($"Got player position from unknown player {id}: {x}, {y}", false);
@@ -180,22 +187,37 @@ namespace RandoMainDLL {
 
       while (Queue.TryTake(out var packet)) {
         switch (packet.Id) {
-          case Packet.Types.PacketID.MultiverseInfoMessage:
-            var multiverse = MultiverseInfoMessage.Parser.ParseFrom(packet.Packet_);
-            UpdateMultivere(multiverse);
-            break;
-          case Packet.Types.PacketID.UpdatePlayerPositionMessage:
-            var position = UpdatePlayerPositionMessage.Parser.ParseFrom(packet.Packet_);
-            UpdatePlayerPosition(position.PlayerId, position.X, position.Y);
-            break;
-          case Packet.Types.PacketID.AuthenticatedMessage:
-            var authenticated = AuthenticatedMessage.Parser.ParseFrom(packet.Packet_);
-            SetCurrentUser(authenticated.User);
-            break;
-          case Packet.Types.PacketID.Visibility:
-            var visibility = VisibilityMessage.Parser.ParseFrom(packet.Packet_);
-            UpdateVisibility(visibility);
-            break;
+          case Packet.Types.PacketID.MultiverseInfoMessage: {
+              var multiverse = MultiverseInfoMessage.Parser.ParseFrom(packet.Packet_);
+              UpdateMultivere(multiverse);
+              break;
+            }
+          case Packet.Types.PacketID.UpdatePlayerPositionMessage: {
+              var position = UpdatePlayerPositionMessage.Parser.ParseFrom(packet.Packet_);
+              UpdatePlayerWorldPosition(position.PlayerId, position.X, position.Y);
+              UpdatePlayerMapPosition(position.PlayerId, position.X, position.Y);
+              break;
+            }
+          case Packet.Types.PacketID.UpdatePlayerWorldPositionMessage: {
+              var position = UpdatePlayerWorldPositionMessage.Parser.ParseFrom(packet.Packet_);
+              UpdatePlayerWorldPosition(position.PlayerId, position.X, position.Y);
+              break;
+            }
+          case Packet.Types.PacketID.UpdatePlayerMapPositionMessage: {
+              var position = UpdatePlayerMapPositionMessage.Parser.ParseFrom(packet.Packet_);
+              UpdatePlayerMapPosition(position.PlayerId, position.X, position.Y);
+              break;
+            }
+          case Packet.Types.PacketID.AuthenticatedMessage: {
+              var authenticated = AuthenticatedMessage.Parser.ParseFrom(packet.Packet_);
+              SetCurrentUser(authenticated.User);
+              break;
+            }
+          case Packet.Types.PacketID.Visibility: {
+              var visibility = VisibilityMessage.Parser.ParseFrom(packet.Packet_);
+              UpdateVisibility(visibility);
+              break;
+            }
           default:
             break;
         }
