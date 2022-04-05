@@ -7,7 +7,7 @@
 #include <string>
 
 namespace {
-    void credits_callback(std::string_view scene_name, app::Scene scene)
+    void credits_callback(std::string_view scene_name, int id, app::GameObject* scene_root)
     {
         auto cred_cont = il2cpp::get_class<app::CreditsController__Class>("", "CreditsController")->static_fields->Instance;
         auto timeline = cred_cont->fields.CreditsTimeline;
@@ -16,7 +16,7 @@ namespace {
 
     INJECT_C_DLLEXPORT void start_credits() {
         teleport(-3537, -5881, true); // actual magic coordinates found by cosmic
-        scenes::force_load_area("creditsScreen", &credits_callback);
+        scenes::force_load_area("creditsScreen", 0, &credits_callback);
     }
 
     float time = 0.0f;

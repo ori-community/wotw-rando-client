@@ -6,7 +6,7 @@
 
 namespace scenes
 {
-    std::unordered_map<std::string, std::vector<loaded_callback>> to_load;
+    std::unordered_map<std::string, std::vector<std::pair<int, loaded_callback>>> to_load;
 
     namespace {
         IL2CPP_BINDING_OVERLOAD(, ScenesManager, void, PreloadScene, (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* data), (RuntimeSceneMetaData));
@@ -15,7 +15,8 @@ namespace scenes
         IL2CPP_BINDING(, ScenesManager, void, EnableDisabledScene, (app::ScenesManager* this_ptr, app::SceneManagerScene* scene, bool async));
         IL2CPP_BINDING(, ScenesManager, bool, SceneIsLoading, (app::ScenesManager* this_ptr, app::MoonGuid* scene_guid));
         IL2CPP_BINDING(, ScenesManager, bool, SceneIsLoaded, (app::ScenesManager* this_ptr, app::MoonGuid* scene_guid));
-        STATIC_IL2CPP_BINDING(, ScenesManager, app::Scene, GetSceneByName, (app::String* name));
+        IL2CPP_BINDING_OVERLOAD(, ScenesManager, app::SceneManagerScene*, GetFromCurrentScenes,
+            (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* meta), (:RuntimeSceneMetaData));
 
         IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController* this_ptr))
         {
@@ -29,9 +30,10 @@ namespace scenes
                 auto meta = ScenesManager::GetSceneInformation(manager, cname);
                 if (ScenesManager::SceneIsLoaded(manager, meta->fields.SceneMoonGuid))
                 {
-                    auto scene = ScenesManager::GetSceneByName(cname);
-                    for (auto callback : l.second)
-                        callback(l.first, scene);
+                    auto scene = ScenesManager::GetFromCurrentScenes(manager, meta);
+                    auto go = il2cpp::unity::get_game_object(scene->fields.SceneRoot);
+                    for (auto p : l.second)
+                        p.second(l.first, p.first, go);
 
                     to_delete.emplace(l.first);
                 }
@@ -44,8 +46,8 @@ namespace scenes
         }
     }
 
-    void force_load_area(std::string scene, loaded_callback callback)
+    void force_load_area(std::string scene, int id, loaded_callback callback)
     {
-        to_load[scene].push_back(callback);
+        to_load[scene].push_back({ id, callback });
     }
 }

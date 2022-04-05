@@ -19,6 +19,7 @@
 
 #include <array>
 #include <iostream>
+#include <memory>
 #include <mutex>
 #include <string>
 #include <vector>
@@ -35,7 +36,7 @@ namespace ipc
         constexpr int MESSAGE_SIZE = 8192;
         constexpr int SEND_QUEUE_LIMIT = 300;
 
-        std::thread ipc_thread;
+        std::unique_ptr<std::thread> ipc_thread;
         std::mutex message_mutex;
         std::mutex send_mutex;
         std::vector<std::string> sends;
@@ -162,7 +163,8 @@ namespace ipc
 
         void start_ipc_thread()
         {
-            ipc_thread = std::thread(pipe_handler);
+            if (ipc_thread == nullptr)
+                ipc_thread = std::make_unique<std::thread>(pipe_handler);
         }
 
         CALL_ON_INIT(start_ipc_thread);
@@ -173,8 +175,8 @@ namespace ipc
 
     void join_ipc_thread()
     {
-        if (ipc_thread.joinable())
-            ipc_thread.join();
+        if (ipc_thread != nullptr && ipc_thread->joinable())
+            ipc_thread->join();
     }
 
     void update_pipe()

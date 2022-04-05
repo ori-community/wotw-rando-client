@@ -3,6 +3,7 @@
 #include <constants.h>
 #include <dev/object_visualizer.h>
 #include <features/scenes/scene_load.h>
+#include <utils/shaders.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
@@ -37,7 +38,6 @@ namespace scenes
         {
             int id;
             std::string scene;
-            std::string root;
             std::vector<std::string> path;
             app::Vector3 position;
             std::optional<app::Vector3> rotation;
@@ -47,66 +47,74 @@ namespace scenes
             app::GameObject* game_object = nullptr;
         };
 
+        app::GameObject* rando_game_objects = nullptr;
         std::unordered_map<int, ObjectSpawn> objects;
         std::unordered_map<std::string, std::unordered_set<int>> spawn_queue;
 
-        void on_load_callback(std::string_view scene_name, app::Scene scene)
+        void save_textures(app::GameObject* go)
         {
-            auto& to_spawn = spawn_queue[std::string(scene_name)];
-            std::unordered_map<std::string, std::vector<int>> root_to_ids;
-            for (auto id : to_spawn)
+            auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(go, "UnityEngine", "Renderer");
+            for (auto renderer : renderers)
             {
-                auto& obj = objects[id];
-                root_to_ids[obj.root].push_back(id);
+                auto mat = shaders::UberShaderAPI::GetEditableMaterial(renderer);
+                il2cpp::invoke(renderer, "set_sharedMaterial", shaders::copy_material(mat));
+            }
+        }
+
+        app::GameObject* get_rando_game_objects()
+        {
+            if (rando_game_objects == nullptr)
+            {
+                rando_game_objects = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
+                il2cpp::invoke(rando_game_objects, ".ctor");
+                il2cpp::invoke(rando_game_objects, "set_name", il2cpp::string_new("rando_game_objects"));
+                Object::DontDestroyOnLoad(rando_game_objects);
             }
 
-            auto roots = il2cpp::unity::get_root_game_objects(scene);
-            for (auto root : roots)
+            return rando_game_objects;
+        }
+
+        void on_load_callback(std::string_view scene_name, int id, app::GameObject* scene_root)
+        {
+            auto& obj = objects[id];
+            auto prefab = il2cpp::unity::find_child(scene_root, obj.path);
+            if (!il2cpp::unity::is_valid(prefab))
+                return;
+
+            obj.game_object = il2cpp::unity::instantiate_object(prefab);
+            Object::DontDestroyOnLoad(obj.game_object);
+            auto transform = il2cpp::unity::get_transform(obj.game_object);
+            Transform::set_parent(transform, il2cpp::unity::get_transform(get_rando_game_objects()));
+            Transform::set_position(transform, &obj.position);
+            if (obj.scale.has_value())
+                Transform::set_localScale(transform, &obj.scale.value());
+
+            if (obj.rotation.has_value())
             {
-                auto root_name = il2cpp::unity::get_object_name(root);
-                auto it = root_to_ids.find(root_name);
-                if (it == root_to_ids.end())
-                    continue;
-
-                for (auto id : it->second)
-                {
-                    auto& obj = objects[id];
-                    auto prefab = il2cpp::unity::find_child(root, obj.path);
-                    if (!il2cpp::unity::is_valid(prefab))
-                        continue;
-
-                    obj.game_object = il2cpp::unity::instantiate_object(prefab);
-                    Object::DontDestroyOnLoad(obj.game_object);
-                    auto transform = il2cpp::unity::get_transform(obj.game_object);
-                    Transform::set_parent(transform, nullptr);
-                    Transform::set_position(transform, &obj.position);
-                    if (obj.scale.has_value())
-                        Transform::set_localScale(transform, &obj.scale.value());
-
-                    if (obj.rotation.has_value())
-                    {
-                        auto& rot = obj.rotation.value();
-                        auto quat = Quaternion::Euler(rot.x, rot.y, rot.z);
-                        Transform::set_rotation(transform, &quat);
-                    }
-
-                    obj.callback(id, obj.game_object);
-                }
+                auto& rot = obj.rotation.value();
+                auto quat = Quaternion::Euler(rot.x, rot.y, rot.z);
+                Transform::set_rotation(transform, &quat);
             }
 
-            to_spawn.clear();
+            save_textures(obj.game_object);
+            if (obj.callback != nullptr)
+                obj.callback(id, obj.game_object);
         }
 
         IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController* this_ptr))
         {
             GameController::FixedUpdate(this_ptr);
             for (auto spawn : spawn_queue)
-                force_load_area(spawn.first, &on_load_callback);
+                for (auto id : spawn.second)
+                    force_load_area(spawn.first, id, &on_load_callback);
+
+            spawn_queue.clear();
         }
 
         void initialize()
         {
-            //add_item(0, { -566.93634f, -4545.384766f, 0.f }, { 0, PI, 0 }, { 1, 1, 1 }, "swampSpringIntroductionB", { "springSunkenGlades" });
+            add_item(0, { -566.93634f, -4545.384766f, 0.f }, app::Vector3{ 0, PI, 0 }, std::optional<app::Vector3>(),
+                "swampSpringIntroductionB", { "interactives", "springSunkenGlades" });
         }
 
         CALL_ON_INIT(initialize);
@@ -139,6 +147,7 @@ namespace scenes
         obj.scene = scene;
         obj.path = path;
         obj.id = id;
+        spawn_queue[obj.scene].emplace(id);
     }
 
     void add_creation_callback(int id, creation_callback callback)

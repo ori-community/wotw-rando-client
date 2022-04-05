@@ -31,6 +31,11 @@ namespace shaders
     STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetFloat, (app::Renderer* renderer, app::UberShaderProperty_Float__Enum prop, float value));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, void, SetAlpha, (app::Renderer* this_ptr, app::Material* material, app::UberShaderProperty_Color__Enum p, float color));
 
+    NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Material, void, .ctor, ctor_shader, (app::Material* this_ptr, app::Shader* shader), (UnityEngine:Shader));
+    NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Material, void, .ctor, ctor, (app::Material* this_ptr, app::Material* other), (UnityEngine:Material));
+    IL2CPP_BINDING(UnityEngine, Material, app::Shader*, get_shader, (app::Material* this_ptr));
+    IL2CPP_BINDING(UnityEngine, Material, void, CopyPropertiesFromMaterial, (app::Material* this_ptr, app::Material* other));
+
     STATIC_IL2CPP_BINDING(, UberShaderAPI, app::Material*, GetEditableMaterial, (app::Renderer* this_ptr));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, app::Material*, GetSharedMaterial, (app::Renderer* this_ptr));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, app::Texture*, GetTexture, (app::Renderer* this_ptr, app::UberShaderProperty_Texture__Enum p));
@@ -42,6 +47,13 @@ namespace shaders
     STATIC_IL2CPP_BINDING(, UberShaderAPI, app::Color, GetColor, (app::Renderer* renderer, app::UberShaderProperty_Color__Enum prop));
     STATIC_IL2CPP_BINDING(, UberShaderAPI, float, GetFloat, (app::Renderer* renderer, app::UberShaderProperty_Float__Enum prop));
 
+    app::Material* copy_material(app::Material* source)
+    {
+        auto instanced_material = il2cpp::create_object<app::Material>("UnityEngine", "Material");
+        Material::ctor(instanced_material, source);
+        Material::CopyPropertiesFromMaterial(instanced_material, source);
+        return instanced_material;
+    }
 
     void set_float(app::Material* mat, std::string_view name, float value)
     {
