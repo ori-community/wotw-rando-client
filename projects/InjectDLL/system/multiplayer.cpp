@@ -26,6 +26,7 @@ INJECT_C_DLLEXPORT void set_local_player_color(float r, float g, float b, float 
 INJECT_C_DLLEXPORT void clear_players();
 INJECT_C_DLLEXPORT void remove_player(const wchar_t* id);
 INJECT_C_DLLEXPORT void update_player_position(const wchar_t* id, float x, float y);
+INJECT_C_DLLEXPORT void set_player_online(const wchar_t* id, bool online);
 
 namespace multiplayer
 {

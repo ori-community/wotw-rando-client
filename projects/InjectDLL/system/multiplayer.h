@@ -34,6 +34,7 @@ namespace multiplayer
         // Internal
         Icon avatar;
         Icon map_avatar;
+        float map_scale = 1;
         float last_facing_pos = 0.0f;
         float last_facing = 1.0f;
         int facing = 1;
