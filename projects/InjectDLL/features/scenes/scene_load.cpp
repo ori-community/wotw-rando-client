@@ -10,6 +10,9 @@ namespace scenes
 
     namespace {
         IL2CPP_BINDING_OVERLOAD(, ScenesManager, void, PreloadScene, (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* data), (RuntimeSceneMetaData));
+        IL2CPP_BINDING(, ScenesManager, app::RuntimeSceneMetaData*, RequestAdditivelyLoadScene,
+            (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* meta, bool async, bool keepPreloaded, bool forceLoad, bool loadDependantScenes, bool queueIncludedScenes));
+        //ScenesManager_RequestAdditivelyLoadScene(this,a,fVar4 <= 2.00000000,true,true,true,false);
         IL2CPP_BINDING(, ScenesManager, app::RuntimeSceneMetaData*, GetSceneInformation, (app::ScenesManager* this_ptr, app::String* sceneName));
         IL2CPP_BINDING(, ScenesManager, app::SceneManagerScene*, GetSceneManagerScene, (app::ScenesManager* this_ptr, app::String* scene_name));
         IL2CPP_BINDING(, ScenesManager, void, EnableDisabledScene, (app::ScenesManager* this_ptr, app::SceneManagerScene* scene, bool async));
@@ -38,7 +41,7 @@ namespace scenes
                     to_delete.emplace(l.first);
                 }
                 else if (!ScenesManager::SceneIsLoading(manager, meta->fields.SceneMoonGuid))
-                    ScenesManager::PreloadScene(manager, meta);
+                    ScenesManager::RequestAdditivelyLoadScene(manager, meta, true, false, true, true, false);
             }
 
             for (auto d : to_delete)
