@@ -1,6 +1,6 @@
+#include <macros.h>
 #include <game/game.h>
 #include <game/ui.h>
-#include <randomizer/ipc.h>
 
 #include <Common/ext.h>
 

@@ -62,7 +62,7 @@ namespace scenes
         auto manager = scenes->static_fields->Manager;
         auto cname = il2cpp::string_new(name);
         auto meta = ScenesManager::GetSceneInformation(manager, cname);
-        if (!ScenesManager::SceneIsLoaded(manager, meta->fields.SceneMoonGuid))
+        if (meta == nullptr || !ScenesManager::SceneIsLoaded(manager, meta->fields.SceneMoonGuid))
             return nullptr;
 
         auto scene = ScenesManager::GetFromCurrentScenes(manager, meta);
@@ -88,8 +88,9 @@ namespace scenes
         if (path.empty())
             return nullptr;
 
-        std::vector<std::string_view> split_path;
-        split_str(path, split_path, '/');
+        std::vector<std::string> split_path;
+        std::string str(path);
+        split_str(str, split_path, '/');
         auto game_object = get_root(split_path.front());
         split_path.erase(split_path.begin());
         return split_path.empty() ? game_object : il2cpp::unity::find_child(game_object, split_path);

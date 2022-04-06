@@ -2,7 +2,6 @@
 #include <game/game.h>
 #include <interop/csharp_bridge.h>
 #include <game/pickups/pickups.h>
-#include <randomizer/ipc.h>
 #include <randomizer/render/textures.h>
 #include <uber_states/state_applier.h>
 

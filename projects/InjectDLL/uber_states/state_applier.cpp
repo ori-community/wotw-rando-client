@@ -135,10 +135,7 @@ namespace uber_states
                 return;
             }
 
-            auto game_object = scenes::get_root(params[0].value);
-            for (auto i = 1; i < params.size() && game_object != nullptr; ++i)
-                game_object = il2cpp::unity::find_child(game_object, params[i].value);
-            
+            auto game_object = scenes::get_game_object(params[0].value);
             if (game_object == nullptr)
                 return;
 
@@ -171,8 +168,8 @@ namespace uber_states
         void add_applier_intercept_commands()
         {
             console::register_command({ "debug", "intercept_state" }, intercept_state);
-            console::register_command({ "debug", "show_state" }, intercept_state);
-            console::register_command({ "debug", "show_state_paths" }, intercept_state);
+            console::register_command({ "debug", "show_state" }, show_state);
+            console::register_command({ "debug", "show_state_paths" }, show_state_paths);
         }
 
         CALL_ON_INIT(add_applier_intercept_commands);

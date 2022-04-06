@@ -11,7 +11,7 @@ namespace
         // Twillen Hollow
         // -294171295 Present
         // -598610927 Gone
-        uber_states::register_applier_redirect({ "", -598610927 }, -294171295);
+        uber_states::register_applier_redirect({ "kwoloksHollowEntrance/interactives/shardTraderSetup", -598610927 }, -294171295);
     }
 
     CALL_ON_INIT(initialize_twillen);
