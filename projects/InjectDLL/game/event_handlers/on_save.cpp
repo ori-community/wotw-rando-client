@@ -63,11 +63,11 @@ namespace
 INJECT_C_DLLEXPORT void save()
 {
     trace(MessageType::Info, 3, "csharp_interop", "Save requested by c# code");
-    GameController::CreateCheckpoint_intercept(game::controller(), true, false);
+    GameController::CreateCheckpoint(game::controller(), true, false);
 }
 
 INJECT_C_DLLEXPORT void checkpoint()
 {
     trace(MessageType::Info, 3, "csharp_interop", "Checkpoint requested by c# code");
-    GameController::CreateCheckpoint_intercept(game::controller(), false, false);
+    GameController::CreateCheckpoint(game::controller(), false, false);
 }

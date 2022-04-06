@@ -440,18 +440,6 @@ namespace
     }
 }
 
-NLOHMANN_JSON_SERIALIZE_ENUM(AnimationEndHandling, {
-    { AnimationEndHandling::Freeze, "Freeze" },
-    { AnimationEndHandling::Loop, "Loop" },
-    { AnimationEndHandling::DestroyOnEnd, "DestroyOnEnd" },
-    { AnimationEndHandling::DeactivateOnEnd, "DeactivateOnEnd" },
-});
-
-NLOHMANN_JSON_SERIALIZE_ENUM(SpriteEndHandling, {
-    { SpriteEndHandling::Freeze, "Freeze" },
-    { SpriteEndHandling::Hide, "Hide" },
-});
-
 INJECT_C_DLLEXPORT bool anim_preload(const char* path)
 {
     std::string spath(path);

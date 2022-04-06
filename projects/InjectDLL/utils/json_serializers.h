@@ -1,6 +1,8 @@
 #pragma once
 
 #include <json/json.hpp>
+#include <randomizer/render/animation.h>
+#include <randomizer/render/sprite.h>
 
 namespace app {
     void to_json(nlohmann::json& j, const Vector2& s);
@@ -46,5 +48,20 @@ namespace app {
         { VerticalAnchorMode__Enum_Top, "Top" },
         { VerticalAnchorMode__Enum_Middle, "Middle" },
         { VerticalAnchorMode__Enum_Bottom, "Bottom" },
+    });
+}
+
+namespace randomizer
+{
+    NLOHMANN_JSON_SERIALIZE_ENUM(AnimationEndHandling, {
+        { AnimationEndHandling::Freeze, "Freeze" },
+        { AnimationEndHandling::Loop, "Loop" },
+        { AnimationEndHandling::DestroyOnEnd, "DestroyOnEnd" },
+        { AnimationEndHandling::DeactivateOnEnd, "DeactivateOnEnd" },
+    });
+
+    NLOHMANN_JSON_SERIALIZE_ENUM(SpriteEndHandling, {
+        { SpriteEndHandling::Freeze, "Freeze" },
+        { SpriteEndHandling::Hide, "Hide" },
     });
 }
