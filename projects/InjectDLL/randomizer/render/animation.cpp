@@ -127,12 +127,12 @@ namespace
             });
             il2cpp::invoke(mat, "set_shaderKeywords", keywords);
 
-            shaders::set_float(mat, "_UberShaderAlphaMask", 9);
-            shaders::set_float(mat, "_UberShaderCulling", 0);
-            shaders::set_vector(mat, "_DepthFlipScreen", { 0.008251436, 0, 0, 0 });
-            shaders::set_vector(mat, "_Screen", { 0, 0, 0, 1 });
-            shaders::set_vector(mat, "_UberShaderParams", { 0, 0, 1, 1 });
-            shaders::set_vector(mat, "_UberShaderParams2", { 1, 1, 0, 1 });
+            randomizer::shaders::set_float(mat, "_UberShaderAlphaMask", 9);
+            randomizer::shaders::set_float(mat, "_UberShaderCulling", 0);
+            randomizer::shaders::set_vector(mat, "_DepthFlipScreen", { 0.008251436, 0, 0, 0 });
+            randomizer::shaders::set_vector(mat, "_Screen", { 0, 0, 0, 1 });
+            randomizer::shaders::set_vector(mat, "_UberShaderParams", { 0, 0, 1, 1 });
+            randomizer::shaders::set_vector(mat, "_UberShaderParams2", { 1, 1, 0, 1 });
 
             il2cpp::invoke(renderer, "set_sharedMaterial", mat);
         }
@@ -320,7 +320,7 @@ namespace
 
                 if (entry.texture_data != nullptr && sprite.current_texture != entry.texture)
                 {
-                    shaders::UberShaderAPI::SetVector(renderer, app::UberShaderProperty_Vector__Enum_MainTexScaleAndOffset, &shader_scale_and_offset);
+                    randomizer::shaders::UberShaderAPI::SetVector(renderer, app::UberShaderProperty_Vector__Enum_MainTexScaleAndOffset, &shader_scale_and_offset);
                     entry.texture_data->apply_texture(renderer);
                     sprite.current_texture = entry.texture;
                 }

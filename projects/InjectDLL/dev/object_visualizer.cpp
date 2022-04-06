@@ -1,5 +1,5 @@
 #include <dev/object_visualizer.h>
-#include <utils/shaders.h>
+#include <randomizer/render/shaders.h>
 
 #include <Common/ext.h>
 
@@ -310,12 +310,12 @@ namespace dev
                 indent(visualizer);
                 visualizer.stream << "moon_offset_z: " << moon_offset_z << visualizer.new_line;
 
-                auto mat = shaders::UberShaderAPI::GetEditableMaterial(renderer);
+                auto mat = randomizer::shaders::UberShaderAPI::GetEditableMaterial(renderer);
                 indent(visualizer, 0, 1);
                 visualizer.stream << "editable_material: " << visualizer.new_line;
                 visualize_unity_material(visualizer, reinterpret_cast<Il2CppObject*>(mat));
 
-                auto shared_mat = shaders::UberShaderAPI::GetSharedMaterial(renderer);
+                auto shared_mat = randomizer::shaders::UberShaderAPI::GetSharedMaterial(renderer);
                 indent(visualizer, -1, 1);
                 visualizer.stream << "shared_material: " << visualizer.new_line;
                 visualize_unity_material(visualizer, reinterpret_cast<Il2CppObject*>(shared_mat));

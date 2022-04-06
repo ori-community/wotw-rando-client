@@ -14,12 +14,6 @@ namespace
     IL2CPP_INTERCEPT(, QuestsController, void, ApplyReward, (app::QuestsController * this_ptr, app::QuestReward * reward)) {}
     IL2CPP_INTERCEPT(, RaceHandler, void, ApplyReward, (app::RaceHandler* this_ptr)) {}
 
-    IL2CPP_INTERCEPT(, QuestNodeWisps, void, ApplyReward, (app::QuestNodeWisps* this_ptr)) {
-        collecting_pickup = true;
-        QuestNodeWisps::ApplyReward(this_ptr);
-        collecting_pickup = false;      
-    }
-
     IL2CPP_BINDING(, Quest, app::IGenericUberState*, get_UberState, (app::Quest* this_ptr));
 
     template<typename T>

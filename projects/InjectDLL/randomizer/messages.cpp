@@ -1,9 +1,9 @@
 #include <dev/object_visualizer.h>
 #include <game/player.h>
 #include <game/ui.h>
+#include <game/system/message_provider.h>
 #include <interop/csharp_bridge.h>
 #include <randomizer/messages.h>
-#include <utils/messaging.h>
 #include <utils/position_converter.h>
 
 #include <Common/ext.h>

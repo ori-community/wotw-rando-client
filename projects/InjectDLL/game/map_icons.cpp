@@ -1,13 +1,13 @@
 #include <constants.h>
 #include <dev/object_visualizer.h>
 #include <game/game.h>
+#include <game/system/message_provider.h>
 #include <interop/csharp_bridge.h>
 #include <randomizer/multiplayer.h>
 #include <randomizer/settings.h>
+#include <randomizer/render/shaders.h>
 #include <uber_states/uber_state_manager.h>
-#include <utils/messaging.h>
 #include <utils/misc.h>
-#include <utils/shaders.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
@@ -785,14 +785,14 @@ namespace
             auto it = original_color.find(key);
             if (it == original_color.end())
             {
-                auto color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
+                auto color = randomizer::shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
                 original_color[key] = color;
                 it = original_color.find(key);
             }
 
             auto color = it->second;
             color.a *= alpha;
-            shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+            randomizer::shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
         }
     }
 

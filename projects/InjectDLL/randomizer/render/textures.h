@@ -1,7 +1,7 @@
 #pragma once
 
 #include <macros.h>
-#include <utils/shaders.h>
+#include <randomizer/render/shaders.h>
 
 #include <memory>
 #include <optional>

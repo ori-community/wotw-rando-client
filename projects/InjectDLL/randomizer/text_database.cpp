@@ -1,7 +1,7 @@
 #include <randomizer/text_database.h>
 
 #include <enums/static_text_entries.h>
-#include <utils/messaging.h>
+#include <game/system/message_provider.h>
 
 #include <Common/ext.h>
 

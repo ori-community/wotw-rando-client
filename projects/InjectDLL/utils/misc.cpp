@@ -1,7 +1,7 @@
 #include <utils/misc.h>
 
 #include <Il2CppModLoader/il2cpp_helpers.h>
-#include <utils/shaders.h>
+#include <randomizer/render/shaders.h>
 
 namespace utils
 {
@@ -12,7 +12,7 @@ namespace utils
         auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(go, "UnityEngine", "Renderer");
         for (auto renderer : renderers)
         {
-            auto prev_color = shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
+            auto prev_color = randomizer::shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
             app::Color actual_color = color;
             if (prev_color.a > 0.5f)
             {
@@ -31,7 +31,7 @@ namespace utils
                 }
 
                 actual_color.a = prev_color.a;
-                shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &actual_color);
+                randomizer::shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &actual_color);
             }
         }
     }

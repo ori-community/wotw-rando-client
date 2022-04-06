@@ -1,8 +1,12 @@
+#include <macros.h>
 #include <game/game.h>
 #include <game/ui.h>
 
+#include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+
+using namespace modloader;
 
 namespace game
 {
@@ -17,6 +21,9 @@ namespace game
             STATIC_IL2CPP_BINDING(Game, UI, bool, get_BuilderScreenVisible, ());
             STATIC_IL2CPP_BINDING(Game, UI, bool, get_GardenerScreenVisible, ());
             IL2CPP_BINDING(, MenuScreenManager, bool, IsVisible, (app::MenuScreenManager* this_ptr, app::MenuScreenManager_Screens__Enum screen));
+            IL2CPP_BINDING(, SeinUI, void, ShakeSpiritLight, (app::SeinUI* this_ptr));
+            IL2CPP_BINDING(, SeinUI, void, ShakeKeystones, (app::SeinUI* this_ptr));
+            IL2CPP_BINDING(, SeinUI, void, ShakeSeeds, (app::SeinUI* this_ptr));
 
             bool is_area_map_open = false;
             void on_area_map_open(GameEvent game_event, EventTiming timing)
@@ -66,5 +73,44 @@ namespace game
                 UI::get_BuilderScreenVisible() ||
                 UI::get_GardenerScreenVisible();
         }
+
+        void shake_spiritlight()
+        {
+            if (game::ui::get()->static_fields->SeinUI == nullptr)
+                trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
+            else
+                SeinUI::ShakeSpiritLight(game::ui::get()->static_fields->SeinUI);
+        }
+
+        void shake_keystone()
+        {
+            if (game::ui::get()->static_fields->SeinUI == nullptr)
+                trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
+            else
+                SeinUI::ShakeKeystones(game::ui::get()->static_fields->SeinUI);
+        }
+
+        void shake_ore()
+        {
+            if (game::ui::get()->static_fields->SeinUI == nullptr)
+                trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
+            else
+                SeinUI::ShakeSeeds(game::ui::get()->static_fields->SeinUI);
+        }
     }
+}
+
+INJECT_C_DLLEXPORT void shake_spiritlight()
+{
+    game::ui::shake_spiritlight();
+}
+
+INJECT_C_DLLEXPORT void shake_keystone()
+{
+    game::ui::shake_keystone();
+}
+
+INJECT_C_DLLEXPORT void shake_ore()
+{
+    game::ui::shake_ore();
 }

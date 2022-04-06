@@ -24,17 +24,30 @@ namespace modloader
     {
         T& variable;
         T value;
+        bool should_set;
 
         ScopedSetter(T& variable, T value)
             : variable(variable)
             , value(variable)
+            , should_set(true)
         {
             variable = value;
         }
 
+        ScopedSetter(ScopedSetter const& other) = delete;
+
+        ScopedSetter(ScopedSetter&& other)
+            : variable(other.variable)
+            , value(other.value)
+            , should_set(other.should_set)
+        {
+            other.should_set = false;
+        }
+
         ~ScopedSetter()
         {
-            variable = value;
+            if (should_set)
+                variable = value;
         }
     };
 

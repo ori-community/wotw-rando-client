@@ -1,7 +1,7 @@
 #pragma once
 
 #include <interop/enum_definitions.h>
-#include <input/enums/actions.h>
+#include <enums/actions.h>
 
 #include <string>
 
@@ -10,7 +10,7 @@ namespace csharp_bridge
     namespace signatures
     {
         using f_void = void(*)();
-        using f_void_a = void(*)(input::Action);
+        using f_void_a = void(*)(Action);
         using f_void_at = void(*)(app::AbilityType__Enum);
         using f_void_gwa = void(*)(app::GameWorldAreaID__Enum);
         using f_void_at_bool = void(*)(app::AbilityType__Enum, bool);

@@ -10,5 +10,9 @@ namespace game
         bool world_map_open();
         bool menu_open();
         bool shop_open();
+
+        void shake_spiritlight();
+        void shake_keystone();
+        void shake_ore();
     }
 }

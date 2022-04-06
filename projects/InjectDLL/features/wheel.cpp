@@ -1,13 +1,13 @@
 #include <macros.h>
 #include <enums/static_text_entries.h>
-#include <interop/csharp_bridge.h>
 #include <dev/object_visualizer.h>
+#include <game/system/message_provider.h>
+#include <interop/csharp_bridge.h>
 #include <input/rando_bindings.h>
 #include <randomizer/text_database.h>
+#include <randomizer/render/shaders.h>
 #include <randomizer/render/textures.h>
 #include <uber_states/uber_state_manager.h>
-#include <utils/messaging.h>
-#include <utils/shaders.h>
 
 #include <Common/ext.cpp>
 #include <Il2CppModLoader/common.h>
@@ -145,7 +145,7 @@ namespace
         return !is_in_trial;
     }
 
-    void handle_custom_wheel(input::Action action, bool pressed)
+    void handle_custom_wheel(Action action, bool pressed)
     {
         if (pressed)
         {
@@ -205,8 +205,8 @@ namespace
 
     void initialize_wheel()
     {
-        input::add_on_pressed_callback(input::Action::OpenRandoWheel, handle_custom_wheel);
-        input::add_on_released_callback(input::Action::OpenRandoWheel, handle_custom_wheel);
+        randomizer::input::add_on_pressed_callback(Action::OpenRandoWheel, handle_custom_wheel);
+        randomizer::input::add_on_released_callback(Action::OpenRandoWheel, handle_custom_wheel);
     }
 
     bool override_set_active = false;

@@ -2,7 +2,7 @@
 
 #include <macros.h>
 #include <game/game.h>
-#include <pickups/pickups.h>
+#include <game/pickups/pickups.h>
 
 #include <Common/ext.h>
 
@@ -139,7 +139,7 @@ namespace csharp_bridge
 
         void on_checkpoint_handler(GameEvent game_event, EventTiming timing)
         {
-            ScopedSetter setter(collecting_pickup, false); // fuck fuck fuck shit damn aaaaa
+            auto cp(game::pickups::collect_pickup()); // fuck fuck fuck shit damn aaaaa
             csharp_bridge::on_checkpoint();
         }
 

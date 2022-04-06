@@ -3,7 +3,7 @@
 #include <constants.h>
 #include <dev/object_visualizer.h>
 #include <features/scenes/scene_load.h>
-#include <utils/shaders.h>
+#include <randomizer/render/shaders.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
@@ -56,8 +56,8 @@ namespace scenes
             auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(go, "UnityEngine", "Renderer");
             for (auto renderer : renderers)
             {
-                auto mat = shaders::UberShaderAPI::GetEditableMaterial(renderer);
-                il2cpp::invoke(renderer, "set_sharedMaterial", shaders::copy_material(mat));
+                auto mat = randomizer::shaders::UberShaderAPI::GetEditableMaterial(renderer);
+                il2cpp::invoke(renderer, "set_sharedMaterial", randomizer::shaders::copy_material(mat));
             }
         }
 

@@ -2,8 +2,7 @@
 
 #include <constants.h>
 #include <game/player.h>
-#include <pickups/pickups.h>
-#include <pickups/ore.h>
+#include <game/pickups/pickups.h>
 #include <uber_states/uber_state_manager.h>
 #include <uber_states/uber_state_virtual.h>
 
@@ -43,6 +42,7 @@ namespace
     IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* this_ptr));
     IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter* this_ptr, app::Vector3 value));
     IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_position, (app::Transform* this_ptr));
+    IL2CPP_BINDING(, SeinLevel, void, set_Ore, (app::SeinLevel* this_ptr, int32_t value));
 
     app::CheatsHandler__StaticFields* get_cheats()
     {
@@ -116,7 +116,7 @@ INJECT_C_DLLEXPORT bool get_debug_controls()
 }
 
 INJECT_C_DLLEXPORT void add_health(float inc) {
-    ScopedSetter cp(collecting_pickup, false);
+    auto cp(game::pickups::collect_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr)
     {
@@ -131,7 +131,7 @@ INJECT_C_DLLEXPORT void add_health(float inc) {
 }
 
 INJECT_C_DLLEXPORT void set_health(float val) {
-    ScopedSetter cp(collecting_pickup, false);
+    auto cp(game::pickups::collect_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr)
     {
@@ -143,21 +143,21 @@ INJECT_C_DLLEXPORT void set_health(float val) {
 }
 
 INJECT_C_DLLEXPORT void fill_health() {
-    ScopedSetter cp(collecting_pickup, false);
+    auto cp(game::pickups::collect_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr)
         SeinHealthController::RestoreAllHealth(sein->fields.Mortality->fields.Health, 4);
 }
 
 INJECT_C_DLLEXPORT void add_energy(float inc) {
-    ScopedSetter cp(collecting_pickup, false);
+    auto cp(game::pickups::collect_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr)
         SeinEnergy::Gain(sein->fields.Energy, inc);
 }
 
 INJECT_C_DLLEXPORT void set_energy(float val) {
-    ScopedSetter cp(collecting_pickup, false);
+    auto cp(game::pickups::collect_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr)
         SeinEnergy::set_Current(sein->fields.Energy, val);
@@ -165,7 +165,7 @@ INJECT_C_DLLEXPORT void set_energy(float val) {
 
 
 INJECT_C_DLLEXPORT void fill_energy() {
-    ScopedSetter cp(collecting_pickup, false);
+    auto cp(game::pickups::collect_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr)
         SeinEnergy::RestoreAllEnergy(sein->fields.Energy);
@@ -188,7 +188,7 @@ INJECT_C_DLLEXPORT void set_max_health(int32_t value) {
     return;
   }
 
-  ScopedSetter cp(collecting_pickup, false);
+  auto cp(game::pickups::collect_pickup());
   SeinHealthController::set_BaseMaxHealth(sein->fields.Mortality->fields.Health, value);
 }
 
@@ -199,7 +199,7 @@ INJECT_C_DLLEXPORT void set_max_energy(float value) {
       return;
     }
 
-    ScopedSetter cp(collecting_pickup, false);
+    auto cp(game::pickups::collect_pickup());
     SeinEnergy::set_BaseMaxEnergy(sein->fields.Energy, value);
 }
 
@@ -227,12 +227,10 @@ INJECT_C_DLLEXPORT int32_t get_ore()
 
 INJECT_C_DLLEXPORT void set_ore(int32_t value)
 {
+    auto cp(game::pickups::collect_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr)
-    {
         SeinLevel::set_Ore(sein->fields.Level, value);
-        get_inventory()->fields.m_ore = value;
-    }
 }
 
 INJECT_C_DLLEXPORT int32_t get_experience()
@@ -242,7 +240,6 @@ INJECT_C_DLLEXPORT int32_t get_experience()
 
 INJECT_C_DLLEXPORT void set_experience(int32_t value)
 {
-    ScopedSetter cp(collecting_pickup, false);
     get_inventory()->fields.m_experience = value;
 }
 

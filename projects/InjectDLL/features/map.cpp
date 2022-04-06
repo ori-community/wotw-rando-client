@@ -4,7 +4,7 @@
 #include <randomizer/messages.h>
 #include <randomizer/text_database.h>
 #include <uber_states/uber_state_manager.h>
-#include <utils/messaging.h>
+#include <game/system/message_provider.h>
 
 #include <Common/ext.h>
 

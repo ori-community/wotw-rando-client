@@ -214,7 +214,7 @@ namespace ipc
     void reload(nlohmann::json& j)
     {
         info("ipc", "Received reload action request.");
-        csharp_bridge::on_action_triggered(input::Action::Reload);
+        csharp_bridge::on_action_triggered(Action::Reload);
     }
 
     void get_flags(nlohmann::json& j)
@@ -266,7 +266,7 @@ namespace ipc
     void action(nlohmann::json& j)
     {
         auto p = j.at("payload");
-        auto id = p.at("action_id").get<input::Action>();
+        auto id = p.at("action_id").get<Action>();
         auto pressed = p.at("pressed").get<bool>();
         if (pressed)
             action_pressed(id);
@@ -400,10 +400,10 @@ namespace ipc
         handlers["get_velocity"] = get_velocity;
         handlers["message"] = message;
 
-        for (auto action = static_cast<input::Action>(0); action < input::Action::TOTAL; action = static_cast<input::Action>(static_cast<int>(action) + 1))
+        for (auto action = static_cast<Action>(0); action < Action::TOTAL; action = static_cast<Action>(static_cast<int>(action) + 1))
         {
-            input::add_on_pressed_callback(action, report_input);
-            input::add_on_released_callback(action, report_input);
+            randomizer::input::add_on_pressed_callback(action, report_input);
+            randomizer::input::add_on_released_callback(action, report_input);
         }
     }
 
@@ -441,7 +441,7 @@ INJECT_C_DLLEXPORT void report_uber_state_change(int group, int state, double va
     ipc::send_message(response.dump());
 }
 
-INJECT_C_DLLEXPORT void report_input(input::Action type, bool pressed)
+INJECT_C_DLLEXPORT void report_input(Action type, bool pressed)
 {
     nlohmann::json response;
     response["type"] = "request";

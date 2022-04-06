@@ -117,7 +117,7 @@ namespace multiplayer
         {
             color.a = static_cast<float>(i) / HALF_DOTS;
             auto& dot = player.dots[(player.next_dot_index + HALF_DOTS + i) % DOT_COUNT];
-            shaders::UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+            randomizer::shaders::UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
         }
     }
 

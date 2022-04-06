@@ -1,12 +1,12 @@
 #include <enums/static_text_entries.h>
 #include <game/player.h>
+#include <game/system/message_provider.h>
 #include <interop/csharp_bridge.h>
-#include <pickups/shops/general.h>
+#include <game/pickups/shops/general.h>
 #include <uber_states/uber_state_manager.h>
 #include <uber_states/uber_state_helper.h>
 #include <randomizer/render/textures.h>
 #include <randomizer/text_database.h>
-#include <utils/messaging.h>
 
 #include <Common/ext.h>
 
@@ -316,13 +316,13 @@ namespace
             auto background_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.Background, "UnityEngine", "Renderer");
             if ((purchasable && !owned) && (affordable && !owned))
             {
-                shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &this_ptr->fields.PurchasableColor);
-                shaders::UberShaderAPI::SetColor(background_renderer, app::UberShaderProperty_Color__Enum_MainColor, &this_ptr->fields.PurchasableColor);
+                randomizer::shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &this_ptr->fields.PurchasableColor);
+                randomizer::shaders::UberShaderAPI::SetColor(background_renderer, app::UberShaderProperty_Color__Enum_MainColor, &this_ptr->fields.PurchasableColor);
             }
             else
             {
-                shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &this_ptr->fields.UnpurchaseableColor);
-                shaders::UberShaderAPI::SetColor(background_renderer, app::UberShaderProperty_Color__Enum_MainColor, &this_ptr->fields.UnpurchaseableColor);
+                randomizer::shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &this_ptr->fields.UnpurchaseableColor);
+                randomizer::shaders::UberShaderAPI::SetColor(background_renderer, app::UberShaderProperty_Color__Enum_MainColor, &this_ptr->fields.UnpurchaseableColor);
             }
 
             auto descriptions = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance->fields.Descriptions;

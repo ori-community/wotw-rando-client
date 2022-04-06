@@ -1,11 +1,11 @@
 #include <enums/static_text_entries.h>
 #include <game/game.h>
+#include <game/system/message_provider.h>
 #include <input/rando_bindings.h>
 #include <interop/csharp_bridge.h>
-#include <pickups/shops/general.h>
+#include <game/pickups/shops/general.h>
 #include <randomizer/text_database.h>
 #include <uber_states/uber_state_manager.h>
-#include <utils/messaging.h>
 
 #include <Common/ext.h>
 
@@ -287,15 +287,15 @@ namespace
             ShopkeeperUIItem::UpdateItem(this_ptr, item);
     }
 
-    void handle_quick_buy(input::Action action, bool pressed)
+    void handle_quick_buy(Action action, bool pressed)
     {
         quick_buy = pressed;
     }
 
     void initialize()
     {
-        input::add_on_pressed_callback(input::Action::QuickBuy, handle_quick_buy);
-        input::add_on_released_callback(input::Action::QuickBuy, handle_quick_buy);
+        randomizer::input::add_on_pressed_callback(Action::QuickBuy, handle_quick_buy);
+        randomizer::input::add_on_released_callback(Action::QuickBuy, handle_quick_buy);
     }
 
     CALL_ON_INIT(initialize);

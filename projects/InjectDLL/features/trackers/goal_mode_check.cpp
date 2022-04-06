@@ -6,8 +6,8 @@
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <randomizer/render/shaders.h>
 #include <uber_states/uber_state_manager.h>
-#include <utils/shaders.h>
 
 using namespace modloader;
 
