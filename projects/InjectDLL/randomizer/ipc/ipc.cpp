@@ -223,6 +223,7 @@ namespace ipc
 
     void initialize()
     {
+        game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::End, &update_pipe);
         game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::End, &on_shutdown);
     }
 
