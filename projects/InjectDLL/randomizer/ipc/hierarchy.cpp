@@ -85,11 +85,11 @@ namespace ipc
             }
         }
 
-        IL2CPP_BINDING(UnityEngine, GameObject, int, GetInstanceID, (app::GameObject* this_ptr));
+        IL2CPP_BINDING(UnityEngine, Object, int, GetInstanceID, (app::GameObject* this_ptr));
         void visualize_game_object(nlohmann::json& j, void* obj, bool verbose)
         {
             auto go = reinterpret_cast<app::GameObject*>(obj);
-            auto id = GameObject::GetInstanceID(go);
+            auto id = Object::GetInstanceID(go);
             auto layer = il2cpp::invoke<app::Int32__Boxed>(go, "get_layer")->fields;
             j["instance_id"] = id;
             j["path"] = il2cpp::unity::get_path(go);
