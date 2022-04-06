@@ -188,6 +188,8 @@ namespace il2cpp
                 return path;
 
             auto transform = get_transform(go);
+            path = get_object_name(transform);
+            transform = get_parent(transform);
             while (il2cpp::unity::is_valid(transform))
             {
                 path = format("%s/%s", get_object_name(transform).c_str(), path.c_str());
