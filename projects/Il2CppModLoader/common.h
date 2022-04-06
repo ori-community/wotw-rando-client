@@ -38,6 +38,22 @@ namespace modloader
         }
     };
 
+    template<typename T>
+    struct ScopedCaller
+    {
+        T end;
+        ScopedCaller(T start, T end)
+            : end(end)
+        {
+            start();
+        }
+
+        ~ScopedCaller()
+        {
+            end();
+        }
+    };
+
     IL2CPP_MODLOADER_DLLEXPORT void trace(MessageType type, int level, std::string const& group, std::string const& message);
     IL2CPP_MODLOADER_DLLEXPORT void info(std::string const& group, std::string const& message);
     IL2CPP_MODLOADER_DLLEXPORT void warn(std::string const& group, std::string const& message);

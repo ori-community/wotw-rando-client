@@ -1,6 +1,6 @@
 #include <input/rando_bindings.h>
 
-#include <csharp_bridge.h>
+#include <interop/csharp_bridge.h>
 #include <macros.h>
 #include <input/controller_bindings.h>
 #include <input/helpers.h>

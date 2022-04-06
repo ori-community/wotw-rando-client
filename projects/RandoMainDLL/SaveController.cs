@@ -111,11 +111,5 @@ namespace RandoMainDLL {
         return;
       }
     }
-
-    public static void OnCopy(int fromSlot, int toSlot) {
-    }
-
-    public static void OnDelete(int slot) {
-    }
   }
 }

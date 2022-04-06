@@ -1,9 +1,8 @@
-#include <dll_main.h>
 #include <Common/ext.h>
-#include <csharp_bridge.h>
+#include <interop/csharp_bridge.h>
 #include <pickups/shops/general.h>
-#include <system/textures.h>
-#include <system/text_database.h>
+#include <randomizer/render/textures.h>
+#include <randomizer/text_database.h>
 #include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_manager.h>
 #include <utils/messaging.h>
@@ -134,7 +133,7 @@ namespace shops
         }
     }
 
-    std::shared_ptr<textures::TextureData> get_grom_icon(app::NpcProjectItem* shop_item)
+    std::shared_ptr<randomizer::textures::TextureData> get_grom_icon(app::NpcProjectItem* shop_item)
     {
         const auto key = get_key(shop_item);
         const auto it = grom_overrides.find(key);

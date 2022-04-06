@@ -1,11 +1,14 @@
-#include <csharp_bridge.h>
-#include <dll_main.h>
-#include <Common/ext.h>
-#include <pickups/shops/general.h>
+#include <enums/static_text_entries.h>
+#include <game/game.h>
 #include <input/rando_bindings.h>
+#include <interop/csharp_bridge.h>
+#include <pickups/shops/general.h>
+#include <randomizer/text_database.h>
 #include <uber_states/uber_state_manager.h>
 #include <utils/messaging.h>
-#include <system/text_database.h>
+
+#include <Common/ext.h>
+
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -302,7 +305,7 @@ namespace shops
 {
     bool is_in_shop(ShopType type)
     {
-        const auto gameController = get_game_controller();
+        const auto gameController = game::controller();
         if (!gameController || GameController::get_GameInTitleScreen(gameController))
             return false;
 
@@ -375,10 +378,10 @@ namespace shops
         }
     }
 
-    std::shared_ptr<textures::TextureData> default_texture;
-    std::shared_ptr<textures::TextureData> get_icon(ShopType type, void* shop_item)
+    std::shared_ptr<randomizer::textures::TextureData> default_texture;
+    std::shared_ptr<randomizer::textures::TextureData> get_icon(ShopType type, void* shop_item)
     {
-        std::shared_ptr<textures::TextureData> output;
+        std::shared_ptr<randomizer::textures::TextureData> output;
         if (shop_item != nullptr)
         {
             switch (type)
@@ -402,7 +405,7 @@ namespace shops
 
         if (default_texture == nullptr)
         {
-            default_texture = textures::create_texture();
+            default_texture = randomizer::textures::create_texture();
             auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")
                 ->static_fields->Instance->fields.Icons;
             auto icon = 0;
@@ -428,7 +431,7 @@ namespace shops
         if (texture == nullptr)
             item.texture_data = nullptr;
         else if (item.texture_data == nullptr || item.texture_data->get_path() != texture)
-            item.texture_data = textures::get_texture(texture);
+            item.texture_data = randomizer::textures::get_texture(texture);
 
         item.uses_energy = uses_energy;
         item.is_locked = is_locked;

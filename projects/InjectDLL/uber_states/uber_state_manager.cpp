@@ -1,6 +1,6 @@
 #include <uber_states/uber_state_manager.h>
 
-#include <csharp_bridge.h>
+#include <interop/csharp_bridge.h>
 #include <constants.h>
 #include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_virtual.h>
@@ -66,8 +66,6 @@ namespace uber_states
         IL2CPP_INTERCEPT(Moon, UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection* this_ptr)) {
             if (!initialized)
             {
-                IniSettings settings = create_randomizer_settings(base_path);
-                load_settings_from_file(settings);
                 std::vector<app::IUberState*> states = {
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "sword", app::AbilityType__Enum_Sword, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::TREE_GROUP_NAME, constants::TREE_GROUP_ID, "double_jump", app::AbilityType__Enum_DoubleJump, false),
@@ -169,8 +167,6 @@ namespace uber_states
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Energy Regeneration", 31, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Extra Double Jumps", 35, 0),
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Extra Dashes", 36, 0),
-                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Autoaim", 37, !check_option(settings, "Flags", "DisableAutoaim", false)),
-                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "AlwaysShowSecrets", 38, !check_option(settings, "Flags", "DisableShowSecrets", false)),
 
                     add_state<app::SerializedByteUberState>("SerializedByteUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Extra Grenades", 40, 0),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_UPGRADE_GROUP_NAME, constants::RANDO_UPGRADE_GROUP_ID, "Grenades explode on collision", 41, true),
@@ -379,7 +375,6 @@ namespace uber_states
 
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "chaos_trigger_min", CHAOS_TRIGGER_MIN_ID, 30.f),
                     add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "chaos_trigger_min", CHAOS_TRIGGER_MAX_ID, 60.f),
-                    add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "icon_transparency", ICON_TRANSPARENCY_ID, check_option(settings, "Values", "MapIconTransparency", 0.0f)),
 
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::MAP_FILTER_GROUP_NAME, constants::MAP_FILTER_GROUP_ID, "spoiler_icon_tag", 70, false),
 

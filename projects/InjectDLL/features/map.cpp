@@ -1,24 +1,23 @@
-#include <dll_main.h>
-#include <Common/ext.h>
-#include <csharp_bridge.h>
-#include <unordered_map>
-#include <system/messages.h>
+#include <enums/static_text_entries.h>
+#include <game/game.h>
+#include <interop/csharp_bridge.h>
+#include <randomizer/messages.h>
+#include <randomizer/text_database.h>
 #include <uber_states/uber_state_manager.h>
-#include <system/text_database.h>
 #include <utils/messaging.h>
+
+#include <Common/ext.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 
-using namespace modloader;
+#include <unordered_map>
 
-extern void refresh_icon_alphas(bool is_map_visible);
+using namespace modloader;
 
 namespace
 {
-    bool area_map_open = false;
-
     enum class LupoSelection
     {
         Intro = 0,
@@ -45,9 +44,9 @@ namespace
         return il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
     }
 
-    IL2CPP_BINDING(, GameWorld, app::GameWorldArea*, GetArea, (app::GameWorld* thisPtr, app::GameWorldAreaID__Enum areaID))
-    IL2CPP_BINDING(, GameWorld, app::RuntimeGameWorldArea*, FindRuntimeArea, (app::GameWorld* thisPtr, app::GameWorldArea* area));
-    IL2CPP_BINDING(, RuntimeGameWorldArea, void, DiscoverAllAreas, (app::RuntimeGameWorldArea* thisPtr));
+    IL2CPP_BINDING(, GameWorld, app::GameWorldArea*, GetArea, (app::GameWorld* this_ptr, app::GameWorldAreaID__Enum areaID))
+    IL2CPP_BINDING(, GameWorld, app::RuntimeGameWorldArea*, FindRuntimeArea, (app::GameWorld* this_ptr, app::GameWorldArea* area));
+    IL2CPP_BINDING(, RuntimeGameWorldArea, void, DiscoverAllAreas, (app::RuntimeGameWorldArea* this_ptr));
     IL2CPP_BINDING(, CartographerEntity, app::GameWorldArea*, get_CurrentArea, (app::CartographerEntity* this_ptr));
 
     IL2CPP_INTERCEPT(, CartographerEntity, int, get_MapCost, (app::CartographerEntity* this_ptr)) {
@@ -93,7 +92,7 @@ namespace
         return handle_lupo_message(this_ptr, LupoSelection::Thanks, get_ThanksMessage);
     }
     
-    IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, IsVisible, (app::RuntimeWorldMapIcon* thisPtr, app::AreaMapUI* areaMap)) {
+    IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, IsVisible, (app::RuntimeWorldMapIcon* this_ptr, app::AreaMapUI* areaMap)) {
         return true;
     }
 
@@ -105,27 +104,12 @@ namespace
       auto area = GameMapUI::get_CurrentHighlightedArea(this_ptr);
       if (area == nullptr || area->fields.Area == nullptr)
           return;
+
       auto aid = area->fields.Area->fields.WorldMapAreaUniqueID;
       if (aid != area_id) {
         area_id = aid;
         csharp_bridge::on_map_pan(area_id);
       }
-
-    }
-
-    IL2CPP_INTERCEPT(, AreaMapUI, void, Show, (app::AreaMapUI* this_ptr, bool set_menu_audio_state)) {
-        AreaMapUI::Show(this_ptr, set_menu_audio_state);
-        area_id = app::GameWorldAreaID__Enum_None;
-        area_map_open = true;
-        csharp_bridge::on_map_state(true);
-        refresh_icon_alphas(true);
-    }
-        
-    IL2CPP_INTERCEPT(, AreaMapUI, void, Hide, (app::AreaMapUI* this_ptr)) {
-        AreaMapUI::Hide(this_ptr);
-        area_map_open = false;
-        csharp_bridge::on_map_state(false);
-        refresh_icon_alphas(false);
     }
 
     bool disable_next_update_map_target = false;
@@ -177,6 +161,18 @@ namespace
         this_ptr->fields._Navigation_k__BackingField->fields.WorldMapZoomLevel = original_zoom / scaling_factor;
         this_ptr->fields._IconScaler_k__BackingField->fields.MaxScaleFactor = original_scale / scaling_factor;
     }
+
+    void on_area_map(GameEvent game_event, EventTiming timing)
+    {
+        area_id = app::GameWorldAreaID__Enum_None;
+    }
+
+    void initialize()
+    {
+        game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::Start, &on_area_map);
+    }
+
+    CALL_ON_INIT(initialize);
 }
 
 INJECT_C_DLLEXPORT bool discover_everything() {
@@ -206,9 +202,4 @@ INJECT_C_DLLEXPORT bool discover_everything() {
         trace(MessageType::Warning, 3, "game", "Tried to discover all, but haven't found the GameWorld Instance yet :(");
         return false;
     }
-}
-
-bool is_area_map_open()
-{
-    return area_map_open;
 }

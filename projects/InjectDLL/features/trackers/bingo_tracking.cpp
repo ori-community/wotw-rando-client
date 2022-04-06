@@ -1,5 +1,5 @@
-#include <csharp_bridge.h>
-#include <system/messages.h>
+#include <interop/csharp_bridge.h>
+#include <randomizer/messages.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 

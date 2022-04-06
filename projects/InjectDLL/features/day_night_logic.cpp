@@ -1,6 +1,6 @@
 #include <macros.h>
-#include <csharp_bridge.h>
-#include <dll_main.h>
+#include <game/player.h>
+#include <interop/csharp_bridge.h>
 #include <uber_states/state_applier.h>
 #include <uber_states/uber_state_manager.h>
 
@@ -60,14 +60,14 @@ namespace
         if (!disable_has_ability_overwrite && this_ptr->fields.Ability == app::AbilityType__Enum_Sword)
             return is_day();
 
-        return has_ability(this_ptr->fields.Ability);
+        return game::player::has_ability(this_ptr->fields.Ability);
     }
 
     IL2CPP_INTERCEPT(, HasAbilityCondition, bool, Validate, (app::HasAbilityCondition* this_ptr, app::IContext* context)) {
         if (sword_wheel_condition != this_ptr && !disable_has_ability_overwrite && this_ptr->fields.AbilityType == app::AbilityType__Enum_Sword)
             return is_day();
 
-        return has_ability(this_ptr->fields.AbilityType);
+        return game::player::has_ability(this_ptr->fields.AbilityType);
     }
 
     IL2CPP_BINDING(, HasAbilityUberStateCondition, app::AbilityType__Enum, get_AbilityType, (app::HasAbilityUberStateCondition* this_ptr));
@@ -75,7 +75,7 @@ namespace
         if (!disable_has_ability_overwrite && HasAbilityUberStateCondition::get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
             return is_day();
 
-        return has_ability(HasAbilityUberStateCondition::get_AbilityType(this_ptr));
+        return game::player::has_ability(HasAbilityUberStateCondition::get_AbilityType(this_ptr));
     }
 
     IL2CPP_INTERCEPT(, HasAbilityUberStateCondition, bool, Validate, (app::HasAbilityUberStateCondition* this_ptr)) {
@@ -84,7 +84,7 @@ namespace
         if (!disable_has_ability_overwrite && HasAbilityUberStateCondition::get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
             return comparator == is_day();
 
-        return comparator == has_ability(HasAbilityUberStateCondition::get_AbilityType(this_ptr));
+        return comparator == game::player::has_ability(HasAbilityUberStateCondition::get_AbilityType(this_ptr));
     }
 
     void find_day_night(app::List_1_SetupStateModifier___Fields& modifiers, app::GameObject*& day, app::GameObject*& night)

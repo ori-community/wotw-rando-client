@@ -1,22 +1,22 @@
 #include <macros.h>
 
+#include <randomizer/settings.h>
+#include <uber_states/uber_state_manager.h>
+
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
-#include <uber_states/uber_state_manager.h>
 
 namespace
 {
-    constexpr int AUTOAIM_ID = 37;
-
     bool overwrite_attackables = false;
     IL2CPP_INTERCEPT(, SeinSpiritSpearSpell, void, FindClosestAttackTarget, (app::SeinSpiritSpearSpell* this_ptr)) {
-        overwrite_attackables = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, AUTOAIM_ID) < 0.5f;
+        overwrite_attackables = randomizer::settings::autoaim();
         SeinSpiritSpearSpell::FindClosestAttackTarget(this_ptr);
         overwrite_attackables = false;
     }
 
     IL2CPP_INTERCEPT(, SeinChakramSpell, void, UpdateCharacterState, (app::SeinChakramSpell* this_ptr)) {
-        this_ptr->fields.AutoAimEnabled = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, AUTOAIM_ID) > 0.5f;
+        this_ptr->fields.AutoAimEnabled = randomizer::settings::autoaim();
         // Maybe we still want this on?
         if (this_ptr->fields.m_prefabChakramProjectile != nullptr)
             this_ptr->fields.m_prefabChakramProjectile->fields.AutoAimEnabled = this_ptr->fields.AutoAimEnabled;
@@ -25,7 +25,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SeinBowAttack, void, UpdateCharacterState, (app::SeinBowAttack* this_ptr)) {
-        overwrite_attackables = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, AUTOAIM_ID) < 0.5f;
+        overwrite_attackables = randomizer::settings::autoaim();
         SeinBowAttack::UpdateCharacterState(this_ptr);
         overwrite_attackables = false;
     }

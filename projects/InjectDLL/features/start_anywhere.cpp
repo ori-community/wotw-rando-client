@@ -1,5 +1,5 @@
 #include <macros.h>
-#include <dll_main.h>
+#include <game/player.h>
 #include <uber_states/uber_state_manager.h>
 
 #include <Il2CppModLoader/common.h>
@@ -35,7 +35,7 @@ namespace
         (app::ScenesManager* this_ptr, app::Vector3 position, bool async, bool loadingZones, bool keepPreloaded, bool forceLoad, bool loadDependantScenes));
     IL2CPP_BINDING(, SkipCutsceneController, void, SkipCutscene, (app::SkipCutsceneController* this_ptr));
     IL2CPP_BINDING(, SkipCutsceneController, void, SkipPrologue, (app::SkipCutsceneController* this_ptr));
-    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* thisPtr));
+    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* this_ptr));
     IL2CPP_INTERCEPT(, SeinCharacter, void, set_Position, (app::SeinCharacter* this_ptr, app::Vector3 value)) {
         if (ignore_count > 0)
             --ignore_count;
@@ -104,7 +104,7 @@ namespace
             teleport(ORIGINAL_START.x, ORIGINAL_START.y, false); // This is already preloaded at this point.
 
         // I hate this but required for nice looking transition here.
-        set_ability(app::AbilityType__Enum_SpiritMagnet, false);
+        game::player::set_ability(app::AbilityType__Enum_SpiritMagnet, false);
         cutscene_skips += 2;
     }
 

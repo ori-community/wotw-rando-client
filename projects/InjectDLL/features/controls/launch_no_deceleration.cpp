@@ -1,4 +1,5 @@
-#include <dll_main.h>
+#include <macros.h>
+#include <game/player.h>
 
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -30,7 +31,7 @@ namespace
                 reset_timer -= TimeUtility::get_deltaTime();
         }
 
-        auto* sein = get_sein();
+        auto* sein = game::player::sein();
         auto* wrapper = sein->fields.Abilities->fields.ChargeJumpWrapper;
         if (wrapper->fields.HasState && wrapper->fields.State->fields.m_state == app::SeinChargeJump_State__Enum_Aiming)
         {

@@ -1,5 +1,5 @@
 #include <macros.h>
-#include <csharp_bridge.h>
+#include <interop/csharp_bridge.h>
 #include <uber_states/state_applier.h>
 
 #include <Il2CppModLoader/common.h>

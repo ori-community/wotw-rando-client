@@ -10,7 +10,7 @@
 #include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_manager.h>
 
-#include <csharp_bridge.h>
+#include <interop/csharp_bridge.h>
 
 #include <unordered_map>
 

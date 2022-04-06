@@ -39,16 +39,16 @@ IniSettings create_randomizer_settings(const std::string& path);
 void load_settings_from_file(IniSettings& settings);
 void save_settings_to_file(IniSettings& settings);
 
-IniOption* find_option(IniSettings& settings, std::string const& section, std::string const& name);
+IniOption* find_option(IniSettings& settings, std::string_view section, std::string_view name);
 
 template<typename T>
-T check_option(IniSettings& settings, std::string const& section, std::string const& name, T default_value);
+T check_option(IniSettings& settings, std::string_view section, std::string_view name, T default_value);
 
 template<>
-bool check_option(IniSettings& settings, std::string const& section, std::string const& name, bool default_value);
+bool check_option(IniSettings& settings, std::string_view section, std::string_view name, bool default_value);
 template<>
-float check_option(IniSettings& settings, std::string const& section, std::string const& name, float default_value);
+float check_option(IniSettings& settings, std::string_view section, std::string_view name, float default_value);
 template<>
-int check_option(IniSettings& settings, std::string const& section, std::string const& name, int default_value);
+int check_option(IniSettings& settings, std::string_view section, std::string_view name, int default_value);
 template<>
-std::string check_option(IniSettings& settings, std::string const& section, std::string const& name, std::string default_value);
+std::string check_option(IniSettings& settings, std::string_view section, std::string_view name, std::string default_value);

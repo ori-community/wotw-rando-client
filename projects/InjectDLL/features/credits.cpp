@@ -1,5 +1,5 @@
 #include <features/scenes/scene_load.h>
-#include <csharp_bridge.h>
+#include <interop/csharp_bridge.h>
 
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>

@@ -1,9 +1,10 @@
 #include <constants.h>
-#include <dll_main.h>
+#include <game/game.h>
+#include <game/player.h>
 #include <features/chaos.h>
-#include <system/messages.h>
+#include <randomizer/messages.h>
 #include <uber_states/uber_state_manager.h>
-#include <system/timer.h>
+#include <randomizer/timer.h>
 
 #include <Common/ext.h>
 
@@ -88,7 +89,7 @@ namespace
     IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController* this_ptr)) {
         GameController::Update(this_ptr);
 
-        if (is_paused() || uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, CHAOS_MODE_ID) < 0.5)
+        if (game::is_paused() || uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, CHAOS_MODE_ID) < 0.5)
             return;
 
         next_chaos_trigger -= TimeUtility::get_deltaTime();
@@ -125,7 +126,7 @@ namespace
         if (last_sling != -1)
             timer::deregister_timer(last_sling);
 
-        auto sein = get_sein();
+        auto sein = game::player::sein();
         if (sein != nullptr)
         {
             auto value = gen_random_value() * 2 * PI;

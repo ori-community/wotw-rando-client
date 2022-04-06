@@ -1,9 +1,10 @@
 #include <macros.h>
-#include <csharp_bridge.h>
+#include <enums/static_text_entries.h>
+#include <interop/csharp_bridge.h>
 #include <dev/object_visualizer.h>
 #include <input/rando_bindings.h>
-#include <system/textures.h>
-#include <system/text_database.h>
+#include <randomizer/text_database.h>
+#include <randomizer/render/textures.h>
 #include <uber_states/uber_state_manager.h>
 #include <utils/messaging.h>
 #include <utils/shaders.h>
@@ -16,7 +17,6 @@
 
 #include <unordered_map>
 #include <unordered_set>
-#include <dll_main.h>
 
 using namespace modloader;
 
@@ -42,7 +42,7 @@ namespace
 
         std::wstring name = L"";
         std::wstring description = L"";
-        std::shared_ptr<textures::TextureData> texture_data = nullptr;
+        std::shared_ptr<randomizer::textures::TextureData> texture_data = nullptr;
         app::Color color = { 1.0f, 1.0f, 1.0f, 1.0f };
         binding_action action = nullptr;
         csharp_callback callback = nullptr;
@@ -362,14 +362,14 @@ namespace
             CustomWheelEntry* entry = this_ptr->fields.m_spell != nullptr ? get_wheel_entry(this_ptr->fields.m_spell->fields.m_type) : nullptr;
             if (entry == nullptr)
             {
-                textures::apply_default(renderer);
+                randomizer::textures::apply_default(renderer);
                 SpellUIItem::UpdateSpellIcon(this_ptr);
                 return;
             }
 
             if (entry->texture_data == nullptr)
             {
-                entry->texture_data = textures::create_texture();
+                entry->texture_data = randomizer::textures::create_texture();
                 auto* spell_settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings");
                 auto* icons = spell_settings->static_fields->Instance->fields.Icons;
                 entry->texture_data->set_texture(reinterpret_cast<app::Texture*>(icons->fields._.Missing.InventoryIcon));
@@ -379,7 +379,7 @@ namespace
         }
         else
         {
-            textures::apply_default(renderer);
+            randomizer::textures::apply_default(renderer);
             SpellUIItem::UpdateSpellIcon(this_ptr);
         }
     }
@@ -452,14 +452,14 @@ namespace
         entry.name = name;
         entry.description = description;
         entry.enabled = true;
-        entry.texture_data = textures::get_texture(texture);
+        entry.texture_data = randomizer::textures::get_texture(texture);
         entry.callback = nullptr;
         entry.action = action;
     }
 
     CALL_ON_INIT(initialize_wheel);
 
-    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* thisPtr));
+    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* this_ptr));
     IL2CPP_BINDING(, CleverMenuItemSelectionManager, app::Vector2, get_MenuItemAxis, (app::CleverMenuItemSelectionManager* this_ptr));
     IL2CPP_BINDING(, CleverMenuItemSelectionManager, void, SetCurrentMenuItem, (app::CleverMenuItemSelectionManager* this_ptr, app::CleverMenuItem* item, bool run_actions));
     IL2CPP_BINDING(, CleverMenuItemSelectionManager, void, set_IsHighlightVisible, (app::CleverMenuItemSelectionManager* this_ptr, bool value));
@@ -570,7 +570,7 @@ INJECT_C_DLLEXPORT bool set_wheel_item_texture(int wheel, int item, const wchar_
         entry.texture_data = nullptr;
     else
     {
-        entry.texture_data = textures::get_texture(texture);
+        entry.texture_data = randomizer::textures::get_texture(texture);
         if (entry.texture_data == nullptr)
         {
             auto texture_str = convert_wstring_to_string(texture);

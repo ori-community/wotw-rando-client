@@ -232,12 +232,6 @@ namespace modloader
     extern bool bootstrap();
     extern void bootstrap_shutdown();
 
-    std::vector<shutdown_handler> shutdown_handlers;
-    IL2CPP_MODLOADER_DLLEXPORT void add_shutdown_handler(shutdown_handler handler)
-    {
-        shutdown_handlers.push_back(handler);
-    }
-
     STATIC_IL2CPP_BINDING(UnityEngine, Application, app::String*, get_version, ());
     STATIC_IL2CPP_BINDING(UnityEngine, Application, app::String*, get_unityVersion, ());
     STATIC_IL2CPP_BINDING(UnityEngine, Application, app::String*, get_productName, ());
@@ -302,9 +296,6 @@ namespace modloader
             if (trace_enabled)
                 network::poll_peer(network_data);
         }
-
-        for (auto handler : shutdown_handlers)
-            handler();
 
         console::console_free();
         if (trace_enabled)

@@ -1,5 +1,4 @@
 #include <Il2CppModLoader/interception_macros.h>
-#include <dll_main.h>
 #include <dev/object_visualizer.h>
 #include <uber_states/uber_state_manager.h>
 

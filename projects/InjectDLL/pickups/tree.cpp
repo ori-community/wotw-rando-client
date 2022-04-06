@@ -1,9 +1,8 @@
 #include <constants.h>
 #include <Il2CppModLoader/interception_macros.h>
-#include <dll_main.h>
 #include <uber_states/uber_state_manager.h>
 
-#include <csharp_bridge.h>
+#include <interop/csharp_bridge.h>
 
 namespace
 {

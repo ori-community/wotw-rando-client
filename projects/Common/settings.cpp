@@ -113,7 +113,7 @@ void save_settings_to_file(IniSettings& settings)
     }
 }
 
-IniOption* find_option(IniSettings& settings, std::string const& section, std::string const& name)
+IniOption* find_option(IniSettings& settings, std::string_view section, std::string_view name)
 {
     auto it = std::find_if(settings.options.begin(), settings.options.end(), [&](auto const& option) -> bool {
         return option.section == section && option.name == name;
@@ -127,7 +127,7 @@ IniOption* find_option(IniSettings& settings, std::string const& section, std::s
 
 
 template<>
-bool check_option(IniSettings& settings, std::string const& section, std::string const& name, bool default_value)
+bool check_option(IniSettings& settings, std::string_view section, std::string_view name, bool default_value)
 {
     auto option = find_option(settings, section, name);
     if (option == nullptr)
@@ -155,7 +155,7 @@ bool check_option(IniSettings& settings, std::string const& section, std::string
 }
 
 template<>
-float check_option(IniSettings& settings, std::string const& section, std::string const& name, float default_value)
+float check_option(IniSettings& settings, std::string_view section, std::string_view name, float default_value)
 {
     auto option = find_option(settings, section, name);
     if (option == nullptr)
@@ -177,7 +177,7 @@ float check_option(IniSettings& settings, std::string const& section, std::strin
 }
 
 template<>
-int check_option(IniSettings& settings, std::string const& section, std::string const& name, int default_value)
+int check_option(IniSettings& settings, std::string_view section, std::string_view name, int default_value)
 {
     auto option = find_option(settings, section, name);
     if (option == nullptr)
@@ -199,7 +199,7 @@ int check_option(IniSettings& settings, std::string const& section, std::string 
 }
 
 template<>
-std::string check_option(IniSettings& settings, std::string const& section, std::string const& name, std::string default_value)
+std::string check_option(IniSettings& settings, std::string_view section, std::string_view name, std::string default_value)
 {
     auto option = find_option(settings, section, name);
     if (option == nullptr)

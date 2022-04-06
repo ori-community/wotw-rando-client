@@ -1,10 +1,12 @@
-#include <Common/ext.h>
-#include <csharp_bridge.h>
+#include <enums/static_text_entries.h>
+#include <interop/csharp_bridge.h>
 #include <pickups/shops/general.h>
+#include <randomizer/text_database.h>
 #include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_manager.h>
-#include <system/text_database.h>
 #include <utils/messaging.h>
+
+#include <Common/ext.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
@@ -60,7 +62,7 @@ namespace
             texture->apply(renderer);
         else
         {
-            textures::apply_default(renderer);
+            randomizer::textures::apply_default(renderer);
             shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture,
                 reinterpret_cast<app::Texture*>(this_ptr->fields.m_upgradeItem->fields.Icon));
         }
@@ -286,7 +288,7 @@ namespace
 
 namespace shops
 {
-    std::shared_ptr<textures::TextureData> get_lupo_icon(app::MapmakerItem* shop_item)
+    std::shared_ptr<randomizer::textures::TextureData> get_lupo_icon(app::MapmakerItem* shop_item)
     {
         const auto state_id = shop_item->fields.UberState->fields._.m_id->fields.m_id;
         const auto group_id = shop_item->fields.UberState->fields.Group->fields._.m_id->fields.m_id;

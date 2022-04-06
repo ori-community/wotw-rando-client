@@ -1,4 +1,5 @@
 #include <macros.h>
+#include <game/game.h>
 #include <uber_states/state_applier.h>
 #include <uber_states/uber_state_manager.h>
 
@@ -155,12 +156,36 @@ namespace uber_states
         }
     }
 
-    void initialize_default_intercepts() {
-        // Bubble spawner at entrance of pools.
-        uber_states::register_applier_redirect(631536139, 1230316956, false);
+    void handle_saveload(GameEvent game_event, EventTiming timing)
+    {
+        switch (game_event)
+        {
+        case GameEvent::CreateBackup:
+        case GameEvent::CreateSave:
+            save_dynamic_redirects();
+            break;
+        case GameEvent::NewGame:
+        case GameEvent::FinishedLoadingSave:
+        case GameEvent::FinishedLoadingCheckpoint:
+        case GameEvent::Respawn:
+            load_dynamic_redirects();
+            break;
+        }
     }
 
-    CALL_ON_INIT(initialize_default_intercepts);
+    void initialize() {
+        // Bubble spawner at entrance of pools.
+        uber_states::register_applier_redirect(631536139, 1230316956, false);
+
+        game::event_bus().register_handler(GameEvent::CreateBackup, EventTiming::Start, &handle_saveload);
+        game::event_bus().register_handler(GameEvent::CreateSave, EventTiming::Start, &handle_saveload);
+        game::event_bus().register_handler(GameEvent::NewGame, EventTiming::End, &handle_saveload);
+        game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, &handle_saveload);
+        game::event_bus().register_handler(GameEvent::FinishedLoadingCheckpoint, EventTiming::End, &handle_saveload);
+        game::event_bus().register_handler(GameEvent::Respawn, EventTiming::End, &handle_saveload);
+    }
+
+    CALL_ON_INIT(initialize);
 }
 
 INJECT_C_DLLEXPORT void register_state_redirect(const int state, const int value)

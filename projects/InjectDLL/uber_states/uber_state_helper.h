@@ -1,6 +1,6 @@
 #pragma once
 
-#include <enum_definitions.h>
+#include <interop/enum_definitions.h>
 #include <macros.h>
 
 #pragma pack(push, 1)

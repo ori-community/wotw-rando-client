@@ -1,4 +1,6 @@
-#include <dll_main.h>
+#include <constants.h>
+#include <game/game.h>
+#include <game/ui.h>
 #include <pickups/pickups.h>
 #include <uber_states/uber_state_manager.h>
 
@@ -11,49 +13,49 @@ bool collecting_pickup = false;
 
 namespace
 {
-    IL2CPP_INTERCEPT(, SeinUI, void, ShakeSpiritLight, (app::SeinUI* thisPtr)) {
+    IL2CPP_INTERCEPT(, SeinUI, void, ShakeSpiritLight, (app::SeinUI* this_ptr)) {
         if (collecting_pickup)
             return;
 
-        SeinUI::ShakeSpiritLight(thisPtr);
+        SeinUI::ShakeSpiritLight(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, SeinUI, void, ShakeKeystones, (app::SeinUI* thisPtr)) {
+    IL2CPP_INTERCEPT(, SeinUI, void, ShakeKeystones, (app::SeinUI* this_ptr)) {
         if (collecting_pickup)
             return;
 
-        SeinUI::ShakeKeystones(thisPtr);
+        SeinUI::ShakeKeystones(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, SeinUI, void, ShakeSeeds, (app::SeinUI* thisPtr)) {
+    IL2CPP_INTERCEPT(, SeinUI, void, ShakeSeeds, (app::SeinUI* this_ptr)) {
         if (collecting_pickup)
             return;
 
-        SeinUI::ShakeSeeds(thisPtr);
+        SeinUI::ShakeSeeds(this_ptr);
     }
 
     INJECT_C_DLLEXPORT void shake_spiritlight()
     {
-        if (get_ui()->static_fields->SeinUI == nullptr)
+        if (game::ui::get()->static_fields->SeinUI == nullptr)
             trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
         else
-            SeinUI::ShakeSpiritLight(get_ui()->static_fields->SeinUI);
+            SeinUI::ShakeSpiritLight(game::ui::get()->static_fields->SeinUI);
     }
 
     INJECT_C_DLLEXPORT void shake_keystone()
     {
-        if (get_ui()->static_fields->SeinUI == nullptr)
+        if (game::ui::get()->static_fields->SeinUI == nullptr)
             trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
         else
-            SeinUI::ShakeKeystones(get_ui()->static_fields->SeinUI);
+            SeinUI::ShakeKeystones(game::ui::get()->static_fields->SeinUI);
     }
 
     INJECT_C_DLLEXPORT void shake_ore()
     {
-        if (get_ui()->static_fields->SeinUI == nullptr)
+        if (game::ui::get()->static_fields->SeinUI == nullptr)
             trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
         else
-            SeinUI::ShakeSeeds(get_ui()->static_fields->SeinUI);
+            SeinUI::ShakeSeeds(game::ui::get()->static_fields->SeinUI);
     }
 
     IL2CPP_INTERCEPT(, SeinPickupProcessor, void, PerformPickupSequence, (app::SeinPickupProcessor* this_ptr, app::SeinPickupProcessor_CollectableInfo* info)) {}

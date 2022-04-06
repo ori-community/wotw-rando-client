@@ -1,6 +1,5 @@
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/console.h>
-#include <dll_main.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Common/ext.h>

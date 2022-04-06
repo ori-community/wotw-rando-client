@@ -1,12 +1,14 @@
-#include <dll_main.h>
-#include <Common/ext.h>
-#include <csharp_bridge.h>
+#include <enums/static_text_entries.h>
+#include <game/player.h>
+#include <interop/csharp_bridge.h>
 #include <pickups/shops/general.h>
 #include <uber_states/uber_state_manager.h>
 #include <uber_states/uber_state_helper.h>
-#include <system/textures.h>
-#include <system/text_database.h>
+#include <randomizer/render/textures.h>
+#include <randomizer/text_database.h>
 #include <utils/messaging.h>
+
+#include <Common/ext.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
@@ -83,7 +85,7 @@ namespace
         shard->fields.m_isNew = first;
         shard->fields.m_gained = second;
 
-        il2cpp::invoke(get_sein()->fields.PlayerSpiritShards->fields.OnInventoryUpdated, "Invoke", shard);
+        il2cpp::invoke(game::player::sein()->fields.PlayerSpiritShards->fields.OnInventoryUpdated, "Invoke", shard);
 
         // do the rando purchase /after/ rollback, xem ;3
         csharp_bridge::twillen_buy_shard(static_cast<csharp_bridge::ShardType>(shard->fields.m_type));
@@ -103,7 +105,7 @@ namespace
 
     IL2CPP_BINDING(, SpiritShardUIShardDetails, void, UpdateUpgradeDetails, (app::SpiritShardUIShardDetails* this_ptr));
 
-    std::shared_ptr<textures::TextureData> get_shard_icon(app::SpiritShardType__Enum shard)
+    std::shared_ptr<randomizer::textures::TextureData> get_shard_icon(app::SpiritShardType__Enum shard)
     {
         const auto it = twillen_overrides.find(static_cast<uint8_t>(shard));
         if (it == twillen_overrides.end() || it->second.texture_data == nullptr)
@@ -112,7 +114,7 @@ namespace
         return it->second.texture_data;
     }
 
-    std::unordered_map<app::SpiritShardType__Enum, std::shared_ptr<textures::TextureData>> shard_textures;
+    std::unordered_map<app::SpiritShardType__Enum, std::shared_ptr<randomizer::textures::TextureData>> shard_textures;
 
     bool locked_shard_overwrite = false;
     IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
@@ -182,7 +184,7 @@ namespace
                         ->static_fields->Instance->fields.Icons;
                     auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &type);
 
-                    auto texture = textures::create_texture();
+                    auto texture = randomizer::textures::create_texture();
                     texture->set_texture(reinterpret_cast<app::Texture*>(icons->fields.InventoryIcon));
                     shard_textures[type] = texture;
                     it = shard_textures.find(type);
@@ -244,7 +246,7 @@ namespace
 
     IL2CPP_INTERCEPT(, SpiritShardsShopScreen, void, Show, (app::SpiritShardsShopScreen* this_ptr)) {
         csharp_bridge::update_shop_data();
-        auto sein = get_sein();
+        auto sein = game::player::sein();
         if (sein != nullptr && sein->fields.PlayerSpiritShards != nullptr)
         {
             auto settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
@@ -286,7 +288,7 @@ namespace
         {
             auto renderer = il2cpp::unity::get_components<app::Renderer>(
                 this_ptr->fields.IconGO, "UnityEngine", "Renderer")[0];
-            textures::apply_default(renderer);
+            randomizer::textures::apply_default(renderer);
             SpiritShardUIItem::UpdateShardIcon(this_ptr);
         }
     }
@@ -344,7 +346,7 @@ namespace
 
 namespace shops
 {
-    std::shared_ptr<textures::TextureData> get_twillen_icon(app::UpgradableShardItem* shop_item)
+    std::shared_ptr<randomizer::textures::TextureData> get_twillen_icon(app::UpgradableShardItem* shop_item)
     {
         auto* const item = reinterpret_cast<app::UpgradableShardItem*>(shop_item);
         return get_shard_icon(item->fields.Shard);

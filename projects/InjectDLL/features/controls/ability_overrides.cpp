@@ -1,5 +1,5 @@
-#include <dll_main.h>
 #include <macros.h>
+#include <game/player.h>
 #include <features/controls/ability_overrides.h>
 #include <uber_states/uber_state_manager.h>
 
@@ -34,7 +34,7 @@ namespace ability_override
 
         bool check_input(app::AbilityType__Enum ability, bool just_pressed = false)
         {
-            auto sein = get_sein();
+            auto sein = game::player::sein();
             if (SeinLogicCycle::IsCharacterStateBlockedBy(sein->fields.LogicCycle, app::SeinLogicCycle_StateFlags__Enum_BlockInput))
                 return false;
 

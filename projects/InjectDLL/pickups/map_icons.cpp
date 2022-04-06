@@ -1,13 +1,16 @@
-#include <csharp_bridge.h>
-#include <dll_main.h>
+#include <constants.h>
 #include <dev/object_visualizer.h>
-#include <system/multiplayer.h>
+#include <game/game.h>
+#include <interop/csharp_bridge.h>
+#include <randomizer/multiplayer.h>
+#include <randomizer/settings.h>
 #include <uber_states/uber_state_manager.h>
 #include <utils/messaging.h>
 #include <utils/misc.h>
 #include <utils/shaders.h>
 
 #include <Common/ext.h>
+#include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -235,7 +238,7 @@ namespace
         }
     }
 
-    void initialize()
+    void initialize_icons()
     {
         extra_icons[app::GameWorldAreaID__Enum_InkwaterMarsh] = {
             { app::WorldMapIconType__Enum_AbilityPedestal, -296.395905f, -4480.f, false, ExtraIconCreation::SpoilerAndNormal, false, L"",
@@ -601,14 +604,14 @@ namespace
         RuntimeGameWorldArea::ctor(this_ptr, area);
         areas[area->fields.WorldMapAreaUniqueID] = this_ptr;
         if (!initialized)
-            initialize();
+            initialize_icons();
 
         resolve_icons(this_ptr);
     }
 
     IL2CPP_INTERCEPT(, GameWorld, void, OnGameReset, (app::GameWorld* this_ptr)) {
         if (!initialized)
-            initialize();
+            initialize_icons();
 
         GameWorld::OnGameReset(this_ptr);
         for (auto i = 0; i < this_ptr->fields.RuntimeAreas->fields._size; ++i)
@@ -742,7 +745,7 @@ namespace
                 auto it = spoiler_states.find(stringify_guid(icon->fields.Guid));
                 if (it != spoiler_states.end())
                 {
-                    const auto transparency = uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, ICON_TRANSPARENCY_ID);
+                    const auto transparency = randomizer::settings::map_icon_transparency();
                     const auto value = uber_states::get_uber_state_value(it->second.group_id, it->second.state_id);
                     // Hide pickups that have been collected.
                     const auto compare = it->second.value < 0 ? 1.f : it->second.value;
@@ -752,7 +755,7 @@ namespace
                     if (csharp_bridge::filter_icon_show(it->second.group_id, it->second.state_id, static_cast<int>(it->second.value)))
                         return FilterResult::Show;
                     else
-                        return eps_equals(transparency, 0.0) ? FilterResult::Hide : FilterResult::ShowTransparent;
+                        return eps_equals(transparency, 0.f) ? FilterResult::Hide : FilterResult::ShowTransparent;
                 }
             }
         }
@@ -809,7 +812,7 @@ namespace
         case FilterResult::ShowTransparent:
         {
             RuntimeWorldMapIcon::Show_intercept(icon);
-            const auto transparency = uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, ICON_TRANSPARENCY_ID);
+            const auto transparency = randomizer::settings::map_icon_transparency();
             set_icon_opacity(icon, transparency, true);
             break;
         }
@@ -942,17 +945,24 @@ namespace
     }
     
     IL2CPP_BINDING(, AreaMapUI, void, AddIcon, (app::AreaMapUI* this_ptr, app::GameObject* icon, app::Vector3* location, bool convert, bool isTeleportable));
-}
 
-void refresh_icon_alphas(bool is_map_visible)
-{
-    auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
-    if (il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField))
+    void refresh_icon_alphas(GameEvent game_event, EventTiming timing)
     {
-        auto color = multiplayer::get_local_player_color();
-        if (color.r < 0.99f || color.g < 0.99f || color.b < 0.99f || color.a < 0.99f)
-            utils::set_color(area_map->fields._PlayerPositionMarker_k__BackingField, color, false);
+        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        if (il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField))
+        {
+            auto color = multiplayer::get_local_player_color();
+            if (color.r < 0.99f || color.g < 0.99f || color.b < 0.99f || color.a < 0.99f)
+                utils::set_color(area_map->fields._PlayerPositionMarker_k__BackingField, color, false);
+        }
     }
+
+    void initialize()
+    {
+        game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::Start, &refresh_icon_alphas);
+    }
+
+    CALL_ON_INIT(initialize);
 }
 
 INJECT_C_DLLEXPORT void remove_icon(app::GameWorldAreaID__Enum area, int id)

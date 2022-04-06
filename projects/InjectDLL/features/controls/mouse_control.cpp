@@ -1,9 +1,11 @@
 #include <features/controls/mouse_control.h>
-#include <Il2CppModLoader/il2cpp_helpers.h>
-#include <dll_main.h>
-#include <csharp_bridge.h>
+
+#include <game/player.h>
+#include <interop/csharp_bridge.h>
+#include <randomizer/settings.h>
 
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 
 #include <algorithm>
 #include <cmath>
@@ -16,9 +18,6 @@ namespace
     bool invert_x = false;
     bool invert_y = false;
 
-    bool dig_mouse_control = false;
-    bool swim_dash_mouse_control = false;
-    bool grapple_mouse_control = false;
     float mouse_control_deadzone = 50.f;
 
     //float current, float target, ref float currentVelocity, float smoothTime, float maxSpeed = Mathf.Infinity, float deltaTime = Time.deltaTime
@@ -40,7 +39,7 @@ namespace
                 return app::Vector2{ 0, 0 };
         }
 
-        auto sein = get_sein();
+        auto sein = game::player::sein();
         auto sein_pos = Camera::WorldToScreenPoint(camera, sein->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition);
         auto pos = MoonInput::get_mousePosition();
         pos.x -= sein_pos.x;
@@ -54,7 +53,7 @@ namespace
 
     bool overwrite_input = false;
     IL2CPP_INTERCEPT(, SeinDashNew, bool, ShouldDig, (app::SeinDashNew* this_ptr)) {
-        if (dig_mouse_control)
+        if (randomizer::settings::burrow_mouse_control())
             overwrite_input = true;
 
         auto ret = SeinDashNew::ShouldDig(this_ptr);
@@ -63,7 +62,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SeinDigging, void, UpdateCharacterState, (app::SeinDigging* this_ptr)) {
-        if (dig_mouse_control)
+        if (randomizer::settings::burrow_mouse_control())
             overwrite_input = true;
 
         SeinDigging::UpdateCharacterState(this_ptr);
@@ -71,7 +70,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SeinDashNew, bool, ShouldSwim, (app::SeinDashNew* this_ptr)) {
-        if (swim_dash_mouse_control)
+        if (randomizer::settings::water_dash_mouse_control())
         {
             deadzone_active = true;
             overwrite_input = true;
@@ -84,7 +83,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SeinSwimming, void, UpdateCharacterState, (app::SeinSwimming* this_ptr)) {
-        if (swim_dash_mouse_control)
+        if (randomizer::settings::water_dash_mouse_control())
         {
             overwrite_input = true;
             deadzone_active = true;
@@ -118,7 +117,7 @@ namespace
     bool overwrite_target = false;
     app::Vector3 dir;
     IL2CPP_INTERCEPT(, SeinSpiritLeashAbility, void, FindClosestAttackHandler, (app::SeinSpiritLeashAbility* this_ptr)) {
-        if (grapple_mouse_control)
+        if (randomizer::settings::grapple_mouse_control())
         {
             auto dir2 = get_mouse_dir();
             dir.x = dir2.x;
@@ -144,13 +143,6 @@ namespace
         else
             return SeinCharacter::get_FaceLeft(this_ptr);
     }
-}
-
-INJECT_C_DLLEXPORT void set_mouse_controls()
-{
-    dig_mouse_control = csharp_bridge::check_ini("BurrowMouseControl");
-    swim_dash_mouse_control = csharp_bridge::check_ini("WaterDashMouseControl");
-    grapple_mouse_control = csharp_bridge::check_ini("GrappleMouseControl");
 }
 
 INJECT_C_DLLEXPORT bool get_axis_inverted(bool horizontal)

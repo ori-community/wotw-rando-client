@@ -1,5 +1,5 @@
-#include <dll_main.h>
-#include <csharp_bridge.h>
+#include <game/player.h>
+#include <interop/csharp_bridge.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/console.h>
 
@@ -30,8 +30,8 @@ namespace
         );
     }
 
-    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* thisPtr));
-    IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter* thisPtr, app::Vector3 value));
+    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* this_ptr));
+    IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter* this_ptr, app::Vector3 value));
 
     // Hardcoded position, front of entrance to Shriek fight.
     const app::Vector3 goal_reset_position = { 515.189453, -3745.529785, 0.0 };
@@ -76,7 +76,7 @@ namespace
 
     void report_player_position(std::string const& command, std::vector<console::CommandParam> const& params)
     {
-        const auto sein = get_sein();
+        const auto sein = game::player::sein();
         if (sein != nullptr)
         {
             const auto position = SeinCharacter::get_Position(sein);

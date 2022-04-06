@@ -1,5 +1,5 @@
-#include <dll_main.h>
-#include <csharp_bridge.h>
+#include <constants.h>
+#include <interop/csharp_bridge.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/console.h>
 

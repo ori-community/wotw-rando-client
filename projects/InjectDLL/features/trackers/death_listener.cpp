@@ -4,7 +4,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 
-#include <csharp_bridge.h>
+#include <interop/csharp_bridge.h>
 
 IL2CPP_INTERCEPT(Moon, EnemyEntity, void, OnDied, (app::EnemyEntity* this_ptr, app::DamageResult* result)) {
     //app::Type* type = this_ptr->fields.m_enemyType; actual class.

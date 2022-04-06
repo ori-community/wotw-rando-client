@@ -1,7 +1,7 @@
-#include <dll_main.h>
+#include <game/player.h>
 #include <features/controls/invert_swim.h>
 
-#include <csharp_bridge.h>
+#include <interop/csharp_bridge.h>
 
 #include <Il2CppModLoader/interception_macros.h>
 #include <uber_states\uber_state_manager.h>
@@ -16,7 +16,7 @@ namespace
     STATIC_IL2CPP_BINDING(UnityEngine, AnimationCurve, app::AnimationCurve*, EaseInOut, (float timeStart, float valueStart, float timeEnd, float valueEnd));
 
     void set_swim_params(float normal, float boost) {
-        auto swim = get_sein()->fields.Abilities->fields.SwimmingWrapper;
+        auto swim = game::player::sein()->fields.Abilities->fields.SwimmingWrapper;
         if (swim->fields.HasState)
         {
             swim->fields.State->fields.SwimSpeed = normal * uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, SWIM_SPEED_MULTIPLIER);
@@ -24,23 +24,23 @@ namespace
         }
     }
 
-    IL2CPP_INTERCEPT(, NewGameAction, void, Perform, (__int64 thisPtr, __int64 ctxPtr)) {
-        NewGameAction::Perform(thisPtr, ctxPtr);
+    IL2CPP_INTERCEPT(, NewGameAction, void, Perform, (__int64 this_ptr, __int64 ctxPtr)) {
+        NewGameAction::Perform(this_ptr, ctxPtr);
         invert_swim();
     }
 
-    IL2CPP_INTERCEPT(, SaveGameController, void, OnFinishedLoading, (app::SaveGameController* thisPtr)) {
-        SaveGameController::OnFinishedLoading(thisPtr);
+    IL2CPP_INTERCEPT(, SaveGameController, void, OnFinishedLoading, (app::SaveGameController* this_ptr)) {
+        SaveGameController::OnFinishedLoading(this_ptr);
         invert_swim();
     }
 
-    IL2CPP_INTERCEPT(, SaveGameController, void, RestoreCheckpoint, (app::SaveGameController* thisPtr)) {
-        SaveGameController::RestoreCheckpoint(thisPtr);
+    IL2CPP_INTERCEPT(, SaveGameController, void, RestoreCheckpoint, (app::SaveGameController* this_ptr)) {
+        SaveGameController::RestoreCheckpoint(this_ptr);
         invert_swim();
     }
 
-    IL2CPP_INTERCEPT(, SeinHealthController, void, OnRespawn, (app::SeinHealthController* thisPtr)) {
-        SeinHealthController::OnRespawn(thisPtr);
+    IL2CPP_INTERCEPT(, SeinHealthController, void, OnRespawn, (app::SeinHealthController* this_ptr)) {
+        SeinHealthController::OnRespawn(this_ptr);
         invert_swim();
     }
 }
