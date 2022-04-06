@@ -1,6 +1,7 @@
 #pragma once
 
 #include <macros.h>
+#include <json/json.hpp>
 
 enum class ScreenPosition
 {
@@ -14,6 +15,18 @@ enum class ScreenPosition
     BottomCenter = 7,
     BottomRight = 8
 };
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ScreenPosition, {
+    { ScreenPosition::TopLeft, "TopLeft" },
+    { ScreenPosition::TopCenter, "TopCenter" },
+    { ScreenPosition::TopRight, "TopRight" },
+    { ScreenPosition::MiddleLeft, "MiddleLeft" },
+    { ScreenPosition::MiddleCenter, "MiddleCenter" },
+    { ScreenPosition::MiddleRight, "MiddleRight" },
+    { ScreenPosition::BottomLeft, "BottomLeft" },
+    { ScreenPosition::BottomCenter, "BottomCenter" },
+    { ScreenPosition::BottomRight, "BottomRight" },
+});
 
 using creation_callback = void(*)(int id);
 

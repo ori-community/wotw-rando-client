@@ -121,12 +121,12 @@ namespace
     void initialize_day_night_logic()
     {
         // Cutscene rain
-        uber_states::register_applier_intercept({ -480342150, 907153171 }, [](auto, auto, auto) -> int32_t {
+        uber_states::register_applier_intercept({ {"", -480342150}, {"", 907153171} }, [](auto, auto, auto, auto) -> int32_t {
             return is_day() ? 907153171 : -480342150;
         });
 
         // Remove regen tree water and move day water around (288338807 : day, -1643391836 : night).
-        uber_states::register_applier_intercept({ 288338807, -1643391836 }, [](app::NewSetupStateController* this_ptr, int32_t state, auto) -> int32_t {
+        uber_states::register_applier_intercept({ { "", 288338807 }, { "", -1643391836 } }, [](auto this_ptr, auto, auto state, auto) -> int32_t {
             if (uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, 4))
                 return state;
 
@@ -209,7 +209,7 @@ namespace
         });
 
         // Move howl between modifiers depending on if its day or night time. (-1375966924 : day, 1361521887 : night)
-        uber_states::register_applier_intercept({ -1375966924, 1361521887 }, [](app::NewSetupStateController* this_ptr, int32_t state, auto) -> int32_t {
+        uber_states::register_applier_intercept({ { "", -1375966924 }, { "", 1361521887 } }, [](auto this_ptr, auto, auto state, auto) -> int32_t {
             // #day
             auto move_to_id = 0x787c7226;
             // #night
@@ -284,7 +284,7 @@ namespace
         });
 
         // howl: (1234021711 : notDefeated, 620462779 : defeated)
-        uber_states::register_applier_intercept(1234021711, [](app::NewSetupStateController* this_ptr, auto, auto) -> int32_t {
+        uber_states::register_applier_intercept({ "", 1234021711 }, [](auto this_ptr, auto, auto, auto) -> int32_t {
             if (csharp_bridge::does_howl_exist())
                 return 1234021711;
             else

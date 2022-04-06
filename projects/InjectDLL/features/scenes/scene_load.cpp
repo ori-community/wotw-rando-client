@@ -1,5 +1,7 @@
 #include <features/scenes/scene_load.h>
 
+#include <Common/ext.h>
+
 #include <Il2CppModLoader/interception_macros.h>
 
 #include <unordered_set>
@@ -49,8 +51,47 @@ namespace scenes
         }
     }
 
-    void force_load_area(std::string scene, int id, loaded_callback callback)
+    void force_load_area(std::string_view scene, int id, loaded_callback callback)
     {
-        to_load[scene].push_back({ id, callback });
+        to_load[std::string(scene)].push_back({ id, callback });
+    }
+
+    app::GameObject* get_root(std::string_view name)
+    {
+        const auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
+        auto manager = scenes->static_fields->Manager;
+        auto cname = il2cpp::string_new(name);
+        auto meta = ScenesManager::GetSceneInformation(manager, cname);
+        if (!ScenesManager::SceneIsLoaded(manager, meta->fields.SceneMoonGuid))
+            return nullptr;
+
+        auto scene = ScenesManager::GetFromCurrentScenes(manager, meta);
+        return il2cpp::unity::get_game_object(scene->fields.SceneRoot);
+    }
+
+    std::vector<app::GameObject*> get_roots_from_active()
+    {
+        std::vector<app::GameObject*> game_objects;
+        const auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
+        auto manager = scenes->static_fields->Manager;
+        for (auto i = 0; i < manager->fields.ActiveScenes->fields._size; ++i)
+        {
+            auto scene = manager->fields.ActiveScenes->fields._items->vector[i];
+            game_objects.push_back(il2cpp::unity::get_game_object(scene->fields.SceneRoot));
+        }
+
+        return game_objects;
+    }
+
+    app::GameObject* get_game_object(std::string_view path)
+    {
+        if (path.empty())
+            return nullptr;
+
+        std::vector<std::string_view> split_path;
+        split_str(path, split_path, '/');
+        auto game_object = get_root(split_path.front());
+        split_path.erase(split_path.begin());
+        return split_path.empty() ? game_object : il2cpp::unity::find_child(game_object, split_path);
     }
 }

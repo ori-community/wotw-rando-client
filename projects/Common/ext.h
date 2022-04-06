@@ -69,9 +69,10 @@ static inline std::string rtrim_copy(std::string s) {
 }
 
 template <class Container>
-void split_str(std::string const& str, Container& cont, char delim = ' ')
+void split_str(std::string_view str, Container& cont, char delim = ' ')
 {
-    std::stringstream ss(str);
+    std::string actual_str(str);
+    std::stringstream ss(actual_str);
     std::string token;
     while (std::getline(ss, token, delim))
         cont.push_back(token);

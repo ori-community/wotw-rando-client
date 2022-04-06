@@ -1,14 +1,16 @@
 #include <uber_states/uber_state_virtual.h>
 
 #include <constants.h>
-#include <ipc.h>
+#include <features/controls/mouse_control.h>
+#include <randomizer/ipc/base_handlers.h>
+#include <uber_states/uber_state_helper.h>
+#include <uber_states/uber_state_manager.h>
+
+#include <Common/ext.h>
+
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
-#include <Common/ext.h>
-#include <features/controls/mouse_control.h>
-#include <uber_states/uber_state_helper.h>
-#include <uber_states/uber_state_manager.h>
 
 #include <interop/csharp_bridge.h>
 

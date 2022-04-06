@@ -164,10 +164,57 @@ namespace il2cpp
 
             resolved_klass_overloads[klass] = overloads;
         }
+
+        app::GameObject* convert(void* obj)
+        {
+            if (!il2cpp::unity::is_valid(obj))
+                return nullptr;
+            if (il2cpp::is_assignable(obj, "UnityEngine", "GameObject"))
+                return reinterpret_cast<app::GameObject*>(obj);
+            else if (il2cpp::is_assignable(obj, "UnityEngine", "Component"))
+                return il2cpp::unity::get_game_object(obj);
+            else
+                return nullptr;
+        }
     }
 
     namespace unity
     {
+        std::string get_path(void* object)
+        {
+            auto go = convert(object);
+            std::string path;
+            if (go == nullptr)
+                return path;
+
+            auto transform = get_transform(go);
+            while (il2cpp::unity::is_valid(transform))
+            {
+                path = format("%s/%s", get_object_name(transform).c_str(), path.c_str());
+                transform = get_parent(transform);
+            }
+
+            return path;
+        }
+
+        std::vector<std::string> get_path_v(void* object)
+        {
+            auto go = convert(object);
+            std::vector<std::string> path;
+            if (go == nullptr)
+                return path;
+
+            auto transform = get_transform(go);
+            while (il2cpp::unity::is_valid(transform))
+            {
+                path.push_back(get_object_name(transform));
+                transform = get_parent(transform);
+            }
+
+            std::reverse(path.begin(), path.end());
+            return path;
+        }
+
         app::Transform* get_parent(app::Transform* object)
         {
             return Transform::get_parent(object);

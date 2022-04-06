@@ -31,7 +31,9 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
         IL2CPP_MODLOADER_DLLEXPORT app::Component* get_component_in_children_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::Component*> get_components_in_children_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
-        
+        IL2CPP_MODLOADER_DLLEXPORT std::string get_path(void* object);
+        IL2CPP_MODLOADER_DLLEXPORT std::vector<std::string> get_path_v(void* object);
+
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> get_children(app::GameObject* game_object);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::string_view name);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string_view> const& path);

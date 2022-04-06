@@ -1,6 +1,8 @@
 #include <constants.h>
-#include <Il2CppModLoader/interception_macros.h>
 #include <uber_states/uber_state_manager.h>
+
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/interception_macros.h>
 
 #include <interop/csharp_bridge.h>
 
@@ -11,14 +13,18 @@ namespace
         return tree_abilities.find(tree) != tree_abilities.end();
     }
 
+    bool test = false;
     // 0x1105510
-    INTERNAL_INTERCEPT(0xf31a30, bool, PlayerStateMap_Matches_Helper, (app::PlayerStateMap_Mapping* state_map, app::IUberState* uberState)) {
-        // Return if we have ability, state_map->m_matchType inverts result.
-        if (is_tree(state_map->m_ability))
-            return csharp_bridge::is_tree_activated(state_map->m_ability) ^ (state_map->m_matchType != 0);
-        else
-            return PlayerStateMap_Matches_Helper(state_map, uberState);
-    }
+    //INTERNAL_INTERCEPT(0xf31a30, bool, PlayerStateMap_Matches_Helper, (app::PlayerStateMap_Mapping* state_map, app::IUberState* uberState)) {
+    //    if (!test)
+    //        return csharp_bridge::is_tree_activated(state_map->m_ability) ^ (state_map->m_matchType != 0);
+    //
+    //    // Return if we have ability, state_map->m_matchType inverts result.
+    //    if (is_tree(state_map->m_ability))
+    //        return csharp_bridge::is_tree_activated(state_map->m_ability) ^ (state_map->m_matchType != 0);
+    //    else
+    //        return PlayerStateMap_Matches_Helper(state_map, uberState);
+    //}
 
     /*NESTED_IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerStateMap, Mapping, bool, Matches, (app::PlayerStateMap_Mapping* state_map, app::IUberState* uberState)) {
         // Return if we have ability, state_map->m_matchType inverts result.

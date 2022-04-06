@@ -1,4 +1,6 @@
 #include <macros.h>
+#include <dev/object_visualizer.h>
+#include <features/scenes/scene_load.h>
 #include <game/game.h>
 #include <uber_states/state_applier.h>
 #include <uber_states/uber_state_manager.h>
@@ -17,172 +19,215 @@ namespace uber_states
 {
     namespace
     {
-        std::unordered_map<int32_t, applier_intercept> applier_intercepts;
-        std::unordered_map<int32_t, int32_t> dynamic_applier_redirects;
+        std::unordered_map<applier_key, applier_intercept, pair_hash> applier_intercepts;
+        std::unordered_map<applier_key, int32_t, pair_hash> dynamic_applier_redirects;
 
         STATIC_IL2CPP_BINDING(Moon, UberStateController, void, ApplyAll, (int32_t context));
-        IL2CPP_INTERCEPT(, NewSetupStateController, void, ApplyKnownState, (app::NewSetupStateController* this_ptr, int32_t stateGUID, int32_t context)) {
+        IL2CPP_INTERCEPT(, NewSetupStateController, app::SetupState*, get_ActiveState, (app::NewSetupStateController* this_ptr)) {
+            auto can_resolve = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "CanResolve");
+            auto state = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "Resolve");
+            auto mapping = this_ptr->fields.StateHolder->fields._._.Mapping;
+            auto mapping_result = il2cpp::invoke<app::Int32__Boxed>(mapping, "Resolve", state)->fields;
+            auto path = il2cpp::unity::get_path(this_ptr);
+            auto key = std::make_pair(path, mapping_result);
             {
-                const auto it = applier_intercepts.find(stateGUID);
+                const auto it = applier_intercepts.find(key);
                 if (it != applier_intercepts.end())
-                    stateGUID = it->second(this_ptr, stateGUID, context);
+                    mapping_result = it->second(this_ptr, path, mapping_result, 0);
             }
             {
-                const auto it = dynamic_applier_redirects.find(stateGUID);
+                const auto it = dynamic_applier_redirects.find(key);
                 if (it != dynamic_applier_redirects.end())
-                    stateGUID = it->second;
+                    mapping_result = it->second;
             }
-
-            NewSetupStateController::ApplyKnownState(this_ptr, stateGUID, context);
+        
+            this_ptr->fields.m_activeStateIndex = mapping_result;
+            auto states = this_ptr->fields.StateHolder->fields.States;
+            for (auto i = 0; i < states->fields._size; ++i)
+            {
+                auto state_item = states->fields._items->vector[i];
+                if (state_item->fields.StateGUID == mapping_result)
+                    return state_item;
+            }
+        
+            return nullptr;
         }
+
+        //IL2CPP_INTERCEPT(, NewSetupStateController, void, ApplyKnownState, (app::NewSetupStateController* this_ptr, int32_t stateGUID, int32_t context)) {
+        //    {
+        //        const auto it = applier_intercepts.find(stateGUID);
+        //        if (it != applier_intercepts.end())
+        //            stateGUID = it->second(this_ptr, stateGUID, context);
+        //    }
+        //    {
+        //        const auto it = dynamic_applier_redirects.find(stateGUID);
+        //        if (it != dynamic_applier_redirects.end())
+        //            stateGUID = it->second;
+        //    }
+        //
+        //    NewSetupStateController::ApplyKnownState(this_ptr, stateGUID, context);
+        //}
+
+        //void NewSetupStateController_ApplyKnownState(NewSetupStateController* this, int32_t stateGUID, UberStateApplyContext__Enum context)
+        //{
+        //    auto modifiers = this->fields.StateHolder->fields.Modifiers;
+        //    for (var i = 0; i < modifiers->fields._size; ++i)
+        //    {
+        //        auto setup_state_modifier = modifiers->fields._items[i];
+        //        auto setup_state_modifier_data = SetupStateModifier::GetUberStateModifierData(setup_state_modifier, stateGUID);
+        //        auto uber_state_modifier = SetupControllerStateHolder::GetUberStateModifier(
+        //            this->fields.StateHolder,
+        //            setup_state_modifier_data->fields.ModifierGUID
+        //        );
+        //
+        //        auto uber_state_modifier_data = SetupStateModifier::GetUberStateModifierData(
+        //            uber_state_modifier,
+        //            modifier_data->fields.StateGUID
+        //        );
+        //
+        //        il2cpp::invoke(uber_state_modifier_data, "Apply");
+        //    }
+        //
+        //    this->fields.m_currentPassiveStateApplied = stateGUID | 0x100000000;
+        //}
 
         IL2CPP_BINDING(Moon, SerializedIntUberState, int, get_Value, (app::SerializedIntUberState* uber_state));
         IL2CPP_BINDING(Moon, SerializedIntUberState, void, set_Value, (app::SerializedIntUberState* uber_state, int value));
 
         void intercept_state(std::string const& command, std::vector<console::CommandParam> const& params)
         {
-            if (params.size() != 2)
+            if (params.size() != 3)
             {
                 console::console_send("invalid number of parameters.");
                 return;
             }
 
-            if (!params[0].name.empty() || !params[1].name.empty())
+            if (!params[0].name.empty() || !params[1].name.empty() || !params[2].name.empty())
             {
                 console::console_send("invalid, does not support named parameters.");
                 return;
             }
 
             int first;
-            if (!console::try_get_int(params[0], first))
+            if (!console::try_get_int(params[1], first))
             {
                 console::console_send("invalid first parameter, not an integer.");
                 return;
             }
 
             int second;
-            if (!console::try_get_int(params[1], second))
+            if (!console::try_get_int(params[2], second))
             {
                 console::console_send("invalid second parameter, not an integer.");
                 return;
             }
 
 
-            register_applier_redirect(first, second);
+            register_applier_redirect(std::make_pair(params[0].value, first), second);
             UberStateController::ApplyAll(0);
+        }
+
+        void show_state(std::string const& command, std::vector<console::CommandParam> const& params)
+        {
+            if (params.size() < 1)
+            {
+                console::console_send("Needs at least 1 parameter.");
+                return;
+            }
+
+            auto game_object = scenes::get_root(params[0].value);
+            for (auto i = 1; i < params.size() && game_object != nullptr; ++i)
+                game_object = il2cpp::unity::find_child(game_object, params[i].value);
+            
+            if (game_object == nullptr)
+                return;
+
+            auto nssc = il2cpp::unity::get_component(game_object, "", "NewSetupStateController");
+            if (nssc == nullptr)
+                return;
+
+            dev::Visualizer v;
+            dev::visualize::visualize_object(v, nssc);
+            console::console_send(dev::visualize::get_string(v));
+        }
+
+        void show_state_paths(std::string const& command, std::vector<console::CommandParam> const& params)
+        {
+            auto roots = scenes::get_roots_from_active();
+            std::reverse(roots.begin(), roots.end());
+            while (!roots.empty())
+            {
+                auto go = roots.back();
+                roots.pop_back();
+                auto nssc = il2cpp::unity::get_component(go, "", "NewSetupStateController");
+                if (nssc != nullptr)
+                    console::console_send(il2cpp::unity::get_path(go));
+
+                auto children = il2cpp::unity::get_children(go);
+                roots.insert(roots.end(), children.begin(), children.end());
+            }
         }
 
         void add_applier_intercept_commands()
         {
             console::register_command({ "debug", "intercept_state" }, intercept_state);
+            console::register_command({ "debug", "show_state" }, intercept_state);
+            console::register_command({ "debug", "show_state_paths" }, intercept_state);
         }
 
         CALL_ON_INIT(add_applier_intercept_commands);
     }
 
-    void register_applier_intercept(int32_t state, applier_intercept callback)
+    void register_applier_intercept(applier_key key, applier_intercept callback)
     {
-        if (applier_intercepts.find(state) != applier_intercepts.end())
+        if (applier_intercepts.find(key) != applier_intercepts.end())
             trace(MessageType::Info, 3, "init", "registering same applier state twice, overwriting.");
 
-        applier_intercepts[state] = std::move(callback);
+        applier_intercepts[key] = std::move(callback);
     }
 
-    void register_applier_intercept(std::vector<int32_t> const& states, applier_intercept callback)
+    void register_applier_intercept(std::vector<applier_key> const& states, applier_intercept callback)
     {
         for (auto state : states)
             register_applier_intercept(state, callback);
     }
 
-    void register_applier_redirect(int32_t state, int32_t new_state, bool dynamic)
+    void register_applier_intercept(std::string_view path, std::vector<int32_t> const& states, applier_intercept callback)
+    {
+        std::string spath(path);
+        for (auto state : states)
+            register_applier_intercept({ spath, state }, callback);
+    }
+
+    void register_applier_redirect(applier_key key, int32_t new_state, bool dynamic)
     {
         if (dynamic)
-            dynamic_applier_redirects[state] = new_state;
+            dynamic_applier_redirects[key] = new_state;
         else
         {
-            if (applier_intercepts.find(state) != applier_intercepts.end())
+            if (applier_intercepts.find(key) != applier_intercepts.end())
                 trace(MessageType::Info, 3, "init", "registering same applier state twice, overwriting.");
 
-            applier_intercepts[state] = [new_state](auto, auto, auto) -> int32_t { return new_state; };
+            applier_intercepts[key] = [new_state](auto, auto, auto, auto) -> int32_t { return new_state; };
         }
     }
 
-    void register_applier_redirect(std::vector<std::pair<int32_t, int32_t>> const& states, bool dynamic)
+    void register_applier_redirect(std::vector<std::pair<applier_key, int32_t>> const& states, bool dynamic)
     {
         for (auto state : states)
             register_applier_redirect(state.first, state.second, dynamic);
     }
 
-    void save_dynamic_redirects()
+    void register_applier_redirect(std::string_view view, std::pair<int32_t, int32_t> const& states, bool dynamic)
     {
-        auto i = 0;
-        for (auto const& pair : dynamic_applier_redirects)
-        {
-            auto* const id_state = uber_states::get_uber_state<app::SerializedIntUberState>(constants::APPLIERS_GROUP_ID, i * 2);
-            auto* const value_state = uber_states::get_uber_state<app::SerializedIntUberState>(constants::APPLIERS_GROUP_ID, i * 2 + 1);
-            SerializedIntUberState::set_Value(id_state, pair.first);
-            SerializedIntUberState::set_Value(value_state, pair.second);
-            ++i;
-
-            if (i >= constants::APPLIERS_GROUP_COUNT)
-            {
-                trace(MessageType::Error, 1, "save", format("unable to save all intercepts, too many registered (%d/%d).",
-                    dynamic_applier_redirects.size(), constants::APPLIERS_GROUP_COUNT));
-                break;
-            }
-        }
-
-        for (; i < constants::APPLIERS_GROUP_COUNT; ++i)
-        {
-            auto* const id_state = uber_states::get_uber_state<app::SerializedIntUberState>(constants::APPLIERS_GROUP_ID, i * 2);
-            auto* const value_state = uber_states::get_uber_state<app::SerializedIntUberState>(constants::APPLIERS_GROUP_ID, i * 2 + 1);
-            SerializedIntUberState::set_Value(id_state, 0);
-            SerializedIntUberState::set_Value(value_state, 0);
-        }
+        register_applier_redirect({ std::string(view), states.first }, states.second, dynamic);
     }
 
-    void load_dynamic_redirects()
+    void initialize()
     {
-        dynamic_applier_redirects.clear();
-        auto i = 0;
-        for (auto i = 0; i < constants::APPLIERS_GROUP_COUNT; ++i)
-        {
-            auto* const id_state = uber_states::get_uber_state<app::SerializedIntUberState>(constants::APPLIERS_GROUP_ID, i * 2);
-            auto* const value_state = uber_states::get_uber_state<app::SerializedIntUberState>(constants::APPLIERS_GROUP_ID, i * 2 + 1);
-            const auto id = SerializedIntUberState::get_Value(id_state);
-            const auto value = SerializedIntUberState::get_Value(value_state);
-            if (id != 0 && value != 0)
-                dynamic_applier_redirects.emplace(id, value);
-        }
-    }
-
-    void handle_saveload(GameEvent game_event, EventTiming timing)
-    {
-        switch (game_event)
-        {
-        case GameEvent::CreateBackup:
-        case GameEvent::CreateSave:
-            save_dynamic_redirects();
-            break;
-        case GameEvent::NewGame:
-        case GameEvent::FinishedLoadingSave:
-        case GameEvent::FinishedLoadingCheckpoint:
-        case GameEvent::Respawn:
-            load_dynamic_redirects();
-            break;
-        }
-    }
-
-    void initialize() {
         // Bubble spawner at entrance of pools.
-        uber_states::register_applier_redirect(631536139, 1230316956, false);
-
-        game::event_bus().register_handler(GameEvent::CreateBackup, EventTiming::Start, &handle_saveload);
-        game::event_bus().register_handler(GameEvent::CreateSave, EventTiming::Start, &handle_saveload);
-        game::event_bus().register_handler(GameEvent::NewGame, EventTiming::End, &handle_saveload);
-        game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, &handle_saveload);
-        game::event_bus().register_handler(GameEvent::FinishedLoadingCheckpoint, EventTiming::End, &handle_saveload);
-        game::event_bus().register_handler(GameEvent::Respawn, EventTiming::End, &handle_saveload);
+        // TODO: Add path here.
+        uber_states::register_applier_redirect(std::make_pair("", 631536139), 1230316956, false);
     }
 
     CALL_ON_INIT(initialize);
@@ -190,5 +235,6 @@ namespace uber_states
 
 INJECT_C_DLLEXPORT void register_state_redirect(const int state, const int value)
 {
-    uber_states::register_applier_redirect(state, value, true);
+    // TODO: Handle path here.
+    uber_states::register_applier_redirect(std::make_pair("", state), value, true);
 }
