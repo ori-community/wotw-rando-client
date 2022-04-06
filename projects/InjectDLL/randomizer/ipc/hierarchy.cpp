@@ -194,7 +194,7 @@ namespace ipc
             auto game_objects = scenes::get_roots_from_active();
             if (children)
             {
-                auto payload = j["payload"].array();
+                auto& payload = j["payload"];
                 for (auto game_object : game_objects)
                     payload.push_back(visualize(game_object, il2cpp::unity::get_object_name(game_object), false));
             }
