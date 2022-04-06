@@ -55,6 +55,8 @@ namespace RandoMainDLL {
 
     public static int CurrentSlot = -1;
 
+    public static bool ResetUntilSave = false;
+
     public static void NewGame(int slot) {
       CurrentSlot = slot;
     }
@@ -69,6 +71,9 @@ namespace RandoMainDLL {
           // slot swap
           CurrentSlot = slot;
         }
+
+        if (ResetUntilSave)
+          InterOp.UberState.reset_uber_state_value_store();
 
         UberStateController.SkipListeners = true;
         UberStateController.UberStates.Clear();
@@ -93,6 +98,7 @@ namespace RandoMainDLL {
     }
     private static bool DidWeJustDie = false;
     public static void OnSave(int slot, int backupSlot = -1) {
+      ResetUntilSave = false;
       DidWeJustDie = InterOp.Player.get_health() == 0;
       StatsTracking.OnSave(DidWeJustDie);
       if (DidWeJustDie) return;

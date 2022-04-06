@@ -85,10 +85,13 @@ namespace ipc
             }
         }
 
+        IL2CPP_BINDING(UnityEngine, GameObject, int, GetInstanceID, (app::GameObject* this_ptr));
         void visualize_game_object(nlohmann::json& j, void* obj, bool verbose)
         {
             auto go = reinterpret_cast<app::GameObject*>(obj);
+            auto id = GameObject::GetInstanceID(go);
             auto layer = il2cpp::invoke<app::Int32__Boxed>(go, "get_layer")->fields;
+            j["instance_id"] = id;
             j["path"] = il2cpp::unity::get_path(go);
             if (verbose)
             {
@@ -194,9 +197,11 @@ namespace ipc
             auto game_objects = scenes::get_roots_from_active();
             if (children)
             {
-                auto& payload = j["payload"].array();
+                auto payload = nlohmann::json::array();
                 for (auto game_object : game_objects)
                     payload.push_back(visualize(game_object, il2cpp::unity::get_object_name(game_object), false));
+
+                j["payload"] = payload;
             }
             else
             {
@@ -213,9 +218,11 @@ namespace ipc
             if (children)
             {
                 auto children = il2cpp::unity::get_children(game_object);
-                auto payload = j["payload"].array();
+                auto payload = nlohmann::json::array();
                 for (auto child : children)
                     payload.push_back(visualize(child, il2cpp::unity::get_object_name(child), false));
+
+                j["payload"] = payload;
             }
             else
                 j["payload"] = visualize(game_object, il2cpp::unity::get_object_name(game_object), true);

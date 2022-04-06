@@ -21,13 +21,16 @@ namespace uber_states
     {
         bool enable_real_uberstate_names = false;
 
+        IL2CPP_BINDING(Moon, UberStateValueStore, void, FinalizeInitialization, (app::UberStateValueStore* this_ptr, bool should_parse));
+
         STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID* groupID, app::UberID* stateID));
         STATIC_IL2CPP_BINDING(Moon, UberStateCollection, void, Add, (app::UberID* groupID, app::UberStateCollectionGroup* group));
 
         NAMED_IL2CPP_BINDING(Moon, UberStateCollectionGroup, void, .ctor, ctor, (app::UberStateCollectionGroup* this_ptr));
         IL2CPP_BINDING(Moon, UberStateCollectionGroup, void, Add, (app::UberStateCollectionGroup* this_ptr, app::UberID* state_id, app::IUberState* state));
 
-        STATIC_IL2CPP_BINDING_OVERLOAD(Moon, UberStateController, void, Apply, (app::IUberState* descriptor, int32_t context), (Moon:IUberState, Moon:UberStateApplyContext));
+        STATIC_IL2CPP_BINDING_OVERLOAD(Moon, UberStateController, void, ApplyAll, (app::UberStateApplyContext__Enum context), (Moon:IUberState, Moon:UberStateApplyContext));
+        STATIC_IL2CPP_BINDING_OVERLOAD(Moon, UberStateController, void, Apply, (app::IUberState* descriptor, app::UberStateApplyContext__Enum context), (Moon:IUberState, Moon:UberStateApplyContext));
 
         IL2CPP_BINDING(Moon, SerializedIntUberState, int32_t, get_Value, (app::SerializedIntUberState* this_ptr));
 
@@ -498,8 +501,8 @@ namespace uber_states
                 initialized = true;
             }
 
-            UberStateCollection::PrepareRuntimeDataType(this_ptr);
             trace(MessageType::Info, 5, "initialize", "Custom uber states initialized.");
+            UberStateCollection::PrepareRuntimeDataType(this_ptr);
         }
 
         void notify_uber_state_change(app::IUberState* uber_state, double prev, double current)
@@ -623,7 +626,7 @@ namespace uber_states
 
     void apply_uber_state_no_notify(app::IUberState* uber_state)
     {
-        UberStateController::Apply(uber_state, 0);
+        UberStateController::Apply(uber_state, app::UberStateApplyContext__Enum_ValueChanged);
         //il2cpp::invoke(il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController")
         //    ->static_fields->s_instance, "Apply", uber_state, 0);
     }
@@ -829,12 +832,28 @@ namespace uber_states
         return len < str.size() ? len : str.size();
     }
 
-    INJECT_C_DLLEXPORT void refresh_uber_state(int group_id, int id) {
+    INJECT_C_DLLEXPORT void refresh_uber_state(int group_id, int id)
+    {
       auto uber_state = uber_states::get_uber_state(group_id, id);
       uber_states::apply_uber_state_no_notify(uber_state);
     }
 
-    INJECT_C_DLLEXPORT void set_real_uberstate_names(bool value) {
+    INJECT_C_DLLEXPORT void set_real_uberstate_names(bool value)
+    {
         enable_real_uberstate_names = value;
+    }
+
+    INJECT_C_DLLEXPORT void reset_uber_state_value_store()
+    {
+        auto instance = il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController")->static_fields->m_currentStateValueStore;
+        instance->fields.m_isInitialized = false;
+        il2cpp::invoke(instance->fields.m_groupMap, "Clear");
+        UberStateValueStore::FinalizeInitialization(instance, false);
+        UberStateController::ApplyAll(app::UberStateApplyContext__Enum_FullStateApply);
+
+        set_max_health(30);
+        set_health(30);
+        set_max_energy(3);
+        set_energy(3);
     }
 }

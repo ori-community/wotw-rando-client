@@ -41,6 +41,7 @@ message Packet {
 
 message UberStateBatchUpdateMessage {
   repeated UberStateUpdateMessage updates = 1;
+  bool resetBeforeApplying = 2;
 }
 
 message UberStateUpdateMessage {

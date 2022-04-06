@@ -6,6 +6,7 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class UberStateController {
+    public static bool ResetUberStateValueStore = false;
     public static HashSet<UberId> TimerUberStates = new HashSet<UberId>();
     public static HashSet<UberId> SyncedUberStates = new HashSet<UberId>();
     public static Dictionary<UberId, UberState> UberStates = new Dictionary<UberId, UberState>();
@@ -349,6 +350,11 @@ namespace RandoMainDLL {
         // We don't want to do any updates if we are doing a trial.
         if (DoingTrial)
           return;
+
+        if (ResetUberStateValueStore) {
+          InterOp.UberState.reset_uber_state_value_store();
+          ResetUberStateValueStore = false;
+        }
 
         if (NeedsNewGameInit)
           NewGameInit();
