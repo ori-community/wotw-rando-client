@@ -116,15 +116,6 @@ namespace ipc
             }
             else
             {
-                auto transform = il2cpp::unity::get_transform(go);
-                j["value"] = nlohmann::json::array({
-                    visualize(transform, "transform", false),
-                    {
-                        { "name", "layer" },
-                        { "type", "scalar" },
-                        { "value", layer }
-                    }
-                });
                 auto children = il2cpp::unity::get_children(go);
                 j["children_count"] = children.size();
             }
