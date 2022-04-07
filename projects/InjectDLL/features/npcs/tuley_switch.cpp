@@ -17,8 +17,10 @@ namespace
 
     void initialize_tuley()
     {
-        randomizer::conditions::register_new_setup_intercept({ "", TULEY_EXISTS }, tuley_state);
-        randomizer::conditions::register_new_setup_intercept({ "", TULEY_GONE }, tuley_state);
+        randomizer::conditions::register_new_setup_intercept({
+                "wellspringGladesHubSetups/interactives/gardenerSetup",
+            }, { TULEY_GONE, TULEY_EXISTS }, tuley_state
+        );
     }
 
     CALL_ON_INIT(initialize_tuley);

@@ -693,7 +693,14 @@ namespace il2cpp
                 overload, method.data(), param_count, klass->name));
         }
 
-        return info->methods.at(overload);
+        auto method_data = info->methods.at(overload);
+        if (method == "Matches")
+        {
+            auto g = method_data->genericMethod->methodDefinition;
+            trace(modloader::MessageType::Info, 1, "il2cpp", format("Method is generic %s.%s(%d): %s(%d)",
+                klass->name, method.data(), param_count, g->name, g->parameters_count));
+        }
+        return method_data;
     }
 
     MethodInfo const* get_method_from_name_params(Il2CppClass* klass, std::string_view method, std::vector<void*> const& params)

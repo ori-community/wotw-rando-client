@@ -34,60 +34,6 @@ namespace
         return ret;
     }
 
-    // Fix for weapon wheel.
-    //IL2CPP_INTERCEPT(, CleverMenuItemSelectionManager, app::CleverMenuItem*, get_CleverMenuItemUnderCursor, (app::CleverMenuItemSelectionManager* this_ptr)) {
-    //    disable_has_ability_overwrite = true;
-    //    auto ret = CleverMenuItemSelectionManager::get_CleverMenuItemUnderCursor(this_ptr);
-    //    disable_has_ability_overwrite = false;
-    //    return ret;
-    //}
-
-    // This is stupid and bad code but who cares nowdays.
-    app::HasAbilityCondition* sword_wheel_condition = nullptr;
-    IL2CPP_INTERCEPT(, CleverMenuItem, bool, get_IsVisible, (app::CleverMenuItem* this_ptr)) {
-        auto* condition = this_ptr->fields.Visible;
-        if (condition != nullptr && il2cpp::is_assignable(condition, "", "HasAbilityCondition"))
-        {
-            auto c = reinterpret_cast<app::HasAbilityCondition*>(condition);
-            if (c->fields.AbilityType == app::AbilityType__Enum_Sword)
-                sword_wheel_condition = c;
-        }
-
-        return CleverMenuItem::get_IsVisible(this_ptr);
-    }
-
-    
-    IL2CPP_INTERCEPT(, SeinAbilityCondition, bool, Validate, (app::SeinAbilityCondition* this_ptr, app::IContext* context)) {
-        if (!disable_has_ability_overwrite && this_ptr->fields.Ability == app::AbilityType__Enum_Sword)
-            return is_day();
-
-        return game::player::has_ability(this_ptr->fields.Ability);
-    }
-
-    IL2CPP_INTERCEPT(, HasAbilityCondition, bool, Validate, (app::HasAbilityCondition* this_ptr, app::IContext* context)) {
-        if (sword_wheel_condition != this_ptr && !disable_has_ability_overwrite && this_ptr->fields.AbilityType == app::AbilityType__Enum_Sword)
-            return is_day();
-
-        return game::player::has_ability(this_ptr->fields.AbilityType);
-    }
-
-    IL2CPP_BINDING(, HasAbilityUberStateCondition, app::AbilityType__Enum, get_AbilityType, (app::HasAbilityUberStateCondition* this_ptr));
-    IL2CPP_INTERCEPT(, HasAbilityUberStateCondition, bool, get_HasAbility, (app::HasAbilityUberStateCondition* this_ptr)) {
-        if (!disable_has_ability_overwrite && HasAbilityUberStateCondition::get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
-            return is_day();
-
-        return game::player::has_ability(HasAbilityUberStateCondition::get_AbilityType(this_ptr));
-    }
-
-    IL2CPP_INTERCEPT(, HasAbilityUberStateCondition, bool, Validate, (app::HasAbilityUberStateCondition* this_ptr)) {
-        const auto booleans = this_ptr->fields._.Data->fields.Booleans;
-        const auto comparator = booleans->fields._items->vector[0];
-        if (!disable_has_ability_overwrite && HasAbilityUberStateCondition::get_AbilityType(this_ptr) == app::AbilityType__Enum_Sword)
-            return comparator == is_day();
-
-        return comparator == game::player::has_ability(HasAbilityUberStateCondition::get_AbilityType(this_ptr));
-    }
-
     bool can_resolve(app::SetupStateModifier* item)
     {
         return item->fields.Target != nullptr &&

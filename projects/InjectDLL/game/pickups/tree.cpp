@@ -33,20 +33,4 @@ namespace
             uber_states::apply_uber_state_no_notify(uber_state);
         }
     }
-
-    randomizer::conditions::applier_intercept create_tree_intercept(app::AbilityType__Enum ability, int32_t on, int32_t off) {
-        return [ability, on, off](auto, auto, auto, auto) -> int32_t {
-            return uber_states::get_uber_state_value(uber_states::constants::TREE_GROUP_ID, ability) > 0.5 ? on : off;
-        };
-    }
-
-    void initialize()
-    {
-        // Finished: -27525370
-        // NotStarted: 955219655
-        randomizer::conditions::register_new_setup_intercept({ "swampGetSpiritBlade/getSpiritEdgeSetup" }, { -27525370, 955219655 },
-            create_tree_intercept(app::AbilityType__Enum_Sword, -27525370, 955219655));
-    }
-
-    CALL_ON_INIT(initialize);
 }

@@ -6,7 +6,7 @@
 
 namespace randomizer
 {
-    namespace condition
+    namespace conditions
     {
         std::unordered_map<std::string, condition_intercept> intercepts;
 
@@ -29,6 +29,22 @@ namespace randomizer
         }
         
         IL2CPP_INTERCEPT(, SeinAbilityCondition, bool, Validate, (app::SeinAbilityCondition* this_ptr, app::IContext* context)) {
+            bool value = false;
+            if (intercept(this_ptr, value))
+                return value;
+
+            return Validate(this_ptr, context);
+        }
+
+        IL2CPP_INTERCEPT(, HasAbilityCondition, bool, Validate, (app::SeinAbilityCondition* this_ptr, app::IContext* context)) {
+            bool value = false;
+            if (intercept(this_ptr, value))
+                return value;
+
+            return Validate(this_ptr, context);
+        }
+
+        IL2CPP_INTERCEPT(, UberStateConditionWrapper, bool, Validate, (app::SeinAbilityCondition* this_ptr, app::IContext* context)) {
             bool value = false;
             if (intercept(this_ptr, value))
                 return value;

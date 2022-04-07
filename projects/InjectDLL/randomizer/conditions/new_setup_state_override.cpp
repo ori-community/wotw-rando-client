@@ -2,12 +2,15 @@
 #include <dev/object_visualizer.h>
 #include <features/scenes/scene_load.h>
 #include <game/game.h>
+#include <interop/csharp_bridge.h>
 #include <randomizer/conditions/new_setup_state_override.h>
+#include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_manager.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 
 #include <unordered_map>
 #include <unordered_set>
@@ -50,12 +53,37 @@ namespace randomizer
                     console::console_send(format("triggered %d:%s", key.second, key.first.c_str()));
             }
 
+            // Override this to check trees instead of abilities.
+            int32_t handle_player_state_map(app::PlayerStateMap* map, void* state)
+            {
+                for (auto i = 0; i < map->fields._.Entries->fields._size; ++i)
+                {
+                    auto entry = map->fields._.Entries->fields._items->vector[i];
+                    bool output = false;
+                    if (get_uber_state_exists(uber_states::constants::TREE_GROUP_ID, static_cast<int>(entry.m_ability)))
+                        output = csharp_bridge::is_tree_activated(entry.m_ability) ^ (entry.m_matchType != 0);
+                    else
+                        output = il2cpp::invoke(il2cpp::box_value<app::PlayerStateMap_Mapping__Boxed>(
+                            il2cpp::get_nested_class("Moon.uberSerializationWisp", "PlayerStateMap", "Mapping"), entry), "", state);
+
+                    if (output)
+                        return entry.m_index;
+                }
+
+                return map->fields._.FallbackSetupStateIndex;
+            }
+
             STATIC_IL2CPP_BINDING(Moon, UberStateController, void, ApplyAll, (int32_t context));
             IL2CPP_INTERCEPT(, NewSetupStateController, app::SetupState*, get_ActiveState, (app::NewSetupStateController* this_ptr)) {
                 auto can_resolve = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "CanResolve", nullptr);
                 auto state = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "Resolve", nullptr);
                 auto mapping = this_ptr->fields.StateHolder->fields._._.Mapping;
-                auto mapping_result = il2cpp::invoke<app::Int32__Boxed>(mapping, "Resolve", state)->fields;
+                int32_t mapping_result = 0;
+                if (il2cpp::is_assignable(mapping, "Moon.uberSerializationWisp", "PlayerStateMap"))
+                    mapping_result = handle_player_state_map(reinterpret_cast<app::PlayerStateMap*>(mapping), state);
+                else
+                    mapping_result = il2cpp::invoke<app::Int32__Boxed>(mapping, "Resolve", state)->fields;
+
                 auto path = il2cpp::unity::get_path(this_ptr);
                 auto key = std::make_pair(path, mapping_result);
                 display_debug_show(key);
@@ -82,44 +110,6 @@ namespace randomizer
         
                 return nullptr;
             }
-
-            //IL2CPP_INTERCEPT(, NewSetupStateController, void, ApplyKnownState, (app::NewSetupStateController* this_ptr, int32_t stateGUID, int32_t context)) {
-            //    {
-            //        const auto it = applier_intercepts.find(stateGUID);
-            //        if (it != applier_intercepts.end())
-            //            stateGUID = it->second(this_ptr, stateGUID, context);
-            //    }
-            //    {
-            //        const auto it = dynamic_applier_redirects.find(stateGUID);
-            //        if (it != dynamic_applier_redirects.end())
-            //            stateGUID = it->second;
-            //    }
-            //
-            //    NewSetupStateController::ApplyKnownState(this_ptr, stateGUID, context);
-            //}
-
-            //void NewSetupStateController_ApplyKnownState(NewSetupStateController* this, int32_t stateGUID, UberStateApplyContext__Enum context)
-            //{
-            //    auto modifiers = this->fields.StateHolder->fields.Modifiers;
-            //    for (var i = 0; i < modifiers->fields._size; ++i)
-            //    {
-            //        auto setup_state_modifier = modifiers->fields._items[i];
-            //        auto setup_state_modifier_data = SetupStateModifier::GetUberStateModifierData(setup_state_modifier, stateGUID);
-            //        auto uber_state_modifier = SetupControllerStateHolder::GetUberStateModifier(
-            //            this->fields.StateHolder,
-            //            setup_state_modifier_data->fields.ModifierGUID
-            //        );
-            //
-            //        auto uber_state_modifier_data = SetupStateModifier::GetUberStateModifierData(
-            //            uber_state_modifier,
-            //            modifier_data->fields.StateGUID
-            //        );
-            //
-            //        il2cpp::invoke(uber_state_modifier_data, "Apply");
-            //    }
-            //
-            //    this->fields.m_currentPassiveStateApplied = stateGUID | 0x100000000;
-            //}
 
             IL2CPP_BINDING(Moon, SerializedIntUberState, int, get_Value, (app::SerializedIntUberState* uber_state));
             IL2CPP_BINDING(Moon, SerializedIntUberState, void, set_Value, (app::SerializedIntUberState* uber_state, int value));
@@ -262,7 +252,7 @@ namespace randomizer
         {
             // Bubble spawner at entrance of pools.
             // TODO: Add path here.
-            register_new_setup_redirect(std::make_pair("", 631536139), 1230316956, false);
+            register_new_setup_redirect(std::make_pair("lumaPoolsA/interactives/stateController", 631536139), 1230316956, false);
         }
 
         CALL_ON_INIT(initialize);
