@@ -186,10 +186,10 @@ namespace il2cpp
         std::string get_path(void* object)
         {
             auto go = convert(object);
-            std::string path;
             if (go == nullptr)
-                return path;
+                return "nullptr";
 
+            std::string path;
             auto transform = get_transform(go);
             path = get_object_name(transform);
             transform = get_parent(transform);

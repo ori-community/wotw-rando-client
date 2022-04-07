@@ -1,5 +1,6 @@
 #include <features/scenes/scene_load.h>
 #include <randomizer/ipc/ipc.h>
+#include <utils/json_serializers.h>
 
 #include <Common/ext.h>
 
@@ -23,6 +24,77 @@ namespace ipc
 
         using visualizer = void(*)(nlohmann::json& j, void* obj, bool verbose);
         extern nlohmann::json visualize(void* obj, std::string name, bool verbose);
+
+        template<typename T>
+        nlohmann::json create_variable(std::string_view name, std::string_view type, T value)
+        {
+            return {
+                { "name", name },
+                { "type", type },
+                { "value", value }
+            };
+        }
+
+        void visualize_setup_state(nlohmann::json& j, void* obj, bool verbose)
+        {
+            auto ss = reinterpret_cast<app::SetupState*>(obj);
+            j["value"] = nlohmann::json::array({
+                create_variable("state_guid", "scalar", ss->fields.StateGUID),
+                create_variable("state_name", "scalar", il2cpp::convert_csstring(ss->fields.StateName))
+            });
+        }
+
+        void visualize_setup_state_modifier(nlohmann::json& j, void* obj, bool verbose)
+        {
+            auto ssm = reinterpret_cast<app::SetupStateModifier*>(obj);
+            auto game_object = il2cpp::invoke<app::Boolean__Boxed>(ssm, "CanResolve", nullptr)->fields
+                ? il2cpp::invoke<app::GameObject>(ssm, "Resolve", nullptr)
+                : nullptr;
+            j["value"] = nlohmann::json::array({
+                create_variable("modifier_guid", "scalar", ssm->fields.ModifierGUID),
+                create_variable("game_object", "game_object", il2cpp::unity::get_path(game_object))
+            });
+        }
+
+        void visualize_new_setup_state_controller(nlohmann::json& j, void* obj, bool verbose)
+        {
+            auto nssc = reinterpret_cast<app::NewSetupStateController*>(obj);
+            if (verbose)
+            {
+                auto modifiers = nlohmann::json::array();
+                for (auto i = 0; i < nssc->fields.StateHolder->fields.Modifiers->fields._size; ++i)
+                {
+                    auto modifier = nssc->fields.StateHolder->fields.Modifiers->fields._items->vector[i];
+                    modifiers.push_back(visualize(modifier, std::to_string(i), verbose));
+                }
+
+                auto states = nlohmann::json::array();
+                for (auto i = 0; i < nssc->fields.StateHolder->fields.States->fields._size; ++i)
+                {
+                    auto state = nssc->fields.StateHolder->fields.States->fields._items->vector[i];
+                    states.push_back(visualize(state, std::to_string(i), verbose));
+                }
+
+                app::IUberState* state;
+                auto state = nssc->fields.StateHolder->fields._._.State;
+                if (il2cpp::unity::is_valid(state))
+                    state = il2cpp::invoke<app::Boolean__Boxed>(state, "CanResolve", nullptr)->fields
+                        ? il2cpp::invoke<app::IUberState>(state, "Resolve", nullptr)
+                        : nullptr;
+
+
+                auto mapping = nssc->fields.StateHolder->fields._._.Mapping;
+                j["value"] = {
+                    create_variable("active_state", "scalar", nssc->fields.m_activeStateIndex),
+                    create_variable("mode", "scalar", nssc->fields.StateHolder->fields.Mode),
+                    create_variable("fallback_state", "scalar", nssc->fields.StateHolder->fields.FallbackPassiveState),
+                    create_variable("modifiers", "array", modifiers),
+                    create_variable("states", "array", states),
+                    visualize(state, "uber_state", verbose),
+                    visualize(mapping, "mapping", verbose),
+                };
+            }
+        }
 
         IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_position, (app::Transform* this_ptr));
         IL2CPP_BINDING(UnityEngine, Transform, app::Quaternion, get_rotation, (app::Transform* this_ptr));
@@ -122,8 +194,9 @@ namespace ipc
         }
 
         std::unordered_map<std::string, visualizer> visualizers{
-            //{ "NewSetupStateController", visualize_new_setup_state_controller },
-            //{ "SetupStateModifier", visualize_setup_state_modifier },
+            { "NewSetupStateController", visualize_new_setup_state_controller },
+            { "SetupStateModifier", visualize_setup_state_modifier },
+            { "SetupState", visualize_setup_state },
             //{ "StateCondition", visualize_state_condition },
             //
             //{ "UberStateBoolCondition", visualize_uber_state_bool_condition },

@@ -49,6 +49,11 @@ namespace app {
         { VerticalAnchorMode__Enum_Middle, "Middle" },
         { VerticalAnchorMode__Enum_Bottom, "Bottom" },
     });
+
+    NLOHMANN_JSON_SERIALIZE_ENUM(SetupControllerStateHolder_StateControllerMode__Enum, {
+        { SetupControllerStateHolder_StateControllerMode__Enum_Active, "Active" },
+        { SetupControllerStateHolder_StateControllerMode__Enum_Passive, "Passive" },
+        });
 }
 
 namespace randomizer
