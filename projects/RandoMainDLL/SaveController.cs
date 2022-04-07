@@ -63,7 +63,6 @@ namespace RandoMainDLL {
 
     public static void ResetUberStateValueStore() {
       InterOp.UberState.reset_uber_state_value_store();
-      DidWeJustDie = true;
       OnLoad(CurrentSlot);
     }
 
