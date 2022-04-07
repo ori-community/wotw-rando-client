@@ -28,7 +28,7 @@ namespace RandoMainDLL {
     private static Thread updateThread;
     private static Thread connectThread;
 
-    public static int FramesTillReconnectAttempt = 420;
+    public static float TimeUntilReconnectAttempt = 5.0f;
 
     public static bool WantConnection { get => !AHK.IniFlag("DisableNetcode") && (SeedController.Settings?.NetcodeEnabled ?? false); }
 
@@ -42,7 +42,7 @@ namespace RandoMainDLL {
       setupUpdateThread();
       if (Connecting) {
         Randomizer.Log("Skipping connection request as one is in-progress", false, "DEBUG");
-        FramesTillReconnectAttempt = 120;
+        TimeUntilReconnectAttempt = 2.0f;
         return;
       }
 
@@ -70,7 +70,7 @@ namespace RandoMainDLL {
           };
           socket.OnError += (sender, e) => {
             Randomizer.Error("WebSocket", $"{e} {e?.Exception}", false);
-            FramesTillReconnectAttempt = 600;
+            TimeUntilReconnectAttempt = 10.0f;
           };
           socket.OnClose += (sender, e) => {
             Randomizer.Log($"Closing socket ({e?.Code}: {e?.Reason})");
@@ -87,7 +87,7 @@ namespace RandoMainDLL {
           Randomizer.Log($"Attempting to connect to {Domain}", false);
           socket.Connect();
         } catch (Exception e) {
-          FramesTillReconnectAttempt = 120;
+          TimeUntilReconnectAttempt = 2.0f;
           Randomizer.Error("Connect (socket.)", e, false); 
         }
 
@@ -95,10 +95,11 @@ namespace RandoMainDLL {
       connectThread.Start();
     }
 
-    public static void Update() {
+    public static void Update(float delta) {
       if (WantConnection && !IsConnected && !Connecting) {
-        if (FramesTillReconnectAttempt-- <= 0) {
-          FramesTillReconnectAttempt = 600;
+        TimeUntilReconnectAttempt -= delta;
+        if (TimeUntilReconnectAttempt <= 0) {
+          TimeUntilReconnectAttempt = 5.0f;
           Randomizer.Log("Want connection but currently have none, attempting reconnect", false);
           Connect();
         }

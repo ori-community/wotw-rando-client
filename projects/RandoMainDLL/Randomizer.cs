@@ -132,7 +132,7 @@ namespace RandoMainDLL {
         AHK.Tick();
         MessageController.Tick();
         BonusItemController.Update();
-        WebSocketClient.Update();
+        WebSocketClient.Update(delta);
         Multiplayer.Update();
         HideAndSeek.Update(delta);
         StatsTracking.Update(gs, delta);
