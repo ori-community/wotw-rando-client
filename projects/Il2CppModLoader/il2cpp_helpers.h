@@ -25,7 +25,8 @@ namespace il2cpp
 
         IL2CPP_MODLOADER_DLLEXPORT void* instantiate_object_untyped(void* object);
         IL2CPP_MODLOADER_DLLEXPORT void destroy_object(void* object);
-        IL2CPP_MODLOADER_DLLEXPORT app::Transform* get_parent(app::Transform* object);
+        IL2CPP_MODLOADER_DLLEXPORT app::Transform* get_parent(void* object);
+        IL2CPP_MODLOADER_DLLEXPORT void set_parent(void* child, void* parent);
         IL2CPP_MODLOADER_DLLEXPORT app::Transform* get_transform(void* object);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* get_game_object(void* component);
         IL2CPP_MODLOADER_DLLEXPORT app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
@@ -34,10 +35,13 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT std::string get_path(void* object);
         IL2CPP_MODLOADER_DLLEXPORT std::vector<std::string> get_path_v(void* object);
 
+        IL2CPP_MODLOADER_DLLEXPORT bool get_active(void* object);
+        IL2CPP_MODLOADER_DLLEXPORT void set_active(void* object, bool value);
+
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> get_children(app::GameObject* game_object);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::string_view name);
-        IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string_view> const& path);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string> const& path);
+        IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string_view> const& path);
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::Component*> get_components_untyped(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component");
         IL2CPP_MODLOADER_DLLEXPORT int32_t get_scene_count();
         IL2CPP_MODLOADER_DLLEXPORT app::Scene get_scene_at(int32_t i);

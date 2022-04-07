@@ -26,9 +26,12 @@ namespace il2cpp
         STATIC_IL2CPP_BINDING(UnityEngine, Object, void, Destroy, (app::Object* this_ptr));
         IL2CPP_BINDING(UnityEngine, Object, app::String*, get_name, (app::Object* this_ptr));
 
-        IL2CPP_BINDING(UnityEngine, Component, app::GameObject*, get_gameObject, (app::Component* this_ptr));
-        
+        IL2CPP_BINDING(UnityEngine, Component, app::GameObject*, get_gameObject, (void* this_ptr));
+
+        IL2CPP_BINDING(UnityEngine, GameObject, bool, GetActive, (app::GameObject* this_ptr));
+        IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
         IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, get_parent, (app::Transform* this_ptr));
+        IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform* this_ptr, app::Transform* parent));
         IL2CPP_BINDING(UnityEngine, GameObject, app::Transform*, get_transform, (app::GameObject* this_ptr));
         IL2CPP_BINDING(UnityEngine, GameObject, app::Scene, get_scene, (app::GameObject* this_ptr));
         IL2CPP_BINDING(UnityEngine, GameObject, app::Component*, AddComponent, (app::GameObject* this_ptr, app::Type* type));
@@ -172,7 +175,7 @@ namespace il2cpp
             if (il2cpp::is_assignable(obj, "UnityEngine", "GameObject"))
                 return reinterpret_cast<app::GameObject*>(obj);
             else if (il2cpp::is_assignable(obj, "UnityEngine", "Component"))
-                return il2cpp::unity::get_game_object(obj);
+                return Component::get_gameObject(obj);
             else
                 return nullptr;
         }
@@ -217,15 +220,34 @@ namespace il2cpp
             return path;
         }
 
-        app::Transform* get_parent(app::Transform* object)
+        app::Transform* get_parent(void* object)
         {
-            return Transform::get_parent(object);
+            return Transform::get_parent(get_transform(object));
+        }
+
+        void set_parent(void* child, void* parent)
+        {
+            Transform::set_parent(get_transform(child), get_transform(parent));
+        }
+
+        bool get_active(void* object)
+        {
+            auto go = get_game_object(object);
+            return GameObject::GetActive(go);
+        }
+
+        void set_active(void* object, bool value)
+        {
+            auto go = get_game_object(object);
+            GameObject::SetActive(go, value);
         }
 
         app::Transform* get_transform(void* object)
         {
             app::GameObject* go = nullptr;
-            if (il2cpp::is_assignable(object, "UnityEngine", "GameObject"))
+            if (il2cpp::is_assignable(object, "UnityEngine", "Transform"))
+                return reinterpret_cast<app::Transform*>(object);
+            else if (il2cpp::is_assignable(object, "UnityEngine", "GameObject"))
                 go = reinterpret_cast<app::GameObject*>(object);
             else if (il2cpp::is_assignable(object, "UnityEngine", "Component"))
                 go = get_game_object(object);
@@ -255,7 +277,7 @@ namespace il2cpp
             return transform != nullptr ? get_game_object(transform) : nullptr;
         }
 
-        app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string_view> const& path)
+        IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string_view> const& path)
         {
             for (auto const& name : path)
             {
@@ -357,7 +379,7 @@ namespace il2cpp
 
         app::GameObject* get_game_object(void* component)
         {
-            return Component::get_gameObject(reinterpret_cast<app::Component*>(component));
+            return convert(component);
         }
 
         app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name)

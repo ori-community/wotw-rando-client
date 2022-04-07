@@ -148,37 +148,20 @@ namespace
 
     int32_t move_howl(app::NewSetupStateController* this_ptr, std::string const&, int32_t state, int32_t)
     {
-        // #day 0x787c7226
-        // #night 0x7abccb8b
         state = is_day() ? -1375966924 : 1361521887;
-        auto move_to_id = state == 1361521887 ? 0x787c7226 : 0x7abccb8b;
-        auto move_from_id = state == 1361521887 ? 0x7abccb8b : 0x787c7226;
-
-        auto modifiers = this_ptr->fields.StateHolder->fields.Modifiers->fields;
-        app::GameObject* move_to = nullptr;
-        app::GameObject* crawler = nullptr;
-        bool found = false;
-        for (auto i = 0; i < modifiers._size && !found && (move_to == nullptr || crawler == nullptr); ++i)
+        auto setup = il2cpp::unity::get_game_object(il2cpp::unity::get_parent(il2cpp::unity::get_transform(this_ptr)));
+        auto moki = il2cpp::unity::find_child(setup, { std::string_view("#day"), "mokiNpcSetup" });
+        if (il2cpp::unity::is_valid(moki))
         {
-            auto item = modifiers._items->vector[i];
-            if (item->fields.ModifierGUID == move_to_id && can_resolve(item))
-            {
-                auto target = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", nullptr);
-                found = il2cpp::unity::find_child(target, "nightcrawlerChase") != nullptr;
-                move_to = target;
-            }
-            else if (item->fields.ModifierGUID == move_from_id && can_resolve(item))
-            {
-                auto target = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", nullptr);
-                crawler = il2cpp::unity::find_child(target, "nightcrawlerChase");
-            }
+            il2cpp::unity::set_parent(moki, setup);
+            il2cpp::unity::set_active(moki, true);
         }
 
-        if (!found && crawler != nullptr && move_to != nullptr)
+        auto howl = il2cpp::unity::find_child(setup, { std::string_view("#night"), "nightcrawlerChase" });
+        if (il2cpp::unity::is_valid(howl))
         {
-            auto crawler_transform = GameObject::get_transform(crawler);
-            auto move_to_transform = GameObject::get_transform(move_to);
-            Transform::SetParent(crawler_transform, move_to_transform, true);
+            il2cpp::unity::set_parent(howl, setup);
+            il2cpp::unity::set_active(howl, true);
         }
 
         return state;
@@ -186,24 +169,42 @@ namespace
 
     void initialize_day_night_logic()
     {
+        randomizer::conditions::register_new_setup_intercept({ "swampTorchIntroductionA/*setups/*timesOfDay" }, { -1052258879, 1819061226 }, [](auto, auto, auto, auto) -> int32_t {
+            return is_day() ? -1052258879 : 1819061226;
+        });
+
+        randomizer::conditions::register_new_setup_intercept({ "swampIntroBottom/artSetups/dayNightSetup" }, { -1815347985, -1605692968 }, [](auto, auto, auto, auto) -> int32_t {
+            return is_day() ? -1815347985 : -1605692968;
+        });
+
+        randomizer::conditions::register_new_setup_intercept({ "swampIntroTop/timelines/timesOfDayTransition" }, { -598230906, -1926205078 }, [](auto, auto, auto, auto) -> int32_t {
+            return is_day() ? -598230906 : -1926205078;
+        });
+
+        randomizer::conditions::register_new_setup_intercept({ "willOfTheWispsLagoonConnection/artSetups/timesOfDayTransition" }, { 1340727368, -76384365 }, [](auto, auto, auto, auto) -> int32_t {
+            return is_day() ? 1340727368 : -76384365;
+        });
+
+        randomizer::conditions::register_new_setup_intercept({ "swampWalljumpChallengeA/*setups/*timesOfDay" }, { -1834135337, -949591271 }, [](auto, auto, auto, auto) -> int32_t {
+            return is_day() ? -1834135337 : -949591271;
+        });
+
         // Sword Cutscene rain
         randomizer::conditions::register_new_setup_intercept({ "swampGetSpiritBlade/timesOfDayController" }, { -480342150, 907153171 }, [](auto, auto, auto, auto) -> int32_t {
-            auto value = is_day() ? 907153171 : -480342150;
-            return value;
+            return is_day() ? 907153171 : -480342150;
         });
 
         // Remove regen tree water and move day water around (288338807 : day, -1643391836 : night).
-        randomizer::conditions::register_new_setup_intercept({ "swampSaveRoomA/timesOfDayTransition" }, { 288338807, -1643391836 }, move_water);
+        randomizer::conditions::register_new_setup_intercept({ "swampSaveRoomA/timesOfDayTransition" },
+            { 288338807, -1643391836 }, move_water);
 
         // Move howl between modifiers depending on if its day or night time. (-1375966924 : day, 1361521887 : night)
-        randomizer::conditions::register_new_setup_intercept({ "swampNightcrawlerA/artSetups/timesOfDayTransition" }, { -1375966924, 1361521887 }, move_howl);
+        randomizer::conditions::register_new_setup_intercept({ "swampNightcrawlerA/artSetups/timesOfDayTransition" },
+            { -1375966924, 1361521887 }, move_howl);
 
         // howl: (1234021711 : notDefeated, 620462779 : defeated)
-        randomizer::conditions::register_new_setup_intercept({
-                "swampNightcrawlerA/artSetups/#night/nightcrawlerChase/nightcrawlerStateController",
-                "swampNightcrawlerA/artSetups/#day/nightcrawlerChase/nightcrawlerStateController" 
-            }, { 1234021711 }, should_howl_exist
-        );
+        randomizer::conditions::register_new_setup_intercept({ "swampNightcrawlerA/artSetups/nightcrawlerChase/nightcrawlerStateController", },
+            { 1234021711 }, should_howl_exist);
     }
 
     IL2CPP_INTERCEPT(, SwampNightDayTransition, bool, DayTimeCondition, (app::SwampNightDayTransition* this_ptr)) {
