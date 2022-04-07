@@ -177,9 +177,11 @@ namespace
             return is_day() ? -1815347985 : -1605692968;
         });
 
-        randomizer::conditions::register_new_setup_intercept({ "swampIntroTop/timelines/timesOfDayTransition" }, { -598230906, -1926205078 }, [](auto, auto, auto, auto) -> int32_t {
-            return is_day() ? -598230906 : -1926205078;
-        });
+        randomizer::conditions::register_new_setup_intercept({
+                "swampIntroTop/timelines/timesOfDayTransition",
+                "shoreSearchShot/art/timesOfDayTransition",
+            }, { -598230906, -1926205078 }, [](auto, auto, auto, auto) -> int32_t { return is_day() ? -598230906 : -1926205078; }
+        );
 
         randomizer::conditions::register_new_setup_intercept({ "willOfTheWispsLagoonConnection/artSetups/timesOfDayTransition" }, { 1340727368, -76384365 }, [](auto, auto, auto, auto) -> int32_t {
             return is_day() ? 1340727368 : -76384365;
@@ -188,7 +190,12 @@ namespace
         randomizer::conditions::register_new_setup_intercept({ "swampWalljumpChallengeA/*setups/*timesOfDay" }, { -1834135337, -949591271 }, [](auto, auto, auto, auto) -> int32_t {
             return is_day() ? -1834135337 : -949591271;
         });
+        
 
+        randomizer::conditions::register_new_setup_intercept({ "swampNightcrawlerBshortcut/*setups/timesOfDayTransition" }, { 1001861749, 787945376 }, [](auto, auto, auto, auto) -> int32_t {
+            return is_day() ? 1001861749 : 787945376;
+        });
+        
         // Sword Cutscene rain
         randomizer::conditions::register_new_setup_intercept({ "swampGetSpiritBlade/timesOfDayController" }, { -480342150, 907153171 }, [](auto, auto, auto, auto) -> int32_t {
             return is_day() ? 907153171 : -480342150;
