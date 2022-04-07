@@ -852,6 +852,7 @@ namespace uber_states
     INJECT_C_DLLEXPORT void reset_uber_state_value_store()
     {
         std::unordered_map<int, double> saved;
+        auto position = get_position();
         for (auto state : stat_states)
             saved[state] = get_uber_state_value(14, state);
 
@@ -859,7 +860,11 @@ namespace uber_states
         instance->fields.m_isInitialized = false;
         il2cpp::invoke(instance->fields.m_groupMap, "Clear");
         UberStateValueStore::FinalizeInitialization(instance, false);
+        // Because for some reason if we only call it once we lose wall jump.
         scenes::load_default_values();
+        scenes::load_default_values();
+        set_uber_state_value(21786, 48748, 1);
+        set_position(position);
         for (auto save : saved)
             set_uber_state_value(14, save.first, save.second);
 

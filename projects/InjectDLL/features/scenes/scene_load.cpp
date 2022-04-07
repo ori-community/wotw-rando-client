@@ -2,6 +2,7 @@
 
 #include <Common/ext.h>
 
+#include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 
 #include <unordered_set>
@@ -97,12 +98,25 @@ namespace scenes
         return split_path.empty() ? game_object : il2cpp::unity::find_child(game_object, split_path);
     }
 
+    app::SceneMetaData_SeinInitialValuesWotW* initial_values = nullptr;
     void load_default_values()
     {
-        const auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
-        auto manager = scenes->static_fields->Manager;
-        auto spawn = ScenesManager::GetSceneInformation(manager, il2cpp::string_new("swampIntroTop"));
-        auto spawn_meta = ScenesManager::GetSceneMetaDataFromRuntimeMetaData(manager, spawn);
-        il2cpp::invoke(spawn_meta->fields.InitialValuesWisp, "ApplyInitialValues");
+        if (il2cpp::unity::is_valid(initial_values))
+            il2cpp::invoke(initial_values, "ApplyInitialValues");
+        else
+            modloader::warn("scene_load", "Failed to set default wotw values.");
     }
+
+    void on_load_spawn(std::string_view scene_name, int id, app::GameObject* scene_root)
+    {
+        auto root = il2cpp::unity::get_component<app::SceneRoot>(scene_root, "", "SceneRoot");
+        initial_values = root->fields.MetaData->fields.InitialValuesWisp;
+    }
+
+    void initialize()
+    {
+        force_load_area("swampIntroTop", 0, on_load_spawn);
+    }
+
+    CALL_ON_INIT(initialize);
 }

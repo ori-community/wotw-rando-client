@@ -62,7 +62,7 @@ namespace RandoMainDLL {
     }
 
     public static void ResetUberStateValueStore() {
-      InterOp.UberState.reset_uber_state_value_store();
+      ResetUntilSave = true;
       OnLoad(CurrentSlot);
     }
 
@@ -79,8 +79,7 @@ namespace RandoMainDLL {
 
         if (ResetUntilSave) {
           InterOp.UberState.reset_uber_state_value_store();
-          // We will need a full sync here.
-          DidWeJustDie = true;
+          UberStateController.NewGameInit();
         }
 
         UberStateController.SkipListeners = true;

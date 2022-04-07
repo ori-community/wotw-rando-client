@@ -26,9 +26,7 @@ namespace RandoMainDLL {
 
     public class ResetUberStatesCommand : IUberStateCommand {
       public void Resolve() {
-        SaveController.ResetUntilSave = true;
         SaveController.ResetUberStateValueStore();
-        PsuedoLocs.GAME_START.OnCollect();
       }
     }
 
