@@ -845,6 +845,8 @@ namespace uber_states
 
     INJECT_C_DLLEXPORT void reset_uber_state_value_store()
     {
+        // TODO: We probably want to save some uberstate stuff like time, stats etc before we reinitialize the value store.
+
         auto instance = il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController")->static_fields->m_currentStateValueStore;
         instance->fields.m_isInitialized = false;
         il2cpp::invoke(instance->fields.m_groupMap, "Clear");

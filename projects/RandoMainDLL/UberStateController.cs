@@ -352,8 +352,8 @@ namespace RandoMainDLL {
           return;
 
         if (ResetUberStateValueStore) {
-          InterOp.UberState.reset_uber_state_value_store();
           ResetUberStateValueStore = false;
+          SaveController.ResetUberStateValueStore();
         }
 
         if (NeedsNewGameInit)

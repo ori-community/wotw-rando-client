@@ -61,6 +61,11 @@ namespace RandoMainDLL {
       CurrentSlot = slot;
     }
 
+    public static void ResetUberStateValueStore() {
+      InterOp.UberState.reset_uber_state_value_store();
+      OnLoad(CurrentSlot);
+    }
+
     public static void OnLoad(int slot, int backupSlot = -1) {
       try {
         if (slot != CurrentSlot) {
