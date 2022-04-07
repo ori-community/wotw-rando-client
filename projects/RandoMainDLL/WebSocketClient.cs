@@ -15,7 +15,7 @@ using System.IO;
 namespace RandoMainDLL {
   public static class WebSocketClient {
     public static BlockingCollection<Packet> SendQueue = new BlockingCollection<Packet>();
-    public static BlockingCollection<UberStateUpdateMessage> UberStateQueue = new BlockingCollection<UberStateUpdateMessage>();
+    public static BlockingCollection<UberStateController.IUberStateCommand> UberStateQueue = new BlockingCollection<UberStateController.IUberStateCommand>();
     public static string Domain { get => AHK.IniString("Paths", "URL", "wotw.orirando.com"); }
     public static string S { get => AHK.IniFlag("Insecure") ? "" : "s";}
     private static readonly string JWTFile = ".jwt";
@@ -241,13 +241,10 @@ namespace RandoMainDLL {
         switch (packet.Id) {
           case Packet.Types.PacketID.UberStateBatchUpdateMessage:
             var messages = UberStateBatchUpdateMessage.Parser.ParseFrom(packet.Packet_);
-            if (messages.ResetBeforeApplying) {
-              UberStateController.ResetUberStateValueStore = true;
-              SaveController.ResetUntilSave = true;
-            }
-
+            if (messages.ResetBeforeApplying)
+              UberStateQueue.Add(new UberStateController.ResetUberStatesCommand());
             foreach (var us in messages.Updates)
-              UberStateQueue.Add(us);
+              UberStateQueue.Add(new UberStateController.SetUberStateCommand(us));
             break;
           case Packet.Types.PacketID.PrintTextMessage: {
             var message = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
@@ -284,7 +281,7 @@ namespace RandoMainDLL {
             break;
           case Packet.Types.PacketID.UberStateUpdateMessage:
             try {
-              UberStateQueue.Add(UberStateUpdateMessage.Parser.ParseFrom(packet.Packet_));
+              UberStateQueue.Add(new UberStateController.SetUberStateCommand(UberStateUpdateMessage.Parser.ParseFrom(packet.Packet_)));
             } catch(Exception e) { Randomizer.Error("UberStateQueue.Add", e); }
             break;
           case Packet.Types.PacketID.AuthenticatedMessage:

@@ -63,6 +63,7 @@ namespace RandoMainDLL {
 
     public static void ResetUberStateValueStore() {
       InterOp.UberState.reset_uber_state_value_store();
+      DidWeJustDie = true;
       OnLoad(CurrentSlot);
     }
 
@@ -77,8 +78,11 @@ namespace RandoMainDLL {
           CurrentSlot = slot;
         }
 
-        if (ResetUntilSave)
+        if (ResetUntilSave) {
           InterOp.UberState.reset_uber_state_value_store();
+          // We will need a full sync here.
+          DidWeJustDie = true;
+        }
 
         UberStateController.SkipListeners = true;
         UberStateController.UberStates.Clear();

@@ -6,7 +6,31 @@ using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class UberStateController {
-    public static bool ResetUberStateValueStore = false;
+    public interface IUberStateCommand {
+      void Resolve();
+    }
+
+    public class SetUberStateCommand : IUberStateCommand {
+      private Network.UberStateUpdateMessage message;
+
+      public SetUberStateCommand(Network.UberStateUpdateMessage message) {
+        this.message = message;
+      }
+
+      public void Resolve() {
+        var (id, val) = message.FromNet();
+        if (UberGet.AsDouble(id) != val)
+          UberSet.Raw(id.GroupID, id.ID, val);
+      }
+    }
+
+    public class ResetUberStatesCommand : IUberStateCommand {
+      public void Resolve() {
+        SaveController.ResetUntilSave = true;
+        SaveController.ResetUberStateValueStore();
+      }
+    }
+
     public static HashSet<UberId> TimerUberStates = new HashSet<UberId>();
     public static HashSet<UberId> SyncedUberStates = new HashSet<UberId>();
     public static Dictionary<UberId, UberState> UberStates = new Dictionary<UberId, UberState>();
@@ -351,11 +375,6 @@ namespace RandoMainDLL {
         if (DoingTrial)
           return;
 
-        if (ResetUberStateValueStore) {
-          ResetUberStateValueStore = false;
-          SaveController.ResetUberStateValueStore();
-        }
-
         if (NeedsNewGameInit)
           NewGameInit();
         foreach(var tpt in GrantOnNextUpdate) tpt.p().Grant(true);
@@ -384,11 +403,8 @@ namespace RandoMainDLL {
           Randomizer.Debug($"Not sending {bad.Count} bad states", false);
           foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
         }
-        while (WebSocketClient.UberStateQueue.TryTake(out var stateUpdate)) {
-          var (id, val) = stateUpdate.FromNet();
-          if (UberGet.AsDouble(id) != val)
-            UberSet.Raw(id.GroupID, id.ID, val);
-        }
+        while (WebSocketClient.UberStateQueue.TryTake(out var stateUpdate))
+          stateUpdate.Resolve();
       }
       catch (Exception e) { Randomizer.Error("USC.Update", e, false); }
     }
