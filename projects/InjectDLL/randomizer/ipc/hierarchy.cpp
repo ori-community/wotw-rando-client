@@ -109,7 +109,7 @@ namespace ipc
                     },
                     {
                         { "name", "components" },
-                        { "type", "array" },
+                        { "type", "components" },
                         { "value", arr }
                     }
                 });
@@ -167,8 +167,8 @@ namespace ipc
 
             if (!il2cpp::unity::is_valid(obj))
             {
-                j["type"] = "scalar";
-                j["value"] = "nullptr";
+                j["type"] = "nullptr";
+                j["value"] = "invalid reference";
                 return j;
             }
 
@@ -188,8 +188,8 @@ namespace ipc
                 klass = klass->parent;
             }
 
-            j["type"] = "scalar";
-            j["value"] = get_klass_name(cast->klass);
+            j["type"] = get_klass_name(cast->klass);
+            j["value"] = nullptr;
             return j;
         }
 
