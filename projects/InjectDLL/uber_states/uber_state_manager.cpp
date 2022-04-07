@@ -843,9 +843,16 @@ namespace uber_states
         enable_real_uberstate_names = value;
     }
 
+    std::vector<int> stat_states{
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
+        33, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69,
+        70, 71, 72, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109
+    };
     INJECT_C_DLLEXPORT void reset_uber_state_value_store()
     {
-        // TODO: We probably want to save some uberstate stuff like time, stats etc before we reinitialize the value store.
+        std::unordered_map<int, double> saved;
+        for (auto state : stat_states)
+            saved[state] = get_uber_state_value(14, state);
 
         auto instance = il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController")->static_fields->m_currentStateValueStore;
         instance->fields.m_isInitialized = false;
@@ -857,5 +864,7 @@ namespace uber_states
         set_health(30);
         set_max_energy(3);
         set_energy(3);
+        for (auto save : saved)
+            set_uber_state_value(14, save.first, save.second);
     }
 }
