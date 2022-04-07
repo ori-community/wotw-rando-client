@@ -2,6 +2,7 @@
 
 #include <interop/csharp_bridge.h>
 #include <constants.h>
+#include <features/scenes/scene_load.h>
 #include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_virtual.h>
 
@@ -858,13 +859,10 @@ namespace uber_states
         instance->fields.m_isInitialized = false;
         il2cpp::invoke(instance->fields.m_groupMap, "Clear");
         UberStateValueStore::FinalizeInitialization(instance, false);
-        UberStateController::ApplyAll(app::UberStateApplyContext__Enum_FullStateApply);
-
-        set_max_health(30);
-        set_health(30);
-        set_max_energy(3);
-        set_energy(3);
+        scenes::load_default_values();
         for (auto save : saved)
             set_uber_state_value(14, save.first, save.second);
+
+        UberStateController::ApplyAll(app::UberStateApplyContext__Enum_FullStateApply);
     }
 }

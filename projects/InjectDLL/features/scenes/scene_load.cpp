@@ -16,6 +16,7 @@ namespace scenes
             (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* meta, bool async, bool keepPreloaded, bool forceLoad, bool loadDependantScenes, bool queueIncludedScenes));
         //ScenesManager_RequestAdditivelyLoadScene(this,a,fVar4 <= 2.00000000,true,true,true,false);
         IL2CPP_BINDING(, ScenesManager, app::RuntimeSceneMetaData*, GetSceneInformation, (app::ScenesManager* this_ptr, app::String* sceneName));
+        IL2CPP_BINDING(, ScenesManager, app::SceneMetaData*, GetSceneMetaDataFromRuntimeMetaData, (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* runtime));
         IL2CPP_BINDING(, ScenesManager, app::SceneManagerScene*, GetSceneManagerScene, (app::ScenesManager* this_ptr, app::String* scene_name));
         IL2CPP_BINDING(, ScenesManager, void, EnableDisabledScene, (app::ScenesManager* this_ptr, app::SceneManagerScene* scene, bool async));
         IL2CPP_BINDING(, ScenesManager, bool, SceneIsLoading, (app::ScenesManager* this_ptr, app::MoonGuid* scene_guid));
@@ -94,5 +95,14 @@ namespace scenes
         auto game_object = get_root(split_path.front());
         split_path.erase(split_path.begin());
         return split_path.empty() ? game_object : il2cpp::unity::find_child(game_object, split_path);
+    }
+
+    void load_default_values()
+    {
+        const auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
+        auto manager = scenes->static_fields->Manager;
+        auto spawn = ScenesManager::GetSceneInformation(manager, il2cpp::string_new("swampIntroTop"));
+        auto spawn_meta = ScenesManager::GetSceneMetaDataFromRuntimeMetaData(manager, spawn);
+        il2cpp::invoke(spawn_meta->fields.InitialValuesWisp, "ApplyInitialValues");
     }
 }

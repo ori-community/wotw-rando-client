@@ -16,4 +16,5 @@ namespace scenes
     app::GameObject* get_root(std::string_view name);
     std::vector<app::GameObject*> get_roots_from_active();
     app::GameObject* get_game_object(std::string_view path);
+    void load_default_values();
 }

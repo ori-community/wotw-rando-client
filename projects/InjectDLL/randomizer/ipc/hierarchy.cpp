@@ -76,10 +76,10 @@ namespace ipc
                 }
 
                 app::IUberState* state;
-                auto state = nssc->fields.StateHolder->fields._._.State;
-                if (il2cpp::unity::is_valid(state))
-                    state = il2cpp::invoke<app::Boolean__Boxed>(state, "CanResolve", nullptr)->fields
-                        ? il2cpp::invoke<app::IUberState>(state, "Resolve", nullptr)
+                auto state_ref = nssc->fields.StateHolder->fields._._.State;
+                if (il2cpp::unity::is_valid(state_ref))
+                    state = il2cpp::invoke<app::Boolean__Boxed>(state_ref, "CanResolve", nullptr)->fields
+                        ? il2cpp::invoke<app::IUberState>(state_ref, "Resolve", nullptr)
                         : nullptr;
 
 

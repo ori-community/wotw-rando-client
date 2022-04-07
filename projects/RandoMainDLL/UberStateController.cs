@@ -28,6 +28,7 @@ namespace RandoMainDLL {
       public void Resolve() {
         SaveController.ResetUntilSave = true;
         SaveController.ResetUberStateValueStore();
+        PsuedoLocs.GAME_START.OnCollect();
       }
     }
 
