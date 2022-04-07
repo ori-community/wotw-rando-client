@@ -4,6 +4,7 @@
 #include <Common/ext.h>
 
 #include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
@@ -100,7 +101,7 @@ namespace ipc
                 for (auto component : components)
                     arr.push_back(visualize(component, "", verbose));
 
-                j["value"].array({
+                j["value"] = nlohmann::json::array({
                     {
                         { "name", "layer" },
                         { "type", "scalar" },
@@ -116,7 +117,7 @@ namespace ipc
             else
             {
                 auto transform = il2cpp::unity::get_transform(go);
-                j["value"].array({
+                j["value"] = nlohmann::json::array({
                     visualize(transform, "transform", false),
                     {
                         { "name", "layer" },
@@ -188,7 +189,7 @@ namespace ipc
             }
 
             j["type"] = "scalar";
-            j["value"] = get_klass_name(klass);
+            j["value"] = get_klass_name(cast->klass);
             return j;
         }
 
