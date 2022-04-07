@@ -2,8 +2,8 @@
 #include <game/game.h>
 #include <interop/csharp_bridge.h>
 #include <game/pickups/pickups.h>
+#include <randomizer/conditions/new_setup_state_override.h>
 #include <randomizer/render/textures.h>
-#include <uber_states/state_applier.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>

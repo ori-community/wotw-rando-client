@@ -2,7 +2,7 @@
 #include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/interception_macros.h>
 
-#include <uber_states/state_applier.h>
+#include <randomizer/conditions/new_setup_state_override.h>
 
 namespace
 {
@@ -11,7 +11,7 @@ namespace
         // Twillen Hollow
         // -294171295 Present
         // -598610927 Gone
-        uber_states::register_applier_redirect({ "kwoloksHollowEntrance/interactives/shardTraderSetup", -598610927 }, -294171295);
+        randomizer::conditions::register_new_setup_redirect({ "kwoloksHollowEntrance/interactives/shardTraderSetup", -598610927 }, -294171295);
     }
 
     CALL_ON_INIT(initialize_twillen);

@@ -102,7 +102,7 @@ namespace RandoMainDLL {
     }
 
     public static void PostInitialize() {
-      SeedController.ReadSeed(true);
+      SeedController.ReadSeed(true, true);
     }
 
     private delegate void queuedCommand();

@@ -212,7 +212,7 @@ namespace RandoMainDLL {
       Marshal.Copy(flagName.ToCharArray(), 0, buffer, Math.Min(flagName.Length, size));
     }
 
-    public static void ParseLines(string[] lines, bool init) {
+    public static void ParseLines(string[] lines, bool init, bool connect) {
       PickupMap.Clear();
       TimerList.Clear();
       Flags.Clear();
@@ -281,14 +281,16 @@ namespace RandoMainDLL {
         if (z != ZoneType.Void)
           Total += CountByZone[z];
       }
-      if (Settings.NetcodeEnabled) {
-        if (AHK.IniFlag("DisableNetcode"))
-          MessageController.ShowMessage("Warning: can't connect because netcode is disabled via settings", queue: "debug", log: true);
+      if (init || connect) {
+        if (Settings.NetcodeEnabled) {
+          if (AHK.IniFlag("DisableNetcode"))
+            MessageController.ShowMessage("Warning: can't connect because netcode is disabled via settings", queue: "debug", log: true);
 
-        WebSocketClient.Connect();
+          WebSocketClient.Connect();
+        }
+        else
+          WebSocketClient.Disconnect();
       }
-      else
-        WebSocketClient.Disconnect();
 
       if (coordsRaw != "") {
         var coords = coordsRaw.Split(',').ToList();
@@ -307,12 +309,18 @@ namespace RandoMainDLL {
       }
     }
 
-    public static void ReadSeed(bool init = false) {
+    public static void ReadSeed(bool connect = true, bool init = false) {
       SeedFile = File.ReadAllText(Randomizer.SeedPathFile);
-      if (SeedFile.StartsWith("server:"))
+      if (SeedFile.StartsWith("server:")) {
+        // If we are asking the server for a seed then it is obviously a netcode thing.
+        Settings.NetcodeEnabled = true;
+        if (!WebSocketClient.IsConnected)
+          WebSocketClient.Connect();
+
         WebSocketClient.SendSeedRequest(init);
+      }
       else if (File.Exists(SeedFile))
-        ParseLines(File.ReadAllLines(SeedFile), init);
+        ParseLines(File.ReadAllLines(SeedFile), init, connect);
       else
         MessageController.ShowPickup($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 6f, true, true);
     }

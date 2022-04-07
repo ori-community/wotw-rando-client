@@ -298,7 +298,7 @@ namespace RandoMainDLL {
             var seedMessage = ReceiveSeedMessage.Parser.ParseFrom(packet.Packet_);
             SeedController.SeedFile = "server: " + seedMessage.Name;
             File.WriteAllText(Randomizer.SeedPathFile, SeedController.SeedFile);
-            SeedController.ParseLines(seedMessage.Seed.Split('\n'), seedMessage.Init);
+            SeedController.ParseLines(seedMessage.Seed.Split('\n'), seedMessage.Init, false);
             break;
           case Packet.Types.PacketID.PlayerUsedCatchingAbility:
           case Packet.Types.PacketID.PlayerCaught:

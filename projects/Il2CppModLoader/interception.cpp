@@ -100,6 +100,9 @@ namespace modloader
 
         void* get_method_pointer(Il2CppClass* klass, il2cpp_intercept const& i)
         {
+            for (auto j = 0; j < i.virtual_count; ++j)
+                klass = klass->parent;
+
             auto overloads = il2cpp::get_method_overload_count(klass, i.method_name, i.param_count);
             if (overloads < 1)
                 return nullptr;
@@ -328,7 +331,7 @@ namespace modloader
         }
 
         il2cpp_intercept::il2cpp_intercept(bool p_ztatic, std::string_view p_namezpace, std::string_view p_klass, std::string_view p_nested,
-            std::string_view p_method_name, std::string p_params, std::string_view p_overload_params, void** p_original_pointer, void* p_intercept_pointer)
+            std::string_view p_method_name, std::string p_params, std::string_view p_overload_params, void** p_original_pointer, void* p_intercept_pointer, int virtual_count)
             : ztatic(p_ztatic)
             , namezpace(std::move(p_namezpace))
             , klass(std::move(p_klass))
@@ -338,6 +341,7 @@ namespace modloader
             , param_count(0)
             , original_pointer(p_original_pointer)
             , intercept_pointer(p_intercept_pointer)
+            , virtual_count(virtual_count)
             , next(nullptr)
         {
             // Chop off ( )

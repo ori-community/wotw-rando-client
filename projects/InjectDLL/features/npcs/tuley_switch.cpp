@@ -2,7 +2,7 @@
 #include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/interception_macros.h>
 
-#include <uber_states/state_applier.h>
+#include <randomizer/conditions/new_setup_state_override.h>
 #include <uber_states/uber_state_manager.h>
 
 namespace
@@ -17,8 +17,8 @@ namespace
 
     void initialize_tuley()
     {
-        uber_states::register_applier_intercept({ "", TULEY_EXISTS }, tuley_state);
-        uber_states::register_applier_intercept({ "", TULEY_GONE }, tuley_state);
+        randomizer::conditions::register_new_setup_intercept({ "", TULEY_EXISTS }, tuley_state);
+        randomizer::conditions::register_new_setup_intercept({ "", TULEY_GONE }, tuley_state);
     }
 
     CALL_ON_INIT(initialize_tuley);

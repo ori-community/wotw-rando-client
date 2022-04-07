@@ -11,7 +11,8 @@ namespace modloader
         struct IL2CPP_MODLOADER_DLLEXPORT il2cpp_intercept
         {
             il2cpp_intercept(bool p_ztatic, std::string_view p_namezpace, std::string_view p_klass, std::string_view p_nested,
-                std::string_view p_method_name, std::string p_params, std::string_view p_overload_params, void** p_original_pointer, void* p_intercept_pointer);
+                std::string_view p_method_name, std::string p_params, std::string_view p_overload_params,
+                void** p_original_pointer, void* p_intercept_pointer, int virtual_count);
 
             std::string_view namezpace;
             std::string_view klass;
@@ -21,6 +22,7 @@ namespace modloader
 
             bool ztatic;
             int param_count;
+            int virtual_count;
 
             void** original_pointer;
             void* intercept_pointer;
