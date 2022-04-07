@@ -241,8 +241,11 @@ namespace RandoMainDLL {
         switch (packet.Id) {
           case Packet.Types.PacketID.UberStateBatchUpdateMessage:
             var messages = UberStateBatchUpdateMessage.Parser.ParseFrom(packet.Packet_);
-            UberStateController.ResetUberStateValueStore = true;
-            SaveController.ResetUntilSave = true;
+            if (messages.ResetBeforeApplying) {
+              UberStateController.ResetUberStateValueStore = true;
+              SaveController.ResetUntilSave = true;
+            }
+
             foreach (var us in messages.Updates)
               UberStateQueue.Add(us);
             break;

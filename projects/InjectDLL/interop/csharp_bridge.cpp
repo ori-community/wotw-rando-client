@@ -183,10 +183,10 @@ namespace csharp_bridge
             game::event_bus().register_handler(GameEvent::CreateBackup, EventTiming::Start, &on_save_handler);
             game::event_bus().register_handler(GameEvent::CreateSave, EventTiming::Start, &on_save_handler);
             game::event_bus().register_handler(GameEvent::CreateCheckpoint, EventTiming::Start, &on_checkpoint_handler);
-            game::event_bus().register_handler(GameEvent::NewGame, EventTiming::Start, &on_new_game);
-            game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::Start, &on_load_handler);
-            game::event_bus().register_handler(GameEvent::FinishedLoadingCheckpoint, EventTiming::Start, &on_load_handler);
-            game::event_bus().register_handler(GameEvent::Respawn, EventTiming::Start, &on_load_handler);
+            game::event_bus().register_handler(GameEvent::NewGame, EventTiming::End, &on_new_game);
+            game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, &on_load_handler);
+            game::event_bus().register_handler(GameEvent::FinishedLoadingCheckpoint, EventTiming::End, &on_load_handler);
+            game::event_bus().register_handler(GameEvent::Respawn, EventTiming::End, &on_load_handler);
             game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::Start, &on_area_map);
             game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::End, &on_area_map);
             if (post_initialize != nullptr)

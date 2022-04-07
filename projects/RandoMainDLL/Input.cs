@@ -154,7 +154,8 @@ namespace RandoMainDLL {
           break;
         case Action.Binding1:
           //PsuedoLocs.BINDING_ONE.OnCollect();
-          InterOp.UberState.reset_uber_state_value_store();
+          UberStateController.ResetUberStateValueStore = true;
+          SaveController.ResetUntilSave = true;
           break;
         case Action.Binding2:
           PsuedoLocs.BINDING_TWO.OnCollect();
