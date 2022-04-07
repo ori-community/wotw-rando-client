@@ -2232,15 +2232,4 @@ typedef struct Il2CppWindowsRuntimeTypeName
     enum Il2CppWindowsRuntimeTypeKind typeKind;
 } Il2CppWindowsRuntimeTypeName;
 
-namespace app {
-#include <Il2CppModLoader/il2cpp_internals/il2cpp_internals_p1.h>
-#include <Il2CppModLoader/il2cpp_internals/il2cpp_internals_p2.h>
-#include <Il2CppModLoader/il2cpp_internals/il2cpp_internals_p3.h>
-#include <Il2CppModLoader/il2cpp_internals/il2cpp_internals_p4.h>
-#include <Il2CppModLoader/il2cpp_internals/il2cpp_internals_p5.h>
-#include <Il2CppModLoader/il2cpp_internals/il2cpp_internals_p6.h>
-#include <Il2CppModLoader/il2cpp_internals/il2cpp_internals_p7.h>
-#include <Il2CppModLoader/il2cpp_internals/il2cpp_internals_p8.h>
-}
-
 #pragma warning(pop)
