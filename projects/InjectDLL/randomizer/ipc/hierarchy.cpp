@@ -46,42 +46,42 @@ namespace ipc
                 auto local_scale = Transform::get_localScale(transform);
 
                 j["value"] = {
-                    "world_position", {
-                        { "x", postion.x },
-                        { "y", postion.y },
-                        { "z", postion.z },
-                    },
-                    "world_rotation", {
-                        { "x", rotation.x },
-                        { "y", rotation.y },
-                        { "z", rotation.z },
-                    },
-                    "local_position", {
-                        { "x", local_position.x },
-                        { "y", local_position.y },
-                        { "z", local_position.z },
-                    },
-                    "local_rotation", {
-                        { "x", local_rotation.x },
-                        { "y", local_rotation.y },
-                        { "z", local_rotation.z },
-                    },
-                    "local_scale", {
-                        { "x", local_scale.x },
-                        { "y", local_scale.y },
-                        { "z", local_scale.z },
-                    },
+                        {"world_position", {
+                                { "x", postion.x },
+                                { "y", postion.y },
+                                { "z", postion.z },
+                        }},
+                        {"world_rotation", {
+                                { "x", rotation.x },
+                                { "y", rotation.y },
+                                { "z", rotation.z },
+                        }},
+                        {"local_position", {
+                                { "x", local_position.x },
+                                { "y", local_position.y },
+                                { "z", local_position.z },
+                        }},
+                        {"local_rotation", {
+                                {"x", local_rotation.x},
+                                {"y", local_rotation.y},
+                                {"z", local_rotation.z},
+                        }},
+                        {"local_scale", {
+                                {"x", local_scale.x},
+                                {"y", local_scale.y},
+                                {"z", local_scale.z},
+                        }},
                 };
             }
             else
             {
                 auto postion = Transform::get_position(transform);
                 j["value"] = {
-                    "world_position", {
-                        { "x", postion.x },
-                        { "y", postion.y },
-                        { "z", postion.z },
-                    }
+                        {"world_position", {
+                                { "x", postion.x },
+                                { "y", postion.y },
+                                { "z", postion.z },
+                        }}
                 };
             }
         }
