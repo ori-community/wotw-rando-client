@@ -45,7 +45,7 @@ namespace RandoMainDLL {
           }
           catch (Exception e) { Randomizer.Error($"MapController.Update, while parsing |{rawCond}|", e); }
         }
-        InterOp.Map.refresh_inlogic_filter();
+        InterOp.Map.refresh_map();
         reachCheckResult = null;
       }
     }

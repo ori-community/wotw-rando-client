@@ -1,6 +1,7 @@
 #include <constants.h>
 #include <dev/object_visualizer.h>
 #include <game/game.h>
+#include <game/ui.h>
 #include <game/system/message_provider.h>
 #include <interop/csharp_bridge.h>
 #include <randomizer/multiplayer.h>
@@ -932,15 +933,6 @@ namespace
             GameMapUI::UpdateQuests(this_ptr);
             dirty_filter = false;
         }
-
-        if (refresh)
-        {
-            auto icon_manager = this_ptr->fields.m_areaMap->fields._IconManager_k__BackingField;
-            if (static_cast<NewFilters>(icon_manager->fields.Filter) == NewFilters::InLogic)
-                AreaMapUI::set_IconFilter(this_ptr->fields.m_areaMap, icon_manager->fields.Filter);
-
-            refresh = false;
-        }
     }
 
     IL2CPP_INTERCEPT(, AreaMapUI, void, CycleFilter, (app::AreaMapUI* this_ptr)) {
@@ -1089,8 +1081,12 @@ INJECT_C_DLLEXPORT void clear_icons()
     header_icons.clear();
 }
 
-INJECT_C_DLLEXPORT void refresh_inlogic_filter() {
-    refresh = true;
+INJECT_C_DLLEXPORT void refresh_map() {
+    if (game::ui::area_map_open())
+    {
+        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        AreaMapIconManager::ShowAreaIcons(area_map->fields._IconManager_k__BackingField);
+    }
 }
 
 INJECT_C_DLLEXPORT void set_start_in_logic_filter(bool value) {

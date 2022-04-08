@@ -161,10 +161,10 @@ namespace RandoMainDLL {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static AreaType get_player_area();
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void refresh_inlogic_filter();
+      public extern static void refresh_map();
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_start_in_logic_filter(bool value);
-    }
+      }
 
     public static class Multiplayer {
       public enum PlayerIcon : int { 
