@@ -12,14 +12,13 @@ namespace RandoMainDLL {
 
     public static Network.UberStateUpdateMessage MakeUpdateMsg(this UberId id, double value) => new Network.UberStateUpdateMessage {
       State = new Network.UberId {
-        // wolf started it :D
-        Group = id.GroupID == 0 ? -1 : id.GroupID,
-        State = id.ID == 0 ? -1 : id.ID
+        Group = id.GroupID,
+        State = id.ID
       },
-      Value = value == 0d ? -1d : value
+      Value = value
     };
-    public static UberId IdFromMsg(this Network.UberId n) => new UberId(n.Group == -1 ? 0 : n.Group, n.State == -1 ? 0 : n.State);
-    public static (UberId, double) FromNet(this Network.UberStateUpdateMessage n) => (n.State.IdFromMsg(), n.Value == -1d ? 0d : n.Value);
+    public static UberId IdFromMsg(this Network.UberId n) => new UberId(n.Group, n.State);
+    public static (UberId, double) FromNet(this Network.UberStateUpdateMessage n) => (n.State.IdFromMsg(), n.Value);
 
     public static void Clear<T>(this BlockingCollection<T> bc) { while (bc.TryTake(out var _)) { } }
 

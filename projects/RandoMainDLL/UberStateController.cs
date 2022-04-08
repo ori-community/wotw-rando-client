@@ -345,8 +345,9 @@ namespace RandoMainDLL {
         }
 
         bool found = SeedController.OnUberState(state, old);
-        if (SyncedUberStates.Contains(key) && !UnsharableIds.Contains(key) && !SharingExceptions(state))
+        if (SyncedUberStates.Contains(key) && !UnsharableIds.Contains(key) && !SharingExceptions(state)) {
           WebSocketClient.SendUpdate(key, state.ValueAsDouble());
+        }
 
         BonusItemController.OnUberState(state);
         var zone = ZoneType.Void;
