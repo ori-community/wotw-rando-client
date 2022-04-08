@@ -220,7 +220,12 @@ namespace RandoMainDLL {
       prependText = text;
     }
 
+    private static string cleanText(string text) {
+      return text.Trim(new char[] { '\n' });
+    }
+
     public static void ShowPickup(string text, float time = 3f, bool priority = false, bool log = false, Vector2? pickupPosition = null) {
+      text = cleanText(text);
       if (log)
         File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(text, "[$#@*]", "")}\n");
 
@@ -249,6 +254,7 @@ namespace RandoMainDLL {
       bool priority = false,
       bool log = false)
     {
+      text = cleanText(text);
       if (log) {
         File.AppendAllText(Randomizer.MessageLog, $"{Regex.Replace(text, "[$#@*]", "")}\n");
       }
