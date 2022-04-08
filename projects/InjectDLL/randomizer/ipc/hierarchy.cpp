@@ -358,7 +358,7 @@ namespace ipc
                 std::sort(children.begin(), children.end(), [](auto a, auto b) {
                     auto name_a = il2cpp::unity::get_object_name(a);
                     auto name_b = il2cpp::unity::get_object_name(b);
-                    return name_a.compare(name_b);
+                    return name_a < name_b;
                 });
                 auto payload = nlohmann::json::array();
                 for (auto child : children)
