@@ -904,6 +904,7 @@ namespace
         check_and_initialize_filter_labels(icon_manager);
         if (start_in_logic_filter && csharp_bridge::filter_enabled(static_cast<int>(NewFilters::InLogic)))
         {
+            current_filter = static_cast<int>(NewFilters::InLogic);
             AreaMapUI::set_IconFilter(this_ptr, static_cast<app::AreaMapIconFilter__Enum>(NewFilters::InLogic));
             dirty_filter = true;
         }
@@ -946,7 +947,7 @@ namespace
     
     IL2CPP_BINDING(, AreaMapUI, void, AddIcon, (app::AreaMapUI* this_ptr, app::GameObject* icon, app::Vector3* location, bool convert, bool isTeleportable));
 
-    void refresh_icon_alphas(GameEvent game_event, EventTiming timing)
+    void on_area_map_open(GameEvent game_event, EventTiming timing)
     {
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
         if (il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField))
@@ -955,11 +956,24 @@ namespace
             if (color.r < 0.99f || color.g < 0.99f || color.b < 0.99f || color.a < 0.99f)
                 utils::set_color(area_map->fields._PlayerPositionMarker_k__BackingField, color, false);
         }
+
+        auto icon_manager = area_map->fields._IconManager_k__BackingField;
+        auto count = static_cast<int32_t>(NewFilters::COUNT);
+        auto prev = current_filter;
+        if (csharp_bridge::filter_enabled(current_filter))
+        {
+            current_filter = (current_filter + 1) % count;
+            while (!csharp_bridge::filter_enabled(current_filter) && current_filter != prev)
+                current_filter = (current_filter + 1) % count;
+        }
+
+        AreaMapUI::set_IconFilter(area_map, static_cast<app::AreaMapIconFilter__Enum>(current_filter));
+        dirty_filter = true;
     }
 
     void initialize()
     {
-        game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::Start, &refresh_icon_alphas);
+        game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::Start, &on_area_map_open);
     }
 
     CALL_ON_INIT(initialize);
