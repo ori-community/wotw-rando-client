@@ -763,8 +763,18 @@ namespace
         return FilterResult::Hide;
     }
 
-    using color_key = std::array<int, 5>;
-    std::unordered_map<color_key, app::Color, array_hash> original_color;
+    class renderer_ops {
+    public:
+        size_t operator() (app::Renderer* val) const {
+            return reinterpret_cast<size_t>(val);
+        }
+
+        bool operator()(app::Renderer* val1, app::Renderer* val2) const {
+            return val1 == val2;
+        }
+    };
+
+    std::unordered_map<app::Renderer*, app::Color, renderer_ops, renderer_ops> original_color;
     void set_icon_opacity(app::RuntimeWorldMapIcon* icon, float alpha, bool grayscale)
     {
         if (!il2cpp::unity::is_valid(icon->fields.IconGameObject))
@@ -774,20 +784,12 @@ namespace
         for (auto i = 0; i < renderers.size(); ++i)
         {
             auto renderer = renderers[i];
-            color_key key = {
-                icon->fields.Guid->fields.A,
-                icon->fields.Guid->fields.B,
-                icon->fields.Guid->fields.C,
-                icon->fields.Guid->fields.D,
-                i
-            };
-
-            auto it = original_color.find(key);
+            auto it = original_color.find(renderer);
             if (it == original_color.end())
             {
                 auto color = randomizer::shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
-                original_color[key] = color;
-                it = original_color.find(key);
+                original_color[renderer] = color;
+                it = original_color.find(renderer);
             }
 
             auto color = it->second;
