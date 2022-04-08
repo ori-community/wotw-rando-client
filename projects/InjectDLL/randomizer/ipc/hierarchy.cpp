@@ -352,7 +352,8 @@ namespace ipc
             {
                 auto payload = nlohmann::json::array();
                 for (auto game_object : game_objects)
-                    payload.push_back(visualize(game_object, il2cpp::unity::get_object_name(game_object), false));
+                    if (il2cpp::unity::is_valid(game_object))
+                        payload.push_back(visualize(game_object, il2cpp::unity::get_object_name(game_object), false));
 
                 j["payload"] = payload;
             }
@@ -378,7 +379,8 @@ namespace ipc
                 });
                 auto payload = nlohmann::json::array();
                 for (auto child : children)
-                    payload.push_back(visualize(child, il2cpp::unity::get_object_name(child), false));
+                    if (il2cpp::unity::is_valid(child))
+                        payload.push_back(visualize(child, il2cpp::unity::get_object_name(child), false));
 
                 j["payload"] = payload;
             }
