@@ -292,7 +292,9 @@ namespace RandoMainDLL {
 
     public override string DisplayName {
       get {
-        if (nameAfterGrant != null) return nameAfterGrant.TrimEnd('\n');
+        if (nameAfterGrant != null)
+          return nameAfterGrant.TrimEnd('\n');
+
         bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
         var ret = "";
         foreach (var child in Children) {
@@ -302,7 +304,8 @@ namespace RandoMainDLL {
             continue;
           ret += child.DisplayName + (child.DisplayName.EndsWith("<\\>") ? "" : "\n");
         }
-        return ret.TrimEnd('\n');
+        ret = ret.TrimEnd('\n');
+        return ret == string.Empty ? "Empty" : ret;
       }
     }
 
