@@ -189,12 +189,29 @@ namespace ipc
             ipc::send_message(response.dump());
         }
 
+        std::unordered_map<GameEvent, std::string> event_to_method{
+            { GameEvent::GainedFocus, "notify_on_gain_focus" },
+            { GameEvent::LostFocus, "notify_on_lost_focus" },
+            { GameEvent::Shutdown, "notify_on_shutdown" },
+        };
+        void report_game_event(GameEvent game_event, EventTiming timing)
+        {
+            nlohmann::json response;
+            response["type"] = "request";
+            response["method"] = event_to_method.find(game_event)->second;
+            ipc::send_message(response.dump());
+        }
+
         void initialize()
         {
             game::event_bus().register_handler(GameEvent::NewGame, EventTiming::End, &report_load);
             game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, &report_load);
             game::event_bus().register_handler(GameEvent::FinishedLoadingCheckpoint, EventTiming::End, &report_load);
             game::event_bus().register_handler(GameEvent::Respawn, EventTiming::End, &report_load);
+
+            game::event_bus().register_handler(GameEvent::GainedFocus, EventTiming::End, &report_game_event);
+            game::event_bus().register_handler(GameEvent::LostFocus, EventTiming::End, &report_game_event);
+            game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::End, &report_game_event);
 
             register_request_handler("reload", reload);
             register_request_handler("get_uberstates", get_uberstates);

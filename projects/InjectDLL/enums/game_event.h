@@ -4,6 +4,8 @@ enum class GameEvent
 {
     Update,
     FixedUpdate,
+    GainedFocus,
+    LostFocus,
     Shutdown,
 
     NewGame,

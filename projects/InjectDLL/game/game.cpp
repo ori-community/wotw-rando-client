@@ -38,8 +38,11 @@ namespace game
 
         IL2CPP_INTERCEPT(, GameController, void, OnApplicationFocus, (app::GameController* this_ptr, bool focusStatus))
         {
+            auto evt = focusStatus ? GameEvent::GainedFocus : GameEvent::LostFocus;
+            game_event_bus.trigger_event(evt, EventTiming::Start);
             this_ptr->fields._PreventFocusPause_k__BackingField = true;
             GameController::OnApplicationFocus(this_ptr, focusStatus);
+            game_event_bus.trigger_event(evt, EventTiming::End);
         }
 
         IL2CPP_INTERCEPT(, GameController, void, OnApplicationQuit, (app::GameController* this_ptr)) {
