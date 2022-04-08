@@ -156,6 +156,8 @@ namespace RandoMainDLL {
   }
 
   public abstract class Pickup {
+    public static readonly string DisplayNameEmpty = "Empty";
+
     public virtual int Frames { get => _frames; set => _frames = value; }
     private int _frames = 240;
     public virtual bool Clear { get => true; }
@@ -165,7 +167,7 @@ namespace RandoMainDLL {
     public bool NonEmpty = true;
     public bool Muted = false;
     public abstract PickupType Type { get; }
-    public abstract string DisplayName { get; }
+    public virtual string DisplayName { get => DisplayNameEmpty; }
     public virtual string ShopName { get => DisplayName; }
     public virtual string Name { get => DisplayName; }
     public override string ToString() => Name;
@@ -180,7 +182,7 @@ namespace RandoMainDLL {
     }
     
     public virtual void Grant(bool skipBase = false, Vector2? position = null) {
-      if (!skipBase && Frames > 0 && DisplayName.Length > 0 && !Muted)
+      if (!skipBase && Frames > 0 && DisplayName != DisplayNameEmpty && !Muted)
         MessageController.ShowPickup(DisplayName, Frames / 60.0f, pickupPosition: position);
     }
     
@@ -240,7 +242,6 @@ namespace RandoMainDLL {
       UberStateController.SkipUberStateMapCount[Id] = SupCount;
       UberSet.Raw(Id.GroupID, Id.ID, Modifier(UberGet.value(Id)));
     }
-    public override string DisplayName { get => ""; }
     public override string Name { get => $"{Id} -> {ModStr}"; }
   }
 
@@ -281,11 +282,17 @@ namespace RandoMainDLL {
       foreach (var child in Children) {
         if (child is ConditionalStop s && s.StopActive())
           break;
+
         child.Grant(true);
-        if (child.Muted || child.DisplayName == "" || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
+        if (child.Muted || child.DisplayName == Pickup.DisplayNameEmpty || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
           continue;
+
         nameAfterGrant += child.DisplayName + (child.DisplayName.EndsWith("<\\>") ? "" : "\n");
       }
+
+      if (nameAfterGrant == string.Empty)
+        nameAfterGrant = DisplayNameEmpty;
+
       base.Grant(false);
       nameAfterGrant = null;
     }
@@ -300,12 +307,16 @@ namespace RandoMainDLL {
         foreach (var child in Children) {
           if (child is ConditionalStop s && s.StopActive())
             break;
-          if (child.Muted || child.DisplayName == "" || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
+
+          if (child.Muted || child.DisplayName == DisplayNameEmpty || child.Frames == 0 ||
+            squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
             continue;
+
           ret += child.DisplayName + (child.DisplayName.EndsWith("<\\>") ? "" : "\n");
         }
+
         ret = ret.TrimEnd('\n');
-        return ret == string.Empty ? "Empty" : ret;
+        return ret == string.Empty ? DisplayNameEmpty : ret;
       }
     }
 
@@ -313,7 +324,7 @@ namespace RandoMainDLL {
 
     public override int DefaultCost() => Children.Sum(p => p.DefaultCost());
 
-    public override string Name { get => string.Join("\n", Children.Select(c => c.Name).Where(s => s.Length > 0)); }
+    public override string Name { get => string.Join("\n", Children.Select(c => c.Name).Where(s => s != DisplayNameEmpty)); }
   }
 
   public class Message : Pickup {
@@ -654,7 +665,6 @@ namespace RandoMainDLL {
       }
     }
     public override string Name { get => type.ToString(); }
-    public override string DisplayName { get => ""; }
   }
 
   public class SetResource : SystemCommand {
@@ -808,7 +818,7 @@ namespace RandoMainDLL {
     }
     public override PickupType Type => PickupType.SystemCommand;
     public override string Name { get => type.ToString(); }
-    public override string DisplayName => IsCondMet() ? Pickup.DisplayName : "";
+    public override string DisplayName => IsCondMet() ? Pickup.DisplayName : Pickup.DisplayNameEmpty;
     public override int Frames => IsCondMet() ? Pickup.Frames : base.Frames;
     public override float? Pos => IsCondMet() ? Pickup.Pos: base.Pos;
     public override bool Clear => IsCondMet() ? Pickup.Clear : base.Clear;
@@ -956,7 +966,6 @@ namespace RandoMainDLL {
       base.Grant(skipBase, position);
     }
     public override string Name { get => $"On trigger {id}"; }
-    public override string DisplayName { get => ""; }
   }
 
   public class SaveStringCommand : SystemCommand {
@@ -1220,7 +1229,7 @@ namespace RandoMainDLL {
         if (found.Count == 0)
           return $"0/{tc}";
         var cnt = fc == tc ? $"${tc}/{tc}$" : $"{fc}/{tc}";
-        return $"{cnt}: {String.Join(", ", found.Select(uc => uc.Pickup().DisplayName))}";
+        return $"{cnt}: {string.Join(", ", found.Select(uc => uc.Pickup().DisplayName))}";
       }
     }
 
@@ -1239,7 +1248,6 @@ namespace RandoMainDLL {
         }
       }
       public override string Name { get => type.ToString(); }
-      public override string DisplayName { get => ""; }
     }
 
     public class SetActiveWheelCommand : WheelCommand {
@@ -1407,7 +1415,6 @@ namespace RandoMainDLL {
       public readonly string Texture;
 
       public override string Name { get => $"{Texture} icon for {SlotId}"; }
-      public override string DisplayName { get => ""; }
 
       public IconCommand(UberId slotId, string texture) : base(ShopCommandType.Icon, slotId) {
         Texture = texture;
@@ -1425,7 +1432,6 @@ namespace RandoMainDLL {
       public readonly string Title;
 
       public override string Name { get => $"title '{Title}' for {SlotId}"; }
-      public override string DisplayName { get => ""; }
 
       public TitleCommand(UberId slotId, string title) : base(ShopCommandType.Title, slotId) {
         Title = title;
@@ -1443,7 +1449,6 @@ namespace RandoMainDLL {
       public readonly string Description;
 
       public override string Name { get => $"description '{Description}' for {SlotId}"; }
-      public override string DisplayName { get => ""; }
 
       public DescriptionCommand(UberId slotId, string description) : base(ShopCommandType.Description, slotId) {
         Description = description;
@@ -1460,7 +1465,6 @@ namespace RandoMainDLL {
       public readonly bool IsVisible;
 
       public override string Name { get => $"visible {IsVisible} for {SlotId}"; }
-      public override string DisplayName { get => ""; }
 
       public VisibleCommand(UberId slotId, bool isVisible) : base(ShopCommandType.Visible, slotId) {
         IsVisible = isVisible;
@@ -1477,7 +1481,6 @@ namespace RandoMainDLL {
       public readonly bool IsLocked;
 
       public override string Name { get => $"locked {IsLocked} for {SlotId}"; }
-      public override string DisplayName { get => ""; }
 
       public LockedCommand(UberId slotId, bool isLocked) : base(ShopCommandType.Locked, slotId) {
         IsLocked = isLocked;

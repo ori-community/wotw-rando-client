@@ -143,26 +143,36 @@ namespace RandoMainDLL {
       return argsList;
     }
     public static int FilterIconType(int groupId, int id, int value) {
-      var condAndPickup = new UberId(groupId, id).PickupWithCondition(value);
-      if (condAndPickup.Item2.NonEmpty || condAndPickup.Item1.Loc() != LocData.Void)
-        return (int)condAndPickup.Item2.Icon;
+      var cond = new UberStateCondition(groupId, id, value == 0 ? 1 : value,
+        value == -1 ? UberStateCondition.Handler.Greater : UberStateCondition.Handler.Equals);
+      var pickup = cond.Pickup();
+
+      if (pickup.NonEmpty || cond.Loc() != LocData.Void)
+        return (int)pickup.Icon;
       else
         return (int)WorldMapIconType.Eyestone;
     }
     public static void FilterIconText(IntPtr buffer, int length, int groupId, int id, int value, int filterId) {
-      var condAndPickup = new UberId(groupId, id).PickupWithCondition(value);
+      var cond = new UberStateCondition(groupId, id, value == 0 ? 1 : value,
+        value == -1 ? UberStateCondition.Handler.Greater : UberStateCondition.Handler.Equals);
+      var pickup = cond.Pickup();
       var f = (FilterType)filterId;
 
       string text = ((f == FilterType.InLogic || f == FilterType.Spoilers) && UberGet.value(34543, 11226).Bool
-        ? condAndPickup.Item1.SpoilerName(condAndPickup.Item2)
-        : LocName(condAndPickup.Item1)) ?? " ";
+        ? cond.SpoilerName(pickup)
+        : LocName(cond)) ?? " ";
       length = Math.Min(text.Length, length);
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
     }
 
     public static string SpoilerName(this UberStateCondition cond, Pickup pick) {
-      //var pick = cond.Pickup();
-      string text = pick.Name;
+      string text = pick.DisplayName;
+      if (pick.NonEmpty && text == Pickup.DisplayNameEmpty)
+        text = pick.Name;
+
+      if (text == string.Empty || text == Pickup.DisplayNameEmpty)
+        text = " ";
+
       if (!pick.NonEmpty && cond.Loc() == LocData.Void)
         text = " ";
 
@@ -170,6 +180,7 @@ namespace RandoMainDLL {
         text = text.Replace(wrap, "");
       if (NameLabels)
         text = $"{cond.Loc().FullName}\n{text}";
+
       return text;
     }
     public static string LocName(this UberStateCondition cond) => NameLabels ? cond.Loc().FullName : cond.Loc()?.Name;

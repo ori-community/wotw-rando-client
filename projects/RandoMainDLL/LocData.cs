@@ -113,6 +113,35 @@ namespace RandoMainDLL {
     }
     public static LocData Void = new LocData(ZoneType.Void, LocType.Unknown);
 
+    public string TypeString() {
+      switch(Type) {
+        case LocType.SpiritLight:
+          return "SpiritLight";
+        case LocType.Tree:
+          return "Tree";
+        case LocType.Shard:
+          return "Shard";
+        case LocType.Shop:
+          return "Shop";
+        case LocType.Quest:
+          return "Quest";
+        case LocType.Energy:
+          return "Energy";
+        case LocType.Health:
+          return "Health";
+        case LocType.ShardSlot:
+          return "Shard Slot";
+        case LocType.Ore:
+          return "Ore";
+        case LocType.Keystone:
+          return "Keystone";
+        case LocType.Eyestone:
+          return "Eyestone";
+      }
+
+      return "Unknown";
+    }
+
   }
   public static class LocDataStatic {
     public static void PopulateLocData() {

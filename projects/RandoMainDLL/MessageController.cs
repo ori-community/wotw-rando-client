@@ -187,7 +187,7 @@ namespace RandoMainDLL {
     }
 
     public static void SetInfoText(string text) {
-      INFO.Text = text == "" ? " " : text;
+      INFO.Text = text == Pickup.DisplayNameEmpty ? " " : text;
     }
 
     public static void Clear(string queue = null) {
