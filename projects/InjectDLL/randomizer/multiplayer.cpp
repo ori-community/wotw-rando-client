@@ -198,7 +198,8 @@ namespace multiplayer
     {
         app::Vector3 pos{ info.map_avatar.position.x, info.map_avatar.position.y, 0.f };
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
-        IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, info.map_avatar.root, &pos, false);
+        if (il2cpp::unity::is_valid(area_map))
+            IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, info.map_avatar.root, &pos, false);
     }
 
     void create_icons(PlayerInfo& info)
