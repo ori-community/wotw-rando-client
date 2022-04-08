@@ -7,6 +7,8 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 
+#include <magic_enum/include/magic_enum.hpp>
+
 using namespace modloader;
 
 namespace
@@ -68,6 +70,12 @@ namespace game
         void unbind(app::EquipmentType__Enum equip_type)
         {
             SpellInventory::UnbindItem(sein()->fields.PlayerSpells, equip_type);
+        }
+
+        void unbind_all()
+        {
+            for (auto entry : magic_enum::enum_entries<app::EquipmentType__Enum>())
+                SpellInventory::UnbindItem(sein()->fields.PlayerSpells, entry.first);
         }
 
         bool can_move()

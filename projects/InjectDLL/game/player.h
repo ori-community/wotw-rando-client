@@ -11,6 +11,7 @@ namespace game
 
         void bind(app::SpellInventory_Binding__Enum slot, app::EquipmentType__Enum equip_type);
         void unbind(app::EquipmentType__Enum equip_type);
+        void unbind_all();
 
         bool can_move();
     }

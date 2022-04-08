@@ -3,6 +3,7 @@
 #include <interop/csharp_bridge.h>
 #include <constants.h>
 #include <features/scenes/scene_load.h>
+#include <game/player.h>
 #include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_virtual.h>
 
@@ -855,6 +856,8 @@ namespace uber_states
         auto position = get_position();
         for (auto state : stat_states)
             saved[state] = get_uber_state_value(14, state);
+
+        game::player::unbind_all();
 
         auto instance = il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController")->static_fields->m_currentStateValueStore;
         instance->fields.m_isInitialized = false;
