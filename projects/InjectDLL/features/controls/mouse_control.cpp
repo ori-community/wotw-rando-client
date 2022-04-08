@@ -20,6 +20,18 @@ namespace
 
     float mouse_control_deadzone = 50.f;
 
+    app::ControlScheme__Enum current_controls()
+    {
+        static app::GameSettings* settings = nullptr;
+        if (!il2cpp::unity::is_valid(settings))
+            return settings->fields.m_currentControlSchemes;
+
+        settings = il2cpp::get_class<app::GameSettings__Class>("", "GameSettings")->static_fields->Instance;
+        return il2cpp::unity::is_valid(settings)
+            ? settings->fields.m_currentControlSchemes
+            : app::ControlScheme__Enum_KeyboardAndMouse;
+    }
+
     //float current, float target, ref float currentVelocity, float smoothTime, float maxSpeed = Mathf.Infinity, float deltaTime = Time.deltaTime
     STATIC_IL2CPP_BINDING(UnityEngine, Time, float, get_deltaTime, ());
     STATIC_IL2CPP_BINDING(UnityEngine, Mathf, float, SmoothDampAngle, (float current, float target, float& currentVelocity, float smoothTime, float maxSpeed, float deltaTime));
@@ -100,7 +112,7 @@ namespace
         if (!player_input->fields.Active)
             return ret;
 
-        if (overwrite_input)
+        if (overwrite_input && current_controls() == app::ControlScheme__Enum_KeyboardAndMouse)
             ret = get_mouse_dir();
         else
             ret = Input::get_Axis();
