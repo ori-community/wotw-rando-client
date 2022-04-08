@@ -28,6 +28,9 @@
 #include <vector>
 #include <json/json.hpp>
 
+#undef max
+#undef min
+
 using namespace modloader;
 
 namespace ipc
@@ -35,6 +38,7 @@ namespace ipc
     namespace
     {
         constexpr int MESSAGE_SIZE = 8192;
+        constexpr int MAX_HANDLED_MESSAGES = 300;
         std::unique_ptr<std::thread> ipc_thread;
         std::mutex message_mutex;
         std::mutex send_mutex;
@@ -172,9 +176,13 @@ namespace ipc
 
         void update_pipe(GameEvent game_event, EventTiming timing)
         {
+            std::vector<std::string> local_messages;
             message_mutex.lock();
-            auto local_messages = messages;
-            messages.clear();
+            auto message_count = std::min(MAX_HANDLED_MESSAGES, static_cast<int>(messages.size()));
+            auto begin = std::make_move_iterator(messages.begin());
+            auto end = std::make_move_iterator(messages.begin() + message_count);
+            local_messages.insert(local_messages.end(), begin, end);
+            messages.erase(messages.begin(), messages.begin() + message_count);
             message_mutex.unlock();
 
             for (auto const& message : local_messages)

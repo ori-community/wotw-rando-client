@@ -1,5 +1,6 @@
 #include <features/scenes/scene_load.h>
 #include <randomizer/ipc/ipc.h>
+#include <uber_states/uber_state_manager.h>
 #include <utils/json_serializers.h>
 
 #include <Common/ext.h>
@@ -33,6 +34,17 @@ namespace ipc
                 { "type", type },
                 { "value", value }
             };
+        }
+
+        void visualize_uber_state(nlohmann::json& j, void* obj, bool verbose) {
+            auto cast = reinterpret_cast<app::UberIDOwnerSO*>(obj);
+            auto group = il2cpp::invoke<app::UberID>(cast, "get_GroupID")->fields.m_id;
+            auto value = uber_states::get_uber_state_value(reinterpret_cast<app::IUberState*>(cast));
+            j["value"] = nlohmann::json::array({
+                create_variable("group_id", "scalar", group),
+                create_variable("state_id", "scalar", cast->fields.m_id->fields.m_id),
+                create_variable("value", "scalar", value),
+            });
         }
 
         void visualize_uber_state_condition(nlohmann::json& j, void* obj, bool verbose)
@@ -284,6 +296,7 @@ namespace ipc
             //{ "Moon.SerializedByteUberState", visualize_serialized_uber_state },
             //{ "Moon.SerializedIntUberState", visualize_serialized_uber_state },
             { "Moon.ConditionUberState", visualize_condition_uber_state },
+            { "Moon.UberIDOwnerSO", visualize_uber_state },
             
             //{ "SceneRoot", visualize_scene_root },
             { "UnityEngine.GameObject", visualize_game_object },
@@ -316,7 +329,10 @@ namespace ipc
                 auto it = visualizers.find(full_name);
                 if (it != visualizers.end())
                 {
-                    j["type"] = get_klass_name(klass);
+                    j["type"] = get_klass_name(cast->klass);
+                    if (cast->klass != klass)
+                        j["visualizer_type"] = get_klass_name(klass);
+
                     it->second(j, obj, verbose);
                     return j;
                 }
