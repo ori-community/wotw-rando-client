@@ -537,13 +537,14 @@ namespace RandoMainDLL {
                 new UberId(incGroup, incState)
               );
             case SysCommandType.RedirectState:
-              if (extras.Count != 2) {
+              if (extras.Count != 3) {
                 Randomizer.Log($"malformed command specifier {command}", false);
                 return new Message($"Invalid command {command}!");
               }
-              var redirectState = extras[0].ParseToInt("BuildPickup.RedirectState");
-              var redirectValue = extras[1].ParseToInt("BuildPickup.RedirectValue");
-              return new RedirectStateCommand(redirectState, redirectValue);
+              var redirectPath = extras[0];
+              var redirectState = extras[1].ParseToInt("BuildPickup.RedirectState");
+              var redirectValue = extras[2].ParseToInt("BuildPickup.RedirectValue");
+              return new RedirectStateCommand(redirectPath, redirectState, redirectValue);
             case SysCommandType.EnableSync:
             case SysCommandType.DisableSync:
               if (extras.Count != 2) {

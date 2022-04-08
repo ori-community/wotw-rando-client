@@ -185,14 +185,17 @@ namespace randomizer
                 }
             }
 
-            void add_applier_intercept_commands()
+            void initialize()
             {
                 console::register_command({ "debug", "intercept_state" }, intercept_state);
                 console::register_command({ "debug", "show_state" }, show_state);
                 console::register_command({ "debug", "show_state_paths" }, show_state_paths);
+
+                // Bubble spawner at entrance of pools.
+                register_new_setup_redirect(std::make_pair("lumaPoolsA/interactives/stateController", 631536139), 1230316956, false);
             }
 
-            CALL_ON_INIT(add_applier_intercept_commands);
+            CALL_ON_INIT(initialize);
         }
 
         void register_new_setup_intercept(applier_key key, applier_intercept callback)
@@ -247,20 +250,11 @@ namespace randomizer
         {
             register_new_setup_redirect({ std::string(view), states.first }, states.second, dynamic);
         }
-
-        void initialize()
-        {
-            // Bubble spawner at entrance of pools.
-            // TODO: Add path here.
-            register_new_setup_redirect(std::make_pair("lumaPoolsA/interactives/stateController", 631536139), 1230316956, false);
-        }
-
-        CALL_ON_INIT(initialize);
     }
 }
 
-INJECT_C_DLLEXPORT void register_state_redirect(const int state, const int value)
+INJECT_C_DLLEXPORT void register_state_redirect(const char* path, const int state, const int value)
 {
     // TODO: Handle path here.
-    randomizer::conditions::register_new_setup_redirect(std::make_pair("", state), value, true);
+    randomizer::conditions::register_new_setup_redirect(std::make_pair(path, state), value, true);
 }

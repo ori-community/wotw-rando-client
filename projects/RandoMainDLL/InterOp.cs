@@ -397,7 +397,7 @@ namespace RandoMainDLL {
     [return: MarshalAs(UnmanagedType.U1)]
     public extern static bool toggle_cursorlock();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void register_state_redirect(int state, int value);
+    public extern static void register_state_redirect([MarshalAs(UnmanagedType.LPStr)] string path, int state, int value);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void register_delegate([MarshalAs(UnmanagedType.LPStr)] string s, IntPtr del);

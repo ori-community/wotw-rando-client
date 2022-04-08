@@ -894,15 +894,17 @@ namespace RandoMainDLL {
     }
   }
   public class RedirectStateCommand : SystemCommand {
+    string path;
     int state;
     int value;
 
-    public RedirectStateCommand(int state, int value) : base(SysCommandType.SetState) {
+    public RedirectStateCommand(string path, int state, int value) : base(SysCommandType.SetState) {
+      this.path = path;
       this.state = state;
       this.value = value;
     }
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.register_state_redirect(state, value);
+      InterOp.register_state_redirect(path, state, value);
     }
   }
   public class WarpCommand : SystemCommand {
