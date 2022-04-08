@@ -86,7 +86,14 @@ namespace randomizer
             {
                 // TODO: Add all the wellspring corruption blobs.
                 register_targetable("waterMillPool__clone0/interactives/wheelASetup/shootableTentacleCreepA/creep", app::AbilityType__Enum_TurretSpell, true);
+                register_targetable("waterMillPool__clone0/interactives/wheelASetup/shootableTentacleCreepB/creep", app::AbilityType__Enum_TurretSpell, true);
                 register_targetable("waterMillAExit/interactives/fastWheelsSetup/shootableTentacleCreepC/creep", app::AbilityType__Enum_TurretSpell, true);
+                register_targetable("wotwSaveRoomC__clone0__clone1/interactives/fastWheelActivationSetup/shootableTentacleCreepD/creep", app::AbilityType__Enum_TurretSpell, true);
+                register_targetable("waterMillEntrance/physics/lanternAndCreepB/shootableTentacleCreepl/Creep", app::AbilityType__Enum_TurretSpell, true);
+                register_targetable("waterMillBCorridorB/*rotatingArenaSetupNew/discs/wheelActivationSetup/shootableTentacleCreepE/creep", app::AbilityType__Enum_TurretSpell, true);
+                register_targetable("waterMillBEntrance/art/flattened/BigCell12/activationSetup/shootableTentacleCreepF/creep", app::AbilityType__Enum_TurretSpell, true);
+                register_targetable("waterMillEntrance/interactives/fallingDiscSetup/shootableTentacleCreepH/creep", app::AbilityType__Enum_TurretSpell, true);
+                register_targetable("waterMillEntrance/interactives/doorStateController/shootableTentacleCreepG/creep", app::AbilityType__Enum_TurretSpell, true);
             }
 
             CALL_ON_INIT(initialize);
@@ -102,5 +109,7 @@ namespace randomizer
             auto& values = targetable_overrides[std::string(path)];
             values.overrides[ability].new_value = value;
         }
+         
+        // AttackableSwitch AttackableSwitch_DoesReactTo public List<AttackableSwitch.AttackTypes> Attacks;
     }
 }
