@@ -35,8 +35,6 @@ namespace ipc
     namespace
     {
         constexpr int MESSAGE_SIZE = 8192;
-        constexpr int SEND_QUEUE_LIMIT = 300;
-
         std::unique_ptr<std::thread> ipc_thread;
         std::mutex message_mutex;
         std::mutex send_mutex;
@@ -203,10 +201,7 @@ namespace ipc
     void send_message(std::string_view message)
     {
         send_mutex.lock();
-        if (sends.size() < SEND_QUEUE_LIMIT)
-            sends.push_back(std::string(message));
-        else
-            warn("ipc", "Send queue limit reached.");
+        sends.push_back(std::string(message));
         send_mutex.unlock();
     }
 
