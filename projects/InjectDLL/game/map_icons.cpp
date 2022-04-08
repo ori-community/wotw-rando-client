@@ -954,7 +954,7 @@ namespace
         auto icon_manager = area_map->fields._IconManager_k__BackingField;
         auto count = static_cast<int32_t>(NewFilters::COUNT);
         auto prev = current_filter;
-        if (csharp_bridge::filter_enabled(current_filter))
+        if (!csharp_bridge::filter_enabled(current_filter))
         {
             current_filter = (current_filter + 1) % count;
             while (!csharp_bridge::filter_enabled(current_filter) && current_filter != prev)

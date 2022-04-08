@@ -35,20 +35,93 @@ namespace ipc
             };
         }
 
+        void visualize_uber_state_condition(nlohmann::json& j, void* obj, bool verbose)
+        {
+            auto cast = reinterpret_cast<app::UberStateCondition*>(obj);
+            auto state = il2cpp::invoke<app::Boolean__Boxed>(cast->fields.Descriptor, "CanResolve", nullptr)->fields
+                ? il2cpp::invoke<app::IUberState>(cast->fields.Descriptor, "Resolve", nullptr)
+                : nullptr;
+            j["value"] = nlohmann::json::array({
+                create_variable("condition_type", "scalar", cast->fields.m_conditionClassID),
+                visualize(state, "descriptor", verbose),
+                visualize(cast->fields.Data, "data", verbose),
+            });
+        }
+
+        void visualize_condition_uber_state(nlohmann::json& j, void* obj, bool verbose)
+        {
+            auto cast = reinterpret_cast<app::ConditionUberState*>(obj);
+            auto descriptors = nlohmann::json::array();
+            for (auto i = 0; i < cast->fields.Descriptors->fields._size; ++i)
+            {
+                auto descriptor = cast->fields.Descriptors->fields._items->vector[i];
+                descriptors.push_back(visualize(descriptor, std::to_string(i), verbose));
+            }
+
+            j["value"] = nlohmann::json::array({
+                create_variable("check_mode", "scalar", cast->fields.CheckMode),
+                create_variable("group_id", "scalar", cast->fields.Group->fields._.m_id->fields.m_id),
+                create_variable("state_id", "scalar", cast->fields._.m_id->fields.m_id),
+                create_variable("descriptors", "array", descriptors),
+            });
+        }
+
+        void visualize_activate_based_on_condition(nlohmann::json& j, void* obj, bool verbose)
+        {
+            auto cast = reinterpret_cast<app::ActivateBasedOnCondition*>(obj);
+            auto condition_path = il2cpp::unity::get_path(cast->fields.Condition);
+            auto target = il2cpp::invoke<app::Boolean__Boxed>(cast->fields.MoonTarget, "CanResolve", nullptr)->fields
+                ? il2cpp::invoke<app::GameObject>(cast->fields.MoonTarget, "Resolve", nullptr)
+                : nullptr;
+            auto moon_target_path = il2cpp::unity::get_path(target);
+            auto target_path = il2cpp::unity::get_path(cast->fields.Target);
+            j["value"] = nlohmann::json::array({
+                create_variable("activate", "scalar", cast->fields.Activate),
+                create_variable("condition", "game_object", condition_path),
+                create_variable("moon_target", "game_object", moon_target_path),
+                create_variable("target", "game_object", target_path)
+            });
+        }
+
+        void visualize_sein_ability_condition(nlohmann::json& j, void* obj, bool verbose)
+        {
+            auto cast = reinterpret_cast<app::SeinAbilityCondition*>(obj);
+            j["value"] = nlohmann::json::array({
+                create_variable("ability", "scalar", cast->fields.Ability)
+            });
+        }
+
+        void visualize_has_ability_condition(nlohmann::json& j, void* obj, bool verbose)
+        {
+            auto cast = reinterpret_cast<app::HasAbilityCondition*>(obj);
+            j["value"] = nlohmann::json::array({
+                create_variable("ability", "scalar", cast->fields.AbilityType)
+            });
+        }
+
+        void visualize_uber_state_condition_wrapper(nlohmann::json& j, void* obj, bool verbose)
+        {
+            auto cast = reinterpret_cast<app::UberStateConditionWrapper*>(obj);
+            j["value"] = nlohmann::json::array({
+                visualize(cast->fields.Condition, "condition", verbose),
+                create_variable("invert", "scalar", cast->fields.Invert),
+            });
+        }
+
         void visualize_setup_state(nlohmann::json& j, void* obj, bool verbose)
         {
-            auto ss = reinterpret_cast<app::SetupState*>(obj);
+            auto cast = reinterpret_cast<app::SetupState*>(obj);
             j["value"] = nlohmann::json::array({
-                create_variable("state_guid", "scalar", ss->fields.StateGUID),
-                create_variable("state_name", "scalar", il2cpp::convert_csstring(ss->fields.StateName))
+                create_variable("state_guid", "scalar", cast->fields.StateGUID),
+                create_variable("state_name", "scalar", il2cpp::convert_csstring(cast->fields.StateName))
             });
         }
 
         void visualize_setup_state_modifier(nlohmann::json& j, void* obj, bool verbose)
         {
             auto ssm = reinterpret_cast<app::SetupStateModifier*>(obj);
-            auto game_object = il2cpp::invoke<app::Boolean__Boxed>(ssm, "CanResolve", nullptr)->fields
-                ? il2cpp::invoke<app::GameObject>(ssm, "Resolve", nullptr)
+            auto game_object = il2cpp::invoke<app::Boolean__Boxed>(ssm->fields.Target, "CanResolve", nullptr)->fields
+                ? il2cpp::invoke<app::GameObject>(ssm->fields.Target, "Resolve", nullptr)
                 : nullptr;
             j["value"] = nlohmann::json::array({
                 create_variable("modifier_guid", "scalar", ssm->fields.ModifierGUID),
@@ -174,16 +247,8 @@ namespace ipc
                     arr.push_back(visualize(component, "", verbose));
 
                 j["value"] = nlohmann::json::array({
-                    {
-                        { "name", "layer" },
-                        { "type", "scalar" },
-                        { "value", layer }
-                    },
-                    {
-                        { "name", "components" },
-                        { "type", "components" },
-                        { "value", arr }
-                    }
+                    create_variable("layer", "scalar", layer),
+                    create_variable("components", "components", arr),
                 });
             }
             else
@@ -198,28 +263,35 @@ namespace ipc
             { "SetupStateModifier", visualize_setup_state_modifier },
             { "SetupState", visualize_setup_state },
             //{ "StateCondition", visualize_state_condition },
-            //
+
+            { "ActivateBasedOnCondition", visualize_activate_based_on_condition },
+            { "SeinAbilityCondition", visualize_sein_ability_condition },
+            { "HasAbilityCondition", visualize_has_ability_condition },
+            { "UberStateConditionWrapper", visualize_uber_state_condition_wrapper },
+
             //{ "UberStateBoolCondition", visualize_uber_state_bool_condition },
             //{ "UberStateValueCondition", visualize_uber_state_value_condition },
-            //
+            { "UberStateCondition", visualize_uber_state_condition },
+            
             //{ "DesiredUberStateComposite", visualize_desired_uber_state_composite },
             //{ "DesiredUberStateBool", visualize_desired_bool_uber_state },
             //{ "DesiredUberStateFloat", visualize_desired_float_uber_state },
             //{ "DesiredUberStateByte", visualize_desired_byte_uber_state },
             //{ "DesiredUberStateInt", visualize_desired_int_uber_state },
-            //
+            
             //{ "Moon.SerializedBooleanUberState", visualize_serialized_uber_state },
             //{ "Moon.SerializedFloatUberState", visualize_serialized_uber_state },
             //{ "Moon.SerializedByteUberState", visualize_serialized_uber_state },
             //{ "Moon.SerializedIntUberState", visualize_serialized_uber_state },
-            //
+            { "Moon.ConditionUberState", visualize_condition_uber_state },
+            
             //{ "SceneRoot", visualize_scene_root },
             { "UnityEngine.GameObject", visualize_game_object },
             { "UnityEngine.Transform", visualize_transform },
             //{ "UnityEngine.Mesh", visualize_unity_mesh },
             //{ "UnityEngine.MeshFilter", visualize_unity_mesh_filter },
             //{ "UnityEngine.Renderer", visualize_unity_renderer },
-            //
+            
             //{ "Respawner", visualize_respawner },
         };
 
@@ -283,6 +355,11 @@ namespace ipc
             if (children)
             {
                 auto children = il2cpp::unity::get_children(game_object);
+                std::sort(children.begin(), children.end(), [](auto a, auto b) {
+                    auto name_a = il2cpp::unity::get_object_name(a);
+                    auto name_b = il2cpp::unity::get_object_name(b);
+                    return name_a.compare(name_b);
+                });
                 auto payload = nlohmann::json::array();
                 for (auto child : children)
                     payload.push_back(visualize(child, il2cpp::unity::get_object_name(child), false));

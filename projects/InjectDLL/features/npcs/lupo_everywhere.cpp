@@ -13,6 +13,10 @@ namespace
     {
         randomizer::conditions::register_condition_intercept("swampTorchIntroductionA/npcSetup",
             [](std::string_view path, void* obj) { return true; });
+        randomizer::conditions::register_condition_intercept("swampTorchIntroductionA/npcSetup/mapMakerSetup/mapMakerEntity(Clone)",
+            [](std::string_view path, void* obj) { return true; });
+        randomizer::conditions::register_condition_intercept("swampTorchIntroductionA/npcSetup/mapMakerSetup/mapMakerEntity(Clone)/dialogs/conditions/canSellPins",
+            [](std::string_view path, void* obj) { return true; });
     }
 
     CALL_ON_INIT(initialize);

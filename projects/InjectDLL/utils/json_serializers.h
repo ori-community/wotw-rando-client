@@ -53,7 +53,12 @@ namespace app {
     NLOHMANN_JSON_SERIALIZE_ENUM(SetupControllerStateHolder_StateControllerMode__Enum, {
         { SetupControllerStateHolder_StateControllerMode__Enum_Active, "Active" },
         { SetupControllerStateHolder_StateControllerMode__Enum_Passive, "Passive" },
-        });
+    });
+
+    //NLOHMANN_JSON_SERIALIZE_ENUM(AbilityType__Enum, {
+    //    { AbilityType__Enum_Sword, "Active" },
+    //    { SetupControllerStateHolder_StateControllerMode__Enum_Passive, "Passive" },
+    //});
 }
 
 namespace randomizer
