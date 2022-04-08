@@ -23,7 +23,7 @@ namespace
     app::ControlScheme__Enum current_controls()
     {
         static app::GameSettings* settings = nullptr;
-        if (!il2cpp::unity::is_valid(settings))
+        if (il2cpp::unity::is_valid(settings))
             return settings->fields.m_currentControlSchemes;
 
         settings = il2cpp::get_class<app::GameSettings__Class>("", "GameSettings")->static_fields->Instance;
