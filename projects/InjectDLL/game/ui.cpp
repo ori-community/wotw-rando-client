@@ -37,6 +37,8 @@ namespace game
                 game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::Start, &on_area_map_open);
                 game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::End, &on_area_map_open);
             }
+
+            CALL_ON_INIT(initialize);
         }
 
         app::UI__Class* get() { return il2cpp::get_class<app::UI__Class>("Game", "UI"); }
