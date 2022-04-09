@@ -11,7 +11,7 @@ namespace
         // Upper Marsh
         // 1808259966 Present
         // 1558151251 Gone
-        randomizer::conditions::register_new_setup_redirect({ "", 1558151251 }, 1808259966);
+        randomizer::conditions::register_new_setup_redirect({ "swampWalljumpChallengeA/NPCSetup", 1558151251 }, 1808259966);
     }
 
     CALL_ON_INIT(initialize_tokk);

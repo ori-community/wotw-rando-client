@@ -397,7 +397,7 @@ namespace ipc
                     states.push_back(visualize(state, std::to_string(i), verbose));
                 }
 
-                app::IUberState* state;
+                app::IUberState* state = nullptr;
                 auto state_ref = nssc->fields.StateHolder->fields._._.State;
                 if (il2cpp::unity::is_valid(state_ref))
                     state = il2cpp::invoke<app::Boolean__Boxed>(state_ref, "CanResolve", nullptr)->fields

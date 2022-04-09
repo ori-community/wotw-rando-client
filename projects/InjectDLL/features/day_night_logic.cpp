@@ -189,19 +189,23 @@ namespace
 
         randomizer::conditions::register_new_setup_intercept({
                 "swampWalljumpChallengeA/*setups/*timesOfDay",
-                "doubleJumpEscalationB__clone0/*timesOfDay"
+                "swampWalljumpChallengeB/*timesOfDay",
+                "doubleJumpEscalationB__clone0/*timesOfDay",
             }, { -1834135337, -949591271 }, [](auto, auto, auto, auto) -> int32_t { return is_day() ? -1834135337 : -949591271; }
         );
         
-
         randomizer::conditions::register_new_setup_intercept({ "swampNightcrawlerBshortcut/*setups/timesOfDayTransition" }, { 1001861749, 787945376 }, [](auto, auto, auto, auto) -> int32_t {
             return is_day() ? 1001861749 : 787945376;
         });
         
         // Sword Cutscene rain
-        randomizer::conditions::register_new_setup_intercept({ "swampGetSpiritBlade/timesOfDayController" }, { -480342150, 907153171 }, [](auto, auto, auto, auto) -> int32_t {
-            return is_day() ? 907153171 : -480342150;
-        });
+        randomizer::conditions::register_new_setup_intercept({
+                "swampGetSpiritBlade/timesOfDayController",
+                "swampGetSpiritBlade/timesOfDayTransition"
+            }, { -480342150, 907153171 }, [](auto, auto, auto, auto) -> int32_t {
+                return is_day() ? 907153171 : -480342150;
+            }
+        );
 
         // Remove regen tree water and move day water around (288338807 : day, -1643391836 : night).
         randomizer::conditions::register_new_setup_intercept({ "swampSaveRoomA/timesOfDayTransition" },
