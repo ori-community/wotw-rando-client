@@ -30,6 +30,19 @@ namespace RandoMainDLL {
       }
     }
 
+    public class SetSeedCommand : IUberStateCommand {
+      Network.SetSeedMessage message;
+      public SetSeedCommand(Network.SetSeedMessage message) {
+        this.message = message;
+      }
+
+      public void Resolve() {
+        SeedController.SeedFile = "server: " + seedMessage.Name;
+        File.WriteAllText(Randomizer.SeedPathFile, SeedController.SeedFile);
+        SeedController.ParseLines(seedMessage.Seed.Split('\n'), seedMessage.Init, false);
+      }
+    }
+
     public static HashSet<UberId> TimerUberStates = new HashSet<UberId>();
     public static HashSet<UberId> SyncedUberStates = new HashSet<UberId>();
     public static Dictionary<UberId, UberState> UberStates = new Dictionary<UberId, UberState>();

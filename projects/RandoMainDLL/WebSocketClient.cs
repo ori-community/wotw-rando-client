@@ -296,9 +296,7 @@ namespace RandoMainDLL {
             break;
           case Packet.Types.PacketID.SetSeedMessage:
             var seedMessage = SetSeedMessage.Parser.ParseFrom(packet.Packet_);
-            SeedController.SeedFile = "server: " + seedMessage.Name;
-            File.WriteAllText(Randomizer.SeedPathFile, SeedController.SeedFile);
-            SeedController.ParseLines(seedMessage.Seed.Split('\n'), seedMessage.Init, false);
+            UberStateQueue.Add(new UberStateController.SetSeedCommand(seedMessage));
             break;
           case Packet.Types.PacketID.PlayerUsedCatchingAbility:
           case Packet.Types.PacketID.PlayerCaught:
