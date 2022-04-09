@@ -10,7 +10,7 @@ namespace
 {
     bool overwrite_attackables = false;
     IL2CPP_INTERCEPT(, SeinSpiritSpearSpell, void, FindClosestAttackTarget, (app::SeinSpiritSpearSpell* this_ptr)) {
-        overwrite_attackables = randomizer::settings::autoaim();
+        overwrite_attackables = !randomizer::settings::autoaim();
         SeinSpiritSpearSpell::FindClosestAttackTarget(this_ptr);
         overwrite_attackables = false;
     }
@@ -25,7 +25,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SeinBowAttack, void, UpdateCharacterState, (app::SeinBowAttack* this_ptr)) {
-        overwrite_attackables = randomizer::settings::autoaim();
+        overwrite_attackables = !randomizer::settings::autoaim();
         SeinBowAttack::UpdateCharacterState(this_ptr);
         overwrite_attackables = false;
     }
