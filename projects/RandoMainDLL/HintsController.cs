@@ -85,6 +85,7 @@ namespace RandoMainDLL {
           time: duration,
           position: pos,
           screen: ScreenPosition.TopCenter,
+          vertical: VerticalAnchor.Top,
           muted: pp.Quiet,
           log: justUnlocked
         );

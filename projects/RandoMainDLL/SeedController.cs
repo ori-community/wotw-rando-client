@@ -58,13 +58,21 @@ namespace RandoMainDLL {
       Equals
     }
 
+    public enum MetBehaviour {
+      EveryChange,
+      JustMet
+    }
+
     public UberId Id;
     public int Target;
     public Handler TargetHandler;
+    public MetBehaviour Behaviour;
+
     public UberStateCondition(UberId id, int target, Handler handler) {
       TargetHandler = handler;
       Id = id;
       Target = target;
+      Behaviour = MetBehaviour.EveryChange;
     }
     public UberStateCondition(int groupId, int id, int target, Handler handler) {
       TargetHandler = handler;
@@ -80,6 +88,7 @@ namespace RandoMainDLL {
           Id = new UberId(groupId, idAndTarget[0].ParseToInt("UberStateCondition.Id"));
           Target = idAndTarget[1].ParseToInt("UberStateCondition.Target");
           TargetHandler = value;
+          Behaviour = MetBehaviour.JustMet;
           return;
         }
       }
@@ -87,6 +96,7 @@ namespace RandoMainDLL {
       Id = new UberId(groupId, int.Parse(rawTarget));
       Target = 0;
       TargetHandler = Handler.Greater;
+      Behaviour = MetBehaviour.EveryChange;
     }
 
     private bool CheckTarget(double value) {
@@ -117,9 +127,20 @@ namespace RandoMainDLL {
       if (state.GroupID != Id.GroupID || state.ID != Id.ID)
         return false;
 
-      var prev = CheckTarget(old.AsDouble(state.Type));
-      var next = CheckTarget(state.ValueAsDouble());
-      return !prev && next;
+      var prevValue = old.AsDouble(state.Type);
+      var nextValue = state.ValueAsDouble();
+
+      var prev = CheckTarget(prevValue);
+      var next = CheckTarget(nextValue);
+      switch (Behaviour) {
+        case MetBehaviour.EveryChange:
+          return next;
+        case MetBehaviour.JustMet:
+          return !prev && next;
+      }
+
+      // Should never hit this.
+      return false;
     }
 
     public override string ToString() => $"{Id}{TargetHandler.Symbol()}{Target}";
