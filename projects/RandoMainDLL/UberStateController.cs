@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using RandoMainDLL.Memory;
@@ -37,9 +38,9 @@ namespace RandoMainDLL {
       }
 
       public void Resolve() {
-        SeedController.SeedFile = "server: " + seedMessage.Name;
+        SeedController.SeedFile = "server: " + message.Name;
         File.WriteAllText(Randomizer.SeedPathFile, SeedController.SeedFile);
-        SeedController.ParseLines(seedMessage.Seed.Split('\n'), seedMessage.Init, false);
+        SeedController.ParseLines(message.Seed.Split('\n'), message.Init, false);
       }
     }
 
