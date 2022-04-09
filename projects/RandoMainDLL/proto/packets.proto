@@ -144,7 +144,7 @@ message WorldInfo {
   string name = 2;
   string color = 3;
   repeated UserInfo members = 4;
-  optional string seedFile = 5;
+  optional int64 seedId = 5;
 }
 
 message UniverseInfo {
@@ -164,7 +164,7 @@ message MultiverseInfoMessage {
   repeated UniverseInfo universes = 2;
   bool hasBingoBoard = 3;
   repeated UserInfo spectators = 4;
-  optional int64 seedId = 5;
+  optional int64 seedGroupId = 5;
   GameHandlerType handlerType = 6;
   bytes handlerInfo = 7;
   optional VisibilityMessage visibility = 8;
