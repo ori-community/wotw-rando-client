@@ -17,6 +17,8 @@ namespace
     constexpr int BURROW_DASH_SPEED_MULTIPLIER_ID = 84;
     constexpr int SWIM_DASH_SPEED_MULTIPLIER_ID = 86;
     constexpr int JUMP_HEIGHT_MULTIPLIER_ID = 87;
+    constexpr int WALL_JUMP_STRENGTH_MULTIPLIER_ID = 88;
+    constexpr int DOUBLE_JUMP_STRENGTH_MULTIPLIER_ID = 89;
 
     float initial_jump_speed;
 
@@ -149,7 +151,7 @@ namespace
             initialized = true;
         }
 
-        float modifier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, JUMP_HEIGHT_MULTIPLIER_ID);
+        float modifier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, DOUBLE_JUMP_STRENGTH_MULTIPLIER_ID);
         this_ptr->fields.JumpStrength = double_jump_strength * modifier;
         SeinDoubleJump::UpdateCharacterState(this_ptr);
     }
@@ -177,9 +179,7 @@ namespace
     
     // Should we maybe increase modify x here as well?
     IL2CPP_INTERCEPT(, SeinWallJump, void, PerformWallJump, (app::SeinWallJump* this_ptr, bool to_left)) {
-        float modifier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, JUMP_HEIGHT_MULTIPLIER_ID);
-        modifier = (modifier - 1.0f) / 2.0f + 1.0f;
-
+        float modifier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, WALL_JUMP_STRENGTH_MULTIPLIER_ID);
         this_ptr->fields.JumpStrength = wall_jump_strength;
         this_ptr->fields.JumpStrength.x *= wall_jump_strength_magnitude;
         this_ptr->fields.JumpStrength.y *= wall_jump_strength_magnitude * modifier;
