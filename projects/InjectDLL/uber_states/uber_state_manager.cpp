@@ -686,8 +686,8 @@ namespace uber_states
     app::IUberState* get_uber_state_untyped(app::UberID& group_id, app::UberID& state_id)
     {
         auto state = UberStateCollection::GetState(&group_id, &state_id);
-        if (state == nullptr)
-            trace(MessageType::Error, 3, "uber_state", format("unable to find uber_state %d : %d.", group_id.fields.m_id, state_id.fields.m_id));
+        //if (state == nullptr)
+        //    trace(MessageType::Error, 3, "uber_state", format("unable to find uber_state %d : %d.", group_id.fields.m_id, state_id.fields.m_id));
 
         return state;
     }

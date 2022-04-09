@@ -173,17 +173,17 @@ namespace ipc
         CALL_ON_INIT(start_ipc_thread);
 
         std::unordered_map<std::string, request_handler> handlers;
-
         void update_pipe(GameEvent game_event, EventTiming timing)
         {
             std::vector<std::string> local_messages;
-            message_mutex.lock();
-            auto message_count = std::min(MAX_HANDLED_MESSAGES, static_cast<int>(messages.size()));
-            auto begin = std::make_move_iterator(messages.begin());
-            auto end = std::make_move_iterator(messages.begin() + message_count);
-            local_messages.insert(local_messages.end(), begin, end);
-            messages.erase(messages.begin(), messages.begin() + message_count);
-            message_mutex.unlock();
+            {
+                std::scoped_lock lock(message_mutex);
+                auto message_count = std::min(MAX_HANDLED_MESSAGES, static_cast<int>(messages.size()));
+                auto begin = std::make_move_iterator(messages.begin());
+                auto end = std::make_move_iterator(messages.begin() + message_count);
+                local_messages.insert(local_messages.end(), begin, end);
+                messages.erase(messages.begin(), messages.begin() + message_count);
+            }
 
             for (auto const& message : local_messages)
             {
@@ -208,9 +208,8 @@ namespace ipc
 
     void send_message(std::string_view message)
     {
-        send_mutex.lock();
+        std::scoped_lock lock(send_mutex);
         sends.push_back(std::string(message));
-        send_mutex.unlock();
     }
 
     void register_request_handler(std::string_view name, request_handler handler)
