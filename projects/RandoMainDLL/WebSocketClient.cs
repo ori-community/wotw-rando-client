@@ -294,8 +294,8 @@ namespace RandoMainDLL {
           case Packet.Types.PacketID.Visibility:
             Multiplayer.Queue.Add(packet);
             break;
-          case Packet.Types.PacketID.ReceiveSeedMessage:
-            var seedMessage = ReceiveSeedMessage.Parser.ParseFrom(packet.Packet_);
+          case Packet.Types.PacketID.SetSeedMessage:
+            var seedMessage = SetSeedMessage.Parser.ParseFrom(packet.Packet_);
             SeedController.SeedFile = "server: " + seedMessage.Name;
             File.WriteAllText(Randomizer.SeedPathFile, SeedController.SeedFile);
             SeedController.ParseLines(seedMessage.Seed.Split('\n'), seedMessage.Init, false);

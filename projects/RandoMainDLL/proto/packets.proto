@@ -20,7 +20,7 @@ message Packet {
     PrintTextMessage = 13;
     PrintPickupMessage = 14;
     RequestSeedMessage = 15;
-    ReceiveSeedMessage = 16;
+    SetSeedMessage = 16;
     PlayerUseCatchingAbility = 17;
     PlayerUsedCatchingAbility = 18;
     PlayerCaught = 19;
@@ -102,7 +102,7 @@ message RequestSeedMessage {
   bool init = 1;
 }
 
-message ReceiveSeedMessage {
+message SetSeedMessage {
   string name = 1;
   string seed = 2;
   bool init = 3;
