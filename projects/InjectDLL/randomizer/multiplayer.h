@@ -37,7 +37,6 @@ namespace multiplayer
         // Internal
         Icon avatar;
         Icon map_avatar;
-        float map_scale = 1;
 
         // Dots
         struct Dot

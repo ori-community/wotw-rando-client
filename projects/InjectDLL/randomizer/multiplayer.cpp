@@ -37,6 +37,7 @@ namespace multiplayer
     constexpr float TEXT_SCALE = 4.0f;
     constexpr float SPRITE_OFFSET = 0.4f;
     constexpr float SPRITE_SCALE = 1.6f;
+    constexpr float MAP_SPRITE_SCALE = 1.5f;
 
     std::vector<PlayerInfo> players;
     std::unordered_map<std::wstring, int> player_map;
@@ -259,12 +260,12 @@ namespace multiplayer
             set_avatar_active(info, info.avatar, info.avatar.visible);
             
             auto transform = il2cpp::unity::get_transform(info.map_avatar.icon);
-            auto scale = Transform::get_localScale(transform);
-            info.map_scale = scale.x;
             utils::set_color(info.map_avatar.icon, info.color, false);
             transform = il2cpp::unity::get_transform(info.map_avatar.icon);
+            app::Vector3 scale{ MAP_SPRITE_SCALE, MAP_SPRITE_SCALE, 1.0f };
+            Transform::set_localScale(transform, &scale);
             auto pos = Transform::get_localPosition(transform);
-            pos.z = -0.001f;
+            pos.z = -0.004f;
             Transform::set_localPosition(transform, &pos);
             set_map_position(info);
         }
@@ -359,7 +360,7 @@ namespace multiplayer
         {
             auto transform = il2cpp::unity::get_transform(info.map_avatar.icon);
             app::Vector3 scale = Transform::get_localScale(transform);
-            scale.x = lerp(scale.x, info.map_avatar.facing * info.map_scale, 20.0f * TimeUtility::get_deltaTime());
+            scale.x = lerp(scale.x, info.map_avatar.facing * MAP_SPRITE_SCALE, 20.0f * TimeUtility::get_deltaTime());
             Transform::set_localScale(transform, &scale);
         }
     }
@@ -467,6 +468,9 @@ namespace multiplayer
     {
         for (auto& player : players)
         {
+            destroy_avatar(player);
+            create_avatar(player);
+
             if (player.avatar.handle != 0)
                 set_avatar_active(player, player.avatar, player.avatar.visible);
 

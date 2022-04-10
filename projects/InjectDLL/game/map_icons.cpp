@@ -32,7 +32,8 @@ namespace
         Collectibles = 3,
         InLogic = 4,
         Spoilers = 5,
-        COUNT = 6,
+        Players = 6,
+        COUNT = 7,
     };
 
     std::mt19937 generator(40500);
@@ -761,6 +762,7 @@ namespace
             }
         }
 
+        // Player filter will hide everything, as players are not part of the map.
         return FilterResult::Hide;
     }
 
@@ -880,6 +882,7 @@ namespace
             // Add extra labels.
             arr->vector[static_cast<int>(NewFilters::InLogic)]  = create_filter(NewFilters::InLogic, "In Logic");
             arr->vector[static_cast<int>(NewFilters::Spoilers)] = create_filter(NewFilters::Spoilers, "Spoilers");
+            arr->vector[static_cast<int>(NewFilters::Players)] = create_filter(NewFilters::Players, "Players");
 
             icon_manager->fields.Labels = arr;
         }

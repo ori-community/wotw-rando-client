@@ -191,7 +191,8 @@ namespace RandoMainDLL {
         Collectibles = 3,
         InLogic = 4,
         Spoilers = 5,
-        COUNT = 6,
+        Players = 6,
+        COUNT = 7,
     };
     public static bool FilterEnabled(int filterId) {
       var f = (FilterType)filterId;
@@ -207,6 +208,8 @@ namespace RandoMainDLL {
           return SeedController.EnableLogicFilter;
         case FilterType.Spoilers:
           return UberGet.value(34543, 11226).Bool;
+        case FilterType.Players:
+          return WebSocketClient.WantConnection;
         default:
           return true;
       }
