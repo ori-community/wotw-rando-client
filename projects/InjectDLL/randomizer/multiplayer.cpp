@@ -189,8 +189,9 @@ namespace multiplayer
             il2cpp::unity::destroy_object(area_map_icon);
 
         auto text_box = il2cpp::unity::get_component<app::TextBox>(icon.text, "CatlikeCoding.TextBox", "TextBox");
+        text_box->fields.defaultText = il2cpp::string_new(info.name);
+        TextBox::SetText(text_box, text_box->fields.defaultText);
         GameObject::SetActive(icon.text, true);
-        TextBox::SetText(text_box, il2cpp::string_new(info.name));
         TextBox::RenderText(text_box);
         set_layer_recursive(icon.root, layer);
 
