@@ -25,6 +25,7 @@ namespace multiplayer
 
         std::wstring id;
         std::wstring name;
+        int64_t name_handle = 0;
         bool online = true;
         bool world_visible = true;
         bool map_visible = true;

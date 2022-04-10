@@ -3,6 +3,7 @@
 #include <macros.h>
 #include <dev/object_visualizer.h>
 #include <enums/layer.h>
+#include <game/game.h>
 #include <game/player.h>
 #include <game/ui.h>
 #include <randomizer/messages.h>
@@ -159,6 +160,20 @@ namespace multiplayer
 
     IL2CPP_BINDING_OVERLOAD(CatlikeCoding.TextBox, TextBox, void, SetText, (app::TextBox* this_ptr, app::String* text), (System:String));
     IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RenderText, (app::TextBox* this_ptr));
+    void set_avatar_active(PlayerInfo& info, PlayerInfo::Icon& icon, bool value)
+    {
+        GameObject::SetActive(icon.root, value);
+        if (value)
+        {
+            auto text_box = il2cpp::unity::get_component<app::TextBox>(icon.text, "CatlikeCoding.TextBox", "TextBox");
+            if (info.name_handle == 0)
+                info.name_handle = il2cpp::gchandle_new(il2cpp::string_new(info.name), false);
+
+            TextBox::SetText(text_box, il2cpp::gchandle_target<app::String>(info.name_handle));
+            TextBox::RenderText(text_box);
+        }
+    }
+
     PlayerInfo::Icon create_avatar_icon(PlayerInfo const& info, int layer)
     {
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
@@ -184,17 +199,12 @@ namespace multiplayer
         }
         }
 
+        GameObject::SetActive(icon.text, true);
         auto area_map_icon = il2cpp::unity::get_component(icon.root, "", "AreaMapIcon");
         if (area_map_icon != nullptr)
             il2cpp::unity::destroy_object(area_map_icon);
 
-        auto text_box = il2cpp::unity::get_component<app::TextBox>(icon.text, "CatlikeCoding.TextBox", "TextBox");
-        text_box->fields.defaultText = il2cpp::string_new(info.name);
-        TextBox::SetText(text_box, text_box->fields.defaultText);
-        GameObject::SetActive(icon.text, true);
-        TextBox::RenderText(text_box);
         set_layer_recursive(icon.root, layer);
-
         icon.handle = il2cpp::gchandle_new(icon.root, false);
         return icon;
     }
@@ -217,7 +227,7 @@ namespace multiplayer
         if (info.avatar.handle == 0)
         {
             info.avatar = create_avatar_icon(info, static_cast<int>(Layer::Sein));
-            GameObject::SetActive(info.avatar.root, info.avatar.visible);
+            set_avatar_active(info, info.avatar, info.avatar.visible);
             app::Vector3 pos{ info.avatar.position.x, info.avatar.position.y, 0.f };
             auto transform = il2cpp::unity::get_transform(info.avatar.root);
             Transform::set_position(transform, &pos);
@@ -245,7 +255,7 @@ namespace multiplayer
         if (info.map_avatar.handle == 0)
         {
             info.map_avatar = create_avatar_icon(info, static_cast<int>(Layer::UI));
-            GameObject::SetActive(info.map_avatar.root, info.map_avatar.visible);
+            set_avatar_active(info, info.avatar, info.avatar.visible);
             
             auto transform = il2cpp::unity::get_transform(info.map_avatar.icon);
             auto scale = Transform::get_localScale(transform);
@@ -359,40 +369,6 @@ namespace multiplayer
         return true;
     }
 
-    IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController* this_ptr)) {
-        GameController::Update(this_ptr);
-        auto should_show = should_show_avatar();
-        for (auto& player : players)
-        {
-            if (player.avatar.handle == 0 || player.map_avatar.handle == 0)
-                multiplayer::create_avatar(player);
-
-            update_avatar_facing(player);
-
-            // Visibility toggles.
-            bool visible = player.online && should_show && player.world_visible;
-            if (visible != player.avatar.visible)
-            {
-                if (player.avatar.handle != 0)
-                    GameObject::SetActive(player.avatar.root, visible);
-
-                player.avatar.visible = visible;
-            }
-
-            bool map_visible = player.online && game::ui::area_map_open() && player.map_visible;
-            if (map_visible != player.map_avatar.visible)
-            {
-                if (player.map_avatar.handle != 0)
-                    GameObject::SetActive(player.map_avatar.root, map_visible);
-
-                for (auto& dot : player.dots)
-                    GameObject::SetActive(dot.dot, map_visible);
-
-                player.map_avatar.visible = map_visible;
-            }
-        }
-    }
-
     void spawn_player(std::string const& name, std::vector<console::CommandParam> const& params)
     {
         std::wstring id = L"test";
@@ -446,11 +422,63 @@ namespace multiplayer
         }
     }
 
+    void update(GameEvent game_event, EventTiming timing)
+    {
+        auto should_show = should_show_avatar();
+        for (auto& player : players)
+        {
+            if (player.avatar.handle == 0 || player.map_avatar.handle == 0)
+                multiplayer::create_avatar(player);
+
+            update_avatar_facing(player);
+
+            // Visibility toggles.
+            bool visible = player.online && should_show && player.world_visible;
+            if (visible != player.avatar.visible)
+            {
+                if (player.avatar.handle != 0)
+                    set_avatar_active(player, player.avatar, visible);
+
+                player.avatar.visible = visible;
+            }
+
+            bool map_visible = player.online && game::ui::area_map_open() && player.map_visible;
+            if (map_visible != player.map_avatar.visible)
+            {
+                if (player.map_avatar.handle != 0)
+                    set_avatar_active(player, player.map_avatar, map_visible);
+
+                for (auto& dot : player.dots)
+                    GameObject::SetActive(dot.dot, map_visible);
+
+                player.map_avatar.visible = map_visible;
+            }
+        }
+    }
+
+    void on_load(GameEvent game_event, EventTiming timing)
+    {
+        for (auto& player : players)
+        {
+            if (player.avatar.handle != 0)
+                set_avatar_active(player, player.avatar, player.avatar.visible);
+
+            if (player.map_avatar.handle != 0)
+                set_avatar_active(player, player.map_avatar, player.map_avatar.visible);
+
+            for (auto& dot : player.dots)
+                GameObject::SetActive(dot.dot, player.map_avatar.visible);
+        }
+    }
+
     void initialize()
     {
         console::register_command({ "multiplayer", "show_players" }, &show_players, true);
         console::register_command({ "multiplayer", "spawn_player" }, &spawn_player, true);
         console::register_command({ "multiplayer", "show_icon_prefabs" }, &show_icon_prefabs, true);
+
+        game::event_bus().register_handler(GameEvent::Update, EventTiming::End, update);
+        game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, on_load);
     }
 
     CALL_ON_INIT(initialize);
