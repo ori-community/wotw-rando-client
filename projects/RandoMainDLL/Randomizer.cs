@@ -10,7 +10,8 @@ namespace RandoMainDLL {
   public static class Randomizer {
     public static Random R;
     public static string BasePath = @"C:\moon\";
-    public static string SeedPathFile => BasePath + ".currentseedpath"; 
+    public static string SeedPathFile => BasePath + ".currentseedpath";
+    public static string TempSeed => BasePath + ".tempseed";
     public static string MessageLog => BasePath + ".messagelog"; 
     public static string LogFile => BasePath + "cs_log.txt"; 
     public static string SaveFolder => BasePath + "saves"; 

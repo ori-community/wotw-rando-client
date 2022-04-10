@@ -38,8 +38,9 @@ namespace RandoMainDLL {
       }
 
       public void Resolve() {
-        SeedController.SeedFile = "server: " + message.Name;
-        File.WriteAllText(Randomizer.SeedPathFile, SeedController.SeedFile);
+        SeedController.SeedFile = Randomizer.TempSeed;
+        File.WriteAllText(Randomizer.SeedPathFile, Randomizer.TempSeed);
+        File.WriteAllText(Randomizer.TempSeed, message.Seed);
         SeedController.ParseLines(message.Seed.Split('\n'), message.Init, false);
       }
     }
