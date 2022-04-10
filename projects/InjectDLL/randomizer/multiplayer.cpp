@@ -600,10 +600,10 @@ INJECT_C_DLLEXPORT void update_player_position(const wchar_t* id, float x, float
     if (it != multiplayer::player_map.end())
     {
         multiplayer::PlayerInfo& info = multiplayer::players[it->second];
-        if (abs(x - info.last_facing_pos) > 0.1f)
+        if (abs(x - info.avatar.last_facing_pos) > 0.1f)
         {
-            info.avatar.facing = x < info.last_facing_pos ? 1 : -1;
-            info.last_facing_pos = x;
+            info.avatar.facing = x < info.avatar.last_facing_pos ? 1 : -1;
+            info.avatar.last_facing_pos = x;
         }
 
         info.avatar.position.x = x;
@@ -625,10 +625,10 @@ INJECT_C_DLLEXPORT void update_player_map_position(const wchar_t* id, float x, f
     if (it != multiplayer::player_map.end())
     {
         multiplayer::PlayerInfo& info = multiplayer::players[it->second];
-        if (abs(x - info.last_facing_pos) > 0.1f)
+        if (abs(x - info.map_avatar.last_facing_pos) > 0.1f)
         {
-            info.map_avatar.facing = x < info.last_facing_pos ? 1 : -1;
-            info.last_facing_pos = x;
+            info.map_avatar.facing = x < info.map_avatar.last_facing_pos ? 1 : -1;
+            info.map_avatar.last_facing_pos = x;
         }
 
         info.map_avatar.position.x = x;
