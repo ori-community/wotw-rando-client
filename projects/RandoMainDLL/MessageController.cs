@@ -76,7 +76,7 @@ namespace RandoMainDLL {
     void Update(T id);
   }
 
-  public class IDAbleMessageQueue<T> : MessageQueue<T> where T : class, IDAble<T> {
+  public class IDAbleMessageQueue<T> : MessageQueue<T> where T : class, IDAble<T>, IDisposable {
     public readonly Dictionary<int, T> Ids = new Dictionary<int, T>();
 
     public override void Add(T value, bool priority) {
@@ -94,6 +94,9 @@ namespace RandoMainDLL {
     }
 
     public override void Clear() {
+      foreach (var message in Ids)
+        message.Value.Dispose();
+
       Ids.Clear();
       base.Clear();
     }
@@ -108,7 +111,7 @@ namespace RandoMainDLL {
     }
   }
 
-  public class MessageQueue<T> where T : class {
+  public class MessageQueue<T> where T : class, IDisposable {
     public readonly Queue<T> Normal = new Queue<T>();
     public readonly Queue<T> Priority = new Queue<T>();
 
@@ -120,6 +123,12 @@ namespace RandoMainDLL {
     }
 
     public virtual void Clear() {
+      foreach (var message in Normal)
+        message.Dispose();
+
+      foreach (var message in Priority)
+        message.Dispose();
+
       Normal.Clear();
       Priority.Clear();
     }
@@ -192,6 +201,15 @@ namespace RandoMainDLL {
 
     public static void Clear(string queue = null) {
       if (queue == null) {
+        foreach (var message in activePickupTextMessages)
+          message.Dispose();
+
+        foreach (var message in activeTimedMessages)
+          message.Dispose();
+
+        foreach (var message in activeIdTimedMessages)
+          message.Value.Dispose();
+
         activeTimedMessages.Clear();
         activeIdTimedMessages.Clear();
         pickupQueue.Clear();
@@ -476,7 +494,7 @@ namespace RandoMainDLL {
     public ScreenPosition ScreenPosition = ScreenPosition.MiddleCenter;
   }
 
-  public class PickupMessage {
+  public class PickupMessage : IDisposable {
     public PickupMessage(string text, float time, Vector2? position = null) {
       Text = text;
       Time = time;
@@ -494,15 +512,21 @@ namespace RandoMainDLL {
     public string Text;
     public float Time;
     public Vector2? Position;
+
+    public void Dispose() {}
   }
 
-  public class TextMessage : IDAble<TextMessage> {
+  public class TextMessage : IDAble<TextMessage>, IDisposable {
     public TextMessage(int? cid, TextMessageDescriptor desc = null) {
       CID = cid;
       descriptor = desc != null ? desc : new TextMessageDescriptor();
     }
 
     ~TextMessage() {
+      Destroyed = true;
+    }
+
+    public void Dispose() {
       Destroyed = true;
     }
 
