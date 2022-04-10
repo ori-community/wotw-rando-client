@@ -193,6 +193,7 @@ namespace RandoMainDLL {
     public static void Clear(string queue = null) {
       if (queue == null) {
         activeTimedMessages.Clear();
+        activeIdTimedMessages.Clear();
         pickupQueue.Clear();
         foreach (var q in queues)
           q.Value.Clear();
