@@ -35,7 +35,7 @@ namespace multiplayer
     constexpr float TEXT_SCALE = 4.0f;
     constexpr float SPRITE_OFFSET = 0.4f;
     constexpr float SPRITE_SCALE = 1.6f;
-    constexpr float MAP_SPRITE_SCALE = 1.5f;
+    constexpr float MAP_SPRITE_SCALE = 0.6f;
     constexpr float MAX_INTERPOLATE_TIME = 0.3f;
     constexpr float MAX_INTERPOLATE_DISTANCE_SQUARED = 25.f;
 
