@@ -261,7 +261,8 @@ namespace RandoMainDLL {
               screen: (ScreenPosition)message.ScreenPosition,
               queue: message.Queue,
               priority: message.Prioritized,
-              log: true
+              log: true,
+              useWorldCoordinates: message.UseInGameCoordinates
             );
             break;
           }

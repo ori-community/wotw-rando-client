@@ -271,7 +271,9 @@ namespace RandoMainDLL {
       int id = -1,
       string queue = null,
       bool priority = false,
-      bool log = false)
+      bool log = false,
+      bool useWorldCoordinates = false
+    )
     {
       text = cleanText(text);
       if (log) {
@@ -295,6 +297,7 @@ namespace RandoMainDLL {
       desc.Horizontal = horizontal;
       desc.Vertical = vertical;
       desc.ScreenPosition = screen;
+      desc.UseInGameCoordinates = useWorldCoordinates;
 
       if (queue == null) {
         if (id >= 0) {
