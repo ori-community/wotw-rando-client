@@ -323,6 +323,12 @@ namespace multiplayer
     void destroy_avatar(PlayerInfo& info)
     {
         destroy_icons(info);
+        if (info.name_handle != 0)
+        {
+            il2cpp::gchandle_free(info.name_handle);
+            info.name_handle = 0;
+        }
+
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
         for (auto const& dot : info.dots)
         {
