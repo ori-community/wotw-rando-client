@@ -209,7 +209,7 @@ namespace RandoMainDLL {
         case FilterType.Spoilers:
           return UberGet.value(34543, 11226).Bool;
         case FilterType.Players:
-          return WebSocketClient.WantConnection;
+          return WebSocketClient.WantConnection && Multiplayer.GetPlayerCount() > 1;
         default:
           return true;
       }

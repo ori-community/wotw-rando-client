@@ -44,6 +44,10 @@ namespace RandoMainDLL {
       return currentPlayers.TryGetValue(id, out var info) ? info : null;
     }
 
+    public static int GetPlayerCount() {
+      return currentPlayers.Count;
+    }
+
     public static void SetCurrentUser(UserInfo user) {
       Id = user.Id;
       Name = user.Name;
