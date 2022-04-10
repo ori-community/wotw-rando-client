@@ -9,6 +9,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 
 #include <dev/object_visualizer.h>
+#include <game/game.h>
 #include <randomizer/render/shaders.h>
 #include <utils/stb_image.h>
 
@@ -34,8 +35,6 @@ namespace randomizer
                 (System:Int32, System:Int32, UnityEngine:TextureFormat, System:Boolean, System:Boolean));
             IL2CPP_BINDING(UnityEngine, Texture2D, void, LoadRawTextureData, (app::Texture2D* this_ptr, void* data, int size));
             IL2CPP_BINDING(UnityEngine, Texture2D, void, Apply, (app::Texture2D* this_ptr, bool update_mipmaps, bool no_longer_readable));
-
-            STATIC_IL2CPP_BINDING(UnityEngine, Object, void, DontDestroyOnLoad, (void* obj));
         }
 
         TextureData::~TextureData()
@@ -237,9 +236,9 @@ namespace randomizer
 
             texture_holder = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
             il2cpp::invoke(texture_holder, ".ctor");
-            il2cpp::invoke(texture_holder, "set_name", il2cpp::string_new("rando_texture_holder"));
-            Object::DontDestroyOnLoad(texture_holder);
-            // TODO: Use UberShaderPrefabWarmer if we can figure out how to find the List<Texture> class.
+            il2cpp::invoke(texture_holder, "set_name", il2cpp::string_new("TextureHolder"));
+            game::add_to_container(game::RandoContainer::Randomizer, texture_holder);
+            // TODO: Use UberShaderPrefabWarmer if we can figure out how to instantiate the List<Texture> class.
             auto holder = il2cpp::unity::add_component<app::SpiritShardUIShardBackdrop>(texture_holder, "", "SpiritShardUIShardBackdrop");
             il2cpp::invoke(holder, ".ctor");
             holder->fields.Socket_0 = reinterpret_cast<app::Texture__Array*>(il2cpp::untyped::array_new(il2cpp::get_class("UnityEngine", "Texture"), HOLDER_SIZE));

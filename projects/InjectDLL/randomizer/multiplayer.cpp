@@ -206,6 +206,7 @@ namespace multiplayer
 
         set_layer_recursive(icon.root, layer);
         icon.handle = il2cpp::gchandle_new(icon.root, false);
+        game::add_to_container(game::RandoContainer::Multiplayer, icon.root);
         return icon;
     }
 

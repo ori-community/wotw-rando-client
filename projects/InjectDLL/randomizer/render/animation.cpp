@@ -1,6 +1,7 @@
 #include <randomizer/render/animation.h>
 
 #include <dev/object_visualizer.h>
+#include <game/game.h>
 #include <game/player.h>
 #include <randomizer/dirty_value.h>
 #include <randomizer/render/sprite.h>
@@ -100,6 +101,7 @@ namespace
         }
 
         GameObject::SetActive(icon, false);
+        game::add_to_container(game::RandoContainer::Animation, icon);
         auto mesh = il2cpp::create_object<app::Mesh>("UnityEngine", "Mesh");
         il2cpp::invoke(mesh, ".ctor");
         auto vertices = il2cpp::array_new(il2cpp::get_class("UnityEngine", "Vector3"), std::vector<app::Vector3>{

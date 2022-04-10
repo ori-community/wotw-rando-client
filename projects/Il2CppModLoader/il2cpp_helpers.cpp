@@ -47,6 +47,7 @@ namespace il2cpp
         STATIC_IL2CPP_BINDING(UnityEngine.SceneManagement, SceneManager, app::Scene, GetActiveScene, ());
         STATIC_IL2CPP_BINDING(UnityEngine.SceneManagement, SceneManager, app::Scene, GetSceneAt, (int32_t index));
 
+        IL2CPP_BINDING(UnityEngine.SceneManagement, Scene, bool, get_isLoaded, (app::Scene__Boxed* this_ptr));
         IL2CPP_BINDING(UnityEngine.SceneManagement, Scene, app::GameObject__Array*, GetRootGameObjects, (app::Scene__Boxed* this_ptr));
         IL2CPP_BINDING(UnityEngine.SceneManagement, Scene, app::String*, get_path, (app::Scene__Boxed* this_ptr));
         IL2CPP_BINDING(UnityEngine.SceneManagement, Scene, app::String*, get_name, (app::Scene__Boxed* this_ptr));
@@ -257,10 +258,10 @@ namespace il2cpp
             return GameObject::get_transform(go);
         }
 
-        std::vector<app::GameObject*> get_children(app::GameObject* game_object)
+        std::vector<app::GameObject*> get_children(void* obj)
         {
+            auto transform = get_transform(obj);
             std::vector<app::GameObject*> children;
-            auto transform = GameObject::get_transform(game_object);
             auto count = Transform::GetChildCount(transform);
             for (auto i = 0; i < count; ++i)
                 children.push_back(get_game_object(Transform::GetChild(transform, i)));
@@ -268,39 +269,39 @@ namespace il2cpp
             return children;
         }
 
-        app::GameObject* find_child(app::GameObject* game_object, std::string_view name)
+        app::GameObject* find_child(void* obj, std::string_view name)
         {
             std::vector<app::GameObject*> children;
-            auto transform = GameObject::get_transform(game_object);
+            auto transform = get_transform(obj);
             auto str = il2cpp::string_new(name);
             transform = Transform::Find(transform, str);
             return transform != nullptr ? get_game_object(transform) : nullptr;
         }
 
-        IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string_view> const& path)
+        IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(void* obj, std::vector<std::string_view> const& path)
         {
             for (auto const& name : path)
             {
-                if (game_object == nullptr)
+                if (obj == nullptr)
                     break;
 
-                game_object = find_child(game_object, name);
+                obj = find_child(obj, name);
             }
 
-            return game_object;
+            return reinterpret_cast<app::GameObject*>(obj);
         }
 
-        IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(app::GameObject* game_object, std::vector<std::string> const& path)
+        IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(void* obj, std::vector<std::string> const& path)
         {
             for (auto const& name : path)
             {
-                if (game_object == nullptr)
+                if (obj == nullptr)
                     break;
 
-                game_object = find_child(game_object, name);
+                obj = find_child(obj, name);
             }
 
-            return game_object;
+            return reinterpret_cast<app::GameObject*>(obj);
         }
 
         bool is_valid(void* obj)
@@ -434,9 +435,12 @@ namespace il2cpp
         {
             std::vector<app::GameObject*> output;
             auto boxed = box_value<app::Scene__Boxed>(get_class("UnityEngine.SceneManagement", "Scene"), scene);
-            auto game_objects = Scene::GetRootGameObjects(boxed);
-            for (auto i = 0; i < game_objects->max_length; ++i)
-                output.push_back(game_objects->vector[i]);
+            if (Scene::get_isLoaded(boxed))
+            {
+                auto game_objects = Scene::GetRootGameObjects(boxed);
+                for (auto i = 0; i < game_objects->max_length; ++i)
+                    output.push_back(game_objects->vector[i]);
+            }
 
             return output;
         }

@@ -3,6 +3,7 @@
 #include <constants.h>
 #include <dev/object_visualizer.h>
 #include <features/scenes/scene_load.h>
+#include <game/game.h>
 #include <randomizer/render/shaders.h>
 
 #include <Common/ext.h>
@@ -25,7 +26,6 @@ namespace scenes
 {
     namespace
     {
-        STATIC_IL2CPP_BINDING(UnityEngine, Object, void, DontDestroyOnLoad, (void* obj));
         STATIC_IL2CPP_BINDING(UnityEngine, Quaternion, app::Quaternion, Euler, (float x, float y, float z));
         IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform* this_ptr, app::Transform* parent));
         IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* position));
@@ -61,19 +61,6 @@ namespace scenes
             }
         }
 
-        app::GameObject* get_rando_game_objects()
-        {
-            if (rando_game_objects == nullptr)
-            {
-                rando_game_objects = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
-                il2cpp::invoke(rando_game_objects, ".ctor");
-                il2cpp::invoke(rando_game_objects, "set_name", il2cpp::string_new("rando_game_objects"));
-                Object::DontDestroyOnLoad(rando_game_objects);
-            }
-
-            return rando_game_objects;
-        }
-
         void on_load_callback(std::string_view scene_name, int id, app::GameObject* scene_root)
         {
             auto& obj = objects[id];
@@ -82,9 +69,8 @@ namespace scenes
                 return;
 
             obj.game_object = il2cpp::unity::instantiate_object(prefab);
-            Object::DontDestroyOnLoad(obj.game_object);
+            game::add_to_container(game::RandoContainer::GameObjects, obj.game_object);
             auto transform = il2cpp::unity::get_transform(obj.game_object);
-            Transform::set_parent(transform, il2cpp::unity::get_transform(get_rando_game_objects()));
             Transform::set_position(transform, &obj.position);
             if (obj.scale.has_value())
                 Transform::set_localScale(transform, &obj.scale.value());

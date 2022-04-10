@@ -1,4 +1,5 @@
 #include <dev/object_visualizer.h>
+#include <game/game.h>
 #include <game/player.h>
 #include <game/ui.h>
 #include <game/system/message_provider.h>
@@ -89,8 +90,8 @@ namespace
         app::HorizontalAnchorMode__Enum horizontal_anchor = app::HorizontalAnchorMode__Enum_Center;
         app::VerticalAnchorMode__Enum vertical_anchor = app::VerticalAnchorMode__Enum_Middle;
         float line_spacing = 1.0f;
-        uint32_t handle = -1;
         creation_callback callback = nullptr;
+        app::GameObject* obj = nullptr;
     };
 
     std::unordered_map<int, RandoMessage> permanent_messages;
@@ -245,14 +246,10 @@ namespace
     IL2CPP_BINDING(, ScaleToTextBox, void, UpdateSize, (app::ScaleToTextBox* this_ptr));
     void scale_background(RandoMessage& message)
     {
-        if (!message.should_show_box || message.handle == -1)
+        if (!message.should_show_box || message.obj == nullptr)
             return;
 
-        auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message.handle));
-        if (!il2cpp::unity::is_valid(go))
-            return;
-
-        auto scaler = il2cpp::unity::get_component_in_children<app::ScaleToTextBox>(go, "", "ScaleToTextBox");
+        auto scaler = il2cpp::unity::get_component_in_children<app::ScaleToTextBox>(message.obj, "", "ScaleToTextBox");
         scaler->fields.TopLeftPadding.y = message.box_top_padding;
         scaler->fields.TopLeftPadding.x = message.box_left_padding;
         scaler->fields.BottomRightPadding.y = message.box_bottom_padding;
@@ -262,7 +259,7 @@ namespace
 
     void refresh(RandoMessage& message)
     {
-        if (message.handle != -1 && !message.recreate)
+        if (message.obj != nullptr && !message.recreate)
             message.should_refresh = true;
     }
 
@@ -272,8 +269,7 @@ namespace
         if (message.use_in_game_coordinates)
             pos = world_to_ui_position(pos);
 
-        auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message.handle));
-        auto transform = il2cpp::unity::get_transform(go);
+        auto transform = il2cpp::unity::get_transform(message.obj);
         Transform::set_position(transform, &pos);
     }
 
@@ -316,14 +312,10 @@ namespace
     {
         auto controller = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->MessageController;
         auto go = reinterpret_cast<app::GameObject*>(Object::Instantiate(controller->fields.HintSmallMessage));
-        message.handle = il2cpp::gchandle_new(go, false);
-
-        auto parent = Transform::get_parent(il2cpp::unity::get_transform(controller->fields.HintSmallMessage));
-        Transform::set_parent(il2cpp::unity::get_transform(go), parent);
+        game::add_to_container(game::RandoContainer::Messages, go);
 
         auto destroy_on_restore = il2cpp::unity::get_component_in_children<app::DestroyOnRestoreCheckpoint>(go, "", "DestroyOnRestoreCheckpoint");
-        bool should_destroy_on_restore = false;
-        il2cpp::invoke(destroy_on_restore, "set_enabled", &should_destroy_on_restore);
+        il2cpp::unity::destroy_object(destroy_on_restore);
 
         auto message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(go, "", "MessageBox");
         message_box->fields.ShouldWriteOut = true;
@@ -377,6 +369,7 @@ namespace
         GameObject::SetActive(go, message.visible);
         scale_background(message);
         message.should_refresh = false;
+        message.obj = go;
 
         return go;
     }
@@ -425,22 +418,20 @@ namespace
                 continue;
             }
 
-            if (message.second.handle == -1)
+            if (message.second.obj == nullptr)
             {
                 create_permanent_box(message.second);
                 message.second.recreate = false;
             }
 
-            auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message.second.handle));
-            if (!il2cpp::unity::is_valid(go))
+            if (!il2cpp::unity::is_valid(message.second.obj))
             {
                 // Something else killed this game object, recreate it instantly.
-                il2cpp::gchandle_free(message.second.handle);
                 create_permanent_box(message.second, true);
                 continue;
             }
 
-            auto message_box = reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(go, "", "MessageBox"));
+            auto message_box = reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(message.second.obj, "", "MessageBox"));
             if (message.second.should_refresh)
                 do_refresh(message.second, message_box);
             else if (message.second.use_in_game_coordinates)
@@ -449,7 +440,7 @@ namespace
             if (handle_visibility(message.second, message_box))
                 dead_messages.emplace(message.second.id);
 
-            GameObject::SetActive(go, true);
+            GameObject::SetActive(message.second.obj, true);
         }
 
         for (auto id : dead_messages)
@@ -457,9 +448,7 @@ namespace
             auto it = permanent_messages.find(id);
             if (it != permanent_messages.end())
             {
-                il2cpp::unity::destroy_object(il2cpp::gchandle_target(it->second.handle));
-                il2cpp::gchandle_free(it->second.handle);
-                it->second.handle = -1;
+                il2cpp::unity::destroy_object(it->second.obj);
                 permanent_messages.erase(it);
             }
         }
@@ -520,11 +509,10 @@ INJECT_C_DLLEXPORT void get_screen_position(ScreenPosition position, app::Vector
 
 app::MessageBox* get_message_box(RandoMessage& message)
 {
-    if (message.handle == -1 || message.recreate)
+    if (!il2cpp::unity::is_valid(message.obj) || message.recreate)
         return nullptr;
 
-    auto go = reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message.handle));
-    return reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(go, "", "MessageBox"));
+    return reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(message.obj, "", "MessageBox"));
 }
 
 app::GameObject* text_box_get_go(int id)
@@ -533,10 +521,10 @@ app::GameObject* text_box_get_go(int id)
     if (message == permanent_messages.end())
         return nullptr;
 
-    if (message->second.handle == -1)
+    if (!il2cpp::unity::is_valid(message->second.obj))
         return nullptr;
 
-    return reinterpret_cast<app::GameObject*>(il2cpp::gchandle_target(message->second.handle));
+    return reinterpret_cast<app::GameObject*>(message->second.obj);
 }
 
 bool text_box_creation_callback(int id, creation_callback func)
@@ -579,7 +567,7 @@ INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, boo
     message.fadeout = fadeout;
     message.should_show_box = should_show_box;
     message.should_play_sound = should_play_sound;
-    message.handle = -1;
+    message.obj = nullptr;
     permanent_messages.emplace(id, std::move(message));
 
     return true;

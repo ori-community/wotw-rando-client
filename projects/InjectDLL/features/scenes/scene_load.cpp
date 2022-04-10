@@ -1,5 +1,8 @@
 #include <features/scenes/scene_load.h>
 
+#include <game/game.h>
+#include <game/player.h>
+
 #include <Common/ext.h>
 
 #include <Il2CppModLoader/common.h>
@@ -12,6 +15,7 @@ namespace scenes
     std::unordered_map<std::string, std::vector<std::pair<int, loaded_callback>>> to_load;
 
     namespace {
+        IL2CPP_BINDING(UnityEngine, GameObject, app::Scene, get_scene, (app::GameObject* this_ptr));
         IL2CPP_BINDING_OVERLOAD(, ScenesManager, void, PreloadScene, (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* data), (RuntimeSceneMetaData));
         IL2CPP_BINDING(, ScenesManager, app::RuntimeSceneMetaData*, RequestAdditivelyLoadScene,
             (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* meta, bool async, bool keepPreloaded, bool forceLoad, bool loadDependantScenes, bool queueIncludedScenes));
@@ -65,7 +69,16 @@ namespace scenes
         auto cname = il2cpp::string_new(name);
         auto meta = ScenesManager::GetSceneInformation(manager, cname);
         if (meta == nullptr || !ScenesManager::SceneIsLoaded(manager, meta->fields.SceneMoonGuid))
+        {
+            auto container = game::container(game::RandoContainer::Randomizer);
+            auto scene = GameObject::get_scene(container);
+            auto dont_destroy_on_load = il2cpp::unity::get_root_game_objects(scene);
+            for (auto game_object : dont_destroy_on_load)
+                if (il2cpp::unity::get_object_name(game_object) == name)
+                    return game_object;
+
             return nullptr;
+        }
 
         auto scene = ScenesManager::GetFromCurrentScenes(manager, meta);
         return il2cpp::unity::get_game_object(scene->fields.SceneRoot);
@@ -81,6 +94,11 @@ namespace scenes
             auto scene = manager->fields.ActiveScenes->fields._items->vector[i];
             game_objects.push_back(il2cpp::unity::get_game_object(scene->fields.SceneRoot));
         }
+
+        auto container = game::container(game::RandoContainer::Randomizer);
+        auto scene = GameObject::get_scene(container);
+        auto dont_destroy_on_load = il2cpp::unity::get_root_game_objects(scene);
+        game_objects.insert(game_objects.end(), dont_destroy_on_load.begin(), dont_destroy_on_load.end());
 
         return game_objects;
     }
