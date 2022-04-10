@@ -153,7 +153,7 @@ namespace RandoMainDLL {
           UberSet.Bool(4, 37, !UberGet.Bool(4, 37));
           break;
         case Action.Binding1:
-          SaveController.ResetUberStateValueStore();
+          PsuedoLocs.BINDING_ONE.OnCollect();
           break;
         case Action.Binding2:
           PsuedoLocs.BINDING_TWO.OnCollect();
