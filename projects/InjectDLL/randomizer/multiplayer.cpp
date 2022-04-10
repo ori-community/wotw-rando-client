@@ -184,6 +184,10 @@ namespace multiplayer
         }
         }
 
+        auto area_map_icon = il2cpp::unity::get_component(icon.root, "", "AreaMapIcon");
+        if (area_map_icon != nullptr)
+            il2cpp::unity::destroy_object(area_map_icon);
+
         auto text_box = il2cpp::unity::get_component<app::TextBox>(icon.text, "CatlikeCoding.TextBox", "TextBox");
         GameObject::SetActive(icon.text, true);
         TextBox::SetText(text_box, il2cpp::string_new(info.name));
