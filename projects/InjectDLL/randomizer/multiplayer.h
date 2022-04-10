@@ -20,6 +20,12 @@ namespace multiplayer
             int facing = 1;
             float last_facing_pos = 0.0f;
             bool visible = true;
+
+            // Used for interpolation
+            app::Vector2 server_position = {0};
+            app::Vector2 interpolate_velocity = {0};
+            float time_since_server_position_update = 0;
+
             app::GameObject* root = nullptr;
             app::GameObject* text = nullptr;
             app::GameObject* icon = nullptr;
@@ -35,7 +41,7 @@ namespace multiplayer
         PlayerIcon icon = PlayerIcon::Moki;
 
         // Internal
-        Icon avatar;
+        Icon world_avatar;
         Icon map_avatar;
 
         // Dots

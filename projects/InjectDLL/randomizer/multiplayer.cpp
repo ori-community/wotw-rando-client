@@ -6,18 +6,16 @@
 #include <game/game.h>
 #include <game/player.h>
 #include <game/ui.h>
-#include <randomizer/messages.h>
 #include <utils/misc.h>
-#include <utils/position_converter.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/il2cpp_math.h>
 
 #include <unordered_map>
-#include <fstream>
 
 using namespace modloader;
 
@@ -38,6 +36,8 @@ namespace multiplayer
     constexpr float SPRITE_OFFSET = 0.4f;
     constexpr float SPRITE_SCALE = 1.6f;
     constexpr float MAP_SPRITE_SCALE = 1.5f;
+    constexpr float MAX_INTERPOLATE_TIME = 0.3f;
+    constexpr float MAX_INTERPOLATE_DISTANCE_SQUARED = 25.f;
 
     std::vector<PlayerInfo> players;
     std::unordered_map<std::wstring, int> player_map;
@@ -175,6 +175,22 @@ namespace multiplayer
         }
     }
 
+    void apply_avatar_position(PlayerInfo& info) {
+        if (info.world_avatar.handle != 0)
+        {
+            auto transform = il2cpp::unity::get_transform(info.world_avatar.root);
+            app::Vector3 pos {info.world_avatar.position.x, info.world_avatar.position.y, 0.0f };
+            multiplayer::Transform::set_position(transform, &pos);
+        }
+
+        if (info.map_avatar.handle != 0) {
+            app::Vector3 pos{ info.map_avatar.position.x, info.map_avatar.position.y, 0.f };
+            auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+            if (il2cpp::unity::is_valid(area_map))
+                IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, info.map_avatar.root, &pos, false);
+        }
+    }
+
     PlayerInfo::Icon create_avatar_icon(PlayerInfo const& info, int layer)
     {
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
@@ -211,14 +227,6 @@ namespace multiplayer
         return icon;
     }
 
-    void set_map_position(PlayerInfo& info)
-    {
-        app::Vector3 pos{ info.map_avatar.position.x, info.map_avatar.position.y, 0.f };
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
-        if (il2cpp::unity::is_valid(area_map))
-            IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, info.map_avatar.root, &pos, false);
-    }
-
     void create_icons(PlayerInfo& info)
     {
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
@@ -226,30 +234,30 @@ namespace multiplayer
             return;
 
         // Avatar
-        if (info.avatar.handle == 0)
+        if (info.world_avatar.handle == 0)
         {
-            info.avatar = create_avatar_icon(info, static_cast<int>(Layer::Sein));
-            set_avatar_active(info, info.avatar, info.avatar.visible);
-            app::Vector3 pos{ info.avatar.position.x, info.avatar.position.y, 0.f };
-            auto transform = il2cpp::unity::get_transform(info.avatar.root);
+            info.world_avatar = create_avatar_icon(info, static_cast<int>(Layer::Sein));
+            set_avatar_active(info, info.world_avatar, info.world_avatar.visible);
+            app::Vector3 pos{info.world_avatar.position.x, info.world_avatar.position.y, 0.f };
+            auto transform = il2cpp::unity::get_transform(info.world_avatar.root);
             Transform::set_position(transform, &pos);
-            utils::set_color(info.avatar.icon, info.color, false);
+            utils::set_color(info.world_avatar.icon, info.color, false);
 
-            auto text_box = il2cpp::unity::get_component<app::TextBox>(info.avatar.text, "CatlikeCoding.TextBox", "TextBox");
+            auto text_box = il2cpp::unity::get_component<app::TextBox>(info.world_avatar.text, "CatlikeCoding.TextBox", "TextBox");
             text_box->fields.color = { 1.f, 1.f, 1.f, 1.f };
 
             pos = { 0.f, SPRITE_OFFSET, 0.f};
-            transform = il2cpp::unity::get_transform(info.avatar.icon);
+            transform = il2cpp::unity::get_transform(info.world_avatar.icon);
             Transform::set_localPosition(transform, &pos);
-            auto icon_transform = il2cpp::unity::get_transform(info.avatar.icon);
+            auto icon_transform = il2cpp::unity::get_transform(info.world_avatar.icon);
             app::Vector3 scale{ SPRITE_SCALE, SPRITE_SCALE, 1.0f };
             Transform::set_localScale(icon_transform, &scale);
 
             pos = { 0.f, TEXT_OFFSET, 0.f };
-            transform = il2cpp::unity::get_transform(info.avatar.text);
+            transform = il2cpp::unity::get_transform(info.world_avatar.text);
             Transform::set_localPosition(transform, &pos);
             app::Vector3 text_scale = { TEXT_SCALE, TEXT_SCALE, 2.f };
-            transform = il2cpp::unity::get_transform(info.avatar.text);
+            transform = il2cpp::unity::get_transform(info.world_avatar.text);
             Transform::set_localScale(transform, &text_scale);
         }
 
@@ -257,7 +265,7 @@ namespace multiplayer
         if (info.map_avatar.handle == 0)
         {
             info.map_avatar = create_avatar_icon(info, static_cast<int>(Layer::UI));
-            set_avatar_active(info, info.avatar, info.avatar.visible);
+            set_avatar_active(info, info.world_avatar, info.world_avatar.visible);
             
             auto transform = il2cpp::unity::get_transform(info.map_avatar.icon);
             utils::set_color(info.map_avatar.icon, info.color, false);
@@ -267,8 +275,9 @@ namespace multiplayer
             auto pos = Transform::get_localPosition(transform);
             pos.z = -0.004f;
             Transform::set_localPosition(transform, &pos);
-            set_map_position(info);
         }
+
+        apply_avatar_position(info);
     }
 
     void create_avatar(PlayerInfo& info)
@@ -286,8 +295,8 @@ namespace multiplayer
 
     void update_avatar_color(PlayerInfo& info)
     {
-        if (info.avatar.handle != 0 && il2cpp::unity::is_valid(info.avatar.icon))
-            utils::set_color(info.avatar.icon, info.color, false);
+        if (info.world_avatar.handle != 0 && il2cpp::unity::is_valid(info.world_avatar.icon))
+            utils::set_color(info.world_avatar.icon, info.color, false);
 
         if (info.map_avatar.handle != 0 && il2cpp::unity::is_valid(info.map_avatar.icon))
             utils::set_color(info.map_avatar.icon, info.color, false);
@@ -297,14 +306,14 @@ namespace multiplayer
 
     void destroy_icons(PlayerInfo& info)
     {
-        if (info.avatar.handle != 0)
+        if (info.world_avatar.handle != 0)
         {
-            auto target = il2cpp::gchandle_target(info.avatar.handle);
+            auto target = il2cpp::gchandle_target(info.world_avatar.handle);
             if (il2cpp::unity::is_valid(target))
                 il2cpp::unity::destroy_object(target);
 
-            il2cpp::gchandle_free(info.avatar.handle);
-            info.avatar = {};
+            il2cpp::gchandle_free(info.world_avatar.handle);
+            info.world_avatar = {};
         }
 
         if (info.map_avatar.handle != 0)
@@ -348,11 +357,11 @@ namespace multiplayer
     STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
     void update_avatar_facing(PlayerInfo& info)
     {
-        if (info.avatar.handle != 0)
+        if (info.world_avatar.handle != 0)
         {
-            auto transform = il2cpp::unity::get_transform(info.avatar.icon);
+            auto transform = il2cpp::unity::get_transform(info.world_avatar.icon);
             app::Vector3 scale = Transform::get_localScale(transform);
-            scale.x = lerp(scale.x, info.avatar.facing * SPRITE_SCALE, 20.0f * TimeUtility::get_deltaTime());
+            scale.x = lerp(scale.x, info.world_avatar.facing * SPRITE_SCALE, 20.0f * TimeUtility::get_deltaTime());
             Transform::set_localScale(transform, &scale);
         }
 
@@ -414,19 +423,45 @@ namespace multiplayer
             console::console_send("_______________________");
             auto id = convert_wstring_to_string(player.id);
             console::console_send(format("player: %s", id.c_str()));
-            console::console_send(format("position: %d, %d", player.avatar.position.x, player.avatar.position.y));
+            console::console_send(format("position: %d, %d", player.world_avatar.position.x, player.world_avatar.position.y));
             console::console_send(format("map_position: %d, %d", player.map_avatar.position.x, player.map_avatar.position.y));
             console::console_send(format("visible: %d", player.world_visible));
             console::console_send(format("map_visible: %d", player.map_visible));
             console::console_send(format("online: %d", player.online));
 
             dev::Visualizer v;
-            if (player.avatar.handle != 0)
-                dev::visualize::visualize_object(v, player.avatar.root);
+            if (player.world_avatar.handle != 0)
+                dev::visualize::visualize_object(v, player.world_avatar.root);
             if (player.map_avatar.handle != 0)
                 dev::visualize::visualize_object(v, player.map_avatar.root);
-            if (player.avatar.handle != 0 || player.map_avatar.handle != 0)
+            if (player.world_avatar.handle != 0 || player.map_avatar.handle != 0)
                 console::console_send(dev::visualize::get_string(v));
+        }
+    }
+
+    void set_server_position_on_icon(PlayerInfo::Icon& icon, float x, float y) {
+        auto last_server_position = app::Vector2 { icon.server_position.x, icon.server_position.y };
+
+        icon.server_position.x = x;
+        icon.server_position.y = y;
+
+        if (modloader::math::distance2(icon.position, icon.server_position) > MAX_INTERPOLATE_DISTANCE_SQUARED) {
+            icon.interpolate_velocity = app::Vector2 { 0.f };
+        } else if (icon.time_since_server_position_update > FLT_EPSILON) {
+            icon.interpolate_velocity = (icon.server_position - last_server_position) / icon.time_since_server_position_update;
+        }
+
+        icon.position.x = x;
+        icon.position.y = y;
+        icon.time_since_server_position_update = 0.f;
+    }
+
+    void interpolate_icon_position(PlayerInfo::Icon &icon, float delta_time) {
+        icon.time_since_server_position_update += delta_time;
+
+        if (icon.time_since_server_position_update < MAX_INTERPOLATE_TIME) {
+            icon.position.x = icon.position.x + icon.interpolate_velocity.x * delta_time;
+            icon.position.y = icon.position.y + icon.interpolate_velocity.y * delta_time;
         }
     }
 
@@ -435,19 +470,25 @@ namespace multiplayer
         auto should_show = should_show_avatar();
         for (auto& player : players)
         {
-            if (player.avatar.handle == 0 || player.map_avatar.handle == 0)
+            if (player.world_avatar.handle == 0 || player.map_avatar.handle == 0)
                 multiplayer::create_avatar(player);
 
             update_avatar_facing(player);
+            apply_avatar_position(player);
+
+            // Interpolate for next frame
+            float delta_time = TimeUtility::get_deltaTime();
+            interpolate_icon_position(player.world_avatar, delta_time);
+            interpolate_icon_position(player.map_avatar, delta_time);
 
             // Visibility toggles.
             bool visible = player.online && should_show && player.world_visible;
-            if (visible != player.avatar.visible)
+            if (visible != player.world_avatar.visible)
             {
-                if (player.avatar.handle != 0)
-                    set_avatar_active(player, player.avatar, visible);
+                if (player.world_avatar.handle != 0)
+                    set_avatar_active(player, player.world_avatar, visible);
 
-                player.avatar.visible = visible;
+                player.world_avatar.visible = visible;
             }
 
             bool map_visible = player.online && game::ui::area_map_open() && player.map_visible;
@@ -471,8 +512,8 @@ namespace multiplayer
             destroy_avatar(player);
             create_avatar(player);
 
-            if (player.avatar.handle != 0)
-                set_avatar_active(player, player.avatar, player.avatar.visible);
+            if (player.world_avatar.handle != 0)
+                set_avatar_active(player, player.world_avatar, player.world_avatar.visible);
 
             if (player.map_avatar.handle != 0)
                 set_avatar_active(player, player.map_avatar, player.map_avatar.visible);
@@ -536,7 +577,7 @@ INJECT_C_DLLEXPORT void set_player_icon(const wchar_t* id, multiplayer::PlayerIc
         multiplayer::create_icons(info);
     }
     else
-        warn("multiplayer", "setting player avatar on missing player, skipping.");
+        warn("multiplayer", "setting player world_avatar on missing player, skipping.");
 }
 
 INJECT_C_DLLEXPORT void set_player_color(const wchar_t* id, float r, float g, float b, float a)
@@ -605,22 +646,13 @@ INJECT_C_DLLEXPORT void update_player_position(const wchar_t* id, float x, float
     if (it != multiplayer::player_map.end())
     {
         multiplayer::PlayerInfo& info = multiplayer::players[it->second];
-        if (abs(x - info.avatar.last_facing_pos) > 0.1f)
+        if (abs(x - info.world_avatar.last_facing_pos) > 0.1f)
         {
-            info.avatar.facing = x < info.avatar.last_facing_pos ? 1 : -1;
-            info.avatar.last_facing_pos = x;
+            info.world_avatar.facing = x < info.world_avatar.last_facing_pos ? 1 : -1;
+            info.world_avatar.last_facing_pos = x;
         }
 
-        info.avatar.position.x = x;
-        info.avatar.position.y = y;
-
-        // Avatar
-        if (info.avatar.handle != 0)
-        {
-            auto transform = il2cpp::unity::get_transform(info.avatar.root);
-            app::Vector3 pos { info.avatar.position.x, info.avatar.position.y, 0.0f };
-            multiplayer::Transform::set_position(transform, &pos);
-        }
+        multiplayer::set_server_position_on_icon(info.world_avatar, x, y);
     }
 }
 
@@ -636,12 +668,7 @@ INJECT_C_DLLEXPORT void update_player_map_position(const wchar_t* id, float x, f
             info.map_avatar.last_facing_pos = x;
         }
 
-        info.map_avatar.position.x = x;
-        info.map_avatar.position.y = y;
-
-        // Map Avatar
-        if (info.map_avatar.handle != 0)
-            set_map_position(info);
+        multiplayer::set_server_position_on_icon(info.map_avatar, x, y);
 
         if (info.online && multiplayer::should_make_dot(info))
             multiplayer::add_dot(info);
@@ -652,7 +679,7 @@ INJECT_C_DLLEXPORT app::Vector2 get_player_position(const wchar_t* id)
 {
     auto it = multiplayer::player_map.find(id);
     if (it != multiplayer::player_map.end())
-        return multiplayer::players[it->second].avatar.position;
+        return multiplayer::players[it->second].world_avatar.position;
     else
         return app::Vector2{ 0.f, 0.f };
 }

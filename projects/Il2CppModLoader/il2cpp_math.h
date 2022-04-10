@@ -2,12 +2,36 @@
 
 #include <cmath>
 
+inline app::Vector2 operator- (app::Vector2 const& a, app::Vector2 const& b)
+{
+    return app::Vector2 {
+            a.x - b.x,
+            a.y - b.y,
+    };
+}
+
+inline app::Vector2 operator/ (app::Vector2 const& a, app::Vector2 const& b)
+{
+    return app::Vector2 {
+            a.x / b.x,
+            a.y / b.y,
+    };
+}
+
+inline app::Vector2 operator/ (app::Vector2 const& a, float const& b)
+{
+    return app::Vector2 {
+            a.x / b,
+            a.y / b,
+    };
+}
+
 inline app::Vector3 operator- (app::Vector3 const& a, app::Vector3 const& b)
 {
-    return app::Vector3{
-        a.x - b.x,
-        a.y - b.y,
-        a.z - b.z
+    return app::Vector3 {
+            a.x - b.x,
+            a.y - b.y,
+            a.z - b.z,
     };
 }
 
@@ -24,6 +48,13 @@ namespace modloader::math
     inline float magnitude2(app::Vector3 const& a)
     {
         return (a.x * a.x) + (a.y * a.y) + (a.z * a.z);
+    }
+
+    inline float distance2(app::Vector2 const& a, app::Vector2 const& b)
+    {
+        const auto x = a.x - b.x;
+        const auto y = a.y - b.y;
+        return (x * x) + (y * y);
     }
 
     inline float distance2(app::Vector3 const& a, app::Vector3 const& b)
