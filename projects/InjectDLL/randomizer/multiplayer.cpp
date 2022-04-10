@@ -350,7 +350,7 @@ namespace multiplayer
         {
             auto transform = il2cpp::unity::get_transform(info.avatar.icon);
             app::Vector3 scale = Transform::get_localScale(transform);
-            scale.x = lerp(scale.x, info.facing * SPRITE_SCALE, 20.0f * TimeUtility::get_deltaTime());
+            scale.x = lerp(scale.x, info.avatar.facing * SPRITE_SCALE, 20.0f * TimeUtility::get_deltaTime());
             Transform::set_localScale(transform, &scale);
         }
 
@@ -358,7 +358,7 @@ namespace multiplayer
         {
             auto transform = il2cpp::unity::get_transform(info.map_avatar.icon);
             app::Vector3 scale = Transform::get_localScale(transform);
-            scale.x = lerp(scale.x, info.facing * info.map_scale, 20.0f * TimeUtility::get_deltaTime());
+            scale.x = lerp(scale.x, info.map_avatar.facing * info.map_scale, 20.0f * TimeUtility::get_deltaTime());
             Transform::set_localScale(transform, &scale);
         }
     }
@@ -602,7 +602,7 @@ INJECT_C_DLLEXPORT void update_player_position(const wchar_t* id, float x, float
         multiplayer::PlayerInfo& info = multiplayer::players[it->second];
         if (abs(x - info.last_facing_pos) > 0.1f)
         {
-            info.facing = x < info.last_facing_pos ? 1 : -1;
+            info.avatar.facing = x < info.last_facing_pos ? 1 : -1;
             info.last_facing_pos = x;
         }
 
@@ -627,7 +627,7 @@ INJECT_C_DLLEXPORT void update_player_map_position(const wchar_t* id, float x, f
         multiplayer::PlayerInfo& info = multiplayer::players[it->second];
         if (abs(x - info.last_facing_pos) > 0.1f)
         {
-            info.facing = x < info.last_facing_pos ? 1 : -1;
+            info.map_avatar.facing = x < info.last_facing_pos ? 1 : -1;
             info.last_facing_pos = x;
         }
 

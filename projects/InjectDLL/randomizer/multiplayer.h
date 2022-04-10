@@ -17,6 +17,7 @@ namespace multiplayer
         {
             uint64_t handle = 0;
             app::Vector2 position = {0};
+            int facing = 1;
             bool visible = true;
             app::GameObject* root = nullptr;
             app::GameObject* text = nullptr;
@@ -38,7 +39,6 @@ namespace multiplayer
         float map_scale = 1;
         float last_facing_pos = 0.0f;
         float last_facing = 1.0f;
-        int facing = 1;
 
         // Dots
         struct Dot
