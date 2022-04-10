@@ -249,15 +249,13 @@ namespace multiplayer
             pos = { 0.f, SPRITE_OFFSET, 0.f};
             transform = il2cpp::unity::get_transform(info.world_avatar.icon);
             Transform::set_localPosition(transform, &pos);
-            auto icon_transform = il2cpp::unity::get_transform(info.world_avatar.icon);
             app::Vector3 scale{ SPRITE_SCALE, SPRITE_SCALE, 1.0f };
-            Transform::set_localScale(icon_transform, &scale);
+            Transform::set_localScale(transform, &scale);
 
             pos = { 0.f, TEXT_OFFSET, 0.f };
             transform = il2cpp::unity::get_transform(info.world_avatar.text);
             Transform::set_localPosition(transform, &pos);
             app::Vector3 text_scale = { TEXT_SCALE, TEXT_SCALE, 2.f };
-            transform = il2cpp::unity::get_transform(info.world_avatar.text);
             Transform::set_localScale(transform, &text_scale);
         }
 
@@ -269,7 +267,6 @@ namespace multiplayer
             
             auto transform = il2cpp::unity::get_transform(info.map_avatar.icon);
             utils::set_color(info.map_avatar.icon, info.color, false);
-            transform = il2cpp::unity::get_transform(info.map_avatar.icon);
             app::Vector3 scale{ MAP_SPRITE_SCALE, MAP_SPRITE_SCALE, 1.0f };
             Transform::set_localScale(transform, &scale);
             auto pos = Transform::get_localPosition(transform);
