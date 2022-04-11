@@ -265,6 +265,7 @@ namespace RandoMainDLL {
       var id = InterOp.Animation.anim_load(CATCHING_ANIMATION, position.X, position.Y, 0f, radius / bounds.X, radius / bounds.Y, 1f, 0f);
       InterOp.Animation.anim_set_color_modulate(id, 1f, 1f, 1f, 1f);
       InterOp.Animation.anim_set_state(id, InterOp.Animation.AnimState.Active);
+      InterOp.Sound.play_sound_str("Catching", new Vector3(position, 0f));
     }
 
     private static void startCooldownAnimation(string player) {

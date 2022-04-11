@@ -319,6 +319,11 @@ namespace RandoMainDLL {
       public extern static void clear_wheels();
     }
 
+    public static class Sound {
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void play_sound_str([MarshalAs(UnmanagedType.LPStr)] string event_name, Vector3 position);
+    }
+
     public static class System {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void report_uber_state_change(int group, int state, double value);
