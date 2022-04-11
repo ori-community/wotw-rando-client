@@ -465,27 +465,52 @@ namespace uber_states
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Depths Map Cost", app::GameWorldAreaID__Enum_MouldwoodDepths, 150),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Wastes Map Cost", app::GameWorldAreaID__Enum_WindsweptWastes, 150),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::LUPO_GROUP_NAME, constants::LUPO_GROUP_ID, "Willows End Map Cost", app::GameWorldAreaID__Enum_WillowsEnd, 50),
-
+                        
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "HCMapIconCost", 19397,  0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "ECMapIconCost", 57988,  0),
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", "npcsStateGroup", 48248, "ShardMapIconCost", 41667,  0),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", "npcsStateGroup", 48248, "Has bought everything", 20000, false),
                 };
 
+                // Game states
+                const int GAME_MODES_INT_START = 0;
+                const int GAME_MODES_BOOL_START = 1000;
+                const int GAME_MODES_FLOAT_START = 2000;
+                const int GAME_MODES_INT_COUNT = 5;
+                const int GAME_MODES_BOOL_COUNT = 5;
+                const int GAME_MODES_FLOAT_COUNT = 5;
+                for (int i = 0; i < GAME_MODES_INT_COUNT; ++i)
+                    states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_GAME_MODES_GROUP_NAME,
+                        constants::RANDO_GAME_MODES_GROUP_ID, format("%3d_int", i), GAME_MODES_INT_START + i, 0));
+
+                for (int i = 0; i < GAME_MODES_BOOL_COUNT; ++i)
+                    states.push_back(add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_GAME_MODES_GROUP_NAME,
+                        constants::RANDO_GAME_MODES_GROUP_ID, format("%3d_bool", i), GAME_MODES_BOOL_START + i, false));
+
+                for (int i = 0; i < GAME_MODES_FLOAT_COUNT; ++i)
+                    states.push_back(add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::RANDO_GAME_MODES_GROUP_NAME,
+                        constants::RANDO_GAME_MODES_GROUP_ID, format("%3d_float", i), GAME_MODES_FLOAT_START + i, false));
+
+                // Plando states
+                const int PLANDO_INT_START = 0;
+                const int PLANDO_BOOL_START = 100;
+                const int PLANDO_FLOAT_START = 150;
                 const int PLANDO_INT_COUNT = 100;
                 const int PLANDO_BOOL_COUNT = 50;
                 const int PLANDO_FLOAT_COUNT = 25;
-
                 for (int i = 0; i < PLANDO_INT_COUNT; ++i)
                     states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::PLANDO_VARS_GROUP_NAME,
-                        constants::PLANDO_VARS_GROUP_ID, format("%3d_int", i), i, 0));
+                        constants::PLANDO_VARS_GROUP_ID, format("%3d_int", i), PLANDO_INT_START + i, 0));
+
                 for (int i = 0; i < PLANDO_BOOL_COUNT; ++i)
                     states.push_back(add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::PLANDO_VARS_GROUP_NAME,
-                        constants::PLANDO_VARS_GROUP_ID, format("%3d_bool", i + PLANDO_INT_COUNT), i + PLANDO_INT_COUNT, false));
+                        constants::PLANDO_VARS_GROUP_ID, format("%3d_bool", i), PLANDO_BOOL_START + i, false));
+
                 for (int i = 0; i < PLANDO_FLOAT_COUNT; ++i)
                     states.push_back(add_state<app::SerializedFloatUberState>("SerializedFloatUberState", constants::PLANDO_VARS_GROUP_NAME,
-                        constants::PLANDO_VARS_GROUP_ID, format("%3d_float", i + PLANDO_INT_COUNT + PLANDO_BOOL_COUNT), i + PLANDO_INT_COUNT + PLANDO_BOOL_COUNT, false));
+                        constants::PLANDO_VARS_GROUP_ID, format("%3d_float", i), PLANDO_FLOAT_START + i, false));
 
+                // Saved appliers.
                 for (int i = 0; i < constants::APPLIERS_GROUP_COUNT; ++i)
                 {
                     states.push_back(add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::APPLIERS_GROUP_NAME,

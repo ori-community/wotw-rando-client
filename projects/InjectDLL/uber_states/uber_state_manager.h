@@ -26,6 +26,7 @@ namespace uber_states
         constexpr int RANDO_VIRTUAL_GROUP_ID = 15;
         constexpr int LUPO_GROUP_ID = 16;
         constexpr int GROM_SHOP_GROUP_ID = 17;
+        constexpr int RANDO_GAME_MODES_GROUP_ID = 18;
 
         const std::string TREE_GROUP_NAME = "trees";
         const std::string OPHER_WEAPON_GROUP_NAME = "opher_weapons";
@@ -43,6 +44,7 @@ namespace uber_states
         const std::string RANDO_VIRTUAL_GROUP_NAME = "rando_virtual";
         const std::string LUPO_GROUP_NAME = "lupo";
         const std::string GROM_SHOP_GROUP_NAME = "grom_shop";
+        const std::string RANDO_GAME_MODES_GROUP_NAME = "rando_game_modes";
     }
 
     // Mainly useful for reevaluating listeners when a state should have changed but it didn't.
