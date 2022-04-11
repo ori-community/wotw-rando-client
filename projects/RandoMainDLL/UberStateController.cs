@@ -20,8 +20,10 @@ namespace RandoMainDLL {
 
       public void Resolve() {
         var (id, val) = message.FromNet();
-        if (UberGet.AsDouble(id) != val)
+        if (UberGet.AsDouble(id) != val) {
+          ServerChanged.Add((id, val));
           UberSet.Raw(id.GroupID, id.ID, val);
+        }
       }
     }
 
@@ -45,6 +47,7 @@ namespace RandoMainDLL {
       }
     }
 
+    public static HashSet<(UberId, double)> ServerChanged = new HashSet<(UberId, double)>();
     public static HashSet<UberId> TimerUberStates = new HashSet<UberId>();
     public static HashSet<UberId> SyncedUberStates = new HashSet<UberId>();
     public static Dictionary<UberId, UberState> UberStates = new Dictionary<UberId, UberState>();
@@ -360,7 +363,7 @@ namespace RandoMainDLL {
         }
 
         bool found = SeedController.OnUberState(state, old);
-        if (SyncedUberStates.Contains(key) && !UnsharableIds.Contains(key) && !SharingExceptions(state)) {
+        if (SyncedUberStates.Contains(key) && !UnsharableIds.Contains(key) && !SharingExceptions(state) && !ServerChanged.Contains((key, state.ValueAsDouble()))) {
           WebSocketClient.SendUpdate(key, state.ValueAsDouble());
         }
 
@@ -418,8 +421,11 @@ namespace RandoMainDLL {
           Randomizer.Debug($"Not sending {bad.Count} bad states", false);
           foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
         }
+
         while (WebSocketClient.UberStateQueue.TryTake(out var stateUpdate))
           stateUpdate.Resolve();
+
+        ServerChanged.Clear();
       }
       catch (Exception e) { Randomizer.Error("USC.Update", e, false); }
     }
