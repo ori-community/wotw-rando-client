@@ -36,6 +36,7 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT std::vector<std::string> get_path_v(void* object);
 
         IL2CPP_MODLOADER_DLLEXPORT bool get_active(void* object);
+        IL2CPP_MODLOADER_DLLEXPORT bool get_active_self(void* object);
         IL2CPP_MODLOADER_DLLEXPORT void set_active(void* object, bool value);
 
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> get_children(void* obj);

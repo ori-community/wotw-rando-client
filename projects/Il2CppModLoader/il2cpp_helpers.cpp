@@ -29,6 +29,7 @@ namespace il2cpp
         IL2CPP_BINDING(UnityEngine, Component, app::GameObject*, get_gameObject, (void* this_ptr));
 
         IL2CPP_BINDING(UnityEngine, GameObject, bool, get_active, (app::GameObject* this_ptr));
+        IL2CPP_BINDING(UnityEngine, GameObject, bool, get_activeSelf, (app::GameObject* this_ptr));
         IL2CPP_BINDING(UnityEngine, GameObject, void, set_active, (app::GameObject* this_ptr, bool value));
         IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, get_parent, (app::Transform* this_ptr));
         IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform* this_ptr, app::Transform* parent));
@@ -235,6 +236,12 @@ namespace il2cpp
         {
             auto go = get_game_object(object);
             return GameObject::get_active(go);
+        }
+
+        bool get_active_self(void* object)
+        {
+            auto go = get_game_object(object);
+            return GameObject::get_activeSelf(go);
         }
 
         void set_active(void* object, bool value)

@@ -464,6 +464,8 @@ namespace randomizer
                 auto id = Object::GetInstanceID(go);
                 auto layer = il2cpp::invoke<app::Int32__Boxed>(go, "get_layer")->fields;
                 j["instance_id"] = id;
+                j["active"] = il2cpp::unity::get_active(go);;
+                j["active_self"] = il2cpp::unity::get_active_self(go);;
                 j["path"] = il2cpp::unity::get_path(go);
                 if (verbose)
                 {
@@ -620,6 +622,29 @@ namespace randomizer
                     j["payload"] = visualize(game_object, il2cpp::unity::get_object_name(game_object), true);
             }
 
+            void destroy_game_object(nlohmann::json& j)
+            {
+                std::vector<float> values;
+                auto id = j.at("id").get<int>();
+                auto& payload = j.at("payload");
+                auto path = payload.value("path", "");
+                auto go = scenes::get_game_object(path);
+                if (il2cpp::unity::is_valid(go))
+                    il2cpp::unity::destroy_object(go);
+            }
+
+            void set_game_object_active(nlohmann::json& j)
+            {
+                std::vector<float> values;
+                auto id = j.at("id").get<int>();
+                auto& payload = j.at("payload");
+                auto path = payload.value("path", "");
+                auto value = payload.value("value", true);
+                auto go = scenes::get_game_object(path);
+                if (il2cpp::unity::is_valid(go))
+                    il2cpp::unity::set_active(go, value);
+            }
+
             void get_game_object(nlohmann::json& j)
             {
                 std::vector<float> values;
@@ -658,6 +683,8 @@ namespace randomizer
             {
                 register_request_handler("get_game_object", get_game_object);
                 register_request_handler("get_children", get_children);
+                register_request_handler("destroy_game_object", destroy_game_object);
+                register_request_handler("set_game_object_active", set_game_object_active);
             }
 
             CALL_ON_INIT(initialize);
