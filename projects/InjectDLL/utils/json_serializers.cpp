@@ -1,5 +1,11 @@
 #include <utils/json_serializers.h>
 
+#include <Common/ext.h>
+
+#include <Il2CppModLoader/common.h>
+
+#include <fstream>
+
 namespace app {
     void to_json(nlohmann::json& j, const Vector2& s)
     {
@@ -66,4 +72,29 @@ namespace app {
         s.b = j.value("b", 0.0f);
         s.a = j.value("a", 1.0f);
     }
+}
+
+bool load_json_file(std::string path, nlohmann::json& j)
+{
+    using namespace modloader;
+    std::ifstream stream(base_path + path);
+    if (stream.is_open())
+    {
+        try
+        {
+            stream >> j;
+        }
+        catch (nlohmann::json::parse_error& ex)
+        {
+            trace(MessageType::Warning, 3, "util", format("failed to parse '%s%s' error '%d' at byte '%d'", base_path.c_str(), path, ex.id, ex.byte));
+            return false;
+        }
+    }
+    else
+    {
+        trace(MessageType::Warning, 3, "util", format("failed to open '%s%s'", base_path.c_str(), path));
+        return false;
+    }
+
+    return true;
 }

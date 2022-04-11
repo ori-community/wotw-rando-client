@@ -42,6 +42,8 @@ namespace randomizer
         NAMED_IL2CPP_BINDING_OVERLOAD(Moon.Wwise, WwiseEventSystem, void, FireAndForget, FireAndForgetEvt,
             (app::WwiseEventSystem* system, app::Event_1* evt, app::ISoundHost* host),
             (AK.Wwise:Event, Moon.Wwise:ISoundHost));
+        IL2CPP_BINDING(Moon.Wwise, WwiseEventSystem, app::WwiseEventSystem_SoundHandle, AllocateHandle,
+            (app::WwiseEventSystem* system, app::Event_1* evt, app::ISoundHost* host));
 
         IL2CPP_BINDING(Moon.Wwise, WwiseGameObjectSystem, app::ArtificialSoundHostReference*, Allocate,
             (app::WwiseGameObjectSystem* this_ptr, app::String* name));
@@ -55,6 +57,20 @@ namespace randomizer
             (app::ArtificialSoundHostReference* this_ptr, app::Transform* transform));
         IL2CPP_BINDING(Moon.Wwise, ArtificialSoundHostReference, app::WwiseEventSystem_SoundHandle*, PlayAndReleaseWith,
             (app::ArtificialSoundHostReference* this_ptr, app::Event_1* evt));
+
+        NESTED_IL2CPP_BINDING(, WwiseEventSystem, SoundHandle, void, Play,
+            (app::WwiseEventSystem_SoundHandle__Boxed* this_ptr));
+        NESTED_IL2CPP_BINDING(, WwiseEventSystem, SoundHandle, void, Stop,
+            (app::WwiseEventSystem_SoundHandle__Boxed* this_ptr, int transitTimeMs, app::AkCurveInterpolation__Enum curve));
+        NESTED_IL2CPP_BINDING(, WwiseEventSystem, SoundHandle, void, Pause,
+            (app::WwiseEventSystem_SoundHandle__Boxed* this_ptr, int transitTimeMs, app::AkCurveInterpolation__Enum curve));
+        NESTED_IL2CPP_BINDING(, WwiseEventSystem, SoundHandle, void, Resume,
+            (app::WwiseEventSystem_SoundHandle__Boxed* this_ptr, int transitTimeMs, app::AkCurveInterpolation__Enum curve));
+        NESTED_IL2CPP_BINDING(, WwiseEventSystem, SoundHandle, app::WwiseEventSystem_EventStatus__Enum, get_Status,
+            (app::WwiseEventSystem_SoundHandle__Boxed* this_ptr));
+
+        IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* position));
+        IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_position, (app::Transform* this_ptr));
 
         app::Event_1* create_event(SoundEventID id)
         {
@@ -77,16 +93,19 @@ namespace randomizer
             auto out = AkSoundEngine::LoadAndDecodeBankFromMemory(data_ptr, data.size(), true, il2cpp::string_new("WotwRando"), false, &bank_id);
         }
 
-        void play_sound(SoundEventID event_id, app::ISoundHost* host)
+        app::WwiseEventSystem_SoundHandle play_sound(SoundEventID event_id, app::ISoundHost* host)
         {
             auto wwise = il2cpp::get_class<app::Wwise__Class>("Moon.Wwise", "Wwise");
             auto wes = wwise->static_fields->m_eventsSystem;
             if (host == nullptr)
                 host = reinterpret_cast<app::ISoundHost*>(wwise->static_fields->_DefaultDevSoundHost_k__BackingField);
 
-            WwiseEventSystem::FireAndForget(wes, static_cast<uint32_t>(event_id), host);
+            auto evt = create_event(event_id);
+            auto handle = WwiseEventSystem::AllocateHandle(wes, evt, host);
+            auto boxed = il2cpp::box_value<app::WwiseEventSystem_SoundHandle__Boxed>(il2cpp::get_class("", "WwiseEventSystem.SoundHandle"), handle);
+            WwiseEventSystem::SoundHandle::Play(boxed);
+            return handle;
         }
-
 
         std::string artificial_host_name_template("randomizer_artificial_host_");
         int artificial_host_id = 1;
@@ -110,9 +129,60 @@ namespace randomizer
 
         CALL_ON_INIT(initialize);
     }
+
+    SoundActor::SoundActor(app::GameObject* parent)
+    {
+        m_root = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
+        il2cpp::invoke(m_root, ".ctor");
+        m_host = il2cpp::unity::add_component<app::SoundHost>(m_root, "Moon.Wwise", "SoundHost");
+        m_host->fields.m_gameObject = m_root;
+        m_host->fields.m_transform = il2cpp::unity::get_transform(m_root);
+        m_host->fields.m_isListener = false;
+        m_host->fields.SyncPosition = true;
+        il2cpp::unity::set_active(m_root, true);
+    }
+
+    SoundActor::~SoundActor()
+    {
+        il2cpp::unity::destroy_object(m_root);
+    }
+
+    app::WwiseEventSystem_EventStatus__Enum SoundActor::status()
+    {
+        auto boxed = il2cpp::box_value<app::WwiseEventSystem_SoundHandle__Boxed>(il2cpp::get_class("", "WwiseEventSystem.SoundHandle"), m_sound);
+        return sound::WwiseEventSystem::SoundHandle::get_Status(boxed);
+    }
+
+    void SoundActor::play(SoundEventID event_id)
+    {
+        auto wwise = il2cpp::get_class<app::Wwise__Class>("Moon.Wwise", "Wwise");
+        auto wes = wwise->static_fields->m_eventsSystem;
+        auto evt = sound::create_event(event_id);
+        m_sound = sound::WwiseEventSystem::AllocateHandle(wes, evt, reinterpret_cast<app::ISoundHost*>(m_host));
+        auto boxed = il2cpp::box_value<app::WwiseEventSystem_SoundHandle__Boxed>(il2cpp::get_class("", "WwiseEventSystem.SoundHandle"), m_sound);
+        sound::WwiseEventSystem::SoundHandle::Play(boxed);
+    }
+
+    void SoundActor::pause()
+    {
+        auto boxed = il2cpp::box_value<app::WwiseEventSystem_SoundHandle__Boxed>(il2cpp::get_class("", "WwiseEventSystem.SoundHandle"), m_sound);
+        sound::WwiseEventSystem::SoundHandle::Pause(boxed, 0, app::AkCurveInterpolation__Enum_AkCurveInterpolation_Linear);
+    }
+
+    void SoundActor::resume()
+    {
+        auto boxed = il2cpp::box_value<app::WwiseEventSystem_SoundHandle__Boxed>(il2cpp::get_class("", "WwiseEventSystem.SoundHandle"), m_sound);
+        sound::WwiseEventSystem::SoundHandle::Resume(boxed, 0, app::AkCurveInterpolation__Enum_AkCurveInterpolation_Linear);
+    }
+
+    void SoundActor::stop()
+    {
+        auto boxed = il2cpp::box_value<app::WwiseEventSystem_SoundHandle__Boxed>(il2cpp::get_class("", "WwiseEventSystem.SoundHandle"), m_sound);
+        sound::WwiseEventSystem::SoundHandle::Stop(boxed, 0, app::AkCurveInterpolation__Enum_AkCurveInterpolation_Linear);
+    }
 }
 
-INJECT_C_DLLEXPORT void play_sound(randomizer::sound::SoundEventID event_id, app::Vector3 position)
+INJECT_C_DLLEXPORT void play_sound(SoundEventID event_id, app::Vector3 position)
 {
     randomizer::sound::play_sound_at(event_id, position);
 }

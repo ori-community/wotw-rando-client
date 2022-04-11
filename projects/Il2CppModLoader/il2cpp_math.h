@@ -2,36 +2,64 @@
 
 #include <cmath>
 
-inline app::Vector2 operator- (app::Vector2 const& a, app::Vector2 const& b)
+inline app::Vector2 operator-(app::Vector2 const& a, app::Vector2 const& b)
 {
     return app::Vector2 {
-            a.x - b.x,
-            a.y - b.y,
+        a.x - b.x,
+        a.y - b.y,
     };
 }
 
-inline app::Vector2 operator/ (app::Vector2 const& a, app::Vector2 const& b)
+inline app::Vector2 operator/(app::Vector2 const& a, app::Vector2 const& b)
 {
     return app::Vector2 {
-            a.x / b.x,
-            a.y / b.y,
+        a.x / b.x,
+        a.y / b.y,
     };
 }
 
-inline app::Vector2 operator/ (app::Vector2 const& a, float const& b)
+inline app::Vector2 operator/(app::Vector2 const& a, float const& b)
 {
     return app::Vector2 {
-            a.x / b,
-            a.y / b,
+        a.x / b,
+        a.y / b,
     };
 }
 
-inline app::Vector3 operator- (app::Vector3 const& a, app::Vector3 const& b)
+inline app::Vector3 operator*(app::Vector3 const& a, float const& b)
+{
+    return app::Vector3{
+        a.x * b,
+        a.y * b,
+        a.z * b,
+    };
+}
+
+inline app::Vector3 operator+(app::Vector3 const& a, app::Vector3 const& b)
+{
+    return app::Vector3{
+        a.x + b.x,
+        a.y + b.y,
+        a.z + b.z,
+    };
+}
+
+inline app::Vector3 operator-(app::Vector3 const& a, app::Vector3 const& b)
 {
     return app::Vector3 {
-            a.x - b.x,
-            a.y - b.y,
-            a.z - b.z,
+        a.x - b.x,
+        a.y - b.y,
+        a.z - b.z,
+    };
+}
+
+inline app::Color operator*(app::Color const& a, app::Color const& b)
+{
+    return app::Color{
+        a.r * b.r,
+        a.g * b.g,
+        a.b * b.b,
+        a.a * b.a,
     };
 }
 
@@ -82,5 +110,10 @@ namespace modloader::math
             distance_v.z = 0;
 
         return normalize(distance_v);
+    }
+
+    inline app::Vector3 lerp(app::Vector3 a, app::Vector3 b, float weight)
+    {
+        return a + (a - b) * weight;
     }
 }

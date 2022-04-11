@@ -3,6 +3,15 @@
 #include <macros.h>
 #include <json/json.hpp>
 
+namespace randomizer
+{
+    class TextBox
+    {
+    public:
+    private:
+    };
+}
+
 enum class ScreenPosition
 {
     TopLeft = 0,

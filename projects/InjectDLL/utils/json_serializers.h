@@ -1,10 +1,12 @@
 #pragma once
 
 #include <json/json.hpp>
-#include <randomizer/render/animation.h>
 #include <randomizer/render/sprite.h>
 
+bool load_json_file(std::string path, nlohmann::json& j);
+
 namespace app {
+
     void to_json(nlohmann::json& j, const Vector2& s);
     void from_json(const nlohmann::json& j, Vector2& s);
 
@@ -260,20 +262,5 @@ namespace app {
         { app::WorldMapIconType__Enum_Ku, "Ku" },
         { app::WorldMapIconType__Enum_IceFisher, "IceFisher" },
         { app::WorldMapIconType__Enum_Siira, "Siira" },
-    });
-}
-
-namespace randomizer
-{
-    NLOHMANN_JSON_SERIALIZE_ENUM(AnimationEndHandling, {
-        { AnimationEndHandling::Freeze, "Freeze" },
-        { AnimationEndHandling::Loop, "Loop" },
-        { AnimationEndHandling::DestroyOnEnd, "DestroyOnEnd" },
-        { AnimationEndHandling::DeactivateOnEnd, "DeactivateOnEnd" },
-    });
-
-    NLOHMANN_JSON_SERIALIZE_ENUM(SpriteEndHandling, {
-        { SpriteEndHandling::Freeze, "Freeze" },
-        { SpriteEndHandling::Hide, "Hide" },
     });
 }

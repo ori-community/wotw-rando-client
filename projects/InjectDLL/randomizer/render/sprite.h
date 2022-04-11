@@ -6,42 +6,29 @@
 
 namespace randomizer
 {
-    enum class SpriteEndHandling
+    class Sprite
     {
-        Freeze,
-        Hide
-    };
+    public:
+        Sprite(app::GameObject* parent = nullptr);
+        ~Sprite();
 
-    struct AnimationEntry
-    {
-        std::wstring texture;
-        std::shared_ptr<textures::TextureData> texture_data = nullptr;
-        std::optional<textures::MaterialParams> texture_params;
-        app::Vector3 position{ 0.f, 0.f, 0.f };
-        app::Vector3 scale{ 0.f, 0.f, 0.f };
-        float aspect_ratio = 1.f;
-        float rotation = 0;
-        float duration = 0;
-        float real_duration = 0;
-        float offset_z = 0.f;
-    };
+        Sprite(Sprite const&) = delete;
 
-    struct Sprite
-    {
-        bool visible = true;
-        float start_time = 0.f;
-        uint32_t game_object_handle = -1;
-        app::BlendMode__Enum src_blend = app::BlendMode__Enum_SrcAlpha;
-        app::BlendMode__Enum dst_blend = app::BlendMode__Enum_OneMinusSrcAlpha;
+        void layer(Layer l);
+        void local_position(app::Vector3 p);
+        void local_scale(app::Vector3 s);
+        void local_rotation(float r);
 
-        DirtyValue<Layer> layer = Layer::UI;
-        app::Vector3 position{ 0.f, 0.f, 0.f };
-        app::Vector3 scale{ 0.f, 0.f, 0.f };
-        float rotation = 0;
+        bool enabled();
+        void enabled(bool value);
 
-        std::wstring current_texture;
-        DirtyValue<int> entry = 0;
-        std::vector<AnimationEntry> entries;
-        SpriteEndHandling end_handler;
+        void texture(std::shared_ptr<textures::TextureData> texture_data, std::optional<textures::MaterialParams> params);
+        void set_parent(app::GameObject* parent);
+    private:
+        app::GameObject* m_root;
+        app::Renderer* m_renderer;
+
+        std::shared_ptr<textures::TextureData> m_texture_data;
+        std::optional<textures::MaterialParams> m_texture_params;
     };
 }

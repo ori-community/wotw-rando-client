@@ -76,7 +76,6 @@ namespace multiplayer
     IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform* this_ptr, app::Transform* parent));
 
     STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (app::Object* object), (UnityEngine:Object));
-    IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
     IL2CPP_BINDING(UnityEngine, GameObject, void, set_layer, (app::GameObject* this_ptr, int value));
 
     IL2CPP_BINDING(, IconPlacementScaler, void, PlaceIcon, (app::IconPlacementScaler* this_ptr, app::GameObject* icon, app::Vector3* location, bool is_teleportable));
@@ -96,7 +95,7 @@ namespace multiplayer
             dot.transform = il2cpp::unity::get_transform(dot.dot);
             dot.renderer = il2cpp::unity::get_components<app::Renderer>(
                 il2cpp::unity::get_children(dot.dot)[0], "UnityEngine", "Renderer")[0];
-            GameObject::SetActive(dot.dot, player.map_avatar.visible);
+            il2cpp::unity::set_active(dot.dot, player.map_avatar.visible);
             app::Vector3 pos{ player.map_avatar.position.x, player.map_avatar.position.y, 0.0f };
             IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
         }
@@ -131,7 +130,7 @@ namespace multiplayer
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
 
         auto& dot = player.dots[player.next_dot_index];
-        GameObject::SetActive(dot.dot, player.map_avatar.visible);
+        il2cpp::unity::set_active(dot.dot, player.map_avatar.visible);
         app::Vector3 pos{ player.map_avatar.position.x, player.map_avatar.position.y, 0.0f };
         IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
     
@@ -163,7 +162,7 @@ namespace multiplayer
     IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RenderText, (app::TextBox* this_ptr));
     void set_avatar_active(PlayerInfo& info, PlayerInfo::Icon& icon, bool value)
     {
-        GameObject::SetActive(icon.root, value);
+        il2cpp::unity::set_active(icon.root, value);
         if (value)
         {
             auto text_box = il2cpp::unity::get_component<app::TextBox>(icon.text, "CatlikeCoding.TextBox", "TextBox");
@@ -203,7 +202,7 @@ namespace multiplayer
             icon.root = il2cpp::unity::instantiate_object(icons->fields.Siira);
             icon.icon = il2cpp::unity::find_child(icon.root, "npcTreeKeeperTraderMapIcon");
             icon.text = il2cpp::unity::find_child(icon.root, "IconLabelPrefab");
-            GameObject::SetActive(il2cpp::unity::find_child(icon.root, "questObjective2MapIcon"), false);
+            il2cpp::unity::set_active(il2cpp::unity::find_child(icon.root, "questObjective2MapIcon"), false);
             break;
         }
         default: // Moki
@@ -211,12 +210,12 @@ namespace multiplayer
             icon.root = il2cpp::unity::instantiate_object(icons->fields.Moki);
             icon.icon = il2cpp::unity::find_child(icon.root, "npcMokiMapIcon");
             icon.text = il2cpp::unity::find_child(icon.root, "IconLabelPrefab");
-            GameObject::SetActive(il2cpp::unity::find_child(icon.root, "questObjective2MapIcon"), false);
+            il2cpp::unity::set_active(il2cpp::unity::find_child(icon.root, "questObjective2MapIcon"), false);
             break;
         }
         }
 
-        GameObject::SetActive(icon.text, true);
+        il2cpp::unity::set_active(icon.text, true);
         auto area_map_icon = il2cpp::unity::get_component(icon.root, "", "AreaMapIcon");
         if (area_map_icon != nullptr)
             il2cpp::unity::destroy_object(area_map_icon);
@@ -495,7 +494,7 @@ namespace multiplayer
                     set_avatar_active(player, player.map_avatar, map_visible);
 
                 for (auto& dot : player.dots)
-                    GameObject::SetActive(dot.dot, map_visible);
+                    il2cpp::unity::set_active(dot.dot, map_visible);
 
                 player.map_avatar.visible = map_visible;
             }
@@ -516,7 +515,7 @@ namespace multiplayer
                 set_avatar_active(player, player.map_avatar, player.map_avatar.visible);
 
             for (auto& dot : player.dots)
-                GameObject::SetActive(dot.dot, player.map_avatar.visible);
+                il2cpp::unity::set_active(dot.dot, player.map_avatar.visible);
         }
     }
 
