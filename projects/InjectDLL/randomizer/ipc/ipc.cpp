@@ -46,6 +46,7 @@ namespace randomizer
             std::mutex send_mutex;
             std::vector<std::string> sends;
             std::vector<std::string> messages;
+            std::atomic<bool> shutdown_ipc_thread;
 
             HANDLE connect(int buffer_size)
             {
@@ -92,7 +93,7 @@ namespace randomizer
                 if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE)
                     return;
 
-                while (!shutdown_thread)
+                while (!shutdown_ipc_thread)
                 {
                     DWORD bytes_available = 0;
                     if (!PeekNamedPipe(pipe, nullptr, 0, nullptr, &bytes_available, nullptr))
@@ -168,6 +169,7 @@ namespace randomizer
 
             void start_ipc_thread()
             {
+                shutdown_ipc_thread = false;
                 if (ipc_thread == nullptr)
                     ipc_thread = std::make_unique<std::thread>(pipe_handler);
             }
@@ -221,6 +223,7 @@ namespace randomizer
 
         void on_shutdown(GameEvent game_event, EventTiming timing)
         {
+            shutdown_ipc_thread = true;
             if (ipc_thread != nullptr && ipc_thread->joinable())
                 ipc_thread->join();
         }
