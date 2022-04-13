@@ -51,6 +51,7 @@ set(
     "game/behaviour_changes/flap_without_glide.cpp"
     "game/behaviour_changes/instant_tp_activation.cpp"
     "game/behaviour_changes/prevent_pickup.cpp"
+    "game/behaviour_changes/stomp_through_portals.cpp"
     "game/behaviour_changes/teleporter_glades_identifier.cpp"
     "game/behaviour_changes/teleporter_map_activation.cpp"
     "game/behaviour_changes/trials_leaderboards.cpp"

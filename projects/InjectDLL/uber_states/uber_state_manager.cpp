@@ -377,6 +377,7 @@ namespace uber_states
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "kwolok_door_available", 6, true),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "chaos_mode", CHAOS_MODE_ID, false),
                     add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "prevent_pickup", PREVENT_PICKUP_ID, false),
+                    add_state<app::SerializedBooleanUberState>("SerializedBooleanUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "stomp_through_portals", STOMP_THROUGH_PORTALS_ID, false),
 
                     add_state<app::SerializedIntUberState>("SerializedIntUberState", constants::RANDO_CONFIG_GROUP_NAME, constants::RANDO_CONFIG_GROUP_ID, "force_no_air_deceleration_flag", FORCE_AIR_NO_DECELERATION_ID, 0),
 

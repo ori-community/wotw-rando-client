@@ -406,6 +406,7 @@ namespace RandoMainDLL {
             return uid.GetValue().FmtVal(uid.UberType());
           }
         });
+
         return nameFrag.Replace(withStateRepl, (Match m) => {
           var ptype = (PickupType)m.Groups[1].Value.ParseToByte("rawName type");
           var rest = m.Groups[2].Value.Split('|').ToList();

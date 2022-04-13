@@ -344,6 +344,13 @@ namespace modloader
             , virtual_count(virtual_count)
             , next(nullptr)
         {
+            // Use overload parameters instead if they are available, and set static to true since overloads never include the this ptr.
+            if (!overload_params.empty())
+            {
+                p_params = overload_params;
+                p_ztatic = true;
+            }
+
             // Chop off ( )
             p_params = p_params.substr(1, p_params.size() - 2);
             trim(p_params);
@@ -355,7 +362,7 @@ namespace modloader
                 if (!p_ztatic)
                     --param_count;
             }
-            else if (!ztatic)
+            else if (!p_ztatic)
                 trace(MessageType::Error, 3, "initalize", format("%s.%s.%s should not have 0 parameters as it is not a static method.", namezpace.data(), klass.data(), method_name.data()));
 
             prev = last_il2cpp_intercept;

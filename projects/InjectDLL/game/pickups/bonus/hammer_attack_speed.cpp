@@ -1,5 +1,7 @@
 #include <uber_states/uber_state_manager.h>
 
+#include <game/player.h>
+
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
