@@ -31,7 +31,7 @@ namespace randomizer
                 auto arr = jentry.value("entries", nlohmann::json::array());
                 for (auto& sub_entry : arr)
                     for (auto& [key, value] : jentry.items())
-                        if (key != "entries")
+                        if (key != "entries" && key != "type")
                             sub_entry[key] = value;
 
                 parse_entries(path, frames, arr);
