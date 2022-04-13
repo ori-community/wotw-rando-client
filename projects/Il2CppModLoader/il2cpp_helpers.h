@@ -35,6 +35,17 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT std::string get_path(void* object);
         IL2CPP_MODLOADER_DLLEXPORT std::vector<std::string> get_path_v(void* object);
 
+        IL2CPP_MODLOADER_DLLEXPORT app::Vector3 get_position(void* obj);
+        IL2CPP_MODLOADER_DLLEXPORT app::Vector3 get_rotation(void* obj);
+        IL2CPP_MODLOADER_DLLEXPORT app::Vector3 get_local_position(void* obj);
+        IL2CPP_MODLOADER_DLLEXPORT app::Vector3 get_local_rotation(void* obj);
+        IL2CPP_MODLOADER_DLLEXPORT app::Vector3 get_local_scale(void* obj);
+        IL2CPP_MODLOADER_DLLEXPORT void set_position(void* obj, app::Vector3 value);
+        IL2CPP_MODLOADER_DLLEXPORT void set_rotation(void* obj, app::Vector3 value);
+        IL2CPP_MODLOADER_DLLEXPORT void set_local_position(void* obj, app::Vector3 value);
+        IL2CPP_MODLOADER_DLLEXPORT void set_local_rotation(void* obj, app::Vector3 value);
+        IL2CPP_MODLOADER_DLLEXPORT void set_local_scale(void* obj, app::Vector3 value);
+
         IL2CPP_MODLOADER_DLLEXPORT bool get_active(void* object);
         IL2CPP_MODLOADER_DLLEXPORT bool get_active_self(void* object);
         IL2CPP_MODLOADER_DLLEXPORT void set_active(void* object, bool value);

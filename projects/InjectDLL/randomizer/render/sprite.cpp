@@ -112,6 +112,8 @@ namespace randomizer
                 il2cpp::invoke(renderer, "set_sharedMaterial", mat);
             }
 
+            auto test = Renderer::get_bounds(renderer);
+
             return icon;
         }
     }

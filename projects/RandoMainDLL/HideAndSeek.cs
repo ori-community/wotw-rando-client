@@ -80,7 +80,7 @@ namespace RandoMainDLL {
 
       // TODO: Create caught timeline (Player = id)
       bool isLocal = id == Multiplayer.Id || id == null;
-      string attach_obj = isLocal ? sein_head : id + "_world";
+      string attach_obj = isLocal ? "seinCharacter" : id + "_world";
       var timeline = InterOp.Animation.timeline_create(CAUGHT_TIMELINE);
       InterOp.Animation.timeline_attach(timeline, attach_obj);
       InterOp.Animation.timeline_start(timeline);
@@ -110,7 +110,7 @@ namespace RandoMainDLL {
 
       var timeline = InterOp.Animation.timeline_create(CATCHING_TIMELINE);
       InterOp.Animation.timeline_position(timeline, new Vector3(position, 0));
-      InterOp.Animation.timeline_scale(timeline, new Vector3(radius, radius, 1));
+      InterOp.Animation.timeline_local_scale(timeline, new Vector3(radius * 2, radius * 2, 1));
       InterOp.Animation.timeline_start(timeline);
     }
 
@@ -121,6 +121,8 @@ namespace RandoMainDLL {
       string attach_obj = isLocal ? sein_head : player + "_world";
       var timeline = InterOp.Animation.timeline_create(COOLDOWN_TIMELINE);
       InterOp.Animation.timeline_attach(timeline, attach_obj);
+      InterOp.Animation.timeline_local_position(timeline, new Vector3(0, isLocal ? 0.7f : 1, 0));
+      InterOp.Animation.timeline_local_scale(timeline, new Vector3(1.5f, 1.5f, 1));
       InterOp.Animation.timeline_start(timeline);
     }
 

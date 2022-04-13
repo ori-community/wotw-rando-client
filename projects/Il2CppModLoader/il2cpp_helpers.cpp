@@ -28,9 +28,13 @@ namespace il2cpp
 
         IL2CPP_BINDING(UnityEngine, Component, app::GameObject*, get_gameObject, (void* this_ptr));
 
+        IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_position, (app::Transform* this_ptr));
+        IL2CPP_BINDING(UnityEngine, Transform, app::Quaternion, get_rotation, (app::Transform* this_ptr));
         IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_localPosition, (app::Transform* this_ptr));
         IL2CPP_BINDING(UnityEngine, Transform, app::Quaternion, get_localRotation, (app::Transform* this_ptr));
         IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_localScale, (app::Transform* this_ptr));
+        IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* pos));
+        IL2CPP_BINDING(UnityEngine, Transform, void, set_rotation, (app::Transform* this_ptr, app::Quaternion* rot));
         IL2CPP_BINDING(UnityEngine, Transform, void, set_localPosition, (app::Transform* this_ptr, app::Vector3* pos));
         IL2CPP_BINDING(UnityEngine, Transform, void, set_localRotation, (app::Transform* this_ptr, app::Quaternion* rot));
         IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform* this_ptr, app::Vector3* scale));
@@ -231,6 +235,20 @@ namespace il2cpp
             return path;
         }
 
+        app::Vector3 get_position(void* obj)
+        {
+            auto transform = get_transform(obj);
+            return Transform::get_position(transform);
+        }
+
+        app::Vector3 get_rotation(void* obj)
+        {
+            auto transform = get_transform(obj);
+            auto value = Transform::get_rotation(transform);
+            return Quaternion::get_eulerAngles(il2cpp::box_value<app::Quaternion__Boxed>(
+                il2cpp::get_class("UnityEngine", "Quaternion"), value));
+        }
+
         app::Vector3 get_local_position(void* obj)
         {
             auto transform = get_transform(obj);
@@ -249,6 +267,19 @@ namespace il2cpp
         {
             auto transform = get_transform(obj);
             return Transform::get_localScale(transform);
+        }
+
+        void set_position(void* obj, app::Vector3 value)
+        {
+            auto transform = get_transform(obj);
+            Transform::set_position(transform, &value);
+        }
+
+        void set_rotation(void* obj, app::Vector3 value)
+        {
+            auto transform = get_transform(obj);
+            auto quat = Quaternion::Euler(value.x, value.y, value.z);
+            Transform::set_rotation(transform, &quat);
         }
 
         void set_local_position(void* obj, app::Vector3 value)

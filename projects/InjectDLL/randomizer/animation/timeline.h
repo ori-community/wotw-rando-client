@@ -31,15 +31,20 @@ namespace randomizer
         void update(float dt);
         void stop();
 
-        bool is_finished() { return !started; }
-        app::GameObject* root() { return state.root; }
+        bool is_finished() { return !m_started; }
+        app::GameObject* root() { return m_state.root; }
+        void attach(app::GameObject* go) { m_attached = go; }
+        void attach_offset(app::Vector3 value) { m_attach_offset = value; }
     private:
-        std::vector<std::shared_ptr<timeline_entries::Base>> entries;
-        std::vector<std::shared_ptr<timeline_entries::Base>> active_entries;
+        std::vector<std::shared_ptr<timeline_entries::Base>> m_entries;
+        std::vector<std::shared_ptr<timeline_entries::Base>> m_active_entries;
 
-        TimelineState state;
-        int entry;
-        bool started;
+        app::GameObject* m_attached;
+        app::Vector3 m_attach_offset;
+
+        TimelineState m_state;
+        int m_entry;
+        bool m_started;
     };
 
     std::unique_ptr<Timeline> load_timeline(std::string path);

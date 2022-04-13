@@ -11,6 +11,7 @@
 #include <Common/ext.h>
 
 #include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/il2cpp_math.h>
 
 using namespace modloader;
 
@@ -88,15 +89,17 @@ namespace randomizer
     }
 
     Timeline::Timeline(std::vector<std::shared_ptr<timeline_entries::Base>> entries)
-        : entries(entries)
-        , entry(0)
-        , started(false)
+        : m_entries(entries)
+        , m_entry(0)
+        , m_started(false)
+        , m_attached(nullptr)
+        , m_attach_offset{ 0, 0, 0 }
     {
-        state.root = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
-        il2cpp::invoke(state.root, ".ctor");
-        il2cpp::invoke(state.root, "set_name", il2cpp::string_new("rando_timeline"));
-        game::add_to_container(game::RandoContainer::GameObjects, state.root);
-        std::sort(this->entries.begin(), this->entries.end(), [](auto const& a, auto const& b) {
+        m_state.root = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
+        il2cpp::invoke(m_state.root, ".ctor");
+        il2cpp::invoke(m_state.root, "set_name", il2cpp::string_new("rando_timeline"));
+        game::add_to_container(game::RandoContainer::GameObjects, m_state.root);
+        std::sort(m_entries.begin(), m_entries.end(), [](auto const& a, auto const& b) {
             if (a->start_time == b->start_time)
                 return a->type < b->type;
 
@@ -105,75 +108,85 @@ namespace randomizer
     }
 
     Timeline::Timeline(Timeline const& other)
-        : entries(other.entries)
-        , entry(0)
-        , started(false)
+        : m_entries(other.m_entries)
+        , m_entry(0)
+        , m_started(false)
+        , m_attached(nullptr)
+        , m_attach_offset{ 0, 0, 0 }
     {
-        state.root = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
-        il2cpp::invoke(state.root, ".ctor");
-        il2cpp::invoke(state.root, "set_name", il2cpp::string_new("rando_timeline"));
-        game::add_to_container(game::RandoContainer::GameObjects, state.root);
+        m_state.root = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
+        il2cpp::invoke(m_state.root, ".ctor");
+        il2cpp::invoke(m_state.root, "set_name", il2cpp::string_new("rando_timeline"));
+        game::add_to_container(game::RandoContainer::GameObjects, m_state.root);
     }
 
     Timeline::~Timeline()
     {
-        if (il2cpp::unity::is_valid(state.root))
+        if (il2cpp::unity::is_valid(m_state.root))
         {
-            il2cpp::unity::destroy_object(state.root);
-            state.root = nullptr;
+            il2cpp::unity::destroy_object(m_state.root);
+            m_state.root = nullptr;
         }
     }
 
     void Timeline::start()
     {
-        state.time = 0;
-        entry = 0;
-        started = true;
+        m_state.time = 0;
+        m_entry = 0;
+        m_started = true;
         update(0);
     }
 
     void Timeline::update(float dt)
     {
-        if (!started)
+        if (!m_started)
             return;
 
-        state.time += dt;
-        while (entry < entries.size() && entries[entry]->start_time <= state.time)
+        if (il2cpp::unity::is_valid(m_attached))
         {
-            active_entries.push_back(entries[entry]);
-            ++entry;
+            auto pos = il2cpp::unity::get_position(m_attached) + m_attach_offset;
+            il2cpp::unity::set_position(m_state.root, pos);
         }
 
-        for (auto it = active_entries.begin(); it != active_entries.end();)
+        m_state.time += dt;
+        while (m_entry < m_entries.size() && m_entries[m_entry]->start_time <= m_state.time)
         {
-            if ((*it)->update_state(state, dt))
-                it = active_entries.erase(it);
+            m_active_entries.push_back(m_entries[m_entry]);
+            ++m_entry;
+        }
+
+        for (auto it = m_active_entries.begin(); it != m_active_entries.end();)
+        {
+            if ((*it)->update_state(m_state, dt))
+                it = m_active_entries.erase(it);
             else
                 ++it;
         }
 
-        if (active_entries.empty() && entry >= entries.size())
+        if (m_active_entries.empty() && m_entry >= m_entries.size())
             stop();
     }
 
     void Timeline::stop()
     {
-        if (!started)
+        if (!m_started)
             return;
 
-        active_entries.clear();
-        state.active_animations.clear();
-        state.active_sounds.clear();
-        state.active_text.clear();
-        state.time = 0;
-        entry = 0;
-        started = false;
+        m_active_entries.clear();
+        m_state.active_animations.clear();
+        m_state.active_sounds.clear();
+        m_state.active_text.clear();
+        m_state.time = 0;
+        m_entry = 0;
+        m_started = false;
     }
 }
 
 // TODO: Everything below here should be removed when we move to using only C++ as we can use the timeline_cache directly.
 namespace
 {
+    IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* position));
+    IL2CPP_BINDING(UnityEngine, Transform, void, set_rotation, (app::Transform* this_ptr, app::Quaternion* rotation));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_localPosition, (app::Transform* this_ptr, app::Vector3* position));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform* this_ptr, app::Vector3* scale));
     IL2CPP_BINDING(UnityEngine, Transform, void, set_localRotation, (app::Transform* this_ptr, app::Quaternion* rotation));
@@ -235,8 +248,7 @@ INJECT_C_DLLEXPORT void timeline_attach(int id, const char* path)
     if (it != csharp_timelines.end())
     {
         auto go = scenes::get_game_object(path);
-        if (il2cpp::unity::is_valid(go))
-            il2cpp::unity::set_parent(it->second->root(), go);
+        it->second->attach(go);
     }
 }
 
@@ -246,11 +258,33 @@ INJECT_C_DLLEXPORT void timeline_position(int id, app::Vector3 value)
     if (it != csharp_timelines.end())
     {
         auto transform = il2cpp::unity::get_transform(it->second->root());
+        Transform::set_position(transform, &value);
+    }
+}
+
+INJECT_C_DLLEXPORT void timeline_rotation(int id, app::Vector3 value)
+{
+    auto it = csharp_timelines.find(id);
+    if (it != csharp_timelines.end())
+    {
+        auto transform = il2cpp::unity::get_transform(it->second->root());
+        auto quat = Quaternion::Euler(value.x, value.y, value.z);
+        Transform::set_rotation(transform, &quat);
+    }
+}
+
+INJECT_C_DLLEXPORT void timeline_local_position(int id, app::Vector3 value)
+{
+    auto it = csharp_timelines.find(id);
+    if (it != csharp_timelines.end())
+    {
+        it->second->attach_offset(value);
+        auto transform = il2cpp::unity::get_transform(it->second->root());
         Transform::set_localPosition(transform, &value);
     }
 }
 
-INJECT_C_DLLEXPORT void timeline_scale(int id, app::Vector3 value)
+INJECT_C_DLLEXPORT void timeline_local_scale(int id, app::Vector3 value)
 {
     auto it = csharp_timelines.find(id);
     if (it != csharp_timelines.end())
@@ -260,7 +294,7 @@ INJECT_C_DLLEXPORT void timeline_scale(int id, app::Vector3 value)
     }
 }
 
-INJECT_C_DLLEXPORT void timeline_rotation(int id, app::Vector3 value)
+INJECT_C_DLLEXPORT void timeline_local_rotation(int id, app::Vector3 value)
 {
     auto it = csharp_timelines.find(id);
     if (it != csharp_timelines.end())
