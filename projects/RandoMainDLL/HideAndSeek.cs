@@ -14,9 +14,9 @@ namespace RandoMainDLL {
   public static class HideAndSeek {
     public static BlockingCollection<Packet> Queue = new BlockingCollection<Packet>();
 
-    private static readonly string COOLDOWN_TIMELINE = "assets/timeline/cooldown.json";
-    private static readonly string CATCHING_TIMELINE = "assets/timeline/catching.json";
-    private static readonly string CAUGHT_TIMELINE = "assets/timeline/caught.json";
+    private static readonly string COOLDOWN_TIMELINE = "assets/timelines/cooldown.json";
+    private static readonly string CATCHING_TIMELINE = "assets/timelines/catching.json";
+    private static readonly string CAUGHT_TIMELINE = "assets/timelines/caught.json";
     private static readonly Dictionary<string, SeekerWorldInfo> seekers = new Dictionary<string, SeekerWorldInfo>();
     private static readonly HashSet<long> seekerIds = new HashSet<long>();
 
@@ -114,7 +114,7 @@ namespace RandoMainDLL {
       InterOp.Animation.timeline_start(timeline);
     }
 
-    static string sein_head = "SeinCharacter/ori3D/mirrorHolder/rigHolder/oriRig/Skeleton_GRP/root_JNT/pelvis_JNT/" +
+    static string sein_head = "seinCharacter/ori3D/mirrorHolder/rigHolder/oriRig/Skeleton_GRP/root_JNT/pelvis_JNT/" +
       "spine_joint01_JNT/spine_joint02_JNT/spine_joint03_JNT/spine_joint04_JNT/headC_joint01_JNT";
     private static void startCooldownAnimation(string player) {
       bool isLocal = player == Multiplayer.Id || player == null;

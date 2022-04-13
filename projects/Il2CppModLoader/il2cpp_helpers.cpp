@@ -28,6 +28,15 @@ namespace il2cpp
 
         IL2CPP_BINDING(UnityEngine, Component, app::GameObject*, get_gameObject, (void* this_ptr));
 
+        IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_localPosition, (app::Transform* this_ptr));
+        IL2CPP_BINDING(UnityEngine, Transform, app::Quaternion, get_localRotation, (app::Transform* this_ptr));
+        IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_localScale, (app::Transform* this_ptr));
+        IL2CPP_BINDING(UnityEngine, Transform, void, set_localPosition, (app::Transform* this_ptr, app::Vector3* pos));
+        IL2CPP_BINDING(UnityEngine, Transform, void, set_localRotation, (app::Transform* this_ptr, app::Quaternion* rot));
+        IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform* this_ptr, app::Vector3* scale));
+        STATIC_IL2CPP_BINDING(UnityEngine, Quaternion, app::Quaternion, Euler, (float x, float y, float z));
+        IL2CPP_BINDING(UnityEngine, Quaternion, app::Vector3, get_eulerAngles, (app::Quaternion__Boxed* this_ptr));
+
         IL2CPP_BINDING(UnityEngine, GameObject, bool, get_active, (app::GameObject* this_ptr));
         IL2CPP_BINDING(UnityEngine, GameObject, bool, get_activeSelf, (app::GameObject* this_ptr));
         IL2CPP_BINDING(UnityEngine, GameObject, void, set_active, (app::GameObject* this_ptr, bool value));
@@ -222,6 +231,45 @@ namespace il2cpp
             return path;
         }
 
+        app::Vector3 get_local_position(void* obj)
+        {
+            auto transform = get_transform(obj);
+            return Transform::get_localPosition(transform);
+        }
+
+        app::Vector3 get_local_rotation(void* obj)
+        {
+            auto transform = get_transform(obj);
+            auto value = Transform::get_localRotation(transform);
+            return Quaternion::get_eulerAngles(il2cpp::box_value<app::Quaternion__Boxed>(
+                il2cpp::get_class("UnityEngine", "Quaternion"), value));
+        }
+
+        app::Vector3 get_local_scale(void* obj)
+        {
+            auto transform = get_transform(obj);
+            return Transform::get_localScale(transform);
+        }
+
+        void set_local_position(void* obj, app::Vector3 value)
+        {
+            auto transform = get_transform(obj);
+            Transform::set_localPosition(transform, &value);
+        }
+
+        void set_local_rotation(void* obj, app::Vector3 value)
+        {
+            auto transform = get_transform(obj);
+            auto quat = Quaternion::Euler(value.x, value.y, value.z);
+            Transform::set_localRotation(transform, &quat);
+        }
+
+        void set_local_scale(void* obj, app::Vector3 value)
+        {
+            auto transform = get_transform(obj);
+            Transform::set_localScale(transform, &value);
+        }
+
         app::Transform* get_parent(void* object)
         {
             return Transform::get_parent(get_transform(object));
@@ -229,7 +277,14 @@ namespace il2cpp
 
         void set_parent(void* child, void* parent)
         {
+            auto child_transform = get_transform(child);
+            auto pos = get_local_position(child_transform);
+            auto rot = Transform::get_localRotation(child_transform);
+            auto scale = get_local_scale(child_transform);
             Transform::set_parent(get_transform(child), get_transform(parent));
+            set_local_position(child_transform, pos);
+            Transform::set_localRotation(child_transform, &rot);
+            set_local_scale(child_transform, scale);
         }
 
         bool get_active(void* object)

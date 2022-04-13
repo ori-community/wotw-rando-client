@@ -42,7 +42,7 @@ namespace randomizer
         bool started;
     };
 
-    std::unique_ptr<Timeline>&& load_timeline(std::string path);
-    std::unique_ptr<Timeline>&& copy_timeline(std::unique_ptr<Timeline> const& value);
+    std::unique_ptr<Timeline> load_timeline(std::string path);
+    std::unique_ptr<Timeline> copy_timeline(std::unique_ptr<Timeline> const& value);
     extern CachedLoader<std::unique_ptr<Timeline>, std::unique_ptr<Timeline> const&, load_timeline, copy_timeline> timeline_cache;
 }

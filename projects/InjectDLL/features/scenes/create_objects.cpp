@@ -69,6 +69,7 @@ namespace scenes
                 return;
 
             obj.game_object = il2cpp::unity::instantiate_object(prefab);
+            il2cpp::invoke(obj.game_object, "set_name", il2cpp::string_new(format("rando_go_%d", obj.id)));
             game::add_to_container(game::RandoContainer::GameObjects, obj.game_object);
             auto transform = il2cpp::unity::get_transform(obj.game_object);
             Transform::set_position(transform, &obj.position);

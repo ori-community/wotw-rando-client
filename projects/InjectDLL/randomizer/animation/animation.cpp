@@ -28,7 +28,7 @@ namespace randomizer
 {
     CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation> animation_cache;
 
-    std::shared_ptr<AnimationDefinition>&& load_animation(std::string path)
+    std::shared_ptr<AnimationDefinition> load_animation(std::string path)
     {
         nlohmann::json j;
         load_json_file(path, j);
@@ -39,7 +39,7 @@ namespace randomizer
             auto frames = j.at("frames");
             for (auto frame : frames)
             {
-                auto frame_definition = anim->frames.emplace_back();
+                auto& frame_definition = anim->frames.emplace_back();
                 frame_definition.position = frame.value("position", app::Vector3{ 0.f, 0.f, 0.f });
                 frame_definition.scale = frame.value("scale", app::Vector3{ 1.f, 1.f, 1.f });
                 frame_definition.rotation = frame.value("rotation", 0.0f);
@@ -56,10 +56,10 @@ namespace randomizer
                     frame_definition.aspect_ratio = texture_size.y / texture_size.x;
                 }
 
+                textures::MaterialParams mat_params;
                 if (frame.contains("texture_params"))
                 {
                     auto params = frame["texture_params"];
-                    textures::MaterialParams mat_params;
                     mat_params.color = params.value("color", app::Color{ 1.f, 1.f, 1.f, 1.f });
                     mat_params.scroll_rot = params.value("scroll_rot", app::Vector4{ 0.f, 0.f, 0.f, 0.f });
                     mat_params.uvs = params.value("uvs", app::Vector4{ 0.f, 0.f, 1.f, 1.f });
@@ -74,23 +74,28 @@ namespace randomizer
                     }
 
                     value.y = 1.f - value.y - value.w;
-                    frame_definition.params = std::optional(mat_params);
+                }
+                else
+                {
+                    mat_params.color = app::Color{ 1.f, 1.f, 1.f, 1.f };
+                    mat_params.scroll_rot = app::Vector4{ 0.f, 0.f, 0.f, 0.f };
+                    mat_params.uvs = app::Vector4{ 0.f, 0.f, 1.f, 1.f };
                 }
 
-                anim->frames.push_back(frame_definition);
+                frame_definition.params = std::optional(mat_params);
             }
         }
         catch (std::exception& ex)
         {
-            trace(MessageType::Warning, 3, "anim_renderer", format("failed to read '%s%s' error '%s'", base_path.c_str(), path, ex.what()));
+            trace(MessageType::Warning, 3, "anim_renderer", format("failed to read '%s%s' error '%s'", base_path.c_str(), path.c_str(), ex.what()));
         }
 
-        return std::move(anim);
+        return anim;
     }
     
-    std::shared_ptr<AnimationDefinition>&& copy_animation(std::shared_ptr<AnimationDefinition> value)
+    std::shared_ptr<AnimationDefinition> copy_animation(std::shared_ptr<AnimationDefinition> value)
     {
-        return std::move(value);
+        return value;
     }
 
     Animation::Animation(AnimationDefinition const& definition)
@@ -102,6 +107,7 @@ namespace randomizer
     {
         m_root = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
         il2cpp::invoke(m_root, ".ctor");
+        il2cpp::invoke(m_root, "set_name", il2cpp::string_new("rando_animation"));
         game::add_to_container(game::RandoContainer::GameObjects, m_root);
         m_sprite.set_parent(m_root);
     }
@@ -117,6 +123,7 @@ namespace randomizer
 
     void Animation::start(bool repeat)
     {
+        m_frame = 0;
         m_stopped = false;
         m_time = repeat ? m_time - m_duration : 0;
         m_sprite.enabled(true);
@@ -136,7 +143,7 @@ namespace randomizer
 
         m_time += dt;
         int old_frame = m_frame;
-        while (m_time >= m_frames[m_frame].real_duration)
+        while (!is_finished() && m_time >= m_frames[m_frame].real_duration)
             ++m_frame;
 
         if (old_frame != m_frame)
@@ -145,7 +152,7 @@ namespace randomizer
 
     void Animation::apply()
     {
-        auto const& frame = m_frames[m_frame];
+        auto const& frame = m_frames[std::min(m_frame, static_cast<int>(m_frames.size()))];
         m_sprite.layer(frame.layer);
         m_sprite.local_position(frame.position);
         m_sprite.local_rotation(frame.rotation);

@@ -17,7 +17,7 @@ namespace randomizer
         bool Animation::update_state(TimelineState& state, float dt)
         {
             auto it = state.active_animations.find(id);
-            if (it != state.active_animations.end())
+            if (it == state.active_animations.end())
             {
                 state.active_animations[id] = std::make_shared<randomizer::Animation>(*definition.get());
                 it = state.active_animations.find(id);
@@ -50,7 +50,7 @@ namespace randomizer
         bool Sound::update_state(TimelineState& state, float dt)
         {
             auto it = state.active_sounds.find(id);
-            if (it != state.active_sounds.end())
+            if (it == state.active_sounds.end())
             {
                 state.active_sounds[id] = std::make_shared<SoundActor>();
                 it = state.active_sounds.find(id);

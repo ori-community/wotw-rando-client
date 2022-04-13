@@ -31,7 +31,7 @@ namespace uber_states
         NAMED_IL2CPP_BINDING(Moon, UberStateCollectionGroup, void, .ctor, ctor, (app::UberStateCollectionGroup* this_ptr));
         IL2CPP_BINDING(Moon, UberStateCollectionGroup, void, Add, (app::UberStateCollectionGroup* this_ptr, app::UberID* state_id, app::IUberState* state));
 
-        STATIC_IL2CPP_BINDING_OVERLOAD(Moon, UberStateController, void, ApplyAll, (app::UberStateApplyContext__Enum context), (Moon:IUberState, Moon:UberStateApplyContext));
+        STATIC_IL2CPP_BINDING_OVERLOAD(Moon, UberStateController, void, ApplyAll, (app::UberStateApplyContext__Enum context), (Moon:UberStateApplyContext));
         STATIC_IL2CPP_BINDING_OVERLOAD(Moon, UberStateController, void, Apply, (app::IUberState* descriptor, app::UberStateApplyContext__Enum context), (Moon:IUberState, Moon:UberStateApplyContext));
 
         IL2CPP_BINDING(Moon, SerializedIntUberState, int32_t, get_Value, (app::SerializedIntUberState* this_ptr));

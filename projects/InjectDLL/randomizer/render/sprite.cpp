@@ -59,13 +59,11 @@ namespace randomizer
                 icon = il2cpp::unity::instantiate_object(il2cpp::unity::get_children(icon_obj)[0]);
                 mesh_filter = il2cpp::unity::get_component<app::MeshFilter>(icon, "UnityEngine", "MeshFilter");
                 renderer = il2cpp::unity::get_component<app::Renderer>(icon, "UnityEngine", "MeshRenderer");
-                il2cpp::invoke(icon, "set_name", il2cpp::string_new("custom_rando_image"));
             }
             else
             {
                 icon = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
                 il2cpp::invoke(icon, ".ctor");
-                il2cpp::invoke(icon, "set_name", il2cpp::string_new("custom_rando_image"));
                 mesh_filter = il2cpp::unity::add_component<app::MeshFilter>(icon, "UnityEngine", "MeshFilter");
                 renderer = il2cpp::unity::add_component<app::Renderer>(icon, "UnityEngine", "MeshRenderer");
                 auto order = il2cpp::unity::add_component<app::UberShaderRuntimeRenderOrder>(icon, "", "UberShaderRuntimeRenderOrder");
@@ -78,6 +76,7 @@ namespace randomizer
             game::add_to_container(game::RandoContainer::GameObjects, icon);
             auto mesh = il2cpp::create_object<app::Mesh>("UnityEngine", "Mesh");
             il2cpp::invoke(mesh, ".ctor");
+            il2cpp::invoke(icon, "set_name", il2cpp::string_new("rando_sprite"));
             auto vertices = il2cpp::array_new(il2cpp::get_class("UnityEngine", "Vector3"), std::vector<app::Vector3>{
                 { -0.5f, -0.5f, 0 }, { 0.5f, -0.5f, 0 }, { -0.5f, 0.5f, 0 }, { 0.5f, 0.5f, 0 }});
             auto triangles = il2cpp::array_new(il2cpp::get_class("System", "Int32"), std::vector<int>{0, 2, 1, 2, 3, 1});
@@ -120,7 +119,7 @@ namespace randomizer
     Sprite::Sprite(app::GameObject* parent)
     {
         m_root = reinterpret_cast<app::GameObject*>(il2cpp::unity::instantiate_object(find_prefab()));
-        m_renderer = il2cpp::unity::get_component<app::Renderer>("UnityEngine", "Renderer");
+        m_renderer = il2cpp::unity::get_component<app::Renderer>(m_root, "UnityEngine", "Renderer");
         il2cpp::unity::set_active(m_root, false);
         if (parent == nullptr)
             game::add_to_container(game::RandoContainer::GameObjects, m_root);
@@ -171,6 +170,9 @@ namespace randomizer
 
     void Sprite::texture(std::shared_ptr<textures::TextureData> texture_data, std::optional<textures::MaterialParams> params)
     {
+        if (texture_data == nullptr)
+            return;
+
         if (m_texture_data != texture_data)
         {
             texture_data->apply_texture(m_renderer);

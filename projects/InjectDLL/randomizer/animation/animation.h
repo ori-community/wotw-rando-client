@@ -38,7 +38,7 @@ namespace randomizer
         void start(bool repeat = false);
         void update(float dt);
         void stop();
-        bool is_finished() { return m_time >= m_duration; }
+        bool is_finished() { return m_time >= m_duration || m_frame >= m_frames.size(); }
         bool is_stopped() { return m_stopped; }
 
         app::Color const& color() { return m_color_modulate; }
@@ -59,7 +59,7 @@ namespace randomizer
         std::vector<AnimationFrame> m_frames;
     };
 
-    std::shared_ptr<AnimationDefinition>&& load_animation(std::string path);
-    std::shared_ptr<AnimationDefinition>&& copy_animation(std::shared_ptr<AnimationDefinition> value);
+    std::shared_ptr<AnimationDefinition> load_animation(std::string path);
+    std::shared_ptr<AnimationDefinition> copy_animation(std::shared_ptr<AnimationDefinition> value);
     extern CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation> animation_cache;
 }

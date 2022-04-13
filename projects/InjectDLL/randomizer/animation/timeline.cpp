@@ -57,12 +57,12 @@ namespace randomizer
                     frames.push_back(entry);
                 }
                 else
-                    trace(MessageType::Warning, 3, "timeline", format("unknown timeline entry in '%s%s'", base_path.c_str(), path));
+                    trace(MessageType::Warning, 3, "timeline", format("unknown timeline entry in '%s%s'", base_path.c_str(), path.c_str()));
             }
         }
     }
 
-    std::unique_ptr<Timeline>&& load_timeline(std::string path)
+    std::unique_ptr<Timeline> load_timeline(std::string path)
     {
         std::vector<std::shared_ptr<timeline_entries::Base>> frames;
         nlohmann::json j;
@@ -74,17 +74,17 @@ namespace randomizer
             }
             catch (...)
             {
-                trace(MessageType::Warning, 3, "timeline", format("failed to parse timeline '%s%s'", base_path.c_str(), path));
+                trace(MessageType::Warning, 3, "timeline", format("failed to parse timeline '%s%s'", base_path.c_str(), path.c_str()));
                 return std::move(std::unique_ptr<Timeline>());
             }
         }
 
-        return std::move(std::make_unique<Timeline>(frames));
+        return std::make_unique<Timeline>(frames);
     }
 
-    std::unique_ptr<Timeline>&& copy_timeline(std::unique_ptr<Timeline> const& value)
+    std::unique_ptr<Timeline> copy_timeline(std::unique_ptr<Timeline> const& value)
     {
-        return std::move(std::unique_ptr<Timeline>(new Timeline(*value.get())));
+        return std::unique_ptr<Timeline>(new Timeline(*value.get()));
     }
 
     Timeline::Timeline(std::vector<std::shared_ptr<timeline_entries::Base>> entries)
@@ -94,6 +94,7 @@ namespace randomizer
     {
         state.root = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
         il2cpp::invoke(state.root, ".ctor");
+        il2cpp::invoke(state.root, "set_name", il2cpp::string_new("rando_timeline"));
         game::add_to_container(game::RandoContainer::GameObjects, state.root);
         std::sort(this->entries.begin(), this->entries.end(), [](auto const& a, auto const& b) {
             if (a->start_time == b->start_time)
@@ -110,6 +111,7 @@ namespace randomizer
     {
         state.root = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
         il2cpp::invoke(state.root, ".ctor");
+        il2cpp::invoke(state.root, "set_name", il2cpp::string_new("rando_timeline"));
         game::add_to_container(game::RandoContainer::GameObjects, state.root);
     }
 
