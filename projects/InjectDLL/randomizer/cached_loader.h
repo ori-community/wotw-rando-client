@@ -21,7 +21,7 @@ namespace randomizer
 
         void load(std::string path)
         {
-            cache[path] = load_func(path);
+            cache.emplace(path, load_func(path));
         }
 
         T&& get(std::string path)
@@ -33,7 +33,7 @@ namespace randomizer
                 it = cache.find(path);
             }
 
-            return copy_func(it->second);
+            return std::move(copy_func(it->second));
         }
 
     private:
