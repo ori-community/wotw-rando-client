@@ -402,7 +402,7 @@ namespace RandoMainDLL {
         case PickupType.QuestEvent:
           return QuestEvent.Build(pickupData);
         case PickupType.SpiritLight:
-          return new Cash(pickupData.ParseToInt(), cond.GetHashCode() + seedName.GetHashCode() + slug.GetHashCode());
+          return new Cash(pickupData.ParseToInt(), (cond?.GetHashCode()).GetValueOrDefault(0) + seedName.GetHashCode() + slug.GetHashCode());
         case PickupType.Resource:
           return new Resource((ResourceType)pickupData.ParseToByte());
         case PickupType.WeaponUpgrade:
