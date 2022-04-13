@@ -17,6 +17,8 @@ enum class TimelineEntryType
     Color,
 
     LerpPosition,
+    LerpRotation,
+    LerpScale,
 };
 
 enum class TimelineObjectType

@@ -18,15 +18,26 @@ namespace randomizer
 {
     CachedLoader<std::unique_ptr<Timeline>, std::unique_ptr<Timeline> const&, load_timeline, copy_timeline> timeline_cache;
 
+    using entry_factory = std::shared_ptr<timeline_entries::Base>(*)();
+    std::unordered_map<TimelineEntryType, entry_factory> factories{
+        { TimelineEntryType::Animation, []() -> std::shared_ptr<timeline_entries::Base> { return std::make_shared<timeline_entries::Animation>(); } },
+        { TimelineEntryType::Sound, []() -> std::shared_ptr<timeline_entries::Base> { return std::make_shared<timeline_entries::Sound>(); } },
+        { TimelineEntryType::Text, []() -> std::shared_ptr<timeline_entries::Base> { return std::make_shared<timeline_entries::Text>(); } },
+        { TimelineEntryType::LerpPosition, []() -> std::shared_ptr<timeline_entries::Base> { return std::make_shared<timeline_entries::LerpPosition>(); } },
+        { TimelineEntryType::LerpRotation, []() -> std::shared_ptr<timeline_entries::Base> { return std::make_shared<timeline_entries::LerpRotation>(); } },
+        { TimelineEntryType::LerpScale, []() -> std::shared_ptr<timeline_entries::Base> { return std::make_shared<timeline_entries::LerpScale>(); } },
+        { TimelineEntryType::Position, []() -> std::shared_ptr<timeline_entries::Base> { return std::make_shared<timeline_entries::Position>(); } },
+        { TimelineEntryType::Rotation, []() -> std::shared_ptr<timeline_entries::Base> { return std::make_shared<timeline_entries::Rotation>(); } },
+        { TimelineEntryType::Scale, []() -> std::shared_ptr<timeline_entries::Base> { return std::make_shared<timeline_entries::Scale>(); } },
+        { TimelineEntryType::Color, []() -> std::shared_ptr<timeline_entries::Base> { return std::make_shared<timeline_entries::Color>(); } },
+    };
+
     void parse_entries(std::string path, std::vector<std::shared_ptr<timeline_entries::Base>>& frames, nlohmann::json& j)
     {
         for (auto jentry : j)
         {
             auto type = jentry.value("type", TimelineEntryType::Unknown);
-            std::shared_ptr<timeline_entries::Base> entry = nullptr;
-            switch (type)
-            {
-            case TimelineEntryType::Group:
+            if (type == TimelineEntryType::Group)
             {
                 auto arr = jentry.value("entries", nlohmann::json::array());
                 for (auto& sub_entry : arr)
@@ -35,40 +46,18 @@ namespace randomizer
                             sub_entry[key] = value;
 
                 parse_entries(path, frames, arr);
-                break;
             }
-            case TimelineEntryType::Animation:
-                entry = std::make_shared<timeline_entries::Animation>();
-                break;
-            case TimelineEntryType::Sound:
-                entry = std::make_shared<timeline_entries::Sound>();
-                break;
-            case TimelineEntryType::Text:
-                entry = std::make_shared<timeline_entries::Text>();
-                break;
-            case TimelineEntryType::LerpPosition:
-                entry = std::make_shared<timeline_entries::LerpPosition>();
-                break;
-            case TimelineEntryType::Position:
-                entry = std::make_shared<timeline_entries::Position>();
-                break;
-            case TimelineEntryType::Rotation:
-                entry = std::make_shared<timeline_entries::Rotation>();
-                break;
-            case TimelineEntryType::Scale:
-                entry = std::make_shared<timeline_entries::Scale>();
-                break;
-            case TimelineEntryType::Color:
-                entry = std::make_shared<timeline_entries::Color>();
-                break;
-            default:
-                trace(MessageType::Warning, 3, "timeline", format("unknown timeline entry in '%s%s'", base_path.c_str(), path));
-            }
-
-            if (entry != nullptr)
+            else
             {
-                entry->parse(jentry);
-                frames.push_back(entry);
+                auto it = factories.find(type);
+                if (it != factories.end())
+                {
+                    auto entry = it->second();
+                    entry->parse(jentry);
+                    frames.push_back(entry);
+                }
+                else
+                    trace(MessageType::Warning, 3, "timeline", format("unknown timeline entry in '%s%s'", base_path.c_str(), path));
             }
         }
     }

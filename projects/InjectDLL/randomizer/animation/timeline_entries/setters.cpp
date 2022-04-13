@@ -9,9 +9,9 @@ namespace randomizer
     {
         namespace
         {
-            IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* position));
+            IL2CPP_BINDING(UnityEngine, Transform, void, set_localPosition, (app::Transform* this_ptr, app::Vector3* position));
             IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform* this_ptr, app::Vector3* scale));
-            IL2CPP_BINDING(UnityEngine, Transform, void, set_rotation, (app::Transform* this_ptr, app::Quaternion* rotation));
+            IL2CPP_BINDING(UnityEngine, Transform, void, set_localRotation, (app::Transform* this_ptr, app::Quaternion* rotation));
             STATIC_IL2CPP_BINDING(UnityEngine, Quaternion, app::Quaternion, Euler, (float x, float y, float z));
         }
 
@@ -27,7 +27,7 @@ namespace randomizer
             if (il2cpp::unity::is_valid(root))
             {
                 auto transform = il2cpp::unity::get_transform(root);
-                Transform::set_position(transform, &value);
+                Transform::set_localPosition(transform, &value);
             }
 
             return true;
@@ -64,7 +64,7 @@ namespace randomizer
             {
                 auto transform = il2cpp::unity::get_transform(root);
                 auto quat = Quaternion::Euler(value.x, value.y, value.z);
-                Transform::set_rotation(transform, &quat);
+                Transform::set_localRotation(transform, &quat);
             }
 
             return true;
