@@ -8,7 +8,7 @@ namespace randomizer
     {
         struct Position : Target
         {
-            app::Vector3 position;
+            app::Vector3 value;
 
             virtual void parse(nlohmann::json const& j) override;
             virtual bool update_state(TimelineState& state, float dt) override;
@@ -16,7 +16,7 @@ namespace randomizer
 
         struct Scale : Target
         {
-            app::Vector3 scale;
+            app::Vector3 value;
 
             virtual void parse(nlohmann::json const& j) override;
             virtual bool update_state(TimelineState& state, float dt) override;
@@ -24,7 +24,15 @@ namespace randomizer
 
         struct Rotation : Target
         {
-            app::Vector3 rotation;
+            app::Vector3 value;
+
+            virtual void parse(nlohmann::json const& j) override;
+            virtual bool update_state(TimelineState& state, float dt) override;
+        };
+
+        struct Color : Target
+        {
+            app::Color value;
 
             virtual void parse(nlohmann::json const& j) override;
             virtual bool update_state(TimelineState& state, float dt) override;

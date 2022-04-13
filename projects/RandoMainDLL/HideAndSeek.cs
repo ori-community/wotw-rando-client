@@ -14,15 +14,9 @@ namespace RandoMainDLL {
   public static class HideAndSeek {
     public static BlockingCollection<Packet> Queue = new BlockingCollection<Packet>();
 
-    private static readonly string COOLDOWN_ANIMATION = "assets/animations/cooldown.json";
-    private static readonly string CATCHING_ANIMATION = "assets/animations/catching.json";
-    private static readonly string FIREWORK_ANIMATION = "assets/animations/firework.json";
-    private static readonly float COOLDOWN_FADE = 0.2f;
-    private static float COOLDOWN_SCALE = 1.5f;
-    private static float COOLDOWN_HEIGHT = 1.0f;
-    private static float COOLDOWN_LOCAL_HEIGHT = 0.7f;
-    private static readonly float FIREWORK_HEIGHT = 1.5f;
-
+    private static readonly string COOLDOWN_TIMELINE = "assets/timeline/cooldown.json";
+    private static readonly string CATCHING_TIMELINE = "assets/timeline/catching.json";
+    private static readonly string CAUGHT_TIMELINE = "assets/timeline/caught.json";
     private static readonly Dictionary<string, SeekerWorldInfo> seekers = new Dictionary<string, SeekerWorldInfo>();
     private static readonly HashSet<long> seekerIds = new HashSet<long>();
 
@@ -57,103 +51,16 @@ namespace RandoMainDLL {
     }
 
     private static void preloadAnimations() {
-      InterOp.Animation.anim_preload(COOLDOWN_ANIMATION);
-      InterOp.Animation.anim_preload(CATCHING_ANIMATION);
-      InterOp.Animation.anim_preload(FIREWORK_ANIMATION);
-    }
-
-    private class CooldownAnimation {
-      public int ID;
-      public string Player;
-      public float Time;
-      public float ElapsedTime;
-    }
-
-    private static List<CooldownAnimation> cooldownAnimations = new List<CooldownAnimation>();
-
-    private static bool updateCooldownAnimation(CooldownAnimation animation, float dt) {
-      animation.ElapsedTime += dt;
-      var isLocal = animation.Player == Multiplayer.Id || animation.Player == null;
-      Memory.Vector2 position = isLocal
-        ? new Memory.Vector2(InterOp.Player.get_head_position())
-        : InterOp.Multiplayer.get_player_position(animation.Player);
-
-      position.Y += isLocal ? COOLDOWN_LOCAL_HEIGHT : COOLDOWN_HEIGHT;
-      InterOp.Animation.anim_set_position(animation.ID, position.X, position.Y, 0f);
-      if (animation.ElapsedTime < COOLDOWN_FADE)
-        InterOp.Animation.anim_set_color_modulate(animation.ID, 1f, 1f, 1f, animation.ElapsedTime / COOLDOWN_FADE); // Fade In
-      else if ((animation.Time - animation.ElapsedTime) < COOLDOWN_FADE)
-        InterOp.Animation.anim_set_color_modulate(animation.ID, 1f, 1f, 1f, (animation.Time - animation.ElapsedTime) / COOLDOWN_FADE); // Fade out
-      else
-        InterOp.Animation.anim_set_color_modulate(animation.ID, 1f, 1f, 1f, 1f);
-
-      var finished = animation.ElapsedTime > animation.Time;
-      if (finished)
-        InterOp.Animation.anim_destroy(animation.ID);
-
-      return finished;
-    }
-
-    private class Firework {
-      public int ID;
-      public Memory.Vector2 Position;
-      public float Scale;
-      public float Angle;
-      public float Time;
-      public RGBA Color;
-
-      public Firework Create() {
-        ID = InterOp.Animation.anim_load(FIREWORK_ANIMATION, Position.X, Position.Y, 0f, Scale, Scale, 1f, Angle);
-        InterOp.Animation.anim_set_color_modulate(ID, Color.R, Color.G, Color.B, Color.A);
-        return this;
-      }
-    }
-
-    private class CaughtAnimation {
-      public string Player;
-      public int Textbox;
-      public float Time;
-      public float HideTextTime;
-      public float ElapsedTime;
-      public List<Firework> Fireworks;
-    }
-
-    private static List<CaughtAnimation> caughtAnimations = new List<CaughtAnimation>();
-
-    private static bool updateCaughtAnimation(CaughtAnimation animation, float dt) {
-      animation.ElapsedTime += dt;
-      Memory.Vector2 position = animation.Player == Multiplayer.Id || animation.Player == null
-        ? InterOp.Player.get_position()
-        : InterOp.Multiplayer.get_player_position(animation.Player);
-
-      InterOp.Messaging.text_box_position(animation.Textbox, position.X, position.Y + FIREWORK_HEIGHT, 0f, true);
-      foreach (var firework in animation.Fireworks) {
-        if (!InterOp.Animation.anim_is_destroyed(firework.ID) && animation.ElapsedTime > firework.Time) {
-          InterOp.Animation.anim_set_state(firework.ID, InterOp.Animation.AnimState.Active);
-          InterOp.Animation.anim_set_position(firework.ID, position.X + firework.Position.X, position.Y + firework.Position.Y, 0f);
-        }
-      }
-
-      if (animation.ElapsedTime > animation.HideTextTime)
-        InterOp.Messaging.text_box_visibility(animation.Textbox, false);
-
-      if (animation.ElapsedTime > animation.Time) {
-        InterOp.Messaging.text_box_destroy(animation.Textbox);
-        return true;
-      }
-
-      return false;
+      InterOp.Animation.timeline_preload(COOLDOWN_TIMELINE);
+      InterOp.Animation.timeline_preload(CATCHING_TIMELINE);
+      InterOp.Animation.timeline_preload(CAUGHT_TIMELINE);
     }
 
     private static Memory.Vector2 freezePosition;
     private static float freezeTimer = 0f;
     public static void Update(float delta) {
-      if (!IsPlaying) {
-        if (caughtAnimations.Count > 0 || cooldownAnimations.Count > 0)
-          ClearAnimations();
-      
+      if (!IsPlaying)
         return;
-      }
 
       HandlePackets();
       if (freezeTimer > 0f) {
@@ -163,31 +70,6 @@ namespace RandoMainDLL {
       }
 
       cooldown -= delta;
-      for (var i = caughtAnimations.Count() - 1; i >= 0 && i < caughtAnimations.Count(); --i) {
-        if (updateCaughtAnimation(caughtAnimations[i], delta))
-          caughtAnimations.RemoveAt(i);
-      }
-
-      for (var i = cooldownAnimations.Count() - 1; i >= 0 && i < cooldownAnimations.Count(); --i) {
-        if (updateCooldownAnimation(cooldownAnimations[i], delta))
-          cooldownAnimations.RemoveAt(i);
-      }
-    }
-
-    public static void ClearAnimations() {
-      foreach (var animation in caughtAnimations) {
-        InterOp.Messaging.text_box_destroy(animation.Textbox);
-        foreach (var firework in animation.Fireworks)
-          if (!InterOp.Animation.anim_is_destroyed(firework.ID))
-            InterOp.Animation.anim_destroy(firework.ID);
-      }
-
-      caughtAnimations.Clear();
-
-      foreach (var animation in cooldownAnimations)
-        InterOp.Animation.anim_destroy(animation.ID);
-
-      cooldownAnimations.Clear();
     }
 
     private static void playerCaught(string id) {
@@ -196,48 +78,12 @@ namespace RandoMainDLL {
         freezePosition = InterOp.Player.get_position();
       }
 
-      var animation = new CaughtAnimation {
-        Player = id,
-        Textbox = InterOp.Messaging.reserve_id(),
-        Time = 1.6f,
-        HideTextTime = 1.2f,
-        ElapsedTime = 0f
-      };
-
-      InterOp.Messaging.text_box_create(animation.Textbox, 0.2f, 0.2f, false, false);
-      InterOp.Messaging.text_box_text(animation.Textbox, "Caught");
-      InterOp.Messaging.text_box_color(animation.Textbox, 240, 240, 30, 255);
-      InterOp.Messaging.text_box_size(animation.Textbox, 5f);
-      Memory.Vector2 position = Multiplayer.Id == animation.Player
-        ? InterOp.Player.get_position()
-        : InterOp.Multiplayer.get_player_position(animation.Player);
-      InterOp.Messaging.text_box_position(animation.Textbox, position.X, position.Y + FIREWORK_HEIGHT, -0.1f, true);
-
-      animation.Fireworks = new List<Firework>() {
-        new Firework {
-          Position = new Memory.Vector2(-1.3f, FIREWORK_HEIGHT - 0.5f),
-          Scale = 0.4f,
-          Angle = 30,
-          Time = 0.0f,
-          Color = new RGBA(1f, .1f, .1f)
-        }.Create(),
-        new Firework {
-          Position = new Memory.Vector2(1.3f, FIREWORK_HEIGHT),
-          Scale = 0.8f,
-          Angle = -20,
-          Time = 0.3f,
-          Color = new RGBA(.1f, 1f, .7f)
-        }.Create(),
-        new Firework {
-          Position = new Memory.Vector2(-1f, FIREWORK_HEIGHT + 0.5f),
-          Scale = 0.6f,
-          Angle = 10,
-          Time = 0.6f,
-          Color = new RGBA(1f, .7f, .1f)
-        }.Create()
-      };
-
-      caughtAnimations.Add(animation);
+      // TODO: Create caught timeline (Player = id)
+      bool isLocal = id == Multiplayer.Id || id == null;
+      string attach_obj = isLocal ? sein_head : id + "_world";
+      var timeline = InterOp.Animation.timeline_create(CAUGHT_TIMELINE);
+      InterOp.Animation.timeline_attach(timeline, attach_obj);
+      InterOp.Animation.timeline_start(timeline);
     }
 
     private static float cooldown = 0f;
@@ -261,33 +107,21 @@ namespace RandoMainDLL {
       // Width of circle from the middle of the rim divided by the width of the texture.
       var spriteFraction = 420f / 512f;
       radius /= spriteFraction;
-      var bounds = InterOp.Animation.anim_bounds();
-      var id = InterOp.Animation.anim_load(CATCHING_ANIMATION, position.X, position.Y, 0f, radius / bounds.X, radius / bounds.Y, 1f, 0f);
-      InterOp.Animation.anim_set_color_modulate(id, 1f, 1f, 1f, 1f);
-      InterOp.Animation.anim_set_state(id, InterOp.Animation.AnimState.Active);
-      InterOp.Sound.play_sound_str("Catching", new Vector3(position, 0f));
+
+      var timeline = InterOp.Animation.timeline_create(CATCHING_TIMELINE);
+      InterOp.Animation.timeline_position(timeline, new Vector3(position, 0));
+      InterOp.Animation.timeline_scale(timeline, new Vector3(radius, radius, 1));
+      InterOp.Animation.timeline_start(timeline);
     }
 
+    static string sein_head = "SeinCharacter/ori3D/mirrorHolder/rigHolder/oriRig/Skeleton_GRP/root_JNT/pelvis_JNT/" +
+      "spine_joint01_JNT/spine_joint02_JNT/spine_joint03_JNT/spine_joint04_JNT/headC_joint01_JNT";
     private static void startCooldownAnimation(string player) {
       bool isLocal = player == Multiplayer.Id || player == null;
-      Memory.Vector2 position = isLocal
-        ? new Memory.Vector2(InterOp.Player.get_head_position())
-        : InterOp.Multiplayer.get_player_position(player);
-
-      position.Y += isLocal ? COOLDOWN_LOCAL_HEIGHT : COOLDOWN_HEIGHT;
-      var animation = new CooldownAnimation {
-        Player = player,
-        ID = InterOp.Animation.anim_load(COOLDOWN_ANIMATION, position.X, position.Y, -0.01f, COOLDOWN_SCALE, COOLDOWN_SCALE, 1f, 0f),
-        Time = player != null ? seekers[player].Cooldown : 2f,
-        ElapsedTime = 0f
-      };
-
-      if (animation.ID == -1)
-        return;
-
-      InterOp.Animation.anim_set_color_modulate(animation.ID, 1f, 1f, 1f, 0f);
-      InterOp.Animation.anim_set_state(animation.ID, InterOp.Animation.AnimState.Active);
-      cooldownAnimations.Add(animation);
+      string attach_obj = isLocal ? sein_head : player + "_world";
+      var timeline = InterOp.Animation.timeline_create(COOLDOWN_TIMELINE);
+      InterOp.Animation.timeline_attach(timeline, attach_obj);
+      InterOp.Animation.timeline_start(timeline);
     }
 
     private static void HandlePackets() {

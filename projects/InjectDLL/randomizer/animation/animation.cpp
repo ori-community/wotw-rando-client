@@ -26,26 +26,26 @@ using namespace randomizer;
 
 namespace randomizer
 {
-    CachedLoader<AnimationDefinition, load_animation, copy_animation> animation_cache;
+    CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation> animation_cache;
 
-    AnimationDefinition&& load_animation(std::string path)
+    std::shared_ptr<AnimationDefinition>&& load_animation(std::string path)
     {
         nlohmann::json j;
         load_json_file(path, j);
-        AnimationDefinition anim;
+        std::shared_ptr<AnimationDefinition> anim(new AnimationDefinition());
         try
         {
-            anim.duration = 0.f;
+            anim->duration = 0.f;
             auto frames = j.at("frames");
             for (auto frame : frames)
             {
-                auto frame_definition = anim.frames.emplace_back();
+                auto frame_definition = anim->frames.emplace_back();
                 frame_definition.position = frame.value("position", app::Vector3{ 0.f, 0.f, 0.f });
                 frame_definition.scale = frame.value("scale", app::Vector3{ 1.f, 1.f, 1.f });
                 frame_definition.rotation = frame.value("rotation", 0.0f);
                 frame_definition.duration = frame.value("duration", 1.0f);
-                anim.duration += frame_definition.duration;
-                frame_definition.real_duration = anim.duration;
+                anim->duration += frame_definition.duration;
+                frame_definition.real_duration = anim->duration;
                 auto texture_str = convert_string_to_wstring(frame.value("texture", std::string("")));
                 frame_definition.texture = textures::get_texture(texture_str);
                 app::Vector2 texture_size;
@@ -77,7 +77,7 @@ namespace randomizer
                     frame_definition.params = std::optional(mat_params);
                 }
 
-                anim.frames.push_back(frame_definition);
+                anim->frames.push_back(frame_definition);
             }
         }
         catch (std::exception& ex)
@@ -88,10 +88,9 @@ namespace randomizer
         return std::move(anim);
     }
     
-    AnimationDefinition&& copy_animation(AnimationDefinition const& value)
+    std::shared_ptr<AnimationDefinition>&& copy_animation(std::shared_ptr<AnimationDefinition> value)
     {
-        AnimationDefinition copy(value);
-        return std::move(copy);
+        return std::move(value);
     }
 
     Animation::Animation(AnimationDefinition const& definition)
@@ -103,6 +102,7 @@ namespace randomizer
     {
         m_root = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
         il2cpp::invoke(m_root, ".ctor");
+        game::add_to_container(game::RandoContainer::GameObjects, m_root);
         m_sprite.set_parent(m_root);
     }
 

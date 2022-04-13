@@ -190,7 +190,7 @@ namespace multiplayer
         }
     }
 
-    PlayerInfo::Icon create_avatar_icon(PlayerInfo const& info, int layer)
+    PlayerInfo::Icon create_avatar_icon(std::wstring postfix, PlayerInfo const& info, int layer)
     {
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
         auto icons = area_map->fields._IconManager_k__BackingField->fields.Icons;
@@ -215,6 +215,7 @@ namespace multiplayer
         }
         }
 
+        il2cpp::invoke(icon.root, "set_name", il2cpp::string_new(info.id + postfix));
         il2cpp::unity::set_active(icon.text, true);
         auto area_map_icon = il2cpp::unity::get_component(icon.root, "", "AreaMapIcon");
         if (area_map_icon != nullptr)
@@ -235,7 +236,7 @@ namespace multiplayer
         // Avatar
         if (info.world_avatar.handle == 0)
         {
-            info.world_avatar = create_avatar_icon(info, static_cast<int>(Layer::Sein));
+            info.world_avatar = create_avatar_icon(L"_world", info, static_cast<int>(Layer::Sein));
             set_avatar_active(info, info.world_avatar, info.world_avatar.visible);
             app::Vector3 pos{info.world_avatar.position.x, info.world_avatar.position.y, 0.f };
             auto transform = il2cpp::unity::get_transform(info.world_avatar.root);
@@ -261,7 +262,7 @@ namespace multiplayer
         // Map Icon
         if (info.map_avatar.handle == 0)
         {
-            info.map_avatar = create_avatar_icon(info, static_cast<int>(Layer::UI));
+            info.map_avatar = create_avatar_icon(L"_map", info, static_cast<int>(Layer::UI));
             set_avatar_active(info, info.world_avatar, info.world_avatar.visible);
             
             auto transform = il2cpp::unity::get_transform(info.map_avatar.icon);

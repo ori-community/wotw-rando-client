@@ -5,6 +5,7 @@
 enum class TimelineEntryType
 {
     Unknown,
+    Group,
 
     Animation,
     Sound,
@@ -13,6 +14,7 @@ enum class TimelineEntryType
     Position,
     Rotation,
     Scale,
+    Color,
 
     LerpPosition,
 };
@@ -33,6 +35,7 @@ enum class AnimationEnd
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TimelineEntryType, {
     { TimelineEntryType::Unknown, "Unknown" },
+    { TimelineEntryType::Group, "Group" },
     { TimelineEntryType::Animation, "Animation" },
     { TimelineEntryType::Sound, "Sound" },
     { TimelineEntryType::Text, "Text" },

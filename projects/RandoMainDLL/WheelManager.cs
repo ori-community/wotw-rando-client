@@ -133,7 +133,7 @@ namespace RandoMainDLL {
               break;
             case 3:
               MessageController.ShowMessage($"Reloading sprite animations", queue: "debug");
-              InterOp.Animation.reload_animations();
+              // TODO: Reload timelines.
               break;
             case 4:
               Input.OnActionTriggered(Input.Action.PrintCoordinates);

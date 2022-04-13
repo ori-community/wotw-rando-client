@@ -59,7 +59,7 @@ namespace randomizer
         std::vector<AnimationFrame> m_frames;
     };
 
-    AnimationDefinition&& load_animation(std::string path);
-    AnimationDefinition&& copy_animation(AnimationDefinition const& value);
-    extern CachedLoader<AnimationDefinition, load_animation, copy_animation> animation_cache;
+    std::shared_ptr<AnimationDefinition>&& load_animation(std::string path);
+    std::shared_ptr<AnimationDefinition>&& copy_animation(std::shared_ptr<AnimationDefinition> value);
+    extern CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation> animation_cache;
 }

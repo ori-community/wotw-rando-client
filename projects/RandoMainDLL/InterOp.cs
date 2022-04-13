@@ -34,42 +34,22 @@ namespace RandoMainDLL {
     }
 
     public static class Animation {
-      public enum AnimState {
-        Disabled,
-        Active,
-        ActiveButFrozen
-      }
-
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      [return: MarshalAs(UnmanagedType.U1)]
-      public extern static bool anim_preload([MarshalAs(UnmanagedType.LPStr)] string path);
+      public extern static void timeline_preload([MarshalAs(UnmanagedType.LPStr)] string path);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static int anim_load([MarshalAs(UnmanagedType.LPStr)] string path, float x, float y, float z, float sx, float sy, float sz, float angle);
+      public extern static int timeline_create([MarshalAs(UnmanagedType.LPStr)] string path);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void anim_set_time(int id, float time);
+      public extern static void timeline_destroy(int id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void anim_set_position(int id, float x, float y, float z);
+      public extern static void timeline_start(int id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void anim_set_scale(int id, float x, float y, float z);
+      public extern static void timeline_attach(int id, [MarshalAs(UnmanagedType.LPStr)] string path);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void anim_set_color_modulate(int id, float r, float g, float b, float a);
+      public extern static void timeline_position(int id, Vector3 value);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void anim_set_rotation(int id, float angle);
+      public extern static void timeline_scale(int id, Vector3 value);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void anim_set_state(int id, AnimState state);
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void anim_destroy(int id);
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static AnimState anim_get_state(int id);
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      [return: MarshalAs(UnmanagedType.U1)]
-      public extern static bool anim_is_destroyed(int id);
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void clear_animations();
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void reload_animations();
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static Vector2 anim_bounds();
+      public extern static void timeline_rotation(int id, Vector3 value);
     }
 
     public static class TextDatabase {

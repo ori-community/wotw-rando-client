@@ -1,5 +1,6 @@
 #pragma once
 
+#include <variant>
 #include <string>
 #include <unordered_map>
 
@@ -7,10 +8,10 @@ namespace randomizer
 {
     template<typename T>
     using loading_function = T&& (*)(std::string path);
-    template<typename T>
-    using copy_function = T&& (*)(T const& value);
+    template<typename T, typename I>
+    using copy_function = T&& (*)(I value);
 
-    template<typename T, loading_function<T> load, copy_function<T> copy>
+    template<typename T, typename I, loading_function<T> load_func, copy_function<T, I> copy_func>
     class CachedLoader
     {
     public:
@@ -20,10 +21,10 @@ namespace randomizer
 
         void load(std::string path)
         {
-            cache[path] = std::move(load(path));
+            cache[path] = load_func(path);
         }
 
-        T get(std::string path)
+        T&& get(std::string path)
         {
             auto it = cache.find(path);
             if (it == cache.end())
@@ -32,7 +33,7 @@ namespace randomizer
                 it = cache.find(path);
             }
 
-            return copy(it->second);
+            return copy_func(it->second);
         }
 
     private:

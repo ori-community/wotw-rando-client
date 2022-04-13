@@ -84,32 +84,6 @@ namespace RandoMainDLL {
 
     private static readonly UberId GameComplete = new UberId(34543, 11226);
 
-    public static void doFirework(int count = 16) {
-      var p = InterOp.Player.get_position();
-
-      for (var i = 0; i < count; ++i) {
-        var distance = Randomizer.R.NextDouble() * 5.0f + 4.0f;
-        var angle = Randomizer.R.NextDouble() * Math.PI;
-        var Z_DIST = 20.0f;
-        var z = (float)(Randomizer.R.NextDouble() * Z_DIST - Z_DIST / 2.0f);
-        Vector2 v;
-        v.X = (float)(Math.Cos(angle) * distance);
-        v.Y = (float)(Math.Sin(angle) * distance);
-        v += p;
-
-        var id = InterOp.Animation.anim_load("assets/animations/firework.json", v.X, v.Y, z, 1.0f, 1.0f, 1.0f, 0.0f);
-        RGBA color = new HSL { H = Randomizer.R.Next(0, 360), S = 0.9f, L = 0.5f }.ToRGBA();
-        InterOp.Animation.anim_set_color_modulate(
-          id,
-          color.R,
-          color.G,
-          color.B,
-          color.A
-        );
-        InterOp.Animation.anim_set_state(id, InterOp.Animation.AnimState.Active);
-      }
-    }
-
     public static void OnActionTriggered(Action action) {
       switch (action) {
         case Action.Reload:

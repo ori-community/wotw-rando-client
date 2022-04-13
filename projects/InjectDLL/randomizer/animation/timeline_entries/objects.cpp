@@ -19,8 +19,9 @@ namespace randomizer
             auto it = state.active_animations.find(id);
             if (it != state.active_animations.end())
             {
-                state.active_animations[id] = std::make_shared<randomizer::Animation>(definition);
+                state.active_animations[id] = std::make_shared<randomizer::Animation>(*definition.get());
                 it = state.active_animations.find(id);
+                il2cpp::unity::set_parent(it->second->root(), state.root);
                 it->second->start(false);
             }
             else
@@ -53,6 +54,7 @@ namespace randomizer
             {
                 state.active_sounds[id] = std::make_shared<SoundActor>();
                 it = state.active_sounds.find(id);
+                il2cpp::unity::set_parent(it->second->root(), state.root);
                 it->second->play(sound_event);
             }
 

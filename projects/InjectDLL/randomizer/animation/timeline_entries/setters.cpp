@@ -17,7 +17,7 @@ namespace randomizer
 
         void Position::parse(nlohmann::json const& j)
         {
-            position = j.value<app::Vector3>("position", {0, 0, 0});
+            value = j.value<app::Vector3>("value", {0, 0, 0});
             Target::parse(j);
         }
 
@@ -27,7 +27,7 @@ namespace randomizer
             if (il2cpp::unity::is_valid(root))
             {
                 auto transform = il2cpp::unity::get_transform(root);
-                Transform::set_position(transform, &position);
+                Transform::set_position(transform, &value);
             }
 
             return true;
@@ -35,7 +35,7 @@ namespace randomizer
 
         void Scale::parse(nlohmann::json const& j)
         {
-            scale = j.value<app::Vector3>("scale", { 0, 0, 0 });
+            value = j.value<app::Vector3>("value", { 0, 0, 0 });
             Target::parse(j);
         }
 
@@ -45,7 +45,7 @@ namespace randomizer
             if (il2cpp::unity::is_valid(root))
             {
                 auto transform = il2cpp::unity::get_transform(root);
-                Transform::set_localScale(transform, &scale);
+                Transform::set_localScale(transform, &value);
             }
 
             return true;
@@ -53,7 +53,7 @@ namespace randomizer
 
         void Rotation::parse(nlohmann::json const& j)
         {
-            rotation = j.value<app::Vector3>("rotation", { 0, 0, 0 });
+            value = j.value<app::Vector3>("value", { 0, 0, 0 });
             Target::parse(j);
         }
 
@@ -63,8 +63,32 @@ namespace randomizer
             if (il2cpp::unity::is_valid(root))
             {
                 auto transform = il2cpp::unity::get_transform(root);
-                auto quat = Quaternion::Euler(rotation.x, rotation.y, rotation.z);
+                auto quat = Quaternion::Euler(value.x, value.y, value.z);
                 Transform::set_rotation(transform, &quat);
+            }
+
+            return true;
+        }
+
+        void Color::parse(nlohmann::json const& j)
+        {
+            value = j.value<app::Color>("value", { 1, 1, 1, 1 });
+            Target::parse(j);
+        }
+
+        bool Color::update_state(TimelineState& state, float dt)
+        {
+            switch (target_type)
+            {
+            case TimelineObjectType::Animation:
+            {
+                auto it = state.active_animations.find(id);
+                if (it != state.active_animations.end())
+                    it->second->color(value);
+                break;
+            }
+            default:
+                break;
             }
 
             return true;
