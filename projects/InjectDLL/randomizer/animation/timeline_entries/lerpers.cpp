@@ -11,89 +11,59 @@ namespace randomizer
     {
         namespace
         {
-            IL2CPP_BINDING(UnityEngine, Transform, void, set_localPosition, (app::Transform* this_ptr, app::Vector3* position));
-            IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform* this_ptr, app::Vector3* scale));
-            IL2CPP_BINDING(UnityEngine, Transform, void, set_localRotation, (app::Transform* this_ptr, app::Quaternion* rotation));
+            IL2CPP_BINDING(UnityEngine, Transform, void, set_localPosition, (app::Transform* this_ptr, app::Vector3 const* position));
+            IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform* this_ptr, app::Vector3 const* scale));
+            IL2CPP_BINDING(UnityEngine, Transform, void, set_localRotation, (app::Transform* this_ptr, app::Quaternion const* rotation));
             STATIC_IL2CPP_BINDING(UnityEngine, Quaternion, app::Quaternion, Euler, (float x, float y, float z));
         }
 
-        void LerpPosition::parse(nlohmann::json const& j)
+        void Lerper::parse(TimelineState& state, nlohmann::json const& j)
         {
-            start = j.value<app::Vector3>("start", { 0, 0, 0 });
-            end = j.value<app::Vector3>("end", { 0, 0, 0 });
-            duration = j.value<float>("duration", 0);
-            Target::parse(j);
+            start = create_variable<app::Vector3>(state, j, "start", { 0, 0, 0 });
+            end = create_variable<app::Vector3>(state, j, "end", { 0, 0, 0 });
+            duration = create_variable(state, j, "duration", 0.f);
+            Target::parse(state, j);
+        }
+
+        using apply_lerp = void(*)(app::GameObject*& root, app::Vector3 const& value);
+        bool handle_lerp(TimelineState& state, Lerper const& lerper, apply_lerp applier)
+        {
+            auto root = get_target(state, lerper.target_type, lerper.id);
+            if (il2cpp::unity::is_valid(root))
+            {
+                auto elapsed = state.time - lerper.start_time;
+                auto time = std::max(elapsed / lerper.duration(state), 1.0f);
+                applier(root, modloader::math::lerp(lerper.start(state), lerper.end(state), time));
+                return elapsed >= lerper.duration(state);
+            }
+
+            // If we can't find the object we kill this entry.
+            return true;
         }
 
         bool LerpPosition::update_state(TimelineState& state, float dt)
         {
-            app::GameObject* root = get_target(state, target_type, id);
-            if (il2cpp::unity::is_valid(root))
-            {
-                auto elapsed = state.time - start_time;
-                auto time = std::max(elapsed / duration, 1.0f);
-                app::Vector3 value = modloader::math::lerp(start, end, time);
-
+            return handle_lerp(state, *this, [](auto root, auto value) {
                 auto transform = il2cpp::unity::get_transform(root);
                 Transform::set_localPosition(transform, &value);
-                return elapsed >= duration;
-            }
-
-            // If we can't find the object we kill this entry.
-            return true;
-        }
-
-        void LerpRotation::parse(nlohmann::json const& j)
-        {
-            start = j.value<app::Vector3>("start", { 0, 0, 0 });
-            end = j.value<app::Vector3>("end", { 0, 0, 0 });
-            duration = j.value<float>("duration", 0);
-            Target::parse(j);
+            });
         }
 
         bool LerpRotation::update_state(TimelineState& state, float dt)
         {
-            app::GameObject* root = get_target(state, target_type, id);
-            if (il2cpp::unity::is_valid(root))
-            {
-                auto elapsed = state.time - start_time;
-                auto time = std::max(elapsed / duration, 1.0f);
-                app::Vector3 value = modloader::math::lerp(start, end, time);
-
+            return handle_lerp(state, *this, [](auto root, auto value) {
                 auto transform = il2cpp::unity::get_transform(root);
                 auto quat = Quaternion::Euler(value.x, value.y, value.z);
                 Transform::set_localRotation(transform, &quat);
-                return elapsed >= duration;
-            }
-
-            // If we can't find the object we kill this entry.
-            return true;
-        }
-
-        void LerpScale::parse(nlohmann::json const& j)
-        {
-            start = j.value<app::Vector3>("start", { 0, 0, 0 });
-            end = j.value<app::Vector3>("end", { 0, 0, 0 });
-            duration = j.value<float>("duration", 0);
-            Target::parse(j);
+            });
         }
 
         bool LerpScale::update_state(TimelineState& state, float dt)
         {
-            app::GameObject* root = get_target(state, target_type, id);
-            if (il2cpp::unity::is_valid(root))
-            {
-                auto elapsed = state.time - start_time;
-                auto time = std::max(elapsed / duration, 1.0f);
-                app::Vector3 value = modloader::math::lerp(start, end, time);
-
+            return handle_lerp(state, *this, [](auto root, auto value) {
                 auto transform = il2cpp::unity::get_transform(root);
                 Transform::set_localScale(transform, &value);
-                return elapsed >= duration;
-            }
-
-            // If we can't find the object we kill this entry.
-            return true;
+            });
         }
     }
 }

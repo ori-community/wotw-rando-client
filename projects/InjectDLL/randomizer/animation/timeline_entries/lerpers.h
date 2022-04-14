@@ -6,33 +6,27 @@ namespace randomizer
 {
     namespace timeline_entries
     {
-        struct LerpPosition : Target
+        struct Lerper : Target
         {
-            app::Vector3 start;
-            app::Vector3 end;
-            float duration;
+            Variable<app::Vector3> start;
+            Variable<app::Vector3> end;
+            Variable<float> duration;
 
-            virtual void parse(nlohmann::json const& j) override;
+            virtual void parse(TimelineState& state, nlohmann::json const& j) override;
+        };
+
+        struct LerpPosition : Lerper
+        {
             virtual bool update_state(TimelineState& state, float dt) override;
         };
 
-        struct LerpRotation : Target
+        struct LerpRotation : Lerper
         {
-            app::Vector3 start;
-            app::Vector3 end;
-            float duration;
-
-            virtual void parse(nlohmann::json const& j) override;
             virtual bool update_state(TimelineState& state, float dt) override;
         };
 
-        struct LerpScale : Target
+        struct LerpScale : Lerper
         {
-            app::Vector3 start;
-            app::Vector3 end;
-            float duration;
-
-            virtual void parse(nlohmann::json const& j) override;
             virtual bool update_state(TimelineState& state, float dt) override;
         };
     }

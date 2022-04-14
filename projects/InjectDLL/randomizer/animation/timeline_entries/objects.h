@@ -3,6 +3,7 @@
 #include <enums/sound_event_id.h>
 #include <randomizer/animation/timeline_entries/base.h>
 #include <randomizer/animation/animation.h>
+#include <utils/json_serializers.h>
 
 namespace randomizer
 {
@@ -11,26 +12,25 @@ namespace randomizer
         struct Animation : Base
         {
             std::shared_ptr<AnimationDefinition> definition;
-            std::optional<float> duration;
-            AnimationEnd end;
+            std::optional<Variable<float>> duration;
 
-            virtual void parse(nlohmann::json const& j) override;
+            virtual void parse(TimelineState& state, nlohmann::json const& j) override;
             virtual bool update_state(TimelineState& state, float dt) override;
         };
 
         struct Sound : Base
         {
-            SoundEventID sound_event;
+            Variable<SoundEventID> sound_event;
 
-            virtual void parse(nlohmann::json const& j) override;
+            virtual void parse(TimelineState& state, nlohmann::json const& j) override;
             virtual bool update_state(TimelineState& state, float dt) override;
         };
 
         struct Text : Base
         {
-            std::string text;
+            Variable<std::string> text;
 
-            virtual void parse(nlohmann::json const& j) override;
+            virtual void parse(TimelineState& state, nlohmann::json const& j) override;
             virtual bool update_state(TimelineState& state, float dt) override;
         };
     }

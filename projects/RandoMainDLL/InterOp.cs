@@ -54,6 +54,8 @@ namespace RandoMainDLL {
       public extern static void timeline_local_scale(int id, Vector3 value);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void timeline_local_rotation(int id, Vector3 value);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void timeline_variable_float(int id, [MarshalAs(UnmanagedType.LPStr)] string path, float value);
     }
 
     public static class TextDatabase {

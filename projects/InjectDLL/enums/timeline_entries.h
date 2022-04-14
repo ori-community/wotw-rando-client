@@ -29,12 +29,6 @@ enum class TimelineObjectType
     Text,
 };
 
-enum class AnimationEnd
-{
-    Repeat,
-    Destroy,
-};
-
 NLOHMANN_JSON_SERIALIZE_ENUM(TimelineEntryType, {
     { TimelineEntryType::Unknown, "Unknown" },
     { TimelineEntryType::Group, "Group" },
@@ -54,7 +48,3 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TimelineObjectType, {
     { TimelineObjectType::Text, "Text" },
 });
 
-NLOHMANN_JSON_SERIALIZE_ENUM(AnimationEnd, {
-    { AnimationEnd::Repeat, "Repeat" },
-    { AnimationEnd::Destroy, "Destroy" },
-});

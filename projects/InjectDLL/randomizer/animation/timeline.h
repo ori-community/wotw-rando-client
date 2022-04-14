@@ -6,15 +6,33 @@
 #include <randomizer/messages.h>
 #include <randomizer/sound.h>
 
-#include <unordered_map>
+#include <optional>
 #include <variant>
+#include <unordered_map>
 
 namespace randomizer
 {
+    struct TimelineVariable
+    {
+        std::optional<
+            std::variant<
+                bool,
+                int,
+                float,
+                std::string,
+                app::Vector2,
+                app::Vector3,
+                app::Color,
+                SoundEventID
+            >
+        > value;
+    };
+
     struct TimelineState
     {
         float time = 0;
         app::GameObject* root = nullptr;
+        std::unordered_map<std::string, TimelineVariable> variables;
         std::unordered_map<int, std::shared_ptr<Animation>> active_animations;
         std::unordered_map<int, std::shared_ptr<SoundActor>> active_sounds;
         std::unordered_map<int, std::shared_ptr<TextBox>> active_text;
@@ -23,7 +41,7 @@ namespace randomizer
     class Timeline
     {
     public:
-        Timeline(std::vector<std::shared_ptr<timeline_entries::Base>> entries);
+        Timeline(std::vector<std::shared_ptr<timeline_entries::Base>> entries, TimelineState state);
         Timeline(Timeline const& other);
         ~Timeline();
 
@@ -35,6 +53,8 @@ namespace randomizer
         app::GameObject* root() { return m_state.root; }
         void attach(app::GameObject* go) { m_attached = go; }
         void attach_offset(app::Vector3 value) { m_attach_offset = value; }
+
+        TimelineVariable* variable(std::string name);
     private:
         std::vector<std::shared_ptr<timeline_entries::Base>> m_entries;
         std::vector<std::shared_ptr<timeline_entries::Base>> m_active_entries;

@@ -8,33 +8,33 @@ namespace randomizer
     {
         struct Position : Target
         {
-            app::Vector3 value;
+            Variable<app::Vector3> value;
 
-            virtual void parse(nlohmann::json const& j) override;
+            virtual void parse(TimelineState& state, nlohmann::json const& j) override;
             virtual bool update_state(TimelineState& state, float dt) override;
         };
 
         struct Scale : Target
         {
-            app::Vector3 value;
+            Variable<app::Vector3> value;
 
-            virtual void parse(nlohmann::json const& j) override;
+            virtual void parse(TimelineState& state, nlohmann::json const& j) override;
             virtual bool update_state(TimelineState& state, float dt) override;
         };
 
         struct Rotation : Target
         {
-            app::Vector3 value;
+            Variable<app::Vector3> value;
 
-            virtual void parse(nlohmann::json const& j) override;
+            virtual void parse(TimelineState& state, nlohmann::json const& j) override;
             virtual bool update_state(TimelineState& state, float dt) override;
         };
 
         struct Color : Target
         {
-            app::Color value;
+            Variable<app::Color> value;
 
-            virtual void parse(nlohmann::json const& j) override;
+            virtual void parse(TimelineState& state, nlohmann::json const& j) override;
             virtual bool update_state(TimelineState& state, float dt) override;
         };
     }

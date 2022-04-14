@@ -33,7 +33,7 @@ namespace randomizer
         { TimelineEntryType::Color, []() -> std::shared_ptr<timeline_entries::Base> { return std::make_shared<timeline_entries::Color>(); } },
     };
 
-    void parse_entries(std::string path, std::vector<std::shared_ptr<timeline_entries::Base>>& frames, nlohmann::json& j)
+    void parse_entries(std::string path, TimelineState& state, std::vector<std::shared_ptr<timeline_entries::Base>>& frames, nlohmann::json& j)
     {
         for (auto jentry : j)
         {
@@ -46,7 +46,7 @@ namespace randomizer
                         if (key != "entries" && key != "type")
                             sub_entry[key] = value;
 
-                parse_entries(path, frames, arr);
+                parse_entries(path, state, frames, arr);
             }
             else
             {
@@ -54,7 +54,7 @@ namespace randomizer
                 if (it != factories.end())
                 {
                     auto entry = it->second();
-                    entry->parse(jentry);
+                    entry->parse(state, jentry);
                     frames.push_back(entry);
                 }
                 else
@@ -65,13 +65,14 @@ namespace randomizer
 
     std::unique_ptr<Timeline> load_timeline(std::string path)
     {
+        TimelineState state;
         std::vector<std::shared_ptr<timeline_entries::Base>> frames;
         nlohmann::json j;
         if (load_json_file(path, j))
         {
             try
             {
-                parse_entries(path, frames, j);
+                parse_entries(path, state, frames, j);
             }
             catch (...)
             {
@@ -80,7 +81,7 @@ namespace randomizer
             }
         }
 
-        return std::make_unique<Timeline>(frames);
+        return std::make_unique<Timeline>(frames, state);
     }
 
     std::unique_ptr<Timeline> copy_timeline(std::unique_ptr<Timeline> const& value)
@@ -88,8 +89,9 @@ namespace randomizer
         return std::unique_ptr<Timeline>(new Timeline(*value.get()));
     }
 
-    Timeline::Timeline(std::vector<std::shared_ptr<timeline_entries::Base>> entries)
+    Timeline::Timeline(std::vector<std::shared_ptr<timeline_entries::Base>> entries, TimelineState state)
         : m_entries(entries)
+        , m_state(state)
         , m_entry(0)
         , m_started(false)
         , m_attached(nullptr)
@@ -114,6 +116,7 @@ namespace randomizer
         , m_attached(nullptr)
         , m_attach_offset{ 0, 0, 0 }
     {
+        m_state.variables = other.m_state.variables;
         m_state.root = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
         il2cpp::invoke(m_state.root, ".ctor");
         il2cpp::invoke(m_state.root, "set_name", il2cpp::string_new("rando_timeline"));
@@ -179,6 +182,12 @@ namespace randomizer
         m_state.time = 0;
         m_entry = 0;
         m_started = false;
+    }
+
+    TimelineVariable* Timeline::variable(std::string name)
+    {
+        auto it = m_state.variables.find(name);
+        return it != m_state.variables.end() ? &it->second : nullptr;
     }
 }
 
@@ -302,5 +311,15 @@ INJECT_C_DLLEXPORT void timeline_local_rotation(int id, app::Vector3 value)
         auto transform = il2cpp::unity::get_transform(it->second->root());
         auto quat = Quaternion::Euler(value.x, value.y, value.z);
         Transform::set_localRotation(transform, &quat);
+    }
+}
+
+INJECT_C_DLLEXPORT void timeline_variable_float(int id, const char* name, float value)
+{
+    auto it = csharp_timelines.find(id);
+    if (it != csharp_timelines.end())
+    {
+        auto variable = it->second->variable(name);
+        variable->value = value;
     }
 }

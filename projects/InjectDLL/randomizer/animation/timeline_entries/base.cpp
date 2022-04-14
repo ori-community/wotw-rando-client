@@ -5,21 +5,23 @@
 #include <randomizer/animation/timeline.h>
 #include <randomizer/sound.h>
 
+#include <Common/ext.h>
+
 namespace randomizer
 {
     namespace timeline_entries
     {
-        void Base::parse(nlohmann::json const& j)
+        void Base::parse(TimelineState& state, nlohmann::json const& j)
         {
-            id = j.value<int>("id", 0);
-            type = j.value<TimelineEntryType>("type", TimelineEntryType::Unknown);
-            start_time = j.value("start_time", 0);
+            id = j.value("id", 0);
+            type = j.value("type", TimelineEntryType::Unknown);
+            start_time = j.value("start_time", 0.f);
         }
 
-        void Target::parse(nlohmann::json const& j)
+        void Target::parse(TimelineState& state, nlohmann::json const& j)
         {
             target_type = j.value<TimelineObjectType>("target_type", TimelineObjectType::Unknown);
-            Base::parse(j);
+            Base::parse(state, j);
         }
 
         app::GameObject* get_target(TimelineState const& state, TimelineObjectType target_type, int id)

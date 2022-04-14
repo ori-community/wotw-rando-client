@@ -6,19 +6,14 @@ namespace randomizer
 {
     namespace timeline_entries
     {
-        void Animation::parse(nlohmann::json const& j)
+        void Animation::parse(TimelineState& state, nlohmann::json const& j)
         {
             auto animation_path = j.value<std::string>("path", "");
             definition = animation_cache.get(animation_path);
             if (j.contains("duration"))
-            {
-                duration = j.at("duration").get<float>();
-                end = AnimationEnd::Repeat;
-            }
-            else
-                end = AnimationEnd::Destroy;
+                duration = create_variable(state, j, "duration", 0.f);
 
-            Base::parse(j);
+            Base::parse(state, j);
         }
 
         bool Animation::update_state(TimelineState& state, float dt)
@@ -37,13 +32,13 @@ namespace randomizer
             if (duration.has_value())
             {
                 auto elapsed = state.time - start_time;
-                if (elapsed >= duration.value())
+                if (elapsed >= duration.value()(state))
                     it->second->stop();
             }
 
             if (it->second->is_finished() || it->second->is_stopped())
             {
-                if (end == AnimationEnd::Repeat && !it->second->is_stopped())
+                if (duration.has_value() && !it->second->is_stopped())
                     it->second->start(true);
                 else
                 {
@@ -55,10 +50,10 @@ namespace randomizer
             return false;
         }
 
-        void Sound::parse(nlohmann::json const& j)
+        void Sound::parse(TimelineState& state, nlohmann::json const& j)
         {
-            sound_event = j.value<SoundEventID>("sound_event", SoundEventID::Catching);
-            Base::parse(j);
+            sound_event = create_variable(state, j, "sound_event", SoundEventID::Catching);
+            Base::parse(state, j);
         }
 
         bool Sound::update_state(TimelineState& state, float dt)
@@ -69,7 +64,7 @@ namespace randomizer
                 state.active_sounds[id] = std::make_shared<SoundActor>();
                 it = state.active_sounds.find(id);
                 il2cpp::unity::set_parent(it->second->root(), state.root);
-                it->second->play(sound_event);
+                it->second->play(sound_event(state));
             }
 
             switch (it->second->status())
@@ -83,11 +78,11 @@ namespace randomizer
             return false;
         }
         
-        void Text::parse(nlohmann::json const& j)
+        void Text::parse(TimelineState& state, nlohmann::json const& j)
         {
-            text = j.value<std::string>("text", "");
+            text = create_variable(state, j, "text", std::string(""));
             // TODO: Add more things.
-            Base::parse(j);
+            Base::parse(state, j);
         }
 
         bool Text::update_state(TimelineState& state, float dt)

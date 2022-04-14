@@ -97,7 +97,7 @@ namespace RandoMainDLL {
       var cooldownTime = hasWorld ? world.Cooldown : 2f;
       var radius = hasWorld ? world.Radius : 16f;
 
-      startCooldownAnimation(Multiplayer.Id);
+      startCooldownAnimation(Multiplayer.Id, cooldownTime);
       showSeekerAbilityAnimation(InterOp.Player.get_position(), radius);
       WebSocketClient.SendPlayerUseCatch();
       cooldown = cooldownTime;
@@ -116,13 +116,14 @@ namespace RandoMainDLL {
 
     static string sein_head = "seinCharacter/ori3D/mirrorHolder/rigHolder/oriRig/Skeleton_GRP/root_JNT/pelvis_JNT/" +
       "spine_joint01_JNT/spine_joint02_JNT/spine_joint03_JNT/spine_joint04_JNT/headC_joint01_JNT";
-    private static void startCooldownAnimation(string player) {
+    private static void startCooldownAnimation(string player, float duration) {
       bool isLocal = player == Multiplayer.Id || player == null;
       string attach_obj = isLocal ? sein_head : player + "_world";
       var timeline = InterOp.Animation.timeline_create(COOLDOWN_TIMELINE);
       InterOp.Animation.timeline_attach(timeline, attach_obj);
       InterOp.Animation.timeline_local_position(timeline, new Vector3(0, isLocal ? 0.7f : 1, 0));
       InterOp.Animation.timeline_local_scale(timeline, new Vector3(1.5f, 1.5f, 1));
+      InterOp.Animation.timeline_variable_float(timeline, "cooldown_duration", duration);
       InterOp.Animation.timeline_start(timeline);
     }
 
@@ -133,7 +134,10 @@ namespace RandoMainDLL {
             var usedCatch = PlayerUsedCatchingAbilityMessage.Parser.ParseFrom(packet.Packet_);
             var position = InterOp.Multiplayer.get_player_position(usedCatch.Id);
             showSeekerAbilityAnimation(position, seekers[usedCatch.Id].Radius);
-            startCooldownAnimation(usedCatch.Id);
+            SeekerWorldInfo world = null;
+            var hasWorld = seekers.TryGetValue(usedCatch.Id, out world);
+            var cooldownTime = hasWorld ? world.Cooldown : 2f;
+            startCooldownAnimation(usedCatch.Id, cooldownTime);
             break;
           case Packet.Types.PacketID.PlayerCaught:
             var caught = PlayerCaughtMessage.Parser.ParseFrom(packet.Packet_);

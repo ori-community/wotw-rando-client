@@ -1,8 +1,6 @@
 #include <randomizer/animation/timeline_entries/setters.h>
 #include <randomizer/animation/timeline.h>
 
-#include <utils/json_serializers.h>
-
 namespace randomizer
 {
     namespace timeline_entries
@@ -15,10 +13,10 @@ namespace randomizer
             STATIC_IL2CPP_BINDING(UnityEngine, Quaternion, app::Quaternion, Euler, (float x, float y, float z));
         }
 
-        void Position::parse(nlohmann::json const& j)
+        void Position::parse(TimelineState& state, nlohmann::json const& j)
         {
-            value = j.value<app::Vector3>("value", {0, 0, 0});
-            Target::parse(j);
+            value = create_variable<app::Vector3>(state, j, "value", { 0, 0, 0 });
+            Target::parse(state, j);
         }
 
         bool Position::update_state(TimelineState& state, float dt)
@@ -27,16 +25,16 @@ namespace randomizer
             if (il2cpp::unity::is_valid(root))
             {
                 auto transform = il2cpp::unity::get_transform(root);
-                Transform::set_localPosition(transform, &value);
+                Transform::set_localPosition(transform, &value(state));
             }
 
             return true;
         }
 
-        void Scale::parse(nlohmann::json const& j)
+        void Scale::parse(TimelineState& state, nlohmann::json const& j)
         {
-            value = j.value<app::Vector3>("value", { 0, 0, 0 });
-            Target::parse(j);
+            value = create_variable<app::Vector3>(state, j, "value", { 0, 0, 0 });
+            Target::parse(state, j);
         }
 
         bool Scale::update_state(TimelineState& state, float dt)
@@ -45,16 +43,16 @@ namespace randomizer
             if (il2cpp::unity::is_valid(root))
             {
                 auto transform = il2cpp::unity::get_transform(root);
-                Transform::set_localScale(transform, &value);
+                Transform::set_localScale(transform, &value(state));
             }
 
             return true;
         }
 
-        void Rotation::parse(nlohmann::json const& j)
+        void Rotation::parse(TimelineState& state, nlohmann::json const& j)
         {
-            value = j.value<app::Vector3>("value", { 0, 0, 0 });
-            Target::parse(j);
+            value = create_variable<app::Vector3>(state, j, "value", { 0, 0, 0 });
+            Target::parse(state, j);
         }
 
         bool Rotation::update_state(TimelineState& state, float dt)
@@ -63,17 +61,18 @@ namespace randomizer
             if (il2cpp::unity::is_valid(root))
             {
                 auto transform = il2cpp::unity::get_transform(root);
-                auto quat = Quaternion::Euler(value.x, value.y, value.z);
+                auto pos = value(state);
+                auto quat = Quaternion::Euler(pos.x, pos.y, pos.z);
                 Transform::set_localRotation(transform, &quat);
             }
 
             return true;
         }
 
-        void Color::parse(nlohmann::json const& j)
+        void Color::parse(TimelineState& state, nlohmann::json const& j)
         {
-            value = j.value<app::Color>("value", { 1, 1, 1, 1 });
-            Target::parse(j);
+            value = create_variable<app::Color>(state, j, "value", { 1, 1, 1, 1 });
+            Target::parse(state, j);
         }
 
         bool Color::update_state(TimelineState& state, float dt)
@@ -84,7 +83,7 @@ namespace randomizer
             {
                 auto it = state.active_animations.find(id);
                 if (it != state.active_animations.end())
-                    it->second->color(value);
+                    it->second->color(value(state));
                 break;
             }
             default:
