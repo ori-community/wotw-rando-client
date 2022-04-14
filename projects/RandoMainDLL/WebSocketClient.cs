@@ -231,6 +231,21 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("SendPlayerUseCatch", e, false); }
     }
 
+    public static void SendEmptyPacket(Packet.Types.PacketID id) {
+      try {
+        if (!WantConnection)
+          return;
+
+        var useCatch = new PlayerUseCatchingAbilityMessage();
+        Packet packet = new Packet {
+          Id = id,
+          Packet_ = ByteString.Empty
+        };
+        SendQueue.Add(packet);
+      }
+      catch (Exception e) { Randomizer.Error("SendEmptyPacket", e, false); }
+    }
+
     private static void HandleMessage(object sender, MessageEventArgs args) {
       try {
         var data = args.RawData;

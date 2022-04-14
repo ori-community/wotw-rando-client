@@ -113,6 +113,7 @@ namespace RandoMainDLL {
     public static void OnTeleporting() {
       UberInc.Int(StatsTracking.WarpsUsed);
       PsuedoLocs.ON_TELEPORT.OnCollect();
+      WebSocketClient.SendEmptyPacket(Network.Packet.Types.PacketID.NotifyTeleport);
     }
 
     public static void FoundTP(TeleporterType type) {

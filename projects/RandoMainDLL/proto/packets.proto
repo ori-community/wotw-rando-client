@@ -33,6 +33,8 @@ message Packet {
     TrackerFlagsUpdate = 102;
     RequestFullUpdate = 103;
     SetTrackerEndpointId = 104;
+
+    NotifyTeleport = 500;
   }
 
   PacketID id = 1;
