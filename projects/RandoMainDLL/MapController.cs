@@ -161,7 +161,7 @@ namespace RandoMainDLL {
       string text = ((f == FilterType.InLogic || f == FilterType.Spoilers) && UberGet.value(34543, 11226).Bool
         ? cond.SpoilerName(pickup)
         : LocName(cond)) ?? " ";
-      length = Math.Min(text.Length, length);
+      length = Math.Min(text.Length, length / sizeof(char));
       Marshal.Copy(text.ToCharArray(), 0, buffer, length);
     }
 
