@@ -25,7 +25,8 @@ namespace randomizer
             if (il2cpp::unity::is_valid(root))
             {
                 auto transform = il2cpp::unity::get_transform(root);
-                Transform::set_localPosition(transform, &value(state));
+                auto vec = value(state);
+                Transform::set_localPosition(transform, &vec);
             }
 
             return true;
@@ -43,7 +44,8 @@ namespace randomizer
             if (il2cpp::unity::is_valid(root))
             {
                 auto transform = il2cpp::unity::get_transform(root);
-                Transform::set_localScale(transform, &value(state));
+                auto vec = value(state);
+                Transform::set_localScale(transform, &vec);
             }
 
             return true;
