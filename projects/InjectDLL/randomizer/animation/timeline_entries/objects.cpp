@@ -10,7 +10,14 @@ namespace randomizer
         {
             auto animation_path = j.value<std::string>("path", "");
             definition = animation_cache.get(animation_path);
-            end = j.value<AnimationEnd>("on_end", AnimationEnd::Destroy);
+            if (j.contains("duration"))
+            {
+                duration = j.at("duration").get<float>();
+                end = AnimationEnd::Repeat;
+            }
+            else
+                end = AnimationEnd::Destroy;
+
             Base::parse(j);
         }
 
@@ -26,6 +33,13 @@ namespace randomizer
             }
             else
                 it->second->update(dt);
+
+            if (duration.has_value())
+            {
+                auto elapsed = state.time - start_time;
+                if (elapsed >= duration.value())
+                    it->second->stop();
+            }
 
             if (it->second->is_finished() || it->second->is_stopped())
             {

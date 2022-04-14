@@ -11,6 +11,7 @@ namespace randomizer
         struct Animation : Base
         {
             std::shared_ptr<AnimationDefinition> definition;
+            std::optional<float> duration;
             AnimationEnd end;
 
             virtual void parse(nlohmann::json const& j) override;
