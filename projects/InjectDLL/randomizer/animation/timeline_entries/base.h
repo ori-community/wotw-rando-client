@@ -1,6 +1,7 @@
 #pragma once
 
 #include <enums/timeline_entries.h>
+#include <randomizer/animation/timeline_state.h>
 #include <utils/json_serializers.h>
 #include <json/json.hpp>
 

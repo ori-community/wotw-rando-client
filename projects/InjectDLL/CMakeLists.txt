@@ -160,6 +160,7 @@ set(
     "randomizer/timer.h"
     "randomizer/animation/animation.h"
     "randomizer/animation/timeline.h"
+    "randomizer/animation/timeline_state.h"
     "randomizer/animation/timeline_entries/base.h"
     "randomizer/animation/timeline_entries/lerpers.h"
     "randomizer/animation/timeline_entries/objects.h"
