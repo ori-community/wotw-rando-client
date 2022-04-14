@@ -143,7 +143,8 @@ namespace
     {
         if (eat(text, i, start))
         {
-            value = trim(convert_wstring_to_string(std::wstring(eat_until(text, i, L">"))));
+            value = convert_wstring_to_string(std::wstring(eat_until(text, i, L">")));
+            trim(value);
             if (!value.empty())
                 return true;
             else
@@ -517,7 +518,7 @@ app::MessageBox* get_message_box(RandoMessage& message)
 
 app::GameObject* text_box_get_go(int id)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return nullptr;
 
@@ -529,7 +530,7 @@ app::GameObject* text_box_get_go(int id)
 
 bool text_box_creation_callback(int id, creation_callback func)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
@@ -575,7 +576,7 @@ INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, boo
 
 INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
@@ -588,7 +589,7 @@ INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text)
 
 INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z, bool use_in_game_coordinates)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
@@ -603,7 +604,7 @@ INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z, boo
 
 INJECT_C_DLLEXPORT bool text_box_padding(int id, float top, float left, float right, float bottom)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
@@ -618,7 +619,7 @@ INJECT_C_DLLEXPORT bool text_box_padding(int id, float top, float left, float ri
 
 INJECT_C_DLLEXPORT bool text_box_fade(int id, float fadeIn, float fadeOut)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
@@ -631,7 +632,7 @@ INJECT_C_DLLEXPORT bool text_box_fade(int id, float fadeIn, float fadeOut)
 
 INJECT_C_DLLEXPORT bool text_box_color(int id, int r, int g, int b, int a)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
@@ -652,7 +653,7 @@ INJECT_C_DLLEXPORT bool text_box_color(int id, int r, int g, int b, int a)
 
 INJECT_C_DLLEXPORT bool text_box_size(int id, float size)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
@@ -664,7 +665,7 @@ INJECT_C_DLLEXPORT bool text_box_size(int id, float size)
 
 INJECT_C_DLLEXPORT bool text_box_alignment(int id, app::AlignmentMode__Enum alignment)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
@@ -676,7 +677,7 @@ INJECT_C_DLLEXPORT bool text_box_alignment(int id, app::AlignmentMode__Enum alig
 
 INJECT_C_DLLEXPORT bool text_box_anchor(int id, app::HorizontalAnchorMode__Enum horizontal, app::VerticalAnchorMode__Enum vertical)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
@@ -689,7 +690,7 @@ INJECT_C_DLLEXPORT bool text_box_anchor(int id, app::HorizontalAnchorMode__Enum 
 
 INJECT_C_DLLEXPORT bool text_box_line_spacing(int id, float spacing)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
@@ -701,7 +702,7 @@ INJECT_C_DLLEXPORT bool text_box_line_spacing(int id, float spacing)
 
 INJECT_C_DLLEXPORT bool text_box_visibility(int id, bool value)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
@@ -711,7 +712,7 @@ INJECT_C_DLLEXPORT bool text_box_visibility(int id, bool value)
 
 INJECT_C_DLLEXPORT bool text_box_is_delayed(int id)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
@@ -720,7 +721,7 @@ INJECT_C_DLLEXPORT bool text_box_is_delayed(int id)
 
 INJECT_C_DLLEXPORT bool text_box_destroy(int id)
 {
-    auto& message = permanent_messages.find(id);
+    auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
