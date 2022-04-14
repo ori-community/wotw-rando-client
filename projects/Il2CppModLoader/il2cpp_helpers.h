@@ -137,7 +137,7 @@ namespace il2cpp
         {
             Il2CppObject* il2cpp_object = reinterpret_cast<Il2CppObject*>(obj);
             if (is_assignable(il2cpp_object, "UnityEngine", "GameObject"))
-                return get_components<Return>(reinterpret_cast<GameObject*>(obj), namezpace, name);
+                return get_components<Return>(obj, namezpace, name);
             else if (is_assignable(il2cpp_object, "UnityEngine", "Component"))
                 return get_components<Return>(get_game_object(obj), namezpace, name);
             else
@@ -149,7 +149,7 @@ namespace il2cpp
         {
             Il2CppObject* il2cpp_object = reinterpret_cast<Il2CppObject*>(obj);
             if (is_assignable(il2cpp_object, "UnityEngine", "GameObject"))
-                return get_component<Return>(reinterpret_cast<app::GameObject*>(obj), namezpace, name);
+                return get_component<Return>(obj, namezpace, name);
             else if (is_assignable(il2cpp_object, "UnityEngine", "Component"))
                 return get_component<Return>(get_game_object(obj), namezpace, name);
             else
