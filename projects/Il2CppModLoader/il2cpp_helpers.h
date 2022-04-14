@@ -14,6 +14,42 @@ namespace il2cpp
         std::vector<MethodInfo const*> methods;
     };
 
+    struct KlassDescriptor
+    {
+        std::string namezpace;
+        std::string name;
+        Il2CppClass* klass;
+    };
+
+    IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
+    IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new(void* obj, bool pinned);
+    IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new_weak(void* obj, bool track_ressurection);
+    IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* gchandle_target(uint32_t handle);
+    IL2CPP_MODLOADER_DLLEXPORT void gchandle_free(uint32_t handle);
+
+    IL2CPP_MODLOADER_DLLEXPORT std::vector<MethodOverloadInfo> const& get_all_methods(void* klass);
+    IL2CPP_MODLOADER_DLLEXPORT int get_method_overload_count(Il2CppClass* klass, std::string_view method, int param_count);
+    IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name_overloaded(Il2CppClass* klass, std::string_view method, int param_count, int overload);
+    IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name_params(Il2CppClass* klass, std::string_view method, std::vector<void*> const& params);
+    IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<Il2CppClass*> const& params);
+    IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<KlassDescriptor> const& params);
+
+    IL2CPP_MODLOADER_DLLEXPORT void free_obj(void* obj);
+
+    IL2CPP_MODLOADER_DLLEXPORT app::String* string_new(std::string_view str);
+    IL2CPP_MODLOADER_DLLEXPORT app::String* string_new(std::string_view str, uint32_t len);
+    IL2CPP_MODLOADER_DLLEXPORT app::String* string_new(std::wstring_view str);
+
+    IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* invoke_v(void* obj, std::string_view method, std::vector<void*> params = {});
+    IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* invoke_virtual_v(void* obj, Il2CppClass* base, std::string_view method, std::vector<void*> params = {});
+
+    IL2CPP_MODLOADER_DLLEXPORT bool is_assignable(Il2CppClass* klass, std::string_view namezpace, std::string_view name);
+    IL2CPP_MODLOADER_DLLEXPORT bool is_assignable(Il2CppClass* klass, Il2CppClass* iklass);
+    IL2CPP_MODLOADER_DLLEXPORT bool is_assignable(void* obj, std::string_view namezpace, std::string_view name);
+    IL2CPP_MODLOADER_DLLEXPORT bool is_assignable(void* obj, Il2CppClass* iklass);
+
+    IL2CPP_MODLOADER_DLLEXPORT MethodInfo* resolve_generic_method(uint64_t address);
+
     namespace unity
     {
         IL2CPP_MODLOADER_DLLEXPORT app::ScriptableObject* create_scriptable_object_untyped(std::string_view namezpace, std::string_view name);
@@ -181,47 +217,11 @@ namespace il2cpp
 
     void load_all_types();
 
-    IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
-    IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new(void* obj, bool pinned);
-    IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new_weak(void* obj, bool track_ressurection);
-    IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* gchandle_target(uint32_t handle);
-    IL2CPP_MODLOADER_DLLEXPORT void gchandle_free(uint32_t handle);
-
     template<typename Return>
     Return* gchandle_target(uint32_t handle)
     {
         return reinterpret_cast<Return*>(il2cpp::gchandle_target(handle));
     }
-
-    struct KlassDescriptor
-    {
-        std::string namezpace;
-        std::string name;
-        Il2CppClass* klass;
-    };
-
-    IL2CPP_MODLOADER_DLLEXPORT std::vector<MethodOverloadInfo> const& get_all_methods(void* klass);
-    IL2CPP_MODLOADER_DLLEXPORT int get_method_overload_count(Il2CppClass* klass, std::string_view method, int param_count);
-    IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name_overloaded(Il2CppClass* klass, std::string_view method, int param_count, int overload);
-    IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name_params(Il2CppClass* klass, std::string_view method, std::vector<void*> const& params);
-    IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<Il2CppClass*> const& params);
-    IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<KlassDescriptor> const& params);
-
-    IL2CPP_MODLOADER_DLLEXPORT void free_obj(void* obj);
-
-    IL2CPP_MODLOADER_DLLEXPORT app::String* string_new(std::string_view str);
-    IL2CPP_MODLOADER_DLLEXPORT app::String* string_new(std::string_view str, uint32_t len);
-    IL2CPP_MODLOADER_DLLEXPORT app::String* string_new(std::wstring_view str);
-
-    IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* invoke_v(void* obj, std::string_view method, std::vector<void*> params = {});
-    IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* invoke_virtual_v(void* obj, Il2CppClass* base, std::string_view method, std::vector<void*> params = {});
-
-    IL2CPP_MODLOADER_DLLEXPORT bool is_assignable(Il2CppClass* klass, std::string_view namezpace, std::string_view name);
-    IL2CPP_MODLOADER_DLLEXPORT bool is_assignable(Il2CppClass* klass, Il2CppClass* iklass);
-    IL2CPP_MODLOADER_DLLEXPORT bool is_assignable(void* obj, std::string_view namezpace, std::string_view name);
-    IL2CPP_MODLOADER_DLLEXPORT bool is_assignable(void* obj, Il2CppClass* iklass);
-
-    IL2CPP_MODLOADER_DLLEXPORT MethodInfo* resolve_generic_method(uint64_t address);
 
     // Templates
 
