@@ -236,7 +236,6 @@ namespace RandoMainDLL {
         if (!WantConnection)
           return;
 
-        var useCatch = new PlayerUseCatchingAbilityMessage();
         Packet packet = new Packet {
           Id = id,
           Packet_ = ByteString.Empty
