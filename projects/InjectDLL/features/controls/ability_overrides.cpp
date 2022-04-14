@@ -31,6 +31,12 @@ namespace ability_override
 
         IL2CPP_BINDING(, SeinLogicCycle, bool, IsCharacterStateBlockedBy, (app::SeinLogicCycle* this_ptr, app::SeinLogicCycle_StateFlags__Enum state_flags));
         IL2CPP_BINDING(, SeinInput, app::Input_InputButtonProcessor*, GetButton, (app::SeinInput* this_ptr, app::AbilityType__Enum ability));
+        IL2CPP_INTERCEPT(, SeinLogicCycle, bool, AllowSpell, (app::SeinLogicCycle* this_ptr, app::AbilityType__Enum type)) {
+            if (has_override(type))
+                return true;
+
+            return SeinLogicCycle::AllowSpell(this_ptr, type);
+        }
 
         bool check_input(app::AbilityType__Enum ability, bool just_pressed = false)
         {
