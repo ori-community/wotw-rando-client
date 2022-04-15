@@ -3,7 +3,7 @@
 #include <constants.h>
 #include <game/player.h>
 #include <game/pickups/pickups.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 #include <uber_states/uber_state_virtual.h>
 
 #include <Common/ext.h>
@@ -72,29 +72,6 @@ namespace
         app::PlayerUberStateGroup* player_group = il2cpp::get_class<app::PlayerUberStateGroup__Class>("", "PlayerUberStateGroup")->static_fields->Instance;
         return player_group->fields.PlayerUberState->fields.m_state->fields.Abilities;
     }
-
-    struct UberStateTypeResolver
-    {
-        std::string namezpace;
-        std::string name;
-        csharp_bridge::UberStateType type;
-    };
-
-    std::array<UberStateTypeResolver, 11> resolvers = {
-        UberStateTypeResolver{ "Moon", "SerializedBooleanUberState", csharp_bridge::UberStateType::SerializedBooleanUberState },
-        UberStateTypeResolver{ "Moon", "SerializedIntUberState", csharp_bridge::UberStateType::SerializedIntUberState },
-        UberStateTypeResolver{ "Moon", "SerializedFloatUberState", csharp_bridge::UberStateType::SerializedFloatUberState },
-        UberStateTypeResolver{ "Moon", "SerializedByteUberState", csharp_bridge::UberStateType::SerializedByteUberState },
-
-        UberStateTypeResolver{ "Moon.uberSerializationWisp", "SavePedestalUberState", csharp_bridge::UberStateType::SavePedestalUberState },
-        UberStateTypeResolver{ "Moon.uberSerializationWisp", "PlayerUberStateDescriptor", csharp_bridge::UberStateType::PlayerUberStateDescriptor },
-
-        UberStateTypeResolver{ "Moon", "BooleanUberState", csharp_bridge::UberStateType::BooleanUberState },
-        UberStateTypeResolver{ "Moon", "ByteUberState", csharp_bridge::UberStateType::ByteUberState },
-        UberStateTypeResolver{ "Moon", "IntUberState", csharp_bridge::UberStateType::IntUberState },
-        UberStateTypeResolver{ "Moon", "CountUberState", csharp_bridge::UberStateType::CountUberState },
-        UberStateTypeResolver{ "Moon", "ConditionUberState", csharp_bridge::UberStateType::ConditionUberState },
-    };
 }
 
 INJECT_C_DLLEXPORT void set_debug_controls(bool value)
@@ -418,70 +395,4 @@ INJECT_C_DLLEXPORT bool is_loading_game()
     auto game_state_machine = il2cpp::get_class<app::GameStateMachine__Class>("", "GameStateMachine")->static_fields->m_instance;
     return game_state_machine->fields._CurrentState_k__BackingField == app::GameStateMachine_State__Enum_Game &&
         (scene_name == "wotwTitleScreen" || scene_name == "kuFlyAway");
-}
-
-csharp_bridge::UberStateType resolve_type(app::IUberState* uber_state)
-{
-    for (auto const& resolver : resolvers)
-        if (il2cpp::is_assignable(uber_state, resolver.namezpace.c_str(), resolver.name.c_str()))
-            return resolver.type;
-
-    return static_cast<csharp_bridge::UberStateType>(-1);
-}
-
-// Define these here so they are not destroyed when we return the "array".
-std::vector<std::string> temp_string_vector;
-std::vector<UberStateDef> temp_vector;
-INJECT_C_DLLEXPORT UberStateDef* get_uber_states(int& size)
-{
-    temp_string_vector.clear();
-    temp_vector.clear();
-
-    auto collection = il2cpp::get_class<app::UberStateCollection__Class>("Moon", "UberStateCollection")
-        ->static_fields->m_instance->fields.m_descriptors->fields;
-
-    temp_vector.resize(collection._size);
-    temp_string_vector.resize(collection._size * 2);
-
-    for (auto i = 0; i < collection._size; ++i)
-    {
-        UberStateDef def;
-        auto uber_state = reinterpret_cast<app::IUberState*>(collection._items->vector[i]);
-        def.state_id = uber_states::get_uber_state_id(uber_state)->fields.m_id;
-        def.group_id = uber_states::get_uber_state_group_id(uber_state)->fields.m_id;
-        temp_string_vector[i * 2] = uber_states::get_uber_state_name(uber_state);
-        def.state_name = temp_string_vector[i * 2].c_str();
-        temp_string_vector[i * 2 + 1] = uber_states::get_uber_state_group_name(uber_state);
-        def.group_name = temp_string_vector[i * 2 + 1].c_str();
-        def.type = resolve_type(uber_state);
-        temp_vector[i] = def;
-    }
-
-    size = temp_vector.size();
-    return temp_vector.data();
-}
-
-INJECT_C_DLLEXPORT csharp_bridge::UberStateType get_uber_state_type(int group, int state)
-{
-    // TODO: Make this better
-    if (uber_states::is_virtual_state(group, state))
-        return csharp_bridge::UberStateType::SerializedFloatUberState;
-
-    if (group == 12)
-        return csharp_bridge::UberStateType::SerializedBooleanUberState;
-
-    auto group_id = uber_states::create_uber_id(group);
-    auto state_id = uber_states::create_uber_id(state);
-    auto uber_state = uber_states::get_uber_state(group_id, state_id);
-    return resolve_type(uber_state);
-}
-
-INJECT_C_DLLEXPORT bool get_uber_state_exists(int group, int state)
-{
-    if (uber_states::is_virtual_state(group, state))
-        return true;
-
-    auto group_id = uber_states::create_uber_id(group);
-    auto state_id = uber_states::create_uber_id((group == 12) ? state / 31 : state);
-    return uber_states::get_uber_state(group_id, state_id) != nullptr;
 }

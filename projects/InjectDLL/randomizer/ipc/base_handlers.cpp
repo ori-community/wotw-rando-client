@@ -6,7 +6,7 @@
 #include <randomizer/ipc/ipc.h>
 #include <interop/csharp_bridge.h>
 #include <randomizer/messages.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 #include <utils/json_serializers.h>
 
 #include <Common/ext.h>
@@ -59,7 +59,7 @@ namespace randomizer
                 {
                     auto group = entry.at("group").get<int>();
                     auto state = entry.at("state").get<int>();
-                    values.push_back(uber_states::get_uber_state_value(group, state));
+                    values.push_back(uber_states::UberState(static_cast<UberStateGroup>(group), state).get());
                 }
 
                 nlohmann::json response;
@@ -75,7 +75,7 @@ namespace randomizer
                 auto group = p.at("group").get<int>();
                 auto state = p.at("state").get<int>();
                 auto value = p.at("value").get<double>();
-                uber_states::set_uber_state_value(group, state, value);
+                uber_states::UberState(static_cast<UberStateGroup>(group), state).set(value);
             }
 
             void action(nlohmann::json& j)
@@ -244,12 +244,12 @@ INJECT_C_DLLEXPORT void report_seed_reload()
     randomizer::ipc::send_message(response.dump());
 }
 
-INJECT_C_DLLEXPORT void report_uber_state_change(int group, int state, double value)
+INJECT_C_DLLEXPORT void report_uber_state_change(UberStateGroup group, int state, double value)
 {
     nlohmann::json response;
     response["type"] = "request";
     response["method"] = "notify_on_uber_state_changed";
-    response["payload"]["group"] = group;
+    response["payload"]["group"] = static_cast<int>(group);
     response["payload"]["state"] = state;
     response["payload"]["value"] = value;
     randomizer::ipc::send_message(response.dump());

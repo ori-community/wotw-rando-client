@@ -1,6 +1,6 @@
 #include <macros.h>
 #include <game/player.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/console.h>
@@ -91,13 +91,14 @@ namespace
 
         SeinCharacter::FixedUpdate(this_ptr);
     }
-    ;
+    
+    uber_states::UberState intro_cutscene(static_cast<UberStateGroup>(21786), 48748);
     IL2CPP_INTERCEPT(, GameStateMachine, void, SetToPrologue, (app::GameStateMachine* this_ptr)) {
         GameStateMachine::SetToPrologue(this_ptr);
         handling_start = true;
         auto* const controller = il2cpp::get_class<app::SkipCutsceneController__Class>("", "SkipCutsceneController")->static_fields->Instance;
         SkipCutsceneController::SkipPrologue(controller);
-        uber_states::set_uber_state_value(21786, 48748, 1);
+        intro_cutscene.set(1);
         if (overwrite_start)
             teleport(start_position.x, start_position.y, true);
         else

@@ -1,5 +1,5 @@
 #include <randomizer/settings.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>

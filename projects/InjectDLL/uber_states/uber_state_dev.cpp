@@ -1,6 +1,6 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <dev/object_visualizer.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
@@ -105,7 +105,7 @@ namespace
             return;
         }
 
-        uber_states::set_uber_state_value(group, state, static_cast<float>(value));
+        uber_states::UberState(static_cast<UberStateGroup>(group), state).set(value);
     }
 
     void set_us_int(std::string const& command, std::vector<console::CommandParam> const& params)
@@ -129,7 +129,7 @@ namespace
             return;
         }
 
-        uber_states::set_uber_state_value(group, state, static_cast<float>(value));
+        uber_states::UberState(static_cast<UberStateGroup>(group), state).set(value);
     }
 
     void check_appliers(std::vector<console::CommandParam> const& params)
@@ -140,10 +140,8 @@ namespace
         if (!find_state_group(params, state, group))
             return;
 
-        auto state_id = uber_states::create_uber_id(state);
-        auto group_id = uber_states::create_uber_id(group);
-        auto uber_state = uber_states::get_uber_state(group_id, state_id);
-        if (uber_state == nullptr)
+        uber_states::UberState uber_state(static_cast<UberStateGroup>(group), state);
+        if (uber_state.valid())
         {
             console::console_send("uber_state not found");
             return;
@@ -156,7 +154,7 @@ namespace
         for (auto i = 0; i < list->fields._size; ++i)
         {
             auto item = list->fields._items->vector[i];
-            if (UberStateController::ApplierIsAffectedByUberState(item, uber_state))
+            if (UberStateController::ApplierIsAffectedByUberState(item, uber_state.ptr()))
                 dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
         }
 

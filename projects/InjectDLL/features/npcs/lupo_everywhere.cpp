@@ -1,6 +1,6 @@
 #include <randomizer/conditions/condition_override.h>
 #include <randomizer/conditions/condition_uber_state.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/console.h>
@@ -13,14 +13,13 @@ using namespace modloader;
 
 namespace
 {
+    uber_states::UberState has_sword(static_cast<UberStateGroup>(48248), 49214);
     void initialize()
     {
         randomizer::conditions::register_condition_intercept("swampTorchIntroductionA/npcSetup",
             [](std::string_view path, void* obj) { return std::optional<bool>(true); });
-        randomizer::conditions::register_condition_uber_state_intercept(48248, 49214,
-            [](app::ConditionUberState* state) {
-                return std::optional<bool>(uber_states::get_uber_state_value(48248, 18767) < 0.5);
-            }
+        randomizer::conditions::register_condition_uber_state_intercept(has_sword,
+            [](app::ConditionUberState* state) { return std::optional<bool>(has_sword.get<bool>()); }
         );
     }
 

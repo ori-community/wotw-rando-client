@@ -4,7 +4,7 @@
 #include <game/pickups/shops/general.h>
 #include <randomizer/text_database.h>
 #include <uber_states/uber_state_helper.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Common/ext.h>
 
@@ -172,7 +172,7 @@ namespace
         icon->apply(renderer);
 
         auto can_afford = false;
-        auto owned = item->fields.MaxLevel >= uber_states::get_uber_state_value(item->fields.UberState);
+        auto owned = item->fields.MaxLevel >= uber_states::UberState(item->fields.UberState).get<int>();
         if (il2cpp::unity::is_valid(item->fields.UberState) && !owned)
             can_afford = MapmakerItem::GetCost_intercept(item) <= get_experience();
 
@@ -236,7 +236,7 @@ namespace
         const auto key = get_key(item);
         const auto it = lupo_overrides.find(key);
 
-        auto value = uber_states::get_uber_state_value(this_ptr->fields.m_upgradeItem->fields.UberState);
+        auto value = uber_states::UberState(this_ptr->fields.m_upgradeItem->fields.UberState).get<int>();
         auto can_afford = il2cpp::unity::is_valid(item) && get_experience() >= MapmakerItem::GetCost_intercept(item);
 
         auto is_locked = it == lupo_overrides.end() || it->second.is_locked;

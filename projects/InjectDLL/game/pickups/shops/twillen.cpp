@@ -3,7 +3,7 @@
 #include <game/system/message_provider.h>
 #include <interop/csharp_bridge.h>
 #include <game/pickups/shops/general.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 #include <uber_states/uber_state_helper.h>
 #include <randomizer/render/textures.h>
 #include <randomizer/text_database.h>

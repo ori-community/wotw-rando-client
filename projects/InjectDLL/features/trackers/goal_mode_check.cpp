@@ -7,7 +7,7 @@
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <randomizer/render/shaders.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 using namespace modloader;
 
@@ -48,8 +48,10 @@ namespace
     IL2CPP_BINDING(, GameplayCamera, void, MoveCameraToTargetInstantly, (app::GameplayCamera* this_ptr, bool updateTargetPosition));
 
     bool set_camera_next_update = false;
+    uber_states::UberState goal_modes_complete(UberStateGroup::GameState, 11);
     IL2CPP_INTERCEPT(, SeinCharacter, void, FixedUpdate, (app::SeinCharacter* this_ptr)) {
-        if (uber_states::get_uber_state_value(uber_states::constants::GAME_STATE_GROUP_ID, 11) < 0.5f) {
+        if (!goal_modes_complete.get<bool>())
+        {
             auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
             if (set_camera_next_update) {
               if (cameras != nullptr && cameras->static_fields->Current != nullptr) {

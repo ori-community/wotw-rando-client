@@ -4,7 +4,7 @@
 #include <features/controls/mouse_control.h>
 #include <randomizer/ipc/base_handlers.h>
 #include <uber_states/uber_state_helper.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Common/ext.h>
 
@@ -21,7 +21,7 @@ namespace uber_states
 {
     namespace
     {
-        using uber_id = std::pair<int, int>;
+        using uber_id = std::pair<UberStateGroup, int>;
 
         // TODO: Maybe add an on_changed callback and implement the uberstate notify for these.
         struct VirtualUberState
@@ -36,7 +36,7 @@ namespace uber_states
 
         std::unordered_map<uber_id, VirtualUberState, pair_hash> virtual_states = {
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 0),
+                std::make_pair(UberStateGroup::RandoVirtual, 0),
                 {
                     "Spirit Light",
                     [](double x) { set_experience(x); },
@@ -44,7 +44,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 1),
+                std::make_pair(UberStateGroup::RandoVirtual, 1),
                 {
                     "Gorlek Ore",
                     [](double x) { set_ore(x); },
@@ -52,7 +52,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 2),
+                std::make_pair(UberStateGroup::RandoVirtual, 2),
                 {
                     "Keystones",
                     [](double x) { set_keystones(x); },
@@ -60,7 +60,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 10),
+                std::make_pair(UberStateGroup::RandoVirtual, 10),
                 {
                     "Max Health",
                     [](double x) { set_max_health(static_cast<int32_t>(x)); },
@@ -68,7 +68,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 11),
+                std::make_pair(UberStateGroup::RandoVirtual, 11),
                 {
                     "Health",
                     [](double x) { set_health(x); },
@@ -76,7 +76,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 12),
+                std::make_pair(UberStateGroup::RandoVirtual, 12),
                 {
                     "Max Energy",
                     [](double x) { set_max_energy(x); },
@@ -84,7 +84,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 13),
+                std::make_pair(UberStateGroup::RandoVirtual, 13),
                 {
                     "Energy",
                     [](double x) { set_energy(x); },
@@ -92,7 +92,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 100),
+                std::make_pair(UberStateGroup::RandoVirtual, 100),
                 {
                     "Debug Enabled",
                     [](double x) { set_debug_controls(x > 0.5); },
@@ -100,7 +100,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 110),
+                std::make_pair(UberStateGroup::RandoVirtual, 110),
                 {
                     "Invert x axis",
                     [](double x) { set_axis_inverted(true, x > 0.5); },
@@ -108,7 +108,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 111),
+                std::make_pair(UberStateGroup::RandoVirtual, 111),
                 {
                     "Invert y axis",
                     [](double x) { set_axis_inverted(false, x > 0.5); },
@@ -116,7 +116,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 112),
+                std::make_pair(UberStateGroup::RandoVirtual, 112),
                 {
                     "Player input active",
                     [](double x) {
@@ -130,7 +130,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 200),
+                std::make_pair(UberStateGroup::RandoVirtual, 200),
                 {
                     "Area",
                     [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 200) is read only."); },
@@ -138,7 +138,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 500),
+                std::make_pair(UberStateGroup::RandoVirtual, 500),
                 {
                     "Total Relics",
                     [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 500) is read only."); },
@@ -146,7 +146,7 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 501),
+                std::make_pair(UberStateGroup::RandoVirtual, 501),
                 {
                     "Current Relics",
                     [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 501) is read only."); },
@@ -154,65 +154,65 @@ namespace uber_states
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 502),
+                std::make_pair(UberStateGroup::RandoVirtual, 502),
                 {
                     "Current Trees",
                     [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 502) is read only."); },
                     []() -> double {
-                        return uber_states::get_uber_state_value(0, app::AbilityType__Enum_Sword)
-                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_DoubleJump)
-                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_MeditateSpell)
-                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_Bow)
-                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_DashNew)
-                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_Bash)
-                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_SpiritLeash)
-                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_WaterDash)
-                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_GlowSpell)
-                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_Grenade)
-                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_Digging)
-                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_ChargeJump)
-                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_DamageUpgradeA)
-                            + uber_states::get_uber_state_value(0, app::AbilityType__Enum_DamageUpgradeB);
+                        return uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_Sword).get()
+                            + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_DoubleJump).get()
+                            + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_MeditateSpell).get()
+                            + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_Bow).get()
+                            + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_DashNew).get()
+                            + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_Bash).get()
+                            + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_SpiritLeash).get()
+                            + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_WaterDash).get()
+                            + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_GlowSpell).get()
+                            + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_Grenade).get()
+                            + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_Digging).get()
+                            + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_ChargeJump).get()
+                            + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_DamageUpgradeA).get()
+                            + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_DamageUpgradeB).get();
                     }
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 503),
+                std::make_pair(UberStateGroup::RandoVirtual, 503),
                 {
                     "Current Wisps",
                     [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 503) is read only."); },
                     []() -> double {
-                        return uber_states::get_uber_state_value(28895, 25522) // Reach
-                            + uber_states::get_uber_state_value(18793, 63291) // Mouldwood
-                            + uber_states::get_uber_state_value(945, 49747) // Pools
-                            + uber_states::get_uber_state_value(10289, 22102) // Wastes
-                            + uber_states::get_uber_state_value(46462, 59806); // Hollow
+                        return uber_states::UberState(static_cast<UberStateGroup>(28895), 25522).get() // Reach
+                            + uber_states::UberState(static_cast<UberStateGroup>(18793), 63291).get() // Mouldwood
+                            + uber_states::UberState(static_cast<UberStateGroup>(945), 49747).get() // Pools
+                            + uber_states::UberState(static_cast<UberStateGroup>(10289), 22102).get() // Wastes
+                            + uber_states::UberState(static_cast<UberStateGroup>(46462), 59806).get(); // Hollow
                     }
                 }
             },
             {
-                std::make_pair(constants::RANDO_VIRTUAL_GROUP_ID, 504),
+                std::make_pair(UberStateGroup::RandoVirtual, 504),
                 {
                     "Current Quests",
                     [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 504) is read only."); },
                     []() -> double {
-                        return static_cast<int>(uber_states::get_uber_state_value(937, 34641) > 3.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 35399) > 2.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 35087) > 2.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 45931) > 2.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 8973) > 2.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(48248, 51645) > 2.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(48248, 18458) > 3.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 20667) > 2.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 15983) > 2.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 27804) > 3.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 59708) > 2.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 61011) > 4.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 26318) > 10.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 33776) > 2.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 50597) > 3.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 44578) > 1.5)
-                            + static_cast<int>(uber_states::get_uber_state_value(14019, 26394) > 1.5);
+                        return static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(937), 34641).get() > 3.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 35399).get() > 2.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 35087).get() > 2.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 45931).get() > 2.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 8973).get() > 2.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(48248), 51645).get() > 2.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(48248), 18458).get() > 3.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 20667).get() > 2.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 15983).get() > 2.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 27804).get() > 3.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 59708).get() > 2.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 61011).get() > 4.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 26318).get() > 10.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 33776).get() > 2.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 50597).get() > 3.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 44578).get() > 1.5)
+                            + static_cast<int>(uber_states::UberState(static_cast<UberStateGroup>(14019), 26394).get() > 1.5);
                     }
                 }
             }
@@ -226,45 +226,54 @@ namespace uber_states
                 auto value = state.second.get();
                 auto it = cached_values.find(state.first);
                 if (it == cached_values.end() || (std::abs(it->second - value) >= 0.1))
-                {
-                    cached_values[state.first] = value;
-                    report_uber_state_change(state.first.first, state.first.second, value);
-                }
+                    UberState(state.first.first, state.first.second).notify_changed(it->second);
             }
         }
+
+        void initialize()
+        {
+            register_value_notify(virtual_notify_change);
+        }
+
+        CALL_ON_INIT(initialize);
     }
 
-    bool is_virtual_state(int group, int state)
+    bool is_virtual_state(UberStateGroup group, int state)
     {
         return virtual_states.find(std::make_pair(group, state)) != virtual_states.end();
     }
 
-    std::string get_virtual_name(int group, int state)
+    std::string get_virtual_name(UberStateGroup group, int state)
     {
         auto it = virtual_states.find(std::make_pair(group, state));
         return it->second.name;
     }
 
     // TODO: Use a map for this if we add more then 1 virtual group.
-    std::string get_virtual_group_name(int group)
+    std::string get_virtual_group_name(UberStateGroup group)
     {
-        return constants::RANDO_VIRTUAL_GROUP_NAME;
+        return std::string(uber_state_group_name(UberStateGroup::RandoVirtual));
     }
 
-    double get_virtual_value(int group, int state)
+    double get_virtual_value(UberStateGroup group, int state)
     {
         auto it = virtual_states.find(std::make_pair(group, state));
         return it->second.get();
     }
 
-    void set_virtual_value(int group, int state, double value)
+    void set_virtual_value(UberStateGroup group, int state, double value)
     {
         auto it = virtual_states.find(std::make_pair(group, state));
-        return it->second.set(value);
+        it->second.set(value);
     }
 
-    void virtual_notify_change(int group, int state)
+    void virtual_notify_change(UberState state, double prev)
     {
-        report_uber_state_change(group, state, get_virtual_value(group, state));
+        if (!is_virtual_state(state.group(), state.state()))
+            return;
+
+        auto value = state.get();
+        cached_values[uber_id(state.group(), state.state())] = value;
+        report_uber_state_change(state.group(), state.state(), value);
     }
 }

@@ -5,7 +5,7 @@
 #include <interop/csharp_bridge.h>
 #include <game/pickups/shops/general.h>
 #include <randomizer/text_database.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Common/ext.h>
 
@@ -20,12 +20,13 @@ using namespace shops;
 
 namespace
 {
+    uber_states::UberState spirit_light_spent(UberStateGroup::RandoState, 4);
     IL2CPP_BINDING(, PurchaseThingScreen, bool, get_IsShopOpen, (app::PurchaseThingScreen*));
     IL2CPP_BINDING(, GameController, bool, get_GameInTitleScreen, (app::GameController*));
     IL2CPP_INTERCEPT(, SpellUIExperience, bool, Spend, (app::SpellUIExperience* this_ptr, int amount)) {
         bool worked = SpellUIExperience::Spend(this_ptr, amount);
         if (worked)
-            uber_states::set_uber_state_value(6, 4, amount + uber_states::get_uber_state_value(6, 4));
+            spirit_light_spent.set(amount + spirit_light_spent.get());
         return worked;
     };
 

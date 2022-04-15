@@ -1,6 +1,6 @@
 #include <constants.h>
 #include <game/player.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -18,10 +18,11 @@ namespace
         landing_state = 1;
     }
 
+    uber_states::UberState stomp_through_portals(UberStateGroup::RandoConfig, 9);
     IL2CPP_INTERCEPT(, SeinController, void, OnGoThroughPortal, (app::SeinController* this_ptr)) {
         SeinController::OnGoThroughPortal(this_ptr);
         auto sein = game::player::sein();
-        if (landing_state == 1 && uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, STOMP_THROUGH_PORTALS_ID) > 0.5)
+        if (landing_state == 1 && stomp_through_portals.get<bool>())
             landing_state = 2;
     }
 

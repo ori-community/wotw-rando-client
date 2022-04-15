@@ -1,6 +1,6 @@
 #include <macros.h>
 #include <game/player.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/interception_macros.h>
 
@@ -12,6 +12,14 @@ using namespace modloader;
 namespace
 {
     std::unordered_map<app::AbilityType__Enum, std::vector<float>> initial_costs;
+    uber_states::UberState blaze_cost(UberStateGroup::RandoUpgrade, 2);
+    uber_states::UberState spear_cost(UberStateGroup::RandoUpgrade, 3);
+    uber_states::UberState shuriken_cost(UberStateGroup::RandoUpgrade, 4);
+    uber_states::UberState sentry_cost(UberStateGroup::RandoUpgrade, 5);
+    uber_states::UberState bow_cost(UberStateGroup::RandoUpgrade, 6);
+    uber_states::UberState regeneration_cost(UberStateGroup::RandoUpgrade, 7);
+    uber_states::UberState flash_cost(UberStateGroup::RandoUpgrade, 8);
+    uber_states::UberState grenade_cost(UberStateGroup::RandoUpgrade, 9);
 
     void update_blaze(float modifier)
     {
@@ -185,12 +193,12 @@ namespace
 
 INJECT_C_DLLEXPORT void refresh_ability_energy_modifiers()
 {
-    update_blaze(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 2));
-    update_spike(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 3));
-    update_shuriken(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 4));
-    update_sentry(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 5));
-    update_bow(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 6));
-    update_regeneration(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 7));
-    update_flash(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 8));
-    update_grenade(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 9));
+    update_blaze(blaze_cost.get<float>());
+    update_spike(spear_cost.get<float>());
+    update_shuriken(shuriken_cost.get<float>());
+    update_sentry(sentry_cost.get<float>());
+    update_bow(bow_cost.get<float>());
+    update_regeneration(regeneration_cost.get<float>());
+    update_flash(flash_cost.get<float>());
+    update_grenade(grenade_cost.get<float>());
 }

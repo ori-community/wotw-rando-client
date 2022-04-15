@@ -1,6 +1,6 @@
 #include <features/scenes/scene_load.h>
 #include <randomizer/ipc/ipc.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 #include <utils/json_serializers.h>
 
 #include <Common/ext.h>
@@ -277,13 +277,13 @@ namespace randomizer
             }
 
             void visualize_uber_state(nlohmann::json& j, void* obj, bool verbose) {
-                auto cast = reinterpret_cast<app::IUberState*>(obj);
+                uber_states::UberState state(reinterpret_cast<app::IUberState*>(obj));
                 j["value"] = nlohmann::json::array({
-                    create_variable("group_id", "scalar", uber_states::get_uber_state_group_id(cast)->fields.m_id),
-                    create_variable("state_id", "scalar", uber_states::get_uber_state_id(cast)->fields.m_id),
-                    create_variable("group_name", "scalar", uber_states::get_uber_state_group_name(cast)),
-                    create_variable("state_name", "scalar", uber_states::get_uber_state_name(cast)),
-                    create_variable("value", "scalar", uber_states::get_uber_state_value(cast)),
+                    create_variable("group_id", "scalar", state.group()),
+                    create_variable("state_id", "scalar", state.state()),
+                    create_variable("group_name", "scalar", state.group_name()),
+                    create_variable("state_name", "scalar", state.state_name()),
+                    create_variable("value", "scalar", state.get()),
                 });
             }
 

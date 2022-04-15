@@ -1,25 +1,24 @@
 #include <game/player.h>
 #include <features/controls/invert_swim.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <interop/csharp_bridge.h>
 
 #include <Il2CppModLoader/interception_macros.h>
-#include <uber_states\uber_state_manager.h>
 
 namespace
 {
     constexpr float DEFAULT_SWIM_SPEED = 6.f;
     constexpr float DEFAULT_BOOSTED_SWIM_SPEED = 9.6f;
 
-    constexpr int SWIM_SPEED_MULTIPLIER = 85;
-
     STATIC_IL2CPP_BINDING(UnityEngine, AnimationCurve, app::AnimationCurve*, EaseInOut, (float timeStart, float valueStart, float timeEnd, float valueEnd));
 
+    uber_states::UberState swim_speed(UberStateGroup::RandoUpgrade, 85);
     void set_swim_params(float normal, float boost) {
         auto swim = game::player::sein()->fields.Abilities->fields.SwimmingWrapper;
         if (swim->fields.HasState)
         {
-            swim->fields.State->fields.SwimSpeed = normal * uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, SWIM_SPEED_MULTIPLIER);
+            swim->fields.State->fields.SwimSpeed = normal * swim_speed.get();
             swim->fields.State->fields.SwimSpeedBoostCurve = AnimationCurve::EaseInOut(0.05, 1.f, 0.2, boost / normal);
         }
     }

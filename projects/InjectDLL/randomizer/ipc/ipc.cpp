@@ -8,7 +8,7 @@
 #include <input/simulator.h>
 #include <interop/csharp_bridge.h>
 #include <randomizer/messages.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 #include <utils/json_serializers.h>
 
 #include <Common/ext.h>

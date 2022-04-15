@@ -453,9 +453,10 @@ namespace il2cpp
             return reinterpret_cast<app::Component*>(GameObject::GetComponentInChildren(game_object, runtime_type));
         }
 
-        app::ScriptableObject* create_scriptable_object_untyped(std::string_view namezpace, std::string_view name)
+        app::ScriptableObject* create_scriptable_object_untyped(Il2CppClass* klass)
         {
-            auto qualified = get_qualified(namezpace, name);
+            auto type = il2cpp_class_get_type(klass);
+            auto qualified = il2cpp_type_get_assembly_qualified_name(type);
             auto type_str = il2cpp::string_new(qualified);
             auto runtime_type = Type::GetType(type_str, false);
             return ScriptableObject::CreateInstance(runtime_type);

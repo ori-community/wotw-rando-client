@@ -5,7 +5,7 @@
 #include <interop/csharp_bridge.h>
 #include <randomizer/conditions/new_setup_state_override.h>
 #include <uber_states/uber_state_helper.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/console.h>
@@ -60,7 +60,8 @@ namespace randomizer
                 {
                     auto entry = map->fields._.Entries->fields._items->vector[i];
                     bool output = false;
-                    if (get_uber_state_exists(uber_states::constants::TREE_GROUP_ID, static_cast<int>(entry.m_ability)))
+                    uber_states::UberState tree(UberStateGroup::Tree, entry.m_ability);
+                    if (tree.valid())
                         output = csharp_bridge::is_tree_activated(entry.m_ability) ^ (entry.m_matchType != 0);
                     else
                         output = il2cpp::invoke(il2cpp::box_value<app::PlayerStateMap_Mapping__Boxed>(

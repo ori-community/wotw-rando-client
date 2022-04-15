@@ -2,7 +2,7 @@
 #include <game/player.h>
 #include <interop/csharp_bridge.h>
 #include <randomizer/conditions/new_setup_state_override.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/console.h>
@@ -56,9 +56,10 @@ namespace
         }
     }
 
+    uber_states::UberState enable_vanilla_regen_tree(UberStateGroup::RandoConfig, 4);
     int32_t move_water(app::NewSetupStateController* this_ptr, std::string const&, int32_t state, int32_t)
     {
-        if (uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, 4))
+        if (enable_vanilla_regen_tree.get<bool>())
             return state;
 
         state = is_day() ? 288338807 : -1643391836;

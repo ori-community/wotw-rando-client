@@ -5,7 +5,7 @@
 #include <randomizer/render/textures.h>
 #include <randomizer/text_database.h>
 #include <uber_states/uber_state_helper.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
@@ -26,19 +26,19 @@ namespace
         return static_cast<uint16_t>(acq & 0xFF) | (static_cast<uint16_t>(req & 0xFF) << 8);
     }
 
-    std::unordered_map<uint16_t, int> opher_weapon_costs{
-        { opher_key(app::AbilityType__Enum_WaterBreath, 255), 10023 },          // Water breath
-        { opher_key(app::AbilityType__Enum_SpiritSpearSpell, 255), 10074 },     // Spike
-        { opher_key(app::AbilityType__Enum_Hammer, 255), 10098 },               // Hammer
-        { opher_key(255, 255), 10105 },                                         // Fast Travel
-        { opher_key(app::AbilityType__Enum_ChakramSpell, 255), 10106 },         // Shuriken
-        { opher_key(app::AbilityType__Enum_Blaze, 255), 10115 },                // Blaze
-        { opher_key(app::AbilityType__Enum_TurretSpell, 255), 10116 },          // Sentry
-        { opher_key(255, app::AbilityType__Enum_SpiritSpearSpell), 11074 },     // Exploding Spike
-        { opher_key(255, app::AbilityType__Enum_Hammer), 11098 },               // Shock Smash
-        { opher_key(255, app::AbilityType__Enum_ChakramSpell), 11106 },         // Static Shuriken
-        { opher_key(255, app::AbilityType__Enum_Blaze), 11115 },                // Charged Blaze
-        { opher_key(255, app::AbilityType__Enum_TurretSpell), 11116 },          // Rapid Sentry
+    std::unordered_map<uint16_t, uber_states::UberState> opher_weapon_costs{
+        { opher_key(app::AbilityType__Enum_WaterBreath, 255), uber_states::UberState(UberStateGroup::OpherWeapon, 10023) },      // Water breath
+        { opher_key(app::AbilityType__Enum_SpiritSpearSpell, 255), uber_states::UberState(UberStateGroup::OpherWeapon, 10074) }, // Spike
+        { opher_key(app::AbilityType__Enum_Hammer, 255), uber_states::UberState(UberStateGroup::OpherWeapon, 10098) },           // Hammer
+        { opher_key(255, 255), uber_states::UberState(UberStateGroup::OpherWeapon, 10105) },                                     // Fast Travel
+        { opher_key(app::AbilityType__Enum_ChakramSpell, 255), uber_states::UberState(UberStateGroup::OpherWeapon, 10106) },     // Shuriken
+        { opher_key(app::AbilityType__Enum_Blaze, 255), uber_states::UberState(UberStateGroup::OpherWeapon, 10115) },            // Blaze
+        { opher_key(app::AbilityType__Enum_TurretSpell, 255), uber_states::UberState(UberStateGroup::OpherWeapon, 10116) },      // Sentry
+        { opher_key(255, app::AbilityType__Enum_SpiritSpearSpell), uber_states::UberState(UberStateGroup::OpherWeapon, 11074) }, // Exploding Spike
+        { opher_key(255, app::AbilityType__Enum_Hammer), uber_states::UberState(UberStateGroup::OpherWeapon, 11098) },           // Shock Smash
+        { opher_key(255, app::AbilityType__Enum_ChakramSpell), uber_states::UberState(UberStateGroup::OpherWeapon, 11106) },     // Static Shuriken
+        { opher_key(255, app::AbilityType__Enum_Blaze), uber_states::UberState(UberStateGroup::OpherWeapon, 11115) },            // Charged Blaze
+        { opher_key(255, app::AbilityType__Enum_TurretSpell), uber_states::UberState(UberStateGroup::OpherWeapon, 11116) },      // Rapid Sentry
     };
 
     IL2CPP_INTERCEPT(, WeaponmasterItem, bool, get_IsOwned, (app::WeaponmasterItem* item))
@@ -67,7 +67,7 @@ namespace
             const auto req = static_cast<int>(item->fields.Upgrade->fields.RequiredAbility);
             const auto key = opher_key(acq, req);
             if (opher_weapon_costs.find(key) != opher_weapon_costs.end())
-                return uber_states::get_uber_state_value(uber_states::constants::OPHER_WEAPON_GROUP_ID, opher_weapon_costs[opher_key(acq, req)]);
+                return opher_weapon_costs[opher_key(acq, req)].get<int>();
 
             return 300; // todo; maybe a bit smarter than this?
         }
@@ -170,7 +170,7 @@ namespace
         const auto it = opher_weapon_costs.find(key);
         if (it != opher_weapon_costs.end())
         {
-            auto cost = uber_states::get_uber_state_value(uber_states::constants::OPHER_WEAPON_GROUP_ID, it->second);
+            auto cost = it->second.get<int>();
             return get_experience() >= cost;
         }
 

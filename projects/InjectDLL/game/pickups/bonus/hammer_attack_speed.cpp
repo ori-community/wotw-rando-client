@@ -1,4 +1,4 @@
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <game/player.h>
 
@@ -9,8 +9,10 @@ using namespace modloader;
 
 namespace
 {
+    uber_states::UberState hammer_speed(UberStateGroup::RandoUpgrade, 0);
+
     IL2CPP_INTERCEPT(, MeleeComboMoveHammerSimple, void, EnterMove, (app::MeleeComboMoveHammerSimple* this_ptr)) {
-        float hammer_speed_multiplier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 0);
+        auto hammer_speed_multiplier = hammer_speed.get<float>();
         if (this_ptr->fields.PrepareAttackTimeline != nullptr)
             il2cpp::invoke(this_ptr->fields.PrepareAttackTimeline, "SetTimeScale", &hammer_speed_multiplier);
         if (this_ptr->fields.AttackTimeline != nullptr)
@@ -20,7 +22,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, MeleeComboMoveHammer, void, EnterMove, (app::MeleeComboMoveHammer* this_ptr)) {
-        float hammer_speed_multiplier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 0);
+        auto hammer_speed_multiplier = hammer_speed.get<float>();
         if (this_ptr->fields.PrepareTimeline != nullptr)
             il2cpp::invoke(this_ptr->fields.PrepareTimeline, "SetTimeScale", &hammer_speed_multiplier);
         if (this_ptr->fields.AttackTimeline != nullptr)
@@ -32,7 +34,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, MeleeComboMoveHammerChargeable, void, EnterMove, (app::MeleeComboMoveHammerChargeable* this_ptr)) {
-        float hammer_speed_multiplier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 0);
+        auto hammer_speed_multiplier = hammer_speed.get<float>();
         if (this_ptr->fields.PrepareTimeline != nullptr)
             il2cpp::invoke(this_ptr->fields.PrepareTimeline, "SetTimeScale", &hammer_speed_multiplier);
         if (this_ptr->fields.ChargeHoldTimeline != nullptr)
@@ -46,7 +48,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, MeleeComboMoveHammerStomp, void, EnterStartState, (app::MeleeComboMoveHammerStomp* this_ptr)) {
-        float hammer_speed_multiplier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 0);
+        auto hammer_speed_multiplier = hammer_speed.get<float>();
         if (this_ptr->fields.LoopTimeline != nullptr)
             il2cpp::invoke(this_ptr->fields.LoopTimeline, "SetTimeScale", &hammer_speed_multiplier);
         if (this_ptr->fields.StartTimeline != nullptr)

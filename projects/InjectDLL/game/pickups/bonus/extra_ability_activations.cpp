@@ -1,13 +1,16 @@
 #include <macros.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/interception_macros.h>
 
 namespace
 {
+    uber_states::UberState jumps(UberStateGroup::RandoUpgrade, 35);
+    uber_states::UberState dashes(UberStateGroup::RandoUpgrade, 36);
     int extra_jumps = 0;
+
     IL2CPP_INTERCEPT(, SeinDoubleJump, int32_t, get_ExtraJumpsAvailable, (app::SeinDoubleJump* this_ptr)) {
-        return static_cast<int>(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 35)) + get_ExtraJumpsAvailable(this_ptr);
+        return jumps.get<int>() + get_ExtraJumpsAvailable(this_ptr);
     }
 
     int extra_dashes = 0;
@@ -24,7 +27,7 @@ namespace
         if (this_ptr->fields.m_allowDash)
             dashes_used = 0;
         else
-            this_ptr->fields.m_allowDash = dashes_used <= static_cast<int>(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, 36));
+            this_ptr->fields.m_allowDash = dashes_used <= dashes.get<int>();
     }
 
     IL2CPP_INTERCEPT(, SeinDashNew, void, OnResetAirLimits, (app::SeinDashNew* this_ptr)) {

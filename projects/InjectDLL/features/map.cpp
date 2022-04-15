@@ -3,7 +3,7 @@
 #include <interop/csharp_bridge.h>
 #include <randomizer/messages.h>
 #include <randomizer/text_database.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 #include <game/system/message_provider.h>
 
 #include <Common/ext.h>
@@ -53,7 +53,7 @@ namespace
         this_ptr->fields.MapQuestCompletedMapCostModifier = 1.f;
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
-        return uber_states::get_uber_state_value(uber_states::constants::LUPO_GROUP_ID, id);
+        return uber_states::UberState(UberStateGroup::LupoGroup, id).get<int>();
     }
 
     using normal_function = app::MessageProvider*(*)(app::CartographerEntity*);
@@ -70,7 +70,7 @@ namespace
     IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_IntroMessageProvider, (app::CartographerEntity* this_ptr)) {
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
-        auto cost = uber_states::get_uber_state_value(uber_states::constants::LUPO_GROUP_ID, id);
+        auto cost = uber_states::UberState(UberStateGroup::LupoGroup, id).get<int>();
         area->fields.LupoData.AreaMapSpiritLevelCost = cost;
         area->fields.LupoDataOnCondition.AreaMapSpiritLevelCost = cost;
         return handle_lupo_message(this_ptr, LupoSelection::Intro, get_IntroMessageProvider);

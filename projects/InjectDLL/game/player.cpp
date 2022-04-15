@@ -13,6 +13,9 @@ using namespace modloader;
 
 namespace
 {
+    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* this_ptr));
+    IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter* this_ptr, app::Vector3 value));
+
     IL2CPP_BINDING(, PlayerAbilities, bool, HasAbility, (app::PlayerAbilities* this_ptr, app::AbilityType__Enum ability));
     IL2CPP_BINDING(, PlayerAbilities, void, SetAbility, (app::PlayerAbilities* this_ptr, app::AbilityType__Enum ability, bool value));
     IL2CPP_BINDING(, SpellInventory, app::InventoryItem*, AddNewSpellToInventory, (app::SpellInventory* this_ptr, app::EquipmentType__Enum type, bool adding));
@@ -85,6 +88,19 @@ namespace game
                 GameController::get_LockInput(gcip) ||
                 GameController::get_IsSuspended(gcip)) &&
                 GameController::get_SecondaryMapAndInventoryCanBeOpened(gcip);
+        }
+
+        app::Vector3 position()
+        {
+            auto sein = game::player::sein();
+            return sein != nullptr ? SeinCharacter::get_Position(sein) : app::Vector3{ 0, 0, 0 };
+        }
+
+        void position(app::Vector3 value)
+        {
+            auto sein = game::player::sein();
+            if (sein != nullptr)
+                SeinCharacter::set_Position(sein, value);
         }
     }
 }

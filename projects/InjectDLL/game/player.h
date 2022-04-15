@@ -14,6 +14,9 @@ namespace game
         void unbind_all();
 
         bool can_move();
+
+        app::Vector3 position();
+        void position(app::Vector3 value);
     }
 }
 

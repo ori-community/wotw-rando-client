@@ -1,13 +1,16 @@
 #pragma once
 
+#include <enums/uber_state.h>
+#include <uber_states/uber_state_interface.h>
+
 #include <string>
 
 namespace uber_states
 {
-    void virtual_notify_change(int group, int state);
-    bool is_virtual_state(int group, int state);
-    std::string get_virtual_name(int group, int state);
-    std::string get_virtual_group_name(int group);
-    double get_virtual_value(int group, int state);
-    void set_virtual_value(int group, int state, double value);
+    void virtual_notify_change(UberState state, double prev);
+    bool is_virtual_state(UberStateGroup group, int state);
+    std::string get_virtual_name(UberStateGroup group, int state);
+    std::string get_virtual_group_name(UberStateGroup group);
+    double get_virtual_value(UberStateGroup group, int state);
+    void set_virtual_value(UberStateGroup group, int state, double value);
 }

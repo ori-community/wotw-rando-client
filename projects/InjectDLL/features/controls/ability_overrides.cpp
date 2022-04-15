@@ -1,7 +1,7 @@
 #include <macros.h>
 #include <game/player.h>
 #include <features/controls/ability_overrides.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>

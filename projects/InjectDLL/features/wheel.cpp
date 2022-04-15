@@ -7,7 +7,7 @@
 #include <randomizer/text_database.h>
 #include <randomizer/render/shaders.h>
 #include <randomizer/render/textures.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Common/ext.cpp>
 #include <Il2CppModLoader/common.h>

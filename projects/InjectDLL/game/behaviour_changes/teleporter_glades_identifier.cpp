@@ -1,7 +1,7 @@
 #include <macros.h>
 #include <interop/csharp_bridge.h>
 #include <uber_states/uber_state_helper.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
@@ -19,8 +19,8 @@ namespace
             return false;
 
         // We are in glades TP, activate that one instead.
-        uber_states::set_uber_state_value(42178, 42096, 3);
-        return uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, 0) > 0.5f;
+        uber_states::UberState(static_cast<UberStateGroup>(42178), 42096).set(3);
+        return uber_states::UberState(UberStateGroup::RandoConfig, 0).get<bool>();
     }
 
     IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* this_ptr));

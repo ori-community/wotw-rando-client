@@ -46,5 +46,3 @@ INJECT_C_DLLEXPORT void set_velocity(app::Vector2 velocity);
 INJECT_C_DLLEXPORT app::GameStateMachine_State__Enum get_game_state();
 INJECT_C_DLLEXPORT app::GameWorldAreaID__Enum get_player_area();
 INJECT_C_DLLEXPORT bool is_loading_game();
-INJECT_C_DLLEXPORT UberStateDef* get_uber_states(int& size);
-INJECT_C_DLLEXPORT bool get_uber_state_exists(int group, int state);

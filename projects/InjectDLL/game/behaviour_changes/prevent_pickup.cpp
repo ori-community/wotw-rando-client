@@ -1,12 +1,13 @@
 #include <constants.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/interception_macros.h>
 
 namespace
 {
+    uber_states::UberState prevent_pickup(UberStateGroup::RandoConfig, 8);
     IL2CPP_INTERCEPT(, PickupBase, void, Collected, (app::SeinPickupProcessor* this_ptr)) {
-        if (uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, PREVENT_PICKUP_ID) > 0.5)
+        if (prevent_pickup.get<bool>())
             return;
 
         PickupBase::Collected(this_ptr);

@@ -3,7 +3,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <unordered_set>
 
@@ -20,20 +20,19 @@ namespace
                 "orbBulb",
     };
 
-    const std::unordered_map<app::DamageType__Enum, int> damage_override_states{
-        { app::DamageType__Enum_Bow, 70 },
-        { app::DamageType__Enum_Blaze, 71 },
-        { app::DamageType__Enum_Sword, 72 },
-        { app::DamageType__Enum_Hammer, 73 },
-        { app::DamageType__Enum_SpiritSpear, 74 },
-        { app::DamageType__Enum_Chakram, 75 },
+    const std::unordered_map<app::DamageType__Enum, uber_states::UberState> damage_override_states{
+        { app::DamageType__Enum_Bow, uber_states::UberState(UberStateGroup::RandoUpgrade, 70) },
+        { app::DamageType__Enum_Blaze, uber_states::UberState(UberStateGroup::RandoUpgrade, 71) },
+        { app::DamageType__Enum_Sword, uber_states::UberState(UberStateGroup::RandoUpgrade, 72) },
+        { app::DamageType__Enum_Hammer, uber_states::UberState(UberStateGroup::RandoUpgrade, 73) },
+        { app::DamageType__Enum_SpiritSpear, uber_states::UberState(UberStateGroup::RandoUpgrade, 74) },
+        { app::DamageType__Enum_Chakram, uber_states::UberState(UberStateGroup::RandoUpgrade, 75) },
     };
 
     bool is_overridden(const app::DamageType__Enum damage_type)
     {
         const auto it = damage_override_states.find(damage_type);
-        return it != damage_override_states.end() &&
-            (uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, it->second) > 0.5f);
+        return it != damage_override_states.end() && it->second.get<bool>();
     }
 
     IL2CPP_INTERCEPT(, AttackableSwitch, bool, DoesReactTo, (app::AttackableSwitch* this_ptr, app::DamageType__Enum damage_type)) {

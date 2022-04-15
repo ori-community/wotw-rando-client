@@ -1,5 +1,5 @@
 #include <constants.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Common/ext.h>
 
@@ -11,6 +11,7 @@ extern void handle_launch_no_deceleration(app::CharacterAirNoDeceleration* this_
 namespace
 {
     bool toggle_default = false;
+    uber_states::UberState air_no_deceleration(UberStateGroup::RandoConfig, FORCE_AIR_NO_DECELERATION_ID);
     IL2CPP_INTERCEPT(, CharacterAirNoDeceleration, void, UpdateCharacterState, (app::CharacterAirNoDeceleration* this_ptr)) {
         if (toggle_default)
         {
@@ -30,7 +31,7 @@ namespace
 
             handle_launch_no_deceleration(this_ptr);
 
-            auto value = uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, FORCE_AIR_NO_DECELERATION_ID);
+            auto value = air_no_deceleration.get();
             if (value > 0.5)
                 this_ptr->fields.m_noDeceleration = value < 1.5;
         }

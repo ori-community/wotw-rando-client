@@ -1,13 +1,12 @@
 #include <macros.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
-#include <uber_states\uber_state_manager.h>
 
 namespace
 {
-    constexpr int SPEAR_SPEED_ID = 11;
-
+    uber_states::UberState spear_speed(UberStateGroup::RandoUpgrade, 11);
     bool initialized = false;
 
     float charge_duration = 1.0f;
@@ -24,7 +23,7 @@ namespace
             initialized = true;
         }
 
-        auto multiplier = static_cast<float>(uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, SPEAR_SPEED_ID));
+        auto multiplier = spear_speed.get<float>();
         this_ptr->fields.ChargeDuration = charge_duration * multiplier;
         this_ptr->fields.SettleTime = settle_duration * multiplier;
         this_ptr->fields.ImpactDuration = impact_duration * multiplier;

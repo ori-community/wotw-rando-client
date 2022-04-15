@@ -1,6 +1,6 @@
 #include <interop/csharp_bridge.h>
 #include <macros.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/interception_macros.h>
 
@@ -16,8 +16,9 @@ namespace
         return RuntimeGameWorldArea::IsVisited(this_ptr, position);
     }
 
+    uber_states::UberState should_overwrite_is_visited(UberStateGroup::RandoConfig, 1);
     STATIC_IL2CPP_INTERCEPT(, SavePedestalController, bool, IsTeleporterActiveAtMapPosition, (app::Vector2 position)) {
-        overwrite_is_visited = uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, 1) > 0.5f;
+        overwrite_is_visited = should_overwrite_is_visited.get<bool>();
         auto ret = SavePedestalController::IsTeleporterActiveAtMapPosition(position);
         if (ret) 
             csharp_bridge::on_map_tp_active(position.x, position.y);

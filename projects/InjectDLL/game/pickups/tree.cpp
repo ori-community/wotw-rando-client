@@ -1,6 +1,6 @@
 #include <constants.h>
 #include <randomizer/conditions/new_setup_state_override.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/console.h>
@@ -26,11 +26,10 @@ namespace
         auto ability = this_ptr->fields.Ability->fields.Ability;
         if (is_tree(ability))
         {
-            uber_states::set_uber_state_value(uber_states::constants::TREE_GROUP_ID, ability, 1);
+            uber_states::UberState(UberStateGroup::Tree, ability).set(1);
             csharp_bridge::on_tree(ability);
             // Update PlayerDescriptorUberState
-            auto uber_state = uber_states::get_uber_state(3440, 37811);
-            uber_states::apply_uber_state_no_notify(uber_state);
+            uber_states::UberState(static_cast<UberStateGroup>(3440), 37811).apply();
         }
     }
 }

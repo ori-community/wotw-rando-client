@@ -3,7 +3,7 @@
 #include <game/player.h>
 #include <features/chaos.h>
 #include <randomizer/messages.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 #include <randomizer/timer.h>
 
 #include <Common/ext.h>
@@ -20,7 +20,12 @@ namespace
     int chaos_text_box_id = -1;
     float chaos_counter = 0.0f;
     float next_chaos_trigger = 0.0f;
-    
+
+    uber_states::UberState chaos_mode(UberStateGroup::RandoConfig, CHAOS_MODE_ID);
+    uber_states::UberState chaos_trigger_min(UberStateGroup::RandoConfig, CHAOS_TRIGGER_MIN_ID);
+    uber_states::UberState chaos_trigger_max(UberStateGroup::RandoConfig, CHAOS_TRIGGER_MAX_ID);
+    uber_states::UberState air_no_deceleration(UberStateGroup::RandoConfig, FORCE_AIR_NO_DECELERATION_ID);
+
     using chaos_handler = void(*)();
     struct ChaosHandler
     {
@@ -68,10 +73,7 @@ namespace
 
     void trigger_chaos()
     {
-        float random_value = gen_random_value(
-            uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, CHAOS_TRIGGER_MIN_ID),
-            uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, CHAOS_TRIGGER_MAX_ID)
-        );
+        float random_value = gen_random_value(chaos_trigger_min.get(), chaos_trigger_max.get());
         next_chaos_trigger += random_value;
         double i = gen_random_value() * total_weight;
         for (auto handler : handlers)
@@ -89,7 +91,7 @@ namespace
     IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController* this_ptr)) {
         GameController::Update(this_ptr);
 
-        if (game::is_paused() || uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, CHAOS_MODE_ID) < 0.5)
+        if (game::is_paused() || chaos_mode.get<bool>())
             return;
 
         next_chaos_trigger -= TimeUtility::get_deltaTime();
@@ -116,7 +118,7 @@ namespace
     int last_sling = -1;
     void stop_sling(float extra_delta, void* params)
     {
-        uber_states::set_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, FORCE_AIR_NO_DECELERATION_ID, 0.0);
+        air_no_deceleration.set(0.0);
         last_sling = -1;
     }
 
@@ -135,7 +137,7 @@ namespace
             speed.y = static_cast<float>(std::sin(value) * SLING_POWER);
             speed.z = 0.0f;
             sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed = speed;
-            uber_states::set_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, FORCE_AIR_NO_DECELERATION_ID, 1.0);
+            air_no_deceleration.set(1.0);
             last_sling = timer::register_timer(&stop_sling, 1.0f);
             show_text("Chaos: Slinging");
         }

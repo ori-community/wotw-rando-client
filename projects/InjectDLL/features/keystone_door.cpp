@@ -1,12 +1,10 @@
 #include <Il2CppModLoader/il2cpp_helpers.h>
-#include <uber_states/uber_state_manager.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/interception_macros.h>
 
 namespace
 {
-    constexpr int KWOLOK_DOOR_AVAILABLE_ID = 6;
-
     IL2CPP_BINDING(, SeinLogicCycle, app::SeinLogicCycle_StateFlags__Enum, GetFlags, (app::SeinLogicCycle* this_ptr, app::SeinLogicCycle_StateFlags__Enum test));
     IL2CPP_INTERCEPT(, SeinLogicCycle, bool, get_AllowInteraction, (app::SeinLogicCycle* this_ptr)) {
         // Override this for the keystone door in wastes.
@@ -30,6 +28,8 @@ namespace
         return false;
     }
 
+    // TODO: Use condition framework instead.
+    uber_states::UberState kwolok_door_available(UberStateGroup::RandoConfig, 6);
     IL2CPP_INTERCEPT(, UberStateValueCondition, bool, Validate, (app::UberStateValueCondition* this_ptr, app::IContext* context)) {
         auto ref = this_ptr->fields.Descriptor;
         if (ref != nullptr &&
@@ -37,11 +37,9 @@ namespace
             il2cpp::invoke<app::Boolean__Boxed>(ref, "CanResolve", nullptr)->fields)
         {
             auto descriptor = il2cpp::invoke<app::IUberState>(ref, "Resolve", nullptr);
-
-            auto state_id = uber_states::get_uber_state_id(descriptor);
-            auto group_id = uber_states::get_uber_state_group_id(descriptor);
-            if (group_id->fields.m_id == 21786 && (state_id->fields.m_id == 27433 || state_id->fields.m_id == 37225))
-                return uber_states::get_uber_state_value(uber_states::constants::RANDO_CONFIG_GROUP_ID, KWOLOK_DOOR_AVAILABLE_ID) > 0.5;
+            uber_states::UberState state(descriptor);
+            if (state.group() == static_cast<UberStateGroup>(21786) && (state.state() == 27433 || state.state() == 37225))
+                return kwolok_door_available.get<bool>();
         }
 
         return UberStateValueCondition::Validate(this_ptr, context);

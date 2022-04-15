@@ -1,24 +1,25 @@
 #include <interop/csharp_bridge.h>
 #include <features/controls/invert_swim.h>
+#include <uber_states/uber_state_interface.h>
 
 #include <Common/ext.h>
+
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 
-#include <uber_states\uber_state_manager.h>
-
 namespace
 {
-    constexpr int CHARGE_SPEED_MULTIPLIER_ID = 80;
-    constexpr int DASH_DISTANCE_MULTIPLIER_ID = 81;
-    constexpr int BASH_SPEED_MULTIPLIER_ID = 82;
-    constexpr int BURROW_SPEED_MULTIPLIER_ID = 83;
-    constexpr int BURROW_DASH_SPEED_MULTIPLIER_ID = 84;
-    constexpr int SWIM_DASH_SPEED_MULTIPLIER_ID = 86;
-    constexpr int JUMP_HEIGHT_MULTIPLIER_ID = 87;
-    constexpr int WALL_JUMP_STRENGTH_MULTIPLIER_ID = 88;
-    constexpr int DOUBLE_JUMP_STRENGTH_MULTIPLIER_ID = 89;
+    uber_states::UberState launch_speed(UberStateGroup::RandoUpgrade, 80);
+    uber_states::UberState dash_distance(UberStateGroup::RandoUpgrade, 81);
+    uber_states::UberState bash_speed(UberStateGroup::RandoUpgrade, 82);
+    uber_states::UberState burrow_speed(UberStateGroup::RandoUpgrade, 83);
+    uber_states::UberState burrow_dash_speed(UberStateGroup::RandoUpgrade, 84);
+
+    uber_states::UberState swim_dash_speed(UberStateGroup::RandoUpgrade, 86);
+    uber_states::UberState jump_height(UberStateGroup::RandoUpgrade, 87);
+    uber_states::UberState wall_jump(UberStateGroup::RandoUpgrade, 88);
+    uber_states::UberState double_jump(UberStateGroup::RandoUpgrade, 89);
 
     float initial_jump_speed;
 
@@ -28,12 +29,12 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SeinChargeJump, void, EnterMove, (app::SeinChargeJump* this_ptr)) {
-        this_ptr->fields.JumpSpeed = initial_jump_speed * uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, CHARGE_SPEED_MULTIPLIER_ID);
+        this_ptr->fields.JumpSpeed = initial_jump_speed * launch_speed.get<float>();
         SeinChargeJump::EnterMove(this_ptr);
     }
 
     IL2CPP_INTERCEPT(, SeinDashNew, void, OnProcessRootMotion, (app::SeinDashNew * this_ptr, app::Vector3 root_velocity)) {
-        float modifier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, DASH_DISTANCE_MULTIPLIER_ID);
+        float modifier = dash_distance.get<float>();
         root_velocity.x *= modifier;
         root_velocity.y *= modifier;
         root_velocity.z *= modifier;
@@ -52,7 +53,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SeinBashAttack, void, BeginBash, (app::SeinBashAttack* this_ptr)) {
-        float modifier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, BASH_SPEED_MULTIPLIER_ID);
+        float modifier = bash_speed.get<float>();
         this_ptr->fields.BashVelocity = initial_bash_speed * modifier;
         this_ptr->fields.EnemyThrowForce = initial_bash_enemy_force * modifier;
         SeinBashAttack::BeginBash(this_ptr);
@@ -67,7 +68,7 @@ namespace
     IL2CPP_INTERCEPT(UnityEngine, AnimationCurve, float, Evaluate, (app::SeinBashAttack* this_ptr, float value)) {
         auto output = AnimationCurve::Evaluate(this_ptr, value);
         if (override_animation)
-            output *= uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, BASH_SPEED_MULTIPLIER_ID);
+            output *= bash_speed.get<float>();
 
         return output;
     }
@@ -82,13 +83,13 @@ namespace
     }
     
     IL2CPP_INTERCEPT(, SeinDigging, void, UpdateDiggingState, (app::SeinDigging* this_ptr)) {
-        float modifier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, BURROW_SPEED_MULTIPLIER_ID);
+        float modifier = burrow_speed.get<float>();
         this_ptr->fields.DigSpeed = initial_burrow_speed * modifier;
         SeinDigging::UpdateDiggingState(this_ptr);
     }
 
     IL2CPP_INTERCEPT(, SeinDigging, void, StartDashing, (app::SeinDigging* this_ptr)) {
-        float modifier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, BURROW_DASH_SPEED_MULTIPLIER_ID);
+        float modifier = burrow_dash_speed.get<float>();
         this_ptr->fields.DashSpeed = initial_burrow_dash * modifier;
         SeinDigging::StartDashing(this_ptr);
     }
@@ -108,7 +109,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SeinSwimming, void, StartDashing, (app::SeinSwimming* this_ptr)) {
-        float modifier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, SWIM_DASH_SPEED_MULTIPLIER_ID);
+        float modifier = swim_dash_speed.get<float>();
         this_ptr->fields.DashMaxSpeed = initial_swim_dash * modifier;
         SeinSwimming::StartDashing(this_ptr);
     }
@@ -131,7 +132,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SeinJump, void, UpdateCharacterState, (app::SeinJump* this_ptr)) {
-        float modifier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, JUMP_HEIGHT_MULTIPLIER_ID);
+        float modifier = jump_height.get<float>();
         this_ptr->fields.BackflipJumpHeight = jump_height_backflip * modifier;
         this_ptr->fields.CrouchJumpHeight = jump_height_crouch * modifier;
         this_ptr->fields.JumpIdleHeight = jump_height_idle * modifier;
@@ -151,7 +152,7 @@ namespace
             initialized = true;
         }
 
-        float modifier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, DOUBLE_JUMP_STRENGTH_MULTIPLIER_ID);
+        float modifier = double_jump.get<float>();
         this_ptr->fields.JumpStrength = double_jump_strength * modifier;
         SeinDoubleJump::UpdateCharacterState(this_ptr);
     }
@@ -179,7 +180,7 @@ namespace
     
     // Should we maybe increase modify x here as well?
     IL2CPP_INTERCEPT(, SeinWallJump, void, PerformWallJump, (app::SeinWallJump* this_ptr, bool to_left)) {
-        float modifier = uber_states::get_uber_state_value(uber_states::constants::RANDO_UPGRADE_GROUP_ID, WALL_JUMP_STRENGTH_MULTIPLIER_ID);
+        float modifier = wall_jump.get<float>();
         this_ptr->fields.JumpStrength = wall_jump_strength;
         this_ptr->fields.JumpStrength.x *= wall_jump_strength_magnitude;
         this_ptr->fields.JumpStrength.y *= wall_jump_strength_magnitude * modifier;

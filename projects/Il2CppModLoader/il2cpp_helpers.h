@@ -52,7 +52,7 @@ namespace il2cpp
 
     namespace unity
     {
-        IL2CPP_MODLOADER_DLLEXPORT app::ScriptableObject* create_scriptable_object_untyped(std::string_view namezpace, std::string_view name);
+        IL2CPP_MODLOADER_DLLEXPORT app::ScriptableObject* create_scriptable_object_untyped(Il2CppClass* klass);
 
         IL2CPP_MODLOADER_DLLEXPORT bool is_valid(void* obj);
         IL2CPP_MODLOADER_DLLEXPORT bool equals(void* o1, void* o2);
@@ -182,9 +182,15 @@ namespace il2cpp
         }
 
         template<typename Return = app::ScriptableObject>
+        Return* create_scriptable_object(Il2CppClass* klass)
+        {
+            return reinterpret_cast<Return*>(create_scriptable_object_untyped(klass));
+        }
+
+        template<typename Return = app::ScriptableObject>
         Return* create_scriptable_object(std::string_view namezpace, std::string_view name)
         {
-            return reinterpret_cast<Return*>(create_scriptable_object_untyped(namezpace, name));
+            return create_scriptable_object<Return>(get_class(namezpace, name));
         }
     }
 
