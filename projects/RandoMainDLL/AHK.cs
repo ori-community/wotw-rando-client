@@ -57,7 +57,6 @@ namespace RandoMainDLL {
         InterOp.UI.toggle_always_show_keystones();
 
       if (IniFlag("dev")) {
-        InterOp.UberState.set_real_uberstate_names(true);
         Randomizer.Dev = true;
       }
 

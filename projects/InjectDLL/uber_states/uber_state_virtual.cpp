@@ -225,7 +225,9 @@ namespace uber_states
             {
                 auto value = state.second.get();
                 auto it = cached_values.find(state.first);
-                if (it == cached_values.end() || (std::abs(it->second - value) >= 0.1))
+                if (it == cached_values.end())
+                    virtual_notify_change(UberState(state.first.first, state.first.second), 0.0);
+                else if (std::abs(it->second - value) >= 0.1)
                     UberState(state.first.first, state.first.second).notify_changed(it->second);
             }
         }

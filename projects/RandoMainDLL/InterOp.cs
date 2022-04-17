@@ -346,8 +346,6 @@ namespace RandoMainDLL {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static UberStateType get_uber_state_type(int group, int state);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void set_real_uberstate_names(bool value);
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void reset_uber_state_value_store();
     }
 

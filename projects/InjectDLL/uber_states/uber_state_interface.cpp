@@ -45,8 +45,8 @@ namespace uber_states
         IL2CPP_BINDING(Moon, IntUberState, int32_t, get_Value, (app::IUberState* this_ptr));
         IL2CPP_BINDING(Moon, FloatUberState, float, get_Value, (app::IUberState* this_ptr));
 
-        IL2CPP_BINDING(Moon.uberSerialization, SavePedestalUberState, bool, get_IsTeleporterActive, (app::IUberState* this_ptr));
-        IL2CPP_BINDING(Moon.uberSerialization, SavePedestalUberState, bool, get_HasGameBeenSaved, (app::IUberState* this_ptr));
+        IL2CPP_BINDING(Moon.uberSerializationWisp, SavePedestalUberState, bool, get_IsTeleporterActive, (app::IUberState* this_ptr));
+        IL2CPP_BINDING(Moon.uberSerializationWisp, SavePedestalUberState, bool, get_HasGameBeenSaved, (app::IUberState* this_ptr));
         
         IL2CPP_INTERCEPT(Moon, SerializedBooleanUberState, void, set_Value, (app::IUberState* this_ptr, bool value)) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr));
@@ -102,7 +102,7 @@ namespace uber_states
             uber_state.set(current);
         }
 
-        STATIC_IL2CPP_BINDING(Moon, SavePedestalController, void, OnTeleporterActivationStateChanged, ());
+        STATIC_IL2CPP_BINDING(, SavePedestalController, void, OnTeleporterActivationStateChanged, ());
         IL2CPP_INTERCEPT(, GameMapSavePedestal, void, set_IsTeleporterActive, (app::GameMapSavePedestal* this_ptr, bool value)) {
             SavePedestalUberState::set_IsTeleporterActive_intercept(reinterpret_cast<app::IUberState*>(this_ptr->fields.SeralizedState), value);
             SavePedestalController::OnTeleporterActivationStateChanged();
@@ -208,7 +208,12 @@ namespace uber_states
                 return;
             }
 
-            auto type = resolve_type(state.ptr());
+            csharp_bridge::UberStateType type;
+            if (state.group() == UberStateGroup::RandoVirtual)
+                type = csharp_bridge::UberStateType::SerializedFloatUberState;
+            else
+                type = resolve_type(state.ptr());
+
             csharp_bridge::on_uber_state_applied(static_cast<int>(state.group()), state.state(),
                 static_cast<uint8_t>(type), previous_value, state.get());
         }
@@ -446,9 +451,10 @@ namespace uber_states
     }
 }
 
+// TODO: Remove everything below here when removing csharp.
+
 INJECT_C_DLLEXPORT csharp_bridge::UberStateType get_uber_state_type(UberStateGroup group, int state)
 {
-    // TODO: Make this better
     if (uber_states::is_virtual_state(group, state))
         return csharp_bridge::UberStateType::SerializedFloatUberState;
 
@@ -463,4 +469,75 @@ INJECT_C_DLLEXPORT void reset_uber_state_value_store()
 INJECT_C_DLLEXPORT bool get_uber_state_exists(UberStateGroup group, int state)
 {
     return uber_states::UberState(group, state).valid();
+}
+
+INJECT_C_DLLEXPORT double get_uber_state_value(UberStateGroup group, int state)
+{
+    return uber_states::UberState(group, state).get();
+}
+
+INJECT_C_DLLEXPORT void set_uber_state_value(UberStateGroup group, int state, double value)
+{
+    uber_states::UberState(group, state).set(value);
+}
+
+INJECT_C_DLLEXPORT int get_uber_state_name(UberStateGroup group, int state, char* buffer, int len)
+{
+    auto str = uber_states::UberState(group, state).state_name();
+    strcpy_s(buffer, len, str.c_str());
+    return len < str.size() ? len : str.size();
+}
+
+INJECT_C_DLLEXPORT int get_uber_state_group_name(UberStateGroup group, int state, char* buffer, int len)
+{
+    auto str = uber_states::UberState(group, state).group_name();
+    strcpy_s(buffer, len, str.c_str());
+    return len < str.size() ? len : str.size();
+}
+
+INJECT_C_DLLEXPORT void refresh_uber_state(UberStateGroup group, int state)
+{
+    uber_states::UberState(group, state).apply();
+}
+
+#pragma pack(push, 1)
+struct UberStateDef
+{
+    int state_id;
+    UberStateGroup group_id;
+    const char* state_name;
+    const char* group_name;
+    csharp_bridge::UberStateType type;
+};
+#pragma pack(pop)
+
+std::vector<std::string> temp_string_vector;
+std::vector<UberStateDef> temp_vector;
+INJECT_C_DLLEXPORT UberStateDef* get_uber_states(int& size)
+{
+    temp_string_vector.clear();
+    temp_vector.clear();
+
+    auto collection = il2cpp::get_class<app::UberStateCollection__Class>("Moon", "UberStateCollection")
+        ->static_fields->m_instance->fields.m_descriptors->fields;
+
+    temp_vector.resize(collection._size);
+    temp_string_vector.resize(collection._size * 2);
+
+    for (auto i = 0; i < collection._size; ++i)
+    {
+        UberStateDef def;
+        uber_states::UberState uber_state(reinterpret_cast<app::IUberState*>(collection._items->vector[i]));
+        def.group_id = uber_state.group();
+        def.state_id = uber_state.state();
+        temp_string_vector[i * 2 + 1] = uber_state.group_name();
+        def.group_name = temp_string_vector[i * 2 + 1].c_str();
+        temp_string_vector[i * 2] = uber_state.state_name();
+        def.state_name = temp_string_vector[i * 2].c_str();
+        def.type = uber_states::resolve_type(uber_state.ptr());
+        temp_vector[i] = def;
+    }
+
+    size = temp_vector.size();
+    return temp_vector.data();
 }
