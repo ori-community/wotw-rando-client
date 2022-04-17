@@ -28,6 +28,7 @@ namespace
             //Rollback if shard was new
             result->fields.m_gained = false;
             result->fields.m_isNew = false;
+            il2cpp::invoke(this_ptr->fields.OnInventoryUpdated, "Invoke", result);
         }
 
         return result;
