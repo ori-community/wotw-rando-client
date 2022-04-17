@@ -476,9 +476,9 @@ INJECT_C_DLLEXPORT double get_uber_state_value(UberStateGroup group, int state)
     return uber_states::UberState(group, state).get();
 }
 
-INJECT_C_DLLEXPORT void set_uber_state_value(UberStateGroup group, int state, double value)
+INJECT_C_DLLEXPORT void set_uber_state_value(UberStateGroup group, int state, double value, bool ignore_intercept)
 {
-    uber_states::UberState(group, state).set(value);
+    uber_states::UberState(group, state).set(value, ignore_intercept);
 }
 
 INJECT_C_DLLEXPORT int get_uber_state_name(UberStateGroup group, int state, char* buffer, int len)
