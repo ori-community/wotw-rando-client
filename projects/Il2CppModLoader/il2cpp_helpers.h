@@ -21,6 +21,22 @@ namespace il2cpp
         Il2CppClass* klass;
     };
 
+    namespace untyped
+    {
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* create_object(std::string_view namezpace, std::string_view klass, std::string_view nested);
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* create_object(std::string_view namezpace, std::string_view name);
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* create_object(Il2CppClass* klass);
+
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* box_value(Il2CppClass* klass, void* value);
+
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppClass* get_class(std::string_view namezpace, std::string_view name);
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppClass* get_nested_class(std::string_view namezpace, std::string_view name, std::string_view nested);
+
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new(Il2CppClass* element, il2cpp_array_size_t length);
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new_specific(Il2CppClass* array_klass, il2cpp_array_size_t length);
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new_full(Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds);
+    }
+
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
     IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new(void* obj, bool pinned);
     IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new_weak(void* obj, bool track_ressurection);
@@ -49,6 +65,18 @@ namespace il2cpp
     IL2CPP_MODLOADER_DLLEXPORT bool is_assignable(void* obj, Il2CppClass* iklass);
 
     IL2CPP_MODLOADER_DLLEXPORT MethodInfo* resolve_generic_method(uint64_t address);
+
+    template<typename Return = Il2CppClass>
+    Return* get_class(std::string_view namezpace, std::string_view name)
+    {
+        return reinterpret_cast<Return*>(untyped::get_class(namezpace, name));
+    }
+
+    template<typename Return = Il2CppClass>
+    Return* get_nested_class(std::string_view namezpace, std::string_view name, std::string_view nested)
+    {
+        return reinterpret_cast<Return*>(untyped::get_nested_class(namezpace, name, nested));
+    }
 
     namespace unity
     {
@@ -194,22 +222,6 @@ namespace il2cpp
         }
     }
 
-    namespace untyped
-    {
-        IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* create_object(std::string_view namezpace, std::string_view klass, std::string_view nested);
-        IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* create_object(std::string_view namezpace, std::string_view name);
-        IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* create_object(Il2CppClass* klass);
-
-        IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* box_value(Il2CppClass* klass, void* value);
-
-        IL2CPP_MODLOADER_DLLEXPORT Il2CppClass* get_class(std::string_view namezpace, std::string_view name);
-        IL2CPP_MODLOADER_DLLEXPORT Il2CppClass* get_nested_class(std::string_view namezpace, std::string_view name, std::string_view nested);
-
-        IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new(Il2CppClass* element, il2cpp_array_size_t length);
-        IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new_specific(Il2CppClass* array_klass, il2cpp_array_size_t length);
-        IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new_full(Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds);
-    }
-
     template<typename R = Il2CppArraySize, typename T>
     R* array_new(Il2CppClass* element, std::vector<T> items)
     {
@@ -301,17 +313,5 @@ namespace il2cpp
             boxed_value->fields = value;
             return boxed_value;
         }
-    }
-
-    template<typename Return = Il2CppClass>
-    Return* get_class(std::string_view namezpace, std::string_view name)
-    {
-        return reinterpret_cast<Return*>(untyped::get_class(namezpace, name));
-    }
-
-    template<typename Return = Il2CppClass>
-    Return* get_nested_class(std::string_view namezpace, std::string_view name, std::string_view nested)
-    {
-        return reinterpret_cast<Return*>(untyped::get_nested_class(namezpace, name, nested));
     }
 }
