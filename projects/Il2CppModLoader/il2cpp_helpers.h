@@ -90,7 +90,7 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT void* instantiate_object_untyped(void* object);
         IL2CPP_MODLOADER_DLLEXPORT void destroy_object(void* object);
         IL2CPP_MODLOADER_DLLEXPORT app::Transform* get_parent(void* object);
-        IL2CPP_MODLOADER_DLLEXPORT void set_parent(void* child, void* parent);
+        IL2CPP_MODLOADER_DLLEXPORT void set_parent(void* child, void* parent, bool keep_local = false);
         IL2CPP_MODLOADER_DLLEXPORT app::Transform* get_transform(void* object);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* get_game_object(void* component);
         IL2CPP_MODLOADER_DLLEXPORT app::Component* add_component_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);

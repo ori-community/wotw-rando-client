@@ -306,16 +306,21 @@ namespace il2cpp
             return Transform::get_parent(get_transform(object));
         }
 
-        void set_parent(void* child, void* parent)
+        void set_parent(void* child, void* parent, bool keep_local)
         {
             auto child_transform = get_transform(child);
-            auto pos = get_local_position(child_transform);
-            auto rot = Transform::get_localRotation(child_transform);
-            auto scale = get_local_scale(child_transform);
-            Transform::set_parent(get_transform(child), get_transform(parent));
-            set_local_position(child_transform, pos);
-            Transform::set_localRotation(child_transform, &rot);
-            set_local_scale(child_transform, scale);
+            if (keep_local)
+            {
+                auto pos = get_local_position(child_transform);
+                auto rot = Transform::get_localRotation(child_transform);
+                auto scale = get_local_scale(child_transform);
+                Transform::set_parent(get_transform(child), get_transform(parent));
+                set_local_position(child_transform, pos);
+                Transform::set_localRotation(child_transform, &rot);
+                set_local_scale(child_transform, scale);
+            }
+            else
+                Transform::set_parent(get_transform(child), get_transform(parent));
         }
 
         bool get_active(void* object)
