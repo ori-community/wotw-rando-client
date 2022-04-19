@@ -318,6 +318,12 @@ namespace uber_states
             return get_virtual_value(m_group, m_state);
 
         auto uber_state = ptr();
+        if (!il2cpp::unity::is_valid(uber_state))
+        {
+            trace(MessageType::Warning, 2, "uber_state", format("uber state (%d, %d) doesn't exist", m_group, m_state));
+            return 0.0;
+        }
+
         if (m_group == UberStateGroup::MultiVars)
             return static_cast<double>((SerializedIntUberState::get_Value(uber_state) >> (m_state % 31)) & 0b1);
 
