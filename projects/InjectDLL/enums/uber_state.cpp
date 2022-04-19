@@ -28,7 +28,7 @@ namespace
     };
 }
 
-std::string_view uber_state_group_name(UberStateGroup group)
+std::string uber_state_group_name(UberStateGroup group)
 {
     auto it = group_names.find(group);
     return it != group_names.end() ? it->second : "unknown";

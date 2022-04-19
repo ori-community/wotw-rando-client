@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string_view>
+#include <string>
 
 enum class UberStateGroup
 {
@@ -30,4 +30,4 @@ enum class UberStateGroup
     npcsStateGroup = 48248
 };
 
-std::string_view uber_state_group_name(UberStateGroup group);
+std::string uber_state_group_name(UberStateGroup group);
