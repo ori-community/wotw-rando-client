@@ -91,7 +91,7 @@ namespace
     IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController* this_ptr)) {
         GameController::Update(this_ptr);
 
-        if (game::is_paused() || chaos_mode.get<bool>())
+        if (game::is_paused() || !chaos_mode.get<bool>())
             return;
 
         next_chaos_trigger -= TimeUtility::get_deltaTime();
