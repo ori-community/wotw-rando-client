@@ -267,6 +267,12 @@ namespace uber_states
         else
         {
             auto uber_state = ptr();
+            if (!il2cpp::unity::is_valid(uber_state))
+            {
+                trace(MessageType::Warning, 2, "uber_state", format("uber state (%d, %d) doesn't exist", m_group, m_state));
+                return;
+            }
+
             if (m_group == UberStateGroup::MultiVars) // Handle multi group.
             {
                 int curr = static_cast<int>(prev);
