@@ -359,7 +359,7 @@ namespace RandoMainDLL {
     public override PickupType Type => PickupType.Message;
 
     private static readonly Regex uberMsg = new Regex(@"\$\(([0-9]+)[\|,;]([0-9]+)[\|,;]?([a-z]*)?\)", RegexOptions.Compiled);
-    private static readonly Regex nameFrag = new Regex(@"\$\[(\d+\|.*?(?:(\$\[(?:\d+\|.*?(?:(?:2).*?)?|\(\d+\|.*?\))]).*?)?)]", RegexOptions.Compiled);
+    private static readonly Regex nameFrag = new Regex(@"\$\[([0-9]+)[\|,;](.*?)\]", RegexOptions.Compiled);
     private static readonly Regex uberNameFrag = new Regex(@"\$\[\(([0-9]+)\|(.*?)\)\]", RegexOptions.Compiled);
     private static readonly Regex dbStringFrag = new Regex(@"\$\{([0-9]+)}", RegexOptions.Compiled);
     private static readonly Func<double, String> secToStr = (double sec) => (sec < 3600) ? TimeSpan.FromSeconds(sec).ToString(@"mm\:ss\.f") : TimeSpan.FromSeconds(sec).ToString(@"hh\:mm\:ss\.f");
