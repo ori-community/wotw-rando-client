@@ -256,10 +256,7 @@ namespace uber_states
     {
         // Prevent changes that don't change anything.
         auto prev = get();
-        if (prev == value)
-            return;
-
-        if (!ignore_intercept && intercept_change(*this, value))
+        if (prev != value && !ignore_intercept && intercept_change(*this, value))
             return;
 
         if (is_virtual_state(m_group, m_state))
@@ -314,7 +311,7 @@ namespace uber_states
             }
         }
 
-        if (!ignore_notify)
+        if (!ignore_notify && prev != value)
             notify_changed(prev);
     }
 
@@ -322,6 +319,11 @@ namespace uber_states
     {
         if (is_virtual_state(m_group, m_state))
             return get_virtual_value(m_group, m_state);
+
+        if (m_state == 29098)
+        {
+            trace(MessageType::Warning, 2, "uber_state", "test");
+        }
 
         auto uber_state = ptr();
         if (!il2cpp::unity::is_valid(uber_state))
