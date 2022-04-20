@@ -19,7 +19,7 @@ namespace
         randomizer::conditions::register_condition_intercept("swampTorchIntroductionA/npcSetup",
             [](std::string_view path, void* obj) { return std::optional<bool>(true); });
         randomizer::conditions::register_condition_uber_state_intercept(has_sword,
-            [](app::ConditionUberState* state) { return std::optional<bool>(has_sword.get<bool>()); }
+            [](app::ConditionUberState* state) { return std::optional<bool>(true); }
         );
     }
 
