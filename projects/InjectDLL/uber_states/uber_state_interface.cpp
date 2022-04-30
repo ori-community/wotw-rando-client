@@ -200,7 +200,7 @@ namespace uber_states
                 auto uprev = static_cast<int>(previous_value);
                 auto ucurr = state.get<int>();
                 int delta = uprev ^ ucurr;
-                int real_state = static_cast<int>(log2(delta)) + 31 * state.state();
+                int real_state = state.state() / 31;
                 if (ucurr > uprev)
                     csharp_bridge::on_uber_state_applied(12, real_state, 3, 0.0, 1.0);
                 else
