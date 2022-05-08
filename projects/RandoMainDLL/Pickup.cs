@@ -566,7 +566,8 @@ namespace RandoMainDLL {
       "Likes", "Comments", "Subs", "Bananas", "Sapphires", "Diamonds", "Fun",
       "Minerals", "Vespine Gas", "Sheep", "Brick", "Wheat", "Wood", "Quills",
       "Bits", "Bytes", "Nuts", "Bolts", "Souls", "Runes", "Pons", "Boxings",
-      "Stonks", "Leaves", "Marbles", "Stamps", "Hugs", "Nobles",
+      "Stonks", "Leaves", "Marbles", "Stamps", "Hugs", "Nobles", "Boss Cells", 
+      "Tech Points", "Tension Points", "Gamer Score", "Cells", "Reaserch Points", "TP",
     };
     public override string Name { get => $"{Amount} Spirit Light"; }
     public override string DisplayName { get => AHK.IniFlag("BoringMoney") ? Name : $"{Amount} {MoneyNames[new Random(Hash).Next(MoneyNames.Count)]}"; }
