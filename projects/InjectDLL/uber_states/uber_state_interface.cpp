@@ -371,7 +371,7 @@ namespace uber_states
         return 0.0;
     }
 
-    std::string UberState::group_name() const
+    std::string UberState::state_name() const
     {
         if (is_virtual_state(m_group, m_state))
             return get_virtual_name(m_group, m_state);
@@ -384,8 +384,11 @@ namespace uber_states
         return il2cpp::convert_csstring(csstring);
     }
 
-    std::string UberState::state_name() const
+    std::string UberState::group_name() const
     {
+        if (is_virtual_state(m_group, m_state))
+            return get_virtual_group_name(m_group);
+
         auto uber_state = ptr();
         if (uber_state == nullptr)
             return "Null";
