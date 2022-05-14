@@ -6,6 +6,7 @@ using namespace modloader;
 namespace
 {
     bool collecting_spirit_shard = false;
+    bool prevent_switch_to_shard_menu = false;
 
     IL2CPP_INTERCEPT(, SeinPickupProcessor, void, OnCollectSpiritShardPickup, (app::SeinPickupProcessor* this_ptr, app::SpiritShardPickup* spiritShardPickup)) {
         ScopedSetter setter(collecting_spirit_shard, true);
@@ -37,5 +38,15 @@ namespace
     IL2CPP_INTERCEPT(, PlayerSpiritShards, void, AddGlobalShardSlot, (app::PlayerSpiritShards* this_ptr)) {
 	    if(!collecting_spirit_shard)
 		    PlayerSpiritShards::AddGlobalShardSlot(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(, SpiritShardPickup, void, OnCollectorCandidateTouch, (app::SpiritShardPickup* this_ptr, app::GameObject* collector)) {
+        ScopedSetter setter(prevent_switch_to_shard_menu, true);
+        SpiritShardPickup::OnCollectorCandidateTouch(this_ptr, collector);
+    }
+
+    IL2CPP_INTERCEPT(, MenuTabManager, void, UpdateCurrentVisibleScreen, (app::SpiritShardPickup* this_ptr, app::MenuScreenManager_Screens__Enum screen)) {
+        if (!prevent_switch_to_shard_menu)
+            MenuTabManager::UpdateCurrentVisibleScreen(this_ptr, screen);
     }
 }
