@@ -131,10 +131,10 @@ namespace
         auto guid = il2cpp::create_object<app::MoonGuid>("", "MoonGuid");
         MoonGuid::ctor(
             guid,
-            generator(),
-            generator(),
-            generator(),
-            generator()
+            static_cast<int>(generator()),
+            static_cast<int>(generator()),
+            static_cast<int>(generator()),
+            static_cast<int>(generator()),
         );
 
         return guid;
