@@ -36,8 +36,8 @@ namespace multiplayer
     constexpr float SPRITE_OFFSET = 0.4f;
     constexpr float SPRITE_SCALE = 1.6f;
     constexpr float MAP_SPRITE_SCALE = 0.6f;
-    constexpr float MAX_INTERPOLATE_TIME = 0.3f;
-    constexpr float MAX_INTERPOLATE_DISTANCE_SQUARED = 25.f;
+    constexpr float MAX_EXTRAPOLATE_TIME = 0.3f;
+    constexpr float MAX_EXTRAPOLATE_DISTANCE_SQUARED = 25.f;
 
     std::vector<PlayerInfo> players;
     std::unordered_map<std::wstring, int> player_map;
@@ -442,10 +442,10 @@ namespace multiplayer
         icon.server_position.x = x;
         icon.server_position.y = y;
 
-        if (modloader::math::distance2(icon.position, icon.server_position) > MAX_INTERPOLATE_DISTANCE_SQUARED) {
-            icon.interpolate_velocity = app::Vector2 { 0.f };
+        if (modloader::math::distance2(icon.position, icon.server_position) > MAX_EXTRAPOLATE_DISTANCE_SQUARED) {
+            icon.extrapolate_velocity = app::Vector2 {0.f };
         } else if (icon.time_since_server_position_update > FLT_EPSILON) {
-            icon.interpolate_velocity = (icon.server_position - last_server_position) / icon.time_since_server_position_update;
+            icon.extrapolate_velocity = (icon.server_position - last_server_position) / icon.time_since_server_position_update;
         }
 
         icon.position.x = x;
@@ -453,12 +453,12 @@ namespace multiplayer
         icon.time_since_server_position_update = 0.f;
     }
 
-    void interpolate_icon_position(PlayerInfo::Icon &icon, float delta_time) {
+    void extrapolate_icon_position(PlayerInfo::Icon &icon, float delta_time) {
         icon.time_since_server_position_update += delta_time;
 
-        if (icon.time_since_server_position_update < MAX_INTERPOLATE_TIME) {
-            icon.position.x = icon.position.x + icon.interpolate_velocity.x * delta_time;
-            icon.position.y = icon.position.y + icon.interpolate_velocity.y * delta_time;
+        if (icon.time_since_server_position_update < MAX_EXTRAPOLATE_TIME) {
+            icon.position.x = icon.position.x + icon.extrapolate_velocity.x * delta_time;
+            icon.position.y = icon.position.y + icon.extrapolate_velocity.y * delta_time;
         }
     }
 
@@ -473,10 +473,10 @@ namespace multiplayer
             update_avatar_facing(player);
             apply_avatar_position(player);
 
-            // Interpolate for next frame
+            // Extrapolate for next frame
             float delta_time = TimeUtility::get_deltaTime();
-            interpolate_icon_position(player.world_avatar, delta_time);
-            interpolate_icon_position(player.map_avatar, delta_time);
+            extrapolate_icon_position(player.world_avatar, delta_time);
+            extrapolate_icon_position(player.map_avatar, delta_time);
 
             // Visibility toggles.
             bool visible = player.online && should_show && player.world_visible;

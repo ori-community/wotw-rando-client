@@ -23,7 +23,7 @@ namespace multiplayer
 
             // Used for interpolation
             app::Vector2 server_position = {0};
-            app::Vector2 interpolate_velocity = {0};
+            app::Vector2 extrapolate_velocity = {0};
             float time_since_server_position_update = 0;
 
             app::GameObject* root = nullptr;
