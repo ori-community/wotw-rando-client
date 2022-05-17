@@ -85,7 +85,7 @@ namespace
         app::RuntimeWorldMapIcon* spoiler_icon = nullptr;
     };
 
-    struct SpoilerState
+    struct IconState
     {
         app::WorldMapIconType__Enum icon;
         uber_states::UberState state;
@@ -100,7 +100,7 @@ namespace
 
     bool start_in_logic_filter = true;
     std::unordered_map<app::GameWorldAreaID__Enum, std::unordered_map<int, ExtraIcon>> header_icons;
-    std::unordered_map<std::string, SpoilerState> spoiler_states;
+    std::unordered_map<std::string, IconState> custom_filter_icon_states;
     std::unordered_map<app::GameWorldAreaID__Enum, std::vector<ExtraIcon>> extra_icons;
     std::unordered_map<app::GameWorldAreaID__Enum, std::vector<ExtraIcon>> extra_spoiler_icons;
     std::unordered_map<std::string, ExtraIcon*> extra_icons_map;
@@ -134,7 +134,7 @@ namespace
             static_cast<int>(generator()),
             static_cast<int>(generator()),
             static_cast<int>(generator()),
-            static_cast<int>(generator()),
+            static_cast<int>(generator())
         );
 
         return guid;
@@ -166,8 +166,8 @@ namespace
 
         // Extra icons and trees.
         {
-            auto it = spoiler_states.find(guid);
-            if (it != spoiler_states.end())
+            auto it = custom_filter_icon_states.find(guid);
+            if (it != custom_filter_icon_states.end())
                 return it->second.icon;
         }
 
@@ -207,8 +207,8 @@ namespace
                 label_set = true;
             }
 
-            auto it = spoiler_states.find(guid);
-            if (it != spoiler_states.end())
+            auto it = custom_filter_icon_states.find(guid);
+            if (it != custom_filter_icon_states.end())
             {
                 if (!label_set)
                 {
@@ -403,7 +403,7 @@ namespace
         initialized = true;
     }
 
-    uber_states::UberState map_filter_state(UberStateGroup::MapFilter, 70);
+    uber_states::UberState custom_filter_icons_enabled_state(UberStateGroup::MapFilter, 70);
     IL2CPP_BINDING(, RuntimeWorldMapIcon, void, SetIconActiveMode, (app::RuntimeWorldMapIcon* this_ptr, bool active));
     void icon_resolver(app::RuntimeGameWorldArea* area, ExtraIcon& icon)
     {
@@ -415,14 +415,14 @@ namespace
 
         // Custom spoiler state.
         runtime_icon->fields.Icon = icon.icon;
-        if (icon.collected.valid && icon.collected.state == map_filter_state)
+        if (icon.collected.valid && icon.collected.state == custom_filter_icons_enabled_state)
         {
             if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
                 runtime_icon->fields.Icon = static_cast<app::WorldMapIconType__Enum>(
                     csharp_bridge::filter_icon_type(static_cast<int>(icon.custom.state.group()), icon.custom.state.state(),
                         static_cast<int>(icon.custom.value)));
 
-            auto& state = spoiler_states[guid];
+            auto& state = custom_filter_icon_states[guid];
             state.state = icon.custom.state;
             state.has_spoiler_icon = csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers));
         }
@@ -490,11 +490,11 @@ namespace
         icon->fields.Position.y = runtime_icon->fields.Position.y;
         icon->fields.Area = area;
         icon->fields.IsSecret = false;
-        icon->fields.IsCollectedState = reinterpret_cast<app::SerializedBooleanUberState*>(map_filter_state.ptr());
+        icon->fields.IsCollectedState = reinterpret_cast<app::SerializedBooleanUberState*>(custom_filter_icons_enabled_state.ptr());
         icon->fields.Condition = nullptr;
         icon->fields.SpecialState = nullptr;
 
-        auto& spoiler_state = spoiler_states[stringify_guid(icon->fields.Guid)];
+        auto& spoiler_state = custom_filter_icon_states[stringify_guid(icon->fields.Guid)];
         spoiler_state.icon = runtime_icon->fields.Icon;
         spoiler_state.state = state;
         spoiler_state.value = value;
@@ -523,11 +523,11 @@ namespace
         icon->fields.Position.y = extra_icon.y;
         icon->fields.Area = area;
         icon->fields.IsSecret = false;
-        icon->fields.IsCollectedState = map_filter_state.ptr<app::SerializedBooleanUberState>();
+        icon->fields.IsCollectedState = custom_filter_icons_enabled_state.ptr<app::SerializedBooleanUberState>();
         icon->fields.Condition = nullptr;
         icon->fields.SpecialState = nullptr;
 
-        auto& state = spoiler_states[stringify_guid(icon->fields.Guid)];
+        auto& state = custom_filter_icon_states[stringify_guid(icon->fields.Guid)];
         state.icon = extra_icon.icon;
         state.state = actual_state.state;
         state.value = actual_state.value;
@@ -654,15 +654,15 @@ namespace
         return csharp_bridge::check_ini("AlwaysShowKeystoneDoors") || (static_cast<NewFilters>(manager->fields.Filter) > NewFilters::Collectibles);
     }
 
-    bool is_spoler_state(app::SerializedBooleanUberState* state)
+    bool is_custom_filter_icon_state(app::SerializedBooleanUberState* state)
     {
-        return state != nullptr && uber_states::UberState(state) == map_filter_state;
+        return state != nullptr && uber_states::UberState(state) == custom_filter_icons_enabled_state;
     }
 
-    bool should_show(app::AreaMapIconManager* manager, app::RuntimeWorldMapIcon* icon)
+    bool should_always_show(app::AreaMapIconManager* manager, app::RuntimeWorldMapIcon* icon)
     {
-        const auto is_spoiler = is_spoler_state(icon->fields.IsCollectedState);
-        if (is_spoiler)
+        const auto is_custom_filter_icon = is_custom_filter_icon_state(icon->fields.IsCollectedState);
+        if (is_custom_filter_icon)
             return false;
 
         switch (icon->fields.Icon)
@@ -674,8 +674,7 @@ namespace
         case app::WorldMapIconType__Enum_KeystoneDoorTwo:
         case app::WorldMapIconType__Enum_KeystoneDoorFour:
         {
-            auto is_open = il2cpp::unity::is_valid(icon->fields.IsCollectedState)
-                ? icon->fields.IsCollectedState->fields.m_value : false;
+            auto is_open = il2cpp::unity::is_valid(icon->fields.IsCollectedState) && icon->fields.IsCollectedState->fields.m_value;
             return !is_open && csharp_bridge::check_ini("AlwaysShowKeystoneDoors") && (static_cast<NewFilters>(manager->fields.Filter) > NewFilters::Collectibles);
         }
         default:
@@ -690,21 +689,21 @@ namespace
         Hide
     };
 
-    FilterResult shown_by_filter(app::AreaMapIconManager* manager, app::RuntimeWorldMapIcon* icon)
+    FilterResult should_show_icon_with_current_filter(app::AreaMapIconManager* manager, app::RuntimeWorldMapIcon* icon)
     {
         if (icon == nullptr)
             return FilterResult::Hide;
 
         // Always show warps check
-        if(should_show(manager, icon))
+        if (should_always_show(manager, icon))
             return FilterResult::Show;
 
         const auto filter = static_cast<NewFilters>(manager->fields.Filter);
         // If we are in original filters then use the original function.
         if (filter <= NewFilters::Collectibles)
         {
-            const auto is_spoiler = is_spoler_state(icon->fields.IsCollectedState);
-            if (is_spoiler)
+            const auto is_custom_filter_icon = is_custom_filter_icon_state(icon->fields.IsCollectedState);
+            if (is_custom_filter_icon)
                 return FilterResult::Hide;
 
             // if our custom state is bigger or equal to expected value dont show.
@@ -723,12 +722,12 @@ namespace
             if (icon->fields.IsCollectedState == nullptr)
                 return FilterResult::Hide;
 
-            const auto is_spoiler = is_spoler_state(icon->fields.IsCollectedState);
-            if (!is_spoiler)
+            const auto is_custom_filter_icon = is_custom_filter_icon_state(icon->fields.IsCollectedState);
+            if (!is_custom_filter_icon)
                 return FilterResult::Hide;
 
-            auto it = spoiler_states.find(stringify_guid(icon->fields.Guid));
-            if (it != spoiler_states.end())
+            auto it = custom_filter_icon_states.find(stringify_guid(icon->fields.Guid));
+            if (it != custom_filter_icon_states.end())
                 return FilterResult::Show;
 
             return FilterResult::Hide;
@@ -738,11 +737,11 @@ namespace
             if (icon->fields.IsCollectedState == nullptr)
                 return FilterResult::Hide;
 
-            const auto is_spoiler = is_spoler_state(icon->fields.IsCollectedState);
-            if (is_spoiler)
+            const auto is_custom_filter_icon = is_custom_filter_icon_state(icon->fields.IsCollectedState);
+            if (is_custom_filter_icon)
             {
-                auto it = spoiler_states.find(stringify_guid(icon->fields.Guid));
-                if (it != spoiler_states.end())
+                auto it = custom_filter_icon_states.find(stringify_guid(icon->fields.Guid));
+                if (it != custom_filter_icon_states.end())
                 {
                     const auto transparency = randomizer::settings::map_icon_transparency();
                     const auto value = it->second.state.get();
@@ -848,17 +847,18 @@ namespace
                 for (auto j = 0; j < runtime_area->fields.Icons->fields._size; ++j)
                 {
                     auto icon = runtime_area->fields.Icons->fields._items->vector[j];
-                    handle_show_toggle(icon, shown_by_filter(this_ptr, icon));
+                    handle_show_toggle(icon, should_show_icon_with_current_filter(this_ptr, icon));
                 }
             }
         }
     }
 
-    app::AreaMapIconFilterFooterLabel create_filter(NewFilters filter, std::string message)
+    app::AreaMapIconFilterFooterLabel create_filter(NewFilters filter, const std::string& message)
     {
-        app::AreaMapIconFilterFooterLabel label;
-        label.Filter = static_cast<app::AreaMapIconFilter__Enum>(filter);
-        label.Footer = utils::create_message_provider("Filter: " + message);
+        app::AreaMapIconFilterFooterLabel label{
+            .Filter = static_cast<app::AreaMapIconFilter__Enum>(filter),
+            .Footer = utils::create_message_provider("Filter: " + message),
+        };
         return label;
     }
 
@@ -1036,7 +1036,7 @@ INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, int id, app::W
                 auto* icon_manager = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")
                     ->static_fields->Instance->fields._IconManager_k__BackingField;
 
-                handle_show_toggle(icon.runtime_icon, shown_by_filter(icon_manager, icon.runtime_icon));
+                handle_show_toggle(icon.runtime_icon, should_show_icon_with_current_filter(icon_manager, icon.runtime_icon));
                 break;
             }
         }
