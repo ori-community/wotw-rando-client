@@ -1,4 +1,3 @@
-#include <macros.h>
 #include <interop/csharp_bridge.h>
 #include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_interface.h>
@@ -9,6 +8,12 @@
 
 namespace
 {
+    /**
+     * Check if the player is in Glades and activate that TP if they are.
+     * The Glades TP has the same ID as the Kwolok's Hollow TP.
+     * @param identifier
+     * @return Whether the Glades TP has been activated
+     */
     bool handle_glades_teleporter(std::string_view identifier)
     {
         if (identifier != "kwoloksCavernSaveRoomA")
@@ -23,7 +28,6 @@ namespace
         return uber_states::UberState(UberStateGroup::RandoConfig, 0).get<bool>();
     }
 
-    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* this_ptr));
     STATIC_IL2CPP_INTERCEPT(, SavePedestalController, void, Activate, (app::String* identifier)) {
         auto teleporter_identifier = il2cpp::convert_csstring(identifier);
         if (!handle_glades_teleporter(teleporter_identifier))
