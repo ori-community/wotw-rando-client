@@ -130,15 +130,6 @@ namespace RandoMainDLL {
       else
         Randomizer.Log($"unknown tp at {(int)Math.Truncate(x)}, {(int)Math.Truncate(y)}", false);
     }
-    public static void OnTeleporterActivated(String identifier) {
-      try {
-        if (identifier == "kwoloksCavernSaveRoomA")
-          GrantOnNextUpdate.Add(StatsTracking.CurrentZone == ZoneType.Glades ? TeleporterType.Glades : TeleporterType.Hollow);
-        else
-          GrantOnNextUpdate.Add(TpsByID[identifier]);
-      }
-      catch (Exception e) { Randomizer.Error($"OTA, key of {identifier}", e); }
-    }
 
     public static void HandleSyncedUberStateChange(UberId id, double value) {
       UberSet.Raw(id.GroupID, id.ID, value);

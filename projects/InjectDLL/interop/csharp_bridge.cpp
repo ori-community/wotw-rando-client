@@ -60,7 +60,6 @@ namespace csharp_bridge
 
     signatures::f_void_int on_found_tp = nullptr;
     signatures::f_void_float_float on_map_tp_active = nullptr;
-    signatures::f_void_string on_teleporter_activated = nullptr;
     signatures::f_bool_int_int_int filter_icon_show = nullptr;
     signatures::f_int_int_int_int filter_icon_type = nullptr;
     signatures::f_void_ptr_int_int_int_int_int filter_icon_text = nullptr;
@@ -110,7 +109,6 @@ namespace csharp_bridge
                 DELEGATE_ENTRY(filter_icon_text),
                 DELEGATE_ENTRY(filter_enabled),
                 DELEGATE_ENTRY(update_shop_data),
-                DELEGATE_ENTRY(on_teleporter_activated),
                 DELEGATE_ENTRY(on_map_tp_active),
                 DELEGATE_ENTRY(on_map_state),
                 DELEGATE_ENTRY(on_enemy_death),

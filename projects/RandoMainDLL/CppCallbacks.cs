@@ -159,10 +159,6 @@ namespace RandoMainDLL {
             CallbackName = "update_shop_data"
           },
           new Method() {
-            Delegate = new f_void_str(UberStateController.OnTeleporterActivated),
-            CallbackName = "on_teleporter_activated"
-          },
-          new Method() {
             Delegate = new f_void_float_float(UberStateController.MapTPActivated),
             CallbackName = "on_map_tp_active"
           },

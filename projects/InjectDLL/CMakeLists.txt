@@ -37,7 +37,6 @@ set(
     "features/scenes/create_objects.cpp"
     "features/scenes/scene_load.cpp"
     "features/trackers/ability_tracker.cpp"
-    "features/trackers/bingo_tracking.cpp"
     "features/trackers/death_listener.cpp"
     "features/trackers/goal_mode_check.cpp"
     "game/game.cpp"
