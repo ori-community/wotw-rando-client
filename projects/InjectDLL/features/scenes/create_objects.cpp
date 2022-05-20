@@ -51,16 +51,6 @@ namespace scenes
         std::unordered_map<int, ObjectSpawn> objects;
         std::unordered_map<std::string, std::unordered_set<int>> spawn_queue;
 
-        void save_textures(app::GameObject* go)
-        {
-            auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(go, "UnityEngine", "Renderer");
-            for (auto renderer : renderers)
-            {
-                auto mat = randomizer::shaders::UberShaderAPI::GetEditableMaterial(renderer);
-                il2cpp::invoke(renderer, "set_sharedMaterial", randomizer::shaders::copy_material(mat));
-            }
-        }
-
         void on_load_callback(std::string_view scene_name, int id, app::GameObject* scene_root)
         {
             auto& obj = objects[id];
@@ -83,7 +73,7 @@ namespace scenes
                 Transform::set_rotation(transform, &quat);
             }
 
-            save_textures(obj.game_object);
+            randomizer::shaders::duplicate_materials(obj.game_object);
             if (obj.callback != nullptr)
                 obj.callback(id, obj.game_object);
         }

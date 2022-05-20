@@ -32,8 +32,19 @@ namespace randomizer
         void set_color(app::Material* mat, std::string_view name, app::Color value);
         void set_vector(app::Material* mat, std::string_view name, app::Vector4 value);
         void set_texture(app::Material* mat, std::string_view name, app::Texture* value);
-    
+
+        /**
+         * Duplicate a material
+         * @param source
+         * @return Newly created material
+         */
         app::Material* copy_material(app::Material* source);
+
+        /**
+         * Duplicate materials in all renderers found in this GameObject
+         * @param go
+         */
+        void duplicate_materials(app::GameObject* go);
 
         DECLARE_BINDING(UnityEngine, Material, void, SetInt, (app::Material* this_ptr, app::String* name, int value));
         DECLARE_BINDING(UnityEngine, Material, void, SetFloat, (app::Material* this_ptr, app::String* name, float value));
