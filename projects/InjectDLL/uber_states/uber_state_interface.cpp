@@ -299,8 +299,8 @@ namespace uber_states
             else if (il2cpp::is_assignable(uber_state, "Moon.uberSerializationWisp", "SavePedestalUberState"))
             {
                 const auto int_value = static_cast<int>(value);
-                const auto is_teleporter_active = (int_value & 0b01) != 0;
-                const auto has_been_saved = (int_value & 0b10) != 0;
+                const auto is_teleporter_active = (int_value & 0b10) != 0;
+                const auto has_been_saved = (int_value & 0b01) != 0;
                 SavePedestalUberState::set_IsTeleporterActive(uber_state, is_teleporter_active);
                 SavePedestalUberState::set_HasGameBeenSaved(uber_state, has_been_saved);
             }
