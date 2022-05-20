@@ -7,16 +7,17 @@
 #include <string>
 
 namespace {
-    void credits_callback(std::string_view scene_name, int id, app::GameObject* scene_root)
+    void credits_scene_loaded_callback(std::string_view scene_name, app::GameObject* scene_root)
     {
-        auto cred_cont = il2cpp::get_class<app::CreditsController__Class>("", "CreditsController")->static_fields->Instance;
+        auto credits_go = il2cpp::unity::find_child(scene_root, "credits");
+        auto cred_cont = il2cpp::unity::get_component<app::CreditsController>(credits_go, "", "CreditsController");
         auto timeline = cred_cont->fields.CreditsTimeline;
         il2cpp::invoke_virtual(timeline, il2cpp::get_class("Moon.Timeline", "TimelineEntity"), "StartPlayback");
+        teleport(-3537, -5881, true);
     }
 
     INJECT_C_DLLEXPORT void start_credits() {
-        teleport(-3537, -5881, true); // actual magic coordinates found by cosmic
-        scenes::force_load_area("creditsScreen", 0, &credits_callback);
+        scenes::force_load_scene("creditsScreen", &credits_scene_loaded_callback);
     }
 
     float time = 0.0f;

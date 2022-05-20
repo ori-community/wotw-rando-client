@@ -19,6 +19,7 @@
 #include <regex>
 #include <unordered_set>
 #include <unordered_map>
+#include <utility>
 
 using namespace modloader;
 
@@ -32,104 +33,81 @@ namespace scenes
         IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform* this_ptr, app::Vector3* scale));
         IL2CPP_BINDING(UnityEngine, Transform, void, set_rotation, (app::Transform* this_ptr, app::Quaternion* rotation));
 
-        using creation_callback = void(*)(int id, app::GameObject* obj);
-
         struct ObjectSpawn
         {
-            int id;
+            std::string name;
             std::string scene;
             std::vector<std::string> path;
             app::Vector3 position;
             std::optional<app::Vector3> rotation;
             std::optional<app::Vector3> scale;
-            creation_callback callback = nullptr;
+            object_loaded_callback on_loaded = nullptr;
 
             app::GameObject* game_object = nullptr;
         };
 
-        app::GameObject* rando_game_objects = nullptr;
-        std::unordered_map<int, ObjectSpawn> objects;
-        std::unordered_map<std::string, std::unordered_set<int>> spawn_queue;
+        std::unordered_map<std::string, ObjectSpawn> object_spawns;
+        std::unordered_map<std::string, std::unordered_set<ObjectSpawn*>> pending_object_spawns_by_scene;
 
-        void on_load_callback(std::string_view scene_name, int id, app::GameObject* scene_root)
+        void on_load_callback(std::string_view scene_name, app::GameObject* scene_root)
         {
-            auto& obj = objects[id];
-            auto prefab = il2cpp::unity::find_child(scene_root, obj.path);
-            if (!il2cpp::unity::is_valid(prefab))
-                return;
+            auto scene_name_string = std::string(scene_name);
 
-            obj.game_object = il2cpp::unity::instantiate_object(prefab);
-            il2cpp::invoke(obj.game_object, "set_name", il2cpp::string_new(format("rando_go_%d", obj.id)));
-            game::add_to_container(game::RandoContainer::GameObjects, obj.game_object);
-            auto transform = il2cpp::unity::get_transform(obj.game_object);
-            Transform::set_position(transform, &obj.position);
-            if (obj.scale.has_value())
-                Transform::set_localScale(transform, &obj.scale.value());
+            for (auto spawn : pending_object_spawns_by_scene[scene_name_string]) {
+                auto prefab = il2cpp::unity::find_child(scene_root, spawn->path);
+                if (!il2cpp::unity::is_valid(prefab))
+                    return;
 
-            if (obj.rotation.has_value())
-            {
-                auto& rot = obj.rotation.value();
-                auto quat = Quaternion::Euler(rot.x, rot.y, rot.z);
-                Transform::set_rotation(transform, &quat);
+                spawn->game_object = il2cpp::unity::instantiate_object(prefab);
+                il2cpp::invoke(spawn->game_object, "set_name", il2cpp::string_new(spawn->name));
+                game::add_to_container(game::RandoContainer::GameObjects, spawn->game_object);
+                auto transform = il2cpp::unity::get_transform(spawn->game_object);
+                Transform::set_position(transform, &spawn->position);
+                if (spawn->scale.has_value())
+                    Transform::set_localScale(transform, &spawn->scale.value());
+
+                if (spawn->rotation.has_value())
+                {
+                    auto& rot = spawn->rotation.value();
+                    auto quat = Quaternion::Euler(rot.x, rot.y, rot.z);
+                    Transform::set_rotation(transform, &quat);
+                }
+
+                randomizer::shaders::duplicate_materials(spawn->game_object);
+                if (spawn->on_loaded != nullptr)
+                    spawn->on_loaded(scene_name, spawn->name, scene_root, spawn->game_object);
             }
 
-            randomizer::shaders::duplicate_materials(obj.game_object);
-            if (obj.callback != nullptr)
-                obj.callback(id, obj.game_object);
+            pending_object_spawns_by_scene.erase(scene_name_string);
         }
 
         IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController* this_ptr))
         {
             GameController::FixedUpdate(this_ptr);
-            for (auto spawn : spawn_queue)
-                for (auto id : spawn.second)
-                    force_load_area(spawn.first, id, &on_load_callback);
 
-            spawn_queue.clear();
+            for (const auto& object_spawn_by_scene : pending_object_spawns_by_scene)
+                force_load_scene(object_spawn_by_scene.first, &on_load_callback);
         }
 
         void initialize()
         {
-            add_item(0, { -566.93634f, -4545.384766f, 0.f }, app::Vector3{ 0, PI, 0 }, std::optional<app::Vector3>(),
+            add_item("double_jump_tree_spring", { -566.93634f, -4545.384766f, 0.f }, app::Vector3{ 0, PI, 0 }, std::optional<app::Vector3>(),
                 "swampSpringIntroductionB", { "interactives", "springSunkenGlades" });
         }
 
         CALL_ON_INIT(initialize);
     }
 
-    void remove_item(int id)
-    {
-        auto it = objects.find(id);
-        if (it == objects.end())
-            return;
-
-        if (it->second.game_object != nullptr)
-            il2cpp::unity::destroy_object(it->second.game_object);
-        else
-            spawn_queue[it->second.scene].erase(it->first);
-
-        objects.erase(it);
-    }
-
-    void add_item(int id, app::Vector3 position, std::optional<app::Vector3> rotation,
+    void add_item(const std::string& name, app::Vector3 position, std::optional<app::Vector3> rotation,
         std::optional<app::Vector3> scale, std::string_view scene, std::vector<std::string> path)
     {
-        remove_item(id);
-
-        auto& obj = objects[id];
-        obj.id = id;
+        auto& obj = object_spawns[name];
+        obj.name = name;
         obj.position = position;
         obj.rotation = rotation;
         obj.scale = scale;
         obj.scene = scene;
-        obj.path = path;
-        obj.id = id;
-        spawn_queue[obj.scene].emplace(id);
-    }
-
-    void add_creation_callback(int id, creation_callback callback)
-    {
-        auto& obj = objects[id];
-        obj.callback = callback;
+        obj.path = std::move(path);
+        pending_object_spawns_by_scene[obj.scene].emplace(&obj);
     }
 }

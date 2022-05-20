@@ -9,10 +9,11 @@
 #include <Il2CppModLoader/interception_macros.h>
 
 #include <unordered_set>
+#include <Il2CppModLoader/console.h>
 
 namespace scenes
 {
-    std::unordered_map<std::string, std::vector<std::pair<int, loaded_callback>>> to_load;
+    std::unordered_map<std::string, scene_loaded_callback> scenes_to_load;
 
     namespace {
         IL2CPP_BINDING(UnityEngine, GameObject, app::Scene, get_scene, (app::GameObject* this_ptr));
@@ -31,35 +32,40 @@ namespace scenes
 
         IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController* this_ptr))
         {
-            GameController::FixedUpdate(this_ptr);
             const auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
             auto manager = scenes->static_fields->Manager;
             std::unordered_set<std::string> to_delete;
-            for (auto l : to_load)
+
+            for (const auto& scene_to_load : scenes_to_load)
             {
-                auto cname = il2cpp::string_new(l.first);
+                auto cname = il2cpp::string_new(scene_to_load.first);
                 auto meta = ScenesManager::GetSceneInformation(manager, cname);
+
                 if (ScenesManager::SceneIsLoaded(manager, meta->fields.SceneMoonGuid))
                 {
                     auto scene = ScenesManager::GetFromCurrentScenes(manager, meta);
                     auto go = il2cpp::unity::get_game_object(scene->fields.SceneRoot);
-                    for (auto p : l.second)
-                        p.second(l.first, p.first, go);
+                    if (scene_to_load.second != nullptr)
+                        scene_to_load.second(scene_to_load.first, go);
 
-                    to_delete.emplace(l.first);
+                    to_delete.emplace(scene_to_load.first);
                 }
                 else if (!ScenesManager::SceneIsLoading(manager, meta->fields.SceneMoonGuid))
-                    ScenesManager::RequestAdditivelyLoadScene(manager, meta, true, false, true, true, false);
+                {
+                    ScenesManager::RequestAdditivelyLoadScene(manager, meta, true, true, true, true, false);
+                }
             }
 
-            for (auto d : to_delete)
-                to_load.erase(d);
+            for (const auto& d : to_delete)
+                scenes_to_load.erase(d);
+
+            GameController::FixedUpdate(this_ptr);
         }
     }
 
-    void force_load_area(std::string_view scene, int id, loaded_callback callback)
+    void force_load_scene(std::string_view scene, scene_loaded_callback callback)
     {
-        to_load[std::string(scene)].push_back({ id, callback });
+        scenes_to_load[std::string(scene)] = callback;
     }
 
     app::GameObject* get_root(std::string_view name)
@@ -125,7 +131,7 @@ namespace scenes
             modloader::warn("scene_load", "Failed to set default wotw values.");
     }
 
-    void on_load_spawn(std::string_view scene_name, int id, app::GameObject* scene_root)
+    void on_load_spawn(std::string_view scene_name, app::GameObject* scene_root)
     {
         auto root = il2cpp::unity::get_component<app::SceneRoot>(scene_root, "", "SceneRoot");
         initial_values = root->fields.MetaData->fields.InitialValuesWisp;
@@ -133,7 +139,7 @@ namespace scenes
 
     void initialize()
     {
-        force_load_area("swampIntroTop", 0, on_load_spawn);
+        force_load_scene("swampIntroTop", &on_load_spawn);
     }
 
     CALL_ON_INIT(initialize);
