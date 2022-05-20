@@ -1085,7 +1085,7 @@ INJECT_C_DLLEXPORT void refresh_map() {
     if (game::ui::area_map_open())
     {
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
-        AreaMapIconManager::ShowAreaIcons(area_map->fields._IconManager_k__BackingField);
+        AreaMapIconManager::ShowAreaIcons_intercept(area_map->fields._IconManager_k__BackingField);
     }
 }
 
