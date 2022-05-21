@@ -103,11 +103,11 @@ namespace RandoMainDLL {
                   if (parts.Length > 9)
                     vertical = (VerticalAnchor)parts[9].ParseToInt("CreditsController.VerticalAnchor");
 
-                  var fadeIn = 0.5f;
+                  var fadeIn = 0.01f;
                   if (parts.Length > 10)
                     fadeIn = parts[10].ParseToFloat("CreditsController.FadeIn");
 
-                  var fadeOut = 0.5f;
+                  var fadeOut = 0.01f;
                   if (parts.Length > 11)
                     fadeOut = parts[11].ParseToFloat("CreditsController.FadeOut");
 
