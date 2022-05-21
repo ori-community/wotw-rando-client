@@ -13,7 +13,13 @@
 
 namespace scenes
 {
-    std::unordered_map<std::string, scene_loaded_callback> scenes_to_load;
+    struct PendingScene {
+        std::string scene_name;
+        std::vector<scene_loaded_callback> on_loaded_callbacks;
+        bool keep_preloaded = false;
+    };
+
+    std::unordered_map<std::string, PendingScene> scenes_to_load;
 
     namespace {
         IL2CPP_BINDING(UnityEngine, GameObject, app::Scene, get_scene, (app::GameObject* this_ptr));
@@ -45,8 +51,11 @@ namespace scenes
                 {
                     auto scene = ScenesManager::GetFromCurrentScenes(manager, meta);
                     auto go = il2cpp::unity::get_game_object(scene->fields.SceneRoot);
-                    if (scene_to_load.second != nullptr)
-                        scene_to_load.second(scene_to_load.first, go);
+
+                    auto pending_scene = scene_to_load.second;
+
+                    for (auto on_load_callback : pending_scene.on_loaded_callbacks)
+                        on_load_callback(pending_scene.scene_name, go);
 
                     to_delete.emplace(scene_to_load.first);
                 }
@@ -63,9 +72,12 @@ namespace scenes
         }
     }
 
-    void force_load_scene(std::string_view scene, scene_loaded_callback callback)
+    void force_load_scene(std::string_view scene, scene_loaded_callback callback, bool keep_preloaded)
     {
-        scenes_to_load[std::string(scene)] = callback;
+        auto& scene_to_load = scenes_to_load[std::string(scene)];
+        scene_to_load.scene_name = std::string(scene);
+        scene_to_load.on_loaded_callbacks.push_back(callback);
+        scene_to_load.keep_preloaded = scene_to_load.keep_preloaded || keep_preloaded;
     }
 
     app::GameObject* get_root(std::string_view name)
