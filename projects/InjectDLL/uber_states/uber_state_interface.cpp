@@ -196,20 +196,10 @@ namespace uber_states
         // Remove this when csharp is removed.
         void notify_uber_state_change(UberState state, double previous_value)
         {
-            if (state.group() == UberStateGroup::MultiVars) {
-                auto uprev = static_cast<int>(previous_value);
-                auto ucurr = state.get<int>();
-                int delta = uprev ^ ucurr;
-                int real_state = state.state() / 31;
-                if (ucurr > uprev)
-                    csharp_bridge::on_uber_state_applied(12, real_state, 3, 0.0, 1.0);
-                else
-                    csharp_bridge::on_uber_state_applied(12, real_state, 3, 1.0, 0.0);
-                return;
-            }
-
             csharp_bridge::UberStateType type;
-            if (state.group() == UberStateGroup::RandoVirtual)
+            if (state.group() == UberStateGroup::MultiVars)
+                type = csharp_bridge::UberStateType::SerializedBooleanUberState;
+            else if (state.group() == UberStateGroup::RandoVirtual)
                 type = csharp_bridge::UberStateType::SerializedFloatUberState;
             else
                 type = resolve_type(state.ptr());
@@ -319,11 +309,6 @@ namespace uber_states
     {
         if (is_virtual_state(m_group, m_state))
             return get_virtual_value(m_group, m_state);
-
-        if (m_state == 29098)
-        {
-            trace(MessageType::Warning, 2, "uber_state", "test");
-        }
 
         auto uber_state = ptr();
         if (!il2cpp::unity::is_valid(uber_state))
