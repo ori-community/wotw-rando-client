@@ -327,7 +327,7 @@ namespace
         if (instant)
             message_box->fields.Visibility->fields.m_time = 0.0f;
         message_box->fields.Visibility->fields.m_delayTime = instant ? 1.0f : 0.0f;
-        message_box->fields.Visibility->fields.m_timeSpeed = message.fadein > 0.0f ? 1.0f / message.fadein : 1.0f;
+        message_box->fields.Visibility->fields.m_timeSpeed = 1.0f / std::max(message.fadein, FLT_MAX);
 
         message_box->fields.Visibility->fields.DestroyOnHide = false;
 
@@ -380,9 +380,11 @@ namespace
     bool handle_visibility(RandoMessage& message, app::MessageBox* message_box)
     {
         auto visible = message.visible && message.alive;
+
         message_box->fields.Visibility->fields.m_timeSpeed = visible
-            ? (message.fadein > 0.0f ? 1.0f / message.fadein : 1.0f)
-            : -(message.fadeout > 0.0f ? 1.0f / message.fadeout : 1.0f);
+            ? (1.0f / std::max(message.fadein, FLT_EPSILON))
+            : -(1.0f / std::max(message.fadeout, FLT_EPSILON));
+
         if (!message.alive)
         {
             if (message.recreate || message.fadeout > 0.0f)
