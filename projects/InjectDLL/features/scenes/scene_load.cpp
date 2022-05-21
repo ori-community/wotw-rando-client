@@ -61,7 +61,7 @@ namespace scenes
                 }
                 else if (!ScenesManager::SceneIsLoading(manager, meta->fields.SceneMoonGuid))
                 {
-                    ScenesManager::RequestAdditivelyLoadScene(manager, meta, true, true, true, true, false);
+                    ScenesManager::RequestAdditivelyLoadScene(manager, meta, true, scene_to_load.second.keep_preloaded, true, true, false);
                 }
             }
 

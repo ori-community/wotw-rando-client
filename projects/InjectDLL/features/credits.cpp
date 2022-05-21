@@ -21,11 +21,11 @@ namespace {
         teleport(-3537, -5881, true);
         auto master_timeline_go = il2cpp::unity::find_child(scene_root, "master2.0");
         il2cpp::unity::destroy_object(master_timeline_go);
-        scenes::force_load_scene("creditsScreen", &credits_scene_loaded_callback);
+        scenes::force_load_scene("creditsScreen", &credits_scene_loaded_callback, true);
     }
 
     INJECT_C_DLLEXPORT void start_credits() {
-        scenes::force_load_scene("actOneEndingMaster", &ending_scene_loaded_callback);
+        scenes::force_load_scene("actOneEndingMaster", &ending_scene_loaded_callback, true);
     }
 
     float time = 0.0f;
