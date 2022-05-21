@@ -5,7 +5,6 @@
 #include <Il2CppModLoader/il2cpp_helpers.h>
 
 #include <string>
-#include <Il2CppModLoader/console.h>
 
 namespace {
     void credits_scene_loaded_callback(std::string_view scene_name, app::GameObject* scene_root)
@@ -21,11 +20,11 @@ namespace {
         teleport(-3537, -5881, true);
         auto master_timeline_go = il2cpp::unity::find_child(scene_root, "master2.0");
         il2cpp::unity::destroy_object(master_timeline_go);
-        scenes::force_load_scene("creditsScreen", &credits_scene_loaded_callback, true);
+        scenes::force_load_scene("creditsScreen", &credits_scene_loaded_callback);
     }
 
     INJECT_C_DLLEXPORT void start_credits() {
-        scenes::force_load_scene("actOneEndingMaster", &ending_scene_loaded_callback, true);
+        scenes::force_load_scene("actOneEndingMaster", &ending_scene_loaded_callback);
     }
 
     float time = 0.0f;
