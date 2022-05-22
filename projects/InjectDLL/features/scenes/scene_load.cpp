@@ -31,6 +31,9 @@ namespace scenes
         IL2CPP_BINDING(, ScenesManager, app::SceneMetaData*, GetSceneMetaDataFromRuntimeMetaData, (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* runtime));
         IL2CPP_BINDING(, ScenesManager, app::SceneManagerScene*, GetSceneManagerScene, (app::ScenesManager* this_ptr, app::String* scene_name));
         IL2CPP_BINDING(, ScenesManager, void, EnableDisabledScene, (app::ScenesManager* this_ptr, app::SceneManagerScene* scene, bool async));
+        IL2CPP_BINDING(, ScenesManager, void, UnloadAllScenes, (app::ScenesManager* this_ptr));
+        IL2CPP_BINDING(, ScenesManager, void, UnloadScene, (app::ScenesManager* this_ptr, app::SceneManagerScene* meta, bool keepInMemory, bool instant));
+        IL2CPP_BINDING(, ScenesManager, void, RemoveScene, (app::ScenesManager* this_ptr, app::SceneManagerScene* meta, bool instant));
         IL2CPP_BINDING(, ScenesManager, bool, SceneIsLoading, (app::ScenesManager* this_ptr, app::MoonGuid* scene_guid));
         IL2CPP_BINDING(, ScenesManager, bool, SceneIsLoaded, (app::ScenesManager* this_ptr, app::MoonGuid* scene_guid));
         IL2CPP_BINDING_OVERLOAD(, ScenesManager, app::SceneManagerScene*, GetFromCurrentScenes,
@@ -73,7 +76,7 @@ namespace scenes
         }
     }
 
-    void force_load_scene(std::string_view scene, scene_loaded_callback callback, bool keep_preloaded)
+    void force_load_scene(std::string_view scene, scene_loaded_callback callback, bool keep_preloaded, bool async)
     {
         auto& scene_to_load = scenes_to_load[std::string(scene)];
         scene_to_load.scene_name = std::string(scene);
@@ -88,7 +91,28 @@ namespace scenes
 
         if (!ScenesManager::SceneIsLoading(scenes_manager, scene_meta->fields.SceneMoonGuid))
         {
-            ScenesManager::RequestAdditivelyLoadScene(scenes_manager, scene_meta, true, true, true, true, false);
+            ScenesManager::RequestAdditivelyLoadScene(scenes_manager, scene_meta, async, true, true, true, false);
+        }
+    }
+
+    /**
+     * Use with caution, can destroy things
+     */
+    void unload_all_scenes() {
+        ScenesManager::UnloadAllScenes(get_scenes_manager());
+    }
+
+    void unload_scene(std::string_view scene_name, bool instant) {
+        auto scene = ScenesManager::GetSceneManagerScene(get_scenes_manager(), il2cpp::string_new(scene_name));
+        if (scene != nullptr) {
+            ScenesManager::UnloadScene(get_scenes_manager(), scene, true, instant);
+        }
+    }
+
+    void remove_scene(std::string_view scene_name, bool instant) {
+        auto scene = ScenesManager::GetSceneManagerScene(get_scenes_manager(), il2cpp::string_new(scene_name));
+        if (scene != nullptr) {
+            ScenesManager::RemoveScene(get_scenes_manager(), scene, instant);
         }
     }
 

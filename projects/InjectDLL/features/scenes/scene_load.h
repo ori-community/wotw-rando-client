@@ -12,7 +12,11 @@ namespace scenes
 {
     using scene_loaded_callback = void(*)(std::string_view scene_name, app::GameObject* scene_root);
 
-    void force_load_scene(std::string_view scene, scene_loaded_callback callback, bool keep_preloaded = false);
+    void force_load_scene(std::string_view scene, scene_loaded_callback callback, bool keep_preloaded = false, bool async = true);
+    void unload_all_scenes();
+    void unload_scene(std::string_view scene, bool instant = true);
+    void remove_scene(std::string_view scene, bool instant = true);
+
     app::GameObject* get_root(std::string_view name);
     std::vector<app::GameObject*> get_roots_from_active();
     app::GameObject* get_game_object(std::string_view path);
