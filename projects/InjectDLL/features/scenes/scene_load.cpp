@@ -46,11 +46,15 @@ namespace scenes
             return scenes_manager_instance;
         }
 
+        IL2CPP_BINDING_OVERLOAD(, ScenesManager, void, PreventUnloading, (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* meta, bool prevent_disabling), (:RuntimeSceneMetaData, System:Boolean))
         IL2CPP_INTERCEPT(, SceneManagerScene, void, ChangeState, (app::SceneManagerScene* this_ptr, app::SceneState__Enum state)) {
             SceneManagerScene::ChangeState(this_ptr, state);
 
             auto scene_name_csstring = this_ptr->fields.MetaData->fields.Scene;
             auto scene_name = il2cpp::convert_csstring(scene_name_csstring);
+            auto scenes_manager = get_scenes_manager();
+            auto scene_meta = ScenesManager::GetSceneInformation(scenes_manager, scene_name_csstring);
+            auto scene_manager_scene = ScenesManager::GetFromCurrentScenes(scenes_manager, scene_meta);
 
             modloader::console::console_send(format("%s: %d", scene_name.c_str(), state));
             modloader::console::console_flush();
@@ -76,8 +80,10 @@ namespace scenes
     {
         auto& scene_to_load = scenes_to_load[std::string(scene)];
         scene_to_load.scene_name = std::string(scene);
-        scene_to_load.on_loaded_callbacks.push_back(callback);
         scene_to_load.keep_preloaded = scene_to_load.keep_preloaded || keep_preloaded;
+
+        if (callback != nullptr)
+            scene_to_load.on_loaded_callbacks.push_back(callback);
 
         auto scenes_manager = get_scenes_manager();
         auto scene_name_csstring = il2cpp::string_new(scene_to_load.scene_name);
@@ -161,6 +167,8 @@ namespace scenes
     void initialize()
     {
         force_load_scene("swampIntroTop", &on_load_spawn);
+        // force_load_scene("wotwTitleScreen", nullptr, true);
+        // force_load_scene("kuFlyAway", nullptr, true);
     }
 
     CALL_ON_INIT(initialize);
