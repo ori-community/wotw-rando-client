@@ -61,9 +61,6 @@ namespace scenes
 
             if (state == app::SceneState__Enum_Loaded && scenes_to_load.contains(scene_name)) {
                 auto pending_scene = scenes_to_load[scene_name];
-                auto scenes_manager = get_scenes_manager();
-                auto scene_meta = ScenesManager::GetSceneInformation(scenes_manager, scene_name_csstring);
-                auto scene_manager_scene = ScenesManager::GetFromCurrentScenes(scenes_manager, scene_meta);
                 auto go = il2cpp::unity::get_game_object(scene_manager_scene->fields.SceneRoot);
 
                 for (auto on_load_callback : pending_scene.on_loaded_callbacks)
