@@ -16,6 +16,7 @@ namespace il2cpp
     {
         std::unordered_map<std::string, Il2CppClass*> resolved_classes;
         std::unordered_map<Il2CppClass*, std::vector<MethodOverloadInfo>> resolved_klass_overloads;
+        std::unordered_map<Il2CppClass*, app::Type*> resolved_class_types;
 
         STATIC_IL2CPP_BINDING(UnityEngine, ScriptableObject, app::ScriptableObject*, CreateInstance, (app::Type* type));
 
@@ -460,11 +461,15 @@ namespace il2cpp
 
         app::ScriptableObject* create_scriptable_object_untyped(Il2CppClass* klass)
         {
-            auto type = il2cpp_class_get_type(klass);
-            auto qualified = il2cpp_type_get_assembly_qualified_name(type);
-            auto type_str = il2cpp::string_new(qualified);
-            auto runtime_type = Type::GetType(type_str, false);
-            return ScriptableObject::CreateInstance(runtime_type);
+            if (!resolved_class_types.contains(klass)) {
+                auto type = il2cpp_class_get_type(klass);
+                auto qualified = il2cpp_type_get_assembly_qualified_name(type);
+                auto type_str = il2cpp::string_new(qualified);
+                auto runtime_type = Type::GetType(type_str, false);
+                resolved_class_types[klass] = runtime_type;
+            }
+
+            return ScriptableObject::CreateInstance(resolved_class_types[klass]);
         }
         
         void* instantiate_object_untyped(void* object)

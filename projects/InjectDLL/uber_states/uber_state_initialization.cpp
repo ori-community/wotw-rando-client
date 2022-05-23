@@ -6,8 +6,9 @@
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/console.h>
 
-#include <unordered_map>
+#include <chrono>
 
 using namespace modloader;
 
@@ -20,6 +21,12 @@ namespace
         return uber_id;
     }
 
+
+    // We cache the scriptable objects and use il2cpp::unity::instantiate_object to create instances from them
+    // because that's a lot faster
+    std::unordered_map<Il2CppClass*, app::IUberState*> uber_state_so_cache;
+    app::UberStateGroup* group_so_cache = nullptr;
+
     template<typename T> Il2CppClass* get_klass();
     template<> Il2CppClass* get_klass<app::SerializedBooleanUberState>() { return il2cpp::get_class("Moon", "SerializedBooleanUberState"); }
     template<> Il2CppClass* get_klass<app::SerializedByteUberState>() { return il2cpp::get_class("Moon", "SerializedByteUberState"); }
@@ -29,13 +36,24 @@ namespace
     template<> Il2CppClass* get_klass<app::ByteUberState>() { return il2cpp::get_class("Moon", "ByteUberState"); }
     template<> Il2CppClass* get_klass<app::IntUberState>() { return il2cpp::get_class("Moon", "IntUberState"); }
     template<> Il2CppClass* get_klass<app::FloatUberState>() { return il2cpp::get_class("Moon", "FloatUberState"); }
-    
-    template<typename T, typename V>
-    app::IUberState* add_state(UberStateGroup group, std::string state_name, int state_id, V default_value)
-    {
-        auto state = il2cpp::unity::create_scriptable_object<T>(get_klass<T>());
 
-        state->fields.Group = il2cpp::unity::create_scriptable_object<app::UberStateGroup>("Moon", "UberStateGroup");
+    template<typename T, typename V>
+    app::IUberState* add_state(UberStateGroup group, const std::string& state_name, int state_id, V default_value)
+    {
+        auto klass = get_klass<T>();
+
+        if (!uber_state_so_cache.contains(klass)) {
+            uber_state_so_cache[klass] = reinterpret_cast<app::IUberState*>(il2cpp::unity::create_scriptable_object<T>(get_klass<T>()));
+        }
+
+        auto state = il2cpp::unity::instantiate_object<T>(reinterpret_cast<T*>(uber_state_so_cache[klass]));
+
+        if (group_so_cache == nullptr) {
+            group_so_cache = il2cpp::unity::create_scriptable_object<app::UberStateGroup>("Moon", "UberStateGroup");
+        }
+
+        state->fields.Group = il2cpp::unity::instantiate_object<app::UberStateGroup>(group_so_cache);
+
         state->fields.Group->fields._.m_id = create_uber_id_ptr(static_cast<int>(group));
         il2cpp::invoke(state->fields.Group, "set_name", il2cpp::string_new(uber_state_group_name(group)));
 
@@ -46,10 +64,20 @@ namespace
         state->fields.m_value = default_value;
         state->fields.NamedValues = nullptr;
         state->fields._VolitileGenericOverrideValue_k__BackingField.has_value = false;
+
         return reinterpret_cast<app::IUberState*>(state);
     }
 
+    void print_time(std::chrono::time_point<std::chrono::steady_clock> start, std::string_view tag) {
+        auto now = std::chrono::high_resolution_clock::now();
+        auto time_span = duration_cast<std::chrono::microseconds>(now - start);
+        modloader::console::console_send(format("%.2f ms  %s", time_span.count() / 1000.f, tag.data()));
+        modloader::console::console_flush();
+    }
+
     IL2CPP_INTERCEPT(Moon, UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection* this_ptr)) {
+        auto start_time = std::chrono::high_resolution_clock::now();
+
         std::vector<app::IUberState*> states = {
             add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "sword", app::AbilityType__Enum_Sword, false),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "double_jump", app::AbilityType__Enum_DoubleJump, false),
@@ -452,6 +480,8 @@ namespace
             add_state<app::SerializedBooleanUberState>(UberStateGroup::npcsStateGroup, "Has bought everything", 20000, false),
         };
 
+        print_time(start_time, "Built state list");
+
         // Game states
         const int GAME_MODES_INT_START = 0;
         const int GAME_MODES_BOOL_START = 1000;
@@ -500,15 +530,24 @@ namespace
             states.push_back(
                 add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, format("%3d_value", i * 2 + 1), i * 2 + 1, 0));
         }
-        for (int i = 0; i < 100; ++i) {
+
+        print_time(start_time, "Built custom state list");
+
+        for (int i = 0; i < 2000; ++i) {
             states.push_back(
-                add_state<app::SerializedIntUberState>(UberStateGroup::MultiVars, format("%3d_multi", i), i, 0));
+                add_state<app::SerializedBooleanUberState>(UberStateGroup::MultiVars, format("%3d_multi", i), i, false));
         }
+
+        print_time(start_time, "Built multi state list");
 
         for (auto* state : states)
             il2cpp::invoke(this_ptr->fields.m_descriptors, "Add", state);
 
+        print_time(start_time, "Added states");
+
         trace(MessageType::Info, 5, "initialize", "Custom uber states initialized.");
         UberStateCollection::PrepareRuntimeDataType(this_ptr);
+
+        print_time(start_time, "Uber states initialized");
     }
 }

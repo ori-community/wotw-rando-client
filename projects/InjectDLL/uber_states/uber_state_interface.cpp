@@ -196,10 +196,17 @@ namespace uber_states
         // Remove this when csharp is removed.
         void notify_uber_state_change(UberState state, double previous_value)
         {
+            // TODO: Old multi code, remove eventually
+            // csharp_bridge::UberStateType type;
+            // if (state.group() == UberStateGroup::MultiVars)
+            //     type = csharp_bridge::UberStateType::SerializedBooleanUberState;
+            // else if (state.group() == UberStateGroup::RandoVirtual)
+            //     type = csharp_bridge::UberStateType::SerializedFloatUberState;
+            // else
+            //     type = resolve_type(state.ptr());
+
             csharp_bridge::UberStateType type;
-            if (state.group() == UberStateGroup::MultiVars)
-                type = csharp_bridge::UberStateType::SerializedBooleanUberState;
-            else if (state.group() == UberStateGroup::RandoVirtual)
+            if (state.group() == UberStateGroup::RandoVirtual)
                 type = csharp_bridge::UberStateType::SerializedFloatUberState;
             else
                 type = resolve_type(state.ptr());
@@ -260,17 +267,20 @@ namespace uber_states
                 return;
             }
 
-            if (m_group == UberStateGroup::MultiVars) // Handle multi group.
-            {
-                int curr = static_cast<int>(prev);
-                int8_t offset = m_state % 31;
-                if (value > 0.1f)
-                    curr |= 1 << offset; // or if it's true
-                else
-                    curr &= ~(1 << offset); // invert bit then and it
-                SerializedIntUberState::set_Value(uber_state, static_cast<int>(curr));
-            }
-            else if (il2cpp::is_assignable(uber_state, "Moon", "SerializedBooleanUberState"))
+            // TODO: Old multi code, remove eventually
+            // if (m_group == UberStateGroup::MultiVars) // Handle multi group.
+            // {
+            //     int curr = static_cast<int>(prev);
+            //     int8_t offset = m_state % 31;
+            //     if (value > 0.1f)
+            //         curr |= 1 << offset; // or if it's true
+            //     else
+            //         curr &= ~(1 << offset); // invert bit then and it
+            //     SerializedIntUberState::set_Value(uber_state, static_cast<int>(curr));
+            // }
+            // else
+
+            if (il2cpp::is_assignable(uber_state, "Moon", "SerializedBooleanUberState"))
                 SerializedBooleanUberState::set_Value(uber_state, value > 0.5);
             else if (il2cpp::is_assignable(uber_state, "Moon", "SerializedByteUberState"))
                 SerializedByteUberState::set_Value(uber_state, value);
@@ -317,8 +327,9 @@ namespace uber_states
             return 0.0;
         }
 
-        if (m_group == UberStateGroup::MultiVars)
-            return static_cast<double>((SerializedIntUberState::get_Value(uber_state) >> (m_state % 31)) & 0b1);
+        // TODO: Old multi code, remove eventually
+        // if (m_group == UberStateGroup::MultiVars)
+        //     return static_cast<double>((SerializedIntUberState::get_Value(uber_state) >> (m_state % 31)) & 0b1);
 
         if (il2cpp::is_assignable(uber_state, "Moon", "SerializedBooleanUberState"))
             return static_cast<double>(SerializedBooleanUberState::get_Value(uber_state));
@@ -390,9 +401,11 @@ namespace uber_states
 
     app::IUberState* UberState::ptr() const
     {
-        auto state = m_group == UberStateGroup::MultiVars ? m_state / 31 : m_state;
+        // TODO: Old multi code, remove eventually
+        // auto state = m_group == UberStateGroup::MultiVars ? m_state / 31 : m_state;
+
         auto group_id = create_uber_id(static_cast<int>(m_group));
-        auto state_id = create_uber_id(state);
+        auto state_id = create_uber_id(m_state);
         return UberStateCollection::GetState(&group_id, &state_id);
     }
 

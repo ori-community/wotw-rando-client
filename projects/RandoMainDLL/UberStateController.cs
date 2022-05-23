@@ -157,16 +157,20 @@ namespace RandoMainDLL {
         GroupID = id.GroupID,
       };
 
-      if (id.GroupID == 12) {
-        s.Name = $"fake_{id.ID}";
-        s.GroupName = "multi_vars";
-        s.Type = UberStateType.SerializedBooleanUberState;
-      }
-      else {
-        s.Name = name;
-        s.GroupName = groupName;
-        s.Type = InterOp.UberState.get_uber_state_type(id.GroupID, id.ID);
-      }
+      // TODO: Old multi code, remove eventually
+      // if (id.GroupID == 12) {
+      //   s.Name = $"fake_{id.ID}";
+      //   s.GroupName = "multi_vars";
+      //   s.Type = UberStateType.SerializedBooleanUberState;
+      // }
+      // else {
+      //   s.Name = name;
+      //   s.GroupName = groupName;
+      //   s.Type = InterOp.UberState.get_uber_state_type(id.GroupID, id.ID);
+      // }
+      s.Name = name;
+      s.GroupName = groupName;
+      s.Type = InterOp.UberState.get_uber_state_type(id.GroupID, id.ID);
 
       s.Value = CreateValue(s.Type, UberGet.AsDouble(id.GroupID, id.ID));
       return s;
@@ -194,7 +198,8 @@ namespace RandoMainDLL {
         var states = InterOp.UberState.get_uber_states(ref size);
         for (var i = 0; i < size; ++i) {
           var def = states[i];
-          if (def.GroupID == 12) continue; // this is banned for reasons
+          // TODO: Old multi code, remove eventually
+          // if (def.GroupID == 12) continue; // this is banned for reasons
           var name = Marshal.PtrToStringAnsi(def.Name);
           var groupName = Marshal.PtrToStringAnsi(def.GroupName);
           uberStateLookup.Add(new UberId(def.GroupID, def.ID), new UberState() {
