@@ -1,3 +1,3 @@
 #pragma once
 
-void invert_swim();
+void update_invert_swim();

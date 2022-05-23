@@ -28,9 +28,9 @@ namespace randomizer
                 bool has_loaded() const { return loaded; }
 
                 template<typename T>
-                T value(std::string_view section, std::string_view entry, T value)
+                T value(std::string_view section, std::string_view entry, T default_value)
                 {
-                    return check_option<T>(ini, section, entry, value);
+                    return check_option<T>(ini, section, entry, default_value);
                 }
             private:
                 IniSettings ini;
@@ -44,6 +44,7 @@ namespace randomizer
         bool burrow_mouse_control() { return ini_settings.value("Flags", "BurrowMouseControl", false); }
         bool grapple_mouse_control() { return ini_settings.value("Flags", "GrappleMouseControl", false); }
         bool water_dash_mouse_control() { return ini_settings.value("Flags", "WaterDashMouseControl", false); }
+        bool invert_swim() { return ini_settings.value("Flags", "InvertSwim", false); }
 
         bool autoaim() { return !ini_settings.value("Flags", "DisableAutoaim", false); }
         bool show_secrets() { return !ini_settings.value("Flags", "DisableShowSecrets", false); }

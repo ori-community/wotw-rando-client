@@ -61,11 +61,6 @@ namespace RandoMainDLL {
             Delegate = new f_bool(() => Input.TPToPickupsEnabled),
             CallbackName = "tp_to_any_pickup"
           },
-          // This one as well.
-          new Method() {
-            Delegate = new f_bool(() => AHK.IniFlag("InvertSwim")),
-            CallbackName = "invert_swim"
-          },
           new Method() {
             Delegate = new f_void_int(Randomizer.OnNewGame),
             CallbackName = "new_game"

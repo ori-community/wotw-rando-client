@@ -5,49 +5,66 @@
 #include <interop/csharp_bridge.h>
 
 #include <Il2CppModLoader/interception_macros.h>
+#include <settings.h>
+#include <Il2CppModLoader/console.h>
 
 namespace
 {
     constexpr float DEFAULT_SWIM_SPEED = 6.f;
     constexpr float DEFAULT_BOOSTED_SWIM_SPEED = 9.6f;
 
+    bool invert_swim = false;
+
     STATIC_IL2CPP_BINDING(UnityEngine, AnimationCurve, app::AnimationCurve*, EaseInOut, (float timeStart, float valueStart, float timeEnd, float valueEnd));
 
     uber_states::UberState swim_speed(UberStateGroup::RandoUpgrade, 85);
-    void set_swim_params(float normal, float boost) {
+    void update_swim_params() {
         auto swim = game::player::sein()->fields.Abilities->fields.SwimmingWrapper;
         if (swim->fields.HasState)
         {
-            swim->fields.State->fields.SwimSpeed = normal * swim_speed.get();
-            swim->fields.State->fields.SwimSpeedBoostCurve = AnimationCurve::EaseInOut(0.05, 1.f, 0.2, boost / normal);
+            swim->fields.State->fields.SwimSpeed = DEFAULT_SWIM_SPEED * swim_speed.get();
+            swim->fields.State->fields.HoldAToSwimLoop = false;
         }
     }
 
-    IL2CPP_INTERCEPT(, NewGameAction, void, Perform, (__int64 this_ptr, __int64 ctxPtr)) {
-        NewGameAction::Perform(this_ptr, ctxPtr);
-        invert_swim();
+    IL2CPP_INTERCEPT(, SeinSwimming, void, UpdateSwimMovingUnderwaterState, (app::SeinSwimming* this_ptr)) {
+        if (invert_swim) {
+            auto input_cmd = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
+            auto is_jump_pressed = input_cmd->static_fields->Jump->fields.IsPressed;
+
+            input_cmd->static_fields->Jump->fields.IsPressed = !is_jump_pressed;
+            SeinSwimming::UpdateSwimMovingUnderwaterState(this_ptr);
+            input_cmd->static_fields->Jump->fields.IsPressed = is_jump_pressed;
+        } else {
+            SeinSwimming::UpdateSwimMovingUnderwaterState(this_ptr);
+        }
+    }
+
+    IL2CPP_INTERCEPT(, NewGameAction, void, Perform, (app::NewGameAction* this_ptr, app::IContext* context)) {
+        NewGameAction::Perform(this_ptr, context);
+        update_invert_swim();
+        update_swim_params();
     }
 
     IL2CPP_INTERCEPT(, SaveGameController, void, OnFinishedLoading, (app::SaveGameController* this_ptr)) {
         SaveGameController::OnFinishedLoading(this_ptr);
-        invert_swim();
+        update_invert_swim();
+        update_swim_params();
     }
 
     IL2CPP_INTERCEPT(, SaveGameController, void, RestoreCheckpoint, (app::SaveGameController* this_ptr)) {
         SaveGameController::RestoreCheckpoint(this_ptr);
-        invert_swim();
+        update_invert_swim();
+        update_swim_params();
     }
 
     IL2CPP_INTERCEPT(, SeinHealthController, void, OnRespawn, (app::SeinHealthController* this_ptr)) {
         SeinHealthController::OnRespawn(this_ptr);
-        invert_swim();
+        update_invert_swim();
+        update_swim_params();
     }
 }
 
-void invert_swim() {
-    // Default boosted speed is 9.59... so we use 9.6
-    if (csharp_bridge::invert_swim())
-        set_swim_params(DEFAULT_BOOSTED_SWIM_SPEED, DEFAULT_SWIM_SPEED);
-    else
-        set_swim_params(DEFAULT_SWIM_SPEED, DEFAULT_BOOSTED_SWIM_SPEED);
+void update_invert_swim() {
+    invert_swim = randomizer::settings::invert_swim();
 }

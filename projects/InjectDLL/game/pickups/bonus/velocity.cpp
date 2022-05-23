@@ -104,7 +104,7 @@ namespace
     }
 
     IL2CPP_INTERCEPT(, SeinSwimming, void, UpdateCharacterState, (app::SeinSwimming* this_ptr)) {
-        invert_swim();
+        update_invert_swim();
         SeinSwimming::UpdateCharacterState(this_ptr);
     }
 
