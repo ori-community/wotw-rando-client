@@ -10,6 +10,7 @@ set(
     SOURCE_FILES
     "dev/object_visualizer.cpp"
     "enums/uber_state.cpp"
+    "features/better_menus.cpp"
     "features/chaos.cpp"
     "features/credits.cpp"
     "features/custom_fire_sources.cpp"
