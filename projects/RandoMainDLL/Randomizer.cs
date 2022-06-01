@@ -34,7 +34,7 @@ namespace RandoMainDLL {
         // overwrite the message log TODO: save a backup maybe?
         File.WriteAllText(MessageLog, "");
         StatsTracking.OnNewGame();
-        SeedController.ReadSeed();
+        // SeedController.ReadSeed();
         UberStateController.NeedsNewGameInit = true;
         UberStateController.UberStates.Clear();
         UberStateController.TimerUberStates.Clear();

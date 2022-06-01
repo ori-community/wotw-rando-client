@@ -24,6 +24,8 @@ namespace scenes
 
     EventBus<SceneLoadEventMetadata*>& event_bus();
 
+    app::RuntimeSceneMetaData* get_scene_metadata(std::string_view scene);
+
     bool scene_is_loading(std::string_view scene);
     bool scene_is_loaded(std::string_view scene);
 

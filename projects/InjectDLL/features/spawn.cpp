@@ -12,6 +12,7 @@
 #include <event_bus.h>
 #include <enums/game_event.h>
 #include <interop/csharp_bridge.h>
+#include "faderb.h"
 
 using namespace modloader;
 using modloader::console::console_send;
@@ -67,17 +68,9 @@ namespace
             {
                 save();
                 handling_start = false;
-                hang_pos = SeinCharacter::get_Position(this_ptr);
-                teleport_state = TeleportState::Hang;
-                load_hang_count = 60;
-            }
-            else {
                 teleport_state = TeleportState::None;
             }
-        }
-        else if (teleport_state == TeleportState::Hang) {
-            SeinCharacter::set_Position(this_ptr, hang_pos);
-            if (--load_hang_count <= 0) {
+            else {
                 teleport_state = TeleportState::None;
             }
         }
@@ -204,6 +197,17 @@ namespace
     }
     // endregion
 
+    app::WaitAction* empty_slot_pressed_wait = nullptr;
+
+    IL2CPP_INTERCEPT(, WaitAction, void, Perform, (app::WaitAction* this_ptr, app::IContext* context)) {
+        WaitAction::Perform(this_ptr, context);
+
+        // If this is the empty slot wait action, fade out
+        if (this_ptr == empty_slot_pressed_wait) {
+            faderb::fade_in(0.4f);
+        }
+    }
+
     void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing)
     {
         if (metadata->scene_name == "wotwTitleScreen" && metadata->state == app::SceneState__Enum_Loaded) {
@@ -212,8 +216,9 @@ namespace
 
             std::vector<std::vector<std::string>> game_objects_to_nuke {
                     {"titleScreen (new)", "startGameSequence", "02. Set Game Mode To Prologue Action"},
+                    {"titleScreen (new)", "startGameSequence", "03. Play Sound: Unknown Wise Event"},
                     {"titleScreen (new)", "startGameSequence", "05. Play External Timeline Action"},
-                    {"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "emptySlotPressed(newGame)", "04. Wait 1.5 seconds"},
+                    {"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "emptySlotPressed(newGame)", "03. Play Sound: mainMenuPressNewGameSoundProvider"},
                     {"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "emptySlotPressed(newGame)", "06. Wait 2 seconds"},
             };
 
@@ -221,11 +226,13 @@ namespace
                 auto target_go = il2cpp::unity::find_child(scene_root_go, path);
                 if (il2cpp::unity::is_valid(target_go)) {
                     il2cpp::unity::destroy_object(target_go);
-                    modloader::console::console_send(format("nuked %s", path.back().data()));
-                } else {
-                    modloader::console::console_send(format("Could not delete %s", path.back().data()));
                 }
             }
+
+            // We shorten the wait time to 0.3s. We use that time to fade to black.
+            auto empty_slot_pressed_wait_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{"titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "emptySlotPressed(newGame)", "04. Wait 1.5 seconds"});
+            empty_slot_pressed_wait = il2cpp::unity::get_component<app::WaitAction>(empty_slot_pressed_wait_go, "", "WaitAction");
+            empty_slot_pressed_wait->fields.Duration = 0.4f;
         }
     }
 
@@ -240,6 +247,10 @@ namespace
         handling_start = true;
         intro_cutscene.set(1);
 
+        for (const auto &scene_name: pending_scenes_to_preload) {
+            scenes::force_load_scene(scene_name, nullptr, true, false);
+        }
+
         if (overwrite_start)
             teleport(start_position.x, start_position.y, true);
         else
@@ -247,6 +258,8 @@ namespace
 
         csharp_bridge::new_game(SaveSlotsManager::get_CurrentSlotIndex());
         GameStateMachine::SetToGame(game_state_machine);
+
+        faderb::fade_out(0.3f);
     }
 
     void on_finished_loading_save(GameEvent event, EventTiming timing) {
