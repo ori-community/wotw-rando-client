@@ -130,11 +130,6 @@ namespace csharp_bridge
         STATIC_IL2CPP_BINDING(, SaveSlotsManager, int, get_CurrentSlotIndex, ());
         STATIC_IL2CPP_BINDING(, SaveSlotsManager, int, get_BackupIndex, ());
 
-        void on_new_game(GameEvent game_event, EventTiming timing)
-        {
-            csharp_bridge::new_game(SaveSlotsManager::get_CurrentSlotIndex());
-        }
-
         void on_checkpoint_handler(GameEvent game_event, EventTiming timing)
         {
             auto cp(game::pickups::collect_pickup()); // fuck fuck fuck shit damn aaaaa
@@ -181,7 +176,6 @@ namespace csharp_bridge
             game::event_bus().register_handler(GameEvent::CreateBackup, EventTiming::Start, &on_save_handler);
             game::event_bus().register_handler(GameEvent::CreateSave, EventTiming::Start, &on_save_handler);
             game::event_bus().register_handler(GameEvent::CreateCheckpoint, EventTiming::Start, &on_checkpoint_handler);
-            game::event_bus().register_handler(GameEvent::NewGame, EventTiming::End, &on_new_game);
             game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, &on_load_handler);
             game::event_bus().register_handler(GameEvent::FinishedLoadingCheckpoint, EventTiming::End, &on_load_handler);
             game::event_bus().register_handler(GameEvent::Respawn, EventTiming::End, &on_load_handler);

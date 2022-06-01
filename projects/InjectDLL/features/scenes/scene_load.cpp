@@ -9,6 +9,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 
 #include <unordered_set>
+#include <set>
 #include <Il2CppModLoader/console.h>
 
 namespace scenes
@@ -20,6 +21,17 @@ namespace scenes
     };
 
     std::unordered_map<std::string, PendingScene> scenes_to_load;
+    EventBus<SceneLoadEventMetadata*> scenes_event_bus;
+
+    app::ScenesManager* scenes_manager_instance = nullptr;
+    app::ScenesManager* get_scenes_manager() {
+        if (scenes_manager_instance == nullptr) {
+            const auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
+            scenes_manager_instance = scenes->static_fields->Manager;
+        }
+
+        return scenes_manager_instance;
+    }
 
     namespace {
         IL2CPP_BINDING(UnityEngine, GameObject, app::Scene, get_scene, (app::GameObject* this_ptr));
@@ -30,24 +42,19 @@ namespace scenes
         IL2CPP_BINDING(, ScenesManager, app::RuntimeSceneMetaData*, GetSceneInformation, (app::ScenesManager* this_ptr, app::String* sceneName));
         IL2CPP_BINDING(, ScenesManager, app::SceneMetaData*, GetSceneMetaDataFromRuntimeMetaData, (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* runtime));
         IL2CPP_BINDING(, ScenesManager, app::SceneManagerScene*, GetSceneManagerScene, (app::ScenesManager* this_ptr, app::String* scene_name));
+
+        INTERNAL_BINDING(0xBCB6F0, void, ScenesManager_QueryQuadTreeFast, (app::ScenesManager* this_ptr, app::Vector3 position, app::List_1_System_Int32_* list));
+        // Once Generics work: IL2CPP_BINDING_OVERLOAD(, ScenesManager, void, QueryQuadTreeFast, (app::ScenesManager* this_ptr, app::Vector3 position, app::List_1_System_Int32_* list), (UnityEngine:Vector3, System.Collections.Generic:List`1));
+
         IL2CPP_BINDING(, ScenesManager, void, EnableDisabledScene, (app::ScenesManager* this_ptr, app::SceneManagerScene* scene, bool async));
         IL2CPP_BINDING(, ScenesManager, void, UnloadAllScenes, (app::ScenesManager* this_ptr));
+        IL2CPP_BINDING_OVERLOAD(, ScenesManager, void, UnsetPreventUnloading, (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* metaData), (:RuntimeSceneMetaData));
         IL2CPP_BINDING(, ScenesManager, void, UnloadScene, (app::ScenesManager* this_ptr, app::SceneManagerScene* meta, bool keepInMemory, bool instant));
         IL2CPP_BINDING(, ScenesManager, void, RemoveScene, (app::ScenesManager* this_ptr, app::SceneManagerScene* meta, bool instant));
         IL2CPP_BINDING(, ScenesManager, bool, SceneIsLoading, (app::ScenesManager* this_ptr, app::MoonGuid* scene_guid));
         IL2CPP_BINDING(, ScenesManager, bool, SceneIsLoaded, (app::ScenesManager* this_ptr, app::MoonGuid* scene_guid));
         IL2CPP_BINDING_OVERLOAD(, ScenesManager, app::SceneManagerScene*, GetFromCurrentScenes,
             (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* meta), (:RuntimeSceneMetaData));
-
-        app::ScenesManager* scenes_manager_instance = nullptr;
-        app::ScenesManager* get_scenes_manager() {
-            if (scenes_manager_instance == nullptr) {
-                const auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
-                scenes_manager_instance = scenes->static_fields->Manager;
-            }
-
-            return scenes_manager_instance;
-        }
 
         IL2CPP_BINDING_OVERLOAD(, ScenesManager, void, PreventUnloading, (app::ScenesManager* this_ptr, app::RuntimeSceneMetaData* meta, bool prevent_disabling), (:RuntimeSceneMetaData, System:Boolean))
         IL2CPP_INTERCEPT(, SceneManagerScene, void, ChangeState, (app::SceneManagerScene* this_ptr, app::SceneState__Enum state)) {
@@ -62,6 +69,13 @@ namespace scenes
             modloader::console::console_send(format("%s: %d", scene_name.c_str(), state));
             modloader::console::console_flush();
 
+            SceneLoadEventMetadata event {
+                .scene_name = scene_name,
+                .state = state,
+                .scene = scene_manager_scene,
+            };
+            scenes_event_bus.trigger_event(&event);
+
             if (state == app::SceneState__Enum_Loaded && scenes_to_load.contains(scene_name)) {
                 auto pending_scene = scenes_to_load[scene_name];
                 auto go = il2cpp::unity::get_game_object(scene_manager_scene->fields.SceneRoot);
@@ -74,6 +88,24 @@ namespace scenes
                 scenes_to_load.erase(scene_name);
             }
         }
+    }
+
+    EventBus<SceneLoadEventMetadata*>& event_bus() { return scenes_event_bus; }
+
+    app::RuntimeSceneMetaData* get_scene_metadata(std::string_view scene) {
+        auto scenes_manager = get_scenes_manager();
+        auto scene_name_csstring = il2cpp::string_new(scene);
+        return ScenesManager::GetSceneInformation(scenes_manager, scene_name_csstring);
+    }
+
+    bool scene_is_loading(std::string_view scene) {
+        auto metadata = get_scene_metadata(scene);
+        return ScenesManager::SceneIsLoading(get_scenes_manager(), metadata->fields.SceneMoonGuid);
+    }
+
+    bool scene_is_loaded(std::string_view scene) {
+        auto metadata = get_scene_metadata(scene);
+        return ScenesManager::SceneIsLoaded(get_scenes_manager(), metadata->fields.SceneMoonGuid);
     }
 
     void force_load_scene(std::string_view scene, scene_loaded_callback callback, bool keep_preloaded, bool async)
@@ -102,6 +134,13 @@ namespace scenes
         ScenesManager::UnloadAllScenes(get_scenes_manager());
     }
 
+    void allow_unload_scene(std::string_view scene_name) {
+        auto scene_metadata = get_scene_metadata(scene_name);
+        if (scene_metadata != nullptr) {
+            ScenesManager::UnsetPreventUnloading(get_scenes_manager(), scene_metadata);
+        }
+    }
+
     void unload_scene(std::string_view scene_name, bool instant) {
         auto scene = ScenesManager::GetSceneManagerScene(get_scenes_manager(), il2cpp::string_new(scene_name));
         if (scene != nullptr) {
@@ -114,6 +153,22 @@ namespace scenes
         if (scene != nullptr) {
             ScenesManager::RemoveScene(get_scenes_manager(), scene, instant);
         }
+    }
+
+    std::set<std::string> get_scenes_at_position(app::Vector3 position) {
+        auto scenes_manager = get_scenes_manager();
+
+        ScenesManager_QueryQuadTreeFast(scenes_manager, position, scenes_manager->klass->static_fields->m_tempHashList);
+
+        std::set<std::string> scene_names;
+
+        for (auto i = 0; i < scenes_manager->klass->static_fields->m_tempHashList->fields._size; i++) {
+            auto scene_hash = scenes_manager->klass->static_fields->m_tempHashList->fields._items->vector[i];
+            auto scene_metadata = scenes_manager->fields.m_linearScenesArray->vector[scene_hash];
+            scene_names.emplace(il2cpp::convert_csstring(scene_metadata->fields.Scene));
+        }
+
+        return scene_names;
     }
 
     app::GameObject* get_root(std::string_view name)

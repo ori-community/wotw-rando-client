@@ -391,8 +391,13 @@ INJECT_C_DLLEXPORT bool is_loading_game()
 
     auto scenes_manager = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes")->static_fields->Manager;
     auto scene = scenes_manager->fields.m_currentScene;
+
+    if (scene == nullptr) {
+        return true;
+    }
+
     auto scene_name = il2cpp::convert_csstring(scene->fields.Scene);
     auto game_state_machine = il2cpp::get_class<app::GameStateMachine__Class>("", "GameStateMachine")->static_fields->m_instance;
     return game_state_machine->fields._CurrentState_k__BackingField == app::GameStateMachine_State__Enum_Game &&
-        (scene_name == "wotwTitleScreen" || scene_name == "kuFlyAway");
+           (scene_name == "wotwTitleScreen" || scene_name == "kuFlyAway");
 }

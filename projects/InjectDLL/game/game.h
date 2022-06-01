@@ -14,7 +14,7 @@ namespace game
         Randomizer,
     };
 
-    EventBus<GameEvent>& event_bus();
+    MultiEventBus<GameEvent>& event_bus();
 
     float delta_time();
     float fixed_delta_time();

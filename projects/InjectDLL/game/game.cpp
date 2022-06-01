@@ -15,7 +15,7 @@ using namespace modloader;
 namespace game
 {
     namespace {
-        EventBus<GameEvent> game_event_bus;
+        MultiEventBus<GameEvent> game_event_bus;
 
         std::unordered_map<RandoContainer, app::GameObject*> containers;
         app::GameObject* main_container_object = nullptr;
@@ -82,7 +82,7 @@ namespace game
         }
     }
 
-    EventBus<GameEvent>& event_bus() { return game_event_bus; }
+    MultiEventBus<GameEvent>& event_bus() { return game_event_bus; }
 
     float delta_time() { return TimeUtility::get_deltaTime(); }
     float fixed_delta_time() { return TimeUtility::get_deltaTime(); }
