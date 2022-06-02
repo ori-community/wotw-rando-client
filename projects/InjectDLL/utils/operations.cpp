@@ -28,3 +28,18 @@ bool operator!= (const app::Color& c1, const app::Color& c2)
 {
     return !(c1 == c2);
 }
+
+bool operator== (const app::MoonGuid& a, const app::MoonGuid& b)
+{
+    return (
+            a.fields.A == b.fields.A &&
+            a.fields.B == b.fields.B &&
+            a.fields.C == b.fields.C &&
+            a.fields.D == b.fields.D
+    );
+}
+
+bool operator!= (const app::MoonGuid& a, const app::MoonGuid& b)
+{
+    return !(a == b);
+}
