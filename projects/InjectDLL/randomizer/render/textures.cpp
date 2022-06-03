@@ -15,35 +15,33 @@
 
 #include <fstream>
 #include <string>
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 using namespace modloader;
 
-namespace randomizer
-{
-    namespace textures
-    {
-        namespace
-        {
+namespace randomizer {
+    namespace textures {
+        namespace {
             std::unordered_map<std::wstring, uint32_t> files;
             std::unordered_map<std::wstring, std::vector<std::weak_ptr<TextureData>>> file_instances;
             std::unordered_map<app::Renderer*, std::pair<uint32_t, MaterialParams>> default_params;
 
-            NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Texture2D, void, .ctor, ctor,
-                (app::Texture2D* this_ptr, int width, int height, app::TextureFormat__Enum format, bool mip_chain, bool linear),
-                (System:Int32, System:Int32, UnityEngine:TextureFormat, System:Boolean, System:Boolean));
-            IL2CPP_BINDING(UnityEngine, Texture2D, void, LoadRawTextureData, (app::Texture2D* this_ptr, void* data, int size));
-            IL2CPP_BINDING(UnityEngine, Texture2D, void, Apply, (app::Texture2D* this_ptr, bool update_mipmaps, bool no_longer_readable));
-        }
+            NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Texture2D, void, .ctor, ctor, (app::Texture2D * this_ptr, int width, int height, app::TextureFormat__Enum format, bool mip_chain, bool linear), (System
+                                                                                                                                                                                                        : Int32, System
+                                                                                                                                                                                                        : Int32, UnityEngine
+                                                                                                                                                                                                        : TextureFormat, System
+                                                                                                                                                                                                        : Boolean, System
+                                                                                                                                                                                                        : Boolean));
+            IL2CPP_BINDING(UnityEngine, Texture2D, void, LoadRawTextureData, (app::Texture2D * this_ptr, void* data, int size));
+            IL2CPP_BINDING(UnityEngine, Texture2D, void, Apply, (app::Texture2D * this_ptr, bool update_mipmaps, bool no_longer_readable));
+        } // namespace
 
-        TextureData::~TextureData()
-        {
+        TextureData::~TextureData() {
             clear_overrides();
         }
 
-        void add_default_param(app::Renderer* renderer)
-        {
+        void add_default_param(app::Renderer* renderer) {
             MaterialParams mparams;
             auto texture = il2cpp::gchandle_new_weak(randomizer::shaders::UberShaderAPI::GetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture), true);
             mparams.uvs = randomizer::shaders::UberShaderAPI::GetTextureAtlasUVs(renderer, app::UberShaderProperty_Texture__Enum_MainTexture);
@@ -52,49 +50,41 @@ namespace randomizer
             default_params[renderer] = std::make_pair(texture, mparams);
         }
 
-        void TextureData::apply(app::Material* mat)
-        {
-            if (!initialized)
-            {
+        void TextureData::apply(app::Material* mat) {
+            if (!initialized) {
                 load_texture();
                 initialized = true;
             }
 
-            if (texture.has_value())
-            {
+            if (texture.has_value()) {
                 auto texture_ptr = get();
                 if (texture_ptr != nullptr)
                     il2cpp::invoke(mat, "set_mainTexture", texture_ptr);
             }
         }
 
-        void TextureData::apply(app::Renderer* renderer, MaterialParams* extra)
-        {
+        void TextureData::apply(app::Renderer* renderer, MaterialParams* extra) {
             apply_texture(renderer);
             apply_params(renderer, extra);
         }
 
-        void TextureData::apply_texture(app::Renderer* renderer)
-        {
+        void TextureData::apply_texture(app::Renderer* renderer) {
             if (default_params.find(renderer) == default_params.end())
                 add_default_param(renderer);
 
-            if (!initialized)
-            {
+            if (!initialized) {
                 load_texture();
                 initialized = true;
             }
 
-            if (texture.has_value())
-            {
+            if (texture.has_value()) {
                 auto texture_ptr = get();
                 if (texture_ptr != nullptr)
                     randomizer::shaders::UberShaderAPI::SetTexture(renderer, app::UberShaderProperty_Texture__Enum_MainTexture, texture_ptr);
             }
         }
 
-        void TextureData::apply_params(app::Renderer* renderer, MaterialParams* extra)
-        {
+        void TextureData::apply_params(app::Renderer* renderer, MaterialParams* extra) {
             if (default_params.find(renderer) == default_params.end())
                 add_default_param(renderer);
 
@@ -109,45 +99,37 @@ namespace randomizer
                 randomizer::shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &param->color.value());
         }
 
-        void TextureData::apply_texture_unity(app::Renderer* renderer)
-        {
-            if (!initialized)
-            {
+        void TextureData::apply_texture_unity(app::Renderer* renderer) {
+            if (!initialized) {
                 load_texture();
                 initialized = true;
             }
 
-            if (texture.has_value())
-            {
+            if (texture.has_value()) {
                 auto texture_ptr = get();
-                if (texture_ptr != nullptr)
-                {
+                if (texture_ptr != nullptr) {
                     auto mat = randomizer::shaders::UberShaderAPI::GetEditableMaterial(renderer);
                     randomizer::shaders::Material::SetTexture(mat, il2cpp::string_new("_MainTex"), reinterpret_cast<app::Texture*>(texture_ptr));
                 }
             }
         }
 
-        void TextureData::apply_params_unity(app::Renderer* renderer, MaterialParams* extra)
-        {
+        void TextureData::apply_params_unity(app::Renderer* renderer, MaterialParams* extra) {
             auto param = extra != nullptr ? extra : &local;
             // UVs need to be set on the mesh, no support for texture scroll rotation.
 
-            if (param->color.has_value())
-            {
+            if (param->color.has_value()) {
                 auto mat = randomizer::shaders::UberShaderAPI::GetEditableMaterial(renderer);
                 randomizer::shaders::Material::SetColor(mat, il2cpp::string_new("_Color"), &param->color.value());
             }
         }
 
-        app::Texture2D* TextureData::get()
-        {
+        app::Texture2D* TextureData::get() {
             if (!texture.has_value())
                 return nullptr;
 
             auto texture_ptr = il2cpp::gchandle_target<app::Texture2D>(texture.value());
-            if (!il2cpp::unity::is_valid(texture_ptr) && path._Starts_with(L"file:"))
-            {
+            if (!il2cpp::unity::is_valid(texture_ptr) && path._Starts_with(L"file:")) {
                 info("textures", "had to reload file texture.");
                 reload_file_texture();
                 texture_ptr = il2cpp::gchandle_target<app::Texture2D>(texture.value());
@@ -159,8 +141,7 @@ namespace randomizer
             return texture_ptr;
         }
 
-        void TextureData::reload_file_texture()
-        {
+        void TextureData::reload_file_texture() {
             il2cpp::gchandle_free(texture.value());
             texture.reset();
 
@@ -177,8 +158,7 @@ namespace randomizer
                     data.lock()->texture = texture;
         }
 
-        void apply_default(app::Renderer* renderer)
-        {
+        void apply_default(app::Renderer* renderer) {
             if (default_params.find(renderer) == default_params.end())
                 add_default_param(renderer);
 
@@ -190,36 +170,30 @@ namespace randomizer
             randomizer::shaders::UberShaderAPI::SetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor, &param.color.value());
         }
 
-        void TextureData::set_texture(app::Texture* texture_ptr)
-        {
+        void TextureData::set_texture(app::Texture* texture_ptr) {
             texture = il2cpp::gchandle_new_weak(texture_ptr, true);
         }
 
-        void TextureData::set_uvs(app::Vector4 uvs)
-        {
+        void TextureData::set_uvs(app::Vector4 uvs) {
             local.uvs = uvs;
         }
 
-        void TextureData::set_scroll_rot(app::Vector4 scroll_rot)
-        {
+        void TextureData::set_scroll_rot(app::Vector4 scroll_rot) {
             local.scroll_rot = scroll_rot;
         }
 
-        void TextureData::set_color(app::Color color)
-        {
+        void TextureData::set_color(app::Color color) {
             local.color = color;
         }
 
-        void TextureData::clear_overrides()
-        {
+        void TextureData::clear_overrides() {
             texture.reset();
             local.uvs.reset();
             local.scroll_rot.reset();
             local.color.reset();
         }
 
-        std::shared_ptr<TextureData> create_texture()
-        {
+        std::shared_ptr<TextureData> create_texture() {
             auto data = std::make_shared<TextureData>();
             data->path = L"custom";
             data->initialized = true;
@@ -229,8 +203,7 @@ namespace randomizer
         app::GameObject* texture_holder = nullptr;
         constexpr int HOLDER_SIZE = 500;
         int texture_count_0 = 0;
-        app::GameObject* get_or_create_texture_holder()
-        {
+        app::GameObject* get_or_create_texture_holder() {
             if (texture_holder != nullptr)
                 return texture_holder;
 
@@ -245,8 +218,7 @@ namespace randomizer
             return texture_holder;
         }
 
-        void dont_unload_texture(app::Texture* texture)
-        {
+        void dont_unload_texture(app::Texture* texture) {
             auto go = get_or_create_texture_holder();
             auto holder = il2cpp::unity::get_component<app::SpiritShardUIShardBackdrop>(go, "", "SpiritShardUIShardBackdrop");
             if (texture_count_0 >= HOLDER_SIZE)
@@ -255,18 +227,15 @@ namespace randomizer
             holder->fields.Socket_0->vector[texture_count_0++] = texture;
         }
 
-        void clear_holder()
-        {
+        void clear_holder() {
             auto go = get_or_create_texture_holder();
             auto holder = il2cpp::unity::get_component<app::SpiritShardUIShardBackdrop>(go, "", "SpiritShardUIShardBackdrop");
             for (auto i = 0; i < HOLDER_SIZE; ++i)
                 holder->fields.Socket_0->vector[i] = nullptr;
         }
 
-        void TextureData::load_texture()
-        {
-            try
-            {
+        void TextureData::load_texture() {
+            try {
                 texture = 0;
                 auto separator = path.find(':', 0);
                 auto type = std::wstring(path.substr(0, separator));
@@ -274,85 +243,63 @@ namespace randomizer
                 if (type.empty())
                     return;
 
-                if (type == L"shard")
-                {
+                if (type == L"shard") {
                     auto actual_value = static_cast<app::SpiritShardType__Enum>(std::stoi(value));
                     auto settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
-                    if (settings != nullptr)
-                    {
+                    if (settings != nullptr) {
                         auto item = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
                         if (item != nullptr)
                             texture = il2cpp::gchandle_new_weak(item->fields.InventoryIcon, true);
                     }
-                }
-                else if (type == L"ability")
-                {
+                } else if (type == L"ability") {
                     auto actual_value = static_cast<app::AbilityType__Enum>(std::stoi(value));
                     auto settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings")->static_fields->Instance;
-                    if (settings != nullptr)
-                    {
+                    if (settings != nullptr) {
                         auto item = il2cpp::invoke<app::Texture2D>(settings->fields.CustomAbilityIcons, "GetValue", &actual_value);
                         if (item != nullptr)
                             texture = il2cpp::gchandle_new_weak(item, true);
                     }
-                }
-                else if (type == L"spell")
-                {
+                } else if (type == L"spell") {
                     auto actual_value = static_cast<app::EquipmentType__Enum>(std::stoi(value));
                     auto settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings")->static_fields->Instance;
                     auto item = il2cpp::invoke<app::SpellIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
                     if (item != nullptr)
                         texture = il2cpp::gchandle_new_weak(item->fields.InventoryIcon, true);
-                }
-                else if (type == L"opher")
-                {
+                } else if (type == L"opher") {
                     auto actual_value = std::stoi(value);
                     auto screen = il2cpp::get_class<app::WeaponmasterScreen__Class>("", "WeaponmasterScreen")->static_fields->_Instance_k__BackingField;
-                    if (screen != nullptr)
-                    {
+                    if (screen != nullptr) {
                         auto items = screen->fields.WeaponmasterItems;
                         if (actual_value >= 0 && actual_value < items->max_length)
                             texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Upgrade->fields.Icon, true);
                     }
-                }
-                else if (type == L"lupo")
-                {
+                } else if (type == L"lupo") {
                     auto actual_value = std::stoi(value);
                     auto screen = il2cpp::get_class<app::MapmakerScreen__Class>("", "MapmakerScreen")->static_fields->Instance;
-                    if (screen != nullptr)
-                    {
+                    if (screen != nullptr) {
                         auto items = screen->fields.Purchases;
                         if (actual_value >= 0 && actual_value < items->max_length)
                             texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Icon, true);
                     }
-                }
-                else if (type == L"grom")
-                {
+                } else if (type == L"grom") {
                     auto actual_value = std::stoi(value);
                     auto screen = il2cpp::get_class<app::BuilderScreen__Class>("", "BuilderScreen")->static_fields->_Instance_k__BackingField;
-                    if (screen != nullptr)
-                    {
+                    if (screen != nullptr) {
                         auto items = screen->fields.BuilderItems;
                         if (actual_value >= 0 && actual_value < items->max_length)
                             texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Project->fields.Icon, true);
                     }
-                }
-                else if (type == L"tuley")
-                {
+                } else if (type == L"tuley") {
                     auto actual_value = std::stoi(value);
                     auto screen = il2cpp::get_class<app::GardenerScreen__Class>("", "GardenerScreen")->static_fields->_Instance_k__BackingField;
-                    if (screen != nullptr)
-                    {
+                    if (screen != nullptr) {
                         auto items = screen->fields.GardenerItems;
                         if (actual_value >= 0 && actual_value < items->max_length)
                             texture = il2cpp::gchandle_new(items->vector[actual_value]->fields.Project->fields.Icon, true);
                     }
-                }
-                else if (type == L"file")
-                {
+                } else if (type == L"file") {
                     auto it = files.find(path);
-                    if (it != files.end())
-                    {
+                    if (it != files.end()) {
                         texture = it->second;
                         return;
                     }
@@ -365,8 +312,7 @@ namespace randomizer
                     int n = 4;
                     stbi_set_flip_vertically_on_load(true);
                     unsigned char* png_data = stbi_load(texture_path.c_str(), &x, &y, &n, STBI_rgb_alpha);
-                    if (png_data == nullptr)
-                    {
+                    if (png_data == nullptr) {
                         auto icon = 0;
                         auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance->fields.Icons;
                         auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);
@@ -385,84 +331,64 @@ namespace randomizer
                     texture = il2cpp::gchandle_new(texture_ptr, false);
                     files[path] = texture.value();
                     dont_unload_texture(reinterpret_cast<app::Texture*>(texture_ptr));
-                }
-                else
-                {
+                } else {
                     auto stype = convert_wstring_to_string(type);
                     modloader::warn("textures", format("unknown texture protocol used when loading texture '%s'.", stype.c_str()));
                 }
-            }
-            catch (std::exception e)
-            {
+            } catch (std::exception e) {
                 modloader::warn("textures", format("Fatal error fetching texture (%s)", e.what()));
             }
         }
 
-        bool validate_path(std::wstring_view path)
-        {
+        bool validate_path(std::wstring_view path) {
             auto separator = path.find(':', 0);
             if (separator == -1)
                 return false;
 
             auto type = std::wstring(path.substr(0, separator));
             auto value = std::wstring(path.substr(separator + 1));
-            if (type == L"shard")
-            {
+            if (type == L"shard") {
                 auto actual_value = static_cast<app::SpiritShardType__Enum>(std::stoi(value));
                 auto settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
                 auto item = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
                 return item != nullptr;
-            }
-            else if (type == L"ability")
-            {
+            } else if (type == L"ability") {
                 auto actual_value = static_cast<app::AbilityType__Enum>(std::stoi(value));
                 auto settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings")->static_fields->Instance;
                 auto item = il2cpp::invoke<app::Texture2D>(settings->fields.CustomAbilityIcons, "GetValue", &actual_value);
                 return item != nullptr;
-            }
-            else if (type == L"spell")
-            {
+            } else if (type == L"spell") {
                 auto actual_value = static_cast<app::EquipmentType__Enum>(std::stoi(value));
                 auto settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings")->static_fields->Instance;
                 auto item = il2cpp::invoke<app::SpellIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
                 return item != nullptr;
-            }
-            else if (type == L"opher")
-            {
+            } else if (type == L"opher") {
                 auto actual_value = std::stoi(value);
                 auto screen = il2cpp::get_class<app::WeaponmasterScreen__Class>("", "WeaponmasterScreen")->static_fields->_Instance_k__BackingField;
                 auto items = screen->fields.WeaponmasterItems;
                 return actual_value >= 0 && actual_value < items->max_length;
-            }
-            else if (type == L"lupo")
-            {
+            } else if (type == L"lupo") {
                 auto actual_value = std::stoi(value);
                 auto screen = il2cpp::get_class<app::MapmakerScreen__Class>("", "MapmakerScreen")->static_fields->Instance;
                 auto items = screen->fields.Purchases;
                 return actual_value >= 0 && actual_value < items->max_length;
-            }
-            else if (type == L"grom")
-            {
+            } else if (type == L"grom") {
                 auto actual_value = std::stoi(value);
                 auto screen = il2cpp::get_class<app::BuilderScreen__Class>("", "BuilderScreen")->static_fields->_Instance_k__BackingField;
                 auto items = screen->fields.BuilderItems;
                 return actual_value >= 0 && actual_value < items->max_length;
-            }
-            else if (type == L"tuley")
-            {
+            } else if (type == L"tuley") {
                 auto actual_value = std::stoi(value);
                 auto screen = il2cpp::get_class<app::GardenerScreen__Class>("", "GardenerScreen")->static_fields->_Instance_k__BackingField;
                 auto items = screen->fields.GardenerItems;
                 return actual_value >= 0 && actual_value < items->max_length;
-            }
-            else if (type == L"file")
+            } else if (type == L"file")
                 return true;
 
             return false;
         }
 
-        std::shared_ptr<TextureData> get_texture(std::wstring_view path)
-        {
+        std::shared_ptr<TextureData> get_texture(std::wstring_view path) {
             auto data = std::make_shared<TextureData>();
             data->path = std::wstring(path);
             data->initialized = true;
@@ -476,13 +402,10 @@ namespace randomizer
             return data;
         }
 
-        INJECT_C_DLLEXPORT void reload_all_file_textures()
-        {
+        INJECT_C_DLLEXPORT void reload_all_file_textures() {
             clear_holder();
-            for (auto collection : file_instances)
-            {
-                for (auto it = collection.second.begin(); it != collection.second.end(); ++it)
-                {
+            for (auto collection : file_instances) {
+                for (auto it = collection.second.begin(); it != collection.second.end(); ++it) {
                     if ((*it).expired())
                         continue;
 
@@ -492,5 +415,5 @@ namespace randomizer
                 }
             }
         }
-    }
-}
+    } // namespace textures
+} // namespace randomizer

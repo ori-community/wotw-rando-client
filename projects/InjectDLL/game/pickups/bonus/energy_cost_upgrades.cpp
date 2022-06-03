@@ -1,16 +1,15 @@
-#include <macros.h>
 #include <game/player.h>
+#include <macros.h>
 #include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/interception_macros.h>
 
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 using namespace modloader;
 
-namespace
-{
+namespace {
     std::unordered_map<app::AbilityType__Enum, std::vector<float>> initial_costs;
     uber_states::UberState blaze_cost(UberStateGroup::RandoUpgrade, 2);
     uber_states::UberState spear_cost(UberStateGroup::RandoUpgrade, 3);
@@ -21,8 +20,7 @@ namespace
     uber_states::UberState flash_cost(UberStateGroup::RandoUpgrade, 8);
     uber_states::UberState grenade_cost(UberStateGroup::RandoUpgrade, 9);
 
-    void update_blaze(float modifier)
-    {
+    void update_blaze(float modifier) {
         auto& cost = initial_costs[app::AbilityType__Enum_Blaze];
         auto* sein = game::player::sein();
         if (sein == nullptr)
@@ -33,8 +31,7 @@ namespace
             return;
 
         auto* const balance = blaze->fields.State->fields.Balancing;
-        if (cost.empty())
-        {
+        if (cost.empty()) {
             cost.push_back(balance->fields.BlazeSettingsLevel1->fields.BlazeCost);
             cost.push_back(balance->fields.BlazeSettingsLevel1->fields.FullBlazeCost);
             cost.push_back(balance->fields.BlazeSettingsLevel2->fields.BlazeCost);
@@ -51,8 +48,7 @@ namespace
         balance->fields.BlazeSettingsLevel3->fields.FullBlazeCost = cost[5] * modifier;
     }
 
-    void update_sentry(float modifier)
-    {
+    void update_sentry(float modifier) {
         auto& cost = initial_costs[app::AbilityType__Enum_TurretSpell];
         auto* sein = game::player::sein();
         if (sein == nullptr)
@@ -68,8 +64,7 @@ namespace
         sentry->fields.BalancingData->fields.EnergyCost = cost[0] * modifier;
     }
 
-    void update_spike(float modifier)
-    {
+    void update_spike(float modifier) {
         auto& cost = initial_costs[app::AbilityType__Enum_SpiritSpearSpell];
         auto* sein = game::player::sein();
         if (sein == nullptr)
@@ -87,8 +82,7 @@ namespace
         spear->fields.State->fields.EnergyCost = cost[0] * modifier;
     }
 
-    void update_shuriken(float modifier)
-    {
+    void update_shuriken(float modifier) {
         auto& cost = initial_costs[app::AbilityType__Enum_ChakramSpell];
         auto* sein = game::player::sein();
         if (sein == nullptr)
@@ -98,8 +92,7 @@ namespace
         if (!shuriken->fields.HasState)
             return;
 
-        if (cost.empty())
-        {
+        if (cost.empty()) {
             cost.push_back(shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel1->fields.EnergyCost);
             cost.push_back(shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel2->fields.EnergyCost);
         }
@@ -108,8 +101,7 @@ namespace
         shuriken->fields.State->fields.Balancing->fields.ChakramSettingsLevel2->fields.EnergyCost = cost[1] * modifier;
     }
 
-    void update_bow(float modifier)
-    {
+    void update_bow(float modifier) {
         auto& cost = initial_costs[app::AbilityType__Enum_Bow];
         auto* sein = game::player::sein();
         if (sein == nullptr)
@@ -119,8 +111,7 @@ namespace
         if (!bow->fields.HasState)
             return;
 
-        if (cost.empty())
-        {
+        if (cost.empty()) {
             cost.push_back(bow->fields.State->fields.Balancing->fields.ArrowEnergyCost);
             cost.push_back(bow->fields.State->fields.Balancing->fields.ChargeShotEnergyCost);
         }
@@ -129,8 +120,7 @@ namespace
         bow->fields.State->fields.Balancing->fields.ChargeShotEnergyCost = cost[1] * modifier;
     }
 
-    void update_regeneration(float modifier)
-    {
+    void update_regeneration(float modifier) {
         auto& cost = initial_costs[app::AbilityType__Enum_MeditateSpell];
         auto* sein = game::player::sein();
         if (sein == nullptr)
@@ -140,8 +130,7 @@ namespace
         if (!meditate->fields.HasState)
             return;
 
-        if (cost.empty())
-        {
+        if (cost.empty()) {
             cost.push_back(meditate->fields.State->fields.Balancing->fields.m_energyPerHeal);
             cost.push_back(meditate->fields.State->fields.Balancing->fields.EnergyPerFullHeal);
         }
@@ -150,8 +139,7 @@ namespace
         meditate->fields.State->fields.Balancing->fields.EnergyPerFullHeal = cost[1] * modifier;
     }
 
-    void update_flash(float modifier)
-    {
+    void update_flash(float modifier) {
         auto& cost = initial_costs[app::AbilityType__Enum_GlowSpell];
         auto* sein = game::player::sein();
         if (sein == nullptr)
@@ -161,8 +149,7 @@ namespace
         if (!flash->fields.HasState)
             return;
 
-        if (cost.empty())
-        {
+        if (cost.empty()) {
             cost.push_back(flash->fields.State->fields.Balancing->fields.QuickGlowEnergyDrainPerSecond);
             cost.push_back(flash->fields.State->fields.Balancing->fields.QuickGlowEnergyCost);
             cost.push_back(flash->fields.State->fields.Balancing->fields.FullGlowEnergyCost);
@@ -173,15 +160,12 @@ namespace
         flash->fields.State->fields.Balancing->fields.FullGlowEnergyCost = cost[2] * modifier;
     }
 
-    void update_grenade(float modifier)
-    {
+    void update_grenade(float modifier) {
         auto& cost = initial_costs[app::AbilityType__Enum_Grenade];
         auto* sein = game::player::sein();
-        if (sein != nullptr)
-        {
+        if (sein != nullptr) {
             auto* const grenade = sein->fields.Abilities->fields.GrenadeWrapper;
-            if (grenade->fields.HasState)
-            {
+            if (grenade->fields.HasState) {
                 if (cost.empty())
                     cost.push_back(grenade->fields.State->fields.Balancing->fields.EnergyCost);
 
@@ -189,10 +173,9 @@ namespace
             }
         }
     }
-}
+} // namespace
 
-INJECT_C_DLLEXPORT void refresh_ability_energy_modifiers()
-{
+INJECT_C_DLLEXPORT void refresh_ability_energy_modifiers() {
     update_blaze(blaze_cost.get<float>());
     update_spike(spear_cost.get<float>());
     update_shuriken(shuriken_cost.get<float>());

@@ -1,9 +1,7 @@
 #pragma once
 
-namespace text_database
-{
-    enum class StaticTextEntries
-    {
+namespace text_database {
+    enum class StaticTextEntries {
         Empty,
         EmptyName,
 
@@ -72,4 +70,6 @@ namespace text_database
 }
 
 using static_text_entries = text_database::StaticTextEntries;
-inline int operator *(static_text_entries entry) { return static_cast<int>(entry); }
+inline int operator*(static_text_entries entry) {
+    return static_cast<int>(entry);
+}

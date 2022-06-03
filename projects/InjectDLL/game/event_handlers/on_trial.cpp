@@ -4,9 +4,8 @@
 
 bool is_in_trial = false;
 
-namespace
-{
-    IL2CPP_INTERCEPT(, RaceHandler, void, SetRaceInProgressState, (app::RaceHandler* this_ptr, bool in_progress)) {
+namespace {
+    IL2CPP_INTERCEPT(, RaceHandler, void, SetRaceInProgressState, (app::RaceHandler * this_ptr, bool in_progress)) {
         is_in_trial = in_progress;
         if (in_progress)
             csharp_bridge::on_race_start();
@@ -15,4 +14,4 @@ namespace
 
         RaceHandler::SetRaceInProgressState(this_ptr, in_progress);
     }
-}
+} // namespace

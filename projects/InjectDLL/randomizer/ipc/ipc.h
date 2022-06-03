@@ -5,13 +5,11 @@
 #include <macros.h>
 #include <string_view>
 
-namespace randomizer
-{
-    namespace ipc
-    {
-        using request_handler = void(*)(nlohmann::json& j);
+namespace randomizer {
+    namespace ipc {
+        using request_handler = void (*)(nlohmann::json& j);
 
         void send_message(std::string_view message);
         void register_request_handler(std::string_view name, request_handler handler);
-    }
-}
+    } // namespace ipc
+} // namespace randomizer

@@ -1,7 +1,7 @@
+#include <Il2CppModLoader/console.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 #include <game/player.h>
 #include <interop/csharp_bridge.h>
-#include <Il2CppModLoader/il2cpp_helpers.h>
-#include <Il2CppModLoader/console.h>
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
@@ -11,27 +11,24 @@
 
 using namespace modloader;
 
-namespace
-{
-    struct BoundingRect
-    {
+namespace {
+    struct BoundingRect {
         float left, right, bottom, top, front, back;
     };
 
-    bool in_rect(BoundingRect const& rect, float x, float y, float z)
-    {
+    bool in_rect(BoundingRect const& rect, float x, float y, float z) {
         return !(
-            x < rect.left ||
-            x > rect.right ||
-            y < rect.bottom ||
-            y > rect.top ||
-            z < rect.front ||
-            z > rect.back
+                x < rect.left ||
+                x > rect.right ||
+                y < rect.bottom ||
+                y > rect.top ||
+                z < rect.front ||
+                z > rect.back
         );
     }
 
-    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter* this_ptr));
-    IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter* this_ptr, app::Vector3 value));
+    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter * this_ptr));
+    IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter * this_ptr, app::Vector3 value));
 
     // Hardcoded position, front of entrance to Shriek fight.
     const app::Vector3 goal_reset_position = { 515.189453, -3745.529785, 0.0 };
@@ -45,23 +42,22 @@ namespace
         1.0f
     };
 
-    IL2CPP_BINDING(, GameplayCamera, void, MoveCameraToTargetInstantly, (app::GameplayCamera* this_ptr, bool updateTargetPosition));
+    IL2CPP_BINDING(, GameplayCamera, void, MoveCameraToTargetInstantly, (app::GameplayCamera * this_ptr, bool updateTargetPosition));
 
     bool set_camera_next_update = false;
     uber_states::UberState goal_modes_complete(UberStateGroup::GameState, 11);
-    IL2CPP_INTERCEPT(, SeinCharacter, void, FixedUpdate, (app::SeinCharacter* this_ptr)) {
-        if (!goal_modes_complete.get<bool>())
-        {
+    IL2CPP_INTERCEPT(, SeinCharacter, void, FixedUpdate, (app::SeinCharacter * this_ptr)) {
+        if (!goal_modes_complete.get<bool>()) {
             auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
             if (set_camera_next_update) {
-              if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
-                // We need to do this on the next frame to allow state to update without causing flickering.
-                auto camera = cameras->static_fields->Current;
-                GameplayCamera::MoveCameraToTargetInstantly(camera, true);
-              } else {
-                warn("goal mode tp", "failed to refocus camera");
-              }
-              set_camera_next_update = false;
+                if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
+                    // We need to do this on the next frame to allow state to update without causing flickering.
+                    auto camera = cameras->static_fields->Current;
+                    GameplayCamera::MoveCameraToTargetInstantly(camera, true);
+                } else {
+                    warn("goal mode tp", "failed to refocus camera");
+                }
+                set_camera_next_update = false;
             }
 
             SeinCharacter::FixedUpdate(this_ptr);
@@ -71,27 +67,22 @@ namespace
                 csharp_bridge::on_goal_mode_fail();
                 set_camera_next_update = true;
             }
-        }
-        else
+        } else
             SeinCharacter::FixedUpdate(this_ptr);
     }
 
-    void report_player_position(std::string const& command, std::vector<console::CommandParam> const& params)
-    {
+    void report_player_position(std::string const& command, std::vector<console::CommandParam> const& params) {
         const auto sein = game::player::sein();
-        if (sein != nullptr)
-        {
+        if (sein != nullptr) {
             const auto position = SeinCharacter::get_Position(sein);
             console::console_send(format("sein pos: {%f, %f, %f}", position.x, position.y, position.z));
-        }
-        else
+        } else
             console::console_send("sein not available.");
     }
 
-    void add_goal_commands()
-    {
+    void add_goal_commands() {
         console::register_command({ "debug", "report_player_position" }, report_player_position);
     }
 
     CALL_ON_INIT(add_goal_commands);
-}
+} // namespace

@@ -7,8 +7,7 @@
 #include <unordered_map>
 
 namespace {
-    enum class NodeType
-    {
+    enum class NodeType {
         Rect,
         Circle
     };
@@ -18,9 +17,8 @@ namespace {
         quadtree::Box<float> box;
     };
 
-    using get_box = quadtree::Box<float>(*)(Node* node);
-    quadtree::Box<float> get_node_box(Node* node)
-    {
+    using get_box = quadtree::Box<float> (*)(Node* node);
+    quadtree::Box<float> get_node_box(Node* node) {
         return node->box;
     }
 
@@ -29,18 +27,16 @@ namespace {
     std::unordered_map<int, std::unique_ptr<Node>> nodes;
     quadtree::Quadtree<Node*, get_box> tree(main, get_node_box);
     std::vector<int> last_results;
-}
+} // namespace
 
-INJECT_C_DLLEXPORT int collision_reserve_id()
-{
+INJECT_C_DLLEXPORT int collision_reserve_id() {
     return next++;
 }
 
-INJECT_C_DLLEXPORT int collision_query(app::Vector2 position, app::Vector2 size)
-{
+INJECT_C_DLLEXPORT int collision_query(app::Vector2 position, app::Vector2 size) {
     quadtree::Box<float> box(
-        quadtree::Vector2(position.x, position.y),
-        quadtree::Vector2(size.x, size.y)
+            quadtree::Vector2(position.x, position.y),
+            quadtree::Vector2(size.x, size.y)
     );
 
     auto output = tree.query(box);
@@ -49,35 +45,32 @@ INJECT_C_DLLEXPORT int collision_query(app::Vector2 position, app::Vector2 size)
     return last_results.size();
 }
 
-INJECT_C_DLLEXPORT void collision_query_result(int* buffer, int size)
-{
+INJECT_C_DLLEXPORT void collision_query_result(int* buffer, int size) {
     std::memcpy(buffer, last_results.data(), std::min(static_cast<int>(last_results.size()), size));
 }
 
-INJECT_C_DLLEXPORT void collision_add_rect(int id, app::Vector2 position, app::Vector2 size)
-{
+INJECT_C_DLLEXPORT void collision_add_rect(int id, app::Vector2 position, app::Vector2 size) {
     auto it = nodes.find(id);
     if (it != nodes.end())
         collision_remove(id);
 
     quadtree::Box<float> box(
-        quadtree::Vector2(position.x, position.y),
-        quadtree::Vector2(size.x, size.y)
+            quadtree::Vector2(position.x, position.y),
+            quadtree::Vector2(size.x, size.y)
     );
 
     auto node = std::make_unique<Node>();
     node->id = id;
     node->box = quadtree::Box<float>(
-        quadtree::Vector2(position.x, position.y),
-        quadtree::Vector2(size.x, size.y)
+            quadtree::Vector2(position.x, position.y),
+            quadtree::Vector2(size.x, size.y)
     );
 
     tree.add(node.get());
     nodes.emplace(id, std::move(node));
 }
 
-INJECT_C_DLLEXPORT void collision_remove(int id)
-{
+INJECT_C_DLLEXPORT void collision_remove(int id) {
     auto it = nodes.find(id);
     if (it == nodes.end())
         return;
@@ -86,8 +79,7 @@ INJECT_C_DLLEXPORT void collision_remove(int id)
     nodes.erase(it);
 }
 
-INJECT_C_DLLEXPORT void collision_clear()
-{
+INJECT_C_DLLEXPORT void collision_clear() {
     tree = quadtree::Quadtree<Node*, get_box>(main, get_node_box);
     nodes.clear();
     next = 1;

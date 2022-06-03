@@ -2,8 +2,7 @@
 
 #include <string>
 
-enum class UberStateGroup
-{
+enum class UberStateGroup {
     Invalid = -1,
     // Rando groups
     Tree = 0,

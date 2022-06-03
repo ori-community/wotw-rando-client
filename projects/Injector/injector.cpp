@@ -1,16 +1,16 @@
 #include <Common/ext.h>
 
 #include <conio.h>
-#include <iostream>
 #include <stdio.h>
-#include <string>
 #include <array>
 #include <filesystem>
-#include <vector>
+#include <iostream>
+#include <string>
 #include <thread>
+#include <vector>
 
-#include <windows.h>
 #include <tlhelp32.h>
+#include <windows.h>
 
 #include <Common/settings.h>
 
@@ -26,18 +26,15 @@ std::string base_path = "C:\\moon\\randomizer\\";
 std::string dll_name = "InjectLoader.dll";
 std::string settings_name = "settings.ini";
 
-bool find_base_path(std::string& output_path)
-{
+bool find_base_path(std::string& output_path) {
     wchar_t path[MAX_PATH];
     HMODULE handle = nullptr;
-    if (GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCWSTR)&find_base_path, &handle) == 0)
-    {
+    if (GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCWSTR)&find_base_path, &handle) == 0) {
         std::cout << "failed to GetModuleHandle, error: " << GetLastError() << std::endl;
         return false;
     }
 
-    if (GetModuleFileNameW(handle, path, sizeof(path)) == 0)
-    {
+    if (GetModuleFileNameW(handle, path, sizeof(path)) == 0) {
         std::cout << "failed to GetModuleFileName, error: " << GetLastError() << std::endl;
         return false;
     }
@@ -48,27 +45,24 @@ bool find_base_path(std::string& output_path)
     return true;
 }
 
-std::vector<DWORD> find_process_id(const char* processname)
-{
+std::vector<DWORD> find_process_id(const char* processname) {
     HANDLE hProcessSnap;
     PROCESSENTRY32 pe32;
     std::vector<DWORD> results;
-    
+
     hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
     if (INVALID_HANDLE_VALUE == hProcessSnap)
         return results;
 
     pe32.dwSize = sizeof(PROCESSENTRY32); // <----- IMPORTANT
-    
-    if (!Process32First(hProcessSnap, &pe32))
-    {
+
+    if (!Process32First(hProcessSnap, &pe32)) {
         CloseHandle(hProcessSnap);
         logstream << "failed to gather information on system processes!" << pe32.szExeFile << std::endl;
         return results;
     }
 
-    do
-    {
+    do {
         if (0 == strcmp(processname, pe32.szExeFile))
             results.push_back(pe32.th32ProcessID);
 
@@ -79,18 +73,15 @@ std::vector<DWORD> find_process_id(const char* processname)
     return results;
 }
 
-bool load_dll(HANDLE process_handle, PTHREAD_START_ROUTINE load_function, const char* path, int length)
-{
+bool load_dll(HANDLE process_handle, PTHREAD_START_ROUTINE load_function, const char* path, int length) {
     auto memory_address = VirtualAllocEx(process_handle, nullptr, length, MEM_COMMIT | MEM_RESERVE, 0X40);
-    if (memory_address == nullptr)
-    {
+    if (memory_address == nullptr) {
         auto error = GetLastError();
         logstream << "failed to allocate memory on process " << error << std::endl;
         return false;
     }
 
-    if (WriteProcessMemory(process_handle, memory_address, path, length, 0) == 0)
-    {
+    if (WriteProcessMemory(process_handle, memory_address, path, length, 0) == 0) {
         auto error = GetLastError();
         VirtualFreeEx(process_handle, memory_address, 0, MEM_RELEASE);
         logstream << "failed to write memory to process " << error << std::endl;
@@ -100,8 +91,7 @@ bool load_dll(HANDLE process_handle, PTHREAD_START_ROUTINE load_function, const 
     _SECURITY_ATTRIBUTES security_attributes;
 
     auto thread_handle = CreateRemoteThread(process_handle, nullptr, 0, load_function, memory_address, 0, nullptr);
-    if (thread_handle == nullptr)
-    {
+    if (thread_handle == nullptr) {
         auto error = GetLastError();
         VirtualFreeEx(process_handle, memory_address, 0, MEM_RELEASE);
         logstream << "failed to create thread on process: " << error << std::endl;
@@ -109,16 +99,14 @@ bool load_dll(HANDLE process_handle, PTHREAD_START_ROUTINE load_function, const 
     }
 
     bool output = true;
-    while (true)
-    {
+    while (true) {
         WaitForSingleObject(thread_handle, INFINITE);
         unsigned long ret = 0;
         if (GetExitCodeThread(thread_handle, &ret) != 0) {
             logstream << "thread return code was: " << ret << std::endl;
             output = ret != 0;
             break;
-        }
-        else
+        } else
             logstream << "thread has not finished" << std::endl;
     }
 
@@ -127,11 +115,11 @@ bool load_dll(HANDLE process_handle, PTHREAD_START_ROUTINE load_function, const 
     return output;
 }
 
-void listen_for_ori()
-{
+void listen_for_ori() {
     while (true) {
         if (shutting_down)
-            break;;
+            break;
+        ;
 
         HWND window = FindWindow(nullptr, "OriAndTheWilloftheWisps");
         if (window == 0)
@@ -142,8 +130,7 @@ void listen_for_ori()
 
     if (nowait)
         logstream << "Ori stopped running. Exiting..." << std::endl;
-    else
-    {
+    else {
         logstream << "Ori stopped running. Exiting in 4s..." << std::endl;
         Sleep(4000);
     }
@@ -151,8 +138,7 @@ void listen_for_ori()
     exit(0);
 }
 
-int actual_main()
-{
+int actual_main() {
     find_base_path(base_path);
 
     IniSettings settings(create_randomizer_settings(base_path));
@@ -173,8 +159,7 @@ int actual_main()
     }
 
     // We hit the end of the loop.
-    if (i == 300)
-    {
+    if (i == 300) {
         logstream << "failed to find window" << std::endl;
         return -1;
     }
@@ -182,35 +167,30 @@ int actual_main()
     Sleep(inject_delay);
 
     auto load_function = reinterpret_cast<PTHREAD_START_ROUTINE>(GetProcAddress(GetModuleHandle("Kernel32"), "LoadLibraryA"));
-    if (load_function == nullptr)
-    {
+    if (load_function == nullptr) {
         logstream << "failed to get load function pointer" << std::endl;
         return -1;
     }
 
     auto process_ids = find_process_id(
-        use_win_store ?
-        store_process_name.c_str() :
-        steam_process_name.c_str()
+            use_win_store ? store_process_name.c_str() : steam_process_name.c_str()
     );
 
-    if (process_ids.empty())
-    {
+    if (process_ids.empty()) {
         logstream << "failed to find process " << GetLastError() << std::endl;
         return -1;
     }
 
     HANDLE process_handle = nullptr;
-    for (auto id : process_ids)
-    {
+    for (auto id : process_ids) {
         DWORD access =
-            PROCESS_VM_OPERATION |
-            PROCESS_VM_WRITE |
-            PROCESS_CREATE_THREAD |
-            PROCESS_QUERY_INFORMATION |
-            PROCESS_VM_READ |
-            SYNCHRONIZE |
-            PROCESS_TERMINATE;
+                PROCESS_VM_OPERATION |
+                PROCESS_VM_WRITE |
+                PROCESS_CREATE_THREAD |
+                PROCESS_QUERY_INFORMATION |
+                PROCESS_VM_READ |
+                SYNCHRONIZE |
+                PROCESS_TERMINATE;
         process_handle = OpenProcess(access, 1, id);
         if (process_handle != nullptr)
             break;
@@ -218,13 +198,12 @@ int actual_main()
             logstream << "failed to open process [" << id << "] error " << GetLastError() << std::endl;
     }
 
-    if (process_handle == nullptr)
-    {
+    if (process_handle == nullptr) {
         logstream << "failed to open processes for injection, terminating." << std::endl;
         return -1;
     }
 
-    //load_dll(process_handle, load_function, base_path + dll_name);
+    // load_dll(process_handle, load_function, base_path + dll_name);
     auto dll_path = base_path + "\\" + dll_name;
     std::cout << "loading dll: " << dll_path << std::endl;
     if (load_dll(process_handle, load_function, dll_path.c_str(), dll_path.size()))
@@ -236,8 +215,7 @@ int actual_main()
     return 0;
 }
 
-int main(int param_count, char** argc)
-{
+int main(int param_count, char** argc) {
     for (int i = 1; i < param_count; ++i) {
         if (std::string_view(argc[i]) == "/nowait")
             nowait = true;

@@ -1,8 +1,8 @@
 #include "faderb.h"
 
-#include <Il2CppModLoader/interception_macros.h>
-#include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/console.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
 
 namespace faderb {
     namespace {
@@ -17,9 +17,11 @@ namespace faderb {
             return faderb_cache;
         }
 
-        IL2CPP_BINDING_OVERLOAD(, FaderB, void, FadeIn, (app::FaderB* this_ptr, float duration), (System:Single))
-        IL2CPP_BINDING_OVERLOAD(, FaderB, void, FadeOut, (app::FaderB* this_ptr, float duration), (System:Single))
-    }
+        IL2CPP_BINDING_OVERLOAD(, FaderB, void, FadeIn, (app::FaderB * this_ptr, float duration), (System
+                                                                                                   : Single))
+        IL2CPP_BINDING_OVERLOAD(, FaderB, void, FadeOut, (app::FaderB * this_ptr, float duration), (System
+                                                                                                    : Single))
+    } // namespace
 
     void fade_in(float duration) {
         FaderB::FadeIn(get_faderb(), duration);
@@ -28,4 +30,4 @@ namespace faderb {
     void fade_out(float duration) {
         FaderB::FadeOut(get_faderb(), duration);
     }
-}
+} // namespace faderb

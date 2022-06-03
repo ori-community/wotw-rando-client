@@ -5,24 +5,20 @@
 #include <string_view>
 #include <vector>
 
-namespace il2cpp
-{
-    struct MethodOverloadInfo
-    {
+namespace il2cpp {
+    struct MethodOverloadInfo {
         std::string name;
         int param_count;
         std::vector<MethodInfo const*> methods;
     };
 
-    struct KlassDescriptor
-    {
+    struct KlassDescriptor {
         std::string namezpace;
         std::string name;
         Il2CppClass* klass;
     };
 
-    namespace untyped
-    {
+    namespace untyped {
         IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* create_object(std::string_view namezpace, std::string_view klass, std::string_view nested);
         IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* create_object(std::string_view namezpace, std::string_view name);
         IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* create_object(Il2CppClass* klass);
@@ -35,7 +31,7 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new(Il2CppClass* element, il2cpp_array_size_t length);
         IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new_specific(Il2CppClass* array_klass, il2cpp_array_size_t length);
         IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new_full(Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds);
-    }
+    } // namespace untyped
 
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
     IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new(void* obj, bool pinned);
@@ -66,20 +62,17 @@ namespace il2cpp
 
     IL2CPP_MODLOADER_DLLEXPORT MethodInfo* resolve_generic_method(uint64_t address);
 
-    template<typename Return = Il2CppClass>
-    Return* get_class(std::string_view namezpace, std::string_view name)
-    {
+    template <typename Return = Il2CppClass>
+    Return* get_class(std::string_view namezpace, std::string_view name) {
         return reinterpret_cast<Return*>(untyped::get_class(namezpace, name));
     }
 
-    template<typename Return = Il2CppClass>
-    Return* get_nested_class(std::string_view namezpace, std::string_view name, std::string_view nested)
-    {
+    template <typename Return = Il2CppClass>
+    Return* get_nested_class(std::string_view namezpace, std::string_view name, std::string_view nested) {
         return reinterpret_cast<Return*>(untyped::get_nested_class(namezpace, name, nested));
     }
 
-    namespace unity
-    {
+    namespace unity {
         IL2CPP_MODLOADER_DLLEXPORT app::ScriptableObject* create_scriptable_object_untyped(Il2CppClass* klass);
 
         IL2CPP_MODLOADER_DLLEXPORT bool is_valid(void* obj);
@@ -130,21 +123,18 @@ namespace il2cpp
         IL2CPP_MODLOADER_DLLEXPORT std::string get_scene_name(app::Scene& scene);
         IL2CPP_MODLOADER_DLLEXPORT std::string get_scene_path(app::Scene& scene);
 
-        template<typename T>
-        T* instantiate_object(T* object)
-        {
+        template <typename T>
+        T* instantiate_object(T* object) {
             return reinterpret_cast<T*>(instantiate_object_untyped(object));
         }
 
-        template<typename Return = app::Component>
-        Return* add_component(app::GameObject* game_object, std::string_view namezpace, std::string_view name)
-        {
+        template <typename Return = app::Component>
+        Return* add_component(app::GameObject* game_object, std::string_view namezpace, std::string_view name) {
             return reinterpret_cast<Return*>(add_component_untyped(game_object, namezpace, name));
         }
 
-        template<typename Return = app::Component>
-        std::vector<Return*> get_components(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component")
-        {
+        template <typename Return = app::Component>
+        std::vector<Return*> get_components(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component") {
             auto components = get_components_untyped(game_object, namezpace, name);
             std::vector<Return*> output;
             for (auto component : components)
@@ -153,16 +143,14 @@ namespace il2cpp
             return output;
         }
 
-        template<typename Return = app::Component>
-        Return* get_component(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component")
-        {
+        template <typename Return = app::Component>
+        Return* get_component(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component") {
             auto components = get_components_untyped(game_object, namezpace, name);
             return components.size() > 0 ? reinterpret_cast<Return*>(components.front()) : nullptr;
         }
 
-        template<typename Return = app::Component>
-        std::vector<Return*> get_components(void* obj, std::string_view namezpace = "UnityEngine", std::string_view name = "Component")
-        {
+        template <typename Return = app::Component>
+        std::vector<Return*> get_components(void* obj, std::string_view namezpace = "UnityEngine", std::string_view name = "Component") {
             Il2CppObject* il2cpp_object = reinterpret_cast<Il2CppObject*>(obj);
             if (is_assignable(il2cpp_object, "UnityEngine", "GameObject"))
                 return get_components<Return>(obj, namezpace, name);
@@ -172,9 +160,8 @@ namespace il2cpp
                 return {};
         }
 
-        template<typename Return = app::Component>
-        Return* get_component(void* obj, std::string_view namezpace = "UnityEngine", std::string_view name = "Component")
-        {
+        template <typename Return = app::Component>
+        Return* get_component(void* obj, std::string_view namezpace = "UnityEngine", std::string_view name = "Component") {
             Il2CppObject* il2cpp_object = reinterpret_cast<Il2CppObject*>(obj);
             if (is_assignable(il2cpp_object, "UnityEngine", "GameObject"))
                 return get_component<Return>(obj, namezpace, name);
@@ -184,47 +171,40 @@ namespace il2cpp
                 return nullptr;
         }
 
-        template<typename Return = app::Component>
-        Return* get_component_in_children(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component")
-        {
+        template <typename Return = app::Component>
+        Return* get_component_in_children(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component") {
             return reinterpret_cast<Return*>(get_component_in_children_untyped(game_object, namezpace, name));
         }
 
-        template<typename Return = app::Component>
-        std::vector<Return*> get_components_in_children(void* obj, std::string_view namezpace = "UnityEngine", std::string_view name = "Component")
-        {
+        template <typename Return = app::Component>
+        std::vector<Return*> get_components_in_children(void* obj, std::string_view namezpace = "UnityEngine", std::string_view name = "Component") {
             Il2CppObject* il2cpp_object = reinterpret_cast<Il2CppObject*>(obj);
-            if (is_assignable(il2cpp_object, "UnityEngine", "GameObject"))
-            {
+            if (is_assignable(il2cpp_object, "UnityEngine", "GameObject")) {
                 auto components = get_components_in_children_untyped(reinterpret_cast<app::GameObject*>(obj), namezpace, name);
                 std::vector<Return*> output;
                 for (auto component : components)
                     output.push_back(reinterpret_cast<Return*>(component));
 
                 return output;
-            }
-            else if (is_assignable(il2cpp_object, "UnityEngine", "Component"))
+            } else if (is_assignable(il2cpp_object, "UnityEngine", "Component"))
                 return get_components_in_children<Return>(get_game_object(obj), namezpace, name);
             else
                 return {};
         }
 
-        template<typename Return = app::ScriptableObject>
-        Return* create_scriptable_object(Il2CppClass* klass)
-        {
+        template <typename Return = app::ScriptableObject>
+        Return* create_scriptable_object(Il2CppClass* klass) {
             return reinterpret_cast<Return*>(create_scriptable_object_untyped(klass));
         }
 
-        template<typename Return = app::ScriptableObject>
-        Return* create_scriptable_object(std::string_view namezpace, std::string_view name)
-        {
+        template <typename Return = app::ScriptableObject>
+        Return* create_scriptable_object(std::string_view namezpace, std::string_view name) {
             return create_scriptable_object<Return>(get_class(namezpace, name));
         }
-    }
+    } // namespace unity
 
-    template<typename R = Il2CppArraySize, typename T>
-    R* array_new(Il2CppClass* element, std::vector<T> items)
-    {
+    template <typename R = Il2CppArraySize, typename T>
+    R* array_new(Il2CppClass* element, std::vector<T> items) {
         auto arr = untyped::array_new(element, items.size());
         auto elements = reinterpret_cast<T*>(arr->vector);
         for (auto i = 0; i < items.size(); ++i)
@@ -235,83 +215,71 @@ namespace il2cpp
 
     void load_all_types();
 
-    template<typename Return>
-    Return* gchandle_target(uint32_t handle)
-    {
+    template <typename Return>
+    Return* gchandle_target(uint32_t handle) {
         return reinterpret_cast<Return*>(il2cpp::gchandle_target(handle));
     }
 
     // Templates
 
-    template<typename TObject>
-    TObject* safe_il2cpp_cast(void* obj, std::string_view namezpace, std::string_view name)
-    {
+    template <typename TObject>
+    TObject* safe_il2cpp_cast(void* obj, std::string_view namezpace, std::string_view name) {
         if (!is_assignable(obj, namezpace, name))
             return nullptr;
 
         return reinterpret_cast<TObject*>(obj);
     }
 
-    template<typename T>
-    T* create_object(std::string_view namezpace, std::string_view klass, std::string_view nested)
-    {
+    template <typename T>
+    T* create_object(std::string_view namezpace, std::string_view klass, std::string_view nested) {
         return reinterpret_cast<T*>(untyped::create_object(namezpace, klass, nested));
     }
 
-    template<typename T>
-    T* create_object(std::string_view namezpace, std::string_view name)
-    {
+    template <typename T>
+    T* create_object(std::string_view namezpace, std::string_view name) {
         return reinterpret_cast<T*>(untyped::create_object(namezpace, name));
     }
 
-    template<typename T>
-    T* create_object(Il2CppClass* klass)
-    {
+    template <typename T>
+    T* create_object(Il2CppClass* klass) {
         return reinterpret_cast<T*>(untyped::create_object(klass));
     }
 
-    template<typename Return = Il2CppObject>
-    Return* invoke(void* obj, std::string_view method)
-    {
+    template <typename Return = Il2CppObject>
+    Return* invoke(void* obj, std::string_view method) {
         std::vector<void*> collected_params;
         return reinterpret_cast<Return*>(invoke_v(obj, method, collected_params));
     }
 
-    template<typename Return = Il2CppObject, typename ...Args>
-    Return* invoke(void* obj, std::string_view method, Args ... params)
-    {
+    template <typename Return = Il2CppObject, typename... Args>
+    Return* invoke(void* obj, std::string_view method, Args... params) {
         std::vector<void*> collected_params{ { reinterpret_cast<void*>(params)... } };
         return reinterpret_cast<Return*>(invoke_v(obj, method, collected_params));
     }
 
-    template<typename Return = Il2CppObject>
-    Return* invoke_virtual(void* obj, Il2CppClass* base, std::string_view method)
-    {
+    template <typename Return = Il2CppObject>
+    Return* invoke_virtual(void* obj, Il2CppClass* base, std::string_view method) {
         std::vector<void*> collected_params{};
         return reinterpret_cast<Return*>(invoke_virtual_v(obj, base, method, collected_params));
     }
 
-    template<typename Return = Il2CppObject, typename ...Args>
-    Return* invoke_virtual(void* obj, Il2CppClass* base, std::string_view method, Args ... params)
-    {
+    template <typename Return = Il2CppObject, typename... Args>
+    Return* invoke_virtual(void* obj, Il2CppClass* base, std::string_view method, Args... params) {
         std::vector<void*> collected_params{ { reinterpret_cast<void*>(params)... } };
         return reinterpret_cast<Return*>(invoke_virtual_v(obj, base, method, collected_params));
     }
 
     constexpr bool use_internal_box_function = false;
-    template<typename Return, typename Input, typename InputKlass>
-    Return* box_value(InputKlass* klass, Input value)
-    {
-        if (use_internal_box_function)
-        {
+    template <typename Return, typename Input, typename InputKlass>
+    Return* box_value(InputKlass* klass, Input value) {
+        if (use_internal_box_function) {
             return reinterpret_cast<Return*>(untyped::box_value(
-                reinterpret_cast<Il2CppClass*>(klass), reinterpret_cast<void*>(&value)));
-        }
-        else
-        {
+                    reinterpret_cast<Il2CppClass*>(klass), reinterpret_cast<void*>(&value)
+            ));
+        } else {
             auto boxed_value = create_object<Return>(klass);
             boxed_value->fields = value;
             return boxed_value;
         }
     }
-}
+} // namespace il2cpp

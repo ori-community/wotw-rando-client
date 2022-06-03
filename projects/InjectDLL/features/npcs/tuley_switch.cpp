@@ -5,8 +5,7 @@
 #include <randomizer/conditions/new_setup_state_override.h>
 #include <uber_states/uber_state_interface.h>
 
-namespace
-{
+namespace {
     constexpr int TULEY_EXISTS_UBER_STATE = 300;
     constexpr int32_t TULEY_EXISTS = -456942105;
     constexpr int32_t TULEY_GONE = 682604868;
@@ -16,13 +15,13 @@ namespace
         return tuley_exists.get<bool>() ? TULEY_EXISTS : TULEY_GONE;
     }
 
-    void initialize_tuley()
-    {
+    void initialize_tuley() {
         randomizer::conditions::register_new_setup_intercept({
-                "wellspringGladesHubSetups/interactives/gardenerSetup",
-            }, { TULEY_GONE, TULEY_EXISTS }, tuley_state
-        );
+                                                                     "wellspringGladesHubSetups/interactives/gardenerSetup",
+                                                             },
+                                                             { TULEY_GONE, TULEY_EXISTS },
+                                                             tuley_state);
     }
 
     CALL_ON_INIT(initialize_tuley);
-}
+} // namespace

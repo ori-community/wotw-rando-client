@@ -1,24 +1,22 @@
+#include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/console.h>
-#include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
-#include <Common/ext.h>
+#include <Il2CppModLoader/interception_macros.h>
 
 #include "pickups.h"
 
 using namespace modloader;
 
-namespace
-{
-    //noop only - reward triggers on uberstate change.
-    IL2CPP_INTERCEPT(, QuestsController, void, ApplyReward, (app::QuestsController * this_ptr, app::QuestReward * reward)) {}
-    IL2CPP_INTERCEPT(, RaceHandler, void, ApplyReward, (app::RaceHandler* this_ptr)) {}
+namespace {
+    // noop only - reward triggers on uberstate change.
+    IL2CPP_INTERCEPT(, QuestsController, void, ApplyReward, (app::QuestsController * this_ptr, app::QuestReward* reward)) {}
+    IL2CPP_INTERCEPT(, RaceHandler, void, ApplyReward, (app::RaceHandler * this_ptr)) {}
 
-    IL2CPP_BINDING(, Quest, app::IGenericUberState*, get_UberState, (app::Quest* this_ptr));
+    IL2CPP_BINDING(, Quest, app::IGenericUberState*, get_UberState, (app::Quest * this_ptr));
 
-    template<typename T>
-    void send_state(T* state)
-    {
+    template <typename T>
+    void send_state(T* state) {
         if (state == nullptr)
             return;
 
@@ -33,9 +31,8 @@ namespace
     }
 
     bool quest_reporting = false;
-    IL2CPP_INTERCEPT(, QuestsController, void, CompleteQuest, (app::QuestsController* this_ptr, app::Quest* quest)) {
-        if (quest_reporting)
-        {
+    IL2CPP_INTERCEPT(, QuestsController, void, CompleteQuest, (app::QuestsController * this_ptr, app::Quest* quest)) {
+        if (quest_reporting) {
             auto uber_state = Quest::get_UberState(quest);
             auto cast_uber_state = il2cpp::safe_il2cpp_cast<app::SerializedIntUberState>(uber_state, "Moon", "SerializedIntUberState");
             if (cast_uber_state != nullptr && cast_uber_state->fields._.m_id != nullptr && cast_uber_state->fields.Group != nullptr)
@@ -45,26 +42,20 @@ namespace
         QuestsController::CompleteQuest(this_ptr, quest);
     }
 
-
-    void report_quests_completed(std::string const& command, std::vector<console::CommandParam> const& params)
-    {
-        if (params.size() > 1)
-        {
+    void report_quests_completed(std::string const& command, std::vector<console::CommandParam> const& params) {
+        if (params.size() > 1) {
             console::console_send("report_quests_completed only takes 1 or less parameters.");
             return;
         }
 
         auto value = !quest_reporting;
-        if (!params.empty())
-        {
-            if (!params.front().name.empty())
-            {
+        if (!params.empty()) {
+            if (!params.front().name.empty()) {
                 console::console_send("report_quests_completed unexpected named parameter.");
                 return;
             }
-            
-            if (!console::try_get_bool(params.front(), value))
-            {
+
+            if (!console::try_get_bool(params.front(), value)) {
                 console::console_send("report_quests_completed invalid parameter.");
                 return;
             }
@@ -74,8 +65,7 @@ namespace
         quest_reporting = value;
     }
 
-    void report_world_state(std::string const& command, std::vector<console::CommandParam> const& params)
-    {
+    void report_world_state(std::string const& command, std::vector<console::CommandParam> const& params) {
         auto sein_world_state = il2cpp::get_class<app::SeinWorldState__Class>("", "SeinWorldState");
         auto state = sein_world_state->static_fields->Instance;
         send_state(state->fields.ForlornRuinsKey);
@@ -103,11 +93,10 @@ namespace
         send_state(state->fields.BaurNpc);
     }
 
-    void add_quest_commands()
-    {
+    void add_quest_commands() {
         console::register_command({ "debug", "report_quests_completed" }, report_quests_completed);
         console::register_command({ "debug", "report_world_state" }, report_world_state);
     }
 
     CALL_ON_INIT(add_quest_commands);
-}
+} // namespace

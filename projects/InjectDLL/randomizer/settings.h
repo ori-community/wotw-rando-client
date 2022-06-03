@@ -1,9 +1,7 @@
 #pragma once
 
-namespace randomizer
-{
-    namespace settings
-    {
+namespace randomizer {
+    namespace settings {
         bool burrow_mouse_control();
         bool grapple_mouse_control();
         bool water_dash_mouse_control();
@@ -13,5 +11,5 @@ namespace randomizer
         bool show_secrets();
 
         float map_icon_transparency();
-    }
-}
+    } // namespace settings
+} // namespace randomizer

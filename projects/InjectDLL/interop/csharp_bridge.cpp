@@ -1,20 +1,22 @@
 #include <interop/csharp_bridge.h>
 
-#include <macros.h>
 #include <game/game.h>
 #include <game/pickups/pickups.h>
+#include <macros.h>
 
 #include <Common/ext.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 
-#define DELEGATE_ENTRY(name) { #name, reinterpret_cast<void**>(&(name)) }
+#define DELEGATE_ENTRY(name)                       \
+    {                                              \
+#name, reinterpret_cast < void**>(&(name)) \
+    }
 
 using namespace modloader;
 
-namespace csharp_bridge
-{
+namespace csharp_bridge {
     signatures::f_void_float update = nullptr;
     signatures::f_void_at on_tree = nullptr;
     signatures::f_void on_checkpoint = nullptr;
@@ -74,103 +76,92 @@ namespace csharp_bridge
     signatures::f_void_int_ptr_int get_flag = nullptr;
     signatures::f_int_bool get_relic_count = nullptr;
 
-    namespace
-    {
-        const std::unordered_map<std::string_view, void**> ptr_map {
-                DELEGATE_ENTRY(update),
-                DELEGATE_ENTRY(on_tree),
-                DELEGATE_ENTRY(on_checkpoint),
-                DELEGATE_ENTRY(on_goal_mode_fail),
-                DELEGATE_ENTRY(check_ini),
-                DELEGATE_ENTRY(inject_debug_enabled),
-                DELEGATE_ENTRY(tp_to_any_pickup),
-                DELEGATE_ENTRY(invert_swim),
-                DELEGATE_ENTRY(new_game),
-                DELEGATE_ENTRY(on_load),
-                DELEGATE_ENTRY(on_save),
-                DELEGATE_ENTRY(get_ability),
-                DELEGATE_ENTRY(set_ability),
-                DELEGATE_ENTRY(water_cleansed),
-                DELEGATE_ENTRY(is_day_time),
-                DELEGATE_ENTRY(does_howl_exist),
-                DELEGATE_ENTRY(on_map_pan),
-                DELEGATE_ENTRY(is_tree_activated),
-                DELEGATE_ENTRY(opher_buy_weapon),
-                DELEGATE_ENTRY(opher_buy_upgrade),
-                DELEGATE_ENTRY(opher_bought_weapon),
-                DELEGATE_ENTRY(opher_bought_upgrade),
-                DELEGATE_ENTRY(twillen_buy_shard),
-                DELEGATE_ENTRY(twillen_bought_shard),
-                DELEGATE_ENTRY(twillen_shard_cost),
-                DELEGATE_ENTRY(lupo_upgrade_cost),
-                DELEGATE_ENTRY(on_uber_state_applied),
-                DELEGATE_ENTRY(filter_icon_show),
-                DELEGATE_ENTRY(filter_icon_type),
-                DELEGATE_ENTRY(filter_icon_text),
-                DELEGATE_ENTRY(filter_enabled),
-                DELEGATE_ENTRY(update_shop_data),
-                DELEGATE_ENTRY(on_map_tp_active),
-                DELEGATE_ENTRY(on_map_state),
-                DELEGATE_ENTRY(on_enemy_death),
-                DELEGATE_ENTRY(on_player_death),
-                DELEGATE_ENTRY(on_race_start),
-                DELEGATE_ENTRY(on_race_end),
-                DELEGATE_ENTRY(on_teleporting),
-                DELEGATE_ENTRY(on_action_triggered),
-                DELEGATE_ENTRY(twillen_shard_upgraded),
-                DELEGATE_ENTRY(credits_progress),
-                DELEGATE_ENTRY(shutdown),
-                DELEGATE_ENTRY(post_initialize),
-                DELEGATE_ENTRY(get_flag_count),
-                DELEGATE_ENTRY(get_flag),
-                DELEGATE_ENTRY(get_relic_count),
-                DELEGATE_ENTRY(on_found_tp),
+    namespace {
+        const std::unordered_map<std::string_view, void**> ptr_map{
+            DELEGATE_ENTRY(update),
+            DELEGATE_ENTRY(on_tree),
+            DELEGATE_ENTRY(on_checkpoint),
+            DELEGATE_ENTRY(on_goal_mode_fail),
+            DELEGATE_ENTRY(check_ini),
+            DELEGATE_ENTRY(inject_debug_enabled),
+            DELEGATE_ENTRY(tp_to_any_pickup),
+            DELEGATE_ENTRY(invert_swim),
+            DELEGATE_ENTRY(new_game),
+            DELEGATE_ENTRY(on_load),
+            DELEGATE_ENTRY(on_save),
+            DELEGATE_ENTRY(get_ability),
+            DELEGATE_ENTRY(set_ability),
+            DELEGATE_ENTRY(water_cleansed),
+            DELEGATE_ENTRY(is_day_time),
+            DELEGATE_ENTRY(does_howl_exist),
+            DELEGATE_ENTRY(on_map_pan),
+            DELEGATE_ENTRY(is_tree_activated),
+            DELEGATE_ENTRY(opher_buy_weapon),
+            DELEGATE_ENTRY(opher_buy_upgrade),
+            DELEGATE_ENTRY(opher_bought_weapon),
+            DELEGATE_ENTRY(opher_bought_upgrade),
+            DELEGATE_ENTRY(twillen_buy_shard),
+            DELEGATE_ENTRY(twillen_bought_shard),
+            DELEGATE_ENTRY(twillen_shard_cost),
+            DELEGATE_ENTRY(lupo_upgrade_cost),
+            DELEGATE_ENTRY(on_uber_state_applied),
+            DELEGATE_ENTRY(filter_icon_show),
+            DELEGATE_ENTRY(filter_icon_type),
+            DELEGATE_ENTRY(filter_icon_text),
+            DELEGATE_ENTRY(filter_enabled),
+            DELEGATE_ENTRY(update_shop_data),
+            DELEGATE_ENTRY(on_map_tp_active),
+            DELEGATE_ENTRY(on_map_state),
+            DELEGATE_ENTRY(on_enemy_death),
+            DELEGATE_ENTRY(on_player_death),
+            DELEGATE_ENTRY(on_race_start),
+            DELEGATE_ENTRY(on_race_end),
+            DELEGATE_ENTRY(on_teleporting),
+            DELEGATE_ENTRY(on_action_triggered),
+            DELEGATE_ENTRY(twillen_shard_upgraded),
+            DELEGATE_ENTRY(credits_progress),
+            DELEGATE_ENTRY(shutdown),
+            DELEGATE_ENTRY(post_initialize),
+            DELEGATE_ENTRY(get_flag_count),
+            DELEGATE_ENTRY(get_flag),
+            DELEGATE_ENTRY(get_relic_count),
+            DELEGATE_ENTRY(on_found_tp),
         };
 
         STATIC_IL2CPP_BINDING(, SaveSlotsManager, int, get_CurrentSlotIndex, ());
         STATIC_IL2CPP_BINDING(, SaveSlotsManager, int, get_BackupIndex, ());
 
-        void on_checkpoint_handler(GameEvent game_event, EventTiming timing)
-        {
+        void on_checkpoint_handler(GameEvent game_event, EventTiming timing) {
             auto cp(game::pickups::collect_pickup()); // fuck fuck fuck shit damn aaaaa
             csharp_bridge::on_checkpoint();
         }
 
-        void on_save_handler(GameEvent game_event, EventTiming timing)
-        {
+        void on_save_handler(GameEvent game_event, EventTiming timing) {
             csharp_bridge::on_save(SaveSlotsManager::get_CurrentSlotIndex(), SaveSlotsManager::get_BackupIndex());
         }
 
-        void on_load_handler(GameEvent game_event, EventTiming timing)
-        {
+        void on_load_handler(GameEvent game_event, EventTiming timing) {
             csharp_bridge::on_load(SaveSlotsManager::get_CurrentSlotIndex(), SaveSlotsManager::get_BackupIndex());
         }
 
-        void on_area_map(GameEvent game_event, EventTiming timing)
-        {
+        void on_area_map(GameEvent game_event, EventTiming timing) {
             csharp_bridge::on_map_state(timing == EventTiming::Start);
         }
 
-        void on_fixed_update(GameEvent game_event, EventTiming timing)
-        {
-            try
-            {
+        void on_fixed_update(GameEvent game_event, EventTiming timing) {
+            try {
                 update(game::fixed_delta_time());
-            }
-            catch (int error)
-            {
+            } catch (int error) {
                 trace(MessageType::Info, 3, "csharp_bridge", format("got error code $d", error));
             }
         }
 
-        void on_shutdown(GameEvent game_event, EventTiming timing)
-        {
+        void on_shutdown(GameEvent game_event, EventTiming timing) {
             if (shutdown != nullptr)
                 shutdown();
         }
 
-        void initialize()
-        {
+        void initialize() {
             game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::End, &on_fixed_update);
             game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::End, &on_shutdown);
             game::event_bus().register_handler(GameEvent::CreateBackup, EventTiming::Start, &on_save_handler);
@@ -186,11 +177,10 @@ namespace csharp_bridge
         }
 
         CALL_ON_INIT(initialize);
-    }
-}
+    } // namespace
+} // namespace csharp_bridge
 
-INJECT_C_DLLEXPORT void register_delegate(const char* name, uint64_t ptr)
-{
+INJECT_C_DLLEXPORT void register_delegate(const char* name, uint64_t ptr) {
     using namespace csharp_bridge;
     using namespace signatures;
 

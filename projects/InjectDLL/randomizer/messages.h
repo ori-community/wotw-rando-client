@@ -3,17 +3,14 @@
 #include <macros.h>
 #include <json/json.hpp>
 
-namespace randomizer
-{
-    class TextBox
-    {
+namespace randomizer {
+    class TextBox {
     public:
     private:
     };
-}
+} // namespace randomizer
 
-enum class ScreenPosition
-{
+enum class ScreenPosition {
     TopLeft = 0,
     TopCenter = 1,
     TopRight = 2,
@@ -26,18 +23,18 @@ enum class ScreenPosition
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ScreenPosition, {
-    { ScreenPosition::TopLeft, "TopLeft" },
-    { ScreenPosition::TopCenter, "TopCenter" },
-    { ScreenPosition::TopRight, "TopRight" },
-    { ScreenPosition::MiddleLeft, "MiddleLeft" },
-    { ScreenPosition::MiddleCenter, "MiddleCenter" },
-    { ScreenPosition::MiddleRight, "MiddleRight" },
-    { ScreenPosition::BottomLeft, "BottomLeft" },
-    { ScreenPosition::BottomCenter, "BottomCenter" },
-    { ScreenPosition::BottomRight, "BottomRight" },
-});
+                                                     { ScreenPosition::TopLeft, "TopLeft" },
+                                                     { ScreenPosition::TopCenter, "TopCenter" },
+                                                     { ScreenPosition::TopRight, "TopRight" },
+                                                     { ScreenPosition::MiddleLeft, "MiddleLeft" },
+                                                     { ScreenPosition::MiddleCenter, "MiddleCenter" },
+                                                     { ScreenPosition::MiddleRight, "MiddleRight" },
+                                                     { ScreenPosition::BottomLeft, "BottomLeft" },
+                                                     { ScreenPosition::BottomCenter, "BottomCenter" },
+                                                     { ScreenPosition::BottomRight, "BottomRight" },
+                                             });
 
-using creation_callback = void(*)(int id);
+using creation_callback = void (*)(int id);
 
 void hide_below_hint();
 app::MessageBox* send_msg(const wchar_t* hint, float duration, app::Vector3 pos, bool mute);

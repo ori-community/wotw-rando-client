@@ -2,11 +2,9 @@
 
 #include <Il2CppModLoader\il2cpp_helpers.h>
 
-namespace utils
-{
-    template<typename T>
-    void add_to_message_provider(app::TranslatedMessageProvider* provider, T message)
-    {
+namespace utils {
+    template <typename T>
+    void add_to_message_provider(app::TranslatedMessageProvider* provider, T message) {
         auto il2cpp_str = il2cpp::string_new(message);
         auto item = il2cpp::create_object<app::TranslatedMessageProvider_MessageItem>("", "TranslatedMessageProvider", "MessageItem");
         item->fields.English = il2cpp_str;
@@ -37,25 +35,22 @@ namespace utils
         il2cpp::invoke(provider->fields.Messages, "Add", item);
     }
 
-    template<typename T, typename... Args>
-    void add_to_message_provider(app::TranslatedMessageProvider* provider, T message, Args... args)
-    {
+    template <typename T, typename... Args>
+    void add_to_message_provider(app::TranslatedMessageProvider* provider, T message, Args... args) {
         add_to_message_provider(message);
         add_to_message_provider(provider, args...);
     }
 
-    template<typename... Args>
-    app::MessageProvider* create_message_provider(Args... args)
-    {
+    template <typename... Args>
+    app::MessageProvider* create_message_provider(Args... args) {
         auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>("", "TranslatedMessageProvider");
         il2cpp::invoke(provider, ".ctor");
         add_to_message_provider(provider, args...);
         return reinterpret_cast<app::MessageProvider*>(provider);
     }
 
-    template<typename T>
-    app::MessageProvider* create_message_provider(std::vector<T> const& messages)
-    {
+    template <typename T>
+    app::MessageProvider* create_message_provider(std::vector<T> const& messages) {
         auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>("", "TranslatedMessageProvider");
         il2cpp::invoke(provider, ".ctor");
         for (auto const& message : messages)
@@ -63,4 +58,4 @@ namespace utils
 
         return reinterpret_cast<app::MessageProvider*>(provider);
     }
-}
+} // namespace utils

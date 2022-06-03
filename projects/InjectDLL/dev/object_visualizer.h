@@ -2,19 +2,15 @@
 #include <string>
 #include <vector>
 
-namespace dev
-{
-    struct Visualizer
-    {
-        struct State
-        {
+namespace dev {
+    struct Visualizer {
+        struct State {
             int id;
             int indent_level;
             int depth;
         };
 
-        enum class InfoLevel
-        {
+        enum class InfoLevel {
             Low,
             Medium,
             High,
@@ -33,11 +29,10 @@ namespace dev
         std::vector<std::pair<Il2CppObject*, State>> visualizer_queue;
     };
 
-    namespace visualize
-    {
+    namespace visualize {
         void transform_hierarchy(std::string& output, app::Transform* transform);
         void visualize_object(Visualizer& visualizer, void* obj, int indent_start = -1, int depth_start = -1);
         void visualize_scene(Visualizer& visualizer, app::Scene& scene, int indent_start = -1, int depth_start = -1);
         std::string get_string(Visualizer& visualizer);
-    }
-}
+    } // namespace visualize
+} // namespace dev

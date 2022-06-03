@@ -2,23 +2,22 @@
 
 #include <macros.h>
 
-#include <string>
-#include <unordered_map>
 #include <event_bus.h>
 #include <set>
+#include <string>
+#include <unordered_map>
 
 // TODO: Move this elsewhere.
 INJECT_C_DLLEXPORT void teleport(float x, float y, bool wait_for_load);
 
-namespace scenes
-{
+namespace scenes {
     struct SceneLoadEventMetadata {
         std::string scene_name;
         app::SceneState__Enum state;
         app::SceneManagerScene* scene;
     };
 
-    using scene_loaded_callback = void(*)(std::string_view scene_name, app::GameObject* scene_root);
+    using scene_loaded_callback = void (*)(std::string_view scene_name, app::GameObject* scene_root);
 
     app::ScenesManager* get_scenes_manager();
 
@@ -41,4 +40,4 @@ namespace scenes
     std::vector<app::GameObject*> get_roots_from_active();
     app::GameObject* get_game_object(std::string_view path);
     void load_default_values();
-}
+} // namespace scenes

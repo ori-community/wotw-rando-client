@@ -2,7 +2,7 @@
 
 #include <macros.h>
 
-using collision_handler = void(*)(int id);
+using collision_handler = void (*)(int id);
 
 INJECT_C_DLLEXPORT int collision_reserve_id();
 INJECT_C_DLLEXPORT int collision_query(app::Vector2 position, app::Vector2 size);

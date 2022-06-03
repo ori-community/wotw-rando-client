@@ -3,22 +3,20 @@
 #include <algorithm>
 #include <array>
 #include <cctype>
+#include <sstream>
 #include <string>
 #include <string_view>
-#include <sstream>
 
-struct pair_hash
-{
+struct pair_hash {
     template <class T1, class T2>
-    std::size_t operator() (const std::pair<T1, T2>& pair) const {
+    std::size_t operator()(const std::pair<T1, T2>& pair) const {
         return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
     }
 };
 
-struct array_hash
-{
+struct array_hash {
     template <typename T, int N>
-    std::size_t operator() (const std::array<T, N>& arr) const {
+    std::size_t operator()(const std::array<T, N>& arr) const {
         static_assert(N > 0);
         auto hasher = std::hash<T>();
         auto hash = arr[0];
@@ -36,16 +34,17 @@ const char* format(const char* str, va_list ls);
 // trim from start (in place)
 static inline std::string& ltrim(std::string& s) {
     s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
-        return !std::isspace(ch);
-    }));
+                return !std::isspace(ch);
+            }));
     return s;
 }
 
 // trim from end (in place)
 static inline std::string& rtrim(std::string& s) {
     s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) {
-        return !std::isspace(ch);
-    }).base(), s.end());
+                return !std::isspace(ch);
+            }).base(),
+            s.end());
     return s;
 }
 
@@ -69,8 +68,7 @@ static inline std::string rtrim_copy(std::string s) {
 }
 
 template <class Container>
-void split_str(std::string str, Container& cont, char delim = ' ')
-{
+void split_str(std::string str, Container& cont, char delim = ' ') {
     std::stringstream ss(str);
     std::string token;
     while (std::getline(ss, token, delim))

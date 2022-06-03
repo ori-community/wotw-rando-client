@@ -1,15 +1,15 @@
 #include <input/rando_bindings.h>
 
-#include <interop/csharp_bridge.h>
-#include <macros.h>
+#include <Common/ext.h>
 #include <input/controller_bindings.h>
 #include <input/helpers.h>
 #include <input/simulator.h>
-#include <Common/ext.h>
+#include <interop/csharp_bridge.h>
+#include <macros.h>
 
 #include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
 
 #include <fstream>
 #include <unordered_map>
@@ -19,16 +19,12 @@
 
 using namespace modloader;
 
-namespace randomizer
-{
-    namespace input
-    {
-        namespace
-        {
+namespace randomizer {
+    namespace input {
+        namespace {
             const std::string KEYBOARD_REBIND_FILE = "keyboard_bindings.json";
 
-            struct KeyboardMouseInput
-            {
+            struct KeyboardMouseInput {
                 std::vector<app::KeyCode__Enum> codes;
                 std::vector<int> mouse_buttons;
 
@@ -39,8 +35,7 @@ namespace randomizer
                 bool altgr = false;
             };
 
-            struct ControlInfo
-            {
+            struct ControlInfo {
                 std::vector<rando_input_callback> on_pressed_actions;
                 std::vector<rando_input_callback> on_release_actions;
                 std::vector<KeyboardMouseInput> kbm_bindings;
@@ -52,8 +47,7 @@ namespace randomizer
 
             std::unordered_map<Action, ControlInfo> bindings;
 
-            void add_keyboard_binding(Action action, KeyboardMouseInput input)
-            {
+            void add_keyboard_binding(Action action, KeyboardMouseInput input) {
                 if (action < Action::RANDO_ACTIONS_START)
                     return;
 
@@ -63,16 +57,13 @@ namespace randomizer
                 bindings[action].kbm_bindings.push_back(input);
             }
 
-            void handle_binding(Action action, std::vector<int> const& buttons, bool respects_modifiers)
-            {
+            void handle_binding(Action action, std::vector<int> const& buttons, bool respects_modifiers) {
                 KeyboardMouseInput input;
                 input.respects_modifiers = respects_modifiers;
-                for (auto const& button : buttons)
-                {
+                for (auto const& button : buttons) {
                     if (button < 0)
                         input.mouse_buttons.push_back(-button);
-                    else
-                    {
+                    else {
                         auto code = static_cast<app::KeyCode__Enum>(button);
                         input.codes.push_back(code);
                         input.shift |= code == app::KeyCode__Enum_LeftShift || code == app::KeyCode__Enum_RightShift;
@@ -85,14 +76,14 @@ namespace randomizer
                 add_keyboard_binding(action, input);
             }
 
-            IL2CPP_INTERCEPT(, PlayerInput, void, ClearControls, (app::PlayerInput* this_ptr)) {
+            IL2CPP_INTERCEPT(, PlayerInput, void, ClearControls, (app::PlayerInput * this_ptr)) {
                 PlayerInput::ClearControls(this_ptr);
                 clear_simulators();
                 for (auto& binding : bindings)
                     binding.second.kbm_bindings.clear();
             }
 
-            IL2CPP_INTERCEPT(, PlayerInput, void, AddKeyboardControls, (app::PlayerInput* this_ptr)) {
+            IL2CPP_INTERCEPT(, PlayerInput, void, AddKeyboardControls, (app::PlayerInput * this_ptr)) {
                 PlayerInput::AddKeyboardControls(this_ptr);
                 read_bindings(base_path + KEYBOARD_REBIND_FILE, handle_binding);
                 register_simulators(this_ptr);
@@ -100,14 +91,12 @@ namespace randomizer
 
             STATIC_IL2CPP_BINDING(UnityEngine, Input, bool, GetKeyInt, (app::KeyCode__Enum key));
             STATIC_IL2CPP_BINDING(UnityEngine, Input, bool, GetMouseButton, (int button));
-            bool is_pressed(KeyboardMouseInput const& input)
-            {
-                if (input.respects_modifiers)
-                {
+            bool is_pressed(KeyboardMouseInput const& input) {
+                if (input.respects_modifiers) {
                     auto shift = Input::GetKeyInt(app::KeyCode__Enum_LeftShift) || Input::GetKeyInt(app::KeyCode__Enum_RightShift);
                     auto ctrl = Input::GetKeyInt(app::KeyCode__Enum_LeftControl) || Input::GetKeyInt(app::KeyCode__Enum_RightControl);
                     auto alt = Input::GetKeyInt(app::KeyCode__Enum_LeftAlt) || Input::GetKeyInt(app::KeyCode__Enum_RightAlt);
-                    //auto altgr = Input::GetKeyInt(app::KeyCode__Enum_AltGr);
+                    // auto altgr = Input::GetKeyInt(app::KeyCode__Enum_AltGr);
 
                     if (input.shift != shift || input.ctrl != ctrl || input.alt != alt)
                         return false;
@@ -124,26 +113,22 @@ namespace randomizer
                 return true;
             }
 
-            IL2CPP_INTERCEPT(, SavePedestalController, void, BeginTeleportation, (app::SavePedestalController* this_ptr, app::Vector2* teleport_target_world_position)) {
+            IL2CPP_INTERCEPT(, SavePedestalController, void, BeginTeleportation, (app::SavePedestalController * this_ptr, app::Vector2* teleport_target_world_position)) {
                 auto player_input = il2cpp::get_class<app::PlayerInput__Class>("", "PlayerInput")->static_fields->Instance;
                 auto prev = player_input->fields.Active;
                 SavePedestalController::BeginTeleportation(this_ptr, teleport_target_world_position);
                 player_input->fields.Active = prev;
             }
 
-            IL2CPP_INTERCEPT(, PlayerInput, void, RefreshControls, (app::PlayerInput* this_ptr)) {
+            IL2CPP_INTERCEPT(, PlayerInput, void, RefreshControls, (app::PlayerInput * this_ptr)) {
                 PlayerInput::RefreshControls(this_ptr);
                 refresh_controller_controls();
 
-                for (auto& binding : bindings)
-                {
+                for (auto& binding : bindings) {
                     auto pressed = is_controller_pressed(binding.first);
-                    if (!pressed)
-                    {
-                        for (auto const& input : binding.second.kbm_bindings)
-                        {
-                            if (is_pressed(input))
-                            {
+                    if (!pressed) {
+                        for (auto const& input : binding.second.kbm_bindings) {
+                            if (is_pressed(input)) {
                                 pressed = true;
                                 break;
                             }
@@ -164,38 +149,33 @@ namespace randomizer
                             action(binding.first, false);
                 }
             }
-        }
+        } // namespace
 
-        bool is_pressed(Action action)
-        {
+        bool is_pressed(Action action) {
             if (action < Action::RANDO_ACTIONS_START)
                 return false;
 
             return bindings[action].is_pressed;
         }
 
-        void add_on_pressed_callback(Action action, rando_input_callback callback)
-        {
+        void add_on_pressed_callback(Action action, rando_input_callback callback) {
             if (action < Action::RANDO_ACTIONS_START)
                 return;
 
             bindings[action].on_pressed_actions.push_back(callback);
         }
 
-        void add_on_released_callback(Action action, rando_input_callback callback)
-        {
+        void add_on_released_callback(Action action, rando_input_callback callback) {
             if (action < Action::RANDO_ACTIONS_START)
                 return;
 
             bindings[action].on_release_actions.push_back(callback);
         }
 
-        void simulate_action(Action action, bool value)
-        {
+        void simulate_action(Action action, bool value) {
             auto& binding = input::bindings[action];
             binding.simulated_state = value;
-            if (binding.is_pressed != value)
-            {
+            if (binding.is_pressed != value) {
                 binding.is_pressed = value;
                 binding.is_just_pressed = value;
                 auto& callbacks = value ? binding.on_pressed_actions : binding.on_release_actions;
@@ -204,13 +184,11 @@ namespace randomizer
             }
         }
 
-        void csharp_callback(Action action, bool pressed)
-        {
+        void csharp_callback(Action action, bool pressed) {
             csharp_bridge::on_action_triggered(action);
         }
 
-        void initialize()
-        {
+        void initialize() {
             add_on_pressed_callback(Action::Binding1, csharp_callback);
             add_on_pressed_callback(Action::Binding2, csharp_callback);
             add_on_pressed_callback(Action::Binding3, csharp_callback);
@@ -233,11 +211,10 @@ namespace randomizer
         }
 
         CALL_ON_INIT(initialize);
-    }
-}
+    } // namespace input
+} // namespace randomizer
 
-INJECT_C_DLLEXPORT bool action_pressed(Action action)
-{
+INJECT_C_DLLEXPORT bool action_pressed(Action action) {
     if (action < Action::RANDO_ACTIONS_START)
         randomizer::input::simulate(action, true);
     else
@@ -246,8 +223,7 @@ INJECT_C_DLLEXPORT bool action_pressed(Action action)
     return true;
 }
 
-INJECT_C_DLLEXPORT bool action_released(Action action)
-{
+INJECT_C_DLLEXPORT bool action_released(Action action) {
     if (action < Action::RANDO_ACTIONS_START)
         randomizer::input::simulate(action, false);
     else

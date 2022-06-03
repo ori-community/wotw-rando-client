@@ -5,14 +5,12 @@
 #include <Il2CppModLoader/interception.h>
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace
-{
-    IL2CPP_INTERCEPT(, Projectile, bool, HandleMirrorStrike, (app::Projectile* this_ptr, app::Damage* damage)) {
+namespace {
+    IL2CPP_INTERCEPT(, Projectile, bool, HandleMirrorStrike, (app::Projectile * this_ptr, app::Damage* damage)) {
         bool ret = false;
         if (game::player::has_ability(app::AbilityType__Enum_Bash))
             ret = Projectile::HandleMirrorStrike(this_ptr, damage);
-        else
-        {
+        else {
             game::player::set_ability(app::AbilityType__Enum_Bash, true);
             ret = Projectile::HandleMirrorStrike(this_ptr, damage);
             game::player::set_ability(app::AbilityType__Enum_Bash, false);
@@ -20,4 +18,4 @@ namespace
 
         return ret;
     }
-}
+} // namespace

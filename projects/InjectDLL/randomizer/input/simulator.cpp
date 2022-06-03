@@ -5,45 +5,39 @@
 
 #include <unordered_map>
 
-namespace randomizer
-{
-    namespace input
-    {
+namespace randomizer {
+    namespace input {
         std::unordered_map<app::CompoundButtonInput*, Action> input_handles;
         std::unordered_map<Action, bool> simulators;
 
-        Action find_input_info(app::CompoundButtonInput* input)
-        {
+        Action find_input_info(app::CompoundButtonInput* input) {
             auto it = input_handles.find(input);
             return it != input_handles.end() ? it->second : Action::TOTAL;
         }
 
-        namespace
-        {
-            IL2CPP_INTERCEPT(SmartInput, CompoundButtonInput, bool, GetValue, (app::CompoundButtonInput* this_ptr)) {
+        namespace {
+            IL2CPP_INTERCEPT(SmartInput, CompoundButtonInput, bool, GetValue, (app::CompoundButtonInput * this_ptr)) {
                 auto action = find_input_info(this_ptr);
                 if (action != Action::TOTAL && simulators[action])
                     return true;
-            
+
                 return CompoundButtonInput::GetValue(this_ptr);
             }
 
-            IL2CPP_INTERCEPT(SmartInput, CachedButtonInput, bool, GetButton, (app::CachedButtonInput* this_ptr)) {
+            IL2CPP_INTERCEPT(SmartInput, CachedButtonInput, bool, GetButton, (app::CachedButtonInput * this_ptr)) {
                 auto action = find_input_info(reinterpret_cast<app::CompoundButtonInput*>(this_ptr));
                 if (action != Action::TOTAL && simulators[action])
                     return true;
 
                 return CachedButtonInput::GetButton(this_ptr);
             }
-        }
+        } // namespace
 
-        void register_simulator(app::CompoundButtonInput* handle, Action action)
-        {
+        void register_simulator(app::CompoundButtonInput* handle, Action action) {
             input_handles[handle] = action;
         }
 
-        void register_simulators(app::PlayerInput* input)
-        {
+        void register_simulators(app::PlayerInput* input) {
             register_simulator(input->fields.MainMenuSaveCopy, Action::MainMenuSaveCopy);
             register_simulator(input->fields.MainMenuSaveDelete, Action::MainMenuSaveDelete);
             register_simulator(input->fields.Interact, Action::Interact);
@@ -84,15 +78,13 @@ namespace randomizer
             register_simulator(input->fields.MapFocusObjective, Action::MapFocusObjective);
         }
 
-        void simulate(Action action, bool pressed)
-        {
+        void simulate(Action action, bool pressed) {
             simulators[action] = pressed;
         }
 
-        void clear_simulators()
-        {
+        void clear_simulators() {
             input_handles.clear();
             simulators.clear();
         }
-    }
-}
+    } // namespace input
+} // namespace randomizer

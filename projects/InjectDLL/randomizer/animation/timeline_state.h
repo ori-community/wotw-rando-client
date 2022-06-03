@@ -6,29 +6,25 @@
 #include <randomizer/sound.h>
 
 #include <optional>
-#include <variant>
 #include <unordered_map>
+#include <variant>
 
-namespace randomizer
-{
-    struct TimelineVariable
-    {
+namespace randomizer {
+    struct TimelineVariable {
         std::optional<
-            std::variant<
-            bool,
-            int,
-            float,
-            std::string,
-            app::Vector2,
-            app::Vector3,
-            app::Color,
-            SoundEventID
-            >
-        > value;
+                std::variant<
+                        bool,
+                        int,
+                        float,
+                        std::string,
+                        app::Vector2,
+                        app::Vector3,
+                        app::Color,
+                        SoundEventID>>
+                value;
     };
 
-    struct TimelineState
-    {
+    struct TimelineState {
         float time = 0;
         app::GameObject* root = nullptr;
         std::unordered_map<std::string, TimelineVariable> variables;
@@ -36,4 +32,4 @@ namespace randomizer
         std::unordered_map<int, std::shared_ptr<SoundActor>> active_sounds;
         std::unordered_map<int, std::shared_ptr<TextBox>> active_text;
     };
-}
+} // namespace randomizer

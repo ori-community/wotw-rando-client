@@ -3,10 +3,9 @@
 
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace
-{
+namespace {
     STATIC_IL2CPP_INTERCEPT(, SavePedestalController, void, OnFinishedTeleportingStartAnimation, ()) {
         csharp_bridge::on_teleporting();
         SavePedestalController::OnFinishedTeleportingStartAnimation();
     }
-}
+} // namespace

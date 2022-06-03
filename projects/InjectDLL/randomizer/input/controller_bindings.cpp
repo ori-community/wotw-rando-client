@@ -1,78 +1,69 @@
+#include <enums/actions.h>
+#include <enums/buttons.h>
 #include <input/controller_bindings.h>
 #include <input/helpers.h>
 #include <input/rando_bindings.h>
-#include <enums/actions.h>
-#include <enums/buttons.h>
 
 #include <constants.h>
 
-#include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
+#include <Common/ext.h>
 #include <algorithm>
-#include <vector>
 #include <unordered_map>
 #include <unordered_set>
-#include <Common/ext.h>
+#include <vector>
 
 #include <json/json.hpp>
 #include <magic_enum/include/magic_enum.hpp>
 
 using namespace modloader;
 
-namespace randomizer
-{
-    namespace input
-    {
-        namespace
-        {
+namespace randomizer {
+    namespace input {
+        namespace {
             const std::string CONTROLLER_REBIND_FILE = "controller_bindings.json";
 
             std::unordered_map<app::XboxControllerInput_Axis__Enum, uint32_t> axis_map;
             std::unordered_map<ControllerButton, uint32_t> buttons_map;
 
-            NAMED_IL2CPP_BINDING(SmartInput, AxisButtonInput, void, .ctor, ctor, (app::AxisButtonInput* this_ptr, app::IAxisInput* axis, app::AxisButtonInput_AxisMode__Enum mode, float value));
-            NAMED_IL2CPP_BINDING(SmartInput, ControllerAxisInput, void, .ctor, ctor, (app::ControllerAxisInput* this_ptr, app::XboxControllerInput_Axis__Enum axis));
-            NAMED_IL2CPP_BINDING(SmartInput, ControllerButtonInput, void, .ctor, ctor, (app::ControllerButtonInput* this_ptr, app::XboxControllerInput_Button__Enum button));
-            IL2CPP_BINDING(SmartInput, CompoundAxisInput, void, Add, (app::CompoundAxisInput* this_ptr, app::IAxisInput* button));
-            IL2CPP_BINDING(SmartInput, CompoundButtonInput, void, Add, (app::CompoundButtonInput* this_ptr, app::IButtonInput* button));
-            IL2CPP_BINDING(SmartInput, CompoundAxisInput, float, GetValue, (app::CompoundAxisInput* this_ptr));
-            IL2CPP_BINDING(SmartInput, CompoundButtonInput, bool, GetValue, (app::CompoundButtonInput* this_ptr));
+            NAMED_IL2CPP_BINDING(SmartInput, AxisButtonInput, void, .ctor, ctor, (app::AxisButtonInput * this_ptr, app::IAxisInput* axis, app::AxisButtonInput_AxisMode__Enum mode, float value));
+            NAMED_IL2CPP_BINDING(SmartInput, ControllerAxisInput, void, .ctor, ctor, (app::ControllerAxisInput * this_ptr, app::XboxControllerInput_Axis__Enum axis));
+            NAMED_IL2CPP_BINDING(SmartInput, ControllerButtonInput, void, .ctor, ctor, (app::ControllerButtonInput * this_ptr, app::XboxControllerInput_Button__Enum button));
+            IL2CPP_BINDING(SmartInput, CompoundAxisInput, void, Add, (app::CompoundAxisInput * this_ptr, app::IAxisInput* button));
+            IL2CPP_BINDING(SmartInput, CompoundButtonInput, void, Add, (app::CompoundButtonInput * this_ptr, app::IButtonInput* button));
+            IL2CPP_BINDING(SmartInput, CompoundAxisInput, float, GetValue, (app::CompoundAxisInput * this_ptr));
+            IL2CPP_BINDING(SmartInput, CompoundButtonInput, bool, GetValue, (app::CompoundButtonInput * this_ptr));
 
-            app::IAxisInput* get_axis_input(app::XboxControllerInput_Axis__Enum button)
-            {
+            app::IAxisInput* get_axis_input(app::XboxControllerInput_Axis__Enum button) {
                 return reinterpret_cast<app::IAxisInput*>(il2cpp::gchandle_target(axis_map[button]));
             }
 
-            app::IButtonInput* get_button_input(ControllerButton button)
-            {
+            app::IButtonInput* get_button_input(ControllerButton button) {
                 return reinterpret_cast<app::IButtonInput*>(il2cpp::gchandle_target(buttons_map[button]));
             }
 
-            uint32_t create_axis_input(app::XboxControllerInput_Axis__Enum axis)
-            {
+            uint32_t create_axis_input(app::XboxControllerInput_Axis__Enum axis) {
                 auto* input = il2cpp::create_object<app::ControllerAxisInput>("SmartInput", "ControllerAxisInput");
                 ControllerAxisInput::ctor(input, axis);
                 return il2cpp::gchandle_new(input, false);
             }
 
-            uint32_t create_axis_button_input(app::XboxControllerInput_Axis__Enum axis, app::AxisButtonInput_AxisMode__Enum mode, float value)
-            {
+            uint32_t create_axis_button_input(app::XboxControllerInput_Axis__Enum axis, app::AxisButtonInput_AxisMode__Enum mode, float value) {
                 auto* input = il2cpp::create_object<app::AxisButtonInput>("SmartInput", "AxisButtonInput");
                 AxisButtonInput::ctor(input, get_axis_input(axis), mode, value);
                 return il2cpp::gchandle_new(input, false);
             }
 
-            uint32_t create_button_input(app::XboxControllerInput_Button__Enum button)
-            {
+            uint32_t create_button_input(app::XboxControllerInput_Button__Enum button) {
                 auto* input = il2cpp::create_object<app::ControllerButtonInput>("SmartInput", "ControllerButtonInput");
                 ControllerButtonInput::ctor(input, button);
                 return il2cpp::gchandle_new(input, false);
             }
 
-            void initialize_buttons()
-            {
+            void initialize_buttons() {
                 axis_map[app::XboxControllerInput_Axis__Enum_LeftStickX] = create_axis_input(app::XboxControllerInput_Axis__Enum_LeftStickX);
                 axis_map[app::XboxControllerInput_Axis__Enum_LeftStickY] = create_axis_input(app::XboxControllerInput_Axis__Enum_LeftStickY);
                 axis_map[app::XboxControllerInput_Axis__Enum_RightStickX] = create_axis_input(app::XboxControllerInput_Axis__Enum_RightStickX);
@@ -112,21 +103,17 @@ namespace randomizer
             }
 
             std::unordered_map<Action, std::vector<std::vector<ControllerButton>>> bindings;
-            void handle_binding(Action action, std::vector<int> const& buttons, bool respects_modifiers)
-            {
+            void handle_binding(Action action, std::vector<int> const& buttons, bool respects_modifiers) {
                 auto& binding = bindings[action].emplace_back();
                 binding.resize(buttons.size());
                 std::transform(buttons.begin(), buttons.end(), binding.begin(), [](int button) {
                     return static_cast<ControllerButton>(button);
-                    });
+                });
             }
 
-            void add_bindings(app::CompoundButtonInput* input, Action action)
-            {
-                for (auto buttons : bindings[action])
-                {
-                    if (!buttons.empty())
-                    {
+            void add_bindings(app::CompoundButtonInput* input, Action action) {
+                for (auto buttons : bindings[action]) {
+                    if (!buttons.empty()) {
                         // For non rando bindings we only support having one button per action.
                         auto* button_input = reinterpret_cast<app::IButtonInput*>(il2cpp::gchandle_target(buttons_map[buttons[0]]));
                         CompoundButtonInput::Add(input, button_input);
@@ -135,20 +122,18 @@ namespace randomizer
             }
 
             bool initialized = false;
-            IL2CPP_INTERCEPT(, PlayerInput, void, AddControllerControls, (app::PlayerInput* this_ptr)) {
+            IL2CPP_INTERCEPT(, PlayerInput, void, AddControllerControls, (app::PlayerInput * this_ptr)) {
                 // If we fail to read the bindings we want to use default game bindings.
                 auto bindings_read = read_bindings(base_path + CONTROLLER_REBIND_FILE, handle_binding);
 
                 auto* player_input_rebinding_klass = il2cpp::get_class<app::PlayerInputRebinding__Class>("", "PlayerInputRebinding");
-                if (!bindings_read || !player_input_rebinding_klass->static_fields->USE_NEW_BINDINGS_TEST)
-                {
+                if (!bindings_read || !player_input_rebinding_klass->static_fields->USE_NEW_BINDINGS_TEST) {
                     // If we are here something weird is happening.
                     PlayerInput::AddControllerControls(this_ptr);
                     return;
                 }
 
-                if (!initialized)
-                {
+                if (!initialized) {
                     initialize_buttons();
                     initialized = true;
                 }
@@ -163,7 +148,7 @@ namespace randomizer
                 CompoundAxisInput::Add(this_ptr->fields.RightTriggerAxis, get_axis_input(app::XboxControllerInput_Axis__Enum_RightTrigger));
 
                 // We use them for our own actions, so add them.
-                //if (player_input_rebinding_klass->static_fields->DEBUG_CONTROLS_ENABLED != false) {
+                // if (player_input_rebinding_klass->static_fields->DEBUG_CONTROLS_ENABLED != false) {
                 CompoundButtonInput::Add(this_ptr->fields.LeftShoulder, get_button_input(ControllerButton::LeftShoulder));
                 CompoundButtonInput::Add(this_ptr->fields.RightShoulder, get_button_input(ControllerButton::RightShoulder));
                 CompoundButtonInput::Add(this_ptr->fields.LeftTrigger, get_button_input(ControllerButton::LeftTrigger));
@@ -220,17 +205,13 @@ namespace randomizer
                 add_bindings(this_ptr->fields.MapFocusOri, Action::MapFocusOri);
                 add_bindings(this_ptr->fields.MapFocusObjective, Action::MapFocusObjective);
             }
-        }
+        } // namespace
 
-        void refresh_controller_controls()
-        {
-            for (auto action = static_cast<Action>(static_cast<int>(Action::RANDO_ACTIONS_START) + 1); action < Action::TOTAL; action = static_cast<Action>(static_cast<int>(action) + 1))
-            {
+        void refresh_controller_controls() {
+            for (auto action = static_cast<Action>(static_cast<int>(Action::RANDO_ACTIONS_START) + 1); action < Action::TOTAL; action = static_cast<Action>(static_cast<int>(action) + 1)) {
                 auto& entries = bindings[action];
-                for (auto const& buttons : entries)
-                {
-                    for (auto const& button : buttons)
-                    {
+                for (auto const& buttons : entries) {
+                    for (auto const& button : buttons) {
                         if (buttons_map.find(button) == buttons_map.end())
                             continue;
 
@@ -242,17 +223,13 @@ namespace randomizer
             }
         }
 
-        bool is_controller_pressed(Action action)
-        {
+        bool is_controller_pressed(Action action) {
             auto& entries = bindings[action];
-            for (auto const& buttons : entries)
-            {
+            for (auto const& buttons : entries) {
                 bool is_pressed = true;
-                for (auto const& button : buttons)
-                {
+                for (auto const& button : buttons) {
                     auto input = il2cpp::gchandle_target(buttons_map[button]);
-                    if (!il2cpp::invoke<app::Boolean__Boxed>(input, "GetValue")->fields)
-                    {
+                    if (!il2cpp::invoke<app::Boolean__Boxed>(input, "GetValue")->fields) {
                         is_pressed = false;
                         break;
                     }
@@ -264,5 +241,5 @@ namespace randomizer
 
             return false;
         }
-    }
-}
+    } // namespace input
+} // namespace randomizer

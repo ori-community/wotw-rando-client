@@ -8,18 +8,16 @@
 
 using namespace modloader::console;
 
-namespace
-{
+namespace {
     float rapid_fire_cooldown;
-    IL2CPP_INTERCEPT(, SeinBowAttack, void, OnAwake, (app::SeinBowAttack* this_ptr)) {
+    IL2CPP_INTERCEPT(, SeinBowAttack, void, OnAwake, (app::SeinBowAttack * this_ptr)) {
         SeinBowAttack::OnAwake(this_ptr);
         rapid_fire_cooldown = this_ptr->fields.RapidFireCooldown;
     }
 
     uber_states::UberState rapid_fire_upgrade(UberStateGroup::RandoUpgrade, 10);
-    IL2CPP_INTERCEPT(, SeinBowAttack, void, UpdateCharacterState, (app::SeinBowAttack* this_ptr)) {
+    IL2CPP_INTERCEPT(, SeinBowAttack, void, UpdateCharacterState, (app::SeinBowAttack * this_ptr)) {
         this_ptr->fields.RapidFireCooldown = rapid_fire_cooldown * rapid_fire_upgrade.get<float>();
         SeinBowAttack::UpdateCharacterState(this_ptr);
     }
-}
-
+} // namespace

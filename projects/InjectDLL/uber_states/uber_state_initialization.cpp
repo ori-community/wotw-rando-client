@@ -1,45 +1,66 @@
-#include <constants.h>
-#include <enums/uber_state.h>
 #include <Common/ext.h>
 #include <Common/settings.h>
+#include <constants.h>
+#include <enums/uber_state.h>
 
 #include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/interception_macros.h>
-#include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/console.h>
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
 
 #include <chrono>
 
 using namespace modloader;
 
-namespace
-{
-    app::UberID* create_uber_id_ptr(int id)
-    {
+namespace {
+    app::UberID* create_uber_id_ptr(int id) {
         auto uber_id = il2cpp::create_object<app::UberID>("Moon", "UberID");
         uber_id->fields.m_id = id;
         return uber_id;
     }
-
 
     // We cache the scriptable objects and use il2cpp::unity::instantiate_object to create instances from them
     // because that's a lot faster
     std::unordered_map<Il2CppClass*, app::IUberState*> uber_state_so_cache;
     app::UberStateGroup* group_so_cache = nullptr;
 
-    template<typename T> Il2CppClass* get_klass();
-    template<> Il2CppClass* get_klass<app::SerializedBooleanUberState>() { return il2cpp::get_class("Moon", "SerializedBooleanUberState"); }
-    template<> Il2CppClass* get_klass<app::SerializedByteUberState>() { return il2cpp::get_class("Moon", "SerializedByteUberState"); }
-    template<> Il2CppClass* get_klass<app::SerializedIntUberState>() { return il2cpp::get_class("Moon", "SerializedIntUberState"); }
-    template<> Il2CppClass* get_klass<app::SerializedFloatUberState>() { return il2cpp::get_class("Moon", "SerializedFloatUberState"); }
-    template<> Il2CppClass* get_klass<app::BooleanUberState>() { return il2cpp::get_class("Moon", "BooleanUberState"); }
-    template<> Il2CppClass* get_klass<app::ByteUberState>() { return il2cpp::get_class("Moon", "ByteUberState"); }
-    template<> Il2CppClass* get_klass<app::IntUberState>() { return il2cpp::get_class("Moon", "IntUberState"); }
-    template<> Il2CppClass* get_klass<app::FloatUberState>() { return il2cpp::get_class("Moon", "FloatUberState"); }
+    template <typename T>
+    Il2CppClass* get_klass();
+    template <>
+    Il2CppClass* get_klass<app::SerializedBooleanUberState>() {
+        return il2cpp::get_class("Moon", "SerializedBooleanUberState");
+    }
+    template <>
+    Il2CppClass* get_klass<app::SerializedByteUberState>() {
+        return il2cpp::get_class("Moon", "SerializedByteUberState");
+    }
+    template <>
+    Il2CppClass* get_klass<app::SerializedIntUberState>() {
+        return il2cpp::get_class("Moon", "SerializedIntUberState");
+    }
+    template <>
+    Il2CppClass* get_klass<app::SerializedFloatUberState>() {
+        return il2cpp::get_class("Moon", "SerializedFloatUberState");
+    }
+    template <>
+    Il2CppClass* get_klass<app::BooleanUberState>() {
+        return il2cpp::get_class("Moon", "BooleanUberState");
+    }
+    template <>
+    Il2CppClass* get_klass<app::ByteUberState>() {
+        return il2cpp::get_class("Moon", "ByteUberState");
+    }
+    template <>
+    Il2CppClass* get_klass<app::IntUberState>() {
+        return il2cpp::get_class("Moon", "IntUberState");
+    }
+    template <>
+    Il2CppClass* get_klass<app::FloatUberState>() {
+        return il2cpp::get_class("Moon", "FloatUberState");
+    }
 
-    template<typename T, typename V>
-    app::IUberState* add_state(UberStateGroup group, const std::string& state_name, int state_id, V default_value)
-    {
+    template <typename T, typename V>
+    app::IUberState* add_state(UberStateGroup group, const std::string& state_name, int state_id, V default_value) {
         auto klass = get_klass<T>();
 
         if (!uber_state_so_cache.contains(klass)) {
@@ -75,7 +96,7 @@ namespace
         modloader::console::console_flush();
     }
 
-    IL2CPP_INTERCEPT(Moon, UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection* this_ptr)) {
+    IL2CPP_INTERCEPT(Moon, UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection * this_ptr)) {
         auto start_time = std::chrono::high_resolution_clock::now();
 
         std::vector<app::IUberState*> states = {
@@ -287,11 +308,11 @@ namespace
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 2", 11, false),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 3", 12, false),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 4", 13, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 5",  14, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 6",  15, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 7",  16, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 8",  17, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 9",  18, false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 5", 14, false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 6", 15, false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 7", 16, false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 8", 17, false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 9", 18, false),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 10", 19, false),
 
             // hate this, hope we don't end up needing more of these!
@@ -474,9 +495,9 @@ namespace
             add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Wastes Map Cost", app::GameWorldAreaID__Enum_WindsweptWastes, 150),
             add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Willows End Map Cost", app::GameWorldAreaID__Enum_WillowsEnd, 50),
 
-            add_state<app::SerializedIntUberState>(UberStateGroup::npcsStateGroup, "HCMapIconCost", 19397,  0),
-            add_state<app::SerializedIntUberState>(UberStateGroup::npcsStateGroup, "ECMapIconCost", 57988,  0),
-            add_state<app::SerializedIntUberState>(UberStateGroup::npcsStateGroup, "ShardMapIconCost", 41667,  0),
+            add_state<app::SerializedIntUberState>(UberStateGroup::npcsStateGroup, "HCMapIconCost", 19397, 0),
+            add_state<app::SerializedIntUberState>(UberStateGroup::npcsStateGroup, "ECMapIconCost", 57988, 0),
+            add_state<app::SerializedIntUberState>(UberStateGroup::npcsStateGroup, "ShardMapIconCost", 41667, 0),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::npcsStateGroup, "Has bought everything", 20000, false),
         };
 
@@ -491,15 +512,18 @@ namespace
         const int GAME_MODES_FLOAT_COUNT = 5;
         for (int i = 0; i < GAME_MODES_INT_COUNT; ++i)
             states.push_back(
-                add_state<app::SerializedIntUberState>(UberStateGroup::RandoGameModes, format("%3d_int", i), GAME_MODES_INT_START + i, 0));
+                    add_state<app::SerializedIntUberState>(UberStateGroup::RandoGameModes, format("%3d_int", i), GAME_MODES_INT_START + i, 0)
+            );
 
         for (int i = 0; i < GAME_MODES_BOOL_COUNT; ++i)
             states.push_back(
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoGameModes, format("%3d_bool", i), GAME_MODES_BOOL_START + i, false));
+                    add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoGameModes, format("%3d_bool", i), GAME_MODES_BOOL_START + i, false)
+            );
 
         for (int i = 0; i < GAME_MODES_FLOAT_COUNT; ++i)
             states.push_back(
-                add_state<app::SerializedFloatUberState>(UberStateGroup::RandoGameModes, format("%3d_float", i), GAME_MODES_FLOAT_START + i, false));
+                    add_state<app::SerializedFloatUberState>(UberStateGroup::RandoGameModes, format("%3d_float", i), GAME_MODES_FLOAT_START + i, false)
+            );
 
         // Plando states
         const int PLANDO_INT_START = 0;
@@ -510,32 +534,37 @@ namespace
         const int PLANDO_FLOAT_COUNT = 25;
         for (int i = 0; i < PLANDO_INT_COUNT; ++i)
             states.push_back(
-                add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, format("%3d_int", i), PLANDO_INT_START + i, 0));
+                    add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, format("%3d_int", i), PLANDO_INT_START + i, 0)
+            );
 
         for (int i = 0; i < PLANDO_BOOL_COUNT; ++i)
             states.push_back(
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::PlandoVars, format("%3d_bool", i), PLANDO_BOOL_START + i, false));
+                    add_state<app::SerializedBooleanUberState>(UberStateGroup::PlandoVars, format("%3d_bool", i), PLANDO_BOOL_START + i, false)
+            );
 
         for (int i = 0; i < PLANDO_FLOAT_COUNT; ++i)
             states.push_back(
-                add_state<app::SerializedFloatUberState>(UberStateGroup::PlandoVars, format("%3d_float", i), PLANDO_FLOAT_START + i, false));
+                    add_state<app::SerializedFloatUberState>(UberStateGroup::PlandoVars, format("%3d_float", i), PLANDO_FLOAT_START + i, false)
+            );
 
         // Saved appliers.
         const int APPLIERS_GROUP_COUNT = 50;
-        for (int i = 0; i < APPLIERS_GROUP_COUNT; ++i)
-        {
+        for (int i = 0; i < APPLIERS_GROUP_COUNT; ++i) {
             states.push_back(
-                add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, format("%3d_id", i * 2), i * 2, 0));
+                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, format("%3d_id", i * 2), i * 2, 0)
+            );
 
             states.push_back(
-                add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, format("%3d_value", i * 2 + 1), i * 2 + 1, 0));
+                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, format("%3d_value", i * 2 + 1), i * 2 + 1, 0)
+            );
         }
 
         print_time(start_time, "Built custom state list");
 
         for (int i = 0; i < 2000; ++i) {
             states.push_back(
-                add_state<app::SerializedBooleanUberState>(UberStateGroup::MultiVars, format("%3d_multi", i), i, false));
+                    add_state<app::SerializedBooleanUberState>(UberStateGroup::MultiVars, format("%3d_multi", i), i, false)
+            );
         }
 
         print_time(start_time, "Built multi state list");
@@ -550,4 +579,4 @@ namespace
 
         print_time(start_time, "Uber states initialized");
     }
-}
+} // namespace

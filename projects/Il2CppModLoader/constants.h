@@ -2,10 +2,8 @@
 
 #include <set>
 
-namespace modloader
-{
-    enum class MessageType : int
-    {
+namespace modloader {
+    enum class MessageType : int {
         Error,
         Warning,
         Info,

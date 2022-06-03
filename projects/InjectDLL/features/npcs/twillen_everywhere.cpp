@@ -4,10 +4,8 @@
 
 #include <randomizer/conditions/new_setup_state_override.h>
 
-namespace
-{
-    void initialize_twillen()
-    {
+namespace {
+    void initialize_twillen() {
         // Twillen Hollow
         // -294171295 Present
         // -598610927 Gone
@@ -15,4 +13,4 @@ namespace
     }
 
     CALL_ON_INIT(initialize_twillen);
-}
+} // namespace

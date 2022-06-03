@@ -2,8 +2,7 @@
 
 #include <json/json.hpp>
 
-enum class TimelineEntryType
-{
+enum class TimelineEntryType {
     Unknown,
     Group,
 
@@ -21,8 +20,7 @@ enum class TimelineEntryType
     LerpScale,
 };
 
-enum class TimelineObjectType
-{
+enum class TimelineObjectType {
     Unknown,
     Animation,
     Sound,
@@ -30,21 +28,20 @@ enum class TimelineObjectType
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TimelineEntryType, {
-    { TimelineEntryType::Unknown, "Unknown" },
-    { TimelineEntryType::Group, "Group" },
-    { TimelineEntryType::Animation, "Animation" },
-    { TimelineEntryType::Sound, "Sound" },
-    { TimelineEntryType::Text, "Text" },
-    { TimelineEntryType::Position, "Position" },
-    { TimelineEntryType::Rotation, "Rotation" },
-    { TimelineEntryType::Scale, "Scale" },
-    { TimelineEntryType::LerpPosition, "LerpPosition" },
-});
+                                                        { TimelineEntryType::Unknown, "Unknown" },
+                                                        { TimelineEntryType::Group, "Group" },
+                                                        { TimelineEntryType::Animation, "Animation" },
+                                                        { TimelineEntryType::Sound, "Sound" },
+                                                        { TimelineEntryType::Text, "Text" },
+                                                        { TimelineEntryType::Position, "Position" },
+                                                        { TimelineEntryType::Rotation, "Rotation" },
+                                                        { TimelineEntryType::Scale, "Scale" },
+                                                        { TimelineEntryType::LerpPosition, "LerpPosition" },
+                                                });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TimelineObjectType, {
-    { TimelineObjectType::Unknown, "Unknown" },
-    { TimelineObjectType::Animation, "Animation" },
-    { TimelineObjectType::Sound, "Sound" },
-    { TimelineObjectType::Text, "Text" },
-});
-
+                                                         { TimelineObjectType::Unknown, "Unknown" },
+                                                         { TimelineObjectType::Animation, "Animation" },
+                                                         { TimelineObjectType::Sound, "Sound" },
+                                                         { TimelineObjectType::Text, "Text" },
+                                                 });

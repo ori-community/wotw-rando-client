@@ -1,10 +1,10 @@
 #include <game/game.h>
 #include <game/player.h>
+#include <interop/csharp_bridge.h>
 #include <randomizer/input/rando_bindings.h>
 #include <randomizer/input/simulator.h>
 #include <randomizer/ipc/base_handlers.h>
 #include <randomizer/ipc/ipc.h>
-#include <interop/csharp_bridge.h>
 #include <randomizer/messages.h>
 #include <uber_states/uber_state_interface.h>
 #include <utils/json_serializers.h>
@@ -13,33 +13,27 @@
 
 #include <Il2CppModLoader/common.h>
 
+#include <json/json.hpp>
 #include <memory>
 #include <string>
 #include <vector>
-#include <json/json.hpp>
 
 using namespace modloader;
 
-namespace randomizer
-{
-    namespace ipc
-    {
-        namespace
-        {
-            void reload(nlohmann::json& j)
-            {
+namespace randomizer {
+    namespace ipc {
+        namespace {
+            void reload(nlohmann::json& j) {
                 info("ipc", "Received reload action request.");
                 csharp_bridge::on_action_triggered(Action::Reload);
             }
 
-            void get_flags(nlohmann::json& j)
-            {
+            void get_flags(nlohmann::json& j) {
                 std::vector<std::string> values;
                 auto count = csharp_bridge::get_flag_count();
                 constexpr int size = 256;
                 wchar_t buffer[size];
-                for (int i = 0; i < count; ++i)
-                {
+                for (int i = 0; i < count; ++i) {
                     memset(buffer, 0, size);
                     csharp_bridge::get_flag(i, buffer, size - 1);
                     values.push_back(convert_wstring_to_string(buffer));
@@ -52,11 +46,9 @@ namespace randomizer
                 send_message(response.dump());
             }
 
-            void get_uberstates(nlohmann::json& j)
-            {
+            void get_uberstates(nlohmann::json& j) {
                 std::vector<float> values;
-                for (auto entry : j.at("payload"))
-                {
+                for (auto entry : j.at("payload")) {
                     auto group = entry.at("group").get<int>();
                     auto state = entry.at("state").get<int>();
                     values.push_back(uber_states::UberState(static_cast<UberStateGroup>(group), state).get());
@@ -69,8 +61,7 @@ namespace randomizer
                 send_message(response.dump());
             }
 
-            void set_uberstate(nlohmann::json& j)
-            {
+            void set_uberstate(nlohmann::json& j) {
                 auto p = j.at("payload");
                 auto group = p.at("group").get<int>();
                 auto state = p.at("state").get<int>();
@@ -78,8 +69,7 @@ namespace randomizer
                 uber_states::UberState(static_cast<UberStateGroup>(group), state).set(value);
             }
 
-            void action(nlohmann::json& j)
-            {
+            void action(nlohmann::json& j) {
                 auto p = j.at("payload");
                 auto id = p.at("action_id").get<Action>();
                 auto pressed = p.at("pressed").get<bool>();
@@ -89,15 +79,13 @@ namespace randomizer
                     action_released(id);
             }
 
-            void set_velocity(nlohmann::json& j)
-            {
+            void set_velocity(nlohmann::json& j) {
                 auto p = j.at("payload");
                 auto x = p.at("x").get<float>();
                 auto y = p.at("y").get<float>();
                 auto z = p.at("z").get<float>();
                 auto sein = game::player::sein();
-                if (sein != nullptr)
-                {
+                if (sein != nullptr) {
                     auto& speed = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed;
                     speed.x = x;
                     speed.y = y;
@@ -105,8 +93,7 @@ namespace randomizer
                 }
             }
 
-            void get_velocity(nlohmann::json& j)
-            {
+            void get_velocity(nlohmann::json& j) {
                 app::Vector3 v;
                 nlohmann::json response;
                 response["type"] = "response";
@@ -122,12 +109,10 @@ namespace randomizer
                 send_message(response.dump());
             }
 
-            void message(nlohmann::json& j)
-            {
+            void message(nlohmann::json& j) {
                 auto p = j.at("payload");
                 auto message_id = 0;
-                if (!p.contains("message_id"))
-                {
+                if (!p.contains("message_id")) {
                     auto message_id = reserve_id();
                     float fadein = p.value("fadein", 0.5f);
                     float fadeout = p.value("fadeout", 0.5f);
@@ -141,12 +126,9 @@ namespace randomizer
                     response["id"] = j.at("id").get<int>();
                     response["message_id"] = message_id;
                     send_message(response.dump());
-                }
-                else
-                {
+                } else {
                     message_id = p.at("message_id").get<int>();
-                    if (p.contains("destroy") && p.at("destroy").get<bool>())
-                    {
+                    if (p.contains("destroy") && p.at("destroy").get<bool>()) {
                         text_box_destroy(message_id);
                         return;
                     }
@@ -154,8 +136,7 @@ namespace randomizer
 
                 if (p.contains("text"))
                     text_box_text(message_id, convert_string_to_wstring(p.at("text").get<std::string>()).c_str());
-                if (p.contains("position"))
-                {
+                if (p.contains("position")) {
                     auto pos = p.at("position");
                     auto screen_position = p.value("screen_position", ScreenPosition::MiddleCenter);
                     app::Vector3 position;
@@ -165,26 +146,21 @@ namespace randomizer
                     position.z += pos.at("z").get<float>();
                     text_box_position(message_id, position.x, position.y, position.z, pos.at("use_in_game_coordinates").get<bool>());
                 }
-                if (p.contains("color"))
-                {
+                if (p.contains("color")) {
                     auto color = p.at("color");
                     text_box_color(message_id, color.at("r").get<int>(), color.at("g").get<int>(), color.at("b").get<int>(), color.at("a").get<int>());
                 }
                 if (p.contains("alignment"))
                     text_box_alignment(message_id, p.at("text").get<app::AlignmentMode__Enum>());
                 if (p.contains("anchor"))
-                    text_box_anchor(message_id,
-                        p.value("horizontal", app::HorizontalAnchorMode__Enum_Center),
-                        p.value("vertical", app::VerticalAnchorMode__Enum_Middle));
+                    text_box_anchor(message_id, p.value("horizontal", app::HorizontalAnchorMode__Enum_Center), p.value("vertical", app::VerticalAnchorMode__Enum_Middle));
                 if (p.contains("line_spacing"))
                     text_box_line_spacing(message_id, p.at("line_spacing").get<float>());
                 if (p.contains("visible"))
                     text_box_visibility(message_id, p.at("visible").get<bool>());
-
             }
 
-            void report_load(GameEvent game_event, EventTiming timing)
-            {
+            void report_load(GameEvent game_event, EventTiming timing) {
                 nlohmann::json response;
                 response["type"] = "request";
                 response["method"] = "notify_on_load";
@@ -196,16 +172,14 @@ namespace randomizer
                 { GameEvent::LostFocus, "notify_on_lost_focus" },
                 { GameEvent::Shutdown, "notify_on_shutdown" },
             };
-            void report_game_event(GameEvent game_event, EventTiming timing)
-            {
+            void report_game_event(GameEvent game_event, EventTiming timing) {
                 nlohmann::json response;
                 response["type"] = "request";
                 response["method"] = event_to_method.find(game_event)->second;
                 ipc::send_message(response.dump());
             }
 
-            void initialize()
-            {
+            void initialize() {
                 game::event_bus().register_handler(GameEvent::NewGame, EventTiming::End, &report_load);
                 game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, &report_load);
                 game::event_bus().register_handler(GameEvent::FinishedLoadingCheckpoint, EventTiming::End, &report_load);
@@ -224,28 +198,25 @@ namespace randomizer
                 register_request_handler("get_velocity", get_velocity);
                 register_request_handler("message", message);
 
-                for (auto action = static_cast<Action>(0); action < Action::TOTAL; action = static_cast<Action>(static_cast<int>(action) + 1))
-                {
+                for (auto action = static_cast<Action>(0); action < Action::TOTAL; action = static_cast<Action>(static_cast<int>(action) + 1)) {
                     randomizer::input::add_on_pressed_callback(action, report_input);
                     randomizer::input::add_on_released_callback(action, report_input);
                 }
             }
 
             CALL_ON_INIT(initialize);
-        }
-    }
-}
+        } // namespace
+    } // namespace ipc
+} // namespace randomizer
 
-INJECT_C_DLLEXPORT void report_seed_reload()
-{
+INJECT_C_DLLEXPORT void report_seed_reload() {
     nlohmann::json response;
     response["type"] = "request";
     response["method"] = "notify_on_reload";
     randomizer::ipc::send_message(response.dump());
 }
 
-INJECT_C_DLLEXPORT void report_uber_state_change(UberStateGroup group, int state, double value)
-{
+INJECT_C_DLLEXPORT void report_uber_state_change(UberStateGroup group, int state, double value) {
     nlohmann::json response;
     response["type"] = "request";
     response["method"] = "notify_on_uber_state_changed";
@@ -255,8 +226,7 @@ INJECT_C_DLLEXPORT void report_uber_state_change(UberStateGroup group, int state
     randomizer::ipc::send_message(response.dump());
 }
 
-INJECT_C_DLLEXPORT void report_input(Action type, bool pressed)
-{
+INJECT_C_DLLEXPORT void report_input(Action type, bool pressed) {
     nlohmann::json response;
     response["type"] = "request";
     response["method"] = "notify_input";

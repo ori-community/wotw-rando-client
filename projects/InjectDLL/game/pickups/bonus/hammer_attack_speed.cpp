@@ -7,11 +7,10 @@
 
 using namespace modloader;
 
-namespace
-{
+namespace {
     uber_states::UberState hammer_speed(UberStateGroup::RandoUpgrade, 0);
 
-    IL2CPP_INTERCEPT(, MeleeComboMoveHammerSimple, void, EnterMove, (app::MeleeComboMoveHammerSimple* this_ptr)) {
+    IL2CPP_INTERCEPT(, MeleeComboMoveHammerSimple, void, EnterMove, (app::MeleeComboMoveHammerSimple * this_ptr)) {
         auto hammer_speed_multiplier = hammer_speed.get<float>();
         if (this_ptr->fields.PrepareAttackTimeline != nullptr)
             il2cpp::invoke(this_ptr->fields.PrepareAttackTimeline, "SetTimeScale", &hammer_speed_multiplier);
@@ -21,7 +20,7 @@ namespace
         EnterMove(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, MeleeComboMoveHammer, void, EnterMove, (app::MeleeComboMoveHammer* this_ptr)) {
+    IL2CPP_INTERCEPT(, MeleeComboMoveHammer, void, EnterMove, (app::MeleeComboMoveHammer * this_ptr)) {
         auto hammer_speed_multiplier = hammer_speed.get<float>();
         if (this_ptr->fields.PrepareTimeline != nullptr)
             il2cpp::invoke(this_ptr->fields.PrepareTimeline, "SetTimeScale", &hammer_speed_multiplier);
@@ -33,7 +32,7 @@ namespace
         EnterMove(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, MeleeComboMoveHammerChargeable, void, EnterMove, (app::MeleeComboMoveHammerChargeable* this_ptr)) {
+    IL2CPP_INTERCEPT(, MeleeComboMoveHammerChargeable, void, EnterMove, (app::MeleeComboMoveHammerChargeable * this_ptr)) {
         auto hammer_speed_multiplier = hammer_speed.get<float>();
         if (this_ptr->fields.PrepareTimeline != nullptr)
             il2cpp::invoke(this_ptr->fields.PrepareTimeline, "SetTimeScale", &hammer_speed_multiplier);
@@ -47,7 +46,7 @@ namespace
         EnterMove(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, MeleeComboMoveHammerStomp, void, EnterStartState, (app::MeleeComboMoveHammerStomp* this_ptr)) {
+    IL2CPP_INTERCEPT(, MeleeComboMoveHammerStomp, void, EnterStartState, (app::MeleeComboMoveHammerStomp * this_ptr)) {
         auto hammer_speed_multiplier = hammer_speed.get<float>();
         if (this_ptr->fields.LoopTimeline != nullptr)
             il2cpp::invoke(this_ptr->fields.LoopTimeline, "SetTimeScale", &hammer_speed_multiplier);
@@ -62,4 +61,4 @@ namespace
 
         EnterStartState(this_ptr);
     }
-}
+} // namespace

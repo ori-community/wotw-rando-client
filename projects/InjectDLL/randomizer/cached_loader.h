@@ -1,34 +1,29 @@
 #pragma once
 
-#include <variant>
 #include <string>
 #include <unordered_map>
+#include <variant>
 
-namespace randomizer
-{
-    template<typename T>
+namespace randomizer {
+    template <typename T>
     using loading_function = T (*)(std::string path);
-    template<typename T, typename I>
+    template <typename T, typename I>
     using copy_function = T (*)(I value);
 
-    template<typename T, typename I, loading_function<T> load_func, copy_function<T, I> copy_func>
-    class CachedLoader
-    {
+    template <typename T, typename I, loading_function<T> load_func, copy_function<T, I> copy_func>
+    class CachedLoader {
     public:
         CachedLoader() {}
         CachedLoader(CachedLoader const&) = delete;
-        CachedLoader(CachedLoader &&) = delete;
+        CachedLoader(CachedLoader&&) = delete;
 
-        void load(std::string path)
-        {
+        void load(std::string path) {
             cache.emplace(path, load_func(path));
         }
 
-        T get(std::string path)
-        {
+        T get(std::string path) {
             auto it = cache.find(path);
-            if (it == cache.end())
-            {
+            if (it == cache.end()) {
                 load(path);
                 it = cache.find(path);
             }
@@ -39,4 +34,4 @@ namespace randomizer
     private:
         std::unordered_map<std::string, T> cache;
     };
-}
+} // namespace randomizer

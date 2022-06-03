@@ -1,23 +1,20 @@
-#include <common.h>
 #include <Common/ext.h>
+#include <common.h>
 #include <console.h>
 #include <interception_macros.h>
 
-#include <mutex>
-#include <iostream>
-#include <vector>
-#include <string>
 #include <algorithm>
 #include <future>
-#include <regex>
+#include <iostream>
 #include <map>
+#include <mutex>
+#include <regex>
+#include <string>
+#include <vector>
 
-namespace modloader::console
-{
-    namespace
-    {
-        std::string read_command()
-        {
+namespace modloader::console {
+    namespace {
+        std::string read_command() {
             std::string command;
             std::getline(std::cin, command);
             return command;
@@ -28,8 +25,7 @@ namespace modloader::console
             dev_command func;
         };
 
-        struct Command
-        {
+        struct Command {
             std::map<std::string, Command> sub_commands;
             std::vector<Action> actions;
         };
@@ -45,10 +41,9 @@ namespace modloader::console
 
         std::regex integer_regex("^[+-]?[0-9]+$");
         std::regex float_regex("^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$");
-    }
+    } // namespace
 
-    void register_command(std::vector<std::string> const& path, dev_command command, bool should_run_on_game_thread)
-    {
+    void register_command(std::vector<std::string> const& path, dev_command command, bool should_run_on_game_thread) {
         Command* current = &root;
         for (const auto& entry : path)
             current = &current->sub_commands[entry];
@@ -56,11 +51,9 @@ namespace modloader::console
         current->actions.push_back(Action{ should_run_on_game_thread, command });
     }
 
-    Command* find_command(std::vector<std::string> const& path)
-    {
+    Command* find_command(std::vector<std::string> const& path) {
         Command* current = &root;
-        for (const auto& entry : path)
-        {
+        for (const auto& entry : path) {
             auto it = current->sub_commands.find(entry);
             if (it == current->sub_commands.end())
                 return nullptr;
@@ -74,11 +67,10 @@ namespace modloader::console
     using command_queue = std::vector<std::tuple<std::string, std::vector<CommandParam>, dev_command>>;
     std::mutex command_mutex;
     command_queue queued_commands;
-    IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController* this_ptr)) {
+    IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController * this_ptr)) {
         GameController::Update(this_ptr);
         command_mutex.lock();
-        if (queued_commands.empty())
-        {
+        if (queued_commands.empty()) {
             command_mutex.unlock();
             return;
         }
@@ -91,8 +83,7 @@ namespace modloader::console
             std::get<2>(command)(std::get<0>(command), std::get<1>(command));
     }
 
-    bool handle_message(std::string const& message)
-    {
+    bool handle_message(std::string const& message) {
         if (message.empty())
             return false;
 
@@ -105,23 +96,18 @@ namespace modloader::console
 
         tokens.erase(tokens.begin());
         auto* const command = find_command(path);
-        if (command != nullptr)
-        {
+        if (command != nullptr) {
             std::vector<CommandParam> params;
-            for (auto const& token : tokens)
-            {
+            for (auto const& token : tokens) {
                 if (token.empty())
                     continue;
 
                 CommandParam param;
                 const auto offset = token.find('=');
-                if (offset == std::string::npos)
-                {
+                if (offset == std::string::npos) {
                     param.name = "";
                     param.value = token;
-                }
-                else
-                {
+                } else {
                     param.name = token.substr(0, offset);
                     param.value = token.substr(offset + 1, token.size());
                 }
@@ -129,15 +115,12 @@ namespace modloader::console
                 params.push_back(param);
             }
 
-            for (auto const& action : command->actions)
-            {
-                if (action.should_run_on_main_thread)
-                {
+            for (auto const& action : command->actions) {
+                if (action.should_run_on_main_thread) {
                     command_mutex.lock();
                     queued_commands.push_back(std::make_tuple(path_str, params, action.func));
                     command_mutex.unlock();
-                }
-                else
+                } else
                     action.func(path_str, params);
             }
 
@@ -147,8 +130,7 @@ namespace modloader::console
         return false;
     }
 
-    void console_initialize()
-    {
+    void console_initialize() {
         console_file = nullptr;
         initialzed = false;
         failed = true;
@@ -180,8 +162,7 @@ namespace modloader::console
         failed = false;
     }
 
-    void console_free()
-    {
+    void console_free() {
         if (!initialzed)
             return;
 
@@ -189,19 +170,16 @@ namespace modloader::console
             fclose(console_file);
 
         FreeConsole();
-
     }
 
-    void list_commands()
-    {
+    void list_commands() {
         console_send("");
         console_send("echo *");
         console_send("list *");
 
         std::vector<std::tuple<int, std::string, Command*>> commands;
         commands.push_back(std::make_tuple(-1, "", &root));
-        while (!commands.empty())
-        {
+        while (!commands.empty()) {
             auto entry = commands.back();
             commands.erase(commands.end() - 1);
 
@@ -219,22 +197,16 @@ namespace modloader::console
 
             const int index = commands.size();
             for (auto& sub_command : command->sub_commands)
-                commands.insert(commands.begin() + index, std::make_tuple(
-                    std::get<0>(entry) + 1,
-                    sub_command.first,
-                    &sub_command.second
-                ));
+                commands.insert(commands.begin() + index, std::make_tuple(std::get<0>(entry) + 1, sub_command.first, &sub_command.second));
         }
 
         console_send("");
     }
 
-    void console_poll()
-    {
+    void console_poll() {
         std::this_thread::sleep_for(std::chrono::seconds(1));
 
-        if (initialzed && console_input.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
-        {
+        if (initialzed && console_input.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
             const auto command = console_input.get();
             if (command.rfind("echo ", 0) != std::string::npos)
                 std::cout << command.substr(5, command.length()) << std::endl;
@@ -250,24 +222,19 @@ namespace modloader::console
         console_flush();
     }
 
-    void console_send(std::string str)
-    {
+    void console_send(std::string str) {
         message_mutex.lock();
         messages.push_back(std::move(str));
         message_mutex.unlock();
     }
 
-    void console_flush()
-    {
-        if (failed)
-        {
+    void console_flush() {
+        if (failed) {
             // If we did not create a console window clear the message queue.
             message_mutex.lock();
             messages.clear();
             message_mutex.unlock();
-        }
-        else
-        {
+        } else {
             message_mutex.lock();
             auto messages_copy = messages;
             messages.clear();
@@ -278,8 +245,7 @@ namespace modloader::console
         }
     }
 
-    namespace
-    {
+    namespace {
         std::vector<std::string> false_values = {
             "false",
             "0",
@@ -291,21 +257,17 @@ namespace modloader::console
             "1",
             "t"
         };
-    }
+    } // namespace
 
-    bool try_convert_to_bool(std::string str, bool& value)
-    {
-        std::transform(str.begin(), str.end(), str.begin(),
-            [](auto c) { return std::tolower(c); });
+    bool try_convert_to_bool(std::string str, bool& value) {
+        std::transform(str.begin(), str.end(), str.begin(), [](auto c) { return std::tolower(c); });
 
-        if (std::find(true_values.begin(), true_values.end(), str) != true_values.end())
-        {
+        if (std::find(true_values.begin(), true_values.end(), str) != true_values.end()) {
             value = true;
             return true;
         }
 
-        if (std::find(false_values.begin(), false_values.end(), str) != false_values.end())
-        {
+        if (std::find(false_values.begin(), false_values.end(), str) != false_values.end()) {
             value = false;
             return true;
         }
@@ -313,15 +275,12 @@ namespace modloader::console
         return false;
     }
 
-    bool try_get_bool(CommandParam const& param, bool& value)
-    {
+    bool try_get_bool(CommandParam const& param, bool& value) {
         return try_convert_to_bool(param.value, value);
     }
 
-    bool try_get_int(CommandParam const& param, int& value)
-    {
-        if (std::regex_match(param.value, integer_regex))
-        {
+    bool try_get_int(CommandParam const& param, int& value) {
+        if (std::regex_match(param.value, integer_regex)) {
             value = std::stoi(param.value);
             return true;
         }
@@ -329,14 +288,12 @@ namespace modloader::console
         return false;
     }
 
-    bool try_get_float(CommandParam const& param, float& value)
-    {
-        if (std::regex_match(param.value, float_regex))
-        {
+    bool try_get_float(CommandParam const& param, float& value) {
+        if (std::regex_match(param.value, float_regex)) {
             value = std::stof(param.value);
             return true;
         }
 
         return false;
     }
-}
+} // namespace modloader::console

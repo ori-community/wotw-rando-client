@@ -1,17 +1,14 @@
 #pragma once
 
-template<typename T>
-struct DirtyValue
-{
+template <typename T>
+struct DirtyValue {
 public:
-    DirtyValue(T v)
-    {
+    DirtyValue(T v) {
         _value = v;
         dirty = true;
     }
 
-    T& operator=(T&& other)
-    {
+    T& operator=(T&& other) {
         if (_value == other)
             return _value;
 
@@ -20,8 +17,7 @@ public:
         return _value;
     }
 
-    T& operator=(const T& other)
-    {
+    T& operator=(const T& other) {
         if (_value == other)
             return _value;
 
@@ -35,6 +31,7 @@ public:
     void set_dirty(bool value = false) { dirty = value; }
     bool is_dirty() { return dirty; }
     T& value() { return _value; }
+
 private:
     bool dirty = true;
     T _value;

@@ -5,13 +5,11 @@
 #include <Il2CppModLoader/constants.h>
 #include <Il2CppModLoader/macros.h>
 
-namespace modloader
-{
-    using shutdown_handler = void(*)();
+namespace modloader {
+    using shutdown_handler = void (*)();
     extern IL2CPP_MODLOADER_DLLEXPORT std::string base_path;
 
-    struct IL2CPP_MODLOADER_DLLEXPORT Initialization
-    {
+    struct IL2CPP_MODLOADER_DLLEXPORT Initialization {
         using init = void (*)();
         Initialization(init p_call);
 
@@ -19,40 +17,33 @@ namespace modloader
         Initialization* next;
     };
 
-    template<typename T>
-    struct ScopedSetter
-    {
+    template <typename T>
+    struct ScopedSetter {
         T& variable;
         T value;
 
-        ScopedSetter(T& variable, T value)
-            : variable(variable)
-            , value(variable)
-        {
+        ScopedSetter(T& variable, T value) :
+                variable(variable), value(variable) {
             variable = value;
         }
 
         ScopedSetter(ScopedSetter const& other) = delete;
         ScopedSetter(ScopedSetter&& other) = delete;
 
-        ~ScopedSetter()
-        {
+        ~ScopedSetter() {
             variable = value;
         }
     };
 
-    template<typename T>
-    struct ScopedCaller
-    {
+    template <typename T>
+    struct ScopedCaller {
         T end;
-        ScopedCaller(T start, T end)
-            : end(end)
-        {
+        ScopedCaller(T start, T end) :
+                end(end) {
             start();
         }
 
-        ~ScopedCaller()
-        {
+        ~ScopedCaller() {
             end();
         }
     };
@@ -67,6 +58,6 @@ namespace modloader
     IL2CPP_MODLOADER_DLLEXPORT void shutdown();
 
     IL2CPP_MODLOADER_DLLEXPORT extern bool shutdown_thread;
-}
+} // namespace modloader
 
 #define CALL_ON_INIT(func) modloader::Initialization func##_init_struct(&func)

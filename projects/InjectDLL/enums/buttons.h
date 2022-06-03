@@ -1,7 +1,6 @@
 #pragma once
 
-enum class ControllerButton
-{
+enum class ControllerButton {
     LeftShoulder,
     RightShoulder,
     LeftTrigger,

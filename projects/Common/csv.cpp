@@ -2,18 +2,15 @@
 #include <ext.h>
 
 #include <assert.h>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <sstream>
 
-namespace csv
-{
+namespace csv {
     namespace {
-        void str_replace(std::string& str, std::string const& to_replace, std::string const& replacement)
-        {
+        void str_replace(std::string& str, std::string const& to_replace, std::string const& replacement) {
             size_t index = 0;
-            while (true)
-            {
+            while (true) {
                 index = str.find(to_replace, index);
                 if (index == std::string::npos)
                     break;
@@ -22,10 +19,9 @@ namespace csv
                 index += replacement.size();
             }
         }
-    }
+    } // namespace
 
-    bool csv_load_file(CSV& csv)
-    {
+    bool csv_load_file(CSV& csv) {
         std::ifstream st(csv.path);
         std::noskipws(st);
         csv.headers.clear();
@@ -34,8 +30,7 @@ namespace csv
         bool parsing_headers = true;
         char c;
         std::string line;
-        while (std::getline(st, line))
-        {
+        while (std::getline(st, line)) {
             trim(line);
             if (line.empty())
                 continue;
@@ -46,23 +41,21 @@ namespace csv
             char c = 0;
             std::string token;
 
-            do { c = ss.get(); } while (c == ' ');
-            if (c == '"')
-            {
+            do {
+                c = ss.get();
+            } while (c == ' ');
+            if (c == '"') {
                 encode = true;
                 c = ss.get();
             }
 
-            while (!ss.eof())
-            {
-                if (c == '\n' || c == '\r')
-                {
+            while (!ss.eof()) {
+                if (c == '\n' || c == '\r') {
                     c = ss.get();
                     continue;
                 }
-                
-                if (!encode)
-                {
+
+                if (!encode) {
                     if (c == ',') // End word
                     {
                         trim(token);
@@ -72,27 +65,23 @@ namespace csv
                             csv.data.push_back(token);
 
                         token.clear();
-                        do { c = ss.get(); } while (c == ' ');
-                        if (c == '"')
-                        {
+                        do {
+                            c = ss.get();
+                        } while (c == ' ');
+                        if (c == '"') {
                             encode = true;
                             c = ss.get();
                         }
 
                         continue;
-                    }
-                    else
+                    } else
                         token += c;
-                }
-                else
-                {
-                    if (c == '"')
-                    {
+                } else {
+                    if (c == '"') {
                         last_unescaped_quote = !last_unescaped_quote;
                         if (!last_unescaped_quote)
                             token += c;
-                    }
-                    else if (last_unescaped_quote && c == ',') // End word
+                    } else if (last_unescaped_quote && c == ',') // End word
                     {
                         trim(token);
                         if (parsing_headers)
@@ -101,16 +90,16 @@ namespace csv
                             csv.data.push_back(token);
 
                         token.clear();
-                        do { c = ss.get(); } while (c == ' ');
-                        if (c == '"')
-                        {
+                        do {
+                            c = ss.get();
+                        } while (c == ' ');
+                        if (c == '"') {
                             encode = true;
                             c = ss.get();
                         }
 
                         continue;
-                    }
-                    else if (last_unescaped_quote) // Malformed csv.
+                    } else if (last_unescaped_quote) // Malformed csv.
                         return false;
                     else
                         token += c;
@@ -125,8 +114,7 @@ namespace csv
         return true;
     }
 
-    std::string sanitize_csv_field(std::string str)
-    {
+    std::string sanitize_csv_field(std::string str) {
         if (str.find(',') == -1 && str.find('"') == -1)
             return str;
 
@@ -134,18 +122,15 @@ namespace csv
         return format("\"%s\"", str.c_str());
     }
 
-    void csv_save_file(CSV& csv)
-    {
+    void csv_save_file(CSV& csv) {
         std::ofstream st(csv.path);
-        for (auto const& header : csv.headers)
-        {
+        for (auto const& header : csv.headers) {
             st << sanitize_csv_field(header);
             st << ",";
         }
 
         int i = 0;
-        for (auto const& entry : csv.data)
-        {
+        for (auto const& entry : csv.data) {
             if (i % csv.headers.size() == 0)
                 st << "\n";
 
@@ -155,8 +140,7 @@ namespace csv
         }
     }
 
-    void csv_parse_data(CSV& csv, std::vector<std::string> const& data, int header_count)
-    {
+    void csv_parse_data(CSV& csv, std::vector<std::string> const& data, int header_count) {
         assert(data.size() % header_count == 0);
         // TODO: Add double quote marks around strings that include commas.
         // Replace existing double quotes with single quotes.
@@ -166,15 +150,13 @@ namespace csv
             csv.data.insert(csv.data.begin(), data.begin() + header_count + 1, data.end());
     }
 
-    std::vector<std::vector<std::string>> csv_retrieve_data(CSV& csv)
-    {
+    std::vector<std::vector<std::string>> csv_retrieve_data(CSV& csv) {
         assert(csv.data.size() % csv.headers.size() == 0);
 
         std::vector<std::vector<std::string>> data;
         data.push_back(csv.headers);
         auto it = csv.data.begin();
-        while (it != csv.data.end())
-        {
+        while (it != csv.data.end()) {
             auto end = it + csv.headers.size();
             std::vector next(it, end);
             data.push_back(next);
@@ -183,4 +165,4 @@ namespace csv
 
         return data;
     }
-}
+} // namespace csv

@@ -7,10 +7,8 @@
 
 #include <unordered_map>
 
-namespace timer
-{
-    struct TimerInfo
-    {
+namespace timer {
+    struct TimerInfo {
         timer_callback callback;
         float duration;
         float time_started;
@@ -22,8 +20,7 @@ namespace timer
     int next_timer_id = 1;
     float current_time = 0.0f;
 
-    int register_timer(timer_callback callback, float duration, bool repeat, void* params)
-    {
+    int register_timer(timer_callback callback, float duration, bool repeat, void* params) {
         if (callback == nullptr)
             modloader::warn("timer", "Registered a timer with a nullptr callback");
 
@@ -40,8 +37,7 @@ namespace timer
         return id;
     }
 
-    bool deregister_timer(int id)
-    {
+    bool deregister_timer(int id) {
         auto it = timers.find(id);
         if (it == timers.end())
             return false;
@@ -52,24 +48,21 @@ namespace timer
 
     std::vector<int> dead_timers;
     STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
-    IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController* this_ptr)) {
+    IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController * this_ptr)) {
         GameController::Update(this_ptr);
 
         if (game::is_paused())
             return;
 
-        if (timers.empty())
-        {
+        if (timers.empty()) {
             current_time = 0.0f;
             return;
         }
 
         current_time += TimeUtility::get_deltaTime();
-        for (auto& timer : timers)
-        {
+        for (auto& timer : timers) {
             auto trigger_time = timer.second.time_started + timer.second.duration;
-            if (current_time >= trigger_time)
-            {
+            if (current_time >= trigger_time) {
                 timer.second.callback(current_time - trigger_time, timer.second.params);
                 if (timer.second.repeat)
                     timer.second.time_started = trigger_time;
@@ -83,4 +76,4 @@ namespace timer
 
         dead_timers.clear();
     }
-}
+} // namespace timer

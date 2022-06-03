@@ -2,8 +2,7 @@
 
 #include <unordered_map>
 
-namespace
-{
+namespace {
     std::unordered_map<UberStateGroup, std::string> group_names = {
         { UberStateGroup::Tree, "trees" },
         { UberStateGroup::OpherWeapon, "opher_weapons" },
@@ -28,8 +27,7 @@ namespace
     };
 }
 
-std::string uber_state_group_name(UberStateGroup group)
-{
+std::string uber_state_group_name(UberStateGroup group) {
     auto it = group_names.find(group);
     return it != group_names.end() ? it->second : "unknown";
 }

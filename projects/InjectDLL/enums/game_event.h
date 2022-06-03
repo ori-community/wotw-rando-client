@@ -1,7 +1,6 @@
 #pragma once
 
-enum class GameEvent
-{
+enum class GameEvent {
     Update,
     FixedUpdate,
     GainedFocus,

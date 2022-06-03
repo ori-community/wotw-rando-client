@@ -8,43 +8,43 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 
 set(
-	SOURCE_FILES
-	"loader.cpp"
+        SOURCE_FILES
+        "loader.cpp"
 )
 
 set(
-	PUBLIC_HEADER_FILES
+        PUBLIC_HEADER_FILES
 )
 
 set(
-	MISC_FILES
-	".editorconfig"
-	"CMakeLists.txt"
+        MISC_FILES
+        ".editorconfig"
+        "CMakeLists.txt"
 )
 
 add_library(${PROJECT_NAME} SHARED
-	${SOURCE_FILES}
-	${PUBLIC_HEADER_FILES}
-	${MISC_FILES}
-)
+        ${SOURCE_FILES}
+        ${PUBLIC_HEADER_FILES}
+        ${MISC_FILES}
+        )
 
 set_target_properties(
-	${PROJECT_NAME}
-	PROPERTIES
-		VERSION ${WORWR_VERSION}
-		SOVERSION ${WORWR_MAJOR_VERSION}
-		FOLDER cpp
+        ${PROJECT_NAME}
+        PROPERTIES
+        VERSION ${WORWR_VERSION}
+        SOVERSION ${WORWR_MAJOR_VERSION}
+        FOLDER cpp
 )
 
 target_include_directories(
-	${PROJECT_NAME}
-	PRIVATE
-		.
-		${CMAKE_CONFIG_DIRECTORY}
-		${CMAKE_ENGINE_DIRECTORY}
-		${WOTWR_LIB_INCLUDE_DIR}
-	SYSTEM
-		${WOTWR_BASE_INCLUDES}
+        ${PROJECT_NAME}
+        PRIVATE
+        .
+        ${CMAKE_CONFIG_DIRECTORY}
+        ${CMAKE_ENGINE_DIRECTORY}
+        ${WOTWR_LIB_INCLUDE_DIR}
+        SYSTEM
+        ${WOTWR_BASE_INCLUDES}
 )
 
 message(STATUS "Assigning source groups.")
@@ -53,13 +53,13 @@ set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_
 set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
 
 target_link_libraries(
-	${PROJECT_NAME}
-	Common
+        ${PROJECT_NAME}
+        Common
 )
 
 install(
-	TARGETS ${PROJECT_NAME}
-	RUNTIME DESTINATION "${WOTWR_INSTALL_DIR}"
-	LIBRARY DESTINATION "${WOTWR_INSTALL_DIR}"
-	ARCHIVE DESTINATION "${WOTWR_INSTALL_DIR}"
+        TARGETS ${PROJECT_NAME}
+        RUNTIME DESTINATION "${WOTWR_INSTALL_DIR}"
+        LIBRARY DESTINATION "${WOTWR_INSTALL_DIR}"
+        ARCHIVE DESTINATION "${WOTWR_INSTALL_DIR}"
 )

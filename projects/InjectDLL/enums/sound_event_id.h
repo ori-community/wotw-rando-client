@@ -2,8 +2,7 @@
 
 #include <json/json.hpp>
 
-enum class SoundEventID : uint32_t
-{
+enum class SoundEventID : uint32_t {
     // Game
 
     // Randomizer
@@ -11,5 +10,5 @@ enum class SoundEventID : uint32_t
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SoundEventID, {
-    { SoundEventID::Catching, "Catching" },
-});
+                                                   { SoundEventID::Catching, "Catching" },
+                                           });

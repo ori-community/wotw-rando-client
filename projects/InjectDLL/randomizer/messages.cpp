@@ -1,30 +1,29 @@
 #include <dev/object_visualizer.h>
 #include <game/game.h>
 #include <game/player.h>
-#include <game/ui.h>
 #include <game/system/message_provider.h>
+#include <game/ui.h>
 #include <interop/csharp_bridge.h>
 #include <randomizer/messages.h>
 #include <utils/position_converter.h>
 
 #include <Common/ext.h>
-#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
-#include <set>
-#include <locale>
 #include <codecvt>
+#include <locale>
+#include <set>
 #include <unordered_map>
 #include <unordered_set>
 #include <xstring>
 
 using namespace modloader;
 
-namespace
-{
-    STATIC_IL2CPP_BINDING(, MessageParserUtility, app::String*, ProcessString, (app::String* message));
+namespace {
+    STATIC_IL2CPP_BINDING(, MessageParserUtility, app::String*, ProcessString, (app::String * message));
     STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopLeft, ());
     STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopCenter, ());
     STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopRight, ());
@@ -35,20 +34,31 @@ namespace
     STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomCenter, ());
     STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomRight, ());
 
-    IL2CPP_INTERCEPT(, MessageControllerB, app::GameObject*, ShowSpiritTreeTextMessage, (app::MessageControllerB* this_ptr, app::MessageProvider* provider, app::Vector3 position)) { return nullptr; }
-    IL2CPP_INTERCEPT(, MessageControllerB, app::GameObject*, ShowAbilityMessage, (app::MessageControllerB* this_ptr, app::MessageProvider* provider, int32_t ability)) { return nullptr; }
-    IL2CPP_INTERCEPT(, MessageControllerB, app::GameObject*, ShowShardMessage, (app::MessageControllerB* this_ptr, app::MessageProvider* provider, app::GameObject* av, app::SpiritShardType__Enum shard)) { return nullptr; }
-    IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowSpellMessage, (app::MessageControllerB* t, app::MessageProvider* p, app::Quest* q)) { return nullptr; }
-    IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowCompleteQuestMessage, (app::MessageControllerB* t, app::MessageProvider* p, app::Quest* q)) { return nullptr; }
-    IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowUpdatedQuestMessage, (app::MessageControllerB* t, app::MessageProvider* p, app::Quest* q)) { return nullptr; }
-    IL2CPP_INTERCEPT(, MessageZoneB, void, FixedUpdate, (app::MessageZoneB* this_ptr)) {}
+    IL2CPP_INTERCEPT(, MessageControllerB, app::GameObject*, ShowSpiritTreeTextMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* provider, app::Vector3 position)) {
+        return nullptr;
+    }
+    IL2CPP_INTERCEPT(, MessageControllerB, app::GameObject*, ShowAbilityMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* provider, int32_t ability)) {
+        return nullptr;
+    }
+    IL2CPP_INTERCEPT(, MessageControllerB, app::GameObject*, ShowShardMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* provider, app::GameObject* av, app::SpiritShardType__Enum shard)) {
+        return nullptr;
+    }
+    IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowSpellMessage, (app::MessageControllerB * t, app::MessageProvider* p, app::Quest* q)) {
+        return nullptr;
+    }
+    IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowCompleteQuestMessage, (app::MessageControllerB * t, app::MessageProvider* p, app::Quest* q)) {
+        return nullptr;
+    }
+    IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowUpdatedQuestMessage, (app::MessageControllerB * t, app::MessageProvider* p, app::Quest* q)) {
+        return nullptr;
+    }
+    IL2CPP_INTERCEPT(, MessageZoneB, void, FixedUpdate, (app::MessageZoneB * this_ptr)) {}
 
-    IL2CPP_BINDING(, MessageProvider, app::String__Array*, GetAllMessages, (app::MessageProvider* this_ptr));
-    IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowPickupMessage, (app::MessageControllerB* this_ptr, app::MessageProvider* message_provider, app::PickupContext* context, bool lockInput)) {
+    IL2CPP_BINDING(, MessageProvider, app::String__Array*, GetAllMessages, (app::MessageProvider * this_ptr));
+    IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowPickupMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::PickupContext* context, bool lockInput)) {
         if (context->fields.PickupType == app::PickupMessageIcon_PickupType__Enum_QuestItem) {
             auto arr = MessageProvider::GetAllMessages(context->fields.Name);
-            if (arr->max_length > 0)
-            {
+            if (arr->max_length > 0) {
                 auto name = il2cpp::convert_csstring(arr->vector[0]);
                 if (name == "Gorlek Ore" || name == "Giant Spirit Light Container")
                     return nullptr;
@@ -58,18 +68,16 @@ namespace
         return MessageControllerB::ShowPickupMessage(this_ptr, message_provider, context, lockInput);
     }
 
-    bool is_on_screen_positions_initialized()
-    {
+    bool is_on_screen_positions_initialized() {
         auto on_screen_positions = il2cpp::get_class<app::OnScreenPositions__Class>("", "OnScreenPositions");
         auto mono_instance = reinterpret_cast<app::MonoSingleInstance_1_OnScreenPositions___Class*>(on_screen_positions->_0.parent);
         return mono_instance->static_fields->m_initialized;
     }
 
-    struct RandoMessage
-    {
+    struct RandoMessage {
         int id = 0;
         bool use_in_game_coordinates = false;
-        app::Vector3 pos{ 0.0f, 0.0f, 0.0f};
+        app::Vector3 pos{ 0.0f, 0.0f, 0.0f };
         std::wstring text;
         bool should_show_box = true;
         float box_top_padding = 0.25f;
@@ -98,22 +106,21 @@ namespace
 
     STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Implicit, (void* this_ptr));
     STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Equality, (void* this_ptr, void* obj));
-    STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (void* object), (UnityEngine:Object));
-    IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject* this_ptr, bool value));
-    IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox* this_ptr));
-    IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, get_parent, (app::Transform* this_ptr));
-    IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, GetChild, (app::Transform* this_ptr, int index));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform* this_ptr, app::Transform* parent));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform* this_ptr, app::Vector3* value));
-    IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RefreshText, (app::TextBox* this_ptr));
+    STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (void* object), (UnityEngine
+                                                                                                    : Object));
+    IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject * this_ptr, bool value));
+    IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox * this_ptr));
+    IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, get_parent, (app::Transform * this_ptr));
+    IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, GetChild, (app::Transform * this_ptr, int index));
+    IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform * this_ptr, app::Transform* parent));
+    IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform * this_ptr, app::Vector3* value));
+    IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RefreshText, (app::TextBox * this_ptr));
 
-    bool eat(std::wstring const& text, int& i, std::wstring_view food)
-    {
+    bool eat(std::wstring const& text, int& i, std::wstring_view food) {
         if (i + food.size() >= text.size())
             return false;
 
-        if (std::wstring_view(text.c_str() + i, food.size()) == food)
-        {
+        if (std::wstring_view(text.c_str() + i, food.size()) == food) {
             i += food.size();
             return true;
         }
@@ -121,28 +128,22 @@ namespace
         return false;
     }
 
-    std::wstring_view eat_until(std::wstring const& text, int& i, std::wstring_view until)
-    {
+    std::wstring_view eat_until(std::wstring const& text, int& i, std::wstring_view until) {
         int j = i;
-        while (j < text.size())
-        {
-            if (eat(text, j, until))
-            {
+        while (j < text.size()) {
+            if (eat(text, j, until)) {
                 std::wstring_view out(text.c_str() + i, j - i - until.size());
                 i = j;
                 return out;
-            }
-            else
+            } else
                 ++j;
         }
 
         return L"";
     }
 
-    bool check_style(std::wstring const& text, int& i, std::wstring_view start, std::string& value)
-    {
-        if (eat(text, i, start))
-        {
+    bool check_style(std::wstring const& text, int& i, std::wstring_view start, std::string& value) {
+        if (eat(text, i, start)) {
             value = convert_wstring_to_string(std::wstring(eat_until(text, i, L">")));
             trim(value);
             if (!value.empty())
@@ -154,8 +155,7 @@ namespace
         return false;
     }
 
-    app::TextStyle* create_style(std::string_view name)
-    {
+    app::TextStyle* create_style(std::string_view name) {
         auto style = il2cpp::create_object<app::TextStyle>("CatlikeCoding.TextBox", "TextStyle");
         il2cpp::invoke(style, ".ctor");
         style->fields.name = reinterpret_cast<app::String*>(il2cpp::string_new(name));
@@ -164,8 +164,7 @@ namespace
     }
 
     std::unordered_set<std::string> created_styles;
-    app::TextStyle* create_color_style(std::string const& text)
-    {
+    app::TextStyle* create_color_style(std::string const& text) {
         auto it = created_styles.find(text);
         if (it != created_styles.end() || text.size() != 8)
             return nullptr;
@@ -178,16 +177,15 @@ namespace
         auto style = create_style("hex_" + text);
         style->fields.hasColor = true;
         style->fields.color.rgba =
-            ((color_channels >> 24) & 0xff) |
-            ((color_channels << 8) & 0xff0000) |
-            ((color_channels >> 8) & 0xff00) |
-            ((color_channels << 24) & 0xff000000);
+                ((color_channels >> 24) & 0xff) |
+                ((color_channels << 8) & 0xff0000) |
+                ((color_channels >> 8) & 0xff00) |
+                ((color_channels << 24) & 0xff000000);
 
         return style;
     }
 
-    app::TextStyle* create_size_style(std::string const& text)
-    {
+    app::TextStyle* create_size_style(std::string const& text) {
         auto it = created_styles.find(text);
         if (it != created_styles.end())
             return nullptr;
@@ -205,13 +203,11 @@ namespace
         return style;
     }
 
-    void create_color_styles(app::MessageBox* box, std::wstring const& text)
-    {
+    void create_color_styles(app::MessageBox* box, std::wstring const& text) {
         int i = 0;
         std::vector<app::TextStyle*> new_styles;
         std::string value;
-        while (i < text.size())
-        {
+        while (i < text.size()) {
             app::TextStyle* style = nullptr;
             if (check_style(text, i, L"<hex_", value))
                 style = create_color_style(value);
@@ -220,15 +216,13 @@ namespace
             else
                 ++i;
 
-            if (style != nullptr)
-            {
+            if (style != nullptr) {
                 created_styles.emplace(value);
                 new_styles.push_back(style);
             }
         }
 
-        if (!new_styles.empty())
-        {
+        if (!new_styles.empty()) {
             auto* styles = box->fields.TextBox->fields.styleCollection->fields.styles;
             auto size = styles->max_length + new_styles.size();
             auto arr = il2cpp::untyped::array_new(il2cpp::get_class("CatlikeCoding.TextBox", "TextStyle"), size);
@@ -244,9 +238,8 @@ namespace
         }
     }
 
-    IL2CPP_BINDING(, ScaleToTextBox, void, UpdateSize, (app::ScaleToTextBox* this_ptr));
-    void scale_background(RandoMessage& message)
-    {
+    IL2CPP_BINDING(, ScaleToTextBox, void, UpdateSize, (app::ScaleToTextBox * this_ptr));
+    void scale_background(RandoMessage& message) {
         if (!message.should_show_box || message.obj == nullptr)
             return;
 
@@ -258,14 +251,12 @@ namespace
         ScaleToTextBox::UpdateSize(scaler);
     }
 
-    void refresh(RandoMessage& message)
-    {
+    void refresh(RandoMessage& message) {
         if (message.obj != nullptr && !message.recreate)
             message.should_refresh = true;
     }
 
-    void do_position_refresh(RandoMessage &message)
-    {
+    void do_position_refresh(RandoMessage& message) {
         app::Vector3 pos = { message.pos.x, message.pos.y, 0.0f };
         if (message.use_in_game_coordinates)
             pos = world_to_ui_position(pos);
@@ -274,8 +265,7 @@ namespace
         Transform::set_position(transform, &pos);
     }
 
-    void do_refresh(RandoMessage& message, app::MessageBox* message_box)
-    {
+    void do_refresh(RandoMessage& message, app::MessageBox* message_box) {
         // Position
         do_position_refresh(message);
 
@@ -309,8 +299,7 @@ namespace
         message.should_refresh = false;
     }
 
-    app::GameObject* create_permanent_box(RandoMessage& message, bool instant = false)
-    {
+    app::GameObject* create_permanent_box(RandoMessage& message, bool instant = false) {
         auto controller = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->MessageController;
         auto go = reinterpret_cast<app::GameObject*>(Object::Instantiate(controller->fields.HintSmallMessage));
         game::add_to_container(game::RandoContainer::Messages, go);
@@ -354,8 +343,7 @@ namespace
         MessageBox::RefreshText(message_box);
 
         auto transform = il2cpp::unity::get_transform(go);
-        if (!message.should_show_box)
-        {
+        if (!message.should_show_box) {
             auto background = il2cpp::unity::get_game_object(Transform::GetChild(transform, 2));
             GameObject::SetActive(background, false);
         }
@@ -377,16 +365,14 @@ namespace
 
     bool clear_on_next_update = false;
 
-    bool handle_visibility(RandoMessage& message, app::MessageBox* message_box)
-    {
+    bool handle_visibility(RandoMessage& message, app::MessageBox* message_box) {
         auto visible = message.visible && message.alive;
 
         message_box->fields.Visibility->fields.m_timeSpeed = visible
-            ? (1.0f / std::max(message.fadein, FLT_EPSILON))
-            : -(1.0f / std::max(message.fadeout, FLT_EPSILON));
+                ? (1.0f / std::max(message.fadein, FLT_EPSILON))
+                : -(1.0f / std::max(message.fadeout, FLT_EPSILON));
 
-        if (!message.alive)
-        {
+        if (!message.alive) {
             if (message.recreate || message.fadeout > 0.0f)
                 message.delay = message.fadeout * (1.f - message_box->fields.Visibility->fields.m_delayTime);
             else
@@ -397,18 +383,15 @@ namespace
     }
 
     STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
-    IL2CPP_INTERCEPT(, QuestsController, void, Update, (app::QuestsController* this_ptr)) {
-        if (clear_on_next_update)
-        {
+    IL2CPP_INTERCEPT(, QuestsController, void, Update, (app::QuestsController * this_ptr)) {
+        if (clear_on_next_update) {
             il2cpp::invoke(this_ptr->fields.m_queuedQuestMessages, "Clear");
             clear_on_next_update = false;
         }
 
         std::unordered_set<int> dead_messages;
-        for (auto& message : permanent_messages)
-        {
-            if (message.second.delay > 0.0f)
-            {
+        for (auto& message : permanent_messages) {
+            if (message.second.delay > 0.0f) {
                 message.second.delay -= TimeUtility::get_deltaTime();
 
                 if (message.second.use_in_game_coordinates)
@@ -421,14 +404,12 @@ namespace
                 continue;
             }
 
-            if (message.second.obj == nullptr)
-            {
+            if (message.second.obj == nullptr) {
                 create_permanent_box(message.second);
                 message.second.recreate = false;
             }
 
-            if (!il2cpp::unity::is_valid(message.second.obj))
-            {
+            if (!il2cpp::unity::is_valid(message.second.obj)) {
                 // Something else killed this game object, recreate it instantly.
                 create_permanent_box(message.second, true);
                 continue;
@@ -446,11 +427,9 @@ namespace
             GameObject::SetActive(message.second.obj, true);
         }
 
-        for (auto id : dead_messages)
-        {
+        for (auto id : dead_messages) {
             auto it = permanent_messages.find(id);
-            if (it != permanent_messages.end())
-            {
+            if (it != permanent_messages.end()) {
                 il2cpp::unity::destroy_object(it->second.obj);
                 permanent_messages.erase(it);
             }
@@ -459,67 +438,59 @@ namespace
         QuestsController::Update(this_ptr);
     }
 
-    IL2CPP_BINDING(, SeinLogicCycle, app::SeinLogicCycle_StateFlags__Enum, GetFlags, (app::SeinLogicCycle* this_ptr, app::SeinLogicCycle_StateFlags__Enum test));
-}
+    IL2CPP_BINDING(, SeinLogicCycle, app::SeinLogicCycle_StateFlags__Enum, GetFlags, (app::SeinLogicCycle * this_ptr, app::SeinLogicCycle_StateFlags__Enum test));
+} // namespace
 
-INJECT_C_DLLEXPORT void clear_quest_messages()
-{
+INJECT_C_DLLEXPORT void clear_quest_messages() {
     clear_on_next_update = true;
 }
 
-INJECT_C_DLLEXPORT void get_screen_position(ScreenPosition position, app::Vector3* output)
-{
-    if (is_on_screen_positions_initialized())
-    {
-        switch (position)
-        {
-        case ScreenPosition::TopLeft:
-            *output = OnScreenPositions::get_TopLeft();
-            break;
-        case ScreenPosition::TopCenter:
-            *output = OnScreenPositions::get_TopCenter();
-            break;
-        case ScreenPosition::TopRight:
-            *output = OnScreenPositions::get_TopRight();
-            break;
-        case ScreenPosition::MiddleLeft:
-            *output = OnScreenPositions::get_MiddleLeft();
-            break;
-        case ScreenPosition::MiddleCenter:
-            *output = OnScreenPositions::get_MiddleCenter();
-            break;
-        case ScreenPosition::MiddleRight:
-            *output = OnScreenPositions::get_MiddleRight();
-            break;
-        case ScreenPosition::BottomLeft:
-            *output = OnScreenPositions::get_BottomLeft();
-            break;
-        case ScreenPosition::BottomCenter:
-            *output = OnScreenPositions::get_BottomCenter();
-            break;
-        case ScreenPosition::BottomRight:
-            *output = OnScreenPositions::get_BottomRight();
-            break;
+INJECT_C_DLLEXPORT void get_screen_position(ScreenPosition position, app::Vector3* output) {
+    if (is_on_screen_positions_initialized()) {
+        switch (position) {
+            case ScreenPosition::TopLeft:
+                *output = OnScreenPositions::get_TopLeft();
+                break;
+            case ScreenPosition::TopCenter:
+                *output = OnScreenPositions::get_TopCenter();
+                break;
+            case ScreenPosition::TopRight:
+                *output = OnScreenPositions::get_TopRight();
+                break;
+            case ScreenPosition::MiddleLeft:
+                *output = OnScreenPositions::get_MiddleLeft();
+                break;
+            case ScreenPosition::MiddleCenter:
+                *output = OnScreenPositions::get_MiddleCenter();
+                break;
+            case ScreenPosition::MiddleRight:
+                *output = OnScreenPositions::get_MiddleRight();
+                break;
+            case ScreenPosition::BottomLeft:
+                *output = OnScreenPositions::get_BottomLeft();
+                break;
+            case ScreenPosition::BottomCenter:
+                *output = OnScreenPositions::get_BottomCenter();
+                break;
+            case ScreenPosition::BottomRight:
+                *output = OnScreenPositions::get_BottomRight();
+                break;
         }
-    }
-    else
-    {
+    } else {
         output->x = 0.0f;
         output->y = 0.0f;
         output->z = 0.0f;
     }
 }
 
-app::MessageBox* get_message_box(RandoMessage& message)
-{
+app::MessageBox* get_message_box(RandoMessage& message) {
     if (!il2cpp::unity::is_valid(message.obj) || message.recreate)
         return nullptr;
 
     return reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(message.obj, "", "MessageBox"));
 }
 
-app::GameObject* text_box_get_go(int id)
-{
+app::GameObject* text_box_get_go(int id) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return nullptr;
@@ -530,8 +501,7 @@ app::GameObject* text_box_get_go(int id)
     return reinterpret_cast<app::GameObject*>(message->second.obj);
 }
 
-bool text_box_creation_callback(int id, creation_callback func)
-{
+bool text_box_creation_callback(int id, creation_callback func) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
@@ -541,16 +511,13 @@ bool text_box_creation_callback(int id, creation_callback func)
 }
 
 int id = 1;
-INJECT_C_DLLEXPORT int reserve_id()
-{
+INJECT_C_DLLEXPORT int reserve_id() {
     return id++;
 }
 
-INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, bool should_show_box, bool should_play_sound)
-{
+INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, bool should_show_box, bool should_play_sound) {
     auto it = permanent_messages.find(id);
-    if (it != permanent_messages.end())
-    {
+    if (it != permanent_messages.end()) {
         if (it->second.alive)
             return false;
 
@@ -576,8 +543,7 @@ INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, boo
     return true;
 }
 
-INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text)
-{
+INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
@@ -589,8 +555,7 @@ INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text)
     return true;
 }
 
-INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z, bool use_in_game_coordinates)
-{
+INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z, bool use_in_game_coordinates) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
@@ -604,8 +569,7 @@ INJECT_C_DLLEXPORT bool text_box_position(int id, float x, float y, float z, boo
     return true;
 }
 
-INJECT_C_DLLEXPORT bool text_box_padding(int id, float top, float left, float right, float bottom)
-{
+INJECT_C_DLLEXPORT bool text_box_padding(int id, float top, float left, float right, float bottom) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
@@ -619,8 +583,7 @@ INJECT_C_DLLEXPORT bool text_box_padding(int id, float top, float left, float ri
     return true;
 }
 
-INJECT_C_DLLEXPORT bool text_box_fade(int id, float fadeIn, float fadeOut)
-{
+INJECT_C_DLLEXPORT bool text_box_fade(int id, float fadeIn, float fadeOut) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
@@ -632,14 +595,12 @@ INJECT_C_DLLEXPORT bool text_box_fade(int id, float fadeIn, float fadeOut)
     return true;
 }
 
-INJECT_C_DLLEXPORT bool text_box_color(int id, int r, int g, int b, int a)
-{
+INJECT_C_DLLEXPORT bool text_box_color(int id, int r, int g, int b, int a) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
 
-    if (r < 0 || 255 < r || g < 0 || 255 < g || b < 0 || 255 < b || a < 0 || 255 < a)
-    {
+    if (r < 0 || 255 < r || g < 0 || 255 < g || b < 0 || 255 < b || a < 0 || 255 < a) {
         warn("wheel", format("invalid color passed to text box: (%d, %d, %d, %d)", r, g, b, a));
         r = std::max(std::min(r, 255), 0);
         g = std::max(std::min(g, 255), 0);
@@ -653,8 +614,7 @@ INJECT_C_DLLEXPORT bool text_box_color(int id, int r, int g, int b, int a)
     return true;
 }
 
-INJECT_C_DLLEXPORT bool text_box_size(int id, float size)
-{
+INJECT_C_DLLEXPORT bool text_box_size(int id, float size) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
@@ -665,8 +625,7 @@ INJECT_C_DLLEXPORT bool text_box_size(int id, float size)
     return true;
 }
 
-INJECT_C_DLLEXPORT bool text_box_alignment(int id, app::AlignmentMode__Enum alignment)
-{
+INJECT_C_DLLEXPORT bool text_box_alignment(int id, app::AlignmentMode__Enum alignment) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
@@ -677,8 +636,7 @@ INJECT_C_DLLEXPORT bool text_box_alignment(int id, app::AlignmentMode__Enum alig
     return true;
 }
 
-INJECT_C_DLLEXPORT bool text_box_anchor(int id, app::HorizontalAnchorMode__Enum horizontal, app::VerticalAnchorMode__Enum vertical)
-{
+INJECT_C_DLLEXPORT bool text_box_anchor(int id, app::HorizontalAnchorMode__Enum horizontal, app::VerticalAnchorMode__Enum vertical) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
@@ -690,8 +648,7 @@ INJECT_C_DLLEXPORT bool text_box_anchor(int id, app::HorizontalAnchorMode__Enum 
     return true;
 }
 
-INJECT_C_DLLEXPORT bool text_box_line_spacing(int id, float spacing)
-{
+INJECT_C_DLLEXPORT bool text_box_line_spacing(int id, float spacing) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
@@ -702,8 +659,7 @@ INJECT_C_DLLEXPORT bool text_box_line_spacing(int id, float spacing)
     return true;
 }
 
-INJECT_C_DLLEXPORT bool text_box_visibility(int id, bool value)
-{
+INJECT_C_DLLEXPORT bool text_box_visibility(int id, bool value) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
@@ -712,8 +668,7 @@ INJECT_C_DLLEXPORT bool text_box_visibility(int id, bool value)
     return true;
 }
 
-INJECT_C_DLLEXPORT bool text_box_is_delayed(int id)
-{
+INJECT_C_DLLEXPORT bool text_box_is_delayed(int id) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
@@ -721,8 +676,7 @@ INJECT_C_DLLEXPORT bool text_box_is_delayed(int id)
     return message->second.delay > 0.0f;
 }
 
-INJECT_C_DLLEXPORT bool text_box_destroy(int id)
-{
+INJECT_C_DLLEXPORT bool text_box_destroy(int id) {
     auto message = permanent_messages.find(id);
     if (message == permanent_messages.end())
         return false;
@@ -732,10 +686,8 @@ INJECT_C_DLLEXPORT bool text_box_destroy(int id)
     return true;
 }
 
-INJECT_C_DLLEXPORT bool should_handle_messages()
-{
-    if (game::ui::menu_open())
-    {
+INJECT_C_DLLEXPORT bool should_handle_messages() {
+    if (game::ui::menu_open()) {
         if (game::ui::area_map_open() ||
             game::ui::world_map_open() ||
             game::ui::shop_open())

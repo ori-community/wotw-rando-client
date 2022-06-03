@@ -1,7 +1,6 @@
 #pragma once
 
-namespace csharp_bridge
-{
+namespace csharp_bridge {
     enum class UberStateType : uint8_t {
         BooleanUberState,
         ByteUberState,
@@ -49,4 +48,4 @@ namespace csharp_bridge
         Fracture = 46,
         Arcing
     };
-}
+} // namespace csharp_bridge

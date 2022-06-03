@@ -1,25 +1,23 @@
 #include <enums/static_text_entries.h>
 #include <game/game.h>
+#include <game/system/message_provider.h>
 #include <interop/csharp_bridge.h>
 #include <randomizer/messages.h>
 #include <randomizer/text_database.h>
 #include <uber_states/uber_state_interface.h>
-#include <game/system/message_provider.h>
 
 #include <Common/ext.h>
 
 #include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/interception_macros.h>
 
 #include <unordered_map>
 
 using namespace modloader;
 
-namespace
-{
-    enum class LupoSelection
-    {
+namespace {
+    enum class LupoSelection {
         Intro = 0,
         SalesPitch = 1,
         NoSale = 2,
@@ -27,8 +25,8 @@ namespace
         Thanks = 4
     };
 
-    std::unordered_map<app::GameWorldAreaID__Enum, static_text_entries> text_overrides {
-        { app::GameWorldAreaID__Enum_InkwaterMarsh, static_text_entries::LupoMarshIntroduction},
+    std::unordered_map<app::GameWorldAreaID__Enum, static_text_entries> text_overrides{
+        { app::GameWorldAreaID__Enum_InkwaterMarsh, static_text_entries::LupoMarshIntroduction },
         { app::GameWorldAreaID__Enum_KwoloksHollow, static_text_entries::LupoHollowIntroduction },
         { app::GameWorldAreaID__Enum_WaterMill, static_text_entries::LupoWellspringIntroduction },
         { app::GameWorldAreaID__Enum_MidnightBurrow, static_text_entries::LupoBurrowIntroduction },
@@ -39,26 +37,24 @@ namespace
         { app::GameWorldAreaID__Enum_WillowsEnd, static_text_entries::LupoWillowIntroduction },
     };
 
-    app::GameWorld* get_game_world()
-    {
+    app::GameWorld* get_game_world() {
         return il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
     }
 
-    IL2CPP_BINDING(, GameWorld, app::GameWorldArea*, GetArea, (app::GameWorld* this_ptr, app::GameWorldAreaID__Enum areaID))
-    IL2CPP_BINDING(, GameWorld, app::RuntimeGameWorldArea*, FindRuntimeArea, (app::GameWorld* this_ptr, app::GameWorldArea* area));
-    IL2CPP_BINDING(, RuntimeGameWorldArea, void, DiscoverAllAreas, (app::RuntimeGameWorldArea* this_ptr));
-    IL2CPP_BINDING(, CartographerEntity, app::GameWorldArea*, get_CurrentArea, (app::CartographerEntity* this_ptr));
+    IL2CPP_BINDING(, GameWorld, app::GameWorldArea*, GetArea, (app::GameWorld * this_ptr, app::GameWorldAreaID__Enum areaID))
+    IL2CPP_BINDING(, GameWorld, app::RuntimeGameWorldArea*, FindRuntimeArea, (app::GameWorld * this_ptr, app::GameWorldArea* area));
+    IL2CPP_BINDING(, RuntimeGameWorldArea, void, DiscoverAllAreas, (app::RuntimeGameWorldArea * this_ptr));
+    IL2CPP_BINDING(, CartographerEntity, app::GameWorldArea*, get_CurrentArea, (app::CartographerEntity * this_ptr));
 
-    IL2CPP_INTERCEPT(, CartographerEntity, int, get_MapCost, (app::CartographerEntity* this_ptr)) {
+    IL2CPP_INTERCEPT(, CartographerEntity, int, get_MapCost, (app::CartographerEntity * this_ptr)) {
         this_ptr->fields.MapQuestCompletedMapCostModifier = 1.f;
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
         return uber_states::UberState(UberStateGroup::LupoGroup, id).get<int>();
     }
 
-    using normal_function = app::MessageProvider*(*)(app::CartographerEntity*);
-    app::MessageProvider* handle_lupo_message(app::CartographerEntity* this_ptr, LupoSelection selection, normal_function normal)
-    {
+    using normal_function = app::MessageProvider* (*)(app::CartographerEntity*);
+    app::MessageProvider* handle_lupo_message(app::CartographerEntity* this_ptr, LupoSelection selection, normal_function normal) {
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto text_override = *text_overrides[area->fields.WorldMapAreaUniqueID] + static_cast<int>(selection);
         if (text_database::has_text(text_override))
@@ -66,8 +62,8 @@ namespace
 
         return normal(this_ptr);
     }
-    
-    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_IntroMessageProvider, (app::CartographerEntity* this_ptr)) {
+
+    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_IntroMessageProvider, (app::CartographerEntity * this_ptr)) {
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
         auto cost = uber_states::UberState(UberStateGroup::LupoGroup, id).get<int>();
@@ -76,61 +72,61 @@ namespace
         return handle_lupo_message(this_ptr, LupoSelection::Intro, get_IntroMessageProvider);
     }
 
-    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_NoSaleMessage, (app::CartographerEntity* this_ptr)) {
+    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_NoSaleMessage, (app::CartographerEntity * this_ptr)) {
         return handle_lupo_message(this_ptr, LupoSelection::NoSale, get_NoSaleMessage);
     }
 
-    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_SalesPitchMessage, (app::CartographerEntity* this_ptr)) {
+    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_SalesPitchMessage, (app::CartographerEntity * this_ptr)) {
         return handle_lupo_message(this_ptr, LupoSelection::SalesPitch, get_SalesPitchMessage);
     }
-    
-    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_InsufficientFundsMessage, (app::CartographerEntity* this_ptr)) {
+
+    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_InsufficientFundsMessage, (app::CartographerEntity * this_ptr)) {
         return handle_lupo_message(this_ptr, LupoSelection::Broke, get_InsufficientFundsMessage);
     }
 
-    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_ThanksMessage, (app::CartographerEntity* this_ptr)) {
+    IL2CPP_INTERCEPT(, CartographerEntity, app::MessageProvider*, get_ThanksMessage, (app::CartographerEntity * this_ptr)) {
         return handle_lupo_message(this_ptr, LupoSelection::Thanks, get_ThanksMessage);
     }
-    
-    IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, IsVisible, (app::RuntimeWorldMapIcon* this_ptr, app::AreaMapUI* areaMap)) {
+
+    IL2CPP_INTERCEPT(, RuntimeWorldMapIcon, bool, IsVisible, (app::RuntimeWorldMapIcon * this_ptr, app::AreaMapUI* areaMap)) {
         return true;
     }
 
     app::GameWorldAreaID__Enum area_id = app::GameWorldAreaID__Enum_None;
 
-    IL2CPP_BINDING(, GameMapUI, app::RuntimeGameWorldArea*, get_CurrentHighlightedArea, (app::GameMapUI* this_ptr));
-    IL2CPP_INTERCEPT(, GameMapUI, void, FixedUpdate, (app::GameMapUI* this_ptr)) {
-      GameMapUI::FixedUpdate(this_ptr);
-      auto area = GameMapUI::get_CurrentHighlightedArea(this_ptr);
-      if (area == nullptr || area->fields.Area == nullptr)
-          return;
+    IL2CPP_BINDING(, GameMapUI, app::RuntimeGameWorldArea*, get_CurrentHighlightedArea, (app::GameMapUI * this_ptr));
+    IL2CPP_INTERCEPT(, GameMapUI, void, FixedUpdate, (app::GameMapUI * this_ptr)) {
+        GameMapUI::FixedUpdate(this_ptr);
+        auto area = GameMapUI::get_CurrentHighlightedArea(this_ptr);
+        if (area == nullptr || area->fields.Area == nullptr)
+            return;
 
-      auto aid = area->fields.Area->fields.WorldMapAreaUniqueID;
-      if (aid != area_id) {
-        area_id = aid;
-        csharp_bridge::on_map_pan(area_id);
-      }
+        auto aid = area->fields.Area->fields.WorldMapAreaUniqueID;
+        if (aid != area_id) {
+            area_id = aid;
+            csharp_bridge::on_map_pan(area_id);
+        }
     }
 
     bool disable_next_update_map_target = false;
-    IL2CPP_INTERCEPT(, AreaMapNavigation, void, SetTarget, (app::AreaMapNavigation* this_ptr, app::Quest* quest)) {
+    IL2CPP_INTERCEPT(, AreaMapNavigation, void, SetTarget, (app::AreaMapNavigation * this_ptr, app::Quest* quest)) {
         if (csharp_bridge::check_ini("DisableQuestFocus"))
             disable_next_update_map_target = true;
         else
             AreaMapNavigation::SetTarget(this_ptr, quest);
     }
 
-    IL2CPP_INTERCEPT(, AreaMapNavigation, void, UpdateMapTarget, (app::AreaMapNavigation* this_ptr)) {
+    IL2CPP_INTERCEPT(, AreaMapNavigation, void, UpdateMapTarget, (app::AreaMapNavigation * this_ptr)) {
         if (!disable_next_update_map_target)
             AreaMapNavigation::UpdateMapTarget(this_ptr);
 
         disable_next_update_map_target = false;
     }
 
-    IL2CPP_BINDING(AK.Wwise, State, void, SetValue, (app::State* state));
+    IL2CPP_BINDING(AK.Wwise, State, void, SetValue, (app::State * state));
     STATIC_IL2CPP_BINDING(Game, UI, app::MenuScreenManager*, get_Menu, ());
-    IL2CPP_BINDING(, MenuScreenManager, void, HideMenuScreen, (app::MenuScreenManager* this_ptr, bool immediate, bool fade));
-    IL2CPP_INTERCEPT(Moon.Timeline, DiscoverAreasEntity, void, ChangeState, (app::DiscoverAreasEntity* this_ptr, app::DiscoverAreasEntity_State__Enum value)) {
+    IL2CPP_BINDING(, MenuScreenManager, void, HideMenuScreen, (app::MenuScreenManager * this_ptr, bool immediate, bool fade));
+    IL2CPP_INTERCEPT(Moon.Timeline, DiscoverAreasEntity, void, ChangeState, (app::DiscoverAreasEntity * this_ptr, app::DiscoverAreasEntity_State__Enum value)) {
         // Since we don't want the map to show up, lets speedrun the timeline entity.
         if (value == app::DiscoverAreasEntity_State__Enum::DiscoverAreasEntity_State__Enum_Start) {
             auto menu = UI::get_Menu();
@@ -140,15 +136,14 @@ namespace
             ChangeState(this_ptr, app::DiscoverAreasEntity_State__Enum::DiscoverAreasEntity_State__Enum_Reveal);
             ChangeState(this_ptr, app::DiscoverAreasEntity_State__Enum::DiscoverAreasEntity_State__Enum_Fade);
             ChangeState(this_ptr, app::DiscoverAreasEntity_State__Enum::DiscoverAreasEntity_State__Enum_WaitForInput);
-        }
-        else
+        } else
             DiscoverAreasEntity::ChangeState(this_ptr, value);
     }
 
     float scaling_factor = 2.0f;
     float original_zoom = -1.0f;
     float original_scale = -1.0f;
-    IL2CPP_INTERCEPT(, AreaMapUI, void, Awake, (app::AreaMapUI* this_ptr)) {
+    IL2CPP_INTERCEPT(, AreaMapUI, void, Awake, (app::AreaMapUI * this_ptr)) {
         AreaMapUI::Awake(this_ptr);
         auto transition = il2cpp::get_class<app::GameMapTransitionManager__Class>("", "GameMapTransitionManager");
         transition->static_fields->WorldMapEnabled = csharp_bridge::check_ini("WorldMapEnabled");
@@ -162,29 +157,25 @@ namespace
         this_ptr->fields._IconScaler_k__BackingField->fields.MaxScaleFactor = original_scale / scaling_factor;
     }
 
-    void on_area_map(GameEvent game_event, EventTiming timing)
-    {
+    void on_area_map(GameEvent game_event, EventTiming timing) {
         area_id = app::GameWorldAreaID__Enum_None;
     }
 
-    void initialize()
-    {
+    void initialize() {
         game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::Start, &on_area_map);
     }
 
     CALL_ON_INIT(initialize);
-}
+} // namespace
 
 INJECT_C_DLLEXPORT bool discover_everything() {
     auto game_world = get_game_world();
-    if (game_world)
-    {
+    if (game_world) {
         // 15 is the max value of app::GameWorldAreaID__Enum when this was written.
-        for (int32_t i = 0; i <= 15; i++)
-        {
+        for (int32_t i = 0; i <= 15; i++) {
             auto area = GameWorld::GetArea(game_world, static_cast<app::GameWorldAreaID__Enum>(i));
             if (!area) {
-                //Areas: None, WeepingRidge, GorlekMines, Riverlands would crash the game
+                // Areas: None, WeepingRidge, GorlekMines, Riverlands would crash the game
                 continue;
             }
 
@@ -197,8 +188,7 @@ INJECT_C_DLLEXPORT bool discover_everything() {
 
         trace(MessageType::Debug, 5, "game", "Map revealed");
         return true;
-    }
-    else {
+    } else {
         trace(MessageType::Warning, 3, "game", "Tried to discover all, but haven't found the GameWorld Instance yet :(");
         return false;
     }

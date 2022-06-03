@@ -1,9 +1,7 @@
 #pragma once
 
-namespace game
-{
-    namespace player
-    {
+namespace game {
+    namespace player {
         app::SeinCharacter* sein();
 
         bool has_ability(app::AbilityType__Enum ability);
@@ -17,6 +15,5 @@ namespace game
 
         app::Vector3 position();
         void position(app::Vector3 value);
-    }
-}
-
+    } // namespace player
+} // namespace game

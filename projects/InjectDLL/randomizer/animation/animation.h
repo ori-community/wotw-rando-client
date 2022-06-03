@@ -1,14 +1,12 @@
 #pragma once
 
-#include <macros.h>
 #include <enums/layer.h>
+#include <macros.h>
 #include <randomizer/cached_loader.h>
 #include <randomizer/render/sprite.h>
 
-namespace randomizer
-{
-    struct AnimationFrame
-    {
+namespace randomizer {
+    struct AnimationFrame {
         app::Vector3 position;
         app::Vector3 scale;
         float rotation;
@@ -22,15 +20,13 @@ namespace randomizer
         float real_duration;
     };
 
-    struct AnimationDefinition
-    {
+    struct AnimationDefinition {
     public:
         float duration = 0;
         std::vector<AnimationFrame> frames;
     };
 
-    class Animation
-    {
+    class Animation {
     public:
         Animation(AnimationDefinition const& definition);
         ~Animation();
@@ -45,6 +41,7 @@ namespace randomizer
         void color(app::Color c) { m_color_modulate = c; }
 
         app::GameObject* root() { return m_root; }
+
     private:
         void apply();
 
@@ -62,4 +59,4 @@ namespace randomizer
     std::shared_ptr<AnimationDefinition> load_animation(std::string path);
     std::shared_ptr<AnimationDefinition> copy_animation(std::shared_ptr<AnimationDefinition> value);
     extern CachedLoader<std::shared_ptr<AnimationDefinition>, std::shared_ptr<AnimationDefinition>, load_animation, copy_animation> animation_cache;
-}
+} // namespace randomizer

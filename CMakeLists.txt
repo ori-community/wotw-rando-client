@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.17.3 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.17.3 FATAL_ERROR)
 
 project(temp)
 
@@ -10,15 +10,16 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 set(ARCH "x64" CACHE STRING "Specifies the architecture for the build, [x64, win32].")
-set(ARCHITECTURES
-	"x64"
-	"win32"
+set(
+        ARCHITECTURES
+        "x64"
+        "win32"
 )
 
-if( NOT (${ARCH} IN_LIST ARCHITECTURES) )
-	message(STATUS "Invalid architecture '${ARCH}', defaulting to x64.")
-	set( ARCH "x64" )
-endif()
+if (NOT (${ARCH} IN_LIST ARCHITECTURES))
+    message(STATUS "Invalid architecture '${ARCH}', defaulting to x64.")
+    set(ARCH "x64")
+endif ()
 message(STATUS "Architecture: ${ARCH}")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc")
@@ -47,67 +48,67 @@ message(STATUS "runtime directory: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 set(CMAKE_INSTALL_DEFAULT_COMPONENT_NAME "runtime")
 
 function(set_vc_structure_with_prefix pre root vc_files)
-	foreach(FILE ${vc_files})
-		# Get the directory of the source file
-		get_filename_component(PARENT_DIR "${FILE}" DIRECTORY)
+    foreach (FILE ${vc_files})
+        # Get the directory of the source file
+        get_filename_component(PARENT_DIR "${FILE}" DIRECTORY)
 
-		# Remove common directory prefix to make the group
-		string(REPLACE "${root}" "" GROUP "${PARENT_DIR}")
+        # Remove common directory prefix to make the group
+        string(REPLACE "${root}" "" GROUP "${PARENT_DIR}")
 
-		# Make sure we are using windows slashes
-		string(REPLACE "/" "\\" GROUP "${GROUP}")
+        # Make sure we are using windows slashes
+        string(REPLACE "/" "\\" GROUP "${GROUP}")
 
-		message(STATUS "${FILE} in ${pre}${GROUP}")
-		source_group("${pre}${GROUP}" FILES "${FILE}")
-	endforeach()
+        message(STATUS "${FILE} in ${pre}${GROUP}")
+        source_group("${pre}${GROUP}" FILES "${FILE}")
+    endforeach ()
 endfunction(set_vc_structure_with_prefix)
 
 function(set_vc_structure root vc_files)
-	foreach(FILE ${vc_files})
-		# Get the directory of the source file
-		get_filename_component(PARENT_DIR "${FILE}" DIRECTORY)
+    foreach (FILE ${vc_files})
+        # Get the directory of the source file
+        get_filename_component(PARENT_DIR "${FILE}" DIRECTORY)
 
-		# Remove common directory prefix to make the group
-		string(REPLACE "${root}" "" GROUP "${PARENT_DIR}")
+        # Remove common directory prefix to make the group
+        string(REPLACE "${root}" "" GROUP "${PARENT_DIR}")
 
-		# Make sure we are using windows slashes
-		string(REPLACE "/" "\\" GROUP "${GROUP}")
+        # Make sure we are using windows slashes
+        string(REPLACE "/" "\\" GROUP "${GROUP}")
 
-		message(STATUS "${FILE} in ${pre}${GROUP}")
-		source_group("${GROUP}" FILES "${FILE}")
-	endforeach()
+        message(STATUS "${FILE} in ${pre}${GROUP}")
+        source_group("${GROUP}" FILES "${FILE}")
+    endforeach ()
 endfunction(set_vc_structure)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 find_program(GIT git)
-if(NOT GIT)
+if (NOT GIT)
     message(FATAL_ERROR "Cannot find git command line tool.")
-else()
+else ()
     message(STATUS "Fetching submodules.")
-	execute_process(COMMAND ${GIT} submodule update --init --recursive)
-endif()
+    execute_process(COMMAND ${GIT} submodule update --init --recursive)
+endif ()
 
 set(SLN_NAME WotWRandomizer)
-project (${SLN_NAME})
+project(${SLN_NAME})
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 set(
-	WOTWR_BASE_INCLUDES
-	"${CMAKE_ROOT_DIRECTORY}/projects"
+        WOTWR_BASE_INCLUDES
+        "${CMAKE_ROOT_DIRECTORY}/projects"
 )
 
 add_subdirectory("projects")
 
 add_custom_target(
-	INSTALL_RUNTIME
-	ALL
-	cmake -DCOMPONENT=runtime -DBUILD_TYPE=$<CONFIG> -P ${CMAKE_BUILD_DIRECTORY}/cmake_install.cmake
-	DEPENDS Il2CppModLoader InjectDLL WinNetwork InjectLoader Injector RandoMainDLL TraceClientManaged SeedGenCli
+        INSTALL_RUNTIME
+        ALL
+        cmake -DCOMPONENT=runtime -DBUILD_TYPE=$<CONFIG> -P ${CMAKE_BUILD_DIRECTORY}/cmake_install.cmake
+        DEPENDS Il2CppModLoader InjectDLL WinNetwork InjectLoader Injector RandoMainDLL TraceClientManaged SeedGenCli
 )
 
 set_target_properties(
-	INSTALL_RUNTIME
-	PROPERTIES
-		FOLDER CMakePredefinedTargets
+        INSTALL_RUNTIME
+        PROPERTIES
+        FOLDER CMakePredefinedTargets
 )

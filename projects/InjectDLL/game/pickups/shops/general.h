@@ -2,10 +2,8 @@
 
 #include <randomizer/render/textures.h>
 
-namespace shops
-{
-    enum class ShopType
-    {
+namespace shops {
+    enum class ShopType {
         None,
         Lupo,
         Grom,
@@ -15,8 +13,7 @@ namespace shops
         TOTAL
     };
 
-    struct ShopItem
-    {
+    struct ShopItem {
         uint32_t name = 0;
         uint32_t description = 0;
         std::shared_ptr<randomizer::textures::TextureData> texture_data;
@@ -38,4 +35,4 @@ namespace shops
     std::shared_ptr<randomizer::textures::TextureData> get_lupo_icon(app::MapmakerItem* shop_item);
 
     void set_item(ShopItem& item, const wchar_t* name, const wchar_t* description, const wchar_t* texture, bool uses_energy, bool is_locked, bool is_visible);
-}
+} // namespace shops

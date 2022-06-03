@@ -1,47 +1,45 @@
 #pragma once
 
-#include <interop/enum_definitions.h>
 #include <enums/actions.h>
+#include <interop/enum_definitions.h>
 
 #include <string>
 
-namespace csharp_bridge
-{
-    namespace signatures
-    {
-        using f_void = void(*)();
-        using f_void_a = void(*)(Action);
-        using f_void_at = void(*)(app::AbilityType__Enum);
-        using f_void_gwa = void(*)(app::GameWorldAreaID__Enum);
-        using f_void_at_bool = void(*)(app::AbilityType__Enum, bool);
-        using f_void_bool = void(*)(bool);
-        using f_void_int = void(*)(int);
-        using f_void_int_int = void(*)(int, int);
-        using f_void_float = void(*)(float);
-        using f_void_float_float = void(*)(float, float);
-        using f_void_ptr_int_int_int_int_int = void(*)(void*, int, int, int, int, int);
-        using f_void_int_int_byte_double_double = void(*)(int, int, uint8_t, double, double);
-        using f_void_int_ptr_int = void(*)(int, void*, int);
-        using f_void_string = void(*)(const char*);
-        using f_void_string_dt = void(*)(const char*, app::DamageType__Enum);
-        using f_void_st = void(*)(ShardType);
-        using f_void_st_int_int = void(*)(ShardType, int, int);
-        using f_bool = bool(*)();
-        using f_bool_at = bool(*)(app::AbilityType__Enum);
-        using f_bool_int = bool(*)(int);
-        using f_bool_int_int_int = bool(*)(int, int, int);
+namespace csharp_bridge {
+    namespace signatures {
+        using f_void = void (*)();
+        using f_void_a = void (*)(Action);
+        using f_void_at = void (*)(app::AbilityType__Enum);
+        using f_void_gwa = void (*)(app::GameWorldAreaID__Enum);
+        using f_void_at_bool = void (*)(app::AbilityType__Enum, bool);
+        using f_void_bool = void (*)(bool);
+        using f_void_int = void (*)(int);
+        using f_void_int_int = void (*)(int, int);
+        using f_void_float = void (*)(float);
+        using f_void_float_float = void (*)(float, float);
+        using f_void_ptr_int_int_int_int_int = void (*)(void*, int, int, int, int, int);
+        using f_void_int_int_byte_double_double = void (*)(int, int, uint8_t, double, double);
+        using f_void_int_ptr_int = void (*)(int, void*, int);
+        using f_void_string = void (*)(const char*);
+        using f_void_string_dt = void (*)(const char*, app::DamageType__Enum);
+        using f_void_st = void (*)(ShardType);
+        using f_void_st_int_int = void (*)(ShardType, int, int);
+        using f_bool = bool (*)();
+        using f_bool_at = bool (*)(app::AbilityType__Enum);
+        using f_bool_int = bool (*)(int);
+        using f_bool_int_int_int = bool (*)(int, int, int);
         using f_bool_st = bool (*)(ShardType);
-        using f_bool_str = bool(*)(const char*);
-        using f_int = int(*)();
-        using f_int_at = int(*)(app::AbilityType__Enum);
-        using f_int_int = int(*)(int);
-        using f_int_int_int = int(*)(int, int);
-        using f_int_int_int_int = int(*)(int, int, int);
-        using f_int_bool = int(*)(bool);
-        using f_int_st = int(*)(ShardType);
-        using f_ull_str = uint64_t(*)(const char*);
-        using f_ull_str_bool = uint64_t(*)(const char*, bool);
-    }
+        using f_bool_str = bool (*)(const char*);
+        using f_int = int (*)();
+        using f_int_at = int (*)(app::AbilityType__Enum);
+        using f_int_int = int (*)(int);
+        using f_int_int_int = int (*)(int, int);
+        using f_int_int_int_int = int (*)(int, int, int);
+        using f_int_bool = int (*)(bool);
+        using f_int_st = int (*)(ShardType);
+        using f_ull_str = uint64_t (*)(const char*);
+        using f_ull_str_bool = uint64_t (*)(const char*, bool);
+    } // namespace signatures
 
     extern signatures::f_void_float update;
     extern signatures::f_void_at on_tree;
@@ -68,7 +66,7 @@ namespace csharp_bridge
     extern signatures::f_bool_at get_ability;
     extern signatures::f_void_at_bool set_ability;
     extern signatures::f_bool_at is_tree_activated;
-    
+
     // Shop system
     extern signatures::f_void_at opher_buy_weapon;
     extern signatures::f_void_at opher_buy_upgrade;
@@ -99,4 +97,4 @@ namespace csharp_bridge
     extern signatures::f_int get_flag_count;
     extern signatures::f_void_int_ptr_int get_flag;
     extern signatures::f_int_bool get_relic_count;
-}
+} // namespace csharp_bridge
