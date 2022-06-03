@@ -1,6 +1,3 @@
-#include <Common/ext.h>
-
-#include <stdio.h>
 #include <array>
 #include <filesystem>
 #include <fstream>
@@ -8,8 +5,7 @@
 #include <string>
 #include <vector>
 
-#include <tlhelp32.h>
-#include <windows.h>
+#include <Windows.h>
 
 int load_state = 0;
 

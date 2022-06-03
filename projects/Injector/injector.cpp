@@ -1,7 +1,3 @@
-#include <Common/ext.h>
-
-#include <conio.h>
-#include <stdio.h>
 #include <array>
 #include <filesystem>
 #include <iostream>
@@ -9,12 +5,13 @@
 #include <thread>
 #include <vector>
 
-#include <tlhelp32.h>
-#include <windows.h>
+// clang-format off
+// Order is important because reasons
+#include <Windows.h>
+#include <TlHelp32.h>
+// clang-format on
 
 #include <Common/settings.h>
-
-bool dev_mode = false;
 
 bool nowait = false;
 bool shutting_down = false;
@@ -22,7 +19,7 @@ std::ostream& logstream = std::cout;
 
 std::string steam_process_name = "oriwotw.exe";
 std::string store_process_name = "oriandthewillofthewisps-pc.exe";
-std::string base_path = "C:\\moon\\randomizer\\";
+std::string base_path = R"(C:\moon\randomizer\)";
 std::string dll_name = "InjectLoader.dll";
 std::string settings_name = "settings.ini";
 
@@ -146,7 +143,6 @@ int actual_main() {
     load_settings_from_file(settings);
 
     auto use_win_store = check_option(settings, "Flags", "UseWinStore", false);
-    dev_mode = check_option(settings, "Flags", "Dev", false);
 
     auto inject_delay = check_option(settings, "Values", "InjectDelay", 0);
 
