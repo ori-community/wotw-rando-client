@@ -12,9 +12,9 @@ namespace randomizer {
                     load(path);
                 }
 
-                void load(std::string_view path) {
-                    this->path = path;
-                    ini = create_randomizer_settings(this->path);
+                void load(std::string_view from_path) {
+                    path = from_path;
+                    ini = create_randomizer_settings(path);
                     load_settings_from_file(ini);
                     loaded = true;
                 }
@@ -56,7 +56,7 @@ namespace randomizer {
         }
 
         float map_icon_transparency() {
-            return !ini_settings.value("Values", "MapIconTransparency", 0.f);
+            return ini_settings.value("Values", "MapIconTransparency", 0.f);
         }
     } // namespace settings
 } // namespace randomizer

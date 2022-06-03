@@ -661,8 +661,7 @@ namespace {
             return;
 
         auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(icon->fields.IconGameObject, "UnityEngine", "Renderer");
-        for (auto i = 0; i < renderers.size(); ++i) {
-            auto renderer = renderers[i];
+        for (auto renderer : renderers) {
             auto it = original_color.find(renderer);
             if (it == original_color.end()) {
                 auto color = randomizer::shaders::UberShaderAPI::GetColor(renderer, app::UberShaderProperty_Color__Enum_MainColor);
