@@ -22,7 +22,6 @@ namespace {
         None,
         Teleport,
         PostTeleport,
-        Hang
     };
 
     const app::Vector3 ORIGINAL_START = { -798.797058f, -4310.119141f, 0.f };
@@ -31,10 +30,10 @@ namespace {
 
     TeleportState teleport_state = TeleportState::None;
     app::Vector3 teleport_position;
-    app::Vector3 hang_pos;
     bool handling_start = false;
-    int load_hang_count = 0;
+
     IL2CPP_BINDING(, ScenesManager, void, LoadScenesAtPosition, (app::ScenesManager * this_ptr, app::Vector3 position, bool async, bool loadingZones, bool keepPreloaded, bool forceLoad, bool loadDependantScenes));
+    IL2CPP_BINDING(, ScenesManager, void, EnableDisabledScenesAtPosition, (app::ScenesManager * this_ptr, bool limitOnce, bool async));
     IL2CPP_BINDING(, SkipCutsceneController, void, SkipCutscene, (app::SkipCutsceneController * this_ptr));
     IL2CPP_BINDING(, SkipCutsceneController, void, SkipPrologue, (app::SkipCutsceneController * this_ptr));
     IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter * this_ptr));
@@ -46,6 +45,7 @@ namespace {
         if (teleport_state == TeleportState::Teleport) {
             SeinCharacter::set_Position(this_ptr, teleport_position);
             teleport_state = TeleportState::PostTeleport;
+
         } else if (teleport_state == TeleportState::PostTeleport) {
             auto* const cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
             if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
@@ -55,13 +55,16 @@ namespace {
             } else
                 modloader::warn("teleport", "failed to refocus camera");
 
+            ScenesManager::EnableDisabledScenesAtPosition(scenes::get_scenes_manager(), false, false);
+            SeinCharacter::set_Position(this_ptr, teleport_position);
+
             if (handling_start) {
                 save();
                 handling_start = false;
-                teleport_state = TeleportState::None;
-            } else {
-                teleport_state = TeleportState::None;
+                faderb::fade_out(0.3f);
             }
+
+            teleport_state = TeleportState::None;
         }
 
         SeinCharacter::FixedUpdate(this_ptr);
@@ -240,8 +243,6 @@ namespace {
 
         csharp_bridge::new_game(SaveSlotsManager::get_CurrentSlotIndex());
         GameStateMachine::SetToGame(game_state_machine);
-
-        faderb::fade_out(0.3f);
     }
 
     void on_finished_loading_save(GameEvent event, EventTiming timing) {
@@ -264,7 +265,7 @@ INJECT_C_DLLEXPORT void teleport(float x, float y, bool wait_for_load) {
     teleport_state = TeleportState::Teleport;
 
     if (wait_for_load) {
-        ScenesManager::LoadScenesAtPosition(scenes::get_scenes_manager(), teleport_position, !wait_for_load, false, true, false, false);
+        ScenesManager::LoadScenesAtPosition(scenes::get_scenes_manager(), teleport_position, false, false, true, true, true);
     }
 }
 
