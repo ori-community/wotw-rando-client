@@ -1204,25 +1204,13 @@ set(
         "il2cpp_internals/headers/il2cpp_internals_part1178.h"
         "il2cpp_internals/headers/il2cpp_internals_part1179.h"
         "il2cpp_internals/headers/il2cpp_internals_part1180.h"
+        "il2cpp_internals/il2cpp_type_ptrs.h"
         "interception.h"
         "interception_macros.h"
         "macros.h"
         "il2cpp_math.h"
 )
 
-if (${DEFINE_INTERNALS})
-    set(
-            INTERNAL_IL2CPP_HEADERS
-            "il2cpp_internals/il2cpp_internals_p1.h"
-            "il2cpp_internals/il2cpp_internals_p2.h"
-            "il2cpp_internals/il2cpp_internals_p3.h"
-            "il2cpp_internals/il2cpp_internals_p4.h"
-            "il2cpp_internals/il2cpp_internals_p5.h"
-            "il2cpp_internals/il2cpp_internals_p6.h"
-            "il2cpp_internals/il2cpp_internals_p7.h"
-            "il2cpp_internals/il2cpp_internals_p8.h"
-    )
-endif ()
 
 set(
         MISC_FILES
@@ -2455,6 +2443,7 @@ target_precompile_headers(
         PUBLIC <${PROJECT_NAME}/il2cpp_internals/headers/il2cpp_internals_part1178.h>
         PUBLIC <${PROJECT_NAME}/il2cpp_internals/headers/il2cpp_internals_part1179.h>
         PUBLIC <${PROJECT_NAME}/il2cpp_internals/headers/il2cpp_internals_part1180.h>
+        PUBLIC <${PROJECT_NAME}/il2cpp_internals/il2cpp_type_ptrs.h>
 )
 
 message(STATUS "Assigning source groups.")

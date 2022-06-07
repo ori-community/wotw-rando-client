@@ -11,6 +11,12 @@
 
 #include <unordered_map>
 
+#define IL2CPP_TYPEDEF(a, n) n ## __Class** n ## __TypeInfo
+namespace app {
+#include "il2cpp_internals/il2cpp_type_ptr_addresses.h"
+}
+#undef IL2CPP_TYPEDEF
+
 namespace modloader {
     extern std::string base_path;
     extern std::string modloader_path;
@@ -252,7 +258,16 @@ namespace modloader {
                 trace(MessageType::Debug, 3, "initialize", "Internal injection completed");
         }
 
+        void resolve_type_ptrs() {
+            using namespace app;
+
+#define IL2CPP_TYPEDEF(a, n) n##__TypeInfo = (n##__Class**)(resolve_rva(a));
+#include "il2cpp_internals/il2cpp_type_ptr_addresses.h"
+#undef IL2CPP_TYPEDEF
+        }
+
         void interception_init() {
+            resolve_type_ptrs();
             internal_intercepts();
             il2cpp_intercepts();
         }
