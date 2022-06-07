@@ -5,15 +5,18 @@
 
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/app/methods/CharacterAirNoDeceleration.h>
 
 extern void handle_launch_no_deceleration(app::CharacterAirNoDeceleration* this_ptr);
+
+using namespace app::methods;
 
 namespace {
     bool toggle_default = false;
     uber_states::UberState air_no_deceleration(UberStateGroup::RandoConfig, FORCE_AIR_NO_DECELERATION_ID);
-    IL2CPP_INTERCEPT(, CharacterAirNoDeceleration, void, UpdateCharacterState, (app::CharacterAirNoDeceleration * this_ptr)) {
+    IL2CPP_INTERCEPT(CharacterAirNoDeceleration, void, UpdateCharacterState, (app::CharacterAirNoDeceleration * this_ptr)) {
         if (toggle_default) {
-            CharacterAirNoDeceleration::UpdateCharacterState(this_ptr);
+            next::CharacterAirNoDeceleration::UpdateCharacterState(this_ptr);
             return;
         }
 

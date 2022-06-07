@@ -17,7 +17,6 @@
 
 #include <stdio.h>
 #include <strsafe.h>
-#include <tchar.h>
 #include <windows.h>
 
 #include <array>

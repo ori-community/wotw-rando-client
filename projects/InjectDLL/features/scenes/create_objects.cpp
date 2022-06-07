@@ -7,10 +7,13 @@
 #include <randomizer/render/shaders.h>
 
 #include <Common/ext.h>
+#include <Il2CppModLoader/app/methods/GameController.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Quaternion.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
 #include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/windows_api/console.h>
 
 #include <algorithm>
 #include <chrono>
@@ -22,15 +25,11 @@
 #include <utility>
 
 using namespace modloader;
+using namespace app::methods;
+using namespace app::methods::UnityEngine;
 
 namespace scenes {
     namespace {
-        STATIC_IL2CPP_BINDING(UnityEngine, Quaternion, app::Quaternion, Euler, (float x, float y, float z));
-        IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform * this_ptr, app::Transform* parent));
-        IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform * this_ptr, app::Vector3* position));
-        IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform * this_ptr, app::Vector3* scale));
-        IL2CPP_BINDING(UnityEngine, Transform, void, set_rotation, (app::Transform * this_ptr, app::Quaternion* rotation));
-
         struct ObjectSpawn {
             std::string name;
             std::string scene;
@@ -58,14 +57,14 @@ namespace scenes {
                 il2cpp::invoke(spawn->game_object, "set_name", il2cpp::string_new(spawn->name));
                 game::add_to_container(game::RandoContainer::GameObjects, spawn->game_object);
                 auto transform = il2cpp::unity::get_transform(spawn->game_object);
-                Transform::set_position(transform, &spawn->position);
+                Transform::set_position(transform, spawn->position);
                 if (spawn->scale.has_value())
-                    Transform::set_localScale(transform, &spawn->scale.value());
+                    Transform::set_localScale(transform, spawn->scale.value());
 
                 if (spawn->rotation.has_value()) {
                     auto& rot = spawn->rotation.value();
-                    auto quat = Quaternion::Euler(rot.x, rot.y, rot.z);
-                    Transform::set_rotation(transform, &quat);
+                    auto quat = Quaternion::Euler_1(rot.x, rot.y, rot.z);
+                    Transform::set_rotation(transform, quat);
                 }
 
                 randomizer::shaders::duplicate_materials(spawn->game_object);
@@ -76,8 +75,8 @@ namespace scenes {
             pending_object_spawns_by_scene.erase(scene_name_string);
         }
 
-        IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
-            GameController::FixedUpdate(this_ptr);
+        IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
+            next::GameController::FixedUpdate(this_ptr);
 
             for (const auto& object_spawn_by_scene : pending_object_spawns_by_scene)
                 force_load_scene(object_spawn_by_scene.first, &on_load_callback);

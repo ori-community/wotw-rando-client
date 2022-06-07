@@ -7,6 +7,7 @@
 #include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_interface.h>
 
+#include <Il2CppModLoader/app/methods/SeinCharacter.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -16,10 +17,9 @@
 #include <set>
 
 using namespace modloader;
+using namespace app::methods;
 
 namespace {
-    IL2CPP_BINDING(, SeinCharacter, bool, get_Active, (app::SeinCharacter*));
-
     using grom_key = int;
     std::unordered_map<grom_key, shops::ShopItem> grom_overrides;
 

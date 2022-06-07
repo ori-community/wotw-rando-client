@@ -4,25 +4,20 @@
 #include <game/player.h>
 
 #include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Shader.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Renderer.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/MeshFilter.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Mesh.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Quaternion.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Material.h>
+
+using namespace app::methods;
+using namespace app::methods::UnityEngine;
 
 namespace randomizer {
     namespace {
-        NAMED_IL2CPP_BINDING_OVERLOAD(UnityEngine, Material, void, .ctor, ctor_shader, (app::Material * this_ptr, app::Shader* shader), (UnityEngine
-                                                                                                                                         : Shader));
-        STATIC_IL2CPP_BINDING(UnityEngine, Shader, app::Shader*, Find, (app::String * name));
-        IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject * this_ptr, bool value));
-        IL2CPP_BINDING(UnityEngine, Renderer, app::Bounds, get_bounds, (app::Renderer * this_ptr));
-        IL2CPP_BINDING(UnityEngine, MeshFilter, app::Mesh*, get_mesh, (app::MeshFilter * this_ptr));
-        IL2CPP_BINDING(UnityEngine, Mesh, void, set_uv, (app::Mesh * this_ptr, app::Vector2__Array* arr));
-        IL2CPP_BINDING(UnityEngine, GameObject, void, set_layer, (app::GameObject * this_ptr, int value));
-        STATIC_IL2CPP_BINDING(UnityEngine, Quaternion, app::Quaternion, Euler, (float x, float y, float z));
-        IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_localScale, (app::Transform * this_ptr));
-        IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform * this_ptr, app::Vector3* pos));
-        IL2CPP_BINDING(UnityEngine, Transform, void, set_rotation, (app::Transform * this_ptr, app::Quaternion* rot));
-        IL2CPP_BINDING(UnityEngine, Transform, void, set_localPosition, (app::Transform * this_ptr, app::Vector3* pos));
-        IL2CPP_BINDING(UnityEngine, Transform, void, set_localRotation, (app::Transform * this_ptr, app::Quaternion* rot));
-        IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform * this_ptr, app::Vector3* scale));
-
         app::Vector2__Array* make_uvs(float x = 0, float y = 0, float w = 1, float h = 1) {
             return il2cpp::array_new<app::Vector2__Array>(
                     il2cpp::get_class("UnityEngine", "Vector2"),
@@ -86,7 +81,7 @@ namespace randomizer {
             if (custom_shader) {
                 auto shader = Shader::Find(il2cpp::string_new("Hidden/UberShader/59F9A629AA8A0ABB2D0B3EAE1933B13F"));
                 auto mat = il2cpp::create_object<app::Material>("UnityEngine", "Material");
-                Material::ctor_shader(mat, shader);
+                Material::ctor_1(mat, shader);
 
                 auto keywords = il2cpp::array_new(il2cpp::get_class("System", "String"), std::vector<app::String*>{ il2cpp::string_new("DISABLE_ALPHA_CUTOFF") });
                 il2cpp::invoke(mat, "set_shaderKeywords", keywords);
@@ -129,17 +124,17 @@ namespace randomizer {
     }
 
     void Sprite::local_position(app::Vector3 p) {
-        Transform::set_localPosition(il2cpp::unity::get_transform(m_root), &p);
+        Transform::set_localPosition(il2cpp::unity::get_transform(m_root), p);
     }
 
     void Sprite::local_scale(app::Vector3 s) {
-        Transform::set_localScale(il2cpp::unity::get_transform(m_root), &s);
+        Transform::set_localScale(il2cpp::unity::get_transform(m_root), s);
     }
 
     void Sprite::local_rotation(float r) {
         auto angle = r;
-        auto rotation = Quaternion::Euler(0, 0, angle);
-        Transform::set_localRotation(il2cpp::unity::get_transform(m_root), &rotation);
+        auto rotation = Quaternion::Euler_1(0, 0, angle);
+        Transform::set_localRotation(il2cpp::unity::get_transform(m_root), rotation);
     }
 
     bool Sprite::enabled() {

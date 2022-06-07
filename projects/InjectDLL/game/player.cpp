@@ -4,32 +4,19 @@
 #include <macros.h>
 
 #include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/il2cpp_helpers.h>
-#include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/app/methods/SeinCharacter.h>
+#include <Il2CppModLoader/app/methods/PlayerAbilities.h>
+#include <Il2CppModLoader/app/methods/SpellInventory.h>
+#include <Il2CppModLoader/app/methods/GameController.h>
 
 #include <magic_enum/include/magic_enum.hpp>
 
 using namespace modloader;
-
-namespace {
-    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter * this_ptr));
-    IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter * this_ptr, app::Vector3 value));
-
-    IL2CPP_BINDING(, PlayerAbilities, bool, HasAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability));
-    IL2CPP_BINDING(, PlayerAbilities, void, SetAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability, bool value));
-    IL2CPP_BINDING(, SpellInventory, app::InventoryItem*, AddNewSpellToInventory, (app::SpellInventory * this_ptr, app::EquipmentType__Enum type, bool adding));
-    IL2CPP_BINDING_OVERLOAD(, SpellInventory, void, UpdateBinding, (app::SpellInventory * this_ptr, app::SpellInventory_Binding__Enum binding, app::EquipmentType__Enum typ), (SpellInventory.Binding, EquipmentType));
-    IL2CPP_BINDING(, SpellInventory, void, UnbindItem, (app::SpellInventory * this_ptr, app::EquipmentType__Enum type));
-
-    IL2CPP_BINDING(, GameController, bool, get_InputLocked, (app::GameController * this_ptr));
-    IL2CPP_BINDING(, GameController, bool, get_LockInput, (app::GameController * this_ptr));
-    IL2CPP_BINDING(, GameController, bool, get_IsSuspended, (app::GameController * this_ptr));
-    IL2CPP_BINDING(, GameController, bool, get_SecondaryMapAndInventoryCanBeOpened, (app::GameController * this_ptr));
-} // namespace
+using namespace app::methods;
 
 namespace game {
     namespace player {
-        app::SeinCharacter* sein() {
+        app::SeinCharacter *sein() {
             return il2cpp::get_class<app::Characters__Class>("Game", "Characters")->static_fields->m_sein;
         }
 
@@ -59,7 +46,7 @@ namespace game {
         }
 
         void bind(app::SpellInventory_Binding__Enum slot, app::EquipmentType__Enum equip_type) {
-            SpellInventory::UpdateBinding(sein()->fields.PlayerSpells, slot, equip_type);
+            SpellInventory::UpdateBinding_2(sein()->fields.PlayerSpells, slot, equip_type);
         }
 
         void unbind(app::EquipmentType__Enum equip_type) {
@@ -67,7 +54,7 @@ namespace game {
         }
 
         void unbind_all() {
-            for (auto entry : magic_enum::enum_entries<app::EquipmentType__Enum>())
+            for (auto entry: magic_enum::enum_entries<app::EquipmentType__Enum>())
                 SpellInventory::UnbindItem(sein()->fields.PlayerSpells, entry.first);
         }
 
@@ -76,12 +63,12 @@ namespace game {
             return !(GameController::get_InputLocked(gcip) ||
                      GameController::get_LockInput(gcip) ||
                      GameController::get_IsSuspended(gcip)) &&
-                    GameController::get_SecondaryMapAndInventoryCanBeOpened(gcip);
+                   GameController::get_SecondaryMapAndInventoryCanBeOpened(gcip);
         }
 
         app::Vector3 position() {
             auto sein = game::player::sein();
-            return sein != nullptr ? SeinCharacter::get_Position(sein) : app::Vector3{ 0, 0, 0 };
+            return sein != nullptr ? SeinCharacter::get_Position(sein) : app::Vector3{0, 0, 0};
         }
 
         void position(app::Vector3 value) {

@@ -1,8 +1,8 @@
-#include <macros.h>
 #include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/app/methods/SeinSpiritSpearSpell.h>
 
 namespace {
     uber_states::UberState spear_speed(UberStateGroup::RandoUpgrade, 11);
@@ -13,7 +13,7 @@ namespace {
     float impact_duration = 1.0f;
     float input_duration = 1.0f;
 
-    IL2CPP_INTERCEPT(, SeinSpiritSpearSpell, void, UpdateCharacterState, (app::SeinSpiritSpearSpell * this_ptr)) {
+    IL2CPP_INTERCEPT(SeinSpiritSpearSpell, void, UpdateCharacterState, (app::SeinSpiritSpearSpell * this_ptr)) {
         if (!initialized) {
             charge_duration = this_ptr->fields.ChargeDuration;
             settle_duration = this_ptr->fields.SettleTime;
@@ -27,6 +27,6 @@ namespace {
         this_ptr->fields.SettleTime = settle_duration * multiplier;
         this_ptr->fields.ImpactDuration = impact_duration * multiplier;
         this_ptr->fields.InputMemoryDuration = input_duration * multiplier;
-        SeinSpiritSpearSpell::UpdateCharacterState(this_ptr);
+        next::SeinSpiritSpearSpell::UpdateCharacterState(this_ptr);
     }
 } // namespace

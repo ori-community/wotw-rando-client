@@ -12,8 +12,12 @@
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_math.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Quaternion.h>
 
 using namespace modloader;
+using namespace app::methods;
+using namespace app::methods::UnityEngine;
 
 namespace randomizer {
     CachedLoader<std::unique_ptr<Timeline>, std::unique_ptr<Timeline> const&, load_timeline, copy_timeline> timeline_cache;
@@ -159,13 +163,6 @@ namespace randomizer {
 
 // TODO: Everything below here should be removed when we move to using only C++ as we can use the timeline_cache directly.
 namespace {
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform * this_ptr, app::Vector3* position));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_rotation, (app::Transform * this_ptr, app::Quaternion* rotation));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_localPosition, (app::Transform * this_ptr, app::Vector3* position));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform * this_ptr, app::Vector3* scale));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_localRotation, (app::Transform * this_ptr, app::Quaternion* rotation));
-    STATIC_IL2CPP_BINDING(UnityEngine, Quaternion, app::Quaternion, Euler, (float x, float y, float z));
-
     int next_timeline_id = 1;
     std::unordered_map<int, std::unique_ptr<randomizer::Timeline>> csharp_timelines;
 
@@ -219,7 +216,7 @@ INJECT_C_DLLEXPORT void timeline_position(int id, app::Vector3 value) {
     auto it = csharp_timelines.find(id);
     if (it != csharp_timelines.end()) {
         auto transform = il2cpp::unity::get_transform(it->second->root());
-        Transform::set_position(transform, &value);
+        Transform::set_position(transform, value);
     }
 }
 
@@ -227,8 +224,8 @@ INJECT_C_DLLEXPORT void timeline_rotation(int id, app::Vector3 value) {
     auto it = csharp_timelines.find(id);
     if (it != csharp_timelines.end()) {
         auto transform = il2cpp::unity::get_transform(it->second->root());
-        auto quat = Quaternion::Euler(value.x, value.y, value.z);
-        Transform::set_rotation(transform, &quat);
+        auto quat = Quaternion::Euler_1(value.x, value.y, value.z);
+        Transform::set_rotation(transform, quat);
     }
 }
 
@@ -237,7 +234,7 @@ INJECT_C_DLLEXPORT void timeline_local_position(int id, app::Vector3 value) {
     if (it != csharp_timelines.end()) {
         it->second->attach_offset(value);
         auto transform = il2cpp::unity::get_transform(it->second->root());
-        Transform::set_localPosition(transform, &value);
+        Transform::set_localPosition(transform, value);
     }
 }
 
@@ -245,7 +242,7 @@ INJECT_C_DLLEXPORT void timeline_local_scale(int id, app::Vector3 value) {
     auto it = csharp_timelines.find(id);
     if (it != csharp_timelines.end()) {
         auto transform = il2cpp::unity::get_transform(it->second->root());
-        Transform::set_localScale(transform, &value);
+        Transform::set_localScale(transform, value);
     }
 }
 
@@ -253,8 +250,8 @@ INJECT_C_DLLEXPORT void timeline_local_rotation(int id, app::Vector3 value) {
     auto it = csharp_timelines.find(id);
     if (it != csharp_timelines.end()) {
         auto transform = il2cpp::unity::get_transform(it->second->root());
-        auto quat = Quaternion::Euler(value.x, value.y, value.z);
-        Transform::set_localRotation(transform, &quat);
+        auto quat = Quaternion::Euler_1(value.x, value.y, value.z);
+        Transform::set_localRotation(transform, quat);
     }
 }
 

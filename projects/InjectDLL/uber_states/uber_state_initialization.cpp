@@ -4,13 +4,15 @@
 #include <enums/uber_state.h>
 
 #include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/windows_api/console.h>
+#include <Il2CppModLoader/app/methods/Moon/UberStateCollection.h>
 
 #include <chrono>
 
 using namespace modloader;
+using namespace app::methods;
 
 namespace {
     app::UberID* create_uber_id_ptr(int id) {
@@ -92,28 +94,28 @@ namespace {
     void print_time(std::chrono::time_point<std::chrono::steady_clock> start, std::string_view tag) {
         auto now = std::chrono::high_resolution_clock::now();
         auto time_span = duration_cast<std::chrono::microseconds>(now - start);
-        modloader::console::console_send(format("%.2f ms  %s", time_span.count() / 1000.f, tag.data()));
-        modloader::console::console_flush();
+        modloader::win::console::console_send(format("%.2f ms  %s", time_span.count() / 1000.f, tag.data()));
+        modloader::win::console::console_flush();
     }
 
-    IL2CPP_INTERCEPT(Moon, UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection * this_ptr)) {
+    IL2CPP_INTERCEPT(Moon::UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection * this_ptr)) {
         auto start_time = std::chrono::high_resolution_clock::now();
 
         std::vector<app::IUberState*> states = {
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "sword", app::AbilityType__Enum_Sword, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "double_jump", app::AbilityType__Enum_DoubleJump, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "regenerate", app::AbilityType__Enum_MeditateSpell, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "bow", app::AbilityType__Enum_Bow, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "dash", app::AbilityType__Enum_DashNew, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "bash", app::AbilityType__Enum_Bash, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "grapple", app::AbilityType__Enum_SpiritLeash, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "water_dash", app::AbilityType__Enum_WaterDash, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "flash", app::AbilityType__Enum_GlowSpell, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "grenade", app::AbilityType__Enum_Grenade, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "burrow", app::AbilityType__Enum_Digging, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "launch", app::AbilityType__Enum_ChargeJump, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "ancestral_light", app::AbilityType__Enum_DamageUpgradeA, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "ancestral_light_2", app::AbilityType__Enum_DamageUpgradeB, false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "sword", static_cast<int>(app::AbilityType__Enum::Sword), false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "double_jump", static_cast<int>(app::AbilityType__Enum::DoubleJump), false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "regenerate", static_cast<int>(app::AbilityType__Enum::MeditateSpell), false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "bow", static_cast<int>(app::AbilityType__Enum::Bow), false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "dash", static_cast<int>(app::AbilityType__Enum::DashNew), false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "bash", static_cast<int>(app::AbilityType__Enum::Bash), false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "grapple", static_cast<int>(app::AbilityType__Enum::SpiritLeash), false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "water_dash", static_cast<int>(app::AbilityType__Enum::WaterDash), false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "flash", static_cast<int>(app::AbilityType__Enum::GlowSpell), false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "grenade", static_cast<int>(app::AbilityType__Enum::Grenade), false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "burrow", static_cast<int>(app::AbilityType__Enum::Digging), false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "launch", static_cast<int>(app::AbilityType__Enum::ChargeJump), false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "ancestral_light", static_cast<int>(app::AbilityType__Enum::DamageUpgradeA), false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::Tree, "ancestral_light_2", static_cast<int>(app::AbilityType__Enum::DamageUpgradeB), false),
 
             add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "Water Breath", 23, false),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::OpherWeapon, "Spike", 74, false),
@@ -485,15 +487,15 @@ namespace {
             add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "Peak PPM count", 108, 0),
             add_state<app::SerializedIntUberState>(UberStateGroup::RandoStats, "Total Pickup Count", 109, 0),
 
-            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Marsh Map Cost", app::GameWorldAreaID__Enum_InkwaterMarsh, 200),
-            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Hollow Map Cost", app::GameWorldAreaID__Enum_KwoloksHollow, 150),
-            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Wellspring Map Cost", app::GameWorldAreaID__Enum_WaterMill, 150),
-            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Burrow Map Cost", app::GameWorldAreaID__Enum_MidnightBurrow, 50),
-            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Reach Map Cost", app::GameWorldAreaID__Enum_BaursReach, 150),
-            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Pools Map Cost", app::GameWorldAreaID__Enum_LumaPools, 150),
-            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Depths Map Cost", app::GameWorldAreaID__Enum_MouldwoodDepths, 150),
-            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Wastes Map Cost", app::GameWorldAreaID__Enum_WindsweptWastes, 150),
-            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Willows End Map Cost", app::GameWorldAreaID__Enum_WillowsEnd, 50),
+            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Marsh Map Cost", static_cast<int>(app::GameWorldAreaID__Enum::InkwaterMarsh), 200),
+            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Hollow Map Cost", static_cast<int>(app::GameWorldAreaID__Enum::KwoloksHollow), 150),
+            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Wellspring Map Cost", static_cast<int>(app::GameWorldAreaID__Enum::WaterMill), 150),
+            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Burrow Map Cost", static_cast<int>(app::GameWorldAreaID__Enum::MidnightBurrow), 50),
+            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Reach Map Cost", static_cast<int>(app::GameWorldAreaID__Enum::BaursReach), 150),
+            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Pools Map Cost", static_cast<int>(app::GameWorldAreaID__Enum::LumaPools), 150),
+            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Depths Map Cost", static_cast<int>(app::GameWorldAreaID__Enum::MouldwoodDepths), 150),
+            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Wastes Map Cost", static_cast<int>(app::GameWorldAreaID__Enum::WindsweptWastes), 150),
+            add_state<app::SerializedIntUberState>(UberStateGroup::LupoGroup, "Willows End Map Cost", static_cast<int>(app::GameWorldAreaID__Enum::WillowsEnd), 50),
 
             add_state<app::SerializedIntUberState>(UberStateGroup::npcsStateGroup, "HCMapIconCost", 19397, 0),
             add_state<app::SerializedIntUberState>(UberStateGroup::npcsStateGroup, "ECMapIconCost", 57988, 0),
@@ -575,8 +577,8 @@ namespace {
         print_time(start_time, "Added states");
 
         trace(MessageType::Info, 5, "initialize", "Custom uber states initialized.");
-        UberStateCollection::PrepareRuntimeDataType(this_ptr);
+        next::Moon::UberStateCollection::PrepareRuntimeDataType(this_ptr);
 
         print_time(start_time, "Uber states initialized");
     }
-} // namespace
+} // na

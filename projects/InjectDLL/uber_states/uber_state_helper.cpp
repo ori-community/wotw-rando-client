@@ -10,37 +10,26 @@
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/app/methods/CapsuleCrushDetector.h>
+#include <Il2CppModLoader/app/methods/SeinHealthController.h>
+#include <Il2CppModLoader/app/methods/SeinEnergy.h>
+#include <Il2CppModLoader/app/methods/PlayerSpiritShards.h>
+#include <Il2CppModLoader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAbilities.h>
+#include <Il2CppModLoader/app/methods/Moon/uberSerializationWisp/PlayerUberStateShards.h>
+#include <Il2CppModLoader/app/methods/Moon/UberStateCollection.h>
+#include <Il2CppModLoader/app/methods/SeinCharacter.h>
+#include <Il2CppModLoader/app/methods/SeinLevel.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
 
 #include <array>
 
 using namespace modloader;
+using namespace app::methods;
+using namespace app::methods::Moon;
+using namespace app::methods::Moon::uberSerializationWisp;
+using namespace app::methods::UnityEngine;
 
 namespace {
-    IL2CPP_BINDING(, CapsuleCrushDetector, void, KillOri, (app::CapsuleCrushDetector * this_ptr));
-    IL2CPP_BINDING(, SeinHealthController, void, RestoreAllHealth, (app::SeinHealthController * this_ptr, float visualSpeed));
-    IL2CPP_BINDING(, SeinHealthController, void, LoseHealth, (app::SeinHealthController * this_ptr, float amount, float visualSpeed));
-    IL2CPP_BINDING(, SeinHealthController, void, GainHealth, (app::SeinHealthController * this_ptr, float amount, float visualSpeed, bool incrementStatistic));
-    IL2CPP_BINDING(, SeinHealthController, void, set_Amount, (app::SeinHealthController * this_ptr, float value));
-    IL2CPP_BINDING(, SeinHealthController, void, set_BaseMaxHealth, (app::SeinHealthController * this_ptr, int value));
-    IL2CPP_BINDING(, SeinHealthController, int, get_BaseMaxHealth, (app::SeinHealthController * this_ptr));
-    IL2CPP_BINDING(, SeinEnergy, void, Gain, (app::SeinEnergy * this_ptr, float amount));
-    IL2CPP_BINDING(, SeinEnergy, void, RestoreAllEnergy, (app::SeinEnergy * this_ptr));
-    IL2CPP_BINDING(, SeinEnergy, void, set_Current, (app::SeinEnergy * this_ptr, float value));
-    IL2CPP_BINDING(, SeinEnergy, float, get_BaseMaxEnergy, (app::SeinEnergy * this_ptr));
-    IL2CPP_BINDING(, SeinEnergy, void, set_BaseMaxEnergy, (app::SeinEnergy * this_ptr, float amount));
-    IL2CPP_BINDING(, PlayerSpiritShards, void, RefreshHasShard, (app::PlayerSpiritShards * this_ptr));
-    IL2CPP_BINDING(, PlayerSpiritShards, void, SetGlobalShardSlotCount, (app::PlayerSpiritShards * this_ptr, int32_t count));
-    IL2CPP_BINDING(, PlayerSpiritShards, bool, HasShard, (app::PlayerSpiritShards * this_ptr, csharp_bridge::ShardType type));
-    IL2CPP_BINDING_OVERLOAD(, PlayerSpiritShards, bool, IsGlobalShardEquipped, (app::PlayerSpiritShards * this_ptr, app::SpiritShardType__Enum value), (SpiritShardType));
-    IL2CPP_BINDING_OVERLOAD(, PlayerSpiritShards, app::PlayerUberStateShards_Shard*, AddNewShardToInventory, (app::PlayerSpiritShards * this_ptr, csharp_bridge::ShardType type), (SpiritShardType));
-    IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateAbilities, void, SetAbilityLevel, (app::PlayerUberStateAbilities * this_ptr, app::AbilityType__Enum type, int level));
-    STATIC_IL2CPP_BINDING(Moon, UberStateCollection, app::IUberState*, GetState, (app::UberID * groupID, app::UberID* stateID));
-    STATIC_IL2CPP_BINDING(Moon, UberStateCollection, Il2CppObject*, get_Descriptors, ());
-    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter * this_ptr));
-    IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter * this_ptr, app::Vector3 value));
-    IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_position, (app::Transform * this_ptr));
-    IL2CPP_BINDING(, SeinLevel, void, set_Ore, (app::SeinLevel * this_ptr, int32_t value));
-
     app::CheatsHandler__StaticFields* get_cheats() {
         return il2cpp::get_class<app::CheatsHandler__Class>("", "CheatsHandler")->static_fields;
     }
@@ -81,7 +70,7 @@ INJECT_C_DLLEXPORT bool get_debug_controls() {
 }
 
 INJECT_C_DLLEXPORT void add_health(float inc) {
-    auto cp(game::pickups::collect_pickup());
+    auto cp(game::pickups::scoped_not_collecting_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr) {
         auto health = get_health();
@@ -95,7 +84,7 @@ INJECT_C_DLLEXPORT void add_health(float inc) {
 }
 
 INJECT_C_DLLEXPORT void set_health(float val) {
-    auto cp(game::pickups::collect_pickup());
+    auto cp(game::pickups::scoped_not_collecting_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr) {
         if (val < 0.0f)
@@ -106,28 +95,28 @@ INJECT_C_DLLEXPORT void set_health(float val) {
 }
 
 INJECT_C_DLLEXPORT void fill_health() {
-    auto cp(game::pickups::collect_pickup());
+    auto cp(game::pickups::scoped_not_collecting_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr)
         SeinHealthController::RestoreAllHealth(sein->fields.Mortality->fields.Health, 4);
 }
 
 INJECT_C_DLLEXPORT void add_energy(float inc) {
-    auto cp(game::pickups::collect_pickup());
+    auto cp(game::pickups::scoped_not_collecting_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr)
         SeinEnergy::Gain(sein->fields.Energy, inc);
 }
 
 INJECT_C_DLLEXPORT void set_energy(float val) {
-    auto cp(game::pickups::collect_pickup());
+    auto cp(game::pickups::scoped_not_collecting_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr)
         SeinEnergy::set_Current(sein->fields.Energy, val);
 }
 
 INJECT_C_DLLEXPORT void fill_energy() {
-    auto cp(game::pickups::collect_pickup());
+    auto cp(game::pickups::scoped_not_collecting_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr)
         SeinEnergy::RestoreAllEnergy(sein->fields.Energy);
@@ -148,7 +137,7 @@ INJECT_C_DLLEXPORT void set_max_health(int32_t value) {
         return;
     }
 
-    auto cp(game::pickups::collect_pickup());
+    auto cp(game::pickups::scoped_not_collecting_pickup());
     SeinHealthController::set_BaseMaxHealth(sein->fields.Mortality->fields.Health, value);
 }
 
@@ -159,7 +148,7 @@ INJECT_C_DLLEXPORT void set_max_energy(float value) {
         return;
     }
 
-    auto cp(game::pickups::collect_pickup());
+    auto cp(game::pickups::scoped_not_collecting_pickup());
     SeinEnergy::set_BaseMaxEnergy(sein->fields.Energy, value);
 }
 
@@ -184,7 +173,7 @@ INJECT_C_DLLEXPORT int32_t get_ore() {
 }
 
 INJECT_C_DLLEXPORT void set_ore(int32_t value) {
-    auto cp(game::pickups::collect_pickup());
+    auto cp(game::pickups::scoped_not_collecting_pickup());
     auto sein = game::player::sein();
     if (sein != nullptr)
         SeinLevel::set_Ore(sein->fields.Level, value);
@@ -299,7 +288,7 @@ INJECT_C_DLLEXPORT void set_shard_slots(int32_t value) {
 INJECT_C_DLLEXPORT bool has_shard(csharp_bridge::ShardType type) {
     auto shards = get_player_spirit_shards();
     if (shards != nullptr)
-        return PlayerSpiritShards::HasShard(shards, type);
+        return PlayerSpiritShards::HasShard(shards, static_cast<app::SpiritShardType__Enum>(type));
     else
         return false;
 }
@@ -307,7 +296,7 @@ INJECT_C_DLLEXPORT bool has_shard(csharp_bridge::ShardType type) {
 INJECT_C_DLLEXPORT bool is_shard_equipped(csharp_bridge::ShardType type) {
     auto shards = get_player_spirit_shards();
     if (shards != nullptr)
-        return PlayerSpiritShards::IsGlobalShardEquipped(shards, static_cast<app::SpiritShardType__Enum>(type));
+        return PlayerSpiritShards::IsGlobalShardEquipped_1(shards, static_cast<app::SpiritShardType__Enum>(type));
     else
         return false;
 }
@@ -318,13 +307,11 @@ INJECT_C_DLLEXPORT void refresh_shards() {
         PlayerSpiritShards::RefreshHasShard(shards);
 }
 
-IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, app::PlayerUberStateShards_Shard*, SetAbility, (app::PlayerUberStateShards * this_ptr, uint8_t ability, bool value));
-
 INJECT_C_DLLEXPORT void set_shard(csharp_bridge::ShardType type, bool value) {
     auto player_shards = get_player_spirit_shards();
     if (player_shards != nullptr) {
         auto shards = get_shards();
-        auto shard = PlayerUberStateShards::SetAbility(shards, static_cast<uint8_t>(type), value);
+        auto shard = PlayerUberStateShards::SetAbility(shards, static_cast<app::SpiritShardType__Enum>(type), value);
         il2cpp::invoke(player_shards->fields.OnInventoryUpdated, "Invoke", shard);
     }
 }
@@ -337,7 +324,7 @@ INJECT_C_DLLEXPORT void set_ability_level(app::AbilityType__Enum type, int value
 INJECT_C_DLLEXPORT app::GameWorldAreaID__Enum get_player_area() {
     app::GameWorld* game_world = il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
     if (game_world == nullptr || game_world->fields.CurrentArea == nullptr || game_world->fields.CurrentArea->fields.Area == nullptr)
-        return app::GameWorldAreaID__Enum_None;
+        return app::GameWorldAreaID__Enum::None;
     return game_world->fields.CurrentArea->fields.Area->fields.WorldMapAreaUniqueID;
 }
 
@@ -356,6 +343,6 @@ INJECT_C_DLLEXPORT bool is_loading_game() {
 
     auto scene_name = il2cpp::convert_csstring(scene->fields.Scene);
     auto game_state_machine = il2cpp::get_class<app::GameStateMachine__Class>("", "GameStateMachine")->static_fields->m_instance;
-    return game_state_machine->fields._CurrentState_k__BackingField == app::GameStateMachine_State__Enum_Game &&
+    return game_state_machine->fields._CurrentState_k__BackingField == app::GameStateMachine_State__Enum::Game &&
             (scene_name == "wotwTitleScreen" || scene_name == "kuFlyAway");
 }

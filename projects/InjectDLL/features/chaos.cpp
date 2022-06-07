@@ -11,9 +11,13 @@
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/app/methods/TimeUtility.h>
+#include <Il2CppModLoader/app/methods/GameController.h>
 
 #include <cmath>
 #include <vector>
+
+using namespace app::methods;
 
 namespace {
     int chaos_text_box_id = -1;
@@ -77,9 +81,8 @@ namespace {
         }
     }
 
-    STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
-    IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController * this_ptr)) {
-        GameController::Update(this_ptr);
+    IL2CPP_INTERCEPT(GameController, void, Update, (app::GameController * this_ptr)) {
+        next::GameController::Update(this_ptr);
 
         if (game::is_paused() || !chaos_mode.get<bool>())
             return;

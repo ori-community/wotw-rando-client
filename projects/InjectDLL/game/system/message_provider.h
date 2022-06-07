@@ -31,7 +31,7 @@ namespace utils {
 
         item->fields.Sound = nullptr;
         item->fields.WWiseEvent = nullptr;
-        item->fields.Emotion = app::EmotionType__Enum_Neutral;
+        item->fields.Emotion = app::EmotionType__Enum::Neutral;
         il2cpp::invoke(provider->fields.Messages, "Add", item);
     }
 

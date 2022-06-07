@@ -4,18 +4,20 @@
 
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/windows_api/console.h>
+#include <Il2CppModLoader/app/methods/Moon/UberStateController.h>
+#include <Il2CppModLoader/app/methods/GameController.h>
 
 #include <algorithm>
 #include <array>
 #include <fstream>
 
 using namespace modloader;
+using namespace modloader::win;
+using namespace app::methods;
 
 namespace {
-    STATIC_IL2CPP_BINDING(Moon, UberStateController, bool, ApplierIsAffectedByUberState, (app::IUberStateApplier * applier, app::IUberState* descriptor));
-
     void visualizer_setup(dev::Visualizer& visualizer, std::vector<console::CommandParam> const& params, int default_level = 1, int default_depth = 200000) {
         int value = default_level;
         auto value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "level"; });
@@ -135,7 +137,7 @@ namespace {
         auto list = uber_state_controller->static_fields->AllStateAppliers;
         for (auto i = 0; i < list->fields._size; ++i) {
             auto item = list->fields._items->vector[i];
-            if (UberStateController::ApplierIsAffectedByUberState(item, uber_state.ptr()))
+            if (Moon::UberStateController::ApplierIsAffectedByUberState(item, uber_state.ptr()))
                 dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
         }
 
@@ -188,7 +190,7 @@ namespace {
 
     Command queued;
     std::vector<console::CommandParam> saved_params;
-    IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
+    IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
         switch (queued) {
             case Command::None:
                 break;
@@ -206,7 +208,7 @@ namespace {
                 break;
         }
 
-        GameController::FixedUpdate(this_ptr);
+        next::GameController::FixedUpdate(this_ptr);
     }
 
     void queue_command(std::string const& command, std::vector<console::CommandParam> const& params) {

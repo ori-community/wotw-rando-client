@@ -1,0 +1,14 @@
+#pragma once
+#include <Il2CppModLoader/interception_macros.h>
+
+namespace app::methods::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_TKey_TValue__Enumerator_System_Int32_Moon_Timeline_EventHistoryItem_ {
+    IL2CPP_REGISTER_METHOD(0x0018B750, void, ctor, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_Moon_Timeline_EventHistoryItem___Boxed * this_ptr, app::Dictionary_2_System_Int32_Moon_Timeline_EventHistoryItem_ * dictionary))
+    IL2CPP_REGISTER_METHOD(0x00002890, void, Dispose, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_Moon_Timeline_EventHistoryItem___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0018B780, bool, MoveNext, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_Moon_Timeline_EventHistoryItem___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x047557D8, Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_Moon_Timeline_EventHistoryItem__MoveNext__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x00140C90, app::EventHistoryItem, get_Current, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_Moon_Timeline_EventHistoryItem___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0018B790, app::Object *, IEnumerator_get_Current, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_Moon_Timeline_EventHistoryItem___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x0479A240, Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_Moon_Timeline_EventHistoryItem__System_Collections_IEnumerator_get_Current__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x0018B8B0, void, IEnumerator_Reset, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_Moon_Timeline_EventHistoryItem___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x047511A0, Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_Moon_Timeline_EventHistoryItem__System_Collections_IEnumerator_Reset__MethodInfo)
+}

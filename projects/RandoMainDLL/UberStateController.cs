@@ -550,6 +550,7 @@ namespace RandoMainDLL {
 
     public static void NewGameInit() {
       if (!InterOp.System.is_loading_game()) {
+        NeedsNewGameInit = false;
         UnsharableIds.Clear();
         InterOp.Messaging.clear_quest_messages();
         Randomizer.Log($"New Game Init - {SeedController.SeedName}", false);
@@ -594,8 +595,6 @@ namespace RandoMainDLL {
         } else MapController.UpdateReachable();
         InterOp.Shard.set_shard_slots(3);
         InterOp.System.save();
-
-        NeedsNewGameInit = false;
       }
     }
 

@@ -56,8 +56,8 @@ namespace randomizer {
             }
 
             switch (it->second->status()) {
-                case app::WwiseEventSystem_EventStatus__Enum_None:
-                case app::WwiseEventSystem_EventStatus__Enum_Finished:
+                case app::WwiseEventSystem_EventStatus__Enum::None:
+                case app::WwiseEventSystem_EventStatus__Enum::Finished:
                     state.active_sounds.erase(it);
                     return true;
             }

@@ -1,0 +1,6 @@
+#pragma once
+#include <Il2CppModLoader/interception_macros.h>
+
+namespace app::methods::RetriveActionStates {
+    IL2CPP_REGISTER_METHOD(0x02EA2510, void, ctor, (app::RetriveActionStates * this_ptr))
+}

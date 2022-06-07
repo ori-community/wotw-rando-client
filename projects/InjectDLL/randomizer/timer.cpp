@@ -2,10 +2,14 @@
 
 #include <game/game.h>
 
+#include <Il2CppModLoader/app/methods/GameController.h>
+#include <Il2CppModLoader/app/methods/TimeUtility.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 
 #include <unordered_map>
+
+using namespace app::methods;
 
 namespace timer {
     struct TimerInfo {
@@ -47,9 +51,8 @@ namespace timer {
     }
 
     std::vector<int> dead_timers;
-    STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
-    IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController * this_ptr)) {
-        GameController::Update(this_ptr);
+    IL2CPP_INTERCEPT(GameController, void, Update, (app::GameController * this_ptr)) {
+        next::GameController::Update(this_ptr);
 
         if (game::is_paused())
             return;

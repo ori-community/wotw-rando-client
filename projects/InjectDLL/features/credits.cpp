@@ -1,11 +1,18 @@
 #include <features/scenes/scene_load.h>
 #include <interop/csharp_bridge.h>
 
-#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/windows_api/console.h>
+#include <Il2CppModLoader/app/methods/Moon/Timeline/MoonTimeline.h>
+#include <Il2CppModLoader/app/methods/Game/UI.h>
+#include <Il2CppModLoader/app/methods/TimeUtility.h>
+#include <Il2CppModLoader/app/methods/CreditsController.h>
+#include <Il2CppModLoader/app/methods/GameController.h>
 
 #include <string>
+
+using namespace app::methods;
 
 namespace {
     void credits_scene_loaded_callback(std::string_view scene_name, app::GameObject* scene_root) {
@@ -24,7 +31,6 @@ namespace {
         scenes::force_load_scene("creditsScreen", &credits_scene_loaded_callback, false, false);
     }
 
-    IL2CPP_BINDING(Moon.Timeline, MoonTimeline, void, SetTimeScale, (app::MoonTimeline * this_ptr, float scale))
     INJECT_C_DLLEXPORT void start_credits() {
         auto powl_scene_root = scenes::get_root("willowPowlBackground");
 
@@ -44,17 +50,13 @@ namespace {
     }
 
     float time = 0.0f;
-    STATIC_IL2CPP_BINDING(Game, UI, bool, get_MainMenuVisible, ());
-    STATIC_IL2CPP_BINDING(, TimeUtility, float, get_fixedDeltaTime, ());
-    IL2CPP_BINDING(, CreditsController, bool, IsCreditsTimelinePlaying, (app::CreditsController * this_ptr));
-    IL2CPP_BINDING(Moon.Timeline, MoonTimeline, float, get_CurrentTime, (app::MoonTimeline * this_ptr));
-    IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
-        GameController::FixedUpdate(this_ptr);
+    IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
+        next::GameController::FixedUpdate(this_ptr);
         auto cred_cont = il2cpp::get_class<app::CreditsController__Class>("", "CreditsController")
                                  ->static_fields->Instance;
         if (cred_cont != nullptr && CreditsController::IsCreditsTimelinePlaying(cred_cont)) {
-            if (!UI::get_MainMenuVisible()) {
-                time = MoonTimeline::get_CurrentTime(cred_cont->fields.CreditsTimeline);
+            if (!Game::UI::get_MainMenuVisible()) {
+                time = Moon::Timeline::MoonTimeline::get_CurrentTime(cred_cont->fields.CreditsTimeline);
                 csharp_bridge::credits_progress(time);
             }
         } else if (time > 0.01f) {

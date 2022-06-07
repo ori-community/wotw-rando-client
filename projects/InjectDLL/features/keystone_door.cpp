@@ -2,34 +2,39 @@
 #include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/app/methods/SeinLogicCycle.h>
+#include <Il2CppModLoader/app/methods/MoonDoorWithSlots.h>
+#include <Il2CppModLoader/app/methods/MoonCustomDoorWithSlots.h>
+#include <Il2CppModLoader/app/methods/UberStateValueCondition.h>
+
+using namespace app::methods;
 
 namespace {
-    IL2CPP_BINDING(, SeinLogicCycle, app::SeinLogicCycle_StateFlags__Enum, GetFlags, (app::SeinLogicCycle * this_ptr, app::SeinLogicCycle_StateFlags__Enum test));
-    IL2CPP_INTERCEPT(, SeinLogicCycle, bool, get_AllowInteraction, (app::SeinLogicCycle * this_ptr)) {
+    IL2CPP_INTERCEPT(SeinLogicCycle, bool, get_AllowInteraction, (app::SeinLogicCycle * this_ptr)) {
         // Override this for the keystone door in wastes.
-        if (SeinLogicCycle::GetFlags(this_ptr, app::SeinLogicCycle_StateFlags__Enum_IsDigging) != 0)
+        if (SeinLogicCycle::GetFlags(this_ptr, app::SeinLogicCycle_StateFlags__Enum::IsDigging) != app::SeinLogicCycle_StateFlags__Enum::Clear)
             return true;
 
-        return SeinLogicCycle::get_AllowInteraction(this_ptr);
+        return next::SeinLogicCycle::get_AllowInteraction(this_ptr);
     }
 
     // No it's not KeystoneDoor
-    IL2CPP_INTERCEPT(, MoonDoorWithSlots, bool, get_SeinInRange, (app::MoonDoorWithSlots * this_ptr)) {
+    IL2CPP_INTERCEPT(MoonDoorWithSlots, bool, get_SeinInRange, (app::MoonDoorWithSlots * this_ptr)) {
         // We could do something position based, but that would be actual work :>
-        this_ptr->fields.m_opensOnLeftSide = 0;
-        bool right = MoonDoorWithSlots::get_SeinInRange(this_ptr);
-        this_ptr->fields.m_opensOnLeftSide = 1;
-        bool left = MoonDoorWithSlots::get_SeinInRange(this_ptr);
+        this_ptr->fields.m_opensOnLeftSide = false;
+        bool right = next::MoonDoorWithSlots::get_SeinInRange(this_ptr);
+        this_ptr->fields.m_opensOnLeftSide = true;
+        bool left = next::MoonDoorWithSlots::get_SeinInRange(this_ptr);
         return right || left;
     }
 
-    IL2CPP_INTERCEPT(, MoonCustomDoorWithSlots, bool, get_CanPlayerTriggerAutomatically, (app::MoonCustomDoorWithSlots * this_ptr)) {
+    IL2CPP_INTERCEPT(MoonCustomDoorWithSlots, bool, get_CanPlayerTriggerAutomatically, (app::MoonCustomDoorWithSlots * this_ptr)) {
         return false;
     }
 
     // TODO: Use condition framework instead.
     uber_states::UberState kwolok_door_available(UberStateGroup::RandoConfig, 6);
-    IL2CPP_INTERCEPT(, UberStateValueCondition, bool, Validate, (app::UberStateValueCondition * this_ptr, app::IContext* context)) {
+    IL2CPP_INTERCEPT(UberStateValueCondition, bool, Validate, (app::UberStateValueCondition * this_ptr, app::IContext* context)) {
         auto ref = this_ptr->fields.Descriptor;
         if (ref != nullptr &&
             il2cpp::invoke<app::Boolean__Boxed>(ref, "get_HasAReference")->fields &&
@@ -40,6 +45,6 @@ namespace {
                 return kwolok_door_available.get<bool>();
         }
 
-        return UberStateValueCondition::Validate(this_ptr, context);
+        return next::UberStateValueCondition::Validate(this_ptr, context);
     }
 } // namespace

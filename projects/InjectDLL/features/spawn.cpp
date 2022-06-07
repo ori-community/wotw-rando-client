@@ -7,15 +7,26 @@
 
 #include "faderb.h"
 #include <Common/ext.h>
-#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/windows_api/console.h>
+#include <Il2CppModLoader/app/methods/ScenesManager.h>
+#include <Il2CppModLoader/app/methods/SeinCharacter.h>
+#include <Il2CppModLoader/app/methods/GameplayCamera.h>
+#include <Il2CppModLoader/app/methods/GameStateMachine.h>
+#include <Il2CppModLoader/app/methods/SaveSlotsManager.h>
+#include <Il2CppModLoader/app/methods/SaveSlotsUI.h>
+#include <Il2CppModLoader/app/methods/SaveSlotUI.h>
+#include <Il2CppModLoader/app/methods/TitleScreenManager.h>
+#include <Il2CppModLoader/app/methods/WaitAction.h>
+#include <Il2CppModLoader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
 #include <enums/game_event.h>
 #include <event_bus.h>
 #include <interop/csharp_bridge.h>
 
 using namespace modloader;
-using modloader::console::console_send;
+using namespace app::methods;
+using modloader::win::console::console_send;
 
 namespace {
     enum class TeleportState {
@@ -32,15 +43,7 @@ namespace {
     app::Vector3 teleport_position;
     bool handling_start = false;
 
-    IL2CPP_BINDING(, ScenesManager, void, LoadScenesAtPosition, (app::ScenesManager * this_ptr, app::Vector3 position, bool async, bool loadingZones, bool keepPreloaded, bool forceLoad, bool loadDependantScenes));
-    IL2CPP_BINDING(, ScenesManager, void, EnableDisabledScenesAtPosition, (app::ScenesManager * this_ptr, bool limitOnce, bool async));
-    IL2CPP_BINDING(, SkipCutsceneController, void, SkipCutscene, (app::SkipCutsceneController * this_ptr));
-    IL2CPP_BINDING(, SkipCutsceneController, void, SkipPrologue, (app::SkipCutsceneController * this_ptr));
-    IL2CPP_BINDING(, SeinCharacter, app::Vector3, get_Position, (app::SeinCharacter * this_ptr));
-    IL2CPP_BINDING(, SeinCharacter, void, set_Position, (app::SeinCharacter * this_ptr, app::Vector3 position));
-
-    IL2CPP_BINDING(, GameplayCamera, void, MoveCameraToTargetInstantly, (app::GameplayCamera * this_ptr, bool updateTargetPosition));
-    IL2CPP_INTERCEPT(, SeinCharacter, void, FixedUpdate, (app::SeinCharacter * this_ptr)) {
+    IL2CPP_INTERCEPT(SeinCharacter, void, FixedUpdate, (app::SeinCharacter * this_ptr)) {
         // Don't teleport during cutscene skips, causes crashes.
         if (teleport_state == TeleportState::Teleport) {
             SeinCharacter::set_Position(this_ptr, teleport_position);
@@ -67,26 +70,22 @@ namespace {
             teleport_state = TeleportState::None;
         }
 
-        SeinCharacter::FixedUpdate(this_ptr);
+        next::SeinCharacter::FixedUpdate(this_ptr);
     }
 
     uber_states::UberState intro_cutscene(static_cast<UberStateGroup>(21786), 48748);
 
-    IL2CPP_BINDING(, GameplayCamera, void, DisableGoThroughScrollLocks, (app::GameplayCamera * this_ptr, app::Object* caller))
-    IL2CPP_BINDING(, ScenesManager, void, ClearPreventUnloading, (app::ScenesManager * this_ptr))
-    IL2CPP_BINDING(, GameStateMachine, void, SetToGame, (app::GameStateMachine * this_ptr))
+    IL2CPP_INTERCEPT(Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation, void, SetAreaState, (app::PlayerUberStateAreaMapInformation * this_ptr, app::GameWorldAreaID__Enum area_id, int index, app::WorldMapAreaState__Enum state, app::Vector3 position)) {
+        if (handling_start && state == app::WorldMapAreaState__Enum::Visited)
+            state = app::WorldMapAreaState__Enum::Discovered;
 
-    IL2CPP_INTERCEPT(Moon.uberSerializationWisp, PlayerUberStateAreaMapInformation, void, SetAreaState, (app::PlayerUberStateAreaMapInformation * this_ptr, app::GameWorldAreaID__Enum area_id, int index, app::WorldMapAreaState__Enum state, app::Vector3 position)) {
-        if (handling_start && state == app::WorldMapAreaState__Enum_Visited)
-            state = app::WorldMapAreaState__Enum_Discovered;
-
-        PlayerUberStateAreaMapInformation::SetAreaState(this_ptr, area_id, index, state, position);
+        next::Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::SetAreaState(this_ptr, area_id, index, state, position);
     }
 
     // Dont cancel loads during teleportation.
-    IL2CPP_INTERCEPT(, ScenesManager, bool, CancelScene, (app::ScenesManager * this_ptr, app::SceneManagerScene* scene)) {
+    IL2CPP_INTERCEPT(ScenesManager, bool, CancelScene, (app::ScenesManager * this_ptr, app::SceneManagerScene* scene)) {
         if (teleport_state != TeleportState::Teleport)
-            return ScenesManager::CancelScene(this_ptr, scene);
+            return next::ScenesManager::CancelScene(this_ptr, scene);
 
         return false;
     }
@@ -95,20 +94,16 @@ namespace {
     // for this to not start preloading too early.
     bool prevent_preload_on_selecting_empty_save = false;
 
-    STATIC_IL2CPP_BINDING(, SaveSlotsManager, app::SaveSlotInfo*, SlotByIndex, (int index))
-    IL2CPP_BINDING(, SaveSlotsUI, app::SaveSlotUI*, get_CurrentSaveSlot, (app::SaveSlotsUI * this_ptr))
-    IL2CPP_BINDING(, SaveSlotUI, void, SetBusy, (app::SaveSlotUI * this_ptr, bool busy))
-
     // region Preload when selecting empty save slot
     app::SaveSlotsUI* get_save_slots_ui() {
         auto save_slots_ui_klass = il2cpp::get_class<app::SaveSlotsUI__Class>("", "SaveSlotsUI");
         return save_slots_ui_klass->static_fields->Instance;
     }
 
-    STATIC_IL2CPP_INTERCEPT(, TitleScreenManager, void, SetScreen, (app::TitleScreenManager_Screen__Enum screen)) {
-        TitleScreenManager::SetScreen(screen);
+    IL2CPP_INTERCEPT(TitleScreenManager, void, SetScreen, (app::TitleScreenManager_Screen__Enum screen)) {
+        next::TitleScreenManager::SetScreen(screen);
 
-        if (screen == app::TitleScreenManager_Screen__Enum_SaveSlots) {
+        if (screen == app::TitleScreenManager_Screen__Enum::SaveSlots) {
             auto save_slots_ui = get_save_slots_ui();
             if (save_slots_ui != nullptr) {
                 auto save_slot_ui = SaveSlotsUI::get_CurrentSaveSlot(save_slots_ui);
@@ -135,13 +130,13 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(, SaveSlotsUI, void, OnEnable, (app::SaveSlotsUI * this_ptr)) {
+    IL2CPP_INTERCEPT(SaveSlotsUI, void, OnEnable, (app::SaveSlotsUI * this_ptr)) {
         ScopedSetter setter(prevent_preload_on_selecting_empty_save, true);
-        SaveSlotsUI::OnEnable(this_ptr);
+        next::SaveSlotsUI::OnEnable(this_ptr);
     }
 
-    STATIC_IL2CPP_INTERCEPT(, SaveSlotsManager, void, set_CurrentSlotIndex, (int index)) {
-        SaveSlotsManager::set_CurrentSlotIndex(index);
+    IL2CPP_INTERCEPT(SaveSlotsManager, void, set_CurrentSlotIndex, (int index)) {
+        next::SaveSlotsManager::set_CurrentSlotIndex(index);
 
         if (!prevent_preload_on_selecting_empty_save) {
             auto slot_info = SaveSlotsManager::SlotByIndex(index);
@@ -184,8 +179,8 @@ namespace {
 
     app::WaitAction* empty_slot_pressed_wait = nullptr;
 
-    IL2CPP_INTERCEPT(, WaitAction, void, Perform, (app::WaitAction * this_ptr, app::IContext* context)) {
-        WaitAction::Perform(this_ptr, context);
+    IL2CPP_INTERCEPT(WaitAction, void, Perform, (app::WaitAction * this_ptr, app::IContext* context)) {
+        next::WaitAction::Perform(this_ptr, context);
 
         // If this is the empty slot wait action, fade out
         if (this_ptr == empty_slot_pressed_wait) {
@@ -194,7 +189,7 @@ namespace {
     }
 
     void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
-        if (metadata->scene_name == "wotwTitleScreen" && metadata->state == app::SceneState__Enum_Loaded) {
+        if (metadata->scene_name == "wotwTitleScreen" && metadata->state == app::SceneState__Enum::Loaded) {
             auto scene_root = metadata->scene->fields.SceneRoot;
             auto scene_root_go = il2cpp::unity::get_game_object(scene_root);
 
@@ -220,13 +215,11 @@ namespace {
         }
     }
 
-    STATIC_IL2CPP_BINDING(, SaveSlotsManager, int, get_CurrentSlotIndex, ());
-
     void on_new_game(GameEvent event, EventTiming timing) {
         auto game_state_machine = il2cpp::get_class<app::GameStateMachine__Class>("", "GameStateMachine")->static_fields->m_instance;
 
         auto camera = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras")->static_fields->Current;
-        GameplayCamera::DisableGoThroughScrollLocks(camera, reinterpret_cast<app::Object*>(game_state_machine));
+        GameplayCamera::DisableGoThroughScrollLocks(camera, reinterpret_cast<app::Object_1*>(game_state_machine));
         ScenesManager::ClearPreventUnloading(scenes::get_scenes_manager());
 
         handling_start = true;
@@ -243,6 +236,8 @@ namespace {
 
         csharp_bridge::new_game(SaveSlotsManager::get_CurrentSlotIndex());
         GameStateMachine::SetToGame(game_state_machine);
+
+        game::player::set_ability(app::AbilityType__Enum::SpiritMagnet, false);
     }
 
     void on_finished_loading_save(GameEvent event, EventTiming timing) {

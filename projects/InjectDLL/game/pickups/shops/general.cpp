@@ -9,21 +9,37 @@
 
 #include <Common/ext.h>
 
+#include <Il2CppModLoader/app/methods/CatlikeCoding/TextBox/TextBox.h>
+#include <Il2CppModLoader/app/methods/CleverMenuItem.h>
+#include <Il2CppModLoader/app/methods/GameController.h>
+#include <Il2CppModLoader/app/methods/MessageBox.h>
+#include <Il2CppModLoader/app/methods/Moon/uberSerializationWisp/PlayerUberStateShards.h>
+#include <Il2CppModLoader/app/methods/PurchaseThingScreen.h>
+#include <Il2CppModLoader/app/methods/ShopkeeperScreen.h>
+#include <Il2CppModLoader/app/methods/ShopkeeperUIDetails.h>
+#include <Il2CppModLoader/app/methods/ShopkeeperUIItem.h>
+#include <Il2CppModLoader/app/methods/ShopkeeperUISubItem.h>
+#include <Il2CppModLoader/app/methods/SpellUIExperience.h>
+#include <Il2CppModLoader/app/methods/SpellUIShardEquipStatus.h>
+#include <Il2CppModLoader/app/methods/SpiritShardUIShardBackdrop.h>
+#include <Il2CppModLoader/app/methods/TimeUtility.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
 using namespace modloader;
 using namespace shops;
+using namespace app::methods;
+using namespace app::methods::UnityEngine;
+using namespace app::methods::CatlikeCoding::TextBox;
 
 #define GROM_ENABLED 0
 
 namespace {
     uber_states::UberState spirit_light_spent(UberStateGroup::RandoState, 4);
-    IL2CPP_BINDING(, PurchaseThingScreen, bool, get_IsShopOpen, (app::PurchaseThingScreen*));
-    IL2CPP_BINDING(, GameController, bool, get_GameInTitleScreen, (app::GameController*));
-    IL2CPP_INTERCEPT(, SpellUIExperience, bool, Spend, (app::SpellUIExperience * this_ptr, int amount)) {
-        bool worked = SpellUIExperience::Spend(this_ptr, amount);
+    IL2CPP_INTERCEPT(SpellUIExperience, bool, Spend, (app::SpellUIExperience * this_ptr, int amount)) {
+        bool worked = next::SpellUIExperience::Spend(this_ptr, amount);
         if (worked)
             spirit_light_spent.set(amount + spirit_light_spent.get());
         return worked;
@@ -33,23 +49,18 @@ namespace {
     constexpr float FAST_PURCHASE_TIME = 0.01f;
     bool quick_buy = false;
 
-    IL2CPP_INTERCEPT(, PurchaseThingScreen, void, PurchaseInput, (app::PurchaseThingScreen * this_ptr)) {
+    IL2CPP_INTERCEPT(PurchaseThingScreen, void, PurchaseInput, (app::PurchaseThingScreen * this_ptr)) {
         this_ptr->fields.PurchaseCooldown = 0.1f;
         this_ptr->fields.PurchaseTime = quick_buy ? FAST_PURCHASE_TIME : NORMAL_PURCHASE_TIME;
-        PurchaseThingScreen::PurchaseInput(this_ptr);
+        next::PurchaseThingScreen::PurchaseInput(this_ptr);
     }
     // Generic --------------------------------
-
-    IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject * this_ptr, bool value));
-    NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_Upgradable, (app::PlayerUberStateShards_Shard * this_ptr));
-    NESTED_IL2CPP_BINDING(Moon.uberSerializationWisp, PlayerUberStateShards, Shard, bool, get_UpgradeAffordable, (app::PlayerUberStateShards_Shard * this_ptr));
-    IL2CPP_BINDING(, SpellUIShardEquipStatus, void, SetEquipment, (app::SpellUIShardEquipStatus * this_ptr, app::EquipmentType__Enum type));
 
     // All of this code is horrendous.
     // ---------------------------------------------------
     bool stop_shop_overwrite = false;
     bool should_shop_overwrite = false;
-    IL2CPP_INTERCEPT(, ShopkeeperScreen, void, Show, (app::ShopkeeperScreen * this_ptr)) {
+    IL2CPP_INTERCEPT(ShopkeeperScreen, void, Show, (app::ShopkeeperScreen * this_ptr)) {
         if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterScreen") ||
             il2cpp::is_assignable(this_ptr, "", "ShardUpgradeScreen")) {
             stop_shop_overwrite = false;
@@ -57,14 +68,13 @@ namespace {
         }
 
         csharp_bridge::update_shop_data();
-        ShopkeeperScreen::Show(this_ptr);
+        next::ShopkeeperScreen::Show(this_ptr);
     }
 
     float angle = 0.0f;
     float stop_overwrite_time = 4.0f;
-    STATIC_IL2CPP_BINDING(, TimeUtility, float, get_fixedDeltaTime, ());
-    IL2CPP_INTERCEPT(, GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
-        GameController::FixedUpdate(this_ptr);
+    IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
+        next::GameController::FixedUpdate(this_ptr);
         if (stop_shop_overwrite) {
             stop_overwrite_time -= TimeUtility::get_fixedDeltaTime();
             if (stop_overwrite_time < 0.0f) {
@@ -74,38 +84,35 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(, ShopkeeperScreen, void, Hide, (app::ShopkeeperScreen * this_ptr, bool change)) {
-        ShopkeeperScreen::Hide(this_ptr, change);
+    IL2CPP_INTERCEPT(ShopkeeperScreen, void, Hide, (app::ShopkeeperScreen * this_ptr, bool change)) {
+        next::ShopkeeperScreen::Hide(this_ptr, change);
         stop_overwrite_time = 1.0f;
         stop_shop_overwrite = true;
     }
 
     app::ShopkeeperItem* selected_item;
-    IL2CPP_BINDING(, ShopkeeperScreen, app::ShopkeeperItem*, get_SelectedUpgradeItem, (app::ShopkeeperScreen * this_ptr));
-    IL2CPP_INTERCEPT(, ShopkeeperScreen, void, UpdateContextCanvasShards, (app::ShopkeeperScreen * this_ptr)) {
-        selected_item = get_SelectedUpgradeItem(this_ptr);
-        UpdateContextCanvasShards(this_ptr);
+    IL2CPP_INTERCEPT(ShopkeeperScreen, void, UpdateContextCanvasShards, (app::ShopkeeperScreen * this_ptr)) {
+        selected_item = ShopkeeperScreen::get_SelectedUpgradeItem(this_ptr);
+        next::ShopkeeperScreen::UpdateContextCanvasShards(this_ptr);
     }
 
     bool locked_shop_overwrite = false;
-    DECLARE_INTERCEPT(, ShopkeeperUIDetails, void, UpdateDetails, (app::ShopkeeperUIDetails * this_ptr));
-    IL2CPP_INTERCEPT(, ShopkeeperUIDetails, void, ShowEmptyDetails, (app::ShopkeeperUIDetails * this_ptr)) {
+    IL2CPP_INTERCEPT(ShopkeeperUIDetails, void, ShowEmptyDetails, (app::ShopkeeperUIDetails * this_ptr)) {
         if (should_shop_overwrite && selected_item != nullptr) {
             locked_shop_overwrite = true;
-            UpdateDetails_intercept(this_ptr);
+            ShopkeeperUIDetails::UpdateDetails(this_ptr);
             locked_shop_overwrite = false;
         } else
-            ShowEmptyDetails(this_ptr);
+            next::ShopkeeperUIDetails::ShowEmptyDetails(this_ptr);
     }
     // ---------------------------------------------------
 
-    IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox * this_ptr, app::String* replace, app::String* with));
-    IL2CPP_INTERCEPT(, ShopkeeperUIDetails, void, UpdateDetails2, (app::ShopkeeperUIDetails * this_ptr)) {
+    IL2CPP_INTERCEPT(ShopkeeperUIDetails, void, UpdateDetails2, (app::ShopkeeperUIDetails * this_ptr)) {
         // TODO: Fix details panel on ophers shop.
-        ShopkeeperUIDetails::UpdateDetails2(this_ptr);
+        next::ShopkeeperUIDetails::UpdateDetails2(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, ShopkeeperUIDetails, void, UpdateDetails, (app::ShopkeeperUIDetails * this_ptr)) {
+    IL2CPP_INTERCEPT(ShopkeeperUIDetails, void, UpdateDetails, (app::ShopkeeperUIDetails * this_ptr)) {
         if (this_ptr->fields.m_item == nullptr)
             return;
 
@@ -146,19 +153,19 @@ namespace {
             description_box->fields.MessageProvider = il2cpp::invoke<app::MessageProvider>(this_ptr->fields.m_item, "get_ItemDescription");
 
         auto* const empty_str = il2cpp::string_new("");
-        MessageBox::RefreshText(name_box, empty_str, empty_str);
-        MessageBox::RefreshText(description_box, empty_str, empty_str);
+        MessageBox::RefreshText_2(name_box, empty_str, empty_str);
+        MessageBox::RefreshText_2(description_box, empty_str, empty_str);
 
         // Need to do this as UpdateDetails2 overwrites the messageprovider.
         auto* const temp = this_ptr->fields.LockedDescription;
         if (is_locked || locked_shop_overwrite)
             this_ptr->fields.LockedDescription = description_box->fields.MessageProvider;
 
-        UpdateDetails2_intercept(this_ptr);
+        ShopkeeperUIDetails::UpdateDetails2(this_ptr);
         description_box->fields.MessageProvider = temp;
 
-        if (this_ptr->fields.ShowEquipStatus != false)
-            SpellUIShardEquipStatus::SetEquipment(this_ptr->fields.m_equipStatus, app::EquipmentType__Enum_None);
+        if (this_ptr->fields.ShowEquipStatus)
+            SpellUIShardEquipStatus::SetEquipment(this_ptr->fields.m_equipStatus, app::EquipmentType__Enum::None);
     }
 
     bool should_special_handle_shop() {
@@ -169,13 +176,7 @@ namespace {
 #endif
     }
 
-    IL2CPP_BINDING(UnityEngine, GameObject, bool, get_activeSelf, (app::GameObject * this_ptr));
-    IL2CPP_BINDING(, CleverMenuItem, void, set_IsDisabled, (app::CleverMenuItem * this_ptr, bool disabled));
-    IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RenderText, (app::TextBox * this_ptr));
-    IL2CPP_BINDING_OVERLOAD(CatlikeCoding.TextBox, TextBox, void, SetText, (app::TextBox * this_ptr, app::String* text), (System
-                                                                                                                          : String));
-    IL2CPP_BINDING(, SpiritShardUIShardBackdrop, void, SetUpgradeCount, (app::SpiritShardUIShardBackdrop * this_ptr, int actual, int total));
-    IL2CPP_INTERCEPT(, ShopkeeperUISubItem, void, UpdateItem, (app::ShopkeeperUISubItem * this_ptr)) {
+    IL2CPP_INTERCEPT(ShopkeeperUISubItem, void, UpdateItem, (app::ShopkeeperUISubItem * this_ptr)) {
         if (should_special_handle_shop()) {
             const auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsVisible")->fields;
             const auto is_owned = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsOwned")->fields;
@@ -227,16 +228,16 @@ namespace {
             if (il2cpp::unity::is_valid(this_ptr->fields.CostGO) && GameObject::get_activeSelf(this_ptr->fields.CostGO)) {
                 auto text = il2cpp::string_new(std::to_string(cost));
                 auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, "CatlikeCoding.TextBox", "TextBox");
-                TextBox::SetText(text_box, text);
+                TextBox::SetText_2(text_box, text);
                 TextBox::RenderText(text_box);
             }
 
             CleverMenuItem::set_IsDisabled(menu_item, is_owned || is_max_level || !is_affordable);
         } else
-            ShopkeeperUISubItem::UpdateItem(this_ptr);
+            next::ShopkeeperUISubItem::UpdateItem(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(, ShopkeeperUIItem, void, UpdateItem, (app::ShopkeeperUIItem * this_ptr, app::ShopkeeperItem* item)) {
+    IL2CPP_INTERCEPT(ShopkeeperUIItem, void, UpdateItem, (app::ShopkeeperUIItem * this_ptr, app::ShopkeeperItem* item)) {
         if (should_special_handle_shop()) {
             const auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsVisible")->fields;
             const auto is_owned = il2cpp::invoke<app::Boolean__Boxed>(item, "get_IsOwned")->fields;
@@ -252,21 +253,21 @@ namespace {
 
             auto ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.LockedGO, "", "ShopkeeperUISubItem");
             ui_sub_item->fields.m_item = item;
-            ShopkeeperUISubItem::UpdateItem_intercept(ui_sub_item);
+            ShopkeeperUISubItem::UpdateItem(ui_sub_item);
 
             ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AlreadyOwnedGO, "", "ShopkeeperUISubItem");
             ui_sub_item->fields.m_item = item;
-            ShopkeeperUISubItem::UpdateItem_intercept(ui_sub_item);
+            ShopkeeperUISubItem::UpdateItem(ui_sub_item);
 
             ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AvailableToBuyGO, "", "ShopkeeperUISubItem");
             ui_sub_item->fields.m_item = item;
-            ShopkeeperUISubItem::UpdateItem_intercept(ui_sub_item);
+            ShopkeeperUISubItem::UpdateItem(ui_sub_item);
 
             ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.TooExpensiveGO, "", "ShopkeeperUISubItem");
             ui_sub_item->fields.m_item = item;
-            ShopkeeperUISubItem::UpdateItem_intercept(ui_sub_item);
+            ShopkeeperUISubItem::UpdateItem(ui_sub_item);
         } else
-            ShopkeeperUIItem::UpdateItem(this_ptr, item);
+            next::ShopkeeperUIItem::UpdateItem(this_ptr, item);
     }
 
     void handle_quick_buy(Action action, bool pressed) {

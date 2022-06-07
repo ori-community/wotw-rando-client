@@ -1,0 +1,9 @@
+#pragma once
+#include <Il2CppModLoader/interception_macros.h>
+
+namespace app::methods::System::Collections::Generic::KeyValuePair_2_UberShaderProperty_Float_Moon_Timeline_UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_ {
+    IL2CPP_REGISTER_METHOD(0x0010E170, app::UberShaderProperty_Float__Enum, get_Key, (app::KeyValuePair_2_UberShaderProperty_Float_Moon_Timeline_UberShaderAnimatorStrategyStandard_UberShaderAnimation_1___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x0477B478, KeyValuePair_2_UberShaderProperty_Float_Moon_Timeline_UberShaderAnimatorStrategyStandard_UberShaderAnimation_1__get_Key__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x00107C10, app::UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_System_Single_ *, get_Value, (app::KeyValuePair_2_UberShaderProperty_Float_Moon_Timeline_UberShaderAnimatorStrategyStandard_UberShaderAnimation_1___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04794F88, KeyValuePair_2_UberShaderProperty_Float_Moon_Timeline_UberShaderAnimatorStrategyStandard_UberShaderAnimation_1__get_Value__MethodInfo)
+}

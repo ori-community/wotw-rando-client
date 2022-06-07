@@ -200,15 +200,18 @@ set(
         "CMakeLists.txt"
 )
 
-add_library(${PROJECT_NAME} SHARED
+add_library(
+        ${PROJECT_NAME}
+        SHARED
         ${SOURCE_FILES}
         ${PUBLIC_HEADER_FILES}
         ${MISC_FILES}
-        )
+)
 
-target_compile_definitions(${PROJECT_NAME}
+target_compile_definitions(
+        ${PROJECT_NAME}
         PRIVATE COMPILING_INJECTDLL
-        )
+)
 
 set_target_properties(
         ${PROJECT_NAME}
@@ -236,10 +239,10 @@ target_link_libraries(
         Il2CppModLoader
 )
 
-target_precompile_headers(
-        ${PROJECT_NAME}
-        PRIVATE <tchar.h>
-)
+#target_precompile_headers(
+#        ${PROJECT_NAME}
+#        PRIVATE <tchar.h>
+#)
 
 message(STATUS "Assigning source groups.")
 

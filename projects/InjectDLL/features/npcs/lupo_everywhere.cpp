@@ -3,13 +3,14 @@
 #include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/app/methods/QuestNodeWisps.h>
 
 #include <optional>
 
 using namespace modloader;
+using namespace app::methods;
 
 namespace {
     uber_states::UberState has_sword(static_cast<UberStateGroup>(48248), 49214);
@@ -18,7 +19,7 @@ namespace {
         randomizer::conditions::register_condition_uber_state_intercept(has_sword, [](app::ConditionUberState* state) { return std::optional<bool>(true); });
     }
 
-    IL2CPP_INTERCEPT(, QuestNodeWisps, void, SelectInteraction, (app::QuestNodeWisps * this_ptr)) {
+    IL2CPP_INTERCEPT(QuestNodeWisps, void, SelectInteraction, (app::QuestNodeWisps * this_ptr)) {
         auto path = il2cpp::unity::get_path(this_ptr);
         if (path == "swampTorchIntroductionA/npcSetup/mapMakerSetup/mapMakerEntity(Clone)/dialogs/questGraph") {
             auto setup = this_ptr->fields.QuestSetup;
@@ -26,7 +27,7 @@ namespace {
                 il2cpp::invoke(setup->fields.QuestInteractionSets, "Remove", setup->fields.QuestInteractionSets->fields._items->vector[2]);
         }
 
-        QuestNodeWisps::SelectInteraction(this_ptr);
+        next::QuestNodeWisps::SelectInteraction(this_ptr);
     }
 
     CALL_ON_INIT(initialize);

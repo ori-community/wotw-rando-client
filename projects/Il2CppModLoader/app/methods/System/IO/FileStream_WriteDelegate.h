@@ -1,0 +1,9 @@
+#pragma once
+#include <Il2CppModLoader/interception_macros.h>
+
+namespace app::methods::System::IO::FileStream_WriteDelegate {
+    IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::FileStream_WriteDelegate * this_ptr, app::Object * object, void * method_1))
+    IL2CPP_REGISTER_METHOD(0x01D2E820, void, Invoke, (app::FileStream_WriteDelegate * this_ptr, app::Byte__Array * buffer, int32_t offset, int32_t count))
+    IL2CPP_REGISTER_METHOD(0x0236EFC0, app::IAsyncResult *, BeginInvoke, (app::FileStream_WriteDelegate * this_ptr, app::Byte__Array * buffer, int32_t offset, int32_t count, app::AsyncCallback * callback, app::Object * object))
+    IL2CPP_REGISTER_METHOD(0x00611B40, void, EndInvoke, (app::FileStream_WriteDelegate * this_ptr, app::IAsyncResult * result))
+}

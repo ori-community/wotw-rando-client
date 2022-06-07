@@ -1,19 +1,22 @@
 #include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/windows_api/console.h>
+#include <Il2CppModLoader/app/methods/QuestsController.h>
+#include <Il2CppModLoader/app/methods/RaceHandler.h>
+#include <Il2CppModLoader/app/methods/Quest.h>
 
 #include "pickups.h"
 
 using namespace modloader;
+using namespace modloader::win;
+using namespace app::methods;
 
 namespace {
     // noop only - reward triggers on uberstate change.
-    IL2CPP_INTERCEPT(, QuestsController, void, ApplyReward, (app::QuestsController * this_ptr, app::QuestReward* reward)) {}
-    IL2CPP_INTERCEPT(, RaceHandler, void, ApplyReward, (app::RaceHandler * this_ptr)) {}
-
-    IL2CPP_BINDING(, Quest, app::IGenericUberState*, get_UberState, (app::Quest * this_ptr));
+    IL2CPP_INTERCEPT(QuestsController, void, ApplyReward, (app::QuestsController * this_ptr, app::QuestReward* reward)) {}
+    IL2CPP_INTERCEPT(RaceHandler, void, ApplyReward, (app::RaceHandler * this_ptr)) {}
 
     template <typename T>
     void send_state(T* state) {
@@ -31,7 +34,7 @@ namespace {
     }
 
     bool quest_reporting = false;
-    IL2CPP_INTERCEPT(, QuestsController, void, CompleteQuest, (app::QuestsController * this_ptr, app::Quest* quest)) {
+    IL2CPP_INTERCEPT(QuestsController, void, CompleteQuest, (app::QuestsController * this_ptr, app::Quest* quest)) {
         if (quest_reporting) {
             auto uber_state = Quest::get_UberState(quest);
             auto cast_uber_state = il2cpp::safe_il2cpp_cast<app::SerializedIntUberState>(uber_state, "Moon", "SerializedIntUberState");
@@ -39,7 +42,7 @@ namespace {
                 send_state(cast_uber_state);
         }
 
-        QuestsController::CompleteQuest(this_ptr, quest);
+        next::QuestsController::CompleteQuest(this_ptr, quest);
     }
 
     void report_quests_completed(std::string const& command, std::vector<console::CommandParam> const& params) {

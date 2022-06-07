@@ -3,6 +3,7 @@
 #include <uber_states/uber_state_interface.h>
 
 #include <Common/ext.h>
+#include <Il2CppModLoader/app/methods/SavePedestalController.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
@@ -18,7 +19,7 @@ namespace {
             return false;
 
         auto area = get_player_area();
-        if (area != app::GameWorldAreaID__Enum_WellspringGlades)
+        if (area != app::GameWorldAreaID__Enum::WellspringGlades)
             return false;
 
         // We are in glades TP, activate that one instead.
@@ -26,9 +27,9 @@ namespace {
         return uber_states::UberState(UberStateGroup::RandoConfig, 0).get<bool>();
     }
 
-    STATIC_IL2CPP_INTERCEPT(, SavePedestalController, void, Activate, (app::String * identifier)) {
+    IL2CPP_INTERCEPT(SavePedestalController, void, Activate, (app::String * identifier)) {
         auto teleporter_identifier = il2cpp::convert_csstring(identifier);
         if (!handle_glades_teleporter(teleporter_identifier))
-            SavePedestalController::Activate(identifier);
+            next::SavePedestalController::Activate(identifier);
     }
 } // namespace

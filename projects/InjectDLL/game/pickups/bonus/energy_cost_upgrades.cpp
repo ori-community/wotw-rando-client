@@ -21,7 +21,7 @@ namespace {
     uber_states::UberState grenade_cost(UberStateGroup::RandoUpgrade, 9);
 
     void update_blaze(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum_Blaze];
+        auto& cost = initial_costs[app::AbilityType__Enum::Blaze];
         auto* sein = game::player::sein();
         if (sein == nullptr)
             return;
@@ -49,7 +49,7 @@ namespace {
     }
 
     void update_sentry(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum_TurretSpell];
+        auto& cost = initial_costs[app::AbilityType__Enum::TurretSpell];
         auto* sein = game::player::sein();
         if (sein == nullptr)
             return;
@@ -65,7 +65,7 @@ namespace {
     }
 
     void update_spike(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum_SpiritSpearSpell];
+        auto& cost = initial_costs[app::AbilityType__Enum::SpiritSpearSpell];
         auto* sein = game::player::sein();
         if (sein == nullptr)
             return;
@@ -83,7 +83,7 @@ namespace {
     }
 
     void update_shuriken(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum_ChakramSpell];
+        auto& cost = initial_costs[app::AbilityType__Enum::ChakramSpell];
         auto* sein = game::player::sein();
         if (sein == nullptr)
             return;
@@ -102,7 +102,7 @@ namespace {
     }
 
     void update_bow(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum_Bow];
+        auto& cost = initial_costs[app::AbilityType__Enum::Bow];
         auto* sein = game::player::sein();
         if (sein == nullptr)
             return;
@@ -121,7 +121,7 @@ namespace {
     }
 
     void update_regeneration(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum_MeditateSpell];
+        auto& cost = initial_costs[app::AbilityType__Enum::MeditateSpell];
         auto* sein = game::player::sein();
         if (sein == nullptr)
             return;
@@ -140,7 +140,7 @@ namespace {
     }
 
     void update_flash(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum_GlowSpell];
+        auto& cost = initial_costs[app::AbilityType__Enum::GlowSpell];
         auto* sein = game::player::sein();
         if (sein == nullptr)
             return;
@@ -161,7 +161,7 @@ namespace {
     }
 
     void update_grenade(float modifier) {
-        auto& cost = initial_costs[app::AbilityType__Enum_Grenade];
+        auto& cost = initial_costs[app::AbilityType__Enum::Grenade];
         auto* sein = game::player::sein();
         if (sein != nullptr) {
             auto* const grenade = sein->fields.Abilities->fields.GrenadeWrapper;

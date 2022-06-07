@@ -1,0 +1,14 @@
+#pragma once
+#include <Il2CppModLoader/interception_macros.h>
+
+namespace app::methods::System::Collections::Generic::Dictionary_2_TKey_TValue__KeyCollection_TKey_TValue__Enumerator_System_Int32_UnityEngine_RaycastHit_ {
+    IL2CPP_REGISTER_METHOD(0x00144B50, void, ctor, (app::Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_System_Int32_UnityEngine_RaycastHit___Boxed * this_ptr, app::Dictionary_2_System_Int32_UnityEngine_RaycastHit_ * dictionary))
+    IL2CPP_REGISTER_METHOD(0x00002890, void, Dispose, (app::Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_System_Int32_UnityEngine_RaycastHit___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00146380, bool, MoveNext, (app::Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_System_Int32_UnityEngine_RaycastHit___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04710168, Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_System_Int32_UnityEngine_RaycastHit__MoveNext__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x00114150, int32_t, get_Current, (app::Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_System_Int32_UnityEngine_RaycastHit___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00146390, app::Object *, IEnumerator_get_Current, (app::Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_System_Int32_UnityEngine_RaycastHit___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x047235D0, Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_System_Int32_UnityEngine_RaycastHit__System_Collections_IEnumerator_get_Current__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x001464B0, void, IEnumerator_Reset, (app::Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_System_Int32_UnityEngine_RaycastHit___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04759E88, Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_System_Int32_UnityEngine_RaycastHit__System_Collections_IEnumerator_Reset__MethodInfo)
+}

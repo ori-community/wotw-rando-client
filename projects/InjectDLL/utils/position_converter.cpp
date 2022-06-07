@@ -2,17 +2,17 @@
 
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Camera.h>
+#include <Il2CppModLoader/app/methods/GameplayCamera.h>
+
+using namespace app::methods;
+using namespace app::methods::UnityEngine;
 
 namespace {
     enum ConvertPositionType {
         UI_TO_WORLD,
         WORLD_TO_UI,
     };
-
-    STATIC_IL2CPP_BINDING(UnityEngine, Camera, app::Camera*, get_current, ());
-    IL2CPP_BINDING(UnityEngine, Camera, app::Vector3, WorldToScreenPoint, (app::Camera * camera, app::Vector3* pos));
-    IL2CPP_BINDING(UnityEngine, Camera, app::Vector3, ScreenToWorldPoint, (app::Camera * camera, app::Vector3* pos));
-    IL2CPP_BINDING(, GameplayCamera, app::Camera*, get_Camera, (app::GameplayCamera * camera));
 
     app::Vector3 convert_position(app::Vector3 position, ConvertPositionType type) {
         auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
@@ -26,12 +26,12 @@ namespace {
 
         switch (type) {
             case UI_TO_WORLD:
-                position = Camera::WorldToScreenPoint(ui_camera, &position);
-                position = Camera::ScreenToWorldPoint(world_camera, &position);
+                position = Camera::WorldToScreenPoint_2(ui_camera, position);
+                position = Camera::ScreenToWorldPoint_2(world_camera, position);
                 break;
             case WORLD_TO_UI:
-                position = Camera::WorldToScreenPoint(world_camera, &position);
-                position = Camera::ScreenToWorldPoint(ui_camera, &position);
+                position = Camera::WorldToScreenPoint_2(world_camera, position);
+                position = Camera::ScreenToWorldPoint_2(ui_camera, position);
                 break;
         }
 

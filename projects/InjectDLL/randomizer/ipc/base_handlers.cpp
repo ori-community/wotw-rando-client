@@ -153,7 +153,7 @@ namespace randomizer {
                 if (p.contains("alignment"))
                     text_box_alignment(message_id, p.at("text").get<app::AlignmentMode__Enum>());
                 if (p.contains("anchor"))
-                    text_box_anchor(message_id, p.value("horizontal", app::HorizontalAnchorMode__Enum_Center), p.value("vertical", app::VerticalAnchorMode__Enum_Middle));
+                    text_box_anchor(message_id, p.value("horizontal", app::HorizontalAnchorMode__Enum::Center), p.value("vertical", app::VerticalAnchorMode__Enum::Middle));
                 if (p.contains("line_spacing"))
                     text_box_line_spacing(message_id, p.at("line_spacing").get<float>());
                 if (p.contains("visible"))

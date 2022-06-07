@@ -20,10 +20,10 @@ namespace modloader {
     template <typename T>
     struct ScopedSetter {
         T& variable;
-        T value;
+        T previous_value;
 
         ScopedSetter(T& variable, T value) :
-                variable(variable), value(variable) {
+                variable(variable), previous_value(variable) {
             variable = value;
         }
 
@@ -31,7 +31,7 @@ namespace modloader {
         ScopedSetter(ScopedSetter&& other) = delete;
 
         ~ScopedSetter() {
-            variable = value;
+            variable = previous_value;
         }
     };
 

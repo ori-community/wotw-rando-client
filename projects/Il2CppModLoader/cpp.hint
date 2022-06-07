@@ -6,7 +6,7 @@
     INTERNAL_INTERCEPT(address, return_type, name, params)
 
 #define BINDING(address, return_type, name, params) \
-    INTERNAL_BINDING(address, return_type, name, params)
+    IL2CPP_REGISTER_METHOD(address, return_type, name, params)
 
 // Overloads
 
@@ -118,6 +118,6 @@
     modloader::intercept::intercept binding_##name(address, &reinterpret_cast<void*>(name), name##_intercept, #name); \
     return_type name##_intercept params
 
-#define INTERNAL_BINDING(address, return_type, name, params) \
+#define IL2CPP_REGISTER_METHOD(address, return_type, name, params) \
     return_type(*name) params;                               \
     modloader::intercept::intercept binding_##name(address, &reinterpret_cast<void*>(name), nullptr, #name);

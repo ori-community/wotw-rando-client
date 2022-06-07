@@ -7,6 +7,7 @@ namespace uber_states {
     public:
         UberState();
         UberState(UberStateGroup group, int state);
+        UberState(UberStateGroup group, app::AbilityType__Enum state);
 
         UberState(app::IUberState* state);
         UberState(app::SerializedBooleanUberState* state) :

@@ -9,15 +9,26 @@
 #include <utils/misc.h>
 
 #include <Common/ext.h>
+#include <Il2CppModLoader/app/methods/CatlikeCoding/TextBox/TextBox.h>
+#include <Il2CppModLoader/app/methods/IconPlacementScaler.h>
+#include <Il2CppModLoader/app/methods/TimeUtility.h>
+#include <Il2CppModLoader/app/methods/UberShaderAPI.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Object.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
 #include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/il2cpp_math.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/windows_api/console.h>
 
 #include <unordered_map>
 
 using namespace modloader;
+using namespace modloader::win;
+using namespace app::methods;
+using namespace app::methods::UnityEngine;
+using namespace app::methods::CatlikeCoding::TextBox;
 
 INJECT_C_DLLEXPORT void add_player(const wchar_t* id, const wchar_t* name, multiplayer::PlayerIcon icon);
 INJECT_C_DLLEXPORT void set_player_icon(const wchar_t* id, multiplayer::PlayerIcon icon);
@@ -61,23 +72,6 @@ namespace multiplayer {
         return local_player_color;
     }
 
-    IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_position, (app::Transform * this_ptr));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform * this_ptr, app::Vector3* pos));
-    IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_localPosition, (app::Transform * this_ptr));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_localPosition, (app::Transform * this_ptr, app::Vector3* pos));
-    IL2CPP_BINDING(UnityEngine, Transform, app::Vector3, get_localScale, (app::Transform * this_ptr));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_localScale, (app::Transform * this_ptr, app::Vector3* scale));
-    IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, get_root, (app::Transform * this_ptr));
-    IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, get_parent, (app::Transform * this_ptr));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform * this_ptr, app::Transform* parent));
-
-    STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (app::Object * object), (UnityEngine
-                                                                                                            : Object));
-    IL2CPP_BINDING(UnityEngine, GameObject, void, set_layer, (app::GameObject * this_ptr, int value));
-
-    IL2CPP_BINDING(, IconPlacementScaler, void, PlaceIcon, (app::IconPlacementScaler * this_ptr, app::GameObject* icon, app::Vector3* location, bool is_teleportable));
-    IL2CPP_BINDING(, IconPlacementScaler, void, RemoveIcon, (app::IconPlacementScaler * this_ptr, app::GameObject* icon));
-
     constexpr int DOT_COUNT = 64;
     constexpr float DOT_TIMEOUT = 0.25f;
     constexpr float DOT_MIN_DISTANCE = 2.0f;
@@ -85,16 +79,14 @@ namespace multiplayer {
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
         while (player.dots.size() <= DOT_COUNT) {
             auto& dot = player.dots.emplace_back();
-            dot.dot = reinterpret_cast<app::GameObject*>(Object::Instantiate(
-                    reinterpret_cast<app::Object*>(area_map->fields.TrailPrefab)
-            ));
+            dot.dot = Object::Instantiate_12(area_map->fields.TrailPrefab);
             dot.transform = il2cpp::unity::get_transform(dot.dot);
             dot.renderer = il2cpp::unity::get_components<app::Renderer>(
                     il2cpp::unity::get_children(dot.dot)[0], "UnityEngine", "Renderer"
             )[0];
             il2cpp::unity::set_active(dot.dot, player.map_avatar.visible);
             app::Vector3 pos{ player.map_avatar.position.x, player.map_avatar.position.y, 0.0f };
-            IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
+            IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, pos, false);
         }
 
         player.previous_dot_position = player.map_avatar.position;
@@ -113,7 +105,7 @@ namespace multiplayer {
         for (int i = 0; i < HALF_DOTS; ++i) {
             color.a = static_cast<float>(i) / HALF_DOTS;
             auto& dot = player.dots[(player.next_dot_index + HALF_DOTS + i) % DOT_COUNT];
-            randomizer::shaders::UberShaderAPI::SetColor(dot.renderer, app::UberShaderProperty_Color__Enum_MainColor, &color);
+            UberShaderAPI::SetColor_1(dot.renderer, app::UberShaderProperty_Color__Enum::MainColor, color);
         }
     }
 
@@ -126,7 +118,7 @@ namespace multiplayer {
         auto& dot = player.dots[player.next_dot_index];
         il2cpp::unity::set_active(dot.dot, player.map_avatar.visible);
         app::Vector3 pos{ player.map_avatar.position.x, player.map_avatar.position.y, 0.0f };
-        IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, &pos, false);
+        IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, pos, false);
 
         update_dot_colors(player);
 
@@ -135,7 +127,6 @@ namespace multiplayer {
         player.next_dot_index = (player.next_dot_index + 1) % DOT_COUNT;
     }
 
-    STATIC_IL2CPP_BINDING(, TimeUtility, float, get_fixedDeltaTime, ());
     bool should_make_dot(PlayerInfo& player) {
         player.time_until_next_dot -= TimeUtility::get_fixedDeltaTime();
         auto dx = player.previous_dot_position.x - player.map_avatar.position.x;
@@ -150,9 +141,6 @@ namespace multiplayer {
             set_layer_recursive(child, layer);
     }
 
-    IL2CPP_BINDING_OVERLOAD(CatlikeCoding.TextBox, TextBox, void, SetText, (app::TextBox * this_ptr, app::String* text), (System
-                                                                                                                          : String));
-    IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RenderText, (app::TextBox * this_ptr));
     void set_avatar_active(PlayerInfo& info, PlayerInfo::Icon& icon, bool value) {
         il2cpp::unity::set_active(icon.root, value);
         if (value) {
@@ -160,7 +148,7 @@ namespace multiplayer {
             if (info.name_handle == 0)
                 info.name_handle = il2cpp::gchandle_new(il2cpp::string_new(info.name), false);
 
-            TextBox::SetText(text_box, il2cpp::gchandle_target<app::String>(info.name_handle));
+            TextBox::SetText_2(text_box, il2cpp::gchandle_target<app::String>(info.name_handle));
             TextBox::RenderText(text_box);
         }
     }
@@ -169,14 +157,14 @@ namespace multiplayer {
         if (info.world_avatar.handle != 0) {
             auto transform = il2cpp::unity::get_transform(info.world_avatar.root);
             app::Vector3 pos{ info.world_avatar.position.x, info.world_avatar.position.y, 0.0f };
-            multiplayer::Transform::set_position(transform, &pos);
+            Transform::set_position(transform, pos);
         }
 
         if (info.map_avatar.handle != 0) {
             app::Vector3 pos{ info.map_avatar.position.x, info.map_avatar.position.y, 0.f };
             auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
             if (il2cpp::unity::is_valid(area_map))
-                IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, info.map_avatar.root, &pos, false);
+                IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, info.map_avatar.root, pos, false);
         }
     }
 
@@ -225,7 +213,7 @@ namespace multiplayer {
             set_avatar_active(info, info.world_avatar, info.world_avatar.visible);
             app::Vector3 pos{ info.world_avatar.position.x, info.world_avatar.position.y, 0.f };
             auto transform = il2cpp::unity::get_transform(info.world_avatar.root);
-            Transform::set_position(transform, &pos);
+            Transform::set_position(transform, pos);
             utils::set_color(info.world_avatar.icon, info.color, false);
 
             auto text_box = il2cpp::unity::get_component<app::TextBox>(info.world_avatar.text, "CatlikeCoding.TextBox", "TextBox");
@@ -233,15 +221,15 @@ namespace multiplayer {
 
             pos = { 0.f, SPRITE_OFFSET, 0.f };
             transform = il2cpp::unity::get_transform(info.world_avatar.icon);
-            Transform::set_localPosition(transform, &pos);
+            Transform::set_localPosition(transform, pos);
             app::Vector3 scale{ SPRITE_SCALE, SPRITE_SCALE, 1.0f };
-            Transform::set_localScale(transform, &scale);
+            Transform::set_localScale(transform, scale);
 
             pos = { 0.f, TEXT_OFFSET, 0.f };
             transform = il2cpp::unity::get_transform(info.world_avatar.text);
-            Transform::set_localPosition(transform, &pos);
+            Transform::set_localPosition(transform, pos);
             app::Vector3 text_scale = { TEXT_SCALE, TEXT_SCALE, 2.f };
-            Transform::set_localScale(transform, &text_scale);
+            Transform::set_localScale(transform, text_scale);
         }
 
         // Map Icon
@@ -252,10 +240,10 @@ namespace multiplayer {
             auto transform = il2cpp::unity::get_transform(info.map_avatar.icon);
             utils::set_color(info.map_avatar.icon, info.color, false);
             app::Vector3 scale{ MAP_SPRITE_SCALE, MAP_SPRITE_SCALE, 1.0f };
-            Transform::set_localScale(transform, &scale);
+            Transform::set_localScale(transform, scale);
             auto pos = Transform::get_localPosition(transform);
             pos.z = -0.004f;
-            Transform::set_localPosition(transform, &pos);
+            Transform::set_localPosition(transform, pos);
         }
 
         apply_avatar_position(info);
@@ -326,20 +314,19 @@ namespace multiplayer {
         return a * (1 - weight) + b * weight;
     }
 
-    STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
     void update_avatar_facing(PlayerInfo& info) {
         if (info.world_avatar.handle != 0) {
             auto transform = il2cpp::unity::get_transform(info.world_avatar.icon);
             app::Vector3 scale = Transform::get_localScale(transform);
             scale.x = lerp(scale.x, info.world_avatar.facing * SPRITE_SCALE, 20.0f * TimeUtility::get_deltaTime());
-            Transform::set_localScale(transform, &scale);
+            Transform::set_localScale(transform, scale);
         }
 
         if (info.map_avatar.handle != 0) {
             auto transform = il2cpp::unity::get_transform(info.map_avatar.icon);
             app::Vector3 scale = Transform::get_localScale(transform);
             scale.x = lerp(scale.x, info.map_avatar.facing * MAP_SPRITE_SCALE, 20.0f * TimeUtility::get_deltaTime());
-            Transform::set_localScale(transform, &scale);
+            Transform::set_localScale(transform, scale);
         }
     }
 

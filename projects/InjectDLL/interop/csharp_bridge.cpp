@@ -6,6 +6,7 @@
 
 #include <Common/ext.h>
 
+#include <Il2CppModLoader/app/methods/SaveSlotsManager.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 
@@ -15,6 +16,7 @@
     }
 
 using namespace modloader;
+using namespace app::methods;
 
 namespace csharp_bridge {
     signatures::f_void_float update = nullptr;
@@ -128,11 +130,8 @@ namespace csharp_bridge {
             DELEGATE_ENTRY(on_found_tp),
         };
 
-        STATIC_IL2CPP_BINDING(, SaveSlotsManager, int, get_CurrentSlotIndex, ());
-        STATIC_IL2CPP_BINDING(, SaveSlotsManager, int, get_BackupIndex, ());
-
         void on_checkpoint_handler(GameEvent game_event, EventTiming timing) {
-            auto cp(game::pickups::collect_pickup()); // fuck fuck fuck shit damn aaaaa
+            auto cp(game::pickups::scoped_not_collecting_pickup()); // fuck fuck fuck shit damn aaaaa
             csharp_bridge::on_checkpoint();
         }
 

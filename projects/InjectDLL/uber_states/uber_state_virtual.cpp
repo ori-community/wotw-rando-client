@@ -11,12 +11,15 @@
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/app/methods/GameController.h>
 
 #include <interop/csharp_bridge.h>
 
 #include <unordered_map>
 
 using namespace modloader;
+using namespace app::methods;
+
 namespace uber_states {
     namespace {
         using uber_id = std::pair<UberStateGroup, int>;
@@ -98,7 +101,7 @@ namespace uber_states {
               { "Current Trees",
                 [](double x) { trace(MessageType::Error, 1, "uber_state_virtual", "Invalid operation: uberstate (15, 502) is read only."); },
                 []() -> double {
-                    return uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_Sword).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_DoubleJump).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_MeditateSpell).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_Bow).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_DashNew).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_Bash).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_SpiritLeash).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_WaterDash).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_GlowSpell).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_Grenade).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_Digging).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_ChargeJump).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_DamageUpgradeA).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum_DamageUpgradeB).get();
+                    return uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::Sword).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::DoubleJump).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::MeditateSpell).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bow).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::DashNew).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bash).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::SpiritLeash).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::WaterDash).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::GlowSpell).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::Grenade).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::Digging).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::ChargeJump).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeA).get() + uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeB).get();
                 } } },
             { std::make_pair(UberStateGroup::RandoVirtual, 503),
               { "Current Wisps",
@@ -119,8 +122,8 @@ namespace uber_states {
         };
 
         std::unordered_map<uber_id, double, pair_hash> cached_values;
-        IL2CPP_INTERCEPT(, GameController, void, Update, (app::GameController * this_ptr)) {
-            GameController::Update(this_ptr);
+        IL2CPP_INTERCEPT(GameController, void, Update, (app::GameController * this_ptr)) {
+            next::GameController::Update(this_ptr);
             for (const auto& state : virtual_states) {
                 auto value = state.second.get();
                 auto it = cached_values.find(state.first);

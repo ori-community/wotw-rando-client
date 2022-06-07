@@ -1,0 +1,11 @@
+#pragma once
+#include <Il2CppModLoader/interception_macros.h>
+
+namespace app::methods::System::Collections::Generic::Dictionary_2_TKey_TValue__Enumerator_System_Int32_AkCallbackManager_BankCallbackPackage_ {
+    IL2CPP_REGISTER_METHOD(0x00136440, app::KeyValuePair_2_System_Int32_AkCallbackManager_BankCallbackPackage_, get_Current, (app::Dictionary_2_TKey_TValue_Enumerator_System_Int32_AkCallbackManager_BankCallbackPackage___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x047628A0, Dictionary_2_TKey_TValue_Enumerator_System_Int32_AkCallbackManager_BankCallbackPackage__get_Current__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x001B58E0, bool, MoveNext, (app::Dictionary_2_TKey_TValue_Enumerator_System_Int32_AkCallbackManager_BankCallbackPackage___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x047550C8, Dictionary_2_TKey_TValue_Enumerator_System_Int32_AkCallbackManager_BankCallbackPackage__MoveNext__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x00002890, void, Dispose, (app::Dictionary_2_TKey_TValue_Enumerator_System_Int32_AkCallbackManager_BankCallbackPackage___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04739EE0, Dictionary_2_TKey_TValue_Enumerator_System_Int32_AkCallbackManager_BankCallbackPackage__Dispose__MethodInfo)
+}

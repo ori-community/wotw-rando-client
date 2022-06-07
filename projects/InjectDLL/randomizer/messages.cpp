@@ -1,62 +1,70 @@
-#include <dev/object_visualizer.h>
 #include <game/game.h>
 #include <game/player.h>
 #include <game/system/message_provider.h>
 #include <game/ui.h>
-#include <interop/csharp_bridge.h>
 #include <randomizer/messages.h>
 #include <utils/position_converter.h>
 
 #include <Common/ext.h>
+#include <Il2CppModLoader/app/methods/CatlikeCoding/TextBox/TextBox.h>
+#include <Il2CppModLoader/app/methods/MessageBox.h>
+#include <Il2CppModLoader/app/methods/MessageControllerB.h>
+#include <Il2CppModLoader/app/methods/MessageProvider.h>
+#include <Il2CppModLoader/app/methods/MessageZoneB.h>
+#include <Il2CppModLoader/app/methods/OnScreenPositions.h>
+#include <Il2CppModLoader/app/methods/QuestsController.h>
+#include <Il2CppModLoader/app/methods/ScaleToTextBox.h>
+#include <Il2CppModLoader/app/methods/SeinLogicCycle.h>
+#include <Il2CppModLoader/app/methods/TimeUtility.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Object.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
 #include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/console.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
-#include <codecvt>
-#include <locale>
-#include <set>
 #include <unordered_map>
 #include <unordered_set>
 #include <xstring>
 
 using namespace modloader;
+using namespace app::methods;
+using namespace app::methods::UnityEngine;
+using namespace app::methods::CatlikeCoding::TextBox;
 
 namespace {
-    STATIC_IL2CPP_BINDING(, MessageParserUtility, app::String*, ProcessString, (app::String * message));
-    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopLeft, ());
-    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopCenter, ());
-    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_TopRight, ());
-    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_MiddleLeft, ());
-    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_MiddleCenter, ());
-    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_MiddleRight, ());
-    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomLeft, ());
-    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomCenter, ());
-    STATIC_IL2CPP_BINDING(, OnScreenPositions, app::Vector3, get_BottomRight, ());
+    IL2CPP_INTERCEPT(MessageControllerB, app::GameObject*, ShowSpiritTreeTextMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* provider, app::Vector3 position)) {
+        return nullptr;
+    }
 
-    IL2CPP_INTERCEPT(, MessageControllerB, app::GameObject*, ShowSpiritTreeTextMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* provider, app::Vector3 position)) {
+    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowAbilityMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::EquipmentType__Enum ability)) {
         return nullptr;
     }
-    IL2CPP_INTERCEPT(, MessageControllerB, app::GameObject*, ShowAbilityMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* provider, int32_t ability)) {
-        return nullptr;
-    }
-    IL2CPP_INTERCEPT(, MessageControllerB, app::GameObject*, ShowShardMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* provider, app::GameObject* av, app::SpiritShardType__Enum shard)) {
-        return nullptr;
-    }
-    IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowSpellMessage, (app::MessageControllerB * t, app::MessageProvider* p, app::Quest* q)) {
-        return nullptr;
-    }
-    IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowCompleteQuestMessage, (app::MessageControllerB * t, app::MessageProvider* p, app::Quest* q)) {
-        return nullptr;
-    }
-    IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowUpdatedQuestMessage, (app::MessageControllerB * t, app::MessageProvider* p, app::Quest* q)) {
-        return nullptr;
-    }
-    IL2CPP_INTERCEPT(, MessageZoneB, void, FixedUpdate, (app::MessageZoneB * this_ptr)) {}
 
-    IL2CPP_BINDING(, MessageProvider, app::String__Array*, GetAllMessages, (app::MessageProvider * this_ptr));
-    IL2CPP_INTERCEPT(, MessageControllerB, app::MessageBox*, ShowPickupMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::PickupContext* context, bool lockInput)) {
-        if (context->fields.PickupType == app::PickupMessageIcon_PickupType__Enum_QuestItem) {
+    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowShardMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::GameObject* avatar, app::SpiritShardType__Enum shard_type)) {
+        return nullptr;
+    }
+
+    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowSpellMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::EquipmentType__Enum ability)) {
+        return nullptr;
+    }
+
+    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowCompleteQuestMessage, (app::MessageControllerB * t, app::MessageProvider* p, app::Quest* q)) {
+        return nullptr;
+    }
+
+    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowUpdatedQuestMessage, (app::MessageControllerB * t, app::MessageProvider* p, app::Quest* q)) {
+        return nullptr;
+    }
+
+    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowHelpMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::GameObject* avatar)) {
+        return nullptr;
+    }
+
+    IL2CPP_INTERCEPT(MessageZoneB, void, FixedUpdate, (app::MessageZoneB * this_ptr)) {}
+
+    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowPickupMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::PickupContext* context, bool lockInput)) {
+        if (context->fields.PickupType == app::PickupMessageIcon_PickupType__Enum::QuestItem) {
             auto arr = MessageProvider::GetAllMessages(context->fields.Name);
             if (arr->max_length > 0) {
                 auto name = il2cpp::convert_csstring(arr->vector[0]);
@@ -65,7 +73,7 @@ namespace {
             }
         }
 
-        return MessageControllerB::ShowPickupMessage(this_ptr, message_provider, context, lockInput);
+        return next::MessageControllerB::ShowPickupMessage(this_ptr, message_provider, context, lockInput);
     }
 
     bool is_on_screen_positions_initialized() {
@@ -94,27 +102,15 @@ namespace {
         float fadeout = 0.5f;
         app::Color color = { 1.0f, 1.0f, 1.0f, 1.0f };
         float size = 1.0f;
-        app::AlignmentMode__Enum alignment = app::AlignmentMode__Enum_Center;
-        app::HorizontalAnchorMode__Enum horizontal_anchor = app::HorizontalAnchorMode__Enum_Center;
-        app::VerticalAnchorMode__Enum vertical_anchor = app::VerticalAnchorMode__Enum_Middle;
+        app::AlignmentMode__Enum alignment = app::AlignmentMode__Enum::Center;
+        app::HorizontalAnchorMode__Enum horizontal_anchor = app::HorizontalAnchorMode__Enum::Center;
+        app::VerticalAnchorMode__Enum vertical_anchor = app::VerticalAnchorMode__Enum::Middle;
         float line_spacing = 1.0f;
         creation_callback callback = nullptr;
         app::GameObject* obj = nullptr;
     };
 
     std::unordered_map<int, RandoMessage> permanent_messages;
-
-    STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Implicit, (void* this_ptr));
-    STATIC_IL2CPP_BINDING(UnityEngine, Object, bool, op_Equality, (void* this_ptr, void* obj));
-    STATIC_IL2CPP_BINDING_OVERLOAD(UnityEngine, Object, app::Object*, Instantiate, (void* object), (UnityEngine
-                                                                                                    : Object));
-    IL2CPP_BINDING(UnityEngine, GameObject, void, SetActive, (app::GameObject * this_ptr, bool value));
-    IL2CPP_BINDING(, MessageBox, void, RefreshText, (app::MessageBox * this_ptr));
-    IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, get_parent, (app::Transform * this_ptr));
-    IL2CPP_BINDING(UnityEngine, Transform, app::Transform*, GetChild, (app::Transform * this_ptr, int index));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_parent, (app::Transform * this_ptr, app::Transform* parent));
-    IL2CPP_BINDING(UnityEngine, Transform, void, set_position, (app::Transform * this_ptr, app::Vector3* value));
-    IL2CPP_BINDING(CatlikeCoding.TextBox, TextBox, void, RefreshText, (app::TextBox * this_ptr));
 
     bool eat(std::wstring const& text, int& i, std::wstring_view food) {
         if (i + food.size() >= text.size())
@@ -238,7 +234,6 @@ namespace {
         }
     }
 
-    IL2CPP_BINDING(, ScaleToTextBox, void, UpdateSize, (app::ScaleToTextBox * this_ptr));
     void scale_background(RandoMessage& message) {
         if (!message.should_show_box || message.obj == nullptr)
             return;
@@ -262,7 +257,7 @@ namespace {
             pos = world_to_ui_position(pos);
 
         auto transform = il2cpp::unity::get_transform(message.obj);
-        Transform::set_position(transform, &pos);
+        Transform::set_position(transform, pos);
     }
 
     void do_refresh(RandoMessage& message, app::MessageBox* message_box) {
@@ -293,7 +288,7 @@ namespace {
         message_box->fields.Visibility->fields.TransitionInDuration = message.fadein;
         message_box->fields.Visibility->fields.TransitionOutDuration = message.fadeout;
 
-        MessageBox::RefreshText(message_box);
+        MessageBox::RefreshText_1(message_box);
         message_box->fields.TextBox->fields.m_initializeAfterEnabling = true;
         scale_background(message);
         message.should_refresh = false;
@@ -301,7 +296,7 @@ namespace {
 
     app::GameObject* create_permanent_box(RandoMessage& message, bool instant = false) {
         auto controller = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->MessageController;
-        auto go = reinterpret_cast<app::GameObject*>(Object::Instantiate(controller->fields.HintSmallMessage));
+        auto go = reinterpret_cast<app::GameObject*>(Object::Instantiate_3(reinterpret_cast<app::Object_1*>(controller->fields.HintSmallMessage)));
         game::add_to_container(game::RandoContainer::Messages, go);
 
         auto destroy_on_restore = il2cpp::unity::get_component_in_children<app::DestroyOnRestoreCheckpoint>(go, "", "DestroyOnRestoreCheckpoint");
@@ -340,7 +335,7 @@ namespace {
 
         create_color_styles(message_box, message.text);
         message_box->fields.MessageProvider = utils::create_message_provider(message.text);
-        MessageBox::RefreshText(message_box);
+        MessageBox::RefreshText_1(message_box);
 
         auto transform = il2cpp::unity::get_transform(go);
         if (!message.should_show_box) {
@@ -351,7 +346,7 @@ namespace {
         auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(go, "", "SoundSource");
         sound_source->fields.PlayAtStart = message.should_play_sound && !instant;
 
-        Transform::set_position(transform, &message.pos);
+        Transform::set_position(transform, message.pos);
         if (message.callback != nullptr)
             message.callback(message.id);
 
@@ -382,8 +377,7 @@ namespace {
         return false;
     }
 
-    STATIC_IL2CPP_BINDING(, TimeUtility, float, get_deltaTime, ());
-    IL2CPP_INTERCEPT(, QuestsController, void, Update, (app::QuestsController * this_ptr)) {
+    IL2CPP_INTERCEPT(QuestsController, void, Update, (app::QuestsController * this_ptr)) {
         if (clear_on_next_update) {
             il2cpp::invoke(this_ptr->fields.m_queuedQuestMessages, "Clear");
             clear_on_next_update = false;
@@ -435,10 +429,8 @@ namespace {
             }
         }
 
-        QuestsController::Update(this_ptr);
+        next::QuestsController::Update(this_ptr);
     }
-
-    IL2CPP_BINDING(, SeinLogicCycle, app::SeinLogicCycle_StateFlags__Enum, GetFlags, (app::SeinLogicCycle * this_ptr, app::SeinLogicCycle_StateFlags__Enum test));
 } // namespace
 
 INJECT_C_DLLEXPORT void clear_quest_messages() {
@@ -510,9 +502,9 @@ bool text_box_creation_callback(int id, creation_callback func) {
     return true;
 }
 
-int id = 1;
+int next_message_id = 1;
 INJECT_C_DLLEXPORT int reserve_id() {
-    return id++;
+    return next_message_id++;
 }
 
 INJECT_C_DLLEXPORT bool text_box_create(int id, float fadein, float fadeout, bool should_show_box, bool should_play_sound) {
@@ -700,7 +692,7 @@ INJECT_C_DLLEXPORT bool should_handle_messages() {
     if (sein == nullptr || sein->fields.LogicCycle == nullptr)
         return false;
 
-    if (SeinLogicCycle::GetFlags(sein->fields.LogicCycle, app::SeinLogicCycle_StateFlags__Enum_IsInteracting) == 0)
+    if (SeinLogicCycle::GetFlags(sein->fields.LogicCycle, app::SeinLogicCycle_StateFlags__Enum::IsInteracting) == app::SeinLogicCycle_StateFlags__Enum::Clear)
         return true;
 
     return false;
