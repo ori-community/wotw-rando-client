@@ -176,9 +176,6 @@ namespace randomizer::input {
             add_bindings(this_ptr->fields.Bash, Action::Bash);
             add_bindings(this_ptr->fields.Grapple, Action::Grapple);
             add_bindings(this_ptr->fields.DialogueAdvance, Action::DialogueAdvance);
-            add_bindings(this_ptr->fields.DialogueAdvance, Action::DialogueAdvance);
-            add_bindings(this_ptr->fields.DialogueAdvance, Action::DialogueAdvance);
-            add_bindings(this_ptr->fields.DialogueAdvance, Action::DialogueAdvance);
             add_bindings(this_ptr->fields.DialogueOption1, Action::DialogueOption1);
             add_bindings(this_ptr->fields.DialogueOption2, Action::DialogueOption2);
             add_bindings(this_ptr->fields.DialogueOption3, Action::DialogueOption3);
