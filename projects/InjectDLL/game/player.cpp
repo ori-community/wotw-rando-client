@@ -9,6 +9,9 @@
 #include <Il2CppModLoader/app/methods/SpellInventory.h>
 #include <Il2CppModLoader/app/methods/GameController.h>
 
+#include <Il2CppModLoader/app/methods/GameplayCamera.h>
+#include <Il2CppModLoader/app/methods/ScenesManager.h>
+#include <features/scenes/scene_load.h>
 #include <magic_enum/include/magic_enum.hpp>
 
 using namespace modloader;
@@ -66,15 +69,33 @@ namespace game {
                    GameController::get_SecondaryMapAndInventoryCanBeOpened(gcip);
         }
 
-        app::Vector3 position() {
+        app::Vector3 get_position() {
             auto sein = game::player::sein();
             return sein != nullptr ? SeinCharacter::get_Position(sein) : app::Vector3{0, 0, 0};
         }
 
-        void position(app::Vector3 value) {
+        void set_position(float x, float y, bool wait_for_load) {
+            set_position(app::Vector3{x, y, 0.f}, wait_for_load);
+        }
+
+        void set_position(app::Vector3 value, bool wait_for_load) {
             auto sein = game::player::sein();
-            if (sein != nullptr)
+            if (sein != nullptr) {
+                if (wait_for_load) {
+                    ScenesManager::LoadScenesAtPosition(scenes::get_scenes_manager(), value, false, true, false, true, true);
+                }
+
                 SeinCharacter::set_Position(sein, value);
+            }
+        }
+
+        void snap_camera() {
+            auto* const cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
+            if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
+                // We need to do this on the next frame to allow state to update without causing flickering.
+                auto* const camera = cameras->static_fields->Current;
+                GameplayCamera::MoveCameraToTargetInstantly(camera, true);
+            }
         }
     } // namespace player
 } // namespace game

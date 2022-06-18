@@ -50,13 +50,7 @@ namespace {
             teleport_state = TeleportState::PostTeleport;
 
         } else if (teleport_state == TeleportState::PostTeleport) {
-            auto* const cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
-            if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
-                // We need to do this on the next frame to allow state to update without causing flickering.
-                auto* const camera = cameras->static_fields->Current;
-                GameplayCamera::MoveCameraToTargetInstantly(camera, true);
-            } else
-                modloader::warn("teleport", "failed to refocus camera");
+            game::player::snap_camera();
 
             ScenesManager::EnableDisabledScenesAtPosition(scenes::get_scenes_manager(), false, false);
             SeinCharacter::set_Position(this_ptr, teleport_position);

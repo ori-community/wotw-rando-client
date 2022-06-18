@@ -13,7 +13,9 @@ namespace game {
 
         bool can_move();
 
-        app::Vector3 position();
-        void position(app::Vector3 value);
+        app::Vector3 get_position();
+        void set_position(float x, float y, bool wait_for_load = false);
+        void set_position(app::Vector3 value, bool wait_for_load = false);
+        void snap_camera();
     } // namespace player
 } // namespace game
