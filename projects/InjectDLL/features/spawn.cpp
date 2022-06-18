@@ -115,17 +115,19 @@ namespace {
     std::set<std::string> pending_scenes_to_preload;
     std::set<std::string> scenes_to_preload;
 
-    void on_scene_preloaded(std::string_view scene_name, app::GameObject* scene_root) {
-        if (!pending_scenes_to_preload.erase(scene_name.data())) {
-            return;
-        }
+    void on_scene_loading(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root) {
+        if (state == app::SceneState__Enum::Loaded || state == app::SceneState__Enum::LoadingCancelled) {
+            if (!pending_scenes_to_preload.erase(scene_name.data())) {
+                return;
+            }
 
-        if (pending_scenes_to_preload.empty()) {
-            auto save_slots_ui = get_save_slots_ui();
+            if (pending_scenes_to_preload.empty()) {
+                auto save_slots_ui = get_save_slots_ui();
 
-            if (save_slots_ui != nullptr) {
-                auto save_slot_ui = SaveSlotsUI::get_CurrentSaveSlot(save_slots_ui);
-                SaveSlotUI::SetBusy(save_slot_ui, false);
+                if (save_slots_ui != nullptr) {
+                    auto save_slot_ui = SaveSlotsUI::get_CurrentSaveSlot(save_slots_ui);
+                    SaveSlotUI::SetBusy(save_slot_ui, false);
+                }
             }
         }
     }
@@ -164,7 +166,7 @@ namespace {
                         if (!scenes::scene_is_loaded(scene_name)) {
                             pending_scenes_to_preload.emplace(scene_name);
                             scenes_to_preload.emplace(scene_name);
-                            scenes::force_load_scene(scene_name, &on_scene_preloaded, true, true);
+                            scenes::force_load_scene(scene_name, &on_scene_loading, true, true);
                         }
                     }
 

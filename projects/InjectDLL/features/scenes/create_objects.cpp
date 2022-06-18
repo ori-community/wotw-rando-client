@@ -45,41 +45,43 @@ namespace scenes {
         std::unordered_map<std::string, ObjectSpawn> object_spawns;
         std::unordered_map<std::string, std::unordered_set<ObjectSpawn*>> pending_object_spawns_by_scene;
 
-        void on_load_callback(std::string_view scene_name, app::GameObject* scene_root) {
-            auto scene_name_string = std::string(scene_name);
+        void on_loading_callback(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root) {
+            if (state == app::SceneState__Enum::Loaded && scene_root != nullptr) {
+                auto scene_name_string = std::string(scene_name);
 
-            for (auto spawn : pending_object_spawns_by_scene[scene_name_string]) {
-                auto prefab = il2cpp::unity::find_child(scene_root, spawn->path);
-                if (!il2cpp::unity::is_valid(prefab))
-                    return;
+                for (auto spawn : pending_object_spawns_by_scene[scene_name_string]) {
+                    auto prefab = il2cpp::unity::find_child(scene_root, spawn->path);
+                    if (!il2cpp::unity::is_valid(prefab))
+                        return;
 
-                spawn->game_object = il2cpp::unity::instantiate_object(prefab);
-                il2cpp::invoke(spawn->game_object, "set_name", il2cpp::string_new(spawn->name));
-                game::add_to_container(game::RandoContainer::GameObjects, spawn->game_object);
-                auto transform = il2cpp::unity::get_transform(spawn->game_object);
-                Transform::set_position(transform, spawn->position);
-                if (spawn->scale.has_value())
-                    Transform::set_localScale(transform, spawn->scale.value());
+                    spawn->game_object = il2cpp::unity::instantiate_object(prefab);
+                    il2cpp::invoke(spawn->game_object, "set_name", il2cpp::string_new(spawn->name));
+                    game::add_to_container(game::RandoContainer::GameObjects, spawn->game_object);
+                    auto transform = il2cpp::unity::get_transform(spawn->game_object);
+                    Transform::set_position(transform, spawn->position);
+                    if (spawn->scale.has_value())
+                        Transform::set_localScale(transform, spawn->scale.value());
 
-                if (spawn->rotation.has_value()) {
-                    auto& rot = spawn->rotation.value();
-                    auto quat = Quaternion::Euler_1(rot.x, rot.y, rot.z);
-                    Transform::set_rotation(transform, quat);
+                    if (spawn->rotation.has_value()) {
+                        auto& rot = spawn->rotation.value();
+                        auto quat = Quaternion::Euler_1(rot.x, rot.y, rot.z);
+                        Transform::set_rotation(transform, quat);
+                    }
+
+                    randomizer::shaders::duplicate_materials(spawn->game_object);
+                    if (spawn->on_loaded != nullptr)
+                        spawn->on_loaded(scene_name, spawn->name, scene_root, spawn->game_object);
                 }
 
-                randomizer::shaders::duplicate_materials(spawn->game_object);
-                if (spawn->on_loaded != nullptr)
-                    spawn->on_loaded(scene_name, spawn->name, scene_root, spawn->game_object);
+                pending_object_spawns_by_scene.erase(scene_name_string);
             }
-
-            pending_object_spawns_by_scene.erase(scene_name_string);
         }
 
         IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
             next::GameController::FixedUpdate(this_ptr);
 
             for (const auto& object_spawn_by_scene : pending_object_spawns_by_scene)
-                force_load_scene(object_spawn_by_scene.first, &on_load_callback);
+                force_load_scene(object_spawn_by_scene.first, &on_loading_callback);
         }
 
         void initialize() {

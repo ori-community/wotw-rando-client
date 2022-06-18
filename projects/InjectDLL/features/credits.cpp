@@ -15,20 +15,24 @@
 using namespace app::methods;
 
 namespace {
-    void credits_scene_loaded_callback(std::string_view scene_name, app::GameObject* scene_root) {
-        auto credits_go = il2cpp::unity::find_child(scene_root, "credits");
-        auto cred_cont = il2cpp::unity::get_component<app::CreditsController>(credits_go, "", "CreditsController");
-        auto timeline = cred_cont->fields.CreditsTimeline;
-        il2cpp::invoke_virtual(timeline, il2cpp::get_class("Moon.Timeline", "TimelineEntity"), "StartPlayback");
+    void credits_scene_loaded_callback(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root) {
+        if (state == app::SceneState__Enum::Loaded && scene_root != nullptr) {
+            auto credits_go = il2cpp::unity::find_child(scene_root, "credits");
+            auto cred_cont = il2cpp::unity::get_component<app::CreditsController>(credits_go, "", "CreditsController");
+            auto timeline = cred_cont->fields.CreditsTimeline;
+            il2cpp::invoke_virtual(timeline, il2cpp::get_class("Moon.Timeline", "TimelineEntity"), "StartPlayback");
+        }
     }
 
-    void ending_scene_loaded_callback(std::string_view scene_name, app::GameObject* scene_root) {
-        teleport(-3537, -5881, true);
+    void ending_scene_loaded_callback(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root) {
+        if (state == app::SceneState__Enum::Loaded && scene_root != nullptr) {
+            teleport(-3537, -5881, true);
 
-        auto master_timeline_go = il2cpp::unity::find_child(scene_root, "master2.0");
-        il2cpp::unity::destroy_object(master_timeline_go);
+            auto master_timeline_go = il2cpp::unity::find_child(scene_root, "master2.0");
+            il2cpp::unity::destroy_object(master_timeline_go);
 
-        scenes::force_load_scene("creditsScreen", &credits_scene_loaded_callback, false, false);
+            scenes::force_load_scene("creditsScreen", &credits_scene_loaded_callback, false, false);
+        }
     }
 
     INJECT_C_DLLEXPORT void start_credits() {

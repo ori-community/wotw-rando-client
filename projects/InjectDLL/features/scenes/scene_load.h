@@ -17,7 +17,7 @@ namespace scenes {
         app::SceneManagerScene* scene;
     };
 
-    using scene_loaded_callback = void (*)(std::string_view scene_name, app::GameObject* scene_root);
+    using scene_loading_callback = void (*)(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root);
 
     app::ScenesManager* get_scenes_manager();
 
@@ -28,7 +28,7 @@ namespace scenes {
     bool scene_is_loading(std::string_view scene);
     bool scene_is_loaded(std::string_view scene);
 
-    void force_load_scene(std::string_view scene, scene_loaded_callback callback, bool keep_preloaded = false, bool async = true);
+    void force_load_scene(std::string_view scene, scene_loading_callback callback, bool keep_preloaded = false, bool async = true);
     void unload_all_scenes();
     void allow_unload_scene(std::string_view scene_name);
     void unload_scene(std::string_view scene, bool instant = true);
