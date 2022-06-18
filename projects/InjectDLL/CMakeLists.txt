@@ -31,6 +31,7 @@ set(
         "features/controls/invert_swim.cpp"
         "features/controls/launch_no_deceleration.cpp"
         "features/controls/mouse_control.cpp"
+        "features/controls/hold_to_skip_dialog.cpp"
         "features/npcs/lupo_everywhere.cpp"
         "features/npcs/opher_everywhere.cpp"
         "features/npcs/tokk_everywhere.cpp"
