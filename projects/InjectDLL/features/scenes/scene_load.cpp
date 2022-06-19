@@ -149,13 +149,11 @@ namespace scenes {
     std::set<std::string> get_scenes_at_position(app::Vector3 position) {
         auto scenes_manager = get_scenes_manager();
 
-        ScenesManager::QueryQuadTreeFast_1(scenes_manager, position, scenes_manager->klass->static_fields->m_tempHashList);
-
+        auto scenes = ScenesManager::ListAllScenesAtPosition(scenes_manager, position);
         std::set<std::string> scene_names;
 
-        for (auto i = 0; i < scenes_manager->klass->static_fields->m_tempHashList->fields._size; i++) {
-            auto scene_hash = scenes_manager->klass->static_fields->m_tempHashList->fields._items->vector[i];
-            auto scene_metadata = scenes_manager->fields.m_linearScenesArray->vector[scene_hash];
+        for (auto i = 0; i < scenes->fields._size; i++) {
+            auto scene_metadata = scenes->fields._items->vector[i];
             scene_names.emplace(il2cpp::convert_csstring(scene_metadata->fields.Scene));
         }
 
@@ -221,7 +219,7 @@ namespace scenes {
     }
 
     void on_load_spawn(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root) {
-        if (state == app::SceneState__Enum::Loaded & scene_root != nullptr) {
+        if (state == app::SceneState__Enum::Loaded && scene_root != nullptr) {
             auto root = il2cpp::unity::get_component<app::SceneRoot>(scene_root, "", "SceneRoot");
             initial_values = root->fields.MetaData->fields.InitialValuesWisp;
         }
