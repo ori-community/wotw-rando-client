@@ -27,6 +27,8 @@ namespace scenes {
 
     bool scene_is_loading(std::string_view scene);
     bool scene_is_loaded(std::string_view scene);
+    app::SceneState__Enum scene_state(std::string_view scene);
+    void enable_scene(std::string_view scene, bool async = false);
 
     void force_load_scene(std::string_view scene, scene_loading_callback callback, bool keep_preloaded = false, bool async = true);
     void unload_all_scenes();

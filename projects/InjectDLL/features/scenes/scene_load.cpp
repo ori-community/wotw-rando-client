@@ -62,7 +62,13 @@ namespace scenes {
 
                 app::GameObject* scene_root_go = nullptr;
 
-                if (state == app::SceneState__Enum::Loaded) {
+                if (
+                        state == app::SceneState__Enum::Loaded ||
+                        state == app::SceneState__Enum::Enabling ||
+                        state == app::SceneState__Enum::Enabled ||
+                        state == app::SceneState__Enum::Disabling ||
+                        state == app::SceneState__Enum::Disabled
+                ) {
                     scene_root_go = il2cpp::unity::get_game_object(scene_manager_scene->fields.SceneRoot);
                     scene_manager_scene->fields.PreventUnloading = pending_scene.keep_preloaded;
                 }
@@ -101,6 +107,28 @@ namespace scenes {
         return ScenesManager::SceneIsLoaded(get_scenes_manager(), metadata->fields.SceneMoonGuid);
     }
 
+    app::SceneState__Enum scene_state(std::string_view scene) {
+        auto metadata = get_scene_metadata(scene);
+        auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(get_scenes_manager(), metadata);
+
+        if (scene_manager_scene == nullptr) {
+            return app::SceneState__Enum::LoadingCancelled;
+        }
+
+        return scene_manager_scene->fields.m_currentState;
+    }
+
+    void enable_scene(std::string_view scene, bool async) {
+        auto metadata = get_scene_metadata(scene);
+        auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(get_scenes_manager(), metadata);
+
+        if (scene_manager_scene == nullptr) {
+            return;
+        }
+
+        return ScenesManager::EnableDisabledScene(get_scenes_manager(), scene_manager_scene, async);
+    }
+
     void force_load_scene(std::string_view scene, scene_loading_callback callback, bool keep_preloaded, bool async) {
         auto& scene_to_load = scenes_to_load[std::string(scene)];
         scene_to_load.scene_name = std::string(scene);
@@ -113,7 +141,12 @@ namespace scenes {
         auto scene_name_csstring = il2cpp::string_new(scene_to_load.scene_name);
         auto scene_meta = ScenesManager::GetSceneInformation(scenes_manager, scene_name_csstring);
 
-        if (!ScenesManager::SceneIsLoading(scenes_manager, scene_meta->fields.SceneMoonGuid)) {
+        if (ScenesManager::SceneIsLoaded(scenes_manager, scene_meta->fields.SceneMoonGuid)) {
+            auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(scenes_manager, scene_meta);
+            auto scene_root_go = il2cpp::unity::get_game_object(scene_manager_scene->fields.SceneRoot);
+            scene_manager_scene->fields.PreventUnloading = keep_preloaded;
+            callback(scene, scene_manager_scene->fields.m_currentState, scene_root_go);
+        } else if (!ScenesManager::SceneIsLoading(scenes_manager, scene_meta->fields.SceneMoonGuid)) {
             ScenesManager::RequestAdditivelyLoadScene(scenes_manager, scene_meta, async, true, true, true, false);
         }
     }
