@@ -37,6 +37,7 @@ set(
         "features/cutscene_skips/wellspring_so_soggy.cpp"
         "features/cutscene_skips/kwolok_boss_intro.cpp"
         "features/cutscene_skips/kwolok_boss_farewell.cpp"
+        "features/cutscene_skips/reach_escape.cpp"
         "features/npcs/lupo_everywhere.cpp"
         "features/npcs/opher_everywhere.cpp"
         "features/npcs/tokk_everywhere.cpp"
