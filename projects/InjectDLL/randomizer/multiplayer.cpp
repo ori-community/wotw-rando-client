@@ -79,7 +79,7 @@ namespace multiplayer {
         auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
         while (player.dots.size() <= DOT_COUNT) {
             auto& dot = player.dots.emplace_back();
-            dot.dot = Object::Instantiate_12(area_map->fields.TrailPrefab);
+            dot.dot = reinterpret_cast<app::GameObject*>(Object::Instantiate_3(reinterpret_cast<app::Object_1*>(area_map->fields.TrailPrefab)));
             dot.transform = il2cpp::unity::get_transform(dot.dot);
             dot.renderer = il2cpp::unity::get_components<app::Renderer>(
                     il2cpp::unity::get_children(dot.dot)[0], "UnityEngine", "Renderer"
