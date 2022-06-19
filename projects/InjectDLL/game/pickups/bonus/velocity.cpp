@@ -12,9 +12,11 @@
 #include <Il2CppModLoader/app/methods/SeinJump.h>
 #include <Il2CppModLoader/app/methods/SeinSwimming.h>
 #include <Il2CppModLoader/app/methods/SeinWallJump.h>
+#include <Il2CppModLoader/app/methods/SeinSpiritLeashAbility.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/AnimationCurve.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/windows_api/console.h>
 
 namespace {
     uber_states::UberState launch_speed(UberStateGroup::RandoUpgrade, 80);
@@ -22,6 +24,7 @@ namespace {
     uber_states::UberState bash_speed(UberStateGroup::RandoUpgrade, 82);
     uber_states::UberState burrow_speed(UberStateGroup::RandoUpgrade, 83);
     uber_states::UberState burrow_dash_speed(UberStateGroup::RandoUpgrade, 84);
+    uber_states::UberState grapple_speed(UberStateGroup::RandoUpgrade, 90);
 
     uber_states::UberState swim_dash_speed(UberStateGroup::RandoUpgrade, 86);
     uber_states::UberState jump_height(UberStateGroup::RandoUpgrade, 87);
@@ -69,6 +72,26 @@ namespace {
         should_override_animation_curve_speed_for_bash = true;
         next::SeinBashAttack::UpdateCharacterState(this_ptr);
         should_override_animation_curve_speed_for_bash = false;
+    }
+
+    bool spirit_leash_initialized = false;
+    float spirit_leash_default_hook_fling_speed_maximum;
+    float spirit_leash_default_max_interrupt_speed_maximum;
+    float spirit_leash_default_spirit_leash_max_pull_speed;
+    IL2CPP_INTERCEPT(SeinSpiritLeashAbility, void, EnterMove, (app::SeinSpiritLeashAbility * this_ptr)) {
+        if (!spirit_leash_initialized) {
+            spirit_leash_initialized = true;
+            spirit_leash_default_hook_fling_speed_maximum = this_ptr->fields.HookFlingSpeedMaximum;
+            spirit_leash_default_max_interrupt_speed_maximum = this_ptr->fields.MaxInterruptSpeedMaximum;
+            spirit_leash_default_spirit_leash_max_pull_speed = this_ptr->fields.SpiritLeashMaxPullSpeed;
+        }
+
+        auto multiplier = grapple_speed.get<float>();
+        this_ptr->fields.HookFlingSpeedMaximum = spirit_leash_default_hook_fling_speed_maximum * sqrt(multiplier);
+        this_ptr->fields.MaxInterruptSpeedMaximum = spirit_leash_default_max_interrupt_speed_maximum * sqrt(multiplier);
+        this_ptr->fields.SpiritLeashMaxPullSpeed = spirit_leash_default_spirit_leash_max_pull_speed * multiplier;
+
+        next::SeinSpiritLeashAbility::EnterMove(this_ptr);
     }
 
     IL2CPP_INTERCEPT(UnityEngine::AnimationCurve, float, Evaluate, (app::AnimationCurve * this_ptr, float value)) {

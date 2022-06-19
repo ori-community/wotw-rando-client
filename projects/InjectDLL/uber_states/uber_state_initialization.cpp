@@ -238,6 +238,7 @@ namespace {
             add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "Jump Height", 87, 1.0),
             add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "Wall Jump Strength", 88, 1.0),
             add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "Double Jump Strength", 89, 1.0),
+            add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "Grapple Speed", 90, 1.0),
 
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Exploding Spike", 95, 0),
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Shock Smash", 96, 0),
