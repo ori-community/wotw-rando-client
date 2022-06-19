@@ -36,8 +36,7 @@ namespace {
     };
 
     const app::Vector3 ORIGINAL_START = { -798.797058f, -4310.119141f, 0.f };
-    bool overwrite_start = false;
-    app::Vector3 start_position = { 1992.240112f, -3902.245361f, 0.f };
+    app::Vector3 start_position = ORIGINAL_START;
 
     TeleportState teleport_state = TeleportState::None;
     app::Vector3 teleport_position;
@@ -225,10 +224,7 @@ namespace {
             scenes::force_load_scene(scene_name, nullptr, true, false);
         }
 
-        if (overwrite_start)
-            teleport(start_position.x, start_position.y, true);
-        else
-            teleport(ORIGINAL_START.x, ORIGINAL_START.y, true);
+        teleport(start_position.x, start_position.y, true);
 
         csharp_bridge::new_game(SaveSlotsManager::get_CurrentSlotIndex());
         GameStateMachine::SetToGame(game_state_machine);
@@ -262,9 +258,8 @@ INJECT_C_DLLEXPORT void teleport(float x, float y, bool wait_for_load) {
 
 INJECT_C_DLLEXPORT void set_start_position(float x, float y) {
     start_position = { x, y, 0.f };
-    overwrite_start = true;
 }
 
 INJECT_C_DLLEXPORT void clear_start_position() {
-    overwrite_start = false;
+    start_position = ORIGINAL_START;
 }
