@@ -45,6 +45,7 @@ set(
         "features/npcs/tuley_switch.cpp"
         "features/scenes/create_objects.cpp"
         "features/scenes/scene_load.cpp"
+        "features/scenes/modifications/luma_fight_room_door_always_open.cpp"
         "features/trackers/ability_tracker.cpp"
         "features/trackers/death_listener.cpp"
         "features/trackers/goal_mode_check.cpp"
