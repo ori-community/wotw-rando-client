@@ -6,6 +6,7 @@ namespace uber_states {
     class UberState {
     public:
         UberState();
+        UberState(int group, int state);
         UberState(UberStateGroup group, int state);
         UberState(UberStateGroup group, app::AbilityType__Enum state);
 

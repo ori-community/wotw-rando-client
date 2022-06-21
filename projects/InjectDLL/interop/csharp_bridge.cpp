@@ -2,6 +2,7 @@
 
 #include <game/game.h>
 #include <game/pickups/pickups.h>
+#include <uber_states/uber_state_interface.h>
 #include <macros.h>
 
 #include <Common/ext.h>
@@ -9,6 +10,8 @@
 #include <Il2CppModLoader/app/methods/SaveSlotsManager.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
+
+#include <variant>
 
 #define DELEGATE_ENTRY(name)                       \
     {                                              \
@@ -25,6 +28,7 @@ namespace csharp_bridge {
     signatures::f_void on_goal_mode_fail = nullptr;
     signatures::f_bool_str check_ini = nullptr;
 
+    signatures::f_bool is_multiplayer = nullptr;
     signatures::f_bool inject_log_enabled = nullptr;
     signatures::f_bool inject_debug_enabled = nullptr;
     signatures::f_bool tp_to_any_pickup = nullptr;
@@ -38,6 +42,7 @@ namespace csharp_bridge {
     signatures::f_void on_race_start = nullptr;
     signatures::f_void on_race_end = nullptr;
     signatures::f_void on_teleporting = nullptr;
+    signatures::f_void_int_int_int_int_int_double_uc send_resource_request = nullptr;
 
     // Save system
     signatures::f_void_int new_game = nullptr;
@@ -128,7 +133,70 @@ namespace csharp_bridge {
             DELEGATE_ENTRY(get_flag),
             DELEGATE_ENTRY(get_relic_count),
             DELEGATE_ENTRY(on_found_tp),
+            DELEGATE_ENTRY(send_resource_request),
+            DELEGATE_ENTRY(is_multiplayer),
         };
+
+        //private static readonly HashSet<UberId> ResourceIds = new HashSet<UberId>{
+        //  new UberId(15, 0), // Spirit Light
+        //  new UberId(15, 1), // Gorlek Ore
+        //  new UberId(15, 2), // Keystones
+        //};
+
+        struct ResourceRequest {
+            using amount_callback = int(*)();
+
+            uber_states::UberState resource;
+            std::variant<int, amount_callback> amount;
+            double target_value = 1;
+            UpdateCondition condition = UpdateCondition::UpdateIfLarger;
+        };
+
+        std::unordered_map<uber_states::UberState, ResourceRequest> resource_dependencies = {
+            { uber_states::UberState(28895, 49900), ResourceRequest{ uber_states::UberState(15, 2), 4 } },
+            { uber_states::UberState(28895, 4290), ResourceRequest{ uber_states::UberState(15, 2), 4 } },
+            { uber_states::UberState(21786, 42309), ResourceRequest{ uber_states::UberState(15, 2), 2 } },
+            { uber_states::UberState(21786, 47445), ResourceRequest{ uber_states::UberState(15, 2), 2 } },
+            { uber_states::UberState(5377, 47621), ResourceRequest{ uber_states::UberState(15, 2), 4 } },
+            { uber_states::UberState(937, 64003), ResourceRequest{ uber_states::UberState(15, 2), 2 } },
+            //{ uber_states::UberState(937, 1038), ResourceRequest{ uber_states::UberState(15, 2), 2 } },
+            { uber_states::UberState(21786, 59990), ResourceRequest{ uber_states::UberState(15, 2), 2 } },
+            { uber_states::UberState(18793, 10758), ResourceRequest{ uber_states::UberState(15, 2), 2 } },
+            { uber_states::UberState(58674, 21500), ResourceRequest{ uber_states::UberState(15, 2), 2 } },
+            { uber_states::UberState(18793, 41544), ResourceRequest{ uber_states::UberState(15, 2), 4 } },
+            { uber_states::UberState(18793, 3171), ResourceRequest{ uber_states::UberState(15, 2), 4 } },
+            { uber_states::UberState(20120, 28786), ResourceRequest{ uber_states::UberState(15, 2), 2 } },
+        };
+
+        bool should_intercept_resource_usage = false;
+        bool resource_intercept(uber_states::UberState state, double value) {
+            // TODO: Add interop to check if we are multiplayer or not.
+            // If we are multiplayer, intercept for resource dependant uberstates.
+            if (!should_intercept_resource_usage || !is_multiplayer())
+                return false;
+
+            auto it = resource_dependencies.find(state);
+            if (it == resource_dependencies.end())
+                return false;
+
+            if (value != it->second.target_value)
+                return false;
+
+            // Send request.
+            send_resource_request(
+                static_cast<int>(state.group()),
+                state.state(),
+                std::holds_alternative<int>(it->second.amount)
+                    ? std::get<int>(it->second.amount)
+                    : std::get<ResourceRequest::amount_callback>(it->second.amount)(),
+                static_cast<int>(it->second.resource.group()),
+                it->second.resource.state(),
+                it->second.target_value,
+                it->second.condition
+            );
+
+            return true;
+        }
 
         void on_checkpoint_handler(GameEvent game_event, EventTiming timing) {
             auto cp(game::pickups::scoped_not_collecting_pickup()); // fuck fuck fuck shit damn aaaaa
@@ -161,6 +229,8 @@ namespace csharp_bridge {
         }
 
         void initialize() {
+            uber_states::register_value_intercept(&resource_intercept);
+
             game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::End, &on_fixed_update);
             game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::End, &on_shutdown);
             game::event_bus().register_handler(GameEvent::CreateBackup, EventTiming::Start, &on_save_handler);

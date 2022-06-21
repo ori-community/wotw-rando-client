@@ -323,9 +323,26 @@ namespace RandoMainDLL {
       return state.GroupID == 937 && state.ID == 34641 && state.ValueAsDouble() > 4;
     }
 
-    public static bool shouldTriggerReachableCheck(UberState state, UberValue old) {
-      return MapController.TrackedConds.Any(c => c.Met(state, old));
+    public static void SendResourceRequest(int resourceGroup, int resourceId, int amount, int targetGroup, int targetId,
+      double targetValue, Network.SpendResourceTarget.Types.UpdateCondition condition)
+    {
+      WebSocketClient.SendResourceRequestMessage(
+        new UberId(resourceGroup, resourceId),
+        amount,
+        true,
+        new Network.SpendResourceTarget {
+          UberId = new Network.UberId() { Group = targetGroup, State = targetId},
+          Value = targetValue,
+          UpdateIf = condition
+        }
+      );
     }
+
+    private static readonly HashSet<UberId> ResourceIds = new HashSet<UberId> {
+      new UberId(15, 0), // Spirit Light
+      new UberId(15, 1), // Gorlek Ore
+      new UberId(15, 2), // Keystones
+    };
 
     public static void ResolveUberStateChange(UberState state, UberValue old) {
       try {
@@ -419,9 +436,11 @@ namespace RandoMainDLL {
           foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
         }
 
+        ResourcesRequestServerPermission = false;
         while (WebSocketClient.UberStateQueue.TryTake(out var stateUpdate))
           stateUpdate.Resolve();
 
+        ResourcesRequestServerPermission = true;
         ServerChanged.Clear();
       }
       catch (Exception e) { Randomizer.Error("USC.Update", e, false); }

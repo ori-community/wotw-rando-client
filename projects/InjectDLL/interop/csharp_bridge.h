@@ -6,6 +6,12 @@
 #include <string>
 
 namespace csharp_bridge {
+    enum class UpdateCondition {
+        UpdateIfLarger = 0,
+        UpdateIfSmaller = 1,
+        UpdateIfDifferent = 2
+    };
+
     namespace signatures {
         using f_void = void (*)();
         using f_void_a = void (*)(Action);
@@ -15,6 +21,7 @@ namespace csharp_bridge {
         using f_void_bool = void (*)(bool);
         using f_void_int = void (*)(int);
         using f_void_int_int = void (*)(int, int);
+        using f_void_int_int_int_int_int_double_uc = void(*)(int, int, int, int, int, double, UpdateCondition);
         using f_void_float = void (*)(float);
         using f_void_float_float = void (*)(float, float);
         using f_void_ptr_int_int_int_int_int = void (*)(void*, int, int, int, int, int);
@@ -46,6 +53,7 @@ namespace csharp_bridge {
     extern signatures::f_void on_checkpoint;
     extern signatures::f_void on_goal_mode_fail;
     extern signatures::f_bool_str check_ini;
+    extern signatures::f_bool is_multiplayer;
     extern signatures::f_bool inject_log_enabled;
     extern signatures::f_bool inject_debug_enabled;
     extern signatures::f_bool tp_to_any_pickup;
@@ -58,6 +66,7 @@ namespace csharp_bridge {
     extern signatures::f_void on_race_start;
     extern signatures::f_void on_race_end;
     extern signatures::f_void on_teleporting;
+    extern signatures::f_void_int_int_int_int_int_double_uc send_resource_request;
 
     // Save system
     extern signatures::f_void_int new_game;

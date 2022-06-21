@@ -27,6 +27,7 @@ message Packet {
     Visibility = 20;
     UpdatePlayerWorldPositionMessage = 21;
     UpdatePlayerMapPositionMessage = 22;
+    ResourceRequestMessage = 23;
 
     TrackerUpdate = 100;
     ResetTracker = 101;
@@ -200,4 +201,23 @@ message PlayerCaughtMessage {
 message UdpPacket {
   optional int32 udpId = 1;
   bytes encryptedPacket = 2;
+}
+
+message SpendResourceTarget {
+  enum UpdateCondition {
+    UpdateIfLarger = 0;
+    UpdateIfSmaller = 1;
+    UpdateIfDifferent = 2;
+  }
+
+  UberId uberId = 1;
+  double value = 2;
+  UpdateCondition updateIf = 3;
+}
+
+message ResourceRequestMessage {
+  UberId resourceUberId = 1;
+  bool relative = 2;
+  int32 amount = 3;
+  optional SpendResourceTarget target = 4;
 }

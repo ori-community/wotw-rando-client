@@ -231,6 +231,25 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("SendPlayerUseCatch", e, false); }
     }
 
+    public static void SendResourceRequestMessage(Memory.UberId id, int amount, bool relative, SpendResourceTarget target) {
+      try {
+        if (!WantConnection)
+          return;
+
+        var request = new ResourceRequestMessage();
+        request.ResourceUberId = new Network.UberId() { Group = id.GroupID, State = id.ID };
+        request.Relative = relative;
+        request.Amount = amount;
+        request.Target = target;
+        Packet packet = new Packet {
+          Id = Packet.Types.PacketID.ResourceRequestMessage,
+          Packet_ = request.ToByteString()
+        };
+        SendQueue.Add(packet);
+      }
+      catch (Exception e) { Randomizer.Error("SendSpendResourceRequestMessage", e, false); }
+    }
+
     public static void SendEmptyPacket(Packet.Types.PacketID id) {
       try {
         if (!WantConnection)

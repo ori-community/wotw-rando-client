@@ -212,7 +212,15 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_int_bool(Relic.RelicCount),
             CallbackName = "get_relic_count"
-          }
+          },
+          new Method() {
+            Delegate = new f_void_int_int_int_int_int_double_uc(UberStateController.SendResourceRequest),
+            CallbackName = "send_resource_request"
+          },
+          new Method() {
+            Delegate = new f_bool(() => WebSocketClient.WantConnection),
+            CallbackName = "is_multiplayer"
+          },
         };
       }
     }
@@ -227,6 +235,7 @@ namespace RandoMainDLL {
     public delegate void f_void_float(float i);
     public delegate void f_void_float_float(float i, float j);
     public delegate void f_void_ptr_int_int_int_int_int(IntPtr buffer, int i, int j, int k, int l, int m);
+    public delegate void f_void_int_int_int_int_int_double_uc(int a, int b, int c, int d, int e, double f, Network.SpendResourceTarget.Types.UpdateCondition g);
     public delegate void f_void_int_int_byte_double_double(int i, int j, byte b, double f, double g);
     public delegate void f_void_int_ptr_int(int i, IntPtr j, int k);
     public delegate void f_void_str([MarshalAs(UnmanagedType.LPStr)] string str);

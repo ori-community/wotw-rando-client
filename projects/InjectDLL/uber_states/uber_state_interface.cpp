@@ -214,6 +214,9 @@ namespace uber_states {
     UberState::UberState() :
             m_group(UberStateGroup::Invalid), m_state(0) {}
 
+    UberState::UberState(int group, int state) :
+        m_group(static_cast<UberStateGroup>(group)), m_state(state) {}
+
     UberState::UberState(app::IUberState* state) :
             m_group(static_cast<UberStateGroup>(il2cpp::invoke<app::UberID>(state, "get_GroupID")->fields.m_id)), m_state(il2cpp::invoke<app::UberID>(state, "get_StateID")->fields.m_id) {}
 
