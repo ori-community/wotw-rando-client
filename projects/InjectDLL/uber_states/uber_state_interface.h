@@ -66,10 +66,6 @@ struct std::hash<uber_states::UberState>
 {
     std::size_t operator()(const uber_states::UberState& s) const
     {
-        // Compute individual hash values for first,
-        // second and third and combine them using XOR
-        // and bit shifting:
-
         return hash<UberStateGroup>()(s.group())
             ^ (hash<int>()(s.state()) << 1);
     }
