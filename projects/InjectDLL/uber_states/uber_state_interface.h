@@ -1,6 +1,7 @@
 #pragma once
 
 #include <enums/uber_state.h>
+#include <functional>
 
 namespace uber_states {
     class UberState {
@@ -59,3 +60,17 @@ namespace uber_states {
 
     bool operator==(UberState const& a, UberState const& b);
 } // namespace uber_states
+
+template<>
+struct std::hash<uber_states::UberState>
+{
+    std::size_t operator()(const uber_states::UberState& s) const
+    {
+        // Compute individual hash values for first,
+        // second and third and combine them using XOR
+        // and bit shifting:
+
+        return hash<UberStateGroup>()(s.group())
+            ^ (hash<int>()(s.state()) << 1);
+    }
+};

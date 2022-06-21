@@ -338,11 +338,9 @@ namespace RandoMainDLL {
       );
     }
 
-    private static readonly HashSet<UberId> ResourceIds = new HashSet<UberId> {
-      new UberId(15, 0), // Spirit Light
-      new UberId(15, 1), // Gorlek Ore
-      new UberId(15, 2), // Keystones
-    };
+    public static bool shouldTriggerReachableCheck(UberState state, UberValue old) {
+      return MapController.TrackedConds.Any(c => c.Met(state, old));
+    }
 
     public static void ResolveUberStateChange(UberState state, UberValue old) {
       try {
@@ -436,11 +434,9 @@ namespace RandoMainDLL {
           foreach (var baduid in bad) SyncedUberStates.Remove(baduid);
         }
 
-        ResourcesRequestServerPermission = false;
         while (WebSocketClient.UberStateQueue.TryTake(out var stateUpdate))
           stateUpdate.Resolve();
 
-        ResourcesRequestServerPermission = true;
         ServerChanged.Clear();
       }
       catch (Exception e) { Randomizer.Error("USC.Update", e, false); }
