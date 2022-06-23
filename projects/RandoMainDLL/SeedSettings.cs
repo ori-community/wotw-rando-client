@@ -20,7 +20,7 @@ namespace RandoMainDLL {
       }
     }
     [JsonIgnore]
-    public bool LegacySeedgen => 0 > Version.CompareTo(rustGenVersion);
+    public bool LegacySeedgen => false;
     [JsonProperty("webConn")]
     public bool NetcodeEnabled { get; set; }
   }
