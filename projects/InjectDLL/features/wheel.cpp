@@ -578,7 +578,18 @@ INJECT_C_DLLEXPORT bool clear_wheel_item(int wheel, int item) {
 INJECT_C_DLLEXPORT void refresh_wheel() {
     if (is_wheel_visible) {
         dont_fade = true;
-        auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
+        auto wheel_class = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel");
+
+        if (!il2cpp::unity::is_valid(wheel_class)) {
+            return;
+        }
+
+        auto wheel = wheel_class->static_fields->Instance;
+
+        if (!il2cpp::unity::is_valid(wheel)) {
+            return;
+        }
+
         EquipmentWheel::ShowImmediate(wheel);
         dont_fade = false;
     }
