@@ -9,7 +9,9 @@
 #include <features/faderb.h>
 #include <features/scenes/scene_load.h>
 #include <game/game.h>
+#include <utils/misc.h>
 
+using namespace utils;
 using namespace app::methods;
 
 namespace {
@@ -18,8 +20,8 @@ namespace {
         StartCredits,
     };
 
-    app::MoonTimeline* shriek_death_reaction_timeline = nullptr;
-    app::MoonTimeline* epilogue_master_timeline = nullptr;
+    ObjectReference<app::MoonTimeline> shriek_death_reaction_timeline;
+    ObjectReference<app::MoonTimeline> epilogue_master_timeline;
     DeferredSkipAction next_frame_action = Idle;
 
     void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
@@ -41,7 +43,7 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(death_reaction_timeline_go)) {
-                shriek_death_reaction_timeline = il2cpp::unity::get_component<app::MoonTimeline>(death_reaction_timeline_go, "Moon.Timeline", "MoonTimeline");
+                shriek_death_reaction_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(death_reaction_timeline_go, "Moon.Timeline", "MoonTimeline"));
             }
 
         } else if (metadata->scene_name == "epilogueMaster") {
@@ -54,14 +56,14 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(epilogue_master_timeline_go)) {
-                epilogue_master_timeline = il2cpp::unity::get_component<app::MoonTimeline>(epilogue_master_timeline_go, "Moon.Timeline", "MoonTimeline");
+                epilogue_master_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(epilogue_master_timeline_go, "Moon.Timeline", "MoonTimeline"));
             }
         }
     }
 
-    bool is_timeline_valid_and_playing(app::MoonTimeline* timeline) {
-        return il2cpp::unity::is_valid(timeline) &&
-                Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(timeline));
+    bool is_timeline_valid_and_playing(ObjectReference<app::MoonTimeline> timeline) {
+        return timeline.is_valid() &&
+                Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(timeline.ptr));
     }
 
     bool skip_available() {
@@ -74,11 +76,11 @@ namespace {
 
     void skip_invoke() {
         if (is_timeline_valid_and_playing(shriek_death_reaction_timeline)) {
-            Moon::Timeline::TimelineEntity::PausePlayback(reinterpret_cast<app::TimelineEntity*>(shriek_death_reaction_timeline));
+            Moon::Timeline::TimelineEntity::PausePlayback(reinterpret_cast<app::TimelineEntity*>(shriek_death_reaction_timeline.ptr));
         }
 
         if (is_timeline_valid_and_playing(epilogue_master_timeline)) {
-            Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(epilogue_master_timeline));
+            Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(epilogue_master_timeline.ptr));
         }
 
         faderb::fade_out(0.6f);

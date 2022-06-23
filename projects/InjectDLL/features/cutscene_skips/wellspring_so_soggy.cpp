@@ -9,11 +9,13 @@
 #include <features/scenes/scene_load.h>
 #include <game/game.h>
 #include <game/player.h>
+#include <utils/misc.h>
 
+using namespace utils;
 using namespace app::methods;
 
 namespace {
-    app::MoonTimeline* wellspring_so_soggy_timeline = nullptr;
+    ObjectReference<app::MoonTimeline> wellspring_so_soggy_timeline;
 
     void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
         if (metadata->state != app::SceneState__Enum::Loaded) {
@@ -31,19 +33,19 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(timeline_go)) {
-                wellspring_so_soggy_timeline = il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, "Moon.Timeline", "MoonTimeline");
+                wellspring_so_soggy_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, "Moon.Timeline", "MoonTimeline"));
             }
         }
     }
 
     bool skip_available() {
         return
-                il2cpp::unity::is_valid(wellspring_so_soggy_timeline) &&
-                Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(wellspring_so_soggy_timeline));
+                wellspring_so_soggy_timeline.is_valid() &&
+                Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(wellspring_so_soggy_timeline.ptr));
     }
 
     void skip_invoke() {
-        Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(wellspring_so_soggy_timeline));
+        Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(wellspring_so_soggy_timeline.ptr));
         game::player::set_position(-763.04f, -4071.325f, true);
         game::player::snap_camera();
         GameController::CreateCheckpoint(game::controller(), true, false);

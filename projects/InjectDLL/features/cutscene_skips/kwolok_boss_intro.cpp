@@ -1,21 +1,21 @@
 #include <Il2CppModLoader/app/methods/Moon/Timeline/TimelineEntity.h>
-#include <Il2CppModLoader/app/methods/Moon/Timeline/MoonTimeline.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 
 #include "custom_cutscene_skips.h"
 #include <Il2CppModLoader/app/methods/GameController.h>
 #include <Il2CppModLoader/common.h>
 #include <event_bus.h>
-#include <features/faderb.h>
 #include <features/scenes/scene_load.h>
 #include <game/game.h>
 #include <game/player.h>
 #include <uber_states/uber_state_interface.h>
+#include <utils/misc.h>
 
+using namespace utils;
 using namespace app::methods;
 
 namespace {
-    app::MoonTimeline* kwolok_boss_intro_timeline = nullptr;
+    ObjectReference<app::MoonTimeline> kwolok_boss_intro_timeline;
 
     void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
         if (metadata->state != app::SceneState__Enum::Loaded) {
@@ -33,7 +33,7 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(timeline_go)) {
-                kwolok_boss_intro_timeline = il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, "Moon.Timeline", "MoonTimeline");
+                kwolok_boss_intro_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, "Moon.Timeline", "MoonTimeline"));
             }
 
         }
@@ -41,12 +41,12 @@ namespace {
 
     bool skip_available() {
         return
-                il2cpp::unity::is_valid(kwolok_boss_intro_timeline) &&
-                Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(kwolok_boss_intro_timeline));
+                kwolok_boss_intro_timeline.is_valid() &&
+                Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(kwolok_boss_intro_timeline.ptr));
     }
 
     void skip_invoke() {
-        Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(kwolok_boss_intro_timeline));
+        Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(kwolok_boss_intro_timeline.ptr));
 
         game::player::set_position(-1634.946f, -4128.809f);
 

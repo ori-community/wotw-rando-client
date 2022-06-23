@@ -1,5 +1,4 @@
 #include <Il2CppModLoader/app/methods/Moon/Timeline/TimelineEntity.h>
-#include <Il2CppModLoader/app/methods/Moon/Timeline/MoonTimeline.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 
 #include "custom_cutscene_skips.h"
@@ -9,7 +8,9 @@
 #include <features/scenes/scene_load.h>
 #include <game/game.h>
 #include <game/player.h>
+#include <utils/misc.h>
 
+using namespace utils;
 using namespace app::methods;
 
 namespace {
@@ -18,7 +19,7 @@ namespace {
         TeleportOri,
     };
 
-    app::MoonTimeline* reach_escape_intro = nullptr;
+    ObjectReference<app::MoonTimeline> reach_escape_intro;
     DeferredSkipAction next_frame_action = Idle;
 
     void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
@@ -37,19 +38,19 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(timeline_go)) {
-                reach_escape_intro = il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, "Moon.Timeline", "MoonTimeline");
+                reach_escape_intro.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, "Moon.Timeline", "MoonTimeline"));
             }
         }
     }
 
     bool skip_available() {
         return
-                il2cpp::unity::is_valid(reach_escape_intro) &&
-                Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(reach_escape_intro));
+                reach_escape_intro.is_valid() &&
+                Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(reach_escape_intro.ptr));
     }
 
     void skip_invoke() {
-        Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(reach_escape_intro));
+        Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(reach_escape_intro.ptr));
         next_frame_action = TeleportOri;
     }
 

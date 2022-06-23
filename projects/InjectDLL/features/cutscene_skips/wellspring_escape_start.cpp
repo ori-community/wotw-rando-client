@@ -8,7 +8,9 @@
 #include <features/scenes/scene_load.h>
 #include <game/game.h>
 #include <game/player.h>
+#include <utils/misc.h>
 
+using namespace utils;
 using namespace app::methods;
 
 namespace {
@@ -19,9 +21,9 @@ namespace {
         MoveHitboxBack,
     };
 
-    app::MoonTimeline* wellspring_escape_start_timeline = nullptr;
-    app::MoonTimeline* wellspring_escape_effect_timeline = nullptr; // Used to determine whether the cutscene is runnung since the start timeline loops
-    app::Transform* kill_hitbox_transform = nullptr;
+    ObjectReference<app::MoonTimeline> wellspring_escape_start_timeline;
+    ObjectReference<app::MoonTimeline> wellspring_escape_effect_timeline; // Used to determine whether the cutscene is runnung since the start timeline loops
+    ObjectReference<app::Transform> kill_hitbox_transform;
     app::Vector3 kill_hitbox_original_position{};
 
     DeferredSkipAction next_frame_action = Idle;
@@ -44,7 +46,7 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(start_timeline_go)) {
-                wellspring_escape_start_timeline = il2cpp::unity::get_component<app::MoonTimeline>(start_timeline_go, "Moon.Timeline", "MoonTimeline");
+                wellspring_escape_start_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(start_timeline_go, "Moon.Timeline", "MoonTimeline"));
             }
 
             auto effect_timeline_go = il2cpp::unity::find_child(
@@ -58,34 +60,36 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(effect_timeline_go)) {
-                wellspring_escape_effect_timeline = il2cpp::unity::get_component<app::MoonTimeline>(effect_timeline_go, "Moon.Timeline", "MoonTimeline");
+                wellspring_escape_effect_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(effect_timeline_go, "Moon.Timeline", "MoonTimeline"));
             }
 
-            kill_hitbox_transform = il2cpp::unity::get_transform(
-                    il2cpp::unity::find_child(
-                            scene_root_go,
-                            std::vector<std::string>{
-                                    "interactives",
-                                    "escapeSetup",
-                                    "killPlayer" }
+            kill_hitbox_transform.set_reference(
+                    il2cpp::unity::get_transform(
+                            il2cpp::unity::find_child(
+                                    scene_root_go,
+                                    std::vector<std::string>{
+                                            "interactives",
+                                            "escapeSetup",
+                                            "killPlayer" }
+                            )
                     )
             );
 
-            kill_hitbox_original_position = UnityEngine::Transform::get_position(kill_hitbox_transform);
+            kill_hitbox_original_position = UnityEngine::Transform::get_position(kill_hitbox_transform.ptr);
         }
     }
 
     bool skip_available() {
-        return il2cpp::unity::is_valid(wellspring_escape_start_timeline) &&
-                il2cpp::unity::is_valid(wellspring_escape_effect_timeline) &&
-                il2cpp::unity::is_valid(kill_hitbox_transform) &&
-                Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(wellspring_escape_start_timeline)) &&
-                Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(wellspring_escape_effect_timeline));
+        return wellspring_escape_start_timeline.is_valid() &&
+                wellspring_escape_effect_timeline.is_valid() &&
+                kill_hitbox_transform.is_valid() &&
+                Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(wellspring_escape_start_timeline.ptr)) &&
+                Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(wellspring_escape_effect_timeline.ptr));
     }
 
     void skip_invoke() {
         // Move kill hitbox out of the way
-        UnityEngine::Transform::set_position(kill_hitbox_transform, app::Vector3{ 0.f, 0.f, 0.f });
+        UnityEngine::Transform::set_position(kill_hitbox_transform.ptr, app::Vector3{ 0.f, 0.f, 0.f });
         next_frame_action = ModifyTimelines;
     }
 
@@ -95,8 +99,8 @@ namespace {
                 break;
             case ModifyTimelines:
                 // Stinky boy go nyoom
-                Moon::Timeline::TimelineEntity::SetTimeScale(reinterpret_cast<app::TimelineEntity*>(wellspring_escape_start_timeline), FLT_MAX);
-                Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(wellspring_escape_effect_timeline));
+                Moon::Timeline::TimelineEntity::SetTimeScale(reinterpret_cast<app::TimelineEntity*>(wellspring_escape_start_timeline.ptr), FLT_MAX);
+                Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(wellspring_escape_effect_timeline.ptr));
                 next_frame_action = TeleportOri;
                 break;
             case TeleportOri:
@@ -104,7 +108,7 @@ namespace {
                 next_frame_action = MoveHitboxBack;
                 break;
             case MoveHitboxBack:
-                UnityEngine::Transform::set_position(kill_hitbox_transform, kill_hitbox_original_position);
+                UnityEngine::Transform::set_position(kill_hitbox_transform.ptr, kill_hitbox_original_position);
                 next_frame_action = Idle;
                 break;
         }
@@ -113,7 +117,6 @@ namespace {
     void initialize() {
         scenes::event_bus().register_handler(&on_scene_load);
         game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::End, &on_fixed_update);
-
 
         auto cutscene_skip = custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,
