@@ -62,6 +62,7 @@ set(
         "game/behaviour_changes/feeding_grounds_allow_burrow.cpp"
         "game/behaviour_changes/flap_without_glide.cpp"
         "game/behaviour_changes/instant_tp_activation.cpp"
+        "game/behaviour_changes/kwolok_boss_rubberbanding_fix.cpp"
         "game/behaviour_changes/prevent_pickup.cpp"
         "game/behaviour_changes/stomp_through_portals.cpp"
         "game/behaviour_changes/teleporter_glades_identifier.cpp"
