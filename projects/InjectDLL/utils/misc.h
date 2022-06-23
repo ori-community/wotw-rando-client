@@ -10,7 +10,7 @@ namespace utils {
     template <typename T>
     struct ObjectReference {
         T* ptr = nullptr;
-        int object_id;
+        int object_id = 0;
 
         bool is_valid() {
             return
