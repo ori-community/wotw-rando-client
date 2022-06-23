@@ -236,6 +236,8 @@ namespace {
         for (const auto& scene_name : scenes_to_preload) {
             scenes::allow_unload_scene(scene_name);
         }
+
+        scenes_to_preload.clear();
     }
 
     void initialize() {
