@@ -16,6 +16,8 @@ using namespace app::methods;
 extern bool temporary_glide_switch;
 
 namespace {
+    bool save_requested = false;
+
     IL2CPP_INTERCEPT(GameController, void, CreateCheckpoint, (app::GameController * this_ptr, bool doPerformSave, bool respectRestrictCheckpointZone)) {
         game::event_bus().trigger_event(GameEvent::CreateCheckpoint, EventTiming::Start);
         next::GameController::CreateCheckpoint(this_ptr, doPerformSave, respectRestrictCheckpointZone);
@@ -63,10 +65,10 @@ namespace {
 
 INJECT_C_DLLEXPORT void save() {
     trace(MessageType::Info, 3, "csharp_interop", "Save requested by c# code");
-    next::GameController::CreateCheckpoint(game::controller(), true, false);
+    game::save();
 }
 
 INJECT_C_DLLEXPORT void checkpoint() {
     trace(MessageType::Info, 3, "csharp_interop", "Checkpoint requested by c# code");
-    next::GameController::CreateCheckpoint(game::controller(), false, false);
+    game::checkpoint();
 }

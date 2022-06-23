@@ -20,5 +20,10 @@ namespace game {
     app::GameObject* container(RandoContainer c);
     void add_to_container(RandoContainer c, app::GameObject* go);
     app::GameController* controller();
+    app::SaveGameController* save_controller();
     bool is_paused();
+
+    bool can_save();
+    void save(bool queue = true);
+    void checkpoint(bool queue = true);
 } // namespace game

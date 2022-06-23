@@ -18,6 +18,7 @@
 #include <Il2CppModLoader/app/methods/SaveSlotsUI.h>
 #include <Il2CppModLoader/app/methods/SaveSlotUI.h>
 #include <Il2CppModLoader/app/methods/TitleScreenManager.h>
+#include <Il2CppModLoader/app/methods/SaveGameController.h>
 #include <Il2CppModLoader/app/methods/WaitAction.h>
 #include <Il2CppModLoader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
 #include <enums/game_event.h>
@@ -55,7 +56,6 @@ namespace {
             SeinCharacter::set_Position(this_ptr, teleport_position);
 
             if (handling_start) {
-                save();
                 handling_start = false;
                 faderb::fade_out(0.3f);
             }

@@ -13,6 +13,7 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Behaviour.h>
 #include <Il2CppModLoader/app/methods/TimeUtility.h>
 #include <Il2CppModLoader/app/methods/GameController.h>
+#include <Il2CppModLoader/app/methods/SaveGameController.h>
 
 #include <magic_enum/include/magic_enum.hpp>
 
@@ -25,6 +26,9 @@ namespace game {
 
         std::unordered_map<RandoContainer, app::GameObject *> containers;
         app::GameObject *main_container_object = nullptr;
+
+        bool save_requested = false;
+        bool checkpoint_requested = false;
 
         void make_container(RandoContainer container) {
             auto obj = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
@@ -52,6 +56,13 @@ namespace game {
             game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::Start);
             next::GameController::FixedUpdate(this_ptr);
             game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::End);
+
+            if (save_requested && can_save()) {
+                modloader::win::console::console_send("-  Save possible.");
+                save(false);
+            } else if (checkpoint_requested && can_save()) {
+                checkpoint(false);
+            }
 
             // TODO: Probably should move this somewhere else.
             auto simple_fps = il2cpp::get_class<app::SimpleFPS__Class>("", "SimpleFPS")->static_fields->Instance;
@@ -95,6 +106,10 @@ namespace game {
         return il2cpp::get_class<app::GameController__Class>("", "GameController")->static_fields->Instance;
     }
 
+    app::SaveGameController *save_controller() {
+        return controller()->fields.SaveGameController;
+    }
+
     app::GameObject *container(RandoContainer c) {
         auto it = containers.find(c);
         if (it == containers.end()) {
@@ -114,6 +129,32 @@ namespace game {
         return !il2cpp::unity::is_valid(instance) ||
                !il2cpp::unity::is_valid(instance->static_fields->m_sMenu) ||
                instance->static_fields->m_sMenu->fields.m_isPaused;
+    }
+
+    bool can_save() {
+        return !controller()->fields.DisableCheckpoints &&
+                SaveGameController::CanPerformSave(save_controller());
+    }
+
+    void save(bool queue) {
+        if (queue && !can_save()) {
+            modloader::win::console::console_send("-  Save requested.");
+            save_requested = true;
+            return;
+        }
+
+        save_controller()->fields.m_lastSavedFrameIndex = -1;
+        GameController::CreateCheckpoint(game::controller(), true, false);
+        modloader::win::console::console_send("-  Save done.");
+    }
+
+    void checkpoint(bool queue) {
+        if (queue && !can_save()) {
+            checkpoint_requested = true;
+            return;
+        }
+
+        GameController::CreateCheckpoint(game::controller(), false, false);
     }
 } // namespace game
 
