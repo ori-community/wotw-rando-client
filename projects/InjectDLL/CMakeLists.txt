@@ -61,7 +61,6 @@ set(
         "game/behaviour_changes/deflector_without_bash.cpp"
         "game/behaviour_changes/feeding_grounds_allow_burrow.cpp"
         "game/behaviour_changes/flap_without_glide.cpp"
-        "game/behaviour_changes/game_finished.cpp"
         "game/behaviour_changes/instant_tp_activation.cpp"
         "game/behaviour_changes/prevent_pickup.cpp"
         "game/behaviour_changes/stomp_through_portals.cpp"

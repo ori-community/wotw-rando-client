@@ -67,10 +67,10 @@ namespace {
     }
 
     bool skip_available() {
-        auto shriek_death_reaction_timeline_playing = is_timeline_valid_and_playing(shriek_death_reaction_timeline);
+        // auto shriek_death_reaction_timeline_playing = is_timeline_valid_and_playing(shriek_death_reaction_timeline);
         auto epilogue_master_timeline_playing = is_timeline_valid_and_playing(epilogue_master_timeline);
 
-        return (shriek_death_reaction_timeline_playing || epilogue_master_timeline_playing) &&
+        return epilogue_master_timeline_playing &&
                 scenes::scene_state("creditsScreen") != app::SceneState__Enum::Enabled;
     }
 

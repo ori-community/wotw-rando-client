@@ -63,7 +63,7 @@ namespace {
                 break;
             case TeleportOri:
                 game::player::set_position(2020.209f, -4027.096);
-                GameController::CreateCheckpoint(game::controller(), true, false);
+                game::checkpoint(true, false);
                 next_frame_action = SnapCamera;
                 break;
             case SnapCamera:

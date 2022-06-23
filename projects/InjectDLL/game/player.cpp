@@ -8,6 +8,8 @@
 #include <Il2CppModLoader/app/methods/PlayerAbilities.h>
 #include <Il2CppModLoader/app/methods/SpellInventory.h>
 #include <Il2CppModLoader/app/methods/GameController.h>
+#include <Il2CppModLoader/app/methods/SeinHealthController.h>
+#include <Il2CppModLoader/app/methods/SeinEnergy.h>
 
 #include <Il2CppModLoader/app/methods/GameplayCamera.h>
 #include <Il2CppModLoader/app/methods/ScenesManager.h>
@@ -82,7 +84,8 @@ namespace game {
             auto sein = game::player::sein();
             if (sein != nullptr) {
                 if (wait_for_load) {
-                    ScenesManager::LoadScenesAtPosition(scenes::get_scenes_manager(), value, false, true, false, true, true);
+                    ScenesManager::LoadScenesAtPosition(scenes::get_scenes_manager(), value, false, true, false, true,
+                                                        true);
                 }
 
                 SeinCharacter::set_Position(sein, value);
@@ -90,10 +93,10 @@ namespace game {
         }
 
         void snap_camera() {
-            auto* const cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
+            auto *const cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
             if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
                 // We need to do this on the next frame to allow state to update without causing flickering.
-                auto* const camera = cameras->static_fields->Current;
+                auto *const camera = cameras->static_fields->Current;
                 GameplayCamera::MoveCameraToTargetInstantly(camera, true);
             }
         }

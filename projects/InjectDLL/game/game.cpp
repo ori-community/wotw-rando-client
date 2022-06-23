@@ -4,17 +4,20 @@
 
 #include <Common/ext.h>
 
+#include <Il2CppModLoader/app/methods/GameController.h>
+#include <Il2CppModLoader/app/methods/SaveGameController.h>
+#include <Il2CppModLoader/app/methods/TimeUtility.h>
+#include <Il2CppModLoader/app/methods/SeinHealthController.h>
+#include <Il2CppModLoader/app/methods/SeinEnergy.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Behaviour.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Object.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/windows_api/console.h>
-#include <Il2CppModLoader/app/methods/UnityEngine/Object.h>
-#include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
-#include <Il2CppModLoader/app/methods/UnityEngine/Behaviour.h>
-#include <Il2CppModLoader/app/methods/TimeUtility.h>
-#include <Il2CppModLoader/app/methods/GameController.h>
-#include <Il2CppModLoader/app/methods/SaveGameController.h>
 
+#include "player.h"
 #include <magic_enum/include/magic_enum.hpp>
 
 using namespace modloader;
@@ -24,11 +27,11 @@ namespace game {
     namespace {
         MultiEventBus<GameEvent> game_event_bus;
 
-        std::unordered_map<RandoContainer, app::GameObject *> containers;
-        app::GameObject *main_container_object = nullptr;
+        std::unordered_map<RandoContainer, app::GameObject*> containers;
+        app::GameObject* main_container_object = nullptr;
 
         bool save_requested = false;
-        bool checkpoint_requested = false;
+        SaveOptions save_request_options{};
 
         void make_container(RandoContainer container) {
             auto obj = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
@@ -36,7 +39,7 @@ namespace game {
 
             containers[container] = obj;
             if (container == RandoContainer::Randomizer) {
-                UnityEngine::Object::DontDestroyOnLoad(reinterpret_cast<app::Object_1 *>(obj));
+                UnityEngine::Object::DontDestroyOnLoad(reinterpret_cast<app::Object_1*>(obj));
                 main_container_object = obj;
             } else {
                 if (main_container_object == nullptr)
@@ -58,15 +61,12 @@ namespace game {
             game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::End);
 
             if (save_requested && can_save()) {
-                modloader::win::console::console_send("-  Save possible.");
-                save(false);
-            } else if (checkpoint_requested && can_save()) {
-                checkpoint(false);
+                save(false, save_request_options);
             }
 
             // TODO: Probably should move this somewhere else.
             auto simple_fps = il2cpp::get_class<app::SimpleFPS__Class>("", "SimpleFPS")->static_fields->Instance;
-            UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour *>(simple_fps), false);
+            UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(simple_fps), false);
         }
 
         IL2CPP_INTERCEPT(GameController, void, OnApplicationFocus, (app::GameController * this_ptr, bool focusStatus)) {
@@ -90,7 +90,7 @@ namespace game {
         }
     } // namespace
 
-    MultiEventBus<GameEvent> &event_bus() {
+    MultiEventBus<GameEvent>& event_bus() {
         return game_event_bus;
     }
 
@@ -102,15 +102,15 @@ namespace game {
         return TimeUtility::get_deltaTime();
     }
 
-    app::GameController *controller() {
+    app::GameController* controller() {
         return il2cpp::get_class<app::GameController__Class>("", "GameController")->static_fields->Instance;
     }
 
-    app::SaveGameController *save_controller() {
+    app::SaveGameController* save_controller() {
         return controller()->fields.SaveGameController;
     }
 
-    app::GameObject *container(RandoContainer c) {
+    app::GameObject* container(RandoContainer c) {
         auto it = containers.find(c);
         if (it == containers.end()) {
             make_container(c);
@@ -120,15 +120,15 @@ namespace game {
         return it->second;
     }
 
-    void add_to_container(RandoContainer c, app::GameObject *go) {
+    void add_to_container(RandoContainer c, app::GameObject* go) {
         il2cpp::unity::set_parent(go, container(c));
     }
 
     bool is_paused() {
         auto instance = ui::get();
         return !il2cpp::unity::is_valid(instance) ||
-               !il2cpp::unity::is_valid(instance->static_fields->m_sMenu) ||
-               instance->static_fields->m_sMenu->fields.m_isPaused;
+                !il2cpp::unity::is_valid(instance->static_fields->m_sMenu) ||
+                instance->static_fields->m_sMenu->fields.m_isPaused;
     }
 
     bool can_save() {
@@ -136,25 +136,46 @@ namespace game {
                 SaveGameController::CanPerformSave(save_controller());
     }
 
-    void save(bool queue) {
+    void checkpoint(bool refill, bool refill_instantly, bool restore_instantly) {
+        save(true, SaveOptions(refill, refill_instantly, false, restore_instantly));
+    }
+
+    void save(bool queue, const SaveOptions& options) {
         if (queue && !can_save()) {
-            modloader::win::console::console_send("-  Save requested.");
             save_requested = true;
+            save_request_options = options;
             return;
+        }
+
+        auto sein = game::player::sein();
+        auto health_controller = sein->fields.Mortality->fields.Health;
+        auto energy = sein->fields.Energy;
+        StoredHealthAndEnergy health_and_energy_to_restore{};
+
+        if (options.refill) {
+            health_and_energy_to_restore.health = SeinHealthController::get_Amount(health_controller);
+            health_and_energy_to_restore.energy = SeinEnergy::get_Current(energy);
+
+            SeinHealthController::Fill(health_controller);
+            SeinEnergy::Fill(energy);
         }
 
         save_controller()->fields.m_lastSavedFrameIndex = -1;
-        GameController::CreateCheckpoint(game::controller(), true, false);
-        modloader::win::console::console_send("-  Save done.");
-    }
+        GameController::CreateCheckpoint(game::controller(), options.to_disk, false);
 
-    void checkpoint(bool queue) {
-        if (queue && !can_save()) {
-            checkpoint_requested = true;
-            return;
+        if (options.restore_instantly) {
+            GameController::RestoreCheckpointImmediate_2(game::controller(), options.to_disk);
         }
 
-        GameController::CreateCheckpoint(game::controller(), false, false);
+        if (options.refill && !options.refill_instantly) {
+            SeinHealthController::set_Amount(health_controller, health_and_energy_to_restore.health);
+            health_controller->fields.VisualMinAmount = health_and_energy_to_restore.health;
+            health_controller->fields.VisualMaxAmount = health_and_energy_to_restore.health;
+
+            SeinEnergy::set_Current(energy, health_and_energy_to_restore.energy);
+            energy->fields.MinVisual = health_and_energy_to_restore.energy;
+            energy->fields.MaxVisual = health_and_energy_to_restore.energy;
+        }
     }
 } // namespace game
 

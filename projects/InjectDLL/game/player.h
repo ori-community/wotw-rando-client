@@ -17,5 +17,8 @@ namespace game {
         void set_position(float x, float y, bool wait_for_load = false);
         void set_position(app::Vector3 value, bool wait_for_load = false);
         void snap_camera();
+
+        void refill_energy(bool instantly = false);
+        void refill_health(bool instantly = false);
     } // namespace player
 } // namespace game

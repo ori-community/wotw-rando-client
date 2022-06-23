@@ -53,8 +53,7 @@ namespace {
         uber_states::UberState kwolok_boss_state(static_cast<UberStateGroup>(945), 58403);
         kwolok_boss_state.set(2.0);
 
-        GameController::CreateCheckpoint(game::controller(), false, false);
-        GameController::RestoreCheckpointImmediate_2(game::controller(), false);
+        game::checkpoint(true, true, true);
     }
 
     void initialize() {

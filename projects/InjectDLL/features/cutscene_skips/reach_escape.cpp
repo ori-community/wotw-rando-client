@@ -61,8 +61,7 @@ namespace {
             case TeleportOri:
                 game::player::set_position(-55.90539f, -3754.317, true);
                 game::player::snap_camera();
-                GameController::CreateCheckpoint(game::controller(), false, false);
-                GameController::RestoreCheckpointImmediate_2(game::controller(), false);
+                game::checkpoint(true, false, true);
                 next_frame_action = Idle;
                 break;
         }
