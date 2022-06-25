@@ -92,8 +92,8 @@ namespace {
         auto camera = UnityEngine::Camera::get_main();
         default_background_color = UnityEngine::Camera::get_backgroundColor(camera);
 
-        console::register_command({ "recording", "set_enabled" }, set_recording_mode);
-        console::register_command({ "recording", "set_camera_locked" }, set_camera_locked);
+        console::register_command({ "recording_utils", "set_recording_mode_enabled" }, set_recording_mode);
+        console::register_command({ "recording_utils", "set_camera_locked" }, set_camera_locked);
     }
 
     CALL_ON_INIT(initialize);
