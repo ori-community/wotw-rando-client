@@ -259,14 +259,13 @@ namespace il2cpp {
         }
 
         app::GameObject* find_child(void* obj, std::string_view name) {
-            std::vector<app::GameObject*> children;
             auto transform = get_transform(obj);
             auto str = il2cpp::string_new(name);
             transform = UnityEngine::Transform::Find(transform, str);
             return transform != nullptr ? get_game_object(transform) : nullptr;
         }
 
-        IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(void* obj, std::vector<std::string_view> const& path) {
+        app::GameObject* find_child(void* obj, std::vector<std::string_view> const& path) {
             for (auto const& name : path) {
                 if (obj == nullptr)
                     break;
@@ -277,7 +276,7 @@ namespace il2cpp {
             return reinterpret_cast<app::GameObject*>(obj);
         }
 
-        IL2CPP_MODLOADER_DLLEXPORT app::GameObject* find_child(void* obj, std::vector<std::string> const& path) {
+        app::GameObject* find_child(void* obj, std::vector<std::string> const& path) {
             for (auto const& name : path) {
                 if (obj == nullptr)
                     break;
@@ -286,6 +285,44 @@ namespace il2cpp {
             }
 
             return reinterpret_cast<app::GameObject*>(obj);
+        }
+
+        std::vector<app::GameObject*> find_children(void* obj, std::string_view name) {
+            std::vector<app::GameObject*> children;
+
+            auto transform = get_transform(obj);
+            auto str = il2cpp::string_new(name);
+            auto child_count = UnityEngine::Transform::get_childCount(transform);
+
+            for (int i = 0; i < child_count; i++) {
+                if (UnityEngine::Object::get_name(reinterpret_cast<app::Object_1*>(UnityEngine::Transform::GetChild(transform, i))) == str) {
+                    children.push_back(get_game_object(transform));
+                }
+            }
+
+            return children;
+        }
+
+        std::vector<app::GameObject*> find_children(void* obj, std::vector<std::string_view> const& path) {
+            for (auto segment = path.begin(); segment != std::prev(path.end()); segment++) {
+                if (obj == nullptr)
+                    return {};
+
+                obj = find_child(obj, *segment);
+            }
+
+            return find_children(obj, path.back());
+        }
+
+        std::vector<app::GameObject*> find_children(void* obj, std::vector<std::string> const& path) {
+            for (auto segment = path.begin(); segment != std::prev(path.end()); segment++) {
+                if (obj == nullptr)
+                    return {};
+
+                obj = find_child(obj, *segment);
+            }
+
+            return find_children(obj, path.back());
         }
 
         bool is_valid(void* obj) {
