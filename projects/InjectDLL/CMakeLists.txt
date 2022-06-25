@@ -45,6 +45,7 @@ set(
         "features/npcs/tokk_everywhere.cpp"
         "features/npcs/twillen_everywhere.cpp"
         "features/npcs/tuley_switch.cpp"
+        "features/recording_utils.cpp"
         "features/scenes/create_objects.cpp"
         "features/scenes/scene_load.cpp"
         "features/scenes/modifications/luma_fight_room_door_always_open.cpp"
