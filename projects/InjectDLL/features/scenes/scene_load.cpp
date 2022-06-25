@@ -15,6 +15,7 @@
 #include <unordered_set>
 
 using namespace app::methods;
+using namespace modloader::win;
 
 namespace scenes {
     struct PendingScene {
@@ -25,8 +26,8 @@ namespace scenes {
 
     std::unordered_map<std::string, PendingScene> scenes_to_load;
     EventBus<SceneLoadEventMetadata*> scenes_event_bus;
-
     app::ScenesManager* scenes_manager_instance = nullptr;
+    bool scene_loader_debug_logging = false;
 
     app::ScenesManager* get_scenes_manager() {
         if (scenes_manager_instance == nullptr) {
@@ -47,8 +48,9 @@ namespace scenes {
             auto scene_meta = ScenesManager::GetSceneInformation(scenes_manager, scene_name_csstring);
             auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(scenes_manager, scene_meta);
 
-            modloader::win::console::console_send(format("%s: %d", scene_name.c_str(), state));
-            modloader::win::console::console_flush();
+            if (scene_loader_debug_logging) {
+                console::console_send(format("%d -> %s", state, scene_name.c_str()));
+            }
 
             SceneLoadEventMetadata event{
                 .scene_name = scene_name,
@@ -258,10 +260,23 @@ namespace scenes {
         }
     }
 
+    void set_debug_logging(std::string const& command, std::vector<console::CommandParam> const& params) {
+        if (params.size() != 1) {
+            console::console_send("Invalid number of arguments. Expected 1");
+            return;
+        }
+
+        if (!console::try_get_bool(params[0], scene_loader_debug_logging)) {
+            console::console_send("Invalid argument. Expected boolean (on/off)");
+            return;
+        }
+
+        console::console_send(format("Debug logging %s", scene_loader_debug_logging ? "enabled" : "disabled"));
+    }
+
     void initialize() {
         force_load_scene("swampIntroTop", &on_load_spawn);
-        // force_load_scene("wotwTitleScreen", nullptr, true);
-        // force_load_scene("kuFlyAway", nullptr, true);
+        console::register_command({ "scenes", "set_debug" }, set_debug_logging);
     }
 
     CALL_ON_INIT(initialize);
