@@ -34,6 +34,7 @@ namespace il2cpp {
     } // namespace untyped
 
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
+    IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring_fast(app::String* str);
     IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new(void* obj, bool pinned);
     IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new_weak(void* obj, bool track_ressurection);
     IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* gchandle_target(uint32_t handle);

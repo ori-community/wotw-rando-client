@@ -368,7 +368,7 @@ namespace il2cpp {
                 return "nullptr";
 
             auto csstr = UnityEngine::Object::get_name(cast_object);
-            return convert_csstring(csstr);
+            return convert_csstring_fast(csstr);
         }
 
         app::String* get_object_csname(void* object) {
@@ -873,20 +873,32 @@ namespace il2cpp {
         return *reinterpret_cast<MethodInfo**>(memory::resolve_rva(address));
     }
 
+    std::string convert_csstring(Il2CppString* str) {
+        std::u16string u16(reinterpret_cast<const char16_t*>(str->chars));
+        return std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t>{}.to_bytes(u16);
+    }
+
     std::string convert_csstring(app::String* str) {
-        std::string cppstr;
-        if (str == nullptr)
-            return cppstr;
+        return convert_csstring(reinterpret_cast<Il2CppString*>(str));
+    }
 
-        auto chars = System::String::ToCharArray(str);
-        if (chars == nullptr)
-            return cppstr;
+    /**
+     * Converts a C# string to std::string by truncating characters.
+     * May lose special characters.
+     * @param il2cpp_string
+     * @return
+     */
+    std::string convert_csstring_fast(Il2CppString* il2cpp_string) {
+        std::string str(il2cpp_string->length, 0);
 
-        std::wstring wstr(reinterpret_cast<wchar_t*>(chars->vector), str->fields.m_stringLength);
-        using convert_type = std::codecvt_utf8<wchar_t>;
-        std::wstring_convert<convert_type, wchar_t> converter;
-        cppstr = converter.to_bytes(wstr);
+        for (auto i = 0; i < il2cpp_string->length; i++) {
+            str[i] = (char)il2cpp_string->chars[i];
+        }
 
-        return cppstr;
+        return str;
+    }
+
+    std::string convert_csstring_fast(app::String* str) {
+        return convert_csstring_fast(reinterpret_cast<Il2CppString*>(str));
     }
 } // namespace il2cpp
