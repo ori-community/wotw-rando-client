@@ -204,7 +204,7 @@ namespace modloader::win::console {
     }
 
     void console_poll() {
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
         if (initialzed && console_input.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
             const auto command = console_input.get();
@@ -248,12 +248,14 @@ namespace modloader::win::console {
     namespace {
         std::vector<std::string> false_values = {
             "false",
+            "off",
             "0",
             "f"
         };
 
         std::vector<std::string> true_values = {
             "true",
+            "on",
             "1",
             "t"
         };
