@@ -108,8 +108,8 @@ namespace {
     void set_camera_swaying_command(std::string const& command, std::vector<console::CommandParam> const& params) {
         bool enable = false;
         if (read_single_bool_from_command(params, enable)) {
-            Moon::Rendering::ShaderTime::set_freezeCameraSwaying(enable);
-            console::console_send(format("Recording mode %s", enable ? "enabled" : "disabled"));
+            Moon::Rendering::ShaderTime::set_freezeCameraSwaying(!enable);
+            console::console_send(format("Camera swaying %s", enable ? "enabled" : "disabled"));
         }
     }
 
