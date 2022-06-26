@@ -9,11 +9,13 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
+include(conan_include.cmake)
+
 set(ARCH "x64" CACHE STRING "Specifies the architecture for the build, [x64, win32].")
 set(
-        ARCHITECTURES
-        "x64"
-        "win32"
+    ARCHITECTURES
+    "x64"
+    "win32"
 )
 
 if (NOT (${ARCH} IN_LIST ARCHITECTURES))
