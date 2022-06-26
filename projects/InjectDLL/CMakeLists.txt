@@ -121,6 +121,7 @@ set(
         "randomizer/ipc/base_handlers.cpp"
         "randomizer/ipc/hierarchy.cpp"
         "randomizer/ipc/ipc.cpp"
+        "randomizer/seed_parser/parser.cpp"
         "randomizer/render/shaders.cpp"
         "randomizer/render/sprite.cpp"
         "randomizer/render/textures.cpp"
@@ -195,6 +196,10 @@ set(
         "randomizer/input/simulator.h"
         "randomizer/ipc/base_handlers.h"
         "randomizer/ipc/ipc.h"
+        "randomizer/seed_parser/parser.h"
+        "randomizer/seed_parser/SeedLexer.g4"
+        "randomizer/seed_parser/SeedParser.g4"
+        "randomizer/seed_parser/parser.h"
         "randomizer/render/shaders.h"
         "randomizer/render/sprite.h"
         "randomizer/render/textures.h"
@@ -214,12 +219,37 @@ set(
         "CMakeLists.txt"
 )
 
+# Download antlr generator jar automatically.
+if(NOT EXISTS "${CMAKE_BINARY_DIR}/antlr-4.10.1-complete.jar")
+   message(STATUS "Downloading antlr-4.10.1-complete.jar from https://www.antlr.org/download/antlr-4.10.1-complete.jar")
+   file(DOWNLOAD "https://www.antlr.org/download/antlr-4.10.1-complete.jar"
+                 "${CMAKE_BINARY_DIR}/antlr-4.10.1-complete.jar")
+endif()
+
+set(ANTLR4_JAR_LOCATION ${CMAKE_BINARY_DIR}/antlr-4.10.1-complete.jar)
+
+find_package(antlr4-cppruntime REQUIRED)
+# find_path(ANTLR_FIND NAMES FindANTLR.cmake PATHS ${CONAN_INCLUDE_DIRS_antlr4-cppruntime})
+# message(INFO "adding '${ANTLR_FIND}'")
+# list(APPEND CMAKE_MODULE_PATH "${ANTLR_FIND}")
+# find_package(ANTLR REQUIRED)
+# 
+# antlr_target(SeedLexer ${CMAKE_CURRENT_SOURCE_DIR}randomizer/seed_parser/SeedLexer.g4 LEXER
+#              PACKAGE seed_generator)
+# 
+# antlr_target(SeedParser ${CMAKE_CURRENT_SOURCE_DIR}randomizer/seed_parser/SeedParser.g4 PARSER
+#              PACKAGE seed_generator
+#              DEPENDS_ANTLR SeedLexer
+#              COMPILE_FLAGS -lib ${ANTLR_SeedLexer_OUTPUT_DIR})
+
 add_library(
         ${PROJECT_NAME}
         SHARED
         ${SOURCE_FILES}
         ${PUBLIC_HEADER_FILES}
         ${MISC_FILES}
+        ${ANTLR_SeedLexer_CXX_OUTPUTS}
+        ${ANTLR_SeedParser_CXX_OUTPUTS}
 )
 
 target_compile_definitions(
@@ -245,12 +275,15 @@ target_include_directories(
         ${WOTWR_LIB_INCLUDE_DIR}
         randomizer
         ${WOTWR_BASE_INCLUDES}
+        ${ANTLR_SeedLexer_OUTPUT_DIR}
+        ${ANTLR_SeedParser_OUTPUT_DIR}
 )
 
 target_link_libraries(
         ${PROJECT_NAME}
         Common
         Il2CppModLoader
+        antlr4-cppruntime::antlr4-cppruntime
 )
 
 #target_precompile_headers(
