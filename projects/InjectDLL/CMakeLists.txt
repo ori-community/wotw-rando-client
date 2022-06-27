@@ -228,7 +228,7 @@ endif()
 
 set(ANTLR4_JAR_LOCATION ${CMAKE_BINARY_DIR}/antlr-4.10.1-complete.jar)
 
-find_package(antlr4-cppruntime REQUIRED)
+find_package(antlr4-runtime REQUIRED)
 # find_path(ANTLR_FIND NAMES FindANTLR.cmake PATHS ${CONAN_INCLUDE_DIRS_antlr4-cppruntime})
 # message(INFO "adding '${ANTLR_FIND}'")
 # list(APPEND CMAKE_MODULE_PATH "${ANTLR_FIND}")
