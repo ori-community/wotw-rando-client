@@ -1,3 +1,5 @@
+/*
+
 #include <iostream>
 #include <antlr4-runtime.h>
 #include "SeedLexer.h"
@@ -17,3 +19,5 @@ void parse() {
     CommonTokenStream tokens(&lexer);
     SeedParser parser(&tokens);
 }
+
+ */
