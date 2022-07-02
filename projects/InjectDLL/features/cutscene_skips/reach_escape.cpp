@@ -45,6 +45,7 @@ namespace {
 
     bool skip_available() {
         return
+                scenes::scene_is_loaded("baursReachPeak") &&
                 reach_escape_intro.is_valid() &&
                 Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(reach_escape_intro.ptr));
     }

@@ -40,6 +40,7 @@ namespace {
 
     bool skip_available() {
         return
+                scenes::scene_is_loaded("waterMillEntrance") &&
                 wellspring_so_soggy_timeline.is_valid() &&
                 Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(wellspring_so_soggy_timeline.ptr));
     }

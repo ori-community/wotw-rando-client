@@ -80,7 +80,9 @@ namespace {
     }
 
     bool skip_available() {
-        return wellspring_escape_start_timeline.is_valid() &&
+        return
+                scenes::scene_is_loaded("waterMillCBossRoom") &&
+                wellspring_escape_start_timeline.is_valid() &&
                 wellspring_escape_effect_timeline.is_valid() &&
                 kill_hitbox_transform.is_valid() &&
                 Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(wellspring_escape_start_timeline.ptr)) &&

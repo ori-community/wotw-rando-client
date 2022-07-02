@@ -61,25 +61,27 @@ namespace {
         }
     }
 
-    bool is_timeline_valid_and_playing(ObjectReference<app::MoonTimeline> timeline) {
-        return timeline.is_valid() &&
+    bool is_timeline_valid_and_playing(const std::string& scene_name, ObjectReference<app::MoonTimeline> timeline) {
+        return
+                scenes::scene_is_loaded(scene_name) &&
+                timeline.is_valid() &&
                 Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(timeline.ptr));
     }
 
     bool skip_available() {
-        // auto shriek_death_reaction_timeline_playing = is_timeline_valid_and_playing(shriek_death_reaction_timeline);
-        auto epilogue_master_timeline_playing = is_timeline_valid_and_playing(epilogue_master_timeline);
+        // auto shriek_death_reaction_timeline_playing = is_timeline_valid_and_playing("willowPowlBackground", shriek_death_reaction_timeline);
+        auto epilogue_master_timeline_playing = is_timeline_valid_and_playing("epilogueMaster", epilogue_master_timeline);
 
         return epilogue_master_timeline_playing &&
                 scenes::scene_state("creditsScreen") != app::SceneState__Enum::Enabled;
     }
 
     void skip_invoke() {
-        if (is_timeline_valid_and_playing(shriek_death_reaction_timeline)) {
-            Moon::Timeline::TimelineEntity::PausePlayback(reinterpret_cast<app::TimelineEntity*>(shriek_death_reaction_timeline.ptr));
-        }
+        // if (is_timeline_valid_and_playing("willowPowlBackground", shriek_death_reaction_timeline)) {
+        //     Moon::Timeline::TimelineEntity::PausePlayback(reinterpret_cast<app::TimelineEntity*>(shriek_death_reaction_timeline.ptr));
+        // }
 
-        if (is_timeline_valid_and_playing(epilogue_master_timeline)) {
+        if (is_timeline_valid_and_playing("epilogueMaster", epilogue_master_timeline)) {
             Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(epilogue_master_timeline.ptr));
         }
 

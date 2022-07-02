@@ -35,7 +35,9 @@ namespace {
     }
 
     bool skip_available() {
-        return kwolok_boss_farewell_timeline.is_valid() &&
+        return
+                scenes::scene_is_loaded("kwolokBossGetWisp") &&
+                kwolok_boss_farewell_timeline.is_valid() &&
                 Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(kwolok_boss_farewell_timeline.ptr));
     }
 
