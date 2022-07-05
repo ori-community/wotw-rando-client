@@ -14,8 +14,8 @@ namespace utils {
 
         bool is_valid() {
             return
-                    ptr != nullptr &&
                     il2cpp::unity::is_valid(ptr) &&
+                    il2cpp::is_assignable(ptr, "UnityEngine", "Object") &&
                     UnityEngine::Object::GetInstanceID(reinterpret_cast<app::Object_1*>(ptr)) == object_id;
         }
 
