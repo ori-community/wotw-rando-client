@@ -48,6 +48,7 @@ namespace {
 
     bool skip_available() {
         return
+                scenes::scene_is_loaded("desertRuinsGetWisp") &&
                 get_wisp_cutscene.is_valid() &&
                 Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(get_wisp_cutscene.ptr));
     }
