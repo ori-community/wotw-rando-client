@@ -425,7 +425,13 @@ namespace {
         if (magnitude < 0.2f)
             return;
 
-        auto line_p1 = UnityEngine::Transform::get_position(il2cpp::unity::get_transform(il2cpp::unity::get_game_object(manager)));
+        auto manager_go = il2cpp::unity::get_game_object(manager);
+
+        if (manager_go != nullptr) {
+            return;
+        }
+
+        auto line_p1 = UnityEngine::Transform::get_position(il2cpp::unity::get_transform(manager));
         app::Vector3 line_p2{ line_p1.x + axis.x / magnitude, line_p1.y + axis.y / magnitude, 0.0f };
         float distance = INFINITY;
         auto closest = -1;
