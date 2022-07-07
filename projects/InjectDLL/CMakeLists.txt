@@ -40,6 +40,7 @@ set(
         "features/cutscene_skips/reach_escape.cpp"
         "features/cutscene_skips/final_cutscene.cpp"
         "features/cutscene_skips/sandworm_start.cpp"
+        "features/cutscene_skips/sandworm_end.cpp"
         "features/npcs/lupo_everywhere.cpp"
         "features/npcs/opher_everywhere.cpp"
         "features/npcs/tokk_everywhere.cpp"
