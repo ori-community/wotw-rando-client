@@ -60,16 +60,16 @@ namespace {
                 keyrings_go = il2cpp::unity::find_child(door_go, "keyrings");
                 left_door_transform = il2cpp::unity::get_transform(left_door_go);
                 right_door_transform = il2cpp::unity::get_transform(right_door_go);
-                open_door_in_frames = 2;
+                open_door_in_frames = 30;
             }
         }
     }
 
     void on_respawn(GameEvent game_event, EventTiming timing) {
-        open_door_in_frames = 2;
+        open_door_in_frames = 30;
     }
 
-    void on_fixed_update(GameEvent game_event, EventTiming timing) {
+    void on_update(GameEvent game_event, EventTiming timing) {
         if (open_door_in_frames == 0) {
             open_door();
         }
@@ -81,7 +81,7 @@ namespace {
 
     void initialize() {
         game::event_bus().register_handler(GameEvent::Respawn, EventTiming::End, &on_respawn);
-        game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::End, &on_fixed_update);
+        game::event_bus().register_handler(GameEvent::Update, EventTiming::End, &on_update);
         scenes::event_bus().register_handler(&on_scene_load);
     }
 
