@@ -7,6 +7,7 @@
 #include <features/scenes/scene_load.h>
 #include <game/game.h>
 #include <game/player.h>
+#include <uber_states/uber_state_interface.h>
 #include <utils/misc.h>
 
 using namespace utils;
@@ -69,6 +70,9 @@ namespace {
                 break;
             case TeleportAndSave:
                 il2cpp::unity::destroy_object(escape_end_timeline_go.ptr);
+
+                uber_states::UberState ruins_wisp_state(static_cast<UberStateGroup>(10289), 22102);
+                ruins_wisp_state.set(1.0);
 
                 game::player::set_position(2055.673f, -3568.293);
                 game::save(true, game::SaveOptions(false, false, true, true));

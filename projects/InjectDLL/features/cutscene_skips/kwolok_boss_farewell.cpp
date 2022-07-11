@@ -5,6 +5,7 @@
 #include <Il2CppModLoader/common.h>
 #include <event_bus.h>
 #include <features/scenes/scene_load.h>
+#include <uber_states/uber_state_interface.h>
 #include <utils/misc.h>
 
 using namespace utils;
@@ -43,6 +44,9 @@ namespace {
 
     void skip_invoke() {
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(kwolok_boss_farewell_timeline.ptr));
+
+        uber_states::UberState pools_wisp_state(static_cast<UberStateGroup>(945), 49747);
+        pools_wisp_state.set(1.0);
     }
 
     void initialize() {
