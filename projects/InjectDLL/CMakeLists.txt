@@ -37,6 +37,7 @@ set(
         "features/cutscene_skips/wellspring_so_soggy.cpp"
         "features/cutscene_skips/kwolok_boss_intro.cpp"
         "features/cutscene_skips/kwolok_boss_farewell.cpp"
+        "features/cutscene_skips/mora_start.cpp"
         "features/cutscene_skips/reach_escape.cpp"
         "features/cutscene_skips/final_cutscene.cpp"
         "features/cutscene_skips/sandworm_start.cpp"
