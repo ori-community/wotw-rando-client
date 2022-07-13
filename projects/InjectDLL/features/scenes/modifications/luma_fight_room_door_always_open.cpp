@@ -19,7 +19,7 @@ namespace {
 
     void open_door() {
         if (
-                scenes::scene_is_loaded("lumaPoolsC") ||
+                !scenes::scene_is_loaded("lumaPoolsC") ||
                 !il2cpp::unity::is_valid(left_door_transform) ||
                 !il2cpp::unity::is_valid(right_door_transform) ||
                 !il2cpp::unity::is_valid(keyrings_go)
@@ -60,13 +60,13 @@ namespace {
                 keyrings_go = il2cpp::unity::find_child(door_go, "keyrings");
                 left_door_transform = il2cpp::unity::get_transform(left_door_go);
                 right_door_transform = il2cpp::unity::get_transform(right_door_go);
-                open_door_in_frames = 30;
+                open_door_in_frames = 4;
             }
         }
     }
 
     void on_respawn(GameEvent game_event, EventTiming timing) {
-        open_door_in_frames = 30;
+        open_door_in_frames = 4;
     }
 
     void on_update(GameEvent game_event, EventTiming timing) {
