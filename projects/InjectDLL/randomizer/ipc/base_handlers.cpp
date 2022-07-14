@@ -74,9 +74,9 @@ namespace randomizer {
                 auto id = p.at("action_id").get<Action>();
                 auto pressed = p.at("pressed").get<bool>();
                 if (pressed)
-                    action_pressed(id);
+                    set_action_pressed(id);
                 else
-                    action_released(id);
+                    set_action_released(id);
             }
 
             void set_velocity(nlohmann::json& j) {

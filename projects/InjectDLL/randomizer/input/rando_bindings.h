@@ -17,5 +17,5 @@ namespace randomizer {
     } // namespace input
 } // namespace randomizer
 
-INJECT_C_DLLEXPORT bool action_pressed(Action action);
-INJECT_C_DLLEXPORT bool action_released(Action action);
+INJECT_C_DLLEXPORT bool set_action_pressed(Action action);
+INJECT_C_DLLEXPORT bool set_action_released(Action action);

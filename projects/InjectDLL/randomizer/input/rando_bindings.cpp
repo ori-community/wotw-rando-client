@@ -215,7 +215,7 @@ namespace randomizer::input {
     CALL_ON_INIT(initialize);
 } // namespace randomizer::input
 
-INJECT_C_DLLEXPORT bool action_pressed(Action action) {
+INJECT_C_DLLEXPORT bool set_action_pressed(Action action) {
     if (action < Action::RANDO_ACTIONS_START)
         randomizer::input::simulate(action, true);
     else
@@ -224,7 +224,7 @@ INJECT_C_DLLEXPORT bool action_pressed(Action action) {
     return true;
 }
 
-INJECT_C_DLLEXPORT bool action_released(Action action) {
+INJECT_C_DLLEXPORT bool set_action_released(Action action) {
     if (action < Action::RANDO_ACTIONS_START)
         randomizer::input::simulate(action, false);
     else
