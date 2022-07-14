@@ -61,6 +61,10 @@ namespace {
         return nullptr;
     }
 
+    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowHintSmallMessage_1, (app::MessageControllerB * this_ptr, app::MessageProvider * message_provider, app::Vector3 position, float duration)) {
+        return nullptr;
+    }
+
     IL2CPP_INTERCEPT(MessageZoneB, void, FixedUpdate, (app::MessageZoneB * this_ptr)) {}
 
     IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowPickupMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::PickupContext* context, bool lockInput)) {
