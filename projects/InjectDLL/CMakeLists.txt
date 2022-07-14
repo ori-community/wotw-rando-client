@@ -144,6 +144,7 @@ set(
         "randomizer/render/shaders.cpp"
         "randomizer/render/sprite.cpp"
         "randomizer/render/textures.cpp"
+        "tas/tas.cpp"
         "uber_states/uber_state_dev.cpp"
         "uber_states/uber_state_initialization.cpp"
         "uber_states/uber_state_interface.cpp"
