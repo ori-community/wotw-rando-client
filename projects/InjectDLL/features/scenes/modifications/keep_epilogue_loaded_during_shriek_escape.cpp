@@ -4,8 +4,6 @@
 #include <event_bus.h>
 #include <features/scenes/scene_load.h>
 
-using namespace app::methods;
-
 namespace {
     void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
         if (metadata->state == app::SceneState__Enum::Loaded && metadata->scene_name == "willowCeremonyIntro") {
