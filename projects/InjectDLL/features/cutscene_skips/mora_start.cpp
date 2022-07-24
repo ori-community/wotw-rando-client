@@ -1,16 +1,8 @@
-#include <Il2CppModLoader/app/methods/AK/Wwise/BaseType.h>
-#include <Il2CppModLoader/app/methods/AK/Wwise/Event.h>
-#include <Il2CppModLoader/app/methods/AK/Wwise/State.h>
 #include <Il2CppModLoader/app/methods/Moon/Timeline/TimelineEntity.h>
-#include <Il2CppModLoader/app/methods/Moon/Timeline/WWiseSoundAnimatorEntity.h>
-#include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 
 #include "custom_cutscene_skips.h"
-#include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/interception_macros.h>
-#include <Il2CppModLoader/windows_api/console.h>
 #include <enums/sound.h>
 #include <event_bus.h>
 #include <features/scenes/scene_load.h>
