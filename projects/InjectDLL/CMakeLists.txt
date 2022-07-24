@@ -150,7 +150,7 @@ set(
         "enums/buttons.h"
         "enums/game_event.h"
         "enums/layer.h"
-        "enums/sound_event_id.h"
+        "enums/sound.h"
         "enums/static_text_entries.h"
         "enums/timeline_entries.h"
         "enums/uber_state.h"

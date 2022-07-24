@@ -7,6 +7,7 @@
 #include <Il2CppModLoader/app/methods/Moon/Wwise/WwiseEventSystem.h>
 #include <Il2CppModLoader/app/methods/Moon/Wwise/WwiseEventSystem_SoundHandle.h>
 #include <Il2CppModLoader/app/methods/Moon/Wwise/WwiseGameObjectSystem.h>
+#include <Il2CppModLoader/app/methods/AK/Wwise/State.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
@@ -68,6 +69,10 @@ namespace randomizer {
             auto evt = create_event(event_id);
             auto name = il2cpp::string_new(artificial_host_name_template + std::to_string(artificial_host_id++));
             WwiseGameObjectSystem::FireAndForget(go_system, name, evt, location);
+        }
+
+        void set_state(SoundStateGroupID group_id, SoundStateID state_id) {
+            AK::Wwise::State::SetValueFast(static_cast<uint32_t>(state_id), static_cast<uint32_t>(group_id));
         }
 
         void initialize() {

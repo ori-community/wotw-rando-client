@@ -1,12 +1,22 @@
+#include <Il2CppModLoader/app/methods/AK/Wwise/BaseType.h>
+#include <Il2CppModLoader/app/methods/AK/Wwise/Event.h>
+#include <Il2CppModLoader/app/methods/AK/Wwise/State.h>
 #include <Il2CppModLoader/app/methods/Moon/Timeline/TimelineEntity.h>
+#include <Il2CppModLoader/app/methods/Moon/Timeline/WWiseSoundAnimatorEntity.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 
 #include "custom_cutscene_skips.h"
+#include <Common/ext.h>
 #include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/windows_api/console.h>
+#include <enums/sound.h>
 #include <event_bus.h>
 #include <features/scenes/scene_load.h>
 #include <game/game.h>
 #include <game/player.h>
+#include <sound.h>
 #include <uber_states/uber_state_interface.h>
 #include <utils/misc.h>
 
@@ -21,6 +31,7 @@ namespace {
 
     DeferredSkipAction next_frame_action = Idle;
     ObjectReference<app::MoonTimeline> escape_end_timeline;
+    ObjectReference<app::GameObject> scene_root_go;
 
     void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
         if (metadata->state != app::SceneState__Enum::Loaded) {
@@ -28,10 +39,10 @@ namespace {
         }
 
         if (metadata->scene_name == "matkasChamberBossPlaceholder__clone1") {
-            auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
+            scene_root_go.set_reference(il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot));
 
             auto timeline_go = il2cpp::unity::find_child(
-                    scene_root_go,
+                    scene_root_go.ptr,
                     std::vector<std::string>{
                             "timelines",
                             "spiderIntroTimeline" }
@@ -46,14 +57,17 @@ namespace {
     bool skip_available() {
         return scenes::scene_is_loaded("matkasChamberBossPlaceholder__clone1") &&
                 escape_end_timeline.is_valid() &&
+                scene_root_go.is_valid() &&
                 Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(escape_end_timeline.ptr));
     }
 
     void skip_invoke() {
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(escape_end_timeline.ptr));
 
+        randomizer::sound::set_state(SoundStateGroupID::CordycepsMusic, SoundStateID::SpiderBossPhase1);
+
         uber_states::UberState mora_boss_state(static_cast<UberStateGroup>(18793), 26713);
-        mora_boss_state.set(1.0);
+        mora_boss_state.set(2.0);
 
         next_frame_action = TeleportAndSave;
     }
@@ -64,7 +78,7 @@ namespace {
                 break;
             case TeleportAndSave:
                 game::player::set_position(701.912f, -4481.552f);
-                game::save(true, game::SaveOptions(false, false, true, true));
+                game::save(true, game::SaveOptions(false, false, false, true));
 
                 next_frame_action = Idle;
                 break;

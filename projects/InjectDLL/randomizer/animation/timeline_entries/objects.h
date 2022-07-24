@@ -1,6 +1,6 @@
 #pragma once
 
-#include <enums/sound_event_id.h>
+#include <enums/sound.h>
 #include <randomizer/animation/animation.h>
 #include <randomizer/animation/timeline_entries/base.h>
 #include <utils/json_serializers.h>

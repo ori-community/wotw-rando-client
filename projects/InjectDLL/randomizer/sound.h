@@ -1,6 +1,6 @@
 #pragma once
 
-#include <enums/sound_event_id.h>
+#include <enums/sound.h>
 #include <macros.h>
 
 #include <string_view>
@@ -9,6 +9,7 @@ namespace randomizer {
     namespace sound {
         app::WwiseEventSystem_SoundHandle play_sound(SoundEventID event_id, app::ISoundHost* host = nullptr);
         void play_sound_at(SoundEventID event_id, app::Vector3 location);
+        void set_state(SoundStateGroupID group_id, SoundStateID state_id);
     } // namespace sound
 
     class SoundActor {
