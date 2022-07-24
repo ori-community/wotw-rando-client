@@ -8,6 +8,7 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Object.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Quaternion.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
+#include <Il2CppModLoader/app/methods/AK/Wwise/BaseType.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -393,6 +394,37 @@ namespace randomizer::ipc {
             }
         }
 
+        void visualize_wwise_basetype(nlohmann::json& j, void* obj, bool verbose) {
+            auto base_type = reinterpret_cast<app::BaseType*>(obj);
+            j["value"] = nlohmann::json::array({
+                    create_variable("id", "scalar", AK::Wwise::BaseType::get_Id(base_type)),
+                    create_variable("name", "scalar", il2cpp::convert_csstring(AK::Wwise::BaseType::get_Name(base_type))),
+            });
+        }
+
+        void visualize_ambience_zone(nlohmann::json& j, void* obj, bool verbose) {
+            auto zone = reinterpret_cast<app::AmbienceZone*>(obj);
+            j["value"] = nlohmann::json::array({
+                    visualize(zone->fields.WiseEvent, "event", verbose),
+                    visualize(zone->fields.WiseEventOnEnter, "event_enter", verbose),
+                    visualize(zone->fields.WiseEventOnExit, "event_exit", verbose),
+                    visualize(zone->fields.StateOnEnter, "state_enter", verbose),
+                    visualize(zone->fields.StateOnExit, "state_exit", verbose),
+            });
+        }
+
+        void visualize_sound_zone_trigger(nlohmann::json& j, void* obj, bool verbose) {
+            auto trigger = reinterpret_cast<app::SoundZoneTrigger*>(obj);
+            j["value"] = nlohmann::json::array({
+                    visualize(trigger->fields.State, "state", verbose),
+                    visualize(trigger->fields.Event, "event", verbose),
+                    visualize(trigger->fields.Trigger, "trigger", verbose),
+                    visualize(trigger->fields.Switch, "switch", verbose),
+                    create_variable("trigger_once", "scalar", trigger->fields.TriggerOnce),
+                    visualize(trigger->fields.TriggerOnceUberState, "trigger_once_uber_state", verbose),
+            });
+        }
+
         void visualize_game_object(nlohmann::json& j, void* obj, bool verbose) {
             auto go = reinterpret_cast<app::GameObject*>(obj);
             auto id = Object::GetInstanceID(reinterpret_cast<app::Object_1*>(go));
@@ -452,6 +484,10 @@ namespace randomizer::ipc {
             { "QuestInteractionSetup", visualize_quest_interaction_setup },
             { "QuestNodeSetup", visualize_quest_node_setup },
             { "QuestNodeWisps", visualize_quest_node_wisps },
+
+            { "AmbienceZone", visualize_ambience_zone },
+            { "SoundZoneTrigger", visualize_sound_zone_trigger },
+            { "AK.Wwise.BaseType", visualize_wwise_basetype },
 
             //{ "Moon.SerializedBooleanUberState", visualize_serialized_uber_state },
             //{ "Moon.SerializedFloatUberState", visualize_serialized_uber_state },
