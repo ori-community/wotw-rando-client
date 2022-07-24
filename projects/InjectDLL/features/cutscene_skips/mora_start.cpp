@@ -1,4 +1,5 @@
 #include <Il2CppModLoader/app/methods/Moon/Timeline/TimelineEntity.h>
+#include <Il2CppModLoader/app/methods/PerformBackOutAction.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 
 #include "custom_cutscene_skips.h"
@@ -56,7 +57,7 @@ namespace {
     void skip_invoke() {
         Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(escape_end_timeline.ptr));
 
-        randomizer::sound::set_state(SoundStateGroupID::CordycepsMusic, SoundStateID::SpiderBossPhase1);
+        randomizer::sound::set_state(SoundStateGroupID::cordycepsMusic, SoundStateID::spiderBossPhase1);
 
         uber_states::UberState mora_boss_state(static_cast<UberStateGroup>(18793), 26713);
         mora_boss_state.set(2.0);
@@ -69,6 +70,8 @@ namespace {
             case Idle:
                 break;
             case TeleportAndSave:
+                PerformBackOutAction::ActivateAbandonChallange(nullptr);
+
                 game::player::set_position(701.912f, -4481.552f);
                 game::save(true, game::SaveOptions(false, false, false, true));
 
