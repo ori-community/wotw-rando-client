@@ -346,7 +346,7 @@ namespace RandoMainDLL {
         MessageController.ShowPickup($"v{Randomizer.VERSION} - No seed found! Download a .wotwr file\nand double-click it to load", 6f, true, true);
     }
 
-    public static bool EnableLogicFilter { get => Settings.LogicMap; }
+    public static bool EnableLogicFilter { get => !Settings.DisableLogicFilter; }
     public static bool HasInternalSpoilers { get => !Settings.RaceMode; }
     public static bool KSDoorsOpen { get => Flags.Contains(Flag.NOKEYSTONES); }
     public static void ProcessFlags(string flagline) {
