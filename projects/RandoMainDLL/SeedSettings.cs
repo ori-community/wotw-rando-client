@@ -7,9 +7,9 @@ namespace RandoMainDLL {
   public class SeedGenSettings {
     [JsonProperty("race")]
     public bool RaceMode { get; set; }
-    [JsonProperty("disableLogicFilter")]
-    public bool DisableLogicFilter { get; set; }
-    [JsonProperty("webConn")]
+    [JsonProperty("logicMap")]
+    public bool LogicMap { get; set; }
+    [JsonProperty("online")]
     public bool NetcodeEnabled { get; set; }
   }
 }
