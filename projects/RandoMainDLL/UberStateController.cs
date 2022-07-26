@@ -584,19 +584,6 @@ namespace RandoMainDLL {
           foreach (UberState s in LongCutscenes) { s.Write(); }
 
         InterOp.Map.discover_everything();
-        if (SeedController.Settings.LegacySeedgen && !SeedController.Flags.Contains(Flag.NOSWORD)) {
-          SaveController.SetAbility(AbilityType.SpiritEdge);
-          var slotRaw = AHK.IniString("Misc", "SpawnSlot");
-          var slot = 0;
-          if (slotRaw != string.Empty) {
-            slot = slotRaw.ParseToInt("Spawn Slot Ini") - 1;
-            if (slot > 2 || slot < 0) {
-              MessageController.ShowMessage($"Ignoring invalid slot specifier {slotRaw}", queue: "debug");
-              slot = 0;
-            }
-          }
-          InterOp.Ability.bind(slot, EquipmentType.Weapon_Sword);
-        }
 
         WheelManager.ResetWheels();
         ShopSlot.ResetSlotData();
