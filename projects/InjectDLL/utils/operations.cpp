@@ -12,22 +12,6 @@ bool operator!=(const app::Vector3& c1, const app::Vector3& c2) {
     return !(c1 == c2);
 }
 
-inline app::Vector3 operator+(const app::Vector3& a, const app::Vector3& b) {
-    return app::Vector3 {
-        a.x + b.x,
-        a.y + b.y,
-        a.z + b.z,
-    };
-}
-
-inline app::Vector3 operator-(const app::Vector3& a, const app::Vector3& b) {
-    return app::Vector3 {
-        a.x - b.x,
-        a.y - b.y,
-        a.z - b.z,
-    };
-}
-
 bool operator==(const app::Color& c1, const app::Color& c2) {
     return (
             c1.r == c2.r &&

@@ -24,6 +24,7 @@
 #include <Il2CppModLoader/app/methods/RuntimeGameWorldArea.h>
 #include <Il2CppModLoader/app/methods/RuntimeWorldMapIcon.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Vector3.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
