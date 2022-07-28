@@ -290,10 +290,6 @@ IniSettings create_randomizer_settings(const std::string& path) {
     option.value.b = false;
     file.options.push_back(option);
 
-    option.name = "DisableQuestFocus";
-    option.value.b = false;
-    file.options.push_back(option);
-
     option.name = "BoringMoney";
     option.value.b = false;
     file.options.push_back(option);
