@@ -10,6 +10,7 @@
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/windows_api/console.h>
+#include <Il2CppModLoader/app/methods/AreaMapNavigation.h>
 #include <Il2CppModLoader/app/methods/ScenesManager.h>
 #include <Il2CppModLoader/app/methods/SeinCharacter.h>
 #include <Il2CppModLoader/app/methods/GameplayCamera.h>
@@ -203,7 +204,7 @@ namespace {
                 }
             }
 
-            // We shorten the wait time to 0.3s. We use that time to fade to black.
+            // We shorten the wait time to 0.4s. We use that time to fade to black.
             auto empty_slot_pressed_wait_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "emptySlotPressed(newGame)", "04. Wait 1.5 seconds" });
             empty_slot_pressed_wait = il2cpp::unity::get_component<app::WaitAction>(empty_slot_pressed_wait_go, "", "WaitAction");
             empty_slot_pressed_wait->fields.Duration = 0.4f;
@@ -230,6 +231,9 @@ namespace {
         GameStateMachine::SetToGame(game_state_machine);
 
         game::player::set_ability(app::AbilityType__Enum::SpiritMagnet, false);
+
+        auto area_map_ui = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        AreaMapNavigation::SetLocationPlayer(area_map_ui->fields._Navigation_k__BackingField);
     }
 
     void on_finished_loading_save(GameEvent event, EventTiming timing) {
