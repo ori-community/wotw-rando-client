@@ -7,21 +7,22 @@
 
 #include "faderb.h"
 #include <Common/ext.h>
+#include <Il2CppModLoader/app/methods/AreaMapNavigation.h>
+#include <Il2CppModLoader/app/methods/GameStateMachine.h>
+#include <Il2CppModLoader/app/methods/GameplayCamera.h>
+#include <Il2CppModLoader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
+#include <Il2CppModLoader/app/methods/QuestsUI.h>
+#include <Il2CppModLoader/app/methods/SaveGameController.h>
+#include <Il2CppModLoader/app/methods/SaveSlotUI.h>
+#include <Il2CppModLoader/app/methods/SaveSlotsManager.h>
+#include <Il2CppModLoader/app/methods/SaveSlotsUI.h>
+#include <Il2CppModLoader/app/methods/ScenesManager.h>
+#include <Il2CppModLoader/app/methods/SeinCharacter.h>
+#include <Il2CppModLoader/app/methods/TitleScreenManager.h>
+#include <Il2CppModLoader/app/methods/WaitAction.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/windows_api/console.h>
-#include <Il2CppModLoader/app/methods/AreaMapNavigation.h>
-#include <Il2CppModLoader/app/methods/ScenesManager.h>
-#include <Il2CppModLoader/app/methods/SeinCharacter.h>
-#include <Il2CppModLoader/app/methods/GameplayCamera.h>
-#include <Il2CppModLoader/app/methods/GameStateMachine.h>
-#include <Il2CppModLoader/app/methods/SaveSlotsManager.h>
-#include <Il2CppModLoader/app/methods/SaveSlotsUI.h>
-#include <Il2CppModLoader/app/methods/SaveSlotUI.h>
-#include <Il2CppModLoader/app/methods/TitleScreenManager.h>
-#include <Il2CppModLoader/app/methods/SaveGameController.h>
-#include <Il2CppModLoader/app/methods/WaitAction.h>
-#include <Il2CppModLoader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
 #include <enums/game_event.h>
 #include <event_bus.h>
 #include <interop/csharp_bridge.h>
@@ -233,7 +234,9 @@ namespace {
         game::player::set_ability(app::AbilityType__Enum::SpiritMagnet, false);
 
         auto area_map_ui = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        auto quests_ui = il2cpp::get_class<app::QuestsUI__Class>("", "QuestsUI")->static_fields->Instance;
         AreaMapNavigation::SetLocationPlayer(area_map_ui->fields._Navigation_k__BackingField);
+        QuestsUI::UpdateDescriptionUI_2(quests_ui, nullptr);
     }
 
     void on_finished_loading_save(GameEvent event, EventTiming timing) {

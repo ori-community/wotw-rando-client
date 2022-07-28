@@ -5,24 +5,30 @@
 #include <randomizer/messages.h>
 #include <randomizer/text_database.h>
 #include <uber_states/uber_state_interface.h>
+#include <utils/operations.h>
 
 #include <Common/ext.h>
 
+#include <Il2CppModLoader/app/methods/AK/Wwise/State.h>
+#include <Il2CppModLoader/app/methods/AreaMapUI.h>
+#include <Il2CppModLoader/app/methods/CartographerEntity.h>
+#include <Il2CppModLoader/app/methods/Game/UI.h>
+#include <Il2CppModLoader/app/methods/GameMapUI.h>
+#include <Il2CppModLoader/app/methods/GameWorld.h>
+#include <Il2CppModLoader/app/methods/MenuScreenManager.h>
+#include <Il2CppModLoader/app/methods/Moon/Timeline/DiscoverAreasEntity.h>
+#include <Il2CppModLoader/app/methods/QuestIconsUI.h>
+#include <Il2CppModLoader/app/methods/QuestsController.h>
+#include <Il2CppModLoader/app/methods/QuestsUI.h>
+#include <Il2CppModLoader/app/methods/QuestDetailsUI.h>
+#include <Il2CppModLoader/app/methods/RuntimeGameWorldArea.h>
+#include <Il2CppModLoader/app/methods/RuntimeWorldMapIcon.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
-#include <Il2CppModLoader/app/methods/GameWorld.h>
-#include <Il2CppModLoader/app/methods/RuntimeGameWorldArea.h>
-#include <Il2CppModLoader/app/methods/CartographerEntity.h>
-#include <Il2CppModLoader/app/methods/GameMapUI.h>
-#include <Il2CppModLoader/app/methods/AreaMapUI.h>
-#include <Il2CppModLoader/app/methods/AreaMapNavigation.h>
-#include <Il2CppModLoader/app/methods/AK/Wwise/State.h>
-#include <Il2CppModLoader/app/methods/Game/UI.h>
-#include <Il2CppModLoader/app/methods/MenuScreenManager.h>
-#include <Il2CppModLoader/app/methods/Moon/Timeline/DiscoverAreasEntity.h>
-#include <Il2CppModLoader/app/methods/RuntimeWorldMapIcon.h>
 
+#include <game/pickups/quests.h>
 #include <unordered_map>
 
 using namespace modloader;
@@ -114,20 +120,53 @@ namespace {
         }
     }
 
-    bool disable_next_update_map_target = false;
-    IL2CPP_INTERCEPT(AreaMapNavigation, void, SetTarget, (app::AreaMapNavigation * this_ptr, app::Quest* quest)) {
-        if (csharp_bridge::check_ini("DisableQuestFocus"))
-            disable_next_update_map_target = true;
-        else
-            next::AreaMapNavigation::SetTarget(this_ptr, quest);
+    // region Quests UI
+
+    bool pressing_quest = false;
+    IL2CPP_INTERCEPT(QuestsUI, void, OptionChangeCallback, (app::QuestsUI * this_ptr)) {
+        if (pressing_quest) {
+            next::QuestsUI::OptionChangeCallback(this_ptr);
+        }
     }
 
-    IL2CPP_INTERCEPT(AreaMapNavigation, void, UpdateMapTarget, (app::AreaMapNavigation * this_ptr)) {
-        if (!disable_next_update_map_target)
-            next::AreaMapNavigation::UpdateMapTarget(this_ptr);
+    IL2CPP_INTERCEPT(QuestsUI, void, OptionPressedCallback, (app::QuestsUI * this_ptr)) {
+        pressing_quest = true;
+        next::QuestsUI::OptionChangeCallback(this_ptr);
+        pressing_quest = false;
 
-        disable_next_update_map_target = false;
+        game::pickups::quests::set_allow_changing_active_quest(true);
+        next::QuestsUI::OptionPressedCallback(this_ptr);
+        game::pickups::quests::set_allow_changing_active_quest(false);
     }
+
+    IL2CPP_INTERCEPT(QuestsUI, app::Vector3, AddItems, (app::QuestsUI * this_ptr, app::Vector3 base_position, app::Quest_QuestType__Enum type)) {
+        auto position = base_position;
+
+        if (type == app::Quest_QuestType__Enum::Main) {
+            position.y += 0.6f;
+        }
+
+        return next::QuestsUI::AddItems(this_ptr, position, type);
+    }
+
+    bool handling_interact_button_on_map = false;
+    IL2CPP_INTERCEPT(GameMapUI, void, HandleInteractButton, (app::GameMapUI * this_ptr)) {
+        ScopedSetter setter(handling_interact_button_on_map, true);
+        next::GameMapUI::HandleInteractButton(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(QuestsUI, void, SelectQuest, (app::QuestsUI * this_ptr, app::Quest* quest)) {
+        if (!handling_interact_button_on_map) {
+            next::QuestsUI::SelectQuest(this_ptr, quest);
+            QuestsUI::UpdateDescriptionUI_2(this_ptr, quest);
+        }
+    }
+
+    IL2CPP_INTERCEPT(GameMapUI, bool, CanSelectQuest, (app::GameMapUI * this_ptr)) {
+        return false;
+    }
+
+    // endregion
 
     IL2CPP_INTERCEPT(Moon::Timeline::DiscoverAreasEntity, void, ChangeState, (app::DiscoverAreasEntity * this_ptr, app::DiscoverAreasEntity_State__Enum value)) {
         // Since we don't want the map to show up, lets speedrun the timeline entity.

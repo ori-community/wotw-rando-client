@@ -169,6 +169,7 @@ set(
         "game/player.h"
         "game/ui.h"
         "game/pickups/pickups.h"
+        "game/pickups/quests.h"
         "game/pickups/shops/general.h"
         "game/system/message_provider.h"
         "interop/csharp_bridge.h"
