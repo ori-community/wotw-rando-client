@@ -16,6 +16,7 @@
 #include <Il2CppModLoader/app/methods/RuntimeGameWorldArea.h>
 #include <Il2CppModLoader/app/methods/RuntimeWorldMapIcon.h>
 #include <Il2CppModLoader/app/methods/AreaMapNavigation.h>
+#include <Il2CppModLoader/app/methods/MessageBox.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Vector3.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
@@ -113,7 +114,7 @@ namespace {
         }
     }
 
-    // region Quests UI
+    // region Quest List UI
 
     IL2CPP_INTERCEPT(QuestsUI, void, OptionChangeCallback, (app::QuestsUI * this_ptr)) {
         // Noop
@@ -164,6 +165,28 @@ namespace {
     }
 
     // endregion
+
+    /**
+     * Always show "Focus Objective" on the map since "Focus Ori" is broken on KBM (they
+     * calculate distance from the cursor instead of screen center).
+     */
+    IL2CPP_INTERCEPT(GameMapUI, void, NormalInput, (app::GameMapUI* this_ptr)) {
+        auto focus_objective_button = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd")->static_fields->MapFocusObjective;
+
+        auto focus_objective_button_pressed = focus_objective_button->fields.IsPressed && !focus_objective_button->fields.WasPressed && !focus_objective_button->fields.Used;
+        if (focus_objective_button_pressed) {
+            focus_objective_button->fields.Used = true;
+        }
+
+        next::GameMapUI::NormalInput(this_ptr);
+
+        this_ptr->fields.LeftStickMessageBox->fields.MessageProvider = this_ptr->fields.FocusOnObjectiveMessageProvider;
+        MessageBox::RefreshText_1(this_ptr->fields.LeftStickMessageBox);
+
+        if (focus_objective_button_pressed) {
+            QuestsUI::ScrollToQuest(this_ptr->fields.m_questsUI);
+        }
+    }
 
     IL2CPP_INTERCEPT(Moon::Timeline::DiscoverAreasEntity, void, ChangeState, (app::DiscoverAreasEntity * this_ptr, app::DiscoverAreasEntity_State__Enum value)) {
         // Since we don't want the map to show up, lets speedrun the timeline entity.
