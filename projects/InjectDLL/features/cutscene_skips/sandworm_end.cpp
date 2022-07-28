@@ -74,6 +74,9 @@ namespace {
                 uber_states::UberState ruins_wisp_state(static_cast<UberStateGroup>(10289), 22102);
                 ruins_wisp_state.set(1.0);
 
+                uber_states::UberState ruins_wisp_quest_state(static_cast<UberStateGroup>(14019), 35399);
+                ruins_wisp_quest_state.set(3.0);
+
                 game::player::set_position(2055.673f, -3568.293);
                 game::save(true, game::SaveOptions(false, false, true, true));
 
