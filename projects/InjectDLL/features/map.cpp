@@ -1,13 +1,8 @@
 #include <enums/static_text_entries.h>
 #include <game/game.h>
-#include <game/system/message_provider.h>
 #include <interop/csharp_bridge.h>
-#include <randomizer/messages.h>
 #include <randomizer/text_database.h>
 #include <uber_states/uber_state_interface.h>
-#include <utils/operations.h>
-
-#include <Common/ext.h>
 
 #include <Il2CppModLoader/app/methods/AK/Wwise/State.h>
 #include <Il2CppModLoader/app/methods/AreaMapUI.h>
@@ -17,13 +12,9 @@
 #include <Il2CppModLoader/app/methods/GameWorld.h>
 #include <Il2CppModLoader/app/methods/MenuScreenManager.h>
 #include <Il2CppModLoader/app/methods/Moon/Timeline/DiscoverAreasEntity.h>
-#include <Il2CppModLoader/app/methods/QuestIconsUI.h>
-#include <Il2CppModLoader/app/methods/QuestsController.h>
 #include <Il2CppModLoader/app/methods/QuestsUI.h>
-#include <Il2CppModLoader/app/methods/QuestDetailsUI.h>
 #include <Il2CppModLoader/app/methods/RuntimeGameWorldArea.h>
 #include <Il2CppModLoader/app/methods/RuntimeWorldMapIcon.h>
-#include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Vector3.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
