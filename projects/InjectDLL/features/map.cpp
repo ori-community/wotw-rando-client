@@ -15,6 +15,7 @@
 #include <Il2CppModLoader/app/methods/QuestsUI.h>
 #include <Il2CppModLoader/app/methods/RuntimeGameWorldArea.h>
 #include <Il2CppModLoader/app/methods/RuntimeWorldMapIcon.h>
+#include <Il2CppModLoader/app/methods/AreaMapNavigation.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Vector3.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
@@ -114,18 +115,11 @@ namespace {
 
     // region Quests UI
 
-    bool pressing_quest = false;
     IL2CPP_INTERCEPT(QuestsUI, void, OptionChangeCallback, (app::QuestsUI * this_ptr)) {
-        if (pressing_quest) {
-            next::QuestsUI::OptionChangeCallback(this_ptr);
-        }
+        // Noop
     }
 
     IL2CPP_INTERCEPT(QuestsUI, void, OptionPressedCallback, (app::QuestsUI * this_ptr)) {
-        pressing_quest = true;
-        next::QuestsUI::OptionChangeCallback(this_ptr);
-        pressing_quest = false;
-
         game::pickups::quests::set_allow_changing_active_quest(true);
         next::QuestsUI::OptionPressedCallback(this_ptr);
         game::pickups::quests::set_allow_changing_active_quest(false);
@@ -156,6 +150,17 @@ namespace {
 
     IL2CPP_INTERCEPT(GameMapUI, bool, CanSelectQuest, (app::GameMapUI * this_ptr)) {
         return false;
+    }
+
+    IL2CPP_INTERCEPT(AreaMapNavigation, void, UpdateMapTarget, (app::AreaMapNavigation * this_ptr)) {
+        next::AreaMapNavigation::UpdateMapTarget(this_ptr);
+        this_ptr->fields.m_focusTime = 0.35f;
+    }
+
+    IL2CPP_INTERCEPT(AreaMapNavigation, void, SetTargetPosition, (app::AreaMapNavigation * this_ptr, app::Vector3 target_position)) {
+        next::AreaMapNavigation::SetTargetPosition(this_ptr, target_position);
+        this_ptr->fields.m_focusTime = 0.35f;
+        this_ptr->fields.m_focusOnPlayer = true;
     }
 
     // endregion
