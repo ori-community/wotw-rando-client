@@ -5,24 +5,27 @@
 #include <uber_states/uber_state_interface.h>
 
 #include <Il2CppModLoader/app/methods/AK/Wwise/State.h>
+#include <Il2CppModLoader/app/methods/AreaMapNavigation.h>
 #include <Il2CppModLoader/app/methods/AreaMapUI.h>
 #include <Il2CppModLoader/app/methods/CartographerEntity.h>
 #include <Il2CppModLoader/app/methods/Game/UI.h>
 #include <Il2CppModLoader/app/methods/GameMapUI.h>
 #include <Il2CppModLoader/app/methods/GameWorld.h>
 #include <Il2CppModLoader/app/methods/MenuScreenManager.h>
+#include <Il2CppModLoader/app/methods/MessageBox.h>
 #include <Il2CppModLoader/app/methods/Moon/Timeline/DiscoverAreasEntity.h>
+#include <Il2CppModLoader/app/methods/QuestsController.h>
 #include <Il2CppModLoader/app/methods/QuestsUI.h>
 #include <Il2CppModLoader/app/methods/RuntimeGameWorldArea.h>
 #include <Il2CppModLoader/app/methods/RuntimeWorldMapIcon.h>
-#include <Il2CppModLoader/app/methods/AreaMapNavigation.h>
-#include <Il2CppModLoader/app/methods/MessageBox.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Vector3.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
+#include <enums/static_text_entries.h>
 #include <game/pickups/quests.h>
+#include <text_database.h>
 #include <unordered_map>
 
 using namespace modloader;
@@ -120,10 +123,55 @@ namespace {
         // Noop
     }
 
+    bool allow_update_description_ui = false;
     IL2CPP_INTERCEPT(QuestsUI, void, OptionPressedCallback, (app::QuestsUI * this_ptr)) {
+        ScopedSetter setter(allow_update_description_ui, true);
         game::pickups::quests::set_allow_changing_active_quest(true);
         next::QuestsUI::OptionPressedCallback(this_ptr);
         game::pickups::quests::set_allow_changing_active_quest(false);
+
+        auto quests_controller = game::pickups::quests::controller();
+        auto quest = QuestsController::GetActiveQuest(quests_controller);
+
+        QuestsUI::UpdateDescriptionUI_2(this_ptr, quest);
+
+        auto reward_text = static_cast<static_text_entry>(rand() % 7 + static_cast<int>(static_text_entry::QuestReward1));
+        this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox->fields.MessageProvider = text_database::get_provider(*reward_text);
+        MessageBox::RefreshText_1(this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox);
+
+        // Moon pls center the thing dammit
+        il2cpp::unity::set_local_position(this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox, app::Vector3{ 1.13f, -3.7f, 0.f });
+
+        il2cpp::unity::set_active(this_ptr->fields.m_questDetailsUI->fields.QuestRewardHeader, true);
+        il2cpp::unity::set_active(this_ptr->fields.m_questDetailsUI->fields.Keystone, false);
+        il2cpp::unity::set_active(this_ptr->fields.m_questDetailsUI->fields.SpiritLight, false);
+        il2cpp::unity::set_active(this_ptr->fields.m_questDetailsUI->fields.Ore, false);
+    }
+
+    IL2CPP_INTERCEPT(AreaMapNavigation, void, HandleMapScrolling, (app::AreaMapNavigation* this_ptr)) {
+        auto previous_x = this_ptr->fields.m_scrollPosition.x;
+        auto previous_y = this_ptr->fields.m_scrollPosition.y;
+
+        next::AreaMapNavigation::HandleMapScrolling(this_ptr);
+
+        if (this_ptr->fields.m_scrollPosition.x != previous_x || this_ptr->fields.m_scrollPosition.y != previous_y) {
+            ScopedSetter setter(allow_update_description_ui, true);
+
+            auto quests_ui = il2cpp::get_class<app::QuestsUI__Class>("", "QuestsUI")->static_fields->Instance;
+            QuestsUI::UpdateDescriptionUI_2(quests_ui, nullptr);
+        }
+    }
+
+    IL2CPP_INTERCEPT(QuestsUI, void, UpdateDescriptionUI_1, (app::QuestsUI* this_ptr, app::RuntimeQuest* quest)) {
+        if (allow_update_description_ui) {
+            next::QuestsUI::UpdateDescriptionUI_1(this_ptr, quest);
+        }
+    }
+
+    IL2CPP_INTERCEPT(QuestsUI, void, UpdateDescriptionUI_2, (app::QuestsUI* this_ptr, app::Quest* quest)) {
+        if (allow_update_description_ui) {
+            next::QuestsUI::UpdateDescriptionUI_2(this_ptr, quest);
+        }
     }
 
     IL2CPP_INTERCEPT(QuestsUI, app::Vector3, AddItems, (app::QuestsUI * this_ptr, app::Vector3 base_position, app::Quest_QuestType__Enum type)) {
@@ -170,7 +218,7 @@ namespace {
      * Always show "Focus Objective" on the map since "Focus Ori" is broken on KBM (they
      * calculate distance from the cursor instead of screen center).
      */
-    IL2CPP_INTERCEPT(GameMapUI, void, NormalInput, (app::GameMapUI* this_ptr)) {
+    IL2CPP_INTERCEPT(GameMapUI, void, NormalInput, (app::GameMapUI * this_ptr)) {
         auto focus_objective_button = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd")->static_fields->MapFocusObjective;
 
         auto focus_objective_button_pressed = focus_objective_button->fields.IsPressed && !focus_objective_button->fields.WasPressed && !focus_objective_button->fields.Used;

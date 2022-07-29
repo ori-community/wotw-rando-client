@@ -65,6 +65,15 @@ namespace text_database {
         LupoWillowBroke,
         LupoWillowThanks,
 
+        // Quest reward bullshitting
+        QuestReward1,
+        QuestReward2,
+        QuestReward3,
+        QuestReward4,
+        QuestReward5,
+        QuestReward6,
+        QuestReward7,
+
         // Step 0 quests
         QuestMissingKeyStep0,
         QuestHandToHandStep0,

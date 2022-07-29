@@ -30,6 +30,13 @@ namespace text_database {
         register_text(*static_text_entry::LupoWillowSalesPitch, "Given the circumstances I would usually give you this for free,\n"
                                                                   "but a speedrunner has got to eat...  [AreaMapCost] #Spirit Light#[SpiritLight]");
 
+        register_text(*static_text_entry::QuestReward1, "Well, it's randomized");
+        register_text(*static_text_entry::QuestReward2, "Ask Shriek");
+        register_text(*static_text_entry::QuestReward3, "OriThink");
+        register_text(*static_text_entry::QuestReward4, "Nobody knows");
+        register_text(*static_text_entry::QuestReward5, "Only one way to find out...");
+        register_text(*static_text_entry::QuestReward6, "Probably nothing, maybe something");
+        register_text(*static_text_entry::QuestReward7, "Something");
         register_text(*static_text_entry::QuestMissingKeyStep0, "Talk to Tokk near the Keystone");
         register_text(*static_text_entry::QuestHandToHandStep0, "Meet a Moki near where you fought Hornbug");
         register_text(*static_text_entry::QuestTreeKeeperStep0, "Meet the Tree Keeper in the Silent Woods");

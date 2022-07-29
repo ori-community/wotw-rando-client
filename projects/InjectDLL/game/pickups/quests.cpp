@@ -202,15 +202,17 @@ namespace game::pickups::quests {
             if (allow_changing_active_quest) {
                 next::QuestsController::SetActiveQuest(this_ptr, runtime_quest, with_sound);
 
-                modloader::win::console::console_send(
-                        format(
-                                "%d, %d, %d, %d",
-                                runtime_quest->fields.MoonGuid->fields.A,
-                                runtime_quest->fields.MoonGuid->fields.B,
-                                runtime_quest->fields.MoonGuid->fields.C,
-                                runtime_quest->fields.MoonGuid->fields.D
-                        )
-                );
+                // Display the GUID of the active quest
+                //
+                // modloader::win::console::console_send(
+                //         format(
+                //                 "%d, %d, %d, %d",
+                //                 runtime_quest->fields.MoonGuid->fields.A,
+                //                 runtime_quest->fields.MoonGuid->fields.B,
+                //                 runtime_quest->fields.MoonGuid->fields.C,
+                //                 runtime_quest->fields.MoonGuid->fields.D
+                //         )
+                // );
             }
         }
 
@@ -299,6 +301,10 @@ namespace game::pickups::quests {
 
         CALL_ON_INIT(add_quest_commands);
     } // namespace
+
+    app::QuestsController* controller() {
+        return il2cpp::get_class<app::QuestsController__Class>("", "QuestsController")->static_fields->Instance;
+    }
 
     void set_allow_changing_active_quest(bool allow) {
         allow_changing_active_quest = allow;
