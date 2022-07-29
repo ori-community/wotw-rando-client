@@ -1,7 +1,7 @@
 #pragma once
 
 namespace text_database {
-    enum class StaticTextEntries {
+    enum class StaticTextEntry {
         Empty,
         EmptyName,
 
@@ -65,11 +65,16 @@ namespace text_database {
         LupoWillowBroke,
         LupoWillowThanks,
 
+        // Step 0 quests
+        QuestMissingKeyStep0,
+        QuestHandToHandStep0,
+        QuestTreeKeeperStep0,
+
         TOTAL
     };
 }
 
-using static_text_entries = text_database::StaticTextEntries;
-inline int operator*(static_text_entries entry) {
+using static_text_entry = text_database::StaticTextEntry;
+inline int operator*(static_text_entry entry) {
     return static_cast<int>(entry);
 }

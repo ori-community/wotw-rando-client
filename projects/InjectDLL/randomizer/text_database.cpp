@@ -17,18 +17,22 @@ namespace text_database {
     };
 
     // Start dynamic entries after all static values.
-    int next_text_id = static_cast<int>(StaticTextEntries::TOTAL) + 1;
+    int next_text_id = static_cast<int>(StaticTextEntry::TOTAL) + 1;
     std::unordered_map<int, TextEntry> text_entries;
     std::unordered_map<int, int> dynamic_to_index;
 
     void initialize() {
-        register_text(*static_text_entries::Empty, " ");
-        register_text(*static_text_entries::EmptyName, "Empty");
-        register_text(*static_text_entries::Locked, "Locked");
-        register_text(*static_text_entries::Undiscovered, "Undiscovered");
-        register_text(*static_text_entries::UndiscoveredDescription, "What could it be?");
-        register_text(*static_text_entries::LupoWillowSalesPitch, "Given the circumstances I would usually give you this for free,\n"
+        register_text(*static_text_entry::Empty, " ");
+        register_text(*static_text_entry::EmptyName, "Empty");
+        register_text(*static_text_entry::Locked, "Locked");
+        register_text(*static_text_entry::Undiscovered, "Undiscovered");
+        register_text(*static_text_entry::UndiscoveredDescription, "What could it be?");
+        register_text(*static_text_entry::LupoWillowSalesPitch, "Given the circumstances I would usually give you this for free,\n"
                                                                   "but a speedrunner has got to eat...  [AreaMapCost] #Spirit Light#[SpiritLight]");
+
+        register_text(*static_text_entry::QuestMissingKeyStep0, "Talk to Tokk near the Keystone");
+        register_text(*static_text_entry::QuestHandToHandStep0, "Meet a Moki near where you fought Hornbug");
+        register_text(*static_text_entry::QuestTreeKeeperStep0, "Meet the Tree Keeper in the Silent Woods");
     }
 
     CALL_ON_INIT(initialize);
@@ -125,7 +129,7 @@ namespace text_database {
 } // namespace text_database
 
 INJECT_C_DLLEXPORT void text_database_register_text(int id, bool dynamic, const wchar_t* text) {
-    if (!dynamic && id >= *static_text_entries::TOTAL + 1)
+    if (!dynamic && id >= *static_text_entry::TOTAL + 1)
         modloader::warn("text_database", "calling register_text with dynamic=false and a dynamic id.");
 
     id = dynamic ? text_database::get_index_from_dynamic(id) : id;
@@ -133,7 +137,7 @@ INJECT_C_DLLEXPORT void text_database_register_text(int id, bool dynamic, const 
 }
 
 INJECT_C_DLLEXPORT bool text_database_has_text(int id, bool dynamic) {
-    if (!dynamic && id >= *static_text_entries::TOTAL + 1)
+    if (!dynamic && id >= *static_text_entry::TOTAL + 1)
         modloader::warn("text_database", "calling has_text with dynamic=false and a dynamic id.");
 
     id = dynamic ? text_database::get_index_from_dynamic(id) : id;
@@ -141,7 +145,7 @@ INJECT_C_DLLEXPORT bool text_database_has_text(int id, bool dynamic) {
 }
 
 INJECT_C_DLLEXPORT const char* text_database_get_text(int id, bool dynamic) {
-    if (!dynamic && id >= *static_text_entries::TOTAL + 1)
+    if (!dynamic && id >= *static_text_entry::TOTAL + 1)
         modloader::warn("text_database", "calling get_text with dynamic=false and a dynamic id.");
 
     id = dynamic ? text_database::get_index_from_dynamic(id) : id;
@@ -150,7 +154,7 @@ INJECT_C_DLLEXPORT const char* text_database_get_text(int id, bool dynamic) {
 }
 
 INJECT_C_DLLEXPORT void text_database_clear_text(int id, bool dynamic) {
-    if (!dynamic && id >= *static_text_entries::TOTAL + 1)
+    if (!dynamic && id >= *static_text_entry::TOTAL + 1)
         modloader::warn("text_database", "calling clear_text with dynamic=false and a dynamic id.");
 
     id = dynamic ? text_database::get_index_from_dynamic(id) : id;
@@ -158,16 +162,16 @@ INJECT_C_DLLEXPORT void text_database_clear_text(int id, bool dynamic) {
 }
 
 INJECT_C_DLLEXPORT void text_database_reset_static() {
-    for (auto i = 0; i < *text_database::StaticTextEntries::TOTAL; ++i)
+    for (auto i = 0; i < *text_database::StaticTextEntry::TOTAL; ++i)
         text_database::clear_text(i);
 
     text_database::initialize();
 }
 
 INJECT_C_DLLEXPORT void text_database_clear_dynamic() {
-    for (auto i = static_cast<int>(text_database::StaticTextEntries::TOTAL) + 1; i < text_database::next_text_id; ++i)
+    for (auto i = static_cast<int>(text_database::StaticTextEntry::TOTAL) + 1; i < text_database::next_text_id; ++i)
         text_database::clear_text(i);
 
     text_database::dynamic_to_index.clear();
-    text_database::next_text_id = static_cast<int>(text_database::StaticTextEntries::TOTAL) + 1;
+    text_database::next_text_id = static_cast<int>(text_database::StaticTextEntry::TOTAL) + 1;
 }

@@ -95,10 +95,10 @@ namespace {
         const auto key = get_key(item);
         const auto it = lupo_overrides.find(key);
         if (it == lupo_overrides.end() || !it->second.is_visible)
-            return show_hint(this_ptr, text_database::get_provider(*static_text_entries::Undiscovered));
+            return show_hint(this_ptr, text_database::get_provider(*static_text_entry::Undiscovered));
 
         if (it->second.is_locked)
-            return show_hint(this_ptr, text_database::get_provider(*static_text_entries::Locked));
+            return show_hint(this_ptr, text_database::get_provider(*static_text_entry::Locked));
 
         if (item->fields.UberState->fields.m_value >= item->fields.MaxLevel)
             return show_hint(this_ptr, this_ptr->fields.Hints.MaxedOut);
@@ -184,22 +184,22 @@ namespace {
 
             if (!il2cpp::unity::is_valid(name)) {
                 if (!it->second.is_visible)
-                    name = text_database::get_provider(*static_text_entries::Undiscovered);
+                    name = text_database::get_provider(*static_text_entry::Undiscovered);
                 else if (it->second.is_locked)
-                    name = text_database::get_provider(*static_text_entries::Locked);
+                    name = text_database::get_provider(*static_text_entry::Locked);
                 else
-                    name = text_database::get_provider(*static_text_entries::Empty);
+                    name = text_database::get_provider(*static_text_entry::Empty);
             }
 
             if (!il2cpp::unity::is_valid(description)) {
                 if (!it->second.is_visible)
-                    description = text_database::get_provider(*static_text_entries::UndiscoveredDescription);
+                    description = text_database::get_provider(*static_text_entry::UndiscoveredDescription);
                 else
-                    description = text_database::get_provider(*static_text_entries::Empty);
+                    description = text_database::get_provider(*static_text_entry::Empty);
             }
         } else {
-            name = text_database::get_provider(*static_text_entries::Empty);
-            description = text_database::get_provider(*static_text_entries::Empty);
+            name = text_database::get_provider(*static_text_entry::Empty);
+            description = text_database::get_provider(*static_text_entry::Empty);
         }
 
         auto name_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
@@ -237,18 +237,18 @@ namespace {
 
             if (il2cpp::unity::is_valid(item->fields.Name)) {
                 if (!is_visible)
-                    item->fields.Name = text_database::get_provider(*static_text_entries::Undiscovered);
+                    item->fields.Name = text_database::get_provider(*static_text_entry::Undiscovered);
                 else if (is_locked)
-                    item->fields.Name = text_database::get_provider(*static_text_entries::Locked);
+                    item->fields.Name = text_database::get_provider(*static_text_entry::Locked);
                 else
-                    item->fields.Name = text_database::get_provider(*static_text_entries::Empty);
+                    item->fields.Name = text_database::get_provider(*static_text_entry::Empty);
             }
 
             if (il2cpp::unity::is_valid(item->fields.Description)) {
                 if (!is_visible)
-                    item->fields.Description = text_database::get_provider(*static_text_entries::UndiscoveredDescription);
+                    item->fields.Description = text_database::get_provider(*static_text_entry::UndiscoveredDescription);
                 else
-                    item->fields.Description = text_database::get_provider(*static_text_entries::Empty);
+                    item->fields.Description = text_database::get_provider(*static_text_entry::Empty);
             }
         }
 

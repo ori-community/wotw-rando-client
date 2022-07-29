@@ -137,7 +137,7 @@ namespace {
         if (name_provider != nullptr)
             name_box->fields.MessageProvider = name_provider;
         else if (!is_visible)
-            name_box->fields.MessageProvider = text_database::get_provider(*static_text_entries::Undiscovered);
+            name_box->fields.MessageProvider = text_database::get_provider(*static_text_entry::Undiscovered);
         else if (is_locked || locked_shop_overwrite)
             name_box->fields.MessageProvider = this_ptr->fields.LockedName;
         else
@@ -146,7 +146,7 @@ namespace {
         if (description_provider != nullptr)
             description_box->fields.MessageProvider = description_provider;
         else if (!is_visible)
-            description_box->fields.MessageProvider = text_database::get_provider(*static_text_entries::UndiscoveredDescription);
+            description_box->fields.MessageProvider = text_database::get_provider(*static_text_entry::UndiscoveredDescription);
         else if (is_locked || locked_shop_overwrite)
             description_box->fields.MessageProvider = this_ptr->fields.LockedDescription;
         else

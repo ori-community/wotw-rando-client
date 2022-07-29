@@ -139,18 +139,18 @@ namespace {
             auto is_locked = Moon::uberSerializationWisp::PlayerUberStateShards_Shard::get_PurchasableInShop(item);
             if (!il2cpp::unity::is_valid(name_provider)) {
                 if (!is_visible)
-                    name_provider = text_database::get_provider(*static_text_entries::Undiscovered);
+                    name_provider = text_database::get_provider(*static_text_entry::Undiscovered);
                 else if (is_locked)
-                    name_provider = text_database::get_provider(*static_text_entries::Locked);
+                    name_provider = text_database::get_provider(*static_text_entry::Locked);
                 else
-                    name_provider = text_database::get_provider(*static_text_entries::EmptyName);
+                    name_provider = text_database::get_provider(*static_text_entry::EmptyName);
             }
 
             if (!il2cpp::unity::is_valid(description_provider)) {
                 if (!is_visible)
-                    name_provider = text_database::get_provider(*static_text_entries::UndiscoveredDescription);
+                    name_provider = text_database::get_provider(*static_text_entry::UndiscoveredDescription);
                 else
-                    name_provider = text_database::get_provider(*static_text_entries::Empty);
+                    name_provider = text_database::get_provider(*static_text_entry::Empty);
             }
         }
 

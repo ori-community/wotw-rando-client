@@ -37,16 +37,16 @@ namespace {
         Thanks = 4
     };
 
-    std::unordered_map<app::GameWorldAreaID__Enum, static_text_entries> text_overrides{
-        { app::GameWorldAreaID__Enum::InkwaterMarsh, static_text_entries::LupoMarshIntroduction },
-        { app::GameWorldAreaID__Enum::KwoloksHollow, static_text_entries::LupoHollowIntroduction },
-        { app::GameWorldAreaID__Enum::WaterMill, static_text_entries::LupoWellspringIntroduction },
-        { app::GameWorldAreaID__Enum::MidnightBurrow, static_text_entries::LupoBurrowIntroduction },
-        { app::GameWorldAreaID__Enum::BaursReach, static_text_entries::LupoReachIntroduction },
-        { app::GameWorldAreaID__Enum::LumaPools, static_text_entries::LupoPoolsIntroduction },
-        { app::GameWorldAreaID__Enum::MouldwoodDepths, static_text_entries::LupoDepthsIntroduction },
-        { app::GameWorldAreaID__Enum::WindsweptWastes, static_text_entries::LupoWastesIntroduction },
-        { app::GameWorldAreaID__Enum::WillowsEnd, static_text_entries::LupoWillowIntroduction },
+    std::unordered_map<app::GameWorldAreaID__Enum, static_text_entry> text_overrides{
+        { app::GameWorldAreaID__Enum::InkwaterMarsh, static_text_entry::LupoMarshIntroduction },
+        { app::GameWorldAreaID__Enum::KwoloksHollow, static_text_entry::LupoHollowIntroduction },
+        { app::GameWorldAreaID__Enum::WaterMill, static_text_entry::LupoWellspringIntroduction },
+        { app::GameWorldAreaID__Enum::MidnightBurrow, static_text_entry::LupoBurrowIntroduction },
+        { app::GameWorldAreaID__Enum::BaursReach, static_text_entry::LupoReachIntroduction },
+        { app::GameWorldAreaID__Enum::LumaPools, static_text_entry::LupoPoolsIntroduction },
+        { app::GameWorldAreaID__Enum::MouldwoodDepths, static_text_entry::LupoDepthsIntroduction },
+        { app::GameWorldAreaID__Enum::WindsweptWastes, static_text_entry::LupoWastesIntroduction },
+        { app::GameWorldAreaID__Enum::WillowsEnd, static_text_entry::LupoWillowIntroduction },
     };
 
     app::GameWorld* get_game_world() {

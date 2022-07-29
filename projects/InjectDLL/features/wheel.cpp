@@ -317,8 +317,8 @@ namespace {
                 name_message_box->fields.MessageProvider = utils::create_message_provider(entry->name);
                 description_message_box->fields.MessageProvider = utils::create_message_provider(entry->description);
             } else {
-                name_message_box->fields.MessageProvider = text_database::get_provider(*static_text_entries::EmptyName);
-                description_message_box->fields.MessageProvider = text_database::get_provider(*static_text_entries::Empty);
+                name_message_box->fields.MessageProvider = text_database::get_provider(*static_text_entry::EmptyName);
+                description_message_box->fields.MessageProvider = text_database::get_provider(*static_text_entry::Empty);
             }
 
             UnityEngine::GameObject::SetActive(this_ptr->fields.UsesEnergyGO, false);
