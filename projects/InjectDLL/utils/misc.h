@@ -26,4 +26,5 @@ namespace utils {
     };
 
     void set_color(app::GameObject* go, app::Color& color, bool first);
+    app::MoonGuid* moon_guid(int a, int b, int c, int d);
 }

@@ -2,6 +2,7 @@
 
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/app/methods/UberShaderAPI.h>
+#include <Il2CppModLoader/app/methods/MoonGuid.h>
 
 using namespace app::methods;
 
@@ -29,5 +30,11 @@ namespace utils {
                 UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, actual_color);
             }
         }
+    }
+
+    app::MoonGuid* moon_guid(int a, int b, int c, int d) {
+        auto guid = il2cpp::create_object<app::MoonGuid>("", "MoonGuid");
+        MoonGuid::ctor_2(guid, a, b, c, d);
+        return guid;
     }
 } // namespace utils

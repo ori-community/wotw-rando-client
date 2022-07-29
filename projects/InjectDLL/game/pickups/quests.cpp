@@ -1,4 +1,5 @@
 #include <Common/ext.h>
+#include <Il2CppModLoader/app/methods/MoonGuid.h>
 #include <Il2CppModLoader/app/methods/Quest.h>
 #include <Il2CppModLoader/app/methods/QuestsController.h>
 #include <Il2CppModLoader/app/methods/RaceHandler.h>
@@ -7,6 +8,8 @@
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/windows_api/console.h>
+#include <uber_states/uber_state_interface.h>
+#include <utils/mood_guid.h>
 
 #include "pickups.h"
 
@@ -18,6 +21,17 @@ namespace game::pickups::quests {
     bool allow_changing_active_quest = false;
 
     namespace {
+        const std::vector<utils::MoodGuid> hidden_quests = {
+            /** "The Will of the Wisps" quests */
+            utils::MoodGuid{ 463964177, 1341936715, 1873994928, -499945615 },
+            utils::MoodGuid{ 1258910534, 1122636955, -1778480234, 133348844 },
+            utils::MoodGuid{ -710816118, 1277947377, 319140, -1525452841 },
+            utils::MoodGuid{ -268077221, 1202243572, -852566089, 156978670 },
+            utils::MoodGuid{ -893057416, 1301390982, 1357684358, 238297567 },
+            utils::MoodGuid{ 1471999638, 1254990963, -2105615190, 222227120 },
+            utils::MoodGuid{ -463711902, 1078475536, -1306081351, -2097288726 },
+        };
+
         // noop only - reward triggers on uberstate change.
         IL2CPP_INTERCEPT(QuestsController, void, ApplyReward, (app::QuestsController * this_ptr, app::QuestReward* reward)) {}
         IL2CPP_INTERCEPT(RaceHandler, void, ApplyReward, (app::RaceHandler * this_ptr)) {}
@@ -32,6 +46,14 @@ namespace game::pickups::quests {
                     result == app::Quest_QuestState__Enum::Unassigned
             ) {
                 result = app::Quest_QuestState__Enum::Assigned;
+            }
+
+            if (
+                    std::any_of(hidden_quests.begin(), hidden_quests.end(), [&this_ptr](utils::MoodGuid guid) {
+                        return guid == *this_ptr->fields.MoonGuid;
+                    })
+            ) {
+                result = app::Quest_QuestState__Enum::Unassigned;
             }
 
             return result;
