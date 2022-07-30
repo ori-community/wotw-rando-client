@@ -44,6 +44,8 @@ namespace game::pickups::quests {
 
             AddToChainMode add_to_chain_mode = NONE;
 
+            app::Quest* predicate = nullptr;
+
             explicit CustomQuest(MoodGuid guid) :
                     guid(guid) {}
 
@@ -96,7 +98,7 @@ namespace game::pickups::quests {
             MoodGuid(-261606325, 1116232232, -678406985, 1875250207),
         };
 
-        const std::unordered_map<MoodGuid, CustomQuest> custom_quests{
+        std::unordered_map<MoodGuid, CustomQuest> custom_quests{
             /** The Missing Key */
             { MoodGuid(784309430, 1297004301, 1325754012, 600417717), CustomQuest(MoodGuid(1453348213, -184076870, 1758843589, -1206166881), -1).chain(PREPEND).with_descriptions(text_database::StaticTextEntry::QuestMissingKeyStep0) },
             /** Hand to hand */
@@ -125,8 +127,8 @@ namespace game::pickups::quests {
         IL2CPP_INTERCEPT(QuestsController, void, ApplyReward, (app::QuestsController * this_ptr, app::QuestReward* reward)) {}
         IL2CPP_INTERCEPT(RaceHandler, void, ApplyReward, (app::RaceHandler * this_ptr)) {}
 
-        app::Quest* make_quest(app::Quest* predicate, CustomQuest custom_quest) {
-            auto quest = il2cpp::unity::instantiate_object<app::Quest>(predicate);
+        app::Quest* make_quest(CustomQuest custom_quest) {
+            auto quest = il2cpp::unity::instantiate_object<app::Quest>(custom_quest.predicate);
 
             if (custom_quest.override_name) {
                 quest->fields.NameMessageProvider = text_database::get_provider(*custom_quest.name);
@@ -138,14 +140,6 @@ namespace game::pickups::quests {
 
             if (custom_quest.override_short_description) {
                 quest->fields.ShortDescriptionMessageProvider = text_database::get_provider(*custom_quest.short_description);
-            }
-
-            if (custom_quest.add_to_chain_mode == AddToChainMode::APPEND) {
-                auto next_quest = predicate->fields.ChainQuest;
-                predicate->fields.ChainQuest = quest;
-                quest->fields.ChainQuest = next_quest;
-            } else if (custom_quest.add_to_chain_mode == AddToChainMode::PREPEND) {
-                quest->fields.ChainQuest = predicate;
             }
 
             quest->fields.StateOffset = custom_quest.state_offset;
@@ -170,7 +164,8 @@ namespace game::pickups::quests {
                 auto custom_quest = custom_quests.find(guid);
 
                 if (custom_quest != custom_quests.end()) {
-                    auto quest_instance = make_quest(quest, custom_quest->second);
+                    custom_quest->second.predicate = quest;
+                    auto quest_instance = make_quest(custom_quest->second);
                     il2cpp::invoke(quests, "Insert", &i, quest_instance);
                     ++i;
 
@@ -181,9 +176,17 @@ namespace game::pickups::quests {
             next::QuestsController::Awake(this_ptr);
 
             // They automatically remap StateOffset in the Awake method, so we
-            // have to correct that.
+            // have to correct that and process chaining after initialization.
             for (const auto& item : custom_quest_instances) {
                 item.first->fields.StateOffset = item.second.state_offset;
+
+                if (item.second.add_to_chain_mode == AddToChainMode::APPEND) {
+                    auto next_quest = item.second.predicate->fields.ChainQuest;
+                    item.second.predicate->fields.ChainQuest = item.first;
+                    item.first->fields.ChainQuest = next_quest;
+                } else if (item.second.add_to_chain_mode == AddToChainMode::PREPEND) {
+                    item.first->fields.ChainQuest = item.second.predicate;
+                }
 
                 auto runtime_quest = QuestsController::GetRuntimeQuest(this_ptr, item.first);
                 runtime_quest->fields.m_stateOffset = item.second.state_offset;
