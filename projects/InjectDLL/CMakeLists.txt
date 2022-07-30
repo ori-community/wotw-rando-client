@@ -17,6 +17,7 @@ set(
         "features/day_night_logic.cpp"
         "features/difficulty.cpp"
         "features/faderb.cpp"
+        "features/fast_load.cpp"
         "features/grenade.cpp"
         "features/keystone_door.cpp"
         "features/map.cpp"
