@@ -291,11 +291,10 @@ namespace il2cpp {
             std::vector<app::GameObject*> children;
 
             auto transform = get_transform(obj);
-            auto str = il2cpp::string_new(name);
             auto child_count = UnityEngine::Transform::get_childCount(transform);
 
             for (int i = 0; i < child_count; i++) {
-                if (UnityEngine::Object::get_name(reinterpret_cast<app::Object_1*>(UnityEngine::Transform::GetChild(transform, i))) == str) {
+                if (il2cpp::convert_csstring_fast(UnityEngine::Object::get_name(reinterpret_cast<app::Object_1*>(UnityEngine::Transform::GetChild(transform, i)))) == name) {
                     children.push_back(get_game_object(transform));
                 }
             }
