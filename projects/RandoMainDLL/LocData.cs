@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using RandoMainDLL.Memory;
 namespace RandoMainDLL {
   public enum LocType {
@@ -145,7 +146,7 @@ namespace RandoMainDLL {
   }
   public static class LocDataStatic {
     public static void PopulateLocData() {
-      foreach(var line in File.ReadAllLines(Randomizer.BasePath + "loc_data.csv")) {
+      foreach(var line in File.ReadAllLines(Randomizer.BasePath + "loc_data.csv").Skip(1)) {
         var data = new LocData(line);
         _all[data.Cond] = data;
       }
