@@ -129,6 +129,9 @@ namespace game::pickups::quests {
 
             quest->fields.ChainQuest = nullptr;
             quest->fields.StateOffset = custom_quest.state_offset;
+            quest->fields.OnWelcomeReward = nullptr;
+            quest->fields.NonInteractionReward = nullptr;
+            quest->fields.OnCompleteReward = nullptr;
             quest->fields._.MoonGuid = custom_quest.guid.to_moon_guid();
 
             return quest;
