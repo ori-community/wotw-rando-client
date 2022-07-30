@@ -123,9 +123,9 @@ namespace {
         // Noop
     }
 
-    bool allow_update_description_ui = false;
+    bool allow_showing_description_ui = false;
     IL2CPP_INTERCEPT(QuestsUI, void, OptionPressedCallback, (app::QuestsUI * this_ptr)) {
-        ScopedSetter setter(allow_update_description_ui, true);
+        ScopedSetter setter(allow_showing_description_ui, true);
         game::pickups::quests::set_allow_changing_active_quest(true);
         next::QuestsUI::OptionPressedCallback(this_ptr);
         game::pickups::quests::set_allow_changing_active_quest(false);
@@ -155,7 +155,7 @@ namespace {
         next::AreaMapNavigation::HandleMapScrolling(this_ptr);
 
         if (this_ptr->fields.m_scrollPosition.x != previous_x || this_ptr->fields.m_scrollPosition.y != previous_y) {
-            ScopedSetter setter(allow_update_description_ui, true);
+            ScopedSetter setter(allow_showing_description_ui, true);
 
             auto quests_ui = il2cpp::get_class<app::QuestsUI__Class>("", "QuestsUI")->static_fields->Instance;
             QuestsUI::UpdateDescriptionUI_2(quests_ui, nullptr);
@@ -163,13 +163,13 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(QuestsUI, void, UpdateDescriptionUI_1, (app::QuestsUI* this_ptr, app::RuntimeQuest* quest)) {
-        if (allow_update_description_ui) {
+        if (allow_showing_description_ui) {
             next::QuestsUI::UpdateDescriptionUI_1(this_ptr, quest);
         }
     }
 
     IL2CPP_INTERCEPT(QuestsUI, void, UpdateDescriptionUI_2, (app::QuestsUI* this_ptr, app::Quest* quest)) {
-        if (allow_update_description_ui) {
+        if (allow_showing_description_ui || quest == nullptr) {
             next::QuestsUI::UpdateDescriptionUI_2(this_ptr, quest);
         }
     }
