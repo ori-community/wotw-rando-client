@@ -16,7 +16,7 @@ namespace RandoMainDLL {
   public static class WebSocketClient {
     public static BlockingCollection<Packet> SendQueue = new BlockingCollection<Packet>();
     public static BlockingCollection<UberStateController.IUberStateCommand> UberStateQueue = new BlockingCollection<UberStateController.IUberStateCommand>();
-    public static string Domain { get => AHK.IniString("Paths", "URL", "wotw.orirando.com"); }
+    public static string Domain { get => AHK.IniString("Paths", "Host", "wotw.orirando.com"); }
     public static string S { get => AHK.IniFlag("Insecure") ? "" : "s";}
     private static readonly string JWTFile = ".jwt";
 
