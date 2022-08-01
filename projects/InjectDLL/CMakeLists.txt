@@ -294,6 +294,9 @@ target_link_libraries(
         antlr4-cppruntime::antlr4-cppruntime
 )
 
+find_package(nlohmann_json)
+target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
+
 #target_precompile_headers(
 #        ${PROJECT_NAME}
 #        PRIVATE <tchar.h>

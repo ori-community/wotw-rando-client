@@ -10,6 +10,7 @@ conan_cmake_configure(
    REQUIRES
       fmt/6.1.2
       magic_enum/0.8.0
+      nlohmann_json/3.10.5
       antlr4-cppruntime/4.10.1
    GENERATORS
       cmake_find_package

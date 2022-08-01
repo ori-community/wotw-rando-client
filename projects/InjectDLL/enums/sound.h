@@ -1,6 +1,6 @@
 #pragma once
 
-#include <json/json.hpp>
+#include <nlohmann/json.hpp>
 
 enum class SoundEventID : uint32_t {
     // Randomizer

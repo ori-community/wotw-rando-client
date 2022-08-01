@@ -13,7 +13,7 @@
 
 #include <Il2CppModLoader/common.h>
 
-#include <json/json.hpp>
+#include <nlohmann/json.hpp>
 #include <memory>
 #include <string>
 #include <vector>

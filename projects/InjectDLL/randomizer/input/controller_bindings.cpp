@@ -22,7 +22,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include <json/json.hpp>
+#include <nlohmann/json.hpp>
 #include <magic_enum/include/magic_enum.hpp>
 
 using namespace modloader;

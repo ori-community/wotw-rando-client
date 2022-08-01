@@ -1,3 +1,0 @@
-[submodule "ext/include/magic_enum"]
-	path = ext/include/magic_enum
-	url = https://github.com/Neargye/magic_enum.git

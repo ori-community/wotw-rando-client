@@ -16,7 +16,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/windows_api/console.h>
 
-#include <json/json.hpp>
+#include <nlohmann/json.hpp>
 
 #include <fstream>
 #include <unordered_map>

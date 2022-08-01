@@ -1,7 +1,7 @@
 #pragma once
 
 #include <randomizer/render/sprite.h>
-#include <json/json.hpp>
+#include <nlohmann/json.hpp>
 
 bool load_json_file(std::string path, nlohmann::json& j);
 

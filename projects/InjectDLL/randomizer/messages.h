@@ -1,7 +1,7 @@
 #pragma once
 
 #include <macros.h>
-#include <json/json.hpp>
+#include <nlohmann/json.hpp>
 
 namespace randomizer {
     class TextBox {

@@ -8,7 +8,7 @@
 #include <windows_api/detours.h>
 
 #include <fstream>
-#include <json/json.hpp>
+#include <nlohmann/json.hpp>
 
 #include <unordered_map>
 
