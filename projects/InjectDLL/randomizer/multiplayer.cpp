@@ -148,7 +148,7 @@ namespace multiplayer {
             if (info.name_handle == 0)
                 info.name_handle = il2cpp::gchandle_new(il2cpp::string_new(info.name), false);
 
-            TextBox::SetText_1(text_box, il2cpp::gchandle_target<app::String>(info.name_handle));
+            TextBox::SetText_2(text_box, il2cpp::gchandle_target<app::String>(info.name_handle));
             TextBox::RenderText(text_box);
         }
     }
