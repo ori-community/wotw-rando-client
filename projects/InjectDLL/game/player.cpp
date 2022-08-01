@@ -14,7 +14,7 @@
 #include <Il2CppModLoader/app/methods/GameplayCamera.h>
 #include <Il2CppModLoader/app/methods/ScenesManager.h>
 #include <features/scenes/scene_load.h>
-#include <magic_enum/include/magic_enum.hpp>
+#include <magic_enum.hpp>
 
 using namespace modloader;
 using namespace app::methods;

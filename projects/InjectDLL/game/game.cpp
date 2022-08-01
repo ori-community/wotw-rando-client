@@ -18,7 +18,7 @@
 #include <Il2CppModLoader/windows_api/console.h>
 
 #include "player.h"
-#include <magic_enum/include/magic_enum.hpp>
+#include <magic_enum.hpp>
 
 using namespace modloader;
 using namespace app::methods;

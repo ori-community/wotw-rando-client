@@ -297,6 +297,9 @@ target_link_libraries(
 find_package(nlohmann_json)
 target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 
+find_package(magic_enum)
+target_link_libraries(${PROJECT_NAME} magic_enum::magic_enum)
+
 #target_precompile_headers(
 #        ${PROJECT_NAME}
 #        PRIVATE <tchar.h>

@@ -23,7 +23,7 @@
 #include <vector>
 
 #include <nlohmann/json.hpp>
-#include <magic_enum/include/magic_enum.hpp>
+#include <magic_enum.hpp>
 
 using namespace modloader;
 using namespace app::methods;

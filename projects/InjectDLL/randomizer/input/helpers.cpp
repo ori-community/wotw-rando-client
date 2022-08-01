@@ -7,7 +7,7 @@
 #include <string>
 
 #include <nlohmann/json.hpp>
-#include <magic_enum/include/magic_enum.hpp>
+#include <magic_enum.hpp>
 
 using namespace modloader;
 

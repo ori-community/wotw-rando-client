@@ -13,7 +13,7 @@
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
-#include <magic_enum/include/magic_enum.hpp>
+#include <magic_enum.hpp>
 
 #include <fstream>
 #include <string>
