@@ -6,30 +6,39 @@
 #include <Il2CppModLoader/app/methods/SavePedestalController.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <Il2CppModLoader/windows_api/console.h>
+#include <Il2CppModLoader/common.h>
+#include <event_bus.h>
+#include <features/scenes/scene_load.h>
 
 namespace {
-    /**
-     * Check if the player is in Glades and activate that TP if they are.
-     * The Glades TP has the same ID as the Kwolok's Hollow TP.
-     * @param identifier
-     * @return Whether the Glades TP has been activated
-     */
-    bool handle_glades_teleporter(std::string_view identifier) {
-        if (identifier != "kwoloksCavernSaveRoomA")
-            return false;
+    void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
+        if (metadata->state != app::SceneState__Enum::Loaded) {
+            return;
+        }
 
-        auto area = get_player_area();
-        if (area != app::GameWorldAreaID__Enum::WellspringGlades)
-            return false;
+        if (metadata->scene_name == "wellspringGladesHubSetups") {
+            auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
 
-        // We are in glades TP, activate that one instead.
-        uber_states::UberState(static_cast<UberStateGroup>(42178), 42096).set(3);
-        return uber_states::UberState(UberStateGroup::RandoConfig, 0).get<bool>();
+            auto save_pedestal_go = il2cpp::unity::find_child(
+                    scene_root_go,
+                    std::vector<std::string>{
+                            "interactives",
+                            "builderProjects",
+                            "spiritWell",
+                            "savePedestalParent",
+                            "savePedestal" }
+            );
+            auto save_pedestal = il2cpp::unity::get_component<app::SavePedestal>(save_pedestal_go, "", "SavePedestal");
+            auto identifier = il2cpp::convert_csstring_fast(save_pedestal->fields.Identifier);
+
+            save_pedestal->fields.Identifier = il2cpp::string_new("wellspringGlades");
+        }
     }
 
-    IL2CPP_INTERCEPT(SavePedestalController, void, Activate, (app::String * identifier)) {
-        auto teleporter_identifier = il2cpp::convert_csstring(identifier);
-        if (!handle_glades_teleporter(teleporter_identifier))
-            next::SavePedestalController::Activate(identifier);
+    void initialize() {
+        scenes::event_bus().register_handler(&on_scene_load);
     }
+
+    CALL_ON_INIT(initialize);
 } // namespace
