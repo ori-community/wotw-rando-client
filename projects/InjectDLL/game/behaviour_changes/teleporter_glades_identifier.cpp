@@ -1,12 +1,7 @@
-#include <interop/csharp_bridge.h>
-#include <uber_states/uber_state_helper.h>
 #include <uber_states/uber_state_interface.h>
 
 #include <Common/ext.h>
-#include <Il2CppModLoader/app/methods/SavePedestalController.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
-#include <Il2CppModLoader/interception_macros.h>
-#include <Il2CppModLoader/windows_api/console.h>
 #include <Il2CppModLoader/common.h>
 #include <event_bus.h>
 #include <features/scenes/scene_load.h>
@@ -29,10 +24,9 @@ namespace {
                             "savePedestalParent",
                             "savePedestal" }
             );
-            auto save_pedestal = il2cpp::unity::get_component<app::SavePedestal>(save_pedestal_go, "", "SavePedestal");
-            auto identifier = il2cpp::convert_csstring_fast(save_pedestal->fields.Identifier);
 
-            save_pedestal->fields.Identifier = il2cpp::string_new("wellspringGlades");
+            auto save_pedestal = il2cpp::unity::get_component<app::SavePedestal>(save_pedestal_go, "", "SavePedestal");
+            save_pedestal->fields.Identifier = il2cpp::string_new("wellspringGladesHub");
         }
     }
 
