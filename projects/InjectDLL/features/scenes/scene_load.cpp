@@ -87,6 +87,17 @@ namespace scenes {
                 }
             }
         }
+
+        IL2CPP_INTERCEPT(ScenesManager, bool, CancelScene, (app::ScenesManager * this_ptr, app::SceneManagerScene* scene)) {
+            auto scene_name_csstring = scene->fields.MetaData->fields.Scene;
+            auto scene_name = il2cpp::convert_csstring(scene_name_csstring);
+
+            if (scenes_to_load.contains(scene_name)) {
+                return false;
+            }
+
+            return next::ScenesManager::CancelScene(this_ptr, scene);
+        }
     } // namespace
 
     EventBus<SceneLoadEventMetadata*>& event_bus() {
@@ -244,9 +255,10 @@ namespace scenes {
         return split_path.empty() ? game_object : il2cpp::unity::find_child(game_object, split_path);
     }
 
-    app::SceneMetaData_SeinInitialValuesWotW* initial_values = nullptr;
+    uint32_t initial_values_handle = 0;
 
     void load_default_values() {
+        auto initial_values = il2cpp::gchandle_target<app::SceneMetaData_SeinInitialValuesWotW>(initial_values_handle);
         if (il2cpp::unity::is_valid(initial_values))
             il2cpp::invoke(initial_values, "ApplyInitialValues");
         else
@@ -256,7 +268,7 @@ namespace scenes {
     void on_load_spawn(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root) {
         if (state == app::SceneState__Enum::Loaded && scene_root != nullptr) {
             auto root = il2cpp::unity::get_component<app::SceneRoot>(scene_root, "", "SceneRoot");
-            initial_values = root->fields.MetaData->fields.InitialValuesWisp;
+            initial_values_handle = il2cpp::gchandle_new(root->fields.MetaData->fields.InitialValuesWisp, false);
         }
     }
 
