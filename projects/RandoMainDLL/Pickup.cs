@@ -450,10 +450,7 @@ namespace RandoMainDLL {
       { TeleporterType.Den, new List<UberState> { UberStateDefaults.savePedestalHowlsDen} },
       { TeleporterType.Wellspring, new List<UberState> { UberStateDefaults.savePedestalWellspring} },
       { TeleporterType.Reach, new List<UberState> { UberStateDefaults.savePedestalBaursReach} },
-      { TeleporterType.Hollow, new List<UberState> {
-        new UberState() {Name = "HollowTP", ID = 106, GroupName = "rando_state", GroupID = 6, Type = UberStateType.SerializedBooleanUberState },
-        UberStateDefaults.savePedestalKwoloksHollow
-      } },
+      { TeleporterType.Hollow, new List<UberState> { UberStateDefaults.savePedestalKwoloksHollow} },
       { TeleporterType.Depths, new List<UberState> { UberStateDefaults.savePedestalMouldwood} },
       { TeleporterType.WestWoods, new List<UberState> { UberStateDefaults.savePedestalSilentWoodsA} },
       { TeleporterType.EastWoods, new List<UberState> { UberStateDefaults.savePedestalSilentWoodsB} },

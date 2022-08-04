@@ -318,9 +318,6 @@ namespace {
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 9", 18, false),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Checkable Item Hint 10", 19, false),
 
-            // hate this, hope we don't end up needing more of these!
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "HollowTP", 106, false),
-
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Tuley Exists", 300, false),
 
             // skills
