@@ -299,6 +299,13 @@ namespace {
             // 106 energy
             // 107 spirit light
             // arguably these are just stats but w/e!!!
+
+            add_state<app::IntUberState>(UberStateGroup::ShrineStates, "Glades Shrine Wave", 0, 0),
+            add_state<app::IntUberState>(UberStateGroup::ShrineStates, "Marsh Shrine Wave", 1, 0),
+            add_state<app::IntUberState>(UberStateGroup::ShrineStates, "Howl's Den Shrine Wave", 2, 0),
+            add_state<app::IntUberState>(UberStateGroup::ShrineStates, "Depths Shrine Wave", 3, 0),
+            add_state<app::IntUberState>(UberStateGroup::ShrineStates, "Woods Shrine Wave", 4, 0),
+
             add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "Collected Keystones", 0, 0),
             add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "Purchased Keystones", 1, 0),
             add_state<app::SerializedIntUberState>(UberStateGroup::RandoState, "Pickups Collected", 2, 0),

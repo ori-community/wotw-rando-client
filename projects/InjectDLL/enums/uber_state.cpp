@@ -22,6 +22,7 @@ namespace {
         { UberStateGroup::LupoGroup, "lupo" },
         { UberStateGroup::GromShop, "grom_shop" },
         { UberStateGroup::RandoGameModes, "rando_game_modes" },
+        { UberStateGroup::ShrineStates, "shrine_states" },
 
         { UberStateGroup::npcsStateGroup, "npcsStateGroup" }
     };

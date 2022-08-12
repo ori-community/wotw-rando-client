@@ -23,6 +23,7 @@ set(
         "features/map.cpp"
         "features/secrets.cpp"
         "features/sein_ui.cpp"
+        "features/shrine_states.cpp"
         "features/spawn.cpp"
         "features/water.cpp"
         "features/wheel.cpp"
