@@ -217,8 +217,7 @@ namespace RandoMainDLL {
     public static bool OnCollect(this PsuedoLocs gameCond) => PickupMap.Collect(
       new UberState() { GroupID = (int)FakeUberGroups.MISC_CONTROL, ID = (int)gameCond, Value = new UberValue(true) }, new UberValue(false));
 
-    private static string slug = "";
-    private static string seedName = "";
+    private static string SeedSlug = "";
     public static PickupDictionary PickupMap = new PickupDictionary();
     public static List<TimerDefinition> TimerList = new List<TimerDefinition>();
     public static HashSet<String> Flags = new HashSet<String>();
@@ -252,12 +251,8 @@ namespace RandoMainDLL {
             coordsRaw = rawLine.Split(new string[] { "//" }, StringSplitOptions.None)[0].Trim().Substring(6);
             continue;
           }
-          else if (rawLine.StartsWith("// Seed: ")) {
-            seedName = rawLine.Replace("// Seed: ", "");
-            continue;
-          }
           else if (rawLine.StartsWith("// Slug: ")) {
-            slug = rawLine.Replace("// Slug: ", "");
+            SeedSlug = rawLine.Replace("// Slug: ", "");
             continue;
           }
           else if (rawLine.StartsWith("// Config: ")) {
@@ -402,7 +397,7 @@ namespace RandoMainDLL {
         case PickupType.QuestEvent:
           return QuestEvent.Build(pickupData);
         case PickupType.SpiritLight:
-          return new Cash(pickupData.ParseToInt(), (cond?.GetHashCode()).GetValueOrDefault(0) + seedName.GetHashCode() + slug.GetHashCode());
+          return new Cash(pickupData.ParseToInt(), (cond?.GetHashCode()).GetValueOrDefault(0) + SeedSlug.GetHashCode());
         case PickupType.Resource:
           return new Resource((ResourceType)pickupData.ParseToByte());
         case PickupType.WeaponUpgrade:
