@@ -16,7 +16,7 @@ namespace RandoMainDLL.Memory {
     PlayerUberStateDescriptor
   }
 
-  public enum SimplifiedUberStateType : byte {
+  public enum UberStateBaseType : byte {
     Boolean,
     Byte,
     Int,
@@ -25,13 +25,13 @@ namespace RandoMainDLL.Memory {
   }
 
   public static class Extensions {
-    public static SimplifiedUberStateType simplify(this UberStateType type) {
+    public static UberStateBaseType baseType(this UberStateType type) {
       return type switch {
-        UberStateType.BooleanUberState or UberStateType.SerializedBooleanUberState or UberStateType.SavePedestalUberState => SimplifiedUberStateType.Boolean,
-        UberStateType.ByteUberState or UberStateType.SerializedByteUberState => SimplifiedUberStateType.Byte,
-        UberStateType.IntUberState or UberStateType.SerializedIntUberState => SimplifiedUberStateType.Int,
-        UberStateType.SerializedFloatUberState => SimplifiedUberStateType.Float,
-        _ => SimplifiedUberStateType.Other,
+        UberStateType.BooleanUberState or UberStateType.SerializedBooleanUberState or UberStateType.SavePedestalUberState => UberStateBaseType.Boolean,
+        UberStateType.ByteUberState or UberStateType.SerializedByteUberState => UberStateBaseType.Byte,
+        UberStateType.IntUberState or UberStateType.SerializedIntUberState => UberStateBaseType.Int,
+        UberStateType.SerializedFloatUberState => UberStateBaseType.Float,
+        _ => UberStateBaseType.Other,
       };
     }
   }
@@ -221,20 +221,20 @@ namespace RandoMainDLL.Memory {
     public UberState Clone() => new UberState() { Type = Type, ID = ID, Name = Name, GroupID = GroupID, GroupName = GroupName, Value = Value };
 
     public bool IsObjectType => Type == UberStateType.SavePedestalUberState || Type == UberStateType.PlayerUberStateDescriptor;
-    public bool IsBoolType => Type.simplify() == SimplifiedUberStateType.Boolean;
-    public bool IsIntType => Type.simplify() == SimplifiedUberStateType.Int;
-    public bool IsFloatType => Type.simplify() == SimplifiedUberStateType.Float;
-    public bool IsByteType => Type.simplify() == SimplifiedUberStateType.Byte;
+    public bool IsBoolType => Type.baseType() == UberStateBaseType.Boolean;
+    public bool IsIntType => Type.baseType() == UberStateBaseType.Int;
+    public bool IsFloatType => Type.baseType() == UberStateBaseType.Float;
+    public bool IsByteType => Type.baseType() == UberStateBaseType.Byte;
 
     public string FmtVal() {
       return Value.FmtVal(Type);
     }
     public override string ToString() {
-      return Type.simplify() switch {
-        SimplifiedUberStateType.Boolean => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Bool}",
-        SimplifiedUberStateType.Byte => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Byte}",
-        SimplifiedUberStateType.Int => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Int}",
-        SimplifiedUberStateType.Float => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Float}",
+      return Type.baseType() switch {
+        UberStateBaseType.Boolean => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Bool}",
+        UberStateBaseType.Byte => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Byte}",
+        UberStateBaseType.Int => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Int}",
+        UberStateBaseType.Float => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Float}",
         _ => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value}",
       };
     }
@@ -249,14 +249,14 @@ namespace RandoMainDLL.Memory {
       Int = 0;
       Float = 0f;
 
-      switch (t.simplify()) {
-        case SimplifiedUberStateType.Boolean:
+      switch (t.baseType()) {
+        case UberStateBaseType.Boolean:
           Bool = !(Math.Abs(value) < 0.001f);
           return;
-        case SimplifiedUberStateType.Byte:
+        case UberStateBaseType.Byte:
           Byte = (byte)value;
           return;
-        case SimplifiedUberStateType.Int:
+        case UberStateBaseType.Int:
           Int = (int)value;
           return;
         default:
@@ -299,11 +299,11 @@ namespace RandoMainDLL.Memory {
     public bool Bool;
 
     public string FmtVal(UberStateType Type) {
-      return Type.simplify() switch {
-        SimplifiedUberStateType.Boolean => $"{Bool}",
-        SimplifiedUberStateType.Byte => $"{Byte}",
-        SimplifiedUberStateType.Int => $"{Int}",
-        SimplifiedUberStateType.Float => $"{Float}",
+      return Type.baseType() switch {
+        UberStateBaseType.Boolean => $"{Bool}",
+        UberStateBaseType.Byte => $"{Byte}",
+        UberStateBaseType.Int => $"{Int}",
+        UberStateBaseType.Float => $"{Float}",
         _ => $"{Type}-{ToString()}",
       };
     }
