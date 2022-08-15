@@ -228,18 +228,7 @@ namespace RandoMainDLL {
     }
 
     public static UberValue CreateValue(UberStateType type, double value) {
-      switch (type) {
-        case UberStateType.PlayerUberStateDescriptor:
-        case UberStateType.SavePedestalUberState:
-        case UberStateType.SerializedByteUberState:
-          return new UberValue((byte)value);
-        case UberStateType.SerializedBooleanUberState:
-          return new UberValue(!(Math.Abs(value) < 0.001f));
-        case UberStateType.SerializedIntUberState:
-          return new UberValue((int)value);
-        default:
-          return new UberValue((float)value);
-      }
+      return new UberValue(type, value);
     }
 
     private static HashSet<UberId> RaceIDs = new HashSet<UberId> {
