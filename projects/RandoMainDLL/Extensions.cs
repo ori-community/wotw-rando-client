@@ -31,31 +31,31 @@ namespace RandoMainDLL {
     }
 
     public static int AsInt(this UberValue v, UberStateType t) {
-      return t.simplify() switch {
-        SimplifiedUberStateType.Boolean => Convert.ToInt32(v.Bool),
-        SimplifiedUberStateType.Byte => Convert.ToInt32(v.Byte),
-        SimplifiedUberStateType.Int => v.Int,
-        SimplifiedUberStateType.Float => Convert.ToInt32(v.Float),
+      return t.baseType() switch {
+        UberStateBaseType.Boolean => Convert.ToInt32(v.Bool),
+        UberStateBaseType.Byte => Convert.ToInt32(v.Byte),
+        UberStateBaseType.Int => v.Int,
+        UberStateBaseType.Float => Convert.ToInt32(v.Float),
         _ => v.Int,
       };
     }
 
     public static double AsDouble(this UberValue v, UberStateType t) {
-      return t.simplify() switch {
-        SimplifiedUberStateType.Boolean => v.Bool ? 1.0f : 0.0f,
-        SimplifiedUberStateType.Byte => Convert.ToDouble(v.Byte),
-        SimplifiedUberStateType.Int => Convert.ToDouble(v.Int),
-        SimplifiedUberStateType.Float => Convert.ToDouble(v.Float),
+      return t.baseType() switch {
+        UberStateBaseType.Boolean => v.Bool ? 1.0f : 0.0f,
+        UberStateBaseType.Byte => Convert.ToDouble(v.Byte),
+        UberStateBaseType.Int => Convert.ToDouble(v.Int),
+        UberStateBaseType.Float => Convert.ToDouble(v.Float),
         _ => Convert.ToDouble(v.Int),
       };
     }
 
     public static bool AsBool(this UberValue v, UberStateType t) {
-      return t.simplify() switch {
-        SimplifiedUberStateType.Boolean => v.Bool,
-        SimplifiedUberStateType.Byte => Convert.ToBoolean(v.Byte),
-        SimplifiedUberStateType.Int => Convert.ToBoolean(v.Int),
-        SimplifiedUberStateType.Float => Convert.ToBoolean(v.Float),
+      return t.baseType() switch {
+        UberStateBaseType.Boolean => v.Bool,
+        UberStateBaseType.Byte => Convert.ToBoolean(v.Byte),
+        UberStateBaseType.Int => Convert.ToBoolean(v.Int),
+        UberStateBaseType.Float => Convert.ToBoolean(v.Float),
         _ => Convert.ToBoolean(v.Int),
       };
     }
