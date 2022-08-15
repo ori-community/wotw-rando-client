@@ -16,6 +16,26 @@ namespace RandoMainDLL.Memory {
     PlayerUberStateDescriptor
   }
 
+  public enum SimplifiedUberStateType : byte {
+    Boolean,
+    Byte,
+    Int,
+    Float,
+    Other,
+  }
+
+  public static class Extensions {
+    public static SimplifiedUberStateType simplify(this UberStateType type) {
+      return type switch {
+        UberStateType.BooleanUberState or UberStateType.SerializedBooleanUberState or UberStateType.SavePedestalUberState => SimplifiedUberStateType.Boolean,
+        UberStateType.ByteUberState or UberStateType.SerializedByteUberState => SimplifiedUberStateType.Byte,
+        UberStateType.IntUberState or UberStateType.SerializedIntUberState => SimplifiedUberStateType.Int,
+        UberStateType.SerializedFloatUberState => SimplifiedUberStateType.Float,
+        _ => SimplifiedUberStateType.Other,
+      };
+    }
+  }
+
   public static class UberStateDefaults {
     public static UberState cleanseWellspringQuestUberState = new UberState() { Name = "cleanseWellspringQuestUberState", ID = 34641, GroupName = "kwolokGroupDescriptor", GroupID = 937, Type = UberStateType.SerializedIntUberState };
     public static UberState finishedWatermillEscape = new UberState() { Name = "finishedWatermillEscape", ID = 12379, GroupName = "waterMillStateGroupDescriptor", GroupID = 37858, Type = UberStateType.SerializedBooleanUberState };
@@ -201,38 +221,22 @@ namespace RandoMainDLL.Memory {
     public UberState Clone() => new UberState() { Type = Type, ID = ID, Name = Name, GroupID = GroupID, GroupName = GroupName, Value = Value };
 
     public bool IsObjectType => Type == UberStateType.SavePedestalUberState || Type == UberStateType.PlayerUberStateDescriptor;
-    public bool IsBoolType => Type == UberStateType.SerializedBooleanUberState;
-    public bool IsIntType => Type == UberStateType.SerializedIntUberState;
-    public bool IsFloatType => Type == UberStateType.SerializedFloatUberState;
-    public bool IsByteType => Type == UberStateType.SerializedByteUberState;
+    public bool IsBoolType => Type.simplify() == SimplifiedUberStateType.Boolean;
+    public bool IsIntType => Type.simplify() == SimplifiedUberStateType.Int;
+    public bool IsFloatType => Type.simplify() == SimplifiedUberStateType.Float;
+    public bool IsByteType => Type.simplify() == SimplifiedUberStateType.Byte;
 
     public string FmtVal() {
-      switch (Type) {
-        case UberStateType.SavePedestalUberState:
-        case UberStateType.SerializedBooleanUberState:
-          return $"{Value.Bool}";
-        case UberStateType.SerializedByteUberState:
-          return $"{Value.Byte}";
-        case UberStateType.SerializedIntUberState:
-          return $"{Value.Int}";
-        case UberStateType.SerializedFloatUberState:
-          return $"{Value.Float}";
-      }
-      return $"{Type}-{Value}";
+      return Value.FmtVal(Type);
     }
     public override string ToString() {
-      switch (Type) {
-        case UberStateType.SavePedestalUberState:
-        case UberStateType.SerializedBooleanUberState:
-          return $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Bool}";
-        case UberStateType.SerializedByteUberState:
-          return $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Byte}";
-        case UberStateType.SerializedIntUberState:
-          return $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Int}";
-        case UberStateType.SerializedFloatUberState:
-          return $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Float}";
-      }
-      return $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value}";
+      return Type.simplify() switch {
+        SimplifiedUberStateType.Boolean => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Bool}",
+        SimplifiedUberStateType.Byte => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Byte}",
+        SimplifiedUberStateType.Int => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Int}",
+        SimplifiedUberStateType.Float => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Float}",
+        _ => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value}",
+      };
     }
   }
 
@@ -244,19 +248,19 @@ namespace RandoMainDLL.Memory {
       Bool = false;
       Int = 0;
       Float = 0f;
-      switch (t) {
-        case UberStateType.SavePedestalUberState:
-        case UberStateType.SerializedBooleanUberState:
-          Bool = (value > 0);
+
+      switch (t.simplify()) {
+        case SimplifiedUberStateType.Boolean:
+          Bool = !(Math.Abs(value) < 0.001f);
           return;
-        case UberStateType.SerializedByteUberState:
-          Byte = Convert.ToByte(value);
+        case SimplifiedUberStateType.Byte:
+          Byte = (byte)value;
           return;
-        case UberStateType.SerializedIntUberState:
-          Int = Convert.ToInt32(value);
+        case SimplifiedUberStateType.Int:
+          Int = (int)value;
           return;
-        case UberStateType.SerializedFloatUberState:
-          Float = Convert.ToSingle(value);
+        default:
+          Float = (float)value;
           return;
       }
     }
@@ -295,18 +299,13 @@ namespace RandoMainDLL.Memory {
     public bool Bool;
 
     public string FmtVal(UberStateType Type) {
-      switch (Type) {
-        case UberStateType.SavePedestalUberState:
-        case UberStateType.SerializedBooleanUberState:
-          return $"{Bool}";
-        case UberStateType.SerializedByteUberState:
-          return $"{Byte}";
-        case UberStateType.SerializedIntUberState:
-          return $"{Int}";
-        case UberStateType.SerializedFloatUberState:
-          return $"{Float}";
-      }
-      return $"{Type}-{ToString()}";
+      return Type.simplify() switch {
+        SimplifiedUberStateType.Boolean => $"{Bool}",
+        SimplifiedUberStateType.Byte => $"{Byte}",
+        SimplifiedUberStateType.Int => $"{Int}",
+        SimplifiedUberStateType.Float => $"{Float}",
+        _ => $"{Type}-{ToString()}",
+      };
     }
 
     public override string ToString() => $"{Int}|{Float}";

@@ -27,73 +27,37 @@ namespace RandoMainDLL {
     public static T FirstOrElse<T>(this IEnumerable<T> l, Func<T, bool> selector, T def) => l.Where(selector).FirstOrElse(def);
 
     public static string FmtVal(this UberValue Value, UberStateType t) {
-      switch (t) {
-        case UberStateType.SavePedestalUberState:
-        case UberStateType.SerializedBooleanUberState:
-          return $"{Value.Bool}";
-        case UberStateType.SerializedByteUberState:
-          return $"{Value.Byte}";
-        case UberStateType.SerializedIntUberState:
-          return $"{Value.Int}";
-        case UberStateType.SerializedFloatUberState:
-          return $"{Value.Float}";
-      }
-      return $"{t}-{Value}";
-
+      return Value.FmtVal(t);
     }
 
     public static int AsInt(this UberValue v, UberStateType t) {
-      switch(t) {
-        case UberStateType.SavePedestalUberState:
-        case UberStateType.ByteUberState:
-        case UberStateType.SerializedByteUberState:
-          return Convert.ToInt32(v.Byte);
-        case UberStateType.BooleanUberState:
-        case UberStateType.SerializedBooleanUberState:
-          return Convert.ToInt32(v.Bool);
-        case UberStateType.SerializedFloatUberState:
-          return Convert.ToInt32(v.Float);
-        case UberStateType.IntUberState:
-        case UberStateType.SerializedIntUberState:
-        default:
-          return v.Int;
-      }
+      return t.simplify() switch {
+        SimplifiedUberStateType.Boolean => Convert.ToInt32(v.Bool),
+        SimplifiedUberStateType.Byte => Convert.ToInt32(v.Byte),
+        SimplifiedUberStateType.Int => v.Int,
+        SimplifiedUberStateType.Float => Convert.ToInt32(v.Float),
+        _ => v.Int,
+      };
     }
 
     public static double AsDouble(this UberValue v, UberStateType t) {
-      switch (t) {
-        case UberStateType.SavePedestalUberState:
-        case UberStateType.ByteUberState:
-        case UberStateType.SerializedByteUberState:
-          return Convert.ToDouble(v.Byte);
-        case UberStateType.BooleanUberState:
-        case UberStateType.SerializedBooleanUberState:
-          return v.Bool ? 1.0f : 0.0f;
-        case UberStateType.SerializedFloatUberState:
-          return Convert.ToDouble(v.Float);
-        case UberStateType.IntUberState:
-        case UberStateType.SerializedIntUberState:
-        default:
-          return Convert.ToDouble(v.Int);
-      }
+      return t.simplify() switch {
+        SimplifiedUberStateType.Boolean => v.Bool ? 1.0f : 0.0f,
+        SimplifiedUberStateType.Byte => Convert.ToDouble(v.Byte),
+        SimplifiedUberStateType.Int => Convert.ToDouble(v.Int),
+        SimplifiedUberStateType.Float => Convert.ToDouble(v.Float),
+        _ => Convert.ToDouble(v.Int),
+      };
     }
 
     public static bool AsBool(this UberValue v, UberStateType t) {
-      switch (t) {
-        case UberStateType.SavePedestalUberState:
-        case UberStateType.ByteUberState:
-        case UberStateType.SerializedByteUberState:
-          return Convert.ToBoolean(v.Byte);
-        case UberStateType.BooleanUberState:
-        case UberStateType.SerializedBooleanUberState:
-          return v.Bool;
-        case UberStateType.SerializedFloatUberState:
-          return Convert.ToBoolean(v.Float);
-        case UberStateType.IntUberState:
-        case UberStateType.SerializedIntUberState:
-        default:
-          return Convert.ToBoolean(v.Int);
-      }
+      return t.simplify() switch {
+        SimplifiedUberStateType.Boolean => v.Bool,
+        SimplifiedUberStateType.Byte => Convert.ToBoolean(v.Byte),
+        SimplifiedUberStateType.Int => Convert.ToBoolean(v.Int),
+        SimplifiedUberStateType.Float => Convert.ToBoolean(v.Float),
+        _ => Convert.ToBoolean(v.Int),
+      };
     }
     public static void Refresh(this UberId id) => InterOp.UberState.refresh_uber_state(id.GroupID, id.ID);
     public static EquipmentType? Equip(this AbilityType t) => AbilityToEquip.Get(t);
