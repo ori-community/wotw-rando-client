@@ -31,7 +31,7 @@ namespace RandoMainDLL {
     }
 
     public static int AsInt(this UberValue v, UberStateType t) {
-      return t.baseType() switch {
+      return t.ToBaseType() switch {
         UberStateBaseType.Boolean => Convert.ToInt32(v.Bool),
         UberStateBaseType.Byte => Convert.ToInt32(v.Byte),
         UberStateBaseType.Int => v.Int,
@@ -41,7 +41,7 @@ namespace RandoMainDLL {
     }
 
     public static double AsDouble(this UberValue v, UberStateType t) {
-      return t.baseType() switch {
+      return t.ToBaseType() switch {
         UberStateBaseType.Boolean => v.Bool ? 1.0f : 0.0f,
         UberStateBaseType.Byte => Convert.ToDouble(v.Byte),
         UberStateBaseType.Int => Convert.ToDouble(v.Int),
@@ -51,7 +51,7 @@ namespace RandoMainDLL {
     }
 
     public static bool AsBool(this UberValue v, UberStateType t) {
-      return t.baseType() switch {
+      return t.ToBaseType() switch {
         UberStateBaseType.Boolean => v.Bool,
         UberStateBaseType.Byte => Convert.ToBoolean(v.Byte),
         UberStateBaseType.Int => Convert.ToBoolean(v.Int),

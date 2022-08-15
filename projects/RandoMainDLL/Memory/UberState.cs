@@ -25,7 +25,7 @@ namespace RandoMainDLL.Memory {
   }
 
   public static class Extensions {
-    public static UberStateBaseType baseType(this UberStateType type) {
+    public static UberStateBaseType ToBaseType(this UberStateType type) {
       return type switch {
         UberStateType.BooleanUberState or UberStateType.SerializedBooleanUberState or UberStateType.SavePedestalUberState => UberStateBaseType.Boolean,
         UberStateType.ByteUberState or UberStateType.SerializedByteUberState => UberStateBaseType.Byte,
@@ -221,16 +221,16 @@ namespace RandoMainDLL.Memory {
     public UberState Clone() => new UberState() { Type = Type, ID = ID, Name = Name, GroupID = GroupID, GroupName = GroupName, Value = Value };
 
     public bool IsObjectType => Type == UberStateType.SavePedestalUberState || Type == UberStateType.PlayerUberStateDescriptor;
-    public bool IsBoolType => Type.baseType() == UberStateBaseType.Boolean;
-    public bool IsIntType => Type.baseType() == UberStateBaseType.Int;
-    public bool IsFloatType => Type.baseType() == UberStateBaseType.Float;
-    public bool IsByteType => Type.baseType() == UberStateBaseType.Byte;
+    public bool IsBoolType => Type.ToBaseType() == UberStateBaseType.Boolean;
+    public bool IsIntType => Type.ToBaseType() == UberStateBaseType.Int;
+    public bool IsFloatType => Type.ToBaseType() == UberStateBaseType.Float;
+    public bool IsByteType => Type.ToBaseType() == UberStateBaseType.Byte;
 
     public string FmtVal() {
       return Value.FmtVal(Type);
     }
     public override string ToString() {
-      return Type.baseType() switch {
+      return Type.ToBaseType() switch {
         UberStateBaseType.Boolean => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Bool}",
         UberStateBaseType.Byte => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Byte}",
         UberStateBaseType.Int => $"{Name}[{ID}]({GroupName}[{GroupID}]) = {Value.Int}",
@@ -249,7 +249,7 @@ namespace RandoMainDLL.Memory {
       Int = 0;
       Float = 0f;
 
-      switch (t.baseType()) {
+      switch (t.ToBaseType()) {
         case UberStateBaseType.Boolean:
           Bool = !(Math.Abs(value) < 0.001f);
           return;
@@ -299,7 +299,7 @@ namespace RandoMainDLL.Memory {
     public bool Bool;
 
     public string FmtVal(UberStateType Type) {
-      return Type.baseType() switch {
+      return Type.ToBaseType() switch {
         UberStateBaseType.Boolean => $"{Bool}",
         UberStateBaseType.Byte => $"{Byte}",
         UberStateBaseType.Int => $"{Int}",
