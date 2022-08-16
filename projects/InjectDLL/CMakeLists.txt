@@ -63,6 +63,7 @@ set(
         "game/player.cpp"
         "game/ui.cpp"
         "game/behaviour_changes/allow_blind_forest_abilities.cpp"
+        "game/behaviour_changes/better_lasers.cpp"
         "game/behaviour_changes/blaze_hit_environment.cpp"
         "game/behaviour_changes/burrow_and_waterdash_without_dash.cpp"
         "game/behaviour_changes/deflector_without_bash.cpp"
