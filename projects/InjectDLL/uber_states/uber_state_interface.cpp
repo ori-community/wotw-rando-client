@@ -87,17 +87,12 @@ namespace uber_states {
         }
 
         IL2CPP_INTERCEPT(Moon::uberSerializationWisp::SavePedestalUberState, void, set_HasGameBeenSaved, (app::SavePedestalUberState * this_ptr, bool value)) {
-            auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr));
-            auto current = static_cast<int>(uber_state.get());
-            current = value ? current | 0b01 : current & ~0b01;
-            uber_state.set(current);
+            // NOOP
         }
 
         IL2CPP_INTERCEPT(Moon::uberSerializationWisp::SavePedestalUberState, void, set_IsTeleporterActive, (app::SavePedestalUberState * this_ptr, bool value)) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr));
-            auto current = static_cast<int>(uber_state.get());
-            current = value ? current | 0b10 : current & ~0b10;
-            uber_state.set(current);
+            uber_state.set(value ? 1.0 : 0.0);
         }
 
         IL2CPP_INTERCEPT(GameMapSavePedestal, void, set_IsTeleporterActive, (app::GameMapSavePedestal * this_ptr, bool value)) {
@@ -123,19 +118,6 @@ namespace uber_states {
         IL2CPP_INTERCEPT(Moon::UberStateVisualization::SerializedIntUberStateWrapper, void, SetValue, (app::SerializedIntUberStateWrapper * this_ptr, int value)) {
             auto uber_state = UberState(reinterpret_cast<app::IUberState*>(this_ptr->fields.m_state));
             uber_state.set(value);
-        }
-
-        double convert_pedestal_state(app::SavePedestalUberState* state) {
-            if (state == nullptr)
-                return 0.0;
-
-            auto pedestal = SavePedestalUberState::ReadStateFromStore(state);
-            if (pedestal == nullptr)
-                return 0.0;
-
-            const auto active = static_cast<int>(pedestal->fields.IsTeleporterActive != 0);
-            const auto save = static_cast<int>(pedestal->fields.HasGameBeenSaved != 0) << 1;
-            return static_cast<double>(save | active);
         }
 
         app::UberID create_uber_id(int id) {
@@ -259,11 +241,7 @@ namespace uber_states {
             else if (il2cpp::is_assignable(uber_state, "Moon", "FloatUberState"))
                 next::Moon::FloatUberState::set_Value(reinterpret_cast<app::FloatUberState*>(uber_state), value);
             else if (il2cpp::is_assignable(uber_state, "Moon.uberSerializationWisp", "SavePedestalUberState")) {
-                const auto int_value = static_cast<unsigned int>(value);
-                const auto is_teleporter_active = (int_value & 0b10u) != 0;
-                const auto has_been_saved = (int_value & 0b01u) != 0;
-                next::Moon::uberSerializationWisp::SavePedestalUberState::set_IsTeleporterActive(reinterpret_cast<app::SavePedestalUberState*>(uber_state), is_teleporter_active);
-                next::Moon::uberSerializationWisp::SavePedestalUberState::set_HasGameBeenSaved(reinterpret_cast<app::SavePedestalUberState*>(uber_state), has_been_saved);
+                next::Moon::uberSerializationWisp::SavePedestalUberState::set_IsTeleporterActive(reinterpret_cast<app::SavePedestalUberState*>(uber_state), value > 0.5);
             } else {
                 trace(MessageType::Warning, 2, "uber_state", format("unable to get value of uber state (%d, %d)", m_group, m_state));
                 return;
@@ -309,10 +287,7 @@ namespace uber_states {
             return static_cast<double>(FloatUberState::get_Value(reinterpret_cast<app::FloatUberState*>(uber_state)));
 
         if (il2cpp::is_assignable(uber_state, "Moon.uberSerializationWisp", "SavePedestalUberState")) {
-            auto is_teleporter_active = static_cast<uint32_t>(SavePedestalUberState::get_HasGameBeenSaved(reinterpret_cast<app::SavePedestalUberState*>(uber_state)));
-            auto has_been_saved = static_cast<uint32_t>(SavePedestalUberState::get_HasGameBeenSaved(reinterpret_cast<app::SavePedestalUberState*>(uber_state)));
-            auto value = is_teleporter_active | (has_been_saved << 1);
-            return static_cast<double>(value);
+            return SavePedestalUberState::get_IsTeleporterActive(reinterpret_cast<app::SavePedestalUberState*>(uber_state)) ? 1.0 : 0.0;
         }
 
         trace(MessageType::Warning, 2, "uber_state", format("unable to get value of uber state (%d, %d)", m_group, m_state));
