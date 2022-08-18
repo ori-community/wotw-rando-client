@@ -1,9 +1,9 @@
 #include <constants.h>
 
-#include <Il2CppModLoader/interception_macros.h>
-#include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/app/methods/BlockableLaser.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
+#include <Il2CppModLoader/common.h>
+#include <Il2CppModLoader/interception_macros.h>
 
 using namespace modloader;
 using namespace app::methods;
@@ -26,10 +26,8 @@ namespace {
 
         auto is_on_screen = BlockableLaser::IsLaserOnScreen(this_ptr, this_ptr->fields.m_cachedEnvHit.m_Point);
 
-        if (is_on_screen) {
-            return next::BlockableLaser::DealLaserDamage(this_ptr, target);
-        }
-
-        return nullptr;
+        return is_on_screen
+                ? next::BlockableLaser::DealLaserDamage(this_ptr, target)
+                : nullptr;
     }
 } // namespace
