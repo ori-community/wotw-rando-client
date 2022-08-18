@@ -159,7 +159,7 @@ namespace RandoMainDLL {
   public static class MessageController {
     private const int MAX_PICKUP_LINE_COUNT = 5;
     private const int MAX_PICKUP_MESSAGES_QUEUED = 5;
-    private static readonly TextMessage INFO = new TextMessage(null, new TextMessageDescriptor() { ShowsBox = false });
+    private static readonly TextMessage INFO = new TextMessage(null, new TextMessageDescriptor() { ShowsBox = false, FadeIn = 0f, FadeOut = 0f});
     // private static readonly TextMessage PICKUP = new TextMessage(new TextMessageDescriptor() { Muted = false, ShowsBox = true });
 
     private static List<TextMessage> activePickupTextMessages = new List<TextMessage>();
@@ -189,9 +189,6 @@ namespace RandoMainDLL {
     }
 
     public static void SetInfoVisibility(bool open) {
-      if (!open)
-        INFO.Text = " ";
-
       INFO.Destroyed = !open;
     }
 
