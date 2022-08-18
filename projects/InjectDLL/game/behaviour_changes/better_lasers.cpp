@@ -18,9 +18,7 @@ namespace {
     bool override_is_laser_on_screen = true;
 
     IL2CPP_INTERCEPT(BlockableLaser, bool, IsLaserOnScreen, (app::BlockableLaser * this_ptr, app::Vector3 end_point)) {
-        return override_is_laser_on_screen
-                ? true
-                : next::BlockableLaser::IsLaserOnScreen(this_ptr, end_point);
+        return override_is_laser_on_screen || next::BlockableLaser::IsLaserOnScreen(this_ptr, end_point);
     }
 
     IL2CPP_INTERCEPT(BlockableLaser, app::Damage*, DealLaserDamage, (app::BlockableLaser * this_ptr, app::GameObject* target)) {
@@ -31,5 +29,7 @@ namespace {
         if (is_on_screen) {
             return next::BlockableLaser::DealLaserDamage(this_ptr, target);
         }
+
+        return nullptr;
     }
 } // namespace
