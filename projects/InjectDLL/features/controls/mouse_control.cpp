@@ -15,7 +15,6 @@
 #include <Il2CppModLoader/app/methods/SeinSpiritLeashAbility.h>
 #include <Il2CppModLoader/app/methods/Core/Input.h>
 
-#include <algorithm>
 #include <cmath>
 #include <limits>
 
@@ -30,7 +29,7 @@ namespace {
 
     float mouse_control_deadzone = 50.f;
 
-    app::ControlScheme__Enum current_controls() {
+    app::ControlScheme__Enum get_current_control_scheme() {
         static app::GameSettings* settings = nullptr;
         if (il2cpp::unity::is_valid(settings))
             return settings->fields.m_currentControlSchemes;
@@ -39,6 +38,11 @@ namespace {
         return il2cpp::unity::is_valid(settings)
                 ? settings->fields.m_currentControlSchemes
                 : app::ControlScheme__Enum::KeyboardAndMouse;
+    }
+
+    bool current_control_scheme_is_kbm() {
+        auto scheme = get_current_control_scheme();
+        return scheme == app::ControlScheme__Enum::KeyboardAndMouse || scheme == app::ControlScheme__Enum::Keyboard;
     }
 
     // float current, float target, ref float currentVelocity, float smoothTime, float maxSpeed = Mathf.Infinity, float deltaTime = Time.deltaTime
@@ -65,7 +69,7 @@ namespace {
 
     bool overwrite_input = false;
     IL2CPP_INTERCEPT(SeinDashNew, bool, ShouldDig, (app::SeinDashNew * this_ptr)) {
-        if (randomizer::settings::burrow_mouse_control())
+        if (randomizer::settings::burrow_mouse_control() && current_control_scheme_is_kbm())
             overwrite_input = true;
 
         auto ret = next::SeinDashNew::ShouldDig(this_ptr);
@@ -74,7 +78,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinDigging, void, UpdateCharacterState, (app::SeinDigging * this_ptr)) {
-        if (randomizer::settings::burrow_mouse_control())
+        if (randomizer::settings::burrow_mouse_control() && current_control_scheme_is_kbm())
             overwrite_input = true;
 
         next::SeinDigging::UpdateCharacterState(this_ptr);
@@ -82,7 +86,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinDashNew, bool, ShouldSwim, (app::SeinDashNew * this_ptr)) {
-        if (randomizer::settings::water_dash_mouse_control()) {
+        if (randomizer::settings::water_dash_mouse_control() && current_control_scheme_is_kbm()) {
             deadzone_active = true;
             overwrite_input = true;
         }
@@ -94,7 +98,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinSwimming, void, UpdateCharacterState, (app::SeinSwimming * this_ptr)) {
-        if (randomizer::settings::water_dash_mouse_control()) {
+        if (randomizer::settings::water_dash_mouse_control() && current_control_scheme_is_kbm()) {
             overwrite_input = true;
             deadzone_active = true;
         }
@@ -110,7 +114,7 @@ namespace {
         if (!player_input->fields.Active)
             return ret;
 
-        if (overwrite_input && current_controls() == app::ControlScheme__Enum::KeyboardAndMouse)
+        if (overwrite_input && get_current_control_scheme() == app::ControlScheme__Enum::KeyboardAndMouse)
             ret = get_mouse_dir();
         else
             ret = next::Core::Input::get_Axis();
@@ -127,7 +131,7 @@ namespace {
     bool overwrite_target = false;
     app::Vector3 dir;
     IL2CPP_INTERCEPT(SeinSpiritLeashAbility, void, FindClosestAttackHandler, (app::SeinSpiritLeashAbility * this_ptr)) {
-        if (randomizer::settings::grapple_mouse_control()) {
+        if (randomizer::settings::grapple_mouse_control() && current_control_scheme_is_kbm()) {
             auto dir2 = get_mouse_dir();
             dir.x = dir2.x;
             dir.y = dir2.y;
