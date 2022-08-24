@@ -25,6 +25,8 @@ namespace utils {
         }
     };
 
-    void set_color(app::GameObject* go, app::Color& color, bool first);
+    void set_color(app::GameObject* go, app::Color& color, app::UberShaderProperty_Color__Enum shader_property = app::UberShaderProperty_Color__Enum::MainColor, bool skip_first = false);
     app::MoonGuid* moon_guid(int a, int b, int c, int d);
+
+    app::UberShaderColor* uber_shader_color(app::Color& color);
 }

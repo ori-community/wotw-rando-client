@@ -171,7 +171,7 @@ namespace RandoMainDLL {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void clear_players();
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void update_player_position([MarshalAs(UnmanagedType.LPWStr)] string id, float x, float y);
+      public extern static void update_player_position([MarshalAs(UnmanagedType.LPWStr)] string id, float x, float y, byte[] buf, int len);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static Vector2 get_player_position([MarshalAs(UnmanagedType.LPWStr)] string id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -182,6 +182,8 @@ namespace RandoMainDLL {
       public extern static void set_player_online([MarshalAs(UnmanagedType.LPWStr)] string id, bool online);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_player_visibility([MarshalAs(UnmanagedType.LPWStr)] string id, bool world, bool map);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      unsafe public extern static byte* get_current_ghost_frame_data(ref int size);
     }
 
     public static class Player {

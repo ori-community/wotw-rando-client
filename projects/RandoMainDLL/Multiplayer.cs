@@ -154,9 +154,9 @@ namespace RandoMainDLL {
       }
     }
 
-    public static void UpdatePlayerWorldPosition(string id, float x, float y) {
+    public static void UpdatePlayerWorldPosition(string id, float x, float y, byte[] ghostFrameData) {
       if (id != Id && currentPlayers.Any(p => p.Key == id)) {
-        InterOp.Multiplayer.update_player_position(id, x, y);
+        InterOp.Multiplayer.update_player_position(id, x, y, ghostFrameData, ghostFrameData.Length);
       }
       else {
         Randomizer.Log($"Got player position from unknown player {id}: {x}, {y}", false);
@@ -191,7 +191,16 @@ namespace RandoMainDLL {
 
     public static void Update() {
       var playerPosition = InterOp.Player.get_position();
-      UDPSocketClient.SendPlayerPosition(playerPosition.X, playerPosition.Y);
+      
+      unsafe {
+        var len = 0;
+        var ghostFrameDataPtr = InterOp.Multiplayer.get_current_ghost_frame_data(ref len);
+        var ghostFrameData = new byte[len];
+
+        Marshal.Copy((IntPtr)ghostFrameDataPtr, ghostFrameData, 0, len);
+
+        UDPSocketClient.SendPlayerPosition(playerPosition.X, playerPosition.Y, ghostFrameData);
+      }
 
       while (Queue.TryTake(out var packet)) {
         switch (packet.Id) {
@@ -202,13 +211,13 @@ namespace RandoMainDLL {
             }
           case Packet.Types.PacketID.UpdatePlayerPositionMessage: {
               var position = UpdatePlayerPositionMessage.Parser.ParseFrom(packet.Packet_);
-              UpdatePlayerWorldPosition(position.PlayerId, position.X, position.Y);
+              UpdatePlayerWorldPosition(position.PlayerId, position.X, position.Y, position.GhostFrameData.ToByteArray());
               UpdatePlayerMapPosition(position.PlayerId, position.X, position.Y);
               break;
             }
           case Packet.Types.PacketID.UpdatePlayerWorldPositionMessage: {
               var position = UpdatePlayerWorldPositionMessage.Parser.ParseFrom(packet.Packet_);
-              UpdatePlayerWorldPosition(position.PlayerId, position.X, position.Y);
+              UpdatePlayerWorldPosition(position.PlayerId, position.X, position.Y, position.GhostFrameData.ToByteArray());
               break;
             }
           case Packet.Types.PacketID.UpdatePlayerMapPositionMessage: {

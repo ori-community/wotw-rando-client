@@ -1,5 +1,6 @@
 #pragma once
 
+#include <features/ghosts.h>
 #include <randomizer/render/textures.h>
 #include <string>
 #include <vector>
@@ -38,8 +39,9 @@ namespace multiplayer {
         PlayerIcon icon = PlayerIcon::Moki;
 
         // Internal
-        Icon world_avatar;
+        // Icon world_avatar;
         Icon map_avatar;
+        ghosts::RandoGhost world_ghost;
 
         // Dots
         struct Dot {

@@ -127,7 +127,7 @@ namespace RandoMainDLL {
         data[i] = (byte)(data[i] ^ key[i % key.Length]);
     }
 
-    public static void SendPlayerPosition(float x, float y) {
+    public static void SendPlayerPosition(float x, float y, byte[] ghostFrameData) {
       if (!IsStarted)
         return;
 
@@ -135,6 +135,7 @@ namespace RandoMainDLL {
         var playerPosition = new PlayerPositionMessage();
         playerPosition.X = x;
         playerPosition.Y = y;
+        playerPosition.GhostFrameData = ByteString.CopyFrom(ghostFrameData);
         Packet packet = new Packet {
           Id = Packet.Types.PacketID.PlayerPositionMessage,
           Packet_ = playerPosition.ToByteString()

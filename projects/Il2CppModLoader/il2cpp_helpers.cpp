@@ -231,7 +231,12 @@ namespace il2cpp {
 
         void set_active(void* object, bool value) {
             auto go = get_game_object(object);
-            UnityEngine::GameObject::set_active(go, value);
+            UnityEngine::GameObject::SetActive(go, value);
+        }
+
+        void set_active_recursively(void* object, bool value) {
+            auto go = get_game_object(object);
+            UnityEngine::GameObject::SetActiveRecursively(go, value);
         }
 
         app::Transform* get_transform(void* object) {

@@ -114,12 +114,14 @@ message SetSeedMessage {
 message PlayerPositionMessage  {
   float x = 1;
   float y = 2;
+  bytes ghostFrameData = 3;
 }
 
 message UpdatePlayerPositionMessage  {
   string playerId = 1;
   float x = 2;
   float y = 3;
+  bytes ghostFrameData = 4;
 }
 
 message UpdatePlayerMapPositionMessage  {
@@ -132,6 +134,7 @@ message UpdatePlayerWorldPositionMessage  {
   string playerId = 1;
   float x = 2;
   float y = 3;
+  bytes ghostFrameData = 4;
 }
 
 message UserInfo {

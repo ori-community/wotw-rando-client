@@ -807,7 +807,7 @@ namespace {
         if (il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField)) {
             auto color = multiplayer::get_local_player_color();
             if (color.r < 0.99f || color.g < 0.99f || color.b < 0.99f || color.a < 0.99f)
-                utils::set_color(area_map->fields._PlayerPositionMarker_k__BackingField, color, false);
+                utils::set_color(area_map->fields._PlayerPositionMarker_k__BackingField, color);
         }
 
         auto icon_manager = area_map->fields._IconManager_k__BackingField;
