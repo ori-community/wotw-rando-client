@@ -12,8 +12,10 @@
 #include <Il2CppModLoader/app/methods/System/IO/BinaryWriter.h>
 #include <Il2CppModLoader/app/methods/System/IO/MemoryStream.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/windows_api/console.h>
 #include <constants.h>
 #include <game/player.h>
+#include <game/game.h>
 #include <randomizer/text_style.h>
 #include <Common/ext.h>
 
@@ -42,10 +44,14 @@ namespace ghosts {
         next::GhostPlayer::OnEnable(this_ptr);
     }
 
-    void RandoGhost::initialize() {
+    bool RandoGhost::initialize() {
         modloader::ScopedSetter setter(intercept_ghost_player_on_enable, true);
 
         auto ghost_manager = il2cpp::get_class<app::GhostManager__Class>("", "GhostManager")->static_fields->instance;
+
+        if (!il2cpp::unity::is_valid(ghost_manager)) {
+            return false;
+        }
 
         auto ghost_go = il2cpp::unity::instantiate_object(ghost_manager->fields.GhostPrefab);
         this->ghost_player = il2cpp::unity::get_component<app::GhostPlayer>(ghost_go, "", "GhostPlayer");
@@ -79,6 +85,8 @@ namespace ghosts {
         il2cpp::unity::set_local_position(this->ghost_player->fields.Name, app::Vector3{ 0.f, 1.5f, 0.f });
 
         this->ghost_go_gchandle = il2cpp::gchandle_new(ghost_go, true);
+
+        return true;
     }
 
     bool RandoGhost::is_initialized() {
@@ -243,6 +251,7 @@ namespace ghosts {
 } // namespace ghosts
 
 app::GhostRecorder* recorder = nullptr;
+std::vector<std::byte> frame_data;
 
 INJECT_C_DLLEXPORT char* get_current_ghost_frame_data(int& size) {
     if (recorder == nullptr) {
@@ -250,15 +259,22 @@ INJECT_C_DLLEXPORT char* get_current_ghost_frame_data(int& size) {
         return 0;
     }
 
-    static auto frame_data = ghosts::get_last_frame_data_and_flush(recorder);
+    frame_data = ghosts::get_last_frame_data_and_flush(recorder);
     size = frame_data.size();
+
+    modloader::win::console::console_send(format("B %d bytes", size));
 
     return reinterpret_cast<char*>(frame_data.data());
 }
 
 namespace {
-    void initialize() {
+    void restart_recorder(GameEvent game_event, EventTiming timing) {
         recorder = ghosts::create_recorder();
+    }
+
+    void initialize() {
+        game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, &restart_recorder);
+        game::event_bus().register_handler(GameEvent::NewGame, EventTiming::End, &restart_recorder);
     }
 
     CALL_ON_INIT(initialize);

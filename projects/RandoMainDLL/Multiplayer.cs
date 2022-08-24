@@ -197,7 +197,9 @@ namespace RandoMainDLL {
         var ghostFrameDataPtr = InterOp.Multiplayer.get_current_ghost_frame_data(ref len);
         var ghostFrameData = new byte[len];
 
-        Marshal.Copy((IntPtr)ghostFrameDataPtr, ghostFrameData, 0, len);
+        if (len > 0) {
+          Marshal.Copy((IntPtr)ghostFrameDataPtr, ghostFrameData, 0, len);
+        }
 
         UDPSocketClient.SendPlayerPosition(playerPosition.X, playerPosition.Y, ghostFrameData);
       }

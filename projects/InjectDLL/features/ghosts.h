@@ -8,7 +8,7 @@ namespace ghosts {
         uint32_t ghost_go_gchandle = 0;
         app::GhostPlayer* ghost_player = nullptr;
 
-        void initialize();
+        bool initialize();
         bool is_initialized();
         void set_name(std::string name);
         void play_frame_data(std::vector<std::byte> frame_data);

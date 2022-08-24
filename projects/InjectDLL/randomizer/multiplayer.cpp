@@ -433,9 +433,10 @@ namespace multiplayer {
             bool world_visible = player.online && should_show && player.world_visible;
             if (player.world_ghost.is_initialized() != world_visible) {
                 if (world_visible) {
-                    player.world_ghost.initialize();
-                    player.world_ghost.set_name(convert_wstring_to_string(player.name));
-                    player.world_ghost.set_color(player.color);
+                    if (player.world_ghost.initialize()) {
+                        player.world_ghost.set_name(convert_wstring_to_string(player.name));
+                        player.world_ghost.set_color(player.color);
+                    }
                 } else {
                     player.world_ghost.destroy();
                 }
