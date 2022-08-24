@@ -36,6 +36,10 @@ namespace RandoMainDLL {
       GameType = MultiverseInfoMessage.Types.GameHandlerType.Normal;
     }
 
+    public static IEnumerable<WorldInfo> GetWorldInfos() {
+      return lastMultiverseInfo != null ? lastMultiverseInfo.Universes.First().Worlds : new WorldInfo[0];
+    }
+
     public static IEnumerable<PlayerInfo> GetPlayersFromWorld(long id) {
       return currentPlayers.Where(w => w.Value.WorldId == id).Select(p => p.Value);
     }
