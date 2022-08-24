@@ -191,7 +191,7 @@ namespace RandoMainDLL {
     public static string ParseText(string text) {
       int i = 0;
       foreach (var world in Multiplayer.GetWorldInfos()) {
-        text.Replace($"$World({i})", world.Name);
+        text.Replace($"$WORLD({i})", world.Name);
         ++i;
       }
 
