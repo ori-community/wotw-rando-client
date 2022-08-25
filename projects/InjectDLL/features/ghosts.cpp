@@ -89,7 +89,7 @@ namespace ghosts {
         GhostPlayer::InitializePuppetPrefabs(this->ghost_player);
 
         GhostPlayer::set_Mask(this->ghost_player, app::SuspendableMask__Enum::None);
-        GhostPlayer::set_IsSuspended(false);
+        GhostPlayer::set_IsSuspended(this->ghost_player, false);
 
         this->ghost_player->fields.OnFinished = nullptr;
 
