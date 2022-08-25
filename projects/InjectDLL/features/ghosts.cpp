@@ -11,10 +11,14 @@
 #include <Il2CppModLoader/app/methods/System/IO/BinaryReader.h>
 #include <Il2CppModLoader/app/methods/System/IO/BinaryWriter.h>
 #include <Il2CppModLoader/app/methods/System/IO/MemoryStream.h>
+#include <Il2CppModLoader/app/methods/Moon/SuspensionManager.h>
 #include <Il2CppModLoader/app/methods/GhostCharacterStatesPlugin.h>
 #include <Il2CppModLoader/app/methods/GhostAnimationParameterPlugin.h>
 #include <Il2CppModLoader/app/methods/GhostTimelineEventsPlugin.h>
 #include <Il2CppModLoader/app/methods/GhostCharacterData.h>
+#include <Il2CppModLoader/app/methods/InstantiateUtility.h>
+#include <Il2CppModLoader/app/methods/RaceSystem.h>
+#include <Il2CppModLoader/app/methods/System/String.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/windows_api/console.h>
 #include <constants.h>
@@ -36,7 +40,7 @@ using namespace app::methods::System::IO;
 
 namespace ghosts {
     constexpr int GHOST_RECORDER_DATA_VERSION = 8;
-    constexpr std::string_view RANDO_GHOST_TAG = "##RANDO_GHOST##";
+    constexpr std::wstring_view RANDO_GHOST_TAG = L"##RANDO_GHOST##";
 
     bool intercept_ghost_player_on_enable = false;
 
@@ -52,6 +56,11 @@ namespace ghosts {
     IL2CPP_INTERCEPT(GhostPlayer, void, FixedUpdate, (app::GhostPlayer * this_ptr)) {
         // NOOP
         // We call it by ourselves to process multiple incoming frames in one game frame
+
+        // We want to process all other ghosts though...
+        if (!RaceSystem::get_IsIdle() && System::String::op_Inequality(this_ptr->fields.GhostRecordingFilePath, il2cpp::string_new(RANDO_GHOST_TAG))) {
+            next::GhostPlayer::FixedUpdate(this_ptr);
+        }
     }
 
     bool RandoGhost::initialize() {
@@ -75,27 +84,25 @@ namespace ghosts {
         auto const character_abilities_plugin = il2cpp::create_object<app::GhostCharacterAbilitiesPlugin>("", "GhostCharacterAbilitiesPlugin");
         auto const state_machine_plugin = il2cpp::create_object<app::GhostStateMachinePlugin>("", "GhostStateMachinePlugin");
         auto const generic_events_plugin = il2cpp::create_object<app::GhostGenericEventsPlugin>("", "GhostGenericEventsPlugin");
-        auto const animation_parameter_plugin = il2cpp::create_object<app::GhostAnimationParameterPlugin>("", "GhostAnimationParameterPlugin");
-        auto const timeline_events_plugin = il2cpp::create_object<app::GhostTimelineEventsPlugin>("", "GhostTimelineEventsPlugin");
 
         GhostCharacterPlugin::ctor(character_plugin);
         GhostCharacterAbilitiesPlugin::ctor(character_abilities_plugin);
         GhostStateMachinePlugin::ctor(state_machine_plugin);
         GhostGenericEventsPlugin::ctor(generic_events_plugin);
-        GhostAnimationParameterPlugin::ctor(animation_parameter_plugin);
-        GhostTimelineEventsPlugin::ctor(timeline_events_plugin);
 
         GhostPlayer::RegisterPlugin(this->ghost_player, reinterpret_cast<app::IGhostRecorderPlugin*>(character_plugin));
         GhostPlayer::RegisterPlugin(this->ghost_player, reinterpret_cast<app::IGhostRecorderPlugin*>(character_abilities_plugin));
         GhostPlayer::RegisterPlugin(this->ghost_player, reinterpret_cast<app::IGhostRecorderPlugin*>(state_machine_plugin));
         GhostPlayer::RegisterPlugin(this->ghost_player, reinterpret_cast<app::IGhostRecorderPlugin*>(generic_events_plugin));
-        GhostPlayer::RegisterPlugin(this->ghost_player, reinterpret_cast<app::IGhostRecorderPlugin*>(animation_parameter_plugin));
-        GhostPlayer::RegisterPlugin(this->ghost_player, reinterpret_cast<app::IGhostRecorderPlugin*>(timeline_events_plugin));
 
         GhostPlayer::InitializePuppetPrefabs(this->ghost_player);
 
-        GhostPlayer::set_Mask(this->ghost_player, app::SuspendableMask__Enum::None);
-        GhostPlayer::set_IsSuspended(this->ghost_player, false);
+        Moon::SuspensionManager::Unregister(reinterpret_cast<app::ISuspendable*>(this->ghost_player));
+
+        auto ori_rig = il2cpp::unity::find_child(this->ghost_player->fields.m_oriRig, std::vector<std::string_view>{ "mirrorHolder", "rigHolder", "oriRig" });
+        auto ori_rig_animator = il2cpp::unity::get_component<app::MoonAnimator>(ori_rig, "Moon", "MoonAnimator");
+
+        Moon::SuspensionManager::Unregister(reinterpret_cast<app::ISuspendable*>(ori_rig_animator));
 
         this->ghost_player->fields.OnFinished = nullptr;
 
@@ -185,6 +192,12 @@ namespace ghosts {
         // Noop
     }
 
+    // They disable pooling when recording for some reason which breaks
+    // some enemies.
+    IL2CPP_INTERCEPT(InstantiateUtility, bool, get_ShouldUsePooling, ()) {
+        return true; // yes pool thanks
+    }
+
     app::GhostRecorder* create_recorder() {
         auto const ghost_recorder = GhostManager::GetOrCreateRecorder();
 
@@ -192,22 +205,16 @@ namespace ghosts {
         auto const character_abilities_plugin = il2cpp::create_object<app::GhostCharacterAbilitiesPlugin>("", "GhostCharacterAbilitiesPlugin");
         auto const state_machine_plugin = il2cpp::create_object<app::GhostStateMachinePlugin>("", "GhostStateMachinePlugin");
         auto const generic_events_plugin = il2cpp::create_object<app::GhostGenericEventsPlugin>("", "GhostGenericEventsPlugin");
-        auto const animation_parameter_plugin = il2cpp::create_object<app::GhostAnimationParameterPlugin>("", "GhostAnimationParameterPlugin");
-        auto const timeline_events_plugin = il2cpp::create_object<app::GhostTimelineEventsPlugin>("", "GhostTimelineEventsPlugin");
 
         GhostCharacterPlugin::ctor(character_plugin);
         GhostCharacterAbilitiesPlugin::ctor(character_abilities_plugin);
         GhostStateMachinePlugin::ctor(state_machine_plugin);
         GhostGenericEventsPlugin::ctor(generic_events_plugin);
-        GhostAnimationParameterPlugin::ctor(animation_parameter_plugin);
-        GhostTimelineEventsPlugin::ctor(timeline_events_plugin);
 
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(character_plugin));
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(character_abilities_plugin));
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(state_machine_plugin));
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(generic_events_plugin));
-        GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(animation_parameter_plugin));
-        GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(timeline_events_plugin));
 
         GhostRecorder::InitializeRecorder(ghost_recorder, il2cpp::string_new("C:\\ghost"));
         GhostRecorder::StartRecorder(ghost_recorder);
@@ -314,7 +321,7 @@ INJECT_C_DLLEXPORT char* get_current_ghost_frame_data(int& size) {
     ghosts::last_frame_data_new = false;
     size = ghosts::last_frame_data.size();
 
-    modloader::win::console::console_send(format("B %d bytes", size));
+    // modloader::win::console::console_send(format("B %d bytes", size));
 
     return reinterpret_cast<char*>(ghosts::last_frame_data.data());
 }
