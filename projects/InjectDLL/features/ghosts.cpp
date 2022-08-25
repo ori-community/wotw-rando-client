@@ -192,14 +192,9 @@ namespace ghosts {
         // Noop
     }
 
-    // They disable pooling when recording for some reason which breaks
-    // some enemies.
-    IL2CPP_INTERCEPT(InstantiateUtility, bool, get_ShouldUsePooling, ()) {
-        return true; // yes pool thanks
-    }
-
     app::GhostRecorder* create_recorder() {
         auto const ghost_recorder = GhostManager::GetOrCreateRecorder();
+        ghost_recorder->klass->static_fields->Instance = nullptr;
 
         auto const character_plugin = il2cpp::create_object<app::GhostCharacterPlugin>("", "GhostCharacterPlugin");
         auto const character_abilities_plugin = il2cpp::create_object<app::GhostCharacterAbilitiesPlugin>("", "GhostCharacterAbilitiesPlugin");
@@ -220,6 +215,7 @@ namespace ghosts {
         GhostRecorder::StartRecorder(ghost_recorder);
 
         MemoryStream::SetLength(ghost_recorder->klass->static_fields->m_stream, 0);
+        il2cpp::gchandle_new(ghost_recorder, true);
 
         return ghost_recorder;
     }
@@ -229,8 +225,10 @@ namespace ghosts {
     bool last_frame_data_new = false;
 
     IL2CPP_INTERCEPT(GhostRecorder, void, FixedUpdate, (app::GhostRecorder* this_ptr)) {
-        // This causes the recorder to flush the current GhostFrame every time
-        ghost_recorder->fields.m_previousFrameTime = 0.f;
+        if (this_ptr == ghost_recorder) {
+            // This causes the recorder to flush the current GhostFrame every time
+            ghost_recorder->fields.m_previousFrameTime = 0.f;
+        }
 
         next::GhostRecorder::FixedUpdate(this_ptr);
     }
@@ -238,22 +236,24 @@ namespace ghosts {
     IL2CPP_INTERCEPT(GhostRecorder, void, FinalizeFrame, (app::GhostRecorder* this_ptr)) {
         next::GhostRecorder::FinalizeFrame(this_ptr);
 
-        BinaryWriter::Flush(this_ptr->fields.m_binaryWriter);
-        MemoryStream::Flush(this_ptr->klass->static_fields->m_stream);
+        if (this_ptr == ghost_recorder) {
+            BinaryWriter::Flush(this_ptr->fields.m_binaryWriter);
+            MemoryStream::Flush(this_ptr->klass->static_fields->m_stream);
 
-        auto stream_buffer = MemoryStream::GetBuffer(this_ptr->klass->static_fields->m_stream);
-        auto target_buffer = std::vector<std::byte>();
+            auto stream_buffer = MemoryStream::GetBuffer(this_ptr->klass->static_fields->m_stream);
+            auto target_buffer = std::vector<std::byte>();
 
-        auto length = MemoryStream::get_Length(this_ptr->klass->static_fields->m_stream);
+            auto length = MemoryStream::get_Length(this_ptr->klass->static_fields->m_stream);
 
-        for (int i = 0; i < length; ++i) {
-            target_buffer.push_back(static_cast<const std::byte>(stream_buffer->vector[i]));
+            for (int i = 0; i < length; ++i) {
+                target_buffer.push_back(static_cast<const std::byte>(stream_buffer->vector[i]));
+            }
+
+            MemoryStream::SetLength(this_ptr->klass->static_fields->m_stream, 0);
+
+            last_frame_data = target_buffer;
+            last_frame_data_new = true;
         }
-
-        MemoryStream::SetLength(this_ptr->klass->static_fields->m_stream, 0);
-
-        last_frame_data = target_buffer;
-        last_frame_data_new = true;
     }
 
     bool has_new_frame_data() {
