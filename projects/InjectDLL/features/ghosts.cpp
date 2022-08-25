@@ -88,6 +88,9 @@ namespace ghosts {
 
         GhostPlayer::InitializePuppetPrefabs(this->ghost_player);
 
+        GhostPlayer::set_Mask(this->ghost_player, app::SuspendableMask__Enum::None);
+        GhostPlayer::set_IsSuspended(false);
+
         this->ghost_player->fields.OnFinished = nullptr;
 
         // The name text box is rotated for some reason...
