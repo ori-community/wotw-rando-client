@@ -50,17 +50,18 @@ namespace {
 
         auto frame_data = ghosts::get_frame_data();
 
-        console_send(format("%d B", frame_data.size()));
+        // console_send(format("%d B", frame_data.size()));
 
         frames.push_back(frame_data);
 
-        console_flush();
+        // console_flush();
         ++current_frame;
 
         if (current_frame == 0) {
             ghost.initialize();
             ghost.set_name("zre");
-            ghost.set_color(app::Color{ 0.f, 1.f, 0.f });
+            // ghost.set_color(app::Color{ 21.f / 255.f, 101.f / 255.f, 192.f / 255.f });
+            ghost.set_color(app::Color{ 56.f / 255.f, 142.f / 255.f, 60.f / 255.f });
         }
 
         if (current_frame >= 0) {

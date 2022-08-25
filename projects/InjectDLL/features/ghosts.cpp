@@ -1,5 +1,10 @@
+#include <Common/ext.h>
+#include <Il2CppModLoader/app/methods/GenericPuppet.h>
+#include <Il2CppModLoader/app/methods/GhostAnimationParameterPlugin.h>
 #include <Il2CppModLoader/app/methods/GhostCharacterAbilitiesPlugin.h>
+#include <Il2CppModLoader/app/methods/GhostCharacterData.h>
 #include <Il2CppModLoader/app/methods/GhostCharacterPlugin.h>
+#include <Il2CppModLoader/app/methods/GhostCharacterStatesPlugin.h>
 #include <Il2CppModLoader/app/methods/GhostFrame.h>
 #include <Il2CppModLoader/app/methods/GhostGenericEventsPlugin.h>
 #include <Il2CppModLoader/app/methods/GhostManager.h>
@@ -7,25 +12,23 @@
 #include <Il2CppModLoader/app/methods/GhostRecorder.h>
 #include <Il2CppModLoader/app/methods/GhostRecorderData.h>
 #include <Il2CppModLoader/app/methods/GhostStateMachinePlugin.h>
+#include <Il2CppModLoader/app/methods/GhostTimelineEventsPlugin.h>
+#include <Il2CppModLoader/app/methods/InstantiateUtility.h>
+#include <Il2CppModLoader/app/methods/Moon/SuspensionManager.h>
 #include <Il2CppModLoader/app/methods/OriGhostRigVisuals_GhostVisualSettings.h>
+#include <Il2CppModLoader/app/methods/RaceSystem.h>
 #include <Il2CppModLoader/app/methods/System/IO/BinaryReader.h>
 #include <Il2CppModLoader/app/methods/System/IO/BinaryWriter.h>
 #include <Il2CppModLoader/app/methods/System/IO/MemoryStream.h>
-#include <Il2CppModLoader/app/methods/Moon/SuspensionManager.h>
-#include <Il2CppModLoader/app/methods/GhostCharacterStatesPlugin.h>
-#include <Il2CppModLoader/app/methods/GhostAnimationParameterPlugin.h>
-#include <Il2CppModLoader/app/methods/GhostTimelineEventsPlugin.h>
-#include <Il2CppModLoader/app/methods/GhostCharacterData.h>
-#include <Il2CppModLoader/app/methods/InstantiateUtility.h>
-#include <Il2CppModLoader/app/methods/RaceSystem.h>
 #include <Il2CppModLoader/app/methods/System/String.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Material.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/Renderer.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/windows_api/console.h>
 #include <constants.h>
-#include <game/player.h>
 #include <game/game.h>
+#include <game/player.h>
 #include <randomizer/text_style.h>
-#include <Common/ext.h>
 
 #include "ghosts.h"
 
@@ -63,6 +66,54 @@ namespace ghosts {
         }
     }
 
+    bool intercept_generic_puppet = false;
+
+    IL2CPP_INTERCEPT(GhostGenericEventsPlugin, void, PlayCycle, (app::GhostGenericEventsPlugin * this_ptr, float frame_time)) {
+        modloader::ScopedSetter setter(intercept_generic_puppet, true);
+        next::GhostGenericEventsPlugin::PlayCycle(this_ptr, frame_time);
+    }
+
+    std::unordered_map<app::GenericPuppet*, unsigned int> animation_counters;
+    bool bypass_animation_counters = false;
+
+    IL2CPP_INTERCEPT(GenericPuppet, void, EndAnimationById, (app::GenericPuppet * this_ptr, int32_t resource_id, int32_t array_index)) {
+        // modloader::win::console::console_send("ENDING:");
+        // modloader::win::console::console_send(format("%3d    %3d", resource_id, array_index));
+
+        next::GenericPuppet::EndAnimationById(this_ptr, resource_id, array_index);
+
+        if (!bypass_animation_counters) {
+            animation_counters[this_ptr] -= 1;
+
+            if (animation_counters[this_ptr] == 0) {
+                modloader::ScopedSetter setter(bypass_animation_counters, true);
+                GenericPuppet::StartAnimationById(this_ptr, 6, -1, 0);
+                // modloader::win::console::console_send("Started idle animation");
+            }
+        }
+
+        // modloader::win::console::console_send(format("%d animations playing", animation_counters[this_ptr]));
+    }
+
+    IL2CPP_INTERCEPT(GenericPuppet, void, StartAnimationById, (app::GenericPuppet * this_ptr, int32_t resource_id, int32_t array_index, int32_t priority)) {
+        // modloader::win::console::console_send("STARTING:");
+        // modloader::win::console::console_send(format("%3d    %3d", resource_id, array_index));
+
+        if (!bypass_animation_counters) {
+            if (animation_counters[this_ptr] == 0) {
+                modloader::ScopedSetter setter(bypass_animation_counters, true);
+                GenericPuppet::EndAnimationById(this_ptr, 6, -1);
+                // modloader::win::console::console_send("Started idle animation");
+            }
+
+            animation_counters[this_ptr] += 1;
+        }
+
+        next::GenericPuppet::StartAnimationById(this_ptr, resource_id, array_index, priority);
+
+        // modloader::win::console::console_send(format("%d animations playing", animation_counters[this_ptr]));
+    }
+
     bool RandoGhost::initialize() {
         modloader::ScopedSetter setter(intercept_ghost_player_on_enable, true);
 
@@ -98,6 +149,9 @@ namespace ghosts {
         GhostPlayer::InitializePuppetPrefabs(this->ghost_player);
 
         Moon::SuspensionManager::Unregister(reinterpret_cast<app::ISuspendable*>(this->ghost_player));
+
+        auto ghost_trail = il2cpp::unity::find_child(this->ghost_player, "sharedSingleSnowParticleA");
+        il2cpp::unity::destroy_object(ghost_trail);
 
         auto ori_rig = il2cpp::unity::find_child(this->ghost_player->fields.m_oriRig, std::vector<std::string_view>{ "mirrorHolder", "rigHolder", "oriRig" });
         auto ori_rig_animator = il2cpp::unity::get_component<app::MoonAnimator>(ori_rig, "Moon", "MoonAnimator");
@@ -158,6 +212,20 @@ namespace ghosts {
     }
 
     void RandoGhost::set_color(app::Color color) {
+        app::Color color_emissivity{
+            std::lerp(color.r, 0.f, .3f),
+            std::lerp(color.g, 0.f, .3f),
+            std::lerp(color.b, 0.f, .3f),
+            .5f,
+        };
+
+        app::Color color_trail{
+            color.r,
+            color.g,
+            color.b,
+            .05f,
+        };
+
         auto visual_settings = il2cpp::create_object<app::OriGhostRigVisuals_GhostVisualSettings>("", "OriGhostRigVisuals", "GhostVisualSettings");
         OriGhostRigVisuals_GhostVisualSettings::ctor(visual_settings);
 
@@ -171,6 +239,24 @@ namespace ghosts {
 
         this->ghost_player->fields.VisualSettings = visual_settings;
         GhostPlayer::InitializeVisualize(this->ghost_player, visual_settings);
+
+        auto emissivity_model_go = il2cpp::unity::find_child(
+                this->ghost_player->fields.m_oriRig,
+                std::vector<std::string_view>{ "mirrorHolder", "rigHolder", "oriRig", "Model_GRP", "body_emissivity_MDL" }
+        );
+        auto trail_go = il2cpp::unity::find_child(
+                this->ghost_player->fields.m_oriRig,
+                std::vector<std::string_view>{ "mirrorHolder", "rigHolder", "oriRig", "trails", "trail" }
+        );
+
+        auto emissivity_mesh_renderer = il2cpp::unity::get_component<app::SkinnedMeshRenderer>(emissivity_model_go, "UnityEngine", "SkinnedMeshRenderer");
+        auto emissivity_material = UnityEngine::Renderer::GetMaterial(reinterpret_cast<app::Renderer*>(emissivity_mesh_renderer));
+        UnityEngine::Material::SetColor_1(emissivity_material, il2cpp::string_new("_EmissivityColor"), color_emissivity);
+
+        auto trail_renderer = il2cpp::unity::get_component<app::MeshRenderer>(trail_go, "UnityEngine", "MeshRenderer");
+        auto trail_material = UnityEngine::Renderer::GetMaterial(reinterpret_cast<app::Renderer*>(trail_renderer));
+        UnityEngine::Material::SetColor_1(trail_material, il2cpp::string_new("_Color"), color_trail);
+        UnityEngine::Material::SetColor_1(trail_material, il2cpp::string_new("_EmissivityColor"), color_trail);
 
         utils::set_color(this->ghost_player->fields.m_oriRig, color, app::UberShaderProperty_Color__Enum::MainColor);
     }
@@ -188,13 +274,22 @@ namespace ghosts {
         return app::Vector2{ position_3d.x, position_3d.y };
     }
 
-    IL2CPP_INTERCEPT(GhostRecorder, void, StopRecorder, (app::GhostRecorder* this_ptr)) {
+    IL2CPP_INTERCEPT(GhostRecorder, void, StopRecorder, (app::GhostRecorder * this_ptr)) {
         // Noop
+    }
+
+    // They disable pooling when recording for some reason which breaks
+    // some enemies.
+    IL2CPP_INTERCEPT(InstantiateUtility, bool, get_ShouldUsePooling, ()) {
+        return true; // yes pool thanks
+    }
+
+    IL2CPP_INTERCEPT(GhostGenericEventsPlugin, void, RecordInstantiate, (app::GhostGenericEventsPlugin * this_ptr, app::GenericPuppet* generic_puppet, int32_t resource_id, app::Vector3 position, app::Quaternion rotation)) {
+        return;
     }
 
     app::GhostRecorder* create_recorder() {
         auto const ghost_recorder = GhostManager::GetOrCreateRecorder();
-        ghost_recorder->klass->static_fields->Instance = nullptr;
 
         auto const character_plugin = il2cpp::create_object<app::GhostCharacterPlugin>("", "GhostCharacterPlugin");
         auto const character_abilities_plugin = il2cpp::create_object<app::GhostCharacterAbilitiesPlugin>("", "GhostCharacterAbilitiesPlugin");
@@ -224,7 +319,7 @@ namespace ghosts {
     std::vector<std::byte> last_frame_data;
     bool last_frame_data_new = false;
 
-    IL2CPP_INTERCEPT(GhostRecorder, void, FixedUpdate, (app::GhostRecorder* this_ptr)) {
+    IL2CPP_INTERCEPT(GhostRecorder, void, FixedUpdate, (app::GhostRecorder * this_ptr)) {
         if (this_ptr == ghost_recorder) {
             // This causes the recorder to flush the current GhostFrame every time
             ghost_recorder->fields.m_previousFrameTime = 0.f;
@@ -233,7 +328,7 @@ namespace ghosts {
         next::GhostRecorder::FixedUpdate(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(GhostRecorder, void, FinalizeFrame, (app::GhostRecorder* this_ptr)) {
+    IL2CPP_INTERCEPT(GhostRecorder, void, FinalizeFrame, (app::GhostRecorder * this_ptr)) {
         next::GhostRecorder::FinalizeFrame(this_ptr);
 
         if (this_ptr == ghost_recorder) {
@@ -309,8 +404,6 @@ namespace ghosts {
 
     CALL_ON_INIT(initialize);
 } // namespace ghosts
-
-
 
 INJECT_C_DLLEXPORT char* get_current_ghost_frame_data(int& size) {
     if (!ghosts::has_new_frame_data()) {
