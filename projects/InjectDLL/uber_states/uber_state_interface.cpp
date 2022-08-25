@@ -184,6 +184,37 @@ namespace uber_states {
         CALL_ON_INIT(initialize);
     } // namespace
 
+    bool UberStateCondition::resolve() const {
+        if (!state.valid())
+            return false;
+
+        return resolve(state, state.get());
+    }
+
+    bool UberStateCondition::resolve(double state_value) const {
+        return resolve(state, state_value);
+    }
+
+    bool UberStateCondition::resolve(UberState compared_state, double state_value) const {
+        if (!state.valid() || !compared_state.valid() || state != compared_state)
+            return false;
+
+        switch (op) {
+            case Operator::Equals:
+                return state_value == value;
+            case Operator::LessOrEquals:
+                return state_value <= value;
+            case Operator::MoreOrEquals:
+                return state_value >= value;
+            case Operator::Less:
+                return state_value < value;
+            case Operator::More:
+                return state_value > value;
+            default:
+                return false;
+        }
+    }
+
     UberState::UberState() :
             m_group(UberStateGroup::Invalid), m_state(0) {}
 
@@ -375,6 +406,10 @@ namespace uber_states {
 
     bool operator==(UberState const& a, UberState const& b) {
         return a.state() == b.state() && a.group() == b.group();
+    }
+
+    bool operator==(UberStateCondition const& a, UberStateCondition const& b) {
+        return a.op == b.op && a.state == b.state && a.value == b.value;
     }
 } // namespace uber_states
 

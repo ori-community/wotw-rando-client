@@ -10,6 +10,8 @@ namespace RandoMainDLL {
   using Conditions = SortedDictionary<UberStateCondition, Pickup>;
   using States = Dictionary<UberId, SortedDictionary<UberStateCondition, Pickup>>;
 
+
+
   public class PickupDictionary {
     // Optimize the equals pickup as we only match one of those on collection.
     Dictionary<UberStateCondition, Pickup> UberStateEqualsPickups = new Dictionary<UberStateCondition, Pickup>();

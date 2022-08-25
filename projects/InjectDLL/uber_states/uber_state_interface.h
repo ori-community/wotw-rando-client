@@ -49,6 +49,25 @@ namespace uber_states {
         int m_state;
     };
 
+    struct UberStateCondition {
+    public:
+        enum class Operator {
+            Equals,
+            LessOrEquals,
+            MoreOrEquals,
+            Less,
+            More
+        };
+
+        UberState state;
+        Operator op;
+        double value;
+
+        bool resolve() const;
+        bool resolve(double state_value) const;
+        bool resolve(UberState compared_state, double state_value) const;
+    };
+
     using value_notify = void (*)(UberState state, double previous_value);
     using value_intercept = bool (*)(UberState state, double value);
 
@@ -59,6 +78,7 @@ namespace uber_states {
     void register_value_intercept(value_intercept intercept);
 
     bool operator==(UberState const& a, UberState const& b);
+    bool operator==(UberStateCondition const& a, UberStateCondition const& b);
 } // namespace uber_states
 
 template<>
@@ -68,5 +88,14 @@ struct std::hash<uber_states::UberState>
     {
         return hash<UberStateGroup>()(s.group())
             ^ (hash<int>()(s.state()) << 1);
+    }
+};
+
+template <>
+struct std::hash<uber_states::UberStateCondition> {
+    std::size_t operator()(const uber_states::UberStateCondition& s) const {
+        return hash<uber_states::UberState>()(s.state)
+            ^ (hash<double>()(s.value) << 1)
+            ^ (hash<int>()(static_cast<int>(s.op)) << 2);
     }
 };
