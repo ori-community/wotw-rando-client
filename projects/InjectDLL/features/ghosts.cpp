@@ -36,6 +36,7 @@ using namespace app::methods::System::IO;
 
 namespace ghosts {
     constexpr int GHOST_RECORDER_DATA_VERSION = 8;
+    constexpr std::string_view RANDO_GHOST_TAG = "##RANDO_GHOST##";
 
     bool intercept_ghost_player_on_enable = false;
 
@@ -46,6 +47,11 @@ namespace ghosts {
         }
 
         next::GhostPlayer::OnEnable(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(GhostPlayer, void, FixedUpdate, (app::GhostPlayer * this_ptr)) {
+        // NOOP
+        // We call it by ourselves to process multiple incoming frames in one game frame
     }
 
     bool RandoGhost::initialize() {
@@ -98,6 +104,7 @@ namespace ghosts {
         il2cpp::unity::set_local_position(this->ghost_player->fields.Name, app::Vector3{ 0.f, 1.5f, 0.f });
 
         this->ghost_go_gchandle = il2cpp::gchandle_new(ghost_go, true);
+        this->ghost_player->fields.GhostRecordingFilePath = il2cpp::string_new(RANDO_GHOST_TAG);
 
         return true;
     }
@@ -139,6 +146,8 @@ namespace ghosts {
         this->ghost_player->fields.CurrentTime = 0.f;
         this->ghost_player->fields.m_isStarted = true;
         this->ghost_player->fields._IsFinished_k__BackingField = false;
+
+        next::GhostPlayer::FixedUpdate(this->ghost_player);
     }
 
     void RandoGhost::set_color(app::Color color) {
@@ -302,6 +311,7 @@ INJECT_C_DLLEXPORT char* get_current_ghost_frame_data(int& size) {
         return nullptr;
     }
 
+    ghosts::last_frame_data_new = false;
     size = ghosts::last_frame_data.size();
 
     modloader::win::console::console_send(format("B %d bytes", size));
