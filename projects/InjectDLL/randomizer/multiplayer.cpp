@@ -339,14 +339,8 @@ namespace multiplayer {
     }
 
     bool should_show_avatar() {
-        if (game::ui::menu_open())
-            return false;
-
         auto sein = game::player::sein();
-        if (sein == nullptr)
-            return false;
-
-        return true;
+        return sein != nullptr;
     }
 
     void spawn_player(std::string const& name, std::vector<console::CommandParam> const& params) {

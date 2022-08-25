@@ -18,7 +18,8 @@ namespace ghosts {
     };
 
     app::GhostRecorder* create_recorder();
-    std::vector<std::byte> get_last_frame_data_and_flush(app::GhostRecorder* ghost_recorder);
+    bool has_new_frame_data();
+    std::vector<std::byte> get_frame_data();
     std::vector<std::byte> serialize_frame(app::GhostFrame* frame);
     app::GhostFrame* deserialize_frame(std::vector<std::byte> buffer);
 } // namespace ghosts

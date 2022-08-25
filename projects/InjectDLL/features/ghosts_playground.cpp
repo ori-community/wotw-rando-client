@@ -1,5 +1,4 @@
 /*
-
 #include <Il2CppModLoader/app/methods/GhostCharacterAbilitiesPlugin.h>
 #include <Il2CppModLoader/app/methods/GhostCharacterPlugin.h>
 #include <Il2CppModLoader/app/methods/GhostGenericEventsPlugin.h>
@@ -44,17 +43,22 @@ namespace {
             return;
         }
 
-        auto frame_data = ghosts::get_last_frame_data_and_flush(recorder);
+        if (!ghosts::has_new_frame_data()) {
+            console_send("-");
+            return;
+        }
 
-        console_send(format("%d bytes", frame_data.size()));
+        auto frame_data = ghosts::get_frame_data();
 
-        frames.emplace_back(frame_data);
+        console_send(format("%d B", frame_data.size()));
+
+        frames.push_back(frame_data);
 
         console_flush();
         ++current_frame;
 
         if (current_frame == 0) {
-            ghost = ghosts::create_ghost();
+            ghost.initialize();
             ghost.set_name("zre");
             ghost.set_color(app::Color{ 0.f, 1.f, 0.f });
         }
@@ -75,5 +79,4 @@ namespace {
 
     CALL_ON_INIT(initialize);
 }
-
- */
+*/

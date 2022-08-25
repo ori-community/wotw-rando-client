@@ -11,6 +11,10 @@
 #include <Il2CppModLoader/app/methods/System/IO/BinaryReader.h>
 #include <Il2CppModLoader/app/methods/System/IO/BinaryWriter.h>
 #include <Il2CppModLoader/app/methods/System/IO/MemoryStream.h>
+#include <Il2CppModLoader/app/methods/GhostCharacterStatesPlugin.h>
+#include <Il2CppModLoader/app/methods/GhostAnimationParameterPlugin.h>
+#include <Il2CppModLoader/app/methods/GhostTimelineEventsPlugin.h>
+#include <Il2CppModLoader/app/methods/GhostCharacterData.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/windows_api/console.h>
 #include <constants.h>
@@ -65,16 +69,22 @@ namespace ghosts {
         auto const character_abilities_plugin = il2cpp::create_object<app::GhostCharacterAbilitiesPlugin>("", "GhostCharacterAbilitiesPlugin");
         auto const state_machine_plugin = il2cpp::create_object<app::GhostStateMachinePlugin>("", "GhostStateMachinePlugin");
         auto const generic_events_plugin = il2cpp::create_object<app::GhostGenericEventsPlugin>("", "GhostGenericEventsPlugin");
+        auto const animation_parameter_plugin = il2cpp::create_object<app::GhostAnimationParameterPlugin>("", "GhostAnimationParameterPlugin");
+        auto const timeline_events_plugin = il2cpp::create_object<app::GhostTimelineEventsPlugin>("", "GhostTimelineEventsPlugin");
 
         GhostCharacterPlugin::ctor(character_plugin);
         GhostCharacterAbilitiesPlugin::ctor(character_abilities_plugin);
         GhostStateMachinePlugin::ctor(state_machine_plugin);
         GhostGenericEventsPlugin::ctor(generic_events_plugin);
+        GhostAnimationParameterPlugin::ctor(animation_parameter_plugin);
+        GhostTimelineEventsPlugin::ctor(timeline_events_plugin);
 
         GhostPlayer::RegisterPlugin(this->ghost_player, reinterpret_cast<app::IGhostRecorderPlugin*>(character_plugin));
         GhostPlayer::RegisterPlugin(this->ghost_player, reinterpret_cast<app::IGhostRecorderPlugin*>(character_abilities_plugin));
         GhostPlayer::RegisterPlugin(this->ghost_player, reinterpret_cast<app::IGhostRecorderPlugin*>(state_machine_plugin));
         GhostPlayer::RegisterPlugin(this->ghost_player, reinterpret_cast<app::IGhostRecorderPlugin*>(generic_events_plugin));
+        GhostPlayer::RegisterPlugin(this->ghost_player, reinterpret_cast<app::IGhostRecorderPlugin*>(animation_parameter_plugin));
+        GhostPlayer::RegisterPlugin(this->ghost_player, reinterpret_cast<app::IGhostRecorderPlugin*>(timeline_events_plugin));
 
         GhostPlayer::InitializePuppetPrefabs(this->ghost_player);
 
@@ -94,13 +104,15 @@ namespace ghosts {
     }
 
     void RandoGhost::set_name(std::string name) {
-        std::wstring name_text = convert_string_to_wstring(format("<s_2>%s</>", name.c_str()));
+        std::wstring name_text = convert_string_to_wstring(format("<s_1.5>%s</>", name.c_str()));
         text_style::create_styles(ghost_player->fields.Name, name_text);
         GhostPlayer::SetDisplayName(this->ghost_player, il2cpp::string_new(name_text));
     }
 
     void RandoGhost::play_frame_data(std::vector<std::byte> frame_data) {
-        // il2cpp::unity::set_active_recursively(this->ghost_player, true);
+        if (frame_data.empty()) {
+            return;
+        }
 
         this->ghost_player->fields.GhostRecorderData->fields.CurrentVersion = 8;
         this->ghost_player->fields.GhostRecorderData->fields.Duration = FLT_MAX;
@@ -168,16 +180,22 @@ namespace ghosts {
         auto const character_abilities_plugin = il2cpp::create_object<app::GhostCharacterAbilitiesPlugin>("", "GhostCharacterAbilitiesPlugin");
         auto const state_machine_plugin = il2cpp::create_object<app::GhostStateMachinePlugin>("", "GhostStateMachinePlugin");
         auto const generic_events_plugin = il2cpp::create_object<app::GhostGenericEventsPlugin>("", "GhostGenericEventsPlugin");
+        auto const animation_parameter_plugin = il2cpp::create_object<app::GhostAnimationParameterPlugin>("", "GhostAnimationParameterPlugin");
+        auto const timeline_events_plugin = il2cpp::create_object<app::GhostTimelineEventsPlugin>("", "GhostTimelineEventsPlugin");
 
         GhostCharacterPlugin::ctor(character_plugin);
         GhostCharacterAbilitiesPlugin::ctor(character_abilities_plugin);
         GhostStateMachinePlugin::ctor(state_machine_plugin);
         GhostGenericEventsPlugin::ctor(generic_events_plugin);
+        GhostAnimationParameterPlugin::ctor(animation_parameter_plugin);
+        GhostTimelineEventsPlugin::ctor(timeline_events_plugin);
 
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(character_plugin));
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(character_abilities_plugin));
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(state_machine_plugin));
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(generic_events_plugin));
+        GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(animation_parameter_plugin));
+        GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(timeline_events_plugin));
 
         GhostRecorder::InitializeRecorder(ghost_recorder, il2cpp::string_new("C:\\ghost"));
         GhostRecorder::StartRecorder(ghost_recorder);
@@ -187,28 +205,45 @@ namespace ghosts {
         return ghost_recorder;
     }
 
-    std::vector<std::byte> get_last_frame_data_and_flush(app::GhostRecorder* ghost_recorder) {
-        GhostRecorder::FinalizeFrame(ghost_recorder);
-        auto recorder_data = ghost_recorder->fields.GhostRecorderData;
+    app::GhostRecorder* ghost_recorder = nullptr;
+    std::vector<std::byte> last_frame_data;
+    bool last_frame_data_new = false;
 
-        if (recorder_data == nullptr) {
-            recorder_data = il2cpp::create_object<app::GhostRecorderData>("", "GhostRecorderData");
-            GhostRecorderData::ctor(recorder_data);
-            ghost_recorder->fields.GhostRecorderData = recorder_data;
-        }
+    IL2CPP_INTERCEPT(GhostRecorder, void, FixedUpdate, (app::GhostRecorder* this_ptr)) {
+        // This causes the recorder to flush the current GhostFrame every time
+        ghost_recorder->fields.m_previousFrameTime = 0.f;
 
-        auto stream_buffer = MemoryStream::GetBuffer(ghost_recorder->klass->static_fields->m_stream);
+        next::GhostRecorder::FixedUpdate(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(GhostRecorder, void, FinalizeFrame, (app::GhostRecorder* this_ptr)) {
+        next::GhostRecorder::FinalizeFrame(this_ptr);
+
+        BinaryWriter::Flush(this_ptr->fields.m_binaryWriter);
+        MemoryStream::Flush(this_ptr->klass->static_fields->m_stream);
+
+        auto stream_buffer = MemoryStream::GetBuffer(this_ptr->klass->static_fields->m_stream);
         auto target_buffer = std::vector<std::byte>();
 
-        auto length = MemoryStream::get_Length(ghost_recorder->klass->static_fields->m_stream);
+        auto length = MemoryStream::get_Length(this_ptr->klass->static_fields->m_stream);
 
         for (int i = 0; i < length; ++i) {
             target_buffer.push_back(static_cast<const std::byte>(stream_buffer->vector[i]));
         }
 
-        MemoryStream::SetLength(ghost_recorder->klass->static_fields->m_stream, 0);
+        MemoryStream::SetLength(this_ptr->klass->static_fields->m_stream, 0);
 
-        return target_buffer;
+        last_frame_data = target_buffer;
+        last_frame_data_new = true;
+    }
+
+    bool has_new_frame_data() {
+        return last_frame_data_new;
+    }
+
+    std::vector<std::byte> get_frame_data() {
+        last_frame_data_new = false;
+        return last_frame_data;
     }
 
     std::vector<std::byte> serialize_frame(app::GhostFrame* frame) {
@@ -248,34 +283,25 @@ namespace ghosts {
 
         return frame;
     }
-} // namespace ghosts
-
-app::GhostRecorder* recorder = nullptr;
-std::vector<std::byte> frame_data;
-
-INJECT_C_DLLEXPORT char* get_current_ghost_frame_data(int& size) {
-    if (recorder == nullptr) {
-        size = 0;
-        return 0;
-    }
-
-    frame_data = ghosts::get_last_frame_data_and_flush(recorder);
-    size = frame_data.size();
-
-    modloader::win::console::console_send(format("B %d bytes", size));
-
-    return reinterpret_cast<char*>(frame_data.data());
-}
-
-namespace {
-    void restart_recorder(GameEvent game_event, EventTiming timing) {
-        recorder = ghosts::create_recorder();
-    }
 
     void initialize() {
-        game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, &restart_recorder);
-        game::event_bus().register_handler(GameEvent::NewGame, EventTiming::End, &restart_recorder);
+        ghost_recorder = ghosts::create_recorder();
     }
 
     CALL_ON_INIT(initialize);
+} // namespace ghosts
+
+
+
+INJECT_C_DLLEXPORT char* get_current_ghost_frame_data(int& size) {
+    if (!ghosts::has_new_frame_data()) {
+        size = 0;
+        return nullptr;
+    }
+
+    size = ghosts::last_frame_data.size();
+
+    modloader::win::console::console_send(format("B %d bytes", size));
+
+    return reinterpret_cast<char*>(ghosts::last_frame_data.data());
 }
