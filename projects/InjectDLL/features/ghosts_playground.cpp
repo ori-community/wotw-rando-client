@@ -22,11 +22,9 @@
 #include "ghosts.h"
 
 #include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/interception_macros.h>
 #include <enums/game_event.h>
 #include <event_bus.h>
 #include <game/game.h>
-#include <uber_states/uber_state_interface.h>
 
 using namespace modloader::win::console;
 using namespace app::methods;
@@ -36,7 +34,8 @@ namespace {
     app::GhostRecorder* recorder = nullptr;
     std::vector<std::vector<std::byte>> frames;
     long current_frame = -200;
-    ghosts::RandoGhost ghost;
+    ghosts::RandoGhost ghost1;
+    ghosts::RandoGhost ghost2;
 
     void on_fixed_update(GameEvent game_event, EventTiming timing) {
         if (!il2cpp::unity::is_valid(recorder)) {
@@ -44,13 +43,17 @@ namespace {
         }
 
         if (!ghosts::has_new_frame_data()) {
-            console_send("-");
+            // console_send("-");
             return;
         }
 
         auto frame_data = ghosts::get_frame_data();
 
-        // console_send(format("%d B", frame_data.size()));
+        std::string hex = "";
+        for (const auto& item : frame_data) {
+            hex += format("%02X ", static_cast<unsigned int>(item));
+        }
+        console_send(hex);
 
         frames.push_back(frame_data);
 
@@ -58,14 +61,21 @@ namespace {
         ++current_frame;
 
         if (current_frame == 0) {
-            ghost.initialize();
-            ghost.set_name("zre");
-            // ghost.set_color(app::Color{ 21.f / 255.f, 101.f / 255.f, 192.f / 255.f });
-            ghost.set_color(app::Color{ 56.f / 255.f, 142.f / 255.f, 60.f / 255.f });
+            ghost1.initialize();
+            ghost1.set_name("zre");
+            ghost1.set_color(app::Color{ 21.f / 255.f, 101.f / 255.f, 192.f / 255.f });
+
+            // ghost2.initialize();
+            // ghost2.set_name("Appol");
+            // ghost2.set_color(app::Color{ 56.f / 255.f, 142.f / 255.f, 60.f / 255.f });
         }
 
         if (current_frame >= 0) {
-            ghost.play_frame_data(frames[current_frame]);
+            ghost1.play_frame_data(frames[current_frame]);
+        }
+
+        if (current_frame >= 200) {
+            // ghost2.play_frame_data(frames[current_frame - 200]);
         }
     }
 

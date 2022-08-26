@@ -7,14 +7,15 @@ namespace ghosts {
     struct RandoGhost {
         uint32_t ghost_go_gchandle = 0;
         app::GhostPlayer* ghost_player = nullptr;
+        bool preventing_tpose = false;
 
         bool initialize();
-        bool is_initialized();
-        void set_name(std::string name);
-        void play_frame_data(std::vector<std::byte> frame_data);
-        void set_color(app::Color color);
+        bool is_initialized() const;
+        void set_name(const std::string& name) const;
+        void play_frame_data(const std::vector<std::byte>& frame_data);
+        void set_color(app::Color color) const;
         void destroy();
-        app::Vector2 get_position();
+        app::Vector2 get_position() const;
     };
 
     app::GhostRecorder* create_recorder();

@@ -2,6 +2,7 @@
 
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 #define IL2CPP_REGISTER_METHOD(address, return_type, name, params) \
     inline return_type(*name) params = nullptr;                     \
@@ -10,7 +11,8 @@
     }
 
 // We may use this later.
-#define IL2CPP_REGISTER_METHODINFO(address, name)
+#define IL2CPP_REGISTER_METHODINFO(address, name) \
+    inline Il2CppMethodInfo* name = reinterpret_cast<Il2CppMethodInfo*>(modloader::win::memory::get_game_assembly_address() + address);
 
 #define IL2CPP_INTERCEPT(method_namespace, return_type, method_name, params)                                                                         \
     static_assert(std::is_same<decltype(app::methods::method_namespace::method_name), return_type(*) params>::value, "incorrect function type");     \

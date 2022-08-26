@@ -1,10 +1,7 @@
 #include <Common/ext.h>
 #include <Il2CppModLoader/app/methods/GenericPuppet.h>
-#include <Il2CppModLoader/app/methods/GhostAnimationParameterPlugin.h>
 #include <Il2CppModLoader/app/methods/GhostCharacterAbilitiesPlugin.h>
-#include <Il2CppModLoader/app/methods/GhostCharacterData.h>
 #include <Il2CppModLoader/app/methods/GhostCharacterPlugin.h>
-#include <Il2CppModLoader/app/methods/GhostCharacterStatesPlugin.h>
 #include <Il2CppModLoader/app/methods/GhostFrame.h>
 #include <Il2CppModLoader/app/methods/GhostGenericEventsPlugin.h>
 #include <Il2CppModLoader/app/methods/GhostManager.h>
@@ -12,7 +9,6 @@
 #include <Il2CppModLoader/app/methods/GhostRecorder.h>
 #include <Il2CppModLoader/app/methods/GhostRecorderData.h>
 #include <Il2CppModLoader/app/methods/GhostStateMachinePlugin.h>
-#include <Il2CppModLoader/app/methods/GhostTimelineEventsPlugin.h>
 #include <Il2CppModLoader/app/methods/InstantiateUtility.h>
 #include <Il2CppModLoader/app/methods/Moon/SuspensionManager.h>
 #include <Il2CppModLoader/app/methods/OriGhostRigVisuals_GhostVisualSettings.h>
@@ -21,10 +17,10 @@
 #include <Il2CppModLoader/app/methods/System/IO/BinaryWriter.h>
 #include <Il2CppModLoader/app/methods/System/IO/MemoryStream.h>
 #include <Il2CppModLoader/app/methods/System/String.h>
+#include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Material.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Renderer.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
-#include <Il2CppModLoader/windows_api/console.h>
 #include <constants.h>
 #include <game/game.h>
 #include <game/player.h>
@@ -35,7 +31,6 @@
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <macros.h>
-#include <uber_states/uber_state_interface.h>
 #include <utils/misc.h>
 
 using namespace app::methods;
@@ -46,6 +41,7 @@ namespace ghosts {
     constexpr std::wstring_view RANDO_GHOST_TAG = L"##RANDO_GHOST##";
 
     bool intercept_ghost_player_on_enable = false;
+    RandoGhost* currently_processing_frame_ghost = nullptr;
 
     IL2CPP_INTERCEPT(GhostPlayer, void, OnEnable, (app::GhostPlayer * this_ptr)) {
         if (intercept_ghost_player_on_enable) {
@@ -66,52 +62,44 @@ namespace ghosts {
         }
     }
 
+    bool disable_generic_puppet_animation_handlers = false;
+
+    IL2CPP_INTERCEPT(GenericPuppet, void, StartAnimationById, (app::GenericPuppet * this_ptr, int32_t resource_id, int32_t array_index, int32_t priority)) {
+        if (disable_generic_puppet_animation_handlers) {
+            next::GenericPuppet::StartAnimationById(this_ptr, resource_id, array_index, priority);
+            return;
+        }
+
+        if (currently_processing_frame_ghost != nullptr && currently_processing_frame_ghost->preventing_tpose) {
+            modloader::ScopedSetter setter(disable_generic_puppet_animation_handlers, true);
+            GenericPuppet::EndAnimationById(this_ptr, 6, -1);
+            currently_processing_frame_ghost->preventing_tpose = false;
+        }
+
+        next::GenericPuppet::StartAnimationById(this_ptr, resource_id, array_index, priority);
+    }
+
+    IL2CPP_INTERCEPT(GenericPuppet, void, EndAnimationById, (app::GenericPuppet * this_ptr, int32_t resource_id, int32_t array_index)) {
+        next::GenericPuppet::EndAnimationById(this_ptr, resource_id, array_index);
+
+        if (disable_generic_puppet_animation_handlers) {
+            return;
+        }
+
+        if (currently_processing_frame_ghost != nullptr) {
+            if (this_ptr->fields.m_activeAnimations->fields._size == 0) {
+                modloader::ScopedSetter setter(disable_generic_puppet_animation_handlers, true);
+                GenericPuppet::StartAnimationById(this_ptr, 6, -1, 0);
+                currently_processing_frame_ghost->preventing_tpose = true;
+            }
+        }
+    }
+
     bool intercept_generic_puppet = false;
 
     IL2CPP_INTERCEPT(GhostGenericEventsPlugin, void, PlayCycle, (app::GhostGenericEventsPlugin * this_ptr, float frame_time)) {
         modloader::ScopedSetter setter(intercept_generic_puppet, true);
         next::GhostGenericEventsPlugin::PlayCycle(this_ptr, frame_time);
-    }
-
-    std::unordered_map<app::GenericPuppet*, unsigned int> animation_counters;
-    bool bypass_animation_counters = false;
-
-    IL2CPP_INTERCEPT(GenericPuppet, void, EndAnimationById, (app::GenericPuppet * this_ptr, int32_t resource_id, int32_t array_index)) {
-        // modloader::win::console::console_send("ENDING:");
-        // modloader::win::console::console_send(format("%3d    %3d", resource_id, array_index));
-
-        next::GenericPuppet::EndAnimationById(this_ptr, resource_id, array_index);
-
-        if (!bypass_animation_counters) {
-            animation_counters[this_ptr] -= 1;
-
-            if (animation_counters[this_ptr] == 0) {
-                modloader::ScopedSetter setter(bypass_animation_counters, true);
-                GenericPuppet::StartAnimationById(this_ptr, 6, -1, 0);
-                // modloader::win::console::console_send("Started idle animation");
-            }
-        }
-
-        // modloader::win::console::console_send(format("%d animations playing", animation_counters[this_ptr]));
-    }
-
-    IL2CPP_INTERCEPT(GenericPuppet, void, StartAnimationById, (app::GenericPuppet * this_ptr, int32_t resource_id, int32_t array_index, int32_t priority)) {
-        // modloader::win::console::console_send("STARTING:");
-        // modloader::win::console::console_send(format("%3d    %3d", resource_id, array_index));
-
-        if (!bypass_animation_counters) {
-            if (animation_counters[this_ptr] == 0) {
-                modloader::ScopedSetter setter(bypass_animation_counters, true);
-                GenericPuppet::EndAnimationById(this_ptr, 6, -1);
-                // modloader::win::console::console_send("Started idle animation");
-            }
-
-            animation_counters[this_ptr] += 1;
-        }
-
-        next::GenericPuppet::StartAnimationById(this_ptr, resource_id, array_index, priority);
-
-        // modloader::win::console::console_send(format("%d animations playing", animation_counters[this_ptr]));
     }
 
     bool RandoGhost::initialize() {
@@ -125,6 +113,8 @@ namespace ghosts {
 
         auto ghost_go = il2cpp::unity::instantiate_object(ghost_manager->fields.GhostPrefab);
         this->ghost_player = il2cpp::unity::get_component<app::GhostPlayer>(ghost_go, "", "GhostPlayer");
+
+        UnityEngine::GameObject::set_tag(ghost_go, il2cpp::string_new(RANDO_GHOST_TAG));
 
         auto ghost_recorder_data = il2cpp::create_object<app::GhostRecorderData>("", "GhostRecorderData");
         GhostRecorderData::ctor(ghost_recorder_data);
@@ -151,7 +141,7 @@ namespace ghosts {
         Moon::SuspensionManager::Unregister(reinterpret_cast<app::ISuspendable*>(this->ghost_player));
 
         auto ghost_trail = il2cpp::unity::find_child(this->ghost_player, "sharedSingleSnowParticleA");
-        il2cpp::unity::destroy_object(ghost_trail);
+        il2cpp::unity::set_active(ghost_trail, false);
 
         auto ori_rig = il2cpp::unity::find_child(this->ghost_player->fields.m_oriRig, std::vector<std::string_view>{ "mirrorHolder", "rigHolder", "oriRig" });
         auto ori_rig_animator = il2cpp::unity::get_component<app::MoonAnimator>(ori_rig, "Moon", "MoonAnimator");
@@ -170,17 +160,19 @@ namespace ghosts {
         return true;
     }
 
-    bool RandoGhost::is_initialized() {
+    bool RandoGhost::is_initialized() const {
         return il2cpp::unity::is_valid(this->ghost_player);
     }
 
-    void RandoGhost::set_name(std::string name) {
+    void RandoGhost::set_name(const std::string& name) const {
         std::wstring name_text = convert_string_to_wstring(format("<s_1.5>%s</>", name.c_str()));
         text_style::create_styles(ghost_player->fields.Name, name_text);
         GhostPlayer::SetDisplayName(this->ghost_player, il2cpp::string_new(name_text));
     }
 
-    void RandoGhost::play_frame_data(std::vector<std::byte> frame_data) {
+    void RandoGhost::play_frame_data(const std::vector<std::byte>& frame_data) {
+        modloader::ScopedSetter setter(currently_processing_frame_ghost, this);
+
         if (frame_data.empty()) {
             return;
         }
@@ -211,7 +203,7 @@ namespace ghosts {
         next::GhostPlayer::FixedUpdate(this->ghost_player);
     }
 
-    void RandoGhost::set_color(app::Color color) {
+    void RandoGhost::set_color(app::Color color) const {
         app::Color color_emissivity{
             std::lerp(color.r, 0.f, .3f),
             std::lerp(color.g, 0.f, .3f),
@@ -269,7 +261,7 @@ namespace ghosts {
         this->ghost_go_gchandle = 0;
     }
 
-    app::Vector2 RandoGhost::get_position() {
+    app::Vector2 RandoGhost::get_position() const {
         auto position_3d = GhostPlayer::get_Position(this->ghost_player);
         return app::Vector2{ position_3d.x, position_3d.y };
     }
@@ -285,7 +277,7 @@ namespace ghosts {
     }
 
     IL2CPP_INTERCEPT(GhostGenericEventsPlugin, void, RecordInstantiate, (app::GhostGenericEventsPlugin * this_ptr, app::GenericPuppet* generic_puppet, int32_t resource_id, app::Vector3 position, app::Quaternion rotation)) {
-        return;
+        // Noop because it's not used in vanilla and breaks weapons
     }
 
     app::GhostRecorder* create_recorder() {
