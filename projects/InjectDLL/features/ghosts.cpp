@@ -95,13 +95,6 @@ namespace ghosts {
         }
     }
 
-    bool intercept_generic_puppet = false;
-
-    IL2CPP_INTERCEPT(GhostGenericEventsPlugin, void, PlayCycle, (app::GhostGenericEventsPlugin * this_ptr, float frame_time)) {
-        modloader::ScopedSetter setter(intercept_generic_puppet, true);
-        next::GhostGenericEventsPlugin::PlayCycle(this_ptr, frame_time);
-    }
-
     bool RandoGhost::initialize() {
         modloader::ScopedSetter setter(intercept_ghost_player_on_enable, true);
 
@@ -310,15 +303,6 @@ namespace ghosts {
     app::GhostRecorder* ghost_recorder = nullptr;
     std::vector<std::byte> last_frame_data;
     bool last_frame_data_new = false;
-
-    IL2CPP_INTERCEPT(GhostRecorder, void, FixedUpdate, (app::GhostRecorder * this_ptr)) {
-        if (this_ptr == ghost_recorder) {
-            // This causes the recorder to flush the current GhostFrame every time
-            ghost_recorder->fields.m_previousFrameTime = 0.f;
-        }
-
-        next::GhostRecorder::FixedUpdate(this_ptr);
-    }
 
     IL2CPP_INTERCEPT(GhostRecorder, void, FinalizeFrame, (app::GhostRecorder * this_ptr)) {
         next::GhostRecorder::FinalizeFrame(this_ptr);
