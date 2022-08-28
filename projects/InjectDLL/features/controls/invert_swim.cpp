@@ -34,10 +34,13 @@ namespace {
         if (invert_swim) {
             auto input_cmd = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
             auto is_jump_pressed = input_cmd->static_fields->Jump->fields.IsPressed;
+            auto was_jump_pressed = input_cmd->static_fields->Jump->fields.WasPressed;
 
             input_cmd->static_fields->Jump->fields.IsPressed = !is_jump_pressed;
+            input_cmd->static_fields->Jump->fields.WasPressed = !was_jump_pressed;
             next::SeinSwimming::UpdateSwimMovingUnderwaterState(this_ptr);
             input_cmd->static_fields->Jump->fields.IsPressed = is_jump_pressed;
+            input_cmd->static_fields->Jump->fields.WasPressed = was_jump_pressed;
         } else {
             next::SeinSwimming::UpdateSwimMovingUnderwaterState(this_ptr);
         }
