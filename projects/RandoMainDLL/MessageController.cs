@@ -236,7 +236,12 @@ namespace RandoMainDLL {
     }
 
     public static void ShowLastPickup() {
-      pickupQueue.Normal.Enqueue(new PickupMessage(lastPickup));
+      if (lastPickup != null) {
+        pickupQueue.Normal.Enqueue(new PickupMessage(lastPickup));
+      } else {
+        pickupQueue.Normal.Enqueue(new PickupMessage("No pickups collected yet, good Luck!", 5f));
+      }
+
       LimitPickupQueue();
     }
 
