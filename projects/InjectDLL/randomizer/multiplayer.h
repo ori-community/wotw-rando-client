@@ -1,6 +1,6 @@
 #pragma once
 
-#include <features/ghosts.h>
+#include <randomizer/ghosts.h>
 #include <randomizer/render/textures.h>
 #include <string>
 #include <vector>
