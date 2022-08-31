@@ -53,6 +53,7 @@ set(
         "features/recording_utils.cpp"
         "features/scenes/create_objects.cpp"
         "features/scenes/scene_load.cpp"
+        "features/scenes/modifications/load_wellspring_bottom_floor_center_path_earlier.cpp"
         "features/scenes/modifications/luma_fight_room_door_always_open.cpp"
         "features/scenes/modifications/keep_epilogue_loaded_during_shriek_escape.cpp"
         "features/trackers/ability_tracker.cpp"
