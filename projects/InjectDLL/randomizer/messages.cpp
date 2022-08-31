@@ -17,6 +17,7 @@
 #include <Il2CppModLoader/app/methods/ScaleToTextBox.h>
 #include <Il2CppModLoader/app/methods/SeinLogicCycle.h>
 #include <Il2CppModLoader/app/methods/TimeUtility.h>
+#include <Il2CppModLoader/app/methods/SwimBoostHelper.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Object.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
@@ -64,6 +65,11 @@ namespace {
 
     IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowHintSmallMessage_1, (app::MessageControllerB * this_ptr, app::MessageProvider * message_provider, app::Vector3 position, float duration)) {
         return nullptr;
+    }
+
+    IL2CPP_INTERCEPT(SwimBoostHelper, void, Update, (app::SwimBoostHelper * this_ptr)) {
+        // NOOP
+        // This is the method showing the "Hold A to swim faster" message
     }
 
     IL2CPP_INTERCEPT(MessageZoneB, void, FixedUpdate, (app::MessageZoneB * this_ptr)) {}
