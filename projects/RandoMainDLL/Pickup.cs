@@ -284,7 +284,7 @@ namespace RandoMainDLL {
         if (child is ConditionalStop s && s.StopActive())
           break;
 
-        child.Grant(true);
+        child.Grant(true, position);
         if (child.Muted || child.DisplayName == Pickup.DisplayNameEmpty || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
           continue;
 
@@ -294,7 +294,7 @@ namespace RandoMainDLL {
       if (nameAfterGrant == string.Empty)
         nameAfterGrant = DisplayNameEmpty;
 
-      base.Grant(false);
+      base.Grant(false, position);
       nameAfterGrant = null;
     }
 
@@ -352,9 +352,9 @@ namespace RandoMainDLL {
         MessageController.PrependText(DisplayName);
       // don't print during multis
       else if (!skipBase)
-        MessageController.ShowPickup(DisplayName, Frames / 60.0f);
+        MessageController.ShowPickup(DisplayName, Frames / 60.0f, pickupPosition: position);
 
-      base.Grant(true);
+      base.Grant(true, position);
     }
 
     public override PickupType Type => PickupType.Message;
