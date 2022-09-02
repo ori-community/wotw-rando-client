@@ -1206,7 +1206,7 @@ namespace RandoMainDLL {
           case SysMessageType.WorldName:
             var worldIndex = extraData.ParseToByte("SysMessage.WorldName: WorldIndex");
             var worlds = Multiplayer.GetWorldInfos().ToList();
-            return worldIndex >= 0 && worldIndex < worlds.Size() ? worlds[worldIndex].Name : " ";
+            return worldIndex >= 0 && worldIndex < worlds.Count() ? worlds[worldIndex].Name : " ";
           default:
             return "";
         }
