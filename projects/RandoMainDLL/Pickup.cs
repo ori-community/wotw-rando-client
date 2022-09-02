@@ -153,6 +153,7 @@ namespace RandoMainDLL {
     PickupCount = 2,
     GoalProgress = 3,
     ListHint = 4,
+    WorldName = 5,
   }
 
   public abstract class Pickup {
@@ -1202,6 +1203,10 @@ namespace RandoMainDLL {
             return SeedController.PickupCount;
           case SysMessageType.GoalProgress:
             return SeedController.GoalModeMessages(withRelics: false);
+          case SysMessageType.WorldName:
+            var worldIndex = extraData.ParseToByte("SysMessage.WorldName: WorldIndex");
+            var worlds = Multiplayer.GetWorldInfos().ToList();
+            return worldIndex >= 0 && worldIndex < worlds.Size() ? worlds[worldIndex].Name : " ";
           default:
             return "";
         }

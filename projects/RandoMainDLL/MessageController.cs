@@ -188,22 +188,12 @@ namespace RandoMainDLL {
       return messageQueue;
     }
 
-    public static string ParseText(string text) {
-      int i = 0;
-      foreach (var world in Multiplayer.GetWorldInfos()) {
-        text.Replace($"$WORLD({i})", world.Name);
-        ++i;
-      }
-
-      return text;
-    }
-
     public static void SetInfoVisibility(bool open) {
       INFO.Destroyed = !open;
     }
 
     public static void SetInfoText(string text) {
-      INFO.Text = text == Pickup.DisplayNameEmpty ? " " : ParseText(text);
+      INFO.Text = text == Pickup.DisplayNameEmpty ? " " : text;
     }
 
     public static void Clear(string queue = null) {
@@ -485,7 +475,7 @@ namespace RandoMainDLL {
     public float TimeActive = 0f;
 
     private string text = "TEST";
-    public string Text { get { return text; } set { text = MessageController.ParseText(value); } }
+    public string Text { get { return text; } set { text = value; } }
     /// <summary>
     /// Offset from the <cref>ScreenPosition</cref>
     /// </summary>
@@ -513,7 +503,7 @@ namespace RandoMainDLL {
 
   public class PickupMessage : IDisposable {
     public PickupMessage(string text, float time, Vector2? position = null) {
-      Text = MessageController.ParseText(text);
+      Text = text;
       Time = time;
       Position = position;
       FadingOut = false;
