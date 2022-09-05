@@ -53,7 +53,7 @@ namespace {
         for (const auto& item : frame_data) {
             hex += format("%02X ", static_cast<unsigned int>(item));
         }
-        console_send(hex);
+        // console_send(hex);
 
         frames.push_back(frame_data);
 
@@ -70,7 +70,7 @@ namespace {
             // ghost2.set_color(app::Color{ 56.f / 255.f, 142.f / 255.f, 60.f / 255.f });
         }
 
-        if (current_frame >= 0) {
+        if (current_frame >= 0 && current_frame % 3 > 0) {
             ghost1.play_frame_data(frames[current_frame]);
         }
 

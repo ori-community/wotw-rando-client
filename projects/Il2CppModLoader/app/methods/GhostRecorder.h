@@ -39,7 +39,7 @@ namespace app::methods::GhostRecorder {
     IL2CPP_REGISTER_METHODINFO(0x0471F278, GhostRecorder_GetPlugin_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EA5B0, app::GhostGenericEventsPlugin *, GetPlugin_3, (app::GhostRecorder * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04767CB0, GhostRecorder_GetPlugin_2__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x015EA5B0, app::GhostWorldObjectsLifetimePlugin *, GetPlugin_4, (app::GhostRecorder * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x015EA5B0, app::GhostWorldObjectsLifetimePlugin *, GetPlugin_4, (app::GhostRecorder * this_ptr, Il2CppMethodInfo* method_info))
     IL2CPP_REGISTER_METHODINFO(0x04773BB8, GhostRecorder_GetPlugin_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EA5B0, app::GhostUberStatePlugin *, GetPlugin_5, (app::GhostRecorder * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0478CF68, GhostRecorder_GetPlugin_4__MethodInfo)

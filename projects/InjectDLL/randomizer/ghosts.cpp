@@ -25,6 +25,7 @@
 #include <game/game.h>
 #include <game/player.h>
 #include <randomizer/text_style.h>
+#include <ghosts/plugins.h>
 
 #include "ghosts.h"
 
@@ -32,6 +33,11 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <macros.h>
 #include <utils/misc.h>
+
+#include <utils/byte_stream.h>
+#include <sstream>
+#include <string>
+#include <utility>
 
 using namespace app::methods;
 using namespace app::methods::System::IO;
@@ -173,7 +179,12 @@ namespace ghosts {
         this->ghost_player->fields.GhostRecorderData->fields.CurrentVersion = 8;
         this->ghost_player->fields.GhostRecorderData->fields.Duration = FLT_MAX;
 
-        auto ghost_frame = ghosts::deserialize_frame(frame_data);
+        utils::ByteStream stream(frame_data);
+
+        plugins::play_rando_ghost_plugins(stream, *this);
+
+        auto data = stream.peek_to_end();
+        auto ghost_frame = ghosts::deserialize_frame(data);
         ghost_frame->fields.Time = 0.f;
 
         if (this->ghost_player->fields.GhostRecorderData->fields.Frames->fields._size == 0) {
@@ -263,6 +274,14 @@ namespace ghosts {
         // Noop
     }
 
+    IL2CPP_INTERCEPT(GhostRecorder, void, InitializeRecorder, (app::GhostRecorder * this_ptr, app::String* output_path)) {
+        // Noop
+    }
+
+    IL2CPP_INTERCEPT(GhostRecorder, void, Cancel, (app::GhostRecorder * this_ptr)) {
+        // Noop
+    }
+
     // They disable pooling when recording for some reason which breaks
     // some enemies.
     IL2CPP_INTERCEPT(InstantiateUtility, bool, get_ShouldUsePooling, ()) {
@@ -291,7 +310,7 @@ namespace ghosts {
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(state_machine_plugin));
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(generic_events_plugin));
 
-        GhostRecorder::InitializeRecorder(ghost_recorder, il2cpp::string_new("C:\\ghost"));
+        next::GhostRecorder::InitializeRecorder(ghost_recorder, il2cpp::string_new("C:\\ghost"));
         GhostRecorder::StartRecorder(ghost_recorder);
 
         MemoryStream::SetLength(ghost_recorder->klass->static_fields->m_stream, 0);
@@ -312,7 +331,7 @@ namespace ghosts {
             MemoryStream::Flush(this_ptr->klass->static_fields->m_stream);
 
             auto stream_buffer = MemoryStream::GetBuffer(this_ptr->klass->static_fields->m_stream);
-            auto target_buffer = std::vector<std::byte>();
+            auto target_buffer = plugins::record_rando_ghost_plugins(ghost_recorder);
 
             auto length = MemoryStream::get_Length(this_ptr->klass->static_fields->m_stream);
 
@@ -336,6 +355,11 @@ namespace ghosts {
         return last_frame_data;
     }
 
+    /**
+     * Currently unused, but I left it here for reference
+     * @param frame
+     * @return
+     */
     std::vector<std::byte> serialize_frame(app::GhostFrame* frame) {
         auto memory_stream = il2cpp::create_object<app::MemoryStream>("System.IO", "MemoryStream");
         MemoryStream::ctor_1(memory_stream);
@@ -359,7 +383,7 @@ namespace ghosts {
 
     app::GhostFrame* deserialize_frame(std::vector<std::byte> buffer) {
         auto memory_stream = il2cpp::create_object<app::MemoryStream>("System.IO", "MemoryStream");
-        auto byte_array = il2cpp::array_new<app::Byte__Array>(il2cpp::get_class("System", "Byte"), buffer);
+        auto byte_array = il2cpp::array_new<app::Byte__Array>(il2cpp::get_class("System", "Byte"), std::move(buffer));
 
         MemoryStream::ctor_3(memory_stream, byte_array);
 
