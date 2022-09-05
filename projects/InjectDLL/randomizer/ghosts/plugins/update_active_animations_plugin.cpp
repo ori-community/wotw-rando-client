@@ -4,27 +4,25 @@
 #include <Il2CppModLoader/app/methods/GenericPuppet.h>
 #include <Il2CppModLoader/app/methods/GhostPlayer.h>
 #include <Il2CppModLoader/app/methods/Moon/MoonAnimator.h>
+#include <Il2CppModLoader/app/methods/System/Collections/Generic/HashSet_1_GenericPuppet_.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/windows_api/console.h>
+
+#include <ghosts.h>
 #include <random>
 
 #include "update_active_animations_plugin.h"
 
 using namespace modloader::win::console;
 using namespace app::methods;
+using ActiveAnimation = ghosts::RandoGhost::ActiveAnimation;
 
 namespace ghosts::plugins {
     std::random_device random_device;
     std::mt19937 rng(random_device());
-    auto record_interval_frames_range = std::uniform_int_distribution(229, 727);
+    auto record_interval_frames_range = std::uniform_int_distribution(60, 60);
 
     int frames_until_record = record_interval_frames_range.max();
-
-    struct ActiveAnimation {
-        int resource_id;
-        int index;
-        int priority;
-    };
 
     std::vector<ActiveAnimation> get_active_animations(app::GenericPuppet* generic_puppet) {
         std::vector<ActiveAnimation> active_animations;
@@ -66,12 +64,14 @@ namespace ghosts::plugins {
     }
 
     std::vector<std::byte> UpdateActiveAnimationsPlugin::record(app::GhostRecorder* recorder) {
-        auto x = frames_until_record;
         if (--frames_until_record <= 0) {
             std::unordered_map<int, std::vector<ActiveAnimation>> active_animations_map;
 
-            for (int i = 0; i < recorder->klass->static_fields->s_puppets->fields._count; ++i) {
-                auto generic_puppet = recorder->klass->static_fields->s_puppets->fields._slots->vector[i].value;
+            auto puppets = il2cpp::array_new<app::GenericPuppet__Array>(il2cpp::get_class("", "GenericPuppet"), recorder->klass->static_fields->s_puppets->fields._count);
+            il2cpp::invoke(recorder->klass->static_fields->s_puppets, "CopyTo", puppets);
+
+            for (int i = 0; i < puppets->max_length; ++i) {
+                auto generic_puppet = puppets->vector[i];
                 auto active_animations = get_active_animations(generic_puppet);
 
                 if (!active_animations.empty()) {
@@ -121,21 +121,28 @@ namespace ghosts::plugins {
         }
 
         // Iterate all puppets
-
         if (desired_active_animations_map.empty()) {
             return;
         }
 
-        il2cpp::invoke(ghost.ghost_player->fields.m_animator, "Clear");
-        ghost.preventing_tpose = false;
-
         for (int i = 0; i < ghost.ghost_player->fields.m_puppets->fields.count; ++i) {
             auto puppet_id = ghost.ghost_player->fields.m_puppets->fields.entries->vector[i].key;
             auto puppet = ghost.ghost_player->fields.m_puppets->fields.entries->vector[i].value;
+            auto current_active_animations = ghost.active_animations[puppet_id];
 
             // Sync state
+            for (const auto& item : current_active_animations) {
+                if (!desired_active_animations_map[puppet_id].contains(item.first)) {
+                    GenericPuppet::EndAnimationById(reinterpret_cast<app::GenericPuppet*>(puppet), item.second.resource_id, item.second.index);
+                    console_send(format("ended %d %d %d", puppet_id, item.second.resource_id, item.second.index));
+                }
+            }
+
             for (const auto& item : desired_active_animations_map[puppet_id]) {
-                GenericPuppet::StartAnimationById(reinterpret_cast<app::GenericPuppet*>(puppet), item.second.resource_id, item.second.index, item.second.priority);
+                if (!current_active_animations.contains(item.first)) {
+                    GenericPuppet::StartAnimationById(reinterpret_cast<app::GenericPuppet*>(puppet), item.second.resource_id, item.second.index, item.second.priority);
+                    console_send(format("start %d %d %d %d", puppet_id, item.second.resource_id, item.second.index, item.second.priority));
+                }
             }
         }
     }

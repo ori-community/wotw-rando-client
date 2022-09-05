@@ -2,12 +2,21 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 namespace ghosts {
     struct RandoGhost {
+        struct ActiveAnimation {
+            int resource_id;
+            int index;
+            int priority;
+        };
+
         uint32_t ghost_go_gchandle = 0;
         app::GhostPlayer* ghost_player = nullptr;
         bool preventing_tpose = false;
+        std::unordered_map<int, std::unordered_map<int, ActiveAnimation>> active_animations;
+        //                 ^ Puppet ID             ^ Resource ID
 
         bool initialize();
         bool is_initialized() const;

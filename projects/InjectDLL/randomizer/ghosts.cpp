@@ -24,8 +24,8 @@
 #include <constants.h>
 #include <game/game.h>
 #include <game/player.h>
-#include <randomizer/text_style.h>
 #include <ghosts/plugins.h>
+#include <randomizer/text_style.h>
 
 #include "ghosts.h"
 
@@ -76,10 +76,17 @@ namespace ghosts {
             return;
         }
 
-        if (currently_processing_frame_ghost != nullptr && currently_processing_frame_ghost->preventing_tpose) {
-            modloader::ScopedSetter setter(disable_generic_puppet_animation_handlers, true);
-            GenericPuppet::EndAnimationById(this_ptr, 6, -1);
-            currently_processing_frame_ghost->preventing_tpose = false;
+        if (currently_processing_frame_ghost != nullptr) {
+            auto puppet_id = il2cpp::invoke<app::Int32__Boxed>(this_ptr, "get_Id")->fields;
+            currently_processing_frame_ghost->active_animations[puppet_id][resource_id] = RandoGhost::ActiveAnimation {
+                resource_id, array_index, priority,
+            };
+
+            if (currently_processing_frame_ghost->preventing_tpose) {
+                modloader::ScopedSetter setter(disable_generic_puppet_animation_handlers, true);
+                GenericPuppet::EndAnimationById(this_ptr, 6, -1);
+                currently_processing_frame_ghost->preventing_tpose = false;
+            }
         }
 
         next::GenericPuppet::StartAnimationById(this_ptr, resource_id, array_index, priority);
@@ -88,11 +95,14 @@ namespace ghosts {
     IL2CPP_INTERCEPT(GenericPuppet, void, EndAnimationById, (app::GenericPuppet * this_ptr, int32_t resource_id, int32_t array_index)) {
         next::GenericPuppet::EndAnimationById(this_ptr, resource_id, array_index);
 
-        if (disable_generic_puppet_animation_handlers) {
-            return;
-        }
-
         if (currently_processing_frame_ghost != nullptr) {
+            if (disable_generic_puppet_animation_handlers) {
+                return;
+            }
+
+            auto puppet_id = il2cpp::invoke<app::Int32__Boxed>(this_ptr, "get_Id")->fields;
+            currently_processing_frame_ghost->active_animations[puppet_id].erase(resource_id);
+
             if (this_ptr->fields.m_activeAnimations->fields._size == 0) {
                 modloader::ScopedSetter setter(disable_generic_puppet_animation_handlers, true);
                 GenericPuppet::StartAnimationById(this_ptr, 6, -1, 0);
@@ -180,7 +190,6 @@ namespace ghosts {
         this->ghost_player->fields.GhostRecorderData->fields.Duration = FLT_MAX;
 
         utils::ByteStream stream(frame_data);
-
         plugins::play_rando_ghost_plugins(stream, *this);
 
         auto data = stream.peek_to_end();

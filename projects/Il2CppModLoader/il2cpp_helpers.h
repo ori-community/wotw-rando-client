@@ -218,7 +218,7 @@ namespace il2cpp {
         return reinterpret_cast<R*>(arr);
     }
 
-    template <typename T, typename R = Il2CppArraySize>
+    template <typename R = Il2CppArraySize>
     R* array_new(Il2CppClass* element, int size) {
         auto arr = untyped::array_new(element, size);
         return reinterpret_cast<R*>(arr);
