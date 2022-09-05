@@ -20,7 +20,7 @@ using ActiveAnimation = ghosts::RandoGhost::ActiveAnimation;
 namespace ghosts::plugins {
     std::random_device random_device;
     std::mt19937 rng(random_device());
-    auto record_interval_frames_range = std::uniform_int_distribution(60, 60);
+    auto record_interval_frames_range = std::uniform_int_distribution(60, 240);
 
     int frames_until_record = record_interval_frames_range.max();
 
