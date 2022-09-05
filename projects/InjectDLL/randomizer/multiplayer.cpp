@@ -420,7 +420,10 @@ namespace multiplayer {
 
             // Extrapolate for next frame
             float delta_time = TimeUtility::get_deltaTime();
-            // extrapolate_icon_position(player.world_avatar, delta_time);
+
+            if (player.world_ghost.is_initialized()) {
+                player.world_ghost.extrapolate(delta_time);
+            }
             extrapolate_icon_position(player.map_avatar, delta_time);
 
             // Visibility toggles.

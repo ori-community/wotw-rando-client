@@ -25,6 +25,7 @@ namespace ghosts {
         void set_color(app::Color color) const;
         void destroy();
         app::Vector2 get_position() const;
+        void extrapolate(float delta);
     };
 
     app::GhostRecorder* create_recorder();

@@ -134,14 +134,12 @@ namespace ghosts::plugins {
             for (const auto& item : current_active_animations) {
                 if (!desired_active_animations_map[puppet_id].contains(item.first)) {
                     GenericPuppet::EndAnimationById(reinterpret_cast<app::GenericPuppet*>(puppet), item.second.resource_id, item.second.index);
-                    console_send(format("ended %d %d %d", puppet_id, item.second.resource_id, item.second.index));
                 }
             }
 
             for (const auto& item : desired_active_animations_map[puppet_id]) {
                 if (!current_active_animations.contains(item.first)) {
                     GenericPuppet::StartAnimationById(reinterpret_cast<app::GenericPuppet*>(puppet), item.second.resource_id, item.second.index, item.second.priority);
-                    console_send(format("start %d %d %d %d", puppet_id, item.second.resource_id, item.second.index, item.second.priority));
                 }
             }
         }

@@ -10,6 +10,7 @@
 #include <Il2CppModLoader/app/methods/GhostTimelineEventsPlugin.h>
 #include <Il2CppModLoader/app/methods/GhostWorldObjectsLifetimePlugin.h>
 #include <Il2CppModLoader/app/methods/GhostFrame.h>
+#include <Il2CppModLoader/app/methods/TimeUtility.h>
 #include <Il2CppModLoader/app/methods/System/IO/BinaryReader.h>
 #include <Il2CppModLoader/app/methods/System/IO/BinaryWriter.h>
 #include <Il2CppModLoader/app/methods/System/IO/MemoryStream.h>
@@ -25,6 +26,7 @@
 #include <enums/game_event.h>
 #include <event_bus.h>
 #include <game/game.h>
+#include <random>
 
 using namespace modloader::win::console;
 using namespace app::methods;
@@ -36,6 +38,8 @@ namespace {
     long current_frame = -200;
     ghosts::RandoGhost ghost1;
     ghosts::RandoGhost ghost2;
+    std::random_device random_device;
+    std::mt19937 rng(random_device());
 
     void on_fixed_update(GameEvent game_event, EventTiming timing) {
         if (!il2cpp::unity::is_valid(recorder)) {
@@ -70,12 +74,18 @@ namespace {
             // ghost2.set_color(app::Color{ 56.f / 255.f, 142.f / 255.f, 60.f / 255.f });
         }
 
-        if (current_frame >= 0 && current_frame % 3 > 0) {
+        if (current_frame >= 0 && rng() % 2 == 0) {
             ghost1.play_frame_data(frames[current_frame]);
         }
 
         if (current_frame >= 200) {
             // ghost2.play_frame_data(frames[current_frame - 200]);
+        }
+    }
+
+    void on_update(GameEvent game_event, EventTiming timing) {
+        if (ghost1.is_initialized()) {
+            ghost1.extrapolate(TimeUtility::get_deltaTime());
         }
     }
 
@@ -85,6 +95,7 @@ namespace {
 
     void initialize() {
         game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::End, &on_fixed_update);
+        game::event_bus().register_handler(GameEvent::Update, EventTiming::End, &on_update);
         game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, &on_finished_loading_save);
     }
 

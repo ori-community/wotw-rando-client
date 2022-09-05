@@ -279,6 +279,16 @@ namespace ghosts {
         return app::Vector2{ position_3d.x, position_3d.y };
     }
 
+    void RandoGhost::extrapolate(float delta) {
+        auto character_data = GhostPlayer::get_CurrentGhostCharacterData(this->ghost_player);
+
+        auto& position = character_data->fields.Position;
+        position.x += character_data->fields.LocalSpeed.x * delta;
+        position.y += character_data->fields.LocalSpeed.y * delta;
+
+        GhostPlayer::SetPosition(this->ghost_player, position);
+    }
+
     IL2CPP_INTERCEPT(GhostRecorder, void, StopRecorder, (app::GhostRecorder * this_ptr)) {
         // Noop
     }
