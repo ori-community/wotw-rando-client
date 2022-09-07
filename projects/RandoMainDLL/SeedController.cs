@@ -653,7 +653,7 @@ namespace RandoMainDLL {
 
             msgs.Add(extra);
           }
-          var msg = String.Join("|", msgs);
+          var msg = String.Join("|", msgs).Replace("\\n", "\n");
           if (messageParts.Count > 1) {
             var cmdsRaw = messageParts[1].TrimEnd(')');
             foreach (string cmd in cmdsRaw.Split(',')) {

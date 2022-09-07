@@ -227,9 +227,10 @@ namespace RandoMainDLL {
 
     public static void ShowLastPickup() {
       if (lastPickup != null) {
-        pickupQueue.Normal.Enqueue(new PickupMessage(lastPickup));
+        lastPickup.Position = null;
+        pickupQueue.Priority.Enqueue(new PickupMessage(lastPickup));
       } else {
-        pickupQueue.Normal.Enqueue(new PickupMessage("No pickups collected yet, good Luck!", 5f));
+        pickupQueue.Priority.Enqueue(new PickupMessage("No pickups collected yet, good Luck!", 5f));
       }
 
       LimitPickupQueue();
@@ -349,6 +350,26 @@ namespace RandoMainDLL {
       return false;
     }
 
+    struct MessageBoxSize {
+      public float paddingTop = 0.0f;
+      public float height = 0.0f;
+
+      public MessageBoxSize(float paddingTop, float height) {
+        this.paddingTop = paddingTop;
+        this.height = height;
+      }
+    }
+    
+    private static MessageBoxSize CalculateMessageBoxSize(int lines) {
+      const float lineHeight = 0.33f;
+      const float messagePadding = 0.25f;
+      const float paddingLineMultiplier = 1.05f;
+
+      var yPadding = messagePadding * 0.5f * lines * paddingLineMultiplier;
+      
+      return new MessageBoxSize(yPadding, yPadding + (lines * lineHeight));
+    }
+    
     public static void Tick() {
       float dt = InterOp.System.get_fixed_delta_time();
 
@@ -375,18 +396,19 @@ namespace RandoMainDLL {
         }
       }
 
-      var lines = 0;
+      var totalLines = 0;
+      var yPosition = 0.3f;
+      
       for (var i = 0; i < activePickupTextMessages.Count; i++) {
-        const float lineHeight = 0.6f;
-        const float lineSpacing = 0.2f;
-        const float messagePadding = 0.2f;
-        
-        var targetY = messagePadding + (lines * -lineHeight) + (Math.Max(0, lines - 1) * -lineSpacing);
         var message = activePickupTextMessages[i];
 
         if (!HandleMessageTimer(message, dt)) {
+          var messageLines = message.Text.Split('\n').Length;
+          var messagePadding = CalculateMessageBoxSize(messageLines);
+
+          yPosition -= messagePadding.paddingTop;
           var startPosition = new Vector2(message.Position.X, message.Position.Y);
-          var targetPosition = new Vector2(0, targetY);
+          var targetPosition = new Vector2(0, yPosition);
           
           message.Position = new Vector3(
             startPosition.Lerp(
@@ -396,7 +418,8 @@ namespace RandoMainDLL {
             0f
           );
 
-          lines += message.Text.Split('\n').Length;
+          totalLines += messageLines;
+          yPosition -= messagePadding.height;
 
           message.FadeOut = activePickupTextMessages.Count == 1 ? 0.5f : 0.1f;
         }
@@ -404,11 +427,11 @@ namespace RandoMainDLL {
 
       activePickupTextMessages.RemoveAll(m => m.Destroyed);
 
-      while (lines < MAX_PICKUP_LINE_COUNT && !pickupQueue.Empty()) {
+      while (totalLines < MAX_PICKUP_LINE_COUNT && !pickupQueue.Empty()) {
         var pickupMessage = pickupQueue.Peek();
         var pickupMessageLines = pickupMessage.Text.Split('\n').Length;
 
-        if (lines != 0 && lines + pickupMessageLines > MAX_PICKUP_LINE_COUNT)
+        if (totalLines != 0 && totalLines + pickupMessageLines > MAX_PICKUP_LINE_COUNT)
           break;
 
         pickupQueue.Next();
@@ -434,11 +457,14 @@ namespace RandoMainDLL {
           desc.Position = new Vector3(pos, 0) - offset;
           desc.FadeIn = 0.2f;
         } else {
-          desc.Position.Y = 0.2f * (lines + 1) * -0.6f;
+          var messagePadding = CalculateMessageBoxSize(pickupMessageLines);
+          yPosition -= messagePadding.paddingTop;
+          desc.Position.Y = yPosition;
+          yPosition -= messagePadding.height;
         }
 
         desc.ScreenPosition = ScreenPosition.TopCenter;
-        lines += pickupMessageLines;
+        totalLines += pickupMessageLines;
         desc.Text = pickupMessage.Text;
         desc.Time = pickupMessage.Time;
         desc.Vertical = VerticalAnchor.Top;
