@@ -44,6 +44,7 @@ using namespace app::methods::System::IO;
 
 namespace ghosts {
     constexpr int GHOST_RECORDER_DATA_VERSION = 8;
+    constexpr float MAX_GHOST_EXTRAPOLATION_TIME = 0.3f;
     constexpr std::wstring_view RANDO_GHOST_TAG = L"##RANDO_GHOST##";
 
     bool intercept_ghost_player_on_enable = false;
@@ -78,8 +79,10 @@ namespace ghosts {
 
         if (currently_processing_frame_ghost != nullptr) {
             auto puppet_id = il2cpp::invoke<app::Int32__Boxed>(this_ptr, "get_Id")->fields;
-            currently_processing_frame_ghost->active_animations[puppet_id][resource_id] = RandoGhost::ActiveAnimation {
-                resource_id, array_index, priority,
+            currently_processing_frame_ghost->active_animations[puppet_id][resource_id] = RandoGhost::ActiveAnimation{
+                resource_id,
+                array_index,
+                priority,
             };
 
             if (currently_processing_frame_ghost->preventing_tpose) {
@@ -166,6 +169,8 @@ namespace ghosts {
         this->ghost_go_gchandle = il2cpp::gchandle_new(ghost_go, true);
         this->ghost_player->fields.GhostRecordingFilePath = il2cpp::string_new(RANDO_GHOST_TAG);
 
+        GhostPlayer::SetPosition(this->ghost_player, app::Vector3{ 0.f, 0.f, 0.f });
+
         return true;
     }
 
@@ -214,6 +219,8 @@ namespace ghosts {
         this->ghost_player->fields._IsFinished_k__BackingField = false;
 
         next::GhostPlayer::FixedUpdate(this->ghost_player);
+
+        this->extrapolated_time = 0.f;
     }
 
     void RandoGhost::set_color(app::Color color) const {
@@ -280,6 +287,15 @@ namespace ghosts {
     }
 
     void RandoGhost::extrapolate(float delta) {
+        if (this->skip_next_extrapolation) {
+            this->skip_next_extrapolation = false;
+            return;
+        }
+
+        if (this->extrapolated_time > MAX_GHOST_EXTRAPOLATION_TIME) {
+            return;
+        }
+
         auto character_data = GhostPlayer::get_CurrentGhostCharacterData(this->ghost_player);
 
         auto& position = character_data->fields.Position;
@@ -287,6 +303,8 @@ namespace ghosts {
         position.y += character_data->fields.LocalSpeed.y * delta;
 
         GhostPlayer::SetPosition(this->ghost_player, position);
+
+        this->extrapolated_time += delta;
     }
 
     IL2CPP_INTERCEPT(GhostRecorder, void, StopRecorder, (app::GhostRecorder * this_ptr)) {

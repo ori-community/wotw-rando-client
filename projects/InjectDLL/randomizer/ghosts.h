@@ -17,6 +17,8 @@ namespace ghosts {
         bool preventing_tpose = false;
         std::unordered_map<int, std::unordered_map<int, ActiveAnimation>> active_animations;
         //                 ^ Puppet ID             ^ Resource ID
+        bool skip_next_extrapolation = false;
+        float extrapolated_time = 0.f;
 
         bool initialize();
         bool is_initialized() const;

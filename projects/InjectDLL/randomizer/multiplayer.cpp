@@ -587,6 +587,8 @@ INJECT_C_DLLEXPORT void update_player_position(const wchar_t* id, float x, float
             info.world_ghost.play_frame_data(frame_data);
         }
 
+        info.world_ghost.skip_next_extrapolation = true;
+
         // if (abs(x - info.world_avatar.last_facing_pos) > 0.1f) {
         //     info.world_avatar.facing = x < info.world_avatar.last_facing_pos ? 1 : -1;
         //     info.world_avatar.last_facing_pos = x;
