@@ -377,13 +377,24 @@ namespace RandoMainDLL {
 
       var lines = 0;
       for (var i = 0; i < activePickupTextMessages.Count; i++) {
-        var targetY = 0.2f + (lines * -0.6f);
+        const float lineHeight = 0.6f;
+        const float lineSpacing = 0.2f;
+        const float messagePadding = 0.2f;
+        
+        var targetY = messagePadding + (lines * -lineHeight) + (Math.Max(0, lines - 1) * -lineSpacing);
         var message = activePickupTextMessages[i];
 
         if (!HandleMessageTimer(message, dt)) {
-          message.Position =
-            new Vector3(new Vector2(message.Position.X, message.Position.Y).Lerp(new Vector2(0, targetY),
-              dt * 15f * Math.Min(1f, message.TimeActive * 2.0f + 0.1f)), 0f);
+          var startPosition = new Vector2(message.Position.X, message.Position.Y);
+          var targetPosition = new Vector2(0, targetY);
+          
+          message.Position = new Vector3(
+            startPosition.Lerp(
+              targetPosition, 
+              dt * 15f * Math.Min(1f, message.TimeActive * 2.0f + 0.1f)
+            ),
+            0f
+          );
 
           lines += message.Text.Split('\n').Length;
 
