@@ -311,10 +311,6 @@ namespace ghosts {
         // Noop
     }
 
-    IL2CPP_INTERCEPT(GhostRecorder, void, InitializeRecorder, (app::GhostRecorder * this_ptr, app::String* output_path)) {
-        // Noop
-    }
-
     IL2CPP_INTERCEPT(GhostRecorder, void, Cancel, (app::GhostRecorder * this_ptr)) {
         // Noop
     }
@@ -347,7 +343,7 @@ namespace ghosts {
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(state_machine_plugin));
         GhostRecorder::RegisterPlugin(ghost_recorder, reinterpret_cast<app::IGhostRecorderPlugin*>(generic_events_plugin));
 
-        next::GhostRecorder::InitializeRecorder(ghost_recorder, il2cpp::string_new("C:\\ghost"));
+        GhostRecorder::InitializeRecorder(ghost_recorder, il2cpp::string_new("C:\\ghost"));
         GhostRecorder::StartRecorder(ghost_recorder);
 
         MemoryStream::SetLength(ghost_recorder->klass->static_fields->m_stream, 0);
