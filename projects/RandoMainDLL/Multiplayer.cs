@@ -37,7 +37,8 @@ namespace RandoMainDLL {
     }
 
     public static IEnumerable<WorldInfo> GetWorldInfos() {
-      return lastMultiverseInfo != null ? lastMultiverseInfo.Universes.First().Worlds : new WorldInfo[0];
+      var universe = multiverse.Universes.First(u => u.Worlds.Any(w => w.Members.Any(m => m.Id == Id)));
+      return universe != null ? universe.Worlds : new WorldInfo[0];
     }
 
     public static IEnumerable<PlayerInfo> GetPlayersFromWorld(long id) {
