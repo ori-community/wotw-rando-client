@@ -303,7 +303,7 @@ namespace RandoMainDLL {
         if (nameAfterGrant != null)
           return nameAfterGrant.TrimEnd('\n');
 
-        bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
+        bool squelchActive = Children.Exists(p => p is Message {Squelch: true});
         var ret = "";
         foreach (var child in Children) {
           if (child is ConditionalStop s && s.StopActive())
