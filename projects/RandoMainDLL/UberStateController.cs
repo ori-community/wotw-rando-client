@@ -566,11 +566,9 @@ namespace RandoMainDLL {
         if (SeedController.KSDoorsOpen)
           foreach (UberState s in KeystoneDoors) { s.Write(); }
 
-        if (!AHK.IniFlag("ShowShortCutscenes"))
-          foreach (UberState s in ShortCutscenes) { s.Write(); }
-
-        if (!AHK.IniFlag("ShowLongCutscenes"))
-          foreach (UberState s in LongCutscenes) { s.Write(); }
+        // Always remove cutscenes until logic has been written
+        foreach (UberState s in ShortCutscenes) { s.Write(); }
+        foreach (UberState s in LongCutscenes) { s.Write(); }
 
         InterOp.Map.discover_everything();
 
