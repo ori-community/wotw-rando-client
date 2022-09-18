@@ -41,7 +41,7 @@ namespace RandoMainDLL {
             CallbackName = "on_goal_mode_fail"
           },
           new Method() {
-            Delegate = new f_bool_str(AHK.IniFlag),
+            Delegate = new f_bool_str(Settings.IniFlag),
             CallbackName = "check_ini"
           },
           new Method() {
@@ -50,11 +50,11 @@ namespace RandoMainDLL {
           },
           // We should replace these 2 calls with calls to check_ini
           new Method() {
-            Delegate = new f_bool(() => !AHK.IniFlag("MuteInjectLogs")),
+            Delegate = new f_bool(() => !Settings.IniFlag("MuteInjectLogs")),
             CallbackName = "inject_log_enabled"
           },
           new Method() {
-            Delegate = new f_bool(() => AHK.IniFlag("DebugInjectLogs")),
+            Delegate = new f_bool(() => Settings.IniFlag("DebugInjectLogs")),
             CallbackName = "inject_debug_enabled"
           },
           new Method() {

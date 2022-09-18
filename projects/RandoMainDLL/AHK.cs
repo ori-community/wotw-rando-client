@@ -1,47 +1,17 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using System.IO;
-using AutoHotkey.Interop;
-using RandoMainDLL.Memory;
-using System.Linq;
+using System.Text;
+using IniParser;
+using IniParser.Model;
 
 namespace RandoMainDLL {
-  public static class AHK {
-    private static readonly string ProgramStatic = @"
-      SetBatchLines -1
-      #MenuMaskKey vkE8
-      signal := ""none""
-      gui, add, edit, w50 h20 vextChannel gonSignalExt
-      gui, show, hide, wotwRandoSecretChannel
-
-      DoIniRead(Section, Key, iniPath := ""$(BASEPATH)settings.ini"")
-      {
-        IniRead, out, %iniPath%, %Section%, %Key%
-        return out
-      }
-      Tick() 
-      {
-        global signal
-        return signal
-      }
-      return	
-      onSignalExt:
-      gui, submit
-      signal := extChannel
-      return
-      ";
-
-    private static string Program => ProgramStatic.Replace("$(BASEPATH)", Randomizer.BasePath);
-
-    public static AutoHotkeyEngine Engine = AutoHotkeyEngine.Instance;
-    public static bool Ready = false;
+  public static class Settings {
     public static int FramesTillUnlockReload = 0;
+    private static IniData SettingsData = null;
 
     public static void Init() {
-      Engine.ExecRaw(Program);
-
-      Ready = true;
+      Reload();
+      
       bool cursorLock = IniFlag("CursorLock");
       bool disableDebug = IniFlag("DisableDebugControls");
       if (cursorLock || disableDebug) {
@@ -56,7 +26,7 @@ namespace RandoMainDLL {
       if (IniFlag("AlwaysShowKeystones"))
         InterOp.UI.toggle_always_show_keystones();
 
-      if (IniFlag("dev")) {
+      if (IniFlag("Dev")) {
         Randomizer.Dev = true;
       }
 
@@ -68,41 +38,44 @@ namespace RandoMainDLL {
     }
 
     public static void Reload() {
-      iniFlagCache.Clear();
+      try {
+        var reader = new FileIniDataParser();
+        SettingsData = reader.ReadFile(Randomizer.BasePath + "settings.ini", Encoding.Unicode);
+      }
+      catch (Exception e) {
+        Randomizer.Log(e.Message);
+      }
+      
       FramesTillUnlockReload = 120;
     }
 
-    private static readonly HashSet<string> Falsey = new HashSet<string>() { "false", "False", "no", "", "0", "ERROR", null };
-    private static Dictionary<string, Boolean> iniFlagCache = new Dictionary<string, bool>();
+    private static readonly HashSet<string> FalsyValues = new() { "false", "False", "no", "", "0", "ERROR", null };
 
     public static bool IniFlag(string flag) {
-      if (!Ready)
-        return false;
+      if (SettingsData?.TryGetKey("Flags." + flag, out string value) == true) {
+        return !FalsyValues.Contains(value);
+      }
 
-      if(!iniFlagCache.ContainsKey(flag))
-        iniFlagCache[flag] = !Falsey.Contains(Engine.ExecFunction("DoIniRead", "Flags", flag));
-
-      return iniFlagCache[flag];
+      return false;
     }
 
     public static string IniString(string section, string name, string def = "") {
-      var raw = Engine.ExecFunction("DoIniRead", section, name);
-      return Falsey.Contains(raw) ? def : raw;
+      if (SettingsData?.TryGetKey(section + "." + name, out string value) == true) {
+        return FalsyValues.Contains(value) ? def : value;
+      }
+
+      return def;
     }
 
     public static int IniInt(string section, string name, int def = 0) {
-      var raw = Engine.ExecFunction("DoIniRead", section, name);
-      return int.TryParse(raw, out var result) ? result : def;
+      if (SettingsData?.TryGetKey(section + "." + name, out string value) == true) {
+        return int.TryParse(value, out var result) ? result : def;
+      }
+
+      return def;
     }
 
     public static void Tick() {
-      var signal = Engine.ExecFunction("Tick");
-      if (signal != null && signal != "none") {
-        Engine.SetVar("signal", "none");
-        if (signal == "reload")
-          Input.OnActionTriggered(Input.Action.Reload);
-      }
-
       FramesTillUnlockReload = Math.Max(0, FramesTillUnlockReload - 1);
     }
   }

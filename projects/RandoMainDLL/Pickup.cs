@@ -585,7 +585,7 @@ namespace RandoMainDLL {
       "Stonks", "Leaves", "Marbles", "Stamps", "Hugs", "Nobles",
     };
     public override string Name { get => $"{Amount} Spirit Light"; }
-    public override string DisplayName { get => AHK.IniFlag("BoringMoney") ? Name : $"{Amount} {MoneyNames[new Random(Hash).Next(MoneyNames.Count)]}"; }
+    public override string DisplayName { get => Settings.IniFlag("BoringMoney") ? Name : $"{Amount} {MoneyNames[new Random(Hash).Next(MoneyNames.Count)]}"; }
   }
   public class QuestEvent : Checkable {
     public QuestEvent(QuestEventType ev) => type = ev;

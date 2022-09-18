@@ -299,7 +299,7 @@ namespace RandoMainDLL {
       }
       if (init || connect) {
         if (Settings.NetcodeEnabled) {
-          if (AHK.IniFlag("DisableNetcode"))
+          if (RandoMainDLL.Settings.IniFlag("DisableNetcode"))
             MessageController.ShowMessage("Warning: can't connect because netcode is disabled via settings", queue: "debug", log: true);
 
           WebSocketClient.Connect();

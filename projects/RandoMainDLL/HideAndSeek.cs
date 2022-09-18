@@ -1,11 +1,5 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using System.Collections.Generic;
-using System.IO;
-using AutoHotkey.Interop;
+﻿using System.Collections.Generic;
 using RandoMainDLL.Memory;
-using System.Linq;
-using RandoMainDLL.Wheel;
 using System.Collections.Concurrent;
 using Network;
 using System.Runtime.InteropServices;

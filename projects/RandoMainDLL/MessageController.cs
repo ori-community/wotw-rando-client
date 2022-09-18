@@ -2,10 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
-using AutoHotkey.Interop;
 using RandoMainDLL.Memory;
-using System.Linq;
-using System.ComponentModel;
 
 namespace RandoMainDLL {
   public enum Alignment : int {

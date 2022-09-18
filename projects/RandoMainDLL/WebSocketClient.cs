@@ -16,8 +16,8 @@ namespace RandoMainDLL {
   public static class WebSocketClient {
     public static BlockingCollection<Packet> SendQueue = new BlockingCollection<Packet>();
     public static BlockingCollection<UberStateController.IUberStateCommand> UberStateQueue = new BlockingCollection<UberStateController.IUberStateCommand>();
-    public static string Domain { get => AHK.IniString("Paths", "Host", "wotw.orirando.com"); }
-    public static string S { get => AHK.IniFlag("Insecure") ? "" : "s";}
+    public static string Domain { get => Settings.IniString("Paths", "Host", "wotw.orirando.com"); }
+    public static string S { get => Settings.IniFlag("Insecure") ? "" : "s";}
     private static readonly string JWTFile = ".jwt";
 
     public static bool ExpectingDisconnect = false;
@@ -30,7 +30,7 @@ namespace RandoMainDLL {
 
     public static float TimeUntilReconnectAttempt = 5.0f;
 
-    public static bool WantConnection { get => !AHK.IniFlag("DisableNetcode") && (SeedController.Settings?.NetcodeEnabled ?? false); }
+    public static bool WantConnection { get => !Settings.IniFlag("DisableNetcode") && (SeedController.Settings?.NetcodeEnabled ?? false); }
 
     private static WebSocket socket;
 
@@ -54,7 +54,7 @@ namespace RandoMainDLL {
         ExpectingDisconnect = false;
         try {
           socket = new WebSocket(ServerAddress, null);
-          if (!AHK.IniFlag("Insecure"))
+          if (!Settings.IniFlag("Insecure"))
             socket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
 
           socket.Log.Level = LogLevel.Info;

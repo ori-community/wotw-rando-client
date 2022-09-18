@@ -14,8 +14,8 @@ namespace RandoMainDLL {
   public static class UDPSocketClient {
     public static BlockingCollection<Packet> SendQueue = new BlockingCollection<Packet>();
 
-    public static string Domain { get => AHK.IniString("Paths", "Host", "wotw.orirando.com").Split(':')[0]; }
-    public static int Port { get => AHK.IniInt("Paths", "UdpPort", 31415); }
+    public static string Domain { get => Settings.IniString("Paths", "Host", "wotw.orirando.com").Split(':')[0]; }
+    public static int Port { get => Settings.IniInt("Paths", "UdpPort", 31415); }
     public static bool IsStarted { get; private set; }
 
     private static UdpClient client;

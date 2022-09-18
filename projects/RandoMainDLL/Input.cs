@@ -2,7 +2,6 @@
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
-using AutoHotkey.Interop;
 using RandoMainDLL.Memory;
 using System.Linq;
 using RandoMainDLL.Wheel;
@@ -87,8 +86,8 @@ namespace RandoMainDLL {
     public static void OnActionTriggered(Action action) {
       switch (action) {
         case Action.Reload:
-          if (AHK.CanReload()) {
-            AHK.Reload();
+          if (Settings.CanReload()) {
+            Settings.Reload();
             ShopSlot.ResetSlotData();
             WebSocketClient.Connect();
             SeedController.ReadSeed();

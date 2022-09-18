@@ -199,11 +199,11 @@ namespace RandoMainDLL {
       switch(f) {
         // TODO
         case FilterType.Quests:
-          return !AHK.IniFlag("HideQuestFilter");
+          return !Settings.IniFlag("HideQuestFilter");
         case FilterType.Teleports:
-          return !AHK.IniFlag("HideWarpFilter");
+          return !Settings.IniFlag("HideWarpFilter");
         case FilterType.Collectibles:
-          return !AHK.IniFlag("HideCollectableFilter");
+          return !Settings.IniFlag("HideCollectableFilter");
         case FilterType.InLogic:
           return SeedController.EnableLogicFilter;
         case FilterType.Spoilers:

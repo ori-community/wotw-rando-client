@@ -92,7 +92,7 @@ namespace RandoMainDLL {
           }
         }
 
-        AHK.Init();
+        Settings.Init();
         CreditsController.ReloadFile();
         Debug("Init: Complete", false);
         return true;
@@ -130,7 +130,7 @@ namespace RandoMainDLL {
         while (queuedCommands.TryTake(out var command))
           command();
 
-        AHK.Tick();
+        Settings.Tick();
         MessageController.Tick();
         BonusItemController.Update();
         WebSocketClient.Update(delta);
@@ -162,7 +162,7 @@ namespace RandoMainDLL {
     }
 
     public static void Log(string message, bool printIfDev = true, string level = "INFO") {
-      if (AHK.IniFlag("MuteCSLogs"))
+      if (Settings.IniFlag("MuteCSLogs"))
         return;
       logQueue.Add($"{DateTime.Now:[yyyy-MM-dd HH:mm:ss.fff]} [{level}]: {message}\n");
       if (Dev && printIfDev)
