@@ -17,14 +17,14 @@ namespace {
     app::Transform* right_door_transform = nullptr;
     app::GameObject* keyrings_go = nullptr;
 
-    void open_door() {
+    bool open_door() {
         if (
                 !scenes::scene_is_loaded("lumaPoolsC") ||
                 !il2cpp::unity::is_valid(left_door_transform) ||
                 !il2cpp::unity::is_valid(right_door_transform) ||
                 !il2cpp::unity::is_valid(keyrings_go)
         ) {
-            return;
+            return false;
         }
 
         UnityEngine::Transform::set_position(left_door_transform, app::Vector3{-0.9f, 8.0f, 0.0f});
@@ -32,6 +32,8 @@ namespace {
         UnityEngine::GameObject::SetActive(keyrings_go, false);
 
         modloader::win::console::console_send("Opened lagoon door");
+
+        return true;
     }
 
     void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
@@ -66,12 +68,12 @@ namespace {
     }
 
     void on_respawn(GameEvent game_event, EventTiming timing) {
-        open_door_in_frames = 4;
+        open_door_in_frames = 20;
     }
 
     void on_update(GameEvent game_event, EventTiming timing) {
-        if (open_door_in_frames == 0) {
-            open_door();
+        if (open_door_in_frames == 0 && !open_door()) {
+            open_door_in_frames = 1;
         }
 
         if (open_door_in_frames >= 0) {
@@ -81,7 +83,7 @@ namespace {
 
     void initialize() {
         game::event_bus().register_handler(GameEvent::Respawn, EventTiming::End, &on_respawn);
-        game::event_bus().register_handler(GameEvent::Update, EventTiming::End, &on_update);
+        game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::End, &on_update);
         scenes::event_bus().register_handler(&on_scene_load);
     }
 
