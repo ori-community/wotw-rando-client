@@ -51,10 +51,11 @@ namespace RandoMainDLL {
 
   public class UberStateCondition : IComparable<UberStateCondition> {
     public enum Handler {
-      Greater,
+      // Order here is important because bad code
       GreaterOrEquals,
-      Less,
       LessOrEquals,
+      Greater,
+      Less,
       Equals
     }
 
