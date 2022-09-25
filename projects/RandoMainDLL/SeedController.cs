@@ -59,21 +59,21 @@ namespace RandoMainDLL {
       Equals
     }
 
-    public enum MetBehaviour {
-      EveryChange,
-      JustMet
+    public enum TriggerBehaviour {
+      Always, // Trigger when the value changes and the condition is met
+      Once    // Trigger when the value changes and the condition is met and was not met with the previos value
     }
 
     public UberId Id;
     public int Target;
     public Handler TargetHandler;
-    public MetBehaviour Behaviour;
+    public TriggerBehaviour Behaviour;
 
     public UberStateCondition(UberId id, int target, Handler handler) {
       TargetHandler = handler;
       Id = id;
       Target = target;
-      Behaviour = MetBehaviour.EveryChange;
+      Behaviour = TriggerBehaviour.Always;
     }
     public UberStateCondition(int groupId, int id, int target, Handler handler) {
       TargetHandler = handler;
@@ -89,7 +89,7 @@ namespace RandoMainDLL {
           Id = new UberId(groupId, idAndTarget[0].ParseToInt("UberStateCondition.Id"));
           Target = idAndTarget[1].ParseToInt("UberStateCondition.Target");
           TargetHandler = value;
-          Behaviour = MetBehaviour.JustMet;
+          Behaviour = TriggerBehaviour.Once;
           return;
         }
       }
@@ -97,7 +97,7 @@ namespace RandoMainDLL {
       Id = new UberId(groupId, int.Parse(rawTarget));
       Target = 0;
       TargetHandler = Handler.Greater;
-      Behaviour = MetBehaviour.EveryChange;
+      Behaviour = TriggerBehaviour.Always;
     }
 
     private bool CheckTarget(double value) {
@@ -134,9 +134,9 @@ namespace RandoMainDLL {
       var prev = CheckTarget(prevValue);
       var next = CheckTarget(nextValue);
       switch (Behaviour) {
-        case MetBehaviour.EveryChange:
+        case TriggerBehaviour.Always:
           return next;
-        case MetBehaviour.JustMet:
+        case TriggerBehaviour.Once:
           return !prev && next;
       }
 
@@ -147,12 +147,6 @@ namespace RandoMainDLL {
     public override string ToString() => $"{Id}{TargetHandler.Symbol()}{Target}";
     public override int GetHashCode() => Id.GetHashCode() + TargetHandler.GetHashCode() + Target;
     public override bool Equals(object obj) => obj is UberStateCondition other && (Id.Equals(other.Id) && Target == other.Target);
-    public string ToReachString() {
-      if (TargetHandler == Handler.Greater && Target == 0)
-        return $"{Id}";
-      else
-        return ToString();
-    }
 
     public int CompareTo(UberStateCondition other) {
       if (Id.GroupID != other.Id.GroupID)

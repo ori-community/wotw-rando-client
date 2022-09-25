@@ -8,7 +8,7 @@ using System.Globalization;
 
 namespace RandoMainDLL {
   public static class Extensions {
-    public static LocData Loc(this UberStateCondition uid) => LocDataStatic.All.GetOrElse(uid, LocData.Void);
+    public static LocData Loc(this UberStateCondition uid) => LocDataStatic.ByCondition.GetOrElse(uid, LocData.Void);
 
     public static Network.UberStateUpdateMessage MakeUpdateMsg(this UberId id, double value) => new Network.UberStateUpdateMessage {
       State = new Network.UberId {

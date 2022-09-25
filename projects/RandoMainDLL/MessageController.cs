@@ -173,7 +173,7 @@ namespace RandoMainDLL {
 
       queues.Add("wheel", new IDAbleMessageQueue<TextMessage> { OverrideScreenPosition = ScreenPosition.TopCenter, OverridePosition = new Vector3(0, -1, 0) });
       queues.Add("hint", new IDAbleMessageQueue<TextMessage> { OverrideScreenPosition = ScreenPosition.TopCenter, OverridePosition = new Vector3(0, -1, 0) });
-      queues.Add("debug", new IDAbleMessageQueue<TextMessage> { OverrideScreenPosition = ScreenPosition.TopCenter, OverridePosition = new Vector3(0, -1, 0) });
+      queues.Add("debug", new IDAbleMessageQueue<TextMessage> { OverrideScreenPosition = ScreenPosition.BottomLeft, OverridePosition = new Vector3(-1.5f, 0, 0) });
     }
 
     private static MessageQueue<TextMessage> getOrCreateQueue(string queue) {
@@ -272,7 +272,11 @@ namespace RandoMainDLL {
       string queue = null,
       bool priority = false,
       bool log = false,
-      bool useWorldCoordinates = false
+      bool useWorldCoordinates = false,
+      float fadeIn = 0.5f,
+      float fadeOut = 0.5f,
+      float size = 1.0f,
+      float lineSpacing = 1.0f
     )
     {
       text = cleanText(text);
@@ -290,6 +294,9 @@ namespace RandoMainDLL {
       desc.ShowsBox = showsBox;
       desc.Time = time;
       desc.Text = text;
+      desc.Size = size;
+      desc.LineSpacing = lineSpacing;
+
       if (position.HasValue)
         desc.Position = new Vector3(position.Value, 0.0f);
 
@@ -298,6 +305,8 @@ namespace RandoMainDLL {
       desc.Vertical = vertical;
       desc.ScreenPosition = screen;
       desc.UseInGameCoordinates = useWorldCoordinates;
+      desc.FadeIn = fadeIn;
+      desc.FadeOut = fadeOut;
 
       if (queue == null) {
         if (id >= 0) {
@@ -517,6 +526,7 @@ namespace RandoMainDLL {
     public bool UseInGameCoordinates = false;
     public Padding Padding = new Padding(0.25f, 1.0f, 1.0f, 0.25f);
     public float Size = 1f;
+    public float LineSpacing = 1f;
     /// <summary>
     /// Text Alignment within a message
     /// </summary>
@@ -588,6 +598,7 @@ namespace RandoMainDLL {
             InterOp.Messaging.text_box_create(ID, descriptor.FadeIn, descriptor.FadeOut, descriptor.ShowsBox, !descriptor.Muted);
             InterOp.Messaging.text_box_text(ID, descriptor.Text);
             InterOp.Messaging.text_box_size(ID, descriptor.Size);
+            InterOp.Messaging.text_box_line_spacing(ID, descriptor.LineSpacing);
             InterOp.Messaging.text_box_alignment(ID, descriptor.Alignment);
             InterOp.Messaging.text_box_anchor(ID, descriptor.Horizontal, descriptor.Vertical);
             InterOp.Messaging.text_box_padding(ID, descriptor.Padding.Top, descriptor.Padding.Left, descriptor.Padding.Right, descriptor.Padding.Bottom);
@@ -659,6 +670,15 @@ namespace RandoMainDLL {
         descriptor.Size = value;
         if (!destroyed)
           InterOp.Messaging.text_box_size(ID, descriptor.Size);
+      }
+    }
+    
+    public float LineSpacing {
+      get { return descriptor.LineSpacing; }
+      set {
+        descriptor.LineSpacing = value;
+        if (!destroyed)
+          InterOp.Messaging.text_box_line_spacing(ID, descriptor.LineSpacing);
       }
     }
 

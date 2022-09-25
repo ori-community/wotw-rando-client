@@ -328,7 +328,7 @@ namespace RandoMainDLL {
     }
 
     public static bool shouldTriggerReachableCheck(UberState state, UberValue old) {
-      return MapController.TrackedConds.Any(c => c.Met(state, old));
+      return MapController.TrackedNodes.Any(node => node.Condition.Met(state, old));
     }
 
     public static void ResolveUberStateChange(UberState state, UberValue old) {
