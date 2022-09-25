@@ -1,3 +1,5 @@
+#include <Il2CppModLoader/app/methods/BoolStateMap.h>
+#include <Il2CppModLoader/app/methods/NewSetupStateController.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
@@ -16,24 +18,32 @@ namespace {
     app::Transform* left_door_transform = nullptr;
     app::Transform* right_door_transform = nullptr;
     app::GameObject* keyrings_go = nullptr;
+    app::NewSetupStateController* door_controller = nullptr;
 
     bool open_door() {
         if (
                 !scenes::scene_is_loaded("lumaPoolsC") ||
                 !il2cpp::unity::is_valid(left_door_transform) ||
                 !il2cpp::unity::is_valid(right_door_transform) ||
-                !il2cpp::unity::is_valid(keyrings_go)
+                !il2cpp::unity::is_valid(keyrings_go) ||
+                !il2cpp::unity::is_valid(door_controller)
         ) {
             return false;
         }
 
-        UnityEngine::Transform::set_position(left_door_transform, app::Vector3{-0.9f, 8.0f, 0.0f});
-        UnityEngine::Transform::set_position(right_door_transform, app::Vector3{0.7f, -8.0f, 0.0f});
+        UnityEngine::Transform::set_position(left_door_transform, app::Vector3{ -0.9f, 8.0f, 0.0f });
+        UnityEngine::Transform::set_position(right_door_transform, app::Vector3{ 0.7f, -8.0f, 0.0f });
         UnityEngine::GameObject::SetActive(keyrings_go, false);
 
-        modloader::win::console::console_send("Opened lagoon door");
-
         return true;
+    }
+
+    IL2CPP_INTERCEPT(NewSetupStateController, void, OnPostTimeSlicedEnable, (app::NewSetupStateController * this_ptr)) {
+        next::NewSetupStateController::OnPostTimeSlicedEnable(this_ptr);
+
+        if (this_ptr == door_controller) {
+            open_door_in_frames = 20;
+        }
     }
 
     void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
@@ -44,6 +54,16 @@ namespace {
         if (metadata->scene_name == "lumaPoolsC") {
             auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
 
+            auto door_container_go = il2cpp::unity::find_child(
+                    scene_root_go,
+                    std::vector<std::string>{
+                            "arenaSetup",
+                            "doors",
+                            "enemyDoorVisualsLagoonLs",
+                            "enemyDoorVisualsLagoonL",
+                    }
+            );
+
             auto door_go = il2cpp::unity::find_child(
                     scene_root_go,
                     std::vector<std::string>{
@@ -53,16 +73,20 @@ namespace {
                             "enemyDoorVisualsLagoonL",
                             "doorVisualsA",
                             "sidewaysDoor",
-                            "door" }
+                            "door",
+                    }
             );
 
-            if (il2cpp::unity::is_valid(door_go)) {
+            if (il2cpp::unity::is_valid(door_container_go) && il2cpp::unity::is_valid(door_go)) {
+                door_controller = il2cpp::unity::get_component<app::NewSetupStateController>(door_container_go, "", "NewSetupStateController");
+
                 auto left_door_go = il2cpp::unity::find_child(door_go, "lagoonEnemyDoorLeft");
                 auto right_door_go = il2cpp::unity::find_child(door_go, "lagoonEnemyDoorRight");
                 keyrings_go = il2cpp::unity::find_child(door_go, "keyrings");
                 left_door_transform = il2cpp::unity::get_transform(left_door_go);
                 right_door_transform = il2cpp::unity::get_transform(right_door_go);
-                open_door_in_frames = 4;
+
+                open_door_in_frames = 20;
             }
         }
     }
