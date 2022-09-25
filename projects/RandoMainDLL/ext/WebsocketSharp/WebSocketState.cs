@@ -31,7 +31,7 @@ using System;
 namespace WebSocketSharp
 {
   /// <summary>
-  /// Indicates the state of a WebSocket connection.
+  /// Indicates the uber_state of a WebSocket connection.
   /// </summary>
   /// <remarks>
   /// The values of this enumeration are defined in

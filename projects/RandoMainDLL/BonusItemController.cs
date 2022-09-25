@@ -29,9 +29,9 @@ namespace RandoMainDLL {
         InterOp.Player.add_energy(Convert.ToSingle(e * 0.00028f));
     }
 
-    public static void OnUberState(UberState state) {
+    public static void OnUberState(UberState uber_state) {
       // If weapon upgrade, refresh.
-      if (state.GroupID == 4)
+      if (uber_state.GroupID == 4)
         Refresh();
     }
   }

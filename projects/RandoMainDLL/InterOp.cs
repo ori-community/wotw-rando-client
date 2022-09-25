@@ -314,7 +314,7 @@ namespace RandoMainDLL {
 
     public static class System {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void report_uber_state_change(int group, int state, double value);
+      public extern static void report_uber_state_change(int group, int uber_state, double value);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void report_seed_reload();
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -333,20 +333,20 @@ namespace RandoMainDLL {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void refresh_uber_state(int group_id, int id);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void set_uber_state_value(int group, int state, double value, bool ignore_intercept = true);
+      public extern static void set_uber_state_value(int group, int uber_state, double value, bool ignore_intercept = true);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static double get_uber_state_value(int group, int state);
+      public extern static double get_uber_state_value(int group, int uber_state);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       unsafe public extern static UberStateDef* get_uber_states(ref int size);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
-      public extern static bool get_uber_state_exists(int group, int state);
+      public extern static bool get_uber_state_exists(int group, int uber_state);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static int get_uber_state_name(int group, int state, byte[] buf, int len);
+      public extern static int get_uber_state_name(int group, int uber_state, byte[] buf, int len);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static int get_uber_state_group_name(int group, int state, byte[] buf, int len);
+      public extern static int get_uber_state_group_name(int group, int uber_state, byte[] buf, int len);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static UberStateType get_uber_state_type(int group, int state);
+      public extern static UberStateType get_uber_state_type(int group, int uber_state);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void reset_uber_state_value_store();
     }
@@ -386,7 +386,7 @@ namespace RandoMainDLL {
     [return: MarshalAs(UnmanagedType.U1)]
     public extern static bool toggle_cursorlock();
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-    public extern static void register_state_redirect([MarshalAs(UnmanagedType.LPStr)] string path, int state, int value);
+    public extern static void register_state_redirect([MarshalAs(UnmanagedType.LPStr)] string path, int uber_state, int value);
 
     [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void register_delegate([MarshalAs(UnmanagedType.LPStr)] string s, IntPtr del);

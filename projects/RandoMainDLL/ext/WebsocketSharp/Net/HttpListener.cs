@@ -653,7 +653,7 @@ namespace WebSocketSharp.Net
     /// An <see cref="AsyncCallback"/> delegate that references the method to invoke when
     /// the asynchronous operation completes.
     /// </param>
-    /// <param name="state">
+    /// <param name="uber_state">
     /// An <see cref="object"/> that represents a user defined object to pass to
     /// the <paramref name="callback"/> delegate.
     /// </param>
@@ -671,7 +671,7 @@ namespace WebSocketSharp.Net
     /// <exception cref="ObjectDisposedException">
     /// This listener has been closed.
     /// </exception>
-    public IAsyncResult BeginGetContext (AsyncCallback callback, Object state)
+    public IAsyncResult BeginGetContext (AsyncCallback callback, Object uber_state)
     {
       CheckDisposed ();
       if (_prefixes.Count == 0)
@@ -680,7 +680,7 @@ namespace WebSocketSharp.Net
       if (!_listening)
         throw new InvalidOperationException ("The listener hasn't been started.");
 
-      return BeginGetContext (new HttpListenerAsyncResult (callback, state));
+      return BeginGetContext (new HttpListenerAsyncResult (callback, uber_state));
     }
 
     /// <summary>

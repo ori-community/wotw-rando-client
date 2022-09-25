@@ -196,7 +196,7 @@ namespace RandoMainDLL {
         if (loc.Type != LocType.Unknown || foundAt.Id.GroupID == 12) {
           if(loc.Type != LocType.Unknown) 
             StatsTracking.OnPickup(loc);
-          MapController.UpdateReachable();
+          MapController.QueueReachCheck();
         }
       }
       return NonEmpty;
@@ -388,7 +388,7 @@ namespace RandoMainDLL {
           case "tsec":
             return secToStr(UberGet.AsDouble(uid));
           // this is maybe insane
-          case "ppm": // the format here is $(14|<Zone Number>,ppm)) so state() is time
+          case "ppm": // the format here is $(14|<Zone Number>,ppm)) so uber_state() is time
             if (uid.GroupID == 14) {
               // yes yes this is obviously horrible
               var val = UberGet.AsDouble(uid);
@@ -397,10 +397,10 @@ namespace RandoMainDLL {
               if (uid.ID == 107) return Math.Round(UberGet.Int(14, 108) / (val / 60f), 2).ToString(CultureInfo.InvariantCulture); // peak PPM (14|108 is peak PPM count)
               return Math.Round(((ZoneType)uid.ID).PickupState().GetValue().Byte / (val / 60f), 2).ToString(CultureInfo.InvariantCulture);
             }
-            return $"@Invalid PPM state {uid}@";
+            return $"@Invalid PPM uber_state {uid}@";
           case "pcnt":
             if (uid.GroupID == 6 && uid.ID == 2) return $"{UberGet.Int(6, 2)}/{SeedController.Total}";
-            if (uid.GroupID != 14 || uid.ID > 13) return $"@Invalid pcnt state {uid}";
+            if (uid.GroupID != 14 || uid.ID > 13) return $"@Invalid pcnt uber_state {uid}";
             var z = (ZoneType)uid.ID;
             return $"{UberGet.Byte(z.PickupState())}/{SeedController.CountByZone[z]}";
           default:
@@ -732,15 +732,15 @@ namespace RandoMainDLL {
     }
   }
   public class SyncToggler : SystemCommand {
-    private readonly UberId state;
-    public SyncToggler(SysCommandType type, UberId s) : base(type) => state = s;
+    private readonly UberId uber_state;
+    public SyncToggler(SysCommandType type, UberId s) : base(type) => uber_state = s;
     public override void Grant(bool skipBase = false, Vector2? position = null) {
       switch (type) {
         case SysCommandType.DisableSync:
-          UberStateController.UnsharableIds.Add(state);
+          UberStateController.UnsharableIds.Add(uber_state);
           break;
         case SysCommandType.EnableSync:
-          UberStateController.UnsharableIds.Remove(state);
+          UberStateController.UnsharableIds.Remove(uber_state);
           break;
       }
       base.Grant(skipBase, position);
@@ -870,15 +870,15 @@ namespace RandoMainDLL {
 
 
   public class SetStateCommand : SystemCommand {
-    SysState state;
+    SysState uber_state;
     int value;
 
-    public SetStateCommand(SysState state, int value) : base(SysCommandType.SetState) {
-      this.state = state;
+    public SetStateCommand(SysState uber_state, int value) : base(SysCommandType.SetState) {
+      this.uber_state = uber_state;
       this.value = value;
     }
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      switch (state) {
+      switch (uber_state) {
         case SysState.KwolokDoorAvailable:
           UberSet.Bool(new UberId(7, 6), value > 0);
           Randomizer.Log("SetStateCommand kwolok door is depracated, use Uberstate 7|6");
@@ -894,16 +894,16 @@ namespace RandoMainDLL {
   }
   public class RedirectStateCommand : SystemCommand {
     string path;
-    int state;
+    int uber_state;
     int value;
 
-    public RedirectStateCommand(string path, int state, int value) : base(SysCommandType.SetState) {
+    public RedirectStateCommand(string path, int uber_state, int value) : base(SysCommandType.SetState) {
       this.path = path;
-      this.state = state;
+      this.uber_state = uber_state;
       this.value = value;
     }
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.register_state_redirect(path, state, value);
+      InterOp.register_state_redirect(path, uber_state, value);
     }
   }
   public class WarpCommand : SystemCommand {

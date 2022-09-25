@@ -538,7 +538,7 @@ namespace WebSocketSharp.Server
     /// <remarks>
     ///   <para>
     ///   You should set this property to <c>true</c> if you would
-    ///   like to resolve to wait for socket in TIME_WAIT state.
+    ///   like to resolve to wait for socket in TIME_WAIT uber_state.
     ///   </para>
     ///   <para>
     ///   The set operation does nothing if the server has already
@@ -849,7 +849,7 @@ namespace WebSocketSharp.Server
         try {
           cl = _listener.AcceptTcpClient ();
           ThreadPool.QueueUserWorkItem (
-            state => {
+            uber_state => {
               try {
                 var ctx = new TcpListenerWebSocketContext (
                             cl, null, _secure, _sslConfigInUse, _log

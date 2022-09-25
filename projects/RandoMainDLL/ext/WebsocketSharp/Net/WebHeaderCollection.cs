@@ -549,9 +549,9 @@ namespace WebSocketSharp.Net
 
     #region Internal Constructors
 
-    internal WebHeaderCollection (HttpHeaderType state, bool internallyUsed)
+    internal WebHeaderCollection (HttpHeaderType uber_state, bool internallyUsed)
     {
-      _state = state;
+      _state = uber_state;
       _internallyUsed = internallyUsed;
     }
 

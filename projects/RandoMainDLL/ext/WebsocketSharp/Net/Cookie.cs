@@ -710,7 +710,7 @@ namespace WebSocketSharp.Net
     /// </summary>
     /// <value>
     ///   <para>
-    ///   An <see cref="int"/> that represents the version of HTTP state
+    ///   An <see cref="int"/> that represents the version of HTTP uber_state
     ///   management that the cookie conforms to.
     ///   </para>
     ///   <para>

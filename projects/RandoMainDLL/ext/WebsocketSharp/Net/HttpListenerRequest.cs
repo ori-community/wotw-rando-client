@@ -837,7 +837,7 @@ namespace WebSocketSharp.Net
     /// An <see cref="AsyncCallback"/> delegate that invokes the method called
     /// when the operation is complete.
     /// </param>
-    /// <param name="state">
+    /// <param name="uber_state">
     /// An <see cref="object"/> that represents a user defined object to pass to
     /// the callback delegate.
     /// </param>
@@ -845,7 +845,7 @@ namespace WebSocketSharp.Net
     /// This method is not supported.
     /// </exception>
     public IAsyncResult BeginGetClientCertificate (
-      AsyncCallback requestCallback, object state
+      AsyncCallback requestCallback, object uber_state
     )
     {
       throw new NotSupportedException ();

@@ -511,7 +511,7 @@ namespace WebSocketSharp
     /// </summary>
     /// <remarks>
     /// The get operation returns the value by using a ping/pong
-    /// if the current state of the connection is Open.
+    /// if the current uber_state of the connection is Open.
     /// </remarks>
     /// <value>
     /// <c>true</c> if the connection is alive; otherwise, <c>false</c>.
@@ -663,14 +663,14 @@ namespace WebSocketSharp
     }
 
     /// <summary>
-    /// Gets the current state of the connection.
+    /// Gets the current uber_state of the connection.
     /// </summary>
     /// <value>
     ///   <para>
     ///   One of the <see cref="WebSocketState"/> enum values.
     ///   </para>
     ///   <para>
-    ///   It indicates the current state of the connection.
+    ///   It indicates the current uber_state of the connection.
     ///   </para>
     ///   <para>
     ///   The default value is <see cref="WebSocketState.Connecting"/>.
@@ -1526,7 +1526,7 @@ namespace WebSocketSharp
         e = _messageEventQueue.Dequeue ();
       }
 
-      ThreadPool.QueueUserWorkItem (state => messages (e));
+      ThreadPool.QueueUserWorkItem (uber_state => messages (e));
     }
 
     private void open ()
@@ -2562,7 +2562,7 @@ namespace WebSocketSharp
     /// Closes the connection.
     /// </summary>
     /// <remarks>
-    /// This method does nothing if the current state of the connection is
+    /// This method does nothing if the current uber_state of the connection is
     /// Closing or Closed.
     /// </remarks>
     public void Close ()
@@ -2574,7 +2574,7 @@ namespace WebSocketSharp
     /// Closes the connection with the specified code.
     /// </summary>
     /// <remarks>
-    /// This method does nothing if the current state of the connection is
+    /// This method does nothing if the current uber_state of the connection is
     /// Closing or Closed.
     /// </remarks>
     /// <param name="code">
@@ -2628,7 +2628,7 @@ namespace WebSocketSharp
     /// Closes the connection with the specified code.
     /// </summary>
     /// <remarks>
-    /// This method does nothing if the current state of the connection is
+    /// This method does nothing if the current uber_state of the connection is
     /// Closing or Closed.
     /// </remarks>
     /// <param name="code">
@@ -2673,7 +2673,7 @@ namespace WebSocketSharp
     /// Closes the connection with the specified code and reason.
     /// </summary>
     /// <remarks>
-    /// This method does nothing if the current state of the connection is
+    /// This method does nothing if the current uber_state of the connection is
     /// Closing or Closed.
     /// </remarks>
     /// <param name="code">
@@ -2776,7 +2776,7 @@ namespace WebSocketSharp
     /// Closes the connection with the specified code and reason.
     /// </summary>
     /// <remarks>
-    /// This method does nothing if the current state of the connection is
+    /// This method does nothing if the current uber_state of the connection is
     /// Closing or Closed.
     /// </remarks>
     /// <param name="code">
@@ -2870,7 +2870,7 @@ namespace WebSocketSharp
     ///   This method does not wait for the close to be complete.
     ///   </para>
     ///   <para>
-    ///   This method does nothing if the current state of the connection is
+    ///   This method does nothing if the current uber_state of the connection is
     ///   Closing or Closed.
     ///   </para>
     /// </remarks>
@@ -2887,7 +2887,7 @@ namespace WebSocketSharp
     ///   This method does not wait for the close to be complete.
     ///   </para>
     ///   <para>
-    ///   This method does nothing if the current state of the connection is
+    ///   This method does nothing if the current uber_state of the connection is
     ///   Closing or Closed.
     ///   </para>
     /// </remarks>
@@ -2946,7 +2946,7 @@ namespace WebSocketSharp
     ///   This method does not wait for the close to be complete.
     ///   </para>
     ///   <para>
-    ///   This method does nothing if the current state of the connection is
+    ///   This method does nothing if the current uber_state of the connection is
     ///   Closing or Closed.
     ///   </para>
     /// </remarks>
@@ -2996,7 +2996,7 @@ namespace WebSocketSharp
     ///   This method does not wait for the close to be complete.
     ///   </para>
     ///   <para>
-    ///   This method does nothing if the current state of the connection is
+    ///   This method does nothing if the current uber_state of the connection is
     ///   Closing or Closed.
     ///   </para>
     /// </remarks>
@@ -3104,7 +3104,7 @@ namespace WebSocketSharp
     ///   This method does not wait for the close to be complete.
     ///   </para>
     ///   <para>
-    ///   This method does nothing if the current state of the connection is
+    ///   This method does nothing if the current uber_state of the connection is
     ///   Closing or Closed.
     ///   </para>
     /// </remarks>
@@ -3351,7 +3351,7 @@ namespace WebSocketSharp
     /// An array of <see cref="byte"/> that represents the binary data to send.
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the connection is not Open.
+    /// The current uber_state of the connection is not Open.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="data"/> is <see langword="null"/>.
@@ -3359,7 +3359,7 @@ namespace WebSocketSharp
     public void Send (byte[] data)
     {
       if (_readyState != WebSocketState.Open) {
-        var msg = "The current state of the connection is not Open.";
+        var msg = "The current uber_state of the connection is not Open.";
         throw new InvalidOperationException (msg);
       }
 
@@ -3381,7 +3381,7 @@ namespace WebSocketSharp
     ///   </para>
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the connection is not Open.
+    /// The current uber_state of the connection is not Open.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="fileInfo"/> is <see langword="null"/>.
@@ -3400,7 +3400,7 @@ namespace WebSocketSharp
     public void Send (FileInfo fileInfo)
     {
       if (_readyState != WebSocketState.Open) {
-        var msg = "The current state of the connection is not Open.";
+        var msg = "The current uber_state of the connection is not Open.";
         throw new InvalidOperationException (msg);
       }
 
@@ -3428,7 +3428,7 @@ namespace WebSocketSharp
     /// A <see cref="string"/> that represents the text data to send.
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the connection is not Open.
+    /// The current uber_state of the connection is not Open.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="data"/> is <see langword="null"/>.
@@ -3439,7 +3439,7 @@ namespace WebSocketSharp
     public void Send (string data)
     {
       if (_readyState != WebSocketState.Open) {
-        var msg = "The current state of the connection is not Open.";
+        var msg = "The current uber_state of the connection is not Open.";
         throw new InvalidOperationException (msg);
       }
 
@@ -3470,7 +3470,7 @@ namespace WebSocketSharp
     /// An <see cref="int"/> that specifies the number of bytes to send.
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the connection is not Open.
+    /// The current uber_state of the connection is not Open.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="stream"/> is <see langword="null"/>.
@@ -3495,7 +3495,7 @@ namespace WebSocketSharp
     public void Send (Stream stream, int length)
     {
       if (_readyState != WebSocketState.Open) {
-        var msg = "The current state of the connection is not Open.";
+        var msg = "The current uber_state of the connection is not Open.";
         throw new InvalidOperationException (msg);
       }
 
@@ -3555,7 +3555,7 @@ namespace WebSocketSharp
     ///   </para>
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the connection is not Open.
+    /// The current uber_state of the connection is not Open.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="data"/> is <see langword="null"/>.
@@ -3563,7 +3563,7 @@ namespace WebSocketSharp
     public void SendAsync (byte[] data, Action<bool> completed)
     {
       if (_readyState != WebSocketState.Open) {
-        var msg = "The current state of the connection is not Open.";
+        var msg = "The current uber_state of the connection is not Open.";
         throw new InvalidOperationException (msg);
       }
 
@@ -3601,7 +3601,7 @@ namespace WebSocketSharp
     ///   </para>
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the connection is not Open.
+    /// The current uber_state of the connection is not Open.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="fileInfo"/> is <see langword="null"/>.
@@ -3620,7 +3620,7 @@ namespace WebSocketSharp
     public void SendAsync (FileInfo fileInfo, Action<bool> completed)
     {
       if (_readyState != WebSocketState.Open) {
-        var msg = "The current state of the connection is not Open.";
+        var msg = "The current uber_state of the connection is not Open.";
         throw new InvalidOperationException (msg);
       }
 
@@ -3664,7 +3664,7 @@ namespace WebSocketSharp
     ///   </para>
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the connection is not Open.
+    /// The current uber_state of the connection is not Open.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="data"/> is <see langword="null"/>.
@@ -3675,7 +3675,7 @@ namespace WebSocketSharp
     public void SendAsync (string data, Action<bool> completed)
     {
       if (_readyState != WebSocketState.Open) {
-        var msg = "The current state of the connection is not Open.";
+        var msg = "The current uber_state of the connection is not Open.";
         throw new InvalidOperationException (msg);
       }
 
@@ -3723,7 +3723,7 @@ namespace WebSocketSharp
     ///   </para>
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the connection is not Open.
+    /// The current uber_state of the connection is not Open.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="stream"/> is <see langword="null"/>.
@@ -3748,7 +3748,7 @@ namespace WebSocketSharp
     public void SendAsync (Stream stream, int length, Action<bool> completed)
     {
       if (_readyState != WebSocketState.Open) {
-        var msg = "The current state of the connection is not Open.";
+        var msg = "The current uber_state of the connection is not Open.";
         throw new InvalidOperationException (msg);
       }
 
@@ -4079,7 +4079,7 @@ namespace WebSocketSharp
     ///   This method closes the connection with close status 1001 (going away).
     ///   </para>
     ///   <para>
-    ///   And this method does nothing if the current state of the connection is
+    ///   And this method does nothing if the current uber_state of the connection is
     ///   Closing or Closed.
     ///   </para>
     /// </remarks>

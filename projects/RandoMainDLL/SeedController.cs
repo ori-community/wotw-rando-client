@@ -124,12 +124,12 @@ namespace RandoMainDLL {
       return CheckTarget(value);
     }
     // Check if this condition just got satisfied by this uberstate change.
-    public bool Met(UberState state, UberValue old) {
-      if (state.GroupID != Id.GroupID || state.ID != Id.ID)
+    public bool Met(UberState uber_state, UberValue old) {
+      if (uber_state.GroupID != Id.GroupID || uber_state.ID != Id.ID)
         return false;
 
-      var prevValue = old.AsDouble(state.Type);
-      var nextValue = state.ValueAsDouble();
+      var prevValue = old.AsDouble(uber_state.Type);
+      var nextValue = uber_state.ValueAsDouble();
 
       var prev = CheckTarget(prevValue);
       var next = CheckTarget(nextValue);
@@ -206,8 +206,8 @@ namespace RandoMainDLL {
       return false;
     }
 
-    public static bool HasPickup(this UberState state, double value) => PickupMap.HasPickup(state.GetUberId(), value);
-    public static bool OnCollect(this UberState state, UberValue old) => PickupMap.Collect(state, old);
+    public static bool HasPickup(this UberState uber_state, double value) => PickupMap.HasPickup(uber_state.GetUberId(), value);
+    public static bool OnCollect(this UberState uber_state, UberValue old) => PickupMap.Collect(uber_state, old);
 
     public static bool OnCollect(this PsuedoLocs gameCond) => PickupMap.Collect(
       new UberState() { GroupID = (int)FakeUberGroups.MISC_CONTROL, ID = (int)gameCond, Value = new UberValue(true) }, new UberValue(false));
@@ -316,7 +316,7 @@ namespace RandoMainDLL {
       if (!init) {
         var flagPart = Flags.Count > 0 ? $"\nFlags: {string.Join(", ", Flags)}" : "";
         MessageController.ShowPickup($"v{Randomizer.VERSION} - Loaded {SeedName}{flagPart}", 5f, true, true);
-        MapController.UpdateReachable();
+        MapController.QueueReachCheck();
       }
     }
 
@@ -368,13 +368,13 @@ namespace RandoMainDLL {
         throw new Exception("Malformed timer expression: non integer group");
 
       if (!int.TryParse(entries[3], out int incState))
-        throw new Exception("Malformed timer expression: non integer state");
+        throw new Exception("Malformed timer expression: non integer uber_state");
 
       TimerList.Add(new TimerDefinition(new UberStateCondition(toggleGroup, entries[1]), incGroup, incState));
     }
 
-    public static bool OnUberState(UberState state, UberValue old) {
-      return state.OnCollect(old);
+    public static bool OnUberState(UberState uber_state, UberValue old) {
+      return uber_state.OnCollect(old);
     }
 
     public static Pickup BuildPickup(PickupType type, string pickupData, List<string> extras, UberStateCondition cond) {
@@ -494,7 +494,7 @@ namespace RandoMainDLL {
                 }
                 var sysState = extras[0].ParseToByte("BuildPickup.SysState");
                 if (!Enum.IsDefined(typeof(SysState), sysState)) {
-                  Randomizer.Log($"invalid state {sysState} in {command}", false);
+                  Randomizer.Log($"invalid uber_state {sysState} in {command}", false);
                   return new Message($"Invalid command {command}!");
                 }
 
@@ -776,11 +776,11 @@ namespace RandoMainDLL {
                   }
 
                   var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
-                  var state = extras[1].ParseToInt("BuildPickup.ShopState");
+                  var uber_state = extras[1].ParseToInt("BuildPickup.ShopState");
                   var texture = extras[2];
-                  var uberId = new UberId(group, state);
+                  var uberId = new UberId(group, uber_state);
                   if (ShopSlot.GetSlot(uberId) == null) {
-                    Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
+                    Randomizer.Log($"invalid shop id {group}|{uber_state} in {pickupData}", false);
                     return new Message($"Invalid shop command {command}!");
                   }
 
@@ -793,11 +793,11 @@ namespace RandoMainDLL {
                   }
 
                   var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
-                  var state = extras[1].ParseToInt("BuildPickup.ShopState");
+                  var uber_state = extras[1].ParseToInt("BuildPickup.ShopState");
                   var title = extras.Count == 3 ? extras[2] : null;
-                  var uberId = new UberId(group, state);
+                  var uberId = new UberId(group, uber_state);
                   if (ShopSlot.GetSlot(uberId) == null) {
-                    Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
+                    Randomizer.Log($"invalid shop id {group}|{uber_state} in {pickupData}", false);
                     return new Message($"Invalid shop command {command}!");
                   }
 
@@ -810,11 +810,11 @@ namespace RandoMainDLL {
                   }
 
                   var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
-                  var state = extras[1].ParseToInt("BuildPickup.ShopState");
+                  var uber_state = extras[1].ParseToInt("BuildPickup.ShopState");
                   var description = extras.Count == 3 ? extras[2] : null;
-                  var uberId = new UberId(group, state);
+                  var uberId = new UberId(group, uber_state);
                   if (ShopSlot.GetSlot(uberId) == null) {
-                    Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
+                    Randomizer.Log($"invalid shop id {group}|{uber_state} in {pickupData}", false);
                     return new Message($"Invalid shop command {command}!");
                   }
 
@@ -827,11 +827,11 @@ namespace RandoMainDLL {
                   }
 
                   var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
-                  var state = extras[1].ParseToInt("BuildPickup.ShopState");
+                  var uber_state = extras[1].ParseToInt("BuildPickup.ShopState");
                   var isLocked = extras[2].ParseToBool("BuildPickup.Locked");
-                  var uberId = new UberId(group, state);
+                  var uberId = new UberId(group, uber_state);
                   if (ShopSlot.GetSlot(uberId) == null) {
-                    Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
+                    Randomizer.Log($"invalid shop id {group}|{uber_state} in {pickupData}", false);
                     return new Message($"Invalid shop command {command}!");
                   }
 
@@ -844,11 +844,11 @@ namespace RandoMainDLL {
                   }
 
                   var group = extras[0].ParseToInt("BuildPickup.ShopGroup");
-                  var state = extras[1].ParseToInt("BuildPickup.ShopState");
+                  var uber_state = extras[1].ParseToInt("BuildPickup.ShopState");
                   var isVisible = extras[2].ParseToBool("BuildPickup.Visible");
-                  var uberId = new UberId(group, state);
+                  var uberId = new UberId(group, uber_state);
                   if (ShopSlot.GetSlot(uberId) == null) {
-                    Randomizer.Log($"invalid shop id {group}|{state} in {pickupData}", false);
+                    Randomizer.Log($"invalid shop id {group}|{uber_state} in {pickupData}", false);
                     return new Message($"Invalid shop command {command}!");
                   }
 
@@ -1051,16 +1051,16 @@ namespace RandoMainDLL {
       }
 
       if (finished && Flags.Contains(Flag.ALLWISPS)) {
-        foreach (var state in UberStateController.Wisps) {
-          finished = finished && state.GetValue().Bool;
+        foreach (var uber_state in UberStateController.Wisps) {
+          finished = finished && uber_state.GetValue().Bool;
           if (!finished)
             break;
         }
       }
 
       if (finished && Flags.Contains(Flag.ALLQUESTS)) {
-        foreach (var state in UberStateController.Quests) {
-          finished = finished && state.GetValue().Int == state.Value.Int;
+        foreach (var uber_state in UberStateController.Quests) {
+          finished = finished && uber_state.GetValue().Int == uber_state.Value.Int;
           if (!finished)
             break;
         }

@@ -328,9 +328,9 @@ namespace WebSocketSharp.Net
       }
     }
 
-    private static void onTimeout (object state)
+    private static void onTimeout (object uber_state)
     {
-      var conn = (HttpConnection) state;
+      var conn = (HttpConnection) uber_state;
       var current = conn._reuses;
       if (conn._socket == null)
         return;

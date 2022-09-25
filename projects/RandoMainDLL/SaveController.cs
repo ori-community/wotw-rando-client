@@ -99,7 +99,7 @@ namespace RandoMainDLL {
           PsuedoLocs.LOAD_SEED.Pickup().Grant();
         }
         BonusItemController.Refresh();
-        MapController.UpdateReachable();
+        MapController.QueueReachCheck();
       }
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
     }

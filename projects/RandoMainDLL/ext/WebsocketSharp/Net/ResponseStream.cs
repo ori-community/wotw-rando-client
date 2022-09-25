@@ -310,7 +310,7 @@ namespace WebSocketSharp.Net
       int offset,
       int count,
       AsyncCallback callback,
-      object state
+      object uber_state
     )
     {
       throw new NotSupportedException ();
@@ -321,7 +321,7 @@ namespace WebSocketSharp.Net
       int offset,
       int count,
       AsyncCallback callback,
-      object state
+      object uber_state
     )
     {
       if (_disposed) {
@@ -330,7 +330,7 @@ namespace WebSocketSharp.Net
         throw new ObjectDisposedException (name);
       }
 
-      return _bodyBuffer.BeginWrite (buffer, offset, count, callback, state);
+      return _bodyBuffer.BeginWrite (buffer, offset, count, callback, uber_state);
     }
 
     public override void Close ()

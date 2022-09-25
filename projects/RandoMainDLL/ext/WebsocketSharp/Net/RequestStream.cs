@@ -159,14 +159,14 @@ namespace WebSocketSharp.Net
     #region Public Methods
 
     public override IAsyncResult BeginRead (
-      byte[] buffer, int offset, int count, AsyncCallback callback, object state)
+      byte[] buffer, int offset, int count, AsyncCallback callback, object uber_state)
     {
       if (_disposed)
         throw new ObjectDisposedException (GetType ().ToString ());
 
       var nread = fillFromBuffer (buffer, offset, count);
       if (nread > 0 || nread == -1) {
-        var ares = new HttpStreamAsyncResult (callback, state);
+        var ares = new HttpStreamAsyncResult (callback, uber_state);
         ares.Buffer = buffer;
         ares.Offset = offset;
         ares.Count = count;
@@ -180,11 +180,11 @@ namespace WebSocketSharp.Net
       if (_bodyLeft >= 0 && count > _bodyLeft)
         count = (int) _bodyLeft;
 
-      return _stream.BeginRead (buffer, offset, count, callback, state);
+      return _stream.BeginRead (buffer, offset, count, callback, uber_state);
     }
 
     public override IAsyncResult BeginWrite (
-      byte[] buffer, int offset, int count, AsyncCallback callback, object state)
+      byte[] buffer, int offset, int count, AsyncCallback callback, object uber_state)
     {
       throw new NotSupportedException ();
     }

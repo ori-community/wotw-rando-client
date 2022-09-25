@@ -115,7 +115,7 @@ namespace WebSocketSharp.Net
     #region Public Methods
 
     public override IAsyncResult BeginRead (
-      byte[] buffer, int offset, int count, AsyncCallback callback, object state)
+      byte[] buffer, int offset, int count, AsyncCallback callback, object uber_state)
     {
       if (_disposed)
         throw new ObjectDisposedException (GetType ().ToString ());
@@ -134,7 +134,7 @@ namespace WebSocketSharp.Net
         throw new ArgumentException (
           "The sum of 'offset' and 'count' is greater than 'buffer' length.");
 
-      var ares = new HttpStreamAsyncResult (callback, state);
+      var ares = new HttpStreamAsyncResult (callback, uber_state);
       if (_noMoreData) {
         ares.Complete ();
         return ares;

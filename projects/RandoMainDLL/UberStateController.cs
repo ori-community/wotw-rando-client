@@ -51,7 +51,7 @@ namespace RandoMainDLL {
     public static HashSet<UberId> TimerUberStates = new HashSet<UberId>();
     public static HashSet<UberId> SyncedUberStates = new HashSet<UberId>();
     public static Dictionary<UberId, UberState> UberStates = new Dictionary<UberId, UberState>();
-    public static UberValue GetValue(this UberState state) => state.GetUberId().GetValue();
+    public static UberValue GetValue(this UberState uber_state) => uber_state.GetUberId().GetValue();
     public static UberState State(this UberId id) {
       if (!UberStates.TryGetValue(id, out UberState s)) {
         s = createUberStateEntry(id);
@@ -142,7 +142,7 @@ namespace RandoMainDLL {
 
     private static UberState createUberStateEntry(UberId id) {
       if (!InterOp.UberState.get_uber_state_exists(id.GroupID, id.ID)) {
-        Randomizer.Error("cuse", $"Failed to find {id} in uber state system.", false);
+        Randomizer.Error("cuse", $"Failed to find {id} in uber uber_state system.", false);
         return null;
       }
       
@@ -182,11 +182,11 @@ namespace RandoMainDLL {
     public static UberStateType UberType(this UberId id) => InterOp.UberState.get_uber_state_exists(id.GroupID, id.ID) ?
       InterOp.UberState.get_uber_state_type(id.GroupID, id.ID) : UberStateType.SerializedIntUberState;
 
-    public static bool Write(this UberState state) => state.Write(state.Value);
+    public static bool Write(this UberState uber_state) => uber_state.Write(uber_state.Value);
 
-    public static bool Write(this UberState state, UberValue value) {
-      state.Value = value;
-      UberSet.Raw(state.GroupID, state.ID, state.ValueAsDouble());
+    public static bool Write(this UberState uber_state, UberValue value) {
+      uber_state.Value = value;
+      UberSet.Raw(uber_state.GroupID, uber_state.ID, uber_state.ValueAsDouble());
       return true;
     }
 
@@ -268,48 +268,48 @@ namespace RandoMainDLL {
 
       UberId key = new UberId(groupID, stateID);
       if (uberStateLookup.TryGetValue(key, out UberState cachedState)) {
-        UberState state = cachedState.Clone();
-        state.Value = CreateValue(state.Type, newValue);
-        var value = CreateValue(state.Type, oldValue);
-        ResolveUberStateChange(state, value);
+        UberState uber_state = cachedState.Clone();
+        uber_state.Value = CreateValue(uber_state.Type, newValue);
+        var value = CreateValue(uber_state.Type, oldValue);
+        ResolveUberStateChange(uber_state, value);
       } else if (serializableUberState((UberStateType)type)) {
-        var state = createUberStateEntry(key);
-        state.Value = CreateValue(state.Type, oldValue);
-        uberStateLookup.Add(key, state);
-        state = state.Clone();
-        state.Value = CreateValue(state.Type, newValue);
-        var value = CreateValue(state.Type, oldValue);
-        ResolveUberStateChange(state, value);
+        var uber_state = createUberStateEntry(key);
+        uber_state.Value = CreateValue(uber_state.Type, oldValue);
+        uberStateLookup.Add(key, uber_state);
+        uber_state = uber_state.Clone();
+        uber_state.Value = CreateValue(uber_state.Type, newValue);
+        var value = CreateValue(uber_state.Type, oldValue);
+        ResolveUberStateChange(uber_state, value);
       }
     }
 
-    private static bool shouldLogStateChange(UberState state, bool found) {
+    private static bool shouldLogStateChange(UberState uber_state, bool found) {
       // If we are not in dev mode or we are doing a new game initialization don't log.
       if (!Randomizer.Dev || NeedsNewGameInit)
         return false;
 
       // Don't log states that have a pickup or have a value already?
-      if (state.Value.Int != 0 && found)
+      if (uber_state.Value.Int != 0 && found)
         return false;
 
       // Don't log timer uberstates.
-      if (TimerUberStates.Contains(state.GetUberId()))
+      if (TimerUberStates.Contains(uber_state.GetUberId()))
         return false;
 
       // Don't log vanilla stats and achievemnts.
-      if (state.GroupName == "statsUberStateGroup" || state.GroupName == "achievementsGroup" || state.GroupID == 8 || state.GroupID == 10)
+      if (uber_state.GroupName == "statsUberStateGroup" || uber_state.GroupName == "achievementsGroup" || uber_state.GroupID == 8 || uber_state.GroupID == 10)
         return false;
 
       // Don't log our own StatTracking.
-      if (!StatsTracking.ShouldLog(state.GetUberId()))
+      if (!StatsTracking.ShouldLog(uber_state.GetUberId()))
         return false;
 
       return true;
     }
 
-    public static bool SharingExceptions(UberState state) {
+    public static bool SharingExceptions(UberState uber_state) {
       // Because Moon is weird and sets it to 5 for a frame.
-      return state.GroupID == 937 && state.ID == 34641 && state.ValueAsDouble() > 4;
+      return uber_state.GroupID == 937 && uber_state.ID == 34641 && uber_state.ValueAsDouble() > 4;
     }
 
     public static void SendResourceRequest(int resourceGroup, int resourceId, int amount, int targetGroup, int targetId,
@@ -327,64 +327,64 @@ namespace RandoMainDLL {
       );
     }
 
-    public static bool shouldTriggerReachableCheck(UberState state, UberValue old) {
-      return MapController.TrackedNodes.Any(node => node.Condition.Met(state, old));
+    public static bool shouldTriggerReachableCheck(UberState uber_state, UberValue old) {
+      return MapController.TrackedNodes.Any(node => node.Condition.Met(uber_state, old));
     }
 
-    public static void ResolveUberStateChange(UberState state, UberValue old) {
+    public static void ResolveUberStateChange(UberState uber_state, UberValue old) {
       try {
-        UberId key = state.GetUberId();
+        UberId key = uber_state.GetUberId();
         if (!UberStates.TryGetValue(key, out UberState oldState)) {
-          oldState = state.Clone();
+          oldState = uber_state.Clone();
           oldState.Value = old;
           UberStates.Add(key, oldState);
         }
 
-        UberValue value = state.Value;
+        UberValue value = uber_state.Value;
         if (value.Int == old.Int)
           return;
 
-        var oldValFmt = old.FmtVal(state.Type); // get this now because we overwrite the value by reference 
-        if (ShouldRevert(state, old)) {
-          Randomizer.Log($"Reverting state change of {state.Name} from {oldValFmt} to {state.FmtVal()}", false);
+        var oldValFmt = old.FmtVal(uber_state.Type); // get this now because we overwrite the value by reference
+        if (ShouldRevert(uber_state, old)) {
+          Randomizer.Log($"Reverting uber_state change of {uber_state.Name} from {oldValFmt} to {uber_state.FmtVal()}", false);
           oldState.Write();
           return;
         }
 
-        HandleSpecial(state);
-        UberStates[key].Value = state.Value;
+        HandleSpecial(uber_state);
+        UberStates[key].Value = uber_state.Value;
         if (SkipUberStateMapCount.GetOrElse(key, 0) > 0) {
-          var id = state.GetUberId();
-          var p = id.Pickup(state.ValueAsInt());
+          var id = uber_state.GetUberId();
+          var p = id.Pickup(uber_state.ValueAsInt());
           if (p.NonEmpty) {
             SkipUberStateMapCount[key] -= 1;
-            Randomizer.Log($"Suppressed granting {p} from {id}={state.ValueAsInt()}. Will suppress {SkipUberStateMapCount[key]} more times", false, "DEBUG");
+            Randomizer.Log($"Suppressed granting {p} from {id}={uber_state.ValueAsInt()}. Will suppress {SkipUberStateMapCount[key]} more times", false, "DEBUG");
             return;
           }
         }
 
-        bool found = SeedController.OnUberState(state, old);
-        if (SyncedUberStates.Contains(key) && !UnsharableIds.Contains(key) && !SharingExceptions(state) && !ServerChanged.Contains((key, state.ValueAsDouble()))) {
-          WebSocketClient.SendUpdate(key, state.ValueAsDouble());
+        bool found = SeedController.OnUberState(uber_state, old);
+        if (SyncedUberStates.Contains(key) && !UnsharableIds.Contains(key) && !SharingExceptions(uber_state) && !ServerChanged.Contains((key, uber_state.ValueAsDouble()))) {
+          WebSocketClient.SendUpdate(key, uber_state.ValueAsDouble());
         }
 
-        BonusItemController.OnUberState(state);
+        BonusItemController.OnUberState(uber_state);
         var zone = ZoneType.Void;
         if (InterOp.Utils.get_game_state() == GameState.Game)
           zone = InterOp.Map.get_player_area().toZone();
 
-        if (shouldLogStateChange(state, found)) {
+        if (shouldLogStateChange(uber_state, found)) {
           var pos = InterOp.Player.get_position();
-          Randomizer.Debug($"State change: {state.GroupName}.{state.Name} ({state.GroupID}|{state.ID}) {state.Type} {oldValFmt}->{state.FmtVal()} at ({Math.Round(pos.X)}, {Math.Round(pos.Y)}) in {zone}");
+          Randomizer.Debug($"State change: {uber_state.GroupName}.{uber_state.Name} ({uber_state.GroupID}|{uber_state.ID}) {uber_state.Type} {oldValFmt}->{uber_state.FmtVal()} at ({Math.Round(pos.X)}, {Math.Round(pos.Y)}) in {zone}");
         }
 
-        InterOp.System.report_uber_state_change(state.GroupID, state.ID, state.ValueAsDouble());
-        if (shouldTriggerReachableCheck(state, old)) {
-          MapController.UpdateReachable();
+        InterOp.System.report_uber_state_change(uber_state.GroupID, uber_state.ID, uber_state.ValueAsDouble());
+        if (shouldTriggerReachableCheck(uber_state, old)) {
+          MapController.QueueReachCheck();
         }
       }
       catch (Exception e) {
-        Randomizer.Error($"USC.Update {state}", e);
+        Randomizer.Error($"USC.Update {uber_state}", e);
       }
     }
 
@@ -400,10 +400,10 @@ namespace RandoMainDLL {
         GrantOnNextUpdate.Clear();
         if (!SkipListeners && !InterOp.Utils.in_menu()) {
           // We do ToArray here so we can change the hashset while we are looping.
-          foreach (var state in TimerUberStates.ToArray()) {
+          foreach (var uber_state in TimerUberStates.ToArray()) {
             // Maybe change this to use our own cache lookup?
-            var value = UberGet.AsDouble(state.GroupID, state.ID);
-            UberSet.Raw(state.GroupID, state.ID, value + delta);
+            var value = UberGet.AsDouble(uber_state.GroupID, uber_state.ID);
+            UberSet.Raw(uber_state.GroupID, uber_state.ID, value + delta);
           }
 
           foreach (var timer in SeedController.TimerList) {
@@ -431,76 +431,76 @@ namespace RandoMainDLL {
       catch (Exception e) { Randomizer.Error("USC.Update", e, false); }
     }
 
-    delegate void SpecialCallback(UberState state);
+    delegate void SpecialCallback(UberState uber_state);
     static Dictionary<UberId, SpecialCallback> SpecialHandlers = new Dictionary<UberId, SpecialCallback>() {
       {
         new UberId(5377, 53480),
-        (UberState state) => {
+        (UberState uber_state) => {
           // lumaPoolsStateGroup.arenaBByteStateSerialized ; water dash version of the fight room
-          if (state.Value.Byte == 4)
+          if (uber_state.Value.Byte == 4)
             UberSet.Byte(5377, 1373, 4);
         }
       },
       {
         new UberId(42178, 2654),
-        (UberState state) => {
+        (UberState uber_state) => {
           // hubUberStateGroup.craftCutsceneState ; diamond in the rough
-          if (0 < state.Value.Byte && state.Value.Byte < 3) {
-            state.Write(new UberValue((byte)3));
+          if (0 < uber_state.Value.Byte && uber_state.Value.Byte < 3) {
+            uber_state.Write(new UberValue((byte)3));
             // Give diamond in the rough pickup.
             UberSet.Bool(23987, 14832, true);
           }
         }
       },
       { new UberId(37858, 12379), // wellspring escape complete
-        (UberState state) => UberSet.Int(937, 34641, 3) // kwolokGroupDescriptor.cleanseWellspringQuestUberState
+        (UberState uber_state) => UberSet.Int(937, 34641, 3) // kwolokGroupDescriptor.cleanseWellspringQuestUberState
       },
       {
         new UberId(14019, 48794),
-        (UberState state) => {
-          if (state.Value.Int == 2)
+        (UberState uber_state) => {
+          if (uber_state.Value.Int == 2)
             Randomizer.InputUnlockCallback.Add(GiveVoice);
         }
       },
       {
         new UberId(937, 34641),
-        (UberState state) => {
+        (UberState uber_state) => {
           // Wellspring quest
-          if (state.Value.Int >= 3)
+          if (uber_state.Value.Int >= 3)
             // Tuley exists.
             UberSet.Bool(6, 300, true);
         }
       },
       {
         new UberId(58674, 32810),
-        (UberState state) => {
-          // Petrified forest chase state.
-          if (state.Value.Int == 7)
+        (UberState uber_state) => {
+          // Petrified forest chase uber_state.
+          if (uber_state.Value.Int == 7)
             // Prevent from getting stuck on shriek killing you.
             UberSet.Int(58674, 32810, 8);
         }
       },
       {
         new UberId(16155, 28478),
-        (UberState state) => {
+        (UberState uber_state) => {
           // Finish willow stone if the vine gets destroyed
-          if (state.Value.Bool)
+          if (uber_state.Value.Bool)
             UberSet.Byte(16155, 12971, 4);
         }
       },
       {
         new UberId(5377, 63173),
-        (UberState state) => {
-          if (state.Value.Bool && InterOp.Map.is_visited(AreaType.LumaPools, 6073))
+        (UberState uber_state) => {
+          if (uber_state.Value.Bool && InterOp.Map.is_visited(AreaType.LumaPools, 6073))
             InterOp.UberState.set_uber_state_value(945, 26601, 3); // Give LumaPools tp.
         }
       },
     };
 
-    public static AbilityType GetAbilityType(this UberState state) {
+    public static AbilityType GetAbilityType(this UberState uber_state) {
       foreach (var val in Enum.GetValues(typeof(AbilityType))) {
         var value = (AbilityType)val;
-        if (value != AbilityType.NONE && value.State().Equals(state.GetUberId())) {
+        if (value != AbilityType.NONE && value.State().Equals(uber_state.GetUberId())) {
           return value;
         }
       }
@@ -508,19 +508,19 @@ namespace RandoMainDLL {
       return AbilityType.NONE;
     }
 
-    private static void HandleSpecial(UberState state) {
-      if (SpecialHandlers.TryGetValue(state.GetUberId(), out var callback))
-        callback(state);
-      var abilityType = state.GetAbilityType();
+    private static void HandleSpecial(UberState uber_state) {
+      if (SpecialHandlers.TryGetValue(uber_state.GetUberId(), out var callback))
+        callback(uber_state);
+      var abilityType = uber_state.GetAbilityType();
       if (abilityType != AbilityType.NONE) {
         var hasEquip = abilityType.Equip().HasValue;
-        if (hasEquip && !state.Value.Bool) {
+        if (hasEquip && !uber_state.Value.Bool) {
           InterOp.Ability.unbind(abilityType.Equip().Value);
         }
 
-        InterOp.Ability.set_ability(abilityType, state.Value.Bool);
+        InterOp.Ability.set_ability(abilityType, uber_state.Value.Bool);
         if (abilityType.Equip().HasValue) {
-          InterOp.Ability.set_equipment(abilityType.Equip().Value, state.Value.Bool);
+          InterOp.Ability.set_equipment(abilityType.Equip().Value, uber_state.Value.Bool);
         }
 
         BonusItemController.Refresh();
@@ -541,13 +541,13 @@ namespace RandoMainDLL {
       if (SeedController.Flags.Contains(Flag.ALLWISPS))
         HintsController.ProgressWithHints();
     }
-    private static bool ShouldRevert(UberState state, UberValue old) {
+    private static bool ShouldRevert(UberState uber_state, UberValue old) {
       if (NeedsNewGameInit || SkipListeners)
         return false;
-      if (state.GroupID == 937 && state.ID == 34641 && state.Value.Int < old.Int)
+      if (uber_state.GroupID == 937 && uber_state.ID == 34641 && uber_state.Value.Int < old.Int)
         return true;
       // questUberStateGroup.findKuQuest
-      else if (state.GroupID == 14019 && state.ID == 34504 && state.Value.Int < 4)
+      else if (uber_state.GroupID == 14019 && uber_state.ID == 34504 && uber_state.Value.Int < 4)
         return true;
       return false;
     }
@@ -579,9 +579,9 @@ namespace RandoMainDLL {
             PsuedoLocs.GAME_START.OnCollect();
             PsuedoLocs.LOAD_SEED.OnCollect();
             InterOp.System.save();
-            MapController.UpdateReachable();
+            MapController.QueueReachCheck();
           });
-        } else MapController.UpdateReachable();
+        } else MapController.QueueReachCheck();
         InterOp.Shard.set_shard_slots(3);
         InterOp.System.save();
       }

@@ -61,10 +61,10 @@ namespace WebSocketSharp.Net
 
     #region Internal Constructors
 
-    internal HttpStreamAsyncResult (AsyncCallback callback, object state)
+    internal HttpStreamAsyncResult (AsyncCallback callback, object uber_state)
     {
       _callback = callback;
-      _state = state;
+      _state = uber_state;
       _sync = new object ();
     }
 

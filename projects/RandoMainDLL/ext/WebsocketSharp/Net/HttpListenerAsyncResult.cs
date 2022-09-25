@@ -68,10 +68,10 @@ namespace WebSocketSharp.Net
 
     #region Internal Constructors
 
-    internal HttpListenerAsyncResult (AsyncCallback callback, object state)
+    internal HttpListenerAsyncResult (AsyncCallback callback, object uber_state)
     {
       _callback = callback;
-      _state = state;
+      _state = uber_state;
       _sync = new object ();
     }
 
@@ -148,7 +148,7 @@ namespace WebSocketSharp.Net
         return;
 
       ThreadPool.QueueUserWorkItem (
-        state => {
+        uber_state => {
           try {
             callback (asyncResult);
           }

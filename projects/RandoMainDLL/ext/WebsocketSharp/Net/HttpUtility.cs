@@ -135,16 +135,16 @@ namespace WebSocketSharp.Net
       // 2: Between '&' and ';' but no NCR
       // 3: '#' found after '&' and getting numbers
       // 4: 'x' found after '#' and getting numbers
-      var state = 0;
+      var uber_state = 0;
 
       var reference = new StringBuilder ();
       var num = 0;
 
       foreach (var c in s) {
-        if (state == 0) {
+        if (uber_state == 0) {
           if (c == '&') {
             reference.Append ('&');
-            state = 1;
+            uber_state = 1;
 
             continue;
           }
@@ -158,30 +158,30 @@ namespace WebSocketSharp.Net
 
           reference.Length = 0;
           reference.Append ('&');
-          state = 1;
+          uber_state = 1;
 
           continue;
         }
 
         reference.Append (c);
 
-        if (state == 1) {
+        if (uber_state == 1) {
           if (c == ';') {
             buff.Append (reference.ToString ());
 
             reference.Length = 0;
-            state = 0;
+            uber_state = 0;
 
             continue;
           }
 
           num = 0;
-          state = c == '#' ? 3 : 2;
+          uber_state = c == '#' ? 3 : 2;
 
           continue;
         }
 
-        if (state == 2) {
+        if (uber_state == 2) {
           if (c == ';') {
             var entity = reference.ToString ();
             var name = entity.Substring (1, entity.Length - 2);
@@ -193,7 +193,7 @@ namespace WebSocketSharp.Net
               buff.Append (entity);
 
             reference.Length = 0;
-            state = 0;
+            uber_state = 0;
 
             continue;
           }
@@ -201,7 +201,7 @@ namespace WebSocketSharp.Net
           continue;
         }
 
-        if (state == 3) {
+        if (uber_state == 3) {
           if (c == ';') {
             if (reference.Length > 3 && num < 65536)
               buff.Append ((char) num);
@@ -209,18 +209,18 @@ namespace WebSocketSharp.Net
               buff.Append (reference.ToString ());
 
             reference.Length = 0;
-            state = 0;
+            uber_state = 0;
 
             continue;
           }
 
           if (c == 'x') {
-            state = reference.Length == 3 ? 4 : 2;
+            uber_state = reference.Length == 3 ? 4 : 2;
             continue;
           }
 
           if (!isNumeric (c)) {
-            state = 2;
+            uber_state = 2;
             continue;
           }
 
@@ -228,7 +228,7 @@ namespace WebSocketSharp.Net
           continue;
         }
 
-        if (state == 4) {
+        if (uber_state == 4) {
           if (c == ';') {
             if (reference.Length > 4 && num < 65536)
               buff.Append ((char) num);
@@ -236,14 +236,14 @@ namespace WebSocketSharp.Net
               buff.Append (reference.ToString ());
 
             reference.Length = 0;
-            state = 0;
+            uber_state = 0;
 
             continue;
           }
 
           var n = getNumber (c);
           if (n == -1) {
-            state = 2;
+            uber_state = 2;
             continue;
           }
 

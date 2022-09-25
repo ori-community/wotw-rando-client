@@ -158,7 +158,7 @@ namespace WebSocketSharp
     {
       var timeout = false;
       var timer = new Timer (
-        state => {
+        uber_state => {
           timeout = true;
           stream.Close ();
         },

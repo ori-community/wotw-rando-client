@@ -31,8 +31,8 @@ namespace RandoMainDLL {
       return Tuple.Create(cond, UberStateEqualsPickups.GetOrElse(cond, null));
     }
 
-    private Tuple<UberStateCondition, Pickup> GetEqCondition(UberState state) {
-      var cond = new UberStateCondition(state.GroupID, state.ID, state.ValueAsInt(), UberStateCondition.Handler.Equals);
+    private Tuple<UberStateCondition, Pickup> GetEqCondition(UberState uber_state) {
+      var cond = new UberStateCondition(uber_state.GroupID, uber_state.ID, uber_state.ValueAsInt(), UberStateCondition.Handler.Equals);
       return Tuple.Create(cond, UberStateEqualsPickups.GetOrElse(cond, null));
     }
 
@@ -69,14 +69,14 @@ namespace RandoMainDLL {
       return PickupWithCondition(id, value).Item1 != null;
     }
 
-    public bool Collect(UberState state, UberValue value) {
+    public bool Collect(UberState uber_state, UberValue value) {
       var collected = false;
-      var conditions = GetConditions(state.GetUberId());
+      var conditions = GetConditions(uber_state.GetUberId());
       foreach (var condition in conditions)
-        if (condition.Key.Met(state, value))
+        if (condition.Key.Met(uber_state, value))
           collected |= condition.Value.Collect(condition.Key);
 
-      var eq = GetEqCondition(state);
+      var eq = GetEqCondition(uber_state);
       if (eq.Item2 != null)
         collected |= eq.Item2.Collect(eq.Item1);
 

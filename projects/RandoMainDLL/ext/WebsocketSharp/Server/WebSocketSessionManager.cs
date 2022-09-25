@@ -371,14 +371,14 @@ namespace WebSocketSharp.Server
     private void broadcastAsync (Opcode opcode, byte[] data, Action completed)
     {
       ThreadPool.QueueUserWorkItem (
-        state => broadcast (opcode, data, completed)
+        uber_state => broadcast (opcode, data, completed)
       );
     }
 
     private void broadcastAsync (Opcode opcode, Stream stream, Action completed)
     {
       ThreadPool.QueueUserWorkItem (
-        state => broadcast (opcode, stream, completed)
+        uber_state => broadcast (opcode, stream, completed)
       );
     }
 
@@ -558,7 +558,7 @@ namespace WebSocketSharp.Server
     /// An array of <see cref="byte"/> that represents the binary data to send.
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the manager is not Start.
+    /// The current uber_state of the manager is not Start.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="data"/> is <see langword="null"/>.
@@ -566,7 +566,7 @@ namespace WebSocketSharp.Server
     public void Broadcast (byte[] data)
     {
       if (_state != ServerState.Start) {
-        var msg = "The current state of the manager is not Start.";
+        var msg = "The current uber_state of the manager is not Start.";
         throw new InvalidOperationException (msg);
       }
 
@@ -586,7 +586,7 @@ namespace WebSocketSharp.Server
     /// A <see cref="string"/> that represents the text data to send.
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the manager is not Start.
+    /// The current uber_state of the manager is not Start.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="data"/> is <see langword="null"/>.
@@ -597,7 +597,7 @@ namespace WebSocketSharp.Server
     public void Broadcast (string data)
     {
       if (_state != ServerState.Start) {
-        var msg = "The current state of the manager is not Start.";
+        var msg = "The current uber_state of the manager is not Start.";
         throw new InvalidOperationException (msg);
       }
 
@@ -630,7 +630,7 @@ namespace WebSocketSharp.Server
     /// An <see cref="int"/> that specifies the number of bytes to send.
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the manager is not Start.
+    /// The current uber_state of the manager is not Start.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="stream"/> is <see langword="null"/>.
@@ -655,7 +655,7 @@ namespace WebSocketSharp.Server
     public void Broadcast (Stream stream, int length)
     {
       if (_state != ServerState.Start) {
-        var msg = "The current state of the manager is not Start.";
+        var msg = "The current uber_state of the manager is not Start.";
         throw new InvalidOperationException (msg);
       }
 
@@ -715,7 +715,7 @@ namespace WebSocketSharp.Server
     ///   </para>
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the manager is not Start.
+    /// The current uber_state of the manager is not Start.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="data"/> is <see langword="null"/>.
@@ -723,7 +723,7 @@ namespace WebSocketSharp.Server
     public void BroadcastAsync (byte[] data, Action completed)
     {
       if (_state != ServerState.Start) {
-        var msg = "The current state of the manager is not Start.";
+        var msg = "The current uber_state of the manager is not Start.";
         throw new InvalidOperationException (msg);
       }
 
@@ -756,7 +756,7 @@ namespace WebSocketSharp.Server
     ///   </para>
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the manager is not Start.
+    /// The current uber_state of the manager is not Start.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="data"/> is <see langword="null"/>.
@@ -767,7 +767,7 @@ namespace WebSocketSharp.Server
     public void BroadcastAsync (string data, Action completed)
     {
       if (_state != ServerState.Start) {
-        var msg = "The current state of the manager is not Start.";
+        var msg = "The current uber_state of the manager is not Start.";
         throw new InvalidOperationException (msg);
       }
 
@@ -814,7 +814,7 @@ namespace WebSocketSharp.Server
     ///   </para>
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the manager is not Start.
+    /// The current uber_state of the manager is not Start.
     /// </exception>
     /// <exception cref="ArgumentNullException">
     /// <paramref name="stream"/> is <see langword="null"/>.
@@ -839,7 +839,7 @@ namespace WebSocketSharp.Server
     public void BroadcastAsync (Stream stream, int length, Action completed)
     {
       if (_state != ServerState.Start) {
-        var msg = "The current state of the manager is not Start.";
+        var msg = "The current uber_state of the manager is not Start.";
         throw new InvalidOperationException (msg);
       }
 
@@ -893,13 +893,13 @@ namespace WebSocketSharp.Server
     ///   </para>
     /// </returns>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the manager is not Start.
+    /// The current uber_state of the manager is not Start.
     /// </exception>
     [Obsolete ("This method will be removed.")]
     public Dictionary<string, bool> Broadping ()
     {
       if (_state != ServerState.Start) {
-        var msg = "The current state of the manager is not Start.";
+        var msg = "The current uber_state of the manager is not Start.";
         throw new InvalidOperationException (msg);
       }
 
@@ -929,7 +929,7 @@ namespace WebSocketSharp.Server
     ///   </para>
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// The current state of the manager is not Start.
+    /// The current uber_state of the manager is not Start.
     /// </exception>
     /// <exception cref="ArgumentException">
     /// <paramref name="message"/> could not be UTF-8-encoded.
@@ -941,7 +941,7 @@ namespace WebSocketSharp.Server
     public Dictionary<string, bool> Broadping (string message)
     {
       if (_state != ServerState.Start) {
-        var msg = "The current state of the manager is not Start.";
+        var msg = "The current uber_state of the manager is not Start.";
         throw new InvalidOperationException (msg);
       }
 
@@ -1247,7 +1247,7 @@ namespace WebSocketSharp.Server
     ///   -or-
     ///   </para>
     ///   <para>
-    ///   The current state of the WebSocket connection is not Open.
+    ///   The current uber_state of the WebSocket connection is not Open.
     ///   </para>
     /// </exception>
     public void SendTo (byte[] data, string id)
@@ -1300,7 +1300,7 @@ namespace WebSocketSharp.Server
     ///   -or-
     ///   </para>
     ///   <para>
-    ///   The current state of the WebSocket connection is not Open.
+    ///   The current uber_state of the WebSocket connection is not Open.
     ///   </para>
     /// </exception>
     public void SendTo (string data, string id)
@@ -1372,7 +1372,7 @@ namespace WebSocketSharp.Server
     ///   -or-
     ///   </para>
     ///   <para>
-    ///   The current state of the WebSocket connection is not Open.
+    ///   The current uber_state of the WebSocket connection is not Open.
     ///   </para>
     /// </exception>
     public void SendTo (Stream stream, int length, string id)
@@ -1434,7 +1434,7 @@ namespace WebSocketSharp.Server
     ///   -or-
     ///   </para>
     ///   <para>
-    ///   The current state of the WebSocket connection is not Open.
+    ///   The current uber_state of the WebSocket connection is not Open.
     ///   </para>
     /// </exception>
     public void SendToAsync (byte[] data, string id, Action<bool> completed)
@@ -1504,7 +1504,7 @@ namespace WebSocketSharp.Server
     ///   -or-
     ///   </para>
     ///   <para>
-    ///   The current state of the WebSocket connection is not Open.
+    ///   The current uber_state of the WebSocket connection is not Open.
     ///   </para>
     /// </exception>
     public void SendToAsync (string data, string id, Action<bool> completed)
@@ -1594,7 +1594,7 @@ namespace WebSocketSharp.Server
     ///   -or-
     ///   </para>
     ///   <para>
-    ///   The current state of the WebSocket connection is not Open.
+    ///   The current uber_state of the WebSocket connection is not Open.
     ///   </para>
     /// </exception>
     public void SendToAsync (
@@ -1639,10 +1639,10 @@ namespace WebSocketSharp.Server
 
           IWebSocketSession session;
           if (_sessions.TryGetValue (id, out session)) {
-            var state = session.ConnectionState;
-            if (state == WebSocketState.Open)
+            var uber_state = session.ConnectionState;
+            if (uber_state == WebSocketState.Open)
               session.Context.WebSocket.Close (CloseStatusCode.Abnormal);
-            else if (state == WebSocketState.Closing)
+            else if (uber_state == WebSocketState.Closing)
               continue;
             else
               _sessions.Remove (id);

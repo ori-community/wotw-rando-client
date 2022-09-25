@@ -4,21 +4,22 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using RandoMainDLL.Memory;
 
 namespace RandoMainDLL {
   public static class MapController {
-    public static bool Updating;
-    private static int updateCount = 0;
+    public static bool ReachCheckRunning;
+    private static bool ReachCheckPending = false;
 
     public static void Update() {
       // Queue up requested reach check.
-      if (!Updating && InterOp.Utils.get_game_state() == GameState.Game && updateCount > 0) {
-        updateCount = 0;
-        Updating = true;
+      if (!ReachCheckRunning && InterOp.Utils.get_game_state() == GameState.Game && ReachCheckPending) {
+        ReachCheckPending = false;
+        ReachCheckRunning = true;
+        
         var args = GetArgs();
-        var t = new Thread(() => UpdateReachableAsync(args));
-        t.Start();
+        Task.Run(() => UpdateReachableAsync(args));
       }
 
       // Parse reach check result.
@@ -94,7 +95,7 @@ namespace RandoMainDLL {
       }
     }
 
-    public static List<ShardType> TrackedShards = new List<ShardType>() {
+    public static List<ShardType> TrackedShards = new() {
       ShardType.TripleJump,
       ShardType.Overcharge,
       ShardType.TripleJump,
@@ -120,9 +121,9 @@ namespace RandoMainDLL {
       ShardType.Fracture,
     };
 
-    public static void UpdateReachable() {
+    public static void QueueReachCheck() {
       if (InterOp.Utils.get_game_state() == GameState.Game) {
-        ++updateCount;
+        ReachCheckPending = true;
       }
     }
 
@@ -139,7 +140,7 @@ namespace RandoMainDLL {
         proc.Start();
         if (!proc.WaitForExit(10000))
           Randomizer.Warn("MapController.waitForProc", "timed out waiting for reach check", false);
-
+        
         reachCheckResult = proc.StandardOutput.ReadToEnd().Trim();
         var reachCheckErrors = proc.StandardError.ReadToEnd().Trim();
 
@@ -149,7 +150,7 @@ namespace RandoMainDLL {
       }
       catch (Exception e) { Randomizer.Error("GetReachableAsync", e); }
 
-      Updating = false;
+      ReachCheckRunning = false;
     }
 
     private static string reachCheckResult = null;
@@ -269,6 +270,6 @@ namespace RandoMainDLL {
         value == -1 ? UberStateCondition.Handler.Greater : UberStateCondition.Handler.Equals));
     }
 
-    public static HashSet<UberStateCondition> Reachable = new HashSet<UberStateCondition>();
+    public static HashSet<UberStateCondition> Reachable = new();
   }
 }

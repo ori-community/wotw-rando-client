@@ -109,8 +109,8 @@ namespace RandoMainDLL {
       }
 
       var group = ParseToInt(parts[0], caller + ".Group");
-      var state = ParseToInt(parts[1], caller + ".State");
-      return new UberId(group, state);
+      var uber_state = ParseToInt(parts[1], caller + ".State");
+      return new UberId(group, uber_state);
     }
     public static IValue<int> ParseToIntValue(this string val, string caller = "ParseToIntValue") {
       if (val.StartsWith("[") && val.EndsWith("]")) {
