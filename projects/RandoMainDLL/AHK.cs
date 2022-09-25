@@ -30,7 +30,7 @@ namespace RandoMainDLL {
         Randomizer.Dev = true;
       }
 
-      InterOp.Map.set_start_in_logic_filter(IniFlag("DisableStartingInLogicFilter"));
+      InterOp.Map.set_start_in_logic_filter(IniFlag("SelectInLogicFilterByDefault"));
     }
 
     public static bool CanReload() {
