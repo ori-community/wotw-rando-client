@@ -23,6 +23,7 @@ using namespace app::methods;
 
 namespace csharp_bridge {
     signatures::f_void_float update = nullptr;
+    signatures::f_void_float fixed_update = nullptr;
     signatures::f_void_at on_tree = nullptr;
     signatures::f_void on_checkpoint = nullptr;
     signatures::f_void on_goal_mode_fail = nullptr;
@@ -86,6 +87,7 @@ namespace csharp_bridge {
     namespace {
         const std::unordered_map<std::string_view, void**> ptr_map{
             DELEGATE_ENTRY(update),
+            DELEGATE_ENTRY(fixed_update),
             DELEGATE_ENTRY(on_tree),
             DELEGATE_ENTRY(on_checkpoint),
             DELEGATE_ENTRY(on_goal_mode_fail),
@@ -215,9 +217,17 @@ namespace csharp_bridge {
             csharp_bridge::on_map_state(timing == EventTiming::Start);
         }
 
+        void on_update(GameEvent game_event, EventTiming timing) {
+            try {
+                update(game::delta_time());
+            } catch (int error) {
+                trace(MessageType::Info, 3, "csharp_bridge", format("got error code $d", error));
+            }
+        }
+
         void on_fixed_update(GameEvent game_event, EventTiming timing) {
             try {
-                update(game::fixed_delta_time());
+                fixed_update(game::fixed_delta_time());
             } catch (int error) {
                 trace(MessageType::Info, 3, "csharp_bridge", format("got error code $d", error));
             }
@@ -231,6 +241,7 @@ namespace csharp_bridge {
         void initialize() {
             uber_states::register_value_intercept(&resource_intercept);
 
+            game::event_bus().register_handler(GameEvent::Update, EventTiming::End, &on_update);
             game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::End, &on_fixed_update);
             game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::End, &on_shutdown);
             game::event_bus().register_handler(GameEvent::CreateBackup, EventTiming::Start, &on_save_handler);

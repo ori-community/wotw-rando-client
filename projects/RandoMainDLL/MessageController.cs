@@ -358,11 +358,11 @@ namespace RandoMainDLL {
 
     struct MessageBoxSize {
       public float paddingTop = 0.0f;
-      public float height = 0.0f;
+      public float textHeight = 0.0f;
 
-      public MessageBoxSize(float paddingTop, float height) {
+      public MessageBoxSize(float paddingTop, float textHeight) {
         this.paddingTop = paddingTop;
-        this.height = height;
+        this.textHeight = textHeight;
       }
     }
     
@@ -373,21 +373,19 @@ namespace RandoMainDLL {
 
       var yPadding = messagePadding * 0.5f * lines * paddingLineMultiplier;
       
-      return new MessageBoxSize(yPadding, yPadding + (lines * lineHeight));
+      return new MessageBoxSize(yPadding, lines * lineHeight);
     }
     
-    public static void Tick() {
-      float dt = InterOp.System.get_fixed_delta_time();
-
+    public static void Update(float delta) {
       for (var i = activeTimedMessages.Count - 1; i >= 0; --i) {
         var message = activeTimedMessages[i];
-        if (HandleMessageTimer(message, dt))
+        if (HandleMessageTimer(message, delta))
           activeTimedMessages.RemoveAt(i);
       }
 
       List<int> toRemove = new List<int>();
       foreach (var message in activeIdTimedMessages)
-        if (HandleMessageTimer(message.Value, dt))
+        if (HandleMessageTimer(message.Value, delta))
           toRemove.Add(message.Key);
 
       foreach (var key in toRemove)
@@ -397,35 +395,43 @@ namespace RandoMainDLL {
         var message = queue.Value.Peek();
         if (message != null) {
           message.Destroyed = false;
-          if (HandleMessageTimer(message, dt))
+          if (HandleMessageTimer(message, delta))
             queue.Value.Next();
         }
       }
 
       var totalLines = 0;
       var yPosition = 0.3f;
+
+      if (InterOp.Messaging.messages_is_showing_hint()) {
+        var hintSize = CalculateMessageBoxSize(InterOp.Messaging.messages_active_hint_lines());
+        yPosition -= hintSize.paddingTop * 2;
+        yPosition -= hintSize.textHeight;
+        yPosition -= 0.3f; // Gap
+      }
       
       for (var i = 0; i < activePickupTextMessages.Count; i++) {
         var message = activePickupTextMessages[i];
 
-        if (!HandleMessageTimer(message, dt)) {
+        if (!HandleMessageTimer(message, delta)) {
           var messageLines = message.Text.Split('\n').Length;
-          var messagePadding = CalculateMessageBoxSize(messageLines);
+          var messageBoxSize = CalculateMessageBoxSize(messageLines);
 
-          yPosition -= messagePadding.paddingTop;
+          yPosition -= messageBoxSize.paddingTop;
           var startPosition = new Vector2(message.Position.X, message.Position.Y);
           var targetPosition = new Vector2(0, yPosition);
           
           message.Position = new Vector3(
             startPosition.Lerp(
               targetPosition, 
-              dt * 15f * Math.Min(1f, message.TimeActive * 2.0f + 0.1f)
+              delta * 15f * Math.Min(1f, message.TimeActive * 2.0f + 0.1f)
             ),
             0f
           );
 
           totalLines += messageLines;
-          yPosition -= messagePadding.height;
+          yPosition -= messageBoxSize.textHeight;
+          yPosition -= messageBoxSize.paddingTop;
 
           message.FadeOut = activePickupTextMessages.Count == 1 ? 0.5f : 0.1f;
         }
@@ -466,7 +472,8 @@ namespace RandoMainDLL {
           var messagePadding = CalculateMessageBoxSize(pickupMessageLines);
           yPosition -= messagePadding.paddingTop;
           desc.Position.Y = yPosition;
-          yPosition -= messagePadding.height;
+          yPosition -= messagePadding.textHeight;
+          yPosition -= messagePadding.paddingTop;
         }
 
         desc.ScreenPosition = ScreenPosition.TopCenter;

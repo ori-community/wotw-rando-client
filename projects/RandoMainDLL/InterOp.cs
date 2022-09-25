@@ -127,6 +127,10 @@ namespace RandoMainDLL {
       public extern static Vector2 world_to_ui_position_2d(ref Vector2 pos);
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static Vector2 ui_to_world_position_2d(ref Vector2 pos);
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static bool messages_is_showing_hint();
+      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static int messages_active_hint_lines();
     }
 
     public static class Map {
@@ -325,8 +329,6 @@ namespace RandoMainDLL {
       [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool is_loading_game();
-      [DllImport("InjectDll.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static float get_fixed_delta_time();
     }
 
     public static class UberState {

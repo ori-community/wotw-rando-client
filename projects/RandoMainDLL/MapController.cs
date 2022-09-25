@@ -12,7 +12,7 @@ namespace RandoMainDLL {
     public static bool ReachCheckRunning;
     private static bool ReachCheckPending = false;
 
-    public static void Update() {
+    public static void FixedUpdate() {
       // Queue up requested reach check.
       if (!ReachCheckRunning && InterOp.Utils.get_game_state() == GameState.Game && ReachCheckPending) {
         ReachCheckPending = false;

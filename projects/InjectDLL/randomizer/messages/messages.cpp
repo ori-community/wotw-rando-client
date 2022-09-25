@@ -2,7 +2,7 @@
 #include <game/player.h>
 #include <game/system/message_provider.h>
 #include <game/ui.h>
-#include <randomizer/messages.h>
+#include <randomizer/messages/messages.h>
 #include <randomizer/text_style.h>
 #include <utils/position_converter.h>
 
@@ -430,7 +430,6 @@ INJECT_C_DLLEXPORT bool text_box_text(int id, const wchar_t* text) {
         return false;
 
     message->second.text = text;
-    auto message_box = get_message_box(message->second);
     refresh(message->second);
 
     return true;

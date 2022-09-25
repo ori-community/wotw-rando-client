@@ -7,7 +7,7 @@
 #include <input/rando_bindings.h>
 #include <input/simulator.h>
 #include <interop/csharp_bridge.h>
-#include <randomizer/messages.h>
+#include <randomizer/messages/messages.h>
 #include <uber_states/uber_state_interface.h>
 #include <utils/json_serializers.h>
 

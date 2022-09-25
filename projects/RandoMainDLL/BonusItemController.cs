@@ -20,7 +20,7 @@ namespace RandoMainDLL {
     public static void Refresh() {
       InterOp.Ability.refresh_ability_energy_modifiers();
     }
-    public static void Update() {
+    public static void FixedUpdate() {
       double h = UberGet.AsDouble(4, (int)BonusType.HealthRegen);
       if (h > 0)
         InterOp.Player.add_health(Convert.ToSingle(h * 0.0028f));

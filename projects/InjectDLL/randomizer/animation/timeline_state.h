@@ -2,7 +2,7 @@
 
 #include <randomizer/animation/animation.h>
 #include <randomizer/cached_loader.h>
-#include <randomizer/messages.h>
+#include <randomizer/messages/messages.h>
 #include <randomizer/sound.h>
 
 #include <optional>

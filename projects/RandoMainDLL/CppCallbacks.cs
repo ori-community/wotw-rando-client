@@ -16,6 +16,10 @@ namespace RandoMainDLL {
         // Be careful of referencing static variables without wrapping in () => {}, they may not be initialized.
         return new List<Method> {
           new Method() {
+            Delegate = new f_void_float(Randomizer.FixedUpdate),
+            CallbackName = "fixed_update"
+          },
+          new Method() {
             Delegate = new f_void_float(Randomizer.Update),
             CallbackName = "update"
           },

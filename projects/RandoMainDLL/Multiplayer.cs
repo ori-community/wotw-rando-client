@@ -194,7 +194,7 @@ namespace RandoMainDLL {
       }
     }
 
-    public static void Update() {
+    public static void FixedUpdate() {
       var playerPosition = InterOp.Player.get_position();
       
       unsafe {

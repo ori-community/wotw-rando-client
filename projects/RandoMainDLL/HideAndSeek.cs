@@ -52,7 +52,7 @@ namespace RandoMainDLL {
 
     private static Memory.Vector2 freezePosition;
     private static float freezeTimer = 0f;
-    public static void Update(float delta) {
+    public static void FixedUpdate(float delta) {
       if (!IsPlaying)
         return;
 

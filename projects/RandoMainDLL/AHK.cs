@@ -75,7 +75,7 @@ namespace RandoMainDLL {
       return def;
     }
 
-    public static void Tick() {
+    public static void FixedUpdate() {
       FramesTillUnlockReload = Math.Max(0, FramesTillUnlockReload - 1);
     }
   }

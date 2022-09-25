@@ -5,7 +5,7 @@
 #include <randomizer/input/simulator.h>
 #include <randomizer/ipc/base_handlers.h>
 #include <randomizer/ipc/ipc.h>
-#include <randomizer/messages.h>
+#include <randomizer/messages/messages.h>
 #include <uber_states/uber_state_interface.h>
 #include <utils/json_serializers.h>
 

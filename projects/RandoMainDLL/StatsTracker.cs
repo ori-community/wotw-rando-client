@@ -89,7 +89,7 @@ namespace RandoMainDLL {
         UberSet.Int(z.TotalPickupsState(), SeedController.CountByZone[z]);
       }
     }
-    public static void Update(GameState gs, float delta) {
+    public static void FixedUpdate(GameState gs, float delta) {
       if (gs == GameState.Game && !UberGet.Bool(GameFinished)) {
         UberInc.Float(CurrentZone.TimeState(), delta);
         UberInc.Float(Time, delta);

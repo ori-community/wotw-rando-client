@@ -4,7 +4,7 @@
 #include <randomizer/animation/timeline_entries/base.h>
 #include <randomizer/animation/timeline_state.h>
 #include <randomizer/cached_loader.h>
-#include <randomizer/messages.h>
+#include <randomizer/messages/messages.h>
 #include <randomizer/sound.h>
 
 #include <optional>

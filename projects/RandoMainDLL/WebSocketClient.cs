@@ -95,7 +95,7 @@ namespace RandoMainDLL {
       connectThread.Start();
     }
 
-    public static void Update(float delta) {
+    public static void FixedUpdate(float delta) {
       if (WantConnection && !IsConnected && !Connecting) {
         TimeUntilReconnectAttempt -= delta;
         if (TimeUntilReconnectAttempt <= 0) {

@@ -2,7 +2,7 @@
 #include <features/chaos.h>
 #include <game/game.h>
 #include <game/player.h>
-#include <randomizer/messages.h>
+#include <randomizer/messages/messages.h>
 #include <randomizer/timer.h>
 #include <uber_states/uber_state_interface.h>
 

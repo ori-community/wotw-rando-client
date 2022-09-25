@@ -119,6 +119,15 @@ namespace RandoMainDLL {
 
     public static void Update(float delta) {
       try {
+        MessageController.Update(delta);
+      }
+      catch (Exception e) {
+        Log($"Update error: {e.Message}\n{e.StackTrace}");
+      }
+    }
+
+    public static void FixedUpdate(float delta) {
+      try {
         var gs = InterOp.Utils.get_game_state();
         if (gs == GameState.TitleScreen) {
           UberStateController.SkipListeners = true;
@@ -132,23 +141,22 @@ namespace RandoMainDLL {
             OnInputUnlock();
 
           SeedController.UpdateGoal();
-          MapController.Update();
-          TrackFileController.Update();
+          MapController.FixedUpdate();
+          TrackFileController.FixedUpdate();
         }
 
         while (queuedCommands.TryTake(out var command))
           command();
 
-        Settings.Tick();
-        MessageController.Tick();
-        BonusItemController.Update();
-        WebSocketClient.Update(delta);
-        Multiplayer.Update();
-        HideAndSeek.Update(delta);
-        StatsTracking.Update(gs, delta);
+        Settings.FixedUpdate();
+        BonusItemController.FixedUpdate();
+        WebSocketClient.FixedUpdate(delta);
+        Multiplayer.FixedUpdate();
+        HideAndSeek.FixedUpdate(delta);
+        StatsTracking.FixedUpdate(gs, delta);
       }
       catch (Exception e) {
-        Log($"Update error: {e.Message}\n{e.StackTrace}");
+        Log($"FixedUpdate error: {e.Message}\n{e.StackTrace}");
       }
     }
 

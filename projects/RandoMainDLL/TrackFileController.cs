@@ -52,7 +52,7 @@ namespace RandoMainDLL {
     public static TrackData Last;
     public static int IgnoreUpdateFrames = 0;
     public static string trackFilePath { get { return Randomizer.BasePath + "trackfile.json"; } }
-    public static void Update() {
+    public static void FixedUpdate() {
       if (InterOp.Utils.get_game_state() == GameState.Game)
         DontTrackYet = false;
       if (IgnoreUpdateFrames > 0) {
