@@ -34,9 +34,6 @@ namespace csharp_bridge {
     signatures::f_bool inject_debug_enabled = nullptr;
     signatures::f_bool tp_to_any_pickup = nullptr;
     signatures::f_bool invert_swim = nullptr;
-    signatures::f_bool is_day_time = nullptr;
-    signatures::f_bool does_howl_exist = nullptr;
-    signatures::f_bool water_cleansed = nullptr;
     signatures::f_void_gwa on_map_pan = nullptr;
     signatures::f_void_string_dt on_enemy_death = nullptr;
     signatures::f_void_string_dt on_player_death = nullptr;
@@ -100,9 +97,6 @@ namespace csharp_bridge {
             DELEGATE_ENTRY(on_save),
             DELEGATE_ENTRY(get_ability),
             DELEGATE_ENTRY(set_ability),
-            DELEGATE_ENTRY(water_cleansed),
-            DELEGATE_ENTRY(is_day_time),
-            DELEGATE_ENTRY(does_howl_exist),
             DELEGATE_ENTRY(on_map_pan),
             DELEGATE_ENTRY(is_tree_activated),
             DELEGATE_ENTRY(opher_buy_weapon),

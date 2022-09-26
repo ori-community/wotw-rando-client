@@ -1,6 +1,8 @@
 #include <interop/csharp_bridge.h>
 #include <macros.h>
 #include <randomizer/conditions/new_setup_state_override.h>
+#include <uber_states/uber_state_interface.h>
+#include <enums/uber_state.h>
 
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -13,8 +15,10 @@ using namespace modloader::win;
 namespace {
     bool water_cheat_purified = false;
     bool water_damage_override = false;
+    uber_states::UberState clean_water_state(UberStateGroup::RandoState, 2000);
+
     IL2CPP_INTERCEPT(Sein::World::Events, bool, get_WaterPurified, ()) {
-        return !water_damage_override && (csharp_bridge::water_cleansed() || water_cheat_purified);
+        return !water_damage_override && (clean_water_state.get<bool>() || water_cheat_purified);
     }
 
     void toggle_clear_water(std::string const &command, std::vector<console::CommandParam> const &params) {
@@ -25,7 +29,7 @@ namespace {
         std::function < randomizer::conditions::applier_intercept(int32_t, int32_t) > ai_create = [](int32_t corrupted,
                                                                                                      int32_t clean) -> randomizer::conditions::applier_intercept {
             return [corrupted, clean](auto, auto, auto, auto) -> int32_t {
-                return (csharp_bridge::water_cleansed() || water_cheat_purified) ? clean : corrupted;
+                return (clean_water_state.get<bool>() || water_cheat_purified) ? clean : corrupted;
             };
         };
 

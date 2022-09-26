@@ -132,7 +132,7 @@ namespace randomizer {
                 }
 
                 register_new_setup_redirect(std::make_pair(params[0].value, first), second);
-                UberStateController::ApplyAll(app::UberStateApplyContext__Enum::ValueChanged);
+                apply_all_states();
             }
 
             void show_state(std::string const& command, std::vector<console::CommandParam> const& params) {
@@ -222,6 +222,10 @@ namespace randomizer {
 
         void register_new_setup_redirect(std::string_view view, std::pair<int32_t, int32_t> const& states, bool dynamic) {
             register_new_setup_redirect({ std::string(view), states.first }, states.second, dynamic);
+        }
+
+        void apply_all_states() {
+            UberStateController::ApplyAll(app::UberStateApplyContext__Enum::ValueChanged);
         }
     } // namespace conditions
 } // namespace randomizer

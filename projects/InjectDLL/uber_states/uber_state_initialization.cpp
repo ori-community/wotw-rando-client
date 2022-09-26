@@ -327,6 +327,10 @@ namespace {
 
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Tuley Exists", 300, false),
 
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Rain Lifted in Marsh", 401, false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Howl Defeated", 402, false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Force Drain Regen Tree Water", 403, true),
+
             // skills
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Bash", 1000, false),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "WallJump", 1003, false),
@@ -405,10 +409,6 @@ namespace {
 
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "glades_tp_fix", 0, true),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "prevent_map_reactivate_tps", 1, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "marsh_starts_sunny", 2, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "howl_starts_dead", 3, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "enable_vanilla_regen_tree", 4, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "disable_tree_check_for_rain", 5, false),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "kwolok_door_available", 6, true),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "chaos_mode", CHAOS_MODE_ID, false),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "prevent_pickup", PREVENT_PICKUP_ID, false),

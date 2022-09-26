@@ -44,7 +44,6 @@ set(
         "features/cutscene_skips/final_cutscene.cpp"
         "features/cutscene_skips/sandworm_start.cpp"
         "features/cutscene_skips/sandworm_end.cpp"
-        "features/npcs/enemy_conditions.cpp"
         "features/npcs/lupo_everywhere.cpp"
         "features/npcs/opher_everywhere.cpp"
         "features/npcs/tokk_everywhere.cpp"

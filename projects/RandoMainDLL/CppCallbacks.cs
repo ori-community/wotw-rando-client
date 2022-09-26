@@ -48,10 +48,6 @@ namespace RandoMainDLL {
             Delegate = new f_bool_str(Settings.IniFlag),
             CallbackName = "check_ini"
           },
-          new Method() {
-            Delegate = new f_bool(() => QuestEventType.Water.Have()),
-            CallbackName = "water_cleansed"
-          },
           // We should replace these 2 calls with calls to check_ini
           new Method() {
             Delegate = new f_bool(() => !Settings.IniFlag("MuteInjectLogs")),
@@ -132,14 +128,6 @@ namespace RandoMainDLL {
           new Method() {
             Delegate = new f_void_int_int_byte_double_double(UberStateController.OnUberStateChanged),
             CallbackName = "on_uber_state_applied"
-          },
-          new Method() {
-            Delegate = new f_bool(SeedController.IsDayTime),
-            CallbackName = "is_day_time"
-          },
-          new Method() {
-            Delegate = new f_bool(() => !SeedController.IsHowlDead()),
-            CallbackName = "does_howl_exist"
           },
           new Method() {
             Delegate = new f_bool_int_int_int(MapController.FilterIconShow),

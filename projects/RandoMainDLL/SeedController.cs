@@ -1009,10 +1009,8 @@ namespace RandoMainDLL {
     }
 
 
-    public static bool IsHowlDead() => UberGet.Bool(7, 3);
-    public static bool IsDayTime() => (!UberGet.Bool(7, 5) && AbilityType.SpiritEdge.HaveTree()) || UberGet.Bool(7, 2);
     public static int Current { get => SaveController.FoundCount; }
-    public static Dictionary<ZoneType, int> CountByZone = new Dictionary<ZoneType, int>();
+    public static Dictionary<ZoneType, int> CountByZone = new();
     public static int Total = 0;
 
     public static string PickupCount => "Pickups: " + (Current == Total ? $"${Current}/{Total}$" : $"{Current}/{Total}");
