@@ -495,6 +495,10 @@ namespace RandoMainDLL {
             InterOp.UberState.set_uber_state_value(945, 26601, 3); // Give LumaPools tp.
         }
       },
+      {
+        new UberId(0, 100), // Sword Tree
+        (UberState uber_state) => UberSet.Bool(6, 401, true) // Lift the rain
+      }
     };
 
     public static AbilityType GetAbilityType(this UberState uber_state) {
