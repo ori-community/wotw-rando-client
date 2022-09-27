@@ -19,8 +19,7 @@ using namespace app::methods;
 namespace {
     bool force_day_time = false;
     uber_states::UberState day_night_state(UberStateGroup::RandoState, 401);
-    uber_states::UberState howl_defeated_state(UberStateGroup::RandoState, 402);
-    uber_states::UberState force_drain_regen_tree_water_state(UberStateGroup::RandoState, 403);
+    uber_states::UberState force_drain_regen_tree_water_state(UberStateGroup::RandoState, 402);
 
     bool is_day() {
         if (force_day_time) {
@@ -134,10 +133,6 @@ namespace {
         return state;
     }
 
-    int32_t should_howl_exist(app::NewSetupStateController*, std::string const&, int32_t, int32_t) {
-        return howl_defeated_state.get<bool>() ? 620462779 : 1234021711;
-    }
-
     int32_t move_howl(app::NewSetupStateController* this_ptr, std::string const&, int32_t state, int32_t) {
         state = is_day() ? -1375966924 : 1361521887;
         auto setup = il2cpp::unity::get_game_object(il2cpp::unity::get_parent(il2cpp::unity::get_transform(this_ptr)));
@@ -211,13 +206,6 @@ namespace {
         // Move howl between modifiers depending on if its day or night time. (-1375966924 : day, 1361521887 : night)
         randomizer::conditions::register_new_setup_intercept({ "swampNightcrawlerA/artSetups/timesOfDayTransition" }, { -1375966924, 1361521887 }, move_howl);
 
-        // howl: (1234021711 : notDefeated, 620462779 : defeated)
-        randomizer::conditions::register_new_setup_intercept({
-                                                                     "swampNightcrawlerA/artSetups/nightcrawlerChase/nightcrawlerStateController",
-                                                             },
-                                                             { 1234021711 },
-                                                             should_howl_exist);
-
         randomizer::conditions::register_condition_intercept("swampNightcrawlerCavernD/enemies/enemyActivator", &is_day_condition);
         randomizer::conditions::register_condition_intercept("swampNightcrawlerCavernA/interactives/enemies/enemyActivator", &is_day_condition);
         randomizer::conditions::register_condition_intercept("swampNightcrawlerA/enemies/enemyActivator", &is_day_condition);
@@ -233,7 +221,7 @@ namespace {
         randomizer::conditions::register_condition_intercept("willOfTheWispsLagoonConnection/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
 
         uber_states::register_value_notify([](auto state, auto previous_value) {
-            if (state == day_night_state || state == howl_defeated_state || state == force_drain_regen_tree_water_state) {
+            if (state == day_night_state || state == force_drain_regen_tree_water_state) {
                 randomizer::conditions::apply_all_states();
             }
         });

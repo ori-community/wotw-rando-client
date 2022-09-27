@@ -328,8 +328,7 @@ namespace {
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Tuley Exists", 300, false),
 
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Rain Lifted in Marsh", 401, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Howl Defeated", 402, false),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Force Drain Regen Tree Water", 403, true),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Force Drain Regen Tree Water", 402, true),
 
             // skills
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoState, "Bash", 1000, false),
