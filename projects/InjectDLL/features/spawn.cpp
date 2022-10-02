@@ -63,6 +63,11 @@ namespace {
             }
 
             teleport_state = TeleportState::None;
+
+            auto area_map_ui = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+            auto quests_ui = il2cpp::get_class<app::QuestsUI__Class>("", "QuestsUI")->static_fields->Instance;
+            AreaMapNavigation::SetLocationPlayer(area_map_ui->fields._Navigation_k__BackingField);
+            QuestsUI::UpdateDescriptionUI_2(quests_ui, nullptr);
         }
 
         next::SeinCharacter::FixedUpdate(this_ptr);
@@ -145,8 +150,6 @@ namespace {
 
                 if (save_slots_ui != nullptr) {
                     auto save_slot_ui = SaveSlotsUI::get_CurrentSaveSlot(save_slots_ui);
-
-                    teleport(start_position.x, start_position.y, false);
 
                     auto scene_names = scenes::get_scenes_at_position(start_position);
 
@@ -232,11 +235,6 @@ namespace {
         GameStateMachine::SetToGame(game_state_machine);
 
         game::player::set_ability(app::AbilityType__Enum::SpiritMagnet, false);
-
-        auto area_map_ui = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
-        auto quests_ui = il2cpp::get_class<app::QuestsUI__Class>("", "QuestsUI")->static_fields->Instance;
-        AreaMapNavigation::SetLocationPlayer(area_map_ui->fields._Navigation_k__BackingField);
-        QuestsUI::UpdateDescriptionUI_2(quests_ui, nullptr);
     }
 
     void on_finished_loading_save(GameEvent event, EventTiming timing) {
