@@ -13,7 +13,7 @@
 #include <features/scenes/scene_load.h>
 #include <game/game.h>
 
-using namespace app::methods;
+using namespace app::classes;
 
 INJECT_C_DLLEXPORT bool messages_is_showing_hint() {
     return Game::UI_Hints::get_IsShowingHint();

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Data::SqlTypes::SqlMoney {
+namespace app::classes::System::Data::SqlTypes::SqlMoney {
     IL2CPP_REGISTER_METHOD(0x001E3B70, void, ctor_1, (app::SqlMoney__Boxed * this_ptr, bool f_null))
     IL2CPP_REGISTER_METHOD(0x001E4F10, void, ctor_2, (app::SqlMoney__Boxed * this_ptr, int64_t value, int32_t ignored))
     IL2CPP_REGISTER_METHOD(0x001E54A0, void, ctor_3, (app::SqlMoney__Boxed * this_ptr, int32_t value))
@@ -17,7 +17,7 @@ namespace app::methods::System::Data::SqlTypes::SqlMoney {
     IL2CPP_REGISTER_METHOD(0x001E5540, double, ToDouble, (app::SqlMoney__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x022B6760, app::SqlMoney, op_Implicit_1, (app::Decimal x))
     IL2CPP_REGISTER_METHOD(0x022B6790, app::SqlMoney, op_Implicit_2, (int64_t x))
-    IL2CPP_REGISTER_METHOD(0x001E5550, app::String *, ToString, (app::SqlMoney__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x001E5550, app::String*, ToString, (app::SqlMoney__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x022B6800, app::SqlMoney, op_UnaryNegation, (app::SqlMoney x))
     IL2CPP_REGISTER_METHODINFO(0x0470ABB8, SqlMoney_op_UnaryNegation__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022B6970, app::SqlMoney, op_Addition, (app::SqlMoney x, app::SqlMoney y))
@@ -38,38 +38,38 @@ namespace app::methods::System::Data::SqlTypes::SqlMoney {
     IL2CPP_REGISTER_METHOD(0x022B7A30, app::SqlBoolean, GreaterThan, (app::SqlMoney x, app::SqlMoney y))
     IL2CPP_REGISTER_METHOD(0x001E5620, app::SqlDouble, ToSqlDouble, (app::SqlMoney__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001E5650, app::SqlDecimal, ToSqlDecimal, (app::SqlMoney__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x001E5680, int32_t, CompareTo_1, (app::SqlMoney__Boxed * this_ptr, app::Object * value))
+    IL2CPP_REGISTER_METHOD(0x001E5680, int32_t, CompareTo_1, (app::SqlMoney__Boxed * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHODINFO(0x04723158, SqlMoney_CompareTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001E57D0, int32_t, CompareTo_2, (app::SqlMoney__Boxed * this_ptr, app::SqlMoney value))
-    IL2CPP_REGISTER_METHOD(0x001E57F0, bool, Equals, (app::SqlMoney__Boxed * this_ptr, app::Object * value))
+    IL2CPP_REGISTER_METHOD(0x001E57F0, bool, Equals, (app::SqlMoney__Boxed * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x001E5800, int32_t, GetHashCode, (app::SqlMoney__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0013BB70, app::XmlSchema *, IXmlSerializable_GetSchema, (app::SqlMoney__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x001E5820, void, IXmlSerializable_ReadXml, (app::SqlMoney__Boxed * this_ptr, app::XmlReader * reader))
-    IL2CPP_REGISTER_METHOD(0x001E59B0, void, IXmlSerializable_WriteXml, (app::SqlMoney__Boxed * this_ptr, app::XmlWriter * writer))
-    IL2CPP_REGISTER_METHOD(0x022B8100, app::XmlQualifiedName *, GetXsdType, (app::XmlSchemaSet * schema_set))
+    IL2CPP_REGISTER_METHOD(0x0013BB70, app::XmlSchema*, IXmlSerializable_GetSchema, (app::SqlMoney__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x001E5820, void, IXmlSerializable_ReadXml, (app::SqlMoney__Boxed * this_ptr, app::XmlReader* reader))
+    IL2CPP_REGISTER_METHOD(0x001E59B0, void, IXmlSerializable_WriteXml, (app::SqlMoney__Boxed * this_ptr, app::XmlWriter* writer))
+    IL2CPP_REGISTER_METHOD(0x022B8100, app::XmlQualifiedName*, GetXsdType, (app::XmlSchemaSet * schema_set))
     IL2CPP_REGISTER_METHOD(0x022B8250, void, cctor, ())
-    inline app::SqlMoney operator - (app::SqlMoney x) {
+    inline app::SqlMoney operator-(app::SqlMoney x) {
         return op_UnaryNegation(x);
     }
-    inline app::SqlMoney operator + (app::SqlMoney x, app::SqlMoney y) {
+    inline app::SqlMoney operator+(app::SqlMoney x, app::SqlMoney y) {
         return op_Addition(x, y);
     }
-    inline app::SqlMoney operator - (app::SqlMoney x, app::SqlMoney y) {
+    inline app::SqlMoney operator-(app::SqlMoney x, app::SqlMoney y) {
         return op_Subtraction(x, y);
     }
-    inline app::SqlMoney operator * (app::SqlMoney x, app::SqlMoney y) {
+    inline app::SqlMoney operator*(app::SqlMoney x, app::SqlMoney y) {
         return op_Multiply(x, y);
     }
-    inline app::SqlMoney operator / (app::SqlMoney x, app::SqlMoney y) {
+    inline app::SqlMoney operator/(app::SqlMoney x, app::SqlMoney y) {
         return op_Division(x, y);
     }
-    inline app::SqlBoolean operator == (app::SqlMoney x, app::SqlMoney y) {
+    inline app::SqlBoolean operator==(app::SqlMoney x, app::SqlMoney y) {
         return op_Equality(x, y);
     }
-    inline app::SqlBoolean operator < (app::SqlMoney x, app::SqlMoney y) {
+    inline app::SqlBoolean operator<(app::SqlMoney x, app::SqlMoney y) {
         return op_LessThan(x, y);
     }
-    inline app::SqlBoolean operator > (app::SqlMoney x, app::SqlMoney y) {
+    inline app::SqlBoolean operator>(app::SqlMoney x, app::SqlMoney y) {
         return op_GreaterThan(x, y);
     }
-}
+} // namespace app::classes::System::Data::SqlTypes::SqlMoney

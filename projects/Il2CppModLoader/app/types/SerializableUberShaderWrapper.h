@@ -1,0 +1,18 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace SerializableUberShaderWrapper {
+        extern IL2CPP_MODLOADER_DLLEXPORT app::SerializableUberShaderWrapper__Class** type_info;
+        inline app::SerializableUberShaderWrapper__Class* get_class() {
+            return il2cpp::get_class<app::SerializableUberShaderWrapper__Class>(type_info, "Moon.ArtOptimization", "SerializableUberShaderWrapper");
+        }
+        inline app::SerializableUberShaderWrapper* create() {
+            return il2cpp::create_object<app::SerializableUberShaderWrapper>(get_class());
+        }
+        inline app::SerializableUberShaderWrapper__Array* create_array(int size) {
+            return il2cpp::array_new<app::SerializableUberShaderWrapper__Array>(get_class(), size);
+        }
+    } // namespace SerializableUberShaderWrapper
+} // namespace app::classes::types

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ControllerShakeLogic {
+namespace app::classes::ControllerShakeLogic {
     IL2CPP_REGISTER_METHOD(0x011F22A0, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x011F2370, void, Awake, (app::ControllerShakeLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011F2420, void, OnEnable, (app::ControllerShakeLogic * this_ptr))
@@ -11,4 +11,4 @@ namespace app::methods::ControllerShakeLogic {
     IL2CPP_REGISTER_METHOD(0x011F29A0, void, Vibrate, (float strength, float time))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::ControllerShakeLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011F2C70, void, cctor, ())
-}
+} // namespace app::classes::ControllerShakeLogic

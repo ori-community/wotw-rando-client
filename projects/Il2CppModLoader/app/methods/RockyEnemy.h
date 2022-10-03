@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RockyEnemy {
+namespace app::classes::RockyEnemy {
     IL2CPP_REGISTER_METHOD(0x0135B560, app::Vector2, get_ThrownDirection, (app::RockyEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0135B580, void, set_ThrownDirection, (app::RockyEnemy * this_ptr, app::Vector2 value))
     IL2CPP_REGISTER_METHOD(0x0135B5B0, bool, CanBeOptimized, (app::RockyEnemy * this_ptr))
@@ -9,9 +9,9 @@ namespace app::methods::RockyEnemy {
     IL2CPP_REGISTER_METHOD(0x0135B8F0, void, OnDisable, (app::RockyEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0135BBD0, void, OnDestroy, (app::RockyEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0135BC70, void, Start, (app::RockyEnemy * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0135F040, void, OnStateChanged, (app::RockyEnemy * this_ptr, app::StateMachine_2 * state_machine))
+    IL2CPP_REGISTER_METHOD(0x0135F040, void, OnStateChanged, (app::RockyEnemy * this_ptr, app::StateMachine_2* state_machine))
     IL2CPP_REGISTER_METHODINFO(0x0477D360, RockyEnemy_OnStateChanged__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0135F110, void, OnModifyDamage, (app::RockyEnemy * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x0135F110, void, OnModifyDamage, (app::RockyEnemy * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHODINFO(0x04724198, RockyEnemy_OnModifyDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00728F70, bool, IsOnGround, (app::RockyEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0099E0F0, bool, HasHitWall, (app::RockyEnemy * this_ptr))
@@ -33,8 +33,8 @@ namespace app::methods::RockyEnemy {
     IL2CPP_REGISTER_METHOD(0x0135FEE0, bool, TimeSinceLaserHitPassed, (app::RockyEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0135FEF0, bool, IsSeinInCloseRange, (app::RockyEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04793CB8, RockyEnemy_IsSeinInCloseRange__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01360010, void, OnPressed, (app::RockyEnemy * this_ptr, app::IPressurePlate * plate))
-    IL2CPP_REGISTER_METHOD(0x01360020, void, OnReleased, (app::RockyEnemy * this_ptr, app::IPressurePlate * plate))
+    IL2CPP_REGISTER_METHOD(0x01360010, void, OnPressed, (app::RockyEnemy * this_ptr, app::IPressurePlate* plate))
+    IL2CPP_REGISTER_METHOD(0x01360020, void, OnReleased, (app::RockyEnemy * this_ptr, app::IPressurePlate* plate))
     IL2CPP_REGISTER_METHOD(0x00C24D60, float, GetCapsuleColliderOriginalHeight, (app::RockyEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01360030, void, ctor, (app::RockyEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01360190, bool, _Start_b__25_0, (app::RockyEnemy * this_ptr))
@@ -61,4 +61,4 @@ namespace app::methods::RockyEnemy {
     IL2CPP_REGISTER_METHODINFO(0x04743820, RockyEnemy__Start_b__25_10__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x013608F0, bool, _Start_b__25_11, (app::RockyEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04755690, RockyEnemy__Start_b__25_11__MethodInfo)
-}
+} // namespace app::classes::RockyEnemy

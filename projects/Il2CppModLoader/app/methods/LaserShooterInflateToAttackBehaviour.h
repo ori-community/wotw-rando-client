@@ -1,13 +1,13 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LaserShooterInflateToAttackBehaviour {
+namespace app::classes::LaserShooterInflateToAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00F155B0, bool, get_WasHitDuringAttack, (app::LaserShooterInflateToAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F155C0, void, set_WasHitDuringAttack, (app::LaserShooterInflateToAttackBehaviour * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00F155D0, void, OnEntityInitialized, (app::LaserShooterInflateToAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F15670, void, OnEnter, (app::LaserShooterInflateToAttackBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00F15790, void, OnExit, (app::LaserShooterInflateToAttackBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00F157A0, app::BehaviourStatus__Enum, OnExecute, (app::LaserShooterInflateToAttackBehaviour * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x00F15670, void, OnEnter, (app::LaserShooterInflateToAttackBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00F15790, void, OnExit, (app::LaserShooterInflateToAttackBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00F157A0, app::BehaviourStatus__Enum, OnExecute, (app::LaserShooterInflateToAttackBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00F15860, void, ChangeState, (app::LaserShooterInflateToAttackBehaviour * this_ptr, app::LaserShooterInflateToAttackBehaviour_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::BehaviourStatus__Enum, OnAnticUpdate, (app::LaserShooterInflateToAttackBehaviour * this_ptr, float d_time))
     IL2CPP_REGISTER_METHOD(0x00F15B30, app::BehaviourStatus__Enum, OnShootingUpdate, (app::LaserShooterInflateToAttackBehaviour * this_ptr, float d_time))
@@ -17,9 +17,9 @@ namespace app::methods::LaserShooterInflateToAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00F16880, void, OnResolveEnter, (app::LaserShooterInflateToAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F16A30, void, StartLoopingShootTimeline, (app::LaserShooterInflateToAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04700C30, LaserShooterInflateToAttackBehaviour_StartLoopingShootTimeline__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00F16BE0, void, StartTimeline, (app::LaserShooterInflateToAttackBehaviour * this_ptr, app::MoonTimeline * timeline, app::Action * on_stop))
+    IL2CPP_REGISTER_METHOD(0x00F16BE0, void, StartTimeline, (app::LaserShooterInflateToAttackBehaviour * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop))
     IL2CPP_REGISTER_METHOD(0x00F16C50, void, StopCurrentTimeline, (app::LaserShooterInflateToAttackBehaviour * this_ptr, bool call_on_stop_action))
-    IL2CPP_REGISTER_METHOD(0x00F16D80, float, GetT, (app::LaserShooterInflateToAttackBehaviour * this_ptr, float time, float duration, app::AnimationCurve * curve))
+    IL2CPP_REGISTER_METHOD(0x00F16D80, float, GetT, (app::LaserShooterInflateToAttackBehaviour * this_ptr, float time, float duration, app::AnimationCurve* curve))
     IL2CPP_REGISTER_METHOD(0x00F16DF0, void, OnDamageResultReceived, (app::LaserShooterInflateToAttackBehaviour * this_ptr, app::DamageResult obj))
     IL2CPP_REGISTER_METHODINFO(0x0474DC68, LaserShooterInflateToAttackBehaviour_OnDamageResultReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnShoot, (app::LaserShooterInflateToAttackBehaviour * this_ptr))
@@ -34,4 +34,4 @@ namespace app::methods::LaserShooterInflateToAttackBehaviour {
     IL2CPP_REGISTER_METHODINFO(0x047690B0, LaserShooterInflateToAttackBehaviour__OnAnticEnter_b__27_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00754B80, void, _OnResolveEnter_b__29_0, (app::LaserShooterInflateToAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04744278, LaserShooterInflateToAttackBehaviour__OnResolveEnter_b__29_0__MethodInfo)
-}
+} // namespace app::classes::LaserShooterInflateToAttackBehaviour

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::GoThroughPlatformHandler {
+namespace app::classes::GoThroughPlatformHandler {
     IL2CPP_REGISTER_METHOD(0x007FC330, void, ProvideComponent, (app::GoThroughPlatformHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007FC410, void, Awake, (app::GoThroughPlatformHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007FC6F0, void, OnDestroy, (app::GoThroughPlatformHandler * this_ptr))
@@ -15,4 +15,4 @@ namespace app::methods::GoThroughPlatformHandler {
     IL2CPP_REGISTER_METHOD(0x007FDCF0, void, UpdateLayerCollision, (app::GoThroughPlatformHandler * this_ptr, bool ignore, bool force))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::GoThroughPlatformHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007FDE70, void, cctor, ())
-}
+} // namespace app::classes::GoThroughPlatformHandler

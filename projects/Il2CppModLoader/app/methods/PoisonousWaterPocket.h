@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PoisonousWaterPocket {
+namespace app::classes::PoisonousWaterPocket {
     IL2CPP_REGISTER_METHOD(0x003FD650, bool, get_DamageDealt, (app::PoisonousWaterPocket * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00800850, void, set_DamageDealt, (app::PoisonousWaterPocket * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::UpdateType__Enum, get_UpdateType, (app::PoisonousWaterPocket * this_ptr))
@@ -17,4 +17,4 @@ namespace app::methods::PoisonousWaterPocket {
     IL2CPP_REGISTER_METHOD(0x01433720, void, DealDamage, (app::PoisonousWaterPocket * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01433A30, void, RefreshBounds, (app::PoisonousWaterPocket * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01433D40, void, ctor, (app::PoisonousWaterPocket * this_ptr))
-}
+} // namespace app::classes::PoisonousWaterPocket

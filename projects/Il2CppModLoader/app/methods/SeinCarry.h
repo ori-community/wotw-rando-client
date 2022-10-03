@@ -1,15 +1,15 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinCarry {
+namespace app::classes::SeinCarry {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA3470, bool, get_IsStatePerforming, (app::SeinCarry * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D06F0, app::CharacterLeftRightMovement *, get_LeftRightMovement, (app::SeinCarry * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement *, get_PlatformMovement, (app::SeinCarry * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D0720, app::CharacterSpriteMirror *, get_SpriteMirror, (app::SeinCarry * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D06F0, app::CharacterLeftRightMovement*, get_LeftRightMovement, (app::SeinCarry * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement*, get_PlatformMovement, (app::SeinCarry * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D0720, app::CharacterSpriteMirror*, get_SpriteMirror, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFE20, bool, get_LockDroppingObject, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C75380, void, set_LockDroppingObject, (app::SeinCarry * this_ptr, bool value))
-    IL2CPP_REGISTER_METHOD(0x005B0220, app::ICarryable *, get_CurrentCarryable, (app::SeinCarry * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005B0220, app::ICarryable*, get_CurrentCarryable, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA34D0, void, OnSetReferenceToSein, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA35B0, void, OnAwake, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA3F50, void, ExitInactiveState, (app::SeinCarry * this_ptr))
@@ -20,13 +20,13 @@ namespace app::methods::SeinCarry {
     IL2CPP_REGISTER_METHOD(0x00DA4050, void, EndButtonOverride, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA40F0, void, Start, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA44E0, void, UpdateCharacterState, (app::SeinCarry * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00DA4550, void, Serialize, (app::SeinCarry * this_ptr, app::Archive * ar))
+    IL2CPP_REGISTER_METHOD(0x00DA4550, void, Serialize, (app::SeinCarry * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x00DA45E0, void, OnRestoreCheckpoint, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04708B28, SeinCarry_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DA4610, void, OnDestroy, (app::SeinCarry * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00DA4A00, void, OnPickup, (app::SeinCarry * this_ptr, app::ICarryable * carryable))
-    IL2CPP_REGISTER_METHOD(0x00DA4E40, void, OnSetToCarryMode, (app::SeinCarry * this_ptr, app::ICarryable * carryable))
-    IL2CPP_REGISTER_METHOD(0x00DA4E80, app::IEnumerator *, DelayedPickupSound, (app::SeinCarry * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00DA4A00, void, OnPickup, (app::SeinCarry * this_ptr, app::ICarryable* carryable))
+    IL2CPP_REGISTER_METHOD(0x00DA4E40, void, OnSetToCarryMode, (app::SeinCarry * this_ptr, app::ICarryable* carryable))
+    IL2CPP_REGISTER_METHOD(0x00DA4E80, app::IEnumerator*, DelayedPickupSound, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA4FD0, void, OnPickupAnimationFinished, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0474B6C8, SeinCarry_OnPickupAnimationFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DA51C0, void, OnDropAnimationFinished, (app::SeinCarry * this_ptr))
@@ -37,7 +37,7 @@ namespace app::methods::SeinCarry {
     IL2CPP_REGISTER_METHODINFO(0x047789A0, SeinCarry_UpdateCarryState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DA5A70, void, UpdateInactiveState, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0478AAE8, SeinCarry_UpdateInactiveState__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00DA5E40, void, OnModifyHorizontalPlatformMovementSettings, (app::SeinCarry * this_ptr, app::HorizontalPlatformMovementSettings * settings))
+    IL2CPP_REGISTER_METHOD(0x00DA5E40, void, OnModifyHorizontalPlatformMovementSettings, (app::SeinCarry * this_ptr, app::HorizontalPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHODINFO(0x04757368, SeinCarry_OnModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DA5F40, void, HandleFootsteps, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA61F0, void, UpdateAnimations, (app::SeinCarry * this_ptr))
@@ -62,4 +62,4 @@ namespace app::methods::SeinCarry {
     IL2CPP_REGISTER_METHOD(0x00DA7520, bool, ShouldFallIdleAnimationKeepPlaying, (app::SeinCarry * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0475ED10, SeinCarry_ShouldFallIdleAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DA76F0, void, ctor, (app::SeinCarry * this_ptr))
-}
+} // namespace app::classes::SeinCarry

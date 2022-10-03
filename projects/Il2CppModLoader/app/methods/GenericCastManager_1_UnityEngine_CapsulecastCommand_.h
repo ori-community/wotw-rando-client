@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::GenericCastManager_1_UnityEngine_CapsulecastCommand_ {
-    IL2CPP_REGISTER_METHOD(0x019EBC30, bool, PerformCastInternal, (app::CapsulecastCommand cmd, app::RaycastHit * hit, int32_t * request_i_d, bool guarantee_immediate_result))
+namespace app::classes::GenericCastManager_1_UnityEngine_CapsulecastCommand_ {
+    IL2CPP_REGISTER_METHOD(0x019EBC30, bool, PerformCastInternal, (app::CapsulecastCommand cmd, app::RaycastHit* hit, int32_t* request_i_d, bool guarantee_immediate_result))
     IL2CPP_REGISTER_METHODINFO(0x0475D698, GenericCastManager_1_UnityEngine_CapsulecastCommand__PerformCastInternal__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019EE1D0, void, ctor, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04748C28, GenericCastManager_1_UnityEngine_CapsulecastCommand___ctor__MethodInfo)
@@ -18,10 +18,10 @@ namespace app::methods::GenericCastManager_1_UnityEngine_CapsulecastCommand_ {
     IL2CPP_REGISTER_METHOD(0x019E9A60, void, FixedUpdate, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019E9A70, void, Update, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019E9A80, bool, AddRequest, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr, int32_t request_i_d, app::CapsulecastCommand cmd))
-    IL2CPP_REGISTER_METHOD(0x019E9E00, bool, AddMultipleRequests, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr, int32_t request_i_d, app::CapsulecastCommand__Array * cmds, int32_t cmd_count))
+    IL2CPP_REGISTER_METHOD(0x019E9E00, bool, AddMultipleRequests, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr, int32_t request_i_d, app::CapsulecastCommand__Array* cmds, int32_t cmd_count))
     IL2CPP_REGISTER_METHOD(0x019EA1D0, bool, HasResult, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr, int32_t request_i_d))
-    IL2CPP_REGISTER_METHOD(0x019EA290, bool, GetResult, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr, int32_t request_i_d, app::RaycastHit * hit))
-    IL2CPP_REGISTER_METHOD(0x019EA510, void, GetMultipleResults, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr, int32_t request_i_d, app::RaycastHit__Array * hits, app::Boolean__Array * hit_results, int32_t hit_count))
+    IL2CPP_REGISTER_METHOD(0x019EA290, bool, GetResult, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr, int32_t request_i_d, app::RaycastHit* hit))
+    IL2CPP_REGISTER_METHOD(0x019EA510, void, GetMultipleResults, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr, int32_t request_i_d, app::RaycastHit__Array* hits, app::Boolean__Array* hit_results, int32_t hit_count))
     IL2CPP_REGISTER_METHOD(0x019EA840, void, ScheduleJob, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019EABA0, void, CompleteJob, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019EAF70, void, CompleteJobs, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr))
@@ -29,7 +29,7 @@ namespace app::methods::GenericCastManager_1_UnityEngine_CapsulecastCommand_ {
     IL2CPP_REGISTER_METHOD(0x019EB150, void, Awake, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019EB270, void, OnDestroy, (app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019EB2A0, void, ResetStatics, ())
-    IL2CPP_REGISTER_METHOD(0x019EB4A0, app::GenericCastManager_1_UnityEngine_CapsulecastCommand_ *, get_Instance, ())
-    IL2CPP_REGISTER_METHOD(0x019ECD80, bool, PerformMultipleCastsInternal, (app::CapsulecastCommand__Array * cmds, app::RaycastHit__Array * hits, app::Boolean__Array * hit_results, int32_t cmd_count, int32_t * request_i_d, bool guarantee_immediate_result))
+    IL2CPP_REGISTER_METHOD(0x019EB4A0, app::GenericCastManager_1_UnityEngine_CapsulecastCommand_*, get_Instance, ())
+    IL2CPP_REGISTER_METHOD(0x019ECD80, bool, PerformMultipleCastsInternal, (app::CapsulecastCommand__Array * cmds, app::RaycastHit__Array* hits, app::Boolean__Array* hit_results, int32_t cmd_count, int32_t* request_i_d, bool guarantee_immediate_result))
     IL2CPP_REGISTER_METHOD(0x019EE1E0, void, cctor, ())
-}
+} // namespace app::classes::GenericCastManager_1_UnityEngine_CapsulecastCommand_

@@ -29,8 +29,8 @@
 #include <set>
 
 using namespace modloader;
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
 
 namespace {
     const std::set<app::SpiritShardType__Enum> TWILLEN_SHARDS{

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LegacyActivateAnimator {
+namespace app::classes::LegacyActivateAnimator {
     IL2CPP_REGISTER_METHOD(0x015C9FE0, void, OnStartPlay, (app::LegacyActivateAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015CA020, void, OnStopPlay, (app::LegacyActivateAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015CA070, void, CacheOriginals, (app::LegacyActivateAnimator * this_ptr))
@@ -11,4 +11,4 @@ namespace app::methods::LegacyActivateAnimator {
     IL2CPP_REGISTER_METHOD(0x005DA240, bool, get_OriginalActivation, (app::LegacyActivateAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsLooping, (app::LegacyActivateAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015CABF0, void, ctor, (app::LegacyActivateAnimator * this_ptr))
-}
+} // namespace app::classes::LegacyActivateAnimator

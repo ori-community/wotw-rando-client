@@ -23,8 +23,8 @@
 using namespace modloader;
 using namespace modloader::win;
 using namespace uber_states;
-using namespace app::methods;
-using namespace app::methods::Moon;
+using namespace app::classes;
+using namespace app::classes::Moon;
 
 namespace randomizer {
     namespace conditions {

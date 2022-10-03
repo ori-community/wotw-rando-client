@@ -29,7 +29,7 @@
 #include <unordered_map>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     enum class LupoSelection {

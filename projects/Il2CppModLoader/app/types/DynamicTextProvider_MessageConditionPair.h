@@ -1,0 +1,24 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace DynamicTextProvider_MessageConditionPair {
+        namespace {
+            app::DynamicTextProvider_MessageConditionPair__Class* type_info_ref = nullptr;
+        }
+        app::DynamicTextProvider_MessageConditionPair__Class** type_info = &type_info_ref;
+        inline app::DynamicTextProvider_MessageConditionPair__Class* get_class() {
+            return il2cpp::get_nested_class<app::DynamicTextProvider_MessageConditionPair__Class>(type_info, "", "DynamicTextProvider", "MessageConditionPair");
+        }
+        inline app::DynamicTextProvider_MessageConditionPair* create() {
+            return il2cpp::create_object<app::DynamicTextProvider_MessageConditionPair>(get_class());
+        }
+        inline app::DynamicTextProvider_MessageConditionPair__Boxed* box(app::DynamicTextProvider_MessageConditionPair value) {
+            return il2cpp::box_value<app::DynamicTextProvider_MessageConditionPair__Boxed>(get_class(), value);
+        }
+        inline app::DynamicTextProvider_MessageConditionPair__Array* create_array(int size) {
+            return il2cpp::array_new<app::DynamicTextProvider_MessageConditionPair__Array>(get_class(), size);
+        }
+    } // namespace DynamicTextProvider_MessageConditionPair
+} // namespace app::classes::types

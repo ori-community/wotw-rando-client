@@ -1,6 +1,6 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PlayFab::ClientModels::UserWindowsHelloInfo {
+namespace app::classes::PlayFab::ClientModels::UserWindowsHelloInfo {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::UserWindowsHelloInfo * this_ptr))
 }

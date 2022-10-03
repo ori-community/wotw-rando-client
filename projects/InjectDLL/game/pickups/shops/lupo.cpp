@@ -26,9 +26,9 @@
 #include <unordered_map>
 
 using namespace modloader;
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
-using namespace app::methods::CatlikeCoding::TextBox;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
+using namespace app::classes::CatlikeCoding::TextBox;
 
 namespace {
     IL2CPP_INTERCEPT(MapmakerItem, int32_t, GetCost, (app::MapmakerItem * this_ptr)) {

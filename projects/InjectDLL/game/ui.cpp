@@ -11,7 +11,7 @@
 #include <Il2CppModLoader/app/methods/SeinUI.h>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace game {
     namespace ui {

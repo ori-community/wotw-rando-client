@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MicroProfilerGraph {
+namespace app::classes::MicroProfilerGraph {
     IL2CPP_REGISTER_METHOD(0x006142D0, bool, get_IsExpanded, (app::MicroProfilerGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015A42A0, void, set_IsExpanded, (app::MicroProfilerGraph * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x003FF8B0, int32_t, get_VisibleFrames, (app::MicroProfilerGraph * this_ptr))
@@ -9,8 +9,8 @@ namespace app::methods::MicroProfilerGraph {
     IL2CPP_REGISTER_METHOD(0x015A44D0, app::Color, GetColorForMetric, (app::Metric__Enum m))
     IL2CPP_REGISTER_METHOD(0x015A47E0, void, _initDataProvider, (app::MicroProfilerGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015A4920, void, Awake, (app::MicroProfilerGraph * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x015A5510, void, GetStartAndEndFrameForHighlightedTimeMarker, (app::MicroProfilerGraph * this_ptr, int32_t * start_index, int32_t * end_index))
-    IL2CPP_REGISTER_METHOD(0x015A56D0, void, InitializeMetrics, (app::MicroProfilerGraph * this_ptr, app::Metric__Enum__Array * visible_metrics, int32_t max_m_s))
+    IL2CPP_REGISTER_METHOD(0x015A5510, void, GetStartAndEndFrameForHighlightedTimeMarker, (app::MicroProfilerGraph * this_ptr, int32_t* start_index, int32_t* end_index))
+    IL2CPP_REGISTER_METHOD(0x015A56D0, void, InitializeMetrics, (app::MicroProfilerGraph * this_ptr, app::Metric__Enum__Array* visible_metrics, int32_t max_m_s))
     IL2CPP_REGISTER_METHOD(0x00417FF0, float, _getResScale, ())
     IL2CPP_REGISTER_METHOD(0x015A6290, void, OnEnable, (app::MicroProfilerGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015A6460, void, OnDisable, (app::MicroProfilerGraph * this_ptr))
@@ -48,4 +48,4 @@ namespace app::methods::MicroProfilerGraph {
     IL2CPP_REGISTER_METHOD(0x015AC4F0, void, DrawDot, (app::MicroProfilerGraph * this_ptr, int32_t x, int32_t y))
     IL2CPP_REGISTER_METHOD(0x015AC570, void, ctor, (app::MicroProfilerGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015AC610, void, cctor, ())
-}
+} // namespace app::classes::MicroProfilerGraph

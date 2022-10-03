@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Collections::Generic::List_1_DamageType_ {
+namespace app::classes::System::Collections::Generic::List_1_DamageType_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_DamageType_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04709020, List_1_DamageType___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D1F360, app::DamageType__Enum, get_Item, (app::List_1_DamageType_ * this_ptr, int32_t index))
@@ -14,4 +14,4 @@ namespace app::methods::System::Collections::Generic::List_1_DamageType_ {
     IL2CPP_REGISTER_METHODINFO(0x0470C5A0, List_1_DamageType__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D20C90, void, RemoveAt, (app::List_1_DamageType_ * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHODINFO(0x0474CA50, List_1_DamageType__RemoveAt__MethodInfo)
-}
+} // namespace app::classes::System::Collections::Generic::List_1_DamageType_

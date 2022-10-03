@@ -1,12 +1,12 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LightTorch {
+namespace app::classes::LightTorch {
     IL2CPP_REGISTER_METHOD(0x00601090, bool, get_IsChasing, (app::LightTorch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0114FF40, bool, get_IsCarried, (app::LightTorch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0114FF70, void, Awake, (app::LightTorch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011501A0, void, OnDestroy, (app::LightTorch * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01150350, void, Serialize, (app::LightTorch * this_ptr, app::Archive * ar))
+    IL2CPP_REGISTER_METHOD(0x01150350, void, Serialize, (app::LightTorch * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::LightTorch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011503A0, bool, get_SeinInsideTorchZone, (app::LightTorch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01150610, void, OnGameReset, (app::LightTorch * this_ptr))
@@ -22,4 +22,4 @@ namespace app::methods::LightTorch {
     IL2CPP_REGISTER_METHOD(0x00881B70, app::SuspendableMask__Enum, get_Mask, (app::LightTorch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011524E0, void, set_Mask, (app::LightTorch * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x011525A0, void, ctor, (app::LightTorch * this_ptr))
-}
+} // namespace app::classes::LightTorch

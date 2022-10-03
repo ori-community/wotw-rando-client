@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Swing::Angle {
+namespace app::classes::Swing::Angle {
     IL2CPP_REGISTER_METHOD(0x0010FDD0, float, get_rad, (app::Angle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00114F30, void, set_rad, (app::Angle__Boxed * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x0014A2A0, float, get_deg, (app::Angle__Boxed * this_ptr))
@@ -31,7 +31,7 @@ namespace app::methods::Swing::Angle {
     IL2CPP_REGISTER_METHOD(0x0182A190, bool, op_Equality, (app::Angle _a, app::Angle _b))
     IL2CPP_REGISTER_METHOD(0x0182A1B0, bool, op_Inequality, (app::Angle _a, app::Angle _b))
     IL2CPP_REGISTER_METHOD(0x0014A390, bool, Equals_1, (app::Angle__Boxed * this_ptr, app::Angle _other))
-    IL2CPP_REGISTER_METHOD(0x0014A3E0, bool, Equals_2, (app::Angle__Boxed * this_ptr, app::Object * _obj))
+    IL2CPP_REGISTER_METHOD(0x0014A3E0, bool, Equals_2, (app::Angle__Boxed * this_ptr, app::Object* _obj))
     IL2CPP_REGISTER_METHOD(0x0014A500, int32_t, GetHashCode, (app::Angle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0014A520, bool, approx, (app::Angle__Boxed * this_ptr, app::Angle _other, float _epsilon_rad))
     IL2CPP_REGISTER_METHOD(0x0182A1D0, app::Angle, getShortestDelta, (app::Angle _from, app::Angle _to))
@@ -47,57 +47,57 @@ namespace app::methods::Swing::Angle {
     IL2CPP_REGISTER_METHOD(0x0014A870, app::Vector3, toDirection_2, (app::Angle__Boxed * this_ptr, app::Vector3 _axis))
     IL2CPP_REGISTER_METHOD(0x0014A8C0, app::Quaternion, toQuaternion_1, (app::Angle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0014A9A0, app::Quaternion, toQuaternion_2, (app::Angle__Boxed * this_ptr, app::Vector3 _axis))
-    IL2CPP_REGISTER_METHOD(0x0014AA90, app::String *, ToString_1, (app::Angle__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0014AAD0, app::String *, ToString_2, (app::Angle__Boxed * this_ptr, app::String * _format, app::IFormatProvider * _format_provider))
+    IL2CPP_REGISTER_METHOD(0x0014AA90, app::String*, ToString_1, (app::Angle__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0014AAD0, app::String*, ToString_2, (app::Angle__Boxed * this_ptr, app::String* _format, app::IFormatProvider* _format_provider))
     IL2CPP_REGISTER_METHOD(0x0014AB10, float, arcLength, (app::Angle__Boxed * this_ptr, float _radius))
     IL2CPP_REGISTER_METHOD(0x0182A870, app::Angle, fromArcLength, (float _arc_length, float _radius))
     IL2CPP_REGISTER_METHOD(0x0014AB20, float, get_cos, (app::Angle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0014ABD0, float, get_sin, (app::Angle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0014AC80, void, clamp, (app::Angle__Boxed * this_ptr, app::Angle _min, app::Angle _max))
     IL2CPP_REGISTER_METHOD(0x0182A880, void, cctor, ())
-    inline app::Angle operator + (app::Angle _a, app::Angle _b) {
+    inline app::Angle operator+(app::Angle _a, app::Angle _b) {
         return op_Addition(_a, _b);
     }
-    inline app::Angle operator - (app::Angle _a, app::Angle _b) {
+    inline app::Angle operator-(app::Angle _a, app::Angle _b) {
         return op_Subtraction(_a, _b);
     }
-    inline app::Angle operator * (app::Angle _a, float _b) {
+    inline app::Angle operator*(app::Angle _a, float _b) {
         return op_Multiply_1(_a, _b);
     }
-    inline app::Angle operator * (float _a, app::Angle _b) {
+    inline app::Angle operator*(float _a, app::Angle _b) {
         return op_Multiply_2(_a, _b);
     }
-    inline app::Angle operator / (app::Angle _a, float _b) {
+    inline app::Angle operator/(app::Angle _a, float _b) {
         return op_Division_1(_a, _b);
     }
-    inline app::Angle operator / (float _a, app::Angle _b) {
+    inline app::Angle operator/(float _a, app::Angle _b) {
         return op_Division_2(_a, _b);
     }
-    inline app::Angle operator % (app::Angle _a, app::Angle _b) {
+    inline app::Angle operator%(app::Angle _a, app::Angle _b) {
         return op_Modulus(_a, _b);
     }
-    inline float operator / (app::Angle _a, app::Angle _b) {
+    inline float operator/(app::Angle _a, app::Angle _b) {
         return op_Division_3(_a, _b);
     }
-    inline app::Angle operator - (app::Angle _a) {
+    inline app::Angle operator-(app::Angle _a) {
         return op_UnaryNegation(_a);
     }
-    inline bool operator > (app::Angle _a, app::Angle _b) {
+    inline bool operator>(app::Angle _a, app::Angle _b) {
         return op_GreaterThan(_a, _b);
     }
-    inline bool operator < (app::Angle _a, app::Angle _b) {
+    inline bool operator<(app::Angle _a, app::Angle _b) {
         return op_LessThan(_a, _b);
     }
-    inline bool operator >= (app::Angle _a, app::Angle _b) {
+    inline bool operator>=(app::Angle _a, app::Angle _b) {
         return op_GreaterThanOrEqual(_a, _b);
     }
-    inline bool operator <= (app::Angle _a, app::Angle _b) {
+    inline bool operator<=(app::Angle _a, app::Angle _b) {
         return op_LessThanOrEqual(_a, _b);
     }
-    inline bool operator == (app::Angle _a, app::Angle _b) {
+    inline bool operator==(app::Angle _a, app::Angle _b) {
         return op_Equality(_a, _b);
     }
-    inline bool operator != (app::Angle _a, app::Angle _b) {
+    inline bool operator!=(app::Angle _a, app::Angle _b) {
         return op_Inequality(_a, _b);
     }
-}
+} // namespace app::classes::Swing::Angle

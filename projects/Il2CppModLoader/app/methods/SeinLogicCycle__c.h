@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinLogicCycle___c {
+namespace app::classes::SeinLogicCycle___c {
     IL2CPP_REGISTER_METHOD(0x008A17B0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SeinLogicCycle_c * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, _RegisterIsAllowedDelegates_b__237_9, (app::SeinLogicCycle_c * this_ptr))
@@ -22,4 +22,4 @@ namespace app::methods::SeinLogicCycle___c {
     IL2CPP_REGISTER_METHODINFO(0x04705078, SeinLogicCycle_c__RegisterIsAllowedDelegates_b__237_45__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, _RegisterIsAllowedDelegates_b__237_46, (app::SeinLogicCycle_c * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04727568, SeinLogicCycle_c__RegisterIsAllowedDelegates_b__237_46__MethodInfo)
-}
+} // namespace app::classes::SeinLogicCycle___c

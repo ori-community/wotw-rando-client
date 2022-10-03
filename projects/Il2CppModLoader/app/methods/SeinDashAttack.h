@@ -1,14 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinDashAttack {
+namespace app::classes::SeinDashAttack {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EE340, void, add_OnDashEvent, (app::Action * value))
     IL2CPP_REGISTER_METHOD(0x006EE480, void, remove_OnDashEvent, (app::Action * value))
     IL2CPP_REGISTER_METHOD(0x006EE5C0, void, add_OnWallDashEvent, (app::Action * value))
     IL2CPP_REGISTER_METHOD(0x006EE700, void, remove_OnWallDashEvent, (app::Action * value))
     IL2CPP_REGISTER_METHOD(0x006EE840, bool, get_HasEnoughEnergy, (app::SeinDashAttack * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006EE880, void, Serialize, (app::SeinDashAttack * this_ptr, app::Archive * ar))
+    IL2CPP_REGISTER_METHOD(0x006EE880, void, Serialize, (app::SeinDashAttack * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x006EE8B0, void, OnExit, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EE8C0, void, ReturnToNormal, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EEBF0, void, SpendEnergy, (app::SeinDashAttack * this_ptr))
@@ -19,14 +19,14 @@ namespace app::methods::SeinDashAttack {
     IL2CPP_REGISTER_METHOD(0x006EF030, void, OnDestroy, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EF300, void, OnResetAirLimits, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04729898, SeinDashAttack_OnResetAirLimits__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x006EF310, void, OnDamageKickback, (app::SeinDashAttack * this_ptr, app::Damage * dmg))
+    IL2CPP_REGISTER_METHOD(0x006EF310, void, OnDamageKickback, (app::SeinDashAttack * this_ptr, app::Damage* dmg))
     IL2CPP_REGISTER_METHODINFO(0x047108F8, SeinDashAttack_OnDamageKickback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006EF330, bool, get_IsStatePerforming, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EF330, bool, get_IsDashingOrChangeDashing, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EF370, void, ChangeState, (app::SeinDashAttack * this_ptr, app::SeinDashAttack_State__Enum state))
-    IL2CPP_REGISTER_METHOD(0x006EF460, app::IChargeDashAttackable *, get_FindClosestAttackable, (app::SeinDashAttack * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006EF460, app::IChargeDashAttackable*, get_FindClosestAttackable, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EF870, void, AttackNearbyEnemies, (app::SeinDashAttack * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006F0070, void, PerformDash_1, (app::SeinDashAttack * this_ptr, app::MoonAnimation * dash, app::SoundProvider * dash_sound))
+    IL2CPP_REGISTER_METHOD(0x006F0070, void, PerformDash_1, (app::SeinDashAttack * this_ptr, app::MoonAnimation* dash, app::SoundProvider* dash_sound))
     IL2CPP_REGISTER_METHOD(0x006F0940, void, PerformDash_2, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F0AE0, void, PerformWallDash, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F0C10, void, PerformDashIntoWall, (app::SeinDashAttack * this_ptr))
@@ -37,7 +37,7 @@ namespace app::methods::SeinDashAttack {
     IL2CPP_REGISTER_METHOD(0x006F13C0, bool, HasAirDashSkill, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F1420, bool, CanChargeDash, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F1540, void, CompleteChargeEffect, (app::SeinDashAttack * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006F1670, void, UpdateTargetHighlight, (app::SeinDashAttack * this_ptr, app::IChargeDashAttackable * target))
+    IL2CPP_REGISTER_METHOD(0x006F1670, void, UpdateTargetHighlight, (app::SeinDashAttack * this_ptr, app::IChargeDashAttackable* target))
     IL2CPP_REGISTER_METHOD(0x006F1830, bool, KeepDashAnimationPlaying, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0474D2C0, SeinDashAttack_KeepDashAnimationPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006F1830, bool, KeepChargeDashAnimationPlaying, (app::SeinDashAttack * this_ptr))
@@ -57,4 +57,4 @@ namespace app::methods::SeinDashAttack {
     IL2CPP_REGISTER_METHOD(0x006EF300, void, ResetDashLimit, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F3AE0, void, ctor, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F3CC0, void, cctor, ())
-}
+} // namespace app::classes::SeinDashAttack

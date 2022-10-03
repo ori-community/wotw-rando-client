@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AkSegmentInfo {
-    IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkSegmentInfo * this_ptr, void * c_ptr, bool c_memory_own))
-    IL2CPP_REGISTER_METHOD(0x018965A0, void *, getCPtr, (app::AkSegmentInfo * obj))
-    IL2CPP_REGISTER_METHOD(0x01880C50, void, setCPtr, (app::AkSegmentInfo * this_ptr, void * c_ptr))
+namespace app::classes::AkSegmentInfo {
+    IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkSegmentInfo * this_ptr, void* c_ptr, bool c_memory_own))
+    IL2CPP_REGISTER_METHOD(0x018965A0, void*, getCPtr, (app::AkSegmentInfo * obj))
+    IL2CPP_REGISTER_METHOD(0x01880C50, void, setCPtr, (app::AkSegmentInfo * this_ptr, void* c_ptr))
     IL2CPP_REGISTER_METHOD(0x01896630, void, Finalize, (app::AkSegmentInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018966B0, void, Dispose, (app::AkSegmentInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018968C0, void, set_iCurrentPosition, (app::AkSegmentInfo * this_ptr, int32_t value))
@@ -26,4 +26,4 @@ namespace app::methods::AkSegmentInfo {
     IL2CPP_REGISTER_METHOD(0x01897B40, void, set_fGridOffset, (app::AkSegmentInfo * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x01897C70, float, get_fGridOffset, (app::AkSegmentInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01897D90, void, ctor_2, (app::AkSegmentInfo * this_ptr))
-}
+} // namespace app::classes::AkSegmentInfo

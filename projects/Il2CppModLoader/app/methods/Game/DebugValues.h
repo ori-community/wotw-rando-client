@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Game::DebugValues {
+namespace app::classes::Game::DebugValues {
     IL2CPP_REGISTER_METHOD(0x015247D0, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x01524940, bool, ToggleEnemies, ())
     IL2CPP_REGISTER_METHODINFO(0x0470B968, DebugValues_ToggleEnemies__MethodInfo)
@@ -13,4 +13,4 @@ namespace app::methods::Game::DebugValues {
     IL2CPP_REGISTER_METHODINFO(0x0477FEC0, DebugValues_ToggleSceneMode__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::DebugValues * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01525790, void, cctor, ())
-}
+} // namespace app::classes::Game::DebugValues

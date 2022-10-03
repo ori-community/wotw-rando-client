@@ -5,7 +5,7 @@
 #include <Il2CppModLoader/windows_api/console.h>
 #include <Il2CppModLoader/app/methods/FaderB.h>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace faderb {
     namespace {

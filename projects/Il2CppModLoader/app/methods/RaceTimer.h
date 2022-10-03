@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RaceTimer {
+namespace app::classes::RaceTimer {
     IL2CPP_REGISTER_METHOD(0x00446960, float, get_ElapsedTime, (app::RaceTimer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00724010, void, set_ElapsedTime, (app::RaceTimer * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x00447340, float, get_PersonalBestTime, (app::RaceTimer * this_ptr))
@@ -32,4 +32,4 @@ namespace app::methods::RaceTimer {
     IL2CPP_REGISTER_METHOD(0x00724740, void, Reset, (app::RaceTimer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00724760, void, DebugDraw, (app::RaceTimer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00724950, void, ctor, (app::RaceTimer * this_ptr))
-}
+} // namespace app::classes::RaceTimer

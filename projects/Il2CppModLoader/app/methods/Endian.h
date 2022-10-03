@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Endian {
+namespace app::classes::Endian {
     IL2CPP_REGISTER_METHOD(0x01B5A600, void, PutBytes2_1, (app::Byte__Array * bytes, int32_t offset, int16_t value))
     IL2CPP_REGISTER_METHOD(0x01B5A600, void, PutBytes2_2, (app::Byte__Array * bytes, int32_t offset, uint16_t value))
     IL2CPP_REGISTER_METHOD(0x01B5A660, void, PutBytes4_1, (app::Byte__Array * bytes, int32_t offset, int32_t value))
@@ -20,4 +20,4 @@ namespace app::methods::Endian {
     IL2CPP_REGISTER_METHOD(0x01B5AAD0, uint32_t, ReadEndian4, (app::Byte__Array * bytes, int32_t offset))
     IL2CPP_REGISTER_METHOD(0x01B5A600, void, WriteEndian_3, (app::Byte__Array * bytes, int32_t offset, uint16_t value))
     IL2CPP_REGISTER_METHOD(0x01B5A680, uint16_t, ReadEndian2, (app::Byte__Array * bytes, int32_t offset))
-}
+} // namespace app::classes::Endian

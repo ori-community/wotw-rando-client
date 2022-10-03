@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Swing::RandomSeeder {
+namespace app::classes::Swing::RandomSeeder {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_seed, (app::RandomSeeder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0182D340, void, set_seed, (app::RandomSeeder * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ISerializationCallbackReceiver_OnBeforeSerialize, (app::RandomSeeder * this_ptr))
@@ -21,6 +21,6 @@ namespace app::methods::Swing::RandomSeeder {
     IL2CPP_REGISTER_METHOD(0x0182DC90, app::Angle, nextAngle_1, (app::RandomSeeder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0182DD90, app::Angle, nextAngle_2, (app::RandomSeeder * this_ptr, app::AngleRange _range))
     IL2CPP_REGISTER_METHOD(0x0182DEA0, void, cctor, ())
-    IL2CPP_REGISTER_METHOD(0x016ABF00, app::Object *, nextItem_1, (app::RandomSeeder * this_ptr, app::Object__Array * _array))
-    IL2CPP_REGISTER_METHOD(0x016ABE70, app::Object *, nextItem_2, (app::RandomSeeder * this_ptr, app::List_1_System_Object_ * _list))
-}
+    IL2CPP_REGISTER_METHOD(0x016ABF00, app::Object*, nextItem_1, (app::RandomSeeder * this_ptr, app::Object__Array* _array))
+    IL2CPP_REGISTER_METHOD(0x016ABE70, app::Object*, nextItem_2, (app::RandomSeeder * this_ptr, app::List_1_System_Object_* _list))
+} // namespace app::classes::Swing::RandomSeeder

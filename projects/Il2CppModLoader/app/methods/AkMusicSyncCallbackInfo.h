@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AkMusicSyncCallbackInfo {
-    IL2CPP_REGISTER_METHOD(0x01882FF0, void, ctor_1, (app::AkMusicSyncCallbackInfo * this_ptr, void * c_ptr, bool c_memory_own))
-    IL2CPP_REGISTER_METHOD(0x018830B0, void *, getCPtr, (app::AkMusicSyncCallbackInfo * obj))
-    IL2CPP_REGISTER_METHOD(0x01883140, void, setCPtr, (app::AkMusicSyncCallbackInfo * this_ptr, void * c_ptr))
+namespace app::classes::AkMusicSyncCallbackInfo {
+    IL2CPP_REGISTER_METHOD(0x01882FF0, void, ctor_1, (app::AkMusicSyncCallbackInfo * this_ptr, void* c_ptr, bool c_memory_own))
+    IL2CPP_REGISTER_METHOD(0x018830B0, void*, getCPtr, (app::AkMusicSyncCallbackInfo * obj))
+    IL2CPP_REGISTER_METHOD(0x01883140, void, setCPtr, (app::AkMusicSyncCallbackInfo * this_ptr, void* c_ptr))
     IL2CPP_REGISTER_METHOD(0x01883210, void, Finalize, (app::AkMusicSyncCallbackInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018832B0, void, Dispose, (app::AkMusicSyncCallbackInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018834D0, uint32_t, get_playingID, (app::AkMusicSyncCallbackInfo * this_ptr))
@@ -18,6 +18,6 @@ namespace app::methods::AkMusicSyncCallbackInfo {
     IL2CPP_REGISTER_METHOD(0x01883DD0, float, get_segmentInfo_fGridDuration, (app::AkMusicSyncCallbackInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01883EF0, float, get_segmentInfo_fGridOffset, (app::AkMusicSyncCallbackInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01884010, app::AkCallbackType__Enum, get_musicSyncType, (app::AkMusicSyncCallbackInfo * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01884130, app::String *, get_userCueName, (app::AkMusicSyncCallbackInfo * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01884130, app::String*, get_userCueName, (app::AkMusicSyncCallbackInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01884280, void, ctor_2, (app::AkMusicSyncCallbackInfo * this_ptr))
-}
+} // namespace app::classes::AkMusicSyncCallbackInfo

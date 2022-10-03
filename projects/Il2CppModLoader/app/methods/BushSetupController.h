@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::BushSetupController {
+namespace app::classes::BushSetupController {
     IL2CPP_REGISTER_METHOD(0x0081CD00, void, FixedUpdate, (app::BushSetupController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0081CD10, void, UpdateState, (app::BushSetupController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0081CF00, void, ChangeState, (app::BushSetupController * this_ptr, app::BushSetupController_State__Enum state))
@@ -20,4 +20,4 @@ namespace app::methods::BushSetupController {
     IL2CPP_REGISTER_METHOD(0x0081DDB0, void, PlayerCollisionTrigger, (app::BushSetupController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0081DFD0, void, NoticeSeinTrigger, (app::BushSetupController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::BushSetupController * this_ptr))
-}
+} // namespace app::classes::BushSetupController

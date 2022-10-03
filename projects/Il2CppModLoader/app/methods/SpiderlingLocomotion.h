@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SpiderlingLocomotion {
+namespace app::classes::SpiderlingLocomotion {
     IL2CPP_REGISTER_METHOD(0x011C5920, float, get_ContinousRotationSpeed, (app::SpiderlingLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011C5930, void, set_ContinousRotationSpeed, (app::SpiderlingLocomotion * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x011C5940, bool, get_IsSpinning, (app::SpiderlingLocomotion * this_ptr))
@@ -17,4 +17,4 @@ namespace app::methods::SpiderlingLocomotion {
     IL2CPP_REGISTER_METHOD(0x011C6590, bool, ShouldStartFalling, (app::SpiderlingLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011C6700, void, OnDrawGizmosSelected, (app::SpiderlingLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011C6AD0, void, ctor, (app::SpiderlingLocomotion * this_ptr))
-}
+} // namespace app::classes::SpiderlingLocomotion

@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MeleeComboMoveHammerSimple {
-    IL2CPP_REGISTER_METHOD(0x01396CD0, app::HammerComboMoveBase_BalancingData *, get_BalancingBase, (app::MeleeComboMoveHammerSimple * this_ptr))
+namespace app::classes::MeleeComboMoveHammerSimple {
+    IL2CPP_REGISTER_METHOD(0x01396CD0, app::HammerComboMoveBase_BalancingData*, get_BalancingBase, (app::MeleeComboMoveHammerSimple * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01396CE0, float, get_Damage, (app::MeleeComboMoveHammerSimple * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01396D40, void, Initialize, (app::MeleeComboMoveHammerSimple * this_ptr, app::SeinComboHandler * handler, app::MeleeWeapon * weapon))
+    IL2CPP_REGISTER_METHOD(0x01396D40, void, Initialize, (app::MeleeComboMoveHammerSimple * this_ptr, app::SeinComboHandler* handler, app::MeleeWeapon* weapon))
     IL2CPP_REGISTER_METHOD(0x01396F50, void, ApplySettings, (app::MeleeComboMoveHammerSimple * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01396CE0, float, get_EffectiveDamage, (app::MeleeComboMoveHammerSimple * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01397230, void, EnterMove, (app::MeleeComboMoveHammerSimple * this_ptr))
@@ -13,26 +13,26 @@ namespace app::methods::MeleeComboMoveHammerSimple {
     IL2CPP_REGISTER_METHOD(0x01397830, void, UpdateMove, (app::MeleeComboMoveHammerSimple * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01397880, void, InterruptMove, (app::MeleeComboMoveHammerSimple * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01397C30, void, ExitMove, (app::MeleeComboMoveHammerSimple * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01397FB0, void, ModifyHorizontalPlatformMovementSettings, (app::MeleeComboMoveHammerSimple * this_ptr, app::HorizontalPlatformMovementSettings * settings))
-    IL2CPP_REGISTER_METHOD(0x013981C0, void, ModifyGravityPlatformMovementSettings, (app::MeleeComboMoveHammerSimple * this_ptr, app::GravityPlatformMovementSettings * settings))
+    IL2CPP_REGISTER_METHOD(0x01397FB0, void, ModifyHorizontalPlatformMovementSettings, (app::MeleeComboMoveHammerSimple * this_ptr, app::HorizontalPlatformMovementSettings* settings))
+    IL2CPP_REGISTER_METHOD(0x013981C0, void, ModifyGravityPlatformMovementSettings, (app::MeleeComboMoveHammerSimple * this_ptr, app::GravityPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHOD(0x013983D0, void, OnGroundCollision, (app::MeleeComboMoveHammerSimple * this_ptr, app::Vector2 hit_point, app::Vector2 hit_normal, app::Vector3 surface_normal, app::SurfaceMaterialType__Enum surface_type, bool force_effect, bool charged))
     IL2CPP_REGISTER_METHOD(0x01398920, void, OnHammerHitGround, (app::MeleeComboMoveHammerSimple * this_ptr, app::RaycastHit hit_info, float hit_speed, app::Ray ray, bool force))
     IL2CPP_REGISTER_METHOD(0x01398AC0, void, OnAttackEnd, (app::MeleeComboMoveHammerSimple * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04720830, MeleeComboMoveHammerSimple_OnAttackEnd__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01398C40, void, OnHammerTopCollision, (app::MeleeComboMoveHammerSimple * this_ptr, app::Collider * collider, app::Vector3 hit_direction, app::Vector3 damage_position))
-    IL2CPP_REGISTER_METHOD(0x01398C90, void, OnHammerHandleCollision, (app::MeleeComboMoveHammerSimple * this_ptr, app::Collider * collider, app::Vector3 hit_direction, app::Vector3 damage_position))
+    IL2CPP_REGISTER_METHOD(0x01398C40, void, OnHammerTopCollision, (app::MeleeComboMoveHammerSimple * this_ptr, app::Collider* collider, app::Vector3 hit_direction, app::Vector3 damage_position))
+    IL2CPP_REGISTER_METHOD(0x01398C90, void, OnHammerHandleCollision, (app::MeleeComboMoveHammerSimple * this_ptr, app::Collider* collider, app::Vector3 hit_direction, app::Vector3 damage_position))
     IL2CPP_REGISTER_METHOD(0x01398CE0, void, OnMoveWindowOpen, (app::MeleeComboMoveHammerSimple * this_ptr, app::MoveEventType__Enum event_type))
     IL2CPP_REGISTER_METHOD(0x01398D10, void, OnMoveWindowClosed, (app::MeleeComboMoveHammerSimple * this_ptr, app::MoveEventType__Enum event_type))
     IL2CPP_REGISTER_METHOD(0x01389660, void, OnAnimationEvent, (app::MeleeComboMoveHammerSimple * this_ptr, app::SeinController3D_EventId__Enum event_id))
     IL2CPP_REGISTER_METHOD(0x01398D40, void, SpawnEffects, (app::MeleeComboMoveHammerSimple * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04759F18, MeleeComboMoveHammerSimple_SpawnEffects__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01399450, void, CleanupEffectsHook, (app::MeleeComboMoveHammerSimple * this_ptr, app::LimitedLifetime * lifetime_component))
+    IL2CPP_REGISTER_METHOD(0x01399450, void, CleanupEffectsHook, (app::MeleeComboMoveHammerSimple * this_ptr, app::LimitedLifetime* lifetime_component))
     IL2CPP_REGISTER_METHODINFO(0x04737C98, MeleeComboMoveHammerSimple_CleanupEffectsHook__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01399670, app::Vector2, ComputeEffectiveKickback, (app::MeleeComboMoveHammerSimple * this_ptr, app::Vector3 enemy_position))
-    IL2CPP_REGISTER_METHOD(0x01399830, void, TryToDealDamage, (app::MeleeComboMoveHammerSimple * this_ptr, app::Collider * collider, bool top_hit, app::Vector3 hit_direction, app::Vector3 damage_position))
+    IL2CPP_REGISTER_METHOD(0x01399830, void, TryToDealDamage, (app::MeleeComboMoveHammerSimple * this_ptr, app::Collider* collider, bool top_hit, app::Vector3 hit_direction, app::Vector3 damage_position))
     IL2CPP_REGISTER_METHOD(0x0139A160, app::EffectSpawn, DamageEffectProvider, (app::MeleeComboMoveHammerSimple * this_ptr, app::DamageResult damage_result))
     IL2CPP_REGISTER_METHODINFO(0x04788AF8, MeleeComboMoveHammerSimple_DamageEffectProvider__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0139A460, app::IEnumerator *, HitStop, (app::MeleeComboMoveHammerSimple * this_ptr, app::GameObject * to_suspend, float suspend_time))
+    IL2CPP_REGISTER_METHOD(0x0139A460, app::IEnumerator*, HitStop, (app::MeleeComboMoveHammerSimple * this_ptr, app::GameObject* to_suspend, float suspend_time))
     IL2CPP_REGISTER_METHOD(0x0139A5D0, void, BeginAttackSegment, (app::MeleeComboMoveHammerSimple * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0139A7D0, void, EndAttackSegment, (app::MeleeComboMoveHammerSimple * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0139A8B0, bool, IsActive, (app::MeleeComboMoveHammerSimple * this_ptr))
@@ -56,4 +56,4 @@ namespace app::methods::MeleeComboMoveHammerSimple {
     IL2CPP_REGISTER_METHOD(0x0139BC90, void, ctor, (app::MeleeComboMoveHammerSimple * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0139BDD0, void, _TryToDealDamage_b__74_0, (app::MeleeComboMoveHammerSimple * this_ptr, app::DamageResult damage_result))
     IL2CPP_REGISTER_METHODINFO(0x0473A278, MeleeComboMoveHammerSimple__TryToDealDamage_b__74_0__MethodInfo)
-}
+} // namespace app::classes::MeleeComboMoveHammerSimple

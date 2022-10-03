@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SandTrailParticles {
+namespace app::classes::SandTrailParticles {
     IL2CPP_REGISTER_METHOD(0x0057AAC0, app::SuspendableMask__Enum, get_Mask, (app::SandTrailParticles * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C08D30, void, set_Mask, (app::SandTrailParticles * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, get_IsSuspended, (app::SandTrailParticles * this_ptr))
@@ -18,4 +18,4 @@ namespace app::methods::SandTrailParticles {
     IL2CPP_REGISTER_METHOD(0x00C09500, void, OnRestoreCheckpoint, (app::SandTrailParticles * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0470C820, SandTrailParticles_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C095F0, void, ctor, (app::SandTrailParticles * this_ptr))
-}
+} // namespace app::classes::SandTrailParticles

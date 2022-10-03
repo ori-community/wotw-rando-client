@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CameraOffsetAnimationZone {
+namespace app::classes::CameraOffsetAnimationZone {
     IL2CPP_REGISTER_METHOD(0x01693660, bool, get_IsActivated, (app::CameraOffsetAnimationZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01693680, void, set_IsActivated, (app::CameraOffsetAnimationZone * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x01693660, bool, get_IsInfluencingCamera, (app::CameraOffsetAnimationZone * this_ptr))
@@ -37,10 +37,10 @@ namespace app::methods::CameraOffsetAnimationZone {
     IL2CPP_REGISTER_METHOD(0x016966A0, void, OffsetUpdated, (app::CameraOffsetAnimationZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016966C0, void, OnValidate, (app::CameraOffsetAnimationZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417920, app::SelectableCategory__Enum, get_Category, (app::CameraOffsetAnimationZone * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject *, get_VirtualTimelineTarget, (app::CameraOffsetAnimationZone * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, get_VirtualTimelineTarget, (app::CameraOffsetAnimationZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0043D9E0, app::VirtualTimelineRepresentationGroup__Enum, get_VirtualTimelineGroup, (app::CameraOffsetAnimationZone * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x016966D0, app::String *, get_NameDisplayedOnClip, (app::CameraOffsetAnimationZone * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01696750, void, Build, (app::CameraOffsetAnimationZone * this_ptr, app::VirtualClipsBuilder * builder))
+    IL2CPP_REGISTER_METHOD(0x016966D0, app::String*, get_NameDisplayedOnClip, (app::CameraOffsetAnimationZone * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01696750, void, Build, (app::CameraOffsetAnimationZone * this_ptr, app::VirtualClipsBuilder* builder))
     IL2CPP_REGISTER_METHOD(0x016969A0, void, ctor, (app::CameraOffsetAnimationZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01696BA0, void, cctor, ())
-}
+} // namespace app::classes::CameraOffsetAnimationZone

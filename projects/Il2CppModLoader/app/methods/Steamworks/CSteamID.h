@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Steamworks::CSteamID {
+namespace app::classes::Steamworks::CSteamID {
     IL2CPP_REGISTER_METHOD(0x0012F2F0, void, ctor_1, (app::CSteamID__Boxed * this_ptr, app::AccountID_t un_account_i_d, app::EUniverse__Enum e_universe, app::EAccountType__Enum e_account_type))
     IL2CPP_REGISTER_METHOD(0x0012F300, void, ctor_2, (app::CSteamID__Boxed * this_ptr, app::AccountID_t un_account_i_d, uint32_t un_account_instance, app::EUniverse__Enum e_universe, app::EAccountType__Enum e_account_type))
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor_3, (app::CSteamID__Boxed * this_ptr, uint64_t ul_steam_i_d))
@@ -33,8 +33,8 @@ namespace app::methods::Steamworks::CSteamID {
     IL2CPP_REGISTER_METHOD(0x0012F610, app::EAccountType__Enum, GetEAccountType, (app::CSteamID__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0012F620, app::EUniverse__Enum, GetEUniverse, (app::CSteamID__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0012F630, bool, IsValid, (app::CSteamID__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0012F1B0, app::String *, ToString, (app::CSteamID__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0012F6A0, bool, Equals_1, (app::CSteamID__Boxed * this_ptr, app::Object * other))
+    IL2CPP_REGISTER_METHOD(0x0012F1B0, app::String*, ToString, (app::CSteamID__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0012F6A0, bool, Equals_1, (app::CSteamID__Boxed * this_ptr, app::Object* other))
     IL2CPP_REGISTER_METHOD(0x0012F2B0, int32_t, GetHashCode, (app::CSteamID__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015F8190, bool, op_Equality, (app::CSteamID x, app::CSteamID y))
     IL2CPP_REGISTER_METHOD(0x015FA5E0, bool, op_Inequality, (app::CSteamID x, app::CSteamID y))
@@ -43,10 +43,10 @@ namespace app::methods::Steamworks::CSteamID {
     IL2CPP_REGISTER_METHOD(0x0012F2C0, bool, Equals_2, (app::CSteamID__Boxed * this_ptr, app::CSteamID other))
     IL2CPP_REGISTER_METHOD(0x0012F2D0, int32_t, CompareTo, (app::CSteamID__Boxed * this_ptr, app::CSteamID other))
     IL2CPP_REGISTER_METHOD(0x015FA690, void, cctor, ())
-    inline bool operator == (app::CSteamID x, app::CSteamID y) {
+    inline bool operator==(app::CSteamID x, app::CSteamID y) {
         return op_Equality(x, y);
     }
-    inline bool operator != (app::CSteamID x, app::CSteamID y) {
+    inline bool operator!=(app::CSteamID x, app::CSteamID y) {
         return op_Inequality(x, y);
     }
-}
+} // namespace app::classes::Steamworks::CSteamID

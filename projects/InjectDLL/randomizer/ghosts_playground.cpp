@@ -29,8 +29,8 @@
 #include <random>
 
 using namespace modloader::win::console;
-using namespace app::methods;
-using namespace app::methods::System::IO;
+using namespace app::classes;
+using namespace app::classes::System::IO;
 
 namespace {
     app::GhostRecorder* recorder = nullptr;

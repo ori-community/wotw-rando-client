@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CartBoost {
+namespace app::classes::CartBoost {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::CartBoost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008D27C0, float, get_BoostExtraSpeed, (app::CartBoost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B33020, void, set_BoostExtraSpeed, (app::CartBoost * this_ptr, float value))
@@ -13,4 +13,4 @@ namespace app::methods::CartBoost {
     IL2CPP_REGISTER_METHOD(0x00B332E0, void, PerformBoost, (app::CartBoost * this_ptr, bool consume_boost_charge))
     IL2CPP_REGISTER_METHOD(0x00B335A0, void, RechargeBoost, (app::CartBoost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B33620, void, ctor, (app::CartBoost * this_ptr))
-}
+} // namespace app::classes::CartBoost

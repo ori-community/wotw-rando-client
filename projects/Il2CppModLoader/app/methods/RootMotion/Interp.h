@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RootMotion::Interp {
+namespace app::classes::RootMotion::Interp {
     IL2CPP_REGISTER_METHOD(0x02A2A500, float, Float, (float t, app::InterpolationMode__Enum mode))
     IL2CPP_REGISTER_METHOD(0x02A2ACC0, app::Vector3, V3, (app::Vector3 v1, app::Vector3 v2, float t, app::InterpolationMode__Enum mode))
     IL2CPP_REGISTER_METHOD(0x02A2AE10, float, LerpValue, (float value, float target, float increase_speed, float decrease_speed))
@@ -33,4 +33,4 @@ namespace app::methods::RootMotion::Interp {
     IL2CPP_REGISTER_METHOD(0x02A2BA60, float, InBack, (float t, float b, float c))
     IL2CPP_REGISTER_METHOD(0x02A2BA90, float, OutBack, (float t, float b, float c))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::Interp * this_ptr))
-}
+} // namespace app::classes::RootMotion::Interp

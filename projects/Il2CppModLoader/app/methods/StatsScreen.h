@@ -1,14 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::StatsScreen {
+namespace app::classes::StatsScreen {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanInterruptTab, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::MenuTabBackground__Enum, get_BackgroundMode, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_NeedsExperienceUI, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_NeedOreUI, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009BD150, void, ResetStatics, ())
-    IL2CPP_REGISTER_METHOD(0x009BD1D0, app::CleverMenuItemSelectionManager *, get_Navigation, (app::StatsScreen * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x009BD1F0, app::StatUISlot *, get_SelectedItem, (app::StatsScreen * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x009BD1D0, app::CleverMenuItemSelectionManager*, get_Navigation, (app::StatsScreen * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x009BD1F0, app::StatUISlot*, get_SelectedItem, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009BD2E0, void, Awake, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009BD410, void, OnDestroy, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009BD5D0, void, Hide, (app::StatsScreen * this_ptr, bool change))
@@ -18,7 +18,7 @@ namespace app::methods::StatsScreen {
     IL2CPP_REGISTER_METHOD(0x009BD770, void, OnBackPressed, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0473A0E0, StatsScreen_OnBackPressed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009BD940, void, PopulateItems_1, (app::StatsScreen * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x009BDA00, void, PopulateItems_2, (app::StatsScreen * this_ptr, app::List_1_StatSetting_ * settings))
+    IL2CPP_REGISTER_METHOD(0x009BDA00, void, PopulateItems_2, (app::StatsScreen * this_ptr, app::List_1_StatSetting_* settings))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, DestroyItems, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FD650, bool, get_IsSuspended, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00800850, void, set_IsSuspended, (app::StatsScreen * this_ptr, bool value))
@@ -34,6 +34,6 @@ namespace app::methods::StatsScreen {
     IL2CPP_REGISTER_METHOD(0x009BE7B0, void, UpdateScreenFilter, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009BEA80, app::StatSetting_StatDisplayCategory__Enum, GetPreviousFilter, (app::StatsScreen * this_ptr, app::StatSetting_StatDisplayCategory__Enum filter))
     IL2CPP_REGISTER_METHOD(0x009BEA90, app::StatSetting_StatDisplayCategory__Enum, GetNextFilter, (app::StatsScreen * this_ptr, app::StatSetting_StatDisplayCategory__Enum filter))
-    IL2CPP_REGISTER_METHOD(0x009BEAA0, app::MessageProvider *, GetFilterMessageProvider, (app::StatsScreen * this_ptr, app::StatSetting_StatDisplayCategory__Enum filter))
+    IL2CPP_REGISTER_METHOD(0x009BEAA0, app::MessageProvider*, GetFilterMessageProvider, (app::StatsScreen * this_ptr, app::StatSetting_StatDisplayCategory__Enum filter))
     IL2CPP_REGISTER_METHOD(0x009BECA0, void, ctor, (app::StatsScreen * this_ptr))
-}
+} // namespace app::classes::StatsScreen

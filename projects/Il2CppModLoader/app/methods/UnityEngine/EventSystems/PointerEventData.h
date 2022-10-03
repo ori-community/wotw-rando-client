@@ -1,16 +1,16 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::EventSystems::PointerEventData {
-    IL2CPP_REGISTER_METHOD(0x01F22D40, void, ctor, (app::PointerEventData * this_ptr, app::EventSystem * event_system))
-    IL2CPP_REGISTER_METHOD(0x01704A60, app::GameObject *, get_pointerEnter, (app::PointerEventData * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB960, void, set_pointerEnter, (app::PointerEventData * this_ptr, app::GameObject * value))
-    IL2CPP_REGISTER_METHOD(0x01F22F90, app::GameObject *, get_lastPress, (app::PointerEventData * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB9A0, void, set_lastPress, (app::PointerEventData * this_ptr, app::GameObject * value))
-    IL2CPP_REGISTER_METHOD(0x01F1C1D0, app::GameObject *, get_rawPointerPress, (app::PointerEventData * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB9C0, void, set_rawPointerPress, (app::PointerEventData * this_ptr, app::GameObject * value))
-    IL2CPP_REGISTER_METHOD(0x01F1A590, app::GameObject *, get_pointerDrag, (app::PointerEventData * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB9E0, void, set_pointerDrag, (app::PointerEventData * this_ptr, app::GameObject * value))
+namespace app::classes::UnityEngine::EventSystems::PointerEventData {
+    IL2CPP_REGISTER_METHOD(0x01F22D40, void, ctor, (app::PointerEventData * this_ptr, app::EventSystem* event_system))
+    IL2CPP_REGISTER_METHOD(0x01704A60, app::GameObject*, get_pointerEnter, (app::PointerEventData * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB960, void, set_pointerEnter, (app::PointerEventData * this_ptr, app::GameObject* value))
+    IL2CPP_REGISTER_METHOD(0x01F22F90, app::GameObject*, get_lastPress, (app::PointerEventData * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB9A0, void, set_lastPress, (app::PointerEventData * this_ptr, app::GameObject* value))
+    IL2CPP_REGISTER_METHOD(0x01F1C1D0, app::GameObject*, get_rawPointerPress, (app::PointerEventData * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB9C0, void, set_rawPointerPress, (app::PointerEventData * this_ptr, app::GameObject* value))
+    IL2CPP_REGISTER_METHOD(0x01F1A590, app::GameObject*, get_pointerDrag, (app::PointerEventData * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB9E0, void, set_pointerDrag, (app::PointerEventData * this_ptr, app::GameObject* value))
     IL2CPP_REGISTER_METHOD(0x01F22FA0, app::RaycastResult, get_pointerCurrentRaycast, (app::PointerEventData * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F22FE0, void, set_pointerCurrentRaycast, (app::PointerEventData * this_ptr, app::RaycastResult value))
     IL2CPP_REGISTER_METHOD(0x01F23010, app::RaycastResult, get_pointerPressRaycast, (app::PointerEventData * this_ptr))
@@ -43,9 +43,9 @@ namespace app::methods::UnityEngine::EventSystems::PointerEventData {
     IL2CPP_REGISTER_METHOD(0x006D6500, void, set_button, (app::PointerEventData * this_ptr, app::PointerEventData_InputButton__Enum value))
     IL2CPP_REGISTER_METHOD(0x01F23280, bool, IsPointerMoving, (app::PointerEventData * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F232B0, bool, IsScrolling, (app::PointerEventData * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01F232E0, app::Camera *, get_enterEventCamera, (app::PointerEventData * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01F233D0, app::Camera *, get_pressEventCamera, (app::PointerEventData * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01F234C0, app::GameObject *, get_pointerPress, (app::PointerEventData * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01F234D0, void, set_pointerPress, (app::PointerEventData * this_ptr, app::GameObject * value))
-    IL2CPP_REGISTER_METHOD(0x01F235A0, app::String *, ToString, (app::PointerEventData * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x01F232E0, app::Camera*, get_enterEventCamera, (app::PointerEventData * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01F233D0, app::Camera*, get_pressEventCamera, (app::PointerEventData * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01F234C0, app::GameObject*, get_pointerPress, (app::PointerEventData * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01F234D0, void, set_pointerPress, (app::PointerEventData * this_ptr, app::GameObject* value))
+    IL2CPP_REGISTER_METHOD(0x01F235A0, app::String*, ToString, (app::PointerEventData * this_ptr))
+} // namespace app::classes::UnityEngine::EventSystems::PointerEventData

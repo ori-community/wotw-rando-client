@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Playables::PlayableExtensions {
+namespace app::classes::UnityEngine::Playables::PlayableExtensions {
     IL2CPP_REGISTER_METHOD(0x015E6670, void, SetInputWeight_1, (app::AnimationLayerMixerPlayable playable, int32_t input_index, float weight))
     IL2CPP_REGISTER_METHODINFO(0x047548D8, PlayableExtensions_SetInputWeight__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01539C00, int32_t, GetInputCount_1, (app::AnimationLayerMixerPlayable playable))
@@ -91,4 +91,4 @@ namespace app::methods::UnityEngine::Playables::PlayableExtensions {
     IL2CPP_REGISTER_METHOD(0x02FF8080, app::PlayableGraph, GetGraph_1, (app::AnimationLayerMixerPlayable playable))
     IL2CPP_REGISTER_METHOD(0x02FF8080, app::PlayableGraph, GetGraph_2, (app::AnimationMixerPlayable playable))
     IL2CPP_REGISTER_METHOD(0x02FF8080, app::PlayableGraph, GetGraph_3, (app::Playable playable))
-}
+} // namespace app::classes::UnityEngine::Playables::PlayableExtensions

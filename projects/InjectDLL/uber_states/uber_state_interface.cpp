@@ -31,14 +31,27 @@
 #include <Il2CppModLoader/app/methods/Moon/UberStateVisualization/SerializedIntUberStateWrapper.h>
 #include <Il2CppModLoader/app/methods/SavePedestalController.h>
 #include <Il2CppModLoader/app/methods/GameMapSavePedestal.h>
+#include <Il2CppModLoader/app/types/SerializedBooleanUberState.h>
+#include <Il2CppModLoader/app/types/SerializedByteUberState.h>
+#include <Il2CppModLoader/app/types/SerializedIntUberState.h>
+#include <Il2CppModLoader/app/types/SerializedFloatUberState.h>
+#include <Il2CppModLoader/app/types/BooleanUberState.h>
+#include <Il2CppModLoader/app/types/ByteUberState.h>
+#include <Il2CppModLoader/app/types/IntUberState.h>
+#include <Il2CppModLoader/app/types/FloatUberState.h>
+#include <Il2CppModLoader/app/types/SavePedestalUberState.h>
+#include <Il2CppModLoader/app/types/UberID.h>
+#include <Il2CppModLoader/app/types/PlayerUberStateDescriptor.h>
+#include <Il2CppModLoader/app/types/CountUberState.h>
+#include <Il2CppModLoader/app/types/ConditionUberState.h>
 
 #include <unordered_map>
 #include <vector>
 
 using namespace modloader;
-using namespace app::methods;
-using namespace app::methods::Moon;
-using namespace app::methods::Moon::uberSerializationWisp;
+using namespace app::classes;
+using namespace app::classes::Moon;
+using namespace app::classes::Moon::uberSerializationWisp;
 
 namespace uber_states {
     namespace {
@@ -123,7 +136,7 @@ namespace uber_states {
         app::UberID create_uber_id(int id) {
             app::UberID uber_id{};
             uber_id.monitor = nullptr;
-            uber_id.klass = reinterpret_cast<app::UberID__Class*>(il2cpp::get_class("Moon", "UberID"));
+            uber_id.klass = reinterpret_cast<app::UberID__Class*>(types::UberID::get_class());
             uber_id.fields.m_id = id;
             return uber_id;
         }
@@ -137,30 +150,29 @@ namespace uber_states {
         }
 
         struct UberStateTypeResolver {
-            std::string namezpace;
-            std::string name;
+            Il2CppClass* uber_state_class;
             csharp_bridge::UberStateType type;
         };
 
         std::array<UberStateTypeResolver, 11> resolvers = {
-            UberStateTypeResolver{ "Moon", "SerializedBooleanUberState", csharp_bridge::UberStateType::SerializedBooleanUberState },
-            UberStateTypeResolver{ "Moon", "SerializedIntUberState", csharp_bridge::UberStateType::SerializedIntUberState },
-            UberStateTypeResolver{ "Moon", "SerializedFloatUberState", csharp_bridge::UberStateType::SerializedFloatUberState },
-            UberStateTypeResolver{ "Moon", "SerializedByteUberState", csharp_bridge::UberStateType::SerializedByteUberState },
+            UberStateTypeResolver{ reinterpret_cast<Il2CppClass*>(types::SerializedBooleanUberState::get_class()), csharp_bridge::UberStateType::SerializedBooleanUberState },
+            UberStateTypeResolver{ reinterpret_cast<Il2CppClass*>(types::SerializedIntUberState::get_class()), csharp_bridge::UberStateType::SerializedIntUberState },
+            UberStateTypeResolver{ reinterpret_cast<Il2CppClass*>(types::SerializedFloatUberState::get_class()), csharp_bridge::UberStateType::SerializedFloatUberState },
+            UberStateTypeResolver{ reinterpret_cast<Il2CppClass*>(types::SerializedByteUberState::get_class()), csharp_bridge::UberStateType::SerializedByteUberState },
 
-            UberStateTypeResolver{ "Moon.uberSerializationWisp", "SavePedestalUberState", csharp_bridge::UberStateType::SavePedestalUberState },
-            UberStateTypeResolver{ "Moon.uberSerializationWisp", "PlayerUberStateDescriptor", csharp_bridge::UberStateType::PlayerUberStateDescriptor },
+            UberStateTypeResolver{ reinterpret_cast<Il2CppClass*>(types::SavePedestalUberState::get_class()), csharp_bridge::UberStateType::SavePedestalUberState },
+            UberStateTypeResolver{ reinterpret_cast<Il2CppClass*>(types::PlayerUberStateDescriptor::get_class()), csharp_bridge::UberStateType::PlayerUberStateDescriptor },
 
-            UberStateTypeResolver{ "Moon", "BooleanUberState", csharp_bridge::UberStateType::BooleanUberState },
-            UberStateTypeResolver{ "Moon", "ByteUberState", csharp_bridge::UberStateType::ByteUberState },
-            UberStateTypeResolver{ "Moon", "IntUberState", csharp_bridge::UberStateType::IntUberState },
-            UberStateTypeResolver{ "Moon", "CountUberState", csharp_bridge::UberStateType::CountUberState },
-            UberStateTypeResolver{ "Moon", "ConditionUberState", csharp_bridge::UberStateType::ConditionUberState },
+            UberStateTypeResolver{ reinterpret_cast<Il2CppClass*>(types::BooleanUberState::get_class()), csharp_bridge::UberStateType::BooleanUberState },
+            UberStateTypeResolver{ reinterpret_cast<Il2CppClass*>(types::ByteUberState::get_class()), csharp_bridge::UberStateType::ByteUberState },
+            UberStateTypeResolver{ reinterpret_cast<Il2CppClass*>(types::IntUberState::get_class()), csharp_bridge::UberStateType::IntUberState },
+            UberStateTypeResolver{ reinterpret_cast<Il2CppClass*>(types::CountUberState::get_class()), csharp_bridge::UberStateType::CountUberState },
+            UberStateTypeResolver{ reinterpret_cast<Il2CppClass*>(types::ConditionUberState::get_class()), csharp_bridge::UberStateType::ConditionUberState },
         };
 
         csharp_bridge::UberStateType resolve_type(app::IUberState* uber_state) {
             for (auto const& resolver : resolvers)
-                if (il2cpp::is_assignable(uber_state, resolver.namezpace.c_str(), resolver.name.c_str()))
+                if (il2cpp::is_assignable(uber_state, resolver.uber_state_class))
                     return resolver.type;
 
             return static_cast<csharp_bridge::UberStateType>(-1);
@@ -255,23 +267,23 @@ namespace uber_states {
                 return;
             }
 
-            if (il2cpp::is_assignable(uber_state, "Moon", "SerializedBooleanUberState"))
+            if (il2cpp::is_assignable(uber_state, types::SerializedBooleanUberState::get_class()))
                 next::Moon::SerializedBooleanUberState::set_Value(reinterpret_cast<app::SerializedBooleanUberState*>(uber_state), value > 0.5);
-            else if (il2cpp::is_assignable(uber_state, "Moon", "SerializedByteUberState"))
+            else if (il2cpp::is_assignable(uber_state, types::SerializedByteUberState::get_class()))
                 next::Moon::SerializedByteUberState::set_Value(reinterpret_cast<app::SerializedByteUberState*>(uber_state), value);
-            else if (il2cpp::is_assignable(uber_state, "Moon", "SerializedIntUberState"))
+            else if (il2cpp::is_assignable(uber_state, types::SerializedIntUberState::get_class()))
                 next::Moon::SerializedIntUberState::set_Value(reinterpret_cast<app::SerializedIntUberState*>(uber_state), value);
-            else if (il2cpp::is_assignable(uber_state, "Moon", "SerializedFloatUberState"))
+            else if (il2cpp::is_assignable(uber_state, types::SerializedFloatUberState::get_class()))
                 next::Moon::SerializedFloatUberState::set_Value(reinterpret_cast<app::SerializedFloatUberState*>(uber_state), value);
-            else if (il2cpp::is_assignable(uber_state, "Moon", "BooleanUberState"))
+            else if (il2cpp::is_assignable(uber_state, types::BooleanUberState::get_class()))
                 next::Moon::BooleanUberState::set_Value(reinterpret_cast<app::BooleanUberState*>(uber_state), value > 0.5);
-            else if (il2cpp::is_assignable(uber_state, "Moon", "ByteUberState"))
+            else if (il2cpp::is_assignable(uber_state, types::ByteUberState::get_class()))
                 next::Moon::ByteUberState::set_Value(reinterpret_cast<app::ByteUberState*>(uber_state), value);
-            else if (il2cpp::is_assignable(uber_state, "Moon", "IntUberState"))
+            else if (il2cpp::is_assignable(uber_state, types::IntUberState::get_class()))
                 next::Moon::IntUberState::set_Value(reinterpret_cast<app::IntUberState*>(uber_state), value);
-            else if (il2cpp::is_assignable(uber_state, "Moon", "FloatUberState"))
+            else if (il2cpp::is_assignable(uber_state, types::FloatUberState::get_class()))
                 next::Moon::FloatUberState::set_Value(reinterpret_cast<app::FloatUberState*>(uber_state), value);
-            else if (il2cpp::is_assignable(uber_state, "Moon.uberSerializationWisp", "SavePedestalUberState")) {
+            else if (il2cpp::is_assignable(uber_state, types::SavePedestalUberState::get_class())) {
                 next::Moon::uberSerializationWisp::SavePedestalUberState::set_IsTeleporterActive(reinterpret_cast<app::SavePedestalUberState*>(uber_state), value > 0.5);
             } else {
                 trace(MessageType::Warning, 2, "uber_state", format("unable to get value of uber state (%d, %d)", m_group, m_state));
@@ -293,31 +305,31 @@ namespace uber_states {
             return 0.0;
         }
 
-        if (il2cpp::is_assignable(uber_state, "Moon", "SerializedBooleanUberState"))
+        if (il2cpp::is_assignable(uber_state, types::SerializedBooleanUberState::get_class()))
             return static_cast<double>(SerializedBooleanUberState::get_Value(reinterpret_cast<app::SerializedBooleanUberState*>(uber_state)));
 
-        if (il2cpp::is_assignable(uber_state, "Moon", "SerializedByteUberState"))
+        if (il2cpp::is_assignable(uber_state, types::SerializedByteUberState::get_class()))
             return static_cast<double>(SerializedByteUberState::get_Value(reinterpret_cast<app::SerializedByteUberState*>(uber_state)));
 
-        if (il2cpp::is_assignable(uber_state, "Moon", "SerializedIntUberState"))
+        if (il2cpp::is_assignable(uber_state, types::SerializedIntUberState::get_class()))
             return static_cast<double>(SerializedIntUberState::get_Value(reinterpret_cast<app::SerializedIntUberState*>(uber_state)));
 
-        if (il2cpp::is_assignable(uber_state, "Moon", "SerializedFloatUberState"))
+        if (il2cpp::is_assignable(uber_state, types::SerializedFloatUberState::get_class()))
             return static_cast<double>(SerializedFloatUberState::get_Value(reinterpret_cast<app::SerializedFloatUberState*>(uber_state)));
 
-        if (il2cpp::is_assignable(uber_state, "Moon", "BooleanUberState"))
+        if (il2cpp::is_assignable(uber_state, types::BooleanUberState::get_class()))
             return static_cast<double>(BooleanUberState::get_Value(reinterpret_cast<app::BooleanUberState*>(uber_state)));
 
-        if (il2cpp::is_assignable(uber_state, "Moon", "ByteUberState"))
+        if (il2cpp::is_assignable(uber_state, types::ByteUberState::get_class()))
             return static_cast<double>(ByteUberState::get_Value(reinterpret_cast<app::ByteUberState*>(uber_state)));
 
-        if (il2cpp::is_assignable(uber_state, "Moon", "IntUberState"))
+        if (il2cpp::is_assignable(uber_state, types::IntUberState::get_class()))
             return static_cast<double>(IntUberState::get_Value(reinterpret_cast<app::IntUberState*>(uber_state)));
 
-        if (il2cpp::is_assignable(uber_state, "Moon", "FloatUberState"))
+        if (il2cpp::is_assignable(uber_state, types::FloatUberState::get_class()))
             return static_cast<double>(FloatUberState::get_Value(reinterpret_cast<app::FloatUberState*>(uber_state)));
 
-        if (il2cpp::is_assignable(uber_state, "Moon.uberSerializationWisp", "SavePedestalUberState")) {
+        if (il2cpp::is_assignable(uber_state, types::SavePedestalUberState::get_class())) {
             return SavePedestalUberState::get_IsTeleporterActive(reinterpret_cast<app::SavePedestalUberState*>(uber_state)) ? 1.0 : 0.0;
         }
 

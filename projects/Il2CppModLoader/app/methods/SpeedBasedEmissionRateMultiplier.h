@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SpeedBasedEmissionRateMultiplier {
+namespace app::classes::SpeedBasedEmissionRateMultiplier {
     IL2CPP_REGISTER_METHOD(0x00EF7FE0, void, OnPoolSpawned, (app::SpeedBasedEmissionRateMultiplier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnPoolDespawned, (app::SpeedBasedEmissionRateMultiplier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EF80F0, void, Awake, (app::SpeedBasedEmissionRateMultiplier * this_ptr))
@@ -13,4 +13,4 @@ namespace app::methods::SpeedBasedEmissionRateMultiplier {
     IL2CPP_REGISTER_METHOD(0x00EF8800, void, BoostEmissionRateForAFrame, (app::SpeedBasedEmissionRateMultiplier * this_ptr, float factor))
     IL2CPP_REGISTER_METHOD(0x00EF88B0, void, UnbumpEmissionRate, (app::SpeedBasedEmissionRateMultiplier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EF88C0, void, ctor, (app::SpeedBasedEmissionRateMultiplier * this_ptr))
-}
+} // namespace app::classes::SpeedBasedEmissionRateMultiplier

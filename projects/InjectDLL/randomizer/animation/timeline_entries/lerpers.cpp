@@ -7,8 +7,8 @@
 
 #include <utils/json_serializers.h>
 
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
 
 namespace randomizer::timeline_entries {
     void Lerper::parse(TimelineState& state, nlohmann::json const& j) {

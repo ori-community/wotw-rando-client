@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LeaderboardsB {
+namespace app::classes::LeaderboardsB {
     IL2CPP_REGISTER_METHOD(0x015BA0C0, app::LeaderboardFilter__Enum, get_m_currentFilter, (app::LeaderboardsB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015BA160, void, set_m_currentFilter, (app::LeaderboardsB * this_ptr, app::LeaderboardFilter__Enum value))
-    IL2CPP_REGISTER_METHOD(0x015BA200, app::LeaderboardRowUI *, get_CurrentRowUI, (app::LeaderboardsB * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x015BA200, app::LeaderboardRowUI*, get_CurrentRowUI, (app::LeaderboardsB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0085E270, bool, get_IsVisible, (app::LeaderboardsB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015BA230, void, set_IsVisible, (app::LeaderboardsB * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CanBeEntered, (app::LeaderboardsB * this_ptr))
@@ -19,10 +19,10 @@ namespace app::methods::LeaderboardsB {
     IL2CPP_REGISTER_METHOD(0x015BAC10, void, set_IsHighlightVisible, (app::LeaderboardsB * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x015BADB0, void, Awake, (app::LeaderboardsB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015BAE40, void, EnterInGroup, (app::LeaderboardsB * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x015BAE60, bool, OnMenuItemChangedInGroup, (app::LeaderboardsB * this_ptr, app::CleverMenuItemGroup * group))
+    IL2CPP_REGISTER_METHOD(0x015BAE60, bool, OnMenuItemChangedInGroup, (app::LeaderboardsB * this_ptr, app::CleverMenuItemGroup* group))
     IL2CPP_REGISTER_METHOD(0x015BAF40, bool, get_Available, ())
-    IL2CPP_REGISTER_METHOD(0x015BAFF0, app::LeaderboardData *, GetLeaderboard, (app::LeaderboardB__Enum leaderboard))
-    IL2CPP_REGISTER_METHOD(0x015BB1A0, app::LeaderboardData *, get_CurrentLeaderboardData, ())
+    IL2CPP_REGISTER_METHOD(0x015BAFF0, app::LeaderboardData*, GetLeaderboard, (app::LeaderboardB__Enum leaderboard))
+    IL2CPP_REGISTER_METHOD(0x015BB1A0, app::LeaderboardData*, get_CurrentLeaderboardData, ())
     IL2CPP_REGISTER_METHOD(0x015BB240, void, ClearTableUI, ())
     IL2CPP_REGISTER_METHOD(0x015BB2E0, bool, UpdateLeaderboard, (app::Leaderboard__Enum leaderboard, app::LeaderboardFilter__Enum filter, app::DifficultyMode__Enum difficulty))
     IL2CPP_REGISTER_METHOD(0x015BB660, void, LeaderboardResultsObtained, (app::List_1_PlayFab_ClientModels_PlayerLeaderboardEntry_ * list, app::Leaderboard__Enum leaderboard, app::DifficultyMode__Enum difficulty, app::LeaderboardFilter__Enum filter))
@@ -46,4 +46,4 @@ namespace app::methods::LeaderboardsB {
     IL2CPP_REGISTER_METHOD(0x015BF380, void, NextFilter, (app::LeaderboardsB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015BA900, void, DoDelayedLeaderboardGet, (app::LeaderboardsB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015BF470, void, ctor, (app::LeaderboardsB * this_ptr))
-}
+} // namespace app::classes::LeaderboardsB

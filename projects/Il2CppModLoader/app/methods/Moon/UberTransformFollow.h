@@ -1,14 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::UberTransformFollow {
+namespace app::classes::Moon::UberTransformFollow {
     IL2CPP_REGISTER_METHOD(0x0256FF30, int32_t, get_TargetCount, (app::UberTransformFollow * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0256FFC0, app::Transform *, GetTarget, (app::UberTransformFollow * this_ptr, int32_t idx))
+    IL2CPP_REGISTER_METHOD(0x0256FFC0, app::Transform*, GetTarget, (app::UberTransformFollow * this_ptr, int32_t idx))
     IL2CPP_REGISTER_METHOD(0x02570090, void, ClearNullTargetsRuntime, (app::UberTransformFollow * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025701C0, void, OnEnable, (app::UberTransformFollow * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025703F0, void, OnDisable, (app::UberTransformFollow * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025704B0, void, Awake, (app::UberTransformFollow * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x025708C0, void, AddTarget, (app::UberTransformFollow * this_ptr, app::Transform * target))
+    IL2CPP_REGISTER_METHOD(0x025708C0, void, AddTarget, (app::UberTransformFollow * this_ptr, app::Transform* target))
     IL2CPP_REGISTER_METHOD(0x02570B40, void, ClearTargets, (app::UberTransformFollow * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02570C20, app::ValueTuple_2_UnityEngine_Vector3_UnityEngine_Vector3_, DoPositionAndRotation, (app::UberTransformFollow * this_ptr, float delta_time))
     IL2CPP_REGISTER_METHOD(0x025712B0, app::Vector3, DoPosition, (app::UberTransformFollow * this_ptr, float delta_time, app::Vector3 my_position, app::Vector3 avg_position))
@@ -26,4 +26,4 @@ namespace app::methods::Moon::UberTransformFollow {
     IL2CPP_REGISTER_METHOD(0x02573260, float, LinearRegressionBasedRotation2D, (app::UberTransformFollow * this_ptr, app::Vector2 average))
     IL2CPP_REGISTER_METHOD(0x02573700, void, ctor, (app::UberTransformFollow * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02573870, void, cctor, ())
-}
+} // namespace app::classes::Moon::UberTransformFollow

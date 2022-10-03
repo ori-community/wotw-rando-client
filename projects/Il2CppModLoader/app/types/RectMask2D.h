@@ -1,0 +1,21 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace RectMask2D {
+        namespace {
+            app::RectMask2D__Class* type_info_ref = nullptr;
+        }
+        app::RectMask2D__Class** type_info = &type_info_ref;
+        inline app::RectMask2D__Class* get_class() {
+            return il2cpp::get_class<app::RectMask2D__Class>(type_info, "UnityEngine.UI", "RectMask2D");
+        }
+        inline app::RectMask2D* create() {
+            return il2cpp::create_object<app::RectMask2D>(get_class());
+        }
+        inline app::RectMask2D__Array* create_array(int size) {
+            return il2cpp::array_new<app::RectMask2D__Array>(get_class(), size);
+        }
+    } // namespace RectMask2D
+} // namespace app::classes::types

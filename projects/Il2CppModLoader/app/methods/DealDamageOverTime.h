@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::DealDamageOverTime {
+namespace app::classes::DealDamageOverTime {
     IL2CPP_REGISTER_METHOD(0x00DDD550, void, OnDisable, (app::DealDamageOverTime * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DDD5F0, void, Awake, (app::DealDamageOverTime * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DDD700, void, OnDestroy, (app::DealDamageOverTime * this_ptr))
@@ -13,4 +13,4 @@ namespace app::methods::DealDamageOverTime {
     IL2CPP_REGISTER_METHOD(0x00608710, app::SuspendableMask__Enum, get_Mask, (app::DealDamageOverTime * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DDDB80, void, set_Mask, (app::DealDamageOverTime * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x00DDDC30, void, ctor, (app::DealDamageOverTime * this_ptr))
-}
+} // namespace app::classes::DealDamageOverTime

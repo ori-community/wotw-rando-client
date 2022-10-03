@@ -1,12 +1,12 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Color {
+namespace app::classes::UnityEngine::Color {
     IL2CPP_REGISTER_METHOD(0x00121740, void, ctor_1, (app::Color__Boxed * this_ptr, float r, float g, float b, float a))
     IL2CPP_REGISTER_METHOD(0x001EBCA0, void, ctor_2, (app::Color__Boxed * this_ptr, float r, float g, float b))
-    IL2CPP_REGISTER_METHOD(0x001EBCC0, app::String *, ToString, (app::Color__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x001EBCC0, app::String*, ToString, (app::Color__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001EBCD0, int32_t, GetHashCode, (app::Color__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x001EBCE0, bool, Equals_1, (app::Color__Boxed * this_ptr, app::Object * other))
+    IL2CPP_REGISTER_METHOD(0x001EBCE0, bool, Equals_1, (app::Color__Boxed * this_ptr, app::Object* other))
     IL2CPP_REGISTER_METHOD(0x001EBCF0, bool, Equals_2, (app::Color__Boxed * this_ptr, app::Color other))
     IL2CPP_REGISTER_METHOD(0x02427D30, app::Color, op_Addition, (app::Color a, app::Color b))
     IL2CPP_REGISTER_METHOD(0x02427D90, app::Color, op_Subtraction, (app::Color a, app::Color b))
@@ -36,32 +36,32 @@ namespace app::methods::UnityEngine::Color {
     IL2CPP_REGISTER_METHOD(0x02428250, app::Color, op_Implicit_2, (app::Vector4 v))
     IL2CPP_REGISTER_METHOD(0x001EC1B0, float, get_Item, (app::Color__Boxed * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHODINFO(0x0472BDC0, Color_get_Item__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x02428370, void, RGBToHSV, (app::Color rgb_color, float * H, float * S, float * V))
-    IL2CPP_REGISTER_METHOD(0x024283F0, void, RGBToHSVHelper, (float offset, float dominantcolor, float colorone, float colortwo, float * H, float * S, float * V))
+    IL2CPP_REGISTER_METHOD(0x02428370, void, RGBToHSV, (app::Color rgb_color, float* H, float* S, float* V))
+    IL2CPP_REGISTER_METHOD(0x024283F0, void, RGBToHSVHelper, (float offset, float dominantcolor, float colorone, float colortwo, float* H, float* S, float* V))
     IL2CPP_REGISTER_METHOD(0x02428490, app::Color, HSVToRGB_1, (float H, float S, float V))
     IL2CPP_REGISTER_METHOD(0x024284C0, app::Color, HSVToRGB_2, (float H, float S, float V, bool hdr))
-    inline app::Color operator + (app::Color a, app::Color b) {
+    inline app::Color operator+(app::Color a, app::Color b) {
         return op_Addition(a, b);
     }
-    inline app::Color operator - (app::Color a, app::Color b) {
+    inline app::Color operator-(app::Color a, app::Color b) {
         return op_Subtraction(a, b);
     }
-    inline app::Color operator * (app::Color a, app::Color b) {
+    inline app::Color operator*(app::Color a, app::Color b) {
         return op_Multiply_1(a, b);
     }
-    inline app::Color operator * (app::Color a, float b) {
+    inline app::Color operator*(app::Color a, float b) {
         return op_Multiply_2(a, b);
     }
-    inline app::Color operator * (float b, app::Color a) {
+    inline app::Color operator*(float b, app::Color a) {
         return op_Multiply_3(b, a);
     }
-    inline app::Color operator / (app::Color a, float b) {
+    inline app::Color operator/(app::Color a, float b) {
         return op_Division(a, b);
     }
-    inline bool operator == (app::Color lhs, app::Color rhs) {
+    inline bool operator==(app::Color lhs, app::Color rhs) {
         return op_Equality(lhs, rhs);
     }
-    inline bool operator != (app::Color lhs, app::Color rhs) {
+    inline bool operator!=(app::Color lhs, app::Color rhs) {
         return op_Inequality(lhs, rhs);
     }
-}
+} // namespace app::classes::UnityEngine::Color

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ShootingSpider {
+namespace app::classes::ShootingSpider {
     IL2CPP_REGISTER_METHOD(0x005BAC30, void, Awake, (app::ShootingSpider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005BC350, void, OnTimedRespawn, (app::ShootingSpider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005BC3A0, void, FixedUpdate, (app::ShootingSpider * this_ptr))
@@ -32,4 +32,4 @@ namespace app::methods::ShootingSpider {
     IL2CPP_REGISTER_METHODINFO(0x04720188, ShootingSpider__Awake_b__9_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005BD180, bool, _Awake_b__9_10, (app::ShootingSpider * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04794728, ShootingSpider__Awake_b__9_10__MethodInfo)
-}
+} // namespace app::classes::ShootingSpider

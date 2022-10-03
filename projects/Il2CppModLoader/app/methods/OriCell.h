@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::OriCell {
-    IL2CPP_REGISTER_METHOD(0x00623200, void, SetShowCondition, (app::OriCell * this_ptr, app::Func_1_Boolean_ * should_show_now))
+namespace app::classes::OriCell {
+    IL2CPP_REGISTER_METHOD(0x00623200, void, SetShowCondition, (app::OriCell * this_ptr, app::Func_1_Boolean_* should_show_now))
     IL2CPP_REGISTER_METHOD(0x00623240, float, get_CurrentValue, (app::OriCell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00623250, void, set_CurrentValue, (app::OriCell * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x00623260, float, get_MaxValue, (app::OriCell * this_ptr))
@@ -21,4 +21,4 @@ namespace app::methods::OriCell {
     IL2CPP_REGISTER_METHOD(0x00624130, void, Show, (app::OriCell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006242B0, void, Hide, (app::OriCell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00624400, void, ctor, (app::OriCell * this_ptr))
-}
+} // namespace app::classes::OriCell

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::debugMenu::scripts::gameSpecific::menuItems::JobThreadConfigurator {
+namespace app::classes::Moon::debugMenu::scripts::gameSpecific::menuItems::JobThreadConfigurator {
     IL2CPP_REGISTER_METHOD(0x00F2BFB0, app::JobThreadConfigurator_SaveIOThreadingMode__Enum, get_SaveIOThreadMode, ())
     IL2CPP_REGISTER_METHOD(0x00F2C050, void, set_SaveIOThreadMode, (app::JobThreadConfigurator_SaveIOThreadingMode__Enum value))
     IL2CPP_REGISTER_METHOD(0x00F2C120, app::JobThreadConfigurator_ThreadingMode__Enum, get_CurrentThreadingMode, ())
@@ -16,4 +16,4 @@ namespace app::methods::Moon::debugMenu::scripts::gameSpecific::menuItems::JobTh
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ApplyRenderThreadPriority, (app::ThreadPriority__Enum_1 prio))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::JobThreadConfigurator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F2C570, void, cctor, ())
-}
+} // namespace app::classes::Moon::debugMenu::scripts::gameSpecific::menuItems::JobThreadConfigurator

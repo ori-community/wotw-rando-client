@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::BreadCrumbPositionTracker {
+namespace app::classes::BreadCrumbPositionTracker {
     IL2CPP_REGISTER_METHOD(0x00D4A100, bool, get_HasPath, (app::BreadCrumbPositionTracker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D4A190, void, ctor, (app::BreadCrumbPositionTracker * this_ptr, float track_interval, float point_lifetime))
     IL2CPP_REGISTER_METHOD(0x00D4A3D0, void, UpdateTracking, (app::BreadCrumbPositionTracker * this_ptr, app::Vector2 target, float delta_time))
@@ -13,4 +13,4 @@ namespace app::methods::BreadCrumbPositionTracker {
     IL2CPP_REGISTER_METHOD(0x00D4AAF0, void, UseCurrentTrackedPoint, (app::BreadCrumbPositionTracker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D4AC10, void, ResetKillTimer, (app::BreadCrumbPositionTracker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D4AC20, void, DrawGizmos, (app::BreadCrumbPositionTracker * this_ptr))
-}
+} // namespace app::classes::BreadCrumbPositionTracker

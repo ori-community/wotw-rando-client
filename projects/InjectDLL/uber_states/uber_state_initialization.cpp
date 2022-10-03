@@ -12,7 +12,7 @@
 #include <chrono>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     app::UberID* create_uber_id_ptr(int id) {
@@ -72,7 +72,7 @@ namespace {
         auto state = il2cpp::unity::instantiate_object<T>(reinterpret_cast<T*>(uber_state_so_cache[klass]));
 
         if (group_so_cache == nullptr) {
-            group_so_cache = il2cpp::unity::create_scriptable_object<app::UberStateGroup>("Moon", "UberStateGroup");
+            group_so_cache = il2cpp::unity::create_scriptable_object<app::UberStateGroup>(app::UberStateGroup__TypeInfo, "Moon", "UberStateGroup");
         }
 
         state->fields.Group = il2cpp::unity::instantiate_object<app::UberStateGroup>(group_so_cache);

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinGrabBlock {
+namespace app::classes::SeinGrabBlock {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061E2F0, bool, get_InRange, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061E2E0, void, set_InRange, (app::SeinGrabBlock * this_ptr, bool value))
@@ -9,9 +9,9 @@ namespace app::methods::SeinGrabBlock {
     IL2CPP_REGISTER_METHOD(0x00CA2560, void, set_IsGrabbing, (app::SeinGrabBlock * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00CA2550, bool, get_IsStatePerforming, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AD7E0, bool, IsFailingPushPull, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D0720, app::CharacterSpriteMirror *, get_Mirror, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D06F0, app::CharacterLeftRightMovement *, get_CharacterLeftRightMovement, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement *, get_PlatformMovement, (app::SeinGrabBlock * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D0720, app::CharacterSpriteMirror*, get_Mirror, (app::SeinGrabBlock * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D06F0, app::CharacterLeftRightMovement*, get_CharacterLeftRightMovement, (app::SeinGrabBlock * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement*, get_PlatformMovement, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AD800, float, get_HorizontalInput, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0100B000, bool, get_FaceLeft, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AD870, bool, get_IsPushing, (app::SeinGrabBlock * this_ptr))
@@ -25,7 +25,7 @@ namespace app::methods::SeinGrabBlock {
     IL2CPP_REGISTER_METHOD(0x014ADA80, void, OnAwake, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014ADC30, void, Start, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014ADDD0, void, OnDestroy, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x014AE090, void, ModifyHorizontalPlatformMovementSettings, (app::SeinGrabBlock * this_ptr, app::HorizontalPlatformMovementSettings * settings))
+    IL2CPP_REGISTER_METHOD(0x014AE090, void, ModifyHorizontalPlatformMovementSettings, (app::SeinGrabBlock * this_ptr, app::HorizontalPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHODINFO(0x047636D8, SeinGrabBlock_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014AE340, void, HandleMovingBlock, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AE820, void, UpdateCharacterState, (app::SeinGrabBlock * this_ptr))
@@ -38,7 +38,7 @@ namespace app::methods::SeinGrabBlock {
     IL2CPP_REGISTER_METHOD(0x006D6470, bool, get_SpriteMirrorLock, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AF570, void, set_SpriteMirrorLock, (app::SeinGrabBlock * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x014AF630, void, GrabBlock, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x014AF8F0, app::IPushable *, FindPushableNearby, (app::SeinGrabBlock * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x014AF8F0, app::IPushable*, FindPushableNearby, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AF900, bool, ShouldGrabBlockIdleAnimationKeepPlaying, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0470B970, SeinGrabBlock_ShouldGrabBlockIdleAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014AF920, bool, ShouldGrabBlockCantPullAnimationKeepPlaying, (app::SeinGrabBlock * this_ptr))
@@ -55,8 +55,8 @@ namespace app::methods::SeinGrabBlock {
     IL2CPP_REGISTER_METHOD(0x014AFEC0, void, UpdatePullAnim, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014B01E0, void, EnterGrabPullState, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014B0200, bool, StillCloseToPushable, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x014B0220, app::IPushable *, DetectPushPullBlock, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x014B0A20, app::IPushable *, DetectIPushable, (app::SeinGrabBlock * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x014B0220, app::IPushable*, DetectPushPullBlock, (app::SeinGrabBlock * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x014B0A20, app::IPushable*, DetectIPushable, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014B12D0, void, UpdateSounds, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014B1B70, void, FinishPullSound, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014B1CD0, void, FinishPushSound, (app::SeinGrabBlock * this_ptr))
@@ -69,4 +69,4 @@ namespace app::methods::SeinGrabBlock {
     IL2CPP_REGISTER_METHODINFO(0x0478BE38, SeinGrabBlock__UpdateSounds_b__92_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B6C1D0, void, _UpdateSounds_b__92_1, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0470D9F8, SeinGrabBlock__UpdateSounds_b__92_1__MethodInfo)
-}
+} // namespace app::classes::SeinGrabBlock

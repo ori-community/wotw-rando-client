@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::StartLoopEndEffect {
+namespace app::classes::StartLoopEndEffect {
     IL2CPP_REGISTER_METHOD(0x009B19A0, void, OnEnable, (app::StartLoopEndEffect * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009B19C0, void, OnDisable, (app::StartLoopEndEffect * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009B19D0, void, EndEffect, (app::StartLoopEndEffect * this_ptr))
@@ -14,4 +14,4 @@ namespace app::methods::StartLoopEndEffect {
     IL2CPP_REGISTER_METHODINFO(0x0474FEC8, StartLoopEndEffect_OnCancelTimelineEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009B1C20, void, ChangeState, (app::StartLoopEndEffect * this_ptr, app::StartLoopEndEffect_State__Enum new_state))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::StartLoopEndEffect * this_ptr))
-}
+} // namespace app::classes::StartLoopEndEffect

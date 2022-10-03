@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SlugDamageReciever {
-    IL2CPP_REGISTER_METHOD(0x006C5340, void, OnRecieveDamage, (app::SlugDamageReciever * this_ptr, app::Damage * damage))
+namespace app::classes::SlugDamageReciever {
+    IL2CPP_REGISTER_METHOD(0x006C5340, void, OnRecieveDamage, (app::SlugDamageReciever * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x006C5370, void, ctor, (app::SlugDamageReciever * this_ptr))
-}
+} // namespace app::classes::SlugDamageReciever

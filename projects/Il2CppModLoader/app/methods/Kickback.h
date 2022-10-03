@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Kickback {
+namespace app::classes::Kickback {
     IL2CPP_REGISTER_METHOD(0x00863E90, float, get_TimeRemaining, (app::Kickback * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E71150, float, get_KickbackDuration, (app::Kickback * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00573170, float, get_KickbackMultiplier, (app::Kickback * this_ptr))
@@ -14,4 +14,4 @@ namespace app::methods::Kickback {
     IL2CPP_REGISTER_METHOD(0x00E71470, void, AdvanceTime, (app::Kickback * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008001B0, void, Stop, (app::Kickback * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::Kickback * this_ptr))
-}
+} // namespace app::classes::Kickback

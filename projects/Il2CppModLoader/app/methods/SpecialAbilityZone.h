@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SpecialAbilityZone {
+namespace app::classes::SpecialAbilityZone {
     IL2CPP_REGISTER_METHOD(0x00EF7470, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x00EF7540, bool, get_IsInside, ())
     IL2CPP_REGISTER_METHOD(0x00EF7830, bool, get_IsInsideRainbowZone, ())
@@ -11,4 +11,4 @@ namespace app::methods::SpecialAbilityZone {
     IL2CPP_REGISTER_METHOD(0x00886330, app::Rect, get_Bounds, (app::SpecialAbilityZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::SpecialAbilityZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EF7E90, void, cctor, ())
-}
+} // namespace app::classes::SpecialAbilityZone

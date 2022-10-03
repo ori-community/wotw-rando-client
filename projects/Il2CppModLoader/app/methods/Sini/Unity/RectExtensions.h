@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Sini::Unity::RectExtensions {
+namespace app::classes::Sini::Unity::RectExtensions {
     IL2CPP_REGISTER_METHOD(0x03115660, app::Rect, Below, (app::Rect source, app::Rect below_source))
     IL2CPP_REGISTER_METHOD(0x03115690, app::Vector2, PointLeftCenter, (app::Rect source))
     IL2CPP_REGISTER_METHOD(0x0182F1F0, app::Vector2, PointLeftTop, (app::Rect source))
@@ -77,12 +77,12 @@ namespace app::methods::Sini::Unity::RectExtensions {
     IL2CPP_REGISTER_METHOD(0x03116F20, app::Rect, ExtendDownToBottom, (app::Rect source, app::Rect target))
     IL2CPP_REGISTER_METHOD(0x03116F50, app::Rect, Above, (app::Rect source, app::Rect target))
     IL2CPP_REGISTER_METHOD(0x03116F80, app::Rect, AboveAll, (app::Rect source, app::Rect target, int32_t i))
-    IL2CPP_REGISTER_METHOD(0x03116FC0, app::Rect, Cover, (app::Rect source, app::Rect__Array * targets))
+    IL2CPP_REGISTER_METHOD(0x03116FC0, app::Rect, Cover, (app::Rect source, app::Rect__Array* targets))
     IL2CPP_REGISTER_METHOD(0x03117610, bool, Contains, (app::Rect source, app::Rect target))
     IL2CPP_REGISTER_METHOD(0x03117660, app::Rect, StretchedVerticallyAlong, (app::Rect source, app::Rect target))
     IL2CPP_REGISTER_METHOD(0x03117690, app::Rect, AddHeight, (app::Rect source, float height))
     IL2CPP_REGISTER_METHOD(0x031176B0, app::Rect, AddWidth, (app::Rect source, float width))
     IL2CPP_REGISTER_METHOD(0x031176D0, app::Rect, AddPosition, (app::Rect source, app::Vector2 position))
     IL2CPP_REGISTER_METHOD(0x03117710, app::Rect, Clamp_1, (app::Rect source, app::Rect target))
-    IL2CPP_REGISTER_METHOD(0x031177F0, void, Clamp_2, (app::Rect source, app::Vector2 * p1, app::Vector2 * p2))
-}
+    IL2CPP_REGISTER_METHOD(0x031177F0, void, Clamp_2, (app::Rect source, app::Vector2* p1, app::Vector2* p2))
+} // namespace app::classes::Sini::Unity::RectExtensions

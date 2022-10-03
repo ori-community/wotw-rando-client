@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MoonMath_Vector {
+namespace app::classes::MoonMath_Vector {
     IL2CPP_REGISTER_METHOD(0x02579E50, app::Vector2, ApplyCircleDeadzone, (app::Vector2 axis, float deadzone_radius))
     IL2CPP_REGISTER_METHOD(0x02579FB0, app::Vector2, ApplyRectangleDeadzone, (app::Vector2 axis, float deadzone_x, float deadzone_y))
     IL2CPP_REGISTER_METHOD(0x0257A0F0, app::Vector3, Abs, (app::Vector3 v))
@@ -16,5 +16,5 @@ namespace app::methods::MoonMath_Vector {
     IL2CPP_REGISTER_METHOD(0x018307C0, app::Vector2, Perpendicular, (app::Vector2 v))
     IL2CPP_REGISTER_METHOD(0x0257A5C0, app::Vector3, Lerp2d, (app::Vector3 a, app::Vector3 b, float k))
     IL2CPP_REGISTER_METHOD(0x0257A7B0, bool, LineIntersection_1, (app::Vector2 p1, app::Vector2 p2, app::Vector2 p3, app::Vector2 p4))
-    IL2CPP_REGISTER_METHOD(0x0257A7E0, bool, LineIntersection_2, (app::Vector2 p1, app::Vector2 p2, app::Vector2 p3, app::Vector2 p4, app::Vector2 * intersection))
-}
+    IL2CPP_REGISTER_METHOD(0x0257A7E0, bool, LineIntersection_2, (app::Vector2 p1, app::Vector2 p2, app::Vector2 p3, app::Vector2 p4, app::Vector2* intersection))
+} // namespace app::classes::MoonMath_Vector

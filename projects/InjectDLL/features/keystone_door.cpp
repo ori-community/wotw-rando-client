@@ -7,7 +7,7 @@
 #include <Il2CppModLoader/app/methods/MoonCustomDoorWithSlots.h>
 #include <Il2CppModLoader/app/methods/UberStateValueCondition.h>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     IL2CPP_INTERCEPT(SeinLogicCycle, bool, get_AllowInteraction, (app::SeinLogicCycle * this_ptr)) {

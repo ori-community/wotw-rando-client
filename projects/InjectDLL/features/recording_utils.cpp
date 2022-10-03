@@ -11,7 +11,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/windows_api/console.h>
 
-using namespace app::methods;
+using namespace app::classes;
 using namespace modloader::win;
 
 namespace {

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SystemIntegration::SwitchNetConnectivityChecker {
+namespace app::classes::SystemIntegration::SwitchNetConnectivityChecker {
     IL2CPP_REGISTER_METHOD(0x0052B120, void, ctor, (app::SwitchNetConnectivityChecker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052B450, bool, get_RunningInBackground, (app::SwitchNetConnectivityChecker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052B470, void, set_RunningInBackground, (app::SwitchNetConnectivityChecker * this_ptr, bool value))
@@ -20,4 +20,4 @@ namespace app::methods::SystemIntegration::SwitchNetConnectivityChecker {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, CheckNsaId, (app::SwitchNetConnectivityChecker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, EnsureValidNsaIdInCache, (app::SwitchNetConnectivityChecker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052B5E0, void, OnGUI, (app::SwitchNetConnectivityChecker * this_ptr))
-}
+} // namespace app::classes::SystemIntegration::SwitchNetConnectivityChecker

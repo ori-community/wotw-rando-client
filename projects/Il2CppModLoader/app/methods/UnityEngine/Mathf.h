@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Mathf {
+namespace app::classes::UnityEngine::Mathf {
     IL2CPP_REGISTER_METHOD(0x02534340, int32_t, ClosestPowerOfTwo, (int32_t value))
     IL2CPP_REGISTER_METHOD(0x02534390, bool, IsPowerOfTwo, (int32_t value))
     IL2CPP_REGISTER_METHOD(0x025343E0, int32_t, NextPowerOfTwo, (int32_t value))
@@ -47,13 +47,13 @@ namespace app::methods::UnityEngine::Mathf {
     IL2CPP_REGISTER_METHOD(0x02535B00, float, MoveTowardsAngle, (float current, float target, float max_delta))
     IL2CPP_REGISTER_METHOD(0x02535C30, float, SmoothStep, (float from, float to, float t))
     IL2CPP_REGISTER_METHOD(0x02535D40, bool, Approximately, (float a, float b))
-    IL2CPP_REGISTER_METHOD(0x02535E50, float, SmoothDamp_1, (float current, float target, float * current_velocity, float smooth_time, float max_speed))
-    IL2CPP_REGISTER_METHOD(0x02535F90, float, SmoothDamp_2, (float current, float target, float * current_velocity, float smooth_time))
-    IL2CPP_REGISTER_METHOD(0x025360D0, float, SmoothDamp_3, (float current, float target, float * current_velocity, float smooth_time, float max_speed, float delta_time))
-    IL2CPP_REGISTER_METHOD(0x025362B0, float, SmoothDampAngle_1, (float current, float target, float * current_velocity, float smooth_time))
-    IL2CPP_REGISTER_METHOD(0x025363F0, float, SmoothDampAngle_2, (float current, float target, float * current_velocity, float smooth_time, float max_speed, float delta_time))
+    IL2CPP_REGISTER_METHOD(0x02535E50, float, SmoothDamp_1, (float current, float target, float* current_velocity, float smooth_time, float max_speed))
+    IL2CPP_REGISTER_METHOD(0x02535F90, float, SmoothDamp_2, (float current, float target, float* current_velocity, float smooth_time))
+    IL2CPP_REGISTER_METHOD(0x025360D0, float, SmoothDamp_3, (float current, float target, float* current_velocity, float smooth_time, float max_speed, float delta_time))
+    IL2CPP_REGISTER_METHOD(0x025362B0, float, SmoothDampAngle_1, (float current, float target, float* current_velocity, float smooth_time))
+    IL2CPP_REGISTER_METHOD(0x025363F0, float, SmoothDampAngle_2, (float current, float target, float* current_velocity, float smooth_time, float max_speed, float delta_time))
     IL2CPP_REGISTER_METHOD(0x025364E0, float, Repeat, (float t, float length))
     IL2CPP_REGISTER_METHOD(0x025365C0, float, InverseLerp, (float a, float b, float value))
     IL2CPP_REGISTER_METHOD(0x025366B0, float, DeltaAngle, (float current, float target))
     IL2CPP_REGISTER_METHOD(0x02536780, void, cctor, ())
-}
+} // namespace app::classes::UnityEngine::Mathf

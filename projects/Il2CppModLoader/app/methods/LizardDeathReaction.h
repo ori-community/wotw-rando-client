@@ -1,14 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LizardDeathReaction {
-    IL2CPP_REGISTER_METHOD(0x00FA9E50, void, OnCacheSerializedComponents, (app::LizardDeathReaction * this_ptr, app::Entity * owner))
-    IL2CPP_REGISTER_METHOD(0x00FA9F10, void, OnInitializeTask, (app::LizardDeathReaction * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00FAA080, void, StartTimeline, (app::LizardDeathReaction * this_ptr, app::MoonTimeline * timeline))
-    IL2CPP_REGISTER_METHOD(0x00FAA0B0, void, ResetTimeline, (app::LizardDeathReaction * this_ptr, app::MoonTimeline * timeline))
-    IL2CPP_REGISTER_METHOD(0x00FAA2D0, void, OnEnterTask, (app::LizardDeathReaction * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00FAA9E0, app::BehaviourStatus__Enum, OnExecuteTask, (app::LizardDeathReaction * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00FAABA0, void, OnExitTask, (app::LizardDeathReaction * this_ptr, app::IContext * context))
+namespace app::classes::LizardDeathReaction {
+    IL2CPP_REGISTER_METHOD(0x00FA9E50, void, OnCacheSerializedComponents, (app::LizardDeathReaction * this_ptr, app::Entity* owner))
+    IL2CPP_REGISTER_METHOD(0x00FA9F10, void, OnInitializeTask, (app::LizardDeathReaction * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00FAA080, void, StartTimeline, (app::LizardDeathReaction * this_ptr, app::MoonTimeline* timeline))
+    IL2CPP_REGISTER_METHOD(0x00FAA0B0, void, ResetTimeline, (app::LizardDeathReaction * this_ptr, app::MoonTimeline* timeline))
+    IL2CPP_REGISTER_METHOD(0x00FAA2D0, void, OnEnterTask, (app::LizardDeathReaction * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00FAA9E0, app::BehaviourStatus__Enum, OnExecuteTask, (app::LizardDeathReaction * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00FAABA0, void, OnExitTask, (app::LizardDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00FAABF0, void, SetState, (app::LizardDeathReaction * this_ptr, app::LizardDeathReaction_DeathState__Enum state))
     IL2CPP_REGISTER_METHOD(0x00FAACB0, void, EnterState, (app::LizardDeathReaction * this_ptr, app::LizardDeathReaction_DeathState__Enum state))
     IL2CPP_REGISTER_METHOD(0x00FAAD20, void, ExitState, (app::LizardDeathReaction * this_ptr, app::LizardDeathReaction_DeathState__Enum state))
@@ -36,4 +36,4 @@ namespace app::methods::LizardDeathReaction {
     IL2CPP_REGISTER_METHODINFO(0x047950D0, LizardDeathReaction__EnterLand_b__42_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FABFB0, void, _EnterDrown_b__43_0, (app::LizardDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04785728, LizardDeathReaction__EnterDrown_b__43_0__MethodInfo)
-}
+} // namespace app::classes::LizardDeathReaction

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::PetrifiedOwlLaserBehaviour {
+namespace app::classes::Moon::PetrifiedOwlLaserBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C35730, void, OnStartBehaviour, (app::PetrifiedOwlLaserBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnUpdateBehaviour, (app::PetrifiedOwlLaserBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C35CA0, void, OnEndBehaviour, (app::PetrifiedOwlLaserBehaviour * this_ptr))
@@ -17,4 +17,4 @@ namespace app::methods::Moon::PetrifiedOwlLaserBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C36CD0, void, OnSampleOriPositionEventStart, (app::PetrifiedOwlLaserBehaviour * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04796000, PetrifiedOwlLaserBehaviour_OnSampleOriPositionEventStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C36DA0, void, ctor, (app::PetrifiedOwlLaserBehaviour * this_ptr))
-}
+} // namespace app::classes::Moon::PetrifiedOwlLaserBehaviour

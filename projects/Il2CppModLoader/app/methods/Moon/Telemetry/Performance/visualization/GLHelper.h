@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Telemetry::Performance::visualization::GLHelper {
+namespace app::classes::Moon::Telemetry::Performance::visualization::GLHelper {
     IL2CPP_REGISTER_METHOD(0x010A3D60, void, DrawRect, (float x1, float y1, float x2, float y2))
     IL2CPP_REGISTER_METHOD(0x010A3DF0, void, DrawNumber, (int32_t x, int32_t y, int32_t num, bool is_leading))
     IL2CPP_REGISTER_METHOD(0x010A4010, void, DrawDot, (int32_t x, int32_t y))
@@ -16,4 +16,4 @@ namespace app::methods::Moon::Telemetry::Performance::visualization::GLHelper {
     IL2CPP_REGISTER_METHOD(0x010A5A10, int32_t, LetterOffset, (int32_t letter))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GLHelper * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010A5AC0, void, cctor, ())
-}
+} // namespace app::classes::Moon::Telemetry::Performance::visualization::GLHelper

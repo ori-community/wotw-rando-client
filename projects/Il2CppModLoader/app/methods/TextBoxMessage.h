@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::TextBoxMessage {
+namespace app::classes::TextBoxMessage {
     IL2CPP_REGISTER_METHOD(0x010E4770, bool, get_OnButtonPressed, (app::TextBoxMessage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010E4830, bool, get_Active, (app::TextBoxMessage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010E4830, bool, get_IsInactive, (app::TextBoxMessage * this_ptr))
@@ -9,15 +9,15 @@ namespace app::methods::TextBoxMessage {
     IL2CPP_REGISTER_METHOD(0x009AD920, void, set_IsSuspended, (app::TextBoxMessage * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00855600, app::SuspendableMask__Enum, get_Mask, (app::TextBoxMessage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010E4870, void, set_Mask, (app::TextBoxMessage * this_ptr, app::SuspendableMask__Enum value))
-    IL2CPP_REGISTER_METHOD(0x010E4930, void, add_OnCompleteEvent, (app::TextBoxMessage * this_ptr, app::Action * value))
-    IL2CPP_REGISTER_METHOD(0x010E4A20, void, remove_OnCompleteEvent, (app::TextBoxMessage * this_ptr, app::Action * value))
-    IL2CPP_REGISTER_METHOD(0x010E4B10, void, AddLine, (app::TextBoxMessage * this_ptr, app::String * text))
+    IL2CPP_REGISTER_METHOD(0x010E4930, void, add_OnCompleteEvent, (app::TextBoxMessage * this_ptr, app::Action* value))
+    IL2CPP_REGISTER_METHOD(0x010E4A20, void, remove_OnCompleteEvent, (app::TextBoxMessage * this_ptr, app::Action* value))
+    IL2CPP_REGISTER_METHOD(0x010E4B10, void, AddLine, (app::TextBoxMessage * this_ptr, app::String* text))
     IL2CPP_REGISTER_METHOD(0x010E4BB0, void, Awake, (app::TextBoxMessage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010E5500, void, OnDestroy, (app::TextBoxMessage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010E55A0, void, Initialize, (app::TextBoxMessage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010E5890, void, EnterInactive, (app::TextBoxMessage * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047167F0, TextBoxMessage_EnterInactive__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x010E5970, app::Byte__Array *, StringToByteArray, (app::String * hex))
+    IL2CPP_REGISTER_METHOD(0x010E5970, app::Byte__Array*, StringToByteArray, (app::String * hex))
     IL2CPP_REGISTER_METHOD(0x010E5DC0, void, OnEnterWriting, (app::TextBoxMessage * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0471FE70, TextBoxMessage_OnEnterWriting__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x010E6500, void, PlayOriSpeech, (app::TextBoxMessage * this_ptr, int32_t text_length))
@@ -37,4 +37,4 @@ namespace app::methods::TextBoxMessage {
     IL2CPP_REGISTER_METHOD(0x010E7120, void, FixedUpdate, (app::TextBoxMessage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010E7200, void, StartWriting, (app::TextBoxMessage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010E7380, void, ctor, (app::TextBoxMessage * this_ptr))
-}
+} // namespace app::classes::TextBoxMessage

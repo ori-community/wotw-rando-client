@@ -1,13 +1,13 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Threading::ReaderWriterLockSlim {
+namespace app::classes::System::Threading::ReaderWriterLockSlim {
     IL2CPP_REGISTER_METHOD(0x02FD2290, void, InitializeThreadCounts, (app::ReaderWriterLockSlim * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02FD22A0, void, ctor_1, (app::ReaderWriterLockSlim * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02FD2340, void, ctor_2, (app::ReaderWriterLockSlim * this_ptr, app::LockRecursionPolicy__Enum recursion_policy))
     IL2CPP_REGISTER_METHOD(0x02FD2400, bool, IsRWEntryEmpty, (app::ReaderWriterCount * rwc))
-    IL2CPP_REGISTER_METHOD(0x02FD2440, bool, IsRwHashEntryChanged, (app::ReaderWriterLockSlim * this_ptr, app::ReaderWriterCount * lrwc))
-    IL2CPP_REGISTER_METHOD(0x02FD2460, app::ReaderWriterCount *, GetThreadRWCount, (app::ReaderWriterLockSlim * this_ptr, bool dont_allocate))
+    IL2CPP_REGISTER_METHOD(0x02FD2440, bool, IsRwHashEntryChanged, (app::ReaderWriterLockSlim * this_ptr, app::ReaderWriterCount* lrwc))
+    IL2CPP_REGISTER_METHOD(0x02FD2460, app::ReaderWriterCount*, GetThreadRWCount, (app::ReaderWriterLockSlim * this_ptr, bool dont_allocate))
     IL2CPP_REGISTER_METHOD(0x02FD26D0, void, EnterWriteLock, (app::ReaderWriterLockSlim * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02FD2710, bool, TryEnterWriteLock_1, (app::ReaderWriterLockSlim * this_ptr, int32_t milliseconds_timeout))
     IL2CPP_REGISTER_METHOD(0x02FD2750, bool, TryEnterWriteLock_2, (app::ReaderWriterLockSlim * this_ptr, app::ReaderWriterLockSlim_TimeoutTracker timeout))
@@ -22,8 +22,8 @@ namespace app::methods::System::Threading::ReaderWriterLockSlim {
     IL2CPP_REGISTER_METHODINFO(0x047295A8, ReaderWriterLockSlim_ExitWriteLock__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FD3380, void, ExitUpgradeableReadLock, (app::ReaderWriterLockSlim * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047202A0, ReaderWriterLockSlim_ExitUpgradeableReadLock__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x02FD3640, void, LazyCreateEvent, (app::ReaderWriterLockSlim * this_ptr, app::EventWaitHandle * * wait_event, bool make_auto_reset_event))
-    IL2CPP_REGISTER_METHOD(0x02FD38B0, bool, WaitOnEvent, (app::ReaderWriterLockSlim * this_ptr, app::EventWaitHandle * wait_event, uint32_t * num_waiters, app::ReaderWriterLockSlim_TimeoutTracker timeout, bool is_write_waiter))
+    IL2CPP_REGISTER_METHOD(0x02FD3640, void, LazyCreateEvent, (app::ReaderWriterLockSlim * this_ptr, app::EventWaitHandle** wait_event, bool make_auto_reset_event))
+    IL2CPP_REGISTER_METHOD(0x02FD38B0, bool, WaitOnEvent, (app::ReaderWriterLockSlim * this_ptr, app::EventWaitHandle* wait_event, uint32_t* num_waiters, app::ReaderWriterLockSlim_TimeoutTracker timeout, bool is_write_waiter))
     IL2CPP_REGISTER_METHOD(0x02FD3AA0, void, ExitAndWakeUpAppropriateWaiters, (app::ReaderWriterLockSlim * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02FD3B60, void, ExitAndWakeUpAppropriateWaitersPreferringWriters, (app::ReaderWriterLockSlim * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02FD3C00, void, ExitAndWakeUpAppropriateReadWaiters, (app::ReaderWriterLockSlim * this_ptr))
@@ -51,4 +51,4 @@ namespace app::methods::System::Threading::ReaderWriterLockSlim {
     IL2CPP_REGISTER_METHOD(0x0052A010, int32_t, get_WaitingReadCount, (app::ReaderWriterLockSlim * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00529E80, int32_t, get_WaitingUpgradeCount, (app::ReaderWriterLockSlim * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_WaitingWriteCount, (app::ReaderWriterLockSlim * this_ptr))
-}
+} // namespace app::classes::System::Threading::ReaderWriterLockSlim

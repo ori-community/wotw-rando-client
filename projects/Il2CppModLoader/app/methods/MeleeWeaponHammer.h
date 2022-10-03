@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MeleeWeaponHammer {
+namespace app::classes::MeleeWeaponHammer {
     IL2CPP_REGISTER_METHOD(0x009CD4A0, float, get_MoveDurationDept, (app::MeleeWeaponHammer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009CD4B0, void, set_MoveDurationDept, (app::MeleeWeaponHammer * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x009CD4C0, bool, get_IsDisolving, (app::MeleeWeaponHammer * this_ptr))
@@ -21,7 +21,7 @@ namespace app::methods::MeleeWeaponHammer {
     IL2CPP_REGISTER_METHOD(0x009CE230, void, Awake, (app::MeleeWeaponHammer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009CE2F0, void, PlayVanishEffect, (app::MeleeWeaponHammer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009CE4E0, void, PlayIdle, (app::MeleeWeaponHammer * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x009CE760, void, Initialize, (app::MeleeWeaponHammer * this_ptr, app::SeinComboHandler * handler))
+    IL2CPP_REGISTER_METHOD(0x009CE760, void, Initialize, (app::MeleeWeaponHammer * this_ptr, app::SeinComboHandler* handler))
     IL2CPP_REGISTER_METHOD(0x009CE950, void, OnBeginCombo, (app::MeleeWeaponHammer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009CEB90, void, OnEndCombo, (app::MeleeWeaponHammer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009CECC0, void, OnEquip, (app::MeleeWeaponHammer * this_ptr))
@@ -30,7 +30,7 @@ namespace app::methods::MeleeWeaponHammer {
     IL2CPP_REGISTER_METHOD(0x009CEE80, void, Update, (app::MeleeWeaponHammer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009CF130, void, ShowHammer, (app::MeleeWeaponHammer * this_ptr, bool force_fade_in))
     IL2CPP_REGISTER_METHOD(0x009CF5B0, void, HideHammer, (app::MeleeWeaponHammer * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x009CF7D0, void, OnWeaponCollision, (app::MeleeWeaponHammer * this_ptr, app::Collider * collider, app::Vector3 check_center, app::Vector3 hit_direction, app::Vector3 damage_position))
+    IL2CPP_REGISTER_METHOD(0x009CF7D0, void, OnWeaponCollision, (app::MeleeWeaponHammer * this_ptr, app::Collider* collider, app::Vector3 check_center, app::Vector3 hit_direction, app::Vector3 damage_position))
     IL2CPP_REGISTER_METHODINFO(0x04713958, MeleeWeaponHammer_OnWeaponCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009CF980, void, OnGroundCollision, (app::MeleeWeaponHammer * this_ptr, app::Vector3 hit_position, app::Vector3 hit_normal, app::Vector3 surface_normal, app::SurfaceMaterialType__Enum surface_type))
     IL2CPP_REGISTER_METHODINFO(0x04748A28, MeleeWeaponHammer_OnGroundCollision__MethodInfo)
@@ -46,4 +46,4 @@ namespace app::methods::MeleeWeaponHammer {
     IL2CPP_REGISTER_METHOD(0x009D0B10, void, set_Mask, (app::MeleeWeaponHammer * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x009D0BD0, app::TrackingExclusions, get_TrackingExclusions, (app::MeleeWeaponHammer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009D0BE0, void, ctor, (app::MeleeWeaponHammer * this_ptr))
-}
+} // namespace app::classes::MeleeWeaponHammer

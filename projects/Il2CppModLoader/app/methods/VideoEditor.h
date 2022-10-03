@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::VideoEditor {
-    IL2CPP_REGISTER_METHOD(0x008BBD50, uint32_t, Execute, (app::String * path, app::String * parameters, app::String * working_dir))
+namespace app::classes::VideoEditor {
+    IL2CPP_REGISTER_METHOD(0x008BBD50, uint32_t, Execute, (app::String * path, app::String* parameters, app::String* working_dir))
     IL2CPP_REGISTER_METHOD(0x008BC010, void, Start, (app::VideoEditor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x008BC9F0, void, Display, (app::VideoEditor * this_ptr, app::String * video_file))
+    IL2CPP_REGISTER_METHOD(0x008BC9F0, void, Display, (app::VideoEditor * this_ptr, app::String* video_file))
     IL2CPP_REGISTER_METHOD(0x008BCD80, void, Hide, (app::VideoEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008BCFE0, void, Play, (app::VideoEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008BD1F0, void, Pause, (app::VideoEditor * this_ptr))
@@ -19,12 +19,12 @@ namespace app::methods::VideoEditor {
     IL2CPP_REGISTER_METHOD(0x008BE2E0, void, Step, (app::VideoEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008BE340, void, SlowDown, (app::VideoEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008BE400, void, SpeedUp, (app::VideoEditor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x008BE4C0, app::String *, TimeToTimestamp, (app::VideoEditor * this_ptr, double time))
-    IL2CPP_REGISTER_METHOD(0x008BE640, void, EndReached, (app::VideoEditor * this_ptr, app::VideoPlayer * player))
+    IL2CPP_REGISTER_METHOD(0x008BE4C0, app::String*, TimeToTimestamp, (app::VideoEditor * this_ptr, double time))
+    IL2CPP_REGISTER_METHOD(0x008BE640, void, EndReached, (app::VideoEditor * this_ptr, app::VideoPlayer* player))
     IL2CPP_REGISTER_METHODINFO(0x04781E58, VideoEditor_EndReached__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x008BE690, void, SeekCompleted, (app::VideoEditor * this_ptr, app::VideoPlayer * player))
+    IL2CPP_REGISTER_METHOD(0x008BE690, void, SeekCompleted, (app::VideoEditor * this_ptr, app::VideoPlayer* player))
     IL2CPP_REGISTER_METHODINFO(0x04768EA8, VideoEditor_SeekCompleted__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x008BE6A0, void, PrepareCompleted, (app::VideoEditor * this_ptr, app::VideoPlayer * player))
+    IL2CPP_REGISTER_METHOD(0x008BE6A0, void, PrepareCompleted, (app::VideoEditor * this_ptr, app::VideoPlayer* player))
     IL2CPP_REGISTER_METHODINFO(0x0470C5B8, VideoEditor_PrepareCompleted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008BE720, void, SetTrimStart, (app::VideoEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008BE820, void, SetTrimEnd, (app::VideoEditor * this_ptr))
@@ -38,4 +38,4 @@ namespace app::methods::VideoEditor {
     IL2CPP_REGISTER_METHOD(0x008BFF60, float, GetProgress, (app::VideoEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008C00D0, void, ResizeVideo, (app::VideoEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008C0350, void, ctor, (app::VideoEditor * this_ptr))
-}
+} // namespace app::classes::VideoEditor

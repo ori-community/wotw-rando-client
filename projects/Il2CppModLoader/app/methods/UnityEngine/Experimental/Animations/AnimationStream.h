@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Experimental::Animations::AnimationStream {
+namespace app::classes::UnityEngine::Experimental::Animations::AnimationStream {
     IL2CPP_REGISTER_METHOD(0x001EBC90, uint32_t, get_animatorBindingsVersion, (app::AnimationStream__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00242880, bool, get_isValid, (app::AnimationStream__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00242890, void, CheckIsValid, (app::AnimationStream__Boxed * this_ptr))
@@ -29,12 +29,12 @@ namespace app::methods::UnityEngine::Experimental::Animations::AnimationStream {
     IL2CPP_REGISTER_METHOD(0x00243180, void, InternalWriteSceneTransforms, (app::AnimationStream__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03086AC0, float, GetDeltaTime_Injected, (app::AnimationStream * _unity_self))
     IL2CPP_REGISTER_METHOD(0x03086B10, bool, GetIsHumanStream_Injected, (app::AnimationStream * _unity_self))
-    IL2CPP_REGISTER_METHOD(0x03086B60, void, GetVelocity_Injected, (app::AnimationStream * _unity_self, app::Vector3 * ret))
-    IL2CPP_REGISTER_METHOD(0x03086BC0, void, GetAngularVelocity_Injected, (app::AnimationStream * _unity_self, app::Vector3 * ret))
-    IL2CPP_REGISTER_METHOD(0x03086C20, void, GetRootMotionPosition_Injected, (app::AnimationStream * _unity_self, app::Vector3 * ret))
-    IL2CPP_REGISTER_METHOD(0x03086C80, void, GetRootMotionRotation_Injected, (app::AnimationStream * _unity_self, app::Quaternion * ret))
+    IL2CPP_REGISTER_METHOD(0x03086B60, void, GetVelocity_Injected, (app::AnimationStream * _unity_self, app::Vector3* ret))
+    IL2CPP_REGISTER_METHOD(0x03086BC0, void, GetAngularVelocity_Injected, (app::AnimationStream * _unity_self, app::Vector3* ret))
+    IL2CPP_REGISTER_METHOD(0x03086C20, void, GetRootMotionPosition_Injected, (app::AnimationStream * _unity_self, app::Vector3* ret))
+    IL2CPP_REGISTER_METHOD(0x03086C80, void, GetRootMotionRotation_Injected, (app::AnimationStream * _unity_self, app::Quaternion* ret))
     IL2CPP_REGISTER_METHOD(0x03086CE0, int32_t, GetInputStreamCount_Injected, (app::AnimationStream * _unity_self))
-    IL2CPP_REGISTER_METHOD(0x03086D30, void, GetHumanStream_Injected, (app::AnimationStream * _unity_self, app::AnimationHumanStream * ret))
+    IL2CPP_REGISTER_METHOD(0x03086D30, void, GetHumanStream_Injected, (app::AnimationStream * _unity_self, app::AnimationHumanStream* ret))
     IL2CPP_REGISTER_METHOD(0x03086D90, void, InternalReadSceneTransforms_Injected, (app::AnimationStream * _unity_self))
     IL2CPP_REGISTER_METHOD(0x03086DE0, void, InternalWriteSceneTransforms_Injected, (app::AnimationStream * _unity_self))
-}
+} // namespace app::classes::UnityEngine::Experimental::Animations::AnimationStream

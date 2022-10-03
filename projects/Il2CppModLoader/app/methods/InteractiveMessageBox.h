@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::InteractiveMessageBox {
+namespace app::classes::InteractiveMessageBox {
     IL2CPP_REGISTER_METHOD(0x0063BC90, void, Awake, (app::InteractiveMessageBox * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0063BD50, void, OnDestroy, (app::InteractiveMessageBox * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0063BDF0, bool, get_OnButtonPressed, (app::InteractiveMessageBox * this_ptr))
@@ -22,4 +22,4 @@ namespace app::methods::InteractiveMessageBox {
     IL2CPP_REGISTER_METHOD(0x0063D0A0, void, set_Mask, (app::InteractiveMessageBox * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x0063D160, void, ctor, (app::InteractiveMessageBox * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())
-}
+} // namespace app::classes::InteractiveMessageBox

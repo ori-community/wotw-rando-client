@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Diagnostics::Tracing::EnumHelper_1_System_Int64_ {
+namespace app::classes::System::Diagnostics::Tracing::EnumHelper_1_System_Int64_ {
     IL2CPP_REGISTER_METHOD(0x02FF68C0, int64_t, Cast_1, (bool value))
     IL2CPP_REGISTER_METHOD(0x02FF68C0, int64_t, Cast_2, (uint8_t value))
     IL2CPP_REGISTER_METHOD(0x02FF6990, int64_t, Cast_3, (uint16_t value))
@@ -15,7 +15,7 @@ namespace app::methods::System::Diagnostics::Tracing::EnumHelper_1_System_Int64_
     IL2CPP_REGISTER_METHOD(0x02FF6990, int64_t, Cast_11, (int16_t value))
     IL2CPP_REGISTER_METHOD(0x02FF6DA0, int64_t, Cast_12, (int32_t value))
     IL2CPP_REGISTER_METHOD(0x02FF6E70, int64_t, Cast_13, (int64_t value))
-    IL2CPP_REGISTER_METHOD(0x02FF6E70, int64_t, Cast_14, (void * value))
+    IL2CPP_REGISTER_METHOD(0x02FF6E70, int64_t, Cast_14, (void* value))
     IL2CPP_REGISTER_METHOD(0x02FF6E70, int64_t, Cast_15, (app::Object * value))
     IL2CPP_REGISTER_METHOD(0x02FF68C0, int64_t, Cast_16, (int8_t value))
     IL2CPP_REGISTER_METHOD(0x02FF6CD0, int64_t, Cast_17, (float value))
@@ -23,6 +23,6 @@ namespace app::methods::System::Diagnostics::Tracing::EnumHelper_1_System_Int64_
     IL2CPP_REGISTER_METHOD(0x02FF6990, int64_t, Cast_19, (uint16_t value))
     IL2CPP_REGISTER_METHOD(0x02FF6DA0, int64_t, Cast_20, (uint32_t value))
     IL2CPP_REGISTER_METHOD(0x02FF6E70, int64_t, Cast_21, (uint64_t value))
-    IL2CPP_REGISTER_METHOD(0x02FF6E70, int64_t, Cast_22, (void * value))
+    IL2CPP_REGISTER_METHOD(0x02FF6E70, int64_t, Cast_22, (void* value))
     IL2CPP_REGISTER_METHOD(0x02F48500, void, cctor, ())
-}
+} // namespace app::classes::System::Diagnostics::Tracing::EnumHelper_1_System_Int64_

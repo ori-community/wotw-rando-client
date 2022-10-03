@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinUI {
+namespace app::classes::SeinUI {
     IL2CPP_REGISTER_METHOD(0x00AA25F0, float, get_SpiritLightTimer, (app::SeinUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AA2600, void, set_SpiritLightTimer, (app::SeinUI * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x00AA2610, void, ClampSpiritLightTimer_1, (app::SeinUI * this_ptr, float val))
@@ -43,12 +43,12 @@ namespace app::methods::SeinUI {
     IL2CPP_REGISTER_METHOD(0x00AA4420, void, set_DebugHideUI, (app::ShowUIType__Enum value))
     IL2CPP_REGISTER_METHOD(0x00AA4540, bool, DebugShouldHideUI, (app::SeinUI_UIZone__Enum zone))
     IL2CPP_REGISTER_METHOD(0x00AA4690, void, HudValueChanged, ())
-    IL2CPP_REGISTER_METHOD(0x00AA4830, app::String *, DynamicDebugInfo, ())
+    IL2CPP_REGISTER_METHOD(0x00AA4830, app::String*, DynamicDebugInfo, ())
     IL2CPP_REGISTER_METHOD(0x00AA4B40, bool, ShouldHideDynamic, (app::SeinUI_UIZone__Enum zone))
     IL2CPP_REGISTER_METHOD(0x00AA4E30, float, GetRemainingTime, (app::SeinUI_UIZone__Enum zone))
     IL2CPP_REGISTER_METHOD(0x00AA50D0, bool, get_ShouldShowHUDForHDRBrightness, (app::SeinUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AA50E0, void, ResetStatics, ())
-    IL2CPP_REGISTER_METHOD(0x00AA5200, void, SetActive, (app::SeinUI * this_ptr, app::GameObject * go, bool activate))
+    IL2CPP_REGISTER_METHOD(0x00AA5200, void, SetActive, (app::SeinUI * this_ptr, app::GameObject* go, bool activate))
     IL2CPP_REGISTER_METHOD(0x00AA5280, void, ShowSavingNotification, (app::SeinUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AA5290, bool, get_ShowSpiritLight, ())
     IL2CPP_REGISTER_METHOD(0x00AA5330, void, set_ShowSpiritLight, (bool value))
@@ -59,8 +59,8 @@ namespace app::methods::SeinUI {
     IL2CPP_REGISTER_METHOD(0x00AA73B0, void, RefreshBindingUI, (app::SeinUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AA7670, void, UpdateIconOpacity, (app::SeinUI * this_ptr, float opacity))
     IL2CPP_REGISTER_METHOD(0x00AA7880, void, RefreshBindingUIElement, (app::SeinUI * this_ptr, int32_t slot_index, app::AbilityType__Enum ability))
-    IL2CPP_REGISTER_METHOD(0x00AA8200, app::Transform *, GetAnchorByIndex, (app::SeinUI * this_ptr, int32_t index))
+    IL2CPP_REGISTER_METHOD(0x00AA8200, app::Transform*, GetAnchorByIndex, (app::SeinUI * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHODINFO(0x04707310, SeinUI_GetAnchorByIndex__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AA82E0, void, ctor, (app::SeinUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AA8510, void, cctor, ())
-}
+} // namespace app::classes::SeinUI

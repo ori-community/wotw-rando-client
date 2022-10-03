@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MoonInput {
+namespace app::classes::MoonInput {
     IL2CPP_REGISTER_METHOD(0x0145B130, bool, get_anyKeyDown, ())
     IL2CPP_REGISTER_METHOD(0x0145B180, bool, get_anyKey, ())
     IL2CPP_REGISTER_METHOD(0x0145B1D0, app::Vector3, get_mousePosition, ())
@@ -18,4 +18,4 @@ namespace app::methods::MoonInput {
     IL2CPP_REGISTER_METHOD(0x0145B520, bool, GetMouseButtonUp, (int32_t button))
     IL2CPP_REGISTER_METHOD(0x0145B570, bool, GetMouseButtonDown, (int32_t button))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MoonInput * this_ptr))
-}
+} // namespace app::classes::MoonInput

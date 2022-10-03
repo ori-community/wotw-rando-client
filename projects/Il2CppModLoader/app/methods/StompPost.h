@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::StompPost {
+namespace app::classes::StompPost {
     IL2CPP_REGISTER_METHOD(0x00653A60, app::Vector3, get_Position, (app::StompPost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeChargeFlamed, (app::StompPost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeChargeDashed, (app::StompPost * this_ptr))
@@ -23,7 +23,7 @@ namespace app::methods::StompPost {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeTeleportedByBeacon, (app::StompPost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeGlowed, (app::StompPost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsDead, (app::StompPost * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00653AF0, void, OnRecieveDamage, (app::StompPost * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x00653AF0, void, OnRecieveDamage, (app::StompPost * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CountsTowardsSuperJumpAchievement, (app::StompPost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00653F90, bool, get_IsSuspended, (app::StompPost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00653FA0, void, set_IsSuspended, (app::StompPost * this_ptr, bool value))
@@ -33,9 +33,9 @@ namespace app::methods::StompPost {
     IL2CPP_REGISTER_METHOD(0x006542F0, void, OnDestroy, (app::StompPost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00654390, void, Start, (app::StompPost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00654480, void, FixedUpdate, (app::StompPost * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006547F0, void, Serialize, (app::StompPost * this_ptr, app::Archive * ar))
-    IL2CPP_REGISTER_METHOD(0x002FBC20, app::IDamageReciever__Array *, get_AffectedReceivers, (app::StompPost * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006547F0, void, Serialize, (app::StompPost * this_ptr, app::Archive* ar))
+    IL2CPP_REGISTER_METHOD(0x002FBC20, app::IDamageReciever__Array*, get_AffectedReceivers, (app::StompPost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00654860, void, ctor, (app::StompPost * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject *, IDamageReciever_get_gameObject, (app::StompPost * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform *, IDamageReciever_get_transform, (app::StompPost * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, IDamageReciever_get_gameObject, (app::StompPost * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform*, IDamageReciever_get_transform, (app::StompPost * this_ptr))
+} // namespace app::classes::StompPost

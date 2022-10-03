@@ -31,7 +31,7 @@
 #include <uber_states/uber_state_interface.h>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     uber_states::UberState on_jump(UberStateGroup::GameState, 30);

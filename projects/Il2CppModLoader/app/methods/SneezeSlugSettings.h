@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SneezeSlugSettings {
+namespace app::classes::SneezeSlugSettings {
     IL2CPP_REGISTER_METHOD(0x00449EA0, float, get_GetSneezingSpeed, (app::SneezeSlugSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006A45A0, float, get_GetSneezingCooldown, (app::SneezeSlugSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00724020, float, get_GetSneezingRange, (app::SneezeSlugSettings * this_ptr))
@@ -13,21 +13,21 @@ namespace app::methods::SneezeSlugSettings {
     IL2CPP_REGISTER_METHOD(0x0091E0B0, float, get_GetBurrowingSpeed, (app::SneezeSlugSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EDFDE0, void, OnDrawGizmos, (app::SneezeSlugSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EE0020, void, ctor, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_1, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_2, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_3, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_4, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_5, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_6, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_7, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_8, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_9, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_10, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_11, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_12, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_13, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_14, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_15, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_16, (app::SneezeSlugSettings * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver *, GetResolverForType_17, (app::SneezeSlugSettings * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_1, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_2, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_3, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_4, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_5, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_6, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_7, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_8, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_9, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_10, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_11, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_12, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_13, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_14, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_15, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_16, (app::SneezeSlugSettings * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_17, (app::SneezeSlugSettings * this_ptr))
+} // namespace app::classes::SneezeSlugSettings

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::UI::LayoutElement {
+namespace app::classes::UnityEngine::UI::LayoutElement {
     IL2CPP_REGISTER_METHOD(0x024CEFE0, void, ctor, (app::LayoutElement * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0242E6B0, bool, get_ignoreLayout, (app::LayoutElement * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024CF020, void, set_ignoreLayout, (app::LayoutElement * this_ptr, bool value))
@@ -27,4 +27,4 @@ namespace app::methods::UnityEngine::UI::LayoutElement {
     IL2CPP_REGISTER_METHOD(0x024CF6C0, void, OnDidApplyAnimationProperties, (app::LayoutElement * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024CF6C0, void, OnBeforeTransformParentChanged, (app::LayoutElement * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024CF6D0, void, SetDirty, (app::LayoutElement * this_ptr))
-}
+} // namespace app::classes::UnityEngine::UI::LayoutElement

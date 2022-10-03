@@ -8,7 +8,7 @@
 #include <Il2CppModLoader/app/methods/TimeUtility.h>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 INJECT_C_DLLEXPORT bool in_menu();
 

@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Bubblemaker {
+namespace app::classes::Bubblemaker {
     IL2CPP_REGISTER_METHOD(0x00654950, app::SuspendableMask__Enum, get_Mask, (app::Bubblemaker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00804400, void, set_Mask, (app::Bubblemaker * this_ptr, app::SuspendableMask__Enum value))
-    IL2CPP_REGISTER_METHOD(0x008044B0, void, set_TimelineToPlay, (app::Bubblemaker * this_ptr, app::MoonTimeline * value))
+    IL2CPP_REGISTER_METHOD(0x008044B0, void, set_TimelineToPlay, (app::Bubblemaker * this_ptr, app::MoonTimeline* value))
     IL2CPP_REGISTER_METHOD(0x003FD650, bool, get_IsSuspended, (app::Bubblemaker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00800850, void, set_IsSuspended, (app::Bubblemaker * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00804590, void, Awake, (app::Bubblemaker * this_ptr))
@@ -19,4 +19,4 @@ namespace app::methods::Bubblemaker {
     IL2CPP_REGISTER_METHOD(0x008052A0, void, OnRaceStart, (app::Bubblemaker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00805380, void, OnSyncRaceTimer, (app::Bubblemaker * this_ptr, float time))
     IL2CPP_REGISTER_METHOD(0x00805420, void, ctor, (app::Bubblemaker * this_ptr))
-}
+} // namespace app::classes::Bubblemaker

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinLevel {
+namespace app::classes::SeinLevel {
     IL2CPP_REGISTER_METHOD(0x010226C0, int32_t, get_Experience, (app::SeinLevel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01022780, void, set_Experience, (app::SeinLevel * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x01022850, int32_t, get_Ore, (app::SeinLevel * this_ptr))
@@ -25,8 +25,8 @@ namespace app::methods::SeinLevel {
     IL2CPP_REGISTER_METHOD(0x01023310, void, LevelUp, (app::SeinLevel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010235C0, void, LoseExperience, (app::SeinLevel * this_ptr, int32_t amount))
     IL2CPP_REGISTER_METHOD(0x010236C0, void, LoseOre, (app::SeinLevel * this_ptr, int32_t amount))
-    IL2CPP_REGISTER_METHOD(0x01023710, void, SetReferenceToSein, (app::SeinLevel * this_ptr, app::SeinCharacter * sein))
+    IL2CPP_REGISTER_METHOD(0x01023710, void, SetReferenceToSein, (app::SeinLevel * this_ptr, app::SeinCharacter* sein))
     IL2CPP_REGISTER_METHOD(0x00E84200, void, GainSkillPoint, (app::SeinLevel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01023730, void, ctor, (app::SeinLevel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())
-}
+} // namespace app::classes::SeinLevel

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LegacyBabyWaterWorm {
+namespace app::classes::LegacyBabyWaterWorm {
     IL2CPP_REGISTER_METHOD(0x00C754B0, int32_t, get_BashPriority, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D80D0, app::Vector2, get_UpDirection, (app::LegacyBabyWaterWorm * this_ptr))
@@ -31,7 +31,7 @@ namespace app::methods::LegacyBabyWaterWorm {
     IL2CPP_REGISTER_METHOD(0x015DA120, void, OnDashUpdate, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015DA210, void, OnOutOfSandEnter, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015DA270, void, OnOutOfSandUpdate, (app::LegacyBabyWaterWorm * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x015DA2A0, void, OnCollisionEnter, (app::LegacyBabyWaterWorm * this_ptr, app::Collision * collision))
+    IL2CPP_REGISTER_METHOD(0x015DA2A0, void, OnCollisionEnter, (app::LegacyBabyWaterWorm * this_ptr, app::Collision* collision))
     IL2CPP_REGISTER_METHOD(0x015DA2F0, void, Explode, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015DA5D0, void, SetRotation, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015DA6C0, void, MoveOnDirection, (app::LegacyBabyWaterWorm * this_ptr, app::Vector2 desired_direction, float speed, float turn_speed, bool insta_speed))
@@ -43,7 +43,7 @@ namespace app::methods::LegacyBabyWaterWorm {
     IL2CPP_REGISTER_METHOD(0x015DAFD0, void, CheckForWaterZoneEnd, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015DA270, void, CheckForWaterZoneStart, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015DB000, bool, DigEdgeZoneEdgeAhead, (app::LegacyBabyWaterWorm * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x015DB0E0, app::WaterZone *, GetWaterZoneIntersectingPoint, (app::LegacyBabyWaterWorm * this_ptr, app::Vector3 center))
+    IL2CPP_REGISTER_METHOD(0x015DB0E0, app::WaterZone*, GetWaterZoneIntersectingPoint, (app::LegacyBabyWaterWorm * this_ptr, app::Vector3 center))
     IL2CPP_REGISTER_METHOD(0x015DB300, void, JumpOut, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015DB8B0, void, JumpIn, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015DBDF0, void, OnSuspended, (app::LegacyBabyWaterWorm * this_ptr))
@@ -72,12 +72,12 @@ namespace app::methods::LegacyBabyWaterWorm {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeGlowed, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015DC080, void, OnRecieveDamage, (app::LegacyBabyWaterWorm * this_ptr, app::DamageResult damage_result))
     IL2CPP_REGISTER_METHODINFO(0x04793028, LegacyBabyWaterWorm_OnRecieveDamage__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x015DC2C0, void, OnDamageDealt, (app::LegacyBabyWaterWorm * this_ptr, app::DamageDealer * damage_dealer, app::DamageResult damage_result))
+    IL2CPP_REGISTER_METHOD(0x015DC2C0, void, OnDamageDealt, (app::LegacyBabyWaterWorm * this_ptr, app::DamageDealer* damage_dealer, app::DamageResult damage_result))
     IL2CPP_REGISTER_METHODINFO(0x0470FDB8, LegacyBabyWaterWorm_OnDamageDealt__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x015DC2D0, void, AreaDamage, (app::LegacyBabyWaterWorm * this_ptr, app::GameObject * collided_object))
+    IL2CPP_REGISTER_METHOD(0x015DC2D0, void, AreaDamage, (app::LegacyBabyWaterWorm * this_ptr, app::GameObject* collided_object))
     IL2CPP_REGISTER_METHOD(0x015DC810, void, RefreshClosestTarget, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015DCEA0, void, OnProcessRootMotion, (app::LegacyBabyWaterWorm * this_ptr, app::Vector3 motion))
     IL2CPP_REGISTER_METHOD(0x015D7AF0, void, OnDrawGizmos, (app::LegacyBabyWaterWorm * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00720150, app::IDamageReciever__Array *, get_AffectedReceivers, (app::LegacyBabyWaterWorm * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00720150, app::IDamageReciever__Array*, get_AffectedReceivers, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015DCF90, void, ctor, (app::LegacyBabyWaterWorm * this_ptr))
-}
+} // namespace app::classes::LegacyBabyWaterWorm

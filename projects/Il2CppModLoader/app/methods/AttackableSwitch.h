@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AttackableSwitch {
+namespace app::classes::AttackableSwitch {
     IL2CPP_REGISTER_METHOD(0x00854340, bool, get_Activated, (app::AttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061E2E0, void, set_Activated, (app::AttackableSwitch * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x008543B0, bool, ShouldCreateCheckpoint, (app::AttackableSwitch * this_ptr))
@@ -9,7 +9,7 @@ namespace app::methods::AttackableSwitch {
     IL2CPP_REGISTER_METHOD(0x00854430, void, ToggleSwitch, (app::AttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00854550, void, TurnOn, (app::AttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008545C0, void, TurnOff, (app::AttackableSwitch * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00854630, void, Perform, (app::AttackableSwitch * this_ptr, app::StateChangeDefinition * def, app::AttackableSwitchSetupData * setup_data))
+    IL2CPP_REGISTER_METHOD(0x00854630, void, Perform, (app::AttackableSwitch * this_ptr, app::StateChangeDefinition* def, app::AttackableSwitchSetupData* setup_data))
     IL2CPP_REGISTER_METHOD(0x00854770, void, FixedUpdate, (app::AttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::AttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsDead, (app::AttackableSwitch * this_ptr))
@@ -33,7 +33,7 @@ namespace app::methods::AttackableSwitch {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeTeleportedByBeacon, (app::AttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeGlowed, (app::AttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00854880, bool, get_CanBeHit, (app::AttackableSwitch * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x008548D0, void, OnRecieveDamage, (app::AttackableSwitch * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x008548D0, void, OnRecieveDamage, (app::AttackableSwitch * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x00854B10, bool, DoesReactTo, (app::AttackableSwitch * this_ptr, app::DamageType__Enum damage_type))
     IL2CPP_REGISTER_METHOD(0x00854DA0, bool, Match, (app::AttackableSwitch * this_ptr, app::AttackableSwitch_AttackTypes__Enum attack, app::DamageType__Enum damage_type))
     IL2CPP_REGISTER_METHOD(0x00854F10, void, OnRestoreCheckpoint, (app::AttackableSwitch * this_ptr))
@@ -63,11 +63,11 @@ namespace app::methods::AttackableSwitch {
     IL2CPP_REGISTER_METHOD(0x00675C60, bool, ShouldArrowExplode, (app::AttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00675C60, bool, CanDetonateProjectiles, (app::AttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00855730, bool, get_IsOn, (app::AttackableSwitch * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00855740, app::IDesiredUberState *, GetRequirementsForTimeline, (app::AttackableSwitch * this_ptr, app::MoonTimeline * timeline))
-    IL2CPP_REGISTER_METHOD(0x002FBD00, app::Action_1_Damage_ *, get_DamageReceived, (app::AttackableSwitch * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBD10, void, set_DamageReceived, (app::AttackableSwitch * this_ptr, app::Action_1_Damage_ * value))
-    IL2CPP_REGISTER_METHOD(0x002FBD20, app::IDamageReciever__Array *, get_AffectedReceivers, (app::AttackableSwitch * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00855740, app::IDesiredUberState*, GetRequirementsForTimeline, (app::AttackableSwitch * this_ptr, app::MoonTimeline* timeline))
+    IL2CPP_REGISTER_METHOD(0x002FBD00, app::Action_1_Damage_*, get_DamageReceived, (app::AttackableSwitch * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBD10, void, set_DamageReceived, (app::AttackableSwitch * this_ptr, app::Action_1_Damage_* value))
+    IL2CPP_REGISTER_METHOD(0x002FBD20, app::IDamageReciever__Array*, get_AffectedReceivers, (app::AttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008559C0, void, ctor, (app::AttackableSwitch * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject *, IDamageReciever_get_gameObject, (app::AttackableSwitch * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform *, IDamageReciever_get_transform, (app::AttackableSwitch * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, IDamageReciever_get_gameObject, (app::AttackableSwitch * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform*, IDamageReciever_get_transform, (app::AttackableSwitch * this_ptr))
+} // namespace app::classes::AttackableSwitch

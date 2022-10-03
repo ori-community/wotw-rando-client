@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Rock {
+namespace app::classes::Rock {
     IL2CPP_REGISTER_METHOD(0x00E05C90, app::Vector3, get_Position, (app::Rock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E05D20, bool, IsDead, (app::Rock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeChargeFlamed, (app::Rock * this_ptr))
@@ -35,9 +35,9 @@ namespace app::methods::Rock {
     IL2CPP_REGISTER_METHOD(0x01358A90, void, Awake, (app::Rock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01358CD0, void, OnDestroy, (app::Rock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01358D90, void, Start, (app::Rock * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01358E80, void, OnCollisionEnter, (app::Rock * this_ptr, app::Collision * collision))
-    IL2CPP_REGISTER_METHOD(0x01358E80, void, OnCollisionStay, (app::Rock * this_ptr, app::Collision * collision))
+    IL2CPP_REGISTER_METHOD(0x01358E80, void, OnCollisionEnter, (app::Rock * this_ptr, app::Collision* collision))
+    IL2CPP_REGISTER_METHOD(0x01358E80, void, OnCollisionStay, (app::Rock * this_ptr, app::Collision* collision))
     IL2CPP_REGISTER_METHOD(0x01358E90, void, OnCollision, (app::Rock * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBB60, app::IDamageReciever__Array *, get_AffectedReceivers, (app::Rock * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBB60, app::IDamageReciever__Array*, get_AffectedReceivers, (app::Rock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01359070, void, ctor, (app::Rock * this_ptr))
-}
+} // namespace app::classes::Rock

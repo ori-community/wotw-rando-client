@@ -37,7 +37,7 @@
 #include <unordered_set>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 enum class WheelBehavior {
     Standalone,

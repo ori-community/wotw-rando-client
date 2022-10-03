@@ -15,7 +15,7 @@
 
 using namespace modloader;
 using namespace modloader::win;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     void visualizer_setup(dev::Visualizer& visualizer, std::vector<console::CommandParam> const& params, int default_level = 1, int default_depth = 200000) {

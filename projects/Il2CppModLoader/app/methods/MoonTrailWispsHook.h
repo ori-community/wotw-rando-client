@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MoonTrailWispsHook {
+namespace app::classes::MoonTrailWispsHook {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldDisable, (app::MoonTrailWispsHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldEnable, (app::MoonTrailWispsHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldChildrenEnable, (app::MoonTrailWispsHook * this_ptr))
@@ -30,4 +30,4 @@ namespace app::methods::MoonTrailWispsHook {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnPortalOverlapEnter, (app::MoonTrailWispsHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnPortalOverlapExit, (app::MoonTrailWispsHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014751E0, void, ctor, (app::MoonTrailWispsHook * this_ptr))
-}
+} // namespace app::classes::MoonTrailWispsHook

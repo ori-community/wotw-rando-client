@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::OriBar {
-    IL2CPP_REGISTER_METHOD(0x00621BF0, void, SetShowCondition, (app::OriBar * this_ptr, app::Func_1_Boolean_ * should_show_now))
+namespace app::classes::OriBar {
+    IL2CPP_REGISTER_METHOD(0x00621BF0, void, SetShowCondition, (app::OriBar * this_ptr, app::Func_1_Boolean_* should_show_now))
     IL2CPP_REGISTER_METHOD(0x00621C60, float, get_CurrentValue, (app::OriBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00621C90, float, get_MaxValue, (app::OriBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00621CC0, void, Awake, (app::OriBar * this_ptr))
@@ -20,4 +20,4 @@ namespace app::methods::OriBar {
     IL2CPP_REGISTER_METHOD(0x006230E0, void, ctor, (app::OriBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00623190, void, _PlayHideTimeline_b__45_0, (app::OriBar * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0474DC60, OriBar__PlayHideTimeline_b__45_0__MethodInfo)
-}
+} // namespace app::classes::OriBar

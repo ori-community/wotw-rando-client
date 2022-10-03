@@ -1,15 +1,15 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::HornBugDeathReaction {
-    IL2CPP_REGISTER_METHOD(0x00B69260, void, OnInitializeTask, (app::HornBugDeathReaction * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00B69510, void, StartTimeline, (app::HornBugDeathReaction * this_ptr, app::MoonTimeline * timeline, app::Action * on_stop))
-    IL2CPP_REGISTER_METHOD(0x00B69560, void, ResetTimeline, (app::HornBugDeathReaction * this_ptr, app::MoonTimeline * timeline))
+namespace app::classes::HornBugDeathReaction {
+    IL2CPP_REGISTER_METHOD(0x00B69260, void, OnInitializeTask, (app::HornBugDeathReaction * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00B69510, void, StartTimeline, (app::HornBugDeathReaction * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop))
+    IL2CPP_REGISTER_METHOD(0x00B69560, void, ResetTimeline, (app::HornBugDeathReaction * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x00B69780, void, HandleCollision, (app::HornBugDeathReaction * this_ptr, app::MoonControllerColliderHit hit))
     IL2CPP_REGISTER_METHODINFO(0x04703298, HornBugDeathReaction_HandleCollision__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00B697D0, void, OnEnterTask, (app::HornBugDeathReaction * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00B69C40, app::BehaviourStatus__Enum, OnExecuteTask, (app::HornBugDeathReaction * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00B69D70, void, OnExitTask, (app::HornBugDeathReaction * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x00B697D0, void, OnEnterTask, (app::HornBugDeathReaction * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00B69C40, app::BehaviourStatus__Enum, OnExecuteTask, (app::HornBugDeathReaction * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00B69D70, void, OnExitTask, (app::HornBugDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00B69DB0, void, SetState, (app::HornBugDeathReaction * this_ptr, app::HornBugDeathReaction_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x00B69E80, void, EnterState, (app::HornBugDeathReaction * this_ptr, app::HornBugDeathReaction_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x00B69F00, void, ExitState, (app::HornBugDeathReaction * this_ptr, app::HornBugDeathReaction_State__Enum state))
@@ -32,4 +32,4 @@ namespace app::methods::HornBugDeathReaction {
     IL2CPP_REGISTER_METHOD(0x00B6AEB0, void, ctor, (app::HornBugDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B6AF60, void, _EnterDeathEnd_b__36_0, (app::HornBugDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04784C60, HornBugDeathReaction__EnterDeathEnd_b__36_0__MethodInfo)
-}
+} // namespace app::classes::HornBugDeathReaction

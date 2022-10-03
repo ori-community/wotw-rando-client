@@ -1,0 +1,24 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace GhostTimelineEventsPlugin_PendingEvent {
+        namespace {
+            app::GhostTimelineEventsPlugin_PendingEvent__Class* type_info_ref = nullptr;
+        }
+        app::GhostTimelineEventsPlugin_PendingEvent__Class** type_info = &type_info_ref;
+        inline app::GhostTimelineEventsPlugin_PendingEvent__Class* get_class() {
+            return il2cpp::get_nested_class<app::GhostTimelineEventsPlugin_PendingEvent__Class>(type_info, "", "GhostTimelineEventsPlugin", "PendingEvent");
+        }
+        inline app::GhostTimelineEventsPlugin_PendingEvent* create() {
+            return il2cpp::create_object<app::GhostTimelineEventsPlugin_PendingEvent>(get_class());
+        }
+        inline app::GhostTimelineEventsPlugin_PendingEvent__Boxed* box(app::GhostTimelineEventsPlugin_PendingEvent value) {
+            return il2cpp::box_value<app::GhostTimelineEventsPlugin_PendingEvent__Boxed>(get_class(), value);
+        }
+        inline app::GhostTimelineEventsPlugin_PendingEvent__Array* create_array(int size) {
+            return il2cpp::array_new<app::GhostTimelineEventsPlugin_PendingEvent__Array>(get_class(), size);
+        }
+    } // namespace GhostTimelineEventsPlugin_PendingEvent
+} // namespace app::classes::types

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LegacyUberTransformFollowAnimator {
+namespace app::classes::LegacyUberTransformFollowAnimator {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsLooping, (app::LegacyUberTransformFollowAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C87D0, void, OnStartPlay, (app::LegacyUberTransformFollowAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01130390, void, CacheOriginals, (app::LegacyUberTransformFollowAnimator * this_ptr))
@@ -9,4 +9,4 @@ namespace app::methods::LegacyUberTransformFollowAnimator {
     IL2CPP_REGISTER_METHOD(0x01130790, float, get_Duration, (app::LegacyUberTransformFollowAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011307A0, void, RestoreToOriginalState, (app::LegacyUberTransformFollowAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01130990, void, ctor, (app::LegacyUberTransformFollowAnimator * this_ptr))
-}
+} // namespace app::classes::LegacyUberTransformFollowAnimator

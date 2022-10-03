@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::InterestSettings {
-    IL2CPP_REGISTER_METHOD(0x01103530, void, GetDebugMenuItems, (app::InterestSettings * this_ptr, app::List_1_IDebugMenuItem_ * list, app::String * menu_name))
+namespace app::classes::Moon::InterestSettings {
+    IL2CPP_REGISTER_METHOD(0x01103530, void, GetDebugMenuItems, (app::InterestSettings * this_ptr, app::List_1_IDebugMenuItem_* list, app::String* menu_name))
     IL2CPP_REGISTER_METHOD(0x01104220, void, ctor, (app::InterestSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C87B0, float, _GetDebugMenuItems_b__3_0, (app::InterestSettings * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0475C5D8, InterestSettings__GetDebugMenuItems_b__3_0__MethodInfo)
@@ -20,4 +20,4 @@ namespace app::methods::Moon::InterestSettings {
     IL2CPP_REGISTER_METHODINFO(0x04740BE0, InterestSettings__GetDebugMenuItems_b__3_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008FDC10, void, _GetDebugMenuItems_b__3_7, (app::InterestSettings * this_ptr, float f))
     IL2CPP_REGISTER_METHODINFO(0x0474CB50, InterestSettings__GetDebugMenuItems_b__3_7__MethodInfo)
-}
+} // namespace app::classes::Moon::InterestSettings

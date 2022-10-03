@@ -13,7 +13,7 @@
 
 using namespace modloader;
 using namespace modloader::win;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     struct BoundingRect {

@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::MoonAnimator_BlendInstance {
+namespace app::classes::Moon::MoonAnimator_BlendInstance {
     IL2CPP_REGISTER_METHOD(0x02112700, bool, get_HasValidInput, (app::MoonAnimator_BlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013AF3B0, int32_t, get_ValidInputCount, (app::MoonAnimator_BlendInstance * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB9F0, app::MoonAnimator_AnimationInstance__Array *, get_InputInstances, (app::MoonAnimator_BlendInstance * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB9F0, app::MoonAnimator_AnimationInstance__Array*, get_InputInstances, (app::MoonAnimator_BlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02112720, app::Playable, get_Playable, (app::MoonAnimator_BlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x021127E0, float, get_Speed, (app::MoonAnimator_BlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02112870, void, set_Speed, (app::MoonAnimator_BlendInstance * this_ptr, float value))
@@ -18,7 +18,7 @@ namespace app::methods::Moon::MoonAnimator_BlendInstance {
     IL2CPP_REGISTER_METHOD(0x02112D80, void, ReturnToPool, (app::MoonAnimator_BlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02111250, void, ShiftTime, (app::MoonAnimator_BlendInstance * this_ptr, float delta_time))
     IL2CPP_REGISTER_METHOD(0x02112E20, float, GetInputWeight, (app::MoonAnimator_BlendInstance * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHOD(0x02112EE0, void, OnRetrievedFromPool, (app::MoonAnimator_BlendInstance * this_ptr, app::IAnimation * animation))
+    IL2CPP_REGISTER_METHOD(0x02112EE0, void, OnRetrievedFromPool, (app::MoonAnimator_BlendInstance * this_ptr, app::IAnimation* animation))
     IL2CPP_REGISTER_METHOD(0x021132F0, void, OnReset, (app::MoonAnimator_BlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02113410, void, OnRetunedToPool, (app::MoonAnimator_BlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x021136F0, void, OnPrepare, (app::MoonAnimator_BlendInstance * this_ptr, float delta_time))
@@ -30,4 +30,4 @@ namespace app::methods::Moon::MoonAnimator_BlendInstance {
     IL2CPP_REGISTER_METHOD(0x02113F90, void, UpdateInputSpeeds, (app::MoonAnimator_BlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02114100, void, UpdateInputWeights, (app::MoonAnimator_BlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MoonAnimator_BlendInstance * this_ptr))
-}
+} // namespace app::classes::Moon::MoonAnimator_BlendInstance

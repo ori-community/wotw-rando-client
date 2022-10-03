@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RootMotion::QuaTools {
+namespace app::classes::RootMotion::QuaTools {
     IL2CPP_REGISTER_METHOD(0x02A2C380, app::Quaternion, LinearBlend, (app::Quaternion q, float weight))
     IL2CPP_REGISTER_METHOD(0x02A2C590, app::Quaternion, SphericalBlend, (app::Quaternion q, float weight))
     IL2CPP_REGISTER_METHOD(0x02A2C7A0, app::Quaternion, FromToAroundAxis, (app::Vector3 from_direction, app::Vector3 to_direction, app::Vector3 axis))
@@ -10,4 +10,4 @@ namespace app::methods::RootMotion::QuaTools {
     IL2CPP_REGISTER_METHOD(0x02A2CF50, app::Vector3, GetAxis, (app::Vector3 v))
     IL2CPP_REGISTER_METHOD(0x02A2D320, app::Quaternion, ClampRotation, (app::Quaternion rotation, float clamp_weight, int32_t clamp_smoothing))
     IL2CPP_REGISTER_METHOD(0x02A2D5D0, float, ClampAngle, (float angle, float clamp_weight, int32_t clamp_smoothing))
-}
+} // namespace app::classes::RootMotion::QuaTools

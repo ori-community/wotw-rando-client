@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PetrifiedOwlFeedingGrounds::FeedingGroundsPetrifiedOwlController {
+namespace app::classes::PetrifiedOwlFeedingGrounds::FeedingGroundsPetrifiedOwlController {
     IL2CPP_REGISTER_METHOD(0x014D9C60, bool, get_ShowDebug, ())
     IL2CPP_REGISTER_METHOD(0x014D9D00, void, set_ShowDebug, (bool value))
     IL2CPP_REGISTER_METHOD(0x014D9E30, app::Quaternion, get_RootMotionRotation, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
@@ -39,7 +39,7 @@ namespace app::methods::PetrifiedOwlFeedingGrounds::FeedingGroundsPetrifiedOwlCo
     IL2CPP_REGISTER_METHOD(0x014DD560, void, PlayKillSweep, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04702EE8, FeedingGroundsPetrifiedOwlController_PlayKillSweep__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014DD860, app::Vector3, GetKillSweepOffset, (app::FeedingGroundsPetrifiedOwlController * this_ptr, app::FeedingGroundsPetrifiedOwlController_KillType__Enum kill_type))
-    IL2CPP_REGISTER_METHOD(0x014DD8C0, app::MoonTimeline *, GetKillSweepTimeline, (app::FeedingGroundsPetrifiedOwlController * this_ptr, app::FeedingGroundsPetrifiedOwlController_KillType__Enum kill_type))
+    IL2CPP_REGISTER_METHOD(0x014DD8C0, app::MoonTimeline*, GetKillSweepTimeline, (app::FeedingGroundsPetrifiedOwlController * this_ptr, app::FeedingGroundsPetrifiedOwlController_KillType__Enum kill_type))
     IL2CPP_REGISTER_METHOD(0x014DD8F0, void, SetPartAReadyToDestroy, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014DD950, void, FinishPartAEnter, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04717E30, FeedingGroundsPetrifiedOwlController_FinishPartAEnter__MethodInfo)
@@ -58,17 +58,17 @@ namespace app::methods::PetrifiedOwlFeedingGrounds::FeedingGroundsPetrifiedOwlCo
     IL2CPP_REGISTER_METHODINFO(0x04790BE8, FeedingGroundsPetrifiedOwlController_WaitUntilEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014DDFE0, void, PlayEndIdle, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04797DA8, FeedingGroundsPetrifiedOwlController_PlayEndIdle__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x014DE090, void, PlayTimeline, (app::FeedingGroundsPetrifiedOwlController * this_ptr, app::MoonTimeline * timeline, app::Action * on_stop_event))
+    IL2CPP_REGISTER_METHOD(0x014DE090, void, PlayTimeline, (app::FeedingGroundsPetrifiedOwlController * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop_event))
     IL2CPP_REGISTER_METHOD(0x014DE1D0, void, StopCurrentTimeline, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014DE2C0, void, SetReadyToRun, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0474D520, FeedingGroundsPetrifiedOwlController_SetReadyToRun__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014DE3B0, void, TryKillOri, (app::FeedingGroundsPetrifiedOwlController * this_ptr, bool instantly))
     IL2CPP_REGISTER_METHOD(0x014DE550, void, TakeOff, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x014DE8B0, app::MoonTimeline *, GetCurrentTakeOffTimeline, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x014DE8B0, app::MoonTimeline*, GetCurrentTakeOffTimeline, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014DEA20, void, HideOwl, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0476D578, FeedingGroundsPetrifiedOwlController_HideOwl__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014DEA90, void, ShowOwl, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014DEBD0, void, OnGUI, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014DEDA0, void, ctor, (app::FeedingGroundsPetrifiedOwlController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())
-}
+} // namespace app::classes::PetrifiedOwlFeedingGrounds::FeedingGroundsPetrifiedOwlController

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PetrifiedOwlFeedingGrounds::PetrifiedOwlFeedingGroundsPOwlController {
+namespace app::classes::PetrifiedOwlFeedingGrounds::PetrifiedOwlFeedingGroundsPOwlController {
     IL2CPP_REGISTER_METHOD(0x014E2CA0, void, OnEnable, (app::PetrifiedOwlFeedingGroundsPOwlController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Start, (app::PetrifiedOwlFeedingGroundsPOwlController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014E2DF0, void, Update, (app::PetrifiedOwlFeedingGroundsPOwlController * this_ptr))
@@ -14,6 +14,6 @@ namespace app::methods::PetrifiedOwlFeedingGrounds::PetrifiedOwlFeedingGroundsPO
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Pause, (app::PetrifiedOwlFeedingGroundsPOwlController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014E37A0, void, Final, (app::PetrifiedOwlFeedingGroundsPOwlController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014E38D0, void, Stop, (app::PetrifiedOwlFeedingGroundsPOwlController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x014E3950, app::String *, GetStateToString, (app::PetrifiedOwlFeedingGroundsPOwlController * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x014E3950, app::String*, GetStateToString, (app::PetrifiedOwlFeedingGroundsPOwlController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::PetrifiedOwlFeedingGroundsPOwlController * this_ptr))
-}
+} // namespace app::classes::PetrifiedOwlFeedingGrounds::PetrifiedOwlFeedingGroundsPOwlController

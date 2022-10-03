@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AkPositioningInfo {
-    IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkPositioningInfo * this_ptr, void * c_ptr, bool c_memory_own))
-    IL2CPP_REGISTER_METHOD(0x0188FBD0, void *, getCPtr, (app::AkPositioningInfo * obj))
-    IL2CPP_REGISTER_METHOD(0x01880C50, void, setCPtr, (app::AkPositioningInfo * this_ptr, void * c_ptr))
+namespace app::classes::AkPositioningInfo {
+    IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkPositioningInfo * this_ptr, void* c_ptr, bool c_memory_own))
+    IL2CPP_REGISTER_METHOD(0x0188FBD0, void*, getCPtr, (app::AkPositioningInfo * obj))
+    IL2CPP_REGISTER_METHOD(0x01880C50, void, setCPtr, (app::AkPositioningInfo * this_ptr, void* c_ptr))
     IL2CPP_REGISTER_METHOD(0x0188FC60, void, Finalize, (app::AkPositioningInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0188FCE0, void, Dispose, (app::AkPositioningInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0188FEF0, void, set_fCenterPct, (app::AkPositioningInfo * this_ptr, float value))
@@ -44,4 +44,4 @@ namespace app::methods::AkPositioningInfo {
     IL2CPP_REGISTER_METHOD(0x01892670, void, set_HPFValueAtMaxDist, (app::AkPositioningInfo * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x018927A0, float, get_HPFValueAtMaxDist, (app::AkPositioningInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018928C0, void, ctor_2, (app::AkPositioningInfo * this_ptr))
-}
+} // namespace app::classes::AkPositioningInfo

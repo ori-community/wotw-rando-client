@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::HealthBar {
+namespace app::classes::HealthBar {
     IL2CPP_REGISTER_METHOD(0x006FE430, float, get_Value, (app::HealthBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0109F220, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x0109F2D0, void, CacheOriginals, (app::HealthBar * this_ptr))
@@ -25,5 +25,5 @@ namespace app::methods::HealthBar {
     IL2CPP_REGISTER_METHOD(0x010A09B0, app::Vector4, GetTextureOffsetByValue, (app::HealthBar * this_ptr, float normalized_value))
     IL2CPP_REGISTER_METHOD(0x010A09F0, void, ctor, (app::HealthBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010A0AD0, void, cctor, ())
-    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject *, IDisableOnRecordablePreview_get_gameObject, (app::HealthBar * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, IDisableOnRecordablePreview_get_gameObject, (app::HealthBar * this_ptr))
+} // namespace app::classes::HealthBar

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UberSpawnManager {
+namespace app::classes::UberSpawnManager {
     IL2CPP_REGISTER_METHOD(0x00446960, float, get_FrameBudgetSpent, (app::UberSpawnManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0128A7D0, void, Awake, (app::UberSpawnManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0128A860, bool, GetSpawnOk, (app::UberSpawnManager * this_ptr))
@@ -10,4 +10,4 @@ namespace app::methods::UberSpawnManager {
     IL2CPP_REGISTER_METHOD(0x0128AF50, void, StartSpawn, (app::UberSpawnManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0128AFB0, void, StopSpawn, (app::UberSpawnManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00506160, void, ctor, (app::UberSpawnManager * this_ptr))
-}
+} // namespace app::classes::UberSpawnManager

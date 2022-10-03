@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::DynamicBrightnessSource {
+namespace app::classes::DynamicBrightnessSource {
     IL2CPP_REGISTER_METHOD(0x00BE8F10, app::Vector2, get_CameraPosition, (app::DynamicBrightnessSource * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BE90D0, bool, get_IsWithinRadius, (app::DynamicBrightnessSource * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BE90F0, float, get_RadiusDiff, (app::DynamicBrightnessSource * this_ptr))
@@ -25,4 +25,4 @@ namespace app::methods::DynamicBrightnessSource {
     IL2CPP_REGISTER_METHOD(0x00BE9770, void, UpdateBounds, (app::DynamicBrightnessSource * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BE9930, void, OnDrawGizmosSelected, (app::DynamicBrightnessSource * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BE9B50, void, ctor, (app::DynamicBrightnessSource * this_ptr))
-}
+} // namespace app::classes::DynamicBrightnessSource

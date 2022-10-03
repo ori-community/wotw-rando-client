@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::J2i::Net::XInputWrapper::XboxController {
+namespace app::classes::J2i::Net::XInputWrapper::XboxController {
     IL2CPP_REGISTER_METHOD(0x031B8910, void, set_UpdateFrequency, (int32_t value))
     IL2CPP_REGISTER_METHOD(0x031B89D0, void, cctor, ())
-    IL2CPP_REGISTER_METHOD(0x031B8E20, app::XboxController *, RetrieveController, (int32_t index))
+    IL2CPP_REGISTER_METHOD(0x031B8E20, app::XboxController*, RetrieveController, (int32_t index))
     IL2CPP_REGISTER_METHOD(0x031B8EF0, void, ctor, (app::XboxController * this_ptr, int32_t player_index))
     IL2CPP_REGISTER_METHOD(0x031B8F70, void, OnStateChanged, (app::XboxController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031B9170, bool, get_IsDPadUpPressed, (app::XboxController * this_ptr))
@@ -37,5 +37,5 @@ namespace app::methods::J2i::Net::XInputWrapper::XboxController {
     IL2CPP_REGISTER_METHOD(0x031B9D20, void, Vibrate_1, (app::XboxController * this_ptr, double left_motor, double right_motor))
     IL2CPP_REGISTER_METHOD(0x031B9E00, void, Vibrate_2, (app::XboxController * this_ptr, double left_motor, double right_motor, app::TimeSpan length))
     IL2CPP_REGISTER_METHOD(0x031BA030, void, Vibrate_3, (app::XboxController * this_ptr, app::XInputVibration strength, app::TimeSpan length))
-    IL2CPP_REGISTER_METHOD(0x031BA140, app::String *, ToString, (app::XboxController * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x031BA140, app::String*, ToString, (app::XboxController * this_ptr))
+} // namespace app::classes::J2i::Net::XInputWrapper::XboxController

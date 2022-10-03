@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Net::Configuration::SettingsSectionInternal {
-    IL2CPP_REGISTER_METHOD(0x01E98AE0, app::SettingsSectionInternal *, get_Section, ())
+namespace app::classes::System::Net::Configuration::SettingsSectionInternal {
+    IL2CPP_REGISTER_METHOD(0x01E98AE0, app::SettingsSectionInternal*, get_Section, ())
     IL2CPP_REGISTER_METHOD(0x0052A280, bool, get_UseNagleAlgorithm, (app::SettingsSectionInternal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00533150, void, set_UseNagleAlgorithm, (app::SettingsSectionInternal * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00533160, bool, get_Expect100Continue, (app::SettingsSectionInternal * this_ptr))
@@ -20,4 +20,4 @@ namespace app::methods::System::Net::Configuration::SettingsSectionInternal {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_Ipv6Enabled, (app::SettingsSectionInternal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E98B90, void, ctor, (app::SettingsSectionInternal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E98BA0, void, cctor, ())
-}
+} // namespace app::classes::System::Net::Configuration::SettingsSectionInternal

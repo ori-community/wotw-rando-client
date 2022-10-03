@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::GlobalBrightnessController {
+namespace app::classes::GlobalBrightnessController {
     IL2CPP_REGISTER_METHOD(0x007F5EF0, float, get_GlobalBrightness, ())
     IL2CPP_REGISTER_METHOD(0x007F5F90, void, set_GlobalBrightness, (float value))
     IL2CPP_REGISTER_METHOD(0x007F6040, float, get_GlobalBrightnessDebugOverride, ())
@@ -18,4 +18,4 @@ namespace app::methods::GlobalBrightnessController {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, StopListeningToSceneEvents, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GlobalBrightnessController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007F7500, void, cctor, ())
-}
+} // namespace app::classes::GlobalBrightnessController

@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Threading::ManualResetEventSlim {
-    IL2CPP_REGISTER_METHOD(0x027DE960, app::WaitHandle *, get_WaitHandle, (app::ManualResetEventSlim * this_ptr))
+namespace app::classes::System::Threading::ManualResetEventSlim {
+    IL2CPP_REGISTER_METHOD(0x027DE960, app::WaitHandle*, get_WaitHandle, (app::ManualResetEventSlim * this_ptr))
     IL2CPP_REGISTER_METHOD(0x027DE9A0, bool, get_IsSet, (app::ManualResetEventSlim * this_ptr))
     IL2CPP_REGISTER_METHOD(0x027DEA40, void, set_IsSet, (app::ManualResetEventSlim * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x027DEA70, int32_t, get_SpinCount, (app::ManualResetEventSlim * this_ptr))
@@ -30,4 +30,4 @@ namespace app::methods::System::Threading::ManualResetEventSlim {
     IL2CPP_REGISTER_METHOD(0x027E0180, int32_t, ExtractStatePortionAndShiftRight, (int32_t state, int32_t mask, int32_t right_bit_shift_count))
     IL2CPP_REGISTER_METHOD(0x027E0190, int32_t, ExtractStatePortion, (int32_t state, int32_t mask))
     IL2CPP_REGISTER_METHOD(0x027E01A0, void, cctor, ())
-}
+} // namespace app::classes::System::Threading::ManualResetEventSlim

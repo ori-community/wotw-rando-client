@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SmartGUIText {
+namespace app::classes::SmartGUIText {
     IL2CPP_REGISTER_METHOD(0x03117D00, void, Initialize, ())
     IL2CPP_REGISTER_METHOD(0x03117DB0, void, AssertInitialized, ())
     IL2CPP_REGISTER_METHOD(0x03117F10, void, AssertEnoughCache, (int32_t n))
@@ -11,4 +11,4 @@ namespace app::methods::SmartGUIText {
     IL2CPP_REGISTER_METHOD(0x03118390, void, Label_2, (app::Rect rect, float f, int32_t digits))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SmartGUIText * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03118650, void, cctor, ())
-}
+} // namespace app::classes::SmartGUIText

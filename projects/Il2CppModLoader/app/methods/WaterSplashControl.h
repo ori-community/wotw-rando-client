@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::WaterSplashControl {
+namespace app::classes::WaterSplashControl {
     IL2CPP_REGISTER_METHOD(0x00623240, float, get_DeltaTime, (app::WaterSplashControl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00420EE0, int32_t, get_TimelineSamplePriority, (app::WaterSplashControl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnEnable, (app::WaterSplashControl * this_ptr))
@@ -17,4 +17,4 @@ namespace app::methods::WaterSplashControl {
     IL2CPP_REGISTER_METHOD(0x008E2130, void, EnterTimelinePreview, (app::WaterSplashControl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005EA190, void, ExitTimelinePreview, (app::WaterSplashControl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008E2150, void, ctor, (app::WaterSplashControl * this_ptr))
-}
+} // namespace app::classes::WaterSplashControl

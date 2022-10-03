@@ -10,7 +10,7 @@
 #include <event_bus.h>
 #include <game/game.h>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     constexpr float DIALOGUE_SKIP_INITIAL_INTERVAL = 0.2f;

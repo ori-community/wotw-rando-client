@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PurchaseThingScreen {
-    IL2CPP_REGISTER_METHOD(0x00420EE0, app::CleverMenuItemSelectionManager *, get_NavigationManager, (app::PurchaseThingScreen * this_ptr))
+namespace app::classes::PurchaseThingScreen {
+    IL2CPP_REGISTER_METHOD(0x00420EE0, app::CleverMenuItemSelectionManager*, get_NavigationManager, (app::PurchaseThingScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006514B0, bool, get_IsShopOpen, (app::PurchaseThingScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C80ED0, float, get_VisualProgress, (app::PurchaseThingScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C80EF0, void, OnEnable, (app::PurchaseThingScreen * this_ptr))
@@ -16,4 +16,4 @@ namespace app::methods::PurchaseThingScreen {
     IL2CPP_REGISTER_METHOD(0x00C81870, void, InternalComplete, (app::PurchaseThingScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C81B50, void, PurchaseBegin, (app::PurchaseThingScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C81B90, void, ctor, (app::PurchaseThingScreen * this_ptr))
-}
+} // namespace app::classes::PurchaseThingScreen

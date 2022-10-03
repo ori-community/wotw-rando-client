@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Wwise::WwiseBootstrap {
+namespace app::classes::Moon::Wwise::WwiseBootstrap {
     IL2CPP_REGISTER_METHOD(0x0270F980, bool, get_IsProfilerRecording, ())
     IL2CPP_REGISTER_METHOD(0x0270FA20, void, set_IsProfilerRecording, (bool value))
     IL2CPP_REGISTER_METHOD(0x0270FAD0, void, ToggleProfilerRecording, ())
@@ -25,7 +25,7 @@ namespace app::methods::Moon::Wwise::WwiseBootstrap {
     IL2CPP_REGISTER_METHOD(0x02711740, void, OnApplicationQuit, (app::WwiseBootstrap * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02711770, void, Dispose, (app::WwiseBootstrap * this_ptr))
     IL2CPP_REGISTER_METHOD(0x027119A0, void, LateUpdate, (app::WwiseBootstrap * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x02711B80, app::String *, ParseArgument, (app::String * flag))
+    IL2CPP_REGISTER_METHOD(0x02711B80, app::String*, ParseArgument, (app::String * flag))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::WwiseBootstrap * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02711FA0, void, cctor, ())
-}
+} // namespace app::classes::Moon::Wwise::WwiseBootstrap

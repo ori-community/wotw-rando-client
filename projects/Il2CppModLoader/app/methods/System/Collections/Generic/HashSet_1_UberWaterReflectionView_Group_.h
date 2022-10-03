@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Collections::Generic::HashSet_1_UberWaterReflectionView_Group_ {
-    IL2CPP_REGISTER_METHOD(0x02AB4A60, bool, Add, (app::HashSet_1_UberWaterReflectionView_Group_ * this_ptr, app::UberWaterReflectionView_Group * item))
+namespace app::classes::System::Collections::Generic::HashSet_1_UberWaterReflectionView_Group_ {
+    IL2CPP_REGISTER_METHOD(0x02AB4A60, bool, Add, (app::HashSet_1_UberWaterReflectionView_Group_ * this_ptr, app::UberWaterReflectionView_Group* item))
     IL2CPP_REGISTER_METHODINFO(0x0475CBC8, HashSet_1_UberWaterReflectionView_Group__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FD1D0, int32_t, get_Count, (app::HashSet_1_UberWaterReflectionView_Group_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0474B870, HashSet_1_UberWaterReflectionView_Group__get_Count__MethodInfo)
@@ -12,4 +12,4 @@ namespace app::methods::System::Collections::Generic::HashSet_1_UberWaterReflect
     IL2CPP_REGISTER_METHODINFO(0x04757CE8, HashSet_1_UberWaterReflectionView_Group__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02AB4370, void, ctor, (app::HashSet_1_UberWaterReflectionView_Group_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047975A8, HashSet_1_UberWaterReflectionView_Group___ctor__MethodInfo)
-}
+} // namespace app::classes::System::Collections::Generic::HashSet_1_UberWaterReflectionView_Group_

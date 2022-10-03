@@ -1,15 +1,15 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SneezeSlugBurrowBehaviour {
-    IL2CPP_REGISTER_METHOD(0x00ED5050, bool, IsBlockingInterruption, (app::SneezeSlugBurrowBehaviour * this_ptr, app::EntityDamageEvent * damage_event, app::EntityReactionBehaviour_ReasonWhyReactionWontInterrupt * reason))
+namespace app::classes::SneezeSlugBurrowBehaviour {
+    IL2CPP_REGISTER_METHOD(0x00ED5050, bool, IsBlockingInterruption, (app::SneezeSlugBurrowBehaviour * this_ptr, app::EntityDamageEvent* damage_event, app::EntityReactionBehaviour_ReasonWhyReactionWontInterrupt* reason))
     IL2CPP_REGISTER_METHOD(0x00ED50B0, void, OnEntityInitialized, (app::SneezeSlugBurrowBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ED51F0, void, CacheSerializedComponents, (app::SneezeSlugBurrowBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00ED5240, void, OnEnter, (app::SneezeSlugBurrowBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00ED5340, app::BehaviourStatus__Enum, OnExecute, (app::SneezeSlugBurrowBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00ED54F0, void, OnExit, (app::SneezeSlugBurrowBehaviour * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x00ED5240, void, OnEnter, (app::SneezeSlugBurrowBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00ED5340, app::BehaviourStatus__Enum, OnExecute, (app::SneezeSlugBurrowBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00ED54F0, void, OnExit, (app::SneezeSlugBurrowBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00ED56B0, void, SetState, (app::SneezeSlugBurrowBehaviour * this_ptr, app::SneezeSlugBurrowBehaviour_State__Enum new_state))
-    IL2CPP_REGISTER_METHOD(0x00ED5FB0, void, StartTimeline, (app::SneezeSlugBurrowBehaviour * this_ptr, app::MoonTimeline * timeline, app::Action * on_stop_event))
+    IL2CPP_REGISTER_METHOD(0x00ED5FB0, void, StartTimeline, (app::SneezeSlugBurrowBehaviour * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop_event))
     IL2CPP_REGISTER_METHOD(0x00ED6010, void, StopCurrentTimeline, (app::SneezeSlugBurrowBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ED60F0, void, TeleportToNewSpot, (app::SneezeSlugBurrowBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ED6AE0, void, Hide, (app::SneezeSlugBurrowBehaviour * this_ptr))
@@ -23,4 +23,4 @@ namespace app::methods::SneezeSlugBurrowBehaviour {
     IL2CPP_REGISTER_METHODINFO(0x0475BEE0, SneezeSlugBurrowBehaviour__SetState_b__49_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ED8290, void, _SetState_b__49_1, (app::SneezeSlugBurrowBehaviour * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04741E78, SneezeSlugBurrowBehaviour__SetState_b__49_1__MethodInfo)
-}
+} // namespace app::classes::SneezeSlugBurrowBehaviour

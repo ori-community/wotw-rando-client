@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::IO::__Error {
+namespace app::classes::System::IO::__Error {
     IL2CPP_REGISTER_METHOD(0x0238B580, void, EndOfFile, ())
     IL2CPP_REGISTER_METHODINFO(0x04713E00, _Error_EndOfFile__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0238B5F0, void, FileNotOpen, ())
@@ -20,11 +20,11 @@ namespace app::methods::System::IO::__Error {
     IL2CPP_REGISTER_METHODINFO(0x04721498, _Error_EndReadCalledTwice__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0238B900, void, EndWriteCalledTwice, ())
     IL2CPP_REGISTER_METHODINFO(0x04786468, _Error_EndWriteCalledTwice__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0238B970, app::String *, GetDisplayablePath, (app::String * path, bool is_invalid_path))
-    IL2CPP_REGISTER_METHOD(0x0238BAC0, void, WinIOError, (int32_t error_code, app::String * maybe_full_path))
+    IL2CPP_REGISTER_METHOD(0x0238B970, app::String*, GetDisplayablePath, (app::String * path, bool is_invalid_path))
+    IL2CPP_REGISTER_METHOD(0x0238BAC0, void, WinIOError, (int32_t error_code, app::String* maybe_full_path))
     IL2CPP_REGISTER_METHODINFO(0x04730178, _Error_WinIOError__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0238C1E0, void, WriteNotSupported, ())
     IL2CPP_REGISTER_METHODINFO(0x047583A0, _Error_WriteNotSupported__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0238C250, void, WriterClosed, ())
     IL2CPP_REGISTER_METHODINFO(0x04799A10, _Error_WriterClosed__MethodInfo)
-}
+} // namespace app::classes::System::IO::__Error

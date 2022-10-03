@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LegacyGetAbilityPedestal {
+namespace app::classes::LegacyGetAbilityPedestal {
     IL2CPP_REGISTER_METHOD(0x00A253A0, bool, get_SeinInRange, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A255B0, void, ChangeState, (app::LegacyGetAbilityPedestal * this_ptr, app::LegacyGetAbilityPedestal_States__Enum state))
     IL2CPP_REGISTER_METHOD(0x00A25690, void, UpdateStates, (app::LegacyGetAbilityPedestal * this_ptr))
@@ -10,7 +10,7 @@ namespace app::methods::LegacyGetAbilityPedestal {
     IL2CPP_REGISTER_METHOD(0x00A257E0, void, UpdateInRangeState, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A25BC0, void, FixedUpdate, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A25CA0, void, ActivatePedestal, (app::LegacyGetAbilityPedestal * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00A26360, void, Serialize, (app::LegacyGetAbilityPedestal * this_ptr, app::Archive * ar))
+    IL2CPP_REGISTER_METHOD(0x00A26360, void, Serialize, (app::LegacyGetAbilityPedestal * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x00A263E0, void, Awake, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A26450, void, OnStopPlaying, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0475CF48, LegacyGetAbilityPedestal_OnStopPlaying__MethodInfo)
@@ -25,7 +25,7 @@ namespace app::methods::LegacyGetAbilityPedestal {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_StopMovingPlayerWhilePerforming, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A26DE0, void, FinishGetAbilityStressTest, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04751480, LegacyGetAbilityPedestal_FinishGetAbilityStressTest__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00A26DF0, app::String *, get_StressTestName, (app::LegacyGetAbilityPedestal * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00A26DF0, app::String*, get_StressTestName, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A26E70, void, ctor, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A26E90, void, cctor, ())
-}
+} // namespace app::classes::LegacyGetAbilityPedestal

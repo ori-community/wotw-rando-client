@@ -1,11 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::DisableGameObjectWhenOutOfFrustrum {
+namespace app::classes::DisableGameObjectWhenOutOfFrustrum {
     IL2CPP_REGISTER_METHOD(0x00B953C0, void, AutoGenerate_1, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B953E0, void, AutoGenerate_2, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, float depth, float z_offset))
     IL2CPP_REGISTER_METHOD(0x00B95950, void, ManuallySetBounds, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, app::Bounds bounds))
-    IL2CPP_REGISTER_METHOD(0x00B95970, void, AddTargetObjectRef, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, app::GameObject * obj))
+    IL2CPP_REGISTER_METHOD(0x00B95970, void, AddTargetObjectRef, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, app::GameObject* obj))
     IL2CPP_REGISTER_METHOD(0x00B95A30, void, OnFrustumInstantEnabled, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B95AB0, void, OnFrustumEnter, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B95D10, void, OnFrustumExit, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))
@@ -20,12 +20,12 @@ namespace app::methods::DisableGameObjectWhenOutOfFrustrum {
     IL2CPP_REGISTER_METHOD(0x00B96BE0, bool, IsValid, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B96BF0, void, UpdateBounds, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B96EF0, void, OnDestroy, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00B96FD0, void, OnSceneRootPostEnable, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, app::SceneRoot * scene_root))
-    IL2CPP_REGISTER_METHOD(0x00B970E0, void, OnSceneRootPreDisable, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, app::SceneRoot * scene_root))
+    IL2CPP_REGISTER_METHOD(0x00B96FD0, void, OnSceneRootPostEnable, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, app::SceneRoot* scene_root))
+    IL2CPP_REGISTER_METHOD(0x00B970E0, void, OnSceneRootPreDisable, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, app::SceneRoot* scene_root))
     IL2CPP_REGISTER_METHOD(0x00B971C0, void, OnPoolSpawned, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B35B90, void, OnPoolDespawned, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00B97280, void, StoreObjects, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, app::Transform * trans))
-    IL2CPP_REGISTER_METHOD(0x00B97640, void, UpdateObservers, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, app::GameObject * game_object))
+    IL2CPP_REGISTER_METHOD(0x00B97280, void, StoreObjects, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, app::Transform* trans))
+    IL2CPP_REGISTER_METHOD(0x00B97640, void, UpdateObservers, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, app::GameObject* game_object))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldDisable, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ShouldEnable, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ShouldChildrenEnable, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))
@@ -36,4 +36,4 @@ namespace app::methods::DisableGameObjectWhenOutOfFrustrum {
     IL2CPP_REGISTER_METHOD(0x00B97F10, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x00B97FB0, void, _OnFrustumEnter_b__25_0, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, bool success))
     IL2CPP_REGISTER_METHODINFO(0x047187B0, DisableGameObjectWhenOutOfFrustrum__OnFrustumEnter_b__25_0__MethodInfo)
-}
+} // namespace app::classes::DisableGameObjectWhenOutOfFrustrum

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::GL {
+namespace app::classes::UnityEngine::GL {
     IL2CPP_REGISTER_METHOD(0x02526170, void, Vertex3, (float x, float y, float z))
     IL2CPP_REGISTER_METHOD(0x025261F0, void, Vertex, (app::Vector3 v))
     IL2CPP_REGISTER_METHOD(0x02526210, void, TexCoord3, (float x, float y, float z))
@@ -28,10 +28,10 @@ namespace app::methods::UnityEngine::GL {
     IL2CPP_REGISTER_METHOD(0x02526A30, void, End, ())
     IL2CPP_REGISTER_METHOD(0x02526A80, void, GLClear, (bool clear_depth, bool clear_color, app::Color background_color, float depth))
     IL2CPP_REGISTER_METHOD(0x02526B10, void, Clear, (bool clear_depth, bool clear_color, app::Color background_color))
-    IL2CPP_REGISTER_METHOD(0x02526B90, void, ClearWithSkybox, (bool clear_depth, app::Camera * camera))
+    IL2CPP_REGISTER_METHOD(0x02526B90, void, ClearWithSkybox, (bool clear_depth, app::Camera* camera))
     IL2CPP_REGISTER_METHOD(0x02526BF0, void, SetViewMatrix_Injected, (app::Matrix4x4 * m))
     IL2CPP_REGISTER_METHOD(0x02526C40, void, MultMatrix_Injected, (app::Matrix4x4 * m))
     IL2CPP_REGISTER_METHOD(0x02526C90, void, LoadProjectionMatrix_Injected, (app::Matrix4x4 * mat))
-    IL2CPP_REGISTER_METHOD(0x02526CE0, void, GetGPUProjectionMatrix_Injected, (app::Matrix4x4 * proj, bool render_into_texture, app::Matrix4x4 * ret))
-    IL2CPP_REGISTER_METHOD(0x02526D50, void, GLClear_Injected, (bool clear_depth, bool clear_color, app::Color * background_color, float depth))
-}
+    IL2CPP_REGISTER_METHOD(0x02526CE0, void, GetGPUProjectionMatrix_Injected, (app::Matrix4x4 * proj, bool render_into_texture, app::Matrix4x4* ret))
+    IL2CPP_REGISTER_METHOD(0x02526D50, void, GLClear_Injected, (bool clear_depth, bool clear_color, app::Color* background_color, float depth))
+} // namespace app::classes::UnityEngine::GL

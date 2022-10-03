@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CatAndMouseRoomDController {
+namespace app::classes::CatAndMouseRoomDController {
     IL2CPP_REGISTER_METHOD(0x0102B6C0, void, Awake, (app::CatAndMouseRoomDController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0102B970, void, Start, (app::CatAndMouseRoomDController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0102BA30, void, OnDestroy, (app::CatAndMouseRoomDController * this_ptr))
@@ -17,4 +17,4 @@ namespace app::methods::CatAndMouseRoomDController {
     IL2CPP_REGISTER_METHOD(0x0063D090, app::SuspendableMask__Enum, get_Mask, (app::CatAndMouseRoomDController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0102CAD0, void, set_Mask, (app::CatAndMouseRoomDController * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x0102CB90, void, ctor, (app::CatAndMouseRoomDController * this_ptr))
-}
+} // namespace app::classes::CatAndMouseRoomDController

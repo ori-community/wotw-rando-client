@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Collections::Generic::Dictionary_2_SpellInventory_Binding_EquipmentType_ {
+namespace app::classes::System::Collections::Generic::Dictionary_2_SpellInventory_Binding_EquipmentType_ {
     IL2CPP_REGISTER_METHOD(0x02BAC6E0, app::Dictionary_2_TKey_TValue_Enumerator_SpellInventory_Binding_EquipmentType_, GetEnumerator, (app::Dictionary_2_SpellInventory_Binding_EquipmentType_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04717A98, Dictionary_2_SpellInventory_Binding_EquipmentType__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_SpellInventory_Binding_EquipmentType_ * this_ptr, app::SpellInventory_Binding__Enum key))
@@ -16,4 +16,4 @@ namespace app::methods::System::Collections::Generic::Dictionary_2_SpellInventor
     IL2CPP_REGISTER_METHODINFO(0x04778268, Dictionary_2_SpellInventory_Binding_EquipmentType__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_SpellInventory_Binding_EquipmentType_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04780DF8, Dictionary_2_SpellInventory_Binding_EquipmentType___ctor__MethodInfo)
-}
+} // namespace app::classes::System::Collections::Generic::Dictionary_2_SpellInventory_Binding_EquipmentType_

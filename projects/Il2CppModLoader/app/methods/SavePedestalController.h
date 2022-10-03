@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SavePedestalController {
-    IL2CPP_REGISTER_METHOD(0x00917F50, app::MoonAnimation *, get_EffectiveTeleportingStart, (app::SavePedestalController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00917F70, app::MoonAnimation *, get_EffectiveTeleportingLoop, (app::SavePedestalController * this_ptr))
+namespace app::classes::SavePedestalController {
+    IL2CPP_REGISTER_METHOD(0x00917F50, app::MoonAnimation*, get_EffectiveTeleportingStart, (app::SavePedestalController * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00917F70, app::MoonAnimation*, get_EffectiveTeleportingLoop, (app::SavePedestalController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00917F90, void, Nullify, (app::SavePedestalController * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04791478, SavePedestalController_Nullify__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00917FA0, bool, CanOpenTeleportMenu, (app::SavePedestalController * this_ptr))
@@ -43,4 +43,4 @@ namespace app::methods::SavePedestalController {
     IL2CPP_REGISTER_METHOD(0x0091D5A0, app::SuspendableMask__Enum, get_Mask, (app::SavePedestalController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0091D5B0, void, set_Mask, (app::SavePedestalController * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x0091D670, void, ctor, (app::SavePedestalController * this_ptr))
-}
+} // namespace app::classes::SavePedestalController

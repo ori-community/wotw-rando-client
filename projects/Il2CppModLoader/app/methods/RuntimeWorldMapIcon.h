@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RuntimeWorldMapIcon {
-    IL2CPP_REGISTER_METHOD(0x00C058E0, void, ctor, (app::RuntimeWorldMapIcon * this_ptr, app::GameWorldArea_WorldMapIcon * icon, app::RuntimeGameWorldArea * area))
-    IL2CPP_REGISTER_METHOD(0x00C05AD0, bool, IsVisible, (app::RuntimeWorldMapIcon * this_ptr, app::AreaMapUI * area_map))
+namespace app::classes::RuntimeWorldMapIcon {
+    IL2CPP_REGISTER_METHOD(0x00C058E0, void, ctor, (app::RuntimeWorldMapIcon * this_ptr, app::GameWorldArea_WorldMapIcon* icon, app::RuntimeGameWorldArea* area))
+    IL2CPP_REGISTER_METHOD(0x00C05AD0, bool, IsVisible, (app::RuntimeWorldMapIcon * this_ptr, app::AreaMapUI* area_map))
     IL2CPP_REGISTER_METHOD(0x00C05FB0, void, Show, (app::RuntimeWorldMapIcon * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C06AF0, bool, IsStateOrConditionMet, (app::RuntimeWorldMapIcon * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C06C20, void, Hide, (app::RuntimeWorldMapIcon * this_ptr))
@@ -18,4 +18,4 @@ namespace app::methods::RuntimeWorldMapIcon {
     IL2CPP_REGISTER_METHOD(0x00C07760, void, SetIconSpecialMode, (app::RuntimeWorldMapIcon * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C07830, bool, IsIconActive, (app::RuntimeWorldMapIcon * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C07950, void, SetIcon, (app::RuntimeWorldMapIcon * this_ptr, app::WorldMapIconType__Enum icon))
-}
+} // namespace app::classes::RuntimeWorldMapIcon

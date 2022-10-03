@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::RenderTextureDescriptor {
+namespace app::classes::UnityEngine::RenderTextureDescriptor {
     IL2CPP_REGISTER_METHOD(0x00218070, void, ctor_1, (app::RenderTextureDescriptor__Boxed * this_ptr, int32_t width, int32_t height))
     IL2CPP_REGISTER_METHOD(0x002180C0, void, ctor_2, (app::RenderTextureDescriptor__Boxed * this_ptr, int32_t width, int32_t height, app::RenderTextureFormat__Enum color_format, int32_t depth_buffer_bits))
     IL2CPP_REGISTER_METHOD(0x001EBC90, int32_t, get_width, (app::RenderTextureDescriptor__Boxed * this_ptr))
@@ -28,4 +28,4 @@ namespace app::methods::UnityEngine::RenderTextureDescriptor {
     IL2CPP_REGISTER_METHOD(0x00218210, void, set_createdFromScript, (app::RenderTextureDescriptor__Boxed * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00218230, void, set_useDynamicScale, (app::RenderTextureDescriptor__Boxed * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x02972820, void, cctor, ())
-}
+} // namespace app::classes::UnityEngine::RenderTextureDescriptor

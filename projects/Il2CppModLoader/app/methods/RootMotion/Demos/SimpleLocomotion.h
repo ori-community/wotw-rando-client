@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RootMotion::Demos::SimpleLocomotion {
+namespace app::classes::RootMotion::Demos::SimpleLocomotion {
     IL2CPP_REGISTER_METHOD(0x0098F4A0, bool, get_isGrounded, (app::SimpleLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0098F4B0, void, set_isGrounded, (app::SimpleLocomotion * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x022310C0, void, Start, (app::SimpleLocomotion * this_ptr))
@@ -12,4 +12,4 @@ namespace app::methods::RootMotion::Demos::SimpleLocomotion {
     IL2CPP_REGISTER_METHOD(0x02231F40, app::Vector3, GetInputVector, (app::SimpleLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x022320F0, app::Vector3, GetInputVectorRaw, (app::SimpleLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02232220, void, ctor, (app::SimpleLocomotion * this_ptr))
-}
+} // namespace app::classes::RootMotion::Demos::SimpleLocomotion

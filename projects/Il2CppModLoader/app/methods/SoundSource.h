@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SoundSource {
+namespace app::classes::SoundSource {
     IL2CPP_REGISTER_METHOD(0x00EED000, bool, get_IsPlaying, (app::SoundSource * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, set_IsPlaying, (app::SoundSource * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00EED020, void, OnPoolSpawned, (app::SoundSource * this_ptr))
@@ -24,9 +24,9 @@ namespace app::methods::SoundSource {
     IL2CPP_REGISTER_METHOD(0x00EEDBC0, void, set_IsSuspended, (app::SoundSource * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x003FD3F0, app::SuspendableMask__Enum, get_Mask, (app::SoundSource * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EEDBD0, void, set_Mask, (app::SoundSource * this_ptr, app::SuspendableMask__Enum value))
-    IL2CPP_REGISTER_METHOD(0x00EEDC80, void, AddRtpc, (app::SoundSource * this_ptr, app::RTPC * continous_sound_rtpc, app::Func_1_Single_ * continous_sound_rtpc_get_value))
+    IL2CPP_REGISTER_METHOD(0x00EEDC80, void, AddRtpc, (app::SoundSource * this_ptr, app::RTPC* continous_sound_rtpc, app::Func_1_Single_* continous_sound_rtpc_get_value))
     IL2CPP_REGISTER_METHOD(0x00597B10, app::UpdateType__Enum, get_UpdateType, (app::SoundSource * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004FA630, void, ctor, (app::SoundSource * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00EED3B0, void, _Play_b__18_0, (app::SoundSource * this_ptr, app::Object * cookie, app::AkCallbackType__Enum type, app::AkCallbackInfo * info))
+    IL2CPP_REGISTER_METHOD(0x00EED3B0, void, _Play_b__18_0, (app::SoundSource * this_ptr, app::Object* cookie, app::AkCallbackType__Enum type, app::AkCallbackInfo* info))
     IL2CPP_REGISTER_METHODINFO(0x04792590, SoundSource__Play_b__18_0__MethodInfo)
-}
+} // namespace app::classes::SoundSource

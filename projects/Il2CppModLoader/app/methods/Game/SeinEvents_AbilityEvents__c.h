@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Game::SeinEvents_AbilityEvents___c {
+namespace app::classes::Game::SeinEvents_AbilityEvents___c {
     IL2CPP_REGISTER_METHOD(0x01528BD0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SeinEvents_AbilityEvents_c * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, __ctor_b__8_0, (app::SeinEvents_AbilityEvents_c * this_ptr))
@@ -20,4 +20,4 @@ namespace app::methods::Game::SeinEvents_AbilityEvents___c {
     IL2CPP_REGISTER_METHODINFO(0x04726528, SeinEvents_AbilityEvents_c___ctor_b__8_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, __ctor_b__8_7, (app::SeinEvents_AbilityEvents_c * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04792C58, SeinEvents_AbilityEvents_c___ctor_b__8_7__MethodInfo)
-}
+} // namespace app::classes::Game::SeinEvents_AbilityEvents___c

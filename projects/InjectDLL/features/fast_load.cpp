@@ -30,7 +30,7 @@
 #include <game/game.h>
 #include <unordered_set>
 
-using namespace app::methods;
+using namespace app::classes;
 
 
 namespace {

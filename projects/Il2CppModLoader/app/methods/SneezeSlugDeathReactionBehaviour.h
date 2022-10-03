@@ -1,17 +1,17 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SneezeSlugDeathReactionBehaviour {
-    IL2CPP_REGISTER_METHOD(0x00ED84E0, void, OnCacheSerializedComponents, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::Entity * owner))
-    IL2CPP_REGISTER_METHOD(0x00ED85A0, void, OnInitializeTask, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00DB1FA0, void, StartTimeline, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::MoonTimeline * timeline))
-    IL2CPP_REGISTER_METHOD(0x00ED8860, void, StopTimeline, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::MoonTimeline * timeline))
+namespace app::classes::SneezeSlugDeathReactionBehaviour {
+    IL2CPP_REGISTER_METHOD(0x00ED84E0, void, OnCacheSerializedComponents, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::Entity* owner))
+    IL2CPP_REGISTER_METHOD(0x00ED85A0, void, OnInitializeTask, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00DB1FA0, void, StartTimeline, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::MoonTimeline* timeline))
+    IL2CPP_REGISTER_METHOD(0x00ED8860, void, StopTimeline, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x00ED8A80, void, HandleCollision, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::MoonControllerColliderHit hit))
     IL2CPP_REGISTER_METHODINFO(0x0472A1A0, SneezeSlugDeathReactionBehaviour_HandleCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0043D9E0, app::SneezeSlugDeathReactionBehaviour_DeathState__Enum, GetNextOnHitGroundState, (app::SneezeSlugDeathReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00ED8B90, void, OnEnterTask, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00ED8FE0, app::BehaviourStatus__Enum, OnExecuteTask, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00ED9100, void, OnExitTask, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x00ED8B90, void, OnEnterTask, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00ED8FE0, app::BehaviourStatus__Enum, OnExecuteTask, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00ED9100, void, OnExitTask, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00ED9200, void, SetState, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::SneezeSlugDeathReactionBehaviour_DeathState__Enum state))
     IL2CPP_REGISTER_METHOD(0x00ED92E0, void, EnterState, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::SneezeSlugDeathReactionBehaviour_DeathState__Enum state))
     IL2CPP_REGISTER_METHOD(0x00ED9350, void, ExitState, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::SneezeSlugDeathReactionBehaviour_DeathState__Enum state))
@@ -39,4 +39,4 @@ namespace app::methods::SneezeSlugDeathReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00EDAD50, void, ctor, (app::SneezeSlugDeathReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EDAE10, void, _EnterLaunch_b__42_0, (app::SneezeSlugDeathReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04778448, SneezeSlugDeathReactionBehaviour__EnterLaunch_b__42_0__MethodInfo)
-}
+} // namespace app::classes::SneezeSlugDeathReactionBehaviour

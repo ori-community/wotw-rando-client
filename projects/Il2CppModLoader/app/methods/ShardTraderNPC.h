@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ShardTraderNPC {
+namespace app::classes::ShardTraderNPC {
     IL2CPP_REGISTER_METHOD(0x003FFBD0, int32_t, get_CurrentState, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005AD390, bool, get_IsInInteractionRange, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005AD5A0, bool, get_OriIsFacingUs, (app::ShardTraderNPC * this_ptr))
@@ -37,21 +37,21 @@ namespace app::methods::ShardTraderNPC {
     IL2CPP_REGISTER_METHODINFO(0x0473AC98, ShardTraderNPC__OnInteractionMessageHide_b__43_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005AF9C0, void, _OnInteractionMessageHide_b__43_1, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04704A50, ShardTraderNPC__OnInteractionMessageHide_b__43_1__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_1, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_2, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_3, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_4, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_5, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_6, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_7, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_8, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_9, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_10, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_11, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_12, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_13, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_14, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_15, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_16, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver *, GetResolverForType_17, (app::ShardTraderNPC * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_1, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_2, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_3, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_4, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_5, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_6, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_7, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_8, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_9, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_10, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_11, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_12, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_13, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_14, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_15, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_16, (app::ShardTraderNPC * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_17, (app::ShardTraderNPC * this_ptr))
+} // namespace app::classes::ShardTraderNPC

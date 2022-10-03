@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SpiritGrenade {
+namespace app::classes::SpiritGrenade {
     IL2CPP_REGISTER_METHOD(0x003FBE50, bool, get_IsFracturedPiece, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FBE60, void, set_IsFracturedPiece, (app::SpiritGrenade * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0091E0B0, float, get_CurrentLifeTime, (app::SpiritGrenade * this_ptr))
@@ -38,16 +38,16 @@ namespace app::methods::SpiritGrenade {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeTeleportedByBeacon, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeGlowed, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00651560, int32_t, get_BashPriority, (app::SpiritGrenade * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00D56AE0, void, OnRecieveDamage, (app::SpiritGrenade * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x00D56AE0, void, OnRecieveDamage, (app::SpiritGrenade * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x003FC040, bool, get_IsSuspended, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009DA5F0, void, set_IsSuspended, (app::SpiritGrenade * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x006515B0, app::SuspendableMask__Enum, get_Mask, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D571B0, void, set_Mask, (app::SpiritGrenade * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x00D57270, void, Awake, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D57480, void, Start, (app::SpiritGrenade * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00D574B0, bool, ShouldDealDamage, (app::SpiritGrenade * this_ptr, app::GameObject * target))
+    IL2CPP_REGISTER_METHOD(0x00D574B0, bool, ShouldDealDamage, (app::SpiritGrenade * this_ptr, app::GameObject* target))
     IL2CPP_REGISTER_METHODINFO(0x0475A728, SpiritGrenade_ShouldDealDamage__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00D575D0, void, OnDamageDealt, (app::SpiritGrenade * this_ptr, app::DamageDealer * damage_dealer, app::DamageResult damage_result))
+    IL2CPP_REGISTER_METHOD(0x00D575D0, void, OnDamageDealt, (app::SpiritGrenade * this_ptr, app::DamageDealer* damage_dealer, app::DamageResult damage_result))
     IL2CPP_REGISTER_METHODINFO(0x047053D0, SpiritGrenade_OnDamageDealt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D57870, void, Invalidate, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D57880, bool, get_ShouldExplodeOnImpact, (app::SpiritGrenade * this_ptr))
@@ -55,11 +55,11 @@ namespace app::methods::SpiritGrenade {
     IL2CPP_REGISTER_METHOD(0x00D57E50, void, SetTrajectory, (app::SpiritGrenade * this_ptr, app::Vector2 speed))
     IL2CPP_REGISTER_METHOD(0x00D57F80, void, FixedUpdate, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D58BB0, void, OnSpring, (app::SpiritGrenade * this_ptr, float height, app::Vector2 direction))
-    IL2CPP_REGISTER_METHOD(0x00D58D10, void, OnCollisionEnter, (app::SpiritGrenade * this_ptr, app::Collision * collision))
+    IL2CPP_REGISTER_METHOD(0x00D58D10, void, OnCollisionEnter, (app::SpiritGrenade * this_ptr, app::Collision* collision))
     IL2CPP_REGISTER_METHOD(0x00597B10, int32_t, get_HammerPriority, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_HammerEnableAutoTarget, (app::SpiritGrenade * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBD40, app::IDamageReciever__Array *, get_AffectedReceivers, (app::SpiritGrenade * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBD40, app::IDamageReciever__Array*, get_AffectedReceivers, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D58D20, void, ctor, (app::SpiritGrenade * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject *, IDamageReciever_get_gameObject, (app::SpiritGrenade * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform *, IDamageReciever_get_transform, (app::SpiritGrenade * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, IDamageReciever_get_gameObject, (app::SpiritGrenade * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform*, IDamageReciever_get_transform, (app::SpiritGrenade * this_ptr))
+} // namespace app::classes::SpiritGrenade

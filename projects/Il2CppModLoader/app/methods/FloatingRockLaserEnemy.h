@@ -1,13 +1,13 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::FloatingRockLaserEnemy {
-    IL2CPP_REGISTER_METHOD(0x01273520, void, PlayAnimationOnce, (app::FloatingRockLaserEnemy * this_ptr, app::CharacterAnimationSystem * animation_system, app::TextureAnimationWithTransitions * anim, int32_t layer))
-    IL2CPP_REGISTER_METHOD(0x01273630, void, RestartAnimationLoop, (app::FloatingRockLaserEnemy * this_ptr, app::CharacterAnimationSystem * animation_system, app::TextureAnimationWithTransitions * anim, int32_t layer))
-    IL2CPP_REGISTER_METHOD(0x01273740, void, PlayAnimationLoop, (app::FloatingRockLaserEnemy * this_ptr, app::CharacterAnimationSystem * animation_system, app::TextureAnimationWithTransitions * anim, int32_t layer))
+namespace app::classes::FloatingRockLaserEnemy {
+    IL2CPP_REGISTER_METHOD(0x01273520, void, PlayAnimationOnce, (app::FloatingRockLaserEnemy * this_ptr, app::CharacterAnimationSystem* animation_system, app::TextureAnimationWithTransitions* anim, int32_t layer))
+    IL2CPP_REGISTER_METHOD(0x01273630, void, RestartAnimationLoop, (app::FloatingRockLaserEnemy * this_ptr, app::CharacterAnimationSystem* animation_system, app::TextureAnimationWithTransitions* anim, int32_t layer))
+    IL2CPP_REGISTER_METHOD(0x01273740, void, PlayAnimationLoop, (app::FloatingRockLaserEnemy * this_ptr, app::CharacterAnimationSystem* animation_system, app::TextureAnimationWithTransitions* anim, int32_t layer))
     IL2CPP_REGISTER_METHOD(0x01273850, void, Awake, (app::FloatingRockLaserEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01273A10, void, OnDestroy, (app::FloatingRockLaserEnemy * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01273BD0, void, OnModifyDamage, (app::FloatingRockLaserEnemy * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x01273BD0, void, OnModifyDamage, (app::FloatingRockLaserEnemy * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x01273C00, void, OnEnterIdle, (app::FloatingRockLaserEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0472A3C8, FloatingRockLaserEnemy_OnEnterIdle__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01273D60, void, OnExitIdle, (app::FloatingRockLaserEnemy * this_ptr))
@@ -44,4 +44,4 @@ namespace app::methods::FloatingRockLaserEnemy {
     IL2CPP_REGISTER_METHODINFO(0x0473E838, FloatingRockLaserEnemy__Start_b__36_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01276960, bool, _Start_b__36_4, (app::FloatingRockLaserEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04725730, FloatingRockLaserEnemy__Start_b__36_4__MethodInfo)
-}
+} // namespace app::classes::FloatingRockLaserEnemy

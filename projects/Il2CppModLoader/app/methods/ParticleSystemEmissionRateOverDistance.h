@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ParticleSystemEmissionRateOverDistance {
+namespace app::classes::ParticleSystemEmissionRateOverDistance {
     IL2CPP_REGISTER_METHOD(0x00444FB0, void, OnPoolSpawned, (app::ParticleSystemEmissionRateOverDistance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnPoolDespawned, (app::ParticleSystemEmissionRateOverDistance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00445060, void, OnEnable, (app::ParticleSystemEmissionRateOverDistance * this_ptr))
@@ -12,4 +12,4 @@ namespace app::methods::ParticleSystemEmissionRateOverDistance {
     IL2CPP_REGISTER_METHOD(0x004456C0, void, OnBuild, (app::ParticleSystemEmissionRateOverDistance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004456E0, void, CacheComponents, (app::ParticleSystemEmissionRateOverDistance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::ParticleSystemEmissionRateOverDistance * this_ptr))
-}
+} // namespace app::classes::ParticleSystemEmissionRateOverDistance

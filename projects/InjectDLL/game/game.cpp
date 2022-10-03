@@ -12,6 +12,8 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Behaviour.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Object.h>
+#include <Il2CppModLoader/app/types/SimpleFPS.h>
+#include <Il2CppModLoader/app/types/GameController.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -21,7 +23,7 @@
 #include <magic_enum.hpp>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace game {
     namespace {
@@ -65,7 +67,7 @@ namespace game {
             }
 
             // TODO: Probably should move this somewhere else.
-            auto simple_fps = il2cpp::get_class<app::SimpleFPS__Class>("", "SimpleFPS")->static_fields->Instance;
+            auto simple_fps = types::SimpleFPS::get_class()->static_fields->Instance;
             UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(simple_fps), false);
         }
 
@@ -103,7 +105,7 @@ namespace game {
     }
 
     app::GameController* controller() {
-        return il2cpp::get_class<app::GameController__Class>("", "GameController")->static_fields->Instance;
+        return types::GameController::get_class()->static_fields->Instance;
     }
 
     app::SaveGameController* save_controller() {

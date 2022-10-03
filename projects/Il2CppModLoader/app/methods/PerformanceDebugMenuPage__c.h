@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PerformanceDebugMenuPage___c {
+namespace app::classes::PerformanceDebugMenuPage___c {
     IL2CPP_REGISTER_METHOD(0x0047F3F0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::PerformanceDebugMenuPage_c * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0047F530, bool, __initializeToggleBotList_b__12_0, (app::PerformanceDebugMenuPage_c * this_ptr))
@@ -1100,4 +1100,4 @@ namespace app::methods::PerformanceDebugMenuPage___c {
     IL2CPP_REGISTER_METHODINFO(0x0471E2F0, PerformanceDebugMenuPage_c___initializePhysicalSystemTweaksList_b__52_10__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00496960, void, __initializePhysicalSystemTweaksList_b__52_11, (app::PerformanceDebugMenuPage_c * this_ptr, bool val))
     IL2CPP_REGISTER_METHODINFO(0x047127C8, PerformanceDebugMenuPage_c___initializePhysicalSystemTweaksList_b__52_11__MethodInfo)
-}
+} // namespace app::classes::PerformanceDebugMenuPage___c

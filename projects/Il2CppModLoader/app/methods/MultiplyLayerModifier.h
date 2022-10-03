@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MultiplyLayerModifier {
+namespace app::classes::MultiplyLayerModifier {
     IL2CPP_REGISTER_METHOD(0x0087BFC0, void, ApplyMultipliers, (app::MultiplyLayerModifier * this_ptr, float strength, float speed))
     IL2CPP_REGISTER_METHOD(0x0087C710, void, SetProperties, (app::MultiplyLayerModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0087C180, bool, get_IsWorldRotation, (app::MultiplyLayerModifier * this_ptr))
@@ -11,4 +11,4 @@ namespace app::methods::MultiplyLayerModifier {
     IL2CPP_REGISTER_METHOD(0x0087CAC0, void, UpdateModifier, (app::MultiplyLayerModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0087CB00, void, UpdateWorldRotation, (app::MultiplyLayerModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0087CCF0, void, ctor, (app::MultiplyLayerModifier * this_ptr))
-}
+} // namespace app::classes::MultiplyLayerModifier

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Trail {
+namespace app::classes::Trail {
     IL2CPP_REGISTER_METHOD(0x00B02030, void, OnPoolSpawned, (app::Trail_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnPoolDespawned, (app::Trail_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B020E0, void, OnEnable, (app::Trail_1 * this_ptr))
@@ -23,4 +23,4 @@ namespace app::methods::Trail {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnPortalOverlapEnter, (app::Trail_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnPortalOverlapExit, (app::Trail_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B03080, void, ctor, (app::Trail_1 * this_ptr))
-}
+} // namespace app::classes::Trail

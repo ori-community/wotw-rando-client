@@ -17,8 +17,8 @@
 #include <vector>
 
 using namespace modloader;
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
 
 namespace randomizer::textures {
     namespace {

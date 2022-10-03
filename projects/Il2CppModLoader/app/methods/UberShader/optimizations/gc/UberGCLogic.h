@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UberShader::optimizations::gc::UberGCLogic {
+namespace app::classes::UberShader::optimizations::gc::UberGCLogic {
     IL2CPP_REGISTER_METHOD(0x01902550, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01902810, void, OnFader, (app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum trigger))
     IL2CPP_REGISTER_METHOD(0x01902960, int32_t, NumForcedCleanupsAfterFaderType, (app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum fader_type))
@@ -26,4 +26,4 @@ namespace app::methods::UberShader::optimizations::gc::UberGCLogic {
     IL2CPP_REGISTER_METHOD(0x01904A90, bool, ShouldRunGcOnBlack, (app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum source))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ShouldRunGcFromHint, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::UberGCLogic * this_ptr))
-}
+} // namespace app::classes::UberShader::optimizations::gc::UberGCLogic

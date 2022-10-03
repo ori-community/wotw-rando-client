@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinShieldSpell {
+namespace app::classes::SeinShieldSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinShieldSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005DA1D0, void, OnSetReferenceToSein, (app::SeinShieldSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005DA200, void, OnDestroy, (app::SeinShieldSpell * this_ptr))
@@ -14,4 +14,4 @@ namespace app::methods::SeinShieldSpell {
     IL2CPP_REGISTER_METHOD(0x005DA620, void, UpdateNotCasting, (app::SeinShieldSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005DA6C0, void, UpdateCasting, (app::SeinShieldSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005C9550, void, ctor, (app::SeinShieldSpell * this_ptr))
-}
+} // namespace app::classes::SeinShieldSpell

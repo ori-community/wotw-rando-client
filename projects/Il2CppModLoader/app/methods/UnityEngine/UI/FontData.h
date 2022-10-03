@@ -1,11 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::UI::FontData {
+namespace app::classes::UnityEngine::UI::FontData {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::FontData * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x024AD000, app::FontData *, get_defaultFontData, ())
-    IL2CPP_REGISTER_METHOD(0x01F2AB40, app::Font *, get_font, (app::FontData * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FA490, void, set_font, (app::FontData * this_ptr, app::Font * value))
+    IL2CPP_REGISTER_METHOD(0x024AD000, app::FontData*, get_defaultFontData, ())
+    IL2CPP_REGISTER_METHOD(0x01F2AB40, app::Font*, get_font, (app::FontData * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA490, void, set_font, (app::FontData * this_ptr, app::Font* value))
     IL2CPP_REGISTER_METHOD(0x024AD170, int32_t, get_fontSize, (app::FontData * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052A000, void, set_fontSize, (app::FontData * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x024AD180, app::FontStyle__Enum, get_fontStyle, (app::FontData * this_ptr))
@@ -30,4 +30,4 @@ namespace app::methods::UnityEngine::UI::FontData {
     IL2CPP_REGISTER_METHOD(0x00724030, void, set_lineSpacing, (app::FontData * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ISerializationCallbackReceiver_OnBeforeSerialize, (app::FontData * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024AD1D0, void, ISerializationCallbackReceiver_OnAfterDeserialize, (app::FontData * this_ptr))
-}
+} // namespace app::classes::UnityEngine::UI::FontData

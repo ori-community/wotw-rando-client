@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::TimeSpan {
+namespace app::classes::System::TimeSpan {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor_1, (app::TimeSpan__Boxed * this_ptr, int64_t ticks))
     IL2CPP_REGISTER_METHOD(0x002034B0, void, ctor_2, (app::TimeSpan__Boxed * this_ptr, int32_t hours, int32_t minutes, int32_t seconds))
     IL2CPP_REGISTER_METHOD(0x002034C0, void, ctor_3, (app::TimeSpan__Boxed * this_ptr, int32_t days, int32_t hours, int32_t minutes, int32_t seconds))
@@ -21,13 +21,13 @@ namespace app::methods::System::TimeSpan {
     IL2CPP_REGISTER_METHOD(0x00203710, app::TimeSpan, Add, (app::TimeSpan__Boxed * this_ptr, app::TimeSpan ts))
     IL2CPP_REGISTER_METHODINFO(0x04731F78, TimeSpan_Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x027AD040, int32_t, Compare, (app::TimeSpan t1, app::TimeSpan t2))
-    IL2CPP_REGISTER_METHOD(0x00203720, int32_t, CompareTo_1, (app::TimeSpan__Boxed * this_ptr, app::Object * value))
+    IL2CPP_REGISTER_METHOD(0x00203720, int32_t, CompareTo_1, (app::TimeSpan__Boxed * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHODINFO(0x047609D8, TimeSpan_CompareTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00203730, int32_t, CompareTo_2, (app::TimeSpan__Boxed * this_ptr, app::TimeSpan value))
     IL2CPP_REGISTER_METHOD(0x027AD180, app::TimeSpan, FromDays, (double value))
     IL2CPP_REGISTER_METHOD(0x00203750, app::TimeSpan, Duration, (app::TimeSpan__Boxed * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0471AB40, TimeSpan_Duration__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00203850, bool, Equals_1, (app::TimeSpan__Boxed * this_ptr, app::Object * value))
+    IL2CPP_REGISTER_METHOD(0x00203850, bool, Equals_1, (app::TimeSpan__Boxed * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x0012F2C0, bool, Equals_2, (app::TimeSpan__Boxed * this_ptr, app::TimeSpan obj))
     IL2CPP_REGISTER_METHOD(0x00154D60, int32_t, GetHashCode, (app::TimeSpan__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x027AD300, app::TimeSpan, FromHours, (double value))
@@ -44,11 +44,11 @@ namespace app::methods::System::TimeSpan {
     IL2CPP_REGISTER_METHOD(0x027AD950, int64_t, TimeToTicks, (int32_t hour, int32_t minute, int32_t second))
     IL2CPP_REGISTER_METHODINFO(0x04777470, TimeSpan_TimeToTicks__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x027ADA50, app::TimeSpan, Parse_1, (app::String * s))
-    IL2CPP_REGISTER_METHOD(0x027ADAF0, app::TimeSpan, Parse_2, (app::String * input, app::IFormatProvider * format_provider))
-    IL2CPP_REGISTER_METHOD(0x027ADBA0, bool, TryParse, (app::String * s, app::TimeSpan * result))
-    IL2CPP_REGISTER_METHOD(0x00203880, app::String *, ToString_1, (app::TimeSpan__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00203890, app::String *, ToString_2, (app::TimeSpan__Boxed * this_ptr, app::String * format))
-    IL2CPP_REGISTER_METHOD(0x002038A0, app::String *, ToString_3, (app::TimeSpan__Boxed * this_ptr, app::String * format, app::IFormatProvider * format_provider))
+    IL2CPP_REGISTER_METHOD(0x027ADAF0, app::TimeSpan, Parse_2, (app::String * input, app::IFormatProvider* format_provider))
+    IL2CPP_REGISTER_METHOD(0x027ADBA0, bool, TryParse, (app::String * s, app::TimeSpan* result))
+    IL2CPP_REGISTER_METHOD(0x00203880, app::String*, ToString_1, (app::TimeSpan__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00203890, app::String*, ToString_2, (app::TimeSpan__Boxed * this_ptr, app::String* format))
+    IL2CPP_REGISTER_METHOD(0x002038A0, app::String*, ToString_3, (app::TimeSpan__Boxed * this_ptr, app::String* format, app::IFormatProvider* format_provider))
     IL2CPP_REGISTER_METHOD(0x027ADF80, app::TimeSpan, op_Subtraction, (app::TimeSpan t1, app::TimeSpan t2))
     IL2CPP_REGISTER_METHOD(0x027ADFA0, app::TimeSpan, op_Addition, (app::TimeSpan t1, app::TimeSpan t2))
     IL2CPP_REGISTER_METHOD(0x015F8190, bool, op_Equality, (app::TimeSpan t1, app::TimeSpan t2))
@@ -60,28 +60,28 @@ namespace app::methods::System::TimeSpan {
     IL2CPP_REGISTER_METHOD(0x027AE000, bool, GetLegacyFormatMode, ())
     IL2CPP_REGISTER_METHOD(0x027AE0A0, bool, get_LegacyMode, ())
     IL2CPP_REGISTER_METHOD(0x027AE260, void, cctor, ())
-    inline app::TimeSpan operator - (app::TimeSpan t1, app::TimeSpan t2) {
+    inline app::TimeSpan operator-(app::TimeSpan t1, app::TimeSpan t2) {
         return op_Subtraction(t1, t2);
     }
-    inline app::TimeSpan operator + (app::TimeSpan t1, app::TimeSpan t2) {
+    inline app::TimeSpan operator+(app::TimeSpan t1, app::TimeSpan t2) {
         return op_Addition(t1, t2);
     }
-    inline bool operator == (app::TimeSpan t1, app::TimeSpan t2) {
+    inline bool operator==(app::TimeSpan t1, app::TimeSpan t2) {
         return op_Equality(t1, t2);
     }
-    inline bool operator != (app::TimeSpan t1, app::TimeSpan t2) {
+    inline bool operator!=(app::TimeSpan t1, app::TimeSpan t2) {
         return op_Inequality(t1, t2);
     }
-    inline bool operator < (app::TimeSpan t1, app::TimeSpan t2) {
+    inline bool operator<(app::TimeSpan t1, app::TimeSpan t2) {
         return op_LessThan(t1, t2);
     }
-    inline bool operator <= (app::TimeSpan t1, app::TimeSpan t2) {
+    inline bool operator<=(app::TimeSpan t1, app::TimeSpan t2) {
         return op_LessThanOrEqual(t1, t2);
     }
-    inline bool operator > (app::TimeSpan t1, app::TimeSpan t2) {
+    inline bool operator>(app::TimeSpan t1, app::TimeSpan t2) {
         return op_GreaterThan(t1, t2);
     }
-    inline bool operator >= (app::TimeSpan t1, app::TimeSpan t2) {
+    inline bool operator>=(app::TimeSpan t1, app::TimeSpan t2) {
         return op_GreaterThanOrEqual(t1, t2);
     }
-}
+} // namespace app::classes::System::TimeSpan

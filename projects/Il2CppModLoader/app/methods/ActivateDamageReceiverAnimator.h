@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ActivateDamageReceiverAnimator {
+namespace app::classes::ActivateDamageReceiverAnimator {
     IL2CPP_REGISTER_METHOD(0x004C87D0, void, OnStartPlay, (app::ActivateDamageReceiverAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C87F0, void, OnStopPlay, (app::ActivateDamageReceiverAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C8830, void, CacheOriginals, (app::ActivateDamageReceiverAnimator * this_ptr))
@@ -10,4 +10,4 @@ namespace app::methods::ActivateDamageReceiverAnimator {
     IL2CPP_REGISTER_METHOD(0x004C88C0, float, get_Duration, (app::ActivateDamageReceiverAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsLooping, (app::ActivateDamageReceiverAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C88D0, void, ctor, (app::ActivateDamageReceiverAnimator * this_ptr))
-}
+} // namespace app::classes::ActivateDamageReceiverAnimator

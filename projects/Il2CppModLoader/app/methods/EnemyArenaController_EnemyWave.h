@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::EnemyArenaController_EnemyWave {
-    IL2CPP_REGISTER_METHOD(0x00C02130, app::MoonTimeline *, get_OnStartTimelineResolved, (app::EnemyArenaController_EnemyWave * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00C02220, app::ICondition *, get_ResolvedExtraCondition, (app::EnemyArenaController_EnemyWave * this_ptr))
+namespace app::classes::EnemyArenaController_EnemyWave {
+    IL2CPP_REGISTER_METHOD(0x00C02130, app::MoonTimeline*, get_OnStartTimelineResolved, (app::EnemyArenaController_EnemyWave * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00C02220, app::ICondition*, get_ResolvedExtraCondition, (app::EnemyArenaController_EnemyWave * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C022E0, bool, CanStart, (app::EnemyArenaController_EnemyWave * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C02390, bool, get_AllEnemiesKilled, (app::EnemyArenaController_EnemyWave * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C02420, void, EnablePlaceholders, (app::EnemyArenaController_EnemyWave * this_ptr))
@@ -27,4 +27,4 @@ namespace app::methods::EnemyArenaController_EnemyWave {
     IL2CPP_REGISTER_METHOD(0x00C03540, void, EntityKilled, (app::EnemyArenaController_EnemyWave * this_ptr, app::DamageResult obj))
     IL2CPP_REGISTER_METHODINFO(0x04708090, EnemyArenaController_EnemyWave_EntityKilled__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C03550, void, ctor, (app::EnemyArenaController_EnemyWave * this_ptr))
-}
+} // namespace app::classes::EnemyArenaController_EnemyWave

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::VerletSkinningModifier {
+namespace app::classes::VerletSkinningModifier {
     IL2CPP_REGISTER_METHOD(0x013C8070, void, Awake, (app::VerletSkinningModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013C8140, void, OnEnable, (app::VerletSkinningModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, InitializeBonePostions, (app::VerletSkinningModifier * this_ptr))
@@ -18,4 +18,4 @@ namespace app::methods::VerletSkinningModifier {
     IL2CPP_REGISTER_METHOD(0x013C84F0, void, set_Mask, (app::VerletSkinningModifier * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x013C8500, void, ctor, (app::VerletSkinningModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())
-}
+} // namespace app::classes::VerletSkinningModifier

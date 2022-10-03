@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinInvisibilitySpell {
+namespace app::classes::SeinInvisibilitySpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinInvisibilitySpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010155B0, void, OnSetReferenceToSein, (app::SeinInvisibilitySpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010155F0, void, OnDestroy, (app::SeinInvisibilitySpell * this_ptr))
@@ -12,4 +12,4 @@ namespace app::methods::SeinInvisibilitySpell {
     IL2CPP_REGISTER_METHOD(0x01015940, void, StartInvisibility, (app::SeinInvisibilitySpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01015D30, void, EndInvisibility, (app::SeinInvisibilitySpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01016050, void, ctor, (app::SeinInvisibilitySpell * this_ptr))
-}
+} // namespace app::classes::SeinInvisibilitySpell

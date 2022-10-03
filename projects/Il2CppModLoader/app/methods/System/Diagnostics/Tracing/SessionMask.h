@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Diagnostics::Tracing::SessionMask {
+namespace app::classes::System::Diagnostics::Tracing::SessionMask {
     IL2CPP_REGISTER_METHOD(0x00154CB0, void, ctor, (app::SessionMask__Boxed * this_ptr, uint32_t mask))
     IL2CPP_REGISTER_METHOD(0x00154CC0, bool, IsEqualOrSupersetOf, (app::SessionMask__Boxed * this_ptr, app::SessionMask m))
     IL2CPP_REGISTER_METHOD(0x00D51450, app::SessionMask, get_All, ())
@@ -12,4 +12,4 @@ namespace app::methods::System::Diagnostics::Tracing::SessionMask {
     IL2CPP_REGISTER_METHOD(0x00154D00, void, set_Item, (app::SessionMask__Boxed * this_ptr, int32_t per_event_source_session_id, bool value))
     IL2CPP_REGISTER_METHOD(0x006CE970, uint64_t, op_Explicit_1, (app::SessionMask m))
     IL2CPP_REGISTER_METHOD(0x006CE970, uint32_t, op_Explicit_2, (app::SessionMask m))
-}
+} // namespace app::classes::System::Diagnostics::Tracing::SessionMask

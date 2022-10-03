@@ -1,6 +1,6 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PlayFab::PlayStreamModels::ActionExecutionError {
+namespace app::classes::PlayFab::PlayStreamModels::ActionExecutionError {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ActionExecutionError * this_ptr))
 }

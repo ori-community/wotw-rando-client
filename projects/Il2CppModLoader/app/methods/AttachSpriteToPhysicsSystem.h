@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AttachSpriteToPhysicsSystem {
+namespace app::classes::AttachSpriteToPhysicsSystem {
     IL2CPP_REGISTER_METHOD(0x008495E0, void, InitTransform, (app::AttachSpriteToPhysicsSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFEA0, bool, ISuspendable_get_IsSuspended, (app::AttachSpriteToPhysicsSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008496A0, void, ISuspendable_set_IsSuspended, (app::AttachSpriteToPhysicsSystem * this_ptr, bool value))
@@ -18,4 +18,4 @@ namespace app::methods::AttachSpriteToPhysicsSystem {
     IL2CPP_REGISTER_METHOD(0x0084ACA0, void, PrepareJob, (app::AttachSpriteToPhysicsSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0084ADF0, void, UpdateFromJob, (app::AttachSpriteToPhysicsSystem * this_ptr, app::TransformAccess transform))
     IL2CPP_REGISTER_METHOD(0x0084C030, void, ctor, (app::AttachSpriteToPhysicsSystem * this_ptr))
-}
+} // namespace app::classes::AttachSpriteToPhysicsSystem

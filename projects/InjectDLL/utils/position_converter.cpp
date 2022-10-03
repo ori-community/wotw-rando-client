@@ -5,8 +5,8 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Camera.h>
 #include <Il2CppModLoader/app/methods/GameplayCamera.h>
 
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
 
 namespace {
     enum ConvertPositionType {

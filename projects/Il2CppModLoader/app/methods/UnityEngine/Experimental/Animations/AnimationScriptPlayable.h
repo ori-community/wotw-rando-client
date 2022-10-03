@@ -1,16 +1,16 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Experimental::Animations::AnimationScriptPlayable {
+namespace app::classes::UnityEngine::Experimental::Animations::AnimationScriptPlayable {
     IL2CPP_REGISTER_METHOD(0x00242700, void, ctor, (app::AnimationScriptPlayable__Boxed * this_ptr, app::PlayableHandle handle))
     IL2CPP_REGISTER_METHODINFO(0x04789068, AnimationScriptPlayable__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001D9980, app::PlayableHandle, GetHandle, (app::AnimationScriptPlayable__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0307C600, app::Playable, op_Implicit, (app::AnimationScriptPlayable playable))
     IL2CPP_REGISTER_METHOD(0x03086610, app::AnimationScriptPlayable, op_Explicit, (app::Playable playable))
     IL2CPP_REGISTER_METHOD(0x00242720, bool, Equals, (app::AnimationScriptPlayable__Boxed * this_ptr, app::AnimationScriptPlayable other))
-    IL2CPP_REGISTER_METHOD(0x03086650, bool, CreateHandleInternal, (app::PlayableGraph graph, app::PlayableHandle * handle, void * job_reflection_data))
+    IL2CPP_REGISTER_METHOD(0x03086650, bool, CreateHandleInternal, (app::PlayableGraph graph, app::PlayableHandle* handle, void* job_reflection_data))
     IL2CPP_REGISTER_METHOD(0x03086740, void, cctor, ())
-    IL2CPP_REGISTER_METHOD(0x03086810, bool, CreateHandleInternal_Injected, (app::PlayableGraph * graph, app::PlayableHandle * handle, void * job_reflection_data))
+    IL2CPP_REGISTER_METHOD(0x03086810, bool, CreateHandleInternal_Injected, (app::PlayableGraph * graph, app::PlayableHandle* handle, void* job_reflection_data))
     IL2CPP_REGISTER_METHOD(0x0012E910, void, CheckJobTypeValidity_1, (app::AnimationScriptPlayable__Boxed * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047838D8, AnimationScriptPlayable_CheckJobTypeValidity__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012EA90, void, SetJobData_1, (app::AnimationScriptPlayable__Boxed * this_ptr, app::DelayJointPostprocessJob job_data))
@@ -25,4 +25,4 @@ namespace app::methods::UnityEngine::Experimental::Animations::AnimationScriptPl
     IL2CPP_REGISTER_METHOD(0x02FF7B70, app::AnimationScriptPlayable, Create_2, (app::PlayableGraph graph, app::MatchJointsJob job_data, int32_t input_count))
     IL2CPP_REGISTER_METHOD(0x02FF80B0, app::PlayableHandle, CreateHandle_1, (app::PlayableGraph graph, int32_t input_count))
     IL2CPP_REGISTER_METHOD(0x02FF82D0, app::PlayableHandle, CreateHandle_2, (app::PlayableGraph graph, int32_t input_count))
-}
+} // namespace app::classes::UnityEngine::Experimental::Animations::AnimationScriptPlayable

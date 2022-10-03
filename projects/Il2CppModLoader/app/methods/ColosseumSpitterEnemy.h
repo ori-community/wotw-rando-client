@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ColosseumSpitterEnemy {
+namespace app::classes::ColosseumSpitterEnemy {
     IL2CPP_REGISTER_METHOD(0x011DB170, void, Start, (app::ColosseumSpitterEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0099F0A0, void, ctor, (app::ColosseumSpitterEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0099F1F0, bool, _Start_b__0_0, (app::ColosseumSpitterEnemy * this_ptr))
@@ -24,4 +24,4 @@ namespace app::methods::ColosseumSpitterEnemy {
     IL2CPP_REGISTER_METHODINFO(0x0478C2D8, ColosseumSpitterEnemy__Start_b__0_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004C40F0, bool, _Start_b__0_9, (app::ColosseumSpitterEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04723698, ColosseumSpitterEnemy__Start_b__0_9__MethodInfo)
-}
+} // namespace app::classes::ColosseumSpitterEnemy

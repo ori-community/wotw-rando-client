@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SimpleFPS {
+namespace app::classes::SimpleFPS {
     IL2CPP_REGISTER_METHOD(0x0073ECE0, app::Color, _getColorForLightCount, (app::SimpleFPS * this_ptr, int32_t lights))
     IL2CPP_REGISTER_METHOD(0x0073ED40, app::Color, _getColorForReflectionCount, (app::SimpleFPS * this_ptr, int32_t lights))
     IL2CPP_REGISTER_METHOD(0x0073ED40, app::Color, _getColorForGodrayCount, (app::SimpleFPS * this_ptr, int32_t lights))
@@ -32,11 +32,11 @@ namespace app::methods::SimpleFPS {
     IL2CPP_REGISTER_METHOD(0x00745EB0, void, DrawTimeWithBackgroundPadded, (app::SimpleFPS * this_ptr, int32_t value, app::Color background_color, app::Color text_color, int32_t x, int32_t y))
     IL2CPP_REGISTER_METHOD(0x00746240, void, DrawIntWithBackground, (app::SimpleFPS * this_ptr, int32_t value, app::Color background_color, app::Color text_color, int32_t x, int32_t y))
     IL2CPP_REGISTER_METHOD(0x007467C0, void, DrawIntWithBackgroundPadded, (app::SimpleFPS * this_ptr, int32_t value, app::Color background_color, app::Color text_color, int32_t x, int32_t y))
-    IL2CPP_REGISTER_METHOD(0x00746C80, void, DrawString, (app::SimpleFPS * this_ptr, app::String * str, int32_t x_offset, int32_t y_offset))
+    IL2CPP_REGISTER_METHOD(0x00746C80, void, DrawString, (app::SimpleFPS * this_ptr, app::String* str, int32_t x_offset, int32_t y_offset))
     IL2CPP_REGISTER_METHOD(0x00746DC0, void, DrawLetter_1, (app::SimpleFPS * this_ptr, uint16_t c, int32_t x_offset, int32_t y_offset))
     IL2CPP_REGISTER_METHOD(0x00746DF0, void, DrawLetter_2, (app::SimpleFPS * this_ptr, int32_t letter, int32_t x_offset, int32_t y_offset))
     IL2CPP_REGISTER_METHOD(0x00747130, int32_t, LetterOffset, (app::SimpleFPS * this_ptr, int32_t letter))
-    IL2CPP_REGISTER_METHOD(0x007471E0, void, DrawDebugVideoString, (app::SimpleFPS * this_ptr, app::String * text, float time))
+    IL2CPP_REGISTER_METHOD(0x007471E0, void, DrawDebugVideoString, (app::SimpleFPS * this_ptr, app::String* text, float time))
     IL2CPP_REGISTER_METHOD(0x00747370, void, ctor, (app::SimpleFPS * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00747EC0, void, cctor, ())
-}
+} // namespace app::classes::SimpleFPS

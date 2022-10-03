@@ -11,7 +11,7 @@
 #include <Il2CppModLoader/app/methods/MeleeComboMoveHammerStomp.h>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     uber_states::UberState hammer_speed(UberStateGroup::RandoUpgrade, 0);

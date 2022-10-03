@@ -1,6 +1,6 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ShaderID_CameraFilterPack_Vision_Crystal {
+namespace app::classes::ShaderID_CameraFilterPack_Vision_Crystal {
     IL2CPP_REGISTER_METHOD(0x02B70480, void, cctor, ())
 }

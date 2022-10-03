@@ -26,9 +26,9 @@
 
 using namespace modloader;
 using namespace modloader::win;
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
-using namespace app::methods::CatlikeCoding::TextBox;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
+using namespace app::classes::CatlikeCoding::TextBox;
 
 INJECT_C_DLLEXPORT void add_player(const wchar_t* id, const wchar_t* name, multiplayer::PlayerIcon icon);
 INJECT_C_DLLEXPORT void set_player_icon(const wchar_t* id, multiplayer::PlayerIcon icon);

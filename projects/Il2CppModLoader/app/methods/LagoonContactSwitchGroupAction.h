@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LagoonContactSwitchGroupAction {
+namespace app::classes::LagoonContactSwitchGroupAction {
     IL2CPP_REGISTER_METHOD(0x00F01420, void, OnEnable, (app::LagoonContactSwitchGroupAction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F015C0, void, OnDisable, (app::LagoonContactSwitchGroupAction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F01760, void, Start, (app::LagoonContactSwitchGroupAction * this_ptr))
@@ -12,4 +12,4 @@ namespace app::methods::LagoonContactSwitchGroupAction {
     IL2CPP_REGISTER_METHOD(0x00845430, void, OnRestoreCheckpoint, (app::LagoonContactSwitchGroupAction * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04734A48, LagoonContactSwitchGroupAction_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F01BF0, void, ctor, (app::LagoonContactSwitchGroupAction * this_ptr))
-}
+} // namespace app::classes::LagoonContactSwitchGroupAction

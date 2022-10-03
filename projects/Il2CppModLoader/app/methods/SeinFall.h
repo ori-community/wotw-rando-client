@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinFall {
+namespace app::classes::SeinFall {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinFall * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00AD4DF0, app::SeinFallPuppet *, get_Puppet, (app::SeinFall * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement *, get_PlatformMovement, (app::SeinFall * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00AD4DF0, app::SeinFallPuppet*, get_Puppet, (app::SeinFall * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement*, get_PlatformMovement, (app::SeinFall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AD4EB0, bool, IsTurnAnimBlocking, (app::SeinFall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AD4ED0, bool, get_ShouldFallMovingAnimationPlay, (app::SeinFall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AD4F20, bool, get_ShouldFallIdleAnimationPlay, (app::SeinFall * this_ptr))
@@ -25,7 +25,7 @@ namespace app::methods::SeinFall {
     IL2CPP_REGISTER_METHODINFO(0x0476EDF8, SeinFall_OnTurnAnimStop__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AD5FE0, void, UpdateCharacterState, (app::SeinFall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AD6B00, void, HandleFalling, (app::SeinFall * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00AD6EE0, void, HandleLandOnGround, (app::SeinFall * this_ptr, app::Vector3 normal, app::Collider * target))
+    IL2CPP_REGISTER_METHOD(0x00AD6EE0, void, HandleLandOnGround, (app::SeinFall * this_ptr, app::Vector3 normal, app::Collider* target))
     IL2CPP_REGISTER_METHODINFO(0x04702700, SeinFall_HandleLandOnGround__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AD7860, void, ExecuteLandingEffects, (app::SeinFall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AD7B60, void, ExecuteLongLandingEffects, (app::SeinFall * this_ptr))
@@ -49,4 +49,4 @@ namespace app::methods::SeinFall {
     IL2CPP_REGISTER_METHODINFO(0x047987F8, SeinFall__Start_b__46_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AD8A50, bool, _PlayLongFallLandAnimation_b__64_0, (app::SeinFall * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04767108, SeinFall__PlayLongFallLandAnimation_b__64_0__MethodInfo)
-}
+} // namespace app::classes::SeinFall

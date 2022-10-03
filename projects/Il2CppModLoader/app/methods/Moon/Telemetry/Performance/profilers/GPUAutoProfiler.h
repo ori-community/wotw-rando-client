@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Telemetry::Performance::profilers::GPUAutoProfiler {
+namespace app::classes::Moon::Telemetry::Performance::profilers::GPUAutoProfiler {
     IL2CPP_REGISTER_METHOD(0x00E41310, bool, get_Enabled, ())
     IL2CPP_REGISTER_METHOD(0x00E413E0, void, set_Enabled, (bool value))
-    IL2CPP_REGISTER_METHOD(0x00E416C0, app::GPUAutoProfilerReport *, get_LastReport, ())
+    IL2CPP_REGISTER_METHOD(0x00E416C0, app::GPUAutoProfilerReport*, get_LastReport, ())
     IL2CPP_REGISTER_METHOD(0x00E41760, void, set_LastReport, (app::GPUAutoProfilerReport * value))
     IL2CPP_REGISTER_METHOD(0x00E41810, int32_t, get_SampleDuration, ())
     IL2CPP_REGISTER_METHOD(0x00E41900, int32_t, get_SampleInterval, ())
@@ -22,4 +22,4 @@ namespace app::methods::Moon::Telemetry::Performance::profilers::GPUAutoProfiler
     IL2CPP_REGISTER_METHOD(0x00E43580, void, EnsureImguiRegistered, (app::GPUAutoProfiler * this_ptr, bool registered))
     IL2CPP_REGISTER_METHOD(0x00E43680, void, ctor, (app::GPUAutoProfiler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E437E0, void, cctor, ())
-}
+} // namespace app::classes::Moon::Telemetry::Performance::profilers::GPUAutoProfiler

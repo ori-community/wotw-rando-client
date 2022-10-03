@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CollectablePlaceholder {
+namespace app::classes::CollectablePlaceholder {
     IL2CPP_REGISTER_METHOD(0x012CBAF0, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x00739A80, bool, get_IsSuspended, (app::CollectablePlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0094FCE0, void, set_IsSuspended, (app::CollectablePlaceholder * this_ptr, bool value))
@@ -23,17 +23,17 @@ namespace app::methods::CollectablePlaceholder {
     IL2CPP_REGISTER_METHOD(0x012CC990, void, FixedUpdate, (app::CollectablePlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012CCF60, void, DespawnInstance, (app::CollectablePlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012CD080, void, Instantiate, (app::CollectablePlaceholder * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x012CD590, void, OnInstantiate, (app::CollectablePlaceholder * this_ptr, app::GameObject * instance))
-    IL2CPP_REGISTER_METHOD(0x012CD7B0, void, Serialize, (app::CollectablePlaceholder * this_ptr, app::Archive * ar))
-    IL2CPP_REGISTER_METHOD(0x012CD810, void, CreateCheckpointWithOffset, (app::CollectablePlaceholder * this_ptr, app::CollectableCheckpointSettings * settings))
-    IL2CPP_REGISTER_METHOD(0x012CDA90, void, OnCharacterLand, (app::CollectablePlaceholder * this_ptr, app::Vector3 normal, app::Collider * collider))
+    IL2CPP_REGISTER_METHOD(0x012CD590, void, OnInstantiate, (app::CollectablePlaceholder * this_ptr, app::GameObject* instance))
+    IL2CPP_REGISTER_METHOD(0x012CD7B0, void, Serialize, (app::CollectablePlaceholder * this_ptr, app::Archive* ar))
+    IL2CPP_REGISTER_METHOD(0x012CD810, void, CreateCheckpointWithOffset, (app::CollectablePlaceholder * this_ptr, app::CollectableCheckpointSettings* settings))
+    IL2CPP_REGISTER_METHOD(0x012CDA90, void, OnCharacterLand, (app::CollectablePlaceholder * this_ptr, app::Vector3 normal, app::Collider* collider))
     IL2CPP_REGISTER_METHODINFO(0x0470B810, CollectablePlaceholder_OnCharacterLand__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ApplyOnEditor, (app::CollectablePlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012CDB70, void, Apply, (app::CollectablePlaceholder * this_ptr, app::UberStateApplyContext__Enum context))
-    IL2CPP_REGISTER_METHOD(0x00BFB3D0, app::IUberState__Array *, get_AffectingUberStates, (app::CollectablePlaceholder * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00420EE0, app::List_1_UnityEngine_GameObject_ *, get_AllTargets, (app::CollectablePlaceholder * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00BFB3D0, app::IUberState__Array*, get_AffectingUberStates, (app::CollectablePlaceholder * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00420EE0, app::List_1_UnityEngine_GameObject_*, get_AllTargets, (app::CollectablePlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012CDD20, void, ctor, (app::CollectablePlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012CDFE0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x012CE130, void, _Instantiate_b__41_0, (app::CollectablePlaceholder * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04779070, CollectablePlaceholder__Instantiate_b__41_0__MethodInfo)
-}
+} // namespace app::classes::CollectablePlaceholder

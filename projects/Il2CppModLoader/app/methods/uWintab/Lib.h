@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::uWintab::Lib {
+namespace app::classes::uWintab::Lib {
     IL2CPP_REGISTER_METHOD(0x00F72B30, bool, IsAvailable, ())
     IL2CPP_REGISTER_METHOD(0x00F72BC0, void, Initialize, ())
     IL2CPP_REGISTER_METHOD(0x00F72C50, void, Finalize, ())
@@ -30,6 +30,6 @@ namespace app::methods::uWintab::Lib {
     IL2CPP_REGISTER_METHOD(0x00F73C20, bool, GetExpKey, (int32_t tablet_id, int32_t control_id))
     IL2CPP_REGISTER_METHOD(0x00F73CD0, bool, GetExpKeyDown, (int32_t tablet_id, int32_t control_id))
     IL2CPP_REGISTER_METHOD(0x00F73D80, bool, GetExpKeyUp, (int32_t tablet_id, int32_t control_id))
-    IL2CPP_REGISTER_METHOD(0x00F73E30, app::String *, GetDeviceName_2, ())
-    IL2CPP_REGISTER_METHOD(0x00F73FB0, app::String *, GetVersion_2, ())
-}
+    IL2CPP_REGISTER_METHOD(0x00F73E30, app::String*, GetDeviceName_2, ())
+    IL2CPP_REGISTER_METHOD(0x00F73FB0, app::String*, GetVersion_2, ())
+} // namespace app::classes::uWintab::Lib

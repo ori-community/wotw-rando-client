@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PickupOrbSystem {
-    IL2CPP_REGISTER_METHOD(0x01159E50, app::PickupOrbSystem *, get_Instance, ())
+namespace app::classes::PickupOrbSystem {
+    IL2CPP_REGISTER_METHOD(0x01159E50, app::PickupOrbSystem*, get_Instance, ())
     IL2CPP_REGISTER_METHOD(0x01159EF0, void, set_Instance, (app::PickupOrbSystem * value))
     IL2CPP_REGISTER_METHOD(0x01159FA0, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x0115A110, void, Awake, (app::PickupOrbSystem * this_ptr))
@@ -17,4 +17,4 @@ namespace app::methods::PickupOrbSystem {
     IL2CPP_REGISTER_METHOD(0x0115AE20, void, FixedUpdate, (app::PickupOrbSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::PickupOrbSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0115BCA0, void, cctor, ())
-}
+} // namespace app::classes::PickupOrbSystem

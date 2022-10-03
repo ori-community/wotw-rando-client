@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Kino::Motion {
+namespace app::classes::Kino::Motion {
     IL2CPP_REGISTER_METHOD(0x00446960, float, get_shutterAngle, (app::Motion_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00724010, void, set_shutterAngle, (app::Motion_1 * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x00998570, int32_t, get_sampleCount, (app::Motion_1 * this_ptr))
@@ -11,6 +11,6 @@ namespace app::methods::Kino::Motion {
     IL2CPP_REGISTER_METHOD(0x00E751A0, void, OnEnable, (app::Motion_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E753B0, void, OnDisable, (app::Motion_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E755D0, void, Update, (app::Motion_1 * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00E75700, void, OnRenderImage, (app::Motion_1 * this_ptr, app::RenderTexture * source, app::RenderTexture * destination))
+    IL2CPP_REGISTER_METHOD(0x00E75700, void, OnRenderImage, (app::Motion_1 * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))
     IL2CPP_REGISTER_METHOD(0x00E75A20, void, ctor, (app::Motion_1 * this_ptr))
-}
+} // namespace app::classes::Kino::Motion

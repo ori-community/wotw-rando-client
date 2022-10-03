@@ -1,16 +1,16 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::UI::Text {
+namespace app::classes::UnityEngine::UI::Text {
     IL2CPP_REGISTER_METHOD(0x026793B0, void, ctor, (app::Text * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x02679480, app::TextGenerator *, get_cachedTextGenerator, (app::Text * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x026796E0, app::TextGenerator *, get_cachedTextGeneratorForLayout, (app::Text * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x02679850, app::Texture *, get_mainTexture, (app::Text * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x02679480, app::TextGenerator*, get_cachedTextGenerator, (app::Text * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x026796E0, app::TextGenerator*, get_cachedTextGeneratorForLayout, (app::Text * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x02679850, app::Texture*, get_mainTexture, (app::Text * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02679BC0, void, FontTextureChanged, (app::Text * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x02679DC0, app::Font *, get_font, (app::Text * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x02679DE0, void, set_font, (app::Text * this_ptr, app::Font * value))
-    IL2CPP_REGISTER_METHOD(0x02679F10, app::String *, get_text, (app::Text * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x02679F20, void, set_text, (app::Text * this_ptr, app::String * value))
+    IL2CPP_REGISTER_METHOD(0x02679DC0, app::Font*, get_font, (app::Text * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x02679DE0, void, set_font, (app::Text * this_ptr, app::Font* value))
+    IL2CPP_REGISTER_METHOD(0x02679F10, app::String*, get_text, (app::Text * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x02679F20, void, set_text, (app::Text * this_ptr, app::String* value))
     IL2CPP_REGISTER_METHOD(0x0267A040, bool, get_supportRichText, (app::Text * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0267A060, void, set_supportRichText, (app::Text * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0267A0C0, bool, get_resizeTextForBestFit, (app::Text * this_ptr))
@@ -40,7 +40,7 @@ namespace app::methods::UnityEngine::UI::Text {
     IL2CPP_REGISTER_METHOD(0x0267AAD0, void, AssignDefaultFont, (app::Text * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0267AD90, app::TextGenerationSettings, GetGenerationSettings, (app::Text * this_ptr, app::Vector2 extents))
     IL2CPP_REGISTER_METHOD(0x0267B090, app::Vector2, GetTextAnchorPivot, (app::TextAnchor__Enum anchor))
-    IL2CPP_REGISTER_METHOD(0x0267B2B0, void, OnPopulateMesh, (app::Text * this_ptr, app::VertexHelper * to_fill))
+    IL2CPP_REGISTER_METHOD(0x0267B2B0, void, OnPopulateMesh, (app::Text * this_ptr, app::VertexHelper* to_fill))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, CalculateLayoutInputHorizontal, (app::Text * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, CalculateLayoutInputVertical, (app::Text * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024BF590, float, get_minWidth, (app::Text * this_ptr))
@@ -51,4 +51,4 @@ namespace app::methods::UnityEngine::UI::Text {
     IL2CPP_REGISTER_METHOD(0x024BF740, float, get_flexibleHeight, (app::Text * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F1B660, int32_t, get_layoutPriority, (app::Text * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0267BCE0, void, cctor, ())
-}
+} // namespace app::classes::UnityEngine::UI::Text

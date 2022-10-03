@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MicroProfilerInspector_MetricData {
-    IL2CPP_REGISTER_METHOD(0x00107C00, app::String *, get_MetricHeaderName, (app::MicroProfilerInspector_MetricData__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0010FD20, void, set_MetricHeaderName, (app::MicroProfilerInspector_MetricData__Boxed * this_ptr, app::String * value))
+namespace app::classes::MicroProfilerInspector_MetricData {
+    IL2CPP_REGISTER_METHOD(0x00107C00, app::String*, get_MetricHeaderName, (app::MicroProfilerInspector_MetricData__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0010FD20, void, set_MetricHeaderName, (app::MicroProfilerInspector_MetricData__Boxed * this_ptr, app::String* value))
     IL2CPP_REGISTER_METHOD(0x0010A860, app::Metric__Enum, get_Metric, (app::MicroProfilerInspector_MetricData__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00127510, void, set_Metric, (app::MicroProfilerInspector_MetricData__Boxed * this_ptr, app::Metric__Enum value))
     IL2CPP_REGISTER_METHOD(0x00127520, double, get_Value, (app::MicroProfilerInspector_MetricData__Boxed * this_ptr))
@@ -22,4 +22,4 @@ namespace app::methods::MicroProfilerInspector_MetricData {
     IL2CPP_REGISTER_METHOD(0x00127560, void, set_MarkerAvg, (app::MicroProfilerInspector_MetricData__Boxed * this_ptr, double value))
     IL2CPP_REGISTER_METHOD(0x001162C0, int32_t, get_Column, (app::MicroProfilerInspector_MetricData__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001162D0, void, set_Column, (app::MicroProfilerInspector_MetricData__Boxed * this_ptr, int32_t value))
-}
+} // namespace app::classes::MicroProfilerInspector_MetricData

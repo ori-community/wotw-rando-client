@@ -1,11 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Security::Cryptography::TailStream {
+namespace app::classes::System::Security::Cryptography::TailStream {
     IL2CPP_REGISTER_METHOD(0x01E112F0, void, ctor, (app::TailStream * this_ptr, int32_t buffer_size))
     IL2CPP_REGISTER_METHOD(0x01E113B0, void, Clear, (app::TailStream * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E113D0, void, Dispose, (app::TailStream * this_ptr, bool disposing))
-    IL2CPP_REGISTER_METHOD(0x01E11470, app::Byte__Array *, get_Buffer, (app::TailStream * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01E11470, app::Byte__Array*, get_Buffer, (app::TailStream * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanRead, (app::TailStream * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanSeek, (app::TailStream * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D60150, bool, get_CanWrite, (app::TailStream * this_ptr))
@@ -20,8 +20,8 @@ namespace app::methods::System::Security::Cryptography::TailStream {
     IL2CPP_REGISTER_METHODINFO(0x04775F88, TailStream_Seek__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E11770, void, SetLength, (app::TailStream * this_ptr, int64_t value))
     IL2CPP_REGISTER_METHODINFO(0x047888F8, TailStream_SetLength__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01E117E0, int32_t, Read, (app::TailStream * this_ptr, app::Byte__Array * buffer, int32_t offset, int32_t count))
+    IL2CPP_REGISTER_METHOD(0x01E117E0, int32_t, Read, (app::TailStream * this_ptr, app::Byte__Array* buffer, int32_t offset, int32_t count))
     IL2CPP_REGISTER_METHODINFO(0x04738D20, TailStream_Read__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01E11850, void, Write, (app::TailStream * this_ptr, app::Byte__Array * buffer, int32_t offset, int32_t count))
+    IL2CPP_REGISTER_METHOD(0x01E11850, void, Write, (app::TailStream * this_ptr, app::Byte__Array* buffer, int32_t offset, int32_t count))
     IL2CPP_REGISTER_METHODINFO(0x047174E0, TailStream_Write__MethodInfo)
-}
+} // namespace app::classes::System::Security::Cryptography::TailStream

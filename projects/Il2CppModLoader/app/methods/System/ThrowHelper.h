@@ -1,24 +1,24 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::ThrowHelper {
+namespace app::classes::System::ThrowHelper {
     IL2CPP_REGISTER_METHOD(0x027ABA90, void, ThrowArgumentNullException, (app::ExceptionArgument__Enum argument))
     IL2CPP_REGISTER_METHODINFO(0x047031A8, ThrowHelper_ThrowArgumentNullException__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x027ABAD0, app::Exception *, CreateArgumentNullException, (app::ExceptionArgument__Enum argument))
+    IL2CPP_REGISTER_METHOD(0x027ABAD0, app::Exception*, CreateArgumentNullException, (app::ExceptionArgument__Enum argument))
     IL2CPP_REGISTER_METHOD(0x027ABC50, void, ThrowArrayTypeMismatchException_ArrayTypeMustBeExactMatch, (app::Type * type))
     IL2CPP_REGISTER_METHODINFO(0x04757FD0, ThrowHelper_ThrowArrayTypeMismatchException_ArrayTypeMustBeExactMatch__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x027ABC90, app::Exception *, CreateArrayTypeMismatchException_ArrayTypeMustBeExactMatch, (app::Type * type))
+    IL2CPP_REGISTER_METHOD(0x027ABC90, app::Exception*, CreateArrayTypeMismatchException_ArrayTypeMustBeExactMatch, (app::Type * type))
     IL2CPP_REGISTER_METHOD(0x027ABE00, void, ThrowArgumentException_InvalidTypeWithPointersNotSupported, (app::Type * type))
     IL2CPP_REGISTER_METHODINFO(0x0477B860, ThrowHelper_ThrowArgumentException_InvalidTypeWithPointersNotSupported__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x027ABE40, app::Exception *, CreateArgumentException_InvalidTypeWithPointersNotSupported, (app::Type * type))
+    IL2CPP_REGISTER_METHOD(0x027ABE40, app::Exception*, CreateArgumentException_InvalidTypeWithPointersNotSupported, (app::Type * type))
     IL2CPP_REGISTER_METHOD(0x027ABFB0, void, ThrowIndexOutOfRangeException, ())
     IL2CPP_REGISTER_METHODINFO(0x047326D8, ThrowHelper_ThrowIndexOutOfRangeException__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x027ABFF0, app::Exception *, CreateIndexOutOfRangeException, ())
+    IL2CPP_REGISTER_METHOD(0x027ABFF0, app::Exception*, CreateIndexOutOfRangeException, ())
     IL2CPP_REGISTER_METHOD(0x027AC130, void, ThrowArgumentOutOfRangeException_1, (app::ExceptionArgument__Enum argument))
     IL2CPP_REGISTER_METHODINFO(0x04730B40, ThrowHelper_ThrowArgumentOutOfRangeException__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x027AC170, app::Exception *, CreateArgumentOutOfRangeException, (app::ExceptionArgument__Enum argument))
+    IL2CPP_REGISTER_METHOD(0x027AC170, app::Exception*, CreateArgumentOutOfRangeException, (app::ExceptionArgument__Enum argument))
     IL2CPP_REGISTER_METHOD(0x027AC300, void, ThrowArgumentOutOfRangeException_2, ())
-    IL2CPP_REGISTER_METHOD(0x027AC320, void, ThrowWrongValueTypeArgumentException, (app::Object * value, app::Type * target_type))
+    IL2CPP_REGISTER_METHOD(0x027AC320, void, ThrowWrongValueTypeArgumentException, (app::Object * value, app::Type* target_type))
     IL2CPP_REGISTER_METHODINFO(0x0475D708, ThrowHelper_ThrowWrongValueTypeArgumentException__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x027AC3F0, void, ThrowKeyNotFoundException, ())
     IL2CPP_REGISTER_METHODINFO(0x04752468, ThrowHelper_ThrowKeyNotFoundException__MethodInfo)
@@ -30,8 +30,8 @@ namespace app::methods::System::ThrowHelper {
     IL2CPP_REGISTER_METHODINFO(0x04797570, ThrowHelper_ThrowInvalidOperationException__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x027AC670, void, ThrowNotSupportedException, (app::ExceptionResource__Enum resource))
     IL2CPP_REGISTER_METHODINFO(0x0473F7A0, ThrowHelper_ThrowNotSupportedException__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x027AC6E0, app::String *, GetArgumentName, (app::ExceptionArgument__Enum argument))
-    IL2CPP_REGISTER_METHOD(0x027AC920, app::String *, GetResourceName, (app::ExceptionResource__Enum resource))
+    IL2CPP_REGISTER_METHOD(0x027AC6E0, app::String*, GetArgumentName, (app::ExceptionArgument__Enum argument))
+    IL2CPP_REGISTER_METHOD(0x027AC920, app::String*, GetResourceName, (app::ExceptionResource__Enum resource))
     IL2CPP_REGISTER_METHOD(0x003F8E90, void, IfNullAndNullsAreIllegalThenThrow_1, (app::Object * value, app::ExceptionArgument__Enum arg_name))
     IL2CPP_REGISTER_METHOD(0x015E1D40, void, IfNullAndNullsAreIllegalThenThrow_2, (app::Object * value, app::ExceptionArgument__Enum arg_name))
     IL2CPP_REGISTER_METHOD(0x015E1D40, void, IfNullAndNullsAreIllegalThenThrow_3, (app::Object * value, app::ExceptionArgument__Enum arg_name))
@@ -207,4 +207,4 @@ namespace app::methods::System::ThrowHelper {
     IL2CPP_REGISTER_METHOD(0x015E1D40, void, IfNullAndNullsAreIllegalThenThrow_173, (app::Object * value, app::ExceptionArgument__Enum arg_name))
     IL2CPP_REGISTER_METHOD(0x015E1D40, void, IfNullAndNullsAreIllegalThenThrow_174, (app::Object * value, app::ExceptionArgument__Enum arg_name))
     IL2CPP_REGISTER_METHOD(0x015E1D40, void, IfNullAndNullsAreIllegalThenThrow_175, (app::Object * value, app::ExceptionArgument__Enum arg_name))
-}
+} // namespace app::classes::System::ThrowHelper

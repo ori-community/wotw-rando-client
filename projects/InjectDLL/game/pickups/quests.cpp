@@ -16,7 +16,7 @@
 using namespace modloader;
 using namespace utils;
 using namespace modloader::win;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace game::pickups::quests {
     bool allow_changing_active_quest = false;

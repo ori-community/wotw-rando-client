@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LegacyAnimator {
+namespace app::classes::LegacyAnimator {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_IsInScene, (app::LegacyAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052A060, void, set_IsInScene, (app::LegacyAnimator * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x006142D0, bool, get_Stopped, (app::LegacyAnimator * this_ptr))
@@ -18,12 +18,12 @@ namespace app::methods::LegacyAnimator {
     IL2CPP_REGISTER_METHOD(0x00724130, void, set_CurrentTime, (app::LegacyAnimator * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x015CBF10, bool, get_AtStart, (app::LegacyAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015CBFD0, bool, get_AtEnd, (app::LegacyAnimator * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x015CC090, void, add_OnAnimationEndEvent, (app::LegacyAnimator * this_ptr, app::Action * value))
-    IL2CPP_REGISTER_METHOD(0x015CC180, void, remove_OnAnimationEndEvent, (app::LegacyAnimator * this_ptr, app::Action * value))
+    IL2CPP_REGISTER_METHOD(0x015CC090, void, add_OnAnimationEndEvent, (app::LegacyAnimator * this_ptr, app::Action* value))
+    IL2CPP_REGISTER_METHOD(0x015CC180, void, remove_OnAnimationEndEvent, (app::LegacyAnimator * this_ptr, app::Action* value))
     IL2CPP_REGISTER_METHOD(0x015CC270, void, Awake, (app::LegacyAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015CC320, void, OnDestroy, (app::LegacyAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015CC3C0, void, UpdateMaxMinTime, (app::LegacyAnimator * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x015CC4D0, void, SetAnimationCurve, (app::LegacyAnimator * this_ptr, app::AnimationCurve * curve))
+    IL2CPP_REGISTER_METHOD(0x015CC4D0, void, SetAnimationCurve, (app::LegacyAnimator * this_ptr, app::AnimationCurve* curve))
     IL2CPP_REGISTER_METHOD(0x015CC4E0, void, Start, (app::LegacyAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015CC640, void, OnEnable, (app::LegacyAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015CC6E0, void, OnDisable, (app::LegacyAnimator * this_ptr))
@@ -48,4 +48,4 @@ namespace app::methods::LegacyAnimator {
     IL2CPP_REGISTER_METHOD(0x0111BFC0, void, set_Mask, (app::LegacyAnimator * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x00597B10, app::UpdateType__Enum, get_UpdateType, (app::LegacyAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005790B0, void, ctor, (app::LegacyAnimator * this_ptr))
-}
+} // namespace app::classes::LegacyAnimator

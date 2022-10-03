@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Rendering::MoonRenderPipelineDebugUI {
-    IL2CPP_REGISTER_METHOD(0x007940D0, app::QualityProfile *, getProfile, (app::MoonRenderPipelineDebugUI * this_ptr, app::MoonRenderPipelineDebugUI_Quality__Enum quality))
+namespace app::classes::Moon::Rendering::MoonRenderPipelineDebugUI {
+    IL2CPP_REGISTER_METHOD(0x007940D0, app::QualityProfile*, getProfile, (app::MoonRenderPipelineDebugUI * this_ptr, app::MoonRenderPipelineDebugUI_Quality__Enum quality))
     IL2CPP_REGISTER_METHODINFO(0x047619F8, MoonRenderPipelineDebugUI_getProfile__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00794310, void, Awake, (app::MoonRenderPipelineDebugUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00794690, void, OnEnable, (app::MoonRenderPipelineDebugUI * this_ptr))
@@ -25,9 +25,9 @@ namespace app::methods::Moon::Rendering::MoonRenderPipelineDebugUI {
     IL2CPP_REGISTER_METHOD(0x007A0730, void, startTimingCapture, (app::MoonRenderPipelineDebugUI * this_ptr, bool profiler_enabled))
     IL2CPP_REGISTER_METHOD(0x007A07A0, void, updateTimingCapture, (app::MoonRenderPipelineDebugUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007A1BE0, void, updateFpsCounter, (app::MoonRenderPipelineDebugUI * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x007A1D40, app::RenderScope__Enum, ui_ToggleField, (app::MoonRenderPipelineDebugUI * this_ptr, app::String * label, app::RenderScope__Enum value))
+    IL2CPP_REGISTER_METHOD(0x007A1D40, app::RenderScope__Enum, ui_ToggleField, (app::MoonRenderPipelineDebugUI * this_ptr, app::String* label, app::RenderScope__Enum value))
     IL2CPP_REGISTER_METHOD(0x007A1E40, app::FloatRange, floatRange, (app::String * label, app::FloatRange value, float min, float max))
-    IL2CPP_REGISTER_METHOD(0x007A1FC0, bool, beginSection_1, (bool * foldout, app::String * label))
+    IL2CPP_REGISTER_METHOD(0x007A1FC0, bool, beginSection_1, (bool* foldout, app::String* label))
     IL2CPP_REGISTER_METHOD(0x007A2160, void, beginSection_2, ())
     IL2CPP_REGISTER_METHOD(0x007A2290, void, endSection, ())
     IL2CPP_REGISTER_METHOD(0x007A2330, void, beginIndent, (float space))
@@ -35,4 +35,4 @@ namespace app::methods::Moon::Rendering::MoonRenderPipelineDebugUI {
     IL2CPP_REGISTER_METHOD(0x007A2400, void, ctor, (app::MoonRenderPipelineDebugUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007A26F0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x007A2980, void, _drawRenderInfo_g__resolutionButton_87_0, (app::MoonRenderPipelineAsset_XboxResolution__Enum resolution))
-}
+} // namespace app::classes::Moon::Rendering::MoonRenderPipelineDebugUI

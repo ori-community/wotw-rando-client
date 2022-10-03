@@ -1,11 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RaceHandler {
-    IL2CPP_REGISTER_METHOD(0x00E99590, app::RaceStateMachineContext *, get_Context, (app::RaceHandler * this_ptr))
+namespace app::classes::RaceHandler {
+    IL2CPP_REGISTER_METHOD(0x00E99590, app::RaceStateMachineContext*, get_Context, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E99630, void, Awake, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E99820, void, Start, (app::RaceHandler * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00E9A210, app::IEnumerator *, CreateGhostFolder, (app::RaceHandler * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00E9A210, app::IEnumerator*, CreateGhostFolder, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9A350, void, OnDestroy, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9ADA0, void, OnEnable, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9ADE0, void, Update, (app::RaceHandler * this_ptr))
@@ -19,7 +19,7 @@ namespace app::methods::RaceHandler {
     IL2CPP_REGISTER_METHOD(0x00E9C4E0, void, OnExitStartArea, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9C650, void, OnEnterEndArea, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9C890, void, OnExitEndArea, (app::RaceHandler * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00E9C8F0, void, OnEnterEndTrigger, (app::RaceHandler * this_ptr, app::Collider * collider))
+    IL2CPP_REGISTER_METHOD(0x00E9C8F0, void, OnEnterEndTrigger, (app::RaceHandler * this_ptr, app::Collider* collider))
     IL2CPP_REGISTER_METHODINFO(0x04723368, RaceHandler_OnEnterEndTrigger__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E9CB30, void, OnFinished, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9CC40, void, OnStart, (app::RaceHandler * this_ptr, bool spectate))
@@ -33,17 +33,17 @@ namespace app::methods::RaceHandler {
     IL2CPP_REGISTER_METHOD(0x00E9D750, void, HideReward, (app::RaceHandler * this_ptr, bool spawn_f_x))
     IL2CPP_REGISTER_METHOD(0x00E9D890, void, ApplyReward, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9DAC0, bool, IsInsideRaceArea, (app::RaceHandler * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00E9DBD0, void, StartMenuRace, (app::RaceHandler * this_ptr, app::Action * on_start))
-    IL2CPP_REGISTER_METHOD(0x00E9DCC0, app::IEnumerator *, StartMenuRaceNextFrame, (app::RaceHandler * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00E9DBD0, void, StartMenuRace, (app::RaceHandler * this_ptr, app::Action* on_start))
+    IL2CPP_REGISTER_METHOD(0x00E9DCC0, app::IEnumerator*, StartMenuRaceNextFrame, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9DE10, void, PlaceOriAtStart, (app::RaceHandler * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00E9E060, void, GetStartGroundPosition, (app::RaceHandler * this_ptr, app::Vector3 * pos, app::Vector3 target))
+    IL2CPP_REGISTER_METHOD(0x00E9E060, void, GetStartGroundPosition, (app::RaceHandler * this_ptr, app::Vector3* pos, app::Vector3 target))
     IL2CPP_REGISTER_METHOD(0x00E9E360, void, OnDevGhostBeaten, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9E460, void, ShowChallengeUi, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0476DBD8, RaceHandler_ShowChallengeUi__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E9E4C0, void, HideChallengeUi, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04725B78, RaceHandler_HideChallengeUi__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00E9E510, void, OnStateChanged, (app::RaceHandler * this_ptr, app::StateMachine_2 * state_machine))
+    IL2CPP_REGISTER_METHOD(0x00E9E510, void, OnStateChanged, (app::RaceHandler * this_ptr, app::StateMachine_2* state_machine))
     IL2CPP_REGISTER_METHODINFO(0x04772018, RaceHandler_OnStateChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E9E7C0, void, CheckNetworkStatus, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9EA90, void, ctor, (app::RaceHandler * this_ptr))
-}
+} // namespace app::classes::RaceHandler

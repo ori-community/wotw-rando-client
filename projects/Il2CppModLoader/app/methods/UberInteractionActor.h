@@ -1,12 +1,12 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UberInteractionActor {
-    IL2CPP_REGISTER_METHOD(0x002FBBA0, app::UberWaterControl *, get_Water, (app::UberInteractionActor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBBB0, void, set_Water, (app::UberInteractionActor * this_ptr, app::UberWaterControl * value))
+namespace app::classes::UberInteractionActor {
+    IL2CPP_REGISTER_METHOD(0x002FBBA0, app::UberWaterControl*, get_Water, (app::UberInteractionActor * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBBB0, void, set_Water, (app::UberInteractionActor * this_ptr, app::UberWaterControl* value))
     IL2CPP_REGISTER_METHOD(0x013F5F10, bool, get_CanProduceSplashes, (app::UberInteractionActor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013F5F30, int32_t, get_ActorId, (app::UberInteractionActor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x003FF7D0, int32_t, GetPrewarmAmount, (app::UberInteractionActor * this_ptr, app::GameObject * entry))
+    IL2CPP_REGISTER_METHOD(0x003FF7D0, int32_t, GetPrewarmAmount, (app::UberInteractionActor * this_ptr, app::GameObject* entry))
     IL2CPP_REGISTER_METHOD(0x013F5F70, void, Awake, (app::UberInteractionActor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013F6210, void, OnEnable, (app::UberInteractionActor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013F64F0, void, Start, (app::UberInteractionActor * this_ptr))
@@ -23,4 +23,4 @@ namespace app::methods::UberInteractionActor {
     IL2CPP_REGISTER_METHOD(0x013F73C0, bool, ValidForStripping, (app::UberInteractionActor * this_ptr, app::StrippableBuildContex context))
     IL2CPP_REGISTER_METHOD(0x00615270, bool, DoStrip, (app::UberInteractionActor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013F73D0, void, ctor, (app::UberInteractionActor * this_ptr))
-}
+} // namespace app::classes::UberInteractionActor

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SettingsScreen {
+namespace app::classes::SettingsScreen {
     IL2CPP_REGISTER_METHOD(0x005A5280, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x005A5300, void, Awake, (app::SettingsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005A5400, void, OnDestroy, (app::SettingsScreen * this_ptr))
@@ -11,4 +11,4 @@ namespace app::methods::SettingsScreen {
     IL2CPP_REGISTER_METHOD(0x005A56D0, void, FlushSettings, (app::SettingsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005A5890, void, SetDirty, (app::SettingsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::SettingsScreen * this_ptr))
-}
+} // namespace app::classes::SettingsScreen

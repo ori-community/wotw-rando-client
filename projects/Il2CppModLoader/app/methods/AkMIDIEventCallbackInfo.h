@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AkMIDIEventCallbackInfo {
-    IL2CPP_REGISTER_METHOD(0x026F60E0, void, ctor_1, (app::AkMIDIEventCallbackInfo * this_ptr, void * c_ptr, bool c_memory_own))
-    IL2CPP_REGISTER_METHOD(0x026F61B0, void *, getCPtr, (app::AkMIDIEventCallbackInfo * obj))
-    IL2CPP_REGISTER_METHOD(0x026F6240, void, setCPtr, (app::AkMIDIEventCallbackInfo * this_ptr, void * c_ptr))
+namespace app::classes::AkMIDIEventCallbackInfo {
+    IL2CPP_REGISTER_METHOD(0x026F60E0, void, ctor_1, (app::AkMIDIEventCallbackInfo * this_ptr, void* c_ptr, bool c_memory_own))
+    IL2CPP_REGISTER_METHOD(0x026F61B0, void*, getCPtr, (app::AkMIDIEventCallbackInfo * obj))
+    IL2CPP_REGISTER_METHOD(0x026F6240, void, setCPtr, (app::AkMIDIEventCallbackInfo * this_ptr, void* c_ptr))
     IL2CPP_REGISTER_METHOD(0x026F6300, void, Finalize, (app::AkMIDIEventCallbackInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026F63A0, void, Dispose, (app::AkMIDIEventCallbackInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026F65C0, uint8_t, get_byChan, (app::AkMIDIEventCallbackInfo * this_ptr))
@@ -22,4 +22,4 @@ namespace app::methods::AkMIDIEventCallbackInfo {
     IL2CPP_REGISTER_METHOD(0x026F7340, uint8_t, get_byChanAftertouchValue, (app::AkMIDIEventCallbackInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026F7460, uint8_t, get_byProgramNum, (app::AkMIDIEventCallbackInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026F7580, void, ctor_2, (app::AkMIDIEventCallbackInfo * this_ptr))
-}
+} // namespace app::classes::AkMIDIEventCallbackInfo

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::EntityHighlightColor {
+namespace app::classes::EntityHighlightColor {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, DoStrip, (app::EntityHighlightColor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C91ED0, void, OnEnable, (app::EntityHighlightColor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C92070, void, OnDisable, (app::EntityHighlightColor * this_ptr))
@@ -19,4 +19,4 @@ namespace app::methods::EntityHighlightColor {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBeforeSerialize, (app::EntityHighlightColor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C92750, void, OnAfterDeserialize, (app::EntityHighlightColor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C928A0, void, ctor, (app::EntityHighlightColor * this_ptr))
-}
+} // namespace app::classes::EntityHighlightColor

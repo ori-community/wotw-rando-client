@@ -1,12 +1,12 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Xml::Schema::XsdDateTime {
-    IL2CPP_REGISTER_METHOD(0x001C5CD0, void, ctor_1, (app::XsdDateTime__Boxed * this_ptr, app::String * text, app::XsdDateTimeFlags__Enum kinds))
+namespace app::classes::System::Xml::Schema::XsdDateTime {
+    IL2CPP_REGISTER_METHOD(0x001C5CD0, void, ctor_1, (app::XsdDateTime__Boxed * this_ptr, app::String* text, app::XsdDateTimeFlags__Enum kinds))
     IL2CPP_REGISTER_METHODINFO(0x04750108, XsdDateTime__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001C5CE0, void, ctor_2, (app::XsdDateTime__Boxed * this_ptr, app::XsdDateTime_Parser parser))
     IL2CPP_REGISTER_METHOD(0x001C5D30, void, InitiateXsdDateTime, (app::XsdDateTime__Boxed * this_ptr, app::XsdDateTime_Parser parser))
-    IL2CPP_REGISTER_METHOD(0x01C7D070, bool, TryParse, (app::String * text, app::XsdDateTimeFlags__Enum kinds, app::XsdDateTime * result))
+    IL2CPP_REGISTER_METHOD(0x01C7D070, bool, TryParse, (app::String * text, app::XsdDateTimeFlags__Enum kinds, app::XsdDateTime* result))
     IL2CPP_REGISTER_METHOD(0x001C5D70, void, ctor_3, (app::XsdDateTime__Boxed * this_ptr, app::DateTime date_time, app::XsdDateTimeFlags__Enum kinds))
     IL2CPP_REGISTER_METHOD(0x001C5D80, void, ctor_4, (app::XsdDateTime__Boxed * this_ptr, app::DateTimeOffset date_time_offset))
     IL2CPP_REGISTER_METHOD(0x001C5DB0, void, ctor_5, (app::XsdDateTime__Boxed * this_ptr, app::DateTimeOffset date_time_offset, app::XsdDateTimeFlags__Enum kinds))
@@ -23,11 +23,11 @@ namespace app::methods::System::Xml::Schema::XsdDateTime {
     IL2CPP_REGISTER_METHOD(0x00114120, int32_t, get_ZoneMinute, (app::XsdDateTime__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01C7D680, app::DateTime, op_Implicit_1, (app::XsdDateTime xdt))
     IL2CPP_REGISTER_METHOD(0x01C7DB30, app::DateTimeOffset, op_Implicit_2, (app::XsdDateTime xdt))
-    IL2CPP_REGISTER_METHOD(0x001C5F20, app::String *, ToString, (app::XsdDateTime__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x001C5F30, void, PrintDate, (app::XsdDateTime__Boxed * this_ptr, app::StringBuilder * sb))
-    IL2CPP_REGISTER_METHOD(0x001C5F40, void, PrintTime, (app::XsdDateTime__Boxed * this_ptr, app::StringBuilder * sb))
-    IL2CPP_REGISTER_METHOD(0x001C5F50, void, PrintZone, (app::XsdDateTime__Boxed * this_ptr, app::StringBuilder * sb))
-    IL2CPP_REGISTER_METHOD(0x001C5F60, void, IntToCharArray, (app::XsdDateTime__Boxed * this_ptr, app::Char__Array * text, int32_t start, int32_t value, int32_t digits))
-    IL2CPP_REGISTER_METHOD(0x001C5F70, void, ShortToCharArray, (app::XsdDateTime__Boxed * this_ptr, app::Char__Array * text, int32_t start, int32_t value))
+    IL2CPP_REGISTER_METHOD(0x001C5F20, app::String*, ToString, (app::XsdDateTime__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x001C5F30, void, PrintDate, (app::XsdDateTime__Boxed * this_ptr, app::StringBuilder* sb))
+    IL2CPP_REGISTER_METHOD(0x001C5F40, void, PrintTime, (app::XsdDateTime__Boxed * this_ptr, app::StringBuilder* sb))
+    IL2CPP_REGISTER_METHOD(0x001C5F50, void, PrintZone, (app::XsdDateTime__Boxed * this_ptr, app::StringBuilder* sb))
+    IL2CPP_REGISTER_METHOD(0x001C5F60, void, IntToCharArray, (app::XsdDateTime__Boxed * this_ptr, app::Char__Array* text, int32_t start, int32_t value, int32_t digits))
+    IL2CPP_REGISTER_METHOD(0x001C5F70, void, ShortToCharArray, (app::XsdDateTime__Boxed * this_ptr, app::Char__Array* text, int32_t start, int32_t value))
     IL2CPP_REGISTER_METHOD(0x01C7EF10, void, cctor, ())
-}
+} // namespace app::classes::System::Xml::Schema::XsdDateTime

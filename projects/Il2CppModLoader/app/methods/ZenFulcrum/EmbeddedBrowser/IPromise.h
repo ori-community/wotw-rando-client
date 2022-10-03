@@ -1,5 +1,5 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ZenFulcrum::EmbeddedBrowser::IPromise {
+namespace app::classes::ZenFulcrum::EmbeddedBrowser::IPromise {
 }

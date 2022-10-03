@@ -4,7 +4,7 @@
 #include <Il2CppModLoader/app/methods/GameController.h>
 #include <Il2CppModLoader/app/methods/SeinDamageReciever.h>
 
-using namespace app::methods;
+using namespace app::classes;
 
 IL2CPP_INTERCEPT(GameController, app::GameController_GameModeBalanceSettings*, get_CurrentGameModeBalanceSettings, (app::GameController * this_ptr)) {
     auto result = next::GameController::get_CurrentGameModeBalanceSettings(this_ptr);

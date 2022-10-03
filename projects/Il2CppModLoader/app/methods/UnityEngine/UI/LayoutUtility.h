@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::UI::LayoutUtility {
+namespace app::classes::UnityEngine::UI::LayoutUtility {
     IL2CPP_REGISTER_METHOD(0x0265DE50, float, GetMinSize, (app::RectTransform * rect, int32_t axis))
     IL2CPP_REGISTER_METHOD(0x0265DE70, float, GetPreferredSize, (app::RectTransform * rect, int32_t axis))
     IL2CPP_REGISTER_METHOD(0x0265DE90, float, GetFlexibleSize, (app::RectTransform * rect, int32_t axis))
@@ -11,8 +11,8 @@ namespace app::methods::UnityEngine::UI::LayoutUtility {
     IL2CPP_REGISTER_METHOD(0x0265E530, float, GetMinHeight, (app::RectTransform * rect))
     IL2CPP_REGISTER_METHOD(0x0265E6E0, float, GetPreferredHeight, (app::RectTransform * rect))
     IL2CPP_REGISTER_METHOD(0x0265EA00, float, GetFlexibleHeight, (app::RectTransform * rect))
-    IL2CPP_REGISTER_METHOD(0x0265EBB0, float, GetLayoutProperty_1, (app::RectTransform * rect, app::Func_2_UnityEngine_UI_ILayoutElement_Single_ * property, float default_value))
-    IL2CPP_REGISTER_METHOD(0x0265EBD0, float, GetLayoutProperty_2, (app::RectTransform * rect, app::Func_2_UnityEngine_UI_ILayoutElement_Single_ * property, float default_value, app::ILayoutElement * * source))
+    IL2CPP_REGISTER_METHOD(0x0265EBB0, float, GetLayoutProperty_1, (app::RectTransform * rect, app::Func_2_UnityEngine_UI_ILayoutElement_Single_* property, float default_value))
+    IL2CPP_REGISTER_METHOD(0x0265EBD0, float, GetLayoutProperty_2, (app::RectTransform * rect, app::Func_2_UnityEngine_UI_ILayoutElement_Single_* property, float default_value, app::ILayoutElement** source))
     IL2CPP_REGISTER_METHOD(0x0265EEF0, float, _GetMinWidth_m__0, (app::ILayoutElement * e))
     IL2CPP_REGISTER_METHODINFO(0x04708CB0, LayoutUtility__GetMinWidth_m__0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0265EF80, float, _GetPreferredWidth_m__1, (app::ILayoutElement * e))
@@ -29,4 +29,4 @@ namespace app::methods::UnityEngine::UI::LayoutUtility {
     IL2CPP_REGISTER_METHODINFO(0x04704B88, LayoutUtility__GetPreferredHeight_m__6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0265F2E0, float, _GetFlexibleHeight_m__7, (app::ILayoutElement * e))
     IL2CPP_REGISTER_METHODINFO(0x047673C0, LayoutUtility__GetFlexibleHeight_m__7__MethodInfo)
-}
+} // namespace app::classes::UnityEngine::UI::LayoutUtility

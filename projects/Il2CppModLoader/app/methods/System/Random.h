@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Random {
+namespace app::classes::System::Random {
     IL2CPP_REGISTER_METHOD(0x022806C0, void, ctor_1, (app::Random * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02280710, void, ctor_2, (app::Random * this_ptr, int32_t seed))
     IL2CPP_REGISTER_METHOD(0x022809F0, double, Sample, (app::Random * this_ptr))
@@ -13,4 +13,4 @@ namespace app::methods::System::Random {
     IL2CPP_REGISTER_METHOD(0x02280D20, int32_t, Next_3, (app::Random * this_ptr, int32_t max_value))
     IL2CPP_REGISTER_METHODINFO(0x04797480, Random_Next_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00980110, double, NextDouble, (app::Random * this_ptr))
-}
+} // namespace app::classes::System::Random

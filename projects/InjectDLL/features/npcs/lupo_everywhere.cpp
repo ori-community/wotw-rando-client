@@ -10,7 +10,7 @@
 #include <optional>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     uber_states::UberState has_sword(static_cast<UberStateGroup>(48248), 49214);

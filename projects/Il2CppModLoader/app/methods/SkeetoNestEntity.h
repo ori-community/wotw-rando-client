@@ -1,11 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SkeetoNestEntity {
+namespace app::classes::SkeetoNestEntity {
     IL2CPP_REGISTER_METHOD(0x0075D470, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x0075D510, float, get_CameraInfluenceMinDist, (app::SkeetoNestEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0075D530, float, get_CameraInfluenceMaxDist, (app::SkeetoNestEntity * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0075D550, void, AssignSpawners, (app::SkeetoNestEntity * this_ptr, app::List_1_SkeetoPlaceholder_ * placeholders))
+    IL2CPP_REGISTER_METHOD(0x0075D550, void, AssignSpawners, (app::SkeetoNestEntity * this_ptr, app::List_1_SkeetoPlaceholder_* placeholders))
     IL2CPP_REGISTER_METHOD(0x0075D560, void, OnAwake, (app::SkeetoNestEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0075D850, void, OnEnable, (app::SkeetoNestEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0075DAE0, void, ResetEntity, (app::SkeetoNestEntity * this_ptr))
@@ -21,4 +21,4 @@ namespace app::methods::SkeetoNestEntity {
     IL2CPP_REGISTER_METHOD(0x0075EC40, void, InstantKill, (app::SkeetoNestEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0075EFA0, void, ctor, (app::SkeetoNestEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0075F160, void, cctor, ())
-}
+} // namespace app::classes::SkeetoNestEntity

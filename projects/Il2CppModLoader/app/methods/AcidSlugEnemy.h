@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AcidSlugEnemy {
+namespace app::classes::AcidSlugEnemy {
     IL2CPP_REGISTER_METHOD(0x004C2860, void, FixedUpdate, (app::AcidSlugEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C2B80, void, Awake, (app::AcidSlugEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C2BA0, void, Start, (app::AcidSlugEnemy * this_ptr))
@@ -13,4 +13,4 @@ namespace app::methods::AcidSlugEnemy {
     IL2CPP_REGISTER_METHODINFO(0x0473D630, AcidSlugEnemy__Start_b__10_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004C40F0, bool, _Start_b__10_2, (app::AcidSlugEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04788D30, AcidSlugEnemy__Start_b__10_2__MethodInfo)
-}
+} // namespace app::classes::AcidSlugEnemy

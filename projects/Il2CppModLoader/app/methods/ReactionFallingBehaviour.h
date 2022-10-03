@@ -1,18 +1,18 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ReactionFallingBehaviour {
+namespace app::classes::ReactionFallingBehaviour {
     IL2CPP_REGISTER_METHOD(0x00730A90, void, OnResetEntity, (app::ReactionFallingBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBC60, app::LegacyTimelineSequence *, get_EffectiveLandSequence, (app::ReactionFallingBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00730AB0, app::MoonTimeline *, get_EffectiveLandSequenceNew, (app::ReactionFallingBehaviour * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBC60, app::LegacyTimelineSequence*, get_EffectiveLandSequence, (app::ReactionFallingBehaviour * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00730AB0, app::MoonTimeline*, get_EffectiveLandSequenceNew, (app::ReactionFallingBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00730B90, void, UseShortAnimForNextLand, (app::ReactionFallingBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00730BA0, void, OnInitializeTask, (app::ReactionFallingBehaviour * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x00730BA0, void, OnInitializeTask, (app::ReactionFallingBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00730CB0, bool, get_ShouldLand, (app::ReactionFallingBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00730D40, void, OnEnterTask, (app::ReactionFallingBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00731140, void, OnCollision, (app::ReactionFallingBehaviour * this_ptr, app::Collision * collision))
+    IL2CPP_REGISTER_METHOD(0x00730D40, void, OnEnterTask, (app::ReactionFallingBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00731140, void, OnCollision, (app::ReactionFallingBehaviour * this_ptr, app::Collision* collision))
     IL2CPP_REGISTER_METHODINFO(0x0471B590, ReactionFallingBehaviour_OnCollision__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x007312B0, app::BehaviourStatus__Enum, OnExecuteTask, (app::ReactionFallingBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00731660, void, OnExitTask, (app::ReactionFallingBehaviour * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x007312B0, app::BehaviourStatus__Enum, OnExecuteTask, (app::ReactionFallingBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00731660, void, OnExitTask, (app::ReactionFallingBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00731980, void, HandleCollision_1, (app::ReactionFallingBehaviour * this_ptr, app::MoonControllerColliderHit hit))
     IL2CPP_REGISTER_METHODINFO(0x047617E0, ReactionFallingBehaviour_HandleCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00731A90, void, HandleCollision_2, (app::ReactionFallingBehaviour * this_ptr, app::Vector3 point, app::Vector3 normal, bool force))
@@ -38,4 +38,4 @@ namespace app::methods::ReactionFallingBehaviour {
     IL2CPP_REGISTER_METHODINFO(0x04765C30, ReactionFallingBehaviour__PlayShake_b__69_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007340A0, bool, _PlayShake_b__69_1, (app::ReactionFallingBehaviour * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04702BE0, ReactionFallingBehaviour__PlayShake_b__69_1__MethodInfo)
-}
+} // namespace app::classes::ReactionFallingBehaviour

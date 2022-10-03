@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::VisualDebug::DebugRenderer {
+namespace app::classes::Moon::VisualDebug::DebugRenderer {
     IL2CPP_REGISTER_METHOD(0x0118D920, void, Register, (app::IDebugRendererSubscriber * subscriber))
     IL2CPP_REGISTER_METHOD(0x0118DA40, void, Unregister, (app::IDebugRendererSubscriber * subscriber))
     IL2CPP_REGISTER_METHOD(0x0118DB60, void, RenderLine, (app::Vector3 start, app::Vector3 end, app::Color color, bool render_now))
@@ -23,20 +23,20 @@ namespace app::methods::Moon::VisualDebug::DebugRenderer {
     IL2CPP_REGISTER_METHODINFO(0x04759B58, DebugRenderer_RenderMesh__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01190030, void, RenderSolidMesh, (app::Mesh * mesh, app::Matrix4x4 transformation_matrix, app::Color color, bool render_now))
     IL2CPP_REGISTER_METHODINFO(0x04741770, DebugRenderer_RenderSolidMesh__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01190350, void, Render, (app::MoonRenderContext * context, app::Camera * camera))
-    IL2CPP_REGISTER_METHOD(0x011905C0, void, render, (app::DebugRenderer * this_ptr, app::RenderingType__Enum rendering_type, app::Camera * camera))
-    IL2CPP_REGISTER_METHOD(0x01190CC0, void, PrepareRendering, (app::RenderingType__Enum rendering_type, app::Camera * camera))
-    IL2CPP_REGISTER_METHOD(0x01190FA0, void, FinishRendering, (app::RenderingType__Enum rendering_type, app::Camera * camera))
+    IL2CPP_REGISTER_METHOD(0x01190350, void, Render, (app::MoonRenderContext * context, app::Camera* camera))
+    IL2CPP_REGISTER_METHOD(0x011905C0, void, render, (app::DebugRenderer * this_ptr, app::RenderingType__Enum rendering_type, app::Camera* camera))
+    IL2CPP_REGISTER_METHOD(0x01190CC0, void, PrepareRendering, (app::RenderingType__Enum rendering_type, app::Camera* camera))
+    IL2CPP_REGISTER_METHOD(0x01190FA0, void, FinishRendering, (app::RenderingType__Enum rendering_type, app::Camera* camera))
     IL2CPP_REGISTER_METHOD(0x01191100, void, SetGLMode, (int32_t mode))
-    IL2CPP_REGISTER_METHOD(0x01191310, app::Material *, get_GLMaterial, ())
+    IL2CPP_REGISTER_METHOD(0x01191310, app::Material*, get_GLMaterial, ())
     IL2CPP_REGISTER_METHOD(0x01191570, void, set_GLMaterial, (app::Material * value))
-    IL2CPP_REGISTER_METHOD(0x01191620, app::Material *, get_WireframeMaterial, ())
+    IL2CPP_REGISTER_METHOD(0x01191620, app::Material*, get_WireframeMaterial, ())
     IL2CPP_REGISTER_METHOD(0x01191880, void, set_WireframeMaterial, (app::Material * value))
-    IL2CPP_REGISTER_METHOD(0x01191930, app::Material *, get_TransparentColorMaterial, ())
+    IL2CPP_REGISTER_METHOD(0x01191930, app::Material*, get_TransparentColorMaterial, ())
     IL2CPP_REGISTER_METHOD(0x01191B90, void, set_TransparentColorMaterial, (app::Material * value))
-    IL2CPP_REGISTER_METHOD(0x01191C40, app::DebugRenderer *, get_Instance, ())
+    IL2CPP_REGISTER_METHOD(0x01191C40, app::DebugRenderer*, get_Instance, ())
     IL2CPP_REGISTER_METHOD(0x01191E30, bool, get_Enabled, ())
     IL2CPP_REGISTER_METHOD(0x01191ED0, void, set_Enabled, (bool value))
     IL2CPP_REGISTER_METHOD(0x01191F80, void, ctor, (app::DebugRenderer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011923F0, void, cctor, ())
-}
+} // namespace app::classes::Moon::VisualDebug::DebugRenderer

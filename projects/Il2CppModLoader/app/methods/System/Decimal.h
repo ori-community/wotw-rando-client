@@ -1,50 +1,50 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Decimal {
+namespace app::classes::System::Decimal {
     IL2CPP_REGISTER_METHOD(0x0013D300, void, ctor_1, (app::Decimal__Boxed * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x0013D330, void, ctor_2, (app::Decimal__Boxed * this_ptr, uint32_t value))
     IL2CPP_REGISTER_METHOD(0x0013D340, void, ctor_3, (app::Decimal__Boxed * this_ptr, int64_t value))
     IL2CPP_REGISTER_METHOD(0x0013D370, void, ctor_4, (app::Decimal__Boxed * this_ptr, uint64_t value))
     IL2CPP_REGISTER_METHOD(0x0013D390, void, ctor_5, (app::Decimal__Boxed * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x0013D3C0, void, ctor_6, (app::Decimal__Boxed * this_ptr, double value))
-    IL2CPP_REGISTER_METHOD(0x0013D3F0, void, ctor_7, (app::Decimal__Boxed * this_ptr, app::Int32__Array * bits))
+    IL2CPP_REGISTER_METHOD(0x0013D3F0, void, ctor_7, (app::Decimal__Boxed * this_ptr, app::Int32__Array* bits))
     IL2CPP_REGISTER_METHODINFO(0x0476D778, Decimal__ctor_6__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0013D400, void, SetBits, (app::Decimal__Boxed * this_ptr, app::Int32__Array * bits))
+    IL2CPP_REGISTER_METHOD(0x0013D400, void, SetBits, (app::Decimal__Boxed * this_ptr, app::Int32__Array* bits))
     IL2CPP_REGISTER_METHODINFO(0x0474CC00, Decimal_SetBits__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0013D410, void, ctor_8, (app::Decimal__Boxed * this_ptr, int32_t lo, int32_t mid, int32_t hi, bool is_negative, uint8_t scale))
     IL2CPP_REGISTER_METHODINFO(0x04734858, Decimal__ctor_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0013D430, void, OnSerializing, (app::Decimal__Boxed * this_ptr, app::StreamingContext ctx))
     IL2CPP_REGISTER_METHODINFO(0x0471C118, Decimal_OnSerializing__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0013D450, void, IDeserializationCallback_OnDeserialization, (app::Decimal__Boxed * this_ptr, app::Object * sender))
+    IL2CPP_REGISTER_METHOD(0x0013D450, void, IDeserializationCallback_OnDeserialization, (app::Decimal__Boxed * this_ptr, app::Object* sender))
     IL2CPP_REGISTER_METHODINFO(0x0470EE30, Decimal_System_Runtime_Serialization_IDeserializationCallback_OnDeserialization__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0013D460, void, ctor_9, (app::Decimal__Boxed * this_ptr, int32_t lo, int32_t mid, int32_t hi, int32_t flags))
     IL2CPP_REGISTER_METHODINFO(0x0475C698, Decimal__ctor_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01732A00, app::Decimal, Abs, (app::Decimal d))
     IL2CPP_REGISTER_METHOD(0x01732A50, app::Decimal, Add, (app::Decimal d1, app::Decimal d2))
-    IL2CPP_REGISTER_METHOD(0x01732B10, void, FCallAddSub, (app::Decimal * d1, app::Decimal * d2, uint8_t b_sign))
+    IL2CPP_REGISTER_METHOD(0x01732B10, void, FCallAddSub, (app::Decimal * d1, app::Decimal* d2, uint8_t b_sign))
     IL2CPP_REGISTER_METHOD(0x01732B20, int32_t, Compare, (app::Decimal d1, app::Decimal d2))
-    IL2CPP_REGISTER_METHOD(0x01732C70, int32_t, FCallCompare, (app::Decimal * d1, app::Decimal * d2))
-    IL2CPP_REGISTER_METHOD(0x0013D470, int32_t, CompareTo_1, (app::Decimal__Boxed * this_ptr, app::Object * value))
+    IL2CPP_REGISTER_METHOD(0x01732C70, int32_t, FCallCompare, (app::Decimal * d1, app::Decimal* d2))
+    IL2CPP_REGISTER_METHOD(0x0013D470, int32_t, CompareTo_1, (app::Decimal__Boxed * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHODINFO(0x047235E8, Decimal_CompareTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0013D480, int32_t, CompareTo_2, (app::Decimal__Boxed * this_ptr, app::Decimal value))
     IL2CPP_REGISTER_METHOD(0x01733040, app::Decimal, Divide, (app::Decimal d1, app::Decimal d2))
-    IL2CPP_REGISTER_METHOD(0x01733100, void, FCallDivide, (app::Decimal * d1, app::Decimal * d2))
-    IL2CPP_REGISTER_METHOD(0x0013D4A0, bool, Equals_1, (app::Decimal__Boxed * this_ptr, app::Object * value))
+    IL2CPP_REGISTER_METHOD(0x01733100, void, FCallDivide, (app::Decimal * d1, app::Decimal* d2))
+    IL2CPP_REGISTER_METHOD(0x0013D4A0, bool, Equals_1, (app::Decimal__Boxed * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x0013D4B0, bool, Equals_2, (app::Decimal__Boxed * this_ptr, app::Decimal value))
     IL2CPP_REGISTER_METHOD(0x0013D4D0, int32_t, GetHashCode, (app::Decimal__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0013D520, app::String *, ToString_1, (app::Decimal__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0013D560, app::String *, ToString_2, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x0013D5A0, app::String *, ToString_3, (app::Decimal__Boxed * this_ptr, app::String * format, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x01733420, app::Decimal, Parse_1, (app::String * s, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x01733470, app::Decimal, Parse_2, (app::String * s, app::NumberStyles__Enum style, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x017334E0, bool, TryParse, (app::String * s, app::NumberStyles__Enum style, app::IFormatProvider * provider, app::Decimal * result))
-    IL2CPP_REGISTER_METHOD(0x01733540, app::Int32__Array *, GetBits, (app::Decimal d))
+    IL2CPP_REGISTER_METHOD(0x0013D520, app::String*, ToString_1, (app::Decimal__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0013D560, app::String*, ToString_2, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0013D5A0, app::String*, ToString_3, (app::Decimal__Boxed * this_ptr, app::String* format, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x01733420, app::Decimal, Parse_1, (app::String * s, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x01733470, app::Decimal, Parse_2, (app::String * s, app::NumberStyles__Enum style, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x017334E0, bool, TryParse, (app::String * s, app::NumberStyles__Enum style, app::IFormatProvider* provider, app::Decimal* result))
+    IL2CPP_REGISTER_METHOD(0x01733540, app::Int32__Array*, GetBits, (app::Decimal d))
     IL2CPP_REGISTER_METHOD(0x01733670, app::Decimal, ToDecimal, (app::Byte__Array * buffer))
     IL2CPP_REGISTER_METHOD(0x01733960, app::Decimal, Max, (app::Decimal d1, app::Decimal d2))
     IL2CPP_REGISTER_METHOD(0x01733A90, app::Decimal, Min, (app::Decimal d1, app::Decimal d2))
     IL2CPP_REGISTER_METHOD(0x01733BC0, app::Decimal, Multiply, (app::Decimal d1, app::Decimal d2))
-    IL2CPP_REGISTER_METHOD(0x01733CC0, void, FCallMultiply, (app::Decimal * d1, app::Decimal * d2))
+    IL2CPP_REGISTER_METHOD(0x01733CC0, void, FCallMultiply, (app::Decimal * d1, app::Decimal* d2))
     IL2CPP_REGISTER_METHOD(0x01733D10, app::Decimal, Negate, (app::Decimal d))
     IL2CPP_REGISTER_METHOD(0x01733D70, app::Decimal, Round, (app::Decimal d, int32_t decimals))
     IL2CPP_REGISTER_METHOD(0x01733E70, void, FCallRound, (app::Decimal * d, int32_t decimals))
@@ -98,58 +98,58 @@ namespace app::methods::System::Decimal {
     IL2CPP_REGISTER_METHOD(0x01735B60, bool, op_GreaterThan, (app::Decimal d1, app::Decimal d2))
     IL2CPP_REGISTER_METHOD(0x01735C90, bool, op_GreaterThanOrEqual, (app::Decimal d1, app::Decimal d2))
     IL2CPP_REGISTER_METHOD(0x0013D5E0, app::TypeCode__Enum, GetTypeCode, (app::Decimal__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0013D5F0, bool, IConvertible_ToBoolean, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x0013D740, uint16_t, IConvertible_ToChar, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
+    IL2CPP_REGISTER_METHOD(0x0013D5F0, bool, IConvertible_ToBoolean, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0013D740, uint16_t, IConvertible_ToChar, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHODINFO(0x04726410, Decimal_System_IConvertible_ToChar__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0013D750, int8_t, IConvertible_ToSByte, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x0013D760, uint8_t, IConvertible_ToByte, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x0013D770, int16_t, IConvertible_ToInt16, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x0013D780, uint16_t, IConvertible_ToUInt16, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x0013D790, int32_t, IConvertible_ToInt32, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x0013D920, uint32_t, IConvertible_ToUInt32, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x0013D930, int64_t, IConvertible_ToInt64, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x0013D940, uint64_t, IConvertible_ToUInt64, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x0013D950, float, IConvertible_ToSingle, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x0013D960, double, IConvertible_ToDouble, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x0010A980, app::Decimal, IConvertible_ToDecimal, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
-    IL2CPP_REGISTER_METHOD(0x0013DA90, app::DateTime, IConvertible_ToDateTime, (app::Decimal__Boxed * this_ptr, app::IFormatProvider * provider))
+    IL2CPP_REGISTER_METHOD(0x0013D750, int8_t, IConvertible_ToSByte, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0013D760, uint8_t, IConvertible_ToByte, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0013D770, int16_t, IConvertible_ToInt16, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0013D780, uint16_t, IConvertible_ToUInt16, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0013D790, int32_t, IConvertible_ToInt32, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0013D920, uint32_t, IConvertible_ToUInt32, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0013D930, int64_t, IConvertible_ToInt64, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0013D940, uint64_t, IConvertible_ToUInt64, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0013D950, float, IConvertible_ToSingle, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0013D960, double, IConvertible_ToDouble, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0010A980, app::Decimal, IConvertible_ToDecimal, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0013DA90, app::DateTime, IConvertible_ToDateTime, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHODINFO(0x04719958, Decimal_System_IConvertible_ToDateTime__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0013DAA0, app::Object *, IConvertible_ToType, (app::Decimal__Boxed * this_ptr, app::Type * type, app::IFormatProvider * provider))
+    IL2CPP_REGISTER_METHOD(0x0013DAA0, app::Object*, IConvertible_ToType, (app::Decimal__Boxed * this_ptr, app::Type* type, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x01736E80, void, cctor, ())
-    inline app::Decimal operator - (app::Decimal d) {
+    inline app::Decimal operator-(app::Decimal d) {
         return op_UnaryNegation(d);
     }
-    inline app::Decimal operator ++ (app::Decimal d) {
+    inline app::Decimal operator++(app::Decimal d) {
         return op_Increment(d);
     }
-    inline app::Decimal operator + (app::Decimal d1, app::Decimal d2) {
+    inline app::Decimal operator+(app::Decimal d1, app::Decimal d2) {
         return op_Addition(d1, d2);
     }
-    inline app::Decimal operator - (app::Decimal d1, app::Decimal d2) {
+    inline app::Decimal operator-(app::Decimal d1, app::Decimal d2) {
         return op_Subtraction(d1, d2);
     }
-    inline app::Decimal operator * (app::Decimal d1, app::Decimal d2) {
+    inline app::Decimal operator*(app::Decimal d1, app::Decimal d2) {
         return op_Multiply(d1, d2);
     }
-    inline app::Decimal operator / (app::Decimal d1, app::Decimal d2) {
+    inline app::Decimal operator/(app::Decimal d1, app::Decimal d2) {
         return op_Division(d1, d2);
     }
-    inline bool operator == (app::Decimal d1, app::Decimal d2) {
+    inline bool operator==(app::Decimal d1, app::Decimal d2) {
         return op_Equality(d1, d2);
     }
-    inline bool operator != (app::Decimal d1, app::Decimal d2) {
+    inline bool operator!=(app::Decimal d1, app::Decimal d2) {
         return op_Inequality(d1, d2);
     }
-    inline bool operator < (app::Decimal d1, app::Decimal d2) {
+    inline bool operator<(app::Decimal d1, app::Decimal d2) {
         return op_LessThan(d1, d2);
     }
-    inline bool operator <= (app::Decimal d1, app::Decimal d2) {
+    inline bool operator<=(app::Decimal d1, app::Decimal d2) {
         return op_LessThanOrEqual(d1, d2);
     }
-    inline bool operator > (app::Decimal d1, app::Decimal d2) {
+    inline bool operator>(app::Decimal d1, app::Decimal d2) {
         return op_GreaterThan(d1, d2);
     }
-    inline bool operator >= (app::Decimal d1, app::Decimal d2) {
+    inline bool operator>=(app::Decimal d1, app::Decimal d2) {
         return op_GreaterThanOrEqual(d1, d2);
     }
-}
+} // namespace app::classes::System::Decimal

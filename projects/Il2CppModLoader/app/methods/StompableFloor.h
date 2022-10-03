@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::StompableFloor {
+namespace app::classes::StompableFloor {
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00654890, bool, IsDead, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeChargeFlamed, (app::StompableFloor * this_ptr))
@@ -34,9 +34,9 @@ namespace app::methods::StompableFloor {
     IL2CPP_REGISTER_METHOD(0x00655060, void, OnEnable, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00655150, void, OnDisable, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00655240, void, OnValidate, (app::StompableFloor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00655360, bool, AllowedTypeCheck, (app::StompableFloor * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x00655360, bool, AllowedTypeCheck, (app::StompableFloor * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x006553B0, bool, CanBeDestroyedByHammer, (app::StompableFloor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006555F0, void, OnRecieveDamage, (app::StompableFloor * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x006555F0, void, OnRecieveDamage, (app::StompableFloor * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x00655A70, void, FixedUpdate, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00655D70, void, Highlight, (app::StompableFloor * this_ptr, bool on))
     IL2CPP_REGISTER_METHOD(0x00656130, void, PlayHighlightLoop, (app::StompableFloor * this_ptr))
@@ -46,8 +46,8 @@ namespace app::methods::StompableFloor {
     IL2CPP_REGISTER_METHOD(0x00656780, bool, OnRange, (app::StompableFloor * this_ptr, app::Vector2 point))
     IL2CPP_REGISTER_METHOD(0x006567D0, app::Vector2, GasBallBaitCenter, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417FF0, float, get_GasBallAttractionTime, (app::StompableFloor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBCE0, app::IDamageReciever__Array *, get_AffectedReceivers, (app::StompableFloor * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBCE0, app::IDamageReciever__Array*, get_AffectedReceivers, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00656930, void, ctor, (app::StompableFloor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject *, IDamageReciever_get_gameObject, (app::StompableFloor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform *, IDamageReciever_get_transform, (app::StompableFloor * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, IDamageReciever_get_gameObject, (app::StompableFloor * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform*, IDamageReciever_get_transform, (app::StompableFloor * this_ptr))
+} // namespace app::classes::StompableFloor

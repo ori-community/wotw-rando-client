@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::QualitySettings {
+namespace app::classes::UnityEngine::QualitySettings {
     IL2CPP_REGISTER_METHOD(0x0252FC40, int32_t, get_pixelLightCount, ())
     IL2CPP_REGISTER_METHOD(0x0252FC90, void, set_pixelLightCount, (int32_t value))
     IL2CPP_REGISTER_METHOD(0x0048D830, int32_t, get_masterTextureLimit, ())
@@ -18,4 +18,4 @@ namespace app::methods::UnityEngine::QualitySettings {
     IL2CPP_REGISTER_METHOD(0x00482960, int32_t, get_maxQueuedFrames, ())
     IL2CPP_REGISTER_METHOD(0x0296A780, void, set_maxQueuedFrames, (int32_t value))
     IL2CPP_REGISTER_METHOD(0x0296A7D0, app::ColorSpace__Enum, get_activeColorSpace, ())
-}
+} // namespace app::classes::UnityEngine::QualitySettings

@@ -1,0 +1,21 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace EntityProfileBody {
+        namespace {
+            app::EntityProfileBody__Class* type_info_ref = nullptr;
+        }
+        app::EntityProfileBody__Class** type_info = &type_info_ref;
+        inline app::EntityProfileBody__Class* get_class() {
+            return il2cpp::get_class<app::EntityProfileBody__Class>(type_info, "PlayFab.ProfilesModels", "EntityProfileBody");
+        }
+        inline app::EntityProfileBody* create() {
+            return il2cpp::create_object<app::EntityProfileBody>(get_class());
+        }
+        inline app::EntityProfileBody__Array* create_array(int size) {
+            return il2cpp::array_new<app::EntityProfileBody__Array>(get_class(), size);
+        }
+    } // namespace EntityProfileBody
+} // namespace app::classes::types

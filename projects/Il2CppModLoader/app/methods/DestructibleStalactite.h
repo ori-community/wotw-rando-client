@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::DestructibleStalactite {
+namespace app::classes::DestructibleStalactite {
     IL2CPP_REGISTER_METHOD(0x00B8DCD0, app::Vector3, get_Position, (app::DestructibleStalactite * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B8DCF0, void, set_Position, (app::DestructibleStalactite * this_ptr, app::Vector3 value))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsDead, (app::DestructibleStalactite * this_ptr))
@@ -24,10 +24,10 @@ namespace app::methods::DestructibleStalactite {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeSpiritSpeared, (app::DestructibleStalactite * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeTeleportedByBeacon, (app::DestructibleStalactite * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeGlowed, (app::DestructibleStalactite * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, OnRecieveDamage, (app::DestructibleStalactite * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, OnRecieveDamage, (app::DestructibleStalactite * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x00B8DD00, void, Awake, (app::DestructibleStalactite * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB9D0, app::IDamageReciever__Array *, get_AffectedReceivers, (app::DestructibleStalactite * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB9D0, app::IDamageReciever__Array*, get_AffectedReceivers, (app::DestructibleStalactite * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::DestructibleStalactite * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject *, IDamageReciever_get_gameObject, (app::DestructibleStalactite * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform *, IDamageReciever_get_transform, (app::DestructibleStalactite * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, IDamageReciever_get_gameObject, (app::DestructibleStalactite * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform*, IDamageReciever_get_transform, (app::DestructibleStalactite * this_ptr))
+} // namespace app::classes::DestructibleStalactite

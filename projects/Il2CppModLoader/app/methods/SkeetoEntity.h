@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SkeetoEntity {
+namespace app::classes::SkeetoEntity {
     IL2CPP_REGISTER_METHOD(0x00755320, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x007553F0, app::Vector3, get_CharacterPatrolTarget, (app::SkeetoEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00755530, bool, get_IsOnScreen, (app::SkeetoEntity * this_ptr))
@@ -39,4 +39,4 @@ namespace app::methods::SkeetoEntity {
     IL2CPP_REGISTER_METHOD(0x00756880, void, OnDrawGizmosSelected, (app::SkeetoEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00756890, void, ctor, (app::SkeetoEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00756980, void, cctor, ())
-}
+} // namespace app::classes::SkeetoEntity

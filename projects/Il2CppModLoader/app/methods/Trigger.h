@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Trigger {
+namespace app::classes::Trigger {
     IL2CPP_REGISTER_METHOD(0x00B11420, bool, get_IsSuspended, (app::Trigger_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B11430, void, set_IsSuspended, (app::Trigger_1 * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0070DEC0, app::SuspendableMask__Enum, get_Mask, (app::Trigger_1 * this_ptr))
@@ -21,7 +21,7 @@ namespace app::methods::Trigger {
     IL2CPP_REGISTER_METHOD(0x00B119E0, void, DoTrigger, (app::Trigger_1 * this_ptr, bool should_check_condition))
     IL2CPP_REGISTER_METHOD(0x00B11D00, void, StopTrigger, (app::Trigger_1 * this_ptr, bool stop_timeline, bool reset_trigger_state))
     IL2CPP_REGISTER_METHOD(0x00B11E00, void, OnTriggerActivated, (app::Trigger_1 * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00B11EB0, app::IEnumerator *, ProcessTrigger, (app::Trigger_1 * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00A20A00, bool, Validate, (app::Trigger_1 * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x00B11EB0, app::IEnumerator*, ProcessTrigger, (app::Trigger_1 * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00A20A00, bool, Validate, (app::Trigger_1 * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00B12000, void, ctor, (app::Trigger_1 * this_ptr))
-}
+} // namespace app::classes::Trigger

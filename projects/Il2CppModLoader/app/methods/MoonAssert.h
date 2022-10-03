@@ -1,14 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MoonAssert {
+namespace app::classes::MoonAssert {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IsNotEmptyString, (app::String * str))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IsPositive, (int32_t val))
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, IsTrue, (bool expression, app::String * text))
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, IsFalse, (bool expression, app::String * text))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, IsTrue, (bool expression, app::String* text))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, IsFalse, (bool expression, app::String* text))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MoonAssert * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, IsValidArrayIndex, (int32_t index, app::Object__Array * array))
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, IsValidListIndex_1, (int32_t index, app::List_1_System_Object_ * list))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, IsValidArrayIndex, (int32_t index, app::Object__Array* array))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, IsValidListIndex_1, (int32_t index, app::List_1_System_Object_* list))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IsNotNull_1, (app::Object * reference))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IsNull_1, (app::Object * reference))
     IL2CPP_REGISTER_METHOD(0x01552F10, void, IsNonEmptyArray_1, (app::Object__Array * array))
@@ -136,7 +136,7 @@ namespace app::methods::MoonAssert {
     IL2CPP_REGISTER_METHODINFO(0x0478D220, MoonAssert_IsNotNull_59__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IsNotNull_61, (app::WispPickupContext * reference))
     IL2CPP_REGISTER_METHODINFO(0x0475EBE8, MoonAssert_IsNotNull_60__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, IsValidListIndex_2, (int32_t index, app::List_1_Moon_UI_UIInteractable_ * list))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, IsValidListIndex_2, (int32_t index, app::List_1_Moon_UI_UIInteractable_* list))
     IL2CPP_REGISTER_METHODINFO(0x047421F0, MoonAssert_IsValidListIndex_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IsNotNull_62, (app::TraversalBehaviour * reference))
     IL2CPP_REGISTER_METHODINFO(0x04789698, MoonAssert_IsNotNull_61__MethodInfo)
@@ -188,4 +188,4 @@ namespace app::methods::MoonAssert {
     IL2CPP_REGISTER_METHODINFO(0x047954D0, MoonAssert_IsNotNull_82__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IsNotNull_84, (app::WeaponMasterEntity * reference))
     IL2CPP_REGISTER_METHODINFO(0x047780E0, MoonAssert_IsNotNull_83__MethodInfo)
-}
+} // namespace app::classes::MoonAssert

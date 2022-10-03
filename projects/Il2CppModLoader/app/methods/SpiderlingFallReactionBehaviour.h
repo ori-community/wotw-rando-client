@@ -1,13 +1,13 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SpiderlingFallReactionBehaviour {
-    IL2CPP_REGISTER_METHOD(0x002FBC40, app::MoonTimeline *, get_EffectiveLandSequenceNew, (app::SpiderlingFallReactionBehaviour * this_ptr))
+namespace app::classes::SpiderlingFallReactionBehaviour {
+    IL2CPP_REGISTER_METHOD(0x002FBC40, app::MoonTimeline*, get_EffectiveLandSequenceNew, (app::SpiderlingFallReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011C1E60, bool, get_ShouldLand, (app::SpiderlingFallReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x011C1EF0, void, OnInitializeTask, (app::SpiderlingFallReactionBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x011C1FC0, void, OnEnterTask, (app::SpiderlingFallReactionBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x011C2280, app::BehaviourStatus__Enum, OnExecuteTask, (app::SpiderlingFallReactionBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x011C2630, void, OnExitTask, (app::SpiderlingFallReactionBehaviour * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x011C1EF0, void, OnInitializeTask, (app::SpiderlingFallReactionBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x011C1FC0, void, OnEnterTask, (app::SpiderlingFallReactionBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x011C2280, app::BehaviourStatus__Enum, OnExecuteTask, (app::SpiderlingFallReactionBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x011C2630, void, OnExitTask, (app::SpiderlingFallReactionBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x011C2920, void, HandleCollision, (app::SpiderlingFallReactionBehaviour * this_ptr, app::MoonControllerColliderHit hit))
     IL2CPP_REGISTER_METHODINFO(0x0476A5B8, SpiderlingFallReactionBehaviour_HandleCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011C2BE0, void, UpdateState, (app::SpiderlingFallReactionBehaviour * this_ptr))
@@ -26,4 +26,4 @@ namespace app::methods::SpiderlingFallReactionBehaviour {
     IL2CPP_REGISTER_METHODINFO(0x0472DEF0, SpiderlingFallReactionBehaviour__OnEnterFalling_b__48_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011C4760, bool, _FallingUpdate_b__49_0, (app::SpiderlingFallReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04747B90, SpiderlingFallReactionBehaviour__FallingUpdate_b__49_0__MethodInfo)
-}
+} // namespace app::classes::SpiderlingFallReactionBehaviour

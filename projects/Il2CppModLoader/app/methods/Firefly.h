@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Firefly {
+namespace app::classes::Firefly {
     IL2CPP_REGISTER_METHOD(0x009CA200, bool, get_IsAlive, (app::Firefly * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0125CEB0, app::OrbSpawner *, get_OrbSpawner, (app::Firefly * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0125CEB0, app::OrbSpawner*, get_OrbSpawner, (app::Firefly * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0125CF80, void, OnSpawn, (app::Firefly * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0125D070, void, StartFlickering, (app::Firefly * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0125D140, void, Die, (app::Firefly * this_ptr, bool spawn_orbs))
@@ -16,8 +16,8 @@ namespace app::methods::Firefly {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBashHighlight, (app::Firefly * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBashDehighlight, (app::Firefly * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::Firefly * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBD60, app::Action_1_Boolean_ *, get_OnDeathHiveAction, (app::Firefly * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBD70, void, set_OnDeathHiveAction, (app::Firefly * this_ptr, app::Action_1_Boolean_ * value))
+    IL2CPP_REGISTER_METHOD(0x002FBD60, app::Action_1_Boolean_*, get_OnDeathHiveAction, (app::Firefly * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBD70, void, set_OnDeathHiveAction, (app::Firefly * this_ptr, app::Action_1_Boolean_* value))
     IL2CPP_REGISTER_METHOD(0x0125DBD0, void, InitFirefly, (app::Firefly * this_ptr, app::Vector3 start_position, app::Vector3 end_position))
     IL2CPP_REGISTER_METHOD(0x0125DEB0, void, UpdateFirefly, (app::Firefly * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0125E760, void, SetSpriteSide, (app::Firefly * this_ptr, bool right))
@@ -51,6 +51,6 @@ namespace app::methods::Firefly {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeGlowed, (app::Firefly * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0125F0D0, bool, InsideFrustum, (app::Firefly * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0125F380, void, StopAllTimelines, (app::Firefly * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005B0220, app::IDamageReciever__Array *, get_AffectedReceivers, (app::Firefly * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005B0220, app::IDamageReciever__Array*, get_AffectedReceivers, (app::Firefly * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0125F520, void, ctor, (app::Firefly * this_ptr))
-}
+} // namespace app::classes::Firefly

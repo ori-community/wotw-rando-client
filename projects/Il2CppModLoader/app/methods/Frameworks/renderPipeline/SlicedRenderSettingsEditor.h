@@ -1,20 +1,20 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::frameworks::renderPipeline::SlicedRenderSettingsEditor {
+namespace app::classes::frameworks::renderPipeline::SlicedRenderSettingsEditor {
     IL2CPP_REGISTER_METHOD(0x00F62DD0, bool, get_IsEnabled, ())
     IL2CPP_REGISTER_METHOD(0x00F62F30, bool, get_IsShowingOverride, ())
-    IL2CPP_REGISTER_METHOD(0x00F63050, app::DepthOfFieldController *, get_DofController, (app::SlicedRenderSettingsEditor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F63740, app::LayeredRenderSettings_LayerParams__Array *, GetLayersFromSettings, (app::SlicedRenderSettingsEditor * this_ptr, app::LayeredRenderSettings * settings))
-    IL2CPP_REGISTER_METHOD(0x00F63890, app::LayeredRenderSettings *, get_SceneSettings, (app::SlicedRenderSettingsEditor * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00F63050, app::DepthOfFieldController*, get_DofController, (app::SlicedRenderSettingsEditor * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00F63740, app::LayeredRenderSettings_LayerParams__Array*, GetLayersFromSettings, (app::SlicedRenderSettingsEditor * this_ptr, app::LayeredRenderSettings* settings))
+    IL2CPP_REGISTER_METHOD(0x00F63890, app::LayeredRenderSettings*, get_SceneSettings, (app::SlicedRenderSettingsEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F640F0, void, EnsureImguiRegistered, (app::SlicedRenderSettingsEditor * this_ptr, bool registered))
     IL2CPP_REGISTER_METHOD(0x00F641F0, void, RestoreOriginals_1, (app::SlicedRenderSettingsEditor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F643F0, void, CopyDebugSlices, (app::SlicedRenderSettingsEditor * this_ptr, app::MoonRenderPipelineDebug_Slice__Array * source, app::MoonRenderPipelineDebug_Slice__Array * dest))
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, RestoreOriginals_2, (app::SlicedRenderSettingsEditor * this_ptr, app::SceneSettingsComponent * scene_settings_comp))
-    IL2CPP_REGISTER_METHOD(0x00F64690, void, RestoreOriginals_3, (app::SlicedRenderSettingsEditor * this_ptr, app::DepthOfFieldController * dof_controller))
+    IL2CPP_REGISTER_METHOD(0x00F643F0, void, CopyDebugSlices, (app::SlicedRenderSettingsEditor * this_ptr, app::MoonRenderPipelineDebug_Slice__Array* source, app::MoonRenderPipelineDebug_Slice__Array* dest))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, RestoreOriginals_2, (app::SlicedRenderSettingsEditor * this_ptr, app::SceneSettingsComponent* scene_settings_comp))
+    IL2CPP_REGISTER_METHOD(0x00F64690, void, RestoreOriginals_3, (app::SlicedRenderSettingsEditor * this_ptr, app::DepthOfFieldController* dof_controller))
     IL2CPP_REGISTER_METHOD(0x00F64890, void, RestoreTweaks_1, (app::SlicedRenderSettingsEditor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, RestoreTweaks_2, (app::SlicedRenderSettingsEditor * this_ptr, app::SceneSettingsComponent * scene_settings_comp))
-    IL2CPP_REGISTER_METHOD(0x00F64B40, void, RestoreTweaks_3, (app::SlicedRenderSettingsEditor * this_ptr, app::DepthOfFieldController * dof_controller))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, RestoreTweaks_2, (app::SlicedRenderSettingsEditor * this_ptr, app::SceneSettingsComponent* scene_settings_comp))
+    IL2CPP_REGISTER_METHOD(0x00F64B40, void, RestoreTweaks_3, (app::SlicedRenderSettingsEditor * this_ptr, app::DepthOfFieldController* dof_controller))
     IL2CPP_REGISTER_METHOD(0x00F64CB0, void, Awake, (app::SlicedRenderSettingsEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F64E60, void, OnDestroy, (app::SlicedRenderSettingsEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F64F80, void, CreateLineMaterial, (app::SlicedRenderSettingsEditor * this_ptr))
@@ -45,4 +45,4 @@ namespace app::methods::frameworks::renderPipeline::SlicedRenderSettingsEditor {
     IL2CPP_REGISTER_METHOD(0x00F694B0, void, ResumeGameplay, ())
     IL2CPP_REGISTER_METHOD(0x00F695F0, void, ctor, (app::SlicedRenderSettingsEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F69AA0, void, cctor, ())
-}
+} // namespace app::classes::frameworks::renderPipeline::SlicedRenderSettingsEditor

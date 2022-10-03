@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Runtime::Remoting::ChannelInfo {
+namespace app::classes::System::Runtime::Remoting::ChannelInfo {
     IL2CPP_REGISTER_METHOD(0x01A9AAA0, void, ctor_1, (app::ChannelInfo * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01A9AB40, void, ctor_2, (app::ChannelInfo * this_ptr, app::Object * remote_channel_data))
-    IL2CPP_REGISTER_METHOD(0x002FA280, app::Object__Array *, get_ChannelData, (app::ChannelInfo * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x01A9AB40, void, ctor_2, (app::ChannelInfo * this_ptr, app::Object* remote_channel_data))
+    IL2CPP_REGISTER_METHOD(0x002FA280, app::Object__Array*, get_ChannelData, (app::ChannelInfo * this_ptr))
+} // namespace app::classes::System::Runtime::Remoting::ChannelInfo

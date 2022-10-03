@@ -6,7 +6,7 @@
 #include <features/scenes/scene_load.h>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {

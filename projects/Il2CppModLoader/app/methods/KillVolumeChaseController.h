@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::KillVolumeChaseController {
+namespace app::classes::KillVolumeChaseController {
     IL2CPP_REGISTER_METHOD(0x00E749A0, app::Vector3, get_SeinPos, (app::KillVolumeChaseController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E74A90, app::Vector3, get_AvalanchePos, (app::KillVolumeChaseController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E74BF0, void, OnEnable, (app::KillVolumeChaseController * this_ptr))
@@ -13,4 +13,4 @@ namespace app::methods::KillVolumeChaseController {
     IL2CPP_REGISTER_METHOD(0x006142D0, bool, get_IsSuspended, (app::KillVolumeChaseController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006142E0, void, set_IsSuspended, (app::KillVolumeChaseController * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::KillVolumeChaseController * this_ptr))
-}
+} // namespace app::classes::KillVolumeChaseController

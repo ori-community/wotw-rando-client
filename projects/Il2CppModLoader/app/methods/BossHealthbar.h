@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::BossHealthbar {
+namespace app::classes::BossHealthbar {
     IL2CPP_REGISTER_METHOD(0x00A26FE0, float, get_Value, (app::BossHealthbar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D3A7B0, void, Awake, (app::BossHealthbar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D3AB70, void, OnDestroy, (app::BossHealthbar * this_ptr))
@@ -18,4 +18,4 @@ namespace app::methods::BossHealthbar {
     IL2CPP_REGISTER_METHOD(0x00D3B1D0, void, FixedUpdate, (app::BossHealthbar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D3B370, void, UpdateVisuals, (app::BossHealthbar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D3B580, void, ctor, (app::BossHealthbar * this_ptr))
-}
+} // namespace app::classes::BossHealthbar

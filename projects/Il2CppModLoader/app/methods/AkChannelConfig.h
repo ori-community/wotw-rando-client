@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AkChannelConfig {
-    IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkChannelConfig * this_ptr, void * c_ptr, bool c_memory_own))
-    IL2CPP_REGISTER_METHOD(0x026D5DC0, void *, getCPtr, (app::AkChannelConfig * obj))
-    IL2CPP_REGISTER_METHOD(0x01880C50, void, setCPtr, (app::AkChannelConfig * this_ptr, void * c_ptr))
+namespace app::classes::AkChannelConfig {
+    IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkChannelConfig * this_ptr, void* c_ptr, bool c_memory_own))
+    IL2CPP_REGISTER_METHOD(0x026D5DC0, void*, getCPtr, (app::AkChannelConfig * obj))
+    IL2CPP_REGISTER_METHOD(0x01880C50, void, setCPtr, (app::AkChannelConfig * this_ptr, void* c_ptr))
     IL2CPP_REGISTER_METHOD(0x026D5E50, void, Finalize, (app::AkChannelConfig * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026D5ED0, void, Dispose, (app::AkChannelConfig * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026D60E0, void, set_uNumChannels, (app::AkChannelConfig * this_ptr, uint32_t value))
@@ -23,7 +23,7 @@ namespace app::methods::AkChannelConfig {
     IL2CPP_REGISTER_METHOD(0x026D7020, bool, IsValid, (app::AkChannelConfig * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026D7150, uint32_t, Serialize, (app::AkChannelConfig * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026D7270, void, Deserialize, (app::AkChannelConfig * this_ptr, uint32_t in_u_channel_config))
-    IL2CPP_REGISTER_METHOD(0x026D73A0, app::AkChannelConfig *, RemoveLFE, (app::AkChannelConfig * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x026D75A0, app::AkChannelConfig *, RemoveCenter, (app::AkChannelConfig * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x026D73A0, app::AkChannelConfig*, RemoveLFE, (app::AkChannelConfig * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x026D75A0, app::AkChannelConfig*, RemoveCenter, (app::AkChannelConfig * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026D77A0, bool, IsChannelConfigSupported, (app::AkChannelConfig * this_ptr))
-}
+} // namespace app::classes::AkChannelConfig

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CameraWideScreenZone {
+namespace app::classes::CameraWideScreenZone {
     IL2CPP_REGISTER_METHOD(0x00B21450, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x00B21530, void, OnEnable, (app::CameraWideScreenZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B21600, void, OnDestroy, (app::CameraWideScreenZone * this_ptr))
@@ -11,4 +11,4 @@ namespace app::methods::CameraWideScreenZone {
     IL2CPP_REGISTER_METHOD(0x00417920, app::SelectableCategory__Enum, get_Category, (app::CameraWideScreenZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B21D30, void, ctor, (app::CameraWideScreenZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B21D40, void, cctor, ())
-}
+} // namespace app::classes::CameraWideScreenZone

@@ -9,7 +9,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <uber_states/uber_state_interface.h>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     const bool SHOULD_EXPLODE_WHEN_GOING_OVER_LIMIT = true;

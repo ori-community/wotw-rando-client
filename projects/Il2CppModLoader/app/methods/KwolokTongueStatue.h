@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::KwolokTongueStatue {
-    IL2CPP_REGISTER_METHOD(0x012FD6B0, app::IByteUberState *, get_ResolvedUberState, (app::KwolokTongueStatue * this_ptr))
+namespace app::classes::KwolokTongueStatue {
+    IL2CPP_REGISTER_METHOD(0x012FD6B0, app::IByteUberState*, get_ResolvedUberState, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012FD780, bool, get_StateIsSerialized, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012FD870, bool, get_CanCollideWithAnotherTongue, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00413160, bool, get_IsBlocked, (app::KwolokTongueStatue * this_ptr))
@@ -10,10 +10,10 @@ namespace app::methods::KwolokTongueStatue {
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012FD920, uint8_t, StateToByte, (app::KwolokTongueStatue_KwolowTongueStatueState__Enum state))
     IL2CPP_REGISTER_METHOD(0x012FD930, app::KwolokTongueStatue_KwolowTongueStatueState__Enum, ByteToState, (uint8_t val))
-    IL2CPP_REGISTER_METHOD(0x012FD950, app::KwolokTongueStatue_TongueState *, GetTongueState, (app::KwolokTongueStatue * this_ptr, app::KwolokTongueStatue_KwolowTongueStatueState__Enum state))
-    IL2CPP_REGISTER_METHOD(0x012FD970, app::KwolokTongueStatue_TongueState *, get_OpenedState, (app::KwolokTongueStatue * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x012FDAE0, app::KwolokTongueStatue_TongueState *, get_ClosedState, (app::KwolokTongueStatue * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x012FDC50, app::KwolokTongueStatue_TongueState *, get_PartiallyOpenedState, (app::KwolokTongueStatue * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x012FD950, app::KwolokTongueStatue_TongueState*, GetTongueState, (app::KwolokTongueStatue * this_ptr, app::KwolokTongueStatue_KwolowTongueStatueState__Enum state))
+    IL2CPP_REGISTER_METHOD(0x012FD970, app::KwolokTongueStatue_TongueState*, get_OpenedState, (app::KwolokTongueStatue * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x012FDAE0, app::KwolokTongueStatue_TongueState*, get_ClosedState, (app::KwolokTongueStatue * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x012FDC50, app::KwolokTongueStatue_TongueState*, get_PartiallyOpenedState, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012FDDD0, void, OnValidate, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012FE000, void, OnEnable, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012FE1D0, void, OnDisable, (app::KwolokTongueStatue * this_ptr))
@@ -63,16 +63,16 @@ namespace app::methods::KwolokTongueStatue {
     IL2CPP_REGISTER_METHOD(0x012FF6B0, app::Vector3, get_BowAutoTargetPosition, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, ShouldArrowBeReflected, (app::KwolokTongueStatue * this_ptr, app::ArrowHitData hit_data))
     IL2CPP_REGISTER_METHOD(0x012FF890, bool, get_IsOn, (app::KwolokTongueStatue * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x012FF8B0, app::IDesiredUberState__Array *, GetRequirementsForTimeline, (app::KwolokTongueStatue * this_ptr, app::MoonTimeline * timeline))
-    IL2CPP_REGISTER_METHOD(0x012FFCD0, void, OnRecieveDamage, (app::KwolokTongueStatue * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x012FF8B0, app::IDesiredUberState__Array*, GetRequirementsForTimeline, (app::KwolokTongueStatue * this_ptr, app::MoonTimeline* timeline))
+    IL2CPP_REGISTER_METHOD(0x012FFCD0, void, OnRecieveDamage, (app::KwolokTongueStatue * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ApplyOnEditor, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01300080, void, Apply, (app::KwolokTongueStatue * this_ptr, app::UberStateApplyContext__Enum context))
-    IL2CPP_REGISTER_METHOD(0x01300140, app::IUberState__Array *, get_AffectingUberStates, (app::KwolokTongueStatue * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00420EE0, app::List_1_UnityEngine_GameObject_ *, get_AllTargets, (app::KwolokTongueStatue * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x013001D0, app::GameObject *, GetDynamicGraphicTarget, (app::KwolokTongueStatue * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005B0220, app::IDamageReciever__Array *, get_AffectedReceivers, (app::KwolokTongueStatue * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01300140, app::IUberState__Array*, get_AffectingUberStates, (app::KwolokTongueStatue * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00420EE0, app::List_1_UnityEngine_GameObject_*, get_AllTargets, (app::KwolokTongueStatue * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x013001D0, app::GameObject*, GetDynamicGraphicTarget, (app::KwolokTongueStatue * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005B0220, app::IDamageReciever__Array*, get_AffectedReceivers, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013001F0, void, ctor, (app::KwolokTongueStatue * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject *, IDamageReciever_get_gameObject, (app::KwolokTongueStatue * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform *, IDamageReciever_get_transform, (app::KwolokTongueStatue * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBD40, app::IMoonTypeResolver *, GetResolverForType, (app::KwolokTongueStatue * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, IDamageReciever_get_gameObject, (app::KwolokTongueStatue * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform*, IDamageReciever_get_transform, (app::KwolokTongueStatue * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBD40, app::IMoonTypeResolver*, GetResolverForType, (app::KwolokTongueStatue * this_ptr))
+} // namespace app::classes::KwolokTongueStatue

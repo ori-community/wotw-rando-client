@@ -14,7 +14,7 @@
 #include <set>
 #include <unordered_set>
 
-using namespace app::methods;
+using namespace app::classes;
 using namespace modloader::win;
 
 namespace scenes {

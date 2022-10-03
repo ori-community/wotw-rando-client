@@ -19,9 +19,9 @@
 #include <string>
 #include <unordered_map>
 
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
-using namespace app::methods::Moon::Wwise;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
+using namespace app::classes::Moon::Wwise;
 
 namespace randomizer {
     namespace sound {

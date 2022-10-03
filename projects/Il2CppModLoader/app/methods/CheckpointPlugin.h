@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CheckpointPlugin {
+namespace app::classes::CheckpointPlugin {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, OnGameLoad, (app::CheckpointPlugin * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, PlayCycle, (app::CheckpointPlugin * this_ptr, int32_t frame))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, RecordCycle, (app::CheckpointPlugin * this_ptr, int32_t frame))
@@ -17,9 +17,9 @@ namespace app::methods::CheckpointPlugin {
     IL2CPP_REGISTER_METHODINFO(0x04744A90, CheckpointPlugin_OnFinishedLoading__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01320930, void, PerformLoad, (app::CheckpointPlugin * this_ptr, int32_t keyframe))
     IL2CPP_REGISTER_METHOD(0x01320AA0, void, PerformLoadFromFrame, (app::CheckpointPlugin * this_ptr, int32_t frame))
-    IL2CPP_REGISTER_METHOD(0x01320B70, void, ApplyPreviousInput, (app::CheckpointPlugin * this_ptr, int32_t frame, app::Recorder_1 * recorder))
+    IL2CPP_REGISTER_METHOD(0x01320B70, void, ApplyPreviousInput, (app::CheckpointPlugin * this_ptr, int32_t frame, app::Recorder_1* recorder))
     IL2CPP_REGISTER_METHOD(0x01320DF0, void, MakeCheckpointAtEndOfFrame, (app::CheckpointPlugin * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01321070, void, MakeCheckpoint, (app::CheckpointPlugin * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04719D78, CheckpointPlugin_MakeCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01321370, void, ctor, (app::CheckpointPlugin * this_ptr))
-}
+} // namespace app::classes::CheckpointPlugin

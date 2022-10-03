@@ -12,7 +12,7 @@
 #include <utils/misc.h>
 
 using namespace utils;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     ObjectReference<app::MoonTimeline> kwolok_boss_intro_timeline;

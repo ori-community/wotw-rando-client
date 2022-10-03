@@ -1,20 +1,20 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Vector3 {
+namespace app::classes::UnityEngine::Vector3 {
     IL2CPP_REGISTER_METHOD(0x00229570, void, ctor_1, (app::Vector3__Boxed * this_ptr, float x, float y, float z))
     IL2CPP_REGISTER_METHOD(0x00229580, void, ctor_2, (app::Vector3__Boxed * this_ptr, float x, float y))
     IL2CPP_REGISTER_METHOD(0x02C74870, app::Vector3, Slerp, (app::Vector3 a, app::Vector3 b, float t))
-    IL2CPP_REGISTER_METHOD(0x02C74990, void, OrthoNormalize2, (app::Vector3 * a, app::Vector3 * b))
-    IL2CPP_REGISTER_METHOD(0x02C749F0, void, OrthoNormalize, (app::Vector3 * normal, app::Vector3 * tangent))
+    IL2CPP_REGISTER_METHOD(0x02C74990, void, OrthoNormalize2, (app::Vector3 * a, app::Vector3* b))
+    IL2CPP_REGISTER_METHOD(0x02C749F0, void, OrthoNormalize, (app::Vector3 * normal, app::Vector3* tangent))
     IL2CPP_REGISTER_METHOD(0x02C74AE0, app::Vector3, RotateTowards, (app::Vector3 current, app::Vector3 target, float max_radians_delta, float max_magnitude_delta))
     IL2CPP_REGISTER_METHOD(0x02C74C10, app::Vector3, Lerp, (app::Vector3 a, app::Vector3 b, float t))
     IL2CPP_REGISTER_METHODINFO(0x047270E0, Vector3_Lerp__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C74D30, app::Vector3, LerpUnclamped, (app::Vector3 a, app::Vector3 b, float t))
     IL2CPP_REGISTER_METHOD(0x02C74D90, app::Vector3, MoveTowards, (app::Vector3 current, app::Vector3 target, float max_distance_delta))
-    IL2CPP_REGISTER_METHOD(0x02C74F70, app::Vector3, SmoothDamp_1, (app::Vector3 current, app::Vector3 target, app::Vector3 * current_velocity, float smooth_time, float max_speed))
-    IL2CPP_REGISTER_METHOD(0x02C75100, app::Vector3, SmoothDamp_2, (app::Vector3 current, app::Vector3 target, app::Vector3 * current_velocity, float smooth_time))
-    IL2CPP_REGISTER_METHOD(0x02C75290, app::Vector3, SmoothDamp_3, (app::Vector3 current, app::Vector3 target, app::Vector3 * current_velocity, float smooth_time, float max_speed, float delta_time))
+    IL2CPP_REGISTER_METHOD(0x02C74F70, app::Vector3, SmoothDamp_1, (app::Vector3 current, app::Vector3 target, app::Vector3* current_velocity, float smooth_time, float max_speed))
+    IL2CPP_REGISTER_METHOD(0x02C75100, app::Vector3, SmoothDamp_2, (app::Vector3 current, app::Vector3 target, app::Vector3* current_velocity, float smooth_time))
+    IL2CPP_REGISTER_METHOD(0x02C75290, app::Vector3, SmoothDamp_3, (app::Vector3 current, app::Vector3 target, app::Vector3* current_velocity, float smooth_time, float max_speed, float delta_time))
     IL2CPP_REGISTER_METHOD(0x002295A0, float, get_Item, (app::Vector3__Boxed * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHODINFO(0x04797088, Vector3_get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002295B0, void, set_Item, (app::Vector3__Boxed * this_ptr, int32_t index, float value))
@@ -24,7 +24,7 @@ namespace app::methods::UnityEngine::Vector3 {
     IL2CPP_REGISTER_METHOD(0x002295C0, void, Scale_2, (app::Vector3__Boxed * this_ptr, app::Vector3 scale))
     IL2CPP_REGISTER_METHOD(0x02C75990, app::Vector3, Cross, (app::Vector3 lhs, app::Vector3 rhs))
     IL2CPP_REGISTER_METHOD(0x00229600, int32_t, GetHashCode, (app::Vector3__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00229610, bool, Equals_1, (app::Vector3__Boxed * this_ptr, app::Object * other))
+    IL2CPP_REGISTER_METHOD(0x00229610, bool, Equals_1, (app::Vector3__Boxed * this_ptr, app::Object* other))
     IL2CPP_REGISTER_METHOD(0x00229620, bool, Equals_2, (app::Vector3__Boxed * this_ptr, app::Vector3 other))
     IL2CPP_REGISTER_METHOD(0x02C75C40, app::Vector3, Reflect, (app::Vector3 in_direction, app::Vector3 in_normal))
     IL2CPP_REGISTER_METHOD(0x02C75DA0, app::Vector3, Normalize_1, (app::Vector3 value))
@@ -59,33 +59,33 @@ namespace app::methods::UnityEngine::Vector3 {
     IL2CPP_REGISTER_METHOD(0x02C775F0, app::Vector3, op_Division, (app::Vector3 a, float d))
     IL2CPP_REGISTER_METHOD(0x02C77630, bool, op_Equality, (app::Vector3 lhs, app::Vector3 rhs))
     IL2CPP_REGISTER_METHOD(0x02C77740, bool, op_Inequality, (app::Vector3 lhs, app::Vector3 rhs))
-    IL2CPP_REGISTER_METHOD(0x002296D0, app::String *, ToString_1, (app::Vector3__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002296E0, app::String *, ToString_2, (app::Vector3__Boxed * this_ptr, app::String * format))
+    IL2CPP_REGISTER_METHOD(0x002296D0, app::String*, ToString_1, (app::Vector3__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002296E0, app::String*, ToString_2, (app::Vector3__Boxed * this_ptr, app::String* format))
     IL2CPP_REGISTER_METHOD(0x02C77C30, void, cctor, ())
-    IL2CPP_REGISTER_METHOD(0x02C77E40, void, Slerp_Injected, (app::Vector3 * a, app::Vector3 * b, float t, app::Vector3 * ret))
-    IL2CPP_REGISTER_METHOD(0x02C77EC0, void, RotateTowards_Injected, (app::Vector3 * current, app::Vector3 * target, float max_radians_delta, float max_magnitude_delta, app::Vector3 * ret))
-    inline app::Vector3 operator + (app::Vector3 a, app::Vector3 b) {
+    IL2CPP_REGISTER_METHOD(0x02C77E40, void, Slerp_Injected, (app::Vector3 * a, app::Vector3* b, float t, app::Vector3* ret))
+    IL2CPP_REGISTER_METHOD(0x02C77EC0, void, RotateTowards_Injected, (app::Vector3 * current, app::Vector3* target, float max_radians_delta, float max_magnitude_delta, app::Vector3* ret))
+    inline app::Vector3 operator+(app::Vector3 a, app::Vector3 b) {
         return op_Addition(a, b);
     }
-    inline app::Vector3 operator - (app::Vector3 a, app::Vector3 b) {
+    inline app::Vector3 operator-(app::Vector3 a, app::Vector3 b) {
         return op_Subtraction(a, b);
     }
-    inline app::Vector3 operator - (app::Vector3 a) {
+    inline app::Vector3 operator-(app::Vector3 a) {
         return op_UnaryNegation(a);
     }
-    inline app::Vector3 operator * (app::Vector3 a, float d) {
+    inline app::Vector3 operator*(app::Vector3 a, float d) {
         return op_Multiply_1(a, d);
     }
-    inline app::Vector3 operator * (float d, app::Vector3 a) {
+    inline app::Vector3 operator*(float d, app::Vector3 a) {
         return op_Multiply_2(d, a);
     }
-    inline app::Vector3 operator / (app::Vector3 a, float d) {
+    inline app::Vector3 operator/(app::Vector3 a, float d) {
         return op_Division(a, d);
     }
-    inline bool operator == (app::Vector3 lhs, app::Vector3 rhs) {
+    inline bool operator==(app::Vector3 lhs, app::Vector3 rhs) {
         return op_Equality(lhs, rhs);
     }
-    inline bool operator != (app::Vector3 lhs, app::Vector3 rhs) {
+    inline bool operator!=(app::Vector3 lhs, app::Vector3 rhs) {
         return op_Inequality(lhs, rhs);
     }
-}
+} // namespace app::classes::UnityEngine::Vector3

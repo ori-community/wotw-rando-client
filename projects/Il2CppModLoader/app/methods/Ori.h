@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Ori {
-    IL2CPP_REGISTER_METHOD(0x0061E140, app::Transform *, get_m_target, (app::Ori * this_ptr))
+namespace app::classes::Ori {
+    IL2CPP_REGISTER_METHOD(0x0061E140, app::Transform*, get_m_target, (app::Ori * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061E240, app::Vector3, get_TargetPosition, (app::Ori * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061E2E0, void, set_EnableHoverWobbling, (app::Ori * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0061E2F0, bool, get_EnableHoverWobbling, (app::Ori * this_ptr))
@@ -16,7 +16,7 @@ namespace app::methods::Ori {
     IL2CPP_REGISTER_METHOD(0x0061E6B0, void, Awake, (app::Ori * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061E920, void, OnEnable, (app::Ori * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061E930, void, OnDestroy, (app::Ori * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0061EB00, void, Serialize, (app::Ori * this_ptr, app::Archive * ar))
+    IL2CPP_REGISTER_METHOD(0x0061EB00, void, Serialize, (app::Ori * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x0061EB70, void, OnRestoreCheckpoint, (app::Ori * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04735C90, Ori_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0061EBC0, bool, IsListening, (app::Ori * this_ptr))
@@ -24,7 +24,7 @@ namespace app::methods::Ori {
     IL2CPP_REGISTER_METHOD(0x0061E920, void, MoveOriToPlayer, (app::Ori * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061ED60, void, MoveOriBackToPlayer, (app::Ori * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061EF60, void, MoveOriToPosition, (app::Ori * this_ptr, app::Vector3 position, float duration))
-    IL2CPP_REGISTER_METHOD(0x0061F270, void, MoveOriAlongCurve, (app::Ori * this_ptr, app::AnimationCurve * position_x, app::AnimationCurve * position_y, app::AnimationCurve * position_z, app::Vector3 position, float duration))
+    IL2CPP_REGISTER_METHOD(0x0061F270, void, MoveOriAlongCurve, (app::Ori * this_ptr, app::AnimationCurve* position_x, app::AnimationCurve* position_y, app::AnimationCurve* position_z, app::Vector3 position, float duration))
     IL2CPP_REGISTER_METHOD(0x0061F3F0, void, UpdateState, (app::Ori * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061F600, void, UpdateMoveAlongCurveState, (app::Ori * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061FAA0, void, UpdateMoveToPositionState, (app::Ori * this_ptr))
@@ -37,4 +37,4 @@ namespace app::methods::Ori {
     IL2CPP_REGISTER_METHOD(0x00620A10, void, StartListening, (app::Ori * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00620A20, void, StopListening, (app::Ori * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00620A30, void, ctor, (app::Ori * this_ptr))
-}
+} // namespace app::classes::Ori

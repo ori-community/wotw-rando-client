@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Wwise::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData__ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_ {
+namespace app::classes::Moon::Wwise::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData__ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_ {
     IL2CPP_REGISTER_METHOD(0x02AF4E70, bool, get_IsValid, (app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04789F80, ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData__get_IsValid__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004430B0, bool, get_ForceFirstFrame, (app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_ * this_ptr))
@@ -18,4 +18,4 @@ namespace app::methods::Moon::Wwise::ZoneProcessor_2_TListenerTaskData_TEmitterT
     IL2CPP_REGISTER_METHOD(0x02AF4E80, bool, get_ShouldBeUpdatedThisFrame, (app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02AF4F80, void, Reset, (app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02AF5050, void, Bind, (app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_ * this_ptr, app::AudioListenerZoneReference zone, int32_t frame_quantinization, app::ListenerSoundZoneTaskData data))
-}
+} // namespace app::classes::Moon::Wwise::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData__ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_

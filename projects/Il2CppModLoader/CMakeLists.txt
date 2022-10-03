@@ -6,7 +6,8 @@ message(STATUS "Project ${PROJECT_NAME}:")
 
 set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
-set(TYPE_FILES_COUNT 1514)
+set(STRUCTS_FILES_COUNT 1514)
+set(TYPE_FILES_COUNT 222)
 
 set(
         SOURCE_FILES
@@ -36,11 +37,19 @@ set(
         "app/il2cpp_internals.h"
 )
 
-foreach (i RANGE 1 ${TYPE_FILES_COUNT})
-    list(APPEND PUBLIC_HEADER_FILES "app/types/types.${i}.h")
+foreach (i RANGE 1 ${STRUCTS_FILES_COUNT})
+    list(APPEND PUBLIC_HEADER_FILES "app/structs/structs.${i}.h")
 endforeach ()
 
 file(GLOB_RECURSE METHODS ${PROJECT_DIR}/app/methods *.h)
+file(GLOB_RECURSE TYPES ${PROJECT_DIR}/app/types *.h)
+file(GLOB_RECURSE TYPES_INIT ${PROJECT_DIR}/app/types *.cpp)
+
+list(
+        APPEND
+        SOURCE_FILES
+        ${TYPES_INIT}
+)
 
 list(
         APPEND
@@ -68,6 +77,7 @@ add_library(
         ${PUBLIC_HEADER_FILES}
         ${INTERNAL_IL2CPP_HEADERS}
         ${METHODS}
+        ${TYPES}
         ${MISC_FILES}
 )
 
@@ -111,10 +121,10 @@ target_precompile_headers(
         PUBLIC <${PROJECT_NAME}/app/il2cpp_internals.h>
 )
 
-foreach (i RANGE 1 ${TYPE_FILES_COUNT})
+foreach (i RANGE 1 ${STRUCTS_FILES_COUNT})
     target_precompile_headers(
             ${PROJECT_NAME}
-            PUBLIC <${PROJECT_NAME}/app/types/types.${i}.h>
+            PUBLIC <${PROJECT_NAME}/app/structs/structs.${i}.h>
     )
 endforeach ()
 

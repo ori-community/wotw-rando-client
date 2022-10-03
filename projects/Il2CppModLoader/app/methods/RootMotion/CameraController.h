@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RootMotion::CameraController {
+namespace app::classes::RootMotion::CameraController {
     IL2CPP_REGISTER_METHOD(0x00623240, float, get_x, (app::CameraController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00623250, void, set_x, (app::CameraController * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x00623260, float, get_y, (app::CameraController * this_ptr))
@@ -18,4 +18,4 @@ namespace app::methods::RootMotion::CameraController {
     IL2CPP_REGISTER_METHOD(0x022078E0, float, get_zoomAdd, (app::CameraController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x022079D0, float, ClampAngle, (app::CameraController * this_ptr, float angle, float min, float max))
     IL2CPP_REGISTER_METHOD(0x02207AC0, void, ctor, (app::CameraController * this_ptr))
-}
+} // namespace app::classes::RootMotion::CameraController

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::FishEnemy {
+namespace app::classes::FishEnemy {
     IL2CPP_REGISTER_METHOD(0x012673D0, bool, CanBeOptimized, (app::FishEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01267410, float, get_BendValue, (app::FishEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012674D0, void, FixedUpdate, (app::FishEnemy * this_ptr))
@@ -45,4 +45,4 @@ namespace app::methods::FishEnemy {
     IL2CPP_REGISTER_METHODINFO(0x047148B8, FishEnemy__Start_b__19_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0126B4D0, bool, _Start_b__19_7, (app::FishEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04739A88, FishEnemy__Start_b__19_7__MethodInfo)
-}
+} // namespace app::classes::FishEnemy

@@ -11,7 +11,7 @@
 #include <features/scenes/scene_load.h>
 #include <game/game.h>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     int open_door_in_frames = 2;

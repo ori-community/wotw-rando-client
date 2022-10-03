@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CartController {
+namespace app::classes::CartController {
     IL2CPP_REGISTER_METHOD(0x00738690, float, get_ControllerExtraSpeed, (app::CartController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00990EC0, void, set_ControllerExtraSpeed, (app::CartController * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x00B33940, bool, get_InputLocked, (app::CartController * this_ptr))
@@ -9,7 +9,7 @@ namespace app::methods::CartController {
     IL2CPP_REGISTER_METHOD(0x00B33A30, bool, get_CanBrake, (app::CartController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B33AC0, bool, get_IsBraking, (app::CartController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B33AD0, bool, get_CanMove, (app::CartController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBBC0, app::Transform *, get_Transform, (app::CartController * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBBC0, app::Transform*, get_Transform, (app::CartController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A20A00, bool, get_IsSuspended, (app::CartController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B11500, void, set_IsSuspended, (app::CartController * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00736620, app::SuspendableMask__Enum, get_Mask, (app::CartController * this_ptr))
@@ -30,8 +30,8 @@ namespace app::methods::CartController {
     IL2CPP_REGISTER_METHOD(0x00B35460, void, HandleLeftRightAnalogStickAcceleration, (app::CartController * this_ptr, float axis_magnitude))
     IL2CPP_REGISTER_METHOD(0x00B35880, void, HandleAutoForwardLean, (app::CartController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B35A30, void, HandleOffscreenIssue, (app::CartController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0090CE60, void, Serialize, (app::CartController * this_ptr, app::Archive * ar))
-    IL2CPP_REGISTER_METHOD(0x002FBCB0, void, ICanActivatePressurePlate_OnPressed, (app::CartController * this_ptr, app::IPressurePlate * plate))
-    IL2CPP_REGISTER_METHOD(0x00B35B90, void, ICanActivatePressurePlate_OnReleased, (app::CartController * this_ptr, app::IPressurePlate * plate))
+    IL2CPP_REGISTER_METHOD(0x0090CE60, void, Serialize, (app::CartController * this_ptr, app::Archive* ar))
+    IL2CPP_REGISTER_METHOD(0x002FBCB0, void, ICanActivatePressurePlate_OnPressed, (app::CartController * this_ptr, app::IPressurePlate* plate))
+    IL2CPP_REGISTER_METHOD(0x00B35B90, void, ICanActivatePressurePlate_OnReleased, (app::CartController * this_ptr, app::IPressurePlate* plate))
     IL2CPP_REGISTER_METHOD(0x00B35BA0, void, ctor, (app::CartController * this_ptr))
-}
+} // namespace app::classes::CartController

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::KeyboardLayoutOptions {
+namespace app::classes::KeyboardLayoutOptions {
     IL2CPP_REGISTER_METHOD(0x00E6BF30, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x00E6BFB0, void, Awake, (app::KeyboardLayoutOptions * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E6C040, void, OnDestroy, (app::KeyboardLayoutOptions * this_ptr))
@@ -12,4 +12,4 @@ namespace app::methods::KeyboardLayoutOptions {
     IL2CPP_REGISTER_METHODINFO(0x047519C8, KeyboardLayoutOptions__OnEnable_b__5_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E6C540, void, _OnEnable_b__5_1, (app::KeyboardLayoutOptions * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0478E350, KeyboardLayoutOptions__OnEnable_b__5_1__MethodInfo)
-}
+} // namespace app::classes::KeyboardLayoutOptions

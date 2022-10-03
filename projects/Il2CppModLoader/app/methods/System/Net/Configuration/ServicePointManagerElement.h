@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Net::Configuration::ServicePointManagerElement {
+namespace app::classes::System::Net::Configuration::ServicePointManagerElement {
     IL2CPP_REGISTER_METHOD(0x01E985D0, void, ctor, (app::ServicePointManagerElement * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04783CD8, ServicePointManagerElement__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E98600, bool, get_CheckCertificateName, (app::ServicePointManagerElement * this_ptr))
@@ -28,7 +28,7 @@ namespace app::methods::System::Net::Configuration::ServicePointManagerElement {
     IL2CPP_REGISTER_METHODINFO(0x0473A070, ServicePointManagerElement_get_Expect100Continue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E98810, void, set_Expect100Continue, (app::ServicePointManagerElement * this_ptr, bool value))
     IL2CPP_REGISTER_METHODINFO(0x047568D0, ServicePointManagerElement_set_Expect100Continue__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01E98840, app::ConfigurationPropertyCollection *, get_Properties, (app::ServicePointManagerElement * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01E98840, app::ConfigurationPropertyCollection*, get_Properties, (app::ServicePointManagerElement * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04704350, ServicePointManagerElement_get_Properties__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E98870, bool, get_UseNagleAlgorithm, (app::ServicePointManagerElement * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04730388, ServicePointManagerElement_get_UseNagleAlgorithm__MethodInfo)
@@ -36,4 +36,4 @@ namespace app::methods::System::Net::Configuration::ServicePointManagerElement {
     IL2CPP_REGISTER_METHODINFO(0x0471D080, ServicePointManagerElement_set_UseNagleAlgorithm__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E988D0, void, PostDeserialize, (app::ServicePointManagerElement * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04716A58, ServicePointManagerElement_PostDeserialize__MethodInfo)
-}
+} // namespace app::classes::System::Net::Configuration::ServicePointManagerElement

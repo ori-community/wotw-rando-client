@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ScenesManagerBehaviourLegacy {
+namespace app::classes::ScenesManagerBehaviourLegacy {
     IL2CPP_REGISTER_METHOD(0x01056D40, app::Vector2, get_CurrentCameraTargetPositionExtrapolated, (app::ScenesManagerBehaviourLegacy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01056D60, void, set_CurrentCameraTargetPositionExtrapolated, (app::ScenesManagerBehaviourLegacy * this_ptr, app::Vector2 value))
     IL2CPP_REGISTER_METHOD(0x01056D80, app::Vector2, get_CurrentCameraTargetPositionExtrapolatedShort, (app::ScenesManagerBehaviourLegacy * this_ptr))
@@ -17,4 +17,4 @@ namespace app::methods::ScenesManagerBehaviourLegacy {
     IL2CPP_REGISTER_METHOD(0x0105B7D0, void, FindScenesToEnable, (app::ScenesManagerBehaviourLegacy * this_ptr, bool limit_once, bool async))
     IL2CPP_REGISTER_METHOD(0x0105CAC0, void, SetTargetPosition, (app::ScenesManagerBehaviourLegacy * this_ptr, app::Vector3 target))
     IL2CPP_REGISTER_METHOD(0x0105CBB0, void, ctor, (app::ScenesManagerBehaviourLegacy * this_ptr))
-}
+} // namespace app::classes::ScenesManagerBehaviourLegacy

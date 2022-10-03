@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PetrifiedOwlFeedingGrounds::PetrifiedOwlFeedingGroundsGameplayController {
+namespace app::classes::PetrifiedOwlFeedingGrounds::PetrifiedOwlFeedingGroundsGameplayController {
     IL2CPP_REGISTER_METHOD(0x014DF990, bool, get_IsSuspended, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014DF9A0, void, set_IsSuspended, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x006D6510, app::SuspendableMask__Enum, get_Mask, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))
@@ -9,8 +9,8 @@ namespace app::methods::PetrifiedOwlFeedingGrounds::PetrifiedOwlFeedingGroundsGa
     IL2CPP_REGISTER_METHOD(0x014DF9C0, void, Awake, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014DFA60, void, OnEnable, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014DFB00, void, OnDisable, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x014DFBA0, app::IUberState__Array *, get_AffectingUberStates, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x014DFC30, app::List_1_UnityEngine_GameObject_ *, IUberStateApplier_get_AllTargets, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x014DFBA0, app::IUberState__Array*, get_AffectingUberStates, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x014DFC30, app::List_1_UnityEngine_GameObject_*, IUberStateApplier_get_AllTargets, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014DFDF0, void, Start, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014E0880, void, FixedUpdate, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014E0ED0, void, SetState, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr, app::PetrifiedOwlFeedingGroundsGameplayController_PetrifiedOwlFeedingGroundsGameplayState__Enum new_state))
@@ -41,4 +41,4 @@ namespace app::methods::PetrifiedOwlFeedingGrounds::PetrifiedOwlFeedingGroundsGa
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ApplyOnEditor, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014E2480, void, Apply, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr, app::UberStateApplyContext__Enum context))
     IL2CPP_REGISTER_METHOD(0x014E2BD0, void, ctor, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))
-}
+} // namespace app::classes::PetrifiedOwlFeedingGrounds::PetrifiedOwlFeedingGroundsGameplayController

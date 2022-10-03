@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Random {
+namespace app::classes::UnityEngine::Random {
     IL2CPP_REGISTER_METHOD(0x0296D100, float, Range_1, (float min, float max))
     IL2CPP_REGISTER_METHOD(0x02552FF0, int32_t, Range_2, (int32_t min, int32_t max))
     IL2CPP_REGISTER_METHOD(0x02552FF0, int32_t, RandomRangeInt, (int32_t min, int32_t max))
@@ -12,4 +12,4 @@ namespace app::methods::UnityEngine::Random {
     IL2CPP_REGISTER_METHOD(0x0296D220, app::Quaternion, get_rotationUniform, ())
     IL2CPP_REGISTER_METHOD(0x0296D290, void, get_insideUnitSphere_Injected, (app::Vector3 * ret))
     IL2CPP_REGISTER_METHOD(0x0296D2E0, void, get_rotationUniform_Injected, (app::Quaternion * ret))
-}
+} // namespace app::classes::UnityEngine::Random

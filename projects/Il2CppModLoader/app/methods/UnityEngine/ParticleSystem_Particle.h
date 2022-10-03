@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::ParticleSystem_Particle {
+namespace app::classes::UnityEngine::ParticleSystem_Particle {
     IL2CPP_REGISTER_METHOD(0x002487A0, void, set_lifetime, (app::ParticleSystem_Particle__Boxed * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x001EB5F0, app::Vector3, get_position, (app::ParticleSystem_Particle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001EB610, void, set_position, (app::ParticleSystem_Particle__Boxed * this_ptr, app::Vector3 value))
@@ -25,4 +25,4 @@ namespace app::methods::UnityEngine::ParticleSystem_Particle {
     IL2CPP_REGISTER_METHOD(0x002488C0, float, get_angularVelocity, (app::ParticleSystem_Particle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002488D0, void, set_angularVelocity, (app::ParticleSystem_Particle__Boxed * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x00248900, void, set_angularVelocity3D, (app::ParticleSystem_Particle__Boxed * this_ptr, app::Vector3 value))
-}
+} // namespace app::classes::UnityEngine::ParticleSystem_Particle

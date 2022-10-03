@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SpiritLeashInteractable {
+namespace app::classes::SpiritLeashInteractable {
     IL2CPP_REGISTER_METHOD(0x00A35C30, float, get_OriCloseEnoughDistance, (app::SpiritLeashInteractable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldDecelerateOnApproach, (app::SpiritLeashInteractable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004FBAC0, bool, get_CanBeSustained, (app::SpiritLeashInteractable * this_ptr))
@@ -31,14 +31,14 @@ namespace app::methods::SpiritLeashInteractable {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeGlowed, (app::SpiritLeashInteractable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00420EE0, int32_t, get_SpiritLeashCost, (app::SpiritLeashInteractable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0043BB80, float, get_PositionOffset, (app::SpiritLeashInteractable * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB9F0, app::Transform *, get_HookTargetTransform, (app::SpiritLeashInteractable * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB9F0, app::Transform*, get_HookTargetTransform, (app::SpiritLeashInteractable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnSpiritLeashHighlight, (app::SpiritLeashInteractable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnSpiritLeashDehighlight, (app::SpiritLeashInteractable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D5FD90, void, OnSpiritLeashed, (app::SpiritLeashInteractable * this_ptr, app::Vector3 player_position, app::Vector3 target_position))
     IL2CPP_REGISTER_METHOD(0x00D5FE60, void, Awake, (app::SpiritLeashInteractable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D60040, void, OnEnable, (app::SpiritLeashInteractable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D600E0, void, OnDisable, (app::SpiritLeashInteractable * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00D60180, void, Serialize, (app::SpiritLeashInteractable * this_ptr, app::Archive * ar))
-    IL2CPP_REGISTER_METHOD(0x002FBB60, app::IDamageReciever__Array *, get_AffectedReceivers, (app::SpiritLeashInteractable * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00D60180, void, Serialize, (app::SpiritLeashInteractable * this_ptr, app::Archive* ar))
+    IL2CPP_REGISTER_METHOD(0x002FBB60, app::IDamageReciever__Array*, get_AffectedReceivers, (app::SpiritLeashInteractable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D601F0, void, ctor, (app::SpiritLeashInteractable * this_ptr))
-}
+} // namespace app::classes::SpiritLeashInteractable

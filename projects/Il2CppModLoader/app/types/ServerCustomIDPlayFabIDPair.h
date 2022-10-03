@@ -1,0 +1,21 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace ServerCustomIDPlayFabIDPair {
+        namespace {
+            app::ServerCustomIDPlayFabIDPair__Class* type_info_ref = nullptr;
+        }
+        app::ServerCustomIDPlayFabIDPair__Class** type_info = &type_info_ref;
+        inline app::ServerCustomIDPlayFabIDPair__Class* get_class() {
+            return il2cpp::get_class<app::ServerCustomIDPlayFabIDPair__Class>(type_info, "PlayFab.ServerModels", "ServerCustomIDPlayFabIDPair");
+        }
+        inline app::ServerCustomIDPlayFabIDPair* create() {
+            return il2cpp::create_object<app::ServerCustomIDPlayFabIDPair>(get_class());
+        }
+        inline app::ServerCustomIDPlayFabIDPair__Array* create_array(int size) {
+            return il2cpp::array_new<app::ServerCustomIDPlayFabIDPair__Array>(get_class(), size);
+        }
+    } // namespace ServerCustomIDPlayFabIDPair
+} // namespace app::classes::types

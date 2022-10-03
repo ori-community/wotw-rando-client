@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ControlsScreen {
+namespace app::classes::ControlsScreen {
     IL2CPP_REGISTER_METHOD(0x011F2DC0, bool, get_IsVisible, ())
     IL2CPP_REGISTER_METHOD(0x011F2EF0, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x011F2F70, void, Awake, (app::ControlsScreen * this_ptr))
@@ -16,8 +16,8 @@ namespace app::methods::ControlsScreen {
     IL2CPP_REGISTER_METHOD(0x011F50C0, void, ApplyCommandList, (app::ControlsScreen * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04749438, ControlsScreen_ApplyCommandList__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011F5420, void, FixedUpdate, (app::ControlsScreen * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x011F5820, app::KeyCode__Enum__Array *, CommandToBinding, (app::ControlsScreen * this_ptr, app::KeybindingCommandMapAsset_CommandBindingEnum__Enum binding))
+    IL2CPP_REGISTER_METHOD(0x011F5820, app::KeyCode__Enum__Array*, CommandToBinding, (app::ControlsScreen * this_ptr, app::KeybindingCommandMapAsset_CommandBindingEnum__Enum binding))
     IL2CPP_REGISTER_METHODINFO(0x04764FA0, ControlsScreen_CommandToBinding__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011F2F70, void, OnBeforeFaderIsPlayed, (app::ControlsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::ControlsScreen * this_ptr))
-}
+} // namespace app::classes::ControlsScreen

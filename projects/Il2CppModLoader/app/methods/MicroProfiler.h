@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MicroProfiler {
+namespace app::classes::MicroProfiler {
     IL2CPP_REGISTER_METHOD(0x03154B90, bool, get_IsPaused, ())
     IL2CPP_REGISTER_METHOD(0x03154C30, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Reset, ())
@@ -14,20 +14,20 @@ namespace app::methods::MicroProfiler {
     IL2CPP_REGISTER_METHOD(0x03155560, void, SetMetric, (app::Metric__Enum id, int64_t ns_invoked, uint32_t invoke_count))
     IL2CPP_REGISTER_METHOD(0x03155670, void, SetMetricValue, (app::Metric__Enum id, int64_t ns_invoked, uint32_t invoke_count))
     IL2CPP_REGISTER_METHOD(0x03155780, void, EndMetric_1, (app::Metric__Enum id))
-    IL2CPP_REGISTER_METHOD(0x031558E0, void, EndMetric_2, (app::Metric__Enum id, int64_t * spent_ns))
+    IL2CPP_REGISTER_METHOD(0x031558E0, void, EndMetric_2, (app::Metric__Enum id, int64_t* spent_ns))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, BeginFrame, ())
     IL2CPP_REGISTER_METHOD(0x03155A50, float, PresentationFormOfNativeStat, (app::Stat__Enum stat, uint64_t value))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, EndFrame, ())
-    IL2CPP_REGISTER_METHOD(0x03155A80, void, ContinueMarkers, (app::MicroProfiler_SampleStats * last_frame, app::MicroProfiler_SampleStats * current_frame))
+    IL2CPP_REGISTER_METHOD(0x03155A80, void, ContinueMarkers, (app::MicroProfiler_SampleStats * last_frame, app::MicroProfiler_SampleStats* current_frame))
     IL2CPP_REGISTER_METHOD(0x03155B50, void, BeginSample, ())
     IL2CPP_REGISTER_METHOD(0x03155D60, void, EndSample, ())
-    IL2CPP_REGISTER_METHOD(0x03155E20, app::MicroProfiler_SampleStats *, GetCurrentFrameStats, ())
-    IL2CPP_REGISTER_METHOD(0x03155EC0, app::MicroProfiler_SampleStats *, GetLastCompletedFrameStats, ())
+    IL2CPP_REGISTER_METHOD(0x03155E20, app::MicroProfiler_SampleStats*, GetCurrentFrameStats, ())
+    IL2CPP_REGISTER_METHOD(0x03155EC0, app::MicroProfiler_SampleStats*, GetLastCompletedFrameStats, ())
     IL2CPP_REGISTER_METHOD(0x03155F60, int32_t, GetCurrentFrameIndex, ())
     IL2CPP_REGISTER_METHOD(0x03156000, int32_t, GetCurrentUniqueFrameIndex, ())
-    IL2CPP_REGISTER_METHOD(0x031560A0, app::MicroProfiler_SampleStats *, GetFrameStats, (int32_t frame_number))
-    IL2CPP_REGISTER_METHOD(0x031561F0, app::MicroProfiler_SampleStats *, GetSampleStats, ())
-    IL2CPP_REGISTER_METHOD(0x03156290, app::MicroProfiler_SampleStats__Array * *, GetFrames, ())
+    IL2CPP_REGISTER_METHOD(0x031560A0, app::MicroProfiler_SampleStats*, GetFrameStats, (int32_t frame_number))
+    IL2CPP_REGISTER_METHOD(0x031561F0, app::MicroProfiler_SampleStats*, GetSampleStats, ())
+    IL2CPP_REGISTER_METHOD(0x03156290, app::MicroProfiler_SampleStats__Array**, GetFrames, ())
     IL2CPP_REGISTER_METHOD(0x03156330, void, ToggleMarker, (app::Marker__Enum id))
     IL2CPP_REGISTER_METHOD(0x03156490, app::MicroProfiler_MarkerInfo, GetMarkerAtFrame, (app::Marker__Enum id, int32_t frame))
     IL2CPP_REGISTER_METHOD(0x03156570, app::MicroProfiler_MarkerInfo, GetLastCompletedMarker, (app::Marker__Enum id))
@@ -40,4 +40,4 @@ namespace app::methods::MicroProfiler {
     IL2CPP_REGISTER_METHOD(0x03156B80, double, GetAverageMetricTimeInMSInFrameRange, (app::Metric__Enum m, int32_t start_frame, int32_t end_frame))
     IL2CPP_REGISTER_METHOD(0x03156CD0, float, GetMaximumMetricTimeInMSInFrameRange, (app::Metric__Enum m, int32_t start_frame, int32_t end_frame))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MicroProfiler * this_ptr))
-}
+} // namespace app::classes::MicroProfiler

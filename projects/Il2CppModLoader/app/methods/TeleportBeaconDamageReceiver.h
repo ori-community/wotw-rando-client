@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::TeleportBeaconDamageReceiver {
+namespace app::classes::TeleportBeaconDamageReceiver {
     IL2CPP_REGISTER_METHOD(0x00CE7970, void, Awake, (app::TeleportBeaconDamageReceiver * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CE7B80, void, OnDestroy, (app::TeleportBeaconDamageReceiver * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CE7C20, app::Vector3, get_Position, (app::TeleportBeaconDamageReceiver * this_ptr))
@@ -29,9 +29,9 @@ namespace app::methods::TeleportBeaconDamageReceiver {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBashHighlight, (app::TeleportBeaconDamageReceiver * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBashDehighlight, (app::TeleportBeaconDamageReceiver * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00651560, int32_t, get_BashPriority, (app::TeleportBeaconDamageReceiver * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00CE7C80, void, OnRecieveDamage, (app::TeleportBeaconDamageReceiver * this_ptr, app::Damage * damage))
-    IL2CPP_REGISTER_METHOD(0x002FB9B0, app::IDamageReciever__Array *, get_AffectedReceivers, (app::TeleportBeaconDamageReceiver * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00CE7C80, void, OnRecieveDamage, (app::TeleportBeaconDamageReceiver * this_ptr, app::Damage* damage))
+    IL2CPP_REGISTER_METHOD(0x002FB9B0, app::IDamageReciever__Array*, get_AffectedReceivers, (app::TeleportBeaconDamageReceiver * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::TeleportBeaconDamageReceiver * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject *, IDamageReciever_get_gameObject, (app::TeleportBeaconDamageReceiver * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform *, IDamageReciever_get_transform, (app::TeleportBeaconDamageReceiver * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, IDamageReciever_get_gameObject, (app::TeleportBeaconDamageReceiver * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform*, IDamageReciever_get_transform, (app::TeleportBeaconDamageReceiver * this_ptr))
+} // namespace app::classes::TeleportBeaconDamageReceiver

@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::IO::InvalidDataException {
+namespace app::classes::System::IO::InvalidDataException {
     IL2CPP_REGISTER_METHOD(0x0200A9E0, void, ctor_1, (app::InvalidDataException * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0200AA70, void, ctor_2, (app::InvalidDataException * this_ptr, app::String * message))
-    IL2CPP_REGISTER_METHOD(0x01A0FAA0, void, ctor_3, (app::InvalidDataException * this_ptr, app::SerializationInfo * info, app::StreamingContext context))
-}
+    IL2CPP_REGISTER_METHOD(0x0200AA70, void, ctor_2, (app::InvalidDataException * this_ptr, app::String* message))
+    IL2CPP_REGISTER_METHOD(0x01A0FAA0, void, ctor_3, (app::InvalidDataException * this_ptr, app::SerializationInfo* info, app::StreamingContext context))
+} // namespace app::classes::System::IO::InvalidDataException

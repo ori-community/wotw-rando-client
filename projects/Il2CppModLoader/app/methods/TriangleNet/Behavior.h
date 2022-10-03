@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::TriangleNet::Behavior {
+namespace app::classes::TriangleNet::Behavior {
     IL2CPP_REGISTER_METHOD(0x026198E0, void, ctor, (app::Behavior * this_ptr, bool quality, double min_angle))
     IL2CPP_REGISTER_METHOD(0x02619910, void, Update, (app::Behavior * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02619BA0, bool, get_NoExact, ())
@@ -18,8 +18,8 @@ namespace app::methods::TriangleNet::Behavior {
     IL2CPP_REGISTER_METHOD(0x02619D00, void, set_VarArea, (app::Behavior * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0052B590, bool, get_Poly, (app::Behavior * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052C650, void, set_Poly, (app::Behavior * this_ptr, bool value))
-    IL2CPP_REGISTER_METHOD(0x002FB930, app::Func_3_TriangleNet_Geometry_ITriangle_Double_Boolean_ *, get_UserTest, (app::Behavior * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB940, void, set_UserTest, (app::Behavior * this_ptr, app::Func_3_TriangleNet_Geometry_ITriangle_Double_Boolean_ * value))
+    IL2CPP_REGISTER_METHOD(0x002FB930, app::Func_3_TriangleNet_Geometry_ITriangle_Double_Boolean_*, get_UserTest, (app::Behavior * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB940, void, set_UserTest, (app::Behavior * this_ptr, app::Func_3_TriangleNet_Geometry_ITriangle_Double_Boolean_* value))
     IL2CPP_REGISTER_METHOD(0x02619D10, bool, get_Convex, (app::Behavior * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02619D20, void, set_Convex, (app::Behavior * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x02619D30, bool, get_ConformingDelaunay, (app::Behavior * this_ptr))
@@ -32,4 +32,4 @@ namespace app::methods::TriangleNet::Behavior {
     IL2CPP_REGISTER_METHOD(0x02619D70, void, set_NoHoles, (app::Behavior * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00724AE0, bool, get_Jettison, (app::Behavior * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007EA280, void, set_Jettison, (app::Behavior * this_ptr, bool value))
-}
+} // namespace app::classes::TriangleNet::Behavior

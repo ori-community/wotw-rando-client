@@ -24,10 +24,10 @@
 #include <array>
 
 using namespace modloader;
-using namespace app::methods;
-using namespace app::methods::Moon;
-using namespace app::methods::Moon::uberSerializationWisp;
-using namespace app::methods::UnityEngine;
+using namespace app::classes;
+using namespace app::classes::Moon;
+using namespace app::classes::Moon::uberSerializationWisp;
+using namespace app::classes::UnityEngine;
 
 namespace {
     app::CheatsHandler__StaticFields* get_cheats() {

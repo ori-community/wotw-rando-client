@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SceneManagerScene {
-    IL2CPP_REGISTER_METHOD(0x00BA9A60, void, ctor_1, (app::SceneManagerScene * this_ptr, app::SceneRoot * scene_root, app::RuntimeSceneMetaData * scene_meta_data, app::SceneState__Enum inital_state))
-    IL2CPP_REGISTER_METHOD(0x00BA9BC0, void, ctor_2, (app::SceneManagerScene * this_ptr, app::SceneRoot * scene_root, app::RuntimeSceneMetaData * scene_meta_data))
-    IL2CPP_REGISTER_METHOD(0x00BA9D10, void, ctor_3, (app::SceneManagerScene * this_ptr, app::RuntimeSceneMetaData * meta_data))
+namespace app::classes::SceneManagerScene {
+    IL2CPP_REGISTER_METHOD(0x00BA9A60, void, ctor_1, (app::SceneManagerScene * this_ptr, app::SceneRoot* scene_root, app::RuntimeSceneMetaData* scene_meta_data, app::SceneState__Enum inital_state))
+    IL2CPP_REGISTER_METHOD(0x00BA9BC0, void, ctor_2, (app::SceneManagerScene * this_ptr, app::SceneRoot* scene_root, app::RuntimeSceneMetaData* scene_meta_data))
+    IL2CPP_REGISTER_METHOD(0x00BA9D10, void, ctor_3, (app::SceneManagerScene * this_ptr, app::RuntimeSceneMetaData* meta_data))
     IL2CPP_REGISTER_METHOD(0x00BA9E70, bool, get_IsLoadingComplete, (app::SceneManagerScene * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BA9ED0, app::SceneState__Enum, get_CurrentState, (app::SceneManagerScene * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0098F4A0, bool, get_ShouldBeReady, (app::SceneManagerScene * this_ptr))
@@ -19,7 +19,7 @@ namespace app::methods::SceneManagerScene {
     IL2CPP_REGISTER_METHOD(0x00B1EA50, void, set_CameraTargetOnLastEnabled, (app::SceneManagerScene * this_ptr, app::Vector3 value))
     IL2CPP_REGISTER_METHOD(0x0091E0B0, float, get_DistanceToPositionOnLastLoad, (app::SceneManagerScene * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00724130, void, set_DistanceToPositionOnLastLoad, (app::SceneManagerScene * this_ptr, float value))
-    IL2CPP_REGISTER_METHOD(0x002FA490, void, SetSceneRoot, (app::SceneManagerScene * this_ptr, app::SceneRoot * root))
+    IL2CPP_REGISTER_METHOD(0x002FA490, void, SetSceneRoot, (app::SceneManagerScene * this_ptr, app::SceneRoot* root))
     IL2CPP_REGISTER_METHOD(0x00BA9F10, void, ForceChangeState, (app::SceneManagerScene * this_ptr, app::SceneState__Enum state))
     IL2CPP_REGISTER_METHOD(0x00BAA000, void, ChangeState, (app::SceneManagerScene * this_ptr, app::SceneState__Enum state))
     IL2CPP_REGISTER_METHOD(0x00BA9E70, bool, get_IsLoaded, (app::SceneManagerScene * this_ptr))
@@ -28,7 +28,7 @@ namespace app::methods::SceneManagerScene {
     IL2CPP_REGISTER_METHOD(0x00BAA3A0, bool, get_IsEnabled, (app::SceneManagerScene * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BAA3D0, bool, get_IsTitleScreen, (app::SceneManagerScene * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BAA4D0, bool, get_DebugOutput, (app::SceneManagerScene * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00BAA570, void, DebugLog, (app::SceneManagerScene * this_ptr, app::String * format, app::Object__Array * args))
+    IL2CPP_REGISTER_METHOD(0x00BAA570, void, DebugLog, (app::SceneManagerScene * this_ptr, app::String* format, app::Object__Array* args))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Update, (app::SceneManagerScene * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BAA610, void, EnableScene, (app::SceneManagerScene * this_ptr, bool async))
     IL2CPP_REGISTER_METHOD(0x00BAA7F0, void, DisableScene, (app::SceneManagerScene * this_ptr, bool async))
@@ -45,4 +45,4 @@ namespace app::methods::SceneManagerScene {
     IL2CPP_REGISTER_METHODINFO(0x04787D18, SceneManagerScene__DisableScene_b__65_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BAB240, void, _EnableDisabledSceneTimesliced_b__70_0, (app::SceneManagerScene * this_ptr, bool result))
     IL2CPP_REGISTER_METHODINFO(0x04705980, SceneManagerScene__EnableDisabledSceneTimesliced_b__70_0__MethodInfo)
-}
+} // namespace app::classes::SceneManagerScene

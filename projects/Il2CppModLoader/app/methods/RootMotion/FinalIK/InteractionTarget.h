@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RootMotion::FinalIK::InteractionTarget {
+namespace app::classes::RootMotion::FinalIK::InteractionTarget {
     IL2CPP_REGISTER_METHOD(0x02A14720, void, OpenTutorial1, (app::InteractionTarget * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A147E0, void, OpenTutorial2, (app::InteractionTarget * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A148A0, void, OpenTutorial3, (app::InteractionTarget * this_ptr))
@@ -14,4 +14,4 @@ namespace app::methods::RootMotion::FinalIK::InteractionTarget {
     IL2CPP_REGISTER_METHOD(0x02A15B60, void, OpenUserManual, (app::InteractionTarget * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A15C20, void, OpenScriptReference, (app::InteractionTarget * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A15CE0, void, ctor, (app::InteractionTarget * this_ptr))
-}
+} // namespace app::classes::RootMotion::FinalIK::InteractionTarget

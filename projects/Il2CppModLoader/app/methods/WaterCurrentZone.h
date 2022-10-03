@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::WaterCurrentZone {
+namespace app::classes::WaterCurrentZone {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::UpdateType__Enum, get_UpdateType, (app::WaterCurrentZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ShouldSerialize, (app::WaterCurrentZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008D4DF0, app::Vector2, get_NormalizedCurrentDirection, (app::WaterCurrentZone * this_ptr))
@@ -16,6 +16,6 @@ namespace app::methods::WaterCurrentZone {
     IL2CPP_REGISTER_METHOD(0x008D58E0, bool, InnerBoundContainsPoint, (app::WaterCurrentZone * this_ptr, app::Vector2 point))
     IL2CPP_REGISTER_METHOD(0x008D59F0, void, OnZoneChange, (app::WaterCurrentZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008D5CE0, void, OnZoneUpdate, (app::WaterCurrentZone * this_ptr, float delta))
-    IL2CPP_REGISTER_METHOD(0x008D5E30, float, GetRtpcValue, (app::WaterCurrentZone * this_ptr, app::Transform * target))
+    IL2CPP_REGISTER_METHOD(0x008D5E30, float, GetRtpcValue, (app::WaterCurrentZone * this_ptr, app::Transform* target))
     IL2CPP_REGISTER_METHOD(0x008D6020, void, ctor, (app::WaterCurrentZone * this_ptr))
-}
+} // namespace app::classes::WaterCurrentZone

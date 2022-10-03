@@ -7,8 +7,8 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Shader.h>
 #include <Il2CppModLoader/app/methods/UberShaderAPI.h>
 
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
 
 namespace randomizer::shaders {
     app::Material *copy_material(app::Material *source) {

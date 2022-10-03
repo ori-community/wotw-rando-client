@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::VerletStructure_VerletLink {
-    IL2CPP_REGISTER_METHOD(0x013D0CC0, void, Init, (app::VerletStructure_VerletLink * this_ptr, app::VerletStructure * verlet_structure))
+namespace app::classes::VerletStructure_VerletLink {
+    IL2CPP_REGISTER_METHOD(0x013D0CC0, void, Init, (app::VerletStructure_VerletLink * this_ptr, app::VerletStructure* verlet_structure))
     IL2CPP_REGISTER_METHOD(0x013D0EC0, app::Vector3, get_Center, (app::VerletStructure_VerletLink * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013D1000, app::Vector3, get_InitialCenter, (app::VerletStructure_VerletLink * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013D1140, app::Vector3, get_Tangent, (app::VerletStructure_VerletLink * this_ptr))
@@ -18,8 +18,8 @@ namespace app::methods::VerletStructure_VerletLink {
     IL2CPP_REGISTER_METHOD(0x013D24A0, app::Vector3, InitialFixedBasis, (app::VerletStructure_VerletLink * this_ptr, app::Vector3 up_vector))
     IL2CPP_REGISTER_METHOD(0x013D26D0, app::Vector3, get_Normal2D, (app::VerletStructure_VerletLink * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013D2900, app::Vector3, get_InitialNormal2D, (app::VerletStructure_VerletLink * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x013D2B30, bool, IsConnected_1, (app::VerletStructure_VerletLink * this_ptr, app::VerletStructure_VerletLink * b))
+    IL2CPP_REGISTER_METHOD(0x013D2B30, bool, IsConnected_1, (app::VerletStructure_VerletLink * this_ptr, app::VerletStructure_VerletLink* b))
     IL2CPP_REGISTER_METHOD(0x013D2B70, bool, IsConnected_2, (app::VerletStructure_VerletLink * this_ptr, int32_t joint))
     IL2CPP_REGISTER_METHOD(0x013D2B80, void, Update, (app::VerletStructure_VerletLink * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013D2E30, void, ctor, (app::VerletStructure_VerletLink * this_ptr))
-}
+} // namespace app::classes::VerletStructure_VerletLink

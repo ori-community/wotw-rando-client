@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Timeline::TimelineState {
+namespace app::classes::Moon::Timeline::TimelineState {
     IL2CPP_REGISTER_METHOD(0x01E8CC30, bool, get_InPreviewMode, ())
     IL2CPP_REGISTER_METHOD(0x01E8CCD0, void, set_InPreviewMode, (bool value))
     IL2CPP_REGISTER_METHOD(0x01E8CD80, bool, get_IsOriAnimatorDrivingOri, ())
@@ -34,4 +34,4 @@ namespace app::methods::Moon::Timeline::TimelineState {
     IL2CPP_REGISTER_METHOD(0x01E8E950, void, OnTimelineStateChange, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::TimelineState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E8EA30, void, cctor, ())
-}
+} // namespace app::classes::Moon::Timeline::TimelineState

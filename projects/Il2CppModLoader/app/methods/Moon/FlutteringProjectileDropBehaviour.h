@@ -1,13 +1,13 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::FlutteringProjectileDropBehaviour {
+namespace app::classes::Moon::FlutteringProjectileDropBehaviour {
     IL2CPP_REGISTER_METHOD(0x01225C20, void, OnEntityInitialized, (app::FlutteringProjectileDropBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01225FC0, void, OnEnter, (app::FlutteringProjectileDropBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x012260C0, app::BehaviourStatus__Enum, OnExecute, (app::FlutteringProjectileDropBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x01226470, void, OnExit, (app::FlutteringProjectileDropBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x01226560, void, StartTimeline, (app::FlutteringProjectileDropBehaviour * this_ptr, app::MoonTimeline * timeline))
-    IL2CPP_REGISTER_METHOD(0x01226590, void, ResetTimeline, (app::FlutteringProjectileDropBehaviour * this_ptr, app::MoonTimeline * timeline))
+    IL2CPP_REGISTER_METHOD(0x01225FC0, void, OnEnter, (app::FlutteringProjectileDropBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x012260C0, app::BehaviourStatus__Enum, OnExecute, (app::FlutteringProjectileDropBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x01226470, void, OnExit, (app::FlutteringProjectileDropBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x01226560, void, StartTimeline, (app::FlutteringProjectileDropBehaviour * this_ptr, app::MoonTimeline* timeline))
+    IL2CPP_REGISTER_METHOD(0x01226590, void, ResetTimeline, (app::FlutteringProjectileDropBehaviour * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x012267C0, float, GetLookDirection, (app::FlutteringProjectileDropBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012268A0, float, GetDirectionToTarget, (app::FlutteringProjectileDropBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012269C0, float, GetRandomProjectileDropRate, (app::FlutteringProjectileDropBehaviour * this_ptr))
@@ -30,4 +30,4 @@ namespace app::methods::Moon::FlutteringProjectileDropBehaviour {
     IL2CPP_REGISTER_METHOD(0x01228330, void, OnHitByHeavyAttack, (app::FlutteringProjectileDropBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01226470, void, Stop, (app::FlutteringProjectileDropBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012283F0, void, ctor, (app::FlutteringProjectileDropBehaviour * this_ptr))
-}
+} // namespace app::classes::Moon::FlutteringProjectileDropBehaviour

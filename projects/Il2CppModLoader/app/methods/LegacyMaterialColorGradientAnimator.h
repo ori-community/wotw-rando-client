@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LegacyMaterialColorGradientAnimator {
+namespace app::classes::LegacyMaterialColorGradientAnimator {
     IL2CPP_REGISTER_METHOD(0x00A2CA90, int32_t, get_PropertyID, (app::LegacyMaterialColorGradientAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A2CB10, void, Start, (app::LegacyMaterialColorGradientAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A2D140, void, AnimateIt, (app::LegacyMaterialColorGradientAnimator * this_ptr, float value))
@@ -9,4 +9,4 @@ namespace app::methods::LegacyMaterialColorGradientAnimator {
     IL2CPP_REGISTER_METHOD(0x00A2D680, void, ResetToEnd, (app::LegacyMaterialColorGradientAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A2D980, void, ResetToStart, (app::LegacyMaterialColorGradientAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A2DC70, void, ctor, (app::LegacyMaterialColorGradientAnimator * this_ptr))
-}
+} // namespace app::classes::LegacyMaterialColorGradientAnimator

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::TitleScreenManager {
+namespace app::classes::TitleScreenManager {
     IL2CPP_REGISTER_METHOD(0x00AF74D0, bool, get_MainMenuActive, ())
     IL2CPP_REGISTER_METHOD(0x00AF7640, void, Awake, (app::TitleScreenManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AF78F0, void, Start, (app::TitleScreenManager * this_ptr))
@@ -20,8 +20,8 @@ namespace app::methods::TitleScreenManager {
     IL2CPP_REGISTER_METHOD(0x00AF9E20, void, OnUserChanged, ())
     IL2CPP_REGISTER_METHODINFO(0x04707D90, TitleScreenManager_OnUserChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AF9FD0, void, CheckForFirstTimeQualitySettings, (app::TitleScreenManager * this_ptr, bool immediate))
-    IL2CPP_REGISTER_METHOD(0x00AFA0A0, app::IEnumerator *, WaitToShowFirstTimeQualitySettings, (app::TitleScreenManager * this_ptr, bool immediate))
-    IL2CPP_REGISTER_METHOD(0x00AFA200, app::ITimelineEntity *, get_PrologueMaster, ())
+    IL2CPP_REGISTER_METHOD(0x00AFA0A0, app::IEnumerator*, WaitToShowFirstTimeQualitySettings, (app::TitleScreenManager * this_ptr, bool immediate))
+    IL2CPP_REGISTER_METHOD(0x00AFA200, app::ITimelineEntity*, get_PrologueMaster, ())
     IL2CPP_REGISTER_METHOD(0x00AFA330, void, ctor, (app::TitleScreenManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AFA490, void, cctor, ())
-}
+} // namespace app::classes::TitleScreenManager

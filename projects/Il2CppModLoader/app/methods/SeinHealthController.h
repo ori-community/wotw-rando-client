@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinHealthController {
+namespace app::classes::SeinHealthController {
     IL2CPP_REGISTER_METHOD(0x00FFBA80, bool, get_IsHealthFull, (app::SeinHealthController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FFBAD0, float, get_Amount, (app::SeinHealthController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FFBBB0, void, set_Amount, (app::SeinHealthController * this_ptr, float value))
@@ -41,10 +41,10 @@ namespace app::methods::SeinHealthController {
     IL2CPP_REGISTER_METHOD(0x00FFE190, void, GainMaxHeartContainer, (app::SeinHealthController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FFE1F0, void, RestoreAllHealth, (app::SeinHealthController * this_ptr, float visual_fill_speed))
     IL2CPP_REGISTER_METHOD(0x00FFE240, void, TakeDamage, (app::SeinHealthController * this_ptr, float amount, float visual_fill_speed))
-    IL2CPP_REGISTER_METHOD(0x00FFE380, void, SetReferenceToSein, (app::SeinHealthController * this_ptr, app::SeinCharacter * sein))
-    IL2CPP_REGISTER_METHOD(0x00FFEB30, void, OnGlobalShardsEquip, (app::SeinHealthController * this_ptr, app::PlayerUberStateShards_Shard * shard))
+    IL2CPP_REGISTER_METHOD(0x00FFE380, void, SetReferenceToSein, (app::SeinHealthController * this_ptr, app::SeinCharacter* sein))
+    IL2CPP_REGISTER_METHOD(0x00FFEB30, void, OnGlobalShardsEquip, (app::SeinHealthController * this_ptr, app::PlayerUberStateShards_Shard* shard))
     IL2CPP_REGISTER_METHODINFO(0x04702CA0, SeinHealthController_OnGlobalShardsEquip__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00FFEE60, void, OnGlobalShardsUnequip, (app::SeinHealthController * this_ptr, app::PlayerUberStateShards_Shard * shard))
+    IL2CPP_REGISTER_METHOD(0x00FFEE60, void, OnGlobalShardsUnequip, (app::SeinHealthController * this_ptr, app::PlayerUberStateShards_Shard* shard))
     IL2CPP_REGISTER_METHODINFO(0x0471DD00, SeinHealthController_OnGlobalShardsUnequip__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FFEF00, void, OnGlobalShardsUpdated, (app::SeinHealthController * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0474DA00, SeinHealthController_OnGlobalShardsUpdated__MethodInfo)
@@ -54,9 +54,9 @@ namespace app::methods::SeinHealthController {
     IL2CPP_REGISTER_METHOD(0x00FFF4B0, void, Apply, (app::SeinHealthController * this_ptr, app::UberStateApplyContext__Enum context))
     IL2CPP_REGISTER_METHOD(0x006C14C0, bool, get_ApplyOnEditor, (app::SeinHealthController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C14D0, void, set_ApplyOnEditor, (app::SeinHealthController * this_ptr, bool value))
-    IL2CPP_REGISTER_METHOD(0x002FBCC0, app::IUberState__Array *, get_AffectingUberStates, (app::SeinHealthController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBCD0, void, set_AffectingUberStates, (app::SeinHealthController * this_ptr, app::IUberState__Array * value))
-    IL2CPP_REGISTER_METHOD(0x002FBCE0, app::List_1_UnityEngine_GameObject_ *, get_AllTargets, (app::SeinHealthController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBCF0, void, set_AllTargets, (app::SeinHealthController * this_ptr, app::List_1_UnityEngine_GameObject_ * value))
+    IL2CPP_REGISTER_METHOD(0x002FBCC0, app::IUberState__Array*, get_AffectingUberStates, (app::SeinHealthController * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBCD0, void, set_AffectingUberStates, (app::SeinHealthController * this_ptr, app::IUberState__Array* value))
+    IL2CPP_REGISTER_METHOD(0x002FBCE0, app::List_1_UnityEngine_GameObject_*, get_AllTargets, (app::SeinHealthController * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBCF0, void, set_AllTargets, (app::SeinHealthController * this_ptr, app::List_1_UnityEngine_GameObject_* value))
     IL2CPP_REGISTER_METHOD(0x00FFF4F0, void, ctor, (app::SeinHealthController * this_ptr))
-}
+} // namespace app::classes::SeinHealthController

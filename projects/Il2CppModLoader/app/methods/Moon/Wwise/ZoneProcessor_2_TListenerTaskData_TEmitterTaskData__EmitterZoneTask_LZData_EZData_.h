@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Wwise::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData__EmitterZoneTask_LZData_EZData_ {
+namespace app::classes::Moon::Wwise::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData__EmitterZoneTask_LZData_EZData_ {
     IL2CPP_REGISTER_METHOD(0x00724AE0, app::EZData, get_Data, (app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_LZData_EZData_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007EA280, void, set_Data, (app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_LZData_EZData_ * this_ptr, app::EZData value))
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_FrameQuantinization, (app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_LZData_EZData_ * this_ptr))
@@ -17,4 +17,4 @@ namespace app::methods::Moon::Wwise::ZoneProcessor_2_TListenerTaskData_TEmitterT
     IL2CPP_REGISTER_METHOD(0x02AF4A60, bool, get_ShouldBeUpdatedThisFrame, (app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_LZData_EZData_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02AF4B60, void, Reset, (app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_LZData_EZData_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02AF4D90, void, Bind, (app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_LZData_EZData_ * this_ptr, app::AudioEmitterZoneReference zone, int32_t frame_quantinization, app::EZData data))
-}
+} // namespace app::classes::Moon::Wwise::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData__EmitterZoneTask_LZData_EZData_

@@ -1,14 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LegacyPlayerCollisionTrigger {
+namespace app::classes::LegacyPlayerCollisionTrigger {
     IL2CPP_REGISTER_METHOD(0x0043D9A0, app::SelectableCategory__Enum, get_Category, (app::LegacyPlayerCollisionTrigger * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00A2F6B0, void, OnTriggerEnter, (app::LegacyPlayerCollisionTrigger * this_ptr, app::Collider * collider))
+    IL2CPP_REGISTER_METHOD(0x00A2F6B0, void, OnTriggerEnter, (app::LegacyPlayerCollisionTrigger * this_ptr, app::Collider* collider))
     IL2CPP_REGISTER_METHOD(0x00A2F840, void, OnTriggerEnable, (app::LegacyPlayerCollisionTrigger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A2F8D0, void, OnTriggerDisable, (app::LegacyPlayerCollisionTrigger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A17190, void, Awake, (app::LegacyPlayerCollisionTrigger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A2F960, void, FixedUpdate, (app::LegacyPlayerCollisionTrigger * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00A2FEA0, app::String *, get_StressTestName, (app::LegacyPlayerCollisionTrigger * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00A2FEA0, app::String*, get_StressTestName, (app::LegacyPlayerCollisionTrigger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A2FF20, void, OnTriggerStartStressTest, (app::LegacyPlayerCollisionTrigger * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04784438, LegacyPlayerCollisionTrigger_OnTriggerStartStressTest__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A30260, void, StartStressTest, (app::LegacyPlayerCollisionTrigger * this_ptr))
@@ -19,4 +19,4 @@ namespace app::methods::LegacyPlayerCollisionTrigger {
     IL2CPP_REGISTER_METHOD(0x00A306D0, bool, get_CanExecuteStressTest, (app::LegacyPlayerCollisionTrigger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_StopMovingPlayerWhilePerforming, (app::LegacyPlayerCollisionTrigger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00611C70, void, ctor, (app::LegacyPlayerCollisionTrigger * this_ptr))
-}
+} // namespace app::classes::LegacyPlayerCollisionTrigger

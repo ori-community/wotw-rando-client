@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SpitterEnemy {
+namespace app::classes::SpitterEnemy {
     IL2CPP_REGISTER_METHOD(0x0099B6F0, app::Vector2, get_ThrownDirection, (app::SpitterEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0099B710, void, set_ThrownDirection, (app::SpitterEnemy * this_ptr, app::Vector2 value))
     IL2CPP_REGISTER_METHOD(0x0099B740, bool, CanBeOptimized, (app::SpitterEnemy * this_ptr))
@@ -51,4 +51,4 @@ namespace app::methods::SpitterEnemy {
     IL2CPP_REGISTER_METHODINFO(0x047584A8, SpitterEnemy__Start_b__21_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004C40F0, bool, _Start_b__21_10, (app::SpitterEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04733508, SpitterEnemy__Start_b__21_10__MethodInfo)
-}
+} // namespace app::classes::SpitterEnemy

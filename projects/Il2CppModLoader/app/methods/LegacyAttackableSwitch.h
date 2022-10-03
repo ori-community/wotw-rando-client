@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LegacyAttackableSwitch {
+namespace app::classes::LegacyAttackableSwitch {
     IL2CPP_REGISTER_METHOD(0x015CD510, void, ToggleSwitch, (app::LegacyAttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015CD650, void, TurnOn, (app::LegacyAttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015CD730, void, TurnOff, (app::LegacyAttackableSwitch * this_ptr))
@@ -28,7 +28,7 @@ namespace app::methods::LegacyAttackableSwitch {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeTeleportedByBeacon, (app::LegacyAttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeGlowed, (app::LegacyAttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015CD8F0, bool, get_CanBeHit, (app::LegacyAttackableSwitch * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x015CD930, void, OnRecieveDamage, (app::LegacyAttackableSwitch * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x015CD930, void, OnRecieveDamage, (app::LegacyAttackableSwitch * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x015CDB80, bool, DoesReactTo, (app::LegacyAttackableSwitch * this_ptr, app::DamageType__Enum damage_type))
     IL2CPP_REGISTER_METHOD(0x015CDE10, bool, Match, (app::LegacyAttackableSwitch * this_ptr, app::LegacyAttackableSwitch_AttackTypes__Enum attack, app::DamageType__Enum damage_type))
     IL2CPP_REGISTER_METHOD(0x015CDF70, void, Awake, (app::LegacyAttackableSwitch * this_ptr))
@@ -53,11 +53,11 @@ namespace app::methods::LegacyAttackableSwitch {
     IL2CPP_REGISTER_METHOD(0x00420EE0, int32_t, get_HammerPriority, (app::LegacyAttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_HammerEnableAutoTarget, (app::LegacyAttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0108CEB0, bool, ShouldArrowExplode, (app::LegacyAttackableSwitch * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x015CE4A0, void, Serialize, (app::LegacyAttackableSwitch * this_ptr, app::Archive * ar))
+    IL2CPP_REGISTER_METHOD(0x015CE4A0, void, Serialize, (app::LegacyAttackableSwitch * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x0108CEB0, bool, CanDetonateProjectiles, (app::LegacyAttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0069FA30, bool, get_IsOn, (app::LegacyAttackableSwitch * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBCA0, app::IDamageReciever__Array *, get_AffectedReceivers, (app::LegacyAttackableSwitch * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBCA0, app::IDamageReciever__Array*, get_AffectedReceivers, (app::LegacyAttackableSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015CE600, void, ctor, (app::LegacyAttackableSwitch * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject *, IDamageReciever_get_gameObject, (app::LegacyAttackableSwitch * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform *, IDamageReciever_get_transform, (app::LegacyAttackableSwitch * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, IDamageReciever_get_gameObject, (app::LegacyAttackableSwitch * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform*, IDamageReciever_get_transform, (app::LegacyAttackableSwitch * this_ptr))
+} // namespace app::classes::LegacyAttackableSwitch

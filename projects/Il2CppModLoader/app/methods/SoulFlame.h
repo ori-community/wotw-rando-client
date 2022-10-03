@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SoulFlame {
+namespace app::classes::SoulFlame {
     IL2CPP_REGISTER_METHOD(0x00EE3A50, bool, get_IsInside, (app::SoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EE3AD0, app::Vector3, get_Position, (app::SoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EE3B60, void, set_Position, (app::SoulFlame * this_ptr, app::Vector3 value))
@@ -15,4 +15,4 @@ namespace app::methods::SoulFlame {
     IL2CPP_REGISTER_METHOD(0x00EE44F0, void, Disappear, (app::SoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EE45E0, void, Start, (app::SoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EE4620, void, ctor, (app::SoulFlame * this_ptr))
-}
+} // namespace app::classes::SoulFlame

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RacePauseScreen {
+namespace app::classes::RacePauseScreen {
     IL2CPP_REGISTER_METHOD(0x007118D0, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CanInterruptTab, (app::RacePauseScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::MenuTabBackground__Enum, get_BackgroundMode, (app::RacePauseScreen * this_ptr))
@@ -19,4 +19,4 @@ namespace app::methods::RacePauseScreen {
     IL2CPP_REGISTER_METHOD(0x00711DD0, void, OnPostTimeSlicedEnable, (app::RacePauseScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00711EE0, void, OnInstantiate, (app::RacePauseScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::RacePauseScreen * this_ptr))
-}
+} // namespace app::classes::RacePauseScreen

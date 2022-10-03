@@ -1,11 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinChargeJumpCharging {
+namespace app::classes::SeinChargeJumpCharging {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinChargeJumpCharging * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00A50B70, app::PlayerAbilities *, get_PlayerAbilities, (app::SeinChargeJumpCharging * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement *, get_PlatformMovement, (app::SeinChargeJumpCharging * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00A50B90, app::SeinChargeJump *, get_ChargeJump, (app::SeinChargeJumpCharging * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00A50B70, app::PlayerAbilities*, get_PlayerAbilities, (app::SeinChargeJumpCharging * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement*, get_PlatformMovement, (app::SeinChargeJumpCharging * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00A50B90, app::SeinChargeJump*, get_ChargeJump, (app::SeinChargeJumpCharging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A50BD0, void, UpdateCharacterState, (app::SeinChargeJumpCharging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A50C40, void, EndCharge, (app::SeinChargeJumpCharging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A50E80, void, OnExit, (app::SeinChargeJumpCharging * this_ptr))
@@ -21,4 +21,4 @@ namespace app::methods::SeinChargeJumpCharging {
     IL2CPP_REGISTER_METHOD(0x00A52450, void, ctor, (app::SeinChargeJumpCharging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A52470, void, _ChangeState_b__18_0, (app::SeinChargeJumpCharging * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04785570, SeinChargeJumpCharging__ChangeState_b__18_0__MethodInfo)
-}
+} // namespace app::classes::SeinChargeJumpCharging

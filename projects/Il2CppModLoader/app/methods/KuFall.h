@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::KuFall {
+namespace app::classes::KuFall {
     IL2CPP_REGISTER_METHOD(0x01235EE0, void, OnSetReferenceToKu, (app::KuFall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01235F10, bool, get_IsStatePerforming, (app::KuFall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01235FE0, void, UpdateState, (app::KuFall * this_ptr))
@@ -18,4 +18,4 @@ namespace app::methods::KuFall {
     IL2CPP_REGISTER_METHOD(0x0044C850, void, ctor, (app::KuFall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012365B0, bool, _UpdateState_b__8_0, (app::KuFall * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04747B20, KuFall__UpdateState_b__8_0__MethodInfo)
-}
+} // namespace app::classes::KuFall

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::EntityTargetting {
+namespace app::classes::EntityTargetting {
     IL2CPP_REGISTER_METHOD(0x0061E2F0, bool, get_IsSpiritFlameHighlighted, (app::EntityTargetting * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061E2E0, void, set_IsSpiritFlameHighlighted, (app::EntityTargetting * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00CA2550, bool, get_IsSpiritSlashHighlighted, (app::EntityTargetting * this_ptr))
@@ -83,7 +83,7 @@ namespace app::methods::EntityTargetting {
     IL2CPP_REGISTER_METHOD(0x00CA3DC0, bool, get_HammerEnableAutoTarget, (app::EntityTargetting * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CA3DE0, void, set_HammerEnableAutoTarget, (app::EntityTargetting * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0043BB80, float, get_PositionOffset, (app::EntityTargetting * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00CA3DF0, app::Transform *, get_HookTargetTransform, (app::EntityTargetting * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00CA3DF0, app::Transform*, get_HookTargetTransform, (app::EntityTargetting * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldArrowExplode, (app::EntityTargetting * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CA3EC0, bool, ShouldArrowBeReflected, (app::EntityTargetting * this_ptr, app::ArrowHitData hit_data))
     IL2CPP_REGISTER_METHOD(0x00CA3F90, void, OnSpiritSlashHighlight, (app::EntityTargetting * this_ptr))
@@ -113,6 +113,6 @@ namespace app::methods::EntityTargetting {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnGlowReceived, (app::EntityTargetting * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CA57D0, void, Prewarm, (app::EntityTargetting * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00597B10, app::UpdateType__Enum, get_UpdateType, (app::EntityTargetting * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00CA57E0, app::IDamageReciever__Array *, get_AffectedReceivers, (app::EntityTargetting * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00CA57E0, app::IDamageReciever__Array*, get_AffectedReceivers, (app::EntityTargetting * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CA5890, void, ctor, (app::EntityTargetting * this_ptr))
-}
+} // namespace app::classes::EntityTargetting

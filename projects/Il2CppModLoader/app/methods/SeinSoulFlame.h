@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinSoulFlame {
+namespace app::classes::SeinSoulFlame {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinSoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005DB4F0, void, add_OnSoulFlameCast, (app::Action * value))
     IL2CPP_REGISTER_METHOD(0x005DB630, void, remove_OnSoulFlameCast, (app::Action * value))
@@ -33,9 +33,9 @@ namespace app::methods::SeinSoulFlame {
     IL2CPP_REGISTER_METHOD(0x005DEC70, void, HandleSkillTreeHint, (app::SeinSoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005DEF60, void, HideOtherMessages, (app::SeinSoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005DF080, void, OnSetReferenceToSein, (app::SeinSoulFlame * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005DF0A0, void, Serialize, (app::SeinSoulFlame * this_ptr, app::Archive * ar))
+    IL2CPP_REGISTER_METHOD(0x005DF0A0, void, Serialize, (app::SeinSoulFlame * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x005DF590, void, SpawnSoulFlame, (app::SeinSoulFlame * this_ptr, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x005DF6E0, void, DestroySoulFlame, (app::SeinSoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005DF7F0, void, ctor, (app::SeinSoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005DF970, void, cctor, ())
-}
+} // namespace app::classes::SeinSoulFlame

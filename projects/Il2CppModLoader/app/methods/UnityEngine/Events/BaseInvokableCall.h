@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Events::BaseInvokableCall {
+namespace app::classes::UnityEngine::Events::BaseInvokableCall {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::BaseInvokableCall * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0242E930, void, ctor_2, (app::BaseInvokableCall * this_ptr, app::Object * target, app::MethodInfo_1 * function))
+    IL2CPP_REGISTER_METHOD(0x0242E930, void, ctor_2, (app::BaseInvokableCall * this_ptr, app::Object* target, app::MethodInfo_1* function))
     IL2CPP_REGISTER_METHODINFO(0x0472BAE0, BaseInvokableCall__ctor_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0242EA20, bool, AllowInvoke, (app::Delegate * delegate))
     IL2CPP_REGISTER_METHOD(0x015E4BF0, void, ThrowOnInvalidArg_1, (app::Object * arg))
@@ -18,4 +18,4 @@ namespace app::methods::UnityEngine::Events::BaseInvokableCall {
     IL2CPP_REGISTER_METHODINFO(0x04708F80, BaseInvokableCall_ThrowOnInvalidArg_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E5160, void, ThrowOnInvalidArg_6, (app::Object * arg))
     IL2CPP_REGISTER_METHODINFO(0x0473E858, BaseInvokableCall_ThrowOnInvalidArg_5__MethodInfo)
-}
+} // namespace app::classes::UnityEngine::Events::BaseInvokableCall

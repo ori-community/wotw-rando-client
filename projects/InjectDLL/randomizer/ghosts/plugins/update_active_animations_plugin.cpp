@@ -14,7 +14,7 @@
 #include "update_active_animations_plugin.h"
 
 using namespace modloader::win::console;
-using namespace app::methods;
+using namespace app::classes;
 using ActiveAnimation = ghosts::RandoGhost::ActiveAnimation;
 
 namespace ghosts::plugins {

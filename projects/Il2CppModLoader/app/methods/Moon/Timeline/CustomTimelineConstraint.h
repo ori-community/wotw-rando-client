@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Timeline::CustomTimelineConstraint {
+namespace app::classes::Moon::Timeline::CustomTimelineConstraint {
     IL2CPP_REGISTER_METHOD(0x0052B590, bool, get_Dirty, (app::CustomTimelineConstraint * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052C650, void, set_Dirty, (app::CustomTimelineConstraint * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00B83F30, float, get_CachedValue, (app::CustomTimelineConstraint * this_ptr))
@@ -14,4 +14,4 @@ namespace app::methods::Moon::Timeline::CustomTimelineConstraint {
     IL2CPP_REGISTER_METHOD(0x00529E80, app::ConstraintFlag__Enum, get_Flags, (app::CustomTimelineConstraint * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00529E90, void, set_Flags, (app::CustomTimelineConstraint * this_ptr, app::ConstraintFlag__Enum value))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::CustomTimelineConstraint * this_ptr))
-}
+} // namespace app::classes::Moon::Timeline::CustomTimelineConstraint

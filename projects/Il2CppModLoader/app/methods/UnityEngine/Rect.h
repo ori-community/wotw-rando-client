@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Rect {
+namespace app::classes::UnityEngine::Rect {
     IL2CPP_REGISTER_METHOD(0x00121740, void, ctor_1, (app::Rect__Boxed * this_ptr, float x, float y, float width, float height))
     IL2CPP_REGISTER_METHOD(0x0014B910, void, ctor_2, (app::Rect__Boxed * this_ptr, app::Vector2 position, app::Vector2 size))
     IL2CPP_REGISTER_METHOD(0x0014C4D0, void, ctor_3, (app::Rect__Boxed * this_ptr, app::Rect source))
@@ -43,17 +43,17 @@ namespace app::methods::UnityEngine::Rect {
     IL2CPP_REGISTER_METHOD(0x0296D880, bool, op_Inequality, (app::Rect lhs, app::Rect rhs))
     IL2CPP_REGISTER_METHOD(0x0296D8E0, bool, op_Equality, (app::Rect lhs, app::Rect rhs))
     IL2CPP_REGISTER_METHOD(0x00217EC0, int32_t, GetHashCode, (app::Rect__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00217ED0, bool, Equals_1, (app::Rect__Boxed * this_ptr, app::Object * other))
+    IL2CPP_REGISTER_METHOD(0x00217ED0, bool, Equals_1, (app::Rect__Boxed * this_ptr, app::Object* other))
     IL2CPP_REGISTER_METHOD(0x00217EE0, bool, Equals_2, (app::Rect__Boxed * this_ptr, app::Rect other))
-    IL2CPP_REGISTER_METHOD(0x00217F00, app::String *, ToString, (app::Rect__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00217F00, app::String*, ToString, (app::Rect__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001EB400, float, get_left, (app::Rect__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00217D90, float, get_right, (app::Rect__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001EB410, float, get_top, (app::Rect__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00217DA0, float, get_bottom, (app::Rect__Boxed * this_ptr))
-    inline bool operator != (app::Rect lhs, app::Rect rhs) {
+    inline bool operator!=(app::Rect lhs, app::Rect rhs) {
         return op_Inequality(lhs, rhs);
     }
-    inline bool operator == (app::Rect lhs, app::Rect rhs) {
+    inline bool operator==(app::Rect lhs, app::Rect rhs) {
         return op_Equality(lhs, rhs);
     }
-}
+} // namespace app::classes::UnityEngine::Rect

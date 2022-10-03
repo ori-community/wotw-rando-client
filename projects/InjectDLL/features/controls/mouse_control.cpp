@@ -20,8 +20,8 @@
 
 #undef max
 
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
 
 namespace {
     bool invert_x = false;

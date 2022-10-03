@@ -1,16 +1,16 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CleverMenuItem {
-    IL2CPP_REGISTER_METHOD(0x012AD8C0, app::Transform *, get_Transform, (app::CleverMenuItem * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x012AD980, void, add_HighlightCallback, (app::CleverMenuItem * this_ptr, app::Action * value))
-    IL2CPP_REGISTER_METHOD(0x012ADA70, void, remove_HighlightCallback, (app::CleverMenuItem * this_ptr, app::Action * value))
-    IL2CPP_REGISTER_METHOD(0x012ADB60, void, add_HighlightBCallback, (app::CleverMenuItem * this_ptr, app::Action_1_Boolean_ * value))
-    IL2CPP_REGISTER_METHOD(0x012ADC50, void, remove_HighlightBCallback, (app::CleverMenuItem * this_ptr, app::Action_1_Boolean_ * value))
-    IL2CPP_REGISTER_METHOD(0x012ADD40, void, add_UnhighlightCallback, (app::CleverMenuItem * this_ptr, app::Action * value))
-    IL2CPP_REGISTER_METHOD(0x012ADE30, void, remove_UnhighlightCallback, (app::CleverMenuItem * this_ptr, app::Action * value))
-    IL2CPP_REGISTER_METHOD(0x012ADF20, void, add_PressedCallback, (app::CleverMenuItem * this_ptr, app::Action * value))
-    IL2CPP_REGISTER_METHOD(0x012AE010, void, remove_PressedCallback, (app::CleverMenuItem * this_ptr, app::Action * value))
+namespace app::classes::CleverMenuItem {
+    IL2CPP_REGISTER_METHOD(0x012AD8C0, app::Transform*, get_Transform, (app::CleverMenuItem * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x012AD980, void, add_HighlightCallback, (app::CleverMenuItem * this_ptr, app::Action* value))
+    IL2CPP_REGISTER_METHOD(0x012ADA70, void, remove_HighlightCallback, (app::CleverMenuItem * this_ptr, app::Action* value))
+    IL2CPP_REGISTER_METHOD(0x012ADB60, void, add_HighlightBCallback, (app::CleverMenuItem * this_ptr, app::Action_1_Boolean_* value))
+    IL2CPP_REGISTER_METHOD(0x012ADC50, void, remove_HighlightBCallback, (app::CleverMenuItem * this_ptr, app::Action_1_Boolean_* value))
+    IL2CPP_REGISTER_METHOD(0x012ADD40, void, add_UnhighlightCallback, (app::CleverMenuItem * this_ptr, app::Action* value))
+    IL2CPP_REGISTER_METHOD(0x012ADE30, void, remove_UnhighlightCallback, (app::CleverMenuItem * this_ptr, app::Action* value))
+    IL2CPP_REGISTER_METHOD(0x012ADF20, void, add_PressedCallback, (app::CleverMenuItem * this_ptr, app::Action* value))
+    IL2CPP_REGISTER_METHOD(0x012AE010, void, remove_PressedCallback, (app::CleverMenuItem * this_ptr, app::Action* value))
     IL2CPP_REGISTER_METHOD(0x00A35F10, bool, UsingNewTimeline, (app::CleverMenuItem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012AE100, bool, get_IsDisabled, (app::CleverMenuItem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012AE110, void, set_IsDisabled, (app::CleverMenuItem * this_ptr, bool value))
@@ -40,8 +40,8 @@ namespace app::methods::CleverMenuItem {
     IL2CPP_REGISTER_METHOD(0x012AF810, void, SetBounds, (app::CleverMenuItem * this_ptr, app::Rect rect))
     IL2CPP_REGISTER_METHOD(0x012AF8C0, bool, ExtraNavigationPressed, (app::CleverMenuItem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012AFBC0, bool, ExtraNavigationButtonPressed, (app::CleverMenuItem * this_ptr, app::CleverMenuItem_ExtraNavigationButton__Enum button))
-    IL2CPP_REGISTER_METHOD(0x00A43000, void, SetSelectionManager, (app::CleverMenuItem * this_ptr, app::CleverMenuItemSelectionManager * manager))
+    IL2CPP_REGISTER_METHOD(0x00A43000, void, SetSelectionManager, (app::CleverMenuItem * this_ptr, app::CleverMenuItemSelectionManager* manager))
     IL2CPP_REGISTER_METHOD(0x012AFD80, void, SelectIfNeeded, (app::CleverMenuItem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012AFF90, bool, IsSelectedInManager, (app::CleverMenuItem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012B0170, void, ctor, (app::CleverMenuItem * this_ptr))
-}
+} // namespace app::classes::CleverMenuItem

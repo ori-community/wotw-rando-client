@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PlayFab::Json::ReflectionUtils_ThreadSafeDictionary_2_System_Type_System_Collections_Generic_IDictionary_2_ {
-    IL2CPP_REGISTER_METHOD(0x01D15670, void, ctor_1, (app::ReflectionUtils_ThreadSafeDictionary_2_System_Type_System_Collections_Generic_IDictionary_2_ * this_ptr, app::ReflectionUtils_ThreadSafeDictionaryValueFactory_2_System_Type_System_Collections_Generic_IDictionary_2_ * value_factory))
+namespace app::classes::PlayFab::Json::ReflectionUtils_ThreadSafeDictionary_2_System_Type_System_Collections_Generic_IDictionary_2_ {
+    IL2CPP_REGISTER_METHOD(0x01D15670, void, ctor_1, (app::ReflectionUtils_ThreadSafeDictionary_2_System_Type_System_Collections_Generic_IDictionary_2_ * this_ptr, app::ReflectionUtils_ThreadSafeDictionaryValueFactory_2_System_Type_System_Collections_Generic_IDictionary_2_* value_factory))
     IL2CPP_REGISTER_METHODINFO(0x0474E2C0, ReflectionUtils_ThreadSafeDictionary_2_System_Type_System_Collections_Generic_IDictionary_2___ctor__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01D15670, void, ctor_2, (app::ReflectionUtils_ThreadSafeDictionary_2_System_Type_System_Collections_Generic_IDictionary_2__1 * this_ptr, app::ReflectionUtils_ThreadSafeDictionaryValueFactory_2_System_Type_System_Collections_Generic_IDictionary_2__1 * value_factory))
+    IL2CPP_REGISTER_METHOD(0x01D15670, void, ctor_2, (app::ReflectionUtils_ThreadSafeDictionary_2_System_Type_System_Collections_Generic_IDictionary_2__1 * this_ptr, app::ReflectionUtils_ThreadSafeDictionaryValueFactory_2_System_Type_System_Collections_Generic_IDictionary_2__1* value_factory))
     IL2CPP_REGISTER_METHODINFO(0x0477DF28, ReflectionUtils_ThreadSafeDictionary_2_System_Type_System_Collections_Generic_IDictionary_2__1__ctor__MethodInfo)
-}
+} // namespace app::classes::PlayFab::Json::ReflectionUtils_ThreadSafeDictionary_2_System_Type_System_Collections_Generic_IDictionary_2_

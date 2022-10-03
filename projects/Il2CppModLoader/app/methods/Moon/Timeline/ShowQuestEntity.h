@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Timeline::ShowQuestEntity {
+namespace app::classes::Moon::Timeline::ShowQuestEntity {
     IL2CPP_REGISTER_METHOD(0x00D02D50, void, OnEnable, (app::ShowQuestEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D02D60, void, Awake, (app::ShowQuestEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D02F10, void, OnDestroy, (app::ShowQuestEntity * this_ptr))
@@ -17,7 +17,7 @@ namespace app::methods::Moon::Timeline::ShowQuestEntity {
     IL2CPP_REGISTER_METHODINFO(0x0472E570, ShowQuestEntity_OnUpdateEntity__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D04340, void, OnVisibilityChangedCallback, (app::ShowQuestEntity * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047701F8, ShowQuestEntity_OnVisibilityChangedCallback__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00D04420, void, OnStartPlayback, (app::ShowQuestEntity * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x00D04420, void, OnStartPlayback, (app::ShowQuestEntity * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00D046E0, void, OnStopPlayback, (app::ShowQuestEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D048D0, void, OnMenuClose, (app::ShowQuestEntity * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04753BD8, ShowQuestEntity_OnMenuClose__MethodInfo)
@@ -27,4 +27,4 @@ namespace app::methods::Moon::Timeline::ShowQuestEntity {
     IL2CPP_REGISTER_METHODINFO(0x047431A8, ShowQuestEntity__ChangeState_b__15_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D04C80, void, _OnStartPlayback_b__23_0, (app::ShowQuestEntity * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04732540, ShowQuestEntity__OnStartPlayback_b__23_0__MethodInfo)
-}
+} // namespace app::classes::Moon::Timeline::ShowQuestEntity

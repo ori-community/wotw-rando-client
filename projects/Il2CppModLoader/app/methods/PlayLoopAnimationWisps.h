@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PlayLoopAnimationWisps {
-    IL2CPP_REGISTER_METHOD(0x01179690, app::MoonAnimator *, get_Animator, (app::PlayLoopAnimationWisps * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01179770, app::MoonAnimation *, get_Animation, (app::PlayLoopAnimationWisps * this_ptr))
+namespace app::classes::PlayLoopAnimationWisps {
+    IL2CPP_REGISTER_METHOD(0x01179690, app::MoonAnimator*, get_Animator, (app::PlayLoopAnimationWisps * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01179770, app::MoonAnimation*, get_Animation, (app::PlayLoopAnimationWisps * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0051DB40, bool, get_IsSuspended, (app::PlayLoopAnimationWisps * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0051DB50, void, set_IsSuspended, (app::PlayLoopAnimationWisps * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00608710, app::SuspendableMask__Enum, get_Mask, (app::PlayLoopAnimationWisps * this_ptr))
@@ -16,4 +16,4 @@ namespace app::methods::PlayLoopAnimationWisps {
     IL2CPP_REGISTER_METHOD(0x01179B20, void, PlayAnimation, (app::PlayLoopAnimationWisps * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01179D80, void, OnUpdate, (app::PlayLoopAnimationWisps * this_ptr, float delta))
     IL2CPP_REGISTER_METHOD(0x01179DC0, void, ctor, (app::PlayLoopAnimationWisps * this_ptr))
-}
+} // namespace app::classes::PlayLoopAnimationWisps

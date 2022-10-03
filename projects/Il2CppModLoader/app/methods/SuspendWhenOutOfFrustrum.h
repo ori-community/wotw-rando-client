@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SuspendWhenOutOfFrustrum {
+namespace app::classes::SuspendWhenOutOfFrustrum {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldDisable, (app::SuspendWhenOutOfFrustrum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldEnable, (app::SuspendWhenOutOfFrustrum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldChildrenEnable, (app::SuspendWhenOutOfFrustrum * this_ptr))
@@ -20,4 +20,4 @@ namespace app::methods::SuspendWhenOutOfFrustrum {
     IL2CPP_REGISTER_METHOD(0x00674DD0, void, Awake, (app::SuspendWhenOutOfFrustrum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00675000, void, OnDestroy, (app::SuspendWhenOutOfFrustrum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006750A0, void, ctor, (app::SuspendWhenOutOfFrustrum * this_ptr))
-}
+} // namespace app::classes::SuspendWhenOutOfFrustrum

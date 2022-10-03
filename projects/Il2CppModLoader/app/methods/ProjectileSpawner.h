@@ -1,11 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ProjectileSpawner {
+namespace app::classes::ProjectileSpawner {
     IL2CPP_REGISTER_METHOD(0x00C7C010, app::Vector3, get_Position, (app::ProjectileSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00849480, float, get_TimeSinceLastShot, (app::ProjectileSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C7C0A0, void, set_TimeSinceLastShot, (app::ProjectileSpawner * this_ptr, float value))
-    IL2CPP_REGISTER_METHOD(0x002FD490, int32_t, GetPrewarmAmount, (app::ProjectileSpawner * this_ptr, app::GameObject * entry))
+    IL2CPP_REGISTER_METHOD(0x002FD490, int32_t, GetPrewarmAmount, (app::ProjectileSpawner * this_ptr, app::GameObject* entry))
     IL2CPP_REGISTER_METHOD(0x00C7C0B0, void, Awake, (app::ProjectileSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C7C230, void, OnDestroy, (app::ProjectileSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C7C2D0, void, Start, (app::ProjectileSpawner * this_ptr))
@@ -18,9 +18,9 @@ namespace app::methods::ProjectileSpawner {
     IL2CPP_REGISTER_METHOD(0x00C7CA80, void, OnSpawnEvent, (app::ProjectileSpawner * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04746480, ProjectileSpawner_OnSpawnEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C7CA80, void, OnTimedTrigger, (app::ProjectileSpawner * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00C7CA90, app::Projectile *, SpawnProjectile, (app::ProjectileSpawner * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00C7CE50, app::GameObject *, SpawnProjectileGameObject, (app::ProjectileSpawner * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00C7D2F0, void, AimAt, (app::ProjectileSpawner * this_ptr, app::Transform * target))
+    IL2CPP_REGISTER_METHOD(0x00C7CA90, app::Projectile*, SpawnProjectile, (app::ProjectileSpawner * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00C7CE50, app::GameObject*, SpawnProjectileGameObject, (app::ProjectileSpawner * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00C7D2F0, void, AimAt, (app::ProjectileSpawner * this_ptr, app::Transform* target))
     IL2CPP_REGISTER_METHOD(0x00C7D540, void, FixedUpdate, (app::ProjectileSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B8960, bool, get_IsSuspended, (app::ProjectileSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B8970, void, set_IsSuspended, (app::ProjectileSpawner * this_ptr, bool value))
@@ -29,4 +29,4 @@ namespace app::methods::ProjectileSpawner {
     IL2CPP_REGISTER_METHOD(0x00C7D820, bool, PhysicsReady, (app::ProjectileSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C7D910, bool, ConditionMet, (app::ProjectileSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C7D9F0, void, ctor, (app::ProjectileSpawner * this_ptr))
-}
+} // namespace app::classes::ProjectileSpawner

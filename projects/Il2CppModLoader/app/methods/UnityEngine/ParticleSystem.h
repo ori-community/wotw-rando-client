@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::ParticleSystem {
+namespace app::classes::UnityEngine::ParticleSystem {
     IL2CPP_REGISTER_METHOD(0x03132610, void, Emit_1, (app::ParticleSystem * this_ptr, app::Vector3 position, app::Vector3 velocity, float size, float lifetime, app::Color32 color))
     IL2CPP_REGISTER_METHOD(0x031327D0, void, Emit_2, (app::ParticleSystem * this_ptr, app::ParticleSystem_Particle particle))
     IL2CPP_REGISTER_METHOD(0x03132830, bool, get_loop, (app::ParticleSystem * this_ptr))
@@ -27,11 +27,11 @@ namespace app::methods::UnityEngine::ParticleSystem {
     IL2CPP_REGISTER_METHOD(0x0238D4F0, app::ParticleSystem_ForceOverLifetimeModule, get_forceOverLifetime, (app::ParticleSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0238D4F0, app::ParticleSystem_ColorOverLifetimeModule, get_colorOverLifetime, (app::ParticleSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0238D4F0, app::ParticleSystem_CollisionModule, get_collision, (app::ParticleSystem * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x03132E60, void, SetParticles_1, (app::ParticleSystem * this_ptr, app::ParticleSystem_Particle__Array * particles, int32_t size, int32_t offset))
-    IL2CPP_REGISTER_METHOD(0x03132EE0, void, SetParticles_2, (app::ParticleSystem * this_ptr, app::ParticleSystem_Particle__Array * particles, int32_t size))
-    IL2CPP_REGISTER_METHOD(0x03132F60, int32_t, GetParticles_1, (app::ParticleSystem * this_ptr, app::ParticleSystem_Particle__Array * particles, int32_t size, int32_t offset))
-    IL2CPP_REGISTER_METHOD(0x03132FE0, int32_t, GetParticles_2, (app::ParticleSystem * this_ptr, app::ParticleSystem_Particle__Array * particles, int32_t size))
-    IL2CPP_REGISTER_METHOD(0x03133060, int32_t, GetParticles_3, (app::ParticleSystem * this_ptr, app::ParticleSystem_Particle__Array * particles))
+    IL2CPP_REGISTER_METHOD(0x03132E60, void, SetParticles_1, (app::ParticleSystem * this_ptr, app::ParticleSystem_Particle__Array* particles, int32_t size, int32_t offset))
+    IL2CPP_REGISTER_METHOD(0x03132EE0, void, SetParticles_2, (app::ParticleSystem * this_ptr, app::ParticleSystem_Particle__Array* particles, int32_t size))
+    IL2CPP_REGISTER_METHOD(0x03132F60, int32_t, GetParticles_1, (app::ParticleSystem * this_ptr, app::ParticleSystem_Particle__Array* particles, int32_t size, int32_t offset))
+    IL2CPP_REGISTER_METHOD(0x03132FE0, int32_t, GetParticles_2, (app::ParticleSystem * this_ptr, app::ParticleSystem_Particle__Array* particles, int32_t size))
+    IL2CPP_REGISTER_METHOD(0x03133060, int32_t, GetParticles_3, (app::ParticleSystem * this_ptr, app::ParticleSystem_Particle__Array* particles))
     IL2CPP_REGISTER_METHOD(0x031330D0, void, Simulate_1, (app::ParticleSystem * this_ptr, float t, bool with_children, bool restart, bool fixed_time_step))
     IL2CPP_REGISTER_METHOD(0x03133160, void, Simulate_2, (app::ParticleSystem * this_ptr, float t, bool with_children, bool restart))
     IL2CPP_REGISTER_METHOD(0x031331F0, void, Simulate_3, (app::ParticleSystem * this_ptr, float t, bool with_children))
@@ -54,6 +54,6 @@ namespace app::methods::UnityEngine::ParticleSystem {
     IL2CPP_REGISTER_METHOD(0x03133770, void, SetDisableAllParticles, (bool value))
     IL2CPP_REGISTER_METHOD(0x00490410, bool, GetDisableFixedTimestep, ())
     IL2CPP_REGISTER_METHOD(0x031337C0, void, SetDisableFixedTimestep, (bool value))
-    IL2CPP_REGISTER_METHOD(0x03133810, void, Internal_EmitOld, (app::ParticleSystem * this_ptr, app::ParticleSystem_Particle * particle))
-    IL2CPP_REGISTER_METHOD(0x03133870, void, Emit_Injected, (app::ParticleSystem * this_ptr, app::ParticleSystem_EmitParams * emit_params, int32_t count))
-}
+    IL2CPP_REGISTER_METHOD(0x03133810, void, Internal_EmitOld, (app::ParticleSystem * this_ptr, app::ParticleSystem_Particle* particle))
+    IL2CPP_REGISTER_METHOD(0x03133870, void, Emit_Injected, (app::ParticleSystem * this_ptr, app::ParticleSystem_EmitParams* emit_params, int32_t count))
+} // namespace app::classes::UnityEngine::ParticleSystem

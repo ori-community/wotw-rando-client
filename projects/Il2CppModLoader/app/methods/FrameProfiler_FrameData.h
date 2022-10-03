@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::FrameProfiler_FrameData {
+namespace app::classes::FrameProfiler_FrameData {
     IL2CPP_REGISTER_METHOD(0x03152BE0, void, ctor, (app::FrameProfiler_FrameData * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03152EA0, void, Reset, (app::FrameProfiler_FrameData * this_ptr))
-}
+} // namespace app::classes::FrameProfiler_FrameData

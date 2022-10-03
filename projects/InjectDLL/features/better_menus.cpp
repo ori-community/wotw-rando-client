@@ -6,7 +6,7 @@
 #include <Il2CppModLoader/app/methods/FaderB.h>
 #include <Il2CppModLoader/app/methods/MenuScreenManager__PostFadeMenuOpen_d__100.h>
 
-using namespace app::methods;
+using namespace app::classes;
 using namespace modloader;
 using modloader::win::console::console_flush;
 using modloader::win::console::console_send;

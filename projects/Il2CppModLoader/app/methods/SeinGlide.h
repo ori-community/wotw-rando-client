@@ -1,19 +1,19 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinGlide {
+namespace app::classes::SeinGlide {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinGlide * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006E4240, app::CharacterGravity *, get_CharacterGravity, (app::SeinGlide * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D06F0, app::CharacterLeftRightMovement *, get_CharacterLeftRightMovement, (app::SeinGlide * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement *, get_PlatformMovement, (app::SeinGlide * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006E4240, app::CharacterGravity*, get_CharacterGravity, (app::SeinGlide * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D06F0, app::CharacterLeftRightMovement*, get_CharacterLeftRightMovement, (app::SeinGlide * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement*, get_PlatformMovement, (app::SeinGlide * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE26A0, void, Start, (app::SeinGlide * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE2DF0, void, OnDestroy, (app::SeinGlide * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE3450, void, OnExit, (app::SeinGlide * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00AE3480, void, ModifyGravityPlatformMovementSettings, (app::SeinGlide * this_ptr, app::GravityPlatformMovementSettings * settings))
+    IL2CPP_REGISTER_METHOD(0x00AE3480, void, ModifyGravityPlatformMovementSettings, (app::SeinGlide * this_ptr, app::GravityPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHODINFO(0x0472FE70, SeinGlide_ModifyGravityPlatformMovementSettings__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00AE3510, void, ModifyHorizontalPlatformMovementSettings, (app::SeinGlide * this_ptr, app::HorizontalPlatformMovementSettings * settings))
+    IL2CPP_REGISTER_METHOD(0x00AE3510, void, ModifyHorizontalPlatformMovementSettings, (app::SeinGlide * this_ptr, app::HorizontalPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHODINFO(0x0474BD90, SeinGlide_ModifyHorizontalPlatformMovementSettings__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00AE3580, app::MoonAnimator *, get_Leaf, (app::SeinGlide * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00AE3580, app::MoonAnimator*, get_Leaf, (app::SeinGlide * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE3610, bool, get_IsStatePerforming, (app::SeinGlide * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE3620, bool, get_IsGliding, (app::SeinGlide * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE3630, void, UpdateCharacterState, (app::SeinGlide * this_ptr))
@@ -45,7 +45,7 @@ namespace app::methods::SeinGlide {
     IL2CPP_REGISTER_METHODINFO(0x04726650, SeinGlide_ShouldGlideAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AE5CD0, bool, ShouldGlideDeploymentAnimationKeepPlaying, (app::SeinGlide * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04731780, SeinGlide_ShouldGlideDeploymentAnimationKeepPlaying__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00AE5CF0, app::SeinGlidePuppet *, get_Puppet, (app::SeinGlide * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00AE5CF0, app::SeinGlidePuppet*, get_Puppet, (app::SeinGlide * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE5DB0, void, OnSetReferenceToSein, (app::SeinGlide * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE5E80, void, OnProcessRootMotion, (app::SeinGlide * this_ptr, app::Vector3 motion))
     IL2CPP_REGISTER_METHOD(0x00AE5F20, void, OnQuickGlowStarted, (app::SeinGlide * this_ptr))
@@ -63,4 +63,4 @@ namespace app::methods::SeinGlide {
     IL2CPP_REGISTER_METHOD(0x00AE60B0, void, InterruptTurning, (app::SeinGlide * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE60D0, void, Turn, (app::SeinGlide * this_ptr, bool face_left))
     IL2CPP_REGISTER_METHOD(0x00AE6150, void, ctor, (app::SeinGlide * this_ptr))
-}
+} // namespace app::classes::SeinGlide

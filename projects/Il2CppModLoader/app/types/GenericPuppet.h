@@ -1,0 +1,18 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace GenericPuppet {
+        extern IL2CPP_MODLOADER_DLLEXPORT app::GenericPuppet__Class** type_info;
+        inline app::GenericPuppet__Class* get_class() {
+            return il2cpp::get_class<app::GenericPuppet__Class>(type_info, "", "GenericPuppet");
+        }
+        inline app::GenericPuppet* create() {
+            return il2cpp::create_object<app::GenericPuppet>(get_class());
+        }
+        inline app::GenericPuppet__Array* create_array(int size) {
+            return il2cpp::array_new<app::GenericPuppet__Array>(get_class(), size);
+        }
+    } // namespace GenericPuppet
+} // namespace app::classes::types

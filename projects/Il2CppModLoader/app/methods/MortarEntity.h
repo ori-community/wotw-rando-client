@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MortarEntity {
+namespace app::classes::MortarEntity {
     IL2CPP_REGISTER_METHOD(0x01476150, bool, get_ShouldCharge, (app::MortarEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01476160, bool, get_ShouldHide, (app::MortarEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01476170, bool, get_CouldHitTarget, (app::MortarEntity * this_ptr))
@@ -15,9 +15,9 @@ namespace app::methods::MortarEntity {
     IL2CPP_REGISTER_METHOD(0x01476D90, void, OnFixedUpdate, (app::MortarEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01477CB0, void, GenerateAimVeloCache, (app::MortarEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, TestVeloPacking, (app::MortarEntity * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01477F40, void, ResolveDamage, (app::MortarEntity * this_ptr, app::DamageResult * damage_result))
+    IL2CPP_REGISTER_METHOD(0x01477F40, void, ResolveDamage, (app::MortarEntity * this_ptr, app::DamageResult* damage_result))
     IL2CPP_REGISTER_METHOD(0x01478020, void, AssignRegularIdle, (app::MortarEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01478050, void, AssignHiddenIdle, (app::MortarEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01478080, void, ctor, (app::MortarEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01478130, void, cctor, ())
-}
+} // namespace app::classes::MortarEntity

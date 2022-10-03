@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Collections::Generic::Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__ {
+namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear_1, (app::Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04734ED8, Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear_2, (app::Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__1 * this_ptr))
@@ -14,4 +14,4 @@ namespace app::methods::System::Collections::Generic::Dictionary_2_System_Int32_
     IL2CPP_REGISTER_METHODINFO(0x04799DE0, Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__1__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor_3, (app::Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__2 * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04783818, Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__2__ctor__MethodInfo)
-}
+} // namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__

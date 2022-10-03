@@ -1,11 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::uberSerializationWisp::PlayerUberStateShards_Shard {
-    IL2CPP_REGISTER_METHOD(0x00F41E60, void, ctor, (app::PlayerUberStateShards_Shard * this_ptr, app::SpiritShardType__Enum type, app::Action * set_dirty_callback))
-    IL2CPP_REGISTER_METHOD(0x00F420B0, void, Save, (app::PlayerUberStateShards_Shard * this_ptr, app::UberStateArchive * archive))
-    IL2CPP_REGISTER_METHOD(0x00F420C0, void, Load, (app::PlayerUberStateShards_Shard * this_ptr, app::UberStateArchive * archive))
-    IL2CPP_REGISTER_METHOD(0x00F42120, void, Serialize, (app::PlayerUberStateShards_Shard * this_ptr, app::UberStateArchive * archive))
+namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateShards_Shard {
+    IL2CPP_REGISTER_METHOD(0x00F41E60, void, ctor, (app::PlayerUberStateShards_Shard * this_ptr, app::SpiritShardType__Enum type, app::Action* set_dirty_callback))
+    IL2CPP_REGISTER_METHOD(0x00F420B0, void, Save, (app::PlayerUberStateShards_Shard * this_ptr, app::UberStateArchive* archive))
+    IL2CPP_REGISTER_METHOD(0x00F420C0, void, Load, (app::PlayerUberStateShards_Shard * this_ptr, app::UberStateArchive* archive))
+    IL2CPP_REGISTER_METHOD(0x00F42120, void, Serialize, (app::PlayerUberStateShards_Shard * this_ptr, app::UberStateArchive* archive))
     IL2CPP_REGISTER_METHOD(0x0052B590, app::SpiritShardType__Enum, get_Type, (app::PlayerUberStateShards_Shard * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F421C0, void, set_Type, (app::PlayerUberStateShards_Shard * this_ptr, app::SpiritShardType__Enum value))
     IL2CPP_REGISTER_METHOD(0x00CC59E0, int32_t, get_Level, (app::PlayerUberStateShards_Shard * this_ptr))
@@ -24,8 +24,8 @@ namespace app::methods::Moon::uberSerializationWisp::PlayerUberStateShards_Shard
     IL2CPP_REGISTER_METHOD(0x00F42AD0, bool, get_Upgradable, (app::PlayerUberStateShards_Shard * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F42BD0, bool, get_VisibleInShop, (app::PlayerUberStateShards_Shard * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F42D10, bool, get_PurchasableInShop, (app::PlayerUberStateShards_Shard * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F42E50, app::State *, get_OnState, (app::PlayerUberStateShards_Shard * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F430B0, app::State *, get_OffState, (app::PlayerUberStateShards_Shard * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00F42E50, app::State*, get_OnState, (app::PlayerUberStateShards_Shard * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00F430B0, app::State*, get_OffState, (app::PlayerUberStateShards_Shard * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F43310, bool, get_EquipOnStart, (app::PlayerUberStateShards_Shard * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F43320, void, set_EquipOnStart, (app::PlayerUberStateShards_Shard * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0052A010, int32_t, get_Index, (app::PlayerUberStateShards_Shard * this_ptr))
@@ -34,4 +34,4 @@ namespace app::methods::Moon::uberSerializationWisp::PlayerUberStateShards_Shard
     IL2CPP_REGISTER_METHOD(0x00F43350, void, Equip, (app::PlayerUberStateShards_Shard * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x00F433B0, void, Unequip, (app::PlayerUberStateShards_Shard * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F43410, void, RunSetDirtyCallback, (app::PlayerUberStateShards_Shard * this_ptr))
-}
+} // namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateShards_Shard

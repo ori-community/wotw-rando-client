@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::GameplayCamera {
-    IL2CPP_REGISTER_METHOD(0x0040B220, app::Camera *, get_Camera, (app::GameplayCamera * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0040B240, app::Transform *, get_GameplayPuppet, (app::GameplayCamera * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0040B270, app::CameraPostProcessing *, get_CameraPostProcessing, (app::GameplayCamera * this_ptr))
+namespace app::classes::GameplayCamera {
+    IL2CPP_REGISTER_METHOD(0x0040B220, app::Camera*, get_Camera, (app::GameplayCamera * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0040B240, app::Transform*, get_GameplayPuppet, (app::GameplayCamera * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0040B270, app::CameraPostProcessing*, get_CameraPostProcessing, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040B290, void, LockSmoothScrollingForAFrame, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040B2B0, bool, IsOnScreen, (app::GameplayCamera * this_ptr, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x0040B340, bool, IsOnScreenPadded, (app::GameplayCamera * this_ptr, app::Vector3 position, float padding))
@@ -22,8 +22,8 @@ namespace app::methods::GameplayCamera {
     IL2CPP_REGISTER_METHOD(0x0040CBD0, void, OnRestoreCheckpoint, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0478EC30, GameplayCamera_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0040CC00, void, UpdateTargetHelperPosition, (app::GameplayCamera * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0040CC50, void, set_Target, (app::GameplayCamera * this_ptr, app::Transform * value))
-    IL2CPP_REGISTER_METHOD(0x0040CC90, app::Transform *, get_Target, (app::GameplayCamera * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0040CC50, void, set_Target, (app::GameplayCamera * this_ptr, app::Transform* value))
+    IL2CPP_REGISTER_METHOD(0x0040CC90, app::Transform*, get_Target, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040CC00, void, Start, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040CCC0, float, get_TimeDelta, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040CCD0, void, set_TimeDelta, (app::GameplayCamera * this_ptr, float value))
@@ -37,10 +37,10 @@ namespace app::methods::GameplayCamera {
     IL2CPP_REGISTER_METHOD(0x0040D930, void, ForceCameraToObayScrollLockConstraints, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040DCD0, void, TargetPositionSnapped, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040DD00, void, ChangeTargetToCurrentCharacter, (app::GameplayCamera * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0040DEC0, void, ChangeTarget, (app::GameplayCamera * this_ptr, app::Transform * target_transform))
+    IL2CPP_REGISTER_METHOD(0x0040DEC0, void, ChangeTarget, (app::GameplayCamera * this_ptr, app::Transform* target_transform))
     IL2CPP_REGISTER_METHOD(0x0040DFA0, void, OnFixedUpdate, (app::GameplayCamera * this_ptr, float delta))
-    IL2CPP_REGISTER_METHOD(0x0040E830, void, EnableGoThroughScrollLocks, (app::GameplayCamera * this_ptr, app::Object_1 * requester))
-    IL2CPP_REGISTER_METHOD(0x0040E8E0, void, DisableGoThroughScrollLocks, (app::GameplayCamera * this_ptr, app::Object_1 * requester))
+    IL2CPP_REGISTER_METHOD(0x0040E830, void, EnableGoThroughScrollLocks, (app::GameplayCamera * this_ptr, app::Object_1* requester))
+    IL2CPP_REGISTER_METHOD(0x0040E8E0, void, DisableGoThroughScrollLocks, (app::GameplayCamera * this_ptr, app::Object_1* requester))
     IL2CPP_REGISTER_METHOD(0x0040E9A0, app::Vector3, ProjectPointOnZ, (app::GameplayCamera * this_ptr, app::Vector3 point))
     IL2CPP_REGISTER_METHOD(0x0040EF50, bool, get_IsSuspended, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040EF60, void, set_IsSuspended, (app::GameplayCamera * this_ptr, bool value))
@@ -49,4 +49,4 @@ namespace app::methods::GameplayCamera {
     IL2CPP_REGISTER_METHOD(0x0040F040, void, SetDynamicCameraActive, (app::GameplayCamera * this_ptr, bool active))
     IL2CPP_REGISTER_METHOD(0x0040F0B0, bool, GetDynamicCameraActive, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040F110, void, ctor, (app::GameplayCamera * this_ptr))
-}
+} // namespace app::classes::GameplayCamera

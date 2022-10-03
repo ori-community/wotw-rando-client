@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::DeadEnemyRagdoll {
-    IL2CPP_REGISTER_METHOD(0x00DD7B80, void, OnReceiveContext, (app::DeadEnemyRagdoll * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00DD7C80, void, OnRecieveDamage, (app::DeadEnemyRagdoll * this_ptr, app::Damage * damage))
+namespace app::classes::DeadEnemyRagdoll {
+    IL2CPP_REGISTER_METHOD(0x00DD7B80, void, OnReceiveContext, (app::DeadEnemyRagdoll * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00DD7C80, void, OnRecieveDamage, (app::DeadEnemyRagdoll * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x007DE870, bool, get_IsSuspended, (app::DeadEnemyRagdoll * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007DE880, void, set_IsSuspended, (app::DeadEnemyRagdoll * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x006B90B0, app::SuspendableMask__Enum, get_Mask, (app::DeadEnemyRagdoll * this_ptr))
@@ -18,16 +18,16 @@ namespace app::methods::DeadEnemyRagdoll {
     IL2CPP_REGISTER_METHOD(0x00DD90E0, void, UpdateLand, (app::DeadEnemyRagdoll * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DD9330, void, UpdateDrown, (app::DeadEnemyRagdoll * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DD9600, void, UpdateState, (app::DeadEnemyRagdoll * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00DD96B0, void, OnCollisionEnter, (app::DeadEnemyRagdoll * this_ptr, app::Collision * collision))
-    IL2CPP_REGISTER_METHOD(0x00DD96B0, void, OnCollisionStay, (app::DeadEnemyRagdoll * this_ptr, app::Collision * collision))
-    IL2CPP_REGISTER_METHOD(0x00DD96C0, void, OnCollision, (app::DeadEnemyRagdoll * this_ptr, app::Collision * collision))
+    IL2CPP_REGISTER_METHOD(0x00DD96B0, void, OnCollisionEnter, (app::DeadEnemyRagdoll * this_ptr, app::Collision* collision))
+    IL2CPP_REGISTER_METHOD(0x00DD96B0, void, OnCollisionStay, (app::DeadEnemyRagdoll * this_ptr, app::Collision* collision))
+    IL2CPP_REGISTER_METHOD(0x00DD96C0, void, OnCollision, (app::DeadEnemyRagdoll * this_ptr, app::Collision* collision))
     IL2CPP_REGISTER_METHOD(0x00DD9910, void, Explode, (app::DeadEnemyRagdoll * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00DD9B50, void, OnHitFloor, (app::DeadEnemyRagdoll * this_ptr, app::Vector3 normal, app::GameObject * target_game_object))
+    IL2CPP_REGISTER_METHOD(0x00DD9B50, void, OnHitFloor, (app::DeadEnemyRagdoll * this_ptr, app::Vector3 normal, app::GameObject* target_game_object))
     IL2CPP_REGISTER_METHOD(0x00DDA980, void, Awake, (app::DeadEnemyRagdoll * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DDAB40, void, Start, (app::DeadEnemyRagdoll * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DDABF0, void, OnDestroy, (app::DeadEnemyRagdoll * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DDAC90, void, FixedUpdate, (app::DeadEnemyRagdoll * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DDAF60, void, ctor, (app::DeadEnemyRagdoll * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject *, IDamageReciever_get_gameObject, (app::DeadEnemyRagdoll * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform *, IDamageReciever_get_transform, (app::DeadEnemyRagdoll * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, IDamageReciever_get_gameObject, (app::DeadEnemyRagdoll * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform*, IDamageReciever_get_transform, (app::DeadEnemyRagdoll * this_ptr))
+} // namespace app::classes::DeadEnemyRagdoll

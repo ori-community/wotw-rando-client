@@ -1,11 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MiscDebugMenuPage {
+namespace app::classes::MiscDebugMenuPage {
     IL2CPP_REGISTER_METHOD(0x00420EE0, int32_t, get_ColumnOffset, (app::MiscDebugMenuPage * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::String *, get_Name, (app::MiscDebugMenuPage * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::String*, get_Name, (app::MiscDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01453750, void, Awake, (app::MiscDebugMenuPage * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01453840, void, GetItems, (app::MiscDebugMenuPage * this_ptr, app::List_1_List_1_IDebugMenuItem_ * items))
+    IL2CPP_REGISTER_METHOD(0x01453840, void, GetItems, (app::MiscDebugMenuPage * this_ptr, app::List_1_List_1_IDebugMenuItem_* items))
     IL2CPP_REGISTER_METHOD(0x01457B00, bool, CleanWaterGetter, (app::MiscDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04783DB0, MiscDebugMenuPage_CleanWaterGetter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01457B10, void, CleanWaterSetter, (app::MiscDebugMenuPage * this_ptr, bool new_value))
@@ -94,4 +94,4 @@ namespace app::methods::MiscDebugMenuPage {
     IL2CPP_REGISTER_METHOD(0x01459510, void, HoruKeySetter, (app::MiscDebugMenuPage * this_ptr, bool obj))
     IL2CPP_REGISTER_METHOD(0x01459520, bool, HoruKeyGetter, (app::MiscDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01459530, void, ctor, (app::MiscDebugMenuPage * this_ptr))
-}
+} // namespace app::classes::MiscDebugMenuPage

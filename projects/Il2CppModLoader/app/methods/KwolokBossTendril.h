@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::KwolokBossTendril {
+namespace app::classes::KwolokBossTendril {
     IL2CPP_REGISTER_METHOD(0x00989BF0, app::KwolokBossTendril_DurationType__Enum, get_Duration, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0070DEC0, app::KwolokBossTendril_VariationType__Enum, get_Variation, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012EBFA0, void, Awake, (app::KwolokBossTendril * this_ptr))
@@ -9,7 +9,7 @@ namespace app::methods::KwolokBossTendril {
     IL2CPP_REGISTER_METHOD(0x012EC1F0, void, UpdateColliderState, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FC380, app::KwolokBossTendril_State__Enum, get_CurrentState, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012EC230, void, set_CurrentState, (app::KwolokBossTendril * this_ptr, app::KwolokBossTendril_State__Enum value))
-    IL2CPP_REGISTER_METHOD(0x002FBC60, app::OrbSpawner *, get_OrbSpawnerComponent, (app::KwolokBossTendril * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBC60, app::OrbSpawner*, get_OrbSpawnerComponent, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012EC400, bool, get_IsAttacking, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012EC420, void, OnEnable, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012EC8D0, void, OnDisable, (app::KwolokBossTendril * this_ptr))
@@ -39,7 +39,7 @@ namespace app::methods::KwolokBossTendril {
     IL2CPP_REGISTER_METHOD(0x012EDF60, void, OnUpdateStateHolding, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012EE0A0, void, OnUpdateStateDestroying, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnUpdateStateDestroyed, (app::KwolokBossTendril * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x012EC1F0, void, OnSceneRootPostEnable, (app::KwolokBossTendril * this_ptr, app::SceneRoot * scene_root))
+    IL2CPP_REGISTER_METHOD(0x012EC1F0, void, OnSceneRootPostEnable, (app::KwolokBossTendril * this_ptr, app::SceneRoot* scene_root))
     IL2CPP_REGISTER_METHOD(0x012EE0D0, void, ctor, (app::KwolokBossTendril * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x015EB800, app::Object *, GetRandomEnumValue, (app::KwolokBossTendril * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x015EB800, app::Object*, GetRandomEnumValue, (app::KwolokBossTendril * this_ptr))
+} // namespace app::classes::KwolokBossTendril

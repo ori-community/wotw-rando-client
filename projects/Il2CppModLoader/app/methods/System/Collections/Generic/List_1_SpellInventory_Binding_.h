@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Collections::Generic::List_1_SpellInventory_Binding_ {
+namespace app::classes::System::Collections::Generic::List_1_SpellInventory_Binding_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_SpellInventory_Binding_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04721B60, List_1_SpellInventory_Binding___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F1C970, void, Add, (app::List_1_SpellInventory_Binding_ * this_ptr, app::SpellInventory_Binding__Enum item))
@@ -12,4 +12,4 @@ namespace app::methods::System::Collections::Generic::List_1_SpellInventory_Bind
     IL2CPP_REGISTER_METHODINFO(0x04725C70, List_1_SpellInventory_Binding__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_SpellInventory_Binding_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047680E8, List_1_SpellInventory_Binding__Clear__MethodInfo)
-}
+} // namespace app::classes::System::Collections::Generic::List_1_SpellInventory_Binding_

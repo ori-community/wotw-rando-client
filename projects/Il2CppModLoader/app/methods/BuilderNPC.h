@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::BuilderNPC {
+namespace app::classes::BuilderNPC {
     IL2CPP_REGISTER_METHOD(0x0061E5E0, app::BuilderNPC_State__Enum, get_CurrentState, (app::BuilderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00819230, void, ChangeState, (app::BuilderNPC * this_ptr, app::BuilderNPC_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x008192E0, void, Advance, (app::BuilderNPC * this_ptr))
@@ -35,7 +35,7 @@ namespace app::methods::BuilderNPC {
     IL2CPP_REGISTER_METHOD(0x0081AB40, void, OnFixCannonDoneMessageHide, (app::BuilderNPC * this_ptr, app::MessageBox_HideAction__Enum action))
     IL2CPP_REGISTER_METHODINFO(0x04728090, BuilderNPC_OnFixCannonDoneMessageHide__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0081AB70, void, OnresumeAfterFix, (app::BuilderNPC * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0081AD70, void, Serialize, (app::BuilderNPC * this_ptr, app::Archive * ar))
+    IL2CPP_REGISTER_METHOD(0x0081AD70, void, Serialize, (app::BuilderNPC * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x0081ADA0, void, ctor, (app::BuilderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0081A100, void, _OnInteractionMessageHide_b__39_0, (app::BuilderNPC * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047348C8, BuilderNPC__OnInteractionMessageHide_b__39_0__MethodInfo)
@@ -51,4 +51,4 @@ namespace app::methods::BuilderNPC {
     IL2CPP_REGISTER_METHODINFO(0x0478F070, BuilderNPC__OnResumeAfterLiftFix_b__46_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0081A100, void, _OnResumeAfterSaveFix_b__47_0, (app::BuilderNPC * this_ptr, app::MessageBox_HideAction__Enum action))
     IL2CPP_REGISTER_METHODINFO(0x047430E8, BuilderNPC__OnResumeAfterSaveFix_b__47_0__MethodInfo)
-}
+} // namespace app::classes::BuilderNPC

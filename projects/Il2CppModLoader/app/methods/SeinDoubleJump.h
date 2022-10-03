@@ -1,18 +1,18 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinDoubleJump {
+namespace app::classes::SeinDoubleJump {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AC7360, int32_t, get_ExtraJumpsAvailable, ())
-    IL2CPP_REGISTER_METHOD(0x00AC74B0, app::SeinDoubleJumpPuppet *, get_Puppet, (app::SeinDoubleJump * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00AC74B0, app::SeinDoubleJumpPuppet*, get_Puppet, (app::SeinDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AC7570, bool, IsDoubleJumping, (app::SeinDoubleJump * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement *, get_PlatformMovement, (app::SeinDoubleJump * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00AB1790, app::SeinJump *, get_Jump, (app::SeinDoubleJump * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D06F0, app::CharacterLeftRightMovement *, get_LeftRightMovement, (app::SeinDoubleJump * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement*, get_PlatformMovement, (app::SeinDoubleJump * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00AB1790, app::SeinJump*, get_Jump, (app::SeinDoubleJump * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D06F0, app::CharacterLeftRightMovement*, get_LeftRightMovement, (app::SeinDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AC7650, bool, get_CanDoubleJump, (app::SeinDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AC76D0, bool, get_CanTurnPlay, (app::SeinDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AC7710, void, OnSetReferenceToSein, (app::SeinDoubleJump * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00AC77E0, void, Serialize, (app::SeinDoubleJump * this_ptr, app::Archive * ar))
+    IL2CPP_REGISTER_METHOD(0x00AC77E0, void, Serialize, (app::SeinDoubleJump * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x00AC7850, void, Start, (app::SeinDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AC7A00, void, OnDestroy, (app::SeinDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AC7BC0, void, OnResetAirLimits, (app::SeinDoubleJump * this_ptr))
@@ -36,4 +36,4 @@ namespace app::methods::SeinDoubleJump {
     IL2CPP_REGISTER_METHOD(0x00AC9680, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x00AC9810, void, _PerformDoubleJump_b__35_0, (app::SeinDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04738D38, SeinDoubleJump__PerformDoubleJump_b__35_0__MethodInfo)
-}
+} // namespace app::classes::SeinDoubleJump

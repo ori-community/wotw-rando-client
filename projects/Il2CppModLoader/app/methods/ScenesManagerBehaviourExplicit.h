@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ScenesManagerBehaviourExplicit {
+namespace app::classes::ScenesManagerBehaviourExplicit {
     IL2CPP_REGISTER_METHOD(0x01052D80, app::Vector2, get_PredictedTargetPosition, (app::ScenesManagerBehaviourExplicit * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00597B10, app::ScenesManagerUpdateType__Enum, get_CurrentUpdateType, (app::ScenesManagerBehaviourExplicit * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01055550, void, Update, (app::ScenesManagerBehaviourExplicit * this_ptr, bool full_update))
@@ -11,4 +11,4 @@ namespace app::methods::ScenesManagerBehaviourExplicit {
     IL2CPP_REGISTER_METHOD(0x01055BE0, void, FindScenesToUnloadInternal, (app::ScenesManagerBehaviourExplicit * this_ptr, bool instant))
     IL2CPP_REGISTER_METHOD(0x010560A0, void, FindScenesToEnable, (app::ScenesManagerBehaviourExplicit * this_ptr, bool limit_once, bool async))
     IL2CPP_REGISTER_METHOD(0x01056BB0, void, ctor, (app::ScenesManagerBehaviourExplicit * this_ptr))
-}
+} // namespace app::classes::ScenesManagerBehaviourExplicit

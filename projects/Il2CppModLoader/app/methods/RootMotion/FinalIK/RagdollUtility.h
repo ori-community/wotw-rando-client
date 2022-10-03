@@ -1,11 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RootMotion::FinalIK::RagdollUtility {
+namespace app::classes::RootMotion::FinalIK::RagdollUtility {
     IL2CPP_REGISTER_METHOD(0x02A198F0, void, EnableRagdoll, (app::RagdollUtility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A19950, void, DisableRagdoll, (app::RagdollUtility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A19B00, void, Start, (app::RagdollUtility * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x02A1A430, app::IEnumerator *, DisableRagdollSmooth, (app::RagdollUtility * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x02A1A430, app::IEnumerator*, DisableRagdollSmooth, (app::RagdollUtility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A1A580, void, Update, (app::RagdollUtility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A1A9A0, void, FixedUpdate, (app::RagdollUtility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A1A9E0, void, LateUpdate, (app::RagdollUtility * this_ptr))
@@ -21,4 +21,4 @@ namespace app::methods::RootMotion::FinalIK::RagdollUtility {
     IL2CPP_REGISTER_METHOD(0x02A1B5B0, void, FixTransforms, (app::RagdollUtility * this_ptr, float weight))
     IL2CPP_REGISTER_METHOD(0x02A1B630, void, OnDestroy, (app::RagdollUtility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A1B830, void, ctor, (app::RagdollUtility * this_ptr))
-}
+} // namespace app::classes::RootMotion::FinalIK::RagdollUtility

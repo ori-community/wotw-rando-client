@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Time {
+namespace app::classes::UnityEngine::Time {
     IL2CPP_REGISTER_METHOD(0x006D41F0, float, get_time, ())
     IL2CPP_REGISTER_METHOD(0x02C6A530, float, get_timeSinceLevelLoad, ())
     IL2CPP_REGISTER_METHOD(0x010F26B0, float, get_deltaTime, ())
@@ -23,4 +23,4 @@ namespace app::methods::UnityEngine::Time {
     IL2CPP_REGISTER_METHOD(0x02C6A8C0, bool, get_unFixFixedUpdate, ())
     IL2CPP_REGISTER_METHOD(0x02C6A910, void, set_unFixFixedUpdate, (bool value))
     IL2CPP_REGISTER_METHOD(0x02C6A960, void, set_deltaTimeOverride, (double value))
-}
+} // namespace app::classes::UnityEngine::Time

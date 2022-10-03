@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SavePedestal {
+namespace app::classes::SavePedestal {
     IL2CPP_REGISTER_METHOD(0x009147C0, bool, get_IsShowingHint, (app::SavePedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00914860, bool, get_HasGameBeenSaved, (app::SavePedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00914950, void, set_HasGameBeenSaved, (app::SavePedestal * this_ptr, bool value))
@@ -18,8 +18,8 @@ namespace app::methods::SavePedestal {
     IL2CPP_REGISTER_METHOD(0x00915420, void, OnDisable, (app::SavePedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ApplyOnEditor, (app::SavePedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009154C0, void, Apply, (app::SavePedestal * this_ptr, app::UberStateApplyContext__Enum context))
-    IL2CPP_REGISTER_METHOD(0x00915690, app::IUberState__Array *, get_AffectingUberStates, (app::SavePedestal * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00915720, app::List_1_UnityEngine_GameObject_ *, get_AllTargets, (app::SavePedestal * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00915690, app::IUberState__Array*, get_AffectingUberStates, (app::SavePedestal * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00915720, app::List_1_UnityEngine_GameObject_*, get_AllTargets, (app::SavePedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009158E0, void, OnTeleporterActivationStateChanged, (app::SavePedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009158E0, void, RefreshIsAnyOtherTeleporterActive, (app::SavePedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00915900, void, Highlight, (app::SavePedestal * this_ptr))
@@ -45,4 +45,4 @@ namespace app::methods::SavePedestal {
     IL2CPP_REGISTER_METHOD(0x006B8970, void, set_InvalidateParentTimelineCache, (app::SavePedestal * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00917D50, void, ctor, (app::SavePedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00917E00, void, cctor, ())
-}
+} // namespace app::classes::SavePedestal

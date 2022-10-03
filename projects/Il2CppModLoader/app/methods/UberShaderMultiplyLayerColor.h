@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UberShaderMultiplyLayerColor {
+namespace app::classes::UberShaderMultiplyLayerColor {
     IL2CPP_REGISTER_METHOD(0x01914590, float, CalculateColorComponentValue, (app::UberShaderMultiplyLayerColor * this_ptr, float v))
     IL2CPP_REGISTER_METHOD(0x019145D0, app::Color, CalculateFinalMultiplyColor, (app::UberShaderMultiplyLayerColor * this_ptr, app::Color color))
     IL2CPP_REGISTER_METHOD(0x019146A0, void, BindProperties, (app::UberShaderMultiplyLayerColor * this_ptr))
@@ -17,4 +17,4 @@ namespace app::methods::UberShaderMultiplyLayerColor {
     IL2CPP_REGISTER_METHOD(0x01289F40, void, set_A, (app::UberShaderMultiplyLayerColor * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x01914860, void, ctor_1, (app::UberShaderMultiplyLayerColor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01914870, void, ctor_2, (app::UberShaderMultiplyLayerColor * this_ptr, app::Color default_color))
-}
+} // namespace app::classes::UberShaderMultiplyLayerColor

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::KuLogicCycle {
+namespace app::classes::KuLogicCycle {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_AllowJumpSustain, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_AllowUpwardsDeceleration, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_AllowForceController, (app::KuLogicCycle * this_ptr))
@@ -28,24 +28,24 @@ namespace app::methods::KuLogicCycle {
     IL2CPP_REGISTER_METHOD(0x0123DBC0, bool, get_AllowMeditate, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_AllowStandingOnEdge, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0123DCB0, bool, get_AllowPushAgainstWall, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB9F0, app::List_1_KuState_ *, GetStates, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0123DD10, void, RegisterCharacterState, (app::KuLogicCycle * this_ptr, app::KuState * state))
-    IL2CPP_REGISTER_METHOD(0x0123DF40, void, UnregisterCharacterState, (app::KuLogicCycle * this_ptr, app::KuState * state))
-    IL2CPP_REGISTER_METHOD(0x0123E0F0, void, RegisterExecutionOrder, (app::KuLogicCycle * this_ptr, app::Type * type, int32_t order))
+    IL2CPP_REGISTER_METHOD(0x002FB9F0, app::List_1_KuState_*, GetStates, (app::KuLogicCycle * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0123DD10, void, RegisterCharacterState, (app::KuLogicCycle * this_ptr, app::KuState* state))
+    IL2CPP_REGISTER_METHOD(0x0123DF40, void, UnregisterCharacterState, (app::KuLogicCycle * this_ptr, app::KuState* state))
+    IL2CPP_REGISTER_METHOD(0x0123E0F0, void, RegisterExecutionOrder, (app::KuLogicCycle * this_ptr, app::Type* type, int32_t order))
     IL2CPP_REGISTER_METHOD(0x0123E210, void, RegisterDefaultExecutionOrder, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0123E3F0, void, RegisterIsAllowedDelegate, (app::KuLogicCycle * this_ptr, app::Type * type, app::KuLogicCycle_IsAllowedDelegate * is_allowed))
+    IL2CPP_REGISTER_METHOD(0x0123E3F0, void, RegisterIsAllowedDelegate, (app::KuLogicCycle * this_ptr, app::Type* type, app::KuLogicCycle_IsAllowedDelegate* is_allowed))
     IL2CPP_REGISTER_METHOD(0x0123E510, void, RegisterIsAllowedDelegates, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0123F3C0, bool, ValidateExclusiveActiveStateType, (app::KuLogicCycle * this_ptr, app::Type * type))
-    IL2CPP_REGISTER_METHOD(0x0123F540, void, RegisterExclusiveActiveStateType, (app::KuLogicCycle * this_ptr, app::Type * type))
+    IL2CPP_REGISTER_METHOD(0x0123F3C0, bool, ValidateExclusiveActiveStateType, (app::KuLogicCycle * this_ptr, app::Type* type))
+    IL2CPP_REGISTER_METHOD(0x0123F540, void, RegisterExclusiveActiveStateType, (app::KuLogicCycle * this_ptr, app::Type* type))
     IL2CPP_REGISTER_METHOD(0x0123F780, void, RegisterExclusiveActiveStateTypes, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0123F840, void, Awake, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0123F980, void, OnDestroy, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0123FA20, void, Start, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0123FAC0, void, OnEnable, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0123FB60, void, OnUpdate, (app::KuLogicCycle * this_ptr, float delta))
-    IL2CPP_REGISTER_METHOD(0x01240260, void, SetStateActive, (app::KuLogicCycle * this_ptr, app::KuState * state, bool active))
-    IL2CPP_REGISTER_METHOD(0x012403B0, void, UpdateCharacterState, (app::KuLogicCycle * this_ptr, app::KuState * state))
-    IL2CPP_REGISTER_METHOD(0x012404C0, bool, IsPerforming, (app::KuLogicCycle * this_ptr, app::KuState * state))
+    IL2CPP_REGISTER_METHOD(0x01240260, void, SetStateActive, (app::KuLogicCycle * this_ptr, app::KuState* state, bool active))
+    IL2CPP_REGISTER_METHOD(0x012403B0, void, UpdateCharacterState, (app::KuLogicCycle * this_ptr, app::KuState* state))
+    IL2CPP_REGISTER_METHOD(0x012404C0, bool, IsPerforming, (app::KuLogicCycle * this_ptr, app::KuState* state))
     IL2CPP_REGISTER_METHOD(0x012404F0, void, OnGUI, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0043D9E0, app::UpdateType__Enum, get_UpdateType, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01240940, void, ctor, (app::KuLogicCycle * this_ptr))
@@ -79,4 +79,4 @@ namespace app::methods::KuLogicCycle {
     IL2CPP_REGISTER_METHODINFO(0x04713C70, KuLogicCycle__RegisterIsAllowedDelegates_b__65_13__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, _RegisterIsAllowedDelegates_b__65_14, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04737BB8, KuLogicCycle__RegisterIsAllowedDelegates_b__65_14__MethodInfo)
-}
+} // namespace app::classes::KuLogicCycle

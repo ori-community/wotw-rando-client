@@ -1,17 +1,17 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RammingEnemy {
+namespace app::classes::RammingEnemy {
     IL2CPP_REGISTER_METHOD(0x00728C30, bool, CanBeOptimized, (app::RammingEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00728C70, bool, ZoneRectanglesContain, (app::RammingEnemy * this_ptr, app::Vector2 position))
     IL2CPP_REGISTER_METHOD(0x00728F40, void, OnDash, (app::RammingEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04771EC0, RammingEnemy_OnDash__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00728F70, bool, IsOnGround, (app::RammingEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00728FA0, void, Awake, (app::RammingEnemy * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00729290, void, OnDamageDealt, (app::RammingEnemy * this_ptr, app::DamageDealer * dealer, app::DamageResult result))
+    IL2CPP_REGISTER_METHOD(0x00729290, void, OnDamageDealt, (app::RammingEnemy * this_ptr, app::DamageDealer* dealer, app::DamageResult result))
     IL2CPP_REGISTER_METHODINFO(0x0472FC50, RammingEnemy_OnDamageDealt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007293C0, void, OnDestroy, (app::RammingEnemy * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00729580, void, OnModifyDamage, (app::RammingEnemy * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x00729580, void, OnModifyDamage, (app::RammingEnemy * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanBeFrozen, (app::RammingEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007296A0, float, get_CurrentStateTime, (app::RammingEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007296C0, void, Start, (app::RammingEnemy * this_ptr))
@@ -55,4 +55,4 @@ namespace app::methods::RammingEnemy {
     IL2CPP_REGISTER_METHODINFO(0x04748BD0, RammingEnemy__Start_b__20_11__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0072CFD0, bool, _Start_b__20_12, (app::RammingEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04763030, RammingEnemy__Start_b__20_12__MethodInfo)
-}
+} // namespace app::classes::RammingEnemy

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::UI::GridLayoutGroup {
+namespace app::classes::UnityEngine::UI::GridLayoutGroup {
     IL2CPP_REGISTER_METHOD(0x024B4F90, void, ctor, (app::GridLayoutGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024B5080, app::GridLayoutGroup_Corner__Enum, get_startCorner, (app::GridLayoutGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024B5090, void, set_startCorner, (app::GridLayoutGroup * this_ptr, app::GridLayoutGroup_Corner__Enum value))
@@ -20,4 +20,4 @@ namespace app::methods::UnityEngine::UI::GridLayoutGroup {
     IL2CPP_REGISTER_METHOD(0x024B5B30, void, SetLayoutHorizontal, (app::GridLayoutGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024B5B40, void, SetLayoutVertical, (app::GridLayoutGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024B5B50, void, SetCellsAlongAxis, (app::GridLayoutGroup * this_ptr, int32_t axis))
-}
+} // namespace app::classes::UnityEngine::UI::GridLayoutGroup

@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::AxisAlignedBoxGizmoSettings {
-    IL2CPP_REGISTER_METHOD(0x002FA280, app::String *, get_Label, (app::AxisAlignedBoxGizmoSettings * this_ptr))
+namespace app::classes::Moon::AxisAlignedBoxGizmoSettings {
+    IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_Label, (app::AxisAlignedBoxGizmoSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C3DD30, app::Color, get_FillColor, (app::AxisAlignedBoxGizmoSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C3DD40, void, set_FillColor, (app::AxisAlignedBoxGizmoSettings * this_ptr, app::Color value))
     IL2CPP_REGISTER_METHOD(0x00CB5CB0, app::Color, get_OutlineColor, (app::AxisAlignedBoxGizmoSettings * this_ptr))
@@ -17,5 +17,5 @@ namespace app::methods::Moon::AxisAlignedBoxGizmoSettings {
     IL2CPP_REGISTER_METHOD(0x002FD4A0, void, set_MoveHandle, (app::AxisAlignedBoxGizmoSettings * this_ptr, app::GizmoHandleType__Enum value))
     IL2CPP_REGISTER_METHOD(0x003FDCE0, app::AxisAlignedBoxGizmoSettings_ModeType__Enum, get_Mode, (app::AxisAlignedBoxGizmoSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008C5DD0, void, set_Mode, (app::AxisAlignedBoxGizmoSettings * this_ptr, app::AxisAlignedBoxGizmoSettings_ModeType__Enum value))
-    IL2CPP_REGISTER_METHOD(0x00CB5CF0, void, ctor, (app::AxisAlignedBoxGizmoSettings * this_ptr, app::String * label))
-}
+    IL2CPP_REGISTER_METHOD(0x00CB5CF0, void, ctor, (app::AxisAlignedBoxGizmoSettings * this_ptr, app::String* label))
+} // namespace app::classes::Moon::AxisAlignedBoxGizmoSettings

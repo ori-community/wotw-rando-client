@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RootMotion::Demos::CharacterThirdPerson {
+namespace app::classes::RootMotion::Demos::CharacterThirdPerson {
     IL2CPP_REGISTER_METHOD(0x02212520, bool, get_onGround, (app::CharacterThirdPerson * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01293D20, void, set_onGround, (app::CharacterThirdPerson * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x02212530, void, Start, (app::CharacterThirdPerson * this_ptr))
@@ -19,4 +19,4 @@ namespace app::methods::RootMotion::Demos::CharacterThirdPerson {
     IL2CPP_REGISTER_METHOD(0x02216DC0, bool, Jump, (app::CharacterThirdPerson * this_ptr))
     IL2CPP_REGISTER_METHOD(0x022170E0, void, GroundCheck, (app::CharacterThirdPerson * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02217940, void, ctor, (app::CharacterThirdPerson * this_ptr))
-}
+} // namespace app::classes::RootMotion::Demos::CharacterThirdPerson

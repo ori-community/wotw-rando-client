@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UberGCManager {
+namespace app::classes::UberGCManager {
     IL2CPP_REGISTER_METHOD(0x013E9690, float, get_AvailableMemory, ())
     IL2CPP_REGISTER_METHOD(0x013E9730, float, get_LastPanicCompletionTime, ())
     IL2CPP_REGISTER_METHOD(0x013E97D0, float, get_SimplePanicTimegate, ())
@@ -22,7 +22,7 @@ namespace app::methods::UberGCManager {
     IL2CPP_REGISTER_METHOD(0x013EB4E0, void, UpdateAvailableMemoryForFrameCapture, ())
     IL2CPP_REGISTER_METHOD(0x013EB570, void, RefreshAvailableMemory, ())
     IL2CPP_REGISTER_METHOD(0x013EB910, void, OnPanicCleanup, ())
-    IL2CPP_REGISTER_METHOD(0x013EBA60, app::String *, DebugConsumeLastCleanOpportunity, ())
+    IL2CPP_REGISTER_METHOD(0x013EBA60, app::String*, DebugConsumeLastCleanOpportunity, ())
     IL2CPP_REGISTER_METHOD(0x013EBB10, void, OnHintPanic, (app::String * reason))
     IL2CPP_REGISTER_METHOD(0x013EBD50, void, OnStartTitlescreen, ())
     IL2CPP_REGISTER_METHOD(0x013EBE10, void, OnCloseDebugMenu, ())
@@ -36,4 +36,4 @@ namespace app::methods::UberGCManager {
     IL2CPP_REGISTER_METHOD(0x013ED9C0, float, get_LastPanicTime, ())
     IL2CPP_REGISTER_METHOD(0x013EDA70, void, set_LastPanicTime, (float value))
     IL2CPP_REGISTER_METHOD(0x013EDB20, void, UpdateLastPanicTime, ())
-}
+} // namespace app::classes::UberGCManager

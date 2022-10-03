@@ -1,14 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::uWintab::Tablet {
+namespace app::classes::uWintab::Tablet {
     IL2CPP_REGISTER_METHOD(0x00F74130, bool, get_Initialized, ())
     IL2CPP_REGISTER_METHOD(0x00F741B0, void, set_Initialized, (bool value))
     IL2CPP_REGISTER_METHOD(0x00F74240, void, InitializeTablet, ())
     IL2CPP_REGISTER_METHOD(0x00F742D0, void, FinalizeTablet, ())
     IL2CPP_REGISTER_METHOD(0x00F72B30, bool, get_IsAvailable, ())
-    IL2CPP_REGISTER_METHOD(0x00F74360, app::String *, get_DeviceName, ())
-    IL2CPP_REGISTER_METHOD(0x00F74370, app::String *, get_Version, ())
+    IL2CPP_REGISTER_METHOD(0x00F74360, app::String*, get_DeviceName, ())
+    IL2CPP_REGISTER_METHOD(0x00F74370, app::String*, get_Version, ())
     IL2CPP_REGISTER_METHOD(0x00F72EC0, bool, get_IsPressureSupported, ())
     IL2CPP_REGISTER_METHOD(0x00F72F50, bool, get_IsWheelSupported, ())
     IL2CPP_REGISTER_METHOD(0x00F72FE0, bool, get_IsOrientationSupported, ())
@@ -36,5 +36,5 @@ namespace app::methods::uWintab::Tablet {
     IL2CPP_REGISTER_METHOD(0x00F743D0, bool, GetExpKeyDown_2, (int32_t id))
     IL2CPP_REGISTER_METHOD(0x00F743E0, bool, GetExpKeyUp_1, (int32_t tablet_id, int32_t id))
     IL2CPP_REGISTER_METHOD(0x00F743F0, bool, GetExpKeyUp_2, (int32_t id))
-    IL2CPP_REGISTER_METHOD(0x00F74400, app::String *, Info, ())
-}
+    IL2CPP_REGISTER_METHOD(0x00F74400, app::String*, Info, ())
+} // namespace app::classes::uWintab::Tablet

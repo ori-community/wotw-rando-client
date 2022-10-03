@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SaveSlotsManager {
-    IL2CPP_REGISTER_METHOD(0x00927F30, app::UberStateValueStore *, get_SelectedSlotUberStateValueStore, ())
+namespace app::classes::SaveSlotsManager {
+    IL2CPP_REGISTER_METHOD(0x00927F30, app::UberStateValueStore*, get_SelectedSlotUberStateValueStore, ())
     IL2CPP_REGISTER_METHOD(0x00928050, void, set_SelectedSlotUberStateValueStore, (app::UberStateValueStore * value))
     IL2CPP_REGISTER_METHOD(0x009280F0, int32_t, get_CurrentSlotIndex, ())
     IL2CPP_REGISTER_METHOD(0x00928180, void, set_CurrentSlotIndex, (int32_t value))
@@ -10,14 +10,14 @@ namespace app::methods::SaveSlotsManager {
     IL2CPP_REGISTER_METHOD(0x009282A0, void, set_BackupIndex, (int32_t value))
     IL2CPP_REGISTER_METHOD(0x00928370, int32_t, get_PreviousBackupIndex, ())
     IL2CPP_REGISTER_METHOD(0x00928400, void, set_PreviousBackupIndex, (int32_t value))
-    IL2CPP_REGISTER_METHOD(0x00928490, app::SaveSlotInfo *, get_CurrentSaveSlot, ())
+    IL2CPP_REGISTER_METHOD(0x00928490, app::SaveSlotInfo*, get_CurrentSaveSlot, ())
     IL2CPP_REGISTER_METHOD(0x009285D0, bool, SlotExists, (int32_t slot_index))
-    IL2CPP_REGISTER_METHOD(0x009285F0, app::SaveSlotInfo *, FindOrCreateSaveSlot, (int32_t slot_index))
+    IL2CPP_REGISTER_METHOD(0x009285F0, app::SaveSlotInfo*, FindOrCreateSaveSlot, (int32_t slot_index))
     IL2CPP_REGISTER_METHOD(0x009287C0, void, Awake, (app::SaveSlotsManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00928C50, void, OnDestroy, (app::SaveSlotsManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00928DD0, bool, get_AnySaveSlotsExist, (app::SaveSlotsManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00928FB0, int32_t, get_SaveSlotCount, ())
-    IL2CPP_REGISTER_METHOD(0x00929050, app::SaveSlotInfo *, SlotByIndex, (int32_t index))
+    IL2CPP_REGISTER_METHOD(0x00929050, app::SaveSlotInfo*, SlotByIndex, (int32_t index))
     IL2CPP_REGISTER_METHOD(0x00929130, void, CopySlot, (int32_t from, int32_t to))
     IL2CPP_REGISTER_METHOD(0x009294F0, bool, SaveFileExists, (int32_t index))
     IL2CPP_REGISTER_METHOD(0x00929640, void, DeleteSlot, (int32_t index))
@@ -33,4 +33,4 @@ namespace app::methods::SaveSlotsManager {
     IL2CPP_REGISTER_METHOD(0x0092A810, void, ResetBackupIndex, (app::SaveSlotsManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0092A8B0, void, RestorePreviousIndex, (app::SaveSlotsManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0092A940, void, ctor, (app::SaveSlotsManager * this_ptr))
-}
+} // namespace app::classes::SaveSlotsManager

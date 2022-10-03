@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SwarmNestEntity {
-    IL2CPP_REGISTER_METHOD(0x002FBB90, void, BindSwarm, (app::SwarmNestEntity * this_ptr, app::SwarmEntity * swarm))
+namespace app::classes::SwarmNestEntity {
+    IL2CPP_REGISTER_METHOD(0x002FBB90, void, BindSwarm, (app::SwarmNestEntity * this_ptr, app::SwarmEntity* swarm))
     IL2CPP_REGISTER_METHOD(0x01823990, void, Awake, (app::SwarmNestEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01823FF0, void, Update, (app::SwarmNestEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018240B0, void, SpawnSwarmAgent, (app::SwarmNestEntity * this_ptr))
@@ -15,4 +15,4 @@ namespace app::methods::SwarmNestEntity {
     IL2CPP_REGISTER_METHOD(0x01824720, void, DestroyAtEndOfTimeline, (app::SwarmNestEntity * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0476F7A0, SwarmNestEntity_DestroyAtEndOfTimeline__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01824810, void, ctor, (app::SwarmNestEntity * this_ptr))
-}
+} // namespace app::classes::SwarmNestEntity

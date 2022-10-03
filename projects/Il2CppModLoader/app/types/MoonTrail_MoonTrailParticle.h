@@ -1,0 +1,24 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace MoonTrail_MoonTrailParticle {
+        namespace {
+            app::MoonTrail_MoonTrailParticle__Class* type_info_ref = nullptr;
+        }
+        app::MoonTrail_MoonTrailParticle__Class** type_info = &type_info_ref;
+        inline app::MoonTrail_MoonTrailParticle__Class* get_class() {
+            return il2cpp::get_nested_class<app::MoonTrail_MoonTrailParticle__Class>(type_info, "Moon", "MoonTrail", "MoonTrailParticle");
+        }
+        inline app::MoonTrail_MoonTrailParticle* create() {
+            return il2cpp::create_object<app::MoonTrail_MoonTrailParticle>(get_class());
+        }
+        inline app::MoonTrail_MoonTrailParticle__Boxed* box(app::MoonTrail_MoonTrailParticle value) {
+            return il2cpp::box_value<app::MoonTrail_MoonTrailParticle__Boxed>(get_class(), value);
+        }
+        inline app::MoonTrail_MoonTrailParticle__Array* create_array(int size) {
+            return il2cpp::array_new<app::MoonTrail_MoonTrailParticle__Array>(get_class(), size);
+        }
+    } // namespace MoonTrail_MoonTrailParticle
+} // namespace app::classes::types

@@ -10,6 +10,7 @@
 #include <Il2CppModLoader/app/methods/GameController.h>
 #include <Il2CppModLoader/app/methods/SeinHealthController.h>
 #include <Il2CppModLoader/app/methods/SeinEnergy.h>
+#include <Il2CppModLoader/app/types/Characters.h>
 
 #include <Il2CppModLoader/app/methods/GameplayCamera.h>
 #include <Il2CppModLoader/app/methods/ScenesManager.h>
@@ -17,12 +18,12 @@
 #include <magic_enum.hpp>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace game {
     namespace player {
         app::SeinCharacter *sein() {
-            return il2cpp::get_class<app::Characters__Class>("Game", "Characters")->static_fields->m_sein;
+            return types::Characters::get_class()->static_fields->m_sein;
         }
 
         bool has_ability(app::AbilityType__Enum ability) {

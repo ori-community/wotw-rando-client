@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::uberSerializationWisp::PlayerUberStateInventory {
-    IL2CPP_REGISTER_METHOD(0x002FA280, app::List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_ *, get_Inventory, (app::PlayerUberStateInventory * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB930, app::List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_ *, get_Bindings, (app::PlayerUberStateInventory * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB950, app::List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_QuestItem_ *, get_QuestItems, (app::PlayerUberStateInventory * this_ptr))
+namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateInventory {
+    IL2CPP_REGISTER_METHOD(0x002FA280, app::List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_*, get_Inventory, (app::PlayerUberStateInventory * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB930, app::List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_*, get_Bindings, (app::PlayerUberStateInventory * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB950, app::List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_QuestItem_*, get_QuestItems, (app::PlayerUberStateInventory * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB970, int32_t, get_Keystones, (app::PlayerUberStateInventory * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F3AB20, void, set_Keystones, (app::PlayerUberStateInventory * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x005C3FF0, int32_t, get_MapStones, (app::PlayerUberStateInventory * this_ptr))
@@ -31,20 +31,20 @@ namespace app::methods::Moon::uberSerializationWisp::PlayerUberStateInventory {
     IL2CPP_REGISTER_METHOD(0x00F3ABE0, void, set_MediumExpOrbHasBeenCollectedBefore, (app::PlayerUberStateInventory * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00F3ABF0, bool, get_LargeExpOrbHasBeenCollectedBefore, (app::PlayerUberStateInventory * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F3AC00, void, set_LargeExpOrbHasBeenCollectedBefore, (app::PlayerUberStateInventory * this_ptr, bool value))
-    IL2CPP_REGISTER_METHOD(0x00F3AC10, void, SetBinding_1, (app::PlayerUberStateInventory * this_ptr, app::EquipmentType__Enum type, app::PlayerUberStateInventory_InventoryItem * item))
-    IL2CPP_REGISTER_METHOD(0x00F3AD20, void, SetBinding_2, (app::PlayerUberStateInventory * this_ptr, app::SpellInventory_Binding__Enum binding, app::PlayerUberStateInventory_InventoryItem * item))
+    IL2CPP_REGISTER_METHOD(0x00F3AC10, void, SetBinding_1, (app::PlayerUberStateInventory * this_ptr, app::EquipmentType__Enum type, app::PlayerUberStateInventory_InventoryItem* item))
+    IL2CPP_REGISTER_METHOD(0x00F3AD20, void, SetBinding_2, (app::PlayerUberStateInventory * this_ptr, app::SpellInventory_Binding__Enum binding, app::PlayerUberStateInventory_InventoryItem* item))
     IL2CPP_REGISTER_METHOD(0x00F3AE00, void, InitializeBindings, (app::PlayerUberStateInventory * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F3AF50, void, RunSetDirtyCallback, (app::PlayerUberStateInventory * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F3B0E0, void, ctor, (app::PlayerUberStateInventory * this_ptr, app::Action * set_dirty_callback))
-    IL2CPP_REGISTER_METHOD(0x00F3BC70, app::PlayerUberStateInventory_InventoryItem *, GrantItem, (app::PlayerUberStateInventory * this_ptr, app::EquipmentType__Enum type))
+    IL2CPP_REGISTER_METHOD(0x00F3B0E0, void, ctor, (app::PlayerUberStateInventory * this_ptr, app::Action* set_dirty_callback))
+    IL2CPP_REGISTER_METHOD(0x00F3BC70, app::PlayerUberStateInventory_InventoryItem*, GrantItem, (app::PlayerUberStateInventory * this_ptr, app::EquipmentType__Enum type))
     IL2CPP_REGISTER_METHOD(0x00F3BE30, void, ClearInventory, (app::PlayerUberStateInventory * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F3BEE0, bool, UsesEnergy, (app::EquipmentType__Enum type))
     IL2CPP_REGISTER_METHOD(0x00F3BF40, void, GrantQuestItem, (app::PlayerUberStateInventory * this_ptr, app::QuestItemType__Enum item_type))
     IL2CPP_REGISTER_METHOD(0x00F3C0B0, bool, HasQuestItem, (app::PlayerUberStateInventory * this_ptr, app::QuestItemType__Enum type))
-    IL2CPP_REGISTER_METHOD(0x00F3C250, void, Save, (app::PlayerUberStateInventory * this_ptr, app::UberStateArchive * archive, app::PlayerUberStateInventory * inventory))
-    IL2CPP_REGISTER_METHOD(0x00F3CD90, void, Load, (app::PlayerUberStateInventory * this_ptr, app::UberStateArchive * archive, int32_t store_version))
-    IL2CPP_REGISTER_METHOD(0x00F3D910, void, OnGui, (app::PlayerUberStateInventory * this_ptr, app::NavigableOnGUI * gui))
+    IL2CPP_REGISTER_METHOD(0x00F3C250, void, Save, (app::PlayerUberStateInventory * this_ptr, app::UberStateArchive* archive, app::PlayerUberStateInventory* inventory))
+    IL2CPP_REGISTER_METHOD(0x00F3CD90, void, Load, (app::PlayerUberStateInventory * this_ptr, app::UberStateArchive* archive, int32_t store_version))
+    IL2CPP_REGISTER_METHOD(0x00F3D910, void, OnGui, (app::PlayerUberStateInventory * this_ptr, app::NavigableOnGUI* gui))
     IL2CPP_REGISTER_METHOD(0x00F3DDC0, int64_t, get_Size, (app::PlayerUberStateInventory * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F3DEB0, int32_t, IndexOf, (app::PlayerUberStateInventory * this_ptr, app::PlayerUberStateInventory_InventoryItem * item))
+    IL2CPP_REGISTER_METHOD(0x00F3DEB0, int32_t, IndexOf, (app::PlayerUberStateInventory * this_ptr, app::PlayerUberStateInventory_InventoryItem* item))
     IL2CPP_REGISTER_METHOD(0x00F3DFB0, void, cctor, ())
-}
+} // namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateInventory

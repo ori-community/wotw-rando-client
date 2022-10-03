@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PlayLoopAnimation {
+namespace app::classes::PlayLoopAnimation {
     IL2CPP_REGISTER_METHOD(0x00585310, bool, get_IsSuspended, (app::PlayLoopAnimation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00585320, void, set_IsSuspended, (app::PlayLoopAnimation * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x003FF2B0, app::SuspendableMask__Enum, get_Mask, (app::PlayLoopAnimation * this_ptr))
@@ -14,4 +14,4 @@ namespace app::methods::PlayLoopAnimation {
     IL2CPP_REGISTER_METHOD(0x031B69A0, void, PlayAnimation, (app::PlayLoopAnimation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031B6BF0, void, OnUpdate, (app::PlayLoopAnimation * this_ptr, float delta))
     IL2CPP_REGISTER_METHOD(0x031B6C30, void, ctor, (app::PlayLoopAnimation * this_ptr))
-}
+} // namespace app::classes::PlayLoopAnimation

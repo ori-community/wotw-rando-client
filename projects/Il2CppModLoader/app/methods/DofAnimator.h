@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::DofAnimator {
+namespace app::classes::DofAnimator {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, CacheOriginals, (app::DofAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B9BC90, void, SampleValue, (app::DofAnimator * this_ptr, float value, bool force_sample))
     IL2CPP_REGISTER_METHOD(0x00B9BE90, void, RestoreToOriginalState, (app::DofAnimator * this_ptr))
@@ -13,4 +13,4 @@ namespace app::methods::DofAnimator {
     IL2CPP_REGISTER_METHOD(0x00B9C1A0, void, ComputeWeightScale, ())
     IL2CPP_REGISTER_METHOD(0x00B9C400, void, ctor, (app::DofAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B9C470, void, cctor, ())
-}
+} // namespace app::classes::DofAnimator

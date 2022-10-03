@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::JumperEnemy {
-    IL2CPP_REGISTER_METHOD(0x00E52DE0, app::JumperEnemyPuppet *, get_Puppet, (app::JumperEnemy * this_ptr))
+namespace app::classes::JumperEnemy {
+    IL2CPP_REGISTER_METHOD(0x00E52DE0, app::JumperEnemyPuppet*, get_Puppet, (app::JumperEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E52EA0, bool, CanBeOptimized, (app::JumperEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E52EE0, void, ForceAttackPlayer, (app::JumperEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E52F30, void, Start, (app::JumperEnemy * this_ptr))
@@ -42,4 +42,4 @@ namespace app::methods::JumperEnemy {
     IL2CPP_REGISTER_METHODINFO(0x0470F598, JumperEnemy__Start_b__16_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E58D20, bool, _Start_b__16_4, (app::JumperEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0470CFA0, JumperEnemy__Start_b__16_4__MethodInfo)
-}
+} // namespace app::classes::JumperEnemy

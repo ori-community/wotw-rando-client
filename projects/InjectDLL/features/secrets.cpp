@@ -4,7 +4,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/app/methods/PlayerSpiritShards.h>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     IL2CPP_INTERCEPT(PlayerSpiritShards, bool, IsGlobalShardEquipped_1, (app::PlayerSpiritShards * this_ptr, app::SpiritShardType__Enum value)) {

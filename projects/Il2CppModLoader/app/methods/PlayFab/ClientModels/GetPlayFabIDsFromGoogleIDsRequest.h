@@ -1,6 +1,6 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PlayFab::ClientModels::GetPlayFabIDsFromGoogleIDsRequest {
+namespace app::classes::PlayFab::ClientModels::GetPlayFabIDsFromGoogleIDsRequest {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GetPlayFabIDsFromGoogleIDsRequest * this_ptr))
 }

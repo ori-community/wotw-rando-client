@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::IMoonTypeResolver {
+namespace app::classes::Moon::IMoonTypeResolver {
     IL2CPP_REGISTER_METHODINFO(0x047394E8, IMoonTypeResolver_ResolveSource_1__MethodInfo)
     IL2CPP_REGISTER_METHODINFO(0x04777DB8, IMoonTypeResolver_CanResolveSource_1__MethodInfo)
     IL2CPP_REGISTER_METHODINFO(0x04799838, IMoonTypeResolver_IsMoonTypeProxy_1__MethodInfo)
@@ -70,4 +70,4 @@ namespace app::methods::Moon::IMoonTypeResolver {
     IL2CPP_REGISTER_METHODINFO(0x0471A208, IMoonTypeResolver_CanResolveSource_17__MethodInfo)
     IL2CPP_REGISTER_METHODINFO(0x04786A50, IMoonTypeResolver_IsMoonTypeProxy_17__MethodInfo)
     IL2CPP_REGISTER_METHODINFO(0x0471F6E8, IMoonTypeResolver_GetProxyType_17__MethodInfo)
-}
+} // namespace app::classes::Moon::IMoonTypeResolver

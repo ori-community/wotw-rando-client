@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LoremasterReplayController {
+namespace app::classes::LoremasterReplayController {
     IL2CPP_REGISTER_METHOD(0x009ED850, bool, get_LoreMasterReplayActive, ())
     IL2CPP_REGISTER_METHOD(0x009ED940, bool, get_PlayingMasterTimeline, ())
     IL2CPP_REGISTER_METHOD(0x009EDA40, void, ResetStatics, ())
@@ -40,4 +40,4 @@ namespace app::methods::LoremasterReplayController {
     IL2CPP_REGISTER_METHOD(0x009F0DC0, bool, get_FadedIn, (app::LoremasterReplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009F0EC0, void, OnFixedUpdate, (app::LoremasterReplayController * this_ptr, float delta))
     IL2CPP_REGISTER_METHOD(0x009F18E0, void, ctor, (app::LoremasterReplayController * this_ptr))
-}
+} // namespace app::classes::LoremasterReplayController

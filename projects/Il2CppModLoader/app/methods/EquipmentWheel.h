@@ -1,15 +1,15 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::EquipmentWheel {
+namespace app::classes::EquipmentWheel {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanInterruptTab, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417920, app::MenuTabBackground__Enum, get_BackgroundMode, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_NeedsExperienceUI, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_NeedOreUI, (app::EquipmentWheel * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0097AAF0, app::List_1_EquipmentType_ *, get_EquipmentTypeValues, ())
-    IL2CPP_REGISTER_METHOD(0x0097AC90, app::List_1_EquipmentType_ *, get_ValidEquipmentTypes, ())
-    IL2CPP_REGISTER_METHOD(0x0097B040, app::PlayerUberStateInventory_InventoryItem *, get_SelectedSpell, (app::EquipmentWheel * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0097B110, app::SpellUIItem *, get_SelectedSpellUIItem, (app::EquipmentWheel * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0097AAF0, app::List_1_EquipmentType_*, get_EquipmentTypeValues, ())
+    IL2CPP_REGISTER_METHOD(0x0097AC90, app::List_1_EquipmentType_*, get_ValidEquipmentTypes, ())
+    IL2CPP_REGISTER_METHOD(0x0097B040, app::PlayerUberStateInventory_InventoryItem*, get_SelectedSpell, (app::EquipmentWheel * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0097B110, app::SpellUIItem*, get_SelectedSpellUIItem, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0097B200, void, OnEnable, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0097B8C0, void, OnDisable, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0097BF80, void, Awake, (app::EquipmentWheel * this_ptr))
@@ -37,15 +37,15 @@ namespace app::methods::EquipmentWheel {
     IL2CPP_REGISTER_METHODINFO(0x0478D460, EquipmentWheel_OnPressY__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0097EB90, void, OnPressB, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047684F8, EquipmentWheel_OnPressB__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0097EBA0, app::List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_ *, GetWheelItems, ())
+    IL2CPP_REGISTER_METHOD(0x0097EBA0, app::List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_*, GetWheelItems, ())
     IL2CPP_REGISTER_METHOD(0x0097EE20, void, GetValidTypesWithRestrictions, (app::HashSet_1_EquipmentType_ * destination_list))
     IL2CPP_REGISTER_METHOD(0x0097F040, int32_t, GetValidTypesWithRestrictionsCount, ())
     IL2CPP_REGISTER_METHOD(0x0097F180, bool, HasElement, (app::EquipmentType__Enum type))
     IL2CPP_REGISTER_METHOD(0x0097F290, bool, IsTandemGameplay, ())
     IL2CPP_REGISTER_METHOD(0x0097F420, bool, IsAllowedOnWheel, (app::EquipmentType__Enum type))
     IL2CPP_REGISTER_METHOD(0x0097F650, void, PopulateInventoryCanvasWithEquipment, (app::EquipmentWheel * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0097F8D0, app::PlayerUberStateInventory_InventoryItem *, GetActualInventoryItem, (app::EquipmentType__Enum typ))
-    IL2CPP_REGISTER_METHOD(0x0097FAD0, void, UpdateBinding, (app::EquipmentWheel * this_ptr, app::PlayerUberStateInventory_InventoryItem * item, app::SpellInventory_Binding__Enum binding))
+    IL2CPP_REGISTER_METHOD(0x0097F8D0, app::PlayerUberStateInventory_InventoryItem*, GetActualInventoryItem, (app::EquipmentType__Enum typ))
+    IL2CPP_REGISTER_METHOD(0x0097FAD0, void, UpdateBinding, (app::EquipmentWheel * this_ptr, app::PlayerUberStateInventory_InventoryItem* item, app::SpellInventory_Binding__Enum binding))
     IL2CPP_REGISTER_METHOD(0x0097FC60, void, UpdateContextCanvasSpells, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0097FD80, void, Hide, (app::EquipmentWheel * this_ptr, bool change))
     IL2CPP_REGISTER_METHOD(0x0097FDC0, void, HideImmediate, (app::EquipmentWheel * this_ptr))
@@ -55,10 +55,10 @@ namespace app::methods::EquipmentWheel {
     IL2CPP_REGISTER_METHOD(0x006B8970, void, set_IsSuspended, (app::EquipmentWheel * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x003FFB70, app::SuspendableMask__Enum, get_Mask, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00980130, void, set_Mask, (app::EquipmentWheel * this_ptr, app::SuspendableMask__Enum value))
-    IL2CPP_REGISTER_METHOD(0x009801F0, app::HashSet_1_Moon_ISuspendable_ *, get_CachedSuspendables, (app::EquipmentWheel * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x009801F0, app::HashSet_1_Moon_ISuspendable_*, get_CachedSuspendables, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00980290, void, CacheSuspendables, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00980400, void, OnPostTimeSlicedEnable, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00980510, void, OnInstantiate, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00980950, void, ctor, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00980EC0, void, cctor, ())
-}
+} // namespace app::classes::EquipmentWheel

@@ -1,6 +1,6 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::NewGroundPatrolBehaviour {
+namespace app::classes::Moon::NewGroundPatrolBehaviour {
     IL2CPP_REGISTER_METHOD(0x00615280, void, ctor, (app::NewGroundPatrolBehaviour * this_ptr))
 }

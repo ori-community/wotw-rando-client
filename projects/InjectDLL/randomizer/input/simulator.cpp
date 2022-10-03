@@ -7,8 +7,8 @@
 
 #include <unordered_map>
 
-using namespace app::methods;
-using namespace app::methods::SmartInput;
+using namespace app::classes;
+using namespace app::classes::SmartInput;
 
 namespace randomizer::input {
     std::unordered_map<app::CompoundButtonInput*, Action> input_handles;

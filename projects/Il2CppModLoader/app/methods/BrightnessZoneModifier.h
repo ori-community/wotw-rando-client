@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::BrightnessZoneModifier {
+namespace app::classes::BrightnessZoneModifier {
     IL2CPP_REGISTER_METHOD(0x00D51450, app::GlobalBrightnessController_BrigthnessContributionOrder__Enum, get_BrightnessInfluceOrder, (app::BrightnessZoneModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0043BB80, float, get_BrightnessInfluceAdditive, (app::BrightnessZoneModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00446960, float, get_BrightnessInfluceMultiplicative, (app::BrightnessZoneModifier * this_ptr))
@@ -15,4 +15,4 @@ namespace app::methods::BrightnessZoneModifier {
     IL2CPP_REGISTER_METHOD(0x00D51500, void, CleanUpModifier, (app::BrightnessZoneModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006A5EC0, void, UpdateModifier, (app::BrightnessZoneModifier * this_ptr, float weight, float delta_time))
     IL2CPP_REGISTER_METHOD(0x008A2C20, void, ctor, (app::BrightnessZoneModifier * this_ptr))
-}
+} // namespace app::classes::BrightnessZoneModifier

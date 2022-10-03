@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AkSpatialAudioInitSettings {
-    IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkSpatialAudioInitSettings * this_ptr, void * c_ptr, bool c_memory_own))
-    IL2CPP_REGISTER_METHOD(0x026FAE20, void *, getCPtr, (app::AkSpatialAudioInitSettings * obj))
-    IL2CPP_REGISTER_METHOD(0x01880C50, void, setCPtr, (app::AkSpatialAudioInitSettings * this_ptr, void * c_ptr))
+namespace app::classes::AkSpatialAudioInitSettings {
+    IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkSpatialAudioInitSettings * this_ptr, void* c_ptr, bool c_memory_own))
+    IL2CPP_REGISTER_METHOD(0x026FAE20, void*, getCPtr, (app::AkSpatialAudioInitSettings * obj))
+    IL2CPP_REGISTER_METHOD(0x01880C50, void, setCPtr, (app::AkSpatialAudioInitSettings * this_ptr, void* c_ptr))
     IL2CPP_REGISTER_METHOD(0x026FAEB0, void, Finalize, (app::AkSpatialAudioInitSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026FAF30, void, Dispose, (app::AkSpatialAudioInitSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026FB140, void, ctor_2, (app::AkSpatialAudioInitSettings * this_ptr))
@@ -22,4 +22,4 @@ namespace app::methods::AkSpatialAudioInitSettings {
     IL2CPP_REGISTER_METHOD(0x026FBF20, float, get_fDiffractionShadowDegrees, (app::AkSpatialAudioInitSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026FC040, void, set_fMovementThreshold, (app::AkSpatialAudioInitSettings * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x026FC170, float, get_fMovementThreshold, (app::AkSpatialAudioInitSettings * this_ptr))
-}
+} // namespace app::classes::AkSpatialAudioInitSettings

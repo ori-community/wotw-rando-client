@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AreaMapNavigation {
+namespace app::classes::AreaMapNavigation {
     IL2CPP_REGISTER_METHOD(0x0050F110, float, get_ZoomTime, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0050F1C0, float, get_Zoom, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0050F340, app::Vector2, get_ScrollPosition, (app::AreaMapNavigation * this_ptr))
@@ -11,12 +11,12 @@ namespace app::methods::AreaMapNavigation {
     IL2CPP_REGISTER_METHOD(0x0050F6F0, void, Awake, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Start, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0050F9D0, void, OnDestroy, (app::AreaMapNavigation * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0050FF00, void, SetTarget, (app::AreaMapNavigation * this_ptr, app::Quest * quest))
+    IL2CPP_REGISTER_METHOD(0x0050FF00, void, SetTarget, (app::AreaMapNavigation * this_ptr, app::Quest* quest))
     IL2CPP_REGISTER_METHOD(0x005100A0, void, SetTargetPosition, (app::AreaMapNavigation * this_ptr, app::Vector3 target_pos))
     IL2CPP_REGISTER_METHOD(0x005100D0, app::Vector3, GetTargetPosition, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005100F0, void, ResetFlags, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04755678, AreaMapNavigation_ResetFlags__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00510100, void, SetFollowTransform, (app::AreaMapNavigation * this_ptr, app::Transform * t))
+    IL2CPP_REGISTER_METHOD(0x00510100, void, SetFollowTransform, (app::AreaMapNavigation * this_ptr, app::Transform* t))
     IL2CPP_REGISTER_METHOD(0x00510110, void, OptionChangeCallback, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04700BB8, AreaMapNavigation_OptionChangeCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00510130, void, OnVisibilityChangedCallback, (app::AreaMapNavigation * this_ptr))
@@ -52,4 +52,4 @@ namespace app::methods::AreaMapNavigation {
     IL2CPP_REGISTER_METHOD(0x00512A90, void, UpdateScrollLimits, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005132A0, void, OnPostTimeSlicedEnable, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005135A0, void, ctor, (app::AreaMapNavigation * this_ptr))
-}
+} // namespace app::classes::AreaMapNavigation

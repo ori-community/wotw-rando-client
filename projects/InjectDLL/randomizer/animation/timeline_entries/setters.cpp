@@ -4,8 +4,8 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Quaternion.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
 
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
 
 namespace randomizer::timeline_entries {
     void Position::parse(TimelineState& state, nlohmann::json const& j) {

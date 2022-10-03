@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::WriteOutTextBox {
+namespace app::classes::WriteOutTextBox {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsLooping, (app::WriteOutTextBox * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00592F30, void, Awake, (app::WriteOutTextBox * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00592FE0, void, Start, (app::WriteOutTextBox * this_ptr))
@@ -18,4 +18,4 @@ namespace app::methods::WriteOutTextBox {
     IL2CPP_REGISTER_METHOD(0x00593360, void, GoToStart, (app::WriteOutTextBox * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005933A0, void, GoToEnd, (app::WriteOutTextBox * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00593410, void, ctor, (app::WriteOutTextBox * this_ptr))
-}
+} // namespace app::classes::WriteOutTextBox

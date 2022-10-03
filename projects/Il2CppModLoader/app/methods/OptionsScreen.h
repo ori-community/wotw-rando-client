@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::OptionsScreen {
+namespace app::classes::OptionsScreen {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CanInterruptTab, (app::OptionsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_NeedsDarkBackground, (app::OptionsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FC7F0, app::MenuTabBackground__Enum, get_BackgroundMode, (app::OptionsScreen * this_ptr))
@@ -30,4 +30,4 @@ namespace app::methods::OptionsScreen {
     IL2CPP_REGISTER_METHOD(0x00618BB0, void, OnPostTimeSlicedEnable, (app::OptionsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00618CC0, void, OnInstantiate, (app::OptionsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00618EF0, void, ctor, (app::OptionsScreen * this_ptr))
-}
+} // namespace app::classes::OptionsScreen

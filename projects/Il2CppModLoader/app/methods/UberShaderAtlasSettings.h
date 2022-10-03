@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UberShaderAtlasSettings {
-    IL2CPP_REGISTER_METHOD(0x0190A160, app::String *, get_DefaultPlatformPref, ())
+namespace app::classes::UberShaderAtlasSettings {
+    IL2CPP_REGISTER_METHOD(0x0190A160, app::String*, get_DefaultPlatformPref, ())
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::UberAtlassingPlatform__Enum, InitializeAtlasPlatform, ())
     IL2CPP_REGISTER_METHOD(0x0190A200, app::AtlassingSetting, get_CurrentSetting, ())
     IL2CPP_REGISTER_METHOD(0x0190A2C0, float, get_SizeFactor, ())
@@ -13,4 +13,4 @@ namespace app::methods::UberShaderAtlasSettings {
     IL2CPP_REGISTER_METHOD(0x0190A610, int32_t, get_Margin, ())
     IL2CPP_REGISTER_METHOD(0x0190A6D0, app::AtlassingSetting, GetSetting, (app::UberAtlassingPlatform__Enum platform))
     IL2CPP_REGISTER_METHOD(0x0190A7A0, void, cctor, ())
-}
+} // namespace app::classes::UberShaderAtlasSettings

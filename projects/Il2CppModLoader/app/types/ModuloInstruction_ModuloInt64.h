@@ -1,0 +1,15 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace ModuloInstruction_ModuloInt64 {
+        extern IL2CPP_MODLOADER_DLLEXPORT app::ModuloInstruction_ModuloInt64__Class** type_info;
+        inline app::ModuloInstruction_ModuloInt64__Class* get_class() {
+            return il2cpp::get_nested_class<app::ModuloInstruction_ModuloInt64__Class>(type_info, "System.Linq.Expressions.Interpreter", "ModuloInstruction", "ModuloInt64");
+        }
+        inline app::ModuloInstruction_ModuloInt64* create() {
+            return il2cpp::create_object<app::ModuloInstruction_ModuloInt64>(get_class());
+        }
+    } // namespace ModuloInstruction_ModuloInt64
+} // namespace app::classes::types

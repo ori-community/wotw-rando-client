@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CleverValueSliderHideMenu {
+namespace app::classes::CleverValueSliderHideMenu {
     IL2CPP_REGISTER_METHOD(0x012C4840, float, get_Value, (app::CleverValueSliderHideMenu * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047552E8, CleverValueSliderHideMenu_get_Value__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012C4890, void, set_Value, (app::CleverValueSliderHideMenu * this_ptr, float value))
@@ -21,4 +21,4 @@ namespace app::methods::CleverValueSliderHideMenu {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBackgroundEnabled, (app::CleverValueSliderHideMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBackgroundDisabled, (app::CleverValueSliderHideMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012C5B70, void, ctor, (app::CleverValueSliderHideMenu * this_ptr))
-}
+} // namespace app::classes::CleverValueSliderHideMenu

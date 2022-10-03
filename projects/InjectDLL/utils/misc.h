@@ -3,7 +3,7 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Object.h>
 
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace utils {
 

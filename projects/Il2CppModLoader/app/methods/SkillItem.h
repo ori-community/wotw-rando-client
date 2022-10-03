@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SkillItem {
+namespace app::classes::SkillItem {
     IL2CPP_REGISTER_METHOD(0x006B4670, int32_t, get_ActualRequiredSkillPoints, (app::SkillItem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B4710, app::Color, get_LargeIconColor, (app::SkillItem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B4720, void, set_LargeIconColor, (app::SkillItem * this_ptr, app::Color value))
@@ -15,4 +15,4 @@ namespace app::methods::SkillItem {
     IL2CPP_REGISTER_METHOD(0x006B4C70, void, UpdateItem, (app::SkillItem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B4EB0, void, OnEnable, (app::SkillItem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B5090, void, ctor, (app::SkillItem * this_ptr))
-}
+} // namespace app::classes::SkillItem

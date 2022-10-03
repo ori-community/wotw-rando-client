@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RecorderPlaybackUITimeline {
+namespace app::classes::RecorderPlaybackUITimeline {
     IL2CPP_REGISTER_METHOD(0x008F92D0, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x002FCE30, bool, get_IsInitialised, (app::RecorderPlaybackUITimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008F9350, int32_t, get_TotalFrames, (app::RecorderPlaybackUITimeline * this_ptr))
@@ -13,4 +13,4 @@ namespace app::methods::RecorderPlaybackUITimeline {
     IL2CPP_REGISTER_METHOD(0x008F96A0, void, Initialise, (app::RecorderPlaybackUITimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008F9970, void, OnDestory, (app::RecorderPlaybackUITimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::RecorderPlaybackUITimeline * this_ptr))
-}
+} // namespace app::classes::RecorderPlaybackUITimeline

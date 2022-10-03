@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::WaterPoisonTrail {
-    IL2CPP_REGISTER_METHOD(0x008DE010, app::Damage *, GetDamageForPosition, (app::WaterPoisonTrail * this_ptr, app::Vector3 position))
-    IL2CPP_REGISTER_METHOD(0x008DE330, bool, GetNearestBlob, (app::WaterPoisonTrail * this_ptr, app::Vector3 position, app::WaterPoisonTrail_DamagePoint * damage_point))
+namespace app::classes::WaterPoisonTrail {
+    IL2CPP_REGISTER_METHOD(0x008DE010, app::Damage*, GetDamageForPosition, (app::WaterPoisonTrail * this_ptr, app::Vector3 position))
+    IL2CPP_REGISTER_METHOD(0x008DE330, bool, GetNearestBlob, (app::WaterPoisonTrail * this_ptr, app::Vector3 position, app::WaterPoisonTrail_DamagePoint* damage_point))
     IL2CPP_REGISTER_METHOD(0x008DE600, void, Awake, (app::WaterPoisonTrail * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008DE830, void, OnEnable, (app::WaterPoisonTrail * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008DE900, void, OnDisable, (app::WaterPoisonTrail * this_ptr))
@@ -16,4 +16,4 @@ namespace app::methods::WaterPoisonTrail {
     IL2CPP_REGISTER_METHOD(0x008DF9F0, void, DestroyTrail, (app::WaterPoisonTrail * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008DFAE0, void, OnDrawGizmos, (app::WaterPoisonTrail * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008DFC00, void, ctor, (app::WaterPoisonTrail * this_ptr))
-}
+} // namespace app::classes::WaterPoisonTrail

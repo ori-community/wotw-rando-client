@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::JumpSustainHelper {
+namespace app::classes::JumpSustainHelper {
     IL2CPP_REGISTER_METHOD(0x00E50E70, void, Awake, (app::JumpSustainHelper * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E51250, void, OnDestroy, (app::JumpSustainHelper * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E517A0, void, OnWallJump, (app::JumpSustainHelper * this_ptr))
@@ -18,4 +18,4 @@ namespace app::methods::JumpSustainHelper {
     IL2CPP_REGISTER_METHOD(0x00E52C30, void, ctor, (app::JumpSustainHelper * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E52DD0, bool, _CompleteAnalysis_b__33_0, (app::JumpSustainHelper * this_ptr, float result))
     IL2CPP_REGISTER_METHODINFO(0x047436D0, JumpSustainHelper__CompleteAnalysis_b__33_0__MethodInfo)
-}
+} // namespace app::classes::JumpSustainHelper

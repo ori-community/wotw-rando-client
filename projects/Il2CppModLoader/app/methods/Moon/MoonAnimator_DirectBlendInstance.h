@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::MoonAnimator_DirectBlendInstance {
+namespace app::classes::Moon::MoonAnimator_DirectBlendInstance {
     IL2CPP_REGISTER_METHOD(0x02115780, bool, get_HasValidInput, (app::MoonAnimator_DirectBlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FD490, int32_t, get_ValidInputCount, (app::MoonAnimator_DirectBlendInstance * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB9F0, app::MoonAnimator_AnimationInstance__Array *, get_InputInstances, (app::MoonAnimator_DirectBlendInstance * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB9F0, app::MoonAnimator_AnimationInstance__Array*, get_InputInstances, (app::MoonAnimator_DirectBlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02115790, app::Playable, get_Playable, (app::MoonAnimator_DirectBlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02115850, float, get_Speed, (app::MoonAnimator_DirectBlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x021158E0, void, set_Speed, (app::MoonAnimator_DirectBlendInstance * this_ptr, float value))
@@ -18,7 +18,7 @@ namespace app::methods::Moon::MoonAnimator_DirectBlendInstance {
     IL2CPP_REGISTER_METHOD(0x02115E60, void, ReturnToPool, (app::MoonAnimator_DirectBlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02111250, void, ShiftTime, (app::MoonAnimator_DirectBlendInstance * this_ptr, float delta_time))
     IL2CPP_REGISTER_METHOD(0x02115F00, float, GetInputWeight, (app::MoonAnimator_DirectBlendInstance * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHOD(0x02115FC0, void, OnRetrievedFromPool, (app::MoonAnimator_DirectBlendInstance * this_ptr, app::IAnimation * animation))
+    IL2CPP_REGISTER_METHOD(0x02115FC0, void, OnRetrievedFromPool, (app::MoonAnimator_DirectBlendInstance * this_ptr, app::IAnimation* animation))
     IL2CPP_REGISTER_METHOD(0x021164D0, void, OnReset, (app::MoonAnimator_DirectBlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x021165D0, void, OnRetunedToPool, (app::MoonAnimator_DirectBlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02116890, void, OnPrepare, (app::MoonAnimator_DirectBlendInstance * this_ptr, float delta_time))
@@ -28,4 +28,4 @@ namespace app::methods::Moon::MoonAnimator_DirectBlendInstance {
     IL2CPP_REGISTER_METHOD(0x02116C90, void, UpdateWeights, (app::MoonAnimator_DirectBlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02116EB0, void, UpdateDuration, (app::MoonAnimator_DirectBlendInstance * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MoonAnimator_DirectBlendInstance * this_ptr))
-}
+} // namespace app::classes::Moon::MoonAnimator_DirectBlendInstance

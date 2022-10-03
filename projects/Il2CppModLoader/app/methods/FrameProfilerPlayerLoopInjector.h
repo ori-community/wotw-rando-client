@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::FrameProfilerPlayerLoopInjector {
+namespace app::classes::FrameProfilerPlayerLoopInjector {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, BeginPreloadingCallback, ())
     IL2CPP_REGISTER_METHODINFO(0x0471D0E0, FrameProfilerPlayerLoopInjector_BeginPreloadingCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, EndPreloadingCallback, ())
@@ -55,4 +55,4 @@ namespace app::methods::FrameProfilerPlayerLoopInjector {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, InjectToPlayerLoopEarly, (app::PlayerLoopSystem * player_loop))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, InjectToPlayerLoopLate, (app::PlayerLoopSystem * player_loop))
     IL2CPP_REGISTER_METHOD(0x03152F00, void, cctor, ())
-}
+} // namespace app::classes::FrameProfilerPlayerLoopInjector

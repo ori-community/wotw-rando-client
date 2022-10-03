@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::HierarchySuspensionTest {
-    IL2CPP_REGISTER_METHOD(0x00B54420, void, Scan, (app::HierarchySuspensionTest * this_ptr, app::HierarchyDebugMenu_GameObjectItem * item))
+namespace app::classes::HierarchySuspensionTest {
+    IL2CPP_REGISTER_METHOD(0x00B54420, void, Scan, (app::HierarchySuspensionTest * this_ptr, app::HierarchyDebugMenu_GameObjectItem* item))
     IL2CPP_REGISTER_METHOD(0x004430B0, bool, get_IsRunning, (app::HierarchySuspensionTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B54520, int32_t, get_ObjectsLeft, (app::HierarchySuspensionTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B545B0, void, ChangeState, (app::HierarchySuspensionTest * this_ptr, app::HierarchySuspensionTest_State__Enum state))
@@ -30,4 +30,4 @@ namespace app::methods::HierarchySuspensionTest {
     IL2CPP_REGISTER_METHOD(0x00B55A50, double, GetCurrentCapturedCPUTime, (app::HierarchySuspensionTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B55B00, double, GetCurrentCapturedGPUTime, (app::HierarchySuspensionTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B55BB0, void, ctor, (app::HierarchySuspensionTest * this_ptr))
-}
+} // namespace app::classes::HierarchySuspensionTest

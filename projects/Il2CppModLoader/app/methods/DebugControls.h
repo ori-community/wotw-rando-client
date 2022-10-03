@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::DebugControls {
+namespace app::classes::DebugControls {
     IL2CPP_REGISTER_METHOD(0x00DE1650, void, Update, (app::DebugControls * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DE3830, void, FixedUpdate, (app::DebugControls * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SendOneSteamTelemetry, (app::DebugControls * this_ptr))
@@ -13,4 +13,4 @@ namespace app::methods::DebugControls {
     IL2CPP_REGISTER_METHOD(0x003FF3C0, app::SuspendableMask__Enum, get_Mask, (app::DebugControls * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DE3F20, void, set_Mask, (app::DebugControls * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x00DE3FD0, void, ctor, (app::DebugControls * this_ptr))
-}
+} // namespace app::classes::DebugControls

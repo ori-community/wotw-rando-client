@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::InventoryManager {
+namespace app::classes::InventoryManager {
     IL2CPP_REGISTER_METHOD(0x0063F0E0, void, Show, (app::InventoryManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0063F120, void, Hide, (app::InventoryManager * this_ptr, bool change))
     IL2CPP_REGISTER_METHOD(0x0063F150, void, ShowImmediate, (app::InventoryManager * this_ptr))
@@ -22,4 +22,4 @@ namespace app::methods::InventoryManager {
     IL2CPP_REGISTER_METHOD(0x00640F80, void, FixedUpdate, (app::InventoryManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00640F80, void, OnEnable, (app::InventoryManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::InventoryManager * this_ptr))
-}
+} // namespace app::classes::InventoryManager

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ControllerShake {
+namespace app::classes::ControllerShake {
     IL2CPP_REGISTER_METHOD(0x00B1C480, void, OnPoolSpawned, (app::ControllerShake * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011F1870, float, get_CurrentShake, (app::ControllerShake * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011F1960, bool, get_IsLooping, (app::ControllerShake * this_ptr))
@@ -17,4 +17,4 @@ namespace app::methods::ControllerShake {
     IL2CPP_REGISTER_METHOD(0x011F2090, void, OnEnable, (app::ControllerShake * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011F2170, void, OnDisable, (app::ControllerShake * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B1D310, void, ctor, (app::ControllerShake * this_ptr))
-}
+} // namespace app::classes::ControllerShake

@@ -1,0 +1,18 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace Mathf {
+        extern IL2CPP_MODLOADER_DLLEXPORT app::Mathf__Class** type_info;
+        inline app::Mathf__Class* get_class() {
+            return il2cpp::get_class<app::Mathf__Class>(type_info, "UnityEngine", "Mathf");
+        }
+        inline app::Mathf* create() {
+            return il2cpp::create_object<app::Mathf>(get_class());
+        }
+        inline app::Mathf__Boxed* box(app::Mathf value) {
+            return il2cpp::box_value<app::Mathf__Boxed>(get_class(), value);
+        }
+    } // namespace Mathf
+} // namespace app::classes::types

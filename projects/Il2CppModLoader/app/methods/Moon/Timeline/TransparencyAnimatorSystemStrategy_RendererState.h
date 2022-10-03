@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Timeline::TransparencyAnimatorSystemStrategy_RendererState {
+namespace app::classes::Moon::Timeline::TransparencyAnimatorSystemStrategy_RendererState {
     IL2CPP_REGISTER_METHOD(0x00449EA0, float, get_HandoverAlpha, (app::TransparencyAnimatorSystemStrategy_RendererState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D10AD0, void, set_HandoverAlpha, (app::TransparencyAnimatorSystemStrategy_RendererState * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x006B5650, float, get_LastAlphaApplied, (app::TransparencyAnimatorSystemStrategy_RendererState * this_ptr))
@@ -12,4 +12,4 @@ namespace app::methods::Moon::Timeline::TransparencyAnimatorSystemStrategy_Rende
     IL2CPP_REGISTER_METHOD(0x00D10AF0, void, InvalidateHandoverForNextFrame, (app::TransparencyAnimatorSystemStrategy_RendererState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D10B00, void, KillInvalidHandover, (app::TransparencyAnimatorSystemStrategy_RendererState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D10B20, void, ctor, (app::TransparencyAnimatorSystemStrategy_RendererState * this_ptr))
-}
+} // namespace app::classes::Moon::Timeline::TransparencyAnimatorSystemStrategy_RendererState

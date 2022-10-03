@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Collections::Generic::Dictionary_2_TKey_TValue__KeyCollection_UnityEngine_Transform_AnimationMetaData_AnimationData_ {
+namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__KeyCollection_UnityEngine_Transform_AnimationMetaData_AnimationData_ {
     IL2CPP_REGISTER_METHOD(0x01A729A0, app::Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_UnityEngine_Transform_AnimationMetaData_AnimationData_, GetEnumerator, (app::Dictionary_2_TKey_TValue_KeyCollection_UnityEngine_Transform_AnimationMetaData_AnimationData_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04789170, Dictionary_2_TKey_TValue_KeyCollection_UnityEngine_Transform_AnimationMetaData_AnimationData__GetEnumerator__MethodInfo)
-}
+} // namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__KeyCollection_UnityEngine_Transform_AnimationMetaData_AnimationData_

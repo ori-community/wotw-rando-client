@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AttachSpriteToTransform {
+namespace app::classes::AttachSpriteToTransform {
     IL2CPP_REGISTER_METHOD(0x0084D3C0, bool, get_IsSuspended, (app::AttachSpriteToTransform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0084D3D0, void, set_IsSuspended, (app::AttachSpriteToTransform * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x008468B0, app::SuspendableMask__Enum, get_Mask, (app::AttachSpriteToTransform * this_ptr))
@@ -14,4 +14,4 @@ namespace app::methods::AttachSpriteToTransform {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::UpdateType__Enum, get_UpdateType, (app::AttachSpriteToTransform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0084E2D0, void, OnUpdate, (app::AttachSpriteToTransform * this_ptr, float delta))
     IL2CPP_REGISTER_METHOD(0x0084F180, void, ctor, (app::AttachSpriteToTransform * this_ptr))
-}
+} // namespace app::classes::AttachSpriteToTransform

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CharacterMaxSpeedAnimator {
+namespace app::classes::CharacterMaxSpeedAnimator {
     IL2CPP_REGISTER_METHOD(0x01303090, void, OnStartPlay, (app::CharacterMaxSpeedAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01303280, void, OnStopPlay, (app::CharacterMaxSpeedAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004167A0, bool, get_IsLooping, (app::CharacterMaxSpeedAnimator * this_ptr))
@@ -12,4 +12,4 @@ namespace app::methods::CharacterMaxSpeedAnimator {
     IL2CPP_REGISTER_METHOD(0x013034E0, void, OnHorizontalInputCalculate, (app::CharacterMaxSpeedAnimator * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04778E90, CharacterMaxSpeedAnimator_OnHorizontalInputCalculate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00990E80, void, ctor, (app::CharacterMaxSpeedAnimator * this_ptr))
-}
+} // namespace app::classes::CharacterMaxSpeedAnimator

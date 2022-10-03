@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SpellSwitcher {
+namespace app::classes::SpellSwitcher {
     IL2CPP_REGISTER_METHOD(0x00944270, void, Start, (app::SpellSwitcher * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00944420, void, OnDestroy, (app::SpellSwitcher * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009445C0, void, Update, (app::SpellSwitcher * this_ptr))
@@ -10,4 +10,4 @@ namespace app::methods::SpellSwitcher {
     IL2CPP_REGISTER_METHOD(0x00617EB0, void, OnRestoreCheckpoint, (app::SpellSwitcher * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04781810, SpellSwitcher_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::SpellSwitcher * this_ptr))
-}
+} // namespace app::classes::SpellSwitcher

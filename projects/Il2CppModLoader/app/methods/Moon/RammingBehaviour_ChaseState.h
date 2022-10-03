@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::RammingBehaviour_ChaseState {
-    IL2CPP_REGISTER_METHOD(0x00C503D0, app::String *, get_StateName, (app::RammingBehaviour_ChaseState * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00C50450, void, ctor, (app::RammingBehaviour_ChaseState * this_ptr, app::RammingBehaviour * behaviour))
+namespace app::classes::Moon::RammingBehaviour_ChaseState {
+    IL2CPP_REGISTER_METHOD(0x00C503D0, app::String*, get_StateName, (app::RammingBehaviour_ChaseState * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00C50450, void, ctor, (app::RammingBehaviour_ChaseState * this_ptr, app::RammingBehaviour* behaviour))
     IL2CPP_REGISTER_METHOD(0x00C50570, void, OnEnter, (app::RammingBehaviour_ChaseState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C50780, void, UpdateState, (app::RammingBehaviour_ChaseState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C50C50, void, OnExit, (app::RammingBehaviour_ChaseState * this_ptr))
@@ -20,4 +20,4 @@ namespace app::methods::Moon::RammingBehaviour_ChaseState {
     IL2CPP_REGISTER_METHOD(0x00C52290, bool, ShouldPlayerRamHitAnimation, (app::RammingBehaviour_ChaseState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C524E0, void, OnRammingHitEnded, (app::RammingBehaviour_ChaseState * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0475FCD8, RammingBehaviour_ChaseState_OnRammingHitEnded__MethodInfo)
-}
+} // namespace app::classes::Moon::RammingBehaviour_ChaseState

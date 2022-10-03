@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::GeneralDebugMenuPage___c__DisplayClass17_0 {
+namespace app::classes::GeneralDebugMenuPage___c__DisplayClass17_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GeneralDebugMenuPage_c_DisplayClass17_0 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E03CE0, bool, _AddDynamicCameraItems_b__0, (app::GeneralDebugMenuPage_c_DisplayClass17_0 * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04786880, GeneralDebugMenuPage_c_DisplayClass17_0__AddDynamicCameraItems_b__0__MethodInfo)
@@ -119,4 +119,4 @@ namespace app::methods::GeneralDebugMenuPage___c__DisplayClass17_0 {
     IL2CPP_REGISTER_METHODINFO(0x0470F6A8, GeneralDebugMenuPage_c_DisplayClass17_0__AddDynamicCameraItems_b__58__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E04400, void, _AddDynamicCameraItems_b__59, (app::GeneralDebugMenuPage_c_DisplayClass17_0 * this_ptr, float f))
     IL2CPP_REGISTER_METHODINFO(0x047079B8, GeneralDebugMenuPage_c_DisplayClass17_0__AddDynamicCameraItems_b__59__MethodInfo)
-}
+} // namespace app::classes::GeneralDebugMenuPage___c__DisplayClass17_0

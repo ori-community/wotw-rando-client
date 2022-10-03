@@ -1,0 +1,21 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace BlackboardVariableString {
+        namespace {
+            app::BlackboardVariableString__Class* type_info_ref = nullptr;
+        }
+        app::BlackboardVariableString__Class** type_info = &type_info_ref;
+        inline app::BlackboardVariableString__Class* get_class() {
+            return il2cpp::get_class<app::BlackboardVariableString__Class>(type_info, "Moon.BehaviourSystem", "BlackboardVariableString");
+        }
+        inline app::BlackboardVariableString* create() {
+            return il2cpp::create_object<app::BlackboardVariableString>(get_class());
+        }
+        inline app::BlackboardVariableString__Array* create_array(int size) {
+            return il2cpp::array_new<app::BlackboardVariableString__Array>(get_class(), size);
+        }
+    } // namespace BlackboardVariableString
+} // namespace app::classes::types

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::DashOwlEnemy {
+namespace app::classes::DashOwlEnemy {
     IL2CPP_REGISTER_METHOD(0x00DCD570, bool, CanBeOptimized, (app::DashOwlEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DCD5B0, void, Awake, (app::DashOwlEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DCFBC0, void, Start, (app::DashOwlEnemy * this_ptr))
@@ -22,4 +22,4 @@ namespace app::methods::DashOwlEnemy {
     IL2CPP_REGISTER_METHOD(0x00DD0030, void, ctor, (app::DashOwlEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C40F0, bool, _Awake_b__8_1, (app::DashOwlEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04742CB8, DashOwlEnemy__Awake_b__8_1__MethodInfo)
-}
+} // namespace app::classes::DashOwlEnemy

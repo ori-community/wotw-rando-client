@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UberInteractionModifier {
+namespace app::classes::UberInteractionModifier {
     IL2CPP_REGISTER_METHOD(0x00FCBA80, app::Bounds, get_Bounds, (app::UberInteractionModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsStatic, (app::UberInteractionModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FCBAD0, void, CacheBounds, (app::UberInteractionModifier * this_ptr))
@@ -22,18 +22,18 @@ namespace app::methods::UberInteractionModifier {
     IL2CPP_REGISTER_METHOD(0x0063D080, void, set_IsRegistered, (app::UberInteractionModifier * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00FCCE80, bool, get_WantsToRegister, (app::UberInteractionModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FCCE90, void, set_WantsToRegister, (app::UberInteractionModifier * this_ptr, bool value))
-    IL2CPP_REGISTER_METHOD(0x00FCCEA0, app::String *, get_InteractionName, (app::UberInteractionModifier * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00FCCEA0, app::String*, get_InteractionName, (app::UberInteractionModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SetProperties, (app::UberInteractionModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, DoStrip, (app::UberInteractionModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FCCF20, void, OnDisable, (app::UberInteractionModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FCD050, float, get_Duration, (app::UberInteractionModifier * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00FCD140, app::IEnumerable_1_System_String_ *, GetBaseVertexTextureNames, (app::UberInteractionModifier * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00FCD2D0, app::IEnumerable_1_System_String_ *, GetKeywordsForShader, (app::UberInteractionModifier * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00FCD140, app::IEnumerable_1_System_String_*, GetBaseVertexTextureNames, (app::UberInteractionModifier * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00FCD2D0, app::IEnumerable_1_System_String_*, GetKeywordsForShader, (app::UberInteractionModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417FF0, float, GetStrength, (app::UberInteractionModifier * this_ptr, app::Vector3 velocity, app::Vector4 strength_val))
     IL2CPP_REGISTER_METHOD(0x00FCD460, void, OnEnable, (app::UberInteractionModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FCD590, void, OnRegistered, (app::UberInteractionModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417FF0, float, get_OverrideDifficulty, (app::UberInteractionModifier * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00FCD6F0, void, SetInteraction, (app::UberInteractionModifier * this_ptr, float time, app::Vector3 pos, app::Vector3 prev_pos, app::Vector4 strength, app::Vector3 velocity, float radius, bool explosion, bool force_play, app::UberInteractionActor * actor))
+    IL2CPP_REGISTER_METHOD(0x00FCD6F0, void, SetInteraction, (app::UberInteractionModifier * this_ptr, float time, app::Vector3 pos, app::Vector3 prev_pos, app::Vector4 strength, app::Vector3 velocity, float radius, bool explosion, bool force_play, app::UberInteractionActor* actor))
     IL2CPP_REGISTER_METHOD(0x00FCDEF0, int32_t, RandomSign, (app::UberInteractionModifier * this_ptr, float val))
     IL2CPP_REGISTER_METHOD(0x00417920, int32_t, GetFlip, (app::UberInteractionModifier * this_ptr, app::Vector3 pos, bool explode))
     IL2CPP_REGISTER_METHOD(0x00FCDF70, void, SetBounds, (app::UberInteractionModifier * this_ptr))
@@ -46,4 +46,4 @@ namespace app::methods::UberInteractionModifier {
     IL2CPP_REGISTER_METHOD(0x00FCE910, void, InitializeMaterialParametersShadowCopy, (app::UberInteractionModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FCEB20, void, ctor, (app::UberInteractionModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FCEB40, void, cctor, ())
-}
+} // namespace app::classes::UberInteractionModifier

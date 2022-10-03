@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PlayerTriggerSetup {
+namespace app::classes::PlayerTriggerSetup {
     IL2CPP_REGISTER_METHOD(0x0142EA80, void, Awake, (app::PlayerTriggerSetup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0142EF40, void, OnDestroy, (app::PlayerTriggerSetup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0142F3E0, void, Update, (app::PlayerTriggerSetup * this_ptr))
@@ -17,8 +17,8 @@ namespace app::methods::PlayerTriggerSetup {
     IL2CPP_REGISTER_METHOD(0x0142F5F0, void, OnTriggerExit, (app::PlayerTriggerSetup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0142F600, void, OnTimelineExitStop, (app::PlayerTriggerSetup * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0471E508, PlayerTriggerSetup_OnTimelineExitStop__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0142F640, void, PlayTimeline, (app::PlayerTriggerSetup * this_ptr, app::MoonTimeline * timeline))
+    IL2CPP_REGISTER_METHOD(0x0142F640, void, PlayTimeline, (app::PlayerTriggerSetup * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x0142F720, void, StopAllTimelines, (app::PlayerTriggerSetup * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0142F880, void, StopAllTimelinesExcluding, (app::PlayerTriggerSetup * this_ptr, app::MoonTimeline * timeline))
+    IL2CPP_REGISTER_METHOD(0x0142F880, void, StopAllTimelinesExcluding, (app::PlayerTriggerSetup * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::PlayerTriggerSetup * this_ptr))
-}
+} // namespace app::classes::PlayerTriggerSetup

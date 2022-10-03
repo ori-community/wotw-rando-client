@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::BehaviourSystem::Extensions {
+namespace app::classes::Moon::BehaviourSystem::Extensions {
     IL2CPP_REGISTER_METHOD(0x0154F200, void, Shuffle_1, (app::IList_1_System_Object_ * list))
     IL2CPP_REGISTER_METHOD(0x0154F200, void, Shuffle_2, (app::IList_1_Moon_BehaviourSystem_BehaviourNode_ * list))
     IL2CPP_REGISTER_METHODINFO(0x0478B258, Extensions_Shuffle_1__MethodInfo)
@@ -11,4 +11,4 @@ namespace app::methods::Moon::BehaviourSystem::Extensions {
     IL2CPP_REGISTER_METHODINFO(0x04748258, Extensions_Shuffle_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0154F200, void, Shuffle_5, (app::IList_1_SwarmAgent_ * list))
     IL2CPP_REGISTER_METHODINFO(0x047913C0, Extensions_Shuffle_4__MethodInfo)
-}
+} // namespace app::classes::Moon::BehaviourSystem::Extensions

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SpiritTurret {
+namespace app::classes::SpiritTurret {
     IL2CPP_REGISTER_METHOD(0x0064D960, float, get_Lifetime, (app::SpiritTurret * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0064D970, void, set_Lifetime, (app::SpiritTurret * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x00B32900, float, get_ExpirationTwinkleDuration, (app::SpiritTurret * this_ptr))
@@ -18,12 +18,12 @@ namespace app::methods::SpiritTurret {
     IL2CPP_REGISTER_METHOD(0x00D7CC90, void, OnEnable, (app::SpiritTurret * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D7D1D0, void, OnDisable, (app::SpiritTurret * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D7D290, void, MoveToTarget, (app::SpiritTurret * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00D7D3F0, app::IAttackable *, FindNearestAttackable, (app::SpiritTurret * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00D7D3F0, app::IAttackable*, FindNearestAttackable, (app::SpiritTurret * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D7D770, app::Guid, get_AttackableConsumerID, (app::SpiritTurret * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D7D780, void, set_AttackableConsumerID, (app::SpiritTurret * this_ptr, app::Guid value))
-    IL2CPP_REGISTER_METHOD(0x00D7D790, bool, IsAttackableInteresting, (app::SpiritTurret * this_ptr, app::IAttackable * attackable))
-    IL2CPP_REGISTER_METHOD(0x00D7D8B0, void, RemovingAttackable, (app::SpiritTurret * this_ptr, app::IAttackable * attackable))
-    IL2CPP_REGISTER_METHOD(0x00D7D990, bool, IsAttackableVisible, (app::SpiritTurret * this_ptr, app::IAttackable * attackable))
+    IL2CPP_REGISTER_METHOD(0x00D7D790, bool, IsAttackableInteresting, (app::SpiritTurret * this_ptr, app::IAttackable* attackable))
+    IL2CPP_REGISTER_METHOD(0x00D7D8B0, void, RemovingAttackable, (app::SpiritTurret * this_ptr, app::IAttackable* attackable))
+    IL2CPP_REGISTER_METHOD(0x00D7D990, bool, IsAttackableVisible, (app::SpiritTurret * this_ptr, app::IAttackable* attackable))
     IL2CPP_REGISTER_METHOD(0x00D7DF20, void, UpdateHovering, (app::SpiritTurret * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D7E4D0, void, PushAwayFromOthers, (app::SpiritTurret * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D7E960, void, UpdateShooting, (app::SpiritTurret * this_ptr))
@@ -34,4 +34,4 @@ namespace app::methods::SpiritTurret {
     IL2CPP_REGISTER_METHOD(0x00D7F710, float, CalculateCooldown, (app::SpiritTurret * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D7F860, void, ctor, (app::SpiritTurret * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D7FA20, void, cctor, ())
-}
+} // namespace app::classes::SpiritTurret

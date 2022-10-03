@@ -1,6 +1,6 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ZenFulcrum::EmbeddedBrowser::InvalidJSONNodeException {
+namespace app::classes::ZenFulcrum::EmbeddedBrowser::InvalidJSONNodeException {
     IL2CPP_REGISTER_METHOD(0x01DE2280, void, ctor, (app::InvalidJSONNodeException * this_ptr))
 }

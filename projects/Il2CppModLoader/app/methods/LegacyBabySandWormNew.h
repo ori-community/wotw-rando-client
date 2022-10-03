@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LegacyBabySandWormNew {
+namespace app::classes::LegacyBabySandWormNew {
     IL2CPP_REGISTER_METHOD(0x00C754B0, int32_t, get_BashPriority, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D2480, app::Vector2, get_UpDirection, (app::LegacyBabySandWormNew * this_ptr))
@@ -31,7 +31,7 @@ namespace app::methods::LegacyBabySandWormNew {
     IL2CPP_REGISTER_METHOD(0x015D4630, void, OnDashUpdate, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D4720, void, OnOutOfSandEnter, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D4780, void, OnOutOfSandUpdate, (app::LegacyBabySandWormNew * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x015D47B0, void, OnCollisionEnter, (app::LegacyBabySandWormNew * this_ptr, app::Collision * collision))
+    IL2CPP_REGISTER_METHOD(0x015D47B0, void, OnCollisionEnter, (app::LegacyBabySandWormNew * this_ptr, app::Collision* collision))
     IL2CPP_REGISTER_METHOD(0x015D4810, void, Explode, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D4B00, void, SetRotation, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D4D40, void, MoveOnDirection, (app::LegacyBabySandWormNew * this_ptr, app::Vector2 desired_direction, float speed, float turn_speed, bool insta_speed))
@@ -43,7 +43,7 @@ namespace app::methods::LegacyBabySandWormNew {
     IL2CPP_REGISTER_METHOD(0x015D5AD0, void, CheckForDigZoneEnd, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D4780, void, CheckForDigZoneStart, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D5B00, bool, DigEdgeZoneEdgeAhead, (app::LegacyBabySandWormNew * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x015D5C40, app::DigZone *, GetDigZoneIntersectingPoint, (app::LegacyBabySandWormNew * this_ptr, app::Vector3 center))
+    IL2CPP_REGISTER_METHOD(0x015D5C40, app::DigZone*, GetDigZoneIntersectingPoint, (app::LegacyBabySandWormNew * this_ptr, app::Vector3 center))
     IL2CPP_REGISTER_METHOD(0x015D5E40, void, JumpOut, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D6460, void, JumpIn, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D69B0, void, OnSuspended, (app::LegacyBabySandWormNew * this_ptr))
@@ -72,12 +72,12 @@ namespace app::methods::LegacyBabySandWormNew {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeGlowed, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D6C40, void, OnRecieveDamage, (app::LegacyBabySandWormNew * this_ptr, app::DamageResult damage_result))
     IL2CPP_REGISTER_METHODINFO(0x0477AFF8, LegacyBabySandWormNew_OnRecieveDamage__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x015D6E20, void, OnDamageDealt, (app::LegacyBabySandWormNew * this_ptr, app::DamageDealer * damage_dealer, app::DamageResult damage_result))
+    IL2CPP_REGISTER_METHOD(0x015D6E20, void, OnDamageDealt, (app::LegacyBabySandWormNew * this_ptr, app::DamageDealer* damage_dealer, app::DamageResult damage_result))
     IL2CPP_REGISTER_METHODINFO(0x0478F530, LegacyBabySandWormNew_OnDamageDealt__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x015D6E30, void, AreaDamage, (app::LegacyBabySandWormNew * this_ptr, app::GameObject * collided_object))
+    IL2CPP_REGISTER_METHOD(0x015D6E30, void, AreaDamage, (app::LegacyBabySandWormNew * this_ptr, app::GameObject* collided_object))
     IL2CPP_REGISTER_METHOD(0x015D7370, void, RefreshClosestTarget, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D7A00, void, OnProcessRootMotion, (app::LegacyBabySandWormNew * this_ptr, app::Vector3 motion))
     IL2CPP_REGISTER_METHOD(0x015D7AF0, void, OnDrawGizmos, (app::LegacyBabySandWormNew * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00720040, app::IDamageReciever__Array *, get_AffectedReceivers, (app::LegacyBabySandWormNew * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00720040, app::IDamageReciever__Array*, get_AffectedReceivers, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D7B70, void, ctor, (app::LegacyBabySandWormNew * this_ptr))
-}
+} // namespace app::classes::LegacyBabySandWormNew

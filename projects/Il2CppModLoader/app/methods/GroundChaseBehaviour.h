@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::GroundChaseBehaviour {
+namespace app::classes::GroundChaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x0064D930, app::Vector3, get_TargetPosition, (app::GroundChaseBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0064D950, void, set_TargetPosition, (app::GroundChaseBehaviour * this_ptr, app::Vector3 value))
     IL2CPP_REGISTER_METHOD(0x0074AB10, bool, get_UsePredictedOriPosition, (app::GroundChaseBehaviour * this_ptr))
@@ -18,7 +18,7 @@ namespace app::methods::GroundChaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FDD60, float, get_ChasingTime, (app::GroundChaseBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0108D0E0, void, set_ChasingTime, (app::GroundChaseBehaviour * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x0108D0F0, app::Vector3, get_m_targetPos, (app::GroundChaseBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0108D4B0, void, OnExecute, (app::GroundChaseBehaviour * this_ptr, app::IBlackboard * blackboard))
+    IL2CPP_REGISTER_METHOD(0x0108D4B0, void, OnExecute, (app::GroundChaseBehaviour * this_ptr, app::IBlackboard* blackboard))
     IL2CPP_REGISTER_METHOD(0x0108D610, void, AssignLocomotionData, (app::GroundChaseBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0108D6C0, void, OnUpdateBehaviour, (app::GroundChaseBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0108D9C0, void, CheckMovementBehaviourEndCondition, (app::GroundChaseBehaviour * this_ptr))
@@ -26,4 +26,4 @@ namespace app::methods::GroundChaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x0108DB50, void, UpdateNearbyBounds, (app::GroundChaseBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0108DCF0, void, OnEndBehaviour, (app::GroundChaseBehaviour * this_ptr, app::EntityBehaviourStatus__Enum reason))
     IL2CPP_REGISTER_METHOD(0x00615280, void, ctor, (app::GroundChaseBehaviour * this_ptr))
-}
+} // namespace app::classes::GroundChaseBehaviour

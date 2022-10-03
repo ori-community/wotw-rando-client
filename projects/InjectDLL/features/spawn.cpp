@@ -28,7 +28,7 @@
 #include <interop/csharp_bridge.h>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 using modloader::win::console::console_send;
 
 namespace {

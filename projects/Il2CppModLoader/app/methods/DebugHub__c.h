@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::DebugHub___c {
+namespace app::classes::DebugHub___c {
     IL2CPP_REGISTER_METHOD(0x00DEBDA0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::DebugHub_c * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DEBEE0, void, __initializeItems_b__31_0, (app::DebugHub_c * this_ptr))
@@ -40,4 +40,4 @@ namespace app::methods::DebugHub___c {
     IL2CPP_REGISTER_METHODINFO(0x0476C5D0, DebugHub_c___initializeItems_b__31_16__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DED4D0, bool, __initializeItems_b__31_17, (app::DebugHub_c * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04776AB8, DebugHub_c___initializeItems_b__31_17__MethodInfo)
-}
+} // namespace app::classes::DebugHub___c

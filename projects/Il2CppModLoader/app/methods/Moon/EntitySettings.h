@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::EntitySettings {
-    IL2CPP_REGISTER_METHOD(0x01220CB0, void, GetDebugMenuItems, (app::EntitySettings * this_ptr, app::List_1_IDebugMenuItem_ * list, app::String * menu_name))
+namespace app::classes::Moon::EntitySettings {
+    IL2CPP_REGISTER_METHOD(0x01220CB0, void, GetDebugMenuItems, (app::EntitySettings * this_ptr, app::List_1_IDebugMenuItem_* list, app::String* menu_name))
     IL2CPP_REGISTER_METHOD(0x012219B0, void, ctor, (app::EntitySettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00418FC0, float, _GetDebugMenuItems_b__3_0, (app::EntitySettings * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04765E68, EntitySettings__GetDebugMenuItems_b__3_0__MethodInfo)
@@ -20,4 +20,4 @@ namespace app::methods::Moon::EntitySettings {
     IL2CPP_REGISTER_METHODINFO(0x04735418, EntitySettings__GetDebugMenuItems_b__3_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00504E80, void, _GetDebugMenuItems_b__3_7, (app::EntitySettings * this_ptr, float f))
     IL2CPP_REGISTER_METHODINFO(0x04706C78, EntitySettings__GetDebugMenuItems_b__3_7__MethodInfo)
-}
+} // namespace app::classes::Moon::EntitySettings

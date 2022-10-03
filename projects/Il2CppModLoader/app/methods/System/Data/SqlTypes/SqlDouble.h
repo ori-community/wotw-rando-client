@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Data::SqlTypes::SqlDouble {
+namespace app::classes::System::Data::SqlTypes::SqlDouble {
     IL2CPP_REGISTER_METHOD(0x001E3B70, void, ctor_1, (app::SqlDouble__Boxed * this_ptr, bool f_null))
     IL2CPP_REGISTER_METHOD(0x001E3B80, void, ctor_2, (app::SqlDouble__Boxed * this_ptr, double value))
     IL2CPP_REGISTER_METHODINFO(0x04756768, SqlDouble__ctor_1__MethodInfo)
@@ -9,7 +9,7 @@ namespace app::methods::System::Data::SqlTypes::SqlDouble {
     IL2CPP_REGISTER_METHOD(0x001E3B90, double, get_Value, (app::SqlDouble__Boxed * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047705E8, SqlDouble_get_Value__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022AE0B0, app::SqlDouble, op_Implicit_1, (double x))
-    IL2CPP_REGISTER_METHOD(0x001E3BA0, app::String *, ToString, (app::SqlDouble__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x001E3BA0, app::String*, ToString, (app::SqlDouble__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x022AE0D0, app::SqlDouble, op_UnaryNegation, (app::SqlDouble x))
     IL2CPP_REGISTER_METHOD(0x022AE1D0, app::SqlDouble, op_Addition, (app::SqlDouble x, app::SqlDouble y))
     IL2CPP_REGISTER_METHODINFO(0x047805C0, SqlDouble_op_Addition__MethodInfo)
@@ -32,38 +32,38 @@ namespace app::methods::System::Data::SqlTypes::SqlDouble {
     IL2CPP_REGISTER_METHOD(0x022AF2E0, app::SqlBoolean, LessThan, (app::SqlDouble x, app::SqlDouble y))
     IL2CPP_REGISTER_METHOD(0x022AF450, app::SqlBoolean, GreaterThan, (app::SqlDouble x, app::SqlDouble y))
     IL2CPP_REGISTER_METHOD(0x001E3BF0, app::SqlSingle, ToSqlSingle, (app::SqlDouble__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x001E3C00, int32_t, CompareTo_1, (app::SqlDouble__Boxed * this_ptr, app::Object * value))
+    IL2CPP_REGISTER_METHOD(0x001E3C00, int32_t, CompareTo_1, (app::SqlDouble__Boxed * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHODINFO(0x0473A5F8, SqlDouble_CompareTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001E3D50, int32_t, CompareTo_2, (app::SqlDouble__Boxed * this_ptr, app::SqlDouble value))
-    IL2CPP_REGISTER_METHOD(0x001E3D70, bool, Equals, (app::SqlDouble__Boxed * this_ptr, app::Object * value))
+    IL2CPP_REGISTER_METHOD(0x001E3D70, bool, Equals, (app::SqlDouble__Boxed * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x001E3D80, int32_t, GetHashCode, (app::SqlDouble__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0013BB70, app::XmlSchema *, IXmlSerializable_GetSchema, (app::SqlDouble__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x001E3DC0, void, IXmlSerializable_ReadXml, (app::SqlDouble__Boxed * this_ptr, app::XmlReader * reader))
-    IL2CPP_REGISTER_METHOD(0x001E3F20, void, IXmlSerializable_WriteXml, (app::SqlDouble__Boxed * this_ptr, app::XmlWriter * writer))
-    IL2CPP_REGISTER_METHOD(0x022AFC10, app::XmlQualifiedName *, GetXsdType, (app::XmlSchemaSet * schema_set))
+    IL2CPP_REGISTER_METHOD(0x0013BB70, app::XmlSchema*, IXmlSerializable_GetSchema, (app::SqlDouble__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x001E3DC0, void, IXmlSerializable_ReadXml, (app::SqlDouble__Boxed * this_ptr, app::XmlReader* reader))
+    IL2CPP_REGISTER_METHOD(0x001E3F20, void, IXmlSerializable_WriteXml, (app::SqlDouble__Boxed * this_ptr, app::XmlWriter* writer))
+    IL2CPP_REGISTER_METHOD(0x022AFC10, app::XmlQualifiedName*, GetXsdType, (app::XmlSchemaSet * schema_set))
     IL2CPP_REGISTER_METHOD(0x022AFD60, void, cctor, ())
-    inline app::SqlDouble operator - (app::SqlDouble x) {
+    inline app::SqlDouble operator-(app::SqlDouble x) {
         return op_UnaryNegation(x);
     }
-    inline app::SqlDouble operator + (app::SqlDouble x, app::SqlDouble y) {
+    inline app::SqlDouble operator+(app::SqlDouble x, app::SqlDouble y) {
         return op_Addition(x, y);
     }
-    inline app::SqlDouble operator - (app::SqlDouble x, app::SqlDouble y) {
+    inline app::SqlDouble operator-(app::SqlDouble x, app::SqlDouble y) {
         return op_Subtraction(x, y);
     }
-    inline app::SqlDouble operator * (app::SqlDouble x, app::SqlDouble y) {
+    inline app::SqlDouble operator*(app::SqlDouble x, app::SqlDouble y) {
         return op_Multiply(x, y);
     }
-    inline app::SqlDouble operator / (app::SqlDouble x, app::SqlDouble y) {
+    inline app::SqlDouble operator/(app::SqlDouble x, app::SqlDouble y) {
         return op_Division(x, y);
     }
-    inline app::SqlBoolean operator == (app::SqlDouble x, app::SqlDouble y) {
+    inline app::SqlBoolean operator==(app::SqlDouble x, app::SqlDouble y) {
         return op_Equality(x, y);
     }
-    inline app::SqlBoolean operator < (app::SqlDouble x, app::SqlDouble y) {
+    inline app::SqlBoolean operator<(app::SqlDouble x, app::SqlDouble y) {
         return op_LessThan(x, y);
     }
-    inline app::SqlBoolean operator > (app::SqlDouble x, app::SqlDouble y) {
+    inline app::SqlBoolean operator>(app::SqlDouble x, app::SqlDouble y) {
         return op_GreaterThan(x, y);
     }
-}
+} // namespace app::classes::System::Data::SqlTypes::SqlDouble

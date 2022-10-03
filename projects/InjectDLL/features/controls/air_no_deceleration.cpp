@@ -9,7 +9,7 @@
 
 extern void handle_launch_no_deceleration(app::CharacterAirNoDeceleration* this_ptr);
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     bool toggle_default = false;

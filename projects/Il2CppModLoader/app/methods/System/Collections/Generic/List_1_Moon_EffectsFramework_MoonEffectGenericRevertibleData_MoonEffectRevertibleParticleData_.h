@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Collections::Generic::List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData_ {
-    IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData_ * this_ptr, app::MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData * item))
+namespace app::classes::System::Collections::Generic::List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData_ {
+    IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData_ * this_ptr, app::MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData* item))
     IL2CPP_REGISTER_METHODINFO(0x04742858, List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData__Add__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x025EFC50, app::MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData *, get_Item, (app::List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData_ * this_ptr, int32_t index))
+    IL2CPP_REGISTER_METHOD(0x025EFC50, app::MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData*, get_Item, (app::List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData_ * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHODINFO(0x047907F0, List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025F1690, void, RemoveAt, (app::List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData_ * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHODINFO(0x04792218, List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData__RemoveAt__MethodInfo)
@@ -14,4 +14,4 @@ namespace app::methods::System::Collections::Generic::List_1_Moon_EffectsFramewo
     IL2CPP_REGISTER_METHODINFO(0x04797AB8, List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047780D8, List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData___ctor__MethodInfo)
-}
+} // namespace app::classes::System::Collections::Generic::List_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData_

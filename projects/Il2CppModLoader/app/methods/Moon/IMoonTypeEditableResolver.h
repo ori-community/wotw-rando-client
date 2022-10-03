@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::IMoonTypeEditableResolver {
+namespace app::classes::Moon::IMoonTypeEditableResolver {
     IL2CPP_REGISTER_METHODINFO(0x047386F0, IMoonTypeEditableResolver_SetValueOnSource_1__MethodInfo)
     IL2CPP_REGISTER_METHODINFO(0x04778D08, IMoonTypeEditableResolver_SetValueOnSource_2__MethodInfo)
     IL2CPP_REGISTER_METHODINFO(0x04775D40, IMoonTypeEditableResolver_SetValueOnSource_3__MethodInfo)
@@ -19,4 +19,4 @@ namespace app::methods::Moon::IMoonTypeEditableResolver {
     IL2CPP_REGISTER_METHODINFO(0x04777D40, IMoonTypeEditableResolver_SetValueOnSource_15__MethodInfo)
     IL2CPP_REGISTER_METHODINFO(0x0477AFE8, IMoonTypeEditableResolver_SetValueOnSource_16__MethodInfo)
     IL2CPP_REGISTER_METHODINFO(0x04727B40, IMoonTypeEditableResolver_SetValueOnSource_17__MethodInfo)
-}
+} // namespace app::classes::Moon::IMoonTypeEditableResolver

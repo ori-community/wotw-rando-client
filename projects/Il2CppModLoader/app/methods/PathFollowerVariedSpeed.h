@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PathFollowerVariedSpeed {
+namespace app::classes::PathFollowerVariedSpeed {
     IL2CPP_REGISTER_METHOD(0x00447230, float, get_Speed, (app::PathFollowerVariedSpeed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00447340, float, get_DistanceBetweenCurrentNodes, (app::PathFollowerVariedSpeed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00447350, void, set_DistanceBetweenCurrentNodes, (app::PathFollowerVariedSpeed * this_ptr, float value))
@@ -14,4 +14,4 @@ namespace app::methods::PathFollowerVariedSpeed {
     IL2CPP_REGISTER_METHOD(0x00447390, void, SetStartWorldAngle, (app::PathFollowerVariedSpeed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004475C0, void, UpdateFollower, (app::PathFollowerVariedSpeed * this_ptr, float dt))
     IL2CPP_REGISTER_METHOD(0x00447ED0, void, ctor, (app::PathFollowerVariedSpeed * this_ptr))
-}
+} // namespace app::classes::PathFollowerVariedSpeed

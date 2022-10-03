@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::VerletBody_Point {
+namespace app::classes::Moon::VerletBody_Point {
     IL2CPP_REGISTER_METHOD(0x00C1B1E0, app::Vector3, get_Acceleration, (app::VerletBody_Point * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C1B200, void, set_Acceleration, (app::VerletBody_Point * this_ptr, app::Vector3 value))
     IL2CPP_REGISTER_METHOD(0x00447340, float, get_Damping, (app::VerletBody_Point * this_ptr))
@@ -19,4 +19,4 @@ namespace app::methods::Moon::VerletBody_Point {
     IL2CPP_REGISTER_METHOD(0x02127170, void, AddAcceleration, (app::VerletBody_Point * this_ptr, app::Vector3 acceleration))
     IL2CPP_REGISTER_METHOD(0x02127280, void, Update, (app::VerletBody_Point * this_ptr, float dt))
     IL2CPP_REGISTER_METHOD(0x02127450, void, cctor, ())
-}
+} // namespace app::classes::Moon::VerletBody_Point

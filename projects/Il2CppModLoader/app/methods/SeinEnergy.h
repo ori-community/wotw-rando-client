@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinEnergy {
+namespace app::classes::SeinEnergy {
     IL2CPP_REGISTER_METHOD(0x00ACD1E0, float, get_Current, (app::SeinEnergy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ACD2C0, void, set_Current, (app::SeinEnergy * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x00ACD420, float, get_MaxEnergy, (app::SeinEnergy * this_ptr))
@@ -31,7 +31,7 @@ namespace app::methods::SeinEnergy {
     IL2CPP_REGISTER_METHOD(0x00ACEDC0, float, get_CurrentNormalized, (app::SeinEnergy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ACE7A0, float, get_VisualMaxNormalized, (app::SeinEnergy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ACE770, float, get_VisualMinNormalized, (app::SeinEnergy * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00ACEE00, app::Object *, get_EnergyUpgradesCollected, (app::SeinEnergy * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00ACEE00, app::Object*, get_EnergyUpgradesCollected, (app::SeinEnergy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ACEEA0, void, Update, (app::SeinEnergy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ACF030, void, LateUpdate, (app::SeinEnergy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ACF030, void, SetDirty, (app::SeinEnergy * this_ptr))
@@ -39,23 +39,23 @@ namespace app::methods::SeinEnergy {
     IL2CPP_REGISTER_METHOD(0x00ACF080, void, OnRespawn, (app::SeinEnergy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ACF1B0, void, ApplyBloodPactkDrain, (app::SeinEnergy * this_ptr, float energy_value))
     IL2CPP_REGISTER_METHOD(0x00ACF500, float, HealthToEnergyBloodPackCalculator, (app::SeinEnergy * this_ptr, float hp))
-    IL2CPP_REGISTER_METHOD(0x00ACF550, bool, TryGetCurrentBloodPacktHPCost, (app::SeinEnergy * this_ptr, float * cost))
-    IL2CPP_REGISTER_METHOD(0x00ACF7F0, void, OnGlobalShardsEquip, (app::SeinEnergy * this_ptr, app::PlayerUberStateShards_Shard * shard))
+    IL2CPP_REGISTER_METHOD(0x00ACF550, bool, TryGetCurrentBloodPacktHPCost, (app::SeinEnergy * this_ptr, float* cost))
+    IL2CPP_REGISTER_METHOD(0x00ACF7F0, void, OnGlobalShardsEquip, (app::SeinEnergy * this_ptr, app::PlayerUberStateShards_Shard* shard))
     IL2CPP_REGISTER_METHODINFO(0x047534A8, SeinEnergy_OnGlobalShardsEquip__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00ACF7F0, void, OnGlobalShardsUnequip, (app::SeinEnergy * this_ptr, app::PlayerUberStateShards_Shard * shard))
+    IL2CPP_REGISTER_METHOD(0x00ACF7F0, void, OnGlobalShardsUnequip, (app::SeinEnergy * this_ptr, app::PlayerUberStateShards_Shard* shard))
     IL2CPP_REGISTER_METHODINFO(0x04783E38, SeinEnergy_OnGlobalShardsUnequip__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ACF890, void, OnGlobalShardsUpdated, (app::SeinEnergy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04712418, SeinEnergy_OnGlobalShardsUpdated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ACF8B0, void, OnEnergyShardUpdate, (app::SeinEnergy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ACFAF0, void, OnSwapShardUpdate, (app::SeinEnergy * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00ACFB50, void, SetReferenceToSein, (app::SeinEnergy * this_ptr, app::SeinCharacter * sein))
+    IL2CPP_REGISTER_METHOD(0x00ACFB50, void, SetReferenceToSein, (app::SeinEnergy * this_ptr, app::SeinCharacter* sein))
     IL2CPP_REGISTER_METHOD(0x00AD0360, void, Apply, (app::SeinEnergy * this_ptr, app::UberStateApplyContext__Enum context))
     IL2CPP_REGISTER_METHOD(0x00AD03A0, void, Round, (app::SeinEnergy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FBE50, bool, get_ApplyOnEditor, (app::SeinEnergy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FBE60, void, set_ApplyOnEditor, (app::SeinEnergy * this_ptr, bool value))
-    IL2CPP_REGISTER_METHOD(0x002FBC40, app::IUberState__Array *, get_AffectingUberStates, (app::SeinEnergy * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBC50, void, set_AffectingUberStates, (app::SeinEnergy * this_ptr, app::IUberState__Array * value))
-    IL2CPP_REGISTER_METHOD(0x002FBC60, app::List_1_UnityEngine_GameObject_ *, get_AllTargets, (app::SeinEnergy * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBC70, void, set_AllTargets, (app::SeinEnergy * this_ptr, app::List_1_UnityEngine_GameObject_ * value))
+    IL2CPP_REGISTER_METHOD(0x002FBC40, app::IUberState__Array*, get_AffectingUberStates, (app::SeinEnergy * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBC50, void, set_AffectingUberStates, (app::SeinEnergy * this_ptr, app::IUberState__Array* value))
+    IL2CPP_REGISTER_METHOD(0x002FBC60, app::List_1_UnityEngine_GameObject_*, get_AllTargets, (app::SeinEnergy * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBC70, void, set_AllTargets, (app::SeinEnergy * this_ptr, app::List_1_UnityEngine_GameObject_* value))
     IL2CPP_REGISTER_METHOD(0x00AD0470, void, ctor, (app::SeinEnergy * this_ptr))
-}
+} // namespace app::classes::SeinEnergy

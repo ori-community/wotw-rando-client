@@ -1,16 +1,16 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::NickDeathReaction {
-    IL2CPP_REGISTER_METHOD(0x005FC700, void, OnInitializeTask, (app::NickDeathReaction * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x005FC990, void, StartTimeline, (app::NickDeathReaction * this_ptr, app::MoonTimeline * timeline))
-    IL2CPP_REGISTER_METHOD(0x005FC9C0, void, ResetTimeline, (app::NickDeathReaction * this_ptr, app::MoonTimeline * timeline))
+namespace app::classes::NickDeathReaction {
+    IL2CPP_REGISTER_METHOD(0x005FC700, void, OnInitializeTask, (app::NickDeathReaction * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x005FC990, void, StartTimeline, (app::NickDeathReaction * this_ptr, app::MoonTimeline* timeline))
+    IL2CPP_REGISTER_METHOD(0x005FC9C0, void, ResetTimeline, (app::NickDeathReaction * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x005FCBE0, void, HandleCollision, (app::NickDeathReaction * this_ptr, app::MoonControllerColliderHit hit))
     IL2CPP_REGISTER_METHODINFO(0x04720C48, NickDeathReaction_HandleCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005FCC40, app::NickDeathReaction_DeathState__Enum, GetNextOnHitGroundState, (app::NickDeathReaction * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005FCC70, void, OnEnterTask, (app::NickDeathReaction * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x005FCDF0, app::BehaviourStatus__Enum, OnExecuteTask, (app::NickDeathReaction * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x005FCE10, void, OnExitTask, (app::NickDeathReaction * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x005FCC70, void, OnEnterTask, (app::NickDeathReaction * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x005FCDF0, app::BehaviourStatus__Enum, OnExecuteTask, (app::NickDeathReaction * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x005FCE10, void, OnExitTask, (app::NickDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x005FCE50, void, SetState, (app::NickDeathReaction * this_ptr, app::NickDeathReaction_DeathState__Enum state))
     IL2CPP_REGISTER_METHOD(0x005FCFF0, void, EnterState, (app::NickDeathReaction * this_ptr, app::NickDeathReaction_DeathState__Enum state))
     IL2CPP_REGISTER_METHOD(0x005FD150, void, ExitState, (app::NickDeathReaction * this_ptr, app::NickDeathReaction_DeathState__Enum state))
@@ -32,4 +32,4 @@ namespace app::methods::NickDeathReaction {
     IL2CPP_REGISTER_METHOD(0x005FD860, void, UpdateDeathEnd, (app::NickDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005FD940, app::Vector3, ProcessRootMotion, (app::NickDeathReaction * this_ptr, app::Vector3 motion))
     IL2CPP_REGISTER_METHOD(0x005FD990, void, ctor, (app::NickDeathReaction * this_ptr))
-}
+} // namespace app::classes::NickDeathReaction

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LagoonContactSwitchDoors {
+namespace app::classes::LagoonContactSwitchDoors {
     IL2CPP_REGISTER_METHOD(0x00F00170, void, Awake, (app::LagoonContactSwitchDoors * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F00440, void, OnDestroy, (app::LagoonContactSwitchDoors * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F004E0, void, Start, (app::LagoonContactSwitchDoors * this_ptr))
@@ -10,7 +10,7 @@ namespace app::methods::LagoonContactSwitchDoors {
     IL2CPP_REGISTER_METHOD(0x00F00B60, void, FixedUpdate, (app::LagoonContactSwitchDoors * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F00B70, void, UpdateVerletStructuresState, (app::LagoonContactSwitchDoors * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F00F40, void, StopAllTimelines, (app::LagoonContactSwitchDoors * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F00FB0, void, PlayTimeline, (app::LagoonContactSwitchDoors * this_ptr, app::MoonTimeline * moon_timeline))
+    IL2CPP_REGISTER_METHOD(0x00F00FB0, void, PlayTimeline, (app::LagoonContactSwitchDoors * this_ptr, app::MoonTimeline* moon_timeline))
     IL2CPP_REGISTER_METHOD(0x00F01040, void, OpenDoor, (app::LagoonContactSwitchDoors * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F01160, void, CloseDoor, (app::LagoonContactSwitchDoors * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0473EA88, LagoonContactSwitchDoors_CloseDoor__MethodInfo)
@@ -27,4 +27,4 @@ namespace app::methods::LagoonContactSwitchDoors {
     IL2CPP_REGISTER_METHODINFO(0x04790040, LagoonContactSwitchDoors__Start_b__12_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F01410, void, _Start_b__12_1, (app::LagoonContactSwitchDoors * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0474E280, LagoonContactSwitchDoors__Start_b__12_1__MethodInfo)
-}
+} // namespace app::classes::LagoonContactSwitchDoors

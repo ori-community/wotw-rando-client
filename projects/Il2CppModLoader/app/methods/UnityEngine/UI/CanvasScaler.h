@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::UI::CanvasScaler {
+namespace app::classes::UnityEngine::UI::CanvasScaler {
     IL2CPP_REGISTER_METHOD(0x01F2C240, void, ctor, (app::CanvasScaler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F2AB70, app::CanvasScaler_ScaleMode__Enum, get_uiScaleMode, (app::CanvasScaler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00654960, void, set_uiScaleMode, (app::CanvasScaler * this_ptr, app::CanvasScaler_ScaleMode__Enum value))
@@ -33,4 +33,4 @@ namespace app::methods::UnityEngine::UI::CanvasScaler {
     IL2CPP_REGISTER_METHOD(0x01F2CCB0, void, HandleConstantPhysicalSize, (app::CanvasScaler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F2CD90, void, SetScaleFactor, (app::CanvasScaler * this_ptr, float scale_factor))
     IL2CPP_REGISTER_METHOD(0x01F2CE20, void, SetReferencePixelsPerUnit, (app::CanvasScaler * this_ptr, float reference_pixels_per_unit))
-}
+} // namespace app::classes::UnityEngine::UI::CanvasScaler

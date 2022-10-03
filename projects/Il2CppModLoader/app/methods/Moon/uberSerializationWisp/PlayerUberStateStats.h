@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::uberSerializationWisp::PlayerUberStateStats {
+namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateStats {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_Completed, (app::PlayerUberStateStats * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F436E0, void, set_Completed, (app::PlayerUberStateStats * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0052A070, bool, get_WasKilled, (app::PlayerUberStateStats * this_ptr))
@@ -26,10 +26,10 @@ namespace app::methods::Moon::uberSerializationWisp::PlayerUberStateStats {
     IL2CPP_REGISTER_METHOD(0x00F43770, void, set_Seconds, (app::PlayerUberStateStats * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x00998570, int32_t, get_MinRespawnHealth, (app::PlayerUberStateStats * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E06D70, void, set_MinRespawnHealth, (app::PlayerUberStateStats * this_ptr, int32_t value))
-    IL2CPP_REGISTER_METHOD(0x00F43780, void, ctor, (app::PlayerUberStateStats * this_ptr, app::Action * set_dirty_callback))
-    IL2CPP_REGISTER_METHOD(0x00F43960, void, Save, (app::PlayerUberStateStats * this_ptr, app::UberStateArchive * archive, app::PlayerUberStateStats * abilities))
-    IL2CPP_REGISTER_METHOD(0x00F43B50, void, Load, (app::PlayerUberStateStats * this_ptr, app::UberStateArchive * archive, int32_t store_version))
-    IL2CPP_REGISTER_METHOD(0x00F43E80, void, OnGui, (app::PlayerUberStateStats * this_ptr, app::NavigableOnGUI * gui))
+    IL2CPP_REGISTER_METHOD(0x00F43780, void, ctor, (app::PlayerUberStateStats * this_ptr, app::Action* set_dirty_callback))
+    IL2CPP_REGISTER_METHOD(0x00F43960, void, Save, (app::PlayerUberStateStats * this_ptr, app::UberStateArchive* archive, app::PlayerUberStateStats* abilities))
+    IL2CPP_REGISTER_METHOD(0x00F43B50, void, Load, (app::PlayerUberStateStats * this_ptr, app::UberStateArchive* archive, int32_t store_version))
+    IL2CPP_REGISTER_METHOD(0x00F43E80, void, OnGui, (app::PlayerUberStateStats * this_ptr, app::NavigableOnGUI* gui))
     IL2CPP_REGISTER_METHOD(0x00E3FFC0, int64_t, get_Size, (app::PlayerUberStateStats * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F43FE0, void, RunSetDirtyCallback, (app::PlayerUberStateStats * this_ptr))
-}
+} // namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateStats

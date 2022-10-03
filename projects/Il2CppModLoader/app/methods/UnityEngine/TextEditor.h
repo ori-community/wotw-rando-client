@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::TextEditor {
+namespace app::classes::UnityEngine::TextEditor {
     IL2CPP_REGISTER_METHOD(0x03182CE0, void, ctor, (app::TextEditor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x03182EC0, app::String *, get_text, (app::TextEditor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x03182EE0, void, set_text, (app::TextEditor * this_ptr, app::String * value))
+    IL2CPP_REGISTER_METHOD(0x03182EC0, app::String*, get_text, (app::TextEditor * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x03182EE0, void, set_text, (app::TextEditor * this_ptr, app::String* value))
     IL2CPP_REGISTER_METHOD(0x03182FB0, app::Rect, get_position, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03182FC0, void, set_position, (app::TextEditor * this_ptr, app::Rect value))
     IL2CPP_REGISTER_METHOD(0x03182FB0, app::Rect, get_localPosition, (app::TextEditor * this_ptr))
@@ -16,7 +16,7 @@ namespace app::methods::UnityEngine::TextEditor {
     IL2CPP_REGISTER_METHOD(0x031830F0, void, OnFocus, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031831A0, void, OnLostFocus, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03183260, void, GrabGraphicalCursorPos, (app::TextEditor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x03183400, bool, HandleKeyEvent, (app::TextEditor * this_ptr, app::Event * e))
+    IL2CPP_REGISTER_METHOD(0x03183400, bool, HandleKeyEvent, (app::TextEditor * this_ptr, app::Event* e))
     IL2CPP_REGISTER_METHOD(0x03183780, bool, DeleteLineBack, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03183870, bool, DeleteWordBack, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03183980, bool, DeleteWordForward, (app::TextEditor * this_ptr))
@@ -26,7 +26,7 @@ namespace app::methods::UnityEngine::TextEditor {
     IL2CPP_REGISTER_METHOD(0x03183C90, void, SelectNone, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03183CF0, bool, get_hasSelection, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03183D00, bool, DeleteSelection, (app::TextEditor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x03183EE0, void, ReplaceSelection, (app::TextEditor * this_ptr, app::String * replace))
+    IL2CPP_REGISTER_METHOD(0x03183EE0, void, ReplaceSelection, (app::TextEditor * this_ptr, app::String* replace))
     IL2CPP_REGISTER_METHOD(0x03183FE0, void, Insert, (app::TextEditor * this_ptr, uint16_t c))
     IL2CPP_REGISTER_METHOD(0x03184010, void, MoveRight, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03184130, void, MoveLeft, (app::TextEditor * this_ptr))
@@ -76,14 +76,14 @@ namespace app::methods::UnityEngine::TextEditor {
     IL2CPP_REGISTER_METHOD(0x031873B0, void, SelectCurrentWord, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03187810, int32_t, FindEndOfClassification, (app::TextEditor * this_ptr, int32_t p, app::TextEditor_Direction__Enum dir))
     IL2CPP_REGISTER_METHOD(0x03187970, void, SelectCurrentParagraph, (app::TextEditor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x03187A80, void, UpdateScrollOffsetIfNeeded, (app::TextEditor * this_ptr, app::Event * evt))
+    IL2CPP_REGISTER_METHOD(0x03187A80, void, UpdateScrollOffsetIfNeeded, (app::TextEditor * this_ptr, app::Event* evt))
     IL2CPP_REGISTER_METHOD(0x03187B40, void, UpdateScrollOffset, (app::TextEditor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x03188300, void, DrawCursor, (app::TextEditor * this_ptr, app::String * new_text))
+    IL2CPP_REGISTER_METHOD(0x03188300, void, DrawCursor, (app::TextEditor * this_ptr, app::String* new_text))
     IL2CPP_REGISTER_METHOD(0x03188AE0, bool, PerformOperation, (app::TextEditor * this_ptr, app::TextEditor_TextEditOp__Enum operation))
     IL2CPP_REGISTER_METHOD(0x03189B30, void, SaveBackup, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03189B70, bool, Cut, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03189BA0, void, Copy, (app::TextEditor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x03189C80, app::String *, ReplaceNewlinesWithSpaces, (app::String * value))
+    IL2CPP_REGISTER_METHOD(0x03189C80, app::String*, ReplaceNewlinesWithSpaces, (app::String * value))
     IL2CPP_REGISTER_METHOD(0x03189D60, bool, Paste, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03189F50, void, MapKey, (app::String * key, app::TextEditor_TextEditOp__Enum action))
     IL2CPP_REGISTER_METHOD(0x0318A030, void, InitKeyActions, (app::TextEditor * this_ptr))
@@ -91,9 +91,9 @@ namespace app::methods::UnityEngine::TextEditor {
     IL2CPP_REGISTER_METHOD(0x0318A790, void, OnDetectFocusChange, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnCursorIndexChange, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnSelectIndexChange, (app::TextEditor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0318A980, void, ClampTextIndex, (app::TextEditor * this_ptr, int32_t * index))
-    IL2CPP_REGISTER_METHOD(0x0318AA70, void, EnsureValidCodePointIndex, (app::TextEditor * this_ptr, int32_t * index))
+    IL2CPP_REGISTER_METHOD(0x0318A980, void, ClampTextIndex, (app::TextEditor * this_ptr, int32_t* index))
+    IL2CPP_REGISTER_METHOD(0x0318AA70, void, EnsureValidCodePointIndex, (app::TextEditor * this_ptr, int32_t* index))
     IL2CPP_REGISTER_METHOD(0x0318AC60, bool, IsValidCodePointIndex, (app::TextEditor * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x0318AD90, int32_t, PreviousCodePointIndex, (app::TextEditor * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x0318AEA0, int32_t, NextCodePointIndex, (app::TextEditor * this_ptr, int32_t index))
-}
+} // namespace app::classes::UnityEngine::TextEditor

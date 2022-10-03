@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinGoldenSeinAbility {
+namespace app::classes::SeinGoldenSeinAbility {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinGoldenSeinAbility * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00AEE110, app::Input_InputButtonProcessor *, get_Button, (app::SeinGoldenSeinAbility * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00720040, app::GoldenSein *, get_GoldenSeinInstance, (app::SeinGoldenSeinAbility * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00AEE110, app::Input_InputButtonProcessor*, get_Button, (app::SeinGoldenSeinAbility * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00720040, app::GoldenSein*, get_GoldenSeinInstance, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AEE150, void, AddAndSpawnGoldenSein, ())
     IL2CPP_REGISTER_METHOD(0x00AEE2D0, void, SpawnGoldenSein, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AEE680, void, OnSetReferenceToSein, (app::SeinGoldenSeinAbility * this_ptr))
@@ -25,21 +25,21 @@ namespace app::methods::SeinGoldenSeinAbility {
     IL2CPP_REGISTER_METHOD(0x00AEFBF0, void, UpdateCurrentState, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AEFC70, void, StartRootMotion, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AEFE20, void, EndRootMotion, (app::SeinGoldenSeinAbility * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00AEFFD0, void, PlayTimeline, (app::SeinGoldenSeinAbility * this_ptr, app::MoonTimeline * timeline, app::Action * on_stoped_playing, bool stop_current_timeline))
+    IL2CPP_REGISTER_METHOD(0x00AEFFD0, void, PlayTimeline, (app::SeinGoldenSeinAbility * this_ptr, app::MoonTimeline* timeline, app::Action* on_stoped_playing, bool stop_current_timeline))
     IL2CPP_REGISTER_METHOD(0x00AF00F0, void, NotifyOutOfEnergy, (app::SeinGoldenSeinAbility * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00AF0140, void, ModifyHorizontalPlatformMovementSettings, (app::SeinGoldenSeinAbility * this_ptr, app::HorizontalPlatformMovementSettings * settings))
+    IL2CPP_REGISTER_METHOD(0x00AF0140, void, ModifyHorizontalPlatformMovementSettings, (app::SeinGoldenSeinAbility * this_ptr, app::HorizontalPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHODINFO(0x04769CE0, SeinGoldenSeinAbility_ModifyHorizontalPlatformMovementSettings__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, ModifyGravityPlatformMovementSettings, (app::SeinGoldenSeinAbility * this_ptr, app::GravityPlatformMovementSettings * settings))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, ModifyGravityPlatformMovementSettings, (app::SeinGoldenSeinAbility * this_ptr, app::GravityPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHODINFO(0x0476F198, SeinGoldenSeinAbility_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AF0360, void, OnRootMotion, (app::SeinGoldenSeinAbility * this_ptr, app::Vector3 motion))
     IL2CPP_REGISTER_METHODINFO(0x04765C28, SeinGoldenSeinAbility_OnRootMotion__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00AF0480, void, OnTakeDamage, (app::SeinGoldenSeinAbility * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x00AF0480, void, OnTakeDamage, (app::SeinGoldenSeinAbility * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHODINFO(0x04715640, SeinGoldenSeinAbility_OnTakeDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AF04A0, void, OnEnterResting, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AF0580, void, UpdateResting, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AF07F0, void, OnExitResting, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AF0860, void, OnEnterCharging, (app::SeinGoldenSeinAbility * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00AF0CA0, void, SetCurrentChargeEffect, (app::SeinGoldenSeinAbility * this_ptr, app::GlowChargeEffect * charge_effect))
+    IL2CPP_REGISTER_METHOD(0x00AF0CA0, void, SetCurrentChargeEffect, (app::SeinGoldenSeinAbility * this_ptr, app::GlowChargeEffect* charge_effect))
     IL2CPP_REGISTER_METHOD(0x00AF1020, void, UpdateCharging, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AF1080, void, OnExitCharging, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AF10B0, void, OnChargeUnblock, (app::SeinGoldenSeinAbility * this_ptr))
@@ -54,9 +54,9 @@ namespace app::methods::SeinGoldenSeinAbility {
     IL2CPP_REGISTER_METHOD(0x00AF17C0, bool, CanInitiateGlow, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AF18D0, void, ApplyFullGlow, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AF1900, void, DealDamageInRadius, (app::SeinGoldenSeinAbility * this_ptr, float amount, float radius, float force))
-    IL2CPP_REGISTER_METHOD(0x00AF1EE0, void, DealDamage, (app::SeinGoldenSeinAbility * this_ptr, app::IAttackable * attackable, float amount, app::Vector3 direction, float force, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x00AF1EE0, void, DealDamage, (app::SeinGoldenSeinAbility * this_ptr, app::IAttackable* attackable, float amount, app::Vector3 direction, float force, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x00AF2250, void, OnDrawGizmosSelected, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AF2390, void, ChargeStarted, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AF23E0, void, ChargeInterrupted, (app::SeinGoldenSeinAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AF25A0, void, ctor, (app::SeinGoldenSeinAbility * this_ptr))
-}
+} // namespace app::classes::SeinGoldenSeinAbility

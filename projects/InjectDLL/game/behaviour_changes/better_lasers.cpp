@@ -7,7 +7,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     /**

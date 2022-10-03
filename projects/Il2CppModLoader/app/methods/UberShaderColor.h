@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UberShaderColor {
+namespace app::classes::UberShaderColor {
     IL2CPP_REGISTER_METHOD(0x0190CEA0, void, BindProperties, (app::UberShaderColor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CB5CD0, app::Color, get_Color, (app::UberShaderColor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0190CF10, void, set_Color, (app::UberShaderColor * this_ptr, app::Color value))
@@ -15,4 +15,4 @@ namespace app::methods::UberShaderColor {
     IL2CPP_REGISTER_METHOD(0x01289F40, void, set_A, (app::UberShaderColor * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x0190CF50, void, ctor_1, (app::UberShaderColor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0190CF70, void, ctor_2, (app::UberShaderColor * this_ptr, app::Color default_color))
-}
+} // namespace app::classes::UberShaderColor

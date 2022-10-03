@@ -1,12 +1,12 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinLogicCycle {
+namespace app::classes::SeinLogicCycle {
     IL2CPP_REGISTER_METHOD(0x00894F40, app::SeinLogicCycle_StateFlags__Enum, GetFlags, (app::SeinLogicCycle * this_ptr, app::SeinLogicCycle_StateFlags__Enum test_flags))
     IL2CPP_REGISTER_METHOD(0x00896560, bool, IsCharacterStateBlockedBy, (app::SeinLogicCycle * this_ptr, app::SeinLogicCycle_StateFlags__Enum flags))
     IL2CPP_REGISTER_METHOD(0x00896640, bool, get_IsTouchingDamageColliders, ())
     IL2CPP_REGISTER_METHOD(0x00896B60, bool, get_IsAllowedNonZeroZPosition, (app::SeinLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00896C50, app::SeinCharacter *, get_Sein, (app::SeinLogicCycle * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00896C50, app::SeinCharacter*, get_Sein, (app::SeinLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00896CE0, bool, get_AllowInvincibility, (app::SeinLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00896CE0, bool, get_AllowAirNoDeceleration, (app::SeinLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00896D00, bool, get_ApplyFrictionToSpeed, (app::SeinLogicCycle * this_ptr))
@@ -111,15 +111,15 @@ namespace app::methods::SeinLogicCycle {
     IL2CPP_REGISTER_METHOD(0x008998F0, bool, AllowSpell, (app::SeinLogicCycle * this_ptr, app::AbilityType__Enum spell))
     IL2CPP_REGISTER_METHOD(0x008999D0, void, ResetMovementAbilities, (app::SeinLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00899CB0, bool, get_AllowCinematicToGameplay, (app::SeinLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBB60, app::List_1_CharacterState_ *, GetStates, (app::SeinLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00899D90, void, RegisterCharacterState, (app::SeinLogicCycle * this_ptr, app::CharacterState * state))
-    IL2CPP_REGISTER_METHOD(0x0089A2D0, void, UnregisterCharacterState, (app::SeinLogicCycle * this_ptr, app::CharacterState * state))
-    IL2CPP_REGISTER_METHOD(0x0089A490, void, RegisterExecutionOrder, (app::SeinLogicCycle * this_ptr, app::Type * type, int32_t order))
+    IL2CPP_REGISTER_METHOD(0x002FBB60, app::List_1_CharacterState_*, GetStates, (app::SeinLogicCycle * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00899D90, void, RegisterCharacterState, (app::SeinLogicCycle * this_ptr, app::CharacterState* state))
+    IL2CPP_REGISTER_METHOD(0x0089A2D0, void, UnregisterCharacterState, (app::SeinLogicCycle * this_ptr, app::CharacterState* state))
+    IL2CPP_REGISTER_METHOD(0x0089A490, void, RegisterExecutionOrder, (app::SeinLogicCycle * this_ptr, app::Type* type, int32_t order))
     IL2CPP_REGISTER_METHOD(0x0089A5B0, void, RegisterDefaultExecutionOrder, (app::SeinLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0089AD20, void, RegisterIsAllowedDelegate, (app::SeinLogicCycle * this_ptr, app::Type * type, app::SeinLogicCycle_IsAllowedDelegate * is_allowed))
+    IL2CPP_REGISTER_METHOD(0x0089AD20, void, RegisterIsAllowedDelegate, (app::SeinLogicCycle * this_ptr, app::Type* type, app::SeinLogicCycle_IsAllowedDelegate* is_allowed))
     IL2CPP_REGISTER_METHOD(0x0089AE40, void, RegisterIsAllowedDelegates, (app::SeinLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0089F170, bool, ValidateExclusiveActiveStateType, (app::SeinLogicCycle * this_ptr, app::Type * type))
-    IL2CPP_REGISTER_METHOD(0x0089F2F0, void, RegisterExclusiveActiveStateType, (app::SeinLogicCycle * this_ptr, app::Type * type))
+    IL2CPP_REGISTER_METHOD(0x0089F170, bool, ValidateExclusiveActiveStateType, (app::SeinLogicCycle * this_ptr, app::Type* type))
+    IL2CPP_REGISTER_METHOD(0x0089F2F0, void, RegisterExclusiveActiveStateType, (app::SeinLogicCycle * this_ptr, app::Type* type))
     IL2CPP_REGISTER_METHOD(0x0089F530, void, RegisterExclusiveActiveStateTypes, (app::SeinLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0089F690, void, Awake, (app::SeinLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0089F760, void, OnDestroy, (app::SeinLogicCycle * this_ptr))
@@ -133,10 +133,10 @@ namespace app::methods::SeinLogicCycle {
     IL2CPP_REGISTER_METHOD(0x0089FAF0, void, CacheBindings, (app::SeinLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0089FD40, bool, IsEquipped, (app::SeinLogicCycle * this_ptr, app::AbilityType__Enum type))
     IL2CPP_REGISTER_METHOD(0x0089FD80, void, OnUpdate, (app::SeinLogicCycle * this_ptr, float delta_time))
-    IL2CPP_REGISTER_METHOD(0x008A01B0, void, UpdateState, (app::SeinLogicCycle * this_ptr, app::List_1_CharacterState_ * states_list))
+    IL2CPP_REGISTER_METHOD(0x008A01B0, void, UpdateState, (app::SeinLogicCycle * this_ptr, app::List_1_CharacterState_* states_list))
     IL2CPP_REGISTER_METHOD(0x008A0310, void, SetStatesActive, (app::SeinLogicCycle * this_ptr, int32_t starting_index))
-    IL2CPP_REGISTER_METHOD(0x008A05B0, void, SetStateActive, (app::SeinLogicCycle * this_ptr, app::CharacterState * state, bool active))
-    IL2CPP_REGISTER_METHOD(0x008A0680, bool, UpdateCharacterState, (app::SeinLogicCycle * this_ptr, app::CharacterState * state))
+    IL2CPP_REGISTER_METHOD(0x008A05B0, void, SetStateActive, (app::SeinLogicCycle * this_ptr, app::CharacterState* state, bool active))
+    IL2CPP_REGISTER_METHOD(0x008A0680, bool, UpdateCharacterState, (app::SeinLogicCycle * this_ptr, app::CharacterState* state))
     IL2CPP_REGISTER_METHOD(0x008A0800, void, OnGUI, (app::SeinLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0043D9E0, app::UpdateType__Enum, get_UpdateType, (app::SeinLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008A0CA0, int32_t, get_ExecutionOrder, (app::SeinLogicCycle * this_ptr))
@@ -258,4 +258,4 @@ namespace app::methods::SeinLogicCycle {
     IL2CPP_REGISTER_METHODINFO(0x0473A068, SeinLogicCycle__RegisterIsAllowedDelegates_b__237_65__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00899CB0, bool, _RegisterIsAllowedDelegates_b__237_66, (app::SeinLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0470BC50, SeinLogicCycle__RegisterIsAllowedDelegates_b__237_66__MethodInfo)
-}
+} // namespace app::classes::SeinLogicCycle

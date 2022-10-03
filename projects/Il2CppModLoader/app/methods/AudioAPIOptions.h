@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AudioAPIOptions {
+namespace app::classes::AudioAPIOptions {
     IL2CPP_REGISTER_METHOD(0x00856B40, void, OnEnable, (app::AudioAPIOptions * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00857320, void, SatAudioAPI, (app::AudioAPIOptions * this_ptr, app::AkAudioAPI__Enum audio_a_p_i))
     IL2CPP_REGISTER_METHOD(0x00857450, void, ShowPrompt, (app::AudioAPIOptions * this_ptr))
@@ -16,4 +16,4 @@ namespace app::methods::AudioAPIOptions {
     IL2CPP_REGISTER_METHODINFO(0x04799C80, AudioAPIOptions__OnEnable_b__6_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008578F0, void, _OnEnable_b__6_3, (app::AudioAPIOptions * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0470FA40, AudioAPIOptions__OnEnable_b__6_3__MethodInfo)
-}
+} // namespace app::classes::AudioAPIOptions

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::UI::HorizontalOrVerticalLayoutGroup {
+namespace app::classes::UnityEngine::UI::HorizontalOrVerticalLayoutGroup {
     IL2CPP_REGISTER_METHOD(0x024B6530, void, ctor, (app::HorizontalOrVerticalLayoutGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024B65B0, float, get_spacing, (app::HorizontalOrVerticalLayoutGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024B65C0, void, set_spacing, (app::HorizontalOrVerticalLayoutGroup * this_ptr, float value))
@@ -15,5 +15,5 @@ namespace app::methods::UnityEngine::UI::HorizontalOrVerticalLayoutGroup {
     IL2CPP_REGISTER_METHOD(0x024B68A0, void, set_childControlHeight, (app::HorizontalOrVerticalLayoutGroup * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x024B6930, void, CalcAlongAxis, (app::HorizontalOrVerticalLayoutGroup * this_ptr, int32_t axis, bool is_vertical))
     IL2CPP_REGISTER_METHOD(0x024B6CB0, void, SetChildrenAlongAxis, (app::HorizontalOrVerticalLayoutGroup * this_ptr, int32_t axis, bool is_vertical))
-    IL2CPP_REGISTER_METHOD(0x024B74C0, void, GetChildSizes, (app::HorizontalOrVerticalLayoutGroup * this_ptr, app::RectTransform * child, int32_t axis, bool control_size, bool child_force_expand, float * min, float * preferred, float * flexible))
-}
+    IL2CPP_REGISTER_METHOD(0x024B74C0, void, GetChildSizes, (app::HorizontalOrVerticalLayoutGroup * this_ptr, app::RectTransform* child, int32_t axis, bool control_size, bool child_force_expand, float* min, float* preferred, float* flexible))
+} // namespace app::classes::UnityEngine::UI::HorizontalOrVerticalLayoutGroup

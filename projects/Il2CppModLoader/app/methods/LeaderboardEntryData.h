@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LeaderboardEntryData {
+namespace app::classes::LeaderboardEntryData {
     IL2CPP_REGISTER_METHOD(0x015B77D0, int32_t, get_Time, (app::LeaderboardEntryData * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015B7800, void, set_Time, (app::LeaderboardEntryData * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x015B7840, int32_t, get_DeathCount, (app::LeaderboardEntryData * this_ptr))
@@ -16,4 +16,4 @@ namespace app::methods::LeaderboardEntryData {
     IL2CPP_REGISTER_METHOD(0x015B8160, void, DecodeSpeedRunner, (app::LeaderboardEntryData * this_ptr, int32_t data))
     IL2CPP_REGISTER_METHOD(0x015B81F0, int32_t, EncodeSurvivor, (app::LeaderboardEntryData * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015B8250, int32_t, DecodeSurvivor, (app::LeaderboardEntryData * this_ptr, int32_t data))
-}
+} // namespace app::classes::LeaderboardEntryData

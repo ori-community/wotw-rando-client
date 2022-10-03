@@ -1,13 +1,13 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::CrabClawAttackBehaviourNew {
+namespace app::classes::Moon::CrabClawAttackBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x00CCAD00, void, OnEntityInitialized, (app::CrabClawAttackBehaviourNew * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00CCB2F0, void, OnEnter, (app::CrabClawAttackBehaviourNew * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x00CCB2F0, void, OnEnter, (app::CrabClawAttackBehaviourNew * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00CCB4B0, bool, IsInAttackRange, (app::CrabClawAttackBehaviourNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CCB600, bool, ShouldCancel, (app::CrabClawAttackBehaviourNew * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00CCB760, app::BehaviourStatus__Enum, OnExecute, (app::CrabClawAttackBehaviourNew * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x00CCB7E0, void, OnExit, (app::CrabClawAttackBehaviourNew * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x00CCB760, app::BehaviourStatus__Enum, OnExecute, (app::CrabClawAttackBehaviourNew * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x00CCB7E0, void, OnExit, (app::CrabClawAttackBehaviourNew * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00CCB930, void, MoveStart, (app::CrabClawAttackBehaviourNew * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04759278, CrabClawAttackBehaviourNew_MoveStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00CCB940, void, MoveUpdate, (app::CrabClawAttackBehaviourNew * this_ptr, float delta_time))
@@ -25,4 +25,4 @@ namespace app::methods::Moon::CrabClawAttackBehaviourNew {
     IL2CPP_REGISTER_METHODINFO(0x04785FA8, CrabClawAttackBehaviourNew__OnEntityInitialized_b__14_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00CCC5E0, void, _OnEntityInitialized_b__14_1, (app::CrabClawAttackBehaviourNew * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0475E0F0, CrabClawAttackBehaviourNew__OnEntityInitialized_b__14_1__MethodInfo)
-}
+} // namespace app::classes::Moon::CrabClawAttackBehaviourNew

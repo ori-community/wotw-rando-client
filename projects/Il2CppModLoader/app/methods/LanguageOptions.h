@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LanguageOptions {
+namespace app::classes::LanguageOptions {
     IL2CPP_REGISTER_METHOD(0x00F03A20, void, OnEnable, (app::LanguageOptions * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F050E0, void, SetLanguage, (app::LanguageOptions * this_ptr, app::Language__Enum language))
     IL2CPP_REGISTER_METHOD(0x008578B0, void, ctor, (app::LanguageOptions * this_ptr))
@@ -47,4 +47,4 @@ namespace app::methods::LanguageOptions {
     IL2CPP_REGISTER_METHODINFO(0x0475FE20, LanguageOptions__OnEnable_b__21_19__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F05320, void, _OnEnable_b__21_20, (app::LanguageOptions * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0477ECB0, LanguageOptions__OnEnable_b__21_20__MethodInfo)
-}
+} // namespace app::classes::LanguageOptions

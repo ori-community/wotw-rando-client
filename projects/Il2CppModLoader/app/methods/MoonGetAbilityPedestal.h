@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MoonGetAbilityPedestal {
+namespace app::classes::MoonGetAbilityPedestal {
     IL2CPP_REGISTER_METHOD(0x00F4E2B0, bool, get_SeinInRange, (app::MoonGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F4E4C0, void, ChangeState, (app::MoonGetAbilityPedestal * this_ptr, app::MoonGetAbilityPedestal_States__Enum state))
     IL2CPP_REGISTER_METHOD(0x00F4E5B0, void, UpdateStates, (app::MoonGetAbilityPedestal * this_ptr))
@@ -26,14 +26,14 @@ namespace app::methods::MoonGetAbilityPedestal {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_StopMovingPlayerWhilePerforming, (app::MoonGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F50080, void, FinishGetAbilityStressTest, (app::MoonGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04708B18, MoonGetAbilityPedestal_FinishGetAbilityStressTest__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00F50090, app::String *, get_StressTestName, (app::MoonGetAbilityPedestal * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F50110, app::IDesiredUberState *, GetRequirementsForTimeline, (app::MoonGetAbilityPedestal * this_ptr, app::MoonTimeline * timeline))
+    IL2CPP_REGISTER_METHOD(0x00F50090, app::String*, get_StressTestName, (app::MoonGetAbilityPedestal * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00F50110, app::IDesiredUberState*, GetRequirementsForTimeline, (app::MoonGetAbilityPedestal * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ApplyOnEditor, (app::MoonGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F501E0, void, Apply, (app::MoonGetAbilityPedestal * this_ptr, app::UberStateApplyContext__Enum context))
-    IL2CPP_REGISTER_METHOD(0x00F50250, app::IUberState__Array *, get_AffectingUberStates, (app::MoonGetAbilityPedestal * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F502F0, app::List_1_UnityEngine_GameObject_ *, get_AllTargets, (app::MoonGetAbilityPedestal * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00F50250, app::IUberState__Array*, get_AffectingUberStates, (app::MoonGetAbilityPedestal * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00F502F0, app::List_1_UnityEngine_GameObject_*, get_AllTargets, (app::MoonGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F504B0, void, ctor, (app::MoonGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F50560, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x00F506B0, void, _Awake_b__27_0, (app::MoonGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0470E890, MoonGetAbilityPedestal__Awake_b__27_0__MethodInfo)
-}
+} // namespace app::classes::MoonGetAbilityPedestal

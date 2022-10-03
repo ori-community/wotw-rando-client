@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RootMotion::FinalIK::GrounderIK {
+namespace app::classes::RootMotion::FinalIK::GrounderIK {
     IL2CPP_REGISTER_METHOD(0x02069C80, void, OpenUserManual, (app::GrounderIK * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02069D40, void, OpenScriptReference, (app::GrounderIK * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02069E00, void, ResetPosition, (app::GrounderIK * this_ptr))
@@ -16,4 +16,4 @@ namespace app::methods::RootMotion::FinalIK::GrounderIK {
     IL2CPP_REGISTER_METHODINFO(0x0472FE28, GrounderIK_OnPostSolverUpdate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0206B810, void, OnDestroy, (app::GrounderIK * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0206BBC0, void, ctor, (app::GrounderIK * this_ptr))
-}
+} // namespace app::classes::RootMotion::FinalIK::GrounderIK

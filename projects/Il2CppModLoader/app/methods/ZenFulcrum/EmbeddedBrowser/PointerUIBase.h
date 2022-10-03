@@ -1,11 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ZenFulcrum::EmbeddedBrowser::PointerUIBase {
-    IL2CPP_REGISTER_METHOD(0x0165F470, void, add_onHandlePointers, (app::PointerUIBase * this_ptr, app::Action * value))
-    IL2CPP_REGISTER_METHOD(0x0165F560, void, remove_onHandlePointers, (app::PointerUIBase * this_ptr, app::Action * value))
-    IL2CPP_REGISTER_METHOD(0x0165F650, void, add_onClick, (app::PointerUIBase * this_ptr, app::Action * value))
-    IL2CPP_REGISTER_METHOD(0x0165F740, void, remove_onClick, (app::PointerUIBase * this_ptr, app::Action * value))
+namespace app::classes::ZenFulcrum::EmbeddedBrowser::PointerUIBase {
+    IL2CPP_REGISTER_METHOD(0x0165F470, void, add_onHandlePointers, (app::PointerUIBase * this_ptr, app::Action* value))
+    IL2CPP_REGISTER_METHOD(0x0165F560, void, remove_onHandlePointers, (app::PointerUIBase * this_ptr, app::Action* value))
+    IL2CPP_REGISTER_METHOD(0x0165F650, void, add_onClick, (app::PointerUIBase * this_ptr, app::Action* value))
+    IL2CPP_REGISTER_METHOD(0x0165F740, void, remove_onClick, (app::PointerUIBase * this_ptr, app::Action* value))
     IL2CPP_REGISTER_METHOD(0x0165F830, void, Awake, (app::PointerUIBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0165FD70, void, InputUpdate, (app::PointerUIBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0051DB50, void, OnApplicationFocus, (app::PointerUIBase * this_ptr, bool focused))
@@ -32,10 +32,10 @@ namespace app::methods::ZenFulcrum::EmbeddedBrowser::PointerUIBase {
     IL2CPP_REGISTER_METHOD(0x00EFE9D0, void, set_MouseScroll, (app::PointerUIBase * this_ptr, app::Vector2 value))
     IL2CPP_REGISTER_METHOD(0x00601090, bool, get_KeyboardHasFocus, (app::PointerUIBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0041DB70, void, set_KeyboardHasFocus, (app::PointerUIBase * this_ptr, bool value))
-    IL2CPP_REGISTER_METHOD(0x005E07A0, app::List_1_UnityEngine_Event_ *, get_KeyEvents, (app::PointerUIBase * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBD20, app::BrowserCursor *, get_BrowserCursor, (app::PointerUIBase * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBD30, void, set_BrowserCursor, (app::PointerUIBase * this_ptr, app::BrowserCursor * value))
-    IL2CPP_REGISTER_METHOD(0x002FBD40, app::BrowserInputSettings *, get_InputSettings, (app::PointerUIBase * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBD50, void, set_InputSettings, (app::PointerUIBase * this_ptr, app::BrowserInputSettings * value))
+    IL2CPP_REGISTER_METHOD(0x005E07A0, app::List_1_UnityEngine_Event_*, get_KeyEvents, (app::PointerUIBase * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBD20, app::BrowserCursor*, get_BrowserCursor, (app::PointerUIBase * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBD30, void, set_BrowserCursor, (app::PointerUIBase * this_ptr, app::BrowserCursor* value))
+    IL2CPP_REGISTER_METHOD(0x002FBD40, app::BrowserInputSettings*, get_InputSettings, (app::PointerUIBase * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBD50, void, set_InputSettings, (app::PointerUIBase * this_ptr, app::BrowserInputSettings* value))
     IL2CPP_REGISTER_METHOD(0x01661370, void, ctor, (app::PointerUIBase * this_ptr))
-}
+} // namespace app::classes::ZenFulcrum::EmbeddedBrowser::PointerUIBase

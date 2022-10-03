@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::GeneralDebugMenuPage___c {
+namespace app::classes::GeneralDebugMenuPage___c {
     IL2CPP_REGISTER_METHOD(0x00DFE910, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GeneralDebugMenuPage_c * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DFEA50, bool, _AddDynamicCameraItems_b__17_6, (app::GeneralDebugMenuPage_c * this_ptr))
@@ -16,7 +16,7 @@ namespace app::methods::GeneralDebugMenuPage___c {
     IL2CPP_REGISTER_METHODINFO(0x0473CEC8, GeneralDebugMenuPage_c__GetItems_b__18_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DFEDD0, void, _GetItems_b__18_3, (app::GeneralDebugMenuPage_c * this_ptr, bool _))
     IL2CPP_REGISTER_METHODINFO(0x047660B8, GeneralDebugMenuPage_c__GetItems_b__18_3__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00DFEE60, app::String *, _GetItems_b__18_4, (app::GeneralDebugMenuPage_c * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00DFEE60, app::String*, _GetItems_b__18_4, (app::GeneralDebugMenuPage_c * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04744FC0, GeneralDebugMenuPage_c__GetItems_b__18_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DFEF10, bool, _GetItems_b__18_5, (app::GeneralDebugMenuPage_c * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0471B110, GeneralDebugMenuPage_c__GetItems_b__18_5__MethodInfo)
@@ -248,4 +248,4 @@ namespace app::methods::GeneralDebugMenuPage___c {
     IL2CPP_REGISTER_METHODINFO(0x0472D1E0, GeneralDebugMenuPage_c__AddTeleports_b__32_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E03BB0, int32_t, _InitSceneList_b__83_0, (app::GeneralDebugMenuPage_c * this_ptr, app::GeneralDebugMenuPage_SceneInfo scene1, app::GeneralDebugMenuPage_SceneInfo scene2))
     IL2CPP_REGISTER_METHODINFO(0x04759328, GeneralDebugMenuPage_c__InitSceneList_b__83_0__MethodInfo)
-}
+} // namespace app::classes::GeneralDebugMenuPage___c

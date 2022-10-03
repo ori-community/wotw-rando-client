@@ -12,7 +12,7 @@
 #include <game/player.h>
 #include <string>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace credits {
     namespace {

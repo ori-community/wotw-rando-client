@@ -1,12 +1,12 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::FirewhirlBeamSpawner {
+namespace app::classes::FirewhirlBeamSpawner {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_IsSuspended, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052A060, void, set_IsSuspended, (app::FirewhirlBeamSpawner * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00998570, app::SuspendableMask__Enum, get_Mask, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012626F0, void, set_Mask, (app::FirewhirlBeamSpawner * this_ptr, app::SuspendableMask__Enum value))
-    IL2CPP_REGISTER_METHOD(0x004E57A0, int32_t, GetPrewarmAmount, (app::FirewhirlBeamSpawner * this_ptr, app::GameObject * entry))
+    IL2CPP_REGISTER_METHOD(0x004E57A0, int32_t, GetPrewarmAmount, (app::FirewhirlBeamSpawner * this_ptr, app::GameObject* entry))
     IL2CPP_REGISTER_METHOD(0x012627A0, void, Awake, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01262B90, void, Start, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01262DA0, void, OnDisable, (app::FirewhirlBeamSpawner * this_ptr))
@@ -22,9 +22,9 @@ namespace app::methods::FirewhirlBeamSpawner {
     IL2CPP_REGISTER_METHOD(0x01263B40, void, ClearBeams, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01263D40, void, UpdateSpawningBeams, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012644F0, void, DealDamage, (app::FirewhirlBeamSpawner * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01264840, app::Damage *, GetDamage, (app::FirewhirlBeamSpawner * this_ptr, app::GameObject * target_object))
-    IL2CPP_REGISTER_METHOD(0x01264BD0, void, DealDamageToObject_1, (app::FirewhirlBeamSpawner * this_ptr, app::IDamageReciever * receiver, app::GameObject * target_object))
-    IL2CPP_REGISTER_METHOD(0x01264DA0, void, DealDamageToObject_2, (app::FirewhirlBeamSpawner * this_ptr, app::IAttackable * attackable))
+    IL2CPP_REGISTER_METHOD(0x01264840, app::Damage*, GetDamage, (app::FirewhirlBeamSpawner * this_ptr, app::GameObject* target_object))
+    IL2CPP_REGISTER_METHOD(0x01264BD0, void, DealDamageToObject_1, (app::FirewhirlBeamSpawner * this_ptr, app::IDamageReciever* receiver, app::GameObject* target_object))
+    IL2CPP_REGISTER_METHOD(0x01264DA0, void, DealDamageToObject_2, (app::FirewhirlBeamSpawner * this_ptr, app::IAttackable* attackable))
     IL2CPP_REGISTER_METHOD(0x01265080, bool, PointInsideListOfRect, (app::FirewhirlBeamSpawner * this_ptr, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x012651B0, void, OnDamageTrigger, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04742438, FirewhirlBeamSpawner_OnDamageTrigger__MethodInfo)
@@ -32,4 +32,4 @@ namespace app::methods::FirewhirlBeamSpawner {
     IL2CPP_REGISTER_METHOD(0x01265840, void, UpdateLightTranform, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012661A0, void, OnDrawGizmos, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01266250, void, ctor, (app::FirewhirlBeamSpawner * this_ptr))
-}
+} // namespace app::classes::FirewhirlBeamSpawner

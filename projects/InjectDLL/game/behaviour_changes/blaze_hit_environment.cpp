@@ -10,7 +10,7 @@
 #include <Il2CppModLoader/app/methods/Damage.h>
 #include <Il2CppModLoader/app/methods/SeinBlazeSpell.h>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     constexpr bool default_blaze = false;

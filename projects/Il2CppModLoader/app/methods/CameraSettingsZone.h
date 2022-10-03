@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CameraSettingsZone {
-    IL2CPP_REGISTER_METHOD(0x016A8680, app::CameraSettings *, GetSettings, (app::CameraSettingsZone * this_ptr))
+namespace app::classes::CameraSettingsZone {
+    IL2CPP_REGISTER_METHOD(0x016A8680, app::CameraSettings*, GetSettings, (app::CameraSettingsZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016A8860, void, ResetSettings, (app::CameraSettingsZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016A8870, void, Register, (app::CameraSettingsZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016A8A60, void, OnEnable, (app::CameraSettingsZone * this_ptr))
@@ -13,4 +13,4 @@ namespace app::methods::CameraSettingsZone {
     IL2CPP_REGISTER_METHOD(0x00910BD0, app::SelectableCategory__Enum, get_Category, (app::CameraSettingsZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016A9380, void, ctor, (app::CameraSettingsZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016A93D0, void, cctor, ())
-}
+} // namespace app::classes::CameraSettingsZone

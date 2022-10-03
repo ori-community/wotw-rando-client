@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CatAndMouseRoomTimerController {
+namespace app::classes::CatAndMouseRoomTimerController {
     IL2CPP_REGISTER_METHOD(0x003FF790, bool, get_Active, (app::CatAndMouseRoomTimerController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0102D320, float, get_TimeNormalized, (app::CatAndMouseRoomTimerController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005D8A80, bool, get_IsSuspended, (app::CatAndMouseRoomTimerController * this_ptr))
@@ -14,4 +14,4 @@ namespace app::methods::CatAndMouseRoomTimerController {
     IL2CPP_REGISTER_METHOD(0x0102DBA0, void, Enter, (app::CatAndMouseRoomTimerController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0102DD10, void, Exit, (app::CatAndMouseRoomTimerController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0102E020, void, ctor, (app::CatAndMouseRoomTimerController * this_ptr))
-}
+} // namespace app::classes::CatAndMouseRoomTimerController

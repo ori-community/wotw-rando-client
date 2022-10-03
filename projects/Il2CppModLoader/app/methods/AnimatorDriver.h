@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AnimatorDriver {
+namespace app::classes::AnimatorDriver {
     IL2CPP_REGISTER_METHOD(0x00504D80, bool, get_IsPlaying, (app::AnimatorDriver * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00504D90, void, set_IsPlaying, (app::AnimatorDriver * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00504E40, float, get_Duration, (app::AnimatorDriver * this_ptr))
@@ -28,4 +28,4 @@ namespace app::methods::AnimatorDriver {
     IL2CPP_REGISTER_METHOD(0x00505860, void, OnPoolSpawned, (app::AnimatorDriver * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00505870, void, Sample, (app::AnimatorDriver * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005058D0, void, ctor, (app::AnimatorDriver * this_ptr))
-}
+} // namespace app::classes::AnimatorDriver

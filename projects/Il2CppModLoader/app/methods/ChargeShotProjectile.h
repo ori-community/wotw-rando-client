@@ -1,15 +1,15 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ChargeShotProjectile {
+namespace app::classes::ChargeShotProjectile {
     IL2CPP_REGISTER_METHOD(0x00675C60, bool, get_IsSuspended, (app::ChargeShotProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00675C70, void, set_IsSuspended, (app::ChargeShotProjectile * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00653FB0, app::SuspendableMask__Enum, get_Mask, (app::ChargeShotProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00881060, void, set_Mask, (app::ChargeShotProjectile * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x0131A710, app::Vector3, get_Direction, (app::ChargeShotProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0131A7B0, void, set_Direction, (app::ChargeShotProjectile * this_ptr, app::Vector3 value))
-    IL2CPP_REGISTER_METHOD(0x002FBC20, app::GameObject *, IReflectable_get_LastReflector, (app::ChargeShotProjectile * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBC30, void, IReflectable_set_LastReflector, (app::ChargeShotProjectile * this_ptr, app::GameObject * value))
+    IL2CPP_REGISTER_METHOD(0x002FBC20, app::GameObject*, IReflectable_get_LastReflector, (app::ChargeShotProjectile * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBC30, void, IReflectable_set_LastReflector, (app::ChargeShotProjectile * this_ptr, app::GameObject* value))
     IL2CPP_REGISTER_METHOD(0x00446960, float, IReflectable_get_Speed, (app::ChargeShotProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00724010, void, IReflectable_set_Speed, (app::ChargeShotProjectile * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x00D5A0A0, int32_t, IBashAttackable_get_BashPriority, (app::ChargeShotProjectile * this_ptr))
@@ -31,9 +31,9 @@ namespace app::methods::ChargeShotProjectile {
     IL2CPP_REGISTER_METHOD(0x0131B820, bool, ShouldPierce, (app::ChargeShotProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0131B850, void, Explode, (app::ChargeShotProjectile * this_ptr, bool should_destroy_self))
     IL2CPP_REGISTER_METHOD(0x0131BEA0, void, HandleExplosiveShard, (app::ChargeShotProjectile * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0131BF80, void, OnEnemyCollision, (app::ChargeShotProjectile * this_ptr, app::Collider * collider))
+    IL2CPP_REGISTER_METHOD(0x0131BF80, void, OnEnemyCollision, (app::ChargeShotProjectile * this_ptr, app::Collider* collider))
     IL2CPP_REGISTER_METHODINFO(0x047465A8, ChargeShotProjectile_OnEnemyCollision__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0131C3B0, void, OnWallCollision, (app::ChargeShotProjectile * this_ptr, app::Collider * collider))
+    IL2CPP_REGISTER_METHOD(0x0131C3B0, void, OnWallCollision, (app::ChargeShotProjectile * this_ptr, app::Collider* collider))
     IL2CPP_REGISTER_METHODINFO(0x04747BC8, ChargeShotProjectile_OnWallCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, IReflectable_CanBeReflected, (app::ChargeShotProjectile * this_ptr, float maximum_reflectable_damage))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IReflectable_OnGrabbed, (app::ChargeShotProjectile * this_ptr))
@@ -65,6 +65,6 @@ namespace app::methods::ChargeShotProjectile {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IPortalVisitor_OnGoThroughPortal, (app::ChargeShotProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IPortalVisitor_OnPortalOverlapEnter, (app::ChargeShotProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IPortalVisitor_OnPortalOverlapExit, (app::ChargeShotProjectile * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBC60, app::IDamageReciever__Array *, get_AffectedReceivers, (app::ChargeShotProjectile * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBC60, app::IDamageReciever__Array*, get_AffectedReceivers, (app::ChargeShotProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0131C4E0, void, ctor, (app::ChargeShotProjectile * this_ptr))
-}
+} // namespace app::classes::ChargeShotProjectile

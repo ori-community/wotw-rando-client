@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::JumpShootShark {
-    IL2CPP_REGISTER_METHOD(0x00E4CB20, bool, ShouldIgnoreDamage, (app::JumpShootShark * this_ptr, app::Damage * damage))
+namespace app::classes::JumpShootShark {
+    IL2CPP_REGISTER_METHOD(0x00E4CB20, bool, ShouldIgnoreDamage, (app::JumpShootShark * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHODINFO(0x047829C8, JumpShootShark_ShouldIgnoreDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E4CB80, void, Awake, (app::JumpShootShark * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E4CC50, void, OnDestroy, (app::JumpShootShark * this_ptr))
@@ -34,4 +34,4 @@ namespace app::methods::JumpShootShark {
     IL2CPP_REGISTER_METHODINFO(0x04794818, JumpShootShark__Start_b__21_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E4F250, bool, _Start_b__21_7, (app::JumpShootShark * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04778650, JumpShootShark__Start_b__21_7__MethodInfo)
-}
+} // namespace app::classes::JumpShootShark

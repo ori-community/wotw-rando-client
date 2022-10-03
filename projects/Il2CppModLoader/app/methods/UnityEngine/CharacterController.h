@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::CharacterController {
+namespace app::classes::UnityEngine::CharacterController {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::CharacterController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0309E7C0, bool, SimpleMove, (app::CharacterController * this_ptr, app::Vector3 speed))
     IL2CPP_REGISTER_METHOD(0x0309E820, app::CollisionFlags__Enum, Move, (app::CharacterController * this_ptr, app::Vector3 motion))
@@ -26,9 +26,9 @@ namespace app::methods::UnityEngine::CharacterController {
     IL2CPP_REGISTER_METHOD(0x0309EEF0, void, set_detectCollisions, (app::CharacterController * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0309EF50, bool, get_enableOverlapRecovery, (app::CharacterController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0309EFA0, void, set_enableOverlapRecovery, (app::CharacterController * this_ptr, bool value))
-    IL2CPP_REGISTER_METHOD(0x0309F000, bool, SimpleMove_Injected, (app::CharacterController * this_ptr, app::Vector3 * speed))
-    IL2CPP_REGISTER_METHOD(0x0309F060, app::CollisionFlags__Enum, Move_Injected, (app::CharacterController * this_ptr, app::Vector3 * motion))
-    IL2CPP_REGISTER_METHOD(0x0309F0C0, void, get_velocity_Injected, (app::CharacterController * this_ptr, app::Vector3 * ret))
-    IL2CPP_REGISTER_METHOD(0x0309F120, void, get_center_Injected, (app::CharacterController * this_ptr, app::Vector3 * ret))
-    IL2CPP_REGISTER_METHOD(0x0309F180, void, set_center_Injected, (app::CharacterController * this_ptr, app::Vector3 * value))
-}
+    IL2CPP_REGISTER_METHOD(0x0309F000, bool, SimpleMove_Injected, (app::CharacterController * this_ptr, app::Vector3* speed))
+    IL2CPP_REGISTER_METHOD(0x0309F060, app::CollisionFlags__Enum, Move_Injected, (app::CharacterController * this_ptr, app::Vector3* motion))
+    IL2CPP_REGISTER_METHOD(0x0309F0C0, void, get_velocity_Injected, (app::CharacterController * this_ptr, app::Vector3* ret))
+    IL2CPP_REGISTER_METHOD(0x0309F120, void, get_center_Injected, (app::CharacterController * this_ptr, app::Vector3* ret))
+    IL2CPP_REGISTER_METHOD(0x0309F180, void, set_center_Injected, (app::CharacterController * this_ptr, app::Vector3* value))
+} // namespace app::classes::UnityEngine::CharacterController

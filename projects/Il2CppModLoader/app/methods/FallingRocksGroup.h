@@ -1,13 +1,13 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::FallingRocksGroup {
+namespace app::classes::FallingRocksGroup {
     IL2CPP_REGISTER_METHOD(0x00998560, int32_t, get_GroundMask, (app::FallingRocksGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_IsSuspended, (app::FallingRocksGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052A060, void, set_IsSuspended, (app::FallingRocksGroup * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00998570, app::SuspendableMask__Enum, get_Mask, (app::FallingRocksGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00998580, void, set_Mask, (app::FallingRocksGroup * this_ptr, app::SuspendableMask__Enum value))
-    IL2CPP_REGISTER_METHOD(0x00998630, void, RocksPrefabInstantiation, (app::FallingRocksGroup * this_ptr, app::List_1_DynamicInstantiationDescriptor_ * instantiations))
+    IL2CPP_REGISTER_METHOD(0x00998630, void, RocksPrefabInstantiation, (app::FallingRocksGroup * this_ptr, app::List_1_DynamicInstantiationDescriptor_* instantiations))
     IL2CPP_REGISTER_METHOD(0x00998A50, void, Awake, (app::FallingRocksGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00998AF0, void, Start, (app::FallingRocksGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00998F80, void, OnEnable, (app::FallingRocksGroup * this_ptr))
@@ -21,7 +21,7 @@ namespace app::methods::FallingRocksGroup {
     IL2CPP_REGISTER_METHOD(0x0099A150, int32_t, GetRandomWeightIndex, (app::FallingRocksGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0099A380, void, OnRestoreCheckpoint, (app::FallingRocksGroup * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04741F00, FallingRocksGroup_OnRestoreCheckpoint__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0099A430, void, OnRockExploded, (app::FallingRocksGroup * this_ptr, app::Projectile * proj))
+    IL2CPP_REGISTER_METHOD(0x0099A430, void, OnRockExploded, (app::FallingRocksGroup * this_ptr, app::Projectile* proj))
     IL2CPP_REGISTER_METHODINFO(0x0474BAA0, FallingRocksGroup_OnRockExploded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0099A680, void, ctor, (app::FallingRocksGroup * this_ptr))
-}
+} // namespace app::classes::FallingRocksGroup

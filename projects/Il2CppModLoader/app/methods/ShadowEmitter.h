@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ShadowEmitter {
-    IL2CPP_REGISTER_METHOD(0x005A93B0, app::Transform *, get_GroundAnchorSafe, (app::ShadowEmitter * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005A9500, app::Transform *, get_PerspectiveAnchorSafe, (app::ShadowEmitter * this_ptr))
+namespace app::classes::ShadowEmitter {
+    IL2CPP_REGISTER_METHOD(0x005A93B0, app::Transform*, get_GroundAnchorSafe, (app::ShadowEmitter * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005A9500, app::Transform*, get_PerspectiveAnchorSafe, (app::ShadowEmitter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005A9650, app::Ray, get_CastRay, (app::ShadowEmitter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005A9960, float, get_GroundDistance, (app::ShadowEmitter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005A9B10, float, get_NormalizedGroundDistance, (app::ShadowEmitter * this_ptr))
@@ -14,6 +14,6 @@ namespace app::methods::ShadowEmitter {
     IL2CPP_REGISTER_METHOD(0x005A9EF0, void, Update, (app::ShadowEmitter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005A9F30, void, UpdateGraphics, (app::ShadowEmitter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005AA380, void, UpdateAnchors, (app::ShadowEmitter * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005AA910, void, ComputeGroundAnchor, (app::ShadowEmitter * this_ptr, app::Vector3 * position, app::Vector3 * normal))
+    IL2CPP_REGISTER_METHOD(0x005AA910, void, ComputeGroundAnchor, (app::ShadowEmitter * this_ptr, app::Vector3* position, app::Vector3* normal))
     IL2CPP_REGISTER_METHOD(0x005AAC50, void, ctor, (app::ShadowEmitter * this_ptr))
-}
+} // namespace app::classes::ShadowEmitter

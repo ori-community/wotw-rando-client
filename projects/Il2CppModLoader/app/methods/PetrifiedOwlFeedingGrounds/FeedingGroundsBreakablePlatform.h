@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PetrifiedOwlFeedingGrounds::FeedingGroundsBreakablePlatform {
+namespace app::classes::PetrifiedOwlFeedingGrounds::FeedingGroundsBreakablePlatform {
     IL2CPP_REGISTER_METHOD(0x01784060, void, OnDisable, (app::FeedingGroundsBreakablePlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01784600, void, PlayIdle, (app::FeedingGroundsBreakablePlatform * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0474FA38, FeedingGroundsBreakablePlatform_PlayIdle__MethodInfo)
@@ -13,6 +13,6 @@ namespace app::methods::PetrifiedOwlFeedingGrounds::FeedingGroundsBreakablePlatf
     IL2CPP_REGISTER_METHODINFO(0x04710468, FeedingGroundsBreakablePlatform_PlayBrokenIdle__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x017846C0, void, ResetState, (app::FeedingGroundsBreakablePlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x017851A0, void, StopCurrentTimeline, (app::FeedingGroundsBreakablePlatform * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01785270, void, PlayTimeline, (app::FeedingGroundsBreakablePlatform * this_ptr, app::MoonTimeline * timeline))
+    IL2CPP_REGISTER_METHOD(0x01785270, void, PlayTimeline, (app::FeedingGroundsBreakablePlatform * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::FeedingGroundsBreakablePlatform * this_ptr))
-}
+} // namespace app::classes::PetrifiedOwlFeedingGrounds::FeedingGroundsBreakablePlatform

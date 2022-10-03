@@ -1,0 +1,21 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace ColorVariation {
+        namespace {
+            app::ColorVariation__Class* type_info_ref = nullptr;
+        }
+        app::ColorVariation__Class** type_info = &type_info_ref;
+        inline app::ColorVariation__Class* get_class() {
+            return il2cpp::get_class<app::ColorVariation__Class>(type_info, "", "ColorVariation");
+        }
+        inline app::ColorVariation* create() {
+            return il2cpp::create_object<app::ColorVariation>(get_class());
+        }
+        inline app::ColorVariation__Array* create_array(int size) {
+            return il2cpp::array_new<app::ColorVariation__Array>(get_class(), size);
+        }
+    } // namespace ColorVariation
+} // namespace app::classes::types

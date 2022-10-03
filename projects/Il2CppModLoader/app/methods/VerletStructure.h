@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::VerletStructure {
+namespace app::classes::VerletStructure {
     IL2CPP_REGISTER_METHOD(0x013C8F00, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x013C8FC0, void, Awake, (app::VerletStructure * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013C9300, void, OnDestroy, (app::VerletStructure * this_ptr))
@@ -31,12 +31,12 @@ namespace app::methods::VerletStructure {
     IL2CPP_REGISTER_METHOD(0x013CA810, void, SimulateFromJob, (app::VerletStructure * this_ptr, float dt, app::Vector3 center_position))
     IL2CPP_REGISTER_METHOD(0x013CA870, void, SimulateFromJob0, (app::VerletStructure * this_ptr, float dt, app::Vector3 center_position))
     IL2CPP_REGISTER_METHOD(0x013CC610, void, SimulateFromJob1, (app::VerletStructure * this_ptr, float dt, app::Vector3 center_position))
-    IL2CPP_REGISTER_METHOD(0x013CE130, app::VerletStructure_VerletStructureState *, GetSystemState, (app::VerletStructure * this_ptr, int32_t state_g_u_i_d))
+    IL2CPP_REGISTER_METHOD(0x013CE130, app::VerletStructure_VerletStructureState*, GetSystemState, (app::VerletStructure * this_ptr, int32_t state_g_u_i_d))
     IL2CPP_REGISTER_METHOD(0x013CE1D0, bool, HasSystemState, (app::VerletStructure * this_ptr, int32_t state_g_u_i_d))
     IL2CPP_REGISTER_METHOD(0x013CE1F0, void, ApplyState_1, (app::VerletStructure * this_ptr, int32_t state_g_u_i_d, bool apply_immediate))
-    IL2CPP_REGISTER_METHOD(0x013CE480, void, ApplyState_2, (app::VerletStructure * this_ptr, app::VerletStructure_VerletStructureState * state))
+    IL2CPP_REGISTER_METHOD(0x013CE480, void, ApplyState_2, (app::VerletStructure * this_ptr, app::VerletStructure_VerletStructureState* state))
     IL2CPP_REGISTER_METHOD(0x013CE7C0, void, UpdateFromMainThread, (app::VerletStructure * this_ptr, float dt))
     IL2CPP_REGISTER_METHOD(0x013CE800, bool, get_NeedsPostJob, (app::VerletStructure * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013CE820, void, ctor, (app::VerletStructure * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013CED10, void, cctor, ())
-}
+} // namespace app::classes::VerletStructure

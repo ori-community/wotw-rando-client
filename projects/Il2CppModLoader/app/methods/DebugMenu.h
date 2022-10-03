@@ -1,15 +1,15 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::DebugMenu {
-    IL2CPP_REGISTER_METHOD(0x00DED6F0, app::HierarchyDebugMenu *, get_HierarchyDebugMenu, ())
-    IL2CPP_REGISTER_METHOD(0x002FB9B0, app::List_1_WorldEvents_ *, get_WorldEvents, (app::DebugMenu * this_ptr))
+namespace app::classes::DebugMenu {
+    IL2CPP_REGISTER_METHOD(0x00DED6F0, app::HierarchyDebugMenu*, get_HierarchyDebugMenu, ())
+    IL2CPP_REGISTER_METHOD(0x002FB9B0, app::List_1_WorldEvents_*, get_WorldEvents, (app::DebugMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DED8E0, app::Vector2, get_HelpTextPosition, (app::DebugMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DED900, void, set_HelpTextPosition, (app::DebugMenu * this_ptr, app::Vector2 value))
-    IL2CPP_REGISTER_METHOD(0x002FBD40, app::List_1_DebugMenu_ExternalItem_ *, get_ExternalItems, (app::DebugMenu * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0049F2B0, app::List_1_IDebugMenuItem_ *, get_AllItems, (app::DebugMenu * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBD40, app::List_1_DebugMenu_ExternalItem_*, get_ExternalItems, (app::DebugMenu * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0049F2B0, app::List_1_IDebugMenuItem_*, get_AllItems, (app::DebugMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DED930, void, ResetStatics, ())
-    IL2CPP_REGISTER_METHOD(0x00720040, app::HierarchySuspensionTest *, get_SuspensionTest, (app::DebugMenu * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00720040, app::HierarchySuspensionTest*, get_SuspensionTest, (app::DebugMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DEDB80, void, RegisterImGUIClient, ())
     IL2CPP_REGISTER_METHOD(0x00DEDC70, void, UnregisterImGUIClient, ())
     IL2CPP_REGISTER_METHOD(0x00DEDD60, void, LoadDebugMenuPrefabSlice, ())
@@ -28,8 +28,8 @@ namespace app::methods::DebugMenu {
     IL2CPP_REGISTER_METHOD(0x00DEF130, void, SetScaling, (app::DebugMenu * this_ptr, float multiplier))
     IL2CPP_REGISTER_METHOD(0x00DEF600, void, Initialize, (app::DebugMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DF0350, void, RegisterPageHandler, (app::IDebugMenuPageHandler * handler))
-    IL2CPP_REGISTER_METHOD(0x00DF0410, void, ClearPage, (app::DebugMenu * this_ptr, app::String * path))
-    IL2CPP_REGISTER_METHOD(0x00DF0510, void, AddDebugMenuItem, (app::DebugMenu * this_ptr, app::IDebugMenuItem * item, int32_t column, bool searching))
+    IL2CPP_REGISTER_METHOD(0x00DF0410, void, ClearPage, (app::DebugMenu * this_ptr, app::String* path))
+    IL2CPP_REGISTER_METHOD(0x00DF0510, void, AddDebugMenuItem, (app::DebugMenu * this_ptr, app::IDebugMenuItem* item, int32_t column, bool searching))
     IL2CPP_REGISTER_METHOD(0x00DF0A00, void, GoBackMenu, (app::DebugMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DF0B70, void, SetPage, (app::DebugMenu * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x00DF0E50, void, Update, (app::DebugMenu * this_ptr))
@@ -38,8 +38,8 @@ namespace app::methods::DebugMenu {
     IL2CPP_REGISTER_METHOD(0x00DF12E0, void, FixedUpdate, (app::DebugMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DF18B0, void, RequestToggleDebugMenu, (app::DebugMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DF18C0, void, OnGUI, (app::DebugMenu * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00DF2460, void, AddWorldEvent, (app::DebugMenu * this_ptr, app::WorldEvents * world_event))
-    IL2CPP_REGISTER_METHOD(0x00DF2520, void, Serialize, (app::DebugMenu * this_ptr, app::Archive * ar))
+    IL2CPP_REGISTER_METHOD(0x00DF2460, void, AddWorldEvent, (app::DebugMenu * this_ptr, app::WorldEvents* world_event))
+    IL2CPP_REGISTER_METHOD(0x00DF2520, void, Serialize, (app::DebugMenu * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, BuildSpellsMenu, (app::DebugMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, BuildAbilitiesMenu, (app::DebugMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, GenerateGumoSequences, (app::DebugMenu * this_ptr))
@@ -47,4 +47,4 @@ namespace app::methods::DebugMenu {
     IL2CPP_REGISTER_METHOD(0x00DF2840, void, SetSpell, (app::DebugMenu * this_ptr, app::AbilityType__Enum spell, bool value))
     IL2CPP_REGISTER_METHOD(0x00DF29C0, void, ctor, (app::DebugMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DF3820, void, cctor, ())
-}
+} // namespace app::classes::DebugMenu

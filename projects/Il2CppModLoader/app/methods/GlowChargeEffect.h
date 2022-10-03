@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::GlowChargeEffect {
+namespace app::classes::GlowChargeEffect {
     IL2CPP_REGISTER_METHOD(0x007FAA40, void, Awake, (app::GlowChargeEffect * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007FAC20, void, OnEnable, (app::GlowChargeEffect * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007FAC30, void, OnDisable, (app::GlowChargeEffect * this_ptr))
@@ -16,4 +16,4 @@ namespace app::methods::GlowChargeEffect {
     IL2CPP_REGISTER_METHODINFO(0x0473FFD0, GlowChargeEffect_OnChargeCompletedTrigger__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007FB040, void, ChangeState, (app::GlowChargeEffect * this_ptr, app::GlowChargeEffect_State__Enum new_state))
     IL2CPP_REGISTER_METHOD(0x007FB710, void, ctor, (app::GlowChargeEffect * this_ptr))
-}
+} // namespace app::classes::GlowChargeEffect

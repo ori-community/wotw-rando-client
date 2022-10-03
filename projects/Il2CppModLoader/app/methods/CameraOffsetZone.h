@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CameraOffsetZone {
+namespace app::classes::CameraOffsetZone {
     IL2CPP_REGISTER_METHOD(0x003FF790, bool, get_IsPerformingZoomOutAndDisable, (app::CameraOffsetZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FF790, bool, get_AutoZoomOutAndDisable, (app::CameraOffsetZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0169BED0, void, FitRoomBound, (app::CameraOffsetZone * this_ptr))
@@ -19,4 +19,4 @@ namespace app::methods::CameraOffsetZone {
     IL2CPP_REGISTER_METHOD(0x0169C990, void, Update, (app::CameraOffsetZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0169CA20, float, NormalizedMarginPenetration, (app::CameraOffsetZone * this_ptr, app::Vector3 world_position))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::CameraOffsetZone * this_ptr))
-}
+} // namespace app::classes::CameraOffsetZone

@@ -14,7 +14,7 @@
 
 bool disable_has_ability_overwrite = false;
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     bool force_day_time = false;

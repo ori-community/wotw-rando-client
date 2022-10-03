@@ -1,11 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinChargeFlameAbility {
+namespace app::classes::SeinChargeFlameAbility {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinChargeFlameAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A44730, float, get_ChargeDuration, (app::SeinChargeFlameAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A44750, bool, get_HasEnoughEnergy, (app::SeinChargeFlameAbility * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00A44800, app::Input_InputButtonProcessor *, get_ChargeFlameButton, (app::SeinChargeFlameAbility * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00A44800, app::Input_InputButtonProcessor*, get_ChargeFlameButton, (app::SeinChargeFlameAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A448A0, bool, get_IsStatePerforming, (app::SeinChargeFlameAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A448A0, bool, get_IsCharging, (app::SeinChargeFlameAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A448E0, void, OnSetReferenceToSein, (app::SeinChargeFlameAbility * this_ptr))
@@ -28,7 +28,7 @@ namespace app::methods::SeinChargeFlameAbility {
     IL2CPP_REGISTER_METHODINFO(0x0478EDE8, SeinChargeFlameAbility_UpdateChargedState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A47290, void, UpdateCharacterState, (app::SeinChargeFlameAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A47300, void, OnExit, (app::SeinChargeFlameAbility * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00A47530, app::SoundSource *, CurrentChargingSound, (app::SeinChargeFlameAbility * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00A47530, app::SoundSource*, CurrentChargingSound, (app::SeinChargeFlameAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A47620, void, ctor, (app::SeinChargeFlameAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A47840, void, cctor, ())
-}
+} // namespace app::classes::SeinChargeFlameAbility

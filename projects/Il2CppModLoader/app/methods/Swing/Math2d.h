@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Swing::Math2d {
+namespace app::classes::Swing::Math2d {
     IL2CPP_REGISTER_METHOD(0x0182B520, float, getAngle, (app::Vector2 _vector))
     IL2CPP_REGISTER_METHOD(0x0182B5D0, float, getAngleFast, (app::Vector2 _normalized_dir))
     IL2CPP_REGISTER_METHOD(0x0182B6A0, app::Vector2, getVector_1, (float _angle))
@@ -34,7 +34,7 @@ namespace app::methods::Swing::Math2d {
     IL2CPP_REGISTER_METHOD(0x0182CAB0, float, max_1, (float _value1, float _value2))
     IL2CPP_REGISTER_METHOD(0x0182CB90, int32_t, min_2, (int32_t _value1, int32_t _value2))
     IL2CPP_REGISTER_METHOD(0x0182CC40, int32_t, max_2, (int32_t _value1, int32_t _value2))
-    IL2CPP_REGISTER_METHOD(0x0182CCF0, bool, raycastOnPlaneXY_1, (app::Ray _ray, app::Vector2 * _world_pos))
-    IL2CPP_REGISTER_METHOD(0x0182CF30, bool, raycastOnPlaneXY_2, (app::Ray _ray, float _depth, app::Vector3 * _world_pos))
+    IL2CPP_REGISTER_METHOD(0x0182CCF0, bool, raycastOnPlaneXY_1, (app::Ray _ray, app::Vector2* _world_pos))
+    IL2CPP_REGISTER_METHOD(0x0182CF30, bool, raycastOnPlaneXY_2, (app::Ray _ray, float _depth, app::Vector3* _world_pos))
     IL2CPP_REGISTER_METHOD(0x0182D0C0, void, cctor, ())
-}
+} // namespace app::classes::Swing::Math2d

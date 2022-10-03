@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::TestWindow {
+namespace app::classes::TestWindow {
     IL2CPP_REGISTER_METHOD(0x010E09F0, void, Show, (app::TestWindow * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010E0EA0, void, Hide, (app::TestWindow * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010E1340, void, Awake, (app::TestWindow * this_ptr))
@@ -20,4 +20,4 @@ namespace app::methods::TestWindow {
     IL2CPP_REGISTER_METHOD(0x010E16C0, void, SwitchWindowCallback, (app::TestWindow * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047623B8, TestWindow_SwitchWindowCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x010E17A0, void, ctor, (app::TestWindow * this_ptr))
-}
+} // namespace app::classes::TestWindow

@@ -1,17 +1,17 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::VolumeEntityMovementProcessor {
+namespace app::classes::Moon::VolumeEntityMovementProcessor {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_DrawObstacleHitAvoidanceGizmos, ())
     IL2CPP_REGISTER_METHOD(0x0119CE50, bool, get_GravityDisabled, (app::VolumeEntityMovementProcessor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0119CE60, bool, get_IsObstacleAvoidanceDisabled, (app::VolumeEntityMovementProcessor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0119CE70, void, set_IsObstacleAvoidanceDisabled, (app::VolumeEntityMovementProcessor * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0119CE80, float, get_CurrentObstacleAvoidanceStrength, (app::VolumeEntityMovementProcessor * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0119CE90, void, Init, (app::VolumeEntityMovementProcessor * this_ptr, app::Entity * entity, app::CharacterPlatformMovement * platform_movement, app::ILocomotionTurningHandler * turning_handler))
+    IL2CPP_REGISTER_METHOD(0x0119CE90, void, Init, (app::VolumeEntityMovementProcessor * this_ptr, app::Entity* entity, app::CharacterPlatformMovement* platform_movement, app::ILocomotionTurningHandler* turning_handler))
     IL2CPP_REGISTER_METHOD(0x0119D0A0, void, UpdateAngle_1, (app::VolumeEntityMovementProcessor * this_ptr, float speed, bool force))
     IL2CPP_REGISTER_METHOD(0x0119D0E0, void, UpdateAngle_2, (app::VolumeEntityMovementProcessor * this_ptr, app::Vector2 direction, float speed, bool force))
-    IL2CPP_REGISTER_METHOD(0x0119D150, void, UpdateAngle_3, (app::VolumeEntityMovementProcessor * this_ptr, app::Vector2 target_direction, float rotation_speed, app::Transform * rotated_transform, bool force))
-    IL2CPP_REGISTER_METHOD(0x0119D7C0, void, ChangeMovementSettings, (app::VolumeEntityMovementProcessor * this_ptr, app::MovementSettings * new_settings))
+    IL2CPP_REGISTER_METHOD(0x0119D150, void, UpdateAngle_3, (app::VolumeEntityMovementProcessor * this_ptr, app::Vector2 target_direction, float rotation_speed, app::Transform* rotated_transform, bool force))
+    IL2CPP_REGISTER_METHOD(0x0119D7C0, void, ChangeMovementSettings, (app::VolumeEntityMovementProcessor * this_ptr, app::MovementSettings* new_settings))
     IL2CPP_REGISTER_METHOD(0x0119D810, bool, get_AllowFreeRotation, (app::VolumeEntityMovementProcessor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0119D820, void, set_AllowFreeRotation, (app::VolumeEntityMovementProcessor * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0119D830, void, TransferRotationToFeet, (app::VolumeEntityMovementProcessor * this_ptr))
@@ -35,4 +35,4 @@ namespace app::methods::Moon::VolumeEntityMovementProcessor {
     IL2CPP_REGISTER_METHOD(0x011A1960, app::Vector2, ProcessSpeedWithCollisionAvoidance, (app::VolumeEntityMovementProcessor * this_ptr, app::Vector2 initial_world_velocity))
     IL2CPP_REGISTER_METHOD(0x011A1EC0, void, DebugDrawLolipop, (app::VolumeEntityMovementProcessor * this_ptr, app::Vector3 from, app::Vector3 to, float radius, app::Color color))
     IL2CPP_REGISTER_METHOD(0x011A2060, void, ctor, (app::VolumeEntityMovementProcessor * this_ptr))
-}
+} // namespace app::classes::Moon::VolumeEntityMovementProcessor

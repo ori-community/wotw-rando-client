@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::nanoProfiler::NanoProfiler {
-    IL2CPP_REGISTER_METHOD(0x00F2DAC0, app::NanoProfiler *, get_Instance, ())
+namespace app::classes::Moon::nanoProfiler::NanoProfiler {
+    IL2CPP_REGISTER_METHOD(0x00F2DAC0, app::NanoProfiler*, get_Instance, ())
     IL2CPP_REGISTER_METHOD(0x00F2DB60, void, set_Instance, (app::NanoProfiler * value))
     IL2CPP_REGISTER_METHOD(0x006410F0, int32_t, get_CurrentFrameIndex, (app::NanoProfiler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FD3F0, int32_t, get_CurrentFrameId, (app::NanoProfiler * this_ptr))
@@ -32,4 +32,4 @@ namespace app::methods::Moon::nanoProfiler::NanoProfiler {
     IL2CPP_REGISTER_METHOD(0x00F2FE00, void, InjectToPlayerLoop, (app::PlayerLoopSystem * player_loop))
     IL2CPP_REGISTER_METHOD(0x00F30100, void, ctor, (app::NanoProfiler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F304F0, void, cctor, ())
-}
+} // namespace app::classes::Moon::nanoProfiler::NanoProfiler

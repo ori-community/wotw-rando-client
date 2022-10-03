@@ -11,7 +11,7 @@
 #include <utils/misc.h>
 
 using namespace utils;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     enum DeferredSkipAction {

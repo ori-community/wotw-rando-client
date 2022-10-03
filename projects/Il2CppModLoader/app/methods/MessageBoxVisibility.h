@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MessageBoxVisibility {
+namespace app::classes::MessageBoxVisibility {
     IL2CPP_REGISTER_METHOD(0x015935D0, bool, get_Visible, (app::MessageBoxVisibility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015935E0, void, Awake, (app::MessageBoxVisibility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01593950, void, OnDestroy, (app::MessageBoxVisibility * this_ptr))
@@ -25,4 +25,4 @@ namespace app::methods::MessageBoxVisibility {
     IL2CPP_REGISTER_METHOD(0x015945C0, void, HideImmediately, (app::MessageBoxVisibility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015945F0, void, SetOpacity, (app::MessageBoxVisibility * this_ptr, float opacity))
     IL2CPP_REGISTER_METHOD(0x015948D0, void, ctor, (app::MessageBoxVisibility * this_ptr))
-}
+} // namespace app::classes::MessageBoxVisibility

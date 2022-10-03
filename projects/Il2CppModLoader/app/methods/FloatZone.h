@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::FloatZone {
+namespace app::classes::FloatZone {
     IL2CPP_REGISTER_METHOD(0x01271F20, void, Awake, (app::FloatZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012721C0, void, OnDestroy, (app::FloatZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01272260, void, OnEnable, (app::FloatZone * this_ptr))
@@ -15,4 +15,4 @@ namespace app::methods::FloatZone {
     IL2CPP_REGISTER_METHOD(0x0043D9A0, app::SelectableCategory__Enum, get_Category, (app::FloatZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01272AD0, void, ctor, (app::FloatZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01272B00, void, cctor, ())
-}
+} // namespace app::classes::FloatZone

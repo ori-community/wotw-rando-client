@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Swing::RectExt {
+namespace app::classes::Swing::RectExt {
     IL2CPP_REGISTER_METHOD(0x0182E030, app::RectExt, op_Implicit_1, (app::Rect _rect))
     IL2CPP_REGISTER_METHOD(0x0182E050, app::Rect, op_Implicit_2, (app::RectExt _rect))
     IL2CPP_REGISTER_METHOD(0x0014B910, void, ctor_1, (app::RectExt__Boxed * this_ptr, app::Vector2 _top_left, app::Vector2 _size))
@@ -34,10 +34,10 @@ namespace app::methods::Swing::RectExt {
     IL2CPP_REGISTER_METHOD(0x0182E640, app::RectExt, op_Multiply_2, (app::RectExt _rect, app::Vector2 _mult))
     IL2CPP_REGISTER_METHOD(0x0182E690, app::RectExt, op_Division_1, (app::RectExt _rect, float _div))
     IL2CPP_REGISTER_METHOD(0x0182E6B0, app::RectExt, op_Division_2, (app::RectExt _rect, app::Vector2 _div))
-    IL2CPP_REGISTER_METHOD(0x0014BE30, void, splitLeft, (app::RectExt__Boxed * this_ptr, float _left_width, app::RectExt * _left, app::RectExt * _right, float _spacing))
-    IL2CPP_REGISTER_METHOD(0x0014BED0, void, splitRight, (app::RectExt__Boxed * this_ptr, float _right_width, app::RectExt * _left, app::RectExt * _right, float _spacing))
-    IL2CPP_REGISTER_METHOD(0x0014BF70, void, splitTop, (app::RectExt__Boxed * this_ptr, float _top_height, app::RectExt * _top, app::RectExt * _bottom, float _spacing))
-    IL2CPP_REGISTER_METHOD(0x0014C010, void, splitBottom, (app::RectExt__Boxed * this_ptr, float _bottom_height, app::RectExt * _top, app::RectExt * _bottom, float _spacing))
+    IL2CPP_REGISTER_METHOD(0x0014BE30, void, splitLeft, (app::RectExt__Boxed * this_ptr, float _left_width, app::RectExt* _left, app::RectExt* _right, float _spacing))
+    IL2CPP_REGISTER_METHOD(0x0014BED0, void, splitRight, (app::RectExt__Boxed * this_ptr, float _right_width, app::RectExt* _left, app::RectExt* _right, float _spacing))
+    IL2CPP_REGISTER_METHOD(0x0014BF70, void, splitTop, (app::RectExt__Boxed * this_ptr, float _top_height, app::RectExt* _top, app::RectExt* _bottom, float _spacing))
+    IL2CPP_REGISTER_METHOD(0x0014C010, void, splitBottom, (app::RectExt__Boxed * this_ptr, float _bottom_height, app::RectExt* _top, app::RectExt* _bottom, float _spacing))
     IL2CPP_REGISTER_METHOD(0x0014C0B0, app::RectExt, consumeLeft, (app::RectExt__Boxed * this_ptr, float _left_width, float _spacing))
     IL2CPP_REGISTER_METHOD(0x0014C120, app::RectExt, consumeLeftInv, (app::RectExt__Boxed * this_ptr, float _right_width, float _spacing))
     IL2CPP_REGISTER_METHOD(0x0014C190, app::RectExt, consumeRight, (app::RectExt__Boxed * this_ptr, float _right_width, float _spacing))
@@ -75,25 +75,25 @@ namespace app::methods::Swing::RectExt {
     IL2CPP_REGISTER_METHOD(0x0182E770, bool, op_Inequality, (app::RectExt lhs, app::RectExt rhs))
     IL2CPP_REGISTER_METHOD(0x0182E7E0, bool, op_Equality, (app::RectExt lhs, app::RectExt rhs))
     IL2CPP_REGISTER_METHOD(0x0014C6C0, int32_t, GetHashCode, (app::RectExt__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0014C740, bool, Equals, (app::RectExt__Boxed * this_ptr, app::Object * other))
-    IL2CPP_REGISTER_METHOD(0x0014C750, app::String *, ToString_1, (app::RectExt__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0014C760, app::String *, ToString_2, (app::RectExt__Boxed * this_ptr, app::String * format))
-    inline app::RectExt operator * (app::RectExt _rect, float _mult) {
+    IL2CPP_REGISTER_METHOD(0x0014C740, bool, Equals, (app::RectExt__Boxed * this_ptr, app::Object* other))
+    IL2CPP_REGISTER_METHOD(0x0014C750, app::String*, ToString_1, (app::RectExt__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0014C760, app::String*, ToString_2, (app::RectExt__Boxed * this_ptr, app::String* format))
+    inline app::RectExt operator*(app::RectExt _rect, float _mult) {
         return op_Multiply_1(_rect, _mult);
     }
-    inline app::RectExt operator * (app::RectExt _rect, app::Vector2 _mult) {
+    inline app::RectExt operator*(app::RectExt _rect, app::Vector2 _mult) {
         return op_Multiply_2(_rect, _mult);
     }
-    inline app::RectExt operator / (app::RectExt _rect, float _div) {
+    inline app::RectExt operator/(app::RectExt _rect, float _div) {
         return op_Division_1(_rect, _div);
     }
-    inline app::RectExt operator / (app::RectExt _rect, app::Vector2 _div) {
+    inline app::RectExt operator/(app::RectExt _rect, app::Vector2 _div) {
         return op_Division_2(_rect, _div);
     }
-    inline bool operator != (app::RectExt lhs, app::RectExt rhs) {
+    inline bool operator!=(app::RectExt lhs, app::RectExt rhs) {
         return op_Inequality(lhs, rhs);
     }
-    inline bool operator == (app::RectExt lhs, app::RectExt rhs) {
+    inline bool operator==(app::RectExt lhs, app::RectExt rhs) {
         return op_Equality(lhs, rhs);
     }
-}
+} // namespace app::classes::Swing::RectExt

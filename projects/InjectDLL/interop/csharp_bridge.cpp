@@ -19,7 +19,7 @@
     }
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace csharp_bridge {
     signatures::f_void_float update = nullptr;

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Collections::Generic::Dictionary_2_Moon_Profile_Metric_System_Single_ {
+namespace app::classes::System::Collections::Generic::Dictionary_2_Moon_Profile_Metric_System_Single_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_Moon_Profile_Metric_System_Single_ * this_ptr, app::Metric__Enum key))
     IL2CPP_REGISTER_METHODINFO(0x047399E8, Dictionary_2_Moon_Profile_Metric_System_Single__ContainsKey__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C383F0, float, get_Item, (app::Dictionary_2_Moon_Profile_Metric_System_Single_ * this_ptr, app::Metric__Enum key))
@@ -16,4 +16,4 @@ namespace app::methods::System::Collections::Generic::Dictionary_2_Moon_Profile_
     IL2CPP_REGISTER_METHODINFO(0x0471C528, Dictionary_2_Moon_Profile_Metric_System_Single__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02BAC6E0, app::Dictionary_2_TKey_TValue_Enumerator_Moon_Profile_Metric_System_Single__1, GetEnumerator, (app::Dictionary_2_Moon_Profile_Metric_System_Single_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0476C010, Dictionary_2_Moon_Profile_Metric_System_Single__GetEnumerator__MethodInfo)
-}
+} // namespace app::classes::System::Collections::Generic::Dictionary_2_Moon_Profile_Metric_System_Single_

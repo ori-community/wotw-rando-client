@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SkinningModifier {
+namespace app::classes::SkinningModifier {
     IL2CPP_REGISTER_METHOD(0x006BF180, void, OnEnable, (app::SkinningModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006BF410, void, OnDisable, (app::SkinningModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Awake, (app::SkinningModifier * this_ptr))
@@ -25,4 +25,4 @@ namespace app::methods::SkinningModifier {
     IL2CPP_REGISTER_METHOD(0x006C0880, void, EnterTimelinePreview, (app::SkinningModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C0880, void, ExitTimelinePreview, (app::SkinningModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C0890, void, ctor, (app::SkinningModifier * this_ptr))
-}
+} // namespace app::classes::SkinningModifier

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PerformanceTestManager {
+namespace app::classes::PerformanceTestManager {
     IL2CPP_REGISTER_METHOD(0x00498250, void, ChangeState, (app::PerformanceTestManager * this_ptr, app::PerformanceTestManager_State__Enum state))
     IL2CPP_REGISTER_METHODINFO(0x0476C3B8, PerformanceTestManager_ChangeState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00498690, void, Awake, (app::PerformanceTestManager * this_ptr))
@@ -17,7 +17,7 @@ namespace app::methods::PerformanceTestManager {
     IL2CPP_REGISTER_METHODINFO(0x04707838, PerformanceTestManager_OnGoodPerformance__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00499380, void, OnNotMonitoringPerformance, (app::PerformanceTestManager * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0471AE60, PerformanceTestManager_OnNotMonitoringPerformance__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00499390, void, DebugLog, (app::PerformanceTestManager * this_ptr, app::String * message))
+    IL2CPP_REGISTER_METHOD(0x00499390, void, DebugLog, (app::PerformanceTestManager * this_ptr, app::String* message))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::PerformanceTestManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())
-}
+} // namespace app::classes::PerformanceTestManager

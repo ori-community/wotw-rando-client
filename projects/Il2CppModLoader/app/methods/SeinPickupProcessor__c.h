@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinPickupProcessor___c {
+namespace app::classes::SeinPickupProcessor___c {
     IL2CPP_REGISTER_METHOD(0x008B7BB0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SeinPickupProcessor_c * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008B7CF0, void, _OnFinishedReading_b__48_0, (app::SeinPickupProcessor_c * this_ptr))
@@ -16,4 +16,4 @@ namespace app::methods::SeinPickupProcessor___c {
     IL2CPP_REGISTER_METHODINFO(0x04726E50, SeinPickupProcessor_c__OnCollectMaxHealthHalfContainerPickup_b__62_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, __cctor_b__70_0, (app::SeinPickupProcessor_c * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04755058, SeinPickupProcessor_c___cctor_b__70_0__MethodInfo)
-}
+} // namespace app::classes::SeinPickupProcessor___c

@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PerspectiveRotationAdjustment {
+namespace app::classes::PerspectiveRotationAdjustment {
     IL2CPP_REGISTER_METHOD(0x00446960, float, get_Weight, (app::PerspectiveRotationAdjustment * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00499420, app::Transform *, get_TargetTransform, (app::PerspectiveRotationAdjustment * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00499420, app::Transform*, get_TargetTransform, (app::PerspectiveRotationAdjustment * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004994E0, float, get_DefaultWeight, (app::PerspectiveRotationAdjustment * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004994F0, void, Start, (app::PerspectiveRotationAdjustment * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00499680, void, OnEnable, (app::PerspectiveRotationAdjustment * this_ptr))
@@ -14,4 +14,4 @@ namespace app::methods::PerspectiveRotationAdjustment {
     IL2CPP_REGISTER_METHOD(0x00499D20, void, SetWeight, (app::PerspectiveRotationAdjustment * this_ptr, float weight))
     IL2CPP_REGISTER_METHOD(0x00499DF0, void, SetWeightOvertime, (app::PerspectiveRotationAdjustment * this_ptr, float weight, float time))
     IL2CPP_REGISTER_METHOD(0x00499ED0, void, ctor, (app::PerspectiveRotationAdjustment * this_ptr))
-}
+} // namespace app::classes::PerspectiveRotationAdjustment

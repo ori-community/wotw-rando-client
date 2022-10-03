@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::InventoryScreen2 {
+namespace app::classes::InventoryScreen2 {
     IL2CPP_REGISTER_METHOD(0x00640F90, void, ResetStatics, ())
-    IL2CPP_REGISTER_METHOD(0x00641010, app::InventoryScreenItem *, get_SelectedItem, (app::InventoryScreen2 * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00641010, app::InventoryScreenItem*, get_SelectedItem, (app::InventoryScreen2 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CanInterruptTab, (app::InventoryScreen2 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_NeedsExperienceUI, (app::InventoryScreen2 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_NeedOreUI, (app::InventoryScreen2 * this_ptr))
@@ -31,4 +31,4 @@ namespace app::methods::InventoryScreen2 {
     IL2CPP_REGISTER_METHOD(0x00642DF0, void, FixedUpdate, (app::InventoryScreen2 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00642ED0, void, UpdateHint, (app::InventoryScreen2 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006435D0, void, ctor, (app::InventoryScreen2 * this_ptr))
-}
+} // namespace app::classes::InventoryScreen2

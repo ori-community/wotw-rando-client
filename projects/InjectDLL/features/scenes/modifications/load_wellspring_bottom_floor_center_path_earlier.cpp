@@ -4,7 +4,7 @@
 #include <Il2CppModLoader/app/methods/ScenesManager.h>
 #include <features/scenes/scene_load.h>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     /**

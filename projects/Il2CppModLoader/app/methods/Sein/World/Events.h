@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Sein::World::Events {
+namespace app::classes::Sein::World::Events {
     IL2CPP_REGISTER_METHOD(0x0106F850, bool, get_GinsoTreeEntered, ())
     IL2CPP_REGISTER_METHOD(0x0106F940, void, set_GinsoTreeEntered, (bool value))
     IL2CPP_REGISTER_METHOD(0x0106FA30, bool, get_MistLifted, ())
@@ -33,4 +33,4 @@ namespace app::methods::Sein::World::Events {
     IL2CPP_REGISTER_METHOD(0x01071A00, bool, get_m_gravityActivated, ())
     IL2CPP_REGISTER_METHOD(0x01071AF0, void, set_m_gravityActivated, (bool value))
     IL2CPP_REGISTER_METHOD(0x01071BE0, app::WorldProgression__Enum, get_Progression, ())
-}
+} // namespace app::classes::Sein::World::Events

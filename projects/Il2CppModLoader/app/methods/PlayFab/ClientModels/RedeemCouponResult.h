@@ -1,6 +1,6 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PlayFab::ClientModels::RedeemCouponResult {
+namespace app::classes::PlayFab::ClientModels::RedeemCouponResult {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::RedeemCouponResult * this_ptr))
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::WandererNPC___c {
+namespace app::classes::WandererNPC___c {
     IL2CPP_REGISTER_METHOD(0x008D14F0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::WandererNPC_c * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008D1630, void, _OnEndInteraction_b__79_0, (app::WandererNPC_c * this_ptr))
@@ -14,4 +14,4 @@ namespace app::methods::WandererNPC___c {
     IL2CPP_REGISTER_METHODINFO(0x04783A28, WandererNPC_c__RewardTaken_b__126_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008D16E0, bool, _RewardTaken_b__126_2, (app::WandererNPC_c * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04794450, WandererNPC_c__RewardTaken_b__126_2__MethodInfo)
-}
+} // namespace app::classes::WandererNPC___c

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Rendering::ShaderTime {
+namespace app::classes::Moon::Rendering::ShaderTime {
     IL2CPP_REGISTER_METHOD(0x00EBB200, bool, get_freezeAll, ())
     IL2CPP_REGISTER_METHOD(0x00EBB340, void, set_freezeAll, (bool value))
     IL2CPP_REGISTER_METHOD(0x00EBB400, bool, get_freezeAny, ())
@@ -18,4 +18,4 @@ namespace app::methods::Moon::Rendering::ShaderTime {
     IL2CPP_REGISTER_METHOD(0x00EBBCD0, void, set_freezeShaderGameTime, (bool value))
     IL2CPP_REGISTER_METHOD(0x00EBBDA0, void, setTimeConstants, (app::CommandBuffer * cmd))
     IL2CPP_REGISTER_METHOD(0x00EBC060, void, cctor, ())
-}
+} // namespace app::classes::Moon::Rendering::ShaderTime

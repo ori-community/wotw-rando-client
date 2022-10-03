@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::VerletSoftInteraction {
+namespace app::classes::VerletSoftInteraction {
     IL2CPP_REGISTER_METHOD(0x013C8520, app::Bounds, get_Bounds, (app::VerletSoftInteraction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsStatic, (app::VerletSoftInteraction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0057AAC0, int32_t, get_Index, (app::VerletSoftInteraction * this_ptr))
@@ -16,9 +16,9 @@ namespace app::methods::VerletSoftInteraction {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnRegistered, (app::VerletSoftInteraction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013C8920, float, MaxRadius, (app::VerletSoftInteraction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, RemoveInteraction, (app::VerletSoftInteraction * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x013C8930, void, SetInteraction, (app::VerletSoftInteraction * this_ptr, float time, app::Vector3 pos, app::Vector3 prev_pos, app::Vector4 strength, app::Vector3 velocity, float radius, bool explosion, bool force_play, app::UberInteractionActor * actor))
+    IL2CPP_REGISTER_METHOD(0x013C8930, void, SetInteraction, (app::VerletSoftInteraction * this_ptr, float time, app::Vector3 pos, app::Vector3 prev_pos, app::Vector4 strength, app::Vector3 velocity, float radius, bool explosion, bool force_play, app::UberInteractionActor* actor))
     IL2CPP_REGISTER_METHOD(0x013C8C10, bool, DoesOverlap, (app::VerletSoftInteraction * this_ptr, app::Vector3 interaction_position, app::Vector3 velocity, float interaction_radius, float z_scale))
     IL2CPP_REGISTER_METHOD(0x013C8E70, app::Vector3, GetPosition, (app::VerletSoftInteraction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B68B50, app::Vector3, GetExplodePoint, (app::VerletSoftInteraction * this_ptr, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x013C8EE0, void, ctor, (app::VerletSoftInteraction * this_ptr))
-}
+} // namespace app::classes::VerletSoftInteraction

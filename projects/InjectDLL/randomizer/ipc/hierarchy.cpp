@@ -9,13 +9,14 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Quaternion.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
 #include <Il2CppModLoader/app/methods/AK/Wwise/BaseType.h>
+#include <Il2CppModLoader/app/types/Quaternion.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/windows_api/console.h>
 
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
 
 namespace randomizer::ipc {
     namespace {
@@ -372,11 +373,11 @@ namespace randomizer::ipc {
             auto position = Transform::get_position(transform);
             if (verbose) {
                 auto quat = Transform::get_rotation(transform);
-                auto boxed = il2cpp::box_value<app::Quaternion__Boxed>(il2cpp::get_class("UnityEngine", "Quaternion"), quat);
+                auto boxed = types::Quaternion::box(quat);
                 auto rotation = Quaternion::get_eulerAngles(boxed);
                 auto local_position = Transform::get_localPosition(transform);
                 quat = Transform::get_localRotation(transform);
-                boxed = il2cpp::box_value<app::Quaternion__Boxed>(il2cpp::get_class("UnityEngine", "Quaternion"), quat);
+                boxed = types::Quaternion::box(quat);
                 auto local_rotation = Quaternion::get_eulerAngles(boxed);
                 auto local_scale = Transform::get_localScale(transform);
 

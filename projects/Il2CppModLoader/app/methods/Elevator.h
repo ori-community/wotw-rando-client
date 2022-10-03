@@ -1,12 +1,12 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Elevator {
+namespace app::classes::Elevator {
     IL2CPP_REGISTER_METHOD(0x00BF99D0, bool, get_GoingUp, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BF99F0, bool, get_GoingDown, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BF9A10, uint8_t, get_CurrentStopIndex, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BF9A30, void, set_CurrentStopIndex, (app::Elevator * this_ptr, uint8_t value))
-    IL2CPP_REGISTER_METHOD(0x00BF9A50, app::Elevator_ElevatorStop *, get_CurrentStop, (app::Elevator * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00BF9A50, app::Elevator_ElevatorStop*, get_CurrentStop, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BF9B10, void, OnEnable, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BF9FD0, void, OnDisable, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BFA490, void, FixedUpdate, (app::Elevator * this_ptr))
@@ -22,8 +22,8 @@ namespace app::methods::Elevator {
     IL2CPP_REGISTER_METHOD(0x00BFB1D0, bool, IsAnyTimelinePlaying, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BFB220, void, Apply, (app::Elevator * this_ptr, app::UberStateApplyContext__Enum context))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ApplyOnEditor, (app::Elevator * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00BFB3D0, app::IUberState__Array *, get_AffectingUberStates, (app::Elevator * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00BFB460, app::List_1_UnityEngine_GameObject_ *, get_AllTargets, (app::Elevator * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00BFB3D0, app::IUberState__Array*, get_AffectingUberStates, (app::Elevator * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00BFB460, app::List_1_UnityEngine_GameObject_*, get_AllTargets, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BFB530, void, OnDrawGizmos, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BFB7E0, float, GetTweenNormalizedValue, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0065B580, app::SuspendableMask__Enum, get_Mask, (app::Elevator * this_ptr))
@@ -31,4 +31,4 @@ namespace app::methods::Elevator {
     IL2CPP_REGISTER_METHOD(0x0063D070, bool, get_IsSuspended, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0063D080, void, set_IsSuspended, (app::Elevator * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00BFB9D0, void, ctor, (app::Elevator * this_ptr))
-}
+} // namespace app::classes::Elevator

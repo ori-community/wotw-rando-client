@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UberStateArchive {
+namespace app::classes::UberStateArchive {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_CaretPosition, (app::UberStateArchive * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x03148C40, void, ctor, (app::UberStateArchive * this_ptr, app::Byte__Array * data, bool writing))
+    IL2CPP_REGISTER_METHOD(0x03148C40, void, ctor, (app::UberStateArchive * this_ptr, app::Byte__Array* data, bool writing))
     IL2CPP_REGISTER_METHOD(0x03148C50, uint8_t, Serialize_1, (app::UberStateArchive * this_ptr, uint8_t value))
     IL2CPP_REGISTER_METHOD(0x03148CD0, float, Serialize_2, (app::UberStateArchive * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x03148D40, int16_t, Serialize_3, (app::UberStateArchive * this_ptr, int16_t value))
@@ -28,4 +28,4 @@ namespace app::methods::UberStateArchive {
     IL2CPP_REGISTER_METHOD(0x03149490, int32_t, ReadInt32, (app::UberStateArchive * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031494D0, float, ReadFloat, (app::UberStateArchive * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, AssertCaretPosition, (app::UberStateArchive * this_ptr, int64_t start, int64_t expected_delta, uint16_t id))
-}
+} // namespace app::classes::UberStateArchive

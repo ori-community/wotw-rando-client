@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::BabyWormSand {
+namespace app::classes::BabyWormSand {
     IL2CPP_REGISTER_METHOD(0x00F7FED0, void, Awake, (app::BabyWormSand * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F7FEF0, void, OnPoolSpawned, (app::BabyWormSand * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F7FF00, void, ResetCollisionWithSandState, (app::BabyWormSand * this_ptr))
@@ -13,4 +13,4 @@ namespace app::methods::BabyWormSand {
     IL2CPP_REGISTER_METHOD(0x00F80880, void, StopTrailEffect, (app::BabyWormSand * this_ptr, int32_t frame_delay))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ApplySpeedModifiers, (app::BabyWormSand * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F809A0, void, ctor, (app::BabyWormSand * this_ptr))
-}
+} // namespace app::classes::BabyWormSand

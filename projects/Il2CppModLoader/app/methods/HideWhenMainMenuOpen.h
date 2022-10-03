@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::HideWhenMainMenuOpen {
+namespace app::classes::HideWhenMainMenuOpen {
     IL2CPP_REGISTER_METHOD(0x00B4AC90, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x00B4AD60, void, OnMenuShow, ())
     IL2CPP_REGISTER_METHOD(0x00B4AEE0, void, OnMenuHide, ())
@@ -12,4 +12,4 @@ namespace app::methods::HideWhenMainMenuOpen {
     IL2CPP_REGISTER_METHOD(0x00B4B5C0, bool, get_MainMenuVisible, (app::HideWhenMainMenuOpen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::HideWhenMainMenuOpen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B4B650, void, cctor, ())
-}
+} // namespace app::classes::HideWhenMainMenuOpen

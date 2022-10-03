@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CheckpointRestrictZone {
+namespace app::classes::CheckpointRestrictZone {
     IL2CPP_REGISTER_METHOD(0x00575470, bool, ShowAbandonChallangeCondition, (app::CheckpointRestrictZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01321500, bool, ShouldRefillHealthAndEnergy, (app::CheckpointRestrictZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01321510, bool, RestrictedToPosition, (app::CheckpointRestrictZone * this_ptr))
@@ -23,4 +23,4 @@ namespace app::methods::CheckpointRestrictZone {
     IL2CPP_REGISTER_METHOD(0x013236D0, void, OnFixedUpdate, (app::CheckpointRestrictZone * this_ptr, float delta))
     IL2CPP_REGISTER_METHOD(0x01323990, void, ctor, (app::CheckpointRestrictZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013239B0, void, cctor, ())
-}
+} // namespace app::classes::CheckpointRestrictZone

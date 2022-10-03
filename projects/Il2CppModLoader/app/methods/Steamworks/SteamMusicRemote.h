@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Steamworks::SteamMusicRemote {
+namespace app::classes::Steamworks::SteamMusicRemote {
     IL2CPP_REGISTER_METHOD(0x0278C000, bool, RegisterSteamMusicRemote, (app::String * pch_name))
     IL2CPP_REGISTER_METHOD(0x0278C2E0, bool, DeregisterSteamMusicRemote, ())
     IL2CPP_REGISTER_METHOD(0x0278C390, bool, BIsCurrentMusicRemote, ())
@@ -26,12 +26,12 @@ namespace app::methods::Steamworks::SteamMusicRemote {
     IL2CPP_REGISTER_METHOD(0x0278D610, bool, CurrentEntryDidChange, ())
     IL2CPP_REGISTER_METHOD(0x0278D6C0, bool, QueueWillChange, ())
     IL2CPP_REGISTER_METHOD(0x0278D770, bool, ResetQueueEntries, ())
-    IL2CPP_REGISTER_METHOD(0x0278D820, bool, SetQueueEntry, (int32_t n_i_d, int32_t n_position, app::String * pch_entry_text))
+    IL2CPP_REGISTER_METHOD(0x0278D820, bool, SetQueueEntry, (int32_t n_i_d, int32_t n_position, app::String* pch_entry_text))
     IL2CPP_REGISTER_METHOD(0x0278DB20, bool, SetCurrentQueueEntry, (int32_t n_i_d))
     IL2CPP_REGISTER_METHOD(0x0278DBE0, bool, QueueDidChange, ())
     IL2CPP_REGISTER_METHOD(0x0278DC90, bool, PlaylistWillChange, ())
     IL2CPP_REGISTER_METHOD(0x0278DD40, bool, ResetPlaylistEntries, ())
-    IL2CPP_REGISTER_METHOD(0x0278DDF0, bool, SetPlaylistEntry, (int32_t n_i_d, int32_t n_position, app::String * pch_entry_text))
+    IL2CPP_REGISTER_METHOD(0x0278DDF0, bool, SetPlaylistEntry, (int32_t n_i_d, int32_t n_position, app::String* pch_entry_text))
     IL2CPP_REGISTER_METHOD(0x0278E0F0, bool, SetCurrentPlaylistEntry, (int32_t n_i_d))
     IL2CPP_REGISTER_METHOD(0x0278E1B0, bool, PlaylistDidChange, ())
-}
+} // namespace app::classes::Steamworks::SteamMusicRemote

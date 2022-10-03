@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::OnScreenPositions {
+namespace app::classes::OnScreenPositions {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Start, (app::OnScreenPositions * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006127F0, app::Vector3, get_TopLeft, ())
     IL2CPP_REGISTER_METHOD(0x00612A40, app::Vector3, get_TopCenter, ())
@@ -13,4 +13,4 @@ namespace app::methods::OnScreenPositions {
     IL2CPP_REGISTER_METHOD(0x00613B50, app::Vector3, get_BottomCenter, ())
     IL2CPP_REGISTER_METHOD(0x00613EC0, app::Vector3, get_BottomRight, ())
     IL2CPP_REGISTER_METHOD(0x00614120, void, ctor, (app::OnScreenPositions * this_ptr))
-}
+} // namespace app::classes::OnScreenPositions

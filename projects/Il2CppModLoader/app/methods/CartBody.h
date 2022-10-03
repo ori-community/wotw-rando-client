@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CartBody {
+namespace app::classes::CartBody {
     IL2CPP_REGISTER_METHOD(0x00990EC0, void, set_AddtiveRotation, (app::CartBody * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x00B32900, float, get_BodyNormalizedLocalRotation, (app::CartBody * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B32910, void, Awake, (app::CartBody * this_ptr))
@@ -11,4 +11,4 @@ namespace app::methods::CartBody {
     IL2CPP_REGISTER_METHOD(0x00B32CF0, void, ApplyRotation, (app::CartBody * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnDrawGizmos, (app::CartBody * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B33000, void, ctor, (app::CartBody * this_ptr))
-}
+} // namespace app::classes::CartBody

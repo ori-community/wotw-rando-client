@@ -30,9 +30,9 @@
 
 using namespace modloader;
 using namespace shops;
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
-using namespace app::methods::CatlikeCoding::TextBox;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
+using namespace app::classes::CatlikeCoding::TextBox;
 
 #define GROM_ENABLED 0
 

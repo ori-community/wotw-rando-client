@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UberPostAnimator {
+namespace app::classes::UberPostAnimator {
     IL2CPP_REGISTER_METHOD(0x00FEDD20, void, Awake, (app::UberPostAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FEDEC0, void, OnDestroy, (app::UberPostAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FEE060, void, OnGameReset, (app::UberPostAnimator * this_ptr))
@@ -12,4 +12,4 @@ namespace app::methods::UberPostAnimator {
     IL2CPP_REGISTER_METHOD(0x00933230, float, get_Duration, (app::UberPostAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004167A0, bool, get_IsLooping, (app::UberPostAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FEEA00, void, ctor, (app::UberPostAnimator * this_ptr))
-}
+} // namespace app::classes::UberPostAnimator

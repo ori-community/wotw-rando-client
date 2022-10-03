@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Timeline::PlaybackStatus {
+namespace app::classes::Moon::Timeline::PlaybackStatus {
     IL2CPP_REGISTER_METHOD(0x011FE8D0, bool, get_IsPending, (app::PlaybackStatus * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052B590, bool, get_IsFinished, (app::PlaybackStatus * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052C650, void, set_IsFinished, (app::PlaybackStatus * this_ptr, bool value))
@@ -25,4 +25,4 @@ namespace app::methods::Moon::Timeline::PlaybackStatus {
     IL2CPP_REGISTER_METHOD(0x01E79480, void, ReportStop, (app::PlaybackStatus * this_ptr, float time, int32_t frame))
     IL2CPP_REGISTER_METHOD(0x01E79490, void, ReportLocal, (app::PlaybackStatus * this_ptr, float time, int32_t frame))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::PlaybackStatus * this_ptr))
-}
+} // namespace app::classes::Moon::Timeline::PlaybackStatus

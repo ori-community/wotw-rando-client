@@ -1,12 +1,12 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AdvancedDebugMenuPage {
+namespace app::classes::AdvancedDebugMenuPage {
     IL2CPP_REGISTER_METHOD(0x004CB040, void, ResetStatics, ())
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::String *, get_Name, (app::AdvancedDebugMenuPage * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::String*, get_Name, (app::AdvancedDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00420EE0, int32_t, get_ColumnOffset, (app::AdvancedDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004CB0E0, void, Awake, (app::AdvancedDebugMenuPage * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x004CB180, void, GetItems, (app::AdvancedDebugMenuPage * this_ptr, app::List_1_List_1_IDebugMenuItem_ * items))
+    IL2CPP_REGISTER_METHOD(0x004CB180, void, GetItems, (app::AdvancedDebugMenuPage * this_ptr, app::List_1_List_1_IDebugMenuItem_* items))
     IL2CPP_REGISTER_METHOD(0x004DC7F0, bool, DisablePlayFabPush, ())
     IL2CPP_REGISTER_METHODINFO(0x04789AE0, AdvancedDebugMenuPage_DisablePlayFabPush__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004DC890, bool, DisableSteamPush, ())
@@ -67,7 +67,7 @@ namespace app::methods::AdvancedDebugMenuPage {
     IL2CPP_REGISTER_METHOD(0x004DE630, bool, StartHierarchyPerformanceBulkTestFull_2, (app::AdvancedDebugMenuPage * this_ptr, int32_t start_scene_index))
     IL2CPP_REGISTER_METHOD(0x004DE720, bool, StopHierarchyPerformanceTest, ())
     IL2CPP_REGISTER_METHODINFO(0x0471F340, AdvancedDebugMenuPage_StopHierarchyPerformanceTest__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x004DE910, app::String *, get_StressTestStartSceneName, (app::AdvancedDebugMenuPage * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x004DE910, app::String*, get_StressTestStartSceneName, (app::AdvancedDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004DEA30, void, StartStressTest, (app::AdvancedDebugMenuPage * this_ptr, int32_t isolated_test_scene_idx))
     IL2CPP_REGISTER_METHOD(0x004DEB50, bool, PrintReadableTextures, (app::AdvancedDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04724388, AdvancedDebugMenuPage_PrintReadableTextures__MethodInfo)
@@ -76,7 +76,7 @@ namespace app::methods::AdvancedDebugMenuPage {
     IL2CPP_REGISTER_METHOD(0x004DEFE0, bool, ToggleVerlet, (app::AdvancedDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004DF090, bool, LogUberstate, (app::AdvancedDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0474BCA8, AdvancedDebugMenuPage_LogUberstate__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x004DF820, void, WriteGroupData, (app::AdvancedDebugMenuPage * this_ptr, app::UberStateValueGroup * group, app::StreamWriter * writer))
+    IL2CPP_REGISTER_METHOD(0x004DF820, void, WriteGroupData, (app::AdvancedDebugMenuPage * this_ptr, app::UberStateValueGroup* group, app::StreamWriter* writer))
     IL2CPP_REGISTER_METHOD(0x004E1C40, bool, AchievementHintGetter, (app::AdvancedDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0472F038, AdvancedDebugMenuPage_AchievementHintGetter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004E1CE0, void, AchievementHintSetter, (app::AdvancedDebugMenuPage * this_ptr, bool new_value))
@@ -101,7 +101,7 @@ namespace app::methods::AdvancedDebugMenuPage {
     IL2CPP_REGISTER_METHODINFO(0x0478A170, AdvancedDebugMenuPage_PostGoodLeaderBoardStats__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004E4680, bool, ClearLeaderBoardStats, ())
     IL2CPP_REGISTER_METHODINFO(0x0471A1B8, AdvancedDebugMenuPage_ClearLeaderBoardStats__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x004E4900, app::DebugPlayerTeleporter *, get_DebugPlayerTeleporter, (app::AdvancedDebugMenuPage * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x004E4900, app::DebugPlayerTeleporter*, get_DebugPlayerTeleporter, (app::AdvancedDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004E49D0, bool, TestEnemyLocomotionGetter, (app::AdvancedDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04707368, AdvancedDebugMenuPage_TestEnemyLocomotionGetter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004E4AB0, void, TestEnemyLocomotionSetter, (app::AdvancedDebugMenuPage * this_ptr, bool new_value))
@@ -136,7 +136,7 @@ namespace app::methods::AdvancedDebugMenuPage {
     IL2CPP_REGISTER_METHODINFO(0x0473A520, AdvancedDebugMenuPage__GetItems_b__15_33__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004E57B0, void, _GetItems_b__15_34, (app::AdvancedDebugMenuPage * this_ptr, int32_t i))
     IL2CPP_REGISTER_METHODINFO(0x0472C3C0, AdvancedDebugMenuPage__GetItems_b__15_34__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x004E57C0, app::String *, _GetItems_b__15_35, (app::AdvancedDebugMenuPage * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x004E57C0, app::String*, _GetItems_b__15_35, (app::AdvancedDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047762D0, AdvancedDebugMenuPage__GetItems_b__15_35__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004E57D0, bool, _GetItems_b__15_51, (app::AdvancedDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047927D0, AdvancedDebugMenuPage__GetItems_b__15_51__MethodInfo)
@@ -188,4 +188,4 @@ namespace app::methods::AdvancedDebugMenuPage {
     IL2CPP_REGISTER_METHODINFO(0x0477F948, AdvancedDebugMenuPage__GetItems_b__15_230__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004E5A30, void, _GetItems_b__15_231, (app::AdvancedDebugMenuPage * this_ptr, bool b))
     IL2CPP_REGISTER_METHODINFO(0x04777F70, AdvancedDebugMenuPage__GetItems_b__15_231__MethodInfo)
-}
+} // namespace app::classes::AdvancedDebugMenuPage

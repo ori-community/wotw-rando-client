@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MiscUpdater {
-    IL2CPP_REGISTER_METHOD(0x01459880, app::MiscUpdater *, get_Instance, ())
+namespace app::classes::MiscUpdater {
+    IL2CPP_REGISTER_METHOD(0x01459880, app::MiscUpdater*, get_Instance, ())
     IL2CPP_REGISTER_METHOD(0x01459920, void, set_Instance, (app::MiscUpdater * value))
     IL2CPP_REGISTER_METHOD(0x014599D0, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x01459BA0, void, Awake, (app::MiscUpdater * this_ptr))
@@ -21,4 +21,4 @@ namespace app::methods::MiscUpdater {
     IL2CPP_REGISTER_METHOD(0x0145A930, void, FixedUpdate, (app::MiscUpdater * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::MiscUpdater * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0145AC70, void, cctor, ())
-}
+} // namespace app::classes::MiscUpdater

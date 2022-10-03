@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Net::HttpListenerTimeoutManager {
+namespace app::classes::System::Net::HttpListenerTimeoutManager {
     IL2CPP_REGISTER_METHOD(0x01E58740, app::TimeSpan, get_EntityBody, (app::HttpListenerTimeoutManager * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0472A948, HttpListenerTimeoutManager_get_EntityBody__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E58790, void, set_EntityBody, (app::HttpListenerTimeoutManager * this_ptr, app::TimeSpan value))
@@ -27,4 +27,4 @@ namespace app::methods::System::Net::HttpListenerTimeoutManager {
     IL2CPP_REGISTER_METHOD(0x01E58AB0, void, set_MinSendBytesPerSecond, (app::HttpListenerTimeoutManager * this_ptr, int64_t value))
     IL2CPP_REGISTER_METHODINFO(0x0473EDE0, HttpListenerTimeoutManager_set_MinSendBytesPerSecond__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::HttpListenerTimeoutManager * this_ptr))
-}
+} // namespace app::classes::System::Net::HttpListenerTimeoutManager

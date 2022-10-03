@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ValleyOfTheWindKuroDeathZone {
+namespace app::classes::ValleyOfTheWindKuroDeathZone {
     IL2CPP_REGISTER_METHOD(0x013B7DD0, void, Start, (app::ValleyOfTheWindKuroDeathZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013B7DD0, void, FixedUpdate, (app::ValleyOfTheWindKuroDeathZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013B8050, void, OnEnable, (app::ValleyOfTheWindKuroDeathZone * this_ptr))
@@ -9,4 +9,4 @@ namespace app::methods::ValleyOfTheWindKuroDeathZone {
     IL2CPP_REGISTER_METHOD(0x013B81D0, void, OnDrawGizmos, (app::ValleyOfTheWindKuroDeathZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::ValleyOfTheWindKuroDeathZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013B82D0, void, cctor, ())
-}
+} // namespace app::classes::ValleyOfTheWindKuroDeathZone

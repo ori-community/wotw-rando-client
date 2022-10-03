@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Mine {
+namespace app::classes::Mine {
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::Mine * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01443EA0, bool, IsDead, (app::Mine * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeChargeFlamed, (app::Mine * this_ptr))
@@ -29,8 +29,8 @@ namespace app::methods::Mine {
     IL2CPP_REGISTER_METHOD(0x014444C0, void, SetAngle, (app::Mine * this_ptr, float angle))
     IL2CPP_REGISTER_METHOD(0x01444690, void, OnDestroy, (app::Mine * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01444750, void, FixedUpdate, (app::Mine * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01444AE0, void, OnTriggerEnter, (app::Mine * this_ptr, app::Collider * collider))
-    IL2CPP_REGISTER_METHOD(0x00778590, void, OnCollisionEnter, (app::Mine * this_ptr, app::Collision * collision))
+    IL2CPP_REGISTER_METHOD(0x01444AE0, void, OnTriggerEnter, (app::Mine * this_ptr, app::Collider* collider))
+    IL2CPP_REGISTER_METHOD(0x00778590, void, OnCollisionEnter, (app::Mine * this_ptr, app::Collision* collision))
     IL2CPP_REGISTER_METHOD(0x01444B90, void, Explode, (app::Mine * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01444E30, void, DetonateNearbyMines, (app::Mine * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014450A0, void, Detonate, (app::Mine * this_ptr, float delay))
@@ -43,10 +43,10 @@ namespace app::methods::Mine {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnEnterBash, (app::Mine * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBashHighlight, (app::Mine * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBashDehighlight, (app::Mine * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, OnRecieveDamage, (app::Mine * this_ptr, app::Damage * damage))
-    IL2CPP_REGISTER_METHOD(0x002FBC80, app::IDamageReciever__Array *, get_AffectedReceivers, (app::Mine * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, OnRecieveDamage, (app::Mine * this_ptr, app::Damage* damage))
+    IL2CPP_REGISTER_METHOD(0x002FBC80, app::IDamageReciever__Array*, get_AffectedReceivers, (app::Mine * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014453C0, void, ctor, (app::Mine * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01445410, void, cctor, ())
-    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject *, IDamageReciever_get_gameObject, (app::Mine * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform *, IDamageReciever_get_transform, (app::Mine * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, IDamageReciever_get_gameObject, (app::Mine * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform*, IDamageReciever_get_transform, (app::Mine * this_ptr))
+} // namespace app::classes::Mine

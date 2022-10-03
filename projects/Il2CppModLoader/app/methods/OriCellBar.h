@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::OriCellBar {
-    IL2CPP_REGISTER_METHOD(0x00437A00, void, SetShowCondition, (app::OriCellBar * this_ptr, app::Func_1_Boolean_ * should_show_now))
+namespace app::classes::OriCellBar {
+    IL2CPP_REGISTER_METHOD(0x00437A00, void, SetShowCondition, (app::OriCellBar * this_ptr, app::Func_1_Boolean_* should_show_now))
     IL2CPP_REGISTER_METHOD(0x00437A70, float, get_CurrentValue, (app::OriCellBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00437A80, float, get_MaxValue, (app::OriCellBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00437A90, float, get_MaxUnshieldedValue, (app::OriCellBar * this_ptr))
@@ -14,7 +14,7 @@ namespace app::methods::OriCellBar {
     IL2CPP_REGISTER_METHOD(0x00439270, void, RefreshUpdateDataOnCells, (app::OriCellBar * this_ptr, float current_value, float max_value))
     IL2CPP_REGISTER_METHOD(0x004392F0, void, OnUpdatedShard, (app::OriCellBar * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0471C840, OriCellBar_OnUpdatedShard__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x004394A0, void, ForceUpdateBar, (app::OriCellBar * this_ptr, app::PlayerUberStateShards_Shard * shard))
+    IL2CPP_REGISTER_METHOD(0x004394A0, void, ForceUpdateBar, (app::OriCellBar * this_ptr, app::PlayerUberStateShards_Shard* shard))
     IL2CPP_REGISTER_METHODINFO(0x04710ED0, OriCellBar_ForceUpdateBar__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00439510, void, UpdatedRelevantShard, (app::OriCellBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00439570, bool, get_ShouldBeShown, (app::OriCellBar * this_ptr))
@@ -34,4 +34,4 @@ namespace app::methods::OriCellBar {
     IL2CPP_REGISTER_METHOD(0x0043B8E0, void, ctor, (app::OriCellBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0043B980, void, _PlayHideTimeline_b__76_0, (app::OriCellBar * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04795548, OriCellBar__PlayHideTimeline_b__76_0__MethodInfo)
-}
+} // namespace app::classes::OriCellBar

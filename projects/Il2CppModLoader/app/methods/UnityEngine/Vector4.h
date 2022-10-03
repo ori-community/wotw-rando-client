@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Vector4 {
+namespace app::classes::UnityEngine::Vector4 {
     IL2CPP_REGISTER_METHOD(0x00121740, void, ctor_1, (app::Vector4__Boxed * this_ptr, float x, float y, float z, float w))
     IL2CPP_REGISTER_METHOD(0x00229850, void, ctor_2, (app::Vector4__Boxed * this_ptr, float x, float y, float z))
     IL2CPP_REGISTER_METHOD(0x00229870, void, ctor_3, (app::Vector4__Boxed * this_ptr, float x, float y))
@@ -13,7 +13,7 @@ namespace app::methods::UnityEngine::Vector4 {
     IL2CPP_REGISTER_METHOD(0x02C78650, app::Vector4, Lerp, (app::Vector4 a, app::Vector4 b, float t))
     IL2CPP_REGISTER_METHOD(0x02427DF0, app::Vector4, Scale, (app::Vector4 a, app::Vector4 b))
     IL2CPP_REGISTER_METHOD(0x00217710, int32_t, GetHashCode, (app::Vector4__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002298B0, bool, Equals_1, (app::Vector4__Boxed * this_ptr, app::Object * other))
+    IL2CPP_REGISTER_METHOD(0x002298B0, bool, Equals_1, (app::Vector4__Boxed * this_ptr, app::Object* other))
     IL2CPP_REGISTER_METHOD(0x001EBCF0, bool, Equals_2, (app::Vector4__Boxed * this_ptr, app::Vector4 other))
     IL2CPP_REGISTER_METHOD(0x02C78870, app::Vector4, Normalize_1, (app::Vector4 a))
     IL2CPP_REGISTER_METHOD(0x002298C0, void, Normalize_2, (app::Vector4__Boxed * this_ptr))
@@ -36,29 +36,29 @@ namespace app::methods::UnityEngine::Vector4 {
     IL2CPP_REGISTER_METHOD(0x02C79410, app::Vector3, op_Implicit_2, (app::Vector4 v))
     IL2CPP_REGISTER_METHOD(0x02C79440, app::Vector4, op_Implicit_3, (app::Vector2 v))
     IL2CPP_REGISTER_METHOD(0x0296D4D0, app::Vector2, op_Implicit_4, (app::Vector4 v))
-    IL2CPP_REGISTER_METHOD(0x00229A70, app::String *, ToString, (app::Vector4__Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00229A70, app::String*, ToString, (app::Vector4__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C796F0, float, SqrMagnitude_1, (app::Vector4 a))
     IL2CPP_REGISTER_METHOD(0x00229A80, float, SqrMagnitude_2, (app::Vector4__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C797D0, void, cctor, ())
-    inline app::Vector4 operator + (app::Vector4 a, app::Vector4 b) {
+    inline app::Vector4 operator+(app::Vector4 a, app::Vector4 b) {
         return op_Addition(a, b);
     }
-    inline app::Vector4 operator - (app::Vector4 a, app::Vector4 b) {
+    inline app::Vector4 operator-(app::Vector4 a, app::Vector4 b) {
         return op_Subtraction(a, b);
     }
-    inline app::Vector4 operator * (app::Vector4 a, float d) {
+    inline app::Vector4 operator*(app::Vector4 a, float d) {
         return op_Multiply_1(a, d);
     }
-    inline app::Vector4 operator * (float d, app::Vector4 a) {
+    inline app::Vector4 operator*(float d, app::Vector4 a) {
         return op_Multiply_2(d, a);
     }
-    inline app::Vector4 operator / (app::Vector4 a, float d) {
+    inline app::Vector4 operator/(app::Vector4 a, float d) {
         return op_Division(a, d);
     }
-    inline bool operator == (app::Vector4 lhs, app::Vector4 rhs) {
+    inline bool operator==(app::Vector4 lhs, app::Vector4 rhs) {
         return op_Equality(lhs, rhs);
     }
-    inline bool operator != (app::Vector4 lhs, app::Vector4 rhs) {
+    inline bool operator!=(app::Vector4 lhs, app::Vector4 rhs) {
         return op_Inequality(lhs, rhs);
     }
-}
+} // namespace app::classes::UnityEngine::Vector4

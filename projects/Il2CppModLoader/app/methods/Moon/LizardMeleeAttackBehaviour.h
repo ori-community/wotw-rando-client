@@ -1,12 +1,12 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::LizardMeleeAttackBehaviour {
+namespace app::classes::Moon::LizardMeleeAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x01107F30, void, OnEntityInitialized, (app::LizardMeleeAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011080A0, app::EffectSpawn, ProvideDamageEffect, (app::LizardMeleeAttackBehaviour * this_ptr, app::DamageResult result))
-    IL2CPP_REGISTER_METHOD(0x01108210, void, OnEnter, (app::LizardMeleeAttackBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x01108680, void, OnExit, (app::LizardMeleeAttackBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x011087A0, app::BehaviourStatus__Enum, OnExecute, (app::LizardMeleeAttackBehaviour * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x01108210, void, OnEnter, (app::LizardMeleeAttackBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x01108680, void, OnExit, (app::LizardMeleeAttackBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x011087A0, app::BehaviourStatus__Enum, OnExecute, (app::LizardMeleeAttackBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x011088A0, void, StartAttackTimeline, (app::LizardMeleeAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01108AA0, void, OnAttackBaseTimelineStopEvent, (app::LizardMeleeAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04717F80, LizardMeleeAttackBehaviour_OnAttackBaseTimelineStopEvent__MethodInfo)
@@ -22,4 +22,4 @@ namespace app::methods::Moon::LizardMeleeAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x01109510, bool, IsToNearToLedge, (app::LizardMeleeAttackBehaviour * this_ptr, float direction))
     IL2CPP_REGISTER_METHOD(0x011096A0, void, SpawnAttackVFX, (app::LizardMeleeAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01109B20, void, ctor, (app::LizardMeleeAttackBehaviour * this_ptr))
-}
+} // namespace app::classes::Moon::LizardMeleeAttackBehaviour

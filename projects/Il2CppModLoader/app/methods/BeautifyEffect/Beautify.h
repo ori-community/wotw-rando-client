@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::BeautifyEffect::Beautify {
+namespace app::classes::BeautifyEffect::Beautify {
     IL2CPP_REGISTER_METHOD(0x00654950, app::BEAUTIFY_PRESET__Enum, get_preset, (app::Beautify * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031778D0, void, set_preset, (app::Beautify * this_ptr, app::BEAUTIFY_PRESET__Enum value))
     IL2CPP_REGISTER_METHOD(0x00998570, app::BEAUTIFY_QUALITY__Enum, get_quality, (app::Beautify * this_ptr))
@@ -62,8 +62,8 @@ namespace app::methods::BeautifyEffect::Beautify {
     IL2CPP_REGISTER_METHOD(0x03177E10, void, set_lensDirtThreshold, (app::Beautify * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x00A79490, float, get_lensDirtIntensity, (app::Beautify * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03177E30, void, set_lensDirtIntensity, (app::Beautify * this_ptr, float value))
-    IL2CPP_REGISTER_METHOD(0x00660430, app::Texture2D *, get_lensDirtTexture, (app::Beautify * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x03177E50, void, set_lensDirtTexture, (app::Beautify * this_ptr, app::Texture2D * value))
+    IL2CPP_REGISTER_METHOD(0x00660430, app::Texture2D*, get_lensDirtTexture, (app::Beautify * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x03177E50, void, set_lensDirtTexture, (app::Beautify * this_ptr, app::Texture2D* value))
     IL2CPP_REGISTER_METHOD(0x00603D60, bool, get_bloom, (app::Beautify * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03177F20, void, set_bloom, (app::Beautify * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x03177F40, float, get_bloomIntensity, (app::Beautify * this_ptr))
@@ -88,16 +88,16 @@ namespace app::methods::BeautifyEffect::Beautify {
     IL2CPP_REGISTER_METHOD(0x03178120, void, set_bloomWeight4, (app::Beautify * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x01256740, float, get_bloomWeight5, (app::Beautify * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03178140, void, set_bloomWeight5, (app::Beautify * this_ptr, float value))
-    IL2CPP_REGISTER_METHOD(0x03178160, app::Beautify *, get_instance, ())
-    IL2CPP_REGISTER_METHOD(0x011354B0, app::Camera *, get_cameraEffect, (app::Beautify * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x03178160, app::Beautify*, get_instance, ())
+    IL2CPP_REGISTER_METHOD(0x011354B0, app::Camera*, get_cameraEffect, (app::Beautify * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031783D0, void, OnEnable, (app::Beautify * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03178520, void, OnDisable, (app::Beautify * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03178680, void, Reset, (app::Beautify * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03178690, void, LateUpdate, (app::Beautify * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x03178AC0, void, OnRenderImage, (app::Beautify * this_ptr, app::RenderTexture * source, app::RenderTexture * destination))
-    IL2CPP_REGISTER_METHOD(0x03179AC0, void, BlurThis, (app::Beautify * this_ptr, app::RenderTexture * rt))
+    IL2CPP_REGISTER_METHOD(0x03178AC0, void, OnRenderImage, (app::Beautify * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))
+    IL2CPP_REGISTER_METHOD(0x03179AC0, void, BlurThis, (app::Beautify * this_ptr, app::RenderTexture* rt))
     IL2CPP_REGISTER_METHOD(0x03179D60, void, UpdateMaterialProperties, (app::Beautify * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0317AD40, void, UpdateSharpenParams, (app::Beautify * this_ptr, float sharpen))
     IL2CPP_REGISTER_METHOD(0x0317AE90, void, SetBloomWeights, (app::Beautify * this_ptr, float w0, float w1, float w2, float w3, float w4, float w5))
     IL2CPP_REGISTER_METHOD(0x0317AEE0, void, ctor, (app::Beautify * this_ptr))
-}
+} // namespace app::classes::BeautifyEffect::Beautify

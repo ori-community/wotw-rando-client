@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LegacyLever___c {
+namespace app::classes::LegacyLever___c {
     IL2CPP_REGISTER_METHOD(0x00A2BBD0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::LegacyLever_c * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, __ctor_b__131_0, (app::LegacyLever_c * this_ptr))
@@ -26,4 +26,4 @@ namespace app::methods::LegacyLever___c {
     IL2CPP_REGISTER_METHODINFO(0x04776890, LegacyLever_c___ctor_b__131_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, __ctor_b__131_10, (app::LegacyLever_c * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04761C70, LegacyLever_c___ctor_b__131_10__MethodInfo)
-}
+} // namespace app::classes::LegacyLever___c

@@ -1,14 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Runtime::CompilerServices::RuntimeHelpers {
-    IL2CPP_REGISTER_METHOD(0x01A92480, void, InitializeArray_1, (app::Array * array, void * fld_handle))
+namespace app::classes::System::Runtime::CompilerServices::RuntimeHelpers {
+    IL2CPP_REGISTER_METHOD(0x01A92480, void, InitializeArray_1, (app::Array * array, void* fld_handle))
     IL2CPP_REGISTER_METHOD(0x01A92590, void, InitializeArray_2, (app::Array * array, app::RuntimeFieldHandle fld_handle))
     IL2CPP_REGISTER_METHODINFO(0x0471D728, RuntimeHelpers_InitializeArray_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007E3F30, int32_t, get_OffsetToStringData, ())
     IL2CPP_REGISTER_METHOD(0x0194D440, int32_t, GetHashCode, (app::Object * o))
-    IL2CPP_REGISTER_METHOD(0x01A92740, app::Object *, GetObjectValue, (app::Object * obj))
-    IL2CPP_REGISTER_METHOD(0x01A92750, void, RunClassConstructor_1, (void * type))
+    IL2CPP_REGISTER_METHOD(0x01A92740, app::Object*, GetObjectValue, (app::Object * obj))
+    IL2CPP_REGISTER_METHOD(0x01A92750, void, RunClassConstructor_1, (void* type))
     IL2CPP_REGISTER_METHOD(0x01A92790, void, RunClassConstructor_2, (app::RuntimeTypeHandle type))
     IL2CPP_REGISTER_METHODINFO(0x04765090, RuntimeHelpers_RunClassConstructor_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, SufficientExecutionStack, ())
@@ -40,4 +40,4 @@ namespace app::methods::System::Runtime::CompilerServices::RuntimeHelpers {
     IL2CPP_REGISTER_METHOD(0x01569E00, bool, IsReferenceOrContainsReferences_24, ())
     IL2CPP_REGISTER_METHOD(0x01569F40, bool, IsReferenceOrContainsReferences_25, ())
     IL2CPP_REGISTER_METHOD(0x0156A080, bool, IsReferenceOrContainsReferences_26, ())
-}
+} // namespace app::classes::System::Runtime::CompilerServices::RuntimeHelpers

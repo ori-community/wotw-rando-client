@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UberPostBloomAnimator {
+namespace app::classes::UberPostBloomAnimator {
     IL2CPP_REGISTER_METHOD(0x00FEED20, void, Awake, (app::UberPostBloomAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FEEF00, void, OnDestroy, (app::UberPostBloomAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FEF0A0, void, OnDisable, (app::UberPostBloomAnimator * this_ptr))
@@ -14,4 +14,4 @@ namespace app::methods::UberPostBloomAnimator {
     IL2CPP_REGISTER_METHOD(0x00933870, bool, get_IsLooping, (app::UberPostBloomAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FEF650, void, ctor, (app::UberPostBloomAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FEFA30, void, cctor, ())
-}
+} // namespace app::classes::UberPostBloomAnimator

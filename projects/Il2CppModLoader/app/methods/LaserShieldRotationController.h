@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LaserShieldRotationController {
+namespace app::classes::LaserShieldRotationController {
     IL2CPP_REGISTER_METHOD(0x00F0E660, int32_t, get_PieceCount, (app::LaserShieldRotationController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004994E0, float, get_DefaultRotationSpeedMultiplierTweenSpeed, (app::LaserShieldRotationController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FC5D0, float, get_RotationSpeedMultiplierTweenSpeed, (app::LaserShieldRotationController * this_ptr))
@@ -14,15 +14,15 @@ namespace app::methods::LaserShieldRotationController {
     IL2CPP_REGISTER_METHOD(0x0057BAC0, void, set_RotateCore, (app::LaserShieldRotationController * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00849490, float, get_ManualTargetAngle, (app::LaserShieldRotationController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F0E770, void, set_ManualTargetAngle, (app::LaserShieldRotationController * this_ptr, float value))
-    IL2CPP_REGISTER_METHOD(0x002FBD20, app::LaserShooterMinibossEntity *, get_Entity, (app::LaserShieldRotationController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FBD30, void, set_Entity, (app::LaserShieldRotationController * this_ptr, app::LaserShooterMinibossEntity * value))
+    IL2CPP_REGISTER_METHOD(0x002FBD20, app::LaserShooterMinibossEntity*, get_Entity, (app::LaserShieldRotationController * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FBD30, void, set_Entity, (app::LaserShieldRotationController * this_ptr, app::LaserShooterMinibossEntity* value))
     IL2CPP_REGISTER_METHOD(0x00F0E780, void, ResetState, (app::LaserShieldRotationController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F0E970, float, get_CurrentRotationSpeed, (app::LaserShieldRotationController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F0E980, float, get_RotationSpeedMultiplier, (app::LaserShieldRotationController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FF7B0, app::LaserShieldRotationController_RotationType__Enum, get_CurrentRotationType, (app::LaserShieldRotationController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FBE50, bool, get_AlternateCircleRotations, (app::LaserShieldRotationController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FBE60, void, set_AlternateCircleRotations, (app::LaserShieldRotationController * this_ptr, bool value))
-    IL2CPP_REGISTER_METHOD(0x00F0EA30, void, Initialize, (app::LaserShieldRotationController * this_ptr, app::LaserShooterMinibossEntity * entity))
+    IL2CPP_REGISTER_METHOD(0x00F0EA30, void, Initialize, (app::LaserShieldRotationController * this_ptr, app::LaserShooterMinibossEntity* entity))
     IL2CPP_REGISTER_METHOD(0x00F0ECC0, int32_t, GetDestoyedPiecesCount, (app::LaserShieldRotationController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F0EDB0, int32_t, GetAlivePiecesCount, (app::LaserShieldRotationController * this_ptr, bool include_projectiles))
     IL2CPP_REGISTER_METHOD(0x00F0EEF0, float, GetDestroyedPercentage, (app::LaserShieldRotationController * this_ptr))
@@ -41,17 +41,17 @@ namespace app::methods::LaserShieldRotationController {
     IL2CPP_REGISTER_METHOD(0x00F0FB30, void, SetSpeed, (app::LaserShieldRotationController * this_ptr, float target_speed, bool instant))
     IL2CPP_REGISTER_METHOD(0x00F0FC50, void, SetRotationType, (app::LaserShieldRotationController * this_ptr, app::LaserShieldRotationController_RotationType__Enum rotation_type))
     IL2CPP_REGISTER_METHOD(0x00F0FC90, void, OnEnable, (app::LaserShieldRotationController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F0FCD0, bool, FullRotationTime, (app::LaserShieldRotationController * this_ptr, float * full_rotation_time))
+    IL2CPP_REGISTER_METHOD(0x00F0FCD0, bool, FullRotationTime, (app::LaserShieldRotationController * this_ptr, float* full_rotation_time))
     IL2CPP_REGISTER_METHOD(0x00F0FDC0, void, OnUpdate, (app::LaserShieldRotationController * this_ptr, float d_time))
-    IL2CPP_REGISTER_METHOD(0x00F109D0, app::List_1_LaserShieldDamageReceiver_ *, GetAllAlivePieces, (app::LaserShieldRotationController * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00F109D0, app::List_1_LaserShieldDamageReceiver_*, GetAllAlivePieces, (app::LaserShieldRotationController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F10C20, void, DestroyAllPieces, (app::LaserShieldRotationController * this_ptr, bool spawn_effects))
     IL2CPP_REGISTER_METHOD(0x00F10DA0, bool, IsPieceDestroyed, (app::LaserShieldRotationController * this_ptr, int32_t piece_index))
-    IL2CPP_REGISTER_METHOD(0x00F10F20, app::LaserShieldDamageReceiver *, GetPiece, (app::LaserShieldRotationController * this_ptr, int32_t piece_index))
+    IL2CPP_REGISTER_METHOD(0x00F10F20, app::LaserShieldDamageReceiver*, GetPiece, (app::LaserShieldRotationController * this_ptr, int32_t piece_index))
     IL2CPP_REGISTER_METHOD(0x00F10FD0, void, NotifyPieceProjectileShake, (app::LaserShieldRotationController * this_ptr, float oscilation_strength))
     IL2CPP_REGISTER_METHOD(0x00F11090, void, NotifyShieldAttackShoot, (app::LaserShieldRotationController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F110A0, void, NotifyPieceProjectileShakeStart, (app::LaserShieldRotationController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F111D0, void, NotifyPieceProjectileReturnStart, (app::LaserShieldRotationController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F11300, void, ProcessDamage, (app::LaserShieldRotationController * this_ptr, app::Damage * * damage))
-    IL2CPP_REGISTER_METHOD(0x00F11300, void, ResolveDamage, (app::LaserShieldRotationController * this_ptr, app::DamageResult * damage_result))
+    IL2CPP_REGISTER_METHOD(0x00F11300, void, ProcessDamage, (app::LaserShieldRotationController * this_ptr, app::Damage** damage))
+    IL2CPP_REGISTER_METHOD(0x00F11300, void, ResolveDamage, (app::LaserShieldRotationController * this_ptr, app::DamageResult* damage_result))
     IL2CPP_REGISTER_METHOD(0x00F11360, void, ctor, (app::LaserShieldRotationController * this_ptr))
-}
+} // namespace app::classes::LaserShieldRotationController

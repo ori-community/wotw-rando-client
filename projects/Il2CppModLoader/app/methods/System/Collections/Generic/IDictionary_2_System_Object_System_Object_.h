@@ -1,5 +1,5 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Collections::Generic::IDictionary_2_System_Object_System_Object_ {
+namespace app::classes::System::Collections::Generic::IDictionary_2_System_Object_System_Object_ {
 }

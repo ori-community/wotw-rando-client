@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::HornBugBossEntity {
-    IL2CPP_REGISTER_METHOD(0x00B62280, void, BlockedHitEffectPrefabInstantiation, (app::HornBugBossEntity * this_ptr, app::List_1_DynamicInstantiationDescriptor_ * instantiations))
+namespace app::classes::HornBugBossEntity {
+    IL2CPP_REGISTER_METHOD(0x00B62280, void, BlockedHitEffectPrefabInstantiation, (app::HornBugBossEntity * this_ptr, app::List_1_DynamicInstantiationDescriptor_* instantiations))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_UseDeathLoopTimeLimit, (app::HornBugBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B62400, float, GetFacingDistToPoint, (app::HornBugBossEntity * this_ptr, app::Vector3 point))
     IL2CPP_REGISTER_METHOD(0x00B62580, float, get_FwdWallDist, (app::HornBugBossEntity * this_ptr))
@@ -26,12 +26,12 @@ namespace app::methods::HornBugBossEntity {
     IL2CPP_REGISTER_METHOD(0x00B637F0, void, OnDamageBlocked, (app::HornBugBossEntity * this_ptr, app::DamageResult result))
     IL2CPP_REGISTER_METHOD(0x00B63980, void, OnPostRestoreCheckpoint, (app::HornBugBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B63B30, void, OnFixedUpdate, (app::HornBugBossEntity * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00B64040, void, ResolveDamage, (app::HornBugBossEntity * this_ptr, app::DamageResult * damage_result))
+    IL2CPP_REGISTER_METHOD(0x00B64040, void, ResolveDamage, (app::HornBugBossEntity * this_ptr, app::DamageResult* damage_result))
     IL2CPP_REGISTER_METHOD(0x00B64210, app::Vector3, get_TargetPosition, (app::HornBugBossEntity * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00B642E0, void, UpdateCrossDependentCooldowns, (app::HornBugBossEntity * this_ptr, app::HornbugBossBaseBehaviour * behaviour))
-    IL2CPP_REGISTER_METHOD(0x00B64480, void, HornbugBaseBehaviourEntered, (app::HornBugBossEntity * this_ptr, app::HornbugBossBaseBehaviour * behaviour))
-    IL2CPP_REGISTER_METHOD(0x00B64500, void, HornbugBaseBehaviourExecuted, (app::HornBugBossEntity * this_ptr, app::HornbugBossBaseBehaviour * behaviour))
-    IL2CPP_REGISTER_METHOD(0x00B64510, void, HornbugBaseBehaviourExited, (app::HornBugBossEntity * this_ptr, app::HornbugBossBaseBehaviour * behaviour))
-    IL2CPP_REGISTER_METHOD(0x00B645F0, float, GetUtilityForBehaviour, (app::HornBugBossEntity * this_ptr, app::HornbugBossBaseBehaviour * behaviour))
+    IL2CPP_REGISTER_METHOD(0x00B642E0, void, UpdateCrossDependentCooldowns, (app::HornBugBossEntity * this_ptr, app::HornbugBossBaseBehaviour* behaviour))
+    IL2CPP_REGISTER_METHOD(0x00B64480, void, HornbugBaseBehaviourEntered, (app::HornBugBossEntity * this_ptr, app::HornbugBossBaseBehaviour* behaviour))
+    IL2CPP_REGISTER_METHOD(0x00B64500, void, HornbugBaseBehaviourExecuted, (app::HornBugBossEntity * this_ptr, app::HornbugBossBaseBehaviour* behaviour))
+    IL2CPP_REGISTER_METHOD(0x00B64510, void, HornbugBaseBehaviourExited, (app::HornBugBossEntity * this_ptr, app::HornbugBossBaseBehaviour* behaviour))
+    IL2CPP_REGISTER_METHOD(0x00B645F0, float, GetUtilityForBehaviour, (app::HornBugBossEntity * this_ptr, app::HornbugBossBaseBehaviour* behaviour))
     IL2CPP_REGISTER_METHOD(0x00B64D40, void, ctor, (app::HornBugBossEntity * this_ptr))
-}
+} // namespace app::classes::HornBugBossEntity

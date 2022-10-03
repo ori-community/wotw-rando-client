@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinSpiritShardsSpell {
+namespace app::classes::SeinSpiritShardsSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinSpiritShardsSpell * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00A6B020, app::Type *, get_AnimationMontageEventType, (app::SeinSpiritShardsSpell * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00A6B020, app::Type*, get_AnimationMontageEventType, (app::SeinSpiritShardsSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A6B0C0, bool, get_CanAfford, (app::SeinSpiritShardsSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A6B100, bool, get_CanAffordCharged, (app::SeinSpiritShardsSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A6B140, void, OnSetReferenceToSein, (app::SeinSpiritShardsSpell * this_ptr))
@@ -24,8 +24,8 @@ namespace app::methods::SeinSpiritShardsSpell {
     IL2CPP_REGISTER_METHODINFO(0x0470F970, SeinSpiritShardsSpell_OnCurrentMontageStopped__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A6C7D0, void, SpawnShards, (app::SeinSpiritShardsSpell * this_ptr, bool charged_shot))
     IL2CPP_REGISTER_METHOD(0x00A6CAD0, void, SpawnShard, (app::SeinSpiritShardsSpell * this_ptr, app::Vector3 direction, bool charged_shot))
-    IL2CPP_REGISTER_METHOD(0x00A6CFE0, bool, ShouldDealDamage, (app::SeinSpiritShardsSpell * this_ptr, app::GameObject * target))
+    IL2CPP_REGISTER_METHOD(0x00A6CFE0, bool, ShouldDealDamage, (app::SeinSpiritShardsSpell * this_ptr, app::GameObject* target))
     IL2CPP_REGISTER_METHODINFO(0x04767FD8, SeinSpiritShardsSpell_ShouldDealDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A6D0A0, int32_t, GetShardsCount, (app::SeinSpiritShardsSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A6D190, void, ctor, (app::SeinSpiritShardsSpell * this_ptr))
-}
+} // namespace app::classes::SeinSpiritShardsSpell

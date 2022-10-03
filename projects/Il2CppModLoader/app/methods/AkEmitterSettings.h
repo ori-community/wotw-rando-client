@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AkEmitterSettings {
-    IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkEmitterSettings * this_ptr, void * c_ptr, bool c_memory_own))
-    IL2CPP_REGISTER_METHOD(0x026E2350, void *, getCPtr, (app::AkEmitterSettings * obj))
-    IL2CPP_REGISTER_METHOD(0x01880C50, void, setCPtr, (app::AkEmitterSettings * this_ptr, void * c_ptr))
+namespace app::classes::AkEmitterSettings {
+    IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkEmitterSettings * this_ptr, void* c_ptr, bool c_memory_own))
+    IL2CPP_REGISTER_METHOD(0x026E2350, void*, getCPtr, (app::AkEmitterSettings * obj))
+    IL2CPP_REGISTER_METHOD(0x01880C50, void, setCPtr, (app::AkEmitterSettings * this_ptr, void* c_ptr))
     IL2CPP_REGISTER_METHOD(0x026E23E0, void, Finalize, (app::AkEmitterSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026E2460, void, Dispose, (app::AkEmitterSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026E2670, void, ctor_2, (app::AkEmitterSettings * this_ptr))
@@ -28,4 +28,4 @@ namespace app::methods::AkEmitterSettings {
     IL2CPP_REGISTER_METHOD(0x026E3B40, float, get_diffractionMaxPathLength, (app::AkEmitterSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026E3C60, void, set_useImageSources, (app::AkEmitterSettings * this_ptr, uint8_t value))
     IL2CPP_REGISTER_METHOD(0x026E3D90, uint8_t, get_useImageSources, (app::AkEmitterSettings * this_ptr))
-}
+} // namespace app::classes::AkEmitterSettings

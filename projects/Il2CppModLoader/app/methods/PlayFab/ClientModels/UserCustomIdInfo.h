@@ -1,6 +1,6 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PlayFab::ClientModels::UserCustomIdInfo {
+namespace app::classes::PlayFab::ClientModels::UserCustomIdInfo {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::UserCustomIdInfo * this_ptr))
 }

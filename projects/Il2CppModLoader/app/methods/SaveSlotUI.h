@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SaveSlotUI {
+namespace app::classes::SaveSlotUI {
     IL2CPP_REGISTER_METHOD(0x009238D0, void, OnDrawGizmos, (app::SaveSlotUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00923B20, app::Rect, get_Bounds, (app::SaveSlotUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::SaveSlotUI * this_ptr))
@@ -20,7 +20,7 @@ namespace app::methods::SaveSlotUI {
     IL2CPP_REGISTER_METHOD(0x00925160, void, SetCopying, (app::SaveSlotUI * this_ptr, bool turn_on))
     IL2CPP_REGISTER_METHOD(0x009251F0, void, SetDeleting, (app::SaveSlotUI * this_ptr, bool turn_on))
     IL2CPP_REGISTER_METHOD(0x00925290, void, SetBusy, (app::SaveSlotUI * this_ptr, bool turn_on))
-    IL2CPP_REGISTER_METHOD(0x009253B0, app::SaveSlotInfo *, get_SaveSlot, (app::SaveSlotUI * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x009253B0, app::SaveSlotInfo*, get_SaveSlot, (app::SaveSlotUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009253C0, bool, get_IsReady, (app::SaveSlotUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00925400, bool, get_IsCompleted, (app::SaveSlotUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00925450, int32_t, get_BackupIndex, (app::SaveSlotUI * this_ptr))
@@ -32,4 +32,4 @@ namespace app::methods::SaveSlotUI {
     IL2CPP_REGISTER_METHOD(0x00926B20, void, set_Mask, (app::SaveSlotUI * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x00926BE0, void, RefreshBackups, (app::SaveSlotUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00926CB0, void, ctor, (app::SaveSlotUI * this_ptr))
-}
+} // namespace app::classes::SaveSlotUI

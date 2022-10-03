@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ShockWaveAnimator {
+namespace app::classes::ShockWaveAnimator {
     IL2CPP_REGISTER_METHOD(0x003FD4D0, float, get_Duration, (app::ShockWaveAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsLooping, (app::ShockWaveAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005B5010, void, OnStartPlay, (app::ShockWaveAnimator * this_ptr))
@@ -12,4 +12,4 @@ namespace app::methods::ShockWaveAnimator {
     IL2CPP_REGISTER_METHOD(0x005B5160, void, OnFixedUpdate, (app::ShockWaveAnimator * this_ptr, float delta_time))
     IL2CPP_REGISTER_METHOD(0x005B5860, void, OnDrawGizmos, (app::ShockWaveAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005B5C00, void, ctor, (app::ShockWaveAnimator * this_ptr))
-}
+} // namespace app::classes::ShockWaveAnimator

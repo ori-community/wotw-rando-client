@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RecorderPlaybackUI {
+namespace app::classes::RecorderPlaybackUI {
     IL2CPP_REGISTER_METHOD(0x008F4A40, void, ResetStatics, ())
-    IL2CPP_REGISTER_METHOD(0x0040B220, app::Recorder_1 *, get_Recorder, (app::RecorderPlaybackUI * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0040B220, app::Recorder_1*, get_Recorder, (app::RecorderPlaybackUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00675C60, bool, get_DoBlast, (app::RecorderPlaybackUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008F4C80, void, set_DoBlast, (app::RecorderPlaybackUI * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x008F4C90, void, FixedUpdate, (app::RecorderPlaybackUI * this_ptr))
@@ -24,8 +24,8 @@ namespace app::methods::RecorderPlaybackUI {
     IL2CPP_REGISTER_METHOD(0x008F6020, void, DecreaseSpeed, (app::RecorderPlaybackUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008F6030, void, UpdateTimeScale, (app::RecorderPlaybackUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008F62C0, void, Awake, (app::RecorderPlaybackUI * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x008F7080, app::IEnumerator *, Start, (app::RecorderPlaybackUI * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x008F7080, app::IEnumerator*, Start, (app::RecorderPlaybackUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008F71D0, void, JumpToFrame, (app::RecorderPlaybackUI * this_ptr, int32_t frame_index))
     IL2CPP_REGISTER_METHOD(0x008F72C0, void, ctor, (app::RecorderPlaybackUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008F7650, void, cctor, ())
-}
+} // namespace app::classes::RecorderPlaybackUI

@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::BatEnemy {
-    IL2CPP_REGISTER_METHOD(0x00F8F610, app::BatSwarm *, get_Swarm, (app::BatEnemy * this_ptr))
+namespace app::classes::BatEnemy {
+    IL2CPP_REGISTER_METHOD(0x00F8F610, app::BatSwarm*, get_Swarm, (app::BatEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F8F640, bool, get_IsSeekingOri, (app::BatEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F8F650, void, Awake, (app::BatEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F91770, void, OnDestroy, (app::BatEnemy * this_ptr))
@@ -10,9 +10,9 @@ namespace app::methods::BatEnemy {
     IL2CPP_REGISTER_METHOD(0x00F91C80, void, FixedUpdate, (app::BatEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F91D70, void, OnDrawGizmos, (app::BatEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F91D90, void, UpdateBodyAndWings, (app::BatEnemy * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F92890, void, OnDeathEvent, (app::BatEnemy * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x00F92890, void, OnDeathEvent, (app::BatEnemy * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHODINFO(0x0471CEA0, BatEnemy_OnDeathEvent__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00F929A0, void, OnModifyDamage, (app::BatEnemy * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x00F929A0, void, OnModifyDamage, (app::BatEnemy * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHODINFO(0x0473ED18, BatEnemy_OnModifyDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F92AF0, void, OnStickyMineStuck, (app::BatEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F92C30, bool, DidCollideWithSomething, (app::BatEnemy * this_ptr))
@@ -65,4 +65,4 @@ namespace app::methods::BatEnemy {
     IL2CPP_REGISTER_METHODINFO(0x0477C800, BatEnemy__Awake_b__29_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F8F640, bool, _Awake_b__29_7, (app::BatEnemy * this_ptr, app::TickData t))
     IL2CPP_REGISTER_METHODINFO(0x04728508, BatEnemy__Awake_b__29_7__MethodInfo)
-}
+} // namespace app::classes::BatEnemy

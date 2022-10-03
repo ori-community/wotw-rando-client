@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CleverValueSlider {
+namespace app::classes::CleverValueSlider {
     IL2CPP_REGISTER_METHOD(0x012C19C0, float, get_Step, (app::CleverValueSlider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01176330, void, set_Step, (app::CleverValueSlider * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x0061BAF0, float, get_AccelerationRampTime, (app::CleverValueSlider * this_ptr))
@@ -30,9 +30,9 @@ namespace app::methods::CleverValueSlider {
     IL2CPP_REGISTER_METHOD(0x012C4160, app::Rect, get_DotRect, (app::CleverValueSlider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012C4320, app::Rect, get_SliderRect, (app::CleverValueSlider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012C4330, void, CacheSliderBounds, (app::CleverValueSlider * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x012C4550, bool, OnMenuItemChangedInGroup, (app::CleverValueSlider * this_ptr, app::CleverMenuItemGroup * group))
+    IL2CPP_REGISTER_METHOD(0x012C4550, bool, OnMenuItemChangedInGroup, (app::CleverValueSlider * this_ptr, app::CleverMenuItemGroup* group))
     IL2CPP_REGISTER_METHOD(0x012C4650, void, RefreshDisplayedValue, (app::CleverValueSlider * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x012C4750, app::String *, GetValueToDisplay, (app::CleverValueSlider * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x012C4750, app::String*, GetValueToDisplay, (app::CleverValueSlider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ApplyValueOnSliderReleased, (app::CleverValueSlider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateStep, (app::CleverValueSlider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00867970, void, ctor, (app::CleverValueSlider * this_ptr))
@@ -40,4 +40,4 @@ namespace app::methods::CleverValueSlider {
     IL2CPP_REGISTER_METHODINFO(0x0477E830, CleverValueSlider__PlayDownSound_b__54_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420240, void, _PlayUpSound_b__55_0, (app::CleverValueSlider * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04731790, CleverValueSlider__PlayUpSound_b__55_0__MethodInfo)
-}
+} // namespace app::classes::CleverValueSlider

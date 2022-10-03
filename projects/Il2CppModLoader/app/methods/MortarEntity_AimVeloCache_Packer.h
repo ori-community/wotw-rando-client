@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MortarEntity_AimVeloCache_Packer {
+namespace app::classes::MortarEntity_AimVeloCache_Packer {
     IL2CPP_REGISTER_METHOD(0x0147CC30, void, ctor, (app::MortarEntity_AimVeloCache_Packer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0147CC30, void, InitDefaults, (app::MortarEntity_AimVeloCache_Packer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0147CC70, uint16_t, VItoXI, (app::MortarEntity_AimVeloCache_Packer * this_ptr, uint16_t vi))
@@ -11,4 +11,4 @@ namespace app::methods::MortarEntity_AimVeloCache_Packer {
     IL2CPP_REGISTER_METHOD(0x0147CE80, uint16_t, PackVelocity, (app::MortarEntity_AimVeloCache_Packer * this_ptr, app::Vector2 velo))
     IL2CPP_REGISTER_METHOD(0x0147CFD0, app::Vector2, UnpackVelocity, (app::MortarEntity_AimVeloCache_Packer * this_ptr, uint16_t vi))
     IL2CPP_REGISTER_METHOD(0x0147D130, bool, UnpackHit, (app::MortarEntity_AimVeloCache_Packer * this_ptr, uint16_t vi))
-}
+} // namespace app::classes::MortarEntity_AimVeloCache_Packer

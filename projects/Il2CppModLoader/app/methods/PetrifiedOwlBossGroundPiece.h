@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PetrifiedOwlBossGroundPiece {
+namespace app::classes::PetrifiedOwlBossGroundPiece {
     IL2CPP_REGISTER_METHOD(0x017727F0, void, Awake, (app::PetrifiedOwlBossGroundPiece * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01772990, void, OnDestroy, (app::PetrifiedOwlBossGroundPiece * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01772B30, void, OnPostRestoreCheckpoint, (app::PetrifiedOwlBossGroundPiece * this_ptr))
@@ -13,4 +13,4 @@ namespace app::methods::PetrifiedOwlBossGroundPiece {
     IL2CPP_REGISTER_METHOD(0x01772E80, app::Vector3, GetGroundCenterPosition, (app::PetrifiedOwlBossGroundPiece * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E21060, void, PlayOffLimitsAnticipationFeedback, (app::PetrifiedOwlBossGroundPiece * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::PetrifiedOwlBossGroundPiece * this_ptr))
-}
+} // namespace app::classes::PetrifiedOwlBossGroundPiece

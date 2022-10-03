@@ -1,6 +1,6 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ShopKeeperHints {
+namespace app::classes::ShopKeeperHints {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ShopKeeperHints * this_ptr))
 }

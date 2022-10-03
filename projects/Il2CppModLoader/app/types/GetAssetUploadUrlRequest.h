@@ -1,0 +1,15 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace GetAssetUploadUrlRequest {
+        extern IL2CPP_MODLOADER_DLLEXPORT app::GetAssetUploadUrlRequest__Class** type_info;
+        inline app::GetAssetUploadUrlRequest__Class* get_class() {
+            return il2cpp::get_class<app::GetAssetUploadUrlRequest__Class>(type_info, "PlayFab.MultiplayerModels", "GetAssetUploadUrlRequest");
+        }
+        inline app::GetAssetUploadUrlRequest* create() {
+            return il2cpp::create_object<app::GetAssetUploadUrlRequest>(get_class());
+        }
+    } // namespace GetAssetUploadUrlRequest
+} // namespace app::classes::types

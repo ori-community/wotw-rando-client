@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UberShaderVector {
+namespace app::classes::UberShaderVector {
     IL2CPP_REGISTER_METHOD(0x01289810, void, ctor_1, (app::UberShaderVector * this_ptr, float x, float y, float z, float w))
     IL2CPP_REGISTER_METHOD(0x01289910, void, ctor_2, (app::UberShaderVector * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012899C0, void, BindProperties, (app::UberShaderVector * this_ptr))
@@ -18,4 +18,4 @@ namespace app::methods::UberShaderVector {
     IL2CPP_REGISTER_METHOD(0x01289F80, float, get_Item, (app::UberShaderVector * this_ptr, int32_t key))
     IL2CPP_REGISTER_METHOD(0x01289FB0, void, set_Item, (app::UberShaderVector * this_ptr, int32_t key, float value))
     IL2CPP_REGISTER_METHOD(0x01289FE0, void, set_Scale, (app::UberShaderVector * this_ptr, float value))
-}
+} // namespace app::classes::UberShaderVector

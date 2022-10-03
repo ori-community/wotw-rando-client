@@ -39,8 +39,8 @@
 #include <string>
 #include <utility>
 
-using namespace app::methods;
-using namespace app::methods::System::IO;
+using namespace app::classes;
+using namespace app::classes::System::IO;
 
 namespace ghosts {
     constexpr int GHOST_RECORDER_DATA_VERSION = 8;

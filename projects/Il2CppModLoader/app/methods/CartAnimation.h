@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CartAnimation {
+namespace app::classes::CartAnimation {
     IL2CPP_REGISTER_METHOD(0x00B31760, void, set_AddtiveRotation, (app::CartAnimation * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x00A479E0, float, get_BodyNormalizedLocalRotation, (app::CartAnimation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B31770, void, Awake, (app::CartAnimation * this_ptr))
@@ -18,4 +18,4 @@ namespace app::methods::CartAnimation {
     IL2CPP_REGISTER_METHOD(0x00B32440, bool, AllSpringsAreResting, (app::CartAnimation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B324C0, void, RotateWhell, (app::CartAnimation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B325D0, void, ctor, (app::CartAnimation * this_ptr))
-}
+} // namespace app::classes::CartAnimation

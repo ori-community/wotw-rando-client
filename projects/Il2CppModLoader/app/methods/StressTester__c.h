@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::StressTester___c {
+namespace app::classes::StressTester___c {
     IL2CPP_REGISTER_METHOD(0x0066C2C0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::StressTester_c * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0066C400, bool, _StartTestFromScene_b__134_0, (app::StressTester_c * this_ptr))
@@ -22,4 +22,4 @@ namespace app::methods::StressTester___c {
     IL2CPP_REGISTER_METHODINFO(0x047300D0, StressTester_c___ctor_b__213_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, __cctor_b__214_0, (app::StressTester_c * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047173D0, StressTester_c___cctor_b__214_0__MethodInfo)
-}
+} // namespace app::classes::StressTester___c

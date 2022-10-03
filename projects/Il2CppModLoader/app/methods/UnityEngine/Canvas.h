@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Canvas {
+namespace app::classes::UnityEngine::Canvas {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Canvas * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031A5510, void, add_willRenderCanvases, (app::Canvas_WillRenderCanvases * value))
     IL2CPP_REGISTER_METHOD(0x031A5610, void, remove_willRenderCanvases, (app::Canvas_WillRenderCanvases * value))
@@ -20,11 +20,11 @@ namespace app::methods::UnityEngine::Canvas {
     IL2CPP_REGISTER_METHOD(0x031A5B10, int32_t, get_targetDisplay, (app::Canvas * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031A5B60, int32_t, get_sortingLayerID, (app::Canvas * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031A5BB0, void, set_sortingLayerID, (app::Canvas * this_ptr, int32_t value))
-    IL2CPP_REGISTER_METHOD(0x031A5C10, app::Canvas *, get_rootCanvas, (app::Canvas * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x031A5C60, app::Camera *, get_worldCamera, (app::Canvas * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x031A5CB0, void, set_worldCamera, (app::Canvas * this_ptr, app::Camera * value))
-    IL2CPP_REGISTER_METHOD(0x031A5D10, app::Material *, GetDefaultCanvasMaterial, ())
-    IL2CPP_REGISTER_METHOD(0x031A5D60, app::Material *, GetETC1SupportedCanvasMaterial, ())
+    IL2CPP_REGISTER_METHOD(0x031A5C10, app::Canvas*, get_rootCanvas, (app::Canvas * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x031A5C60, app::Camera*, get_worldCamera, (app::Canvas * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x031A5CB0, void, set_worldCamera, (app::Canvas * this_ptr, app::Camera* value))
+    IL2CPP_REGISTER_METHOD(0x031A5D10, app::Material*, GetDefaultCanvasMaterial, ())
+    IL2CPP_REGISTER_METHOD(0x031A5D60, app::Material*, GetETC1SupportedCanvasMaterial, ())
     IL2CPP_REGISTER_METHOD(0x031A5DB0, void, ForceUpdateCanvases, ())
     IL2CPP_REGISTER_METHOD(0x031A5DB0, void, SendWillRenderCanvases, ())
-}
+} // namespace app::classes::UnityEngine::Canvas

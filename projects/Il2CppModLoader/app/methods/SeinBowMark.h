@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinBowMark {
+namespace app::classes::SeinBowMark {
     IL2CPP_REGISTER_METHOD(0x00405F50, bool, get_IsSuspended, (app::SeinBowMark * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00724140, void, set_IsSuspended, (app::SeinBowMark * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00DA16B0, void, OnPoolSpawned, (app::SeinBowMark * this_ptr))
@@ -15,4 +15,4 @@ namespace app::methods::SeinBowMark {
     IL2CPP_REGISTER_METHOD(0x00DA2030, void, UpdateAppearingState, (app::SeinBowMark * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA2300, void, HideMark, (app::SeinBowMark * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA2320, void, ctor, (app::SeinBowMark * this_ptr))
-}
+} // namespace app::classes::SeinBowMark

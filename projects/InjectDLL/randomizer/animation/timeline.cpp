@@ -16,8 +16,8 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Quaternion.h>
 
 using namespace modloader;
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
 
 namespace randomizer {
     CachedLoader<std::unique_ptr<Timeline>, std::unique_ptr<Timeline> const&, load_timeline, copy_timeline> timeline_cache;

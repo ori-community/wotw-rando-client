@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Game::AttackableIteratorUnitTester_TestAttackable {
+namespace app::classes::Game::AttackableIteratorUnitTester_TestAttackable {
     IL2CPP_REGISTER_METHOD(0x01521270, app::Vector3, get_Position, (app::AttackableIteratorUnitTester_TestAttackable * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04744568, AttackableIteratorUnitTester_TestAttackable_get_Position__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015212C0, bool, CanBeBashed, (app::AttackableIteratorUnitTester_TestAttackable * this_ptr))
@@ -44,6 +44,6 @@ namespace app::methods::Game::AttackableIteratorUnitTester_TestAttackable {
     IL2CPP_REGISTER_METHODINFO(0x04778CC8, AttackableIteratorUnitTester_TestAttackable_IsDead__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015218B0, bool, IsStompBouncable, (app::AttackableIteratorUnitTester_TestAttackable * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04716250, AttackableIteratorUnitTester_TestAttackable_IsStompBouncable__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x002FB930, app::IDamageReciever__Array *, get_AffectedReceivers, (app::AttackableIteratorUnitTester_TestAttackable * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB930, app::IDamageReciever__Array*, get_AffectedReceivers, (app::AttackableIteratorUnitTester_TestAttackable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::AttackableIteratorUnitTester_TestAttackable * this_ptr))
-}
+} // namespace app::classes::Game::AttackableIteratorUnitTester_TestAttackable

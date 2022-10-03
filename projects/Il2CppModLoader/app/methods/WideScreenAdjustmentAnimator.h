@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::WideScreenAdjustmentAnimator {
+namespace app::classes::WideScreenAdjustmentAnimator {
     IL2CPP_REGISTER_METHOD(0x00573350, void, CacheOriginals, (app::WideScreenAdjustmentAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00573420, void, Awake, (app::WideScreenAdjustmentAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005735C0, void, OnDestroy, (app::WideScreenAdjustmentAnimator * this_ptr))
@@ -12,4 +12,4 @@ namespace app::methods::WideScreenAdjustmentAnimator {
     IL2CPP_REGISTER_METHOD(0x00573B60, void, RestoreToOriginalState, (app::WideScreenAdjustmentAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsLooping, (app::WideScreenAdjustmentAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00573C30, void, ctor, (app::WideScreenAdjustmentAnimator * this_ptr))
-}
+} // namespace app::classes::WideScreenAdjustmentAnimator

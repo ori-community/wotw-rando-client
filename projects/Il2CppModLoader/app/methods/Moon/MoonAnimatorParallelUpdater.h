@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::MoonAnimatorParallelUpdater {
+namespace app::classes::Moon::MoonAnimatorParallelUpdater {
     IL2CPP_REGISTER_METHOD(0x0211C7B0, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x0211C8A0, void, ClearAllAnimators, ())
     IL2CPP_REGISTER_METHOD(0x003FD3F0, app::UpdateType__Enum, get_UpdateType, (app::MoonAnimatorParallelUpdater * this_ptr))
@@ -16,4 +16,4 @@ namespace app::methods::Moon::MoonAnimatorParallelUpdater {
     IL2CPP_REGISTER_METHOD(0x0211D620, void, ClearStates, (app::MoonAnimatorParallelUpdater * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0211D680, void, ctor, (app::MoonAnimatorParallelUpdater * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0211D710, void, cctor, ())
-}
+} // namespace app::classes::Moon::MoonAnimatorParallelUpdater

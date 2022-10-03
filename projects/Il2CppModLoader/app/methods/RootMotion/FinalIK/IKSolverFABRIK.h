@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RootMotion::FinalIK::IKSolverFABRIK {
+namespace app::classes::RootMotion::FinalIK::IKSolverFABRIK {
     IL2CPP_REGISTER_METHOD(0x02BEB790, void, SolveForward, (app::IKSolverFABRIK * this_ptr, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x02BEB880, void, SolveBackward, (app::IKSolverFABRIK * this_ptr, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x02BEB9B0, app::Vector3, GetIKPosition, (app::IKSolverFABRIK * this_ptr))
@@ -19,7 +19,7 @@ namespace app::methods::RootMotion::FinalIK::IKSolverFABRIK {
     IL2CPP_REGISTER_METHOD(0x02BEDD00, void, SolverMoveChildrenAroundPoint, (app::IKSolverFABRIK * this_ptr, int32_t index, app::Quaternion rotation))
     IL2CPP_REGISTER_METHOD(0x02BEDFE0, app::Quaternion, GetParentSolverRotation, (app::IKSolverFABRIK * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x02BEE2C0, app::Vector3, GetParentSolverPosition, (app::IKSolverFABRIK * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHOD(0x02BEE5C0, app::Quaternion, GetLimitedRotation, (app::IKSolverFABRIK * this_ptr, int32_t index, app::Quaternion q, bool * changed))
+    IL2CPP_REGISTER_METHOD(0x02BEE5C0, app::Quaternion, GetLimitedRotation, (app::IKSolverFABRIK * this_ptr, int32_t index, app::Quaternion q, bool* changed))
     IL2CPP_REGISTER_METHOD(0x02BEE9C0, void, LimitForward, (app::IKSolverFABRIK * this_ptr, int32_t rotate_bone, int32_t limit_bone))
     IL2CPP_REGISTER_METHOD(0x02BEF380, void, BackwardReach, (app::IKSolverFABRIK * this_ptr, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x02BEF3C0, void, BackwardReachUnlimited, (app::IKSolverFABRIK * this_ptr, app::Vector3 position))
@@ -27,4 +27,4 @@ namespace app::methods::RootMotion::FinalIK::IKSolverFABRIK {
     IL2CPP_REGISTER_METHOD(0x02BEFE20, void, MapToSolverPositions, (app::IKSolverFABRIK * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02BF00A0, void, MapToSolverPositionsLimited, (app::IKSolverFABRIK * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02BF02A0, void, ctor, (app::IKSolverFABRIK * this_ptr))
-}
+} // namespace app::classes::RootMotion::FinalIK::IKSolverFABRIK

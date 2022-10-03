@@ -1,11 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinDeadlyDarknessController {
+namespace app::classes::SeinDeadlyDarknessController {
     IL2CPP_REGISTER_METHOD(0x006FD880, bool, get_ControllerShakeActive, (app::SeinDeadlyDarknessController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006FD890, float, get_CurrentShake, (app::SeinDeadlyDarknessController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00446960, float, get_ModifiedStrength, (app::SeinDeadlyDarknessController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006FD900, app::ZoneDamageSettings *, get_DamageSettings, (app::SeinDeadlyDarknessController * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006FD900, app::ZoneDamageSettings*, get_DamageSettings, (app::SeinDeadlyDarknessController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006FD9C0, bool, get_OriIsInsideDarkness, ())
     IL2CPP_REGISTER_METHOD(0x006FDA40, void, set_OriIsInsideDarkness, (bool value))
     IL2CPP_REGISTER_METHOD(0x006FDAD0, float, get_RemainingDuration, ())
@@ -26,4 +26,4 @@ namespace app::methods::SeinDeadlyDarknessController {
     IL2CPP_REGISTER_METHOD(0x003FF3C0, app::SuspendableMask__Enum, get_Mask, (app::SeinDeadlyDarknessController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006FEDC0, void, set_Mask, (app::SeinDeadlyDarknessController * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x006FEE70, void, ctor, (app::SeinDeadlyDarknessController * this_ptr))
-}
+} // namespace app::classes::SeinDeadlyDarknessController

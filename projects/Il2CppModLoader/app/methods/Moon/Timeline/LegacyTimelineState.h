@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Timeline::LegacyTimelineState {
+namespace app::classes::Moon::Timeline::LegacyTimelineState {
     IL2CPP_REGISTER_METHOD(0x00773A10, bool, get_InPreviewMode, ())
     IL2CPP_REGISTER_METHOD(0x00773AB0, void, set_InPreviewMode, (bool value))
     IL2CPP_REGISTER_METHOD(0x00773B60, bool, get_IsOriAnimatorDrivingOri, ())
@@ -20,13 +20,13 @@ namespace app::methods::Moon::Timeline::LegacyTimelineState {
     IL2CPP_REGISTER_METHOD(0x007747C0, void, RemoveObserver, (app::ILegacyTimelineStateObserver * observer))
     IL2CPP_REGISTER_METHOD(0x00774880, void, OnPreviewablesSampled, (float time))
     IL2CPP_REGISTER_METHOD(0x00774A20, void, OnTimelineStateChange, ())
-    IL2CPP_REGISTER_METHOD(0x00774B00, app::GameObject *, GetOrCreateEditorOri, ())
-    IL2CPP_REGISTER_METHOD(0x00774BA0, app::GameObject *, GetEditorOri, ())
-    IL2CPP_REGISTER_METHOD(0x00774C40, app::Animator *, GetOriAnimator, ())
+    IL2CPP_REGISTER_METHOD(0x00774B00, app::GameObject*, GetOrCreateEditorOri, ())
+    IL2CPP_REGISTER_METHOD(0x00774BA0, app::GameObject*, GetEditorOri, ())
+    IL2CPP_REGISTER_METHOD(0x00774C40, app::Animator*, GetOriAnimator, ())
     IL2CPP_REGISTER_METHOD(0x00774E30, void, DestroyOri, ())
     IL2CPP_REGISTER_METHOD(0x00774F90, void, CreatePuppets, ())
     IL2CPP_REGISTER_METHOD(0x00775260, void, DestroyPuppets, ())
-    IL2CPP_REGISTER_METHOD(0x00775490, app::GenericPuppet *, GetPuppet, (int32_t puppet_id, int32_t recording_id))
+    IL2CPP_REGISTER_METHOD(0x00775490, app::GenericPuppet*, GetPuppet, (int32_t puppet_id, int32_t recording_id))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::LegacyTimelineState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00775780, void, cctor, ())
-}
+} // namespace app::classes::Moon::Timeline::LegacyTimelineState

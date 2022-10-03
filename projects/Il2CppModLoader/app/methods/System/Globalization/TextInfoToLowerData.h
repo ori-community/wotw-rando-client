@@ -1,6 +1,6 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Globalization::TextInfoToLowerData {
+namespace app::classes::System::Globalization::TextInfoToLowerData {
     IL2CPP_REGISTER_METHOD(0x01DEFCF0, void, cctor, ())
 }

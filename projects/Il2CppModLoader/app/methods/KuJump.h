@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::KuJump {
+namespace app::classes::KuJump {
     IL2CPP_REGISTER_METHOD(0x0123A3E0, bool, get_PerformingSpringJump, (app::KuJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0123A400, bool, get_WantsToJump, (app::KuJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0123A4C0, bool, get_CanJump, (app::KuJump * this_ptr))
@@ -29,4 +29,4 @@ namespace app::methods::KuJump {
     IL2CPP_REGISTER_METHOD(0x0123BEB0, void, InterruptTurning, (app::KuJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0123BF40, void, Turn, (app::KuJump * this_ptr, bool face_left))
     IL2CPP_REGISTER_METHOD(0x0123C080, void, ctor, (app::KuJump * this_ptr))
-}
+} // namespace app::classes::KuJump

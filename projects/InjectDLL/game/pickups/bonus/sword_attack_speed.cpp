@@ -8,7 +8,7 @@
 
 #include <vector>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     uber_states::UberState sword_speed(UberStateGroup::RandoUpgrade, 1);

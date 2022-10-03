@@ -1,15 +1,15 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SaveSlotsUI {
-    IL2CPP_REGISTER_METHOD(0x0092B260, app::SaveSlotUI *, get_CurrentSaveSlot, (app::SaveSlotsUI * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0092B330, app::List_1_SaveSlotUI_ *, get_Items, (app::SaveSlotsUI * this_ptr))
+namespace app::classes::SaveSlotsUI {
+    IL2CPP_REGISTER_METHOD(0x0092B260, app::SaveSlotUI*, get_CurrentSaveSlot, (app::SaveSlotsUI * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0092B330, app::List_1_SaveSlotUI_*, get_Items, (app::SaveSlotsUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0068A180, bool, get_IsVisible, (app::SaveSlotsUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0092B350, void, SetVisible, (app::SaveSlotsUI * this_ptr, bool visible))
     IL2CPP_REGISTER_METHOD(0x0092B5D0, void, SetVisibleImmediate, (app::SaveSlotsUI * this_ptr, bool visible))
     IL2CPP_REGISTER_METHOD(0x0092B990, void, OnEnable, (app::SaveSlotsUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0092BB70, void, OnDisable, (app::SaveSlotsUI * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0092BBB0, app::SaveSlotUI *, get_SaveSlotUnderCursor, (app::SaveSlotsUI * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0092BBB0, app::SaveSlotUI*, get_SaveSlotUnderCursor, (app::SaveSlotsUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0092BDB0, void, Awake, (app::SaveSlotsUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0092C1E0, void, RefreshSlots, (app::SaveSlotsUI * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0471CC28, SaveSlotsUI_RefreshSlots__MethodInfo)
@@ -31,7 +31,7 @@ namespace app::methods::SaveSlotsUI {
     IL2CPP_REGISTER_METHOD(0x0092D400, void, OnOverrideCopyConfirmed, (app::SaveSlotsUI * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047240E8, SaveSlotsUI_OnOverrideCopyConfirmed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0092D420, void, _clearPrompt, (app::SaveSlotsUI * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0092D520, void, AskPrompt, (app::SaveSlotsUI * this_ptr, app::ConfirmOrCancel * question, app::Action * confirm, app::Action * cancel))
+    IL2CPP_REGISTER_METHOD(0x0092D520, void, AskPrompt, (app::SaveSlotsUI * this_ptr, app::ConfirmOrCancel* question, app::Action* confirm, app::Action* cancel))
     IL2CPP_REGISTER_METHOD(0x0092D8D0, void, OnDeleteSaveConfirmed, (app::SaveSlotsUI * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04762438, SaveSlotsUI_OnDeleteSaveConfirmed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0092DD90, void, RequestSlotDeletion, (app::SaveSlotsUI * this_ptr))
@@ -42,7 +42,7 @@ namespace app::methods::SaveSlotsUI {
     IL2CPP_REGISTER_METHODINFO(0x04781A00, SaveSlotsUI_OnDeleteSaveCancelled__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0092DF30, void, ClampCurrentItemIndex, (app::SaveSlotsUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0092E020, void, HandleNavigation, (app::SaveSlotsUI * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0092E420, void, SetCurrentItem_1, (app::SaveSlotsUI * this_ptr, app::SaveSlotUI * save_slot))
+    IL2CPP_REGISTER_METHOD(0x0092E420, void, SetCurrentItem_1, (app::SaveSlotsUI * this_ptr, app::SaveSlotUI* save_slot))
     IL2CPP_REGISTER_METHOD(0x0092E6B0, void, SetCurrentItemAndScroll, (app::SaveSlotsUI * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x0092E6F0, void, SetCurrentItemAndScrollNow, (app::SaveSlotsUI * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x0092E8A0, void, SetCurrentItem_2, (app::SaveSlotsUI * this_ptr, int32_t index, bool play_sound))
@@ -61,10 +61,10 @@ namespace app::methods::SaveSlotsUI {
     IL2CPP_REGISTER_METHOD(0x00931210, void, OnTitleScreenStartup, (app::SaveSlotsUI * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04746948, SaveSlotsUI_OnTitleScreenStartup__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00931440, void, ResetSelectedSpot, (app::SaveSlotsUI * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00720150, app::String__Array *, GetAllConditionNames, (app::SaveSlotsUI * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006D64E0, app::Int32__Array *, GetAllConditionGuids, (app::SaveSlotsUI * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00931470, app::String *, GetConditionNameFromGuid, (app::SaveSlotsUI * this_ptr, int32_t guid))
+    IL2CPP_REGISTER_METHOD(0x00720150, app::String__Array*, GetAllConditionNames, (app::SaveSlotsUI * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006D64E0, app::Int32__Array*, GetAllConditionGuids, (app::SaveSlotsUI * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00931470, app::String*, GetConditionNameFromGuid, (app::SaveSlotsUI * this_ptr, int32_t guid))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, IsConditionGuidValid, (app::SaveSlotsUI * this_ptr, int32_t guid))
     IL2CPP_REGISTER_METHOD(0x009314B0, bool, Validate, (app::SaveSlotsUI * this_ptr, int32_t condition_guid))
     IL2CPP_REGISTER_METHOD(0x009314F0, void, ctor, (app::SaveSlotsUI * this_ptr))
-}
+} // namespace app::classes::SaveSlotsUI

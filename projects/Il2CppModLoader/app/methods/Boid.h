@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Boid {
+namespace app::classes::Boid {
     IL2CPP_REGISTER_METHOD(0x00D34C70, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x00D34D50, float, get_MaxSpeed, (app::Boid * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D34D70, float, get_MaxAcceleration, (app::Boid * this_ptr))
@@ -15,4 +15,4 @@ namespace app::methods::Boid {
     IL2CPP_REGISTER_METHOD(0x00D354A0, void, FixedUpdate, (app::Boid * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Boid * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D364F0, void, cctor, ())
-}
+} // namespace app::classes::Boid

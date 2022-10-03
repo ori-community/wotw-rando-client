@@ -43,7 +43,7 @@ namespace utils {
 
     template <typename... Args>
     app::MessageProvider* create_message_provider(Args... args) {
-        auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>("", "TranslatedMessageProvider");
+        auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>(app::TranslatedMessageProvider__TypeInfo, "", "TranslatedMessageProvider");
         il2cpp::invoke(provider, ".ctor");
         add_to_message_provider(provider, args...);
         return reinterpret_cast<app::MessageProvider*>(provider);
@@ -51,7 +51,7 @@ namespace utils {
 
     template <typename T>
     app::MessageProvider* create_message_provider(std::vector<T> const& messages) {
-        auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>("", "TranslatedMessageProvider");
+        auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>(app::TranslatedMessageProvider__TypeInfo, "", "TranslatedMessageProvider");
         il2cpp::invoke(provider, ".ctor");
         for (auto const& message : messages)
             add_to_message_provider(provider, message);

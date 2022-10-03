@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Experimental::Rendering::GraphicsDeviceSettings {
+namespace app::classes::UnityEngine::Experimental::Rendering::GraphicsDeviceSettings {
     IL2CPP_REGISTER_METHOD(0x00491640, app::WaitForPresentSyncPoint__Enum, get_waitForPresentSyncPoint, ())
     IL2CPP_REGISTER_METHOD(0x02433E40, void, set_waitForPresentSyncPoint, (app::WaitForPresentSyncPoint__Enum value))
     IL2CPP_REGISTER_METHOD(0x004915A0, app::GraphicsJobsSyncPoint__Enum, get_graphicsJobsSyncPoint, ())
@@ -32,4 +32,4 @@ namespace app::methods::UnityEngine::Experimental::Rendering::GraphicsDeviceSett
     IL2CPP_REGISTER_METHOD(0x024342A0, void, set_ClearKeywords, (bool value))
     IL2CPP_REGISTER_METHOD(0x024342F0, bool, get_ClearSavedProps, ())
     IL2CPP_REGISTER_METHOD(0x02434340, void, set_ClearSavedProps, (bool value))
-}
+} // namespace app::classes::UnityEngine::Experimental::Rendering::GraphicsDeviceSettings

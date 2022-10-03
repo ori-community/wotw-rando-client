@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Collections::Generic::Dictionary_2_Core_Input_Command_AbilityType_ {
-    IL2CPP_REGISTER_METHOD(0x02BADFC0, bool, TryGetValue, (app::Dictionary_2_Core_Input_Command_AbilityType_ * this_ptr, app::Input_Command__Enum key, app::AbilityType__Enum * value))
+namespace app::classes::System::Collections::Generic::Dictionary_2_Core_Input_Command_AbilityType_ {
+    IL2CPP_REGISTER_METHOD(0x02BADFC0, bool, TryGetValue, (app::Dictionary_2_Core_Input_Command_AbilityType_ * this_ptr, app::Input_Command__Enum key, app::AbilityType__Enum* value))
     IL2CPP_REGISTER_METHODINFO(0x04734A30, Dictionary_2_Core_Input_Command_AbilityType__TryGetValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02BAC140, void, set_Item, (app::Dictionary_2_Core_Input_Command_AbilityType_ * this_ptr, app::Input_Command__Enum key, app::AbilityType__Enum value))
     IL2CPP_REGISTER_METHODINFO(0x0476D7E0, Dictionary_2_Core_Input_Command_AbilityType__set_Item__MethodInfo)
@@ -16,6 +16,6 @@ namespace app::methods::System::Collections::Generic::Dictionary_2_Core_Input_Co
     IL2CPP_REGISTER_METHODINFO(0x04799A50, Dictionary_2_Core_Input_Command_AbilityType__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_Core_Input_Command_AbilityType_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047560D8, Dictionary_2_Core_Input_Command_AbilityType__Clear__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0283AC50, void, ctor, (app::Dictionary_2_Core_Input_Command_AbilityType_ * this_ptr, app::IEqualityComparer_1_Core_Input_Command_ * comparer))
+    IL2CPP_REGISTER_METHOD(0x0283AC50, void, ctor, (app::Dictionary_2_Core_Input_Command_AbilityType_ * this_ptr, app::IEqualityComparer_1_Core_Input_Command_* comparer))
     IL2CPP_REGISTER_METHODINFO(0x0471F110, Dictionary_2_Core_Input_Command_AbilityType___ctor__MethodInfo)
-}
+} // namespace app::classes::System::Collections::Generic::Dictionary_2_Core_Input_Command_AbilityType_

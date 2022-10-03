@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RigidBodyPortalVistor {
+namespace app::classes::RigidBodyPortalVistor {
     IL2CPP_REGISTER_METHOD(0x00911BE0, void, Awake, (app::RigidBodyPortalVistor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00911C70, void, OnEnable, (app::RigidBodyPortalVistor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00911D30, void, OnDisable, (app::RigidBodyPortalVistor * this_ptr))
@@ -13,4 +13,4 @@ namespace app::methods::RigidBodyPortalVistor {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnPortalOverlapEnter, (app::RigidBodyPortalVistor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnPortalOverlapExit, (app::RigidBodyPortalVistor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::RigidBodyPortalVistor * this_ptr))
-}
+} // namespace app::classes::RigidBodyPortalVistor

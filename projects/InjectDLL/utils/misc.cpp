@@ -5,7 +5,7 @@
 #include <Il2CppModLoader/app/methods/MoonGuid.h>
 #include <Il2CppModLoader/app/methods/UberShaderColor.h>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace utils {
     constexpr float COLOR_DIVIDER = 3.0f;

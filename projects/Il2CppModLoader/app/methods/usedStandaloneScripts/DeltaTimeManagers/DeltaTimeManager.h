@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::usedStandaloneScripts::DeltaTimeManagers::DeltaTimeManager {
+namespace app::classes::usedStandaloneScripts::DeltaTimeManagers::DeltaTimeManager {
     IL2CPP_REGISTER_METHOD(0x03123160, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x03123200, void, InitializeController, (app::DeltaTimeManager * this_ptr, app::DeltaTimeManager_ControllerType__Enum type))
     IL2CPP_REGISTER_METHOD(0x006410F0, app::DeltaTimeManager_ControllerType__Enum, get_Controller, (app::DeltaTimeManager * this_ptr))
@@ -18,12 +18,12 @@ namespace app::methods::usedStandaloneScripts::DeltaTimeManagers::DeltaTimeManag
     IL2CPP_REGISTER_METHOD(0x031240B0, void, AfterTimeManagerCallback, ())
     IL2CPP_REGISTER_METHODINFO(0x04746B78, DeltaTimeManager_AfterTimeManagerCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03124200, void, InjectToPlayerLoop, (app::PlayerLoopSystem * loop))
-    IL2CPP_REGISTER_METHOD(0x03124480, void, Insert, (app::List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystem_ * list, app::PlayerLoopSystem system, app::DeltaTimeManager_InsertionMode__Enum insertion_mode, app::String * insertion_point))
+    IL2CPP_REGISTER_METHOD(0x03124480, void, Insert, (app::List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystem_ * list, app::PlayerLoopSystem system, app::DeltaTimeManager_InsertionMode__Enum insertion_mode, app::String* insertion_point))
     IL2CPP_REGISTER_METHODINFO(0x0476CB78, DeltaTimeManager_Insert__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x03124640, app::DeltaTimeManager_DeltaTimeFrameHistory *, GetHistoricFrame, (app::DeltaTimeManager * this_ptr, int32_t frames_in_past))
-    IL2CPP_REGISTER_METHOD(0x03124770, bool, GetHistoricFrameRange, (app::DeltaTimeManager * this_ptr, int32_t offset, int32_t frame_count, app::DeltaTimeManager_DeltaTimeFrameHistory__Array * * out_array))
+    IL2CPP_REGISTER_METHOD(0x03124640, app::DeltaTimeManager_DeltaTimeFrameHistory*, GetHistoricFrame, (app::DeltaTimeManager * this_ptr, int32_t frames_in_past))
+    IL2CPP_REGISTER_METHOD(0x03124770, bool, GetHistoricFrameRange, (app::DeltaTimeManager * this_ptr, int32_t offset, int32_t frame_count, app::DeltaTimeManager_DeltaTimeFrameHistory__Array** out_array))
     IL2CPP_REGISTER_METHOD(0x03124A90, void, OnBeforeTimeManager, (app::DeltaTimeManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03124D80, void, OnAfterTimeManager, (app::DeltaTimeManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03124F30, void, ctor, (app::DeltaTimeManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031250D0, void, cctor, ())
-}
+} // namespace app::classes::usedStandaloneScripts::DeltaTimeManagers::DeltaTimeManager

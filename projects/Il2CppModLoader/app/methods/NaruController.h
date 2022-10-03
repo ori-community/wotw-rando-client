@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::NaruController {
+namespace app::classes::NaruController {
     IL2CPP_REGISTER_METHOD(0x00883A60, bool, get_LockedInput, (app::NaruController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00883B30, void, Awake, (app::NaruController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00883C10, void, OnDestroy, (app::NaruController * this_ptr))
@@ -30,4 +30,4 @@ namespace app::methods::NaruController {
     IL2CPP_REGISTER_METHOD(0x003FF2B0, app::SuspendableMask__Enum, get_Mask, (app::NaruController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00885B90, void, set_Mask, (app::NaruController * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x00885C40, void, ctor, (app::NaruController * this_ptr))
-}
+} // namespace app::classes::NaruController

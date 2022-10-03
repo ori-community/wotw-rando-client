@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ChallengeShrineManager {
+namespace app::classes::ChallengeShrineManager {
     IL2CPP_REGISTER_METHOD(0x00A35F10, bool, get_IsChallengeOngoing, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01041740, void, OnEnable, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010417D0, void, Start, (app::ChallengeShrineManager * this_ptr))
@@ -19,7 +19,7 @@ namespace app::methods::ChallengeShrineManager {
     IL2CPP_REGISTER_METHOD(0x01043E10, void, StartWave, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01043FA0, void, TeleportBackToStart, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010440C0, void, AddTime, (app::ChallengeShrineManager * this_ptr, float time_to_add))
-    IL2CPP_REGISTER_METHOD(0x01044110, void, AddTimeFromTrigger, (app::ChallengeShrineManager * this_ptr, app::LegacyTrigger * trigger))
+    IL2CPP_REGISTER_METHOD(0x01044110, void, AddTimeFromTrigger, (app::ChallengeShrineManager * this_ptr, app::LegacyTrigger* trigger))
     IL2CPP_REGISTER_METHODINFO(0x047055D0, ChallengeShrineManager_AddTimeFromTrigger__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x010442E0, void, FinishWave, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047700E8, ChallengeShrineManager_FinishWave__MethodInfo)
@@ -27,12 +27,12 @@ namespace app::methods::ChallengeShrineManager {
     IL2CPP_REGISTER_METHOD(0x01044540, void, ChallengeCompleted, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01044760, void, ActivateShrineUI, (app::ChallengeShrineManager * this_ptr, bool on))
     IL2CPP_REGISTER_METHOD(0x01044850, void, MoveCurrentCharacterToPosition, (app::ChallengeShrineManager * this_ptr, app::Vector3 position))
-    IL2CPP_REGISTER_METHOD(0x01044940, void, Trigger, (app::ChallengeShrineManager * this_ptr, app::ChallengeShrineTrigger * trigger))
-    IL2CPP_REGISTER_METHOD(0x01044A80, void, HandleTrigger, (app::ChallengeShrineManager * this_ptr, app::ChallengeShrineTrigger * trigger))
+    IL2CPP_REGISTER_METHOD(0x01044940, void, Trigger, (app::ChallengeShrineManager * this_ptr, app::ChallengeShrineTrigger* trigger))
+    IL2CPP_REGISTER_METHOD(0x01044A80, void, HandleTrigger, (app::ChallengeShrineManager * this_ptr, app::ChallengeShrineTrigger* trigger))
     IL2CPP_REGISTER_METHOD(0x01044B20, void, HandleTriggerType, (app::ChallengeShrineManager * this_ptr, app::ChallengeShrineAnimatorEntity_ChallengeShrineActionType__Enum type))
     IL2CPP_REGISTER_METHOD(0x00601090, bool, get_IsSuspended, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0041DB70, void, set_IsSuspended, (app::ChallengeShrineManager * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x003FFCE0, app::SuspendableMask__Enum, get_Mask, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01044E30, void, set_Mask, (app::ChallengeShrineManager * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x01044EF0, void, ctor, (app::ChallengeShrineManager * this_ptr))
-}
+} // namespace app::classes::ChallengeShrineManager

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::BabySeinController {
+namespace app::classes::BabySeinController {
     IL2CPP_REGISTER_METHOD(0x008616A0, bool, get_LockedInput, (app::BabySeinController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00861750, void, Awake, (app::BabySeinController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00861830, void, OnDestroy, (app::BabySeinController * this_ptr))
@@ -29,4 +29,4 @@ namespace app::methods::BabySeinController {
     IL2CPP_REGISTER_METHOD(0x006410F0, app::SuspendableMask__Enum, get_Mask, (app::BabySeinController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00863150, void, set_Mask, (app::BabySeinController * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x00863200, void, ctor, (app::BabySeinController * this_ptr))
-}
+} // namespace app::classes::BabySeinController

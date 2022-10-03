@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LegacyActionLeverSystem {
-    IL2CPP_REGISTER_METHOD(0x015C8CA0, app::ILever *, get_Lever, (app::LegacyActionLeverSystem * this_ptr))
+namespace app::classes::LegacyActionLeverSystem {
+    IL2CPP_REGISTER_METHOD(0x015C8CA0, app::ILever*, get_Lever, (app::LegacyActionLeverSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C8BDD0, void, OnLeverEnter, (app::LegacyActionLeverSystem * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0474E060, LegacyActionLeverSystem_OnLeverEnter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C8BE00, void, OnLeverExit, (app::LegacyActionLeverSystem * this_ptr))
@@ -26,6 +26,6 @@ namespace app::methods::LegacyActionLeverSystem {
     IL2CPP_REGISTER_METHOD(0x015C9060, bool, CanLeverRightCallback, (app::LegacyActionLeverSystem * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0478B250, LegacyActionLeverSystem_CanLeverRightCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015C9090, void, Awake, (app::LegacyActionLeverSystem * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x015C9EC0, app::IDesiredUberState *, GetRequirementsForTimeline, (app::LegacyActionLeverSystem * this_ptr, app::MoonTimeline * timeline))
+    IL2CPP_REGISTER_METHOD(0x015C9EC0, app::IDesiredUberState*, GetRequirementsForTimeline, (app::LegacyActionLeverSystem * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::LegacyActionLeverSystem * this_ptr))
-}
+} // namespace app::classes::LegacyActionLeverSystem

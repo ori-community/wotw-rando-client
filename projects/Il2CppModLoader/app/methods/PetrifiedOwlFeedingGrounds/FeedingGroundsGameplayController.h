@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PetrifiedOwlFeedingGrounds::FeedingGroundsGameplayController {
+namespace app::classes::PetrifiedOwlFeedingGrounds::FeedingGroundsGameplayController {
     IL2CPP_REGISTER_METHOD(0x01785A30, app::PetrifiedOwlUberState__Enum, get_CurrentUberState, (app::FeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01785A60, void, set_CurrentUberState, (app::FeedingGroundsGameplayController * this_ptr, app::PetrifiedOwlUberState__Enum value))
     IL2CPP_REGISTER_METHOD(0x01785AC0, float, get_VisibleTime, (app::FeedingGroundsGameplayController * this_ptr))
@@ -56,9 +56,9 @@ namespace app::methods::PetrifiedOwlFeedingGrounds::FeedingGroundsGameplayContro
     IL2CPP_REGISTER_METHODINFO(0x04767540, FeedingGroundsGameplayController_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0178A320, void, Apply, (app::FeedingGroundsGameplayController * this_ptr, app::UberStateApplyContext__Enum context))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ApplyOnEditor, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0178A3A0, app::IUberState__Array *, get_AffectingUberStates, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0178A430, app::List_1_UnityEngine_GameObject_ *, get_AllTargets, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0178A5F0, bool, IsSetupTimeline, (app::FeedingGroundsGameplayController * this_ptr, app::MoonTimeline * timeline))
-    IL2CPP_REGISTER_METHOD(0x0178A8D0, app::IDesiredUberState__Array *, GetRequirementsForTimeline, (app::FeedingGroundsGameplayController * this_ptr, app::MoonTimeline * timeline))
+    IL2CPP_REGISTER_METHOD(0x0178A3A0, app::IUberState__Array*, get_AffectingUberStates, (app::FeedingGroundsGameplayController * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0178A430, app::List_1_UnityEngine_GameObject_*, get_AllTargets, (app::FeedingGroundsGameplayController * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0178A5F0, bool, IsSetupTimeline, (app::FeedingGroundsGameplayController * this_ptr, app::MoonTimeline* timeline))
+    IL2CPP_REGISTER_METHOD(0x0178A8D0, app::IDesiredUberState__Array*, GetRequirementsForTimeline, (app::FeedingGroundsGameplayController * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x0178AC90, void, ctor, (app::FeedingGroundsGameplayController * this_ptr))
-}
+} // namespace app::classes::PetrifiedOwlFeedingGrounds::FeedingGroundsGameplayController

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Swing::Vector2Extensions {
+namespace app::classes::Swing::Vector2Extensions {
     IL2CPP_REGISTER_METHOD(0x01830790, app::Vector2, perpendicular, (app::Vector2 _this))
     IL2CPP_REGISTER_METHOD(0x018307C0, app::Vector2, inversePerpendicular, (app::Vector2 _this))
     IL2CPP_REGISTER_METHOD(0x018307F0, app::Vector2, swapXY, (app::Vector2 _this))
@@ -20,7 +20,7 @@ namespace app::methods::Swing::Vector2Extensions {
     IL2CPP_REGISTER_METHOD(0x01830BC0, bool, isValid, (app::Vector2 _this))
     IL2CPP_REGISTER_METHOD(0x01830C30, bool, isZero, (app::Vector2 _this, float _epsilon))
     IL2CPP_REGISTER_METHOD(0x01830C80, bool, isNormalized, (app::Vector2 _this, float _epsilon))
-    IL2CPP_REGISTER_METHOD(0x01830CB0, app::Vector2, normalized, (app::Vector2 _this, float * _magnitude))
+    IL2CPP_REGISTER_METHOD(0x01830CB0, app::Vector2, normalized, (app::Vector2 _this, float* _magnitude))
     IL2CPP_REGISTER_METHOD(0x01830D80, app::Vector2, rotate_1, (app::Vector2 _this, app::Angle _a))
     IL2CPP_REGISTER_METHOD(0x01830E80, app::Vector2, rotate_2, (app::Vector2 _this, float _a))
     IL2CPP_REGISTER_METHOD(0x01830F70, app::Vector2, rotate_3, (app::Vector2 _this, float _cos, float _sin))
@@ -37,4 +37,4 @@ namespace app::methods::Swing::Vector2Extensions {
     IL2CPP_REGISTER_METHOD(0x0182E070, app::Vector4, concat, (app::Vector2 _xy, app::Vector2 _zw))
     IL2CPP_REGISTER_METHOD(0x01831450, app::Angle, toAngle, (app::Vector2 _this))
     IL2CPP_REGISTER_METHOD(0x01831500, app::Angle, toAngleFast, (app::Vector2 _this))
-}
+} // namespace app::classes::Swing::Vector2Extensions

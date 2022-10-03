@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::Texture {
+namespace app::classes::UnityEngine::Texture {
     IL2CPP_REGISTER_METHOD(0x02C65D20, void, ctor, (app::Texture * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C65DB0, int32_t, GetDataWidth, (app::Texture * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C65E00, int32_t, GetDataHeight, (app::Texture * this_ptr))
@@ -22,7 +22,7 @@ namespace app::methods::UnityEngine::Texture {
     IL2CPP_REGISTER_METHOD(0x02C66140, void, set_anisoLevel, (app::Texture * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x02C661A0, void, set_mipMapBias, (app::Texture * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x02C66200, app::Vector2, get_texelSize, (app::Texture * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x02C66270, void *, GetNativeTexturePtr, (app::Texture * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x02C66270, void*, GetNativeTexturePtr, (app::Texture * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C662C0, uint64_t, get_totalTextureMemory, ())
     IL2CPP_REGISTER_METHOD(0x02C66310, uint64_t, get_desiredTextureMemory, ())
     IL2CPP_REGISTER_METHOD(0x02C66360, uint64_t, get_targetTextureMemory, ())
@@ -31,6 +31,6 @@ namespace app::methods::UnityEngine::Texture {
     IL2CPP_REGISTER_METHOD(0x02C66400, bool, ValidateFormat_1, (app::Texture * this_ptr, app::RenderTextureFormat__Enum format))
     IL2CPP_REGISTER_METHOD(0x02C66560, bool, ValidateFormat_2, (app::Texture * this_ptr, app::TextureFormat__Enum format))
     IL2CPP_REGISTER_METHOD(0x02C66730, bool, ValidateFormat_3, (app::Texture * this_ptr, app::GraphicsFormat__Enum format, app::FormatUsage__Enum usage))
-    IL2CPP_REGISTER_METHOD(0x02C66920, app::UnityException *, CreateNonReadableException, (app::Texture * this_ptr, app::Texture * t))
-    IL2CPP_REGISTER_METHOD(0x02C66AF0, void, get_texelSize_Injected, (app::Texture * this_ptr, app::Vector2 * ret))
-}
+    IL2CPP_REGISTER_METHOD(0x02C66920, app::UnityException*, CreateNonReadableException, (app::Texture * this_ptr, app::Texture* t))
+    IL2CPP_REGISTER_METHOD(0x02C66AF0, void, get_texelSize_Injected, (app::Texture * this_ptr, app::Vector2* ret))
+} // namespace app::classes::UnityEngine::Texture

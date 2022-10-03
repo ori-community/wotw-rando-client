@@ -30,9 +30,9 @@
 #include <xstring>
 
 using namespace modloader;
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
-using namespace app::methods::CatlikeCoding::TextBox;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
+using namespace app::classes::CatlikeCoding::TextBox;
 
 namespace {
     IL2CPP_INTERCEPT(MessageControllerB, app::GameObject*, ShowSpiritTreeTextMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* provider, app::Vector3 position)) {

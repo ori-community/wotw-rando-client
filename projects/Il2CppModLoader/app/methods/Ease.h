@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Ease {
+namespace app::classes::Ease {
     IL2CPP_REGISTER_METHOD(0x00BED370, float, EaseByType_1, (app::Ease_Easing__Enum e, float start, float end, float t))
     IL2CPP_REGISTER_METHOD(0x00BEEA40, float, Linear_1, (float start, float end, float t))
     IL2CPP_REGISTER_METHOD(0x00BEEA50, float, InQuad_1, (float start, float end, float t))
@@ -86,4 +86,4 @@ namespace app::methods::Ease {
     IL2CPP_REGISTER_METHOD(0x00BF6A20, app::Vector3, OutBack_2, (app::Vector3 start, app::Vector3 end, float t))
     IL2CPP_REGISTER_METHOD(0x00BF6B90, app::Vector3, InOutBack_2, (app::Vector3 start, app::Vector3 end, float t))
     IL2CPP_REGISTER_METHOD(0x00BF6DB0, app::Vector3, OutInBack_2, (app::Vector3 start, app::Vector3 end, float t))
-}
+} // namespace app::classes::Ease

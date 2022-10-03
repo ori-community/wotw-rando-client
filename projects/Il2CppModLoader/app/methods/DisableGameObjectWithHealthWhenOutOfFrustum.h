@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::DisableGameObjectWithHealthWhenOutOfFrustum {
+namespace app::classes::DisableGameObjectWithHealthWhenOutOfFrustum {
     IL2CPP_REGISTER_METHOD(0x00B97FC0, void, OnFrustumEnter, (app::DisableGameObjectWithHealthWhenOutOfFrustum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B98060, void, OnFrustumExit, (app::DisableGameObjectWithHealthWhenOutOfFrustum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_InsideFrustum, (app::DisableGameObjectWithHealthWhenOutOfFrustum * this_ptr))
@@ -11,4 +11,4 @@ namespace app::methods::DisableGameObjectWithHealthWhenOutOfFrustum {
     IL2CPP_REGISTER_METHOD(0x00B981E0, void, OnDestroy, (app::DisableGameObjectWithHealthWhenOutOfFrustum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B98280, void, Start, (app::DisableGameObjectWithHealthWhenOutOfFrustum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008223A0, void, ctor, (app::DisableGameObjectWithHealthWhenOutOfFrustum * this_ptr))
-}
+} // namespace app::classes::DisableGameObjectWithHealthWhenOutOfFrustum

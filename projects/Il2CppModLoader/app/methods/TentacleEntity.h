@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::TentacleEntity {
+namespace app::classes::TentacleEntity {
     IL2CPP_REGISTER_METHOD(0x00CFDBE0, bool, get_IsTentacleFacingTarget, (app::TentacleEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CFDD40, bool, get_IsUnderWater, (app::TentacleEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CFDD50, void, set_IsUnderWater, (app::TentacleEntity * this_ptr, bool value))
@@ -17,7 +17,7 @@ namespace app::methods::TentacleEntity {
     IL2CPP_REGISTER_METHOD(0x00CFEAF0, void, OnAwake, (app::TentacleEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CFEC30, void, EnterSpawningState, (app::TentacleEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CFEDD0, app::Vector3, ApplyTargetBounds, (app::TentacleEntity * this_ptr, app::Vector3 target))
-    IL2CPP_REGISTER_METHOD(0x00CFF340, void, UpdateHitSideParameter, (app::TentacleEntity * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x00CFF340, void, UpdateHitSideParameter, (app::TentacleEntity * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x00CFF650, void, UpdateDirectionParameter, (app::TentacleEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CFF9B0, void, UpdateDistanceParameter, (app::TentacleEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CFFB50, void, OnFixedUpdate, (app::TentacleEntity * this_ptr))
@@ -27,4 +27,4 @@ namespace app::methods::TentacleEntity {
     IL2CPP_REGISTER_METHOD(0x00D001E0, void, OnDestroy, (app::TentacleEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B63460, void, OnDisable, (app::TentacleEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D001F0, void, ctor, (app::TentacleEntity * this_ptr))
-}
+} // namespace app::classes::TentacleEntity

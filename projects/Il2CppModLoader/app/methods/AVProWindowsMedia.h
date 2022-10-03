@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AVProWindowsMedia {
+namespace app::classes::AVProWindowsMedia {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_Handle, (app::AVProWindowsMedia * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB950, app::String *, get_Filename, (app::AVProWindowsMedia * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB960, void, set_Filename, (app::AVProWindowsMedia * this_ptr, app::String * value))
+    IL2CPP_REGISTER_METHOD(0x002FB950, app::String*, get_Filename, (app::AVProWindowsMedia * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB960, void, set_Filename, (app::AVProWindowsMedia * this_ptr, app::String* value))
     IL2CPP_REGISTER_METHOD(0x002FB970, int32_t, get_Width, (app::AVProWindowsMedia * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB980, void, set_Width, (app::AVProWindowsMedia * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x005C3FF0, int32_t, get_Height, (app::AVProWindowsMedia * this_ptr))
@@ -36,13 +36,13 @@ namespace app::methods::AVProWindowsMedia {
     IL2CPP_REGISTER_METHOD(0x03127E70, bool, get_IsFinishedPlaying, (app::AVProWindowsMedia * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, get_RequiresFlipY, (app::AVProWindowsMedia * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C6650, void, set_RequiresFlipY, (app::AVProWindowsMedia * this_ptr, bool value))
-    IL2CPP_REGISTER_METHOD(0x03127F10, app::Texture *, get_OutputTexture, (app::AVProWindowsMedia * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x03127F10, app::Texture*, get_OutputTexture, (app::AVProWindowsMedia * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03127C50, int32_t, get_DisplayFrame, (app::AVProWindowsMedia * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x03127F30, bool, StartVideo, (app::AVProWindowsMedia * this_ptr, app::String * filename, bool allow_native_format, bool use_b_t709, bool allow_audio, bool use_audio_delay, bool use_audio_mixer, bool use_display_sync, bool ignore_flips, app::FilterMode__Enum texture_filter_mode, app::TextureWrapMode__Enum texture_wrap_mode))
-    IL2CPP_REGISTER_METHOD(0x031281C0, bool, StartVideoFromMemory, (app::AVProWindowsMedia * this_ptr, app::String * name, void * movie_pointer, int64_t movie_length, bool allow_native_format, bool use_b_t709, bool allow_audio, bool use_audio_delay, bool use_audio_mixer, bool use_display_sync, bool ignore_flips, app::FilterMode__Enum texture_filter_mode, app::TextureWrapMode__Enum texture_wrap_mode))
-    IL2CPP_REGISTER_METHOD(0x03128400, app::Material *, GetConversionMaterial, (app::AVProWindowsMedia * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x03127F30, bool, StartVideo, (app::AVProWindowsMedia * this_ptr, app::String* filename, bool allow_native_format, bool use_b_t709, bool allow_audio, bool use_audio_delay, bool use_audio_mixer, bool use_display_sync, bool ignore_flips, app::FilterMode__Enum texture_filter_mode, app::TextureWrapMode__Enum texture_wrap_mode))
+    IL2CPP_REGISTER_METHOD(0x031281C0, bool, StartVideoFromMemory, (app::AVProWindowsMedia * this_ptr, app::String* name, void* movie_pointer, int64_t movie_length, bool allow_native_format, bool use_b_t709, bool allow_audio, bool use_audio_delay, bool use_audio_mixer, bool use_display_sync, bool ignore_flips, app::FilterMode__Enum texture_filter_mode, app::TextureWrapMode__Enum texture_wrap_mode))
+    IL2CPP_REGISTER_METHOD(0x03128400, app::Material*, GetConversionMaterial, (app::AVProWindowsMedia * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03128420, void, CompleteVideoLoad, (app::AVProWindowsMedia * this_ptr, bool use_b_t709, bool ignore_flips, app::FilterMode__Enum texture_filter_mode, app::TextureWrapMode__Enum texture_wrap_mode))
-    IL2CPP_REGISTER_METHOD(0x03128D30, bool, StartAudio, (app::AVProWindowsMedia * this_ptr, app::String * filename))
+    IL2CPP_REGISTER_METHOD(0x03128D30, bool, StartAudio, (app::AVProWindowsMedia * this_ptr, app::String* filename))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, PreRoll, (app::AVProWindowsMedia * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03129190, bool, Update, (app::AVProWindowsMedia * this_ptr, bool force))
     IL2CPP_REGISTER_METHOD(0x031293D0, void, Play, (app::AVProWindowsMedia * this_ptr))
@@ -53,4 +53,4 @@ namespace app::methods::AVProWindowsMedia {
     IL2CPP_REGISTER_METHOD(0x031296C0, void, ClearFrameRange, (app::AVProWindowsMedia * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031296D0, void, Close, (app::AVProWindowsMedia * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03129820, void, ctor, (app::AVProWindowsMedia * this_ptr))
-}
+} // namespace app::classes::AVProWindowsMedia

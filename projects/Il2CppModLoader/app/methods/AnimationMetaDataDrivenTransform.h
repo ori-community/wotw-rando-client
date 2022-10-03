@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AnimationMetaDataDrivenTransform {
+namespace app::classes::AnimationMetaDataDrivenTransform {
     IL2CPP_REGISTER_METHOD(0x005023A0, void, Awake, (app::AnimationMetaDataDrivenTransform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005024A0, void, OnDestroy, (app::AnimationMetaDataDrivenTransform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00502540, void, Start, (app::AnimationMetaDataDrivenTransform * this_ptr))
@@ -16,4 +16,4 @@ namespace app::methods::AnimationMetaDataDrivenTransform {
     IL2CPP_REGISTER_METHOD(0x005035C0, app::SuspendableMask__Enum, get_Mask, (app::AnimationMetaDataDrivenTransform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005035D0, void, set_Mask, (app::AnimationMetaDataDrivenTransform * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x00503690, void, ctor, (app::AnimationMetaDataDrivenTransform * this_ptr))
-}
+} // namespace app::classes::AnimationMetaDataDrivenTransform

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SpiritLeashHook {
+namespace app::classes::SpiritLeashHook {
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, get_Activated, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C6650, void, set_Activated, (app::SpiritLeashHook * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00A35C30, float, get_OriCloseEnoughDistance, (app::SpiritLeashHook * this_ptr))
@@ -33,13 +33,13 @@ namespace app::methods::SpiritLeashHook {
     IL2CPP_REGISTER_METHOD(0x00615270, bool, get_StressTested, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00674DC0, void, set_StressTested, (app::SpiritLeashHook * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x004994E0, float, ISpiritLeashAttackable_get_PositionOffset, (app::SpiritLeashHook * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB9B0, app::Transform *, get_HookTargetTransform, (app::SpiritLeashHook * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB9B0, app::Transform*, get_HookTargetTransform, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00446590, bool, get_IsHookHorizontal, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005150D0, void, set_IsHookHorizontal, (app::SpiritLeashHook * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00444DC0, bool, get_IsHookSticky, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C15D0, void, set_IsHookSticky, (app::SpiritLeashHook * this_ptr, bool value))
-    IL2CPP_REGISTER_METHOD(0x002FB9B0, app::Transform *, get_HookTransform, (app::SpiritLeashHook * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00D5EC40, app::Transform *, ISpiritLeashHook_get_HookTargetTransform, (app::SpiritLeashHook * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB9B0, app::Transform*, get_HookTransform, (app::SpiritLeashHook * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00D5EC40, app::Transform*, ISpiritLeashHook_get_HookTargetTransform, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnSpiritLeashHighlight, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnSpiritLeashDehighlight, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnSpiritLeashed, (app::SpiritLeashHook * this_ptr, app::Vector3 player_position, app::Vector3 target_position))
@@ -60,11 +60,11 @@ namespace app::methods::SpiritLeashHook {
     IL2CPP_REGISTER_METHOD(0x00D5F860, float, get_CameraInfluenceMinDist, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A372E0, app::Vector2, get_CameraZoomFactor, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417920, app::CameraTargetType__Enum, get_TargetType, (app::SpiritLeashHook * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00D5F900, void, GetTargetData, (app::SpiritLeashHook * this_ptr, app::CameraTargetData * * data))
-    IL2CPP_REGISTER_METHOD(0x00A37560, void, AdjustCameraTargetWeight, (app::SpiritLeashHook * this_ptr, float * weight, app::CameraTargetData * data, app::Vector3 primary_target_position))
+    IL2CPP_REGISTER_METHOD(0x00D5F900, void, GetTargetData, (app::SpiritLeashHook * this_ptr, app::CameraTargetData** data))
+    IL2CPP_REGISTER_METHOD(0x00A37560, void, AdjustCameraTargetWeight, (app::SpiritLeashHook * this_ptr, float* weight, app::CameraTargetData* data, app::Vector3 primary_target_position))
     IL2CPP_REGISTER_METHOD(0x00D5FB60, float, get_CameraInfluenceMaxDist, (app::SpiritLeashHook * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00D5FC00, void, OnSceneRootPostEnable, (app::SpiritLeashHook * this_ptr, app::SceneRoot * scene_root))
-    IL2CPP_REGISTER_METHOD(0x00D5FCB0, void, OnSceneRootPreDisable, (app::SpiritLeashHook * this_ptr, app::SceneRoot * scene_root))
-    IL2CPP_REGISTER_METHOD(0x002FBC00, app::IDamageReciever__Array *, get_AffectedReceivers, (app::SpiritLeashHook * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00D5FC00, void, OnSceneRootPostEnable, (app::SpiritLeashHook * this_ptr, app::SceneRoot* scene_root))
+    IL2CPP_REGISTER_METHOD(0x00D5FCB0, void, OnSceneRootPreDisable, (app::SpiritLeashHook * this_ptr, app::SceneRoot* scene_root))
+    IL2CPP_REGISTER_METHOD(0x002FBC00, app::IDamageReciever__Array*, get_AffectedReceivers, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D5FD60, void, ctor, (app::SpiritLeashHook * this_ptr))
-}
+} // namespace app::classes::SpiritLeashHook

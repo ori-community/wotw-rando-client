@@ -1,6 +1,6 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::PlayFab::ClientModels::GameServerRegionsRequest {
+namespace app::classes::PlayFab::ClientModels::GameServerRegionsRequest {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GameServerRegionsRequest * this_ptr))
 }

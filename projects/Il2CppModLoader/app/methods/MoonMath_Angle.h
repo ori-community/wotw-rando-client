@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MoonMath_Angle {
+namespace app::classes::MoonMath_Angle {
     IL2CPP_REGISTER_METHOD(0x013B3770, float, Wrap, (float angle))
     IL2CPP_REGISTER_METHOD(0x025740C0, float, Wrap180, (float angle))
     IL2CPP_REGISTER_METHOD(0x02574100, float, Clamp180, (float angle, float from, float to))
@@ -16,4 +16,4 @@ namespace app::methods::MoonMath_Angle {
     IL2CPP_REGISTER_METHOD(0x02574B20, float, AngleFromDirection, (app::Vector2 delta))
     IL2CPP_REGISTER_METHOD(0x02574BD0, app::Quaternion, QuaternionFromDirection, (app::Vector2 delta))
     IL2CPP_REGISTER_METHOD(0x02574CD0, app::Vector2, VectorFromAngle, (float angle))
-}
+} // namespace app::classes::MoonMath_Angle

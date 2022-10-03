@@ -1,15 +1,15 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Collections::Generic::Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_ {
-    IL2CPP_REGISTER_METHOD(0x0283B3E0, app::Dictionary_2_TKey_TValue_ValueCollection_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_ *, get_Values, (app::Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_ * this_ptr))
+namespace app::classes::System::Collections::Generic::Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_ {
+    IL2CPP_REGISTER_METHOD(0x0283B3E0, app::Dictionary_2_TKey_TValue_ValueCollection_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_*, get_Values, (app::Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04756340, Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node__get_Values__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0473FB88, Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node___ctor__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_ * this_ptr, app::ICachableInput * key, app::InputCacheManager_SetupTempData_Node * * value))
+    IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_ * this_ptr, app::ICachableInput* key, app::InputCacheManager_SetupTempData_Node** value))
     IL2CPP_REGISTER_METHODINFO(0x0471B318, Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node__TryGetValue__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x02BAC170, void, Add, (app::Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_ * this_ptr, app::ICachableInput * key, app::InputCacheManager_SetupTempData_Node * value))
+    IL2CPP_REGISTER_METHOD(0x02BAC170, void, Add, (app::Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_ * this_ptr, app::ICachableInput* key, app::InputCacheManager_SetupTempData_Node* value))
     IL2CPP_REGISTER_METHODINFO(0x04719B40, Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02BA5400, app::Dictionary_2_TKey_TValue_Enumerator_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_, GetEnumerator, (app::Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0473E760, Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node__GetEnumerator__MethodInfo)
-}
+} // namespace app::classes::System::Collections::Generic::Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_

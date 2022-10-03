@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinSpiritCrescentSpell {
+namespace app::classes::SeinSpiritCrescentSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinSpiritCrescentSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005E1270, bool, get_CanAfford, (app::SeinSpiritCrescentSpell * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement *, get_PlatformMovement, (app::SeinSpiritCrescentSpell * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement*, get_PlatformMovement, (app::SeinSpiritCrescentSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005E12B0, bool, KeepPlayingThrowAnimation, (app::SeinSpiritCrescentSpell * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04736048, SeinSpiritCrescentSpell_KeepPlayingThrowAnimation__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005E1300, bool, KeepPlayingAirThrowAnimation, (app::SeinSpiritCrescentSpell * this_ptr))
@@ -17,4 +17,4 @@ namespace app::methods::SeinSpiritCrescentSpell {
     IL2CPP_REGISTER_METHOD(0x005E1E80, void, SpawnBoomerang, (app::SeinSpiritCrescentSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005E28D0, void, OnCatchBoomerang, (app::SeinSpiritCrescentSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005E2B10, void, ctor, (app::SeinSpiritCrescentSpell * this_ptr))
-}
+} // namespace app::classes::SeinSpiritCrescentSpell

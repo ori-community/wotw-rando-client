@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UpperKickReactionBehaviour___c {
+namespace app::classes::UpperKickReactionBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x013B1700, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::UpperKickReactionBehaviour_c * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, _EnterEarlyCollision_b__23_0, (app::UpperKickReactionBehaviour_c * this_ptr))
@@ -20,4 +20,4 @@ namespace app::methods::UpperKickReactionBehaviour___c {
     IL2CPP_REGISTER_METHODINFO(0x0472CBD8, UpperKickReactionBehaviour_c__StopAllSequences_b__28_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, _StopAllSequences_b__28_5, (app::UpperKickReactionBehaviour_c * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x047791A8, UpperKickReactionBehaviour_c__StopAllSequences_b__28_5__MethodInfo)
-}
+} // namespace app::classes::UpperKickReactionBehaviour___c

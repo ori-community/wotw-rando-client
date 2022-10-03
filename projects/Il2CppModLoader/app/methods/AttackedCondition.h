@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AttackedCondition {
+namespace app::classes::AttackedCondition {
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::AttackedCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_IsSuspended, (app::AttackedCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00447370, void, set_IsSuspended, (app::AttackedCondition * this_ptr, bool value))
@@ -19,7 +19,7 @@ namespace app::methods::AttackedCondition {
     IL2CPP_REGISTER_METHOD(0x00856800, void, Awake, (app::AttackedCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00856A40, void, OnDestroy, (app::AttackedCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C15C0, void, LateUpdate, (app::AttackedCondition * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00446590, bool, Validate, (app::AttackedCondition * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x00446590, bool, Validate, (app::AttackedCondition * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsDead, (app::AttackedCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, CanBeChargeFlamed, (app::AttackedCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, CanBeChargeDashed, (app::AttackedCondition * this_ptr))
@@ -40,7 +40,7 @@ namespace app::methods::AttackedCondition {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, CanBeSpiritSpeared, (app::AttackedCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, CanBeTeleportedByBeacon, (app::AttackedCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, CanBeGlowed, (app::AttackedCondition * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00856B00, void, OnRecieveDamage, (app::AttackedCondition * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x00856B00, void, OnRecieveDamage, (app::AttackedCondition * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnSpiritSlashHighlight, (app::AttackedCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnSpiritSlashDehighlight, (app::AttackedCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00420EE0, int32_t, GetSpiritSlashDamageAmount, (app::AttackedCondition * this_ptr))
@@ -50,8 +50,8 @@ namespace app::methods::AttackedCondition {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldArrowExplode, (app::AttackedCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, ShouldArrowBeReflected, (app::AttackedCondition * this_ptr, app::ArrowHitData hit_data))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, CanDetonateProjectiles, (app::AttackedCondition * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB9F0, app::IDamageReciever__Array *, get_AffectedReceivers, (app::AttackedCondition * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB9F0, app::IDamageReciever__Array*, get_AffectedReceivers, (app::AttackedCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00856B30, void, ctor, (app::AttackedCondition * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject *, IDamageReciever_get_gameObject, (app::AttackedCondition * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform *, IDamageReciever_get_transform, (app::AttackedCondition * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, IDamageReciever_get_gameObject, (app::AttackedCondition * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00506170, app::Transform*, IDamageReciever_get_transform, (app::AttackedCondition * this_ptr))
+} // namespace app::classes::AttackedCondition

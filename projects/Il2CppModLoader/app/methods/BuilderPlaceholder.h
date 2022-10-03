@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::BuilderPlaceholder {
+namespace app::classes::BuilderPlaceholder {
     IL2CPP_REGISTER_METHOD(0x0081BCA0, bool, get_IsEventValid, (app::BuilderPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0081BCE0, void, OnPlaceholderEnable, (app::BuilderPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0081BFF0, void, OnPlaceholderDisable, (app::BuilderPlaceholder * this_ptr))
@@ -10,4 +10,4 @@ namespace app::methods::BuilderPlaceholder {
     IL2CPP_REGISTER_METHOD(0x0081C530, void, OnLookEventEnd, (app::BuilderPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04765A00, BuilderPlaceholder_OnLookEventEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004181F0, void, ctor, (app::BuilderPlaceholder * this_ptr))
-}
+} // namespace app::classes::BuilderPlaceholder

@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinBlazeSpell {
+namespace app::classes::SeinBlazeSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinBlazeSpell * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00D8F640, app::SeinBlazeSpell_BlazeSetupInfo *, get_m_currentBlazeSetup, (app::SeinBlazeSpell * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00D8F640, app::SeinBlazeSpell_BlazeSetupInfo*, get_m_currentBlazeSetup, (app::SeinBlazeSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D8F690, bool, CanStartQuickBlazeOnPress, (app::SeinBlazeSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D8F700, bool, IsFullBlazeUnlocked, (app::SeinBlazeSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D8F7F0, bool, IsBlazeCasting, (app::SeinBlazeSpell * this_ptr))
@@ -14,7 +14,7 @@ namespace app::methods::SeinBlazeSpell {
     IL2CPP_REGISTER_METHOD(0x00D90000, void, InitStateMachine, (app::SeinBlazeSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D91420, bool, get_ButtonIsPressed, (app::SeinBlazeSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D914B0, bool, get_ButtonOnPressed, (app::SeinBlazeSpell * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00D91550, app::Input_InputButtonProcessor *, get_Button, (app::SeinBlazeSpell * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00D91550, app::Input_InputButtonProcessor*, get_Button, (app::SeinBlazeSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D91590, bool, get_IsBinded, (app::SeinBlazeSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D91670, void, OnSetReferenceToSein, (app::SeinBlazeSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D916B0, bool, get_IsStatePerforming, (app::SeinBlazeSpell * this_ptr))
@@ -25,7 +25,7 @@ namespace app::methods::SeinBlazeSpell {
     IL2CPP_REGISTER_METHODINFO(0x0478CE30, SeinBlazeSpell_OnBlazeTriggered__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D92100, void, OnQuickBlazeRelease, (app::SeinBlazeSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D92150, void, OnFullBlazeRelease, (app::SeinBlazeSpell * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00D921A0, void, ModifyHorizontalPlatformMovementSettings, (app::SeinBlazeSpell * this_ptr, app::HorizontalPlatformMovementSettings * settings))
+    IL2CPP_REGISTER_METHOD(0x00D921A0, void, ModifyHorizontalPlatformMovementSettings, (app::SeinBlazeSpell * this_ptr, app::HorizontalPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHODINFO(0x04735460, SeinBlazeSpell_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D92250, void, ResetBlaze, (app::SeinBlazeSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D92250, void, OnRestoreCheckpoint, (app::SeinBlazeSpell * this_ptr))
@@ -63,6 +63,6 @@ namespace app::methods::SeinBlazeSpell {
     IL2CPP_REGISTER_METHODINFO(0x0478E9F8, SeinBlazeSpell_OnExitBlazeFull__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D8FFC0, void, StopBlaze, (app::SeinBlazeSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D93C80, void, DealBlazeDamage, (app::SeinBlazeSpell * this_ptr, float range, float initial_damage, app::DamageWeight__Enum weight))
-    IL2CPP_REGISTER_METHOD(0x00D944A0, void, SetCurrentChargeEffect, (app::SeinBlazeSpell * this_ptr, app::GlowChargeEffect * charge_effect))
+    IL2CPP_REGISTER_METHOD(0x00D944A0, void, SetCurrentChargeEffect, (app::SeinBlazeSpell * this_ptr, app::GlowChargeEffect* charge_effect))
     IL2CPP_REGISTER_METHOD(0x00D945C0, void, ctor, (app::SeinBlazeSpell * this_ptr))
-}
+} // namespace app::classes::SeinBlazeSpell

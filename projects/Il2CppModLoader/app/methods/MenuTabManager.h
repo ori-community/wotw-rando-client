@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MenuTabManager {
+namespace app::classes::MenuTabManager {
     IL2CPP_REGISTER_METHOD(0x003FFE10, bool, get_WasPaused, (app::MenuTabManager * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x009E7570, app::MenuTabEntry *, get_CurrentTab, (app::MenuTabManager * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x009E7570, app::MenuTabEntry*, get_CurrentTab, (app::MenuTabManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FD750, int32_t, get_CurrentTabIndex, (app::MenuTabManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FD760, void, set_CurrentTabIndex, (app::MenuTabManager * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x009E7610, void, Awake, (app::MenuTabManager * this_ptr))
@@ -44,4 +44,4 @@ namespace app::methods::MenuTabManager {
     IL2CPP_REGISTER_METHOD(0x009EADE0, void, OnBackgroundStateEnter, (app::MenuTabManager * this_ptr, app::MenuTabBackground__Enum state, bool immediate))
     IL2CPP_REGISTER_METHOD(0x0050B250, void, MakeNextBackgroundFadeImediate, (app::MenuTabManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009EAE10, void, ctor, (app::MenuTabManager * this_ptr))
-}
+} // namespace app::classes::MenuTabManager

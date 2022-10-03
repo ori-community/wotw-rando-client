@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AttachToRope {
-    IL2CPP_REGISTER_METHOD(0x002FBB60, app::ConfigurableJoint *, get_GeneratedConfigurableJoint, (app::AttachToRope * this_ptr))
+namespace app::classes::AttachToRope {
+    IL2CPP_REGISTER_METHOD(0x002FBB60, app::ConfigurableJoint*, get_GeneratedConfigurableJoint, (app::AttachToRope * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0084F8B0, bool, IsAttached, (app::AttachToRope * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0084F950, void, Awake, (app::AttachToRope * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0084FBF0, void, OnEnable, (app::AttachToRope * this_ptr))
@@ -13,8 +13,8 @@ namespace app::methods::AttachToRope {
     IL2CPP_REGISTER_METHOD(0x00850A90, void, OnDestroy, (app::AttachToRope * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00850D40, void, OnGameSerializeLoad, (app::AttachToRope * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04794CE0, AttachToRope_OnGameSerializeLoad__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00850D90, void, OnSceneStartLateAfterSerialize, (app::AttachToRope * this_ptr, app::SceneRoot * root))
+    IL2CPP_REGISTER_METHOD(0x00850D90, void, OnSceneStartLateAfterSerialize, (app::AttachToRope * this_ptr, app::SceneRoot* root))
     IL2CPP_REGISTER_METHODINFO(0x04740748, AttachToRope_OnSceneStartLateAfterSerialize__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00850D40, void, OnSerializationLoad, (app::AttachToRope * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00850F10, void, ctor, (app::AttachToRope * this_ptr))
-}
+} // namespace app::classes::AttachToRope

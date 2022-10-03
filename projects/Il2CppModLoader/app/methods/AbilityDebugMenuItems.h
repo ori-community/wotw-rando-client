@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::AbilityDebugMenuItems {
+namespace app::classes::AbilityDebugMenuItems {
     IL2CPP_REGISTER_METHOD(0x004AD420, void, EnableAbilities, (app::List_1_AbilityType_ * abilities))
     IL2CPP_REGISTER_METHOD(0x004AD5E0, void, SpiritFlameRapidFireUpgradeSetter, (bool new_value))
     IL2CPP_REGISTER_METHOD(0x004AD6D0, void, SpiritFlameSetter, (bool new_value))
@@ -104,4 +104,4 @@ namespace app::methods::AbilityDebugMenuItems {
     IL2CPP_REGISTER_METHOD(0x004B3650, void, UltraSoulFlameSetter, (bool new_value))
     IL2CPP_REGISTER_METHOD(0x004B3760, bool, SpiritMagnetGetter, ())
     IL2CPP_REGISTER_METHOD(0x004B3840, void, SpiritMagnetSetter, (bool new_value))
-}
+} // namespace app::classes::AbilityDebugMenuItems

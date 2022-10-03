@@ -1,14 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::GeneralDebugMenuPage {
+namespace app::classes::GeneralDebugMenuPage {
     IL2CPP_REGISTER_METHOD(0x00420EE0, int32_t, get_ColumnOffset, (app::GeneralDebugMenuPage * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB990, app::String *, get_Name, (app::GeneralDebugMenuPage * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB990, app::String*, get_Name, (app::GeneralDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00421320, void, Awake, (app::GeneralDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004213C0, bool, StartEscape, (app::GeneralDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04764920, GeneralDebugMenuPage_StartEscape__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00421560, void, AddDynamicCameraItems, (app::GeneralDebugMenuPage * this_ptr, app::List_1_IDebugMenuItem_ * list, app::String * menu_name))
-    IL2CPP_REGISTER_METHOD(0x00426870, void, GetItems, (app::GeneralDebugMenuPage * this_ptr, app::List_1_List_1_IDebugMenuItem_ * items))
+    IL2CPP_REGISTER_METHOD(0x00421560, void, AddDynamicCameraItems, (app::GeneralDebugMenuPage * this_ptr, app::List_1_IDebugMenuItem_* list, app::String* menu_name))
+    IL2CPP_REGISTER_METHOD(0x00426870, void, GetItems, (app::GeneralDebugMenuPage * this_ptr, app::List_1_List_1_IDebugMenuItem_* items))
     IL2CPP_REGISTER_METHOD(0x00431CD0, void, OnGUI, (app::GeneralDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00431EE0, void, SetShard, (app::GeneralDebugMenuPage * this_ptr, app::SpiritShardType__Enum shard, bool value))
     IL2CPP_REGISTER_METHOD(0x00432030, bool, GetShard, (app::GeneralDebugMenuPage * this_ptr, app::SpiritShardType__Enum shard))
@@ -18,13 +18,13 @@ namespace app::methods::GeneralDebugMenuPage {
     IL2CPP_REGISTER_METHODINFO(0x04778180, GeneralDebugMenuPage_GetAllShards__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00432400, void, SetEquipment, (app::GeneralDebugMenuPage * this_ptr, app::EquipmentType__Enum equipment, bool value))
     IL2CPP_REGISTER_METHOD(0x004324D0, bool, GetEquipment, (app::GeneralDebugMenuPage * this_ptr, app::EquipmentType__Enum equipment))
-    IL2CPP_REGISTER_METHOD(0x004325A0, void, SetAllEquipment, (app::GeneralDebugMenuPage * this_ptr, app::List_1_EquipmentType_ * list, bool value))
-    IL2CPP_REGISTER_METHOD(0x00432700, bool, GetAllEquipment, (app::GeneralDebugMenuPage * this_ptr, app::List_1_EquipmentType_ * list))
+    IL2CPP_REGISTER_METHOD(0x004325A0, void, SetAllEquipment, (app::GeneralDebugMenuPage * this_ptr, app::List_1_EquipmentType_* list, bool value))
+    IL2CPP_REGISTER_METHOD(0x00432700, bool, GetAllEquipment, (app::GeneralDebugMenuPage * this_ptr, app::List_1_EquipmentType_* list))
     IL2CPP_REGISTER_METHOD(0x00432890, void, SetAbility, (app::GeneralDebugMenuPage * this_ptr, app::AbilityType__Enum ability, bool value))
     IL2CPP_REGISTER_METHOD(0x00432970, bool, GetAbility, (app::GeneralDebugMenuPage * this_ptr, app::AbilityType__Enum ability))
-    IL2CPP_REGISTER_METHOD(0x00432A30, void, SetAllAbilities, (app::GeneralDebugMenuPage * this_ptr, app::List_1_AbilityType_ * list, bool value))
-    IL2CPP_REGISTER_METHOD(0x00432BA0, bool, GetAllAbilities, (app::GeneralDebugMenuPage * this_ptr, app::List_1_AbilityType_ * list))
-    IL2CPP_REGISTER_METHOD(0x00432D30, void, AddTeleports, (app::GeneralDebugMenuPage * this_ptr, app::List_1_IDebugMenuItem_ * items, app::List_1_DebugTeleportSettings_ * settings, app::String * sub_menu, bool do_teleport))
+    IL2CPP_REGISTER_METHOD(0x00432A30, void, SetAllAbilities, (app::GeneralDebugMenuPage * this_ptr, app::List_1_AbilityType_* list, bool value))
+    IL2CPP_REGISTER_METHOD(0x00432BA0, bool, GetAllAbilities, (app::GeneralDebugMenuPage * this_ptr, app::List_1_AbilityType_* list))
+    IL2CPP_REGISTER_METHOD(0x00432D30, void, AddTeleports, (app::GeneralDebugMenuPage * this_ptr, app::List_1_IDebugMenuItem_* items, app::List_1_DebugTeleportSettings_* settings, app::String* sub_menu, bool do_teleport))
     IL2CPP_REGISTER_METHOD(0x00433230, void, DamageAllEnemies, (app::GeneralDebugMenuPage * this_ptr, float amount))
     IL2CPP_REGISTER_METHOD(0x00433810, void, HealAllEnemies, (app::GeneralDebugMenuPage * this_ptr, float amount))
     IL2CPP_REGISTER_METHOD(0x00433C10, bool, SaveGame, (app::GeneralDebugMenuPage * this_ptr))
@@ -112,10 +112,10 @@ namespace app::methods::GeneralDebugMenuPage {
     IL2CPP_REGISTER_METHOD(0x00436040, void, FeedingGroundsSetter, (app::GeneralDebugMenuPage * this_ptr, bool arg))
     IL2CPP_REGISTER_METHODINFO(0x04749E58, GeneralDebugMenuPage_FeedingGroundsSetter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004360E0, void, InitSceneList, (app::GeneralDebugMenuPage * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00436B00, void, AddSceneItems_1, (app::GeneralDebugMenuPage * this_ptr, app::List_1_IDebugMenuItem_ * items))
-    IL2CPP_REGISTER_METHOD(0x00436BD0, void, AddSceneItems_2, (app::GeneralDebugMenuPage * this_ptr, app::List_1_IDebugMenuItem_ * items, app::String * tab_name, app::GeneralDebugMenuPage_SceneInfo__Array * scenes))
-    IL2CPP_REGISTER_METHOD(0x00437150, bool, GoToScene, (app::GeneralDebugMenuPage * this_ptr, app::String * scene_name))
-    IL2CPP_REGISTER_METHOD(0x004371B0, app::IEnumerator *, GoToSceneRoutine, (app::String * scene_name))
+    IL2CPP_REGISTER_METHOD(0x00436B00, void, AddSceneItems_1, (app::GeneralDebugMenuPage * this_ptr, app::List_1_IDebugMenuItem_* items))
+    IL2CPP_REGISTER_METHOD(0x00436BD0, void, AddSceneItems_2, (app::GeneralDebugMenuPage * this_ptr, app::List_1_IDebugMenuItem_* items, app::String* tab_name, app::GeneralDebugMenuPage_SceneInfo__Array* scenes))
+    IL2CPP_REGISTER_METHOD(0x00437150, bool, GoToScene, (app::GeneralDebugMenuPage * this_ptr, app::String* scene_name))
+    IL2CPP_REGISTER_METHOD(0x004371B0, app::IEnumerator*, GoToSceneRoutine, (app::String * scene_name))
     IL2CPP_REGISTER_METHOD(0x00437300, void, ctor, (app::GeneralDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00437460, bool, _GetItems_b__18_12, (app::GeneralDebugMenuPage * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0476B3E0, GeneralDebugMenuPage__GetItems_b__18_12__MethodInfo)
@@ -145,4 +145,4 @@ namespace app::methods::GeneralDebugMenuPage {
     IL2CPP_REGISTER_METHODINFO(0x04735F38, GeneralDebugMenuPage__GetItems_b__18_112__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004379F0, void, _GetItems_b__18_113, (app::GeneralDebugMenuPage * this_ptr, bool value))
     IL2CPP_REGISTER_METHODINFO(0x0471E968, GeneralDebugMenuPage__GetItems_b__18_113__MethodInfo)
-}
+} // namespace app::classes::GeneralDebugMenuPage

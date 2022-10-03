@@ -1,18 +1,18 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SpiderBossEscapeBehaviour {
+namespace app::classes::SpiderBossEscapeBehaviour {
     IL2CPP_REGISTER_METHOD(0x011ABC60, bool, get_IsAttacking, (app::SpiderBossEscapeBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011ABD40, void, Start, (app::SpiderBossEscapeBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011ABEE0, void, OnDestroy, (app::SpiderBossEscapeBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011AC080, void, OnPreRestoreCheckpoint, (app::SpiderBossEscapeBehaviour * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04768E08, SpiderBossEscapeBehaviour_OnPreRestoreCheckpoint__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x011AC150, void, OnEnterTask, (app::SpiderBossEscapeBehaviour * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x011AC150, void, OnEnterTask, (app::SpiderBossEscapeBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x011AC2D0, void, AddEventCallbacks, (app::SpiderBossEscapeBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011ACA50, void, RemoveEventCallbacks, (app::SpiderBossEscapeBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x011AD1D0, app::BehaviourStatus__Enum, OnExecuteTask, (app::SpiderBossEscapeBehaviour * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x011AD1D0, app::BehaviourStatus__Enum, OnExecuteTask, (app::SpiderBossEscapeBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x011AD550, void, UpdateLogic, (app::SpiderBossEscapeBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x011AD610, void, OnExitTask, (app::SpiderBossEscapeBehaviour * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x011AD610, void, OnExitTask, (app::SpiderBossEscapeBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x011AC080, void, StopAllTimelines, (app::SpiderBossEscapeBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011AD700, void, StartHitTransition, (app::SpiderBossEscapeBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011AD880, void, StartLoop, (app::SpiderBossEscapeBehaviour * this_ptr))
@@ -33,4 +33,4 @@ namespace app::methods::SpiderBossEscapeBehaviour {
     IL2CPP_REGISTER_METHODINFO(0x047989D0, SpiderBossEscapeBehaviour_OnCollapseTopTrunkEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011ADDB0, void, SetSpeedToAnimations, (app::SpiderBossEscapeBehaviour * this_ptr, float speed))
     IL2CPP_REGISTER_METHOD(0x011ADF10, void, ctor, (app::SpiderBossEscapeBehaviour * this_ptr))
-}
+} // namespace app::classes::SpiderBossEscapeBehaviour

@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LocomotionTurningTimelineBehaviour___c {
+namespace app::classes::LocomotionTurningTimelineBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x00FCA0B0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::LocomotionTurningTimelineBehaviour_c * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, __ctor_b__21_0, (app::LocomotionTurningTimelineBehaviour_c * this_ptr))
@@ -10,4 +10,4 @@ namespace app::methods::LocomotionTurningTimelineBehaviour___c {
     IL2CPP_REGISTER_METHODINFO(0x04784190, LocomotionTurningTimelineBehaviour_c___ctor_b__21_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, __ctor_b__21_2, (app::LocomotionTurningTimelineBehaviour_c * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04721330, LocomotionTurningTimelineBehaviour_c___ctor_b__21_2__MethodInfo)
-}
+} // namespace app::classes::LocomotionTurningTimelineBehaviour___c

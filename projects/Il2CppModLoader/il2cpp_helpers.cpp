@@ -13,6 +13,7 @@
 #include <app/methods/UnityEngine/SceneManagement/SceneManager.h>
 #include <app/methods/UnityEngine/ScriptableObject.h>
 #include <app/methods/UnityEngine/Transform.h>
+#include <app/types/Quaternion.h>
 
 #include <Common/ext.h>
 
@@ -22,7 +23,7 @@
 #include <xstring>
 
 using namespace modloader::win;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace il2cpp {
     namespace {
@@ -50,7 +51,7 @@ namespace il2cpp {
         }
 
         char* get_qualified(std::string_view namezpace, std::string_view name) {
-            auto klass = get_class<>(namezpace, name);
+            auto klass = untyped::get_class(namezpace, name);
             auto type = il2cpp_class_get_type(klass);
             return il2cpp_type_get_assembly_qualified_name(type);
         }
@@ -151,9 +152,8 @@ namespace il2cpp {
         app::Vector3 get_rotation(void* obj) {
             auto transform = get_transform(obj);
             auto value = UnityEngine::Transform::get_rotation(transform);
-            return UnityEngine::Quaternion::get_eulerAngles(il2cpp::box_value<app::Quaternion__Boxed>(
-                    il2cpp::get_class("UnityEngine", "Quaternion"), value
-            ));
+
+            return UnityEngine::Quaternion::get_eulerAngles(types::Quaternion::box(value));
         }
 
         app::Vector3 get_local_position(void* obj) {
@@ -164,9 +164,7 @@ namespace il2cpp {
         app::Vector3 get_local_rotation(void* obj) {
             auto transform = get_transform(obj);
             auto value = UnityEngine::Transform::get_localRotation(transform);
-            return UnityEngine::Quaternion::get_eulerAngles(il2cpp::box_value<app::Quaternion__Boxed>(
-                    il2cpp::get_class("UnityEngine", "Quaternion"), value
-            ));
+            return UnityEngine::Quaternion::get_eulerAngles(types::Quaternion::box(value));
         }
 
         app::Vector3 get_local_scale(void* obj) {
@@ -438,7 +436,7 @@ namespace il2cpp {
 
         std::vector<app::GameObject*> get_root_game_objects(app::Scene& scene) {
             std::vector<app::GameObject*> output;
-            auto boxed = box_value<app::Scene__Boxed>(get_class("UnityEngine.SceneManagement", "Scene"), scene);
+            auto boxed = box_value<app::Scene__Boxed>(get_class(app::Scene__TypeInfo, "UnityEngine.SceneManagement", "Scene"), scene);
             if (UnityEngine::SceneManagement::Scene::get_isLoaded(boxed)) {
                 auto game_objects = UnityEngine::SceneManagement::Scene::GetRootGameObjects_1(boxed);
                 for (auto i = 0; i < game_objects->max_length; ++i)
@@ -449,7 +447,7 @@ namespace il2cpp {
         }
 
         std::string get_scene_name(app::Scene& scene) {
-            auto boxed = box_value<app::Scene__Boxed>(get_class("UnityEngine.SceneManagement", "Scene"), scene);
+            auto boxed = box_value<app::Scene__Boxed>(get_class(app::Scene__TypeInfo, "UnityEngine.SceneManagement", "Scene"), scene);
             auto csstring = UnityEngine::SceneManagement::Scene::get_name(boxed);
             return convert_csstring(csstring);
         }

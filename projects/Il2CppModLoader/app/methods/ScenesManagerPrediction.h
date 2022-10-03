@@ -1,14 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::ScenesManagerPrediction {
+namespace app::classes::ScenesManagerPrediction {
     IL2CPP_REGISTER_METHOD(0x01052D80, app::Vector2, get_CurrentCameraTargetPosition, (app::ScenesManagerPrediction * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01052DC0, app::SceneLoadingQueue *, get_Queue, (app::ScenesManagerPrediction * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01052DF0, app::ScenesManager *, get_Manager, (app::ScenesManagerPrediction * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FA280, app::ScenesManagerContext *, get_Context, (app::ScenesManagerPrediction * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01052E10, app::List_1_SceneManagerScene_ *, get_ActiveScenes, (app::ScenesManagerPrediction * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01052E40, app::ScenesManagerSettings *, get_Settings, (app::ScenesManagerPrediction * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01065510, void, ctor, (app::ScenesManagerPrediction * this_ptr, app::ScenesManagerContext * context))
+    IL2CPP_REGISTER_METHOD(0x01052DC0, app::SceneLoadingQueue*, get_Queue, (app::ScenesManagerPrediction * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01052DF0, app::ScenesManager*, get_Manager, (app::ScenesManagerPrediction * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FA280, app::ScenesManagerContext*, get_Context, (app::ScenesManagerPrediction * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01052E10, app::List_1_SceneManagerScene_*, get_ActiveScenes, (app::ScenesManagerPrediction * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01052E40, app::ScenesManagerSettings*, get_Settings, (app::ScenesManagerPrediction * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01065510, void, ctor, (app::ScenesManagerPrediction * this_ptr, app::ScenesManagerContext* context))
     IL2CPP_REGISTER_METHOD(0x00F28570, app::Vector2, get_CurrentCameraTargetPositionExtrapolated, (app::ScenesManagerPrediction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010655B0, void, set_CurrentCameraTargetPositionExtrapolated, (app::ScenesManagerPrediction * this_ptr, app::Vector2 value))
     IL2CPP_REGISTER_METHOD(0x00E71230, app::Vector2, get_CurrentCameraTargetPositionExtrapolatedShort, (app::ScenesManagerPrediction * this_ptr))
@@ -24,4 +24,4 @@ namespace app::methods::ScenesManagerPrediction {
     IL2CPP_REGISTER_METHOD(0x010662A0, app::Vector2, UpdateExtrapolatedPositionWithLimits, (app::ScenesManagerPrediction * this_ptr, app::Vector2 extrapolated_position, app::Vector2 speed, float speed_multiplier, app::Color debug_color))
     IL2CPP_REGISTER_METHOD(0x01066FE0, app::Vector2, GetSmoothPredictionDelta, (app::ScenesManagerPrediction * this_ptr, app::Vector2 from, app::Vector2 to))
     IL2CPP_REGISTER_METHOD(0x01067130, void, SetTargetPosition, (app::ScenesManagerPrediction * this_ptr, app::Vector3 position))
-}
+} // namespace app::classes::ScenesManagerPrediction

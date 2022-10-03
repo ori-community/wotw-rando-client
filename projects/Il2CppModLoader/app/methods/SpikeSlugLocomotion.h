@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SpikeSlugLocomotion {
+namespace app::classes::SpikeSlugLocomotion {
     IL2CPP_REGISTER_METHOD(0x011D1110, float, get_ContinousRotationSpeed, (app::SpikeSlugLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D1120, void, set_ContinousRotationSpeed, (app::SpikeSlugLocomotion * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x011D1260, bool, get_IsSpinning, (app::SpikeSlugLocomotion * this_ptr))
@@ -18,4 +18,4 @@ namespace app::methods::SpikeSlugLocomotion {
     IL2CPP_REGISTER_METHOD(0x011D21D0, bool, ShouldStartFalling, (app::SpikeSlugLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D2210, void, OnDrawGizmosSelected, (app::SpikeSlugLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D2530, void, ctor, (app::SpikeSlugLocomotion * this_ptr))
-}
+} // namespace app::classes::SpikeSlugLocomotion

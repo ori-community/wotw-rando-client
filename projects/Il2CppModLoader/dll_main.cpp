@@ -144,9 +144,9 @@ namespace modloader {
 
         il2cpp::load_all_types();
 
-        auto product = il2cpp::convert_csstring(app::methods::UnityEngine::Application::get_productName());
-        auto version = il2cpp::convert_csstring(app::methods::UnityEngine::Application::get_version());
-        auto unity_version = il2cpp::convert_csstring(app::methods::UnityEngine::Application::get_unityVersion());
+        auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
+        auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());
+        auto unity_version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_unityVersion());
         trace(MessageType::Info, 5, "initialize", format("Application %s injected (%s)[%s].", product.c_str(), version.c_str(), unity_version.c_str()));
 
         while (!shutdown_thread) {
@@ -164,8 +164,8 @@ namespace modloader {
     }
 
     IL2CPP_MODLOADER_C_DLLEXPORT bool toggle_cursorlock() {
-        auto state = app::methods::UnityEngine::Cursor::get_lockState();
-        app::methods::UnityEngine::Cursor::set_lockState(
+        auto state = app::classes::UnityEngine::Cursor::get_lockState();
+        app::classes::UnityEngine::Cursor::set_lockState(
                 state == app::CursorLockMode__Enum::None ? app::CursorLockMode__Enum::Confined : app::CursorLockMode__Enum::None
         );
         return state == app::CursorLockMode__Enum::None;

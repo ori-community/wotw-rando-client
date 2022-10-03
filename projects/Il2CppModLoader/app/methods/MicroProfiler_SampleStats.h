@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MicroProfiler_SampleStats {
-    IL2CPP_REGISTER_METHOD(0x002FA280, app::MicroProfiler_MetricStats__Array *, GetMetricStats, (app::MicroProfiler_SampleStats * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB930, app::MicroProfiler_StatInfo__Array *, GetStats, (app::MicroProfiler_SampleStats * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x002FB950, app::MicroProfiler_MarkerInfo__Array *, GetMarkers, (app::MicroProfiler_SampleStats * this_ptr))
+namespace app::classes::MicroProfiler_SampleStats {
+    IL2CPP_REGISTER_METHOD(0x002FA280, app::MicroProfiler_MetricStats__Array*, GetMetricStats, (app::MicroProfiler_SampleStats * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB930, app::MicroProfiler_StatInfo__Array*, GetStats, (app::MicroProfiler_SampleStats * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x002FB950, app::MicroProfiler_MarkerInfo__Array*, GetMarkers, (app::MicroProfiler_SampleStats * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB970, int32_t, GetFrameId, (app::MicroProfiler_SampleStats * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB980, void, SetFrameId, (app::MicroProfiler_SampleStats * this_ptr, int32_t id))
     IL2CPP_REGISTER_METHOD(0x01A92420, app::MicroProfiler_StatInfo, GetStat, (app::MicroProfiler_SampleStats * this_ptr, app::Stat__Enum id))
@@ -20,8 +20,8 @@ namespace app::methods::MicroProfiler_SampleStats {
     IL2CPP_REGISTER_METHOD(0x03157440, void, EndMetric, (app::MicroProfiler_SampleStats * this_ptr, app::Metric__Enum id, int64_t ns))
     IL2CPP_REGISTER_METHOD(0x031574A0, app::MicroProfiler_MetricStats, GetMetric, (app::MicroProfiler_SampleStats * this_ptr, app::Metric__Enum id))
     IL2CPP_REGISTER_METHOD(0x031574F0, void, Clear, (app::MicroProfiler_SampleStats * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x031575E0, void, CopyFrom, (app::MicroProfiler_SampleStats * this_ptr, app::MicroProfiler_SampleStats * source))
-    IL2CPP_REGISTER_METHOD(0x03157770, void, AppendData, (app::MicroProfiler_SampleStats * this_ptr, app::MicroProfiler_SampleStats * source))
+    IL2CPP_REGISTER_METHOD(0x031575E0, void, CopyFrom, (app::MicroProfiler_SampleStats * this_ptr, app::MicroProfiler_SampleStats* source))
+    IL2CPP_REGISTER_METHOD(0x03157770, void, AppendData, (app::MicroProfiler_SampleStats * this_ptr, app::MicroProfiler_SampleStats* source))
     IL2CPP_REGISTER_METHOD(0x03157820, void, Validate, (app::MicroProfiler_SampleStats * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031578B0, void, ctor, (app::MicroProfiler_SampleStats * this_ptr))
-}
+} // namespace app::classes::MicroProfiler_SampleStats

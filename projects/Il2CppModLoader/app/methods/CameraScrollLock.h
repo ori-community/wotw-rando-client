@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::CameraScrollLock {
+namespace app::classes::CameraScrollLock {
     IL2CPP_REGISTER_METHOD(0x00C3DF40, app::Vector3, get_ScrollCenter, (app::CameraScrollLock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016A2480, void, set_ScrollCenter, (app::CameraScrollLock * this_ptr, app::Vector3 value))
     IL2CPP_REGISTER_METHOD(0x016A2490, app::Vector3, get_HalfScrollSize, (app::CameraScrollLock * this_ptr))
@@ -14,4 +14,4 @@ namespace app::methods::CameraScrollLock {
     IL2CPP_REGISTER_METHOD(0x016A3050, void, OnDisable, (app::CameraScrollLock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417920, app::SelectableCategory__Enum, get_Category, (app::CameraScrollLock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008223A0, void, ctor, (app::CameraScrollLock * this_ptr))
-}
+} // namespace app::classes::CameraScrollLock

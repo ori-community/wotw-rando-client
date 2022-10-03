@@ -17,7 +17,7 @@
 #include <cmath>
 #include <vector>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     int chaos_text_box_id = -1;

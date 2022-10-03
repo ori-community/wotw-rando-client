@@ -9,7 +9,7 @@
 #include <optional>
 #include <unordered_map>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace randomizer::conditions {
     namespace {

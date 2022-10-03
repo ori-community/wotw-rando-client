@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RestrictAbilityController {
-    IL2CPP_REGISTER_METHOD(0x0090D040, app::AnimationSwapSet *, get_AnimationSet, ())
+namespace app::classes::RestrictAbilityController {
+    IL2CPP_REGISTER_METHOD(0x0090D040, app::AnimationSwapSet*, get_AnimationSet, ())
     IL2CPP_REGISTER_METHOD(0x0090D0E0, void, set_AnimationSet, (app::AnimationSwapSet * value))
     IL2CPP_REGISTER_METHOD(0x0090D190, bool, IsRestricted_1, (app::SeinAbilityRestrictZoneMask__Enum restrict_masks))
     IL2CPP_REGISTER_METHOD(0x0090D290, bool, IsRestricted_2, (app::SeinAbilityRestrictZoneMask__Enum current_mask, app::SeinAbilityRestrictZoneMask__Enum restrict_masks))
@@ -21,4 +21,4 @@ namespace app::methods::RestrictAbilityController {
     IL2CPP_REGISTER_METHOD(0x0090DCA0, void, OnFixedUpdate, (app::RestrictAbilityController * this_ptr, float delta))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::RestrictAbilityController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())
-}
+} // namespace app::classes::RestrictAbilityController

@@ -13,7 +13,7 @@
 #include <Il2CppModLoader/app/methods/SeinHealthController.h>
 #include <settings.h>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     constexpr float DEFAULT_SWIM_SPEED = 6.f;

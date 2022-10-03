@@ -1,9 +1,9 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SandWormLocomotion {
+namespace app::classes::SandWormLocomotion {
     IL2CPP_REGISTER_METHOD(0x00C1ECF0, float, get_LastAvoidancePower, (app::SandWormLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006A63A0, app::Transform *, get_FeetTransform, (app::SandWormLocomotion * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006A63A0, app::Transform*, get_FeetTransform, (app::SandWormLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C1ED20, app::Vector3, get_FeetPosition, (app::SandWormLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C1EDB0, app::Vector3, get_UpDirection, (app::SandWormLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C1EE70, void, set_UpDirection, (app::SandWormLocomotion * this_ptr, app::Vector3 value))
@@ -22,24 +22,24 @@ namespace app::methods::SandWormLocomotion {
     IL2CPP_REGISTER_METHOD(0x00C1F080, bool, get_IsAvoidingObstacles, (app::SandWormLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C1F090, void, set_IsAvoidingObstacles, (app::SandWormLocomotion * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00B84400, bool, get_IsHeadInHabitat, (app::SandWormLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00C1F0A0, void, MoveToPoint, (app::SandWormLocomotion * this_ptr, app::Vector3 point, app::EntityBehaviourNode * source))
+    IL2CPP_REGISTER_METHOD(0x00C1F0A0, void, MoveToPoint, (app::SandWormLocomotion * this_ptr, app::Vector3 point, app::EntityBehaviourNode* source))
     IL2CPP_REGISTER_METHOD(0x00C1F090, void, SetObstacleAvoidance, (app::SandWormLocomotion * this_ptr, bool avoid))
-    IL2CPP_REGISTER_METHOD(0x00C1F180, void, StartFollowingTarget, (app::SandWormLocomotion * this_ptr, app::Transform * follow_target))
+    IL2CPP_REGISTER_METHOD(0x00C1F180, void, StartFollowingTarget, (app::SandWormLocomotion * this_ptr, app::Transform* follow_target))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SetTargetVelocity, (app::SandWormLocomotion * this_ptr, app::Vector2 target_velocity))
     IL2CPP_REGISTER_METHOD(0x00C1F220, void, SetVelocityDirectly, (app::SandWormLocomotion * this_ptr, app::Vector2 velocity))
     IL2CPP_REGISTER_METHOD(0x00C1F250, app::Vector2, GetCurrentVelocity, (app::SandWormLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C1F280, void, SetSpeedSettings, (app::SandWormLocomotion * this_ptr, app::SandWormLocomotion_SpeedSetting__Enum setting))
-    IL2CPP_REGISTER_METHOD(0x00C1F2B0, void, SetSpeedSettingsOverride, (app::SandWormLocomotion * this_ptr, app::Func_1_SandWormSandDigLocomotionBehaviour_SpeedEntry_ * sand_dig_speed_settings_override))
+    IL2CPP_REGISTER_METHOD(0x00C1F2B0, void, SetSpeedSettingsOverride, (app::SandWormLocomotion * this_ptr, app::Func_1_SandWormSandDigLocomotionBehaviour_SpeedEntry_* sand_dig_speed_settings_override))
     IL2CPP_REGISTER_METHOD(0x00C1F2E0, void, ConfigureStateMachine, (app::SandWormLocomotion * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04738430, SandWormLocomotion_ConfigureStateMachine__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0071F210, app::EntityLocomotionTask *, get_DefaultFSMState, (app::SandWormLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00C1F330, void, OnEntityInitialization, (app::SandWormLocomotion * this_ptr, app::Entity * entity))
+    IL2CPP_REGISTER_METHOD(0x0071F210, app::EntityLocomotionTask*, get_DefaultFSMState, (app::SandWormLocomotion * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00C1F330, void, OnEntityInitialization, (app::SandWormLocomotion * this_ptr, app::Entity* entity))
     IL2CPP_REGISTER_METHOD(0x00C1F430, void, OnEntityReset, (app::SandWormLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00C1F4E0, app::EntityLocomotionTask *, GetNextBehaviour, (app::SandWormLocomotion * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00C1F4E0, app::EntityLocomotionTask*, GetNextBehaviour, (app::SandWormLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C1F580, void, OnFixedUpdate, (app::SandWormLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Stop, (app::SandWormLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnSandDigUpdate, (app::SandWormLocomotion * this_ptr, float d_time))
     IL2CPP_REGISTER_METHOD(0x00C1F870, void, OnEnterSand, (app::SandWormLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C1FB00, void, OnExitSand, (app::SandWormLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C1FD50, void, ctor, (app::SandWormLocomotion * this_ptr))
-}
+} // namespace app::classes::SandWormLocomotion

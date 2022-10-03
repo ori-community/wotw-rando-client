@@ -1,24 +1,24 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::SeinGrabWall {
+namespace app::classes::SeinGrabWall {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinGrabWall * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x006E4240, app::CharacterGravity *, get_CharacterGravity, (app::SeinGrabWall * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D06F0, app::CharacterLeftRightMovement *, get_CharacterLeftRightMovement, (app::SeinGrabWall * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00AD1280, app::PlatformMovementListOfColliders *, get_ListOfCollidedObjects, (app::SeinGrabWall * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x005D06C0, app::CharacterPlatformMovement *, get_PlatformMovement, (app::SeinGrabWall * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x014CC310, app::SeinGrabWallPuppet *, get_Puppet, (app::SeinGrabWall * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x006E4240, app::CharacterGravity*, get_CharacterGravity, (app::SeinGrabWall * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D06F0, app::CharacterLeftRightMovement*, get_CharacterLeftRightMovement, (app::SeinGrabWall * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00AD1280, app::PlatformMovementListOfColliders*, get_ListOfCollidedObjects, (app::SeinGrabWall * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x005D06C0, app::CharacterPlatformMovement*, get_PlatformMovement, (app::SeinGrabWall * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x014CC310, app::SeinGrabWallPuppet*, get_Puppet, (app::SeinGrabWall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014CC3D0, bool, get_KeepMovingInput, (app::SeinGrabWall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014CC630, void, Start, (app::SeinGrabWall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014CCBD0, void, OnDestroy, (app::SeinGrabWall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014CD180, void, OnWallJump, (app::SeinGrabWall * this_ptr, app::Vector2 speed))
     IL2CPP_REGISTER_METHODINFO(0x04779FA8, SeinGrabWall_OnWallJump__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x006EF310, void, OnDamageKickback, (app::SeinGrabWall * this_ptr, app::Damage * dmg))
+    IL2CPP_REGISTER_METHOD(0x006EF310, void, OnDamageKickback, (app::SeinGrabWall * this_ptr, app::Damage* dmg))
     IL2CPP_REGISTER_METHODINFO(0x0477FAE8, SeinGrabWall_OnDamageKickback__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x014CD1C0, void, ModifyGravityPlatformMovementSettings, (app::SeinGrabWall * this_ptr, app::GravityPlatformMovementSettings * settings))
+    IL2CPP_REGISTER_METHOD(0x014CD1C0, void, ModifyGravityPlatformMovementSettings, (app::SeinGrabWall * this_ptr, app::GravityPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHODINFO(0x04732790, SeinGrabWall_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014CD260, bool, get_IsNotMoving, (app::SeinGrabWall * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x014CD2C0, void, ModifyHorizontalPlatformMovementSettings, (app::SeinGrabWall * this_ptr, app::HorizontalPlatformMovementSettings * settings))
+    IL2CPP_REGISTER_METHOD(0x014CD2C0, void, ModifyHorizontalPlatformMovementSettings, (app::SeinGrabWall * this_ptr, app::HorizontalPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHODINFO(0x04784230, SeinGrabWall_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014CD470, void, OnExit, (app::SeinGrabWall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014CD4B0, void, OnGrabWall, (app::SeinGrabWall * this_ptr))
@@ -51,4 +51,4 @@ namespace app::methods::SeinGrabWall {
     IL2CPP_REGISTER_METHOD(0x014D0490, void, HandleWallClimbDownSteps, (app::SeinGrabWall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014D08B0, void, OnSetReferenceToSein, (app::SeinGrabWall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014D0980, void, ctor, (app::SeinGrabWall * this_ptr))
-}
+} // namespace app::classes::SeinGrabWall

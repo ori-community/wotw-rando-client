@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Collections::Generic::HashSet_1_UnityEngine_KeyCode_ {
+namespace app::classes::System::Collections::Generic::HashSet_1_UnityEngine_KeyCode_ {
     IL2CPP_REGISTER_METHOD(0x02AB4A60, bool, Add, (app::HashSet_1_UnityEngine_KeyCode_ * this_ptr, app::KeyCode__Enum item))
     IL2CPP_REGISTER_METHODINFO(0x0470B0B0, HashSet_1_UnityEngine_KeyCode__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02AB9220, bool, Remove, (app::HashSet_1_UnityEngine_KeyCode_ * this_ptr, app::KeyCode__Enum item))
@@ -12,4 +12,4 @@ namespace app::methods::System::Collections::Generic::HashSet_1_UnityEngine_KeyC
     IL2CPP_REGISTER_METHODINFO(0x047545E0, HashSet_1_UnityEngine_KeyCode__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02AB4370, void, ctor, (app::HashSet_1_UnityEngine_KeyCode_ * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04798DE8, HashSet_1_UnityEngine_KeyCode___ctor__MethodInfo)
-}
+} // namespace app::classes::System::Collections::Generic::HashSet_1_UnityEngine_KeyCode_

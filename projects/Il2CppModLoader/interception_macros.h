@@ -15,7 +15,7 @@
     inline Il2CppMethodInfo* name = reinterpret_cast<Il2CppMethodInfo*>(modloader::win::memory::get_game_assembly_address() + address);
 
 #define IL2CPP_INTERCEPT(method_namespace, return_type, method_name, params)                                                                         \
-    static_assert(std::is_same<decltype(app::methods::method_namespace::method_name), return_type(*) params>::value, "incorrect function type");     \
+    static_assert(std::is_same<decltype(app::classes::method_namespace::method_name), return_type(*) params>::value, "incorrect function type");     \
                                                                                                                                                      \
     namespace next::method_namespace {                                                                                                               \
         return_type(*(method_name)) params = nullptr;                                                                                                \
@@ -25,7 +25,7 @@
     namespace _intercept::_internal##_##method_namespace {                                                                                           \
         return_type method_name params;                                                                                                              \
         modloader::interception::intercept method_name##_intercept(                                                                                  \
-                reinterpret_cast<void**>(&app::methods::method_namespace::method_name),                                                              \
+                reinterpret_cast<void**>(&app::classes::method_namespace::method_name),                                                              \
                 reinterpret_cast<void**>(&next::method_namespace::method_name),                                                                      \
                 method_name,                                                                                                                         \
                 #method_namespace "::" #method_name                                                                                                   \

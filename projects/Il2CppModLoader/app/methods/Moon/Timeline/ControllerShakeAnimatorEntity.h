@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Moon::Timeline::ControllerShakeAnimatorEntity {
+namespace app::classes::Moon::Timeline::ControllerShakeAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x00763150, void, OnPoolSpawned, (app::ControllerShakeAnimatorEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnPoolDespawned, (app::ControllerShakeAnimatorEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00763160, float, get_CurrentShake, (app::ControllerShakeAnimatorEntity * this_ptr))
@@ -12,6 +12,6 @@ namespace app::methods::Moon::Timeline::ControllerShakeAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::ControllerShakeAnimatorEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00763830, void, OnEnable, (app::ControllerShakeAnimatorEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007638F0, void, OnDisable, (app::ControllerShakeAnimatorEntity * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x007639D0, bool, ApproximateEvent, (app::ControllerShakeAnimatorEntity * this_ptr, int32_t evt, float * time))
+    IL2CPP_REGISTER_METHOD(0x007639D0, bool, ApproximateEvent, (app::ControllerShakeAnimatorEntity * this_ptr, int32_t evt, float* time))
     IL2CPP_REGISTER_METHOD(0x00763AE0, void, ctor, (app::ControllerShakeAnimatorEntity * this_ptr))
-}
+} // namespace app::classes::Moon::Timeline::ControllerShakeAnimatorEntity

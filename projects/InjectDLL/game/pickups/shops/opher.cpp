@@ -17,7 +17,7 @@
 #include <set>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     bool weaponmaster_purchase_in_progress = false;

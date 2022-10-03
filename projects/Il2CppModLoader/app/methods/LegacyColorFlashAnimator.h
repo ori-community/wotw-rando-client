@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LegacyColorFlashAnimator {
+namespace app::classes::LegacyColorFlashAnimator {
     IL2CPP_REGISTER_METHOD(0x00A16740, void, Awake, (app::LegacyColorFlashAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A167D0, void, OnEnable, (app::LegacyColorFlashAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A16870, void, Start, (app::LegacyColorFlashAnimator * this_ptr))
@@ -11,4 +11,4 @@ namespace app::methods::LegacyColorFlashAnimator {
     IL2CPP_REGISTER_METHOD(0x00A16F90, void, RestoreToOriginalState, (app::LegacyColorFlashAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A16FB0, void, ctor, (app::LegacyColorFlashAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A16FE0, void, cctor, ())
-}
+} // namespace app::classes::LegacyColorFlashAnimator

@@ -1,8 +1,8 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Portal {
-    IL2CPP_REGISTER_METHOD(0x00C60E20, app::SceneRoot *, get_SceneRoot, (app::Portal * this_ptr))
+namespace app::classes::Portal {
+    IL2CPP_REGISTER_METHOD(0x00C60E20, app::SceneRoot*, get_SceneRoot, (app::Portal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldDisable, (app::Portal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldEnable, (app::Portal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldChildrenEnable, (app::Portal * this_ptr))
@@ -14,7 +14,7 @@ namespace app::methods::Portal {
     IL2CPP_REGISTER_METHOD(0x00C610E0, void, Resume, (app::Portal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C61270, app::Bounds, get_Bounds, (app::Portal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_AllowCacheBounds, (app::Portal * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00C61370, app::ISoundHost *, get_SoundHost, (app::Portal * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00C61370, app::ISoundHost*, get_SoundHost, (app::Portal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_CenterPosition, (app::Portal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C61460, void, Awake, (app::Portal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C61700, void, OnDestroy, (app::Portal * this_ptr))
@@ -32,22 +32,22 @@ namespace app::methods::Portal {
     IL2CPP_REGISTER_METHOD(0x00C63130, float, get_PortalWorldWidth, (app::Portal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C632C0, void, OnUpdate, (app::Portal * this_ptr, float delta))
     IL2CPP_REGISTER_METHOD(0x00C63E60, app::Vector3, get_OutwardsFacingWorldDir, (app::Portal * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00C64100, void, PerformPortalTeleportation, (app::Portal * this_ptr, app::IPortalVisitor * portal_visitor))
-    IL2CPP_REGISTER_METHOD(0x00C655F0, app::Vector3, ClampPosition, (app::Portal * this_ptr, app::Vector3 position, app::Portal * portal))
-    IL2CPP_REGISTER_METHOD(0x00C65920, app::IEnumerator *, DisableOriForABit, (app::Portal * this_ptr, app::Portal * other))
-    IL2CPP_REGISTER_METHOD(0x00C65A80, app::Vector3, CalculateEndPosition_1, (app::Portal * this_ptr, app::Portal * other, app::Vector3 position))
-    IL2CPP_REGISTER_METHOD(0x00C65C80, app::Vector3, CalculateEndPosition_2, (app::Portal * this_ptr, app::Portal * other, app::Vector3 position, app::Portal_AssistConfig * config))
-    IL2CPP_REGISTER_METHOD(0x00C65D00, app::Vector3, CalculateEndSpeed_1, (app::Portal * this_ptr, app::Portal * other, app::Vector3 speed))
-    IL2CPP_REGISTER_METHOD(0x00C66060, app::Vector3, CalculateEndSpeed_2, (app::Portal * this_ptr, app::Portal * other, app::Vector3 speed, app::Portal_AssistConfig * config))
+    IL2CPP_REGISTER_METHOD(0x00C64100, void, PerformPortalTeleportation, (app::Portal * this_ptr, app::IPortalVisitor* portal_visitor))
+    IL2CPP_REGISTER_METHOD(0x00C655F0, app::Vector3, ClampPosition, (app::Portal * this_ptr, app::Vector3 position, app::Portal* portal))
+    IL2CPP_REGISTER_METHOD(0x00C65920, app::IEnumerator*, DisableOriForABit, (app::Portal * this_ptr, app::Portal* other))
+    IL2CPP_REGISTER_METHOD(0x00C65A80, app::Vector3, CalculateEndPosition_1, (app::Portal * this_ptr, app::Portal* other, app::Vector3 position))
+    IL2CPP_REGISTER_METHOD(0x00C65C80, app::Vector3, CalculateEndPosition_2, (app::Portal * this_ptr, app::Portal* other, app::Vector3 position, app::Portal_AssistConfig* config))
+    IL2CPP_REGISTER_METHOD(0x00C65D00, app::Vector3, CalculateEndSpeed_1, (app::Portal * this_ptr, app::Portal* other, app::Vector3 speed))
+    IL2CPP_REGISTER_METHOD(0x00C66060, app::Vector3, CalculateEndSpeed_2, (app::Portal * this_ptr, app::Portal* other, app::Vector3 speed, app::Portal_AssistConfig* config))
     IL2CPP_REGISTER_METHOD(0x00C661F0, bool, IsInLocalPortal, (app::Portal * this_ptr, app::Vector3 local_position))
     IL2CPP_REGISTER_METHOD(0x00C661F0, bool, IsApproaching, (app::Portal * this_ptr, app::Vector3 local_speed))
     IL2CPP_REGISTER_METHOD(0x0043D9A0, app::SelectableCategory__Enum, get_Category, (app::Portal * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00C66220, bool, IsSein, (app::Portal * this_ptr, app::IPortalVisitor * visitor))
-    IL2CPP_REGISTER_METHOD(0x00C66460, app::Portal_AssistConfig *, GetAssistConfig, (app::Portal * this_ptr, app::IPortalVisitor * visitor))
+    IL2CPP_REGISTER_METHOD(0x00C66220, bool, IsSein, (app::Portal * this_ptr, app::IPortalVisitor* visitor))
+    IL2CPP_REGISTER_METHOD(0x00C66460, app::Portal_AssistConfig*, GetAssistConfig, (app::Portal * this_ptr, app::IPortalVisitor* visitor))
     IL2CPP_REGISTER_METHOD(0x0043D9E0, app::UpdateType__Enum, get_UpdateType, (app::Portal * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00C66640, void, PlaySound, (app::Portal * this_ptr, app::Event_1 * sound))
+    IL2CPP_REGISTER_METHOD(0x00C66640, void, PlaySound, (app::Portal * this_ptr, app::Event_1* sound))
     IL2CPP_REGISTER_METHOD(0x00C66750, void, PlayAnticipationSound, (app::Portal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C668C0, void, StopAnticipationSound, (app::Portal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C668E0, void, Prewarm, (app::Portal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C66970, void, ctor, (app::Portal * this_ptr))
-}
+} // namespace app::classes::Portal

@@ -1,13 +1,13 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::KwolokBossDeathReactionBehaviour {
-    IL2CPP_REGISTER_METHOD(0x01252360, app::KwolokBossEntity *, get_Kwolok, (app::KwolokBossDeathReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01252430, app::KwolokBossLocomotion *, get_Locomotion, (app::KwolokBossDeathReactionBehaviour * this_ptr))
+namespace app::classes::KwolokBossDeathReactionBehaviour {
+    IL2CPP_REGISTER_METHOD(0x01252360, app::KwolokBossEntity*, get_Kwolok, (app::KwolokBossDeathReactionBehaviour * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01252430, app::KwolokBossLocomotion*, get_Locomotion, (app::KwolokBossDeathReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::KwolokBossDeathReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01252510, void, OnEnterTask, (app::KwolokBossDeathReactionBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x01252B30, app::BehaviourStatus__Enum, OnExecuteTask, (app::KwolokBossDeathReactionBehaviour * this_ptr, app::IContext * context))
-    IL2CPP_REGISTER_METHOD(0x01252CA0, void, OnExitTask, (app::KwolokBossDeathReactionBehaviour * this_ptr, app::IContext * context))
+    IL2CPP_REGISTER_METHOD(0x01252510, void, OnEnterTask, (app::KwolokBossDeathReactionBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x01252B30, app::BehaviourStatus__Enum, OnExecuteTask, (app::KwolokBossDeathReactionBehaviour * this_ptr, app::IContext* context))
+    IL2CPP_REGISTER_METHOD(0x01252CA0, void, OnExitTask, (app::KwolokBossDeathReactionBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x01253210, void, TryAddMoveRequest, (app::KwolokBossDeathReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01253360, void, OnMoveWindowStarted, (app::KwolokBossDeathReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0472FE80, KwolokBossDeathReactionBehaviour_OnMoveWindowStarted__MethodInfo)
@@ -30,11 +30,11 @@ namespace app::methods::KwolokBossDeathReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x01253F50, void, OnLoopStopped, (app::KwolokBossDeathReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0477DE38, KwolokBossDeathReactionBehaviour_OnLoopStopped__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01254070, void, ClearMoveRequest, (app::KwolokBossDeathReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x012540D0, void, ModifyMaxMovementSpeed, (app::KwolokBossDeathReactionBehaviour * this_ptr, float * speed))
+    IL2CPP_REGISTER_METHOD(0x012540D0, void, ModifyMaxMovementSpeed, (app::KwolokBossDeathReactionBehaviour * this_ptr, float* speed))
     IL2CPP_REGISTER_METHODINFO(0x04761030, KwolokBossDeathReactionBehaviour_ModifyMaxMovementSpeed__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01251800, void, ModifyDesiredLookAngle, (app::KwolokBossDeathReactionBehaviour * this_ptr, float * angle))
+    IL2CPP_REGISTER_METHOD(0x01251800, void, ModifyDesiredLookAngle, (app::KwolokBossDeathReactionBehaviour * this_ptr, float* angle))
     IL2CPP_REGISTER_METHODINFO(0x04796648, KwolokBossDeathReactionBehaviour_ModifyDesiredLookAngle__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x012540E0, void, ModifyCameraTargets, (app::KwolokBossDeathReactionBehaviour * this_ptr, app::List_1_Moon_CameraTargetSettings_ * targets))
+    IL2CPP_REGISTER_METHOD(0x012540E0, void, ModifyCameraTargets, (app::KwolokBossDeathReactionBehaviour * this_ptr, app::List_1_Moon_CameraTargetSettings_* targets))
     IL2CPP_REGISTER_METHODINFO(0x0478EA00, KwolokBossDeathReactionBehaviour_ModifyCameraTargets__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012541B0, void, ctor, (app::KwolokBossDeathReactionBehaviour * this_ptr))
-}
+} // namespace app::classes::KwolokBossDeathReactionBehaviour

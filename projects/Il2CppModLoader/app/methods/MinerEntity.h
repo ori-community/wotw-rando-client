@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::MinerEntity {
+namespace app::classes::MinerEntity {
     IL2CPP_REGISTER_METHOD(0x014489D0, bool, get_CanHaveShield, (app::MinerEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01448A80, bool, get_IsProtectedByShield, (app::MinerEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01448A90, bool, get_HasShield, (app::MinerEntity * this_ptr))
@@ -16,8 +16,8 @@ namespace app::methods::MinerEntity {
     IL2CPP_REGISTER_METHOD(0x01449080, void, LateUpdate, (app::MinerEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01449510, void, ResetEntity, (app::MinerEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014495F0, void, OnCacheSerializedComponents, (app::MinerEntity * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01449690, void, ResolveDamage, (app::MinerEntity * this_ptr, app::DamageResult * damage_result))
+    IL2CPP_REGISTER_METHOD(0x01449690, void, ResolveDamage, (app::MinerEntity * this_ptr, app::DamageResult* damage_result))
     IL2CPP_REGISTER_METHOD(0x01448B10, void, SetSpawnType, (app::MinerEntity * this_ptr, app::MinerSpawnType__Enum spawn_type))
     IL2CPP_REGISTER_METHOD(0x01449710, void, UpdateGoThroughPlatformInteraction, (app::MinerEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DB7080, void, ctor, (app::MinerEntity * this_ptr))
-}
+} // namespace app::classes::MinerEntity

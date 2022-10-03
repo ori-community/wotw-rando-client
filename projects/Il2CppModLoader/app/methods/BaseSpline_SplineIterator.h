@@ -1,15 +1,15 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::BaseSpline_SplineIterator {
-    IL2CPP_REGISTER_METHOD(0x00F89440, void, ctor, (app::BaseSpline_SplineIterator * this_ptr, app::BaseSpline * spline, bool reverse, int32_t startidx, int32_t endidx))
-    IL2CPP_REGISTER_METHOD(0x00F895E0, void, Reset_1, (app::BaseSpline_SplineIterator * this_ptr, app::BaseSpline * spline, bool reverse, int32_t startidx, int32_t endidx))
-    IL2CPP_REGISTER_METHOD(0x002FA490, void, SetTransform, (app::BaseSpline_SplineIterator * this_ptr, app::Transform * _transform))
+namespace app::classes::BaseSpline_SplineIterator {
+    IL2CPP_REGISTER_METHOD(0x00F89440, void, ctor, (app::BaseSpline_SplineIterator * this_ptr, app::BaseSpline* spline, bool reverse, int32_t startidx, int32_t endidx))
+    IL2CPP_REGISTER_METHOD(0x00F895E0, void, Reset_1, (app::BaseSpline_SplineIterator * this_ptr, app::BaseSpline* spline, bool reverse, int32_t startidx, int32_t endidx))
+    IL2CPP_REGISTER_METHOD(0x002FA490, void, SetTransform, (app::BaseSpline_SplineIterator * this_ptr, app::Transform* _transform))
     IL2CPP_REGISTER_METHOD(0x00F89730, void, SetMatrix_1, (app::BaseSpline_SplineIterator * this_ptr, app::Matrix4x4 _matrix))
-    IL2CPP_REGISTER_METHOD(0x00F89760, void, SetMatrix_2, (app::BaseSpline_SplineIterator * this_ptr, app::Transform * _transform))
+    IL2CPP_REGISTER_METHOD(0x00F89760, void, SetMatrix_2, (app::BaseSpline_SplineIterator * this_ptr, app::Transform* _transform))
     IL2CPP_REGISTER_METHOD(0x00F897B0, app::Vector3, GetPosition_1, (app::BaseSpline_SplineIterator * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F89A60, app::Vector3, GetPosition_2, (app::BaseSpline_SplineIterator * this_ptr, app::Matrix4x4 * m))
-    IL2CPP_REGISTER_METHOD(0x00F89BB0, app::Vector3, GetPosition_3, (app::BaseSpline_SplineIterator * this_ptr, app::Matrix4x4 * m, float offset_percent))
+    IL2CPP_REGISTER_METHOD(0x00F89A60, app::Vector3, GetPosition_2, (app::BaseSpline_SplineIterator * this_ptr, app::Matrix4x4* m))
+    IL2CPP_REGISTER_METHOD(0x00F89BB0, app::Vector3, GetPosition_3, (app::BaseSpline_SplineIterator * this_ptr, app::Matrix4x4* m, float offset_percent))
     IL2CPP_REGISTER_METHOD(0x00F89D80, app::Vector3, StartPos, (app::BaseSpline_SplineIterator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F8A020, app::Vector3, EndPos, (app::BaseSpline_SplineIterator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F8A2F0, app::Vector3, GetTangent, (app::BaseSpline_SplineIterator * this_ptr))
@@ -34,6 +34,6 @@ namespace app::methods::BaseSpline_SplineIterator {
     IL2CPP_REGISTER_METHOD(0x00F8B780, void, SetToEnd, (app::BaseSpline_SplineIterator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00998570, int32_t, Loops, (app::BaseSpline_SplineIterator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FD1D0, int32_t, GetSegment, (app::BaseSpline_SplineIterator * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F8B7C0, app::String *, GetAction, (app::BaseSpline_SplineIterator * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00F8B810, app::String *, PopAction, (app::BaseSpline_SplineIterator * this_ptr))
-}
+    IL2CPP_REGISTER_METHOD(0x00F8B7C0, app::String*, GetAction, (app::BaseSpline_SplineIterator * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00F8B810, app::String*, PopAction, (app::BaseSpline_SplineIterator * this_ptr))
+} // namespace app::classes::BaseSpline_SplineIterator

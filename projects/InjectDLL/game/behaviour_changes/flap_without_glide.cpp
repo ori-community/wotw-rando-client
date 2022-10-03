@@ -6,7 +6,7 @@
 #include <Il2CppModLoader/app/methods/WindCollision.h>
 
 using namespace modloader;
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     IL2CPP_INTERCEPT(WindCollision, void, OnTriggerEnter, (app::WindCollision* this_ptr, app::Collider* collider)) {

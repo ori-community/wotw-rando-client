@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::FrameProfiler {
+namespace app::classes::FrameProfiler {
     IL2CPP_REGISTER_METHOD(0x03150900, bool, get_Enabled, ())
     IL2CPP_REGISTER_METHOD(0x031509B0, void, set_Enabled, (bool value))
     IL2CPP_REGISTER_METHOD(0x03150BD0, int64_t, GetFrameTimeInNanoSeconds, (app::FrameProfiler * this_ptr))
@@ -14,6 +14,6 @@ namespace app::methods::FrameProfiler {
     IL2CPP_REGISTER_METHOD(0x03151A70, void, EndMetric, (app::Metric__Enum metric))
     IL2CPP_REGISTER_METHOD(0x03151C40, void, BeginFrame, ())
     IL2CPP_REGISTER_METHOD(0x03151CF0, void, EndFrame, ())
-    IL2CPP_REGISTER_METHOD(0x03151D80, app::FrameProfiler_FrameData *, GetLastCompletedFrame, (app::FrameProfiler * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x03151D80, app::FrameProfiler_FrameData*, GetLastCompletedFrame, (app::FrameProfiler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03151DC0, void, cctor, ())
-}
+} // namespace app::classes::FrameProfiler

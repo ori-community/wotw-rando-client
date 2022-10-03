@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::HoldableRigidBody {
+namespace app::classes::HoldableRigidBody {
     IL2CPP_REGISTER_METHOD(0x00B58CA0, bool, get_CanBeHeld, (app::HoldableRigidBody * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanBeUsed, (app::HoldableRigidBody * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00B58CD0, app::MeleeWeapon *, get_Weapon, (app::HoldableRigidBody * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00B58CD0, app::MeleeWeapon*, get_Weapon, (app::HoldableRigidBody * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_IsSuspended, (app::HoldableRigidBody * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052A060, void, set_IsSuspended, (app::HoldableRigidBody * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00998570, app::SuspendableMask__Enum, get_Mask, (app::HoldableRigidBody * this_ptr))
@@ -25,6 +25,6 @@ namespace app::methods::HoldableRigidBody {
     IL2CPP_REGISTER_METHOD(0x00B59ED0, void, BeginUse, (app::HoldableRigidBody * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B59FC0, void, EndUse, (app::HoldableRigidBody * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B5A0B0, void, FixDropPosition, (app::HoldableRigidBody * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00B5A580, void, OnCollisionEnter, (app::HoldableRigidBody * this_ptr, app::Collision * collision))
+    IL2CPP_REGISTER_METHOD(0x00B5A580, void, OnCollisionEnter, (app::HoldableRigidBody * this_ptr, app::Collision* collision))
     IL2CPP_REGISTER_METHOD(0x00B5A710, void, ctor, (app::HoldableRigidBody * this_ptr))
-}
+} // namespace app::classes::HoldableRigidBody

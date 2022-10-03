@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::Trap {
+namespace app::classes::Trap {
     IL2CPP_REGISTER_METHOD(0x00B0F370, void, Awake, (app::Trap * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0F570, void, OnDestroy, (app::Trap * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0F740, void, OnRestoreCheckpoint, (app::Trap * this_ptr))
@@ -16,4 +16,4 @@ namespace app::methods::Trap {
     IL2CPP_REGISTER_METHOD(0x006DC050, app::SuspendableMask__Enum, get_Mask, (app::Trap * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B103E0, void, set_Mask, (app::Trap * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x00B10490, void, ctor, (app::Trap * this_ptr))
-}
+} // namespace app::classes::Trap

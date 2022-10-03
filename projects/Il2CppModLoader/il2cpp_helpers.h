@@ -74,6 +74,24 @@ namespace il2cpp {
         return reinterpret_cast<Return*>(untyped::get_nested_class(namezpace, name, nested));
     }
 
+    template <typename Return = Il2CppClass>
+    Return* get_class(Return** type_info, std::string_view namezpace, std::string_view name) {
+        if (*type_info == nullptr) {
+            *type_info = reinterpret_cast<Return*>(untyped::get_class(namezpace, name));
+        }
+
+        return *type_info;
+    }
+
+    template <typename Return = Il2CppClass>
+    Return* get_nested_class(Return** type_info, std::string_view namezpace, std::string_view name, std::string_view nested) {
+        if (*type_info == nullptr) {
+            *type_info = reinterpret_cast<Return*>(untyped::get_nested_class(namezpace, name, nested));
+        }
+
+        return *type_info;
+    }
+
     namespace unity {
         IL2CPP_MODLOADER_DLLEXPORT app::ScriptableObject* create_scriptable_object_untyped(Il2CppClass* klass);
 
@@ -197,14 +215,14 @@ namespace il2cpp {
                 return {};
         }
 
-        template <typename Return = app::ScriptableObject>
-        Return* create_scriptable_object(Il2CppClass* klass) {
-            return reinterpret_cast<Return*>(create_scriptable_object_untyped(klass));
+        template <typename Return = app::ScriptableObject, typename Clazz = Il2CppClass>
+        Return* create_scriptable_object(Clazz* klass) {
+            return reinterpret_cast<Return*>(create_scriptable_object_untyped(reinterpret_cast<Il2CppClass*>(klass)));
         }
 
-        template <typename Return = app::ScriptableObject>
-        Return* create_scriptable_object(std::string_view namezpace, std::string_view name) {
-            return create_scriptable_object<Return>(get_class(namezpace, name));
+        template <typename Return = app::ScriptableObject, typename Clazz = Il2CppClass>
+        Return* create_scriptable_object(Clazz** type_info, std::string_view namezpace, std::string_view name) {
+            return create_scriptable_object<Return>(get_class(type_info, namezpace, name));
         }
     } // namespace unity
 
@@ -218,9 +236,9 @@ namespace il2cpp {
         return reinterpret_cast<R*>(arr);
     }
 
-    template <typename R = Il2CppArraySize>
-    R* array_new(Il2CppClass* element, int size) {
-        auto arr = untyped::array_new(element, size);
+    template <typename R = Il2CppArraySize, typename Clazz = Il2CppClass>
+    R* array_new(Clazz* element, int size) {
+        auto arr = untyped::array_new(reinterpret_cast<Il2CppClass*>(element), size);
         return reinterpret_cast<R*>(arr);
     }
 
@@ -251,9 +269,9 @@ namespace il2cpp {
         return reinterpret_cast<T*>(untyped::create_object(namezpace, name));
     }
 
-    template <typename T>
-    T* create_object(Il2CppClass* klass) {
-        return reinterpret_cast<T*>(untyped::create_object(klass));
+    template <typename T, typename Clazz = Il2CppClass>
+    T* create_object(Clazz* klass) {
+        return reinterpret_cast<T*>(untyped::create_object(reinterpret_cast<Il2CppClass*>(klass)));
     }
 
     template <typename Return = Il2CppObject>
@@ -288,7 +306,7 @@ namespace il2cpp {
                     reinterpret_cast<Il2CppClass*>(klass), reinterpret_cast<void*>(&value)
             ));
         } else {
-            auto boxed_value = create_object<Return>(klass);
+            auto boxed_value = create_object<Return>(reinterpret_cast<Il2CppClass*>(klass));
             boxed_value->fields = value;
             return boxed_value;
         }

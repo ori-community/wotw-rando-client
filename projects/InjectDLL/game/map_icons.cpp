@@ -29,8 +29,8 @@
 
 using namespace modloader;
 using namespace modloader::win;
-using namespace app::methods;
-using namespace app::methods::UnityEngine;
+using namespace app::classes;
+using namespace app::classes::UnityEngine;
 
 namespace {
     enum class NewFilters : int32_t {

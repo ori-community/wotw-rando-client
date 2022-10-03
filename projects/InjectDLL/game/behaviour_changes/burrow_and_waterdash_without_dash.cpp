@@ -7,7 +7,7 @@
 
 #include <interop/csharp_bridge.h>
 
-using namespace app::methods;
+using namespace app::classes;
 
 namespace {
     void update_dash_state(app::PlayerUberStateAbilities* this_ptr);

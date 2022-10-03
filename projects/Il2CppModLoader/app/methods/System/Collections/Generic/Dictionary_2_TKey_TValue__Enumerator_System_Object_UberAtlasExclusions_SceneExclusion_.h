@@ -1,20 +1,20 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Collections::Generic::Dictionary_2_TKey_TValue__Enumerator_System_Object_UberAtlasExclusions_SceneExclusion_ {
-    IL2CPP_REGISTER_METHOD(0x00133A30, void, ctor, (app::Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion___Boxed * this_ptr, app::Dictionary_2_System_Object_UberAtlasExclusions_SceneExclusion_ * dictionary, int32_t get_enumerator_ret_type))
+namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__Enumerator_System_Object_UberAtlasExclusions_SceneExclusion_ {
+    IL2CPP_REGISTER_METHOD(0x00133A30, void, ctor, (app::Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion___Boxed * this_ptr, app::Dictionary_2_System_Object_UberAtlasExclusions_SceneExclusion_* dictionary, int32_t get_enumerator_ret_type))
     IL2CPP_REGISTER_METHOD(0x001BED50, bool, MoveNext, (app::Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion___Boxed * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04734040, Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion__MoveNext__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00133A80, app::KeyValuePair_2_System_Object_UberAtlasExclusions_SceneExclusion_, get_Current, (app::Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00002890, void, Dispose, (app::Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x001BED60, app::Object *, IEnumerator_get_Current, (app::Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x001BED60, app::Object*, IEnumerator_get_Current, (app::Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion___Boxed * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0476F230, Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion__System_Collections_IEnumerator_get_Current__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001BED70, void, IEnumerator_Reset, (app::Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion___Boxed * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0474FFF0, Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion__System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001BEE50, app::DictionaryEntry, IDictionaryEnumerator_get_Entry, (app::Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion___Boxed * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0476B998, Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion__System_Collections_IDictionaryEnumerator_get_Entry__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x001BEFE0, app::Object *, IDictionaryEnumerator_get_Key, (app::Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x001BEFE0, app::Object*, IDictionaryEnumerator_get_Key, (app::Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion___Boxed * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04783B80, Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion__System_Collections_IDictionaryEnumerator_get_Key__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x001BF0D0, app::Object *, IDictionaryEnumerator_get_Value, (app::Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x001BF0D0, app::Object*, IDictionaryEnumerator_get_Value, (app::Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion___Boxed * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0471A488, Dictionary_2_TKey_TValue_Enumerator_System_Object_UberAtlasExclusions_SceneExclusion__System_Collections_IDictionaryEnumerator_get_Value__MethodInfo)
-}
+} // namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__Enumerator_System_Object_UberAtlasExclusions_SceneExclusion_

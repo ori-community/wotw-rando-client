@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::KuRun {
+namespace app::classes::KuRun {
     IL2CPP_REGISTER_METHOD(0x003FDD20, float, get_RunSquashFloat, (app::KuRun * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FDD30, void, set_RunSquashFloat, (app::KuRun * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x003FD740, float, get_RunSquashAmout, (app::KuRun * this_ptr))
@@ -23,4 +23,4 @@ namespace app::methods::KuRun {
     IL2CPP_REGISTER_METHOD(0x01246760, void, ctor, (app::KuRun * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01246780, bool, _UpdateState_b__21_0, (app::KuRun * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x0474A3F8, KuRun__UpdateState_b__21_0__MethodInfo)
-}
+} // namespace app::classes::KuRun

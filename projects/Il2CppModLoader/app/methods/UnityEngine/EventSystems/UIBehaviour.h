@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::UnityEngine::EventSystems::UIBehaviour {
+namespace app::classes::UnityEngine::EventSystems::UIBehaviour {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::UIBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Awake, (app::UIBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnEnable, (app::UIBehaviour * this_ptr))
@@ -16,4 +16,4 @@ namespace app::methods::UnityEngine::EventSystems::UIBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnCanvasGroupChanged, (app::UIBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnCanvasHierarchyChanged, (app::UIBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F2A960, bool, IsDestroyed, (app::UIBehaviour * this_ptr))
-}
+} // namespace app::classes::UnityEngine::EventSystems::UIBehaviour

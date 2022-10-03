@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::RubberBandedValueProvider {
+namespace app::classes::RubberBandedValueProvider {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, IsAffectedByGameModeDifficulty, (app::RubberBandedValueProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01371F70, bool, DoesOverrideEasyMultiplier, (app::RubberBandedValueProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01371F80, bool, DoesOverrideNormalMultiplier, (app::RubberBandedValueProvider * this_ptr))
@@ -10,4 +10,4 @@ namespace app::methods::RubberBandedValueProvider {
     IL2CPP_REGISTER_METHOD(0x01372450, float, GetDifficultyMultiplier, (app::RubberBandedValueProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013725D0, float, GetDistance, (app::RubberBandedValueProvider * this_ptr, app::Vector2 origin, app::Vector2 target))
     IL2CPP_REGISTER_METHOD(0x01372760, void, ctor, (app::RubberBandedValueProvider * this_ptr))
-}
+} // namespace app::classes::RubberBandedValueProvider

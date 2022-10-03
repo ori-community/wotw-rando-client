@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::BabyWormWater {
+namespace app::classes::BabyWormWater {
     IL2CPP_REGISTER_METHOD(0x00F80B90, bool, DigEdgeZoneEdgeAhead, (app::BabyWormWater * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F80C80, void, SetDigZoneIntersectingPoint, (app::BabyWormWater * this_ptr, app::Vector3 center))
     IL2CPP_REGISTER_METHOD(0x00F80EA0, bool, IsDigZoneValid, (app::BabyWormWater * this_ptr))
@@ -13,4 +13,4 @@ namespace app::methods::BabyWormWater {
     IL2CPP_REGISTER_METHOD(0x00F812A0, void, ApplySpeedModifiers, (app::BabyWormWater * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F81440, float, get_TurnSpeedModifier, (app::BabyWormWater * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F81490, void, ctor, (app::BabyWormWater * this_ptr))
-}
+} // namespace app::classes::BabyWormWater

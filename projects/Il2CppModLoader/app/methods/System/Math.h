@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::System::Math {
+namespace app::classes::System::Math {
     IL2CPP_REGISTER_METHOD(0x02268030, double, Acos, (double d))
     IL2CPP_REGISTER_METHOD(0x02268040, double, Asin, (double d))
     IL2CPP_REGISTER_METHOD(0x02268050, double, Atan, (double d))
@@ -20,7 +20,7 @@ namespace app::methods::System::Math {
     IL2CPP_REGISTER_METHOD(0x02268570, double, Round_4, (double value, int32_t digits, app::MidpointRounding__Enum mode))
     IL2CPP_REGISTER_METHODINFO(0x04701850, Math_Round_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02268740, app::Decimal, Round_5, (app::Decimal d))
-    IL2CPP_REGISTER_METHOD(0x022688B0, double, SplitFractionDouble, (double * value))
+    IL2CPP_REGISTER_METHOD(0x022688B0, double, SplitFractionDouble, (double* value))
     IL2CPP_REGISTER_METHOD(0x022688C0, app::Decimal, Truncate_1, (app::Decimal d))
     IL2CPP_REGISTER_METHOD(0x02268A30, double, Truncate_2, (double d))
     IL2CPP_REGISTER_METHOD(0x02268B60, double, Sqrt, (double d))
@@ -66,4 +66,4 @@ namespace app::methods::System::Math {
     IL2CPP_REGISTER_METHOD(0x02269D80, int32_t, Sign_2, (double value))
     IL2CPP_REGISTER_METHODINFO(0x04718F00, Math_Sign_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02269E90, void, cctor, ())
-}
+} // namespace app::classes::System::Math

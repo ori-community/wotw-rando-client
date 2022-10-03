@@ -1,10 +1,10 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LegacySwarmEnemy {
+namespace app::classes::LegacySwarmEnemy {
     IL2CPP_REGISTER_METHOD(0x00A37EA0, bool, CanBeOptimized, (app::LegacySwarmEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A37EE0, void, Awake, (app::LegacySwarmEnemy * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x00A381B0, void, OnPreProcessDamage, (app::LegacySwarmEnemy * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x00A381B0, void, OnPreProcessDamage, (app::LegacySwarmEnemy * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHODINFO(0x04765D30, LegacySwarmEnemy_OnPreProcessDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A38350, void, Start, (app::LegacySwarmEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A39320, bool, ShouldRun, (app::LegacySwarmEnemy * this_ptr))
@@ -28,7 +28,7 @@ namespace app::methods::LegacySwarmEnemy {
     IL2CPP_REGISTER_METHODINFO(0x04780028, LegacySwarmEnemy_UpdateRun__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateSpawned, (app::LegacySwarmEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04757E40, LegacySwarmEnemy_UpdateSpawned__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x00A3A490, void, OnDeath, (app::LegacySwarmEnemy * this_ptr, app::Damage * damage))
+    IL2CPP_REGISTER_METHOD(0x00A3A490, void, OnDeath, (app::LegacySwarmEnemy * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHODINFO(0x047012E0, LegacySwarmEnemy_OnDeath__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A3A7C0, void, OnDestroy, (app::LegacySwarmEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A3A8C0, void, ctor, (app::LegacySwarmEnemy * this_ptr))
@@ -36,4 +36,4 @@ namespace app::methods::LegacySwarmEnemy {
     IL2CPP_REGISTER_METHODINFO(0x04765BE8, LegacySwarmEnemy__Start_b__13_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004C40F0, bool, _Start_b__13_1, (app::LegacySwarmEnemy * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04728260, LegacySwarmEnemy__Start_b__13_1__MethodInfo)
-}
+} // namespace app::classes::LegacySwarmEnemy

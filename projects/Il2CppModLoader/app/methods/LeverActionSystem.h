@@ -1,7 +1,7 @@
 #pragma once
 #include <Il2CppModLoader/interception_macros.h>
 
-namespace app::methods::LeverActionSystem {
+namespace app::classes::LeverActionSystem {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnLeverEnter, (app::LeverActionSystem * this_ptr))
     IL2CPP_REGISTER_METHODINFO(0x04701ED0, LeverActionSystem_OnLeverEnter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnLeverExit, (app::LeverActionSystem * this_ptr))
@@ -27,4 +27,4 @@ namespace app::methods::LeverActionSystem {
     IL2CPP_REGISTER_METHOD(0x011370A0, void, StopMutuallyExclusivite, (app::LeverActionSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011371B0, void, Start, (app::LeverActionSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::LeverActionSystem * this_ptr))
-}
+} // namespace app::classes::LeverActionSystem
