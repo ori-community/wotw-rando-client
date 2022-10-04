@@ -1,405 +1,205 @@
-#include <Il2CppModLoader/app/types/AuthenticationHeaderValue.h>
-#include <Il2CppModLoader/app/types/BooleanStorage.h>
-#include <Il2CppModLoader/app/types/ByteStorage.h>
-#include <Il2CppModLoader/app/types/CacheControlHeaderValue.h>
-#include <Il2CppModLoader/app/types/CharStorage.h>
-#include <Il2CppModLoader/app/types/ContentDispositionHeaderValue.h>
-#include <Il2CppModLoader/app/types/ContentRangeHeaderValue.h>
-#include <Il2CppModLoader/app/types/DateTimeOffsetStorage.h>
-#include <Il2CppModLoader/app/types/DateTimeOffset__Array.h>
-#include <Il2CppModLoader/app/types/DateTimeStorage.h>
-#include <Il2CppModLoader/app/types/DateTime__Array.h>
-#include <Il2CppModLoader/app/types/DecimalStorage.h>
-#include <Il2CppModLoader/app/types/DoubleStorage.h>
-#include <Il2CppModLoader/app/types/EntityTagHeaderValue.h>
-#include <Il2CppModLoader/app/types/HeaderInfo_1__Array.h>
-#include <Il2CppModLoader/app/types/HttpContentHeaders.h>
-#include <Il2CppModLoader/app/types/HttpHeaders.h>
-#include <Il2CppModLoader/app/types/HttpHeaders_GetEnumerator_d_19.h>
-#include <Il2CppModLoader/app/types/HttpMethod.h>
-#include <Il2CppModLoader/app/types/HttpRequestException.h>
-#include <Il2CppModLoader/app/types/HttpRequestHeaders.h>
-#include <Il2CppModLoader/app/types/Int16Storage.h>
-#include <Il2CppModLoader/app/types/Int32Storage.h>
-#include <Il2CppModLoader/app/types/Int64Storage.h>
-#include <Il2CppModLoader/app/types/Lexer.h>
-#include <Il2CppModLoader/app/types/MediaTypeHeaderValue.h>
-#include <Il2CppModLoader/app/types/MediaTypeWithQualityHeaderValue.h>
-#include <Il2CppModLoader/app/types/NameValueHeaderValue.h>
-#include <Il2CppModLoader/app/types/NameValueWithParametersHeaderValue.h>
-#include <Il2CppModLoader/app/types/ObjectStorage.h>
-#include <Il2CppModLoader/app/types/ObjectStorage_TempAssemblyComparer.h>
-#include <Il2CppModLoader/app/types/Parser_DateTime_c.h>
-#include <Il2CppModLoader/app/types/Parser_MD5_c.h>
-#include <Il2CppModLoader/app/types/ProductHeaderValue.h>
-#include <Il2CppModLoader/app/types/ProductInfoHeaderValue.h>
-#include <Il2CppModLoader/app/types/RangeConditionHeaderValue.h>
-#include <Il2CppModLoader/app/types/RangeHeaderValue.h>
-#include <Il2CppModLoader/app/types/RangeItemHeaderValue.h>
-#include <Il2CppModLoader/app/types/RetryConditionHeaderValue.h>
-#include <Il2CppModLoader/app/types/SByteStorage.h>
-#include <Il2CppModLoader/app/types/SingleStorage.h>
-#include <Il2CppModLoader/app/types/SqlBinaryStorage.h>
-#include <Il2CppModLoader/app/types/SqlBinary__Array.h>
-#include <Il2CppModLoader/app/types/SqlBooleanStorage.h>
-#include <Il2CppModLoader/app/types/SqlBoolean__Array.h>
-#include <Il2CppModLoader/app/types/SqlByte.h>
-#include <Il2CppModLoader/app/types/SqlByteStorage.h>
-#include <Il2CppModLoader/app/types/SqlByte__Array.h>
-#include <Il2CppModLoader/app/types/SqlBytes.h>
-#include <Il2CppModLoader/app/types/SqlBytesStorage.h>
-#include <Il2CppModLoader/app/types/SqlBytes__Array.h>
-#include <Il2CppModLoader/app/types/SqlChars.h>
-#include <Il2CppModLoader/app/types/SqlCharsStorage.h>
-#include <Il2CppModLoader/app/types/SqlChars__Array.h>
-#include <Il2CppModLoader/app/types/SqlDateTime.h>
-#include <Il2CppModLoader/app/types/SqlDateTimeStorage.h>
-#include <Il2CppModLoader/app/types/SqlDateTime__Array.h>
-#include <Il2CppModLoader/app/types/SqlDecimal.h>
-#include <Il2CppModLoader/app/types/SqlDecimalStorage.h>
-#include <Il2CppModLoader/app/types/SqlDecimal__Array.h>
-#include <Il2CppModLoader/app/types/SqlDouble.h>
-#include <Il2CppModLoader/app/types/SqlDoubleStorage.h>
-#include <Il2CppModLoader/app/types/SqlDouble__Array.h>
-#include <Il2CppModLoader/app/types/SqlGuid.h>
-#include <Il2CppModLoader/app/types/SqlGuidStorage.h>
-#include <Il2CppModLoader/app/types/SqlGuid__Array.h>
-#include <Il2CppModLoader/app/types/SqlInt16.h>
-#include <Il2CppModLoader/app/types/SqlInt16Storage.h>
-#include <Il2CppModLoader/app/types/SqlInt16__Array.h>
-#include <Il2CppModLoader/app/types/SqlInt32.h>
-#include <Il2CppModLoader/app/types/SqlInt32Storage.h>
-#include <Il2CppModLoader/app/types/SqlInt32__Array.h>
-#include <Il2CppModLoader/app/types/SqlInt64.h>
-#include <Il2CppModLoader/app/types/SqlInt64Storage.h>
-#include <Il2CppModLoader/app/types/SqlInt64__Array.h>
-#include <Il2CppModLoader/app/types/SqlMoney.h>
-#include <Il2CppModLoader/app/types/SqlMoneyStorage.h>
-#include <Il2CppModLoader/app/types/SqlMoney__Array.h>
-#include <Il2CppModLoader/app/types/SqlNullValueException.h>
-#include <Il2CppModLoader/app/types/SqlSingle.h>
-#include <Il2CppModLoader/app/types/SqlSingleStorage.h>
-#include <Il2CppModLoader/app/types/SqlSingle__Array.h>
-#include <Il2CppModLoader/app/types/SqlString.h>
-#include <Il2CppModLoader/app/types/SqlStringStorage.h>
-#include <Il2CppModLoader/app/types/SqlString__Array.h>
-#include <Il2CppModLoader/app/types/SqlTruncateException.h>
-#include <Il2CppModLoader/app/types/SqlTypeException.h>
-#include <Il2CppModLoader/app/types/SqlUdtStorage.h>
-#include <Il2CppModLoader/app/types/SqlXml.h>
-#include <Il2CppModLoader/app/types/SqlXmlStreamWrapper.h>
-#include <Il2CppModLoader/app/types/StringStorage.h>
-#include <Il2CppModLoader/app/types/StringWithQualityHeaderValue.h>
-#include <Il2CppModLoader/app/types/TimeSpanStorage.h>
-#include <Il2CppModLoader/app/types/TimeSpan__Array.h>
-#include <Il2CppModLoader/app/types/Token.h>
-#include <Il2CppModLoader/app/types/Token_Type__Enum.h>
-#include <Il2CppModLoader/app/types/TransferCodingHeaderValue.h>
-#include <Il2CppModLoader/app/types/UInt16Storage.h>
-#include <Il2CppModLoader/app/types/UInt32Storage.h>
-#include <Il2CppModLoader/app/types/UInt64Storage.h>
-#include <Il2CppModLoader/macros.h>
 #include <Il2CppModLoader/windows_api/memory.h>
+#include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/app/types/StateOverrideSystem_PassiveStateOverride.h>
+#include <Il2CppModLoader/app/types/UberStateCondition.h>
+#include <Il2CppModLoader/app/types/BooleanUberStateCondition.h>
+#include <Il2CppModLoader/app/types/ByteUberStateCondition.h>
+#include <Il2CppModLoader/app/types/IntUberStateCondition.h>
+#include <Il2CppModLoader/app/types/DesiredUberStateGeneric.h>
+#include <Il2CppModLoader/app/types/IUberStateApplier.h>
+#include <Il2CppModLoader/app/types/UberStateController.h>
+#include <Il2CppModLoader/app/types/IUberStateApplierWithCallbacks.h>
+#include <Il2CppModLoader/app/types/UberStateController_ApplierContext.h>
+#include <Il2CppModLoader/app/types/SceneUberStateGroup.h>
+#include <Il2CppModLoader/app/types/UberStateValueStore.h>
+#include <Il2CppModLoader/app/types/UberStateValueGroup.h>
+#include <Il2CppModLoader/app/types/ISerializedUberState.h>
+#include <Il2CppModLoader/app/types/UberStateController_c.h>
+#include <Il2CppModLoader/app/types/UberStateSaveFileHandler.h>
+#include <Il2CppModLoader/app/types/UberStateException.h>
+#include <Il2CppModLoader/app/types/NewSetupStateControllerResolver_IntEqualityComparer.h>
+#include <Il2CppModLoader/app/types/NewSetupStateControllerResolver_c_DisplayClass20_0.h>
+#include <Il2CppModLoader/app/types/PearsonHash.h>
+#include <Il2CppModLoader/app/types/BooleanUberState.h>
+#include <Il2CppModLoader/app/types/ByteUberState.h>
+#include <Il2CppModLoader/app/types/ConditionUberState.h>
+#include <Il2CppModLoader/app/types/FloatUberState.h>
+#include <Il2CppModLoader/app/types/IntUberState.h>
+#include <Il2CppModLoader/app/types/ObjectUberState.h>
+#include <Il2CppModLoader/app/types/SerializedByteUberState.h>
+#include <Il2CppModLoader/app/types/NavigableOnGUI.h>
+#include <Il2CppModLoader/app/types/DeflateManager.h>
+#include <Il2CppModLoader/app/types/DeflateManager_CompressFunc.h>
+#include <Il2CppModLoader/app/types/FlushType__Enum.h>
+#include <Il2CppModLoader/app/types/ZlibCodec.h>
+#include <Il2CppModLoader/app/types/InflateManager.h>
+#include <Il2CppModLoader/app/types/InflateBlocks.h>
+#include <Il2CppModLoader/app/types/InflateCodes.h>
+#include <Il2CppModLoader/app/types/InfTree.h>
+#include <Il2CppModLoader/app/types/DeflateManager_Config.h>
+#include <Il2CppModLoader/app/types/DeflateManager_Config__Array.h>
+#include <Il2CppModLoader/app/types/Tree.h>
+#include <Il2CppModLoader/app/types/StaticTree.h>
+#include <Il2CppModLoader/app/types/GZipStream_1.h>
+#include <Il2CppModLoader/app/types/ZlibBaseStream.h>
+#include <Il2CppModLoader/app/types/CRC32.h>
+#include <Il2CppModLoader/app/types/ZlibException.h>
+#include <Il2CppModLoader/app/types/InternalDataCollectionBase.h>
+#include <Il2CppModLoader/app/types/ColumnTypeConverter.h>
+#include <Il2CppModLoader/app/types/DataCommonEventSource.h>
+#include <Il2CppModLoader/app/types/Constraint_1.h>
+#include <Il2CppModLoader/app/types/SerializationFormat__Enum_1.h>
+#include <Il2CppModLoader/app/types/DataSet.h>
+#include <Il2CppModLoader/app/types/DataViewManager.h>
+#include <Il2CppModLoader/app/types/DataViewSettingCollection.h>
+#include <Il2CppModLoader/app/types/DataViewRowState__Enum.h>
+#include <Il2CppModLoader/app/types/DataViewSetting.h>
+#include <Il2CppModLoader/app/types/DataTable.h>
+#include <Il2CppModLoader/app/types/DataView.h>
+#include <Il2CppModLoader/app/types/Index.h>
+#include <Il2CppModLoader/app/types/IndexField.h>
+#include <Il2CppModLoader/app/types/DataSetDateTime__Enum.h>
+#include <Il2CppModLoader/app/types/MappingType__Enum.h>
+#include <Il2CppModLoader/app/types/DataColumn.h>
+#include <Il2CppModLoader/app/types/DataExpression.h>
+#include <Il2CppModLoader/app/types/AggregateType__Enum.h>
+#include <Il2CppModLoader/app/types/AggregateNode.h>
+#include <Il2CppModLoader/app/types/DataKey.h>
+#include <Il2CppModLoader/app/types/DataRelation.h>
+#include <Il2CppModLoader/app/types/PropertyCollection.h>
+#include <Il2CppModLoader/app/types/DataColumn__Array.h>
+#include <Il2CppModLoader/app/types/UniqueConstraint.h>
+#include <Il2CppModLoader/app/types/ConstraintCollection.h>
+#include <Il2CppModLoader/app/types/Constraint_1__Array.h>
+#include <Il2CppModLoader/app/types/DataRow.h>
+#include <Il2CppModLoader/app/types/DataColumnCollection.h>
+#include <Il2CppModLoader/app/types/DataError.h>
+#include <Il2CppModLoader/app/types/DataError_ColumnError__Array.h>
+#include <Il2CppModLoader/app/types/Rule__Enum.h>
+#include <Il2CppModLoader/app/types/AcceptRejectRule__Enum.h>
+#include <Il2CppModLoader/app/types/ForeignKeyConstraint.h>
+#include <Il2CppModLoader/app/types/DataStorage.h>
+#include <Il2CppModLoader/app/types/BigIntegerStorage.h>
+#include <Il2CppModLoader/app/types/BigInteger_2__Array.h>
+#include <Il2CppModLoader/app/types/AutoIncrementInt64.h>
+#include <Il2CppModLoader/app/types/SimpleType.h>
+#include <Il2CppModLoader/app/types/IndexField__Array.h>
+#include <Il2CppModLoader/app/types/Index_IndexTree.h>
+#include <Il2CppModLoader/app/types/DataViewListener.h>
+#include <Il2CppModLoader/app/types/IFilter.h>
+#include <Il2CppModLoader/app/types/DataRowView.h>
+#include <Il2CppModLoader/app/types/DataRow__Array.h>
+#include <Il2CppModLoader/app/types/DataRowView__Array.h>
+#include <Il2CppModLoader/app/types/DataRowCollection.h>
+#include <Il2CppModLoader/app/types/DataRowCollection_DataRowTree.h>
+#include <Il2CppModLoader/app/types/DataRelationCollection.h>
+#include <Il2CppModLoader/app/types/DataRelationCollection_DataTableRelationCollection.h>
+#include <Il2CppModLoader/app/types/RecordManager.h>
+#include <Il2CppModLoader/app/types/DataRelation__Array.h>
+#include <Il2CppModLoader/app/types/DataRowChangeEventArgs.h>
+#include <Il2CppModLoader/app/types/DataColumnChangeEventArgs.h>
+#include <Il2CppModLoader/app/types/DataTableClearEventArgs.h>
+#include <Il2CppModLoader/app/types/DataTableNewRowEventArgs.h>
 
 namespace app::classes::types {
-    namespace SqlGuid {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlGuid__Class** type_info = (::app::SqlGuid__Class**)(modloader::win::memory::resolve_rva(0x04740000));
-    }
-    namespace SqlByte {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlByte__Class** type_info = (::app::SqlByte__Class**)(modloader::win::memory::resolve_rva(0x04724C28));
-    }
-    namespace SqlInt64 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlInt64__Class** type_info = (::app::SqlInt64__Class**)(modloader::win::memory::resolve_rva(0x04713D00));
-    }
-    namespace SqlDouble {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlDouble__Class** type_info = (::app::SqlDouble__Class**)(modloader::win::memory::resolve_rva(0x04799D20));
-    }
-    namespace SqlBytes {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlBytes__Class** type_info = (::app::SqlBytes__Class**)(modloader::win::memory::resolve_rva(0x0471B8D0));
-    }
-    namespace SqlChars {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlChars__Class** type_info = (::app::SqlChars__Class**)(modloader::win::memory::resolve_rva(0x0478B4F8));
-    }
-    namespace SqlString {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlString__Class** type_info = (::app::SqlString__Class**)(modloader::win::memory::resolve_rva(0x0477AE58));
-    }
-    namespace SqlDateTime {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlDateTime__Class** type_info = (::app::SqlDateTime__Class**)(modloader::win::memory::resolve_rva(0x04739CB0));
-    }
-    namespace SqlDecimal {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlDecimal__Class** type_info = (::app::SqlDecimal__Class**)(modloader::win::memory::resolve_rva(0x047760A8));
-    }
-    namespace SqlInt16 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlInt16__Class** type_info = (::app::SqlInt16__Class**)(modloader::win::memory::resolve_rva(0x0478D820));
-    }
-    namespace SqlInt32 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlInt32__Class** type_info = (::app::SqlInt32__Class**)(modloader::win::memory::resolve_rva(0x04784FF0));
-    }
-    namespace SqlMoney {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlMoney__Class** type_info = (::app::SqlMoney__Class**)(modloader::win::memory::resolve_rva(0x04726918));
-    }
-    namespace SqlSingle {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlSingle__Class** type_info = (::app::SqlSingle__Class**)(modloader::win::memory::resolve_rva(0x04705268));
-    }
-    namespace SqlTypeException {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlTypeException__Class** type_info = (::app::SqlTypeException__Class**)(modloader::win::memory::resolve_rva(0x0472C380));
-    }
-    namespace SqlNullValueException {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlNullValueException__Class** type_info = (::app::SqlNullValueException__Class**)(modloader::win::memory::resolve_rva(0x0475DE78));
-    }
-    namespace SqlTruncateException {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlTruncateException__Class** type_info = (::app::SqlTruncateException__Class**)(modloader::win::memory::resolve_rva(0x04796448));
-    }
-    namespace SqlXml {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlXml__Class** type_info = (::app::SqlXml__Class**)(modloader::win::memory::resolve_rva(0x04764EA0));
-    }
-    namespace SqlXmlStreamWrapper {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlXmlStreamWrapper__Class** type_info = (::app::SqlXmlStreamWrapper__Class**)(modloader::win::memory::resolve_rva(0x0471F398));
-    }
-    namespace BooleanStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BooleanStorage__Class** type_info = (::app::BooleanStorage__Class**)(modloader::win::memory::resolve_rva(0x0471B5E8));
-    }
-    namespace ByteStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ByteStorage__Class** type_info = (::app::ByteStorage__Class**)(modloader::win::memory::resolve_rva(0x0470B9B8));
-    }
-    namespace CharStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CharStorage__Class** type_info = (::app::CharStorage__Class**)(modloader::win::memory::resolve_rva(0x04746EB8));
-    }
-    namespace DateTimeOffsetStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DateTimeOffsetStorage__Class** type_info = (::app::DateTimeOffsetStorage__Class**)(modloader::win::memory::resolve_rva(0x047770B8));
-    }
-    namespace DateTimeOffset__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DateTimeOffset__Array__Class** type_info = (::app::DateTimeOffset__Array__Class**)(modloader::win::memory::resolve_rva(0x0475A000));
-    }
-    namespace DateTimeStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DateTimeStorage__Class** type_info = (::app::DateTimeStorage__Class**)(modloader::win::memory::resolve_rva(0x04781280));
-    }
-    namespace DateTime__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DateTime__Array__Class** type_info = (::app::DateTime__Array__Class**)(modloader::win::memory::resolve_rva(0x04713380));
-    }
-    namespace DecimalStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DecimalStorage__Class** type_info = (::app::DecimalStorage__Class**)(modloader::win::memory::resolve_rva(0x0475B638));
-    }
-    namespace DoubleStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DoubleStorage__Class** type_info = (::app::DoubleStorage__Class**)(modloader::win::memory::resolve_rva(0x0472ECC8));
-    }
-    namespace Int16Storage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Int16Storage__Class** type_info = (::app::Int16Storage__Class**)(modloader::win::memory::resolve_rva(0x04773090));
-    }
-    namespace Int32Storage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Int32Storage__Class** type_info = (::app::Int32Storage__Class**)(modloader::win::memory::resolve_rva(0x04780448));
-    }
-    namespace Int64Storage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Int64Storage__Class** type_info = (::app::Int64Storage__Class**)(modloader::win::memory::resolve_rva(0x0478D1A0));
-    }
-    namespace ObjectStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ObjectStorage__Class** type_info = (::app::ObjectStorage__Class**)(modloader::win::memory::resolve_rva(0x0473DA78));
-    }
-    namespace ObjectStorage_TempAssemblyComparer {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ObjectStorage_TempAssemblyComparer__Class** type_info = (::app::ObjectStorage_TempAssemblyComparer__Class**)(modloader::win::memory::resolve_rva(0x0476D9C0));
-    }
-    namespace SByteStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SByteStorage__Class** type_info = (::app::SByteStorage__Class**)(modloader::win::memory::resolve_rva(0x04718580));
-    }
-    namespace SqlBinaryStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlBinaryStorage__Class** type_info = (::app::SqlBinaryStorage__Class**)(modloader::win::memory::resolve_rva(0x047393B8));
-    }
-    namespace SqlBinary__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlBinary__Array__Class** type_info = (::app::SqlBinary__Array__Class**)(modloader::win::memory::resolve_rva(0x0475B788));
-    }
-    namespace SqlByteStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlByteStorage__Class** type_info = (::app::SqlByteStorage__Class**)(modloader::win::memory::resolve_rva(0x04779798));
-    }
-    namespace SqlByte__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlByte__Array__Class** type_info = (::app::SqlByte__Array__Class**)(modloader::win::memory::resolve_rva(0x047241E0));
-    }
-    namespace SqlBytesStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlBytesStorage__Class** type_info = (::app::SqlBytesStorage__Class**)(modloader::win::memory::resolve_rva(0x047508F8));
-    }
-    namespace SqlBytes__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlBytes__Array__Class** type_info = (::app::SqlBytes__Array__Class**)(modloader::win::memory::resolve_rva(0x04752EF0));
-    }
-    namespace SqlCharsStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlCharsStorage__Class** type_info = (::app::SqlCharsStorage__Class**)(modloader::win::memory::resolve_rva(0x04734758));
-    }
-    namespace SqlChars__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlChars__Array__Class** type_info = (::app::SqlChars__Array__Class**)(modloader::win::memory::resolve_rva(0x04743248));
-    }
-    namespace SqlDateTimeStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlDateTimeStorage__Class** type_info = (::app::SqlDateTimeStorage__Class**)(modloader::win::memory::resolve_rva(0x04759CF8));
-    }
-    namespace SqlDateTime__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlDateTime__Array__Class** type_info = (::app::SqlDateTime__Array__Class**)(modloader::win::memory::resolve_rva(0x047310E0));
-    }
-    namespace SqlDecimalStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlDecimalStorage__Class** type_info = (::app::SqlDecimalStorage__Class**)(modloader::win::memory::resolve_rva(0x047400A0));
-    }
-    namespace SqlDecimal__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlDecimal__Array__Class** type_info = (::app::SqlDecimal__Array__Class**)(modloader::win::memory::resolve_rva(0x04742FC0));
-    }
-    namespace SqlDoubleStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlDoubleStorage__Class** type_info = (::app::SqlDoubleStorage__Class**)(modloader::win::memory::resolve_rva(0x0477FDD8));
-    }
-    namespace SqlDouble__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlDouble__Array__Class** type_info = (::app::SqlDouble__Array__Class**)(modloader::win::memory::resolve_rva(0x04734468));
-    }
-    namespace SqlGuidStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlGuidStorage__Class** type_info = (::app::SqlGuidStorage__Class**)(modloader::win::memory::resolve_rva(0x0470DFC0));
-    }
-    namespace SqlGuid__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlGuid__Array__Class** type_info = (::app::SqlGuid__Array__Class**)(modloader::win::memory::resolve_rva(0x0471DD80));
-    }
-    namespace SqlInt16Storage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlInt16Storage__Class** type_info = (::app::SqlInt16Storage__Class**)(modloader::win::memory::resolve_rva(0x0476DF60));
-    }
-    namespace SqlInt16__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlInt16__Array__Class** type_info = (::app::SqlInt16__Array__Class**)(modloader::win::memory::resolve_rva(0x0470A058));
-    }
-    namespace SqlInt32Storage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlInt32Storage__Class** type_info = (::app::SqlInt32Storage__Class**)(modloader::win::memory::resolve_rva(0x04768FB0));
-    }
-    namespace SqlInt32__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlInt32__Array__Class** type_info = (::app::SqlInt32__Array__Class**)(modloader::win::memory::resolve_rva(0x04728BA8));
-    }
-    namespace SqlInt64Storage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlInt64Storage__Class** type_info = (::app::SqlInt64Storage__Class**)(modloader::win::memory::resolve_rva(0x04729430));
-    }
-    namespace SqlInt64__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlInt64__Array__Class** type_info = (::app::SqlInt64__Array__Class**)(modloader::win::memory::resolve_rva(0x047197A0));
-    }
-    namespace SqlMoneyStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlMoneyStorage__Class** type_info = (::app::SqlMoneyStorage__Class**)(modloader::win::memory::resolve_rva(0x0471D210));
-    }
-    namespace SqlMoney__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlMoney__Array__Class** type_info = (::app::SqlMoney__Array__Class**)(modloader::win::memory::resolve_rva(0x0478FB30));
-    }
-    namespace SqlSingleStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlSingleStorage__Class** type_info = (::app::SqlSingleStorage__Class**)(modloader::win::memory::resolve_rva(0x047808E8));
-    }
-    namespace SqlSingle__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlSingle__Array__Class** type_info = (::app::SqlSingle__Array__Class**)(modloader::win::memory::resolve_rva(0x04711240));
-    }
-    namespace SqlStringStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlStringStorage__Class** type_info = (::app::SqlStringStorage__Class**)(modloader::win::memory::resolve_rva(0x04725D10));
-    }
-    namespace SqlString__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlString__Array__Class** type_info = (::app::SqlString__Array__Class**)(modloader::win::memory::resolve_rva(0x04743468));
-    }
-    namespace SqlBooleanStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlBooleanStorage__Class** type_info = (::app::SqlBooleanStorage__Class**)(modloader::win::memory::resolve_rva(0x04739B78));
-    }
-    namespace SqlBoolean__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlBoolean__Array__Class** type_info = (::app::SqlBoolean__Array__Class**)(modloader::win::memory::resolve_rva(0x047147D8));
-    }
-    namespace SingleStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SingleStorage__Class** type_info = (::app::SingleStorage__Class**)(modloader::win::memory::resolve_rva(0x04745378));
-    }
-    namespace SqlUdtStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SqlUdtStorage__Class** type_info = (::app::SqlUdtStorage__Class**)(modloader::win::memory::resolve_rva(0x04753FA8));
-    }
-    namespace StringStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::StringStorage__Class** type_info = (::app::StringStorage__Class**)(modloader::win::memory::resolve_rva(0x047826C0));
-    }
-    namespace TimeSpanStorage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::TimeSpanStorage__Class** type_info = (::app::TimeSpanStorage__Class**)(modloader::win::memory::resolve_rva(0x04732570));
-    }
-    namespace TimeSpan__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::TimeSpan__Array__Class** type_info = (::app::TimeSpan__Array__Class**)(modloader::win::memory::resolve_rva(0x04749F08));
-    }
-    namespace UInt16Storage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UInt16Storage__Class** type_info = (::app::UInt16Storage__Class**)(modloader::win::memory::resolve_rva(0x04721F40));
-    }
-    namespace UInt32Storage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UInt32Storage__Class** type_info = (::app::UInt32Storage__Class**)(modloader::win::memory::resolve_rva(0x0471A790));
-    }
-    namespace UInt64Storage {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UInt64Storage__Class** type_info = (::app::UInt64Storage__Class**)(modloader::win::memory::resolve_rva(0x0472AF98));
-    }
-    namespace HttpHeaders {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HttpHeaders__Class** type_info = (::app::HttpHeaders__Class**)(modloader::win::memory::resolve_rva(0x047744F8));
-    }
-    namespace HttpContentHeaders {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HttpContentHeaders__Class** type_info = (::app::HttpContentHeaders__Class**)(modloader::win::memory::resolve_rva(0x04793B68));
-    }
-    namespace HeaderInfo_1__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HeaderInfo_1__Array__Class** type_info = (::app::HeaderInfo_1__Array__Class**)(modloader::win::memory::resolve_rva(0x04768660));
-    }
-    namespace HttpMethod {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HttpMethod__Class** type_info = (::app::HttpMethod__Class**)(modloader::win::memory::resolve_rva(0x04726B58));
-    }
-    namespace HttpRequestException {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HttpRequestException__Class** type_info = (::app::HttpRequestException__Class**)(modloader::win::memory::resolve_rva(0x04720810));
-    }
-    namespace HttpRequestHeaders {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HttpRequestHeaders__Class** type_info = (::app::HttpRequestHeaders__Class**)(modloader::win::memory::resolve_rva(0x04731D48));
-    }
-    namespace AuthenticationHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AuthenticationHeaderValue__Class** type_info = (::app::AuthenticationHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x0475D010));
-    }
-    namespace Lexer {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Lexer__Class** type_info = (::app::Lexer__Class**)(modloader::win::memory::resolve_rva(0x04786AF8));
-    }
-    namespace Token_Type__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Token_Type__Enum__Class** type_info = (::app::Token_Type__Enum__Class**)(modloader::win::memory::resolve_rva(0x04717BD0));
-    }
-    namespace Token {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Token__Class** type_info = (::app::Token__Class**)(modloader::win::memory::resolve_rva(0x04704E30));
-    }
-    namespace CacheControlHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CacheControlHeaderValue__Class** type_info = (::app::CacheControlHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x047489B8));
-    }
-    namespace NameValueHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NameValueHeaderValue__Class** type_info = (::app::NameValueHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x04745388));
-    }
-    namespace ContentDispositionHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ContentDispositionHeaderValue__Class** type_info = (::app::ContentDispositionHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x047597D8));
-    }
-    namespace ContentRangeHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ContentRangeHeaderValue__Class** type_info = (::app::ContentRangeHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x047475F8));
-    }
-    namespace EntityTagHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EntityTagHeaderValue__Class** type_info = (::app::EntityTagHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x04731918));
-    }
-    namespace HttpHeaders_GetEnumerator_d_19 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HttpHeaders_GetEnumerator_d_19__Class** type_info = (::app::HttpHeaders_GetEnumerator_d_19__Class**)(modloader::win::memory::resolve_rva(0x04748EA0));
-    }
-    namespace MediaTypeHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MediaTypeHeaderValue__Class** type_info = (::app::MediaTypeHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x0476AD10));
-    }
-    namespace MediaTypeWithQualityHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MediaTypeWithQualityHeaderValue__Class** type_info = (::app::MediaTypeWithQualityHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x04707658));
-    }
-    namespace NameValueWithParametersHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NameValueWithParametersHeaderValue__Class** type_info = (::app::NameValueWithParametersHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x0475AD98));
-    }
-    namespace Parser_DateTime_c {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Parser_DateTime_c__Class** type_info = (::app::Parser_DateTime_c__Class**)(modloader::win::memory::resolve_rva(0x04778CA0));
-    }
-    namespace Parser_MD5_c {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Parser_MD5_c__Class** type_info = (::app::Parser_MD5_c__Class**)(modloader::win::memory::resolve_rva(0x0475F430));
-    }
-    namespace ProductHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ProductHeaderValue__Class** type_info = (::app::ProductHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x0474E8E0));
-    }
-    namespace ProductInfoHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ProductInfoHeaderValue__Class** type_info = (::app::ProductInfoHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x047417F0));
-    }
-    namespace RangeConditionHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RangeConditionHeaderValue__Class** type_info = (::app::RangeConditionHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x04737220));
-    }
-    namespace RangeHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RangeHeaderValue__Class** type_info = (::app::RangeHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x04730EB0));
-    }
-    namespace RangeItemHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RangeItemHeaderValue__Class** type_info = (::app::RangeItemHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x0472A908));
-    }
-    namespace RetryConditionHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RetryConditionHeaderValue__Class** type_info = (::app::RetryConditionHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x0470B548));
-    }
-    namespace StringWithQualityHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::StringWithQualityHeaderValue__Class** type_info = (::app::StringWithQualityHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x047810E0));
-    }
-    namespace TransferCodingHeaderValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::TransferCodingHeaderValue__Class** type_info = (::app::TransferCodingHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x0476CB00));
-    }
-} // namespace app::classes::types
+    namespace StateOverrideSystem_PassiveStateOverride { IL2CPP_MODLOADER_DLLEXPORT ::app::StateOverrideSystem_PassiveStateOverride__Class** type_info = (::app::StateOverrideSystem_PassiveStateOverride__Class**)(modloader::win::memory::resolve_rva(0x0476F810)); }
+    namespace UberStateCondition { IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateCondition__Class** type_info = (::app::UberStateCondition__Class**)(modloader::win::memory::resolve_rva(0x0472FA90)); }
+    namespace BooleanUberStateCondition { IL2CPP_MODLOADER_DLLEXPORT ::app::BooleanUberStateCondition__Class** type_info = (::app::BooleanUberStateCondition__Class**)(modloader::win::memory::resolve_rva(0x047770F8)); }
+    namespace ByteUberStateCondition { IL2CPP_MODLOADER_DLLEXPORT ::app::ByteUberStateCondition__Class** type_info = (::app::ByteUberStateCondition__Class**)(modloader::win::memory::resolve_rva(0x0471DA48)); }
+    namespace IntUberStateCondition { IL2CPP_MODLOADER_DLLEXPORT ::app::IntUberStateCondition__Class** type_info = (::app::IntUberStateCondition__Class**)(modloader::win::memory::resolve_rva(0x04744C68)); }
+    namespace DesiredUberStateGeneric { IL2CPP_MODLOADER_DLLEXPORT ::app::DesiredUberStateGeneric__Class** type_info = (::app::DesiredUberStateGeneric__Class**)(modloader::win::memory::resolve_rva(0x04759970)); }
+    namespace IUberStateApplier { IL2CPP_MODLOADER_DLLEXPORT ::app::IUberStateApplier__Class** type_info = (::app::IUberStateApplier__Class**)(modloader::win::memory::resolve_rva(0x0472BB18)); }
+    namespace UberStateController { IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateController__Class** type_info = (::app::UberStateController__Class**)(modloader::win::memory::resolve_rva(0x04739128)); }
+    namespace IUberStateApplierWithCallbacks { IL2CPP_MODLOADER_DLLEXPORT ::app::IUberStateApplierWithCallbacks__Class** type_info = (::app::IUberStateApplierWithCallbacks__Class**)(modloader::win::memory::resolve_rva(0x047639B0)); }
+    namespace UberStateController_ApplierContext { IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateController_ApplierContext__Class** type_info = (::app::UberStateController_ApplierContext__Class**)(modloader::win::memory::resolve_rva(0x0477C628)); }
+    namespace SceneUberStateGroup { IL2CPP_MODLOADER_DLLEXPORT ::app::SceneUberStateGroup__Class** type_info = (::app::SceneUberStateGroup__Class**)(modloader::win::memory::resolve_rva(0x047941E0)); }
+    namespace UberStateValueStore { IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateValueStore__Class** type_info = (::app::UberStateValueStore__Class**)(modloader::win::memory::resolve_rva(0x0475DF90)); }
+    namespace UberStateValueGroup { IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateValueGroup__Class** type_info = (::app::UberStateValueGroup__Class**)(modloader::win::memory::resolve_rva(0x04730EA8)); }
+    namespace ISerializedUberState { IL2CPP_MODLOADER_DLLEXPORT ::app::ISerializedUberState__Class** type_info = (::app::ISerializedUberState__Class**)(modloader::win::memory::resolve_rva(0x0476D8E8)); }
+    namespace UberStateController_c { IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateController_c__Class** type_info = (::app::UberStateController_c__Class**)(modloader::win::memory::resolve_rva(0x0478E478)); }
+    namespace UberStateSaveFileHandler { IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateSaveFileHandler__Class** type_info = (::app::UberStateSaveFileHandler__Class**)(modloader::win::memory::resolve_rva(0x04702660)); }
+    namespace UberStateException { IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateException__Class** type_info = (::app::UberStateException__Class**)(modloader::win::memory::resolve_rva(0x047546F8)); }
+    namespace NewSetupStateControllerResolver_IntEqualityComparer { IL2CPP_MODLOADER_DLLEXPORT ::app::NewSetupStateControllerResolver_IntEqualityComparer__Class** type_info = (::app::NewSetupStateControllerResolver_IntEqualityComparer__Class**)(modloader::win::memory::resolve_rva(0x047731D0)); }
+    namespace NewSetupStateControllerResolver_c_DisplayClass20_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::NewSetupStateControllerResolver_c_DisplayClass20_0__Class** type_info = (::app::NewSetupStateControllerResolver_c_DisplayClass20_0__Class**)(modloader::win::memory::resolve_rva(0x047468B8)); }
+    namespace PearsonHash { IL2CPP_MODLOADER_DLLEXPORT ::app::PearsonHash__Class** type_info = (::app::PearsonHash__Class**)(modloader::win::memory::resolve_rva(0x04787260)); }
+    namespace BooleanUberState { IL2CPP_MODLOADER_DLLEXPORT ::app::BooleanUberState__Class** type_info = (::app::BooleanUberState__Class**)(modloader::win::memory::resolve_rva(0x0473B6E0)); }
+    namespace ByteUberState { IL2CPP_MODLOADER_DLLEXPORT ::app::ByteUberState__Class** type_info = (::app::ByteUberState__Class**)(modloader::win::memory::resolve_rva(0x04798970)); }
+    namespace ConditionUberState { IL2CPP_MODLOADER_DLLEXPORT ::app::ConditionUberState__Class** type_info = (::app::ConditionUberState__Class**)(modloader::win::memory::resolve_rva(0x04762DD0)); }
+    namespace FloatUberState { IL2CPP_MODLOADER_DLLEXPORT ::app::FloatUberState__Class** type_info = (::app::FloatUberState__Class**)(modloader::win::memory::resolve_rva(0x04708810)); }
+    namespace IntUberState { IL2CPP_MODLOADER_DLLEXPORT ::app::IntUberState__Class** type_info = (::app::IntUberState__Class**)(modloader::win::memory::resolve_rva(0x04750038)); }
+    namespace ObjectUberState { IL2CPP_MODLOADER_DLLEXPORT ::app::ObjectUberState__Class** type_info = (::app::ObjectUberState__Class**)(modloader::win::memory::resolve_rva(0x0471B4B0)); }
+    namespace SerializedByteUberState { IL2CPP_MODLOADER_DLLEXPORT ::app::SerializedByteUberState__Class** type_info = (::app::SerializedByteUberState__Class**)(modloader::win::memory::resolve_rva(0x047907B0)); }
+    namespace NavigableOnGUI { IL2CPP_MODLOADER_DLLEXPORT ::app::NavigableOnGUI__Class** type_info = (::app::NavigableOnGUI__Class**)(modloader::win::memory::resolve_rva(0x04786E48)); }
+    namespace DeflateManager { IL2CPP_MODLOADER_DLLEXPORT ::app::DeflateManager__Class** type_info = (::app::DeflateManager__Class**)(modloader::win::memory::resolve_rva(0x04723670)); }
+    namespace DeflateManager_CompressFunc { IL2CPP_MODLOADER_DLLEXPORT ::app::DeflateManager_CompressFunc__Class** type_info = (::app::DeflateManager_CompressFunc__Class**)(modloader::win::memory::resolve_rva(0x04756818)); }
+    namespace FlushType__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::FlushType__Enum__Class** type_info = (::app::FlushType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04711EB0)); }
+    namespace ZlibCodec { IL2CPP_MODLOADER_DLLEXPORT ::app::ZlibCodec__Class** type_info = (::app::ZlibCodec__Class**)(modloader::win::memory::resolve_rva(0x0474B430)); }
+    namespace InflateManager { IL2CPP_MODLOADER_DLLEXPORT ::app::InflateManager__Class** type_info = (::app::InflateManager__Class**)(modloader::win::memory::resolve_rva(0x0472E0B0)); }
+    namespace InflateBlocks { IL2CPP_MODLOADER_DLLEXPORT ::app::InflateBlocks__Class** type_info = (::app::InflateBlocks__Class**)(modloader::win::memory::resolve_rva(0x047790A8)); }
+    namespace InflateCodes { IL2CPP_MODLOADER_DLLEXPORT ::app::InflateCodes__Class** type_info = (::app::InflateCodes__Class**)(modloader::win::memory::resolve_rva(0x047301D8)); }
+    namespace InfTree { IL2CPP_MODLOADER_DLLEXPORT ::app::InfTree__Class** type_info = (::app::InfTree__Class**)(modloader::win::memory::resolve_rva(0x047586D0)); }
+    namespace DeflateManager_Config { IL2CPP_MODLOADER_DLLEXPORT ::app::DeflateManager_Config__Class** type_info = (::app::DeflateManager_Config__Class**)(modloader::win::memory::resolve_rva(0x04788738)); }
+    namespace DeflateManager_Config__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::DeflateManager_Config__Array__Class** type_info = (::app::DeflateManager_Config__Array__Class**)(modloader::win::memory::resolve_rva(0x04724000)); }
+    namespace Tree { IL2CPP_MODLOADER_DLLEXPORT ::app::Tree__Class** type_info = (::app::Tree__Class**)(modloader::win::memory::resolve_rva(0x04779398)); }
+    namespace StaticTree { IL2CPP_MODLOADER_DLLEXPORT ::app::StaticTree__Class** type_info = (::app::StaticTree__Class**)(modloader::win::memory::resolve_rva(0x04776748)); }
+    namespace GZipStream_1 { IL2CPP_MODLOADER_DLLEXPORT ::app::GZipStream_1__Class** type_info = (::app::GZipStream_1__Class**)(modloader::win::memory::resolve_rva(0x0478E0B0)); }
+    namespace ZlibBaseStream { IL2CPP_MODLOADER_DLLEXPORT ::app::ZlibBaseStream__Class** type_info = (::app::ZlibBaseStream__Class**)(modloader::win::memory::resolve_rva(0x0471ADC8)); }
+    namespace CRC32 { IL2CPP_MODLOADER_DLLEXPORT ::app::CRC32__Class** type_info = (::app::CRC32__Class**)(modloader::win::memory::resolve_rva(0x0478FFC8)); }
+    namespace ZlibException { IL2CPP_MODLOADER_DLLEXPORT ::app::ZlibException__Class** type_info = (::app::ZlibException__Class**)(modloader::win::memory::resolve_rva(0x04757328)); }
+    namespace InternalDataCollectionBase { IL2CPP_MODLOADER_DLLEXPORT ::app::InternalDataCollectionBase__Class** type_info = (::app::InternalDataCollectionBase__Class**)(modloader::win::memory::resolve_rva(0x04779AB0)); }
+    namespace ColumnTypeConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::ColumnTypeConverter__Class** type_info = (::app::ColumnTypeConverter__Class**)(modloader::win::memory::resolve_rva(0x04718D38)); }
+    namespace DataCommonEventSource { IL2CPP_MODLOADER_DLLEXPORT ::app::DataCommonEventSource__Class** type_info = (::app::DataCommonEventSource__Class**)(modloader::win::memory::resolve_rva(0x047203D0)); }
+    namespace Constraint_1 { IL2CPP_MODLOADER_DLLEXPORT ::app::Constraint_1__Class** type_info = (::app::Constraint_1__Class**)(modloader::win::memory::resolve_rva(0x04770B40)); }
+    namespace SerializationFormat__Enum_1 { IL2CPP_MODLOADER_DLLEXPORT ::app::SerializationFormat__Enum_1__Class** type_info = (::app::SerializationFormat__Enum_1__Class**)(modloader::win::memory::resolve_rva(0x04771198)); }
+    namespace DataSet { IL2CPP_MODLOADER_DLLEXPORT ::app::DataSet__Class** type_info = (::app::DataSet__Class**)(modloader::win::memory::resolve_rva(0x04777BB8)); }
+    namespace DataViewManager { IL2CPP_MODLOADER_DLLEXPORT ::app::DataViewManager__Class** type_info = (::app::DataViewManager__Class**)(modloader::win::memory::resolve_rva(0x0473CDC0)); }
+    namespace DataViewSettingCollection { IL2CPP_MODLOADER_DLLEXPORT ::app::DataViewSettingCollection__Class** type_info = (::app::DataViewSettingCollection__Class**)(modloader::win::memory::resolve_rva(0x0473F290)); }
+    namespace DataViewRowState__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::DataViewRowState__Enum__Class** type_info = (::app::DataViewRowState__Enum__Class**)(modloader::win::memory::resolve_rva(0x04796098)); }
+    namespace DataViewSetting { IL2CPP_MODLOADER_DLLEXPORT ::app::DataViewSetting__Class** type_info = (::app::DataViewSetting__Class**)(modloader::win::memory::resolve_rva(0x0474B828)); }
+    namespace DataTable { IL2CPP_MODLOADER_DLLEXPORT ::app::DataTable__Class** type_info = (::app::DataTable__Class**)(modloader::win::memory::resolve_rva(0x04734058)); }
+    namespace DataView { IL2CPP_MODLOADER_DLLEXPORT ::app::DataView__Class** type_info = (::app::DataView__Class**)(modloader::win::memory::resolve_rva(0x04768DA8)); }
+    namespace Index { IL2CPP_MODLOADER_DLLEXPORT ::app::Index__Class** type_info = (::app::Index__Class**)(modloader::win::memory::resolve_rva(0x047488F0)); }
+    namespace IndexField { IL2CPP_MODLOADER_DLLEXPORT ::app::IndexField__Class** type_info = (::app::IndexField__Class**)(modloader::win::memory::resolve_rva(0x047253B8)); }
+    namespace DataSetDateTime__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::DataSetDateTime__Enum__Class** type_info = (::app::DataSetDateTime__Enum__Class**)(modloader::win::memory::resolve_rva(0x0470AD68)); }
+    namespace MappingType__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::MappingType__Enum__Class** type_info = (::app::MappingType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04778520)); }
+    namespace DataColumn { IL2CPP_MODLOADER_DLLEXPORT ::app::DataColumn__Class** type_info = (::app::DataColumn__Class**)(modloader::win::memory::resolve_rva(0x04713A18)); }
+    namespace DataExpression { IL2CPP_MODLOADER_DLLEXPORT ::app::DataExpression__Class** type_info = (::app::DataExpression__Class**)(modloader::win::memory::resolve_rva(0x04707590)); }
+    namespace AggregateType__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::AggregateType__Enum__Class** type_info = (::app::AggregateType__Enum__Class**)(modloader::win::memory::resolve_rva(0x0475F8C0)); }
+    namespace AggregateNode { IL2CPP_MODLOADER_DLLEXPORT ::app::AggregateNode__Class** type_info = (::app::AggregateNode__Class**)(modloader::win::memory::resolve_rva(0x04744E98)); }
+    namespace DataKey { IL2CPP_MODLOADER_DLLEXPORT ::app::DataKey__Class** type_info = (::app::DataKey__Class**)(modloader::win::memory::resolve_rva(0x0477B878)); }
+    namespace DataRelation { IL2CPP_MODLOADER_DLLEXPORT ::app::DataRelation__Class** type_info = (::app::DataRelation__Class**)(modloader::win::memory::resolve_rva(0x0472F728)); }
+    namespace PropertyCollection { IL2CPP_MODLOADER_DLLEXPORT ::app::PropertyCollection__Class** type_info = (::app::PropertyCollection__Class**)(modloader::win::memory::resolve_rva(0x0473F370)); }
+    namespace DataColumn__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::DataColumn__Array__Class** type_info = (::app::DataColumn__Array__Class**)(modloader::win::memory::resolve_rva(0x04771380)); }
+    namespace UniqueConstraint { IL2CPP_MODLOADER_DLLEXPORT ::app::UniqueConstraint__Class** type_info = (::app::UniqueConstraint__Class**)(modloader::win::memory::resolve_rva(0x04721658)); }
+    namespace ConstraintCollection { IL2CPP_MODLOADER_DLLEXPORT ::app::ConstraintCollection__Class** type_info = (::app::ConstraintCollection__Class**)(modloader::win::memory::resolve_rva(0x0474B958)); }
+    namespace Constraint_1__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::Constraint_1__Array__Class** type_info = (::app::Constraint_1__Array__Class**)(modloader::win::memory::resolve_rva(0x047548B0)); }
+    namespace DataRow { IL2CPP_MODLOADER_DLLEXPORT ::app::DataRow__Class** type_info = (::app::DataRow__Class**)(modloader::win::memory::resolve_rva(0x0478D818)); }
+    namespace DataColumnCollection { IL2CPP_MODLOADER_DLLEXPORT ::app::DataColumnCollection__Class** type_info = (::app::DataColumnCollection__Class**)(modloader::win::memory::resolve_rva(0x04739DD8)); }
+    namespace DataError { IL2CPP_MODLOADER_DLLEXPORT ::app::DataError__Class** type_info = (::app::DataError__Class**)(modloader::win::memory::resolve_rva(0x0475BAD8)); }
+    namespace DataError_ColumnError__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::DataError_ColumnError__Array__Class** type_info = (::app::DataError_ColumnError__Array__Class**)(modloader::win::memory::resolve_rva(0x047709A0)); }
+    namespace Rule__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::Rule__Enum__Class** type_info = (::app::Rule__Enum__Class**)(modloader::win::memory::resolve_rva(0x0474EB00)); }
+    namespace AcceptRejectRule__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::AcceptRejectRule__Enum__Class** type_info = (::app::AcceptRejectRule__Enum__Class**)(modloader::win::memory::resolve_rva(0x0475DAE0)); }
+    namespace ForeignKeyConstraint { IL2CPP_MODLOADER_DLLEXPORT ::app::ForeignKeyConstraint__Class** type_info = (::app::ForeignKeyConstraint__Class**)(modloader::win::memory::resolve_rva(0x04740100)); }
+    namespace DataStorage { IL2CPP_MODLOADER_DLLEXPORT ::app::DataStorage__Class** type_info = (::app::DataStorage__Class**)(modloader::win::memory::resolve_rva(0x04750298)); }
+    namespace BigIntegerStorage { IL2CPP_MODLOADER_DLLEXPORT ::app::BigIntegerStorage__Class** type_info = (::app::BigIntegerStorage__Class**)(modloader::win::memory::resolve_rva(0x047274A8)); }
+    namespace BigInteger_2__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::BigInteger_2__Array__Class** type_info = (::app::BigInteger_2__Array__Class**)(modloader::win::memory::resolve_rva(0x047495A8)); }
+    namespace AutoIncrementInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::AutoIncrementInt64__Class** type_info = (::app::AutoIncrementInt64__Class**)(modloader::win::memory::resolve_rva(0x0473EA10)); }
+    namespace SimpleType { IL2CPP_MODLOADER_DLLEXPORT ::app::SimpleType__Class** type_info = (::app::SimpleType__Class**)(modloader::win::memory::resolve_rva(0x04770378)); }
+    namespace IndexField__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::IndexField__Array__Class** type_info = (::app::IndexField__Array__Class**)(modloader::win::memory::resolve_rva(0x0471DB58)); }
+    namespace Index_IndexTree { IL2CPP_MODLOADER_DLLEXPORT ::app::Index_IndexTree__Class** type_info = (::app::Index_IndexTree__Class**)(modloader::win::memory::resolve_rva(0x04757D48)); }
+    namespace DataViewListener { IL2CPP_MODLOADER_DLLEXPORT ::app::DataViewListener__Class** type_info = (::app::DataViewListener__Class**)(modloader::win::memory::resolve_rva(0x0472C710)); }
+    namespace IFilter { IL2CPP_MODLOADER_DLLEXPORT ::app::IFilter__Class** type_info = (::app::IFilter__Class**)(modloader::win::memory::resolve_rva(0x04702F18)); }
+    namespace DataRowView { IL2CPP_MODLOADER_DLLEXPORT ::app::DataRowView__Class** type_info = (::app::DataRowView__Class**)(modloader::win::memory::resolve_rva(0x0478C7A8)); }
+    namespace DataRow__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::DataRow__Array__Class** type_info = (::app::DataRow__Array__Class**)(modloader::win::memory::resolve_rva(0x04762E20)); }
+    namespace DataRowView__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::DataRowView__Array__Class** type_info = (::app::DataRowView__Array__Class**)(modloader::win::memory::resolve_rva(0x04716290)); }
+    namespace DataRowCollection { IL2CPP_MODLOADER_DLLEXPORT ::app::DataRowCollection__Class** type_info = (::app::DataRowCollection__Class**)(modloader::win::memory::resolve_rva(0x0473CBA8)); }
+    namespace DataRowCollection_DataRowTree { IL2CPP_MODLOADER_DLLEXPORT ::app::DataRowCollection_DataRowTree__Class** type_info = (::app::DataRowCollection_DataRowTree__Class**)(modloader::win::memory::resolve_rva(0x04709B10)); }
+    namespace DataRelationCollection { IL2CPP_MODLOADER_DLLEXPORT ::app::DataRelationCollection__Class** type_info = (::app::DataRelationCollection__Class**)(modloader::win::memory::resolve_rva(0x047257E8)); }
+    namespace DataRelationCollection_DataTableRelationCollection { IL2CPP_MODLOADER_DLLEXPORT ::app::DataRelationCollection_DataTableRelationCollection__Class** type_info = (::app::DataRelationCollection_DataTableRelationCollection__Class**)(modloader::win::memory::resolve_rva(0x04700DE0)); }
+    namespace RecordManager { IL2CPP_MODLOADER_DLLEXPORT ::app::RecordManager__Class** type_info = (::app::RecordManager__Class**)(modloader::win::memory::resolve_rva(0x04723230)); }
+    namespace DataRelation__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::DataRelation__Array__Class** type_info = (::app::DataRelation__Array__Class**)(modloader::win::memory::resolve_rva(0x0476F728)); }
+    namespace DataRowChangeEventArgs { IL2CPP_MODLOADER_DLLEXPORT ::app::DataRowChangeEventArgs__Class** type_info = (::app::DataRowChangeEventArgs__Class**)(modloader::win::memory::resolve_rva(0x04778560)); }
+    namespace DataColumnChangeEventArgs { IL2CPP_MODLOADER_DLLEXPORT ::app::DataColumnChangeEventArgs__Class** type_info = (::app::DataColumnChangeEventArgs__Class**)(modloader::win::memory::resolve_rva(0x047868B8)); }
+    namespace DataTableClearEventArgs { IL2CPP_MODLOADER_DLLEXPORT ::app::DataTableClearEventArgs__Class** type_info = (::app::DataTableClearEventArgs__Class**)(modloader::win::memory::resolve_rva(0x0472E7C8)); }
+    namespace DataTableNewRowEventArgs { IL2CPP_MODLOADER_DLLEXPORT ::app::DataTableNewRowEventArgs__Class** type_info = (::app::DataTableNewRowEventArgs__Class**)(modloader::win::memory::resolve_rva(0x04770310)); }
+}

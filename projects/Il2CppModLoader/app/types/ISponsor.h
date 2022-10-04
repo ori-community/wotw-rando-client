@@ -1,0 +1,15 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace ISponsor {
+        extern IL2CPP_MODLOADER_DLLEXPORT app::ISponsor__Class** type_info;
+        inline app::ISponsor__Class* get_class() {
+            return il2cpp::get_class<app::ISponsor__Class>(type_info, "System.Runtime.Remoting.Lifetime", "ISponsor");
+        }
+        inline app::ISponsor* create() {
+            return il2cpp::create_object<app::ISponsor>(get_class());
+        }
+    } // namespace ISponsor
+} // namespace app::classes::types

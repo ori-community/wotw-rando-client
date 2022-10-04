@@ -1,405 +1,205 @@
-#include <Il2CppModLoader/app/types/EOverlayDirection__Enum.h>
-#include <Il2CppModLoader/app/types/EVRNotificationStyle__Enum.h>
-#include <Il2CppModLoader/app/types/EVRNotificationType__Enum.h>
-#include <Il2CppModLoader/app/types/EVRRenderModelError__Enum.h>
-#include <Il2CppModLoader/app/types/HmdRect2_t.h>
-#include <Il2CppModLoader/app/types/IVRNotifications_CreateNotification.h>
-#include <Il2CppModLoader/app/types/IVRNotifications_RemoveNotification.h>
-#include <Il2CppModLoader/app/types/IVROverlay_ClearOverlayTexture.h>
-#include <Il2CppModLoader/app/types/IVROverlay_CloseMessageOverlay.h>
-#include <Il2CppModLoader/app/types/IVROverlay_ComputeOverlayIntersection.h>
-#include <Il2CppModLoader/app/types/IVROverlay_CreateDashboardOverlay.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetDashboardOverlaySceneProcess.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetGamepadFocusOverlay.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetKeyboardText.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayAlpha.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayAutoCurveDistanceRangeInMeters.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayColor.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayFlags.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayInputMethod.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayMouseScale.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayRenderModel.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlaySortOrder.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayTexelAspect.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayTexture.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayTextureBounds.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayTextureColorSpace.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayTextureSize.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayTransformAbsolute.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayTransformOverlayRelative.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayTransformTrackedDeviceComponent.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayTransformTrackedDeviceRelative.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayTransformType.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetOverlayWidthInMeters.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetPrimaryDashboardDevice.h>
-#include <Il2CppModLoader/app/types/IVROverlay_GetTransformForOverlayCoordinates.h>
-#include <Il2CppModLoader/app/types/IVROverlay_HandleControllerOverlayInteractionAsMouse.h>
-#include <Il2CppModLoader/app/types/IVROverlay_HideKeyboard.h>
-#include <Il2CppModLoader/app/types/IVROverlay_HideOverlay.h>
-#include <Il2CppModLoader/app/types/IVROverlay_IsActiveDashboardOverlay.h>
-#include <Il2CppModLoader/app/types/IVROverlay_IsDashboardVisible.h>
-#include <Il2CppModLoader/app/types/IVROverlay_IsHoverTargetOverlay.h>
-#include <Il2CppModLoader/app/types/IVROverlay_IsOverlayVisible.h>
-#include <Il2CppModLoader/app/types/IVROverlay_MoveGamepadFocusToNeighbor.h>
-#include <Il2CppModLoader/app/types/IVROverlay_PollNextOverlayEvent.h>
-#include <Il2CppModLoader/app/types/IVROverlay_ReleaseNativeOverlayHandle.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetDashboardOverlaySceneProcess.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetGamepadFocusOverlay.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetKeyboardPositionForOverlay.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetKeyboardTransformAbsolute.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayAlpha.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayFromFile.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayInputMethod.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayIntersectionMask.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayMouseScale.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayNeighbor.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayRaw.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayRenderModel.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlaySortOrder.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayTexelAspect.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayTexture.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayTextureBounds.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayTextureColorSpace.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayTransformAbsolute.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayTransformOverlayRelative.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayTransformTrackedDeviceComponent.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayTransformTrackedDeviceRelative.h>
-#include <Il2CppModLoader/app/types/IVROverlay_SetOverlayWidthInMeters.h>
-#include <Il2CppModLoader/app/types/IVROverlay_ShowDashboard.h>
-#include <Il2CppModLoader/app/types/IVROverlay_ShowKeyboard.h>
-#include <Il2CppModLoader/app/types/IVROverlay_ShowKeyboardForOverlay.h>
-#include <Il2CppModLoader/app/types/IVROverlay_ShowMessageOverlay.h>
-#include <Il2CppModLoader/app/types/IVROverlay_ShowOverlay.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_FreeRenderModel.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_FreeTexture.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_FreeTextureD3D11.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_GetComponentButtonMask.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_GetComponentCount.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_GetComponentName.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_GetComponentRenderModelName.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_GetComponentState.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_GetRenderModelCount.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_GetRenderModelErrorNameFromEnum.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_GetRenderModelName.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_GetRenderModelOriginalPath.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_GetRenderModelThumbnailURL.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_LoadIntoTextureD3D11_Async.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_LoadRenderModel_Async.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_LoadTextureD3D11_Async.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_LoadTexture_Async.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels_RenderModelHasComponent.h>
-#include <Il2CppModLoader/app/types/IVRSettings_GetSettingsErrorNameFromEnum.h>
-#include <Il2CppModLoader/app/types/NotificationBitmap_t.h>
-#include <Il2CppModLoader/app/types/RenderModel_ComponentState_t.h>
-#include <Il2CppModLoader/app/types/RenderModel_ControllerMode_State_t.h>
-#include <Il2CppModLoader/app/types/VROverlayInputMethod__Enum.h>
-#include <Il2CppModLoader/app/types/VROverlayIntersectionMaskPrimitive_t.h>
-#include <Il2CppModLoader/app/types/VROverlayIntersectionParams_t.h>
-#include <Il2CppModLoader/app/types/VROverlayIntersectionResults_t.h>
-#include <Il2CppModLoader/app/types/VROverlayTransformType__Enum.h>
-#include <Il2CppModLoader/macros.h>
 #include <Il2CppModLoader/windows_api/memory.h>
+#include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/app/types/StatsScreen.h>
+#include <Il2CppModLoader/app/types/StatsScreen_c.h>
+#include <Il2CppModLoader/app/types/SkillUpgradeScreen.h>
+#include <Il2CppModLoader/app/types/UpgradeAbilityItem.h>
+#include <Il2CppModLoader/app/types/SkillUpgradeScreen_c.h>
+#include <Il2CppModLoader/app/types/WeaponmasterItem.h>
+#include <Il2CppModLoader/app/types/WeaponmasterScreen.h>
+#include <Il2CppModLoader/app/types/WindImpactEffectSpawner_Trace__Array.h>
+#include <Il2CppModLoader/app/types/PetrifiedOwlFeedingGroundsState__Enum.h>
+#include <Il2CppModLoader/app/types/FeedingGroundsPetrifiedOwlController.h>
+#include <Il2CppModLoader/app/types/FeedingGroundsPetrifiedOwlController_FeedingGroundsChaseState__Enum.h>
+#include <Il2CppModLoader/app/types/PetrifiedOwlFeedingGroundHideZoneGroup_c_DisplayClass2_0.h>
+#include <Il2CppModLoader/app/types/PetrifiedOwlFeedingGroundsGameplayController_PetrifiedOwlFeedingGroundsGameplayState__Enum.h>
+#include <Il2CppModLoader/app/types/PetrifiedOwlFeedingGroundsPOwlController_PetrifiedOwlFeedingGroundsPOwlState__Enum.h>
+#include <Il2CppModLoader/app/types/SwitchNetConnectivityChecker_c.h>
+#include <Il2CppModLoader/app/types/WindowsNetConnectivityChecker.h>
+#include <Il2CppModLoader/app/types/XboxNetConnectivityChecker.h>
+#include <Il2CppModLoader/app/types/IAchievementData.h>
+#include <Il2CppModLoader/app/types/GrdkSignInProvider.h>
+#include <Il2CppModLoader/app/types/PlayFabSignInProvider_c_DisplayClass49_0.h>
+#include <Il2CppModLoader/app/types/PlayFabSignInProvider_c.h>
+#include <Il2CppModLoader/app/types/PlayFabSignInProvider_c_DisplayClass54_0.h>
+#include <Il2CppModLoader/app/types/SteamSignInProvider.h>
+#include <Il2CppModLoader/app/types/SteamUser.h>
+#include <Il2CppModLoader/app/types/XalUser.h>
+#include <Il2CppModLoader/app/types/XalUser_1.h>
+#include <Il2CppModLoader/app/types/XalUserChangeType__Enum.h>
+#include <Il2CppModLoader/app/types/UserChangeEventArgs.h>
+#include <Il2CppModLoader/app/types/XalHttpHeader.h>
+#include <Il2CppModLoader/app/types/XalUserGetTokenAndSignatureData.h>
+#include <Il2CppModLoader/app/types/XalUser_c.h>
+#include <Il2CppModLoader/app/types/XalUser_c_DisplayClass18_0.h>
+#include <Il2CppModLoader/app/types/XalBrowserWrapper.h>
+#include <Il2CppModLoader/app/types/BrowserNative_ContextMenuOrigin__Enum.h>
+#include <Il2CppModLoader/app/types/Browser.h>
+#include <Il2CppModLoader/app/types/INewWindowHandler.h>
+#include <Il2CppModLoader/app/types/IBrowserUI.h>
+#include <Il2CppModLoader/app/types/CookieManager.h>
+#include <Il2CppModLoader/app/types/CookieManager_CookieFetch.h>
+#include <Il2CppModLoader/app/types/BrowserNative_GetCookieFunc.h>
+#include <Il2CppModLoader/app/types/BrowserNative_NativeCookie.h>
+#include <Il2CppModLoader/app/types/PromiseState__Enum.h>
+#include <Il2CppModLoader/app/types/Cookie_1.h>
+#include <Il2CppModLoader/app/types/RejectHandler.h>
+#include <Il2CppModLoader/app/types/IRejectable.h>
+#include <Il2CppModLoader/app/types/IPromise.h>
+#include <Il2CppModLoader/app/types/Browser_JSResultFunc.h>
+#include <Il2CppModLoader/app/types/JSONNode.h>
+#include <Il2CppModLoader/app/types/JSONNode__Array.h>
+#include <Il2CppModLoader/app/types/BrowserNative_ReadyFunc.h>
+#include <Il2CppModLoader/app/types/BrowserFocusState.h>
+#include <Il2CppModLoader/app/types/BrowserInput.h>
+#include <Il2CppModLoader/app/types/BrowserInput_ButtonHistory.h>
+#include <Il2CppModLoader/app/types/BrowserNavState.h>
+#include <Il2CppModLoader/app/types/DialogHandler.h>
+#include <Il2CppModLoader/app/types/DialogHandler_DialogCallback.h>
+#include <Il2CppModLoader/app/types/DialogHandler_MenuCallback.h>
+#include <Il2CppModLoader/app/types/XalSignInProvider.h>
+#include <Il2CppModLoader/app/types/XalTraceLevel__Enum.h>
+#include <Il2CppModLoader/app/types/XalSignInProvider_c.h>
+#include <Il2CppModLoader/app/types/PlatformRemoteConnectClosePromptEventHandler.h>
+#include <Il2CppModLoader/app/types/XboxSignInProvider.h>
+#include <Il2CppModLoader/app/types/NintendoPlayFabSynchronizer.h>
+#include <Il2CppModLoader/app/types/NintendoPlayFabSynchronizer_c_DisplayClass18_0.h>
+#include <Il2CppModLoader/app/types/NintendoPlayFabSynchronizer_c.h>
+#include <Il2CppModLoader/app/types/NintendoPlayFabSynchronizer_c_DisplayClass19_0.h>
+#include <Il2CppModLoader/app/types/SystemIntegrationMainThreadRunner.h>
+#include <Il2CppModLoader/app/types/IUpdateable.h>
+#include <Il2CppModLoader/app/types/DataProvider.h>
+#include <Il2CppModLoader/app/types/IServiceSynchronizer.h>
+#include <Il2CppModLoader/app/types/DataProvider_c_DisplayClass13_0.h>
+#include <Il2CppModLoader/app/types/DataProvider_c_DisplayClass14_0.h>
+#include <Il2CppModLoader/app/types/DataProvider_c.h>
+#include <Il2CppModLoader/app/types/TwoDataProviderSynchronizer.h>
+#include <Il2CppModLoader/app/types/PlayFabJsonSerializer.h>
+#include <Il2CppModLoader/app/types/PlayFabJsonSerializer_c.h>
+#include <Il2CppModLoader/app/types/PlayFabTelemetryProvider.h>
+#include <Il2CppModLoader/app/types/ExtendedPlayerLeaderBoardEntries.h>
+#include <Il2CppModLoader/app/types/PlayFabStatistics_c_DisplayClass11_0.h>
+#include <Il2CppModLoader/app/types/PlayFabStatistics_c.h>
+#include <Il2CppModLoader/app/types/PlayFabStatistics_c_DisplayClass14_0.h>
+#include <Il2CppModLoader/app/types/PlayFabStatistics_c_DisplayClass14_1.h>
+#include <Il2CppModLoader/app/types/PlayFabStatistics_c_DisplayClass15_0.h>
+#include <Il2CppModLoader/app/types/GrdkAchievements.h>
+#include <Il2CppModLoader/app/types/PlayFabAchievements.h>
+#include <Il2CppModLoader/app/types/PlayFabAchievements_c_DisplayClass16_0.h>
+#include <Il2CppModLoader/app/types/PlayFabAchievements_c.h>
+#include <Il2CppModLoader/app/types/PlayFabAchievements_c_DisplayClass17_0.h>
+#include <Il2CppModLoader/app/types/PlayFabAchievements_c_DisplayClass18_0.h>
+#include <Il2CppModLoader/app/types/PlayFabAchievements_c_DisplayClass18_1.h>
+#include <Il2CppModLoader/app/types/SteamAchievements.h>
+#include <Il2CppModLoader/app/types/UserAchievementStored_t.h>
+#include <Il2CppModLoader/app/types/UserStatsStored_t.h>
+#include <Il2CppModLoader/app/types/CSteamID.h>
+#include <Il2CppModLoader/app/types/UserStatsReceived_t.h>
+#include <Il2CppModLoader/app/types/SteamAchievements_c_DisplayClass15_0.h>
+#include <Il2CppModLoader/app/types/XProgressState__Enum.h>
+#include <Il2CppModLoader/app/types/XalAchievements.h>
+#include <Il2CppModLoader/app/types/XalAchievements_c_DisplayClass19_0.h>
+#include <Il2CppModLoader/app/types/XalAchievements_c_DisplayClass20_0.h>
 
 namespace app::classes::types {
-    namespace IVROverlay_GetOverlayColor {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayColor__Class** type_info = (::app::IVROverlay_GetOverlayColor__Class**)(modloader::win::memory::resolve_rva(0x04750960));
-    }
-    namespace IVROverlay_SetOverlayAlpha {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayAlpha__Class** type_info = (::app::IVROverlay_SetOverlayAlpha__Class**)(modloader::win::memory::resolve_rva(0x0476A390));
-    }
-    namespace IVROverlay_GetOverlayAlpha {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayAlpha__Class** type_info = (::app::IVROverlay_GetOverlayAlpha__Class**)(modloader::win::memory::resolve_rva(0x0475CF90));
-    }
-    namespace IVROverlay_SetOverlayTexelAspect {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayTexelAspect__Class** type_info = (::app::IVROverlay_SetOverlayTexelAspect__Class**)(modloader::win::memory::resolve_rva(0x04748748));
-    }
-    namespace IVROverlay_GetOverlayTexelAspect {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayTexelAspect__Class** type_info = (::app::IVROverlay_GetOverlayTexelAspect__Class**)(modloader::win::memory::resolve_rva(0x047945C8));
-    }
-    namespace IVROverlay_SetOverlaySortOrder {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlaySortOrder__Class** type_info = (::app::IVROverlay_SetOverlaySortOrder__Class**)(modloader::win::memory::resolve_rva(0x0470C6A8));
-    }
-    namespace IVROverlay_GetOverlaySortOrder {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlaySortOrder__Class** type_info = (::app::IVROverlay_GetOverlaySortOrder__Class**)(modloader::win::memory::resolve_rva(0x04782678));
-    }
-    namespace IVROverlay_SetOverlayWidthInMeters {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayWidthInMeters__Class** type_info = (::app::IVROverlay_SetOverlayWidthInMeters__Class**)(modloader::win::memory::resolve_rva(0x04786610));
-    }
-    namespace IVROverlay_GetOverlayWidthInMeters {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayWidthInMeters__Class** type_info = (::app::IVROverlay_GetOverlayWidthInMeters__Class**)(modloader::win::memory::resolve_rva(0x0475F488));
-    }
-    namespace IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters__Class** type_info = (::app::IVROverlay_SetOverlayAutoCurveDistanceRangeInMeters__Class**)(modloader::win::memory::resolve_rva(0x04784568));
-    }
-    namespace IVROverlay_GetOverlayAutoCurveDistanceRangeInMeters {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayAutoCurveDistanceRangeInMeters__Class** type_info = (::app::IVROverlay_GetOverlayAutoCurveDistanceRangeInMeters__Class**)(modloader::win::memory::resolve_rva(0x0475A160));
-    }
-    namespace IVROverlay_SetOverlayTextureColorSpace {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayTextureColorSpace__Class** type_info = (::app::IVROverlay_SetOverlayTextureColorSpace__Class**)(modloader::win::memory::resolve_rva(0x04725300));
-    }
-    namespace IVROverlay_GetOverlayTextureColorSpace {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayTextureColorSpace__Class** type_info = (::app::IVROverlay_GetOverlayTextureColorSpace__Class**)(modloader::win::memory::resolve_rva(0x0478F6B8));
-    }
-    namespace IVROverlay_SetOverlayTextureBounds {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayTextureBounds__Class** type_info = (::app::IVROverlay_SetOverlayTextureBounds__Class**)(modloader::win::memory::resolve_rva(0x04740570));
-    }
-    namespace IVROverlay_GetOverlayTextureBounds {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayTextureBounds__Class** type_info = (::app::IVROverlay_GetOverlayTextureBounds__Class**)(modloader::win::memory::resolve_rva(0x04717FC0));
-    }
-    namespace IVROverlay_GetOverlayRenderModel {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayRenderModel__Class** type_info = (::app::IVROverlay_GetOverlayRenderModel__Class**)(modloader::win::memory::resolve_rva(0x04739258));
-    }
-    namespace IVROverlay_SetOverlayRenderModel {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayRenderModel__Class** type_info = (::app::IVROverlay_SetOverlayRenderModel__Class**)(modloader::win::memory::resolve_rva(0x04779D70));
-    }
-    namespace IVROverlay_GetOverlayTransformType {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayTransformType__Class** type_info = (::app::IVROverlay_GetOverlayTransformType__Class**)(modloader::win::memory::resolve_rva(0x04709C40));
-    }
-    namespace VROverlayTransformType__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::VROverlayTransformType__Enum__Class** type_info = (::app::VROverlayTransformType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04721A28));
-    }
-    namespace IVROverlay_SetOverlayTransformAbsolute {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayTransformAbsolute__Class** type_info = (::app::IVROverlay_SetOverlayTransformAbsolute__Class**)(modloader::win::memory::resolve_rva(0x04715F68));
-    }
-    namespace IVROverlay_GetOverlayTransformAbsolute {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayTransformAbsolute__Class** type_info = (::app::IVROverlay_GetOverlayTransformAbsolute__Class**)(modloader::win::memory::resolve_rva(0x04785938));
-    }
-    namespace IVROverlay_SetOverlayTransformTrackedDeviceRelative {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayTransformTrackedDeviceRelative__Class** type_info = (::app::IVROverlay_SetOverlayTransformTrackedDeviceRelative__Class**)(modloader::win::memory::resolve_rva(0x0470C6B0));
-    }
-    namespace IVROverlay_GetOverlayTransformTrackedDeviceRelative {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayTransformTrackedDeviceRelative__Class** type_info = (::app::IVROverlay_GetOverlayTransformTrackedDeviceRelative__Class**)(modloader::win::memory::resolve_rva(0x047290C0));
-    }
-    namespace IVROverlay_SetOverlayTransformTrackedDeviceComponent {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayTransformTrackedDeviceComponent__Class** type_info = (::app::IVROverlay_SetOverlayTransformTrackedDeviceComponent__Class**)(modloader::win::memory::resolve_rva(0x04762B38));
-    }
-    namespace IVROverlay_GetOverlayTransformTrackedDeviceComponent {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayTransformTrackedDeviceComponent__Class** type_info = (::app::IVROverlay_GetOverlayTransformTrackedDeviceComponent__Class**)(modloader::win::memory::resolve_rva(0x0477DFA0));
-    }
-    namespace IVROverlay_GetOverlayTransformOverlayRelative {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayTransformOverlayRelative__Class** type_info = (::app::IVROverlay_GetOverlayTransformOverlayRelative__Class**)(modloader::win::memory::resolve_rva(0x04712B10));
-    }
-    namespace IVROverlay_SetOverlayTransformOverlayRelative {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayTransformOverlayRelative__Class** type_info = (::app::IVROverlay_SetOverlayTransformOverlayRelative__Class**)(modloader::win::memory::resolve_rva(0x047793C8));
-    }
-    namespace IVROverlay_ShowOverlay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_ShowOverlay__Class** type_info = (::app::IVROverlay_ShowOverlay__Class**)(modloader::win::memory::resolve_rva(0x0477CF38));
-    }
-    namespace IVROverlay_HideOverlay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_HideOverlay__Class** type_info = (::app::IVROverlay_HideOverlay__Class**)(modloader::win::memory::resolve_rva(0x0472D148));
-    }
-    namespace IVROverlay_IsOverlayVisible {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_IsOverlayVisible__Class** type_info = (::app::IVROverlay_IsOverlayVisible__Class**)(modloader::win::memory::resolve_rva(0x04750290));
-    }
-    namespace IVROverlay_GetTransformForOverlayCoordinates {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetTransformForOverlayCoordinates__Class** type_info = (::app::IVROverlay_GetTransformForOverlayCoordinates__Class**)(modloader::win::memory::resolve_rva(0x0476B220));
-    }
-    namespace IVROverlay_PollNextOverlayEvent {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_PollNextOverlayEvent__Class** type_info = (::app::IVROverlay_PollNextOverlayEvent__Class**)(modloader::win::memory::resolve_rva(0x0478AF40));
-    }
-    namespace IVROverlay_GetOverlayInputMethod {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayInputMethod__Class** type_info = (::app::IVROverlay_GetOverlayInputMethod__Class**)(modloader::win::memory::resolve_rva(0x04795DF0));
-    }
-    namespace VROverlayInputMethod__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::VROverlayInputMethod__Enum__Class** type_info = (::app::VROverlayInputMethod__Enum__Class**)(modloader::win::memory::resolve_rva(0x047616A0));
-    }
-    namespace IVROverlay_SetOverlayInputMethod {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayInputMethod__Class** type_info = (::app::IVROverlay_SetOverlayInputMethod__Class**)(modloader::win::memory::resolve_rva(0x0478BC58));
-    }
-    namespace IVROverlay_GetOverlayMouseScale {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayMouseScale__Class** type_info = (::app::IVROverlay_GetOverlayMouseScale__Class**)(modloader::win::memory::resolve_rva(0x04700CB0));
-    }
-    namespace IVROverlay_SetOverlayMouseScale {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayMouseScale__Class** type_info = (::app::IVROverlay_SetOverlayMouseScale__Class**)(modloader::win::memory::resolve_rva(0x047074D8));
-    }
-    namespace IVROverlay_ComputeOverlayIntersection {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_ComputeOverlayIntersection__Class** type_info = (::app::IVROverlay_ComputeOverlayIntersection__Class**)(modloader::win::memory::resolve_rva(0x04750428));
-    }
-    namespace VROverlayIntersectionParams_t {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::VROverlayIntersectionParams_t__Class** type_info = (::app::VROverlayIntersectionParams_t__Class**)(modloader::win::memory::resolve_rva(0x04765CD8));
-    }
-    namespace VROverlayIntersectionResults_t {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::VROverlayIntersectionResults_t__Class** type_info = (::app::VROverlayIntersectionResults_t__Class**)(modloader::win::memory::resolve_rva(0x04767BA0));
-    }
-    namespace IVROverlay_HandleControllerOverlayInteractionAsMouse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_HandleControllerOverlayInteractionAsMouse__Class** type_info = (::app::IVROverlay_HandleControllerOverlayInteractionAsMouse__Class**)(modloader::win::memory::resolve_rva(0x0474F660));
-    }
-    namespace IVROverlay_IsHoverTargetOverlay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_IsHoverTargetOverlay__Class** type_info = (::app::IVROverlay_IsHoverTargetOverlay__Class**)(modloader::win::memory::resolve_rva(0x0472C700));
-    }
-    namespace IVROverlay_GetGamepadFocusOverlay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetGamepadFocusOverlay__Class** type_info = (::app::IVROverlay_GetGamepadFocusOverlay__Class**)(modloader::win::memory::resolve_rva(0x0471D010));
-    }
-    namespace IVROverlay_SetGamepadFocusOverlay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetGamepadFocusOverlay__Class** type_info = (::app::IVROverlay_SetGamepadFocusOverlay__Class**)(modloader::win::memory::resolve_rva(0x04786948));
-    }
-    namespace IVROverlay_SetOverlayNeighbor {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayNeighbor__Class** type_info = (::app::IVROverlay_SetOverlayNeighbor__Class**)(modloader::win::memory::resolve_rva(0x047362E0));
-    }
-    namespace EOverlayDirection__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EOverlayDirection__Enum__Class** type_info = (::app::EOverlayDirection__Enum__Class**)(modloader::win::memory::resolve_rva(0x04791208));
-    }
-    namespace IVROverlay_MoveGamepadFocusToNeighbor {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_MoveGamepadFocusToNeighbor__Class** type_info = (::app::IVROverlay_MoveGamepadFocusToNeighbor__Class**)(modloader::win::memory::resolve_rva(0x04782E88));
-    }
-    namespace IVROverlay_SetOverlayTexture {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayTexture__Class** type_info = (::app::IVROverlay_SetOverlayTexture__Class**)(modloader::win::memory::resolve_rva(0x0474ADD8));
-    }
-    namespace IVROverlay_ClearOverlayTexture {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_ClearOverlayTexture__Class** type_info = (::app::IVROverlay_ClearOverlayTexture__Class**)(modloader::win::memory::resolve_rva(0x04705B30));
-    }
-    namespace IVROverlay_SetOverlayRaw {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayRaw__Class** type_info = (::app::IVROverlay_SetOverlayRaw__Class**)(modloader::win::memory::resolve_rva(0x0477F1B0));
-    }
-    namespace IVROverlay_SetOverlayFromFile {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayFromFile__Class** type_info = (::app::IVROverlay_SetOverlayFromFile__Class**)(modloader::win::memory::resolve_rva(0x0475AAD0));
-    }
-    namespace IVROverlay_GetOverlayTexture {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayTexture__Class** type_info = (::app::IVROverlay_GetOverlayTexture__Class**)(modloader::win::memory::resolve_rva(0x0478B278));
-    }
-    namespace IVROverlay_ReleaseNativeOverlayHandle {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_ReleaseNativeOverlayHandle__Class** type_info = (::app::IVROverlay_ReleaseNativeOverlayHandle__Class**)(modloader::win::memory::resolve_rva(0x04730B58));
-    }
-    namespace IVROverlay_GetOverlayTextureSize {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayTextureSize__Class** type_info = (::app::IVROverlay_GetOverlayTextureSize__Class**)(modloader::win::memory::resolve_rva(0x047990B8));
-    }
-    namespace IVROverlay_CreateDashboardOverlay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_CreateDashboardOverlay__Class** type_info = (::app::IVROverlay_CreateDashboardOverlay__Class**)(modloader::win::memory::resolve_rva(0x04758140));
-    }
-    namespace IVROverlay_IsDashboardVisible {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_IsDashboardVisible__Class** type_info = (::app::IVROverlay_IsDashboardVisible__Class**)(modloader::win::memory::resolve_rva(0x04725910));
-    }
-    namespace IVROverlay_IsActiveDashboardOverlay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_IsActiveDashboardOverlay__Class** type_info = (::app::IVROverlay_IsActiveDashboardOverlay__Class**)(modloader::win::memory::resolve_rva(0x04737598));
-    }
-    namespace IVROverlay_SetDashboardOverlaySceneProcess {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetDashboardOverlaySceneProcess__Class** type_info = (::app::IVROverlay_SetDashboardOverlaySceneProcess__Class**)(modloader::win::memory::resolve_rva(0x0476C360));
-    }
-    namespace IVROverlay_GetDashboardOverlaySceneProcess {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetDashboardOverlaySceneProcess__Class** type_info = (::app::IVROverlay_GetDashboardOverlaySceneProcess__Class**)(modloader::win::memory::resolve_rva(0x0474A050));
-    }
-    namespace IVROverlay_ShowDashboard {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_ShowDashboard__Class** type_info = (::app::IVROverlay_ShowDashboard__Class**)(modloader::win::memory::resolve_rva(0x04799D38));
-    }
-    namespace IVROverlay_GetPrimaryDashboardDevice {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetPrimaryDashboardDevice__Class** type_info = (::app::IVROverlay_GetPrimaryDashboardDevice__Class**)(modloader::win::memory::resolve_rva(0x0470BF50));
-    }
-    namespace IVROverlay_ShowKeyboard {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_ShowKeyboard__Class** type_info = (::app::IVROverlay_ShowKeyboard__Class**)(modloader::win::memory::resolve_rva(0x0476FA00));
-    }
-    namespace IVROverlay_ShowKeyboardForOverlay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_ShowKeyboardForOverlay__Class** type_info = (::app::IVROverlay_ShowKeyboardForOverlay__Class**)(modloader::win::memory::resolve_rva(0x04725018));
-    }
-    namespace IVROverlay_GetKeyboardText {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetKeyboardText__Class** type_info = (::app::IVROverlay_GetKeyboardText__Class**)(modloader::win::memory::resolve_rva(0x0474F3A0));
-    }
-    namespace IVROverlay_HideKeyboard {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_HideKeyboard__Class** type_info = (::app::IVROverlay_HideKeyboard__Class**)(modloader::win::memory::resolve_rva(0x04733CA0));
-    }
-    namespace IVROverlay_SetKeyboardTransformAbsolute {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetKeyboardTransformAbsolute__Class** type_info = (::app::IVROverlay_SetKeyboardTransformAbsolute__Class**)(modloader::win::memory::resolve_rva(0x04772A98));
-    }
-    namespace IVROverlay_SetKeyboardPositionForOverlay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetKeyboardPositionForOverlay__Class** type_info = (::app::IVROverlay_SetKeyboardPositionForOverlay__Class**)(modloader::win::memory::resolve_rva(0x0471AFB0));
-    }
-    namespace HmdRect2_t {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HmdRect2_t__Class** type_info = (::app::HmdRect2_t__Class**)(modloader::win::memory::resolve_rva(0x04766C68));
-    }
-    namespace IVROverlay_SetOverlayIntersectionMask {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_SetOverlayIntersectionMask__Class** type_info = (::app::IVROverlay_SetOverlayIntersectionMask__Class**)(modloader::win::memory::resolve_rva(0x04732C60));
-    }
-    namespace VROverlayIntersectionMaskPrimitive_t {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::VROverlayIntersectionMaskPrimitive_t__Class** type_info = (::app::VROverlayIntersectionMaskPrimitive_t__Class**)(modloader::win::memory::resolve_rva(0x04711A10));
-    }
-    namespace IVROverlay_GetOverlayFlags {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_GetOverlayFlags__Class** type_info = (::app::IVROverlay_GetOverlayFlags__Class**)(modloader::win::memory::resolve_rva(0x04788028));
-    }
-    namespace IVROverlay_ShowMessageOverlay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_ShowMessageOverlay__Class** type_info = (::app::IVROverlay_ShowMessageOverlay__Class**)(modloader::win::memory::resolve_rva(0x04797D80));
-    }
-    namespace IVROverlay_CloseMessageOverlay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay_CloseMessageOverlay__Class** type_info = (::app::IVROverlay_CloseMessageOverlay__Class**)(modloader::win::memory::resolve_rva(0x0477BAC0));
-    }
-    namespace IVRRenderModels_LoadRenderModel_Async {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_LoadRenderModel_Async__Class** type_info = (::app::IVRRenderModels_LoadRenderModel_Async__Class**)(modloader::win::memory::resolve_rva(0x04798BC8));
-    }
-    namespace EVRRenderModelError__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EVRRenderModelError__Enum__Class** type_info = (::app::EVRRenderModelError__Enum__Class**)(modloader::win::memory::resolve_rva(0x0475A598));
-    }
-    namespace IVRRenderModels_FreeRenderModel {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_FreeRenderModel__Class** type_info = (::app::IVRRenderModels_FreeRenderModel__Class**)(modloader::win::memory::resolve_rva(0x0476DE98));
-    }
-    namespace IVRRenderModels_LoadTexture_Async {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_LoadTexture_Async__Class** type_info = (::app::IVRRenderModels_LoadTexture_Async__Class**)(modloader::win::memory::resolve_rva(0x04751168));
-    }
-    namespace IVRRenderModels_FreeTexture {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_FreeTexture__Class** type_info = (::app::IVRRenderModels_FreeTexture__Class**)(modloader::win::memory::resolve_rva(0x04743FB0));
-    }
-    namespace IVRRenderModels_LoadTextureD3D11_Async {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_LoadTextureD3D11_Async__Class** type_info = (::app::IVRRenderModels_LoadTextureD3D11_Async__Class**)(modloader::win::memory::resolve_rva(0x04741250));
-    }
-    namespace IVRRenderModels_LoadIntoTextureD3D11_Async {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_LoadIntoTextureD3D11_Async__Class** type_info = (::app::IVRRenderModels_LoadIntoTextureD3D11_Async__Class**)(modloader::win::memory::resolve_rva(0x047740A0));
-    }
-    namespace IVRRenderModels_FreeTextureD3D11 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_FreeTextureD3D11__Class** type_info = (::app::IVRRenderModels_FreeTextureD3D11__Class**)(modloader::win::memory::resolve_rva(0x0472D648));
-    }
-    namespace IVRRenderModels_GetRenderModelName {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_GetRenderModelName__Class** type_info = (::app::IVRRenderModels_GetRenderModelName__Class**)(modloader::win::memory::resolve_rva(0x04737B58));
-    }
-    namespace IVRRenderModels_GetRenderModelCount {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_GetRenderModelCount__Class** type_info = (::app::IVRRenderModels_GetRenderModelCount__Class**)(modloader::win::memory::resolve_rva(0x04701B38));
-    }
-    namespace IVRRenderModels_GetComponentCount {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_GetComponentCount__Class** type_info = (::app::IVRRenderModels_GetComponentCount__Class**)(modloader::win::memory::resolve_rva(0x0471F2C0));
-    }
-    namespace IVRRenderModels_GetComponentName {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_GetComponentName__Class** type_info = (::app::IVRRenderModels_GetComponentName__Class**)(modloader::win::memory::resolve_rva(0x04722FF0));
-    }
-    namespace IVRRenderModels_GetComponentButtonMask {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_GetComponentButtonMask__Class** type_info = (::app::IVRRenderModels_GetComponentButtonMask__Class**)(modloader::win::memory::resolve_rva(0x047501C0));
-    }
-    namespace IVRRenderModels_GetComponentRenderModelName {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_GetComponentRenderModelName__Class** type_info = (::app::IVRRenderModels_GetComponentRenderModelName__Class**)(modloader::win::memory::resolve_rva(0x0474E4C0));
-    }
-    namespace IVRRenderModels_GetComponentState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_GetComponentState__Class** type_info = (::app::IVRRenderModels_GetComponentState__Class**)(modloader::win::memory::resolve_rva(0x0474F2C0));
-    }
-    namespace RenderModel_ControllerMode_State_t {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RenderModel_ControllerMode_State_t__Class** type_info = (::app::RenderModel_ControllerMode_State_t__Class**)(modloader::win::memory::resolve_rva(0x047876E8));
-    }
-    namespace RenderModel_ComponentState_t {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RenderModel_ComponentState_t__Class** type_info = (::app::RenderModel_ComponentState_t__Class**)(modloader::win::memory::resolve_rva(0x04777060));
-    }
-    namespace IVRRenderModels_RenderModelHasComponent {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_RenderModelHasComponent__Class** type_info = (::app::IVRRenderModels_RenderModelHasComponent__Class**)(modloader::win::memory::resolve_rva(0x047089C0));
-    }
-    namespace IVRRenderModels_GetRenderModelThumbnailURL {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_GetRenderModelThumbnailURL__Class** type_info = (::app::IVRRenderModels_GetRenderModelThumbnailURL__Class**)(modloader::win::memory::resolve_rva(0x04724D78));
-    }
-    namespace IVRRenderModels_GetRenderModelOriginalPath {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_GetRenderModelOriginalPath__Class** type_info = (::app::IVRRenderModels_GetRenderModelOriginalPath__Class**)(modloader::win::memory::resolve_rva(0x04708F48));
-    }
-    namespace IVRRenderModels_GetRenderModelErrorNameFromEnum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels_GetRenderModelErrorNameFromEnum__Class** type_info = (::app::IVRRenderModels_GetRenderModelErrorNameFromEnum__Class**)(modloader::win::memory::resolve_rva(0x04727F18));
-    }
-    namespace IVRNotifications_CreateNotification {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRNotifications_CreateNotification__Class** type_info = (::app::IVRNotifications_CreateNotification__Class**)(modloader::win::memory::resolve_rva(0x0473A640));
-    }
-    namespace EVRNotificationType__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EVRNotificationType__Enum__Class** type_info = (::app::EVRNotificationType__Enum__Class**)(modloader::win::memory::resolve_rva(0x0474D980));
-    }
-    namespace EVRNotificationStyle__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EVRNotificationStyle__Enum__Class** type_info = (::app::EVRNotificationStyle__Enum__Class**)(modloader::win::memory::resolve_rva(0x04745AA0));
-    }
-    namespace NotificationBitmap_t {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NotificationBitmap_t__Class** type_info = (::app::NotificationBitmap_t__Class**)(modloader::win::memory::resolve_rva(0x0478D530));
-    }
-    namespace IVRNotifications_RemoveNotification {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRNotifications_RemoveNotification__Class** type_info = (::app::IVRNotifications_RemoveNotification__Class**)(modloader::win::memory::resolve_rva(0x047263A8));
-    }
-    namespace IVRSettings_GetSettingsErrorNameFromEnum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSettings_GetSettingsErrorNameFromEnum__Class** type_info = (::app::IVRSettings_GetSettingsErrorNameFromEnum__Class**)(modloader::win::memory::resolve_rva(0x047573B0));
-    }
-} // namespace app::classes::types
+    namespace StatsScreen { IL2CPP_MODLOADER_DLLEXPORT ::app::StatsScreen__Class** type_info = (::app::StatsScreen__Class**)(modloader::win::memory::resolve_rva(0x04705640)); }
+    namespace StatsScreen_c { IL2CPP_MODLOADER_DLLEXPORT ::app::StatsScreen_c__Class** type_info = (::app::StatsScreen_c__Class**)(modloader::win::memory::resolve_rva(0x04746D50)); }
+    namespace SkillUpgradeScreen { IL2CPP_MODLOADER_DLLEXPORT ::app::SkillUpgradeScreen__Class** type_info = (::app::SkillUpgradeScreen__Class**)(modloader::win::memory::resolve_rva(0x04777C18)); }
+    namespace UpgradeAbilityItem { IL2CPP_MODLOADER_DLLEXPORT ::app::UpgradeAbilityItem__Class** type_info = (::app::UpgradeAbilityItem__Class**)(modloader::win::memory::resolve_rva(0x0476A540)); }
+    namespace SkillUpgradeScreen_c { IL2CPP_MODLOADER_DLLEXPORT ::app::SkillUpgradeScreen_c__Class** type_info = (::app::SkillUpgradeScreen_c__Class**)(modloader::win::memory::resolve_rva(0x04720030)); }
+    namespace WeaponmasterItem { IL2CPP_MODLOADER_DLLEXPORT ::app::WeaponmasterItem__Class** type_info = (::app::WeaponmasterItem__Class**)(modloader::win::memory::resolve_rva(0x04779410)); }
+    namespace WeaponmasterScreen { IL2CPP_MODLOADER_DLLEXPORT ::app::WeaponmasterScreen__Class** type_info = (::app::WeaponmasterScreen__Class**)(modloader::win::memory::resolve_rva(0x0477B220)); }
+    namespace WindImpactEffectSpawner_Trace__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::WindImpactEffectSpawner_Trace__Array__Class** type_info = (::app::WindImpactEffectSpawner_Trace__Array__Class**)(modloader::win::memory::resolve_rva(0x04785BC0)); }
+    namespace PetrifiedOwlFeedingGroundsState__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::PetrifiedOwlFeedingGroundsState__Enum__Class** type_info = (::app::PetrifiedOwlFeedingGroundsState__Enum__Class**)(modloader::win::memory::resolve_rva(0x047505B8)); }
+    namespace FeedingGroundsPetrifiedOwlController { IL2CPP_MODLOADER_DLLEXPORT ::app::FeedingGroundsPetrifiedOwlController__Class** type_info = (::app::FeedingGroundsPetrifiedOwlController__Class**)(modloader::win::memory::resolve_rva(0x0477FDC8)); }
+    namespace FeedingGroundsPetrifiedOwlController_FeedingGroundsChaseState__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::FeedingGroundsPetrifiedOwlController_FeedingGroundsChaseState__Enum__Class** type_info = (::app::FeedingGroundsPetrifiedOwlController_FeedingGroundsChaseState__Enum__Class**)(modloader::win::memory::resolve_rva(0x04761F68)); }
+    namespace PetrifiedOwlFeedingGroundHideZoneGroup_c_DisplayClass2_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::PetrifiedOwlFeedingGroundHideZoneGroup_c_DisplayClass2_0__Class** type_info = (::app::PetrifiedOwlFeedingGroundHideZoneGroup_c_DisplayClass2_0__Class**)(modloader::win::memory::resolve_rva(0x047853D8)); }
+    namespace PetrifiedOwlFeedingGroundsGameplayController_PetrifiedOwlFeedingGroundsGameplayState__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::PetrifiedOwlFeedingGroundsGameplayController_PetrifiedOwlFeedingGroundsGameplayState__Enum__Class** type_info = (::app::PetrifiedOwlFeedingGroundsGameplayController_PetrifiedOwlFeedingGroundsGameplayState__Enum__Class**)(modloader::win::memory::resolve_rva(0x04750C00)); }
+    namespace PetrifiedOwlFeedingGroundsPOwlController_PetrifiedOwlFeedingGroundsPOwlState__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::PetrifiedOwlFeedingGroundsPOwlController_PetrifiedOwlFeedingGroundsPOwlState__Enum__Class** type_info = (::app::PetrifiedOwlFeedingGroundsPOwlController_PetrifiedOwlFeedingGroundsPOwlState__Enum__Class**)(modloader::win::memory::resolve_rva(0x04787F18)); }
+    namespace SwitchNetConnectivityChecker_c { IL2CPP_MODLOADER_DLLEXPORT ::app::SwitchNetConnectivityChecker_c__Class** type_info = (::app::SwitchNetConnectivityChecker_c__Class**)(modloader::win::memory::resolve_rva(0x0470D640)); }
+    namespace WindowsNetConnectivityChecker { IL2CPP_MODLOADER_DLLEXPORT ::app::WindowsNetConnectivityChecker__Class** type_info = (::app::WindowsNetConnectivityChecker__Class**)(modloader::win::memory::resolve_rva(0x04794968)); }
+    namespace XboxNetConnectivityChecker { IL2CPP_MODLOADER_DLLEXPORT ::app::XboxNetConnectivityChecker__Class** type_info = (::app::XboxNetConnectivityChecker__Class**)(modloader::win::memory::resolve_rva(0x0472AC40)); }
+    namespace IAchievementData { IL2CPP_MODLOADER_DLLEXPORT ::app::IAchievementData__Class** type_info = (::app::IAchievementData__Class**)(modloader::win::memory::resolve_rva(0x0471EEF0)); }
+    namespace GrdkSignInProvider { IL2CPP_MODLOADER_DLLEXPORT ::app::GrdkSignInProvider__Class** type_info = (::app::GrdkSignInProvider__Class**)(modloader::win::memory::resolve_rva(0x0470F4C0)); }
+    namespace PlayFabSignInProvider_c_DisplayClass49_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabSignInProvider_c_DisplayClass49_0__Class** type_info = (::app::PlayFabSignInProvider_c_DisplayClass49_0__Class**)(modloader::win::memory::resolve_rva(0x04788600)); }
+    namespace PlayFabSignInProvider_c { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabSignInProvider_c__Class** type_info = (::app::PlayFabSignInProvider_c__Class**)(modloader::win::memory::resolve_rva(0x0478CED8)); }
+    namespace PlayFabSignInProvider_c_DisplayClass54_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabSignInProvider_c_DisplayClass54_0__Class** type_info = (::app::PlayFabSignInProvider_c_DisplayClass54_0__Class**)(modloader::win::memory::resolve_rva(0x0471E070)); }
+    namespace SteamSignInProvider { IL2CPP_MODLOADER_DLLEXPORT ::app::SteamSignInProvider__Class** type_info = (::app::SteamSignInProvider__Class**)(modloader::win::memory::resolve_rva(0x04796C60)); }
+    namespace SteamUser { IL2CPP_MODLOADER_DLLEXPORT ::app::SteamUser__Class** type_info = (::app::SteamUser__Class**)(modloader::win::memory::resolve_rva(0x0478EA28)); }
+    namespace XalUser { IL2CPP_MODLOADER_DLLEXPORT ::app::XalUser__Class** type_info = (::app::XalUser__Class**)(modloader::win::memory::resolve_rva(0x04742FB0)); }
+    namespace XalUser_1 { IL2CPP_MODLOADER_DLLEXPORT ::app::XalUser_1__Class** type_info = (::app::XalUser_1__Class**)(modloader::win::memory::resolve_rva(0x04791520)); }
+    namespace XalUserChangeType__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::XalUserChangeType__Enum__Class** type_info = (::app::XalUserChangeType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04702B08)); }
+    namespace UserChangeEventArgs { IL2CPP_MODLOADER_DLLEXPORT ::app::UserChangeEventArgs__Class** type_info = (::app::UserChangeEventArgs__Class**)(modloader::win::memory::resolve_rva(0x0478AB10)); }
+    namespace XalHttpHeader { IL2CPP_MODLOADER_DLLEXPORT ::app::XalHttpHeader__Class** type_info = (::app::XalHttpHeader__Class**)(modloader::win::memory::resolve_rva(0x047346C8)); }
+    namespace XalUserGetTokenAndSignatureData { IL2CPP_MODLOADER_DLLEXPORT ::app::XalUserGetTokenAndSignatureData__Class** type_info = (::app::XalUserGetTokenAndSignatureData__Class**)(modloader::win::memory::resolve_rva(0x0470DE60)); }
+    namespace XalUser_c { IL2CPP_MODLOADER_DLLEXPORT ::app::XalUser_c__Class** type_info = (::app::XalUser_c__Class**)(modloader::win::memory::resolve_rva(0x04731BE8)); }
+    namespace XalUser_c_DisplayClass18_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::XalUser_c_DisplayClass18_0__Class** type_info = (::app::XalUser_c_DisplayClass18_0__Class**)(modloader::win::memory::resolve_rva(0x0472F650)); }
+    namespace XalBrowserWrapper { IL2CPP_MODLOADER_DLLEXPORT ::app::XalBrowserWrapper__Class** type_info = (::app::XalBrowserWrapper__Class**)(modloader::win::memory::resolve_rva(0x0472DB18)); }
+    namespace BrowserNative_ContextMenuOrigin__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_ContextMenuOrigin__Enum__Class** type_info = (::app::BrowserNative_ContextMenuOrigin__Enum__Class**)(modloader::win::memory::resolve_rva(0x04758888)); }
+    namespace Browser { IL2CPP_MODLOADER_DLLEXPORT ::app::Browser__Class** type_info = (::app::Browser__Class**)(modloader::win::memory::resolve_rva(0x04731500)); }
+    namespace INewWindowHandler { IL2CPP_MODLOADER_DLLEXPORT ::app::INewWindowHandler__Class** type_info = (::app::INewWindowHandler__Class**)(modloader::win::memory::resolve_rva(0x04762E18)); }
+    namespace IBrowserUI { IL2CPP_MODLOADER_DLLEXPORT ::app::IBrowserUI__Class** type_info = (::app::IBrowserUI__Class**)(modloader::win::memory::resolve_rva(0x04724ED0)); }
+    namespace CookieManager { IL2CPP_MODLOADER_DLLEXPORT ::app::CookieManager__Class** type_info = (::app::CookieManager__Class**)(modloader::win::memory::resolve_rva(0x0475F190)); }
+    namespace CookieManager_CookieFetch { IL2CPP_MODLOADER_DLLEXPORT ::app::CookieManager_CookieFetch__Class** type_info = (::app::CookieManager_CookieFetch__Class**)(modloader::win::memory::resolve_rva(0x0472FBF8)); }
+    namespace BrowserNative_GetCookieFunc { IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_GetCookieFunc__Class** type_info = (::app::BrowserNative_GetCookieFunc__Class**)(modloader::win::memory::resolve_rva(0x04752620)); }
+    namespace BrowserNative_NativeCookie { IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_NativeCookie__Class** type_info = (::app::BrowserNative_NativeCookie__Class**)(modloader::win::memory::resolve_rva(0x04756EC0)); }
+    namespace PromiseState__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::PromiseState__Enum__Class** type_info = (::app::PromiseState__Enum__Class**)(modloader::win::memory::resolve_rva(0x04790980)); }
+    namespace Cookie_1 { IL2CPP_MODLOADER_DLLEXPORT ::app::Cookie_1__Class** type_info = (::app::Cookie_1__Class**)(modloader::win::memory::resolve_rva(0x04796460)); }
+    namespace RejectHandler { IL2CPP_MODLOADER_DLLEXPORT ::app::RejectHandler__Class** type_info = (::app::RejectHandler__Class**)(modloader::win::memory::resolve_rva(0x0475AB98)); }
+    namespace IRejectable { IL2CPP_MODLOADER_DLLEXPORT ::app::IRejectable__Class** type_info = (::app::IRejectable__Class**)(modloader::win::memory::resolve_rva(0x04719020)); }
+    namespace IPromise { IL2CPP_MODLOADER_DLLEXPORT ::app::IPromise__Class** type_info = (::app::IPromise__Class**)(modloader::win::memory::resolve_rva(0x0478BF78)); }
+    namespace Browser_JSResultFunc { IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_JSResultFunc__Class** type_info = (::app::Browser_JSResultFunc__Class**)(modloader::win::memory::resolve_rva(0x04754210)); }
+    namespace JSONNode { IL2CPP_MODLOADER_DLLEXPORT ::app::JSONNode__Class** type_info = (::app::JSONNode__Class**)(modloader::win::memory::resolve_rva(0x047609B0)); }
+    namespace JSONNode__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::JSONNode__Array__Class** type_info = (::app::JSONNode__Array__Class**)(modloader::win::memory::resolve_rva(0x0473D1E8)); }
+    namespace BrowserNative_ReadyFunc { IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_ReadyFunc__Class** type_info = (::app::BrowserNative_ReadyFunc__Class**)(modloader::win::memory::resolve_rva(0x047174A8)); }
+    namespace BrowserFocusState { IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserFocusState__Class** type_info = (::app::BrowserFocusState__Class**)(modloader::win::memory::resolve_rva(0x0470B460)); }
+    namespace BrowserInput { IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserInput__Class** type_info = (::app::BrowserInput__Class**)(modloader::win::memory::resolve_rva(0x0471F010)); }
+    namespace BrowserInput_ButtonHistory { IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserInput_ButtonHistory__Class** type_info = (::app::BrowserInput_ButtonHistory__Class**)(modloader::win::memory::resolve_rva(0x0470D238)); }
+    namespace BrowserNavState { IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNavState__Class** type_info = (::app::BrowserNavState__Class**)(modloader::win::memory::resolve_rva(0x04757318)); }
+    namespace DialogHandler { IL2CPP_MODLOADER_DLLEXPORT ::app::DialogHandler__Class** type_info = (::app::DialogHandler__Class**)(modloader::win::memory::resolve_rva(0x0473B4E0)); }
+    namespace DialogHandler_DialogCallback { IL2CPP_MODLOADER_DLLEXPORT ::app::DialogHandler_DialogCallback__Class** type_info = (::app::DialogHandler_DialogCallback__Class**)(modloader::win::memory::resolve_rva(0x04723F08)); }
+    namespace DialogHandler_MenuCallback { IL2CPP_MODLOADER_DLLEXPORT ::app::DialogHandler_MenuCallback__Class** type_info = (::app::DialogHandler_MenuCallback__Class**)(modloader::win::memory::resolve_rva(0x04755DC0)); }
+    namespace XalSignInProvider { IL2CPP_MODLOADER_DLLEXPORT ::app::XalSignInProvider__Class** type_info = (::app::XalSignInProvider__Class**)(modloader::win::memory::resolve_rva(0x04711F70)); }
+    namespace XalTraceLevel__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::XalTraceLevel__Enum__Class** type_info = (::app::XalTraceLevel__Enum__Class**)(modloader::win::memory::resolve_rva(0x0471B428)); }
+    namespace XalSignInProvider_c { IL2CPP_MODLOADER_DLLEXPORT ::app::XalSignInProvider_c__Class** type_info = (::app::XalSignInProvider_c__Class**)(modloader::win::memory::resolve_rva(0x0470A688)); }
+    namespace PlatformRemoteConnectClosePromptEventHandler { IL2CPP_MODLOADER_DLLEXPORT ::app::PlatformRemoteConnectClosePromptEventHandler__Class** type_info = (::app::PlatformRemoteConnectClosePromptEventHandler__Class**)(modloader::win::memory::resolve_rva(0x0473F560)); }
+    namespace XboxSignInProvider { IL2CPP_MODLOADER_DLLEXPORT ::app::XboxSignInProvider__Class** type_info = (::app::XboxSignInProvider__Class**)(modloader::win::memory::resolve_rva(0x047616B0)); }
+    namespace NintendoPlayFabSynchronizer { IL2CPP_MODLOADER_DLLEXPORT ::app::NintendoPlayFabSynchronizer__Class** type_info = (::app::NintendoPlayFabSynchronizer__Class**)(modloader::win::memory::resolve_rva(0x04773A18)); }
+    namespace NintendoPlayFabSynchronizer_c_DisplayClass18_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::NintendoPlayFabSynchronizer_c_DisplayClass18_0__Class** type_info = (::app::NintendoPlayFabSynchronizer_c_DisplayClass18_0__Class**)(modloader::win::memory::resolve_rva(0x04713B48)); }
+    namespace NintendoPlayFabSynchronizer_c { IL2CPP_MODLOADER_DLLEXPORT ::app::NintendoPlayFabSynchronizer_c__Class** type_info = (::app::NintendoPlayFabSynchronizer_c__Class**)(modloader::win::memory::resolve_rva(0x04736F48)); }
+    namespace NintendoPlayFabSynchronizer_c_DisplayClass19_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::NintendoPlayFabSynchronizer_c_DisplayClass19_0__Class** type_info = (::app::NintendoPlayFabSynchronizer_c_DisplayClass19_0__Class**)(modloader::win::memory::resolve_rva(0x04762208)); }
+    namespace SystemIntegrationMainThreadRunner { IL2CPP_MODLOADER_DLLEXPORT ::app::SystemIntegrationMainThreadRunner__Class** type_info = (::app::SystemIntegrationMainThreadRunner__Class**)(modloader::win::memory::resolve_rva(0x047274B0)); }
+    namespace IUpdateable { IL2CPP_MODLOADER_DLLEXPORT ::app::IUpdateable__Class** type_info = (::app::IUpdateable__Class**)(modloader::win::memory::resolve_rva(0x04771F18)); }
+    namespace DataProvider { IL2CPP_MODLOADER_DLLEXPORT ::app::DataProvider__Class** type_info = (::app::DataProvider__Class**)(modloader::win::memory::resolve_rva(0x047972C0)); }
+    namespace IServiceSynchronizer { IL2CPP_MODLOADER_DLLEXPORT ::app::IServiceSynchronizer__Class** type_info = (::app::IServiceSynchronizer__Class**)(modloader::win::memory::resolve_rva(0x04727338)); }
+    namespace DataProvider_c_DisplayClass13_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::DataProvider_c_DisplayClass13_0__Class** type_info = (::app::DataProvider_c_DisplayClass13_0__Class**)(modloader::win::memory::resolve_rva(0x0473DF08)); }
+    namespace DataProvider_c_DisplayClass14_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::DataProvider_c_DisplayClass14_0__Class** type_info = (::app::DataProvider_c_DisplayClass14_0__Class**)(modloader::win::memory::resolve_rva(0x0475AC98)); }
+    namespace DataProvider_c { IL2CPP_MODLOADER_DLLEXPORT ::app::DataProvider_c__Class** type_info = (::app::DataProvider_c__Class**)(modloader::win::memory::resolve_rva(0x04710100)); }
+    namespace TwoDataProviderSynchronizer { IL2CPP_MODLOADER_DLLEXPORT ::app::TwoDataProviderSynchronizer__Class** type_info = (::app::TwoDataProviderSynchronizer__Class**)(modloader::win::memory::resolve_rva(0x047588D8)); }
+    namespace PlayFabJsonSerializer { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabJsonSerializer__Class** type_info = (::app::PlayFabJsonSerializer__Class**)(modloader::win::memory::resolve_rva(0x04716298)); }
+    namespace PlayFabJsonSerializer_c { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabJsonSerializer_c__Class** type_info = (::app::PlayFabJsonSerializer_c__Class**)(modloader::win::memory::resolve_rva(0x0477C010)); }
+    namespace PlayFabTelemetryProvider { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabTelemetryProvider__Class** type_info = (::app::PlayFabTelemetryProvider__Class**)(modloader::win::memory::resolve_rva(0x04752C48)); }
+    namespace ExtendedPlayerLeaderBoardEntries { IL2CPP_MODLOADER_DLLEXPORT ::app::ExtendedPlayerLeaderBoardEntries__Class** type_info = (::app::ExtendedPlayerLeaderBoardEntries__Class**)(modloader::win::memory::resolve_rva(0x0478BC60)); }
+    namespace PlayFabStatistics_c_DisplayClass11_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabStatistics_c_DisplayClass11_0__Class** type_info = (::app::PlayFabStatistics_c_DisplayClass11_0__Class**)(modloader::win::memory::resolve_rva(0x04726950)); }
+    namespace PlayFabStatistics_c { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabStatistics_c__Class** type_info = (::app::PlayFabStatistics_c__Class**)(modloader::win::memory::resolve_rva(0x04741C98)); }
+    namespace PlayFabStatistics_c_DisplayClass14_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabStatistics_c_DisplayClass14_0__Class** type_info = (::app::PlayFabStatistics_c_DisplayClass14_0__Class**)(modloader::win::memory::resolve_rva(0x0475ADF0)); }
+    namespace PlayFabStatistics_c_DisplayClass14_1 { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabStatistics_c_DisplayClass14_1__Class** type_info = (::app::PlayFabStatistics_c_DisplayClass14_1__Class**)(modloader::win::memory::resolve_rva(0x0473E378)); }
+    namespace PlayFabStatistics_c_DisplayClass15_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabStatistics_c_DisplayClass15_0__Class** type_info = (::app::PlayFabStatistics_c_DisplayClass15_0__Class**)(modloader::win::memory::resolve_rva(0x047133B8)); }
+    namespace GrdkAchievements { IL2CPP_MODLOADER_DLLEXPORT ::app::GrdkAchievements__Class** type_info = (::app::GrdkAchievements__Class**)(modloader::win::memory::resolve_rva(0x04724C98)); }
+    namespace PlayFabAchievements { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabAchievements__Class** type_info = (::app::PlayFabAchievements__Class**)(modloader::win::memory::resolve_rva(0x04737F30)); }
+    namespace PlayFabAchievements_c_DisplayClass16_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabAchievements_c_DisplayClass16_0__Class** type_info = (::app::PlayFabAchievements_c_DisplayClass16_0__Class**)(modloader::win::memory::resolve_rva(0x0477A5E8)); }
+    namespace PlayFabAchievements_c { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabAchievements_c__Class** type_info = (::app::PlayFabAchievements_c__Class**)(modloader::win::memory::resolve_rva(0x0473B3B8)); }
+    namespace PlayFabAchievements_c_DisplayClass17_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabAchievements_c_DisplayClass17_0__Class** type_info = (::app::PlayFabAchievements_c_DisplayClass17_0__Class**)(modloader::win::memory::resolve_rva(0x047497F0)); }
+    namespace PlayFabAchievements_c_DisplayClass18_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabAchievements_c_DisplayClass18_0__Class** type_info = (::app::PlayFabAchievements_c_DisplayClass18_0__Class**)(modloader::win::memory::resolve_rva(0x0477A2D8)); }
+    namespace PlayFabAchievements_c_DisplayClass18_1 { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabAchievements_c_DisplayClass18_1__Class** type_info = (::app::PlayFabAchievements_c_DisplayClass18_1__Class**)(modloader::win::memory::resolve_rva(0x0471C8C8)); }
+    namespace SteamAchievements { IL2CPP_MODLOADER_DLLEXPORT ::app::SteamAchievements__Class** type_info = (::app::SteamAchievements__Class**)(modloader::win::memory::resolve_rva(0x04784DB8)); }
+    namespace UserAchievementStored_t { IL2CPP_MODLOADER_DLLEXPORT ::app::UserAchievementStored_t__Class** type_info = (::app::UserAchievementStored_t__Class**)(modloader::win::memory::resolve_rva(0x047961B0)); }
+    namespace UserStatsStored_t { IL2CPP_MODLOADER_DLLEXPORT ::app::UserStatsStored_t__Class** type_info = (::app::UserStatsStored_t__Class**)(modloader::win::memory::resolve_rva(0x04782D78)); }
+    namespace CSteamID { IL2CPP_MODLOADER_DLLEXPORT ::app::CSteamID__Class** type_info = (::app::CSteamID__Class**)(modloader::win::memory::resolve_rva(0x04746E48)); }
+    namespace UserStatsReceived_t { IL2CPP_MODLOADER_DLLEXPORT ::app::UserStatsReceived_t__Class** type_info = (::app::UserStatsReceived_t__Class**)(modloader::win::memory::resolve_rva(0x04708C48)); }
+    namespace SteamAchievements_c_DisplayClass15_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::SteamAchievements_c_DisplayClass15_0__Class** type_info = (::app::SteamAchievements_c_DisplayClass15_0__Class**)(modloader::win::memory::resolve_rva(0x0473E1E8)); }
+    namespace XProgressState__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::XProgressState__Enum__Class** type_info = (::app::XProgressState__Enum__Class**)(modloader::win::memory::resolve_rva(0x0477E990)); }
+    namespace XalAchievements { IL2CPP_MODLOADER_DLLEXPORT ::app::XalAchievements__Class** type_info = (::app::XalAchievements__Class**)(modloader::win::memory::resolve_rva(0x04759EF8)); }
+    namespace XalAchievements_c_DisplayClass19_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::XalAchievements_c_DisplayClass19_0__Class** type_info = (::app::XalAchievements_c_DisplayClass19_0__Class**)(modloader::win::memory::resolve_rva(0x047789B0)); }
+    namespace XalAchievements_c_DisplayClass20_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::XalAchievements_c_DisplayClass20_0__Class** type_info = (::app::XalAchievements_c_DisplayClass20_0__Class**)(modloader::win::memory::resolve_rva(0x047640A0)); }
+}

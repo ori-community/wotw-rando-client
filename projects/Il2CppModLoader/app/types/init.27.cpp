@@ -1,405 +1,205 @@
-#include <Il2CppModLoader/app/types/AnimationCurve.h>
-#include <Il2CppModLoader/app/types/Application_LogCallback.h>
-#include <Il2CppModLoader/app/types/Application_NvnBufferUsage__Enum.h>
-#include <Il2CppModLoader/app/types/AsyncGPUReadbackRequest.h>
-#include <Il2CppModLoader/app/types/Behaviour.h>
-#include <Il2CppModLoader/app/types/BindingRestrictions.h>
-#include <Il2CppModLoader/app/types/BindingRestrictions_CustomRestriction.h>
-#include <Il2CppModLoader/app/types/BindingRestrictions_InstanceRestriction.h>
-#include <Il2CppModLoader/app/types/BindingRestrictions_MergedRestriction.h>
-#include <Il2CppModLoader/app/types/BindingRestrictions_TestBuilder.h>
-#include <Il2CppModLoader/app/types/BindingRestrictions_TypeRestriction.h>
-#include <Il2CppModLoader/app/types/BootConfigData.h>
-#include <Il2CppModLoader/app/types/Bounds.h>
-#include <Il2CppModLoader/app/types/CallSiteBinder.h>
-#include <Il2CppModLoader/app/types/Camera.h>
-#include <Il2CppModLoader/app/types/CastInstruction.h>
-#include <Il2CppModLoader/app/types/CastInstruction_CastInstructionNoT_Ref.h>
-#include <Il2CppModLoader/app/types/CastInstruction_CastInstructionNoT_Value.h>
-#include <Il2CppModLoader/app/types/CastReferenceToEnumInstruction.h>
-#include <Il2CppModLoader/app/types/CastToEnumInstruction.h>
-#include <Il2CppModLoader/app/types/Color.h>
-#include <Il2CppModLoader/app/types/Component_1.h>
-#include <Il2CppModLoader/app/types/CreateDelegateInstruction.h>
-#include <Il2CppModLoader/app/types/DelegateHelpers_TypeInfo.h>
-#include <Il2CppModLoader/app/types/DelegateHelpers_c.h>
-#include <Il2CppModLoader/app/types/DupInstruction.h>
-#include <Il2CppModLoader/app/types/DynamicMetaObject.h>
-#include <Il2CppModLoader/app/types/DynamicMetaObject__Array.h>
-#include <Il2CppModLoader/app/types/ExpandoClass.h>
-#include <Il2CppModLoader/app/types/ExpandoObject.h>
-#include <Il2CppModLoader/app/types/ExpandoObject_ExpandoData.h>
-#include <Il2CppModLoader/app/types/ExpandoObject_GetExpandoEnumerator_d_51.h>
-#include <Il2CppModLoader/app/types/ExpandoObject_KeyCollection.h>
-#include <Il2CppModLoader/app/types/ExpandoObject_KeyCollection_GetEnumerator_d_15.h>
-#include <Il2CppModLoader/app/types/ExpandoObject_MetaExpando.h>
-#include <Il2CppModLoader/app/types/ExpandoObject_MetaExpando_GetDynamicMemberNames_d_6.h>
-#include <Il2CppModLoader/app/types/ExpandoObject_ValueCollection.h>
-#include <Il2CppModLoader/app/types/ExpandoObject_ValueCollection_GetEnumerator_d_15.h>
-#include <Il2CppModLoader/app/types/GameObject.h>
-#include <Il2CppModLoader/app/types/GetMemberBinder.h>
-#include <Il2CppModLoader/app/types/Keyframe.h>
-#include <Il2CppModLoader/app/types/Keyframe__Array.h>
-#include <Il2CppModLoader/app/types/ListArgumentProvider.h>
-#include <Il2CppModLoader/app/types/ListParameterProvider.h>
-#include <Il2CppModLoader/app/types/LoadCachedObjectInstruction.h>
-#include <Il2CppModLoader/app/types/LoadObjectInstruction.h>
-#include <Il2CppModLoader/app/types/LogType__Enum.h>
-#include <Il2CppModLoader/app/types/Matrix4x4.h>
-#include <Il2CppModLoader/app/types/NoThrowGetBinderMember.h>
-#include <Il2CppModLoader/app/types/NoThrowSetBinderMember.h>
-#include <Il2CppModLoader/app/types/NullableMethodCallInstruction.h>
-#include <Il2CppModLoader/app/types/NullableMethodCallInstruction_EqualsClass.h>
-#include <Il2CppModLoader/app/types/NullableMethodCallInstruction_GetHashCodeClass.h>
-#include <Il2CppModLoader/app/types/NullableMethodCallInstruction_GetValue.h>
-#include <Il2CppModLoader/app/types/NullableMethodCallInstruction_GetValueOrDefault.h>
-#include <Il2CppModLoader/app/types/NullableMethodCallInstruction_GetValueOrDefault1.h>
-#include <Il2CppModLoader/app/types/NullableMethodCallInstruction_HasValue.h>
-#include <Il2CppModLoader/app/types/NullableMethodCallInstruction_ToStringClass.h>
-#include <Il2CppModLoader/app/types/Object_1.h>
-#include <Il2CppModLoader/app/types/PopInstruction.h>
-#include <Il2CppModLoader/app/types/QuoteInstruction.h>
-#include <Il2CppModLoader/app/types/QuoteInstruction_ExpressionQuoter.h>
-#include <Il2CppModLoader/app/types/Ray.h>
-#include <Il2CppModLoader/app/types/Rect.h>
-#include <Il2CppModLoader/app/types/RenderBuffer__Array.h>
-#include <Il2CppModLoader/app/types/RenderTexture.h>
+#include <Il2CppModLoader/windows_api/memory.h>
+#include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/app/types/ModuloInstruction_ModuloInt32.h>
+#include <Il2CppModLoader/app/types/ModuloInstruction_ModuloInt64.h>
+#include <Il2CppModLoader/app/types/ModuloInstruction_ModuloUInt16.h>
+#include <Il2CppModLoader/app/types/ModuloInstruction_ModuloUInt32.h>
+#include <Il2CppModLoader/app/types/ModuloInstruction_ModuloUInt64.h>
+#include <Il2CppModLoader/app/types/ModuloInstruction_ModuloSingle.h>
+#include <Il2CppModLoader/app/types/ModuloInstruction_ModuloDouble.h>
+#include <Il2CppModLoader/app/types/MulInstruction.h>
+#include <Il2CppModLoader/app/types/MulInstruction_MulInt16.h>
+#include <Il2CppModLoader/app/types/MulInstruction_MulInt32.h>
+#include <Il2CppModLoader/app/types/MulInstruction_MulInt64.h>
+#include <Il2CppModLoader/app/types/MulInstruction_MulUInt16.h>
+#include <Il2CppModLoader/app/types/MulInstruction_MulUInt32.h>
+#include <Il2CppModLoader/app/types/MulInstruction_MulUInt64.h>
+#include <Il2CppModLoader/app/types/MulInstruction_MulSingle.h>
+#include <Il2CppModLoader/app/types/MulInstruction_MulDouble.h>
+#include <Il2CppModLoader/app/types/MulOvfInstruction.h>
+#include <Il2CppModLoader/app/types/MulOvfInstruction_MulOvfInt16.h>
+#include <Il2CppModLoader/app/types/MulOvfInstruction_MulOvfInt32.h>
+#include <Il2CppModLoader/app/types/MulOvfInstruction_MulOvfInt64.h>
+#include <Il2CppModLoader/app/types/MulOvfInstruction_MulOvfUInt16.h>
+#include <Il2CppModLoader/app/types/MulOvfInstruction_MulOvfUInt32.h>
+#include <Il2CppModLoader/app/types/MulOvfInstruction_MulOvfUInt64.h>
+#include <Il2CppModLoader/app/types/NegateInstruction.h>
+#include <Il2CppModLoader/app/types/NegateInstruction_NegateInt16.h>
+#include <Il2CppModLoader/app/types/NegateInstruction_NegateInt32.h>
+#include <Il2CppModLoader/app/types/NegateInstruction_NegateInt64.h>
+#include <Il2CppModLoader/app/types/NegateInstruction_NegateSingle.h>
+#include <Il2CppModLoader/app/types/NegateInstruction_NegateDouble.h>
+#include <Il2CppModLoader/app/types/NegateCheckedInstruction.h>
+#include <Il2CppModLoader/app/types/NegateCheckedInstruction_NegateCheckedInt32.h>
+#include <Il2CppModLoader/app/types/NegateCheckedInstruction_NegateCheckedInt16.h>
+#include <Il2CppModLoader/app/types/NegateCheckedInstruction_NegateCheckedInt64.h>
+#include <Il2CppModLoader/app/types/NewInstruction.h>
+#include <Il2CppModLoader/app/types/ByRefNewInstruction.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualBoolean.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualSByte.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualInt16.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualChar.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualInt32.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualInt64.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualByte.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualUInt16.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualUInt32.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualUInt64.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualSingle.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualDouble.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualReference.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualSByteLiftedToNull.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualInt16LiftedToNull.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualCharLiftedToNull.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualInt32LiftedToNull.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualInt64LiftedToNull.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualByteLiftedToNull.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualUInt16LiftedToNull.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualUInt32LiftedToNull.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualUInt64LiftedToNull.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualSingleLiftedToNull.h>
+#include <Il2CppModLoader/app/types/NotEqualInstruction_NotEqualDoubleLiftedToNull.h>
+#include <Il2CppModLoader/app/types/NotInstruction.h>
+#include <Il2CppModLoader/app/types/NotInstruction_NotBoolean.h>
+#include <Il2CppModLoader/app/types/NotInstruction_NotInt64.h>
+#include <Il2CppModLoader/app/types/NotInstruction_NotInt32.h>
+#include <Il2CppModLoader/app/types/NotInstruction_NotInt16.h>
+#include <Il2CppModLoader/app/types/NotInstruction_NotUInt64.h>
+#include <Il2CppModLoader/app/types/NotInstruction_NotUInt32.h>
+#include <Il2CppModLoader/app/types/NotInstruction_NotUInt16.h>
+#include <Il2CppModLoader/app/types/NotInstruction_NotByte.h>
+#include <Il2CppModLoader/app/types/NotInstruction_NotSByte.h>
+#include <Il2CppModLoader/app/types/NullCheckInstruction.h>
+#include <Il2CppModLoader/app/types/NumericConvertInstruction_Unchecked.h>
+#include <Il2CppModLoader/app/types/NumericConvertInstruction_Checked.h>
+#include <Il2CppModLoader/app/types/NumericConvertInstruction_ToUnderlying.h>
+#include <Il2CppModLoader/app/types/OrInstruction.h>
+#include <Il2CppModLoader/app/types/OrInstruction_OrSByte.h>
+#include <Il2CppModLoader/app/types/OrInstruction_OrInt16.h>
+#include <Il2CppModLoader/app/types/OrInstruction_OrInt32.h>
+#include <Il2CppModLoader/app/types/OrInstruction_OrInt64.h>
+#include <Il2CppModLoader/app/types/OrInstruction_OrByte.h>
+#include <Il2CppModLoader/app/types/OrInstruction_OrUInt16.h>
+#include <Il2CppModLoader/app/types/OrInstruction_OrUInt32.h>
+#include <Il2CppModLoader/app/types/OrInstruction_OrUInt64.h>
+#include <Il2CppModLoader/app/types/OrInstruction_OrBoolean.h>
+#include <Il2CppModLoader/app/types/RightShiftInstruction.h>
+#include <Il2CppModLoader/app/types/RightShiftInstruction_RightShiftSByte.h>
+#include <Il2CppModLoader/app/types/RightShiftInstruction_RightShiftInt16.h>
+#include <Il2CppModLoader/app/types/RightShiftInstruction_RightShiftInt32.h>
+#include <Il2CppModLoader/app/types/RightShiftInstruction_RightShiftInt64.h>
+#include <Il2CppModLoader/app/types/RightShiftInstruction_RightShiftByte.h>
+#include <Il2CppModLoader/app/types/RightShiftInstruction_RightShiftUInt16.h>
 #include <Il2CppModLoader/app/types/RightShiftInstruction_RightShiftUInt32.h>
 #include <Il2CppModLoader/app/types/RightShiftInstruction_RightShiftUInt64.h>
-#include <Il2CppModLoader/app/types/RuntimeOps_MergedRuntimeVariables.h>
-#include <Il2CppModLoader/app/types/RuntimeOps_RuntimeVariables.h>
-#include <Il2CppModLoader/app/types/RuntimePlatform__Enum.h>
 #include <Il2CppModLoader/app/types/RuntimeVariables.h>
-#include <Il2CppModLoader/app/types/SetMemberBinder.h>
+#include <Il2CppModLoader/app/types/LoadObjectInstruction.h>
+#include <Il2CppModLoader/app/types/LoadCachedObjectInstruction.h>
+#include <Il2CppModLoader/app/types/PopInstruction.h>
+#include <Il2CppModLoader/app/types/DupInstruction.h>
 #include <Il2CppModLoader/app/types/SubInstruction.h>
-#include <Il2CppModLoader/app/types/SubInstruction_SubDouble.h>
 #include <Il2CppModLoader/app/types/SubInstruction_SubInt16.h>
-#include <Il2CppModLoader/app/types/SubInstruction_SubInt32.h>
-#include <Il2CppModLoader/app/types/SubInstruction_SubInt64.h>
-#include <Il2CppModLoader/app/types/SubInstruction_SubSingle.h>
-#include <Il2CppModLoader/app/types/SubInstruction_SubUInt16.h>
-#include <Il2CppModLoader/app/types/SubInstruction_SubUInt32.h>
-#include <Il2CppModLoader/app/types/SubInstruction_SubUInt64.h>
-#include <Il2CppModLoader/app/types/SubOvfInstruction.h>
-#include <Il2CppModLoader/app/types/SubOvfInstruction_SubOvfInt16.h>
-#include <Il2CppModLoader/app/types/SubOvfInstruction_SubOvfInt32.h>
-#include <Il2CppModLoader/app/types/SubOvfInstruction_SubOvfInt64.h>
-#include <Il2CppModLoader/app/types/SubOvfInstruction_SubOvfUInt16.h>
-#include <Il2CppModLoader/app/types/SubOvfInstruction_SubOvfUInt32.h>
-#include <Il2CppModLoader/app/types/SubOvfInstruction_SubOvfUInt64.h>
-#include <Il2CppModLoader/app/types/SystemLanguage__Enum.h>
-#include <Il2CppModLoader/app/types/Texture.h>
-#include <Il2CppModLoader/app/types/ThreadPriority__Enum_1.h>
-#include <Il2CppModLoader/app/types/Transform.h>
-#include <Il2CppModLoader/app/types/TypeAsInstruction.h>
-#include <Il2CppModLoader/app/types/TypeEqualsInstruction.h>
-#include <Il2CppModLoader/app/types/TypeIsInstruction.h>
-#include <Il2CppModLoader/app/types/Vector2.h>
-#include <Il2CppModLoader/app/types/Vector3.h>
-#include <Il2CppModLoader/app/types/Vector3__Array.h>
-#include <Il2CppModLoader/app/types/Vector4.h>
-#include <Il2CppModLoader/macros.h>
-#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
-    namespace RightShiftInstruction_RightShiftUInt32 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RightShiftInstruction_RightShiftUInt32__Class** type_info = (::app::RightShiftInstruction_RightShiftUInt32__Class**)(modloader::win::memory::resolve_rva(0x047018C0));
-    }
-    namespace RightShiftInstruction_RightShiftUInt64 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RightShiftInstruction_RightShiftUInt64__Class** type_info = (::app::RightShiftInstruction_RightShiftUInt64__Class**)(modloader::win::memory::resolve_rva(0x04707150));
-    }
-    namespace RuntimeVariables {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RuntimeVariables__Class** type_info = (::app::RuntimeVariables__Class**)(modloader::win::memory::resolve_rva(0x0474F1F8));
-    }
-    namespace LoadObjectInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LoadObjectInstruction__Class** type_info = (::app::LoadObjectInstruction__Class**)(modloader::win::memory::resolve_rva(0x04722720));
-    }
-    namespace LoadCachedObjectInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LoadCachedObjectInstruction__Class** type_info = (::app::LoadCachedObjectInstruction__Class**)(modloader::win::memory::resolve_rva(0x04738020));
-    }
-    namespace PopInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PopInstruction__Class** type_info = (::app::PopInstruction__Class**)(modloader::win::memory::resolve_rva(0x04709228));
-    }
-    namespace DupInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DupInstruction__Class** type_info = (::app::DupInstruction__Class**)(modloader::win::memory::resolve_rva(0x047652D0));
-    }
-    namespace SubInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubInstruction__Class** type_info = (::app::SubInstruction__Class**)(modloader::win::memory::resolve_rva(0x047090A0));
-    }
-    namespace SubInstruction_SubInt16 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubInstruction_SubInt16__Class** type_info = (::app::SubInstruction_SubInt16__Class**)(modloader::win::memory::resolve_rva(0x04719718));
-    }
-    namespace SubInstruction_SubInt32 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubInstruction_SubInt32__Class** type_info = (::app::SubInstruction_SubInt32__Class**)(modloader::win::memory::resolve_rva(0x04758DE8));
-    }
-    namespace SubInstruction_SubInt64 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubInstruction_SubInt64__Class** type_info = (::app::SubInstruction_SubInt64__Class**)(modloader::win::memory::resolve_rva(0x04744FF0));
-    }
-    namespace SubInstruction_SubUInt16 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubInstruction_SubUInt16__Class** type_info = (::app::SubInstruction_SubUInt16__Class**)(modloader::win::memory::resolve_rva(0x047101C8));
-    }
-    namespace SubInstruction_SubUInt32 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubInstruction_SubUInt32__Class** type_info = (::app::SubInstruction_SubUInt32__Class**)(modloader::win::memory::resolve_rva(0x04739AC0));
-    }
-    namespace SubInstruction_SubUInt64 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubInstruction_SubUInt64__Class** type_info = (::app::SubInstruction_SubUInt64__Class**)(modloader::win::memory::resolve_rva(0x0472F848));
-    }
-    namespace SubInstruction_SubSingle {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubInstruction_SubSingle__Class** type_info = (::app::SubInstruction_SubSingle__Class**)(modloader::win::memory::resolve_rva(0x0475C600));
-    }
-    namespace SubInstruction_SubDouble {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubInstruction_SubDouble__Class** type_info = (::app::SubInstruction_SubDouble__Class**)(modloader::win::memory::resolve_rva(0x0476D858));
-    }
-    namespace SubOvfInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubOvfInstruction__Class** type_info = (::app::SubOvfInstruction__Class**)(modloader::win::memory::resolve_rva(0x047776F8));
-    }
-    namespace SubOvfInstruction_SubOvfInt16 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubOvfInstruction_SubOvfInt16__Class** type_info = (::app::SubOvfInstruction_SubOvfInt16__Class**)(modloader::win::memory::resolve_rva(0x047127D8));
-    }
-    namespace SubOvfInstruction_SubOvfInt32 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubOvfInstruction_SubOvfInt32__Class** type_info = (::app::SubOvfInstruction_SubOvfInt32__Class**)(modloader::win::memory::resolve_rva(0x04729870));
-    }
-    namespace SubOvfInstruction_SubOvfInt64 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubOvfInstruction_SubOvfInt64__Class** type_info = (::app::SubOvfInstruction_SubOvfInt64__Class**)(modloader::win::memory::resolve_rva(0x04706410));
-    }
-    namespace SubOvfInstruction_SubOvfUInt16 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubOvfInstruction_SubOvfUInt16__Class** type_info = (::app::SubOvfInstruction_SubOvfUInt16__Class**)(modloader::win::memory::resolve_rva(0x0475F8D0));
-    }
-    namespace SubOvfInstruction_SubOvfUInt32 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubOvfInstruction_SubOvfUInt32__Class** type_info = (::app::SubOvfInstruction_SubOvfUInt32__Class**)(modloader::win::memory::resolve_rva(0x0478D6E0));
-    }
-    namespace SubOvfInstruction_SubOvfUInt64 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubOvfInstruction_SubOvfUInt64__Class** type_info = (::app::SubOvfInstruction_SubOvfUInt64__Class**)(modloader::win::memory::resolve_rva(0x0477CED8));
-    }
-    namespace CreateDelegateInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateDelegateInstruction__Class** type_info = (::app::CreateDelegateInstruction__Class**)(modloader::win::memory::resolve_rva(0x04768940));
-    }
-    namespace TypeIsInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::TypeIsInstruction__Class** type_info = (::app::TypeIsInstruction__Class**)(modloader::win::memory::resolve_rva(0x04770DF0));
-    }
-    namespace TypeAsInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::TypeAsInstruction__Class** type_info = (::app::TypeAsInstruction__Class**)(modloader::win::memory::resolve_rva(0x04740C88));
-    }
-    namespace TypeEqualsInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::TypeEqualsInstruction__Class** type_info = (::app::TypeEqualsInstruction__Class**)(modloader::win::memory::resolve_rva(0x0472EE98));
-    }
-    namespace NullableMethodCallInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NullableMethodCallInstruction__Class** type_info = (::app::NullableMethodCallInstruction__Class**)(modloader::win::memory::resolve_rva(0x0472FC98));
-    }
-    namespace NullableMethodCallInstruction_HasValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NullableMethodCallInstruction_HasValue__Class** type_info = (::app::NullableMethodCallInstruction_HasValue__Class**)(modloader::win::memory::resolve_rva(0x0470E5B0));
-    }
-    namespace NullableMethodCallInstruction_GetValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NullableMethodCallInstruction_GetValue__Class** type_info = (::app::NullableMethodCallInstruction_GetValue__Class**)(modloader::win::memory::resolve_rva(0x04731A18));
-    }
-    namespace NullableMethodCallInstruction_GetValueOrDefault {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NullableMethodCallInstruction_GetValueOrDefault__Class** type_info = (::app::NullableMethodCallInstruction_GetValueOrDefault__Class**)(modloader::win::memory::resolve_rva(0x047129C8));
-    }
-    namespace NullableMethodCallInstruction_GetValueOrDefault1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NullableMethodCallInstruction_GetValueOrDefault1__Class** type_info = (::app::NullableMethodCallInstruction_GetValueOrDefault1__Class**)(modloader::win::memory::resolve_rva(0x04787F08));
-    }
-    namespace NullableMethodCallInstruction_EqualsClass {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NullableMethodCallInstruction_EqualsClass__Class** type_info = (::app::NullableMethodCallInstruction_EqualsClass__Class**)(modloader::win::memory::resolve_rva(0x0475ECE0));
-    }
-    namespace NullableMethodCallInstruction_ToStringClass {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NullableMethodCallInstruction_ToStringClass__Class** type_info = (::app::NullableMethodCallInstruction_ToStringClass__Class**)(modloader::win::memory::resolve_rva(0x04793318));
-    }
-    namespace NullableMethodCallInstruction_GetHashCodeClass {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NullableMethodCallInstruction_GetHashCodeClass__Class** type_info = (::app::NullableMethodCallInstruction_GetHashCodeClass__Class**)(modloader::win::memory::resolve_rva(0x0472CE18));
-    }
-    namespace CastInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CastInstruction__Class** type_info = (::app::CastInstruction__Class**)(modloader::win::memory::resolve_rva(0x047561F8));
-    }
-    namespace CastInstruction_CastInstructionNoT_Ref {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CastInstruction_CastInstructionNoT_Ref__Class** type_info = (::app::CastInstruction_CastInstructionNoT_Ref__Class**)(modloader::win::memory::resolve_rva(0x04713210));
-    }
-    namespace CastInstruction_CastInstructionNoT_Value {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CastInstruction_CastInstructionNoT_Value__Class** type_info = (::app::CastInstruction_CastInstructionNoT_Value__Class**)(modloader::win::memory::resolve_rva(0x04744C70));
-    }
-    namespace CastToEnumInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CastToEnumInstruction__Class** type_info = (::app::CastToEnumInstruction__Class**)(modloader::win::memory::resolve_rva(0x04784540));
-    }
-    namespace CastReferenceToEnumInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CastReferenceToEnumInstruction__Class** type_info = (::app::CastReferenceToEnumInstruction__Class**)(modloader::win::memory::resolve_rva(0x0478EB20));
-    }
-    namespace QuoteInstruction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::QuoteInstruction__Class** type_info = (::app::QuoteInstruction__Class**)(modloader::win::memory::resolve_rva(0x04749FF0));
-    }
-    namespace QuoteInstruction_ExpressionQuoter {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::QuoteInstruction_ExpressionQuoter__Class** type_info = (::app::QuoteInstruction_ExpressionQuoter__Class**)(modloader::win::memory::resolve_rva(0x04741180));
-    }
-    namespace DelegateHelpers_c {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DelegateHelpers_c__Class** type_info = (::app::DelegateHelpers_c__Class**)(modloader::win::memory::resolve_rva(0x0476EED0));
-    }
-    namespace DelegateHelpers_TypeInfo {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DelegateHelpers_TypeInfo__Class** type_info = (::app::DelegateHelpers_TypeInfo__Class**)(modloader::win::memory::resolve_rva(0x0472B958));
-    }
-    namespace ExpandoObject {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ExpandoObject__Class** type_info = (::app::ExpandoObject__Class**)(modloader::win::memory::resolve_rva(0x0473BA70));
-    }
-    namespace ExpandoObject_ExpandoData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ExpandoObject_ExpandoData__Class** type_info = (::app::ExpandoObject_ExpandoData__Class**)(modloader::win::memory::resolve_rva(0x0471E138));
-    }
-    namespace ExpandoClass {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ExpandoClass__Class** type_info = (::app::ExpandoClass__Class**)(modloader::win::memory::resolve_rva(0x0477A2E0));
-    }
-    namespace DynamicMetaObject {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicMetaObject__Class** type_info = (::app::DynamicMetaObject__Class**)(modloader::win::memory::resolve_rva(0x04760D10));
-    }
-    namespace DynamicMetaObject__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicMetaObject__Array__Class** type_info = (::app::DynamicMetaObject__Array__Class**)(modloader::win::memory::resolve_rva(0x047553A0));
-    }
-    namespace BindingRestrictions {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BindingRestrictions__Class** type_info = (::app::BindingRestrictions__Class**)(modloader::win::memory::resolve_rva(0x04755790));
-    }
-    namespace BindingRestrictions_MergedRestriction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BindingRestrictions_MergedRestriction__Class** type_info = (::app::BindingRestrictions_MergedRestriction__Class**)(modloader::win::memory::resolve_rva(0x0476A228));
-    }
-    namespace CallSiteBinder {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CallSiteBinder__Class** type_info = (::app::CallSiteBinder__Class**)(modloader::win::memory::resolve_rva(0x0471AB58));
-    }
-    namespace GetMemberBinder {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetMemberBinder__Class** type_info = (::app::GetMemberBinder__Class**)(modloader::win::memory::resolve_rva(0x047356A8));
-    }
-    namespace NoThrowGetBinderMember {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NoThrowGetBinderMember__Class** type_info = (::app::NoThrowGetBinderMember__Class**)(modloader::win::memory::resolve_rva(0x0471CD50));
-    }
-    namespace SetMemberBinder {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SetMemberBinder__Class** type_info = (::app::SetMemberBinder__Class**)(modloader::win::memory::resolve_rva(0x04719358));
-    }
-    namespace NoThrowSetBinderMember {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NoThrowSetBinderMember__Class** type_info = (::app::NoThrowSetBinderMember__Class**)(modloader::win::memory::resolve_rva(0x0470D120));
-    }
-    namespace RuntimeOps_MergedRuntimeVariables {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RuntimeOps_MergedRuntimeVariables__Class** type_info = (::app::RuntimeOps_MergedRuntimeVariables__Class**)(modloader::win::memory::resolve_rva(0x04715990));
-    }
-    namespace RuntimeOps_RuntimeVariables {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RuntimeOps_RuntimeVariables__Class** type_info = (::app::RuntimeOps_RuntimeVariables__Class**)(modloader::win::memory::resolve_rva(0x04701718));
-    }
-    namespace BindingRestrictions_TestBuilder {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BindingRestrictions_TestBuilder__Class** type_info = (::app::BindingRestrictions_TestBuilder__Class**)(modloader::win::memory::resolve_rva(0x04762368));
-    }
-    namespace BindingRestrictions_CustomRestriction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BindingRestrictions_CustomRestriction__Class** type_info = (::app::BindingRestrictions_CustomRestriction__Class**)(modloader::win::memory::resolve_rva(0x04751148));
-    }
-    namespace BindingRestrictions_TypeRestriction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BindingRestrictions_TypeRestriction__Class** type_info = (::app::BindingRestrictions_TypeRestriction__Class**)(modloader::win::memory::resolve_rva(0x04789188));
-    }
-    namespace BindingRestrictions_InstanceRestriction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BindingRestrictions_InstanceRestriction__Class** type_info = (::app::BindingRestrictions_InstanceRestriction__Class**)(modloader::win::memory::resolve_rva(0x047461F8));
-    }
-    namespace ExpandoObject_KeyCollection {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ExpandoObject_KeyCollection__Class** type_info = (::app::ExpandoObject_KeyCollection__Class**)(modloader::win::memory::resolve_rva(0x0476FFB0));
-    }
-    namespace ExpandoObject_KeyCollection_GetEnumerator_d_15 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ExpandoObject_KeyCollection_GetEnumerator_d_15__Class** type_info = (::app::ExpandoObject_KeyCollection_GetEnumerator_d_15__Class**)(modloader::win::memory::resolve_rva(0x0473B988));
-    }
-    namespace ExpandoObject_ValueCollection {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ExpandoObject_ValueCollection__Class** type_info = (::app::ExpandoObject_ValueCollection__Class**)(modloader::win::memory::resolve_rva(0x047541E8));
-    }
-    namespace ExpandoObject_ValueCollection_GetEnumerator_d_15 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ExpandoObject_ValueCollection_GetEnumerator_d_15__Class** type_info = (::app::ExpandoObject_ValueCollection_GetEnumerator_d_15__Class**)(modloader::win::memory::resolve_rva(0x047799B0));
-    }
-    namespace ExpandoObject_MetaExpando {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ExpandoObject_MetaExpando__Class** type_info = (::app::ExpandoObject_MetaExpando__Class**)(modloader::win::memory::resolve_rva(0x04706A38));
-    }
-    namespace ExpandoObject_MetaExpando_GetDynamicMemberNames_d_6 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ExpandoObject_MetaExpando_GetDynamicMemberNames_d_6__Class** type_info = (::app::ExpandoObject_MetaExpando_GetDynamicMemberNames_d_6__Class**)(modloader::win::memory::resolve_rva(0x04795818));
-    }
-    namespace ExpandoObject_GetExpandoEnumerator_d_51 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ExpandoObject_GetExpandoEnumerator_d_51__Class** type_info = (::app::ExpandoObject_GetExpandoEnumerator_d_51__Class**)(modloader::win::memory::resolve_rva(0x04728E20));
-    }
-    namespace ListArgumentProvider {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListArgumentProvider__Class** type_info = (::app::ListArgumentProvider__Class**)(modloader::win::memory::resolve_rva(0x04702408));
-    }
-    namespace ListParameterProvider {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListParameterProvider__Class** type_info = (::app::ListParameterProvider__Class**)(modloader::win::memory::resolve_rva(0x0470D590));
-    }
-    namespace Keyframe {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Keyframe__Class** type_info = (::app::Keyframe__Class**)(modloader::win::memory::resolve_rva(0x0477E4B0));
-    }
-    namespace AnimationCurve {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AnimationCurve__Class** type_info = (::app::AnimationCurve__Class**)(modloader::win::memory::resolve_rva(0x047065A8));
-    }
-    namespace Keyframe__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Keyframe__Array__Class** type_info = (::app::Keyframe__Array__Class**)(modloader::win::memory::resolve_rva(0x0473C8E8));
-    }
-    namespace Application_NvnBufferUsage__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Application_NvnBufferUsage__Enum__Class** type_info = (::app::Application_NvnBufferUsage__Enum__Class**)(modloader::win::memory::resolve_rva(0x047070E8));
-    }
-    namespace RuntimePlatform__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RuntimePlatform__Enum__Class** type_info = (::app::RuntimePlatform__Enum__Class**)(modloader::win::memory::resolve_rva(0x04735F10));
-    }
-    namespace SystemLanguage__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SystemLanguage__Enum__Class** type_info = (::app::SystemLanguage__Enum__Class**)(modloader::win::memory::resolve_rva(0x0477CE88));
-    }
-    namespace ThreadPriority__Enum_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ThreadPriority__Enum_1__Class** type_info = (::app::ThreadPriority__Enum_1__Class**)(modloader::win::memory::resolve_rva(0x04748450));
-    }
-    namespace Application_LogCallback {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Application_LogCallback__Class** type_info = (::app::Application_LogCallback__Class**)(modloader::win::memory::resolve_rva(0x047985C0));
-    }
-    namespace LogType__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LogType__Enum__Class** type_info = (::app::LogType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04702988));
-    }
-    namespace AsyncGPUReadbackRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AsyncGPUReadbackRequest__Class** type_info = (::app::AsyncGPUReadbackRequest__Class**)(modloader::win::memory::resolve_rva(0x04735A08));
-    }
-    namespace Object_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Object_1__Class** type_info = (::app::Object_1__Class**)(modloader::win::memory::resolve_rva(0x047766B8));
-    }
-    namespace Texture {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Texture__Class** type_info = (::app::Texture__Class**)(modloader::win::memory::resolve_rva(0x0477E450));
-    }
-    namespace Component_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Component_1__Class** type_info = (::app::Component_1__Class**)(modloader::win::memory::resolve_rva(0x04776B98));
-    }
-    namespace Behaviour {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Behaviour__Class** type_info = (::app::Behaviour__Class**)(modloader::win::memory::resolve_rva(0x0470C6F0));
-    }
-    namespace Transform {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Transform__Class** type_info = (::app::Transform__Class**)(modloader::win::memory::resolve_rva(0x04788B20));
-    }
-    namespace GameObject {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GameObject__Class** type_info = (::app::GameObject__Class**)(modloader::win::memory::resolve_rva(0x0472EF88));
-    }
-    namespace BootConfigData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BootConfigData__Class** type_info = (::app::BootConfigData__Class**)(modloader::win::memory::resolve_rva(0x04746358));
-    }
-    namespace Vector3 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Vector3__Class** type_info = (::app::Vector3__Class**)(modloader::win::memory::resolve_rva(0x04774AC8));
-    }
-    namespace Bounds {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Bounds__Class** type_info = (::app::Bounds__Class**)(modloader::win::memory::resolve_rva(0x047893A0));
-    }
-    namespace Ray {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Ray__Class** type_info = (::app::Ray__Class**)(modloader::win::memory::resolve_rva(0x04796040));
-    }
-    namespace Camera {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Camera__Class** type_info = (::app::Camera__Class**)(modloader::win::memory::resolve_rva(0x047639B8));
-    }
-    namespace Matrix4x4 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Matrix4x4__Class** type_info = (::app::Matrix4x4__Class**)(modloader::win::memory::resolve_rva(0x0470EE60));
-    }
-    namespace Color {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Color__Class** type_info = (::app::Color__Class**)(modloader::win::memory::resolve_rva(0x0473C110));
-    }
-    namespace Vector2 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Vector2__Class** type_info = (::app::Vector2__Class**)(modloader::win::memory::resolve_rva(0x04736248));
-    }
-    namespace Rect {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Rect__Class** type_info = (::app::Rect__Class**)(modloader::win::memory::resolve_rva(0x0475B480));
-    }
-    namespace RenderTexture {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RenderTexture__Class** type_info = (::app::RenderTexture__Class**)(modloader::win::memory::resolve_rva(0x047058F8));
-    }
-    namespace RenderBuffer__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RenderBuffer__Array__Class** type_info = (::app::RenderBuffer__Array__Class**)(modloader::win::memory::resolve_rva(0x04729C28));
-    }
-    namespace Vector4 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Vector4__Class** type_info = (::app::Vector4__Class**)(modloader::win::memory::resolve_rva(0x0473B200));
-    }
-    namespace Vector3__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Vector3__Array__Class** type_info = (::app::Vector3__Array__Class**)(modloader::win::memory::resolve_rva(0x04759DE8));
-    }
-} // namespace app::classes::types
+    namespace ModuloInstruction_ModuloInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::ModuloInstruction_ModuloInt32__Class** type_info = (::app::ModuloInstruction_ModuloInt32__Class**)(modloader::win::memory::resolve_rva(0x0471A228)); }
+    namespace ModuloInstruction_ModuloInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::ModuloInstruction_ModuloInt64__Class** type_info = (::app::ModuloInstruction_ModuloInt64__Class**)(modloader::win::memory::resolve_rva(0x0473E4F8)); }
+    namespace ModuloInstruction_ModuloUInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::ModuloInstruction_ModuloUInt16__Class** type_info = (::app::ModuloInstruction_ModuloUInt16__Class**)(modloader::win::memory::resolve_rva(0x047647C0)); }
+    namespace ModuloInstruction_ModuloUInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::ModuloInstruction_ModuloUInt32__Class** type_info = (::app::ModuloInstruction_ModuloUInt32__Class**)(modloader::win::memory::resolve_rva(0x04741038)); }
+    namespace ModuloInstruction_ModuloUInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::ModuloInstruction_ModuloUInt64__Class** type_info = (::app::ModuloInstruction_ModuloUInt64__Class**)(modloader::win::memory::resolve_rva(0x04746650)); }
+    namespace ModuloInstruction_ModuloSingle { IL2CPP_MODLOADER_DLLEXPORT ::app::ModuloInstruction_ModuloSingle__Class** type_info = (::app::ModuloInstruction_ModuloSingle__Class**)(modloader::win::memory::resolve_rva(0x0471CD20)); }
+    namespace ModuloInstruction_ModuloDouble { IL2CPP_MODLOADER_DLLEXPORT ::app::ModuloInstruction_ModuloDouble__Class** type_info = (::app::ModuloInstruction_ModuloDouble__Class**)(modloader::win::memory::resolve_rva(0x04715AA8)); }
+    namespace MulInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::MulInstruction__Class** type_info = (::app::MulInstruction__Class**)(modloader::win::memory::resolve_rva(0x04756578)); }
+    namespace MulInstruction_MulInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::MulInstruction_MulInt16__Class** type_info = (::app::MulInstruction_MulInt16__Class**)(modloader::win::memory::resolve_rva(0x04709EB0)); }
+    namespace MulInstruction_MulInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::MulInstruction_MulInt32__Class** type_info = (::app::MulInstruction_MulInt32__Class**)(modloader::win::memory::resolve_rva(0x04715820)); }
+    namespace MulInstruction_MulInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::MulInstruction_MulInt64__Class** type_info = (::app::MulInstruction_MulInt64__Class**)(modloader::win::memory::resolve_rva(0x04719810)); }
+    namespace MulInstruction_MulUInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::MulInstruction_MulUInt16__Class** type_info = (::app::MulInstruction_MulUInt16__Class**)(modloader::win::memory::resolve_rva(0x0470AEB0)); }
+    namespace MulInstruction_MulUInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::MulInstruction_MulUInt32__Class** type_info = (::app::MulInstruction_MulUInt32__Class**)(modloader::win::memory::resolve_rva(0x04791308)); }
+    namespace MulInstruction_MulUInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::MulInstruction_MulUInt64__Class** type_info = (::app::MulInstruction_MulUInt64__Class**)(modloader::win::memory::resolve_rva(0x0474CC50)); }
+    namespace MulInstruction_MulSingle { IL2CPP_MODLOADER_DLLEXPORT ::app::MulInstruction_MulSingle__Class** type_info = (::app::MulInstruction_MulSingle__Class**)(modloader::win::memory::resolve_rva(0x0476C1C8)); }
+    namespace MulInstruction_MulDouble { IL2CPP_MODLOADER_DLLEXPORT ::app::MulInstruction_MulDouble__Class** type_info = (::app::MulInstruction_MulDouble__Class**)(modloader::win::memory::resolve_rva(0x047941D8)); }
+    namespace MulOvfInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::MulOvfInstruction__Class** type_info = (::app::MulOvfInstruction__Class**)(modloader::win::memory::resolve_rva(0x0470B670)); }
+    namespace MulOvfInstruction_MulOvfInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::MulOvfInstruction_MulOvfInt16__Class** type_info = (::app::MulOvfInstruction_MulOvfInt16__Class**)(modloader::win::memory::resolve_rva(0x0471D5E8)); }
+    namespace MulOvfInstruction_MulOvfInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::MulOvfInstruction_MulOvfInt32__Class** type_info = (::app::MulOvfInstruction_MulOvfInt32__Class**)(modloader::win::memory::resolve_rva(0x0478F3F0)); }
+    namespace MulOvfInstruction_MulOvfInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::MulOvfInstruction_MulOvfInt64__Class** type_info = (::app::MulOvfInstruction_MulOvfInt64__Class**)(modloader::win::memory::resolve_rva(0x047782D0)); }
+    namespace MulOvfInstruction_MulOvfUInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::MulOvfInstruction_MulOvfUInt16__Class** type_info = (::app::MulOvfInstruction_MulOvfUInt16__Class**)(modloader::win::memory::resolve_rva(0x04787878)); }
+    namespace MulOvfInstruction_MulOvfUInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::MulOvfInstruction_MulOvfUInt32__Class** type_info = (::app::MulOvfInstruction_MulOvfUInt32__Class**)(modloader::win::memory::resolve_rva(0x0475DDF0)); }
+    namespace MulOvfInstruction_MulOvfUInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::MulOvfInstruction_MulOvfUInt64__Class** type_info = (::app::MulOvfInstruction_MulOvfUInt64__Class**)(modloader::win::memory::resolve_rva(0x047760B0)); }
+    namespace NegateInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::NegateInstruction__Class** type_info = (::app::NegateInstruction__Class**)(modloader::win::memory::resolve_rva(0x04778010)); }
+    namespace NegateInstruction_NegateInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::NegateInstruction_NegateInt16__Class** type_info = (::app::NegateInstruction_NegateInt16__Class**)(modloader::win::memory::resolve_rva(0x04789F20)); }
+    namespace NegateInstruction_NegateInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::NegateInstruction_NegateInt32__Class** type_info = (::app::NegateInstruction_NegateInt32__Class**)(modloader::win::memory::resolve_rva(0x04763570)); }
+    namespace NegateInstruction_NegateInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::NegateInstruction_NegateInt64__Class** type_info = (::app::NegateInstruction_NegateInt64__Class**)(modloader::win::memory::resolve_rva(0x0477CA88)); }
+    namespace NegateInstruction_NegateSingle { IL2CPP_MODLOADER_DLLEXPORT ::app::NegateInstruction_NegateSingle__Class** type_info = (::app::NegateInstruction_NegateSingle__Class**)(modloader::win::memory::resolve_rva(0x047163D0)); }
+    namespace NegateInstruction_NegateDouble { IL2CPP_MODLOADER_DLLEXPORT ::app::NegateInstruction_NegateDouble__Class** type_info = (::app::NegateInstruction_NegateDouble__Class**)(modloader::win::memory::resolve_rva(0x0476C0C8)); }
+    namespace NegateCheckedInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::NegateCheckedInstruction__Class** type_info = (::app::NegateCheckedInstruction__Class**)(modloader::win::memory::resolve_rva(0x047993D0)); }
+    namespace NegateCheckedInstruction_NegateCheckedInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::NegateCheckedInstruction_NegateCheckedInt32__Class** type_info = (::app::NegateCheckedInstruction_NegateCheckedInt32__Class**)(modloader::win::memory::resolve_rva(0x047247D8)); }
+    namespace NegateCheckedInstruction_NegateCheckedInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::NegateCheckedInstruction_NegateCheckedInt16__Class** type_info = (::app::NegateCheckedInstruction_NegateCheckedInt16__Class**)(modloader::win::memory::resolve_rva(0x0470C310)); }
+    namespace NegateCheckedInstruction_NegateCheckedInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::NegateCheckedInstruction_NegateCheckedInt64__Class** type_info = (::app::NegateCheckedInstruction_NegateCheckedInt64__Class**)(modloader::win::memory::resolve_rva(0x04715B20)); }
+    namespace NewInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::NewInstruction__Class** type_info = (::app::NewInstruction__Class**)(modloader::win::memory::resolve_rva(0x0478FD78)); }
+    namespace ByRefNewInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::ByRefNewInstruction__Class** type_info = (::app::ByRefNewInstruction__Class**)(modloader::win::memory::resolve_rva(0x0474ED28)); }
+    namespace NotEqualInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction__Class** type_info = (::app::NotEqualInstruction__Class**)(modloader::win::memory::resolve_rva(0x04727E88)); }
+    namespace NotEqualInstruction_NotEqualBoolean { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualBoolean__Class** type_info = (::app::NotEqualInstruction_NotEqualBoolean__Class**)(modloader::win::memory::resolve_rva(0x04780840)); }
+    namespace NotEqualInstruction_NotEqualSByte { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualSByte__Class** type_info = (::app::NotEqualInstruction_NotEqualSByte__Class**)(modloader::win::memory::resolve_rva(0x04778A60)); }
+    namespace NotEqualInstruction_NotEqualInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualInt16__Class** type_info = (::app::NotEqualInstruction_NotEqualInt16__Class**)(modloader::win::memory::resolve_rva(0x0470DBE0)); }
+    namespace NotEqualInstruction_NotEqualChar { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualChar__Class** type_info = (::app::NotEqualInstruction_NotEqualChar__Class**)(modloader::win::memory::resolve_rva(0x0475AEE0)); }
+    namespace NotEqualInstruction_NotEqualInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualInt32__Class** type_info = (::app::NotEqualInstruction_NotEqualInt32__Class**)(modloader::win::memory::resolve_rva(0x0474D580)); }
+    namespace NotEqualInstruction_NotEqualInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualInt64__Class** type_info = (::app::NotEqualInstruction_NotEqualInt64__Class**)(modloader::win::memory::resolve_rva(0x0473DA40)); }
+    namespace NotEqualInstruction_NotEqualByte { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualByte__Class** type_info = (::app::NotEqualInstruction_NotEqualByte__Class**)(modloader::win::memory::resolve_rva(0x04725620)); }
+    namespace NotEqualInstruction_NotEqualUInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualUInt16__Class** type_info = (::app::NotEqualInstruction_NotEqualUInt16__Class**)(modloader::win::memory::resolve_rva(0x04715F88)); }
+    namespace NotEqualInstruction_NotEqualUInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualUInt32__Class** type_info = (::app::NotEqualInstruction_NotEqualUInt32__Class**)(modloader::win::memory::resolve_rva(0x04772E00)); }
+    namespace NotEqualInstruction_NotEqualUInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualUInt64__Class** type_info = (::app::NotEqualInstruction_NotEqualUInt64__Class**)(modloader::win::memory::resolve_rva(0x0475AB50)); }
+    namespace NotEqualInstruction_NotEqualSingle { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualSingle__Class** type_info = (::app::NotEqualInstruction_NotEqualSingle__Class**)(modloader::win::memory::resolve_rva(0x0478DFB0)); }
+    namespace NotEqualInstruction_NotEqualDouble { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualDouble__Class** type_info = (::app::NotEqualInstruction_NotEqualDouble__Class**)(modloader::win::memory::resolve_rva(0x04756D58)); }
+    namespace NotEqualInstruction_NotEqualReference { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualReference__Class** type_info = (::app::NotEqualInstruction_NotEqualReference__Class**)(modloader::win::memory::resolve_rva(0x0471B220)); }
+    namespace NotEqualInstruction_NotEqualSByteLiftedToNull { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualSByteLiftedToNull__Class** type_info = (::app::NotEqualInstruction_NotEqualSByteLiftedToNull__Class**)(modloader::win::memory::resolve_rva(0x04760660)); }
+    namespace NotEqualInstruction_NotEqualInt16LiftedToNull { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualInt16LiftedToNull__Class** type_info = (::app::NotEqualInstruction_NotEqualInt16LiftedToNull__Class**)(modloader::win::memory::resolve_rva(0x047369B0)); }
+    namespace NotEqualInstruction_NotEqualCharLiftedToNull { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualCharLiftedToNull__Class** type_info = (::app::NotEqualInstruction_NotEqualCharLiftedToNull__Class**)(modloader::win::memory::resolve_rva(0x047907E0)); }
+    namespace NotEqualInstruction_NotEqualInt32LiftedToNull { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualInt32LiftedToNull__Class** type_info = (::app::NotEqualInstruction_NotEqualInt32LiftedToNull__Class**)(modloader::win::memory::resolve_rva(0x04786080)); }
+    namespace NotEqualInstruction_NotEqualInt64LiftedToNull { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualInt64LiftedToNull__Class** type_info = (::app::NotEqualInstruction_NotEqualInt64LiftedToNull__Class**)(modloader::win::memory::resolve_rva(0x0471ACB0)); }
+    namespace NotEqualInstruction_NotEqualByteLiftedToNull { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualByteLiftedToNull__Class** type_info = (::app::NotEqualInstruction_NotEqualByteLiftedToNull__Class**)(modloader::win::memory::resolve_rva(0x04722CB0)); }
+    namespace NotEqualInstruction_NotEqualUInt16LiftedToNull { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualUInt16LiftedToNull__Class** type_info = (::app::NotEqualInstruction_NotEqualUInt16LiftedToNull__Class**)(modloader::win::memory::resolve_rva(0x04718F48)); }
+    namespace NotEqualInstruction_NotEqualUInt32LiftedToNull { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualUInt32LiftedToNull__Class** type_info = (::app::NotEqualInstruction_NotEqualUInt32LiftedToNull__Class**)(modloader::win::memory::resolve_rva(0x04782670)); }
+    namespace NotEqualInstruction_NotEqualUInt64LiftedToNull { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualUInt64LiftedToNull__Class** type_info = (::app::NotEqualInstruction_NotEqualUInt64LiftedToNull__Class**)(modloader::win::memory::resolve_rva(0x0472FB80)); }
+    namespace NotEqualInstruction_NotEqualSingleLiftedToNull { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualSingleLiftedToNull__Class** type_info = (::app::NotEqualInstruction_NotEqualSingleLiftedToNull__Class**)(modloader::win::memory::resolve_rva(0x04760778)); }
+    namespace NotEqualInstruction_NotEqualDoubleLiftedToNull { IL2CPP_MODLOADER_DLLEXPORT ::app::NotEqualInstruction_NotEqualDoubleLiftedToNull__Class** type_info = (::app::NotEqualInstruction_NotEqualDoubleLiftedToNull__Class**)(modloader::win::memory::resolve_rva(0x04778CD8)); }
+    namespace NotInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::NotInstruction__Class** type_info = (::app::NotInstruction__Class**)(modloader::win::memory::resolve_rva(0x047652C8)); }
+    namespace NotInstruction_NotBoolean { IL2CPP_MODLOADER_DLLEXPORT ::app::NotInstruction_NotBoolean__Class** type_info = (::app::NotInstruction_NotBoolean__Class**)(modloader::win::memory::resolve_rva(0x0472AEB0)); }
+    namespace NotInstruction_NotInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::NotInstruction_NotInt64__Class** type_info = (::app::NotInstruction_NotInt64__Class**)(modloader::win::memory::resolve_rva(0x0478CAA8)); }
+    namespace NotInstruction_NotInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::NotInstruction_NotInt32__Class** type_info = (::app::NotInstruction_NotInt32__Class**)(modloader::win::memory::resolve_rva(0x04749440)); }
+    namespace NotInstruction_NotInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::NotInstruction_NotInt16__Class** type_info = (::app::NotInstruction_NotInt16__Class**)(modloader::win::memory::resolve_rva(0x0470B9A8)); }
+    namespace NotInstruction_NotUInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::NotInstruction_NotUInt64__Class** type_info = (::app::NotInstruction_NotUInt64__Class**)(modloader::win::memory::resolve_rva(0x04769D30)); }
+    namespace NotInstruction_NotUInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::NotInstruction_NotUInt32__Class** type_info = (::app::NotInstruction_NotUInt32__Class**)(modloader::win::memory::resolve_rva(0x0474D990)); }
+    namespace NotInstruction_NotUInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::NotInstruction_NotUInt16__Class** type_info = (::app::NotInstruction_NotUInt16__Class**)(modloader::win::memory::resolve_rva(0x04780E90)); }
+    namespace NotInstruction_NotByte { IL2CPP_MODLOADER_DLLEXPORT ::app::NotInstruction_NotByte__Class** type_info = (::app::NotInstruction_NotByte__Class**)(modloader::win::memory::resolve_rva(0x04742E30)); }
+    namespace NotInstruction_NotSByte { IL2CPP_MODLOADER_DLLEXPORT ::app::NotInstruction_NotSByte__Class** type_info = (::app::NotInstruction_NotSByte__Class**)(modloader::win::memory::resolve_rva(0x04745BB8)); }
+    namespace NullCheckInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::NullCheckInstruction__Class** type_info = (::app::NullCheckInstruction__Class**)(modloader::win::memory::resolve_rva(0x04752758)); }
+    namespace NumericConvertInstruction_Unchecked { IL2CPP_MODLOADER_DLLEXPORT ::app::NumericConvertInstruction_Unchecked__Class** type_info = (::app::NumericConvertInstruction_Unchecked__Class**)(modloader::win::memory::resolve_rva(0x04781148)); }
+    namespace NumericConvertInstruction_Checked { IL2CPP_MODLOADER_DLLEXPORT ::app::NumericConvertInstruction_Checked__Class** type_info = (::app::NumericConvertInstruction_Checked__Class**)(modloader::win::memory::resolve_rva(0x0474B608)); }
+    namespace NumericConvertInstruction_ToUnderlying { IL2CPP_MODLOADER_DLLEXPORT ::app::NumericConvertInstruction_ToUnderlying__Class** type_info = (::app::NumericConvertInstruction_ToUnderlying__Class**)(modloader::win::memory::resolve_rva(0x04766380)); }
+    namespace OrInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::OrInstruction__Class** type_info = (::app::OrInstruction__Class**)(modloader::win::memory::resolve_rva(0x04731EB8)); }
+    namespace OrInstruction_OrSByte { IL2CPP_MODLOADER_DLLEXPORT ::app::OrInstruction_OrSByte__Class** type_info = (::app::OrInstruction_OrSByte__Class**)(modloader::win::memory::resolve_rva(0x04782FE0)); }
+    namespace OrInstruction_OrInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::OrInstruction_OrInt16__Class** type_info = (::app::OrInstruction_OrInt16__Class**)(modloader::win::memory::resolve_rva(0x047482B0)); }
+    namespace OrInstruction_OrInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::OrInstruction_OrInt32__Class** type_info = (::app::OrInstruction_OrInt32__Class**)(modloader::win::memory::resolve_rva(0x04789308)); }
+    namespace OrInstruction_OrInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::OrInstruction_OrInt64__Class** type_info = (::app::OrInstruction_OrInt64__Class**)(modloader::win::memory::resolve_rva(0x047387A0)); }
+    namespace OrInstruction_OrByte { IL2CPP_MODLOADER_DLLEXPORT ::app::OrInstruction_OrByte__Class** type_info = (::app::OrInstruction_OrByte__Class**)(modloader::win::memory::resolve_rva(0x0471E488)); }
+    namespace OrInstruction_OrUInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::OrInstruction_OrUInt16__Class** type_info = (::app::OrInstruction_OrUInt16__Class**)(modloader::win::memory::resolve_rva(0x047843E0)); }
+    namespace OrInstruction_OrUInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::OrInstruction_OrUInt32__Class** type_info = (::app::OrInstruction_OrUInt32__Class**)(modloader::win::memory::resolve_rva(0x04718C00)); }
+    namespace OrInstruction_OrUInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::OrInstruction_OrUInt64__Class** type_info = (::app::OrInstruction_OrUInt64__Class**)(modloader::win::memory::resolve_rva(0x04715C40)); }
+    namespace OrInstruction_OrBoolean { IL2CPP_MODLOADER_DLLEXPORT ::app::OrInstruction_OrBoolean__Class** type_info = (::app::OrInstruction_OrBoolean__Class**)(modloader::win::memory::resolve_rva(0x047438F8)); }
+    namespace RightShiftInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::RightShiftInstruction__Class** type_info = (::app::RightShiftInstruction__Class**)(modloader::win::memory::resolve_rva(0x0477D658)); }
+    namespace RightShiftInstruction_RightShiftSByte { IL2CPP_MODLOADER_DLLEXPORT ::app::RightShiftInstruction_RightShiftSByte__Class** type_info = (::app::RightShiftInstruction_RightShiftSByte__Class**)(modloader::win::memory::resolve_rva(0x04754B98)); }
+    namespace RightShiftInstruction_RightShiftInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::RightShiftInstruction_RightShiftInt16__Class** type_info = (::app::RightShiftInstruction_RightShiftInt16__Class**)(modloader::win::memory::resolve_rva(0x047393B0)); }
+    namespace RightShiftInstruction_RightShiftInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::RightShiftInstruction_RightShiftInt32__Class** type_info = (::app::RightShiftInstruction_RightShiftInt32__Class**)(modloader::win::memory::resolve_rva(0x04735EC0)); }
+    namespace RightShiftInstruction_RightShiftInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::RightShiftInstruction_RightShiftInt64__Class** type_info = (::app::RightShiftInstruction_RightShiftInt64__Class**)(modloader::win::memory::resolve_rva(0x04761F88)); }
+    namespace RightShiftInstruction_RightShiftByte { IL2CPP_MODLOADER_DLLEXPORT ::app::RightShiftInstruction_RightShiftByte__Class** type_info = (::app::RightShiftInstruction_RightShiftByte__Class**)(modloader::win::memory::resolve_rva(0x04725630)); }
+    namespace RightShiftInstruction_RightShiftUInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::RightShiftInstruction_RightShiftUInt16__Class** type_info = (::app::RightShiftInstruction_RightShiftUInt16__Class**)(modloader::win::memory::resolve_rva(0x0474EAF0)); }
+    namespace RightShiftInstruction_RightShiftUInt32 { IL2CPP_MODLOADER_DLLEXPORT ::app::RightShiftInstruction_RightShiftUInt32__Class** type_info = (::app::RightShiftInstruction_RightShiftUInt32__Class**)(modloader::win::memory::resolve_rva(0x047018C0)); }
+    namespace RightShiftInstruction_RightShiftUInt64 { IL2CPP_MODLOADER_DLLEXPORT ::app::RightShiftInstruction_RightShiftUInt64__Class** type_info = (::app::RightShiftInstruction_RightShiftUInt64__Class**)(modloader::win::memory::resolve_rva(0x04707150)); }
+    namespace RuntimeVariables { IL2CPP_MODLOADER_DLLEXPORT ::app::RuntimeVariables__Class** type_info = (::app::RuntimeVariables__Class**)(modloader::win::memory::resolve_rva(0x0474F1F8)); }
+    namespace LoadObjectInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::LoadObjectInstruction__Class** type_info = (::app::LoadObjectInstruction__Class**)(modloader::win::memory::resolve_rva(0x04722720)); }
+    namespace LoadCachedObjectInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::LoadCachedObjectInstruction__Class** type_info = (::app::LoadCachedObjectInstruction__Class**)(modloader::win::memory::resolve_rva(0x04738020)); }
+    namespace PopInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::PopInstruction__Class** type_info = (::app::PopInstruction__Class**)(modloader::win::memory::resolve_rva(0x04709228)); }
+    namespace DupInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::DupInstruction__Class** type_info = (::app::DupInstruction__Class**)(modloader::win::memory::resolve_rva(0x047652D0)); }
+    namespace SubInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::SubInstruction__Class** type_info = (::app::SubInstruction__Class**)(modloader::win::memory::resolve_rva(0x047090A0)); }
+    namespace SubInstruction_SubInt16 { IL2CPP_MODLOADER_DLLEXPORT ::app::SubInstruction_SubInt16__Class** type_info = (::app::SubInstruction_SubInt16__Class**)(modloader::win::memory::resolve_rva(0x04719718)); }
+}

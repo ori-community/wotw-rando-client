@@ -1,405 +1,205 @@
-#include <Il2CppModLoader/app/types/AbortFileUploadsResponse.h>
-#include <Il2CppModLoader/app/types/AcceptGroupApplicationRequest.h>
-#include <Il2CppModLoader/app/types/AcceptGroupInvitationRequest.h>
-#include <Il2CppModLoader/app/types/AddMembersRequest.h>
-#include <Il2CppModLoader/app/types/ApplyToGroupRequest.h>
-#include <Il2CppModLoader/app/types/ApplyToGroupResponse.h>
-#include <Il2CppModLoader/app/types/AuthUserRequest.h>
-#include <Il2CppModLoader/app/types/AuthUserResponse.h>
-#include <Il2CppModLoader/app/types/BlockEntityRequest.h>
-#include <Il2CppModLoader/app/types/CancelAllMatchmakingTicketsForPlayerRequest.h>
-#include <Il2CppModLoader/app/types/CancelAllMatchmakingTicketsForPlayerResult.h>
-#include <Il2CppModLoader/app/types/CancelMatchmakingTicketRequest.h>
-#include <Il2CppModLoader/app/types/CancelMatchmakingTicketResult.h>
-#include <Il2CppModLoader/app/types/ChangeMemberRoleRequest.h>
-#include <Il2CppModLoader/app/types/CreateBuildWithCustomContainerRequest.h>
-#include <Il2CppModLoader/app/types/CreateBuildWithCustomContainerResponse.h>
-#include <Il2CppModLoader/app/types/CreateBuildWithManagedContainerRequest.h>
-#include <Il2CppModLoader/app/types/CreateBuildWithManagedContainerResponse.h>
-#include <Il2CppModLoader/app/types/CreateGroupRequest.h>
-#include <Il2CppModLoader/app/types/CreateGroupResponse.h>
-#include <Il2CppModLoader/app/types/CreateGroupRoleRequest.h>
-#include <Il2CppModLoader/app/types/CreateGroupRoleResponse.h>
-#include <Il2CppModLoader/app/types/CreateMatchmakingTicketRequest.h>
-#include <Il2CppModLoader/app/types/CreateMatchmakingTicketResult.h>
-#include <Il2CppModLoader/app/types/CreateRemoteUserRequest.h>
-#include <Il2CppModLoader/app/types/CreateRemoteUserResponse.h>
-#include <Il2CppModLoader/app/types/CreateServerMatchmakingTicketRequest.h>
-#include <Il2CppModLoader/app/types/DeleteAssetRequest.h>
-#include <Il2CppModLoader/app/types/DeleteBuildRequest.h>
-#include <Il2CppModLoader/app/types/DeleteCertificateRequest.h>
-#include <Il2CppModLoader/app/types/DeleteFilesRequest.h>
-#include <Il2CppModLoader/app/types/DeleteFilesResponse.h>
-#include <Il2CppModLoader/app/types/DeleteGroupRequest.h>
-#include <Il2CppModLoader/app/types/DeleteRemoteUserRequest.h>
-#include <Il2CppModLoader/app/types/DeleteRoleRequest.h>
-#include <Il2CppModLoader/app/types/EmptyResponse_1.h>
-#include <Il2CppModLoader/app/types/EmptyResponse_2.h>
-#include <Il2CppModLoader/app/types/EnableMultiplayerServersForTitleRequest.h>
-#include <Il2CppModLoader/app/types/EnableMultiplayerServersForTitleResponse.h>
-#include <Il2CppModLoader/app/types/EntityKey_3.h>
-#include <Il2CppModLoader/app/types/EntityKey_4.h>
-#include <Il2CppModLoader/app/types/EventContents.h>
-#include <Il2CppModLoader/app/types/FinalizeFileUploadsRequest.h>
-#include <Il2CppModLoader/app/types/FinalizeFileUploadsResponse.h>
-#include <Il2CppModLoader/app/types/GetAssetUploadUrlRequest.h>
-#include <Il2CppModLoader/app/types/GetAssetUploadUrlResponse.h>
-#include <Il2CppModLoader/app/types/GetBuildRequest.h>
-#include <Il2CppModLoader/app/types/GetBuildResponse.h>
-#include <Il2CppModLoader/app/types/GetContainerRegistryCredentialsRequest.h>
-#include <Il2CppModLoader/app/types/GetContainerRegistryCredentialsResponse.h>
-#include <Il2CppModLoader/app/types/GetFileMetadata.h>
-#include <Il2CppModLoader/app/types/GetFilesRequest.h>
-#include <Il2CppModLoader/app/types/GetFilesResponse.h>
-#include <Il2CppModLoader/app/types/GetGroupRequest.h>
-#include <Il2CppModLoader/app/types/GetGroupResponse.h>
-#include <Il2CppModLoader/app/types/GetLanguageListRequest.h>
-#include <Il2CppModLoader/app/types/GetLanguageListResponse.h>
-#include <Il2CppModLoader/app/types/GetMatchRequest.h>
-#include <Il2CppModLoader/app/types/GetMatchResult.h>
-#include <Il2CppModLoader/app/types/GetObjectsRequest.h>
-#include <Il2CppModLoader/app/types/GetObjectsResponse.h>
-#include <Il2CppModLoader/app/types/InitiateFileUploadMetadata.h>
-#include <Il2CppModLoader/app/types/InitiateFileUploadsRequest.h>
-#include <Il2CppModLoader/app/types/InitiateFileUploadsResponse.h>
-#include <Il2CppModLoader/app/types/InviteToGroupRequest.h>
-#include <Il2CppModLoader/app/types/InviteToGroupResponse.h>
-#include <Il2CppModLoader/app/types/IsMemberRequest.h>
-#include <Il2CppModLoader/app/types/IsMemberResponse.h>
-#include <Il2CppModLoader/app/types/ListGroupApplicationsRequest.h>
-#include <Il2CppModLoader/app/types/ListGroupApplicationsResponse.h>
-#include <Il2CppModLoader/app/types/ListGroupBlocksRequest.h>
-#include <Il2CppModLoader/app/types/ListGroupBlocksResponse.h>
-#include <Il2CppModLoader/app/types/ListGroupInvitationsRequest.h>
-#include <Il2CppModLoader/app/types/ListGroupInvitationsResponse.h>
-#include <Il2CppModLoader/app/types/ListGroupMembersRequest.h>
-#include <Il2CppModLoader/app/types/ListGroupMembersResponse.h>
-#include <Il2CppModLoader/app/types/ListMembershipOpportunitiesRequest.h>
-#include <Il2CppModLoader/app/types/ListMembershipOpportunitiesResponse.h>
-#include <Il2CppModLoader/app/types/ListMembershipRequest.h>
-#include <Il2CppModLoader/app/types/ListMembershipResponse.h>
-#include <Il2CppModLoader/app/types/PlayerJoinedRequest.h>
-#include <Il2CppModLoader/app/types/PlayerJoinedResponse.h>
-#include <Il2CppModLoader/app/types/PlayerLeftRequest.h>
-#include <Il2CppModLoader/app/types/PlayerLeftResponse.h>
-#include <Il2CppModLoader/app/types/RemoveGroupApplicationRequest.h>
-#include <Il2CppModLoader/app/types/RemoveGroupInvitationRequest.h>
-#include <Il2CppModLoader/app/types/RemoveMembersRequest.h>
-#include <Il2CppModLoader/app/types/SetObjectsRequest.h>
-#include <Il2CppModLoader/app/types/SetObjectsResponse.h>
-#include <Il2CppModLoader/app/types/StartGameRequest_1.h>
-#include <Il2CppModLoader/app/types/StartGameResponse.h>
-#include <Il2CppModLoader/app/types/UnblockEntityRequest.h>
-#include <Il2CppModLoader/app/types/UpdateGroupRequest.h>
-#include <Il2CppModLoader/app/types/UpdateGroupResponse.h>
-#include <Il2CppModLoader/app/types/UpdateGroupRoleRequest.h>
-#include <Il2CppModLoader/app/types/UpdateGroupRoleResponse.h>
-#include <Il2CppModLoader/app/types/UserInfoRequest.h>
-#include <Il2CppModLoader/app/types/UserInfoResponse.h>
-#include <Il2CppModLoader/app/types/WriteEventsRequest.h>
-#include <Il2CppModLoader/app/types/WriteEventsResponse.h>
-#include <Il2CppModLoader/macros.h>
 #include <Il2CppModLoader/windows_api/memory.h>
+#include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/app/types/GetLeaderboardRequest.h>
+#include <Il2CppModLoader/app/types/GetLeaderboardAroundCharacterRequest.h>
+#include <Il2CppModLoader/app/types/GetLeaderboardAroundCharacterResult.h>
+#include <Il2CppModLoader/app/types/GetLeaderboardAroundPlayerRequest.h>
+#include <Il2CppModLoader/app/types/GetLeaderboardAroundPlayerResult.h>
+#include <Il2CppModLoader/app/types/GetLeaderboardForUsersCharactersRequest.h>
+#include <Il2CppModLoader/app/types/GetLeaderboardForUsersCharactersResult.h>
+#include <Il2CppModLoader/app/types/GetPaymentTokenRequest.h>
+#include <Il2CppModLoader/app/types/GetPaymentTokenResult.h>
+#include <Il2CppModLoader/app/types/GetPhotonAuthenticationTokenRequest.h>
+#include <Il2CppModLoader/app/types/GetPhotonAuthenticationTokenResult.h>
+#include <Il2CppModLoader/app/types/GetPlayerCombinedInfoRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayerCombinedInfoRequestParams.h>
+#include <Il2CppModLoader/app/types/GetPlayerCombinedInfoResult.h>
+#include <Il2CppModLoader/app/types/GetPlayerCombinedInfoResultPayload.h>
+#include <Il2CppModLoader/app/types/CharacterInventory.h>
+#include <Il2CppModLoader/app/types/StatisticValue.h>
+#include <Il2CppModLoader/app/types/GetPlayerProfileRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayerProfileResult.h>
+#include <Il2CppModLoader/app/types/GetPlayerSegmentsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayerSegmentsResult.h>
+#include <Il2CppModLoader/app/types/GetPlayerStatisticsRequest.h>
+#include <Il2CppModLoader/app/types/StatisticNameVersion.h>
+#include <Il2CppModLoader/app/types/GetPlayerStatisticsResult.h>
+#include <Il2CppModLoader/app/types/GetPlayerStatisticVersionsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayerStatisticVersionsResult.h>
+#include <Il2CppModLoader/app/types/GetPlayerTagsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayerTagsResult.h>
+#include <Il2CppModLoader/app/types/GetPlayerTradesRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayerTradesResponse.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromFacebookIDsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromFacebookIDsResult.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromFacebookInstantGamesIdsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromFacebookInstantGamesIdsResult.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromGameCenterIDsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromGameCenterIDsResult.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromGenericIDsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromGenericIDsResult.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromGoogleIDsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromGoogleIDsResult.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromKongregateIDsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromKongregateIDsResult.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromNintendoSwitchDeviceIdsResult.h>
+#include <Il2CppModLoader/app/types/NintendoSwitchPlayFabIdPair.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromPSNAccountIDsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromPSNAccountIDsResult.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromSteamIDsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromSteamIDsResult.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromTwitchIDsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromTwitchIDsResult.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromXboxLiveIDsRequest.h>
+#include <Il2CppModLoader/app/types/GetPlayFabIDsFromXboxLiveIDsResult.h>
+#include <Il2CppModLoader/app/types/GetPublisherDataRequest.h>
+#include <Il2CppModLoader/app/types/GetPublisherDataResult.h>
+#include <Il2CppModLoader/app/types/GetPurchaseRequest.h>
+#include <Il2CppModLoader/app/types/GetPurchaseResult.h>
+#include <Il2CppModLoader/app/types/GetSharedGroupDataRequest.h>
+#include <Il2CppModLoader/app/types/GetSharedGroupDataResult.h>
+#include <Il2CppModLoader/app/types/GetStoreItemsRequest.h>
+#include <Il2CppModLoader/app/types/GetStoreItemsResult.h>
+#include <Il2CppModLoader/app/types/GetTimeRequest.h>
+#include <Il2CppModLoader/app/types/GetTimeResult.h>
+#include <Il2CppModLoader/app/types/GetTitleDataRequest.h>
+#include <Il2CppModLoader/app/types/GetTitleDataResult.h>
+#include <Il2CppModLoader/app/types/GetTitleNewsRequest.h>
+#include <Il2CppModLoader/app/types/GetTitleNewsResult.h>
+#include <Il2CppModLoader/app/types/GetTitlePublicKeyRequest.h>
+#include <Il2CppModLoader/app/types/GetTitlePublicKeyResult.h>
+#include <Il2CppModLoader/app/types/GetTradeStatusRequest.h>
+#include <Il2CppModLoader/app/types/GetTradeStatusResponse.h>
+#include <Il2CppModLoader/app/types/GetUserDataRequest.h>
+#include <Il2CppModLoader/app/types/GetUserDataResult.h>
+#include <Il2CppModLoader/app/types/GetUserInventoryRequest.h>
+#include <Il2CppModLoader/app/types/GetUserInventoryResult.h>
+#include <Il2CppModLoader/app/types/GetWindowsHelloChallengeRequest.h>
+#include <Il2CppModLoader/app/types/GetWindowsHelloChallengeResponse.h>
+#include <Il2CppModLoader/app/types/GrantCharacterToUserRequest.h>
+#include <Il2CppModLoader/app/types/GrantCharacterToUserResult.h>
+#include <Il2CppModLoader/app/types/LinkAndroidDeviceIDRequest.h>
+#include <Il2CppModLoader/app/types/LinkAndroidDeviceIDResult.h>
+#include <Il2CppModLoader/app/types/LinkCustomIDRequest.h>
+#include <Il2CppModLoader/app/types/LinkCustomIDResult.h>
+#include <Il2CppModLoader/app/types/LinkFacebookAccountRequest.h>
+#include <Il2CppModLoader/app/types/LinkFacebookAccountResult.h>
+#include <Il2CppModLoader/app/types/LinkFacebookInstantGamesIdRequest.h>
+#include <Il2CppModLoader/app/types/LinkFacebookInstantGamesIdResult.h>
+#include <Il2CppModLoader/app/types/LinkGameCenterAccountRequest.h>
+#include <Il2CppModLoader/app/types/LinkGameCenterAccountResult.h>
+#include <Il2CppModLoader/app/types/LinkGoogleAccountRequest.h>
+#include <Il2CppModLoader/app/types/LinkGoogleAccountResult.h>
+#include <Il2CppModLoader/app/types/LinkIOSDeviceIDRequest.h>
+#include <Il2CppModLoader/app/types/LinkIOSDeviceIDResult.h>
+#include <Il2CppModLoader/app/types/LinkKongregateAccountRequest.h>
+#include <Il2CppModLoader/app/types/LinkKongregateAccountResult.h>
+#include <Il2CppModLoader/app/types/LinkNintendoSwitchDeviceIdRequest.h>
+#include <Il2CppModLoader/app/types/LinkNintendoSwitchDeviceIdResult.h>
+#include <Il2CppModLoader/app/types/LinkOpenIdConnectRequest.h>
+#include <Il2CppModLoader/app/types/EmptyResult.h>
+#include <Il2CppModLoader/app/types/LinkPSNAccountRequest.h>
 
 namespace app::classes::types {
-    namespace EntityKey_3 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EntityKey_3__Class** type_info = (::app::EntityKey_3__Class**)(modloader::win::memory::resolve_rva(0x04756658));
-    }
-    namespace AbortFileUploadsResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AbortFileUploadsResponse__Class** type_info = (::app::AbortFileUploadsResponse__Class**)(modloader::win::memory::resolve_rva(0x04730E60));
-    }
-    namespace DeleteFilesRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DeleteFilesRequest__Class** type_info = (::app::DeleteFilesRequest__Class**)(modloader::win::memory::resolve_rva(0x04772C98));
-    }
-    namespace DeleteFilesResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DeleteFilesResponse__Class** type_info = (::app::DeleteFilesResponse__Class**)(modloader::win::memory::resolve_rva(0x04775B80));
-    }
-    namespace FinalizeFileUploadsRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::FinalizeFileUploadsRequest__Class** type_info = (::app::FinalizeFileUploadsRequest__Class**)(modloader::win::memory::resolve_rva(0x04715E18));
-    }
-    namespace FinalizeFileUploadsResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::FinalizeFileUploadsResponse__Class** type_info = (::app::FinalizeFileUploadsResponse__Class**)(modloader::win::memory::resolve_rva(0x04730290));
-    }
-    namespace GetFileMetadata {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetFileMetadata__Class** type_info = (::app::GetFileMetadata__Class**)(modloader::win::memory::resolve_rva(0x047721B0));
-    }
-    namespace GetFilesRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetFilesRequest__Class** type_info = (::app::GetFilesRequest__Class**)(modloader::win::memory::resolve_rva(0x047603D0));
-    }
-    namespace GetFilesResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetFilesResponse__Class** type_info = (::app::GetFilesResponse__Class**)(modloader::win::memory::resolve_rva(0x0472D298));
-    }
-    namespace GetObjectsRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetObjectsRequest__Class** type_info = (::app::GetObjectsRequest__Class**)(modloader::win::memory::resolve_rva(0x04769CB0));
-    }
-    namespace GetObjectsResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetObjectsResponse__Class** type_info = (::app::GetObjectsResponse__Class**)(modloader::win::memory::resolve_rva(0x04713B90));
-    }
-    namespace InitiateFileUploadsRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InitiateFileUploadsRequest__Class** type_info = (::app::InitiateFileUploadsRequest__Class**)(modloader::win::memory::resolve_rva(0x047116B8));
-    }
-    namespace InitiateFileUploadsResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InitiateFileUploadsResponse__Class** type_info = (::app::InitiateFileUploadsResponse__Class**)(modloader::win::memory::resolve_rva(0x047469B0));
-    }
-    namespace InitiateFileUploadMetadata {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InitiateFileUploadMetadata__Class** type_info = (::app::InitiateFileUploadMetadata__Class**)(modloader::win::memory::resolve_rva(0x047382F0));
-    }
-    namespace SetObjectsRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SetObjectsRequest__Class** type_info = (::app::SetObjectsRequest__Class**)(modloader::win::memory::resolve_rva(0x04743C88));
-    }
-    namespace SetObjectsResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SetObjectsResponse__Class** type_info = (::app::SetObjectsResponse__Class**)(modloader::win::memory::resolve_rva(0x04769EC8));
-    }
-    namespace WriteEventsRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::WriteEventsRequest__Class** type_info = (::app::WriteEventsRequest__Class**)(modloader::win::memory::resolve_rva(0x04707B80));
-    }
-    namespace EventContents {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EventContents__Class** type_info = (::app::EventContents__Class**)(modloader::win::memory::resolve_rva(0x0474DC30));
-    }
-    namespace EntityKey_4 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EntityKey_4__Class** type_info = (::app::EntityKey_4__Class**)(modloader::win::memory::resolve_rva(0x047848D0));
-    }
-    namespace WriteEventsResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::WriteEventsResponse__Class** type_info = (::app::WriteEventsResponse__Class**)(modloader::win::memory::resolve_rva(0x0470D4A8));
-    }
-    namespace AcceptGroupApplicationRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AcceptGroupApplicationRequest__Class** type_info = (::app::AcceptGroupApplicationRequest__Class**)(modloader::win::memory::resolve_rva(0x04757FF0));
-    }
-    namespace EmptyResponse_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EmptyResponse_1__Class** type_info = (::app::EmptyResponse_1__Class**)(modloader::win::memory::resolve_rva(0x0472C090));
-    }
-    namespace AcceptGroupInvitationRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AcceptGroupInvitationRequest__Class** type_info = (::app::AcceptGroupInvitationRequest__Class**)(modloader::win::memory::resolve_rva(0x04747618));
-    }
-    namespace AddMembersRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AddMembersRequest__Class** type_info = (::app::AddMembersRequest__Class**)(modloader::win::memory::resolve_rva(0x04746378));
-    }
-    namespace ApplyToGroupRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ApplyToGroupRequest__Class** type_info = (::app::ApplyToGroupRequest__Class**)(modloader::win::memory::resolve_rva(0x04719AB8));
-    }
-    namespace ApplyToGroupResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ApplyToGroupResponse__Class** type_info = (::app::ApplyToGroupResponse__Class**)(modloader::win::memory::resolve_rva(0x04731220));
-    }
-    namespace BlockEntityRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BlockEntityRequest__Class** type_info = (::app::BlockEntityRequest__Class**)(modloader::win::memory::resolve_rva(0x0472CF90));
-    }
-    namespace ChangeMemberRoleRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ChangeMemberRoleRequest__Class** type_info = (::app::ChangeMemberRoleRequest__Class**)(modloader::win::memory::resolve_rva(0x04781028));
-    }
-    namespace CreateGroupRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateGroupRequest__Class** type_info = (::app::CreateGroupRequest__Class**)(modloader::win::memory::resolve_rva(0x0471DEC0));
-    }
-    namespace CreateGroupResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateGroupResponse__Class** type_info = (::app::CreateGroupResponse__Class**)(modloader::win::memory::resolve_rva(0x0478E600));
-    }
-    namespace CreateGroupRoleRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateGroupRoleRequest__Class** type_info = (::app::CreateGroupRoleRequest__Class**)(modloader::win::memory::resolve_rva(0x04706EE0));
-    }
-    namespace CreateGroupRoleResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateGroupRoleResponse__Class** type_info = (::app::CreateGroupRoleResponse__Class**)(modloader::win::memory::resolve_rva(0x0473A630));
-    }
-    namespace DeleteGroupRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DeleteGroupRequest__Class** type_info = (::app::DeleteGroupRequest__Class**)(modloader::win::memory::resolve_rva(0x04762210));
-    }
-    namespace DeleteRoleRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DeleteRoleRequest__Class** type_info = (::app::DeleteRoleRequest__Class**)(modloader::win::memory::resolve_rva(0x0471B228));
-    }
-    namespace GetGroupRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetGroupRequest__Class** type_info = (::app::GetGroupRequest__Class**)(modloader::win::memory::resolve_rva(0x047694E0));
-    }
-    namespace GetGroupResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetGroupResponse__Class** type_info = (::app::GetGroupResponse__Class**)(modloader::win::memory::resolve_rva(0x04782568));
-    }
-    namespace InviteToGroupRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InviteToGroupRequest__Class** type_info = (::app::InviteToGroupRequest__Class**)(modloader::win::memory::resolve_rva(0x0472CAD8));
-    }
-    namespace InviteToGroupResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InviteToGroupResponse__Class** type_info = (::app::InviteToGroupResponse__Class**)(modloader::win::memory::resolve_rva(0x0473FF48));
-    }
-    namespace IsMemberRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IsMemberRequest__Class** type_info = (::app::IsMemberRequest__Class**)(modloader::win::memory::resolve_rva(0x04732518));
-    }
-    namespace IsMemberResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IsMemberResponse__Class** type_info = (::app::IsMemberResponse__Class**)(modloader::win::memory::resolve_rva(0x04785BD8));
-    }
-    namespace ListGroupApplicationsRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListGroupApplicationsRequest__Class** type_info = (::app::ListGroupApplicationsRequest__Class**)(modloader::win::memory::resolve_rva(0x04717800));
-    }
-    namespace ListGroupApplicationsResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListGroupApplicationsResponse__Class** type_info = (::app::ListGroupApplicationsResponse__Class**)(modloader::win::memory::resolve_rva(0x04705700));
-    }
-    namespace ListGroupBlocksRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListGroupBlocksRequest__Class** type_info = (::app::ListGroupBlocksRequest__Class**)(modloader::win::memory::resolve_rva(0x04771EF8));
-    }
-    namespace ListGroupBlocksResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListGroupBlocksResponse__Class** type_info = (::app::ListGroupBlocksResponse__Class**)(modloader::win::memory::resolve_rva(0x0470ED50));
-    }
-    namespace ListGroupInvitationsRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListGroupInvitationsRequest__Class** type_info = (::app::ListGroupInvitationsRequest__Class**)(modloader::win::memory::resolve_rva(0x04756CC8));
-    }
-    namespace ListGroupInvitationsResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListGroupInvitationsResponse__Class** type_info = (::app::ListGroupInvitationsResponse__Class**)(modloader::win::memory::resolve_rva(0x04718380));
-    }
-    namespace ListGroupMembersRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListGroupMembersRequest__Class** type_info = (::app::ListGroupMembersRequest__Class**)(modloader::win::memory::resolve_rva(0x047116C0));
-    }
-    namespace ListGroupMembersResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListGroupMembersResponse__Class** type_info = (::app::ListGroupMembersResponse__Class**)(modloader::win::memory::resolve_rva(0x04703F80));
-    }
-    namespace ListMembershipRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListMembershipRequest__Class** type_info = (::app::ListMembershipRequest__Class**)(modloader::win::memory::resolve_rva(0x0471EB20));
-    }
-    namespace ListMembershipResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListMembershipResponse__Class** type_info = (::app::ListMembershipResponse__Class**)(modloader::win::memory::resolve_rva(0x0476AFC8));
-    }
-    namespace ListMembershipOpportunitiesRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListMembershipOpportunitiesRequest__Class** type_info = (::app::ListMembershipOpportunitiesRequest__Class**)(modloader::win::memory::resolve_rva(0x04730568));
-    }
-    namespace ListMembershipOpportunitiesResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ListMembershipOpportunitiesResponse__Class** type_info = (::app::ListMembershipOpportunitiesResponse__Class**)(modloader::win::memory::resolve_rva(0x0471D140));
-    }
-    namespace RemoveGroupApplicationRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RemoveGroupApplicationRequest__Class** type_info = (::app::RemoveGroupApplicationRequest__Class**)(modloader::win::memory::resolve_rva(0x047643E8));
-    }
-    namespace RemoveGroupInvitationRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RemoveGroupInvitationRequest__Class** type_info = (::app::RemoveGroupInvitationRequest__Class**)(modloader::win::memory::resolve_rva(0x04701E48));
-    }
-    namespace RemoveMembersRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RemoveMembersRequest__Class** type_info = (::app::RemoveMembersRequest__Class**)(modloader::win::memory::resolve_rva(0x04768E80));
-    }
-    namespace UnblockEntityRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UnblockEntityRequest__Class** type_info = (::app::UnblockEntityRequest__Class**)(modloader::win::memory::resolve_rva(0x04721C80));
-    }
-    namespace UpdateGroupRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UpdateGroupRequest__Class** type_info = (::app::UpdateGroupRequest__Class**)(modloader::win::memory::resolve_rva(0x04747778));
-    }
-    namespace UpdateGroupResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UpdateGroupResponse__Class** type_info = (::app::UpdateGroupResponse__Class**)(modloader::win::memory::resolve_rva(0x04722FC0));
-    }
-    namespace UpdateGroupRoleRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UpdateGroupRoleRequest__Class** type_info = (::app::UpdateGroupRoleRequest__Class**)(modloader::win::memory::resolve_rva(0x04718E00));
-    }
-    namespace UpdateGroupRoleResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UpdateGroupRoleResponse__Class** type_info = (::app::UpdateGroupRoleResponse__Class**)(modloader::win::memory::resolve_rva(0x04795E40));
-    }
-    namespace GetLanguageListRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetLanguageListRequest__Class** type_info = (::app::GetLanguageListRequest__Class**)(modloader::win::memory::resolve_rva(0x047381A0));
-    }
-    namespace GetLanguageListResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetLanguageListResponse__Class** type_info = (::app::GetLanguageListResponse__Class**)(modloader::win::memory::resolve_rva(0x047939E0));
-    }
-    namespace AuthUserRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AuthUserRequest__Class** type_info = (::app::AuthUserRequest__Class**)(modloader::win::memory::resolve_rva(0x04758C38));
-    }
-    namespace AuthUserResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AuthUserResponse__Class** type_info = (::app::AuthUserResponse__Class**)(modloader::win::memory::resolve_rva(0x04786270));
-    }
-    namespace PlayerJoinedRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PlayerJoinedRequest__Class** type_info = (::app::PlayerJoinedRequest__Class**)(modloader::win::memory::resolve_rva(0x047420A8));
-    }
-    namespace PlayerJoinedResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PlayerJoinedResponse__Class** type_info = (::app::PlayerJoinedResponse__Class**)(modloader::win::memory::resolve_rva(0x04743490));
-    }
-    namespace PlayerLeftRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PlayerLeftRequest__Class** type_info = (::app::PlayerLeftRequest__Class**)(modloader::win::memory::resolve_rva(0x0476E090));
-    }
-    namespace PlayerLeftResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PlayerLeftResponse__Class** type_info = (::app::PlayerLeftResponse__Class**)(modloader::win::memory::resolve_rva(0x0476C0A8));
-    }
-    namespace StartGameRequest_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::StartGameRequest_1__Class** type_info = (::app::StartGameRequest_1__Class**)(modloader::win::memory::resolve_rva(0x0478A2C8));
-    }
-    namespace StartGameResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::StartGameResponse__Class** type_info = (::app::StartGameResponse__Class**)(modloader::win::memory::resolve_rva(0x047301F8));
-    }
-    namespace UserInfoRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UserInfoRequest__Class** type_info = (::app::UserInfoRequest__Class**)(modloader::win::memory::resolve_rva(0x04714B20));
-    }
-    namespace UserInfoResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UserInfoResponse__Class** type_info = (::app::UserInfoResponse__Class**)(modloader::win::memory::resolve_rva(0x0474A4B0));
-    }
-    namespace CancelAllMatchmakingTicketsForPlayerRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CancelAllMatchmakingTicketsForPlayerRequest__Class** type_info = (::app::CancelAllMatchmakingTicketsForPlayerRequest__Class**)(modloader::win::memory::resolve_rva(0x04773900));
-    }
-    namespace CancelAllMatchmakingTicketsForPlayerResult {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CancelAllMatchmakingTicketsForPlayerResult__Class** type_info = (::app::CancelAllMatchmakingTicketsForPlayerResult__Class**)(modloader::win::memory::resolve_rva(0x04721290));
-    }
-    namespace CancelMatchmakingTicketRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CancelMatchmakingTicketRequest__Class** type_info = (::app::CancelMatchmakingTicketRequest__Class**)(modloader::win::memory::resolve_rva(0x04725FB0));
-    }
-    namespace CancelMatchmakingTicketResult {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CancelMatchmakingTicketResult__Class** type_info = (::app::CancelMatchmakingTicketResult__Class**)(modloader::win::memory::resolve_rva(0x0477A578));
-    }
-    namespace CreateBuildWithCustomContainerRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateBuildWithCustomContainerRequest__Class** type_info = (::app::CreateBuildWithCustomContainerRequest__Class**)(modloader::win::memory::resolve_rva(0x0474AD10));
-    }
-    namespace CreateBuildWithCustomContainerResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateBuildWithCustomContainerResponse__Class** type_info = (::app::CreateBuildWithCustomContainerResponse__Class**)(modloader::win::memory::resolve_rva(0x047344F0));
-    }
-    namespace CreateBuildWithManagedContainerRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateBuildWithManagedContainerRequest__Class** type_info = (::app::CreateBuildWithManagedContainerRequest__Class**)(modloader::win::memory::resolve_rva(0x04746640));
-    }
-    namespace CreateBuildWithManagedContainerResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateBuildWithManagedContainerResponse__Class** type_info = (::app::CreateBuildWithManagedContainerResponse__Class**)(modloader::win::memory::resolve_rva(0x0471F880));
-    }
-    namespace CreateMatchmakingTicketRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateMatchmakingTicketRequest__Class** type_info = (::app::CreateMatchmakingTicketRequest__Class**)(modloader::win::memory::resolve_rva(0x04790300));
-    }
-    namespace CreateMatchmakingTicketResult {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateMatchmakingTicketResult__Class** type_info = (::app::CreateMatchmakingTicketResult__Class**)(modloader::win::memory::resolve_rva(0x0470C0A8));
-    }
-    namespace CreateRemoteUserRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateRemoteUserRequest__Class** type_info = (::app::CreateRemoteUserRequest__Class**)(modloader::win::memory::resolve_rva(0x0470DF20));
-    }
-    namespace CreateRemoteUserResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateRemoteUserResponse__Class** type_info = (::app::CreateRemoteUserResponse__Class**)(modloader::win::memory::resolve_rva(0x0471DFA0));
-    }
-    namespace CreateServerMatchmakingTicketRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CreateServerMatchmakingTicketRequest__Class** type_info = (::app::CreateServerMatchmakingTicketRequest__Class**)(modloader::win::memory::resolve_rva(0x04745D40));
-    }
-    namespace DeleteAssetRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DeleteAssetRequest__Class** type_info = (::app::DeleteAssetRequest__Class**)(modloader::win::memory::resolve_rva(0x0473CDE0));
-    }
-    namespace EmptyResponse_2 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EmptyResponse_2__Class** type_info = (::app::EmptyResponse_2__Class**)(modloader::win::memory::resolve_rva(0x0474A4A8));
-    }
-    namespace DeleteBuildRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DeleteBuildRequest__Class** type_info = (::app::DeleteBuildRequest__Class**)(modloader::win::memory::resolve_rva(0x04783198));
-    }
-    namespace DeleteCertificateRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DeleteCertificateRequest__Class** type_info = (::app::DeleteCertificateRequest__Class**)(modloader::win::memory::resolve_rva(0x04787CC8));
-    }
-    namespace DeleteRemoteUserRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DeleteRemoteUserRequest__Class** type_info = (::app::DeleteRemoteUserRequest__Class**)(modloader::win::memory::resolve_rva(0x0470BE80));
-    }
-    namespace EnableMultiplayerServersForTitleRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EnableMultiplayerServersForTitleRequest__Class** type_info = (::app::EnableMultiplayerServersForTitleRequest__Class**)(modloader::win::memory::resolve_rva(0x04786AD8));
-    }
-    namespace EnableMultiplayerServersForTitleResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EnableMultiplayerServersForTitleResponse__Class** type_info = (::app::EnableMultiplayerServersForTitleResponse__Class**)(modloader::win::memory::resolve_rva(0x04705820));
-    }
-    namespace GetAssetUploadUrlRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetAssetUploadUrlRequest__Class** type_info = (::app::GetAssetUploadUrlRequest__Class**)(modloader::win::memory::resolve_rva(0x04703040));
-    }
-    namespace GetAssetUploadUrlResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetAssetUploadUrlResponse__Class** type_info = (::app::GetAssetUploadUrlResponse__Class**)(modloader::win::memory::resolve_rva(0x0470B298));
-    }
-    namespace GetBuildRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetBuildRequest__Class** type_info = (::app::GetBuildRequest__Class**)(modloader::win::memory::resolve_rva(0x047081F8));
-    }
-    namespace GetBuildResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetBuildResponse__Class** type_info = (::app::GetBuildResponse__Class**)(modloader::win::memory::resolve_rva(0x04789128));
-    }
-    namespace GetContainerRegistryCredentialsRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetContainerRegistryCredentialsRequest__Class** type_info = (::app::GetContainerRegistryCredentialsRequest__Class**)(modloader::win::memory::resolve_rva(0x047281E8));
-    }
-    namespace GetContainerRegistryCredentialsResponse {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetContainerRegistryCredentialsResponse__Class** type_info = (::app::GetContainerRegistryCredentialsResponse__Class**)(modloader::win::memory::resolve_rva(0x04733C90));
-    }
-    namespace GetMatchRequest {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetMatchRequest__Class** type_info = (::app::GetMatchRequest__Class**)(modloader::win::memory::resolve_rva(0x04739BC0));
-    }
-    namespace GetMatchResult {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GetMatchResult__Class** type_info = (::app::GetMatchResult__Class**)(modloader::win::memory::resolve_rva(0x0476F7E8));
-    }
-} // namespace app::classes::types
+    namespace GetLeaderboardRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetLeaderboardRequest__Class** type_info = (::app::GetLeaderboardRequest__Class**)(modloader::win::memory::resolve_rva(0x0475F088)); }
+    namespace GetLeaderboardAroundCharacterRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetLeaderboardAroundCharacterRequest__Class** type_info = (::app::GetLeaderboardAroundCharacterRequest__Class**)(modloader::win::memory::resolve_rva(0x047164C8)); }
+    namespace GetLeaderboardAroundCharacterResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetLeaderboardAroundCharacterResult__Class** type_info = (::app::GetLeaderboardAroundCharacterResult__Class**)(modloader::win::memory::resolve_rva(0x047248A0)); }
+    namespace GetLeaderboardAroundPlayerRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetLeaderboardAroundPlayerRequest__Class** type_info = (::app::GetLeaderboardAroundPlayerRequest__Class**)(modloader::win::memory::resolve_rva(0x0474D238)); }
+    namespace GetLeaderboardAroundPlayerResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetLeaderboardAroundPlayerResult__Class** type_info = (::app::GetLeaderboardAroundPlayerResult__Class**)(modloader::win::memory::resolve_rva(0x047725E0)); }
+    namespace GetLeaderboardForUsersCharactersRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetLeaderboardForUsersCharactersRequest__Class** type_info = (::app::GetLeaderboardForUsersCharactersRequest__Class**)(modloader::win::memory::resolve_rva(0x04798BB8)); }
+    namespace GetLeaderboardForUsersCharactersResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetLeaderboardForUsersCharactersResult__Class** type_info = (::app::GetLeaderboardForUsersCharactersResult__Class**)(modloader::win::memory::resolve_rva(0x0471DFC0)); }
+    namespace GetPaymentTokenRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPaymentTokenRequest__Class** type_info = (::app::GetPaymentTokenRequest__Class**)(modloader::win::memory::resolve_rva(0x047587B8)); }
+    namespace GetPaymentTokenResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPaymentTokenResult__Class** type_info = (::app::GetPaymentTokenResult__Class**)(modloader::win::memory::resolve_rva(0x04752EE8)); }
+    namespace GetPhotonAuthenticationTokenRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPhotonAuthenticationTokenRequest__Class** type_info = (::app::GetPhotonAuthenticationTokenRequest__Class**)(modloader::win::memory::resolve_rva(0x0477DB98)); }
+    namespace GetPhotonAuthenticationTokenResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPhotonAuthenticationTokenResult__Class** type_info = (::app::GetPhotonAuthenticationTokenResult__Class**)(modloader::win::memory::resolve_rva(0x047085D0)); }
+    namespace GetPlayerCombinedInfoRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerCombinedInfoRequest__Class** type_info = (::app::GetPlayerCombinedInfoRequest__Class**)(modloader::win::memory::resolve_rva(0x0475CB08)); }
+    namespace GetPlayerCombinedInfoRequestParams { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerCombinedInfoRequestParams__Class** type_info = (::app::GetPlayerCombinedInfoRequestParams__Class**)(modloader::win::memory::resolve_rva(0x04783840)); }
+    namespace GetPlayerCombinedInfoResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerCombinedInfoResult__Class** type_info = (::app::GetPlayerCombinedInfoResult__Class**)(modloader::win::memory::resolve_rva(0x0475CE60)); }
+    namespace GetPlayerCombinedInfoResultPayload { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerCombinedInfoResultPayload__Class** type_info = (::app::GetPlayerCombinedInfoResultPayload__Class**)(modloader::win::memory::resolve_rva(0x0478FFB0)); }
+    namespace CharacterInventory { IL2CPP_MODLOADER_DLLEXPORT ::app::CharacterInventory__Class** type_info = (::app::CharacterInventory__Class**)(modloader::win::memory::resolve_rva(0x04730348)); }
+    namespace StatisticValue { IL2CPP_MODLOADER_DLLEXPORT ::app::StatisticValue__Class** type_info = (::app::StatisticValue__Class**)(modloader::win::memory::resolve_rva(0x04729A68)); }
+    namespace GetPlayerProfileRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerProfileRequest__Class** type_info = (::app::GetPlayerProfileRequest__Class**)(modloader::win::memory::resolve_rva(0x04734820)); }
+    namespace GetPlayerProfileResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerProfileResult__Class** type_info = (::app::GetPlayerProfileResult__Class**)(modloader::win::memory::resolve_rva(0x047029D8)); }
+    namespace GetPlayerSegmentsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerSegmentsRequest__Class** type_info = (::app::GetPlayerSegmentsRequest__Class**)(modloader::win::memory::resolve_rva(0x04774A10)); }
+    namespace GetPlayerSegmentsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerSegmentsResult__Class** type_info = (::app::GetPlayerSegmentsResult__Class**)(modloader::win::memory::resolve_rva(0x0470B910)); }
+    namespace GetPlayerStatisticsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerStatisticsRequest__Class** type_info = (::app::GetPlayerStatisticsRequest__Class**)(modloader::win::memory::resolve_rva(0x04793250)); }
+    namespace StatisticNameVersion { IL2CPP_MODLOADER_DLLEXPORT ::app::StatisticNameVersion__Class** type_info = (::app::StatisticNameVersion__Class**)(modloader::win::memory::resolve_rva(0x04703B00)); }
+    namespace GetPlayerStatisticsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerStatisticsResult__Class** type_info = (::app::GetPlayerStatisticsResult__Class**)(modloader::win::memory::resolve_rva(0x04702240)); }
+    namespace GetPlayerStatisticVersionsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerStatisticVersionsRequest__Class** type_info = (::app::GetPlayerStatisticVersionsRequest__Class**)(modloader::win::memory::resolve_rva(0x047741E0)); }
+    namespace GetPlayerStatisticVersionsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerStatisticVersionsResult__Class** type_info = (::app::GetPlayerStatisticVersionsResult__Class**)(modloader::win::memory::resolve_rva(0x0476A090)); }
+    namespace GetPlayerTagsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerTagsRequest__Class** type_info = (::app::GetPlayerTagsRequest__Class**)(modloader::win::memory::resolve_rva(0x04707438)); }
+    namespace GetPlayerTagsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerTagsResult__Class** type_info = (::app::GetPlayerTagsResult__Class**)(modloader::win::memory::resolve_rva(0x04777800)); }
+    namespace GetPlayerTradesRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerTradesRequest__Class** type_info = (::app::GetPlayerTradesRequest__Class**)(modloader::win::memory::resolve_rva(0x04766768)); }
+    namespace GetPlayerTradesResponse { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayerTradesResponse__Class** type_info = (::app::GetPlayerTradesResponse__Class**)(modloader::win::memory::resolve_rva(0x0478EBB8)); }
+    namespace GetPlayFabIDsFromFacebookIDsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromFacebookIDsRequest__Class** type_info = (::app::GetPlayFabIDsFromFacebookIDsRequest__Class**)(modloader::win::memory::resolve_rva(0x04708CF8)); }
+    namespace GetPlayFabIDsFromFacebookIDsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromFacebookIDsResult__Class** type_info = (::app::GetPlayFabIDsFromFacebookIDsResult__Class**)(modloader::win::memory::resolve_rva(0x04768B28)); }
+    namespace GetPlayFabIDsFromFacebookInstantGamesIdsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromFacebookInstantGamesIdsRequest__Class** type_info = (::app::GetPlayFabIDsFromFacebookInstantGamesIdsRequest__Class**)(modloader::win::memory::resolve_rva(0x04733BF0)); }
+    namespace GetPlayFabIDsFromFacebookInstantGamesIdsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromFacebookInstantGamesIdsResult__Class** type_info = (::app::GetPlayFabIDsFromFacebookInstantGamesIdsResult__Class**)(modloader::win::memory::resolve_rva(0x0476DEA0)); }
+    namespace GetPlayFabIDsFromGameCenterIDsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromGameCenterIDsRequest__Class** type_info = (::app::GetPlayFabIDsFromGameCenterIDsRequest__Class**)(modloader::win::memory::resolve_rva(0x0471D6E0)); }
+    namespace GetPlayFabIDsFromGameCenterIDsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromGameCenterIDsResult__Class** type_info = (::app::GetPlayFabIDsFromGameCenterIDsResult__Class**)(modloader::win::memory::resolve_rva(0x0476DB90)); }
+    namespace GetPlayFabIDsFromGenericIDsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromGenericIDsRequest__Class** type_info = (::app::GetPlayFabIDsFromGenericIDsRequest__Class**)(modloader::win::memory::resolve_rva(0x04796588)); }
+    namespace GetPlayFabIDsFromGenericIDsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromGenericIDsResult__Class** type_info = (::app::GetPlayFabIDsFromGenericIDsResult__Class**)(modloader::win::memory::resolve_rva(0x0478C8E0)); }
+    namespace GetPlayFabIDsFromGoogleIDsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromGoogleIDsRequest__Class** type_info = (::app::GetPlayFabIDsFromGoogleIDsRequest__Class**)(modloader::win::memory::resolve_rva(0x04758DF0)); }
+    namespace GetPlayFabIDsFromGoogleIDsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromGoogleIDsResult__Class** type_info = (::app::GetPlayFabIDsFromGoogleIDsResult__Class**)(modloader::win::memory::resolve_rva(0x04730F58)); }
+    namespace GetPlayFabIDsFromKongregateIDsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromKongregateIDsRequest__Class** type_info = (::app::GetPlayFabIDsFromKongregateIDsRequest__Class**)(modloader::win::memory::resolve_rva(0x04735168)); }
+    namespace GetPlayFabIDsFromKongregateIDsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromKongregateIDsResult__Class** type_info = (::app::GetPlayFabIDsFromKongregateIDsResult__Class**)(modloader::win::memory::resolve_rva(0x0474F648)); }
+    namespace GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest__Class** type_info = (::app::GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest__Class**)(modloader::win::memory::resolve_rva(0x04762DB0)); }
+    namespace GetPlayFabIDsFromNintendoSwitchDeviceIdsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult__Class** type_info = (::app::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult__Class**)(modloader::win::memory::resolve_rva(0x04716498)); }
+    namespace NintendoSwitchPlayFabIdPair { IL2CPP_MODLOADER_DLLEXPORT ::app::NintendoSwitchPlayFabIdPair__Class** type_info = (::app::NintendoSwitchPlayFabIdPair__Class**)(modloader::win::memory::resolve_rva(0x0474D198)); }
+    namespace GetPlayFabIDsFromPSNAccountIDsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromPSNAccountIDsRequest__Class** type_info = (::app::GetPlayFabIDsFromPSNAccountIDsRequest__Class**)(modloader::win::memory::resolve_rva(0x04747FC0)); }
+    namespace GetPlayFabIDsFromPSNAccountIDsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromPSNAccountIDsResult__Class** type_info = (::app::GetPlayFabIDsFromPSNAccountIDsResult__Class**)(modloader::win::memory::resolve_rva(0x0475C218)); }
+    namespace GetPlayFabIDsFromSteamIDsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromSteamIDsRequest__Class** type_info = (::app::GetPlayFabIDsFromSteamIDsRequest__Class**)(modloader::win::memory::resolve_rva(0x04723A10)); }
+    namespace GetPlayFabIDsFromSteamIDsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromSteamIDsResult__Class** type_info = (::app::GetPlayFabIDsFromSteamIDsResult__Class**)(modloader::win::memory::resolve_rva(0x04736E50)); }
+    namespace GetPlayFabIDsFromTwitchIDsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromTwitchIDsRequest__Class** type_info = (::app::GetPlayFabIDsFromTwitchIDsRequest__Class**)(modloader::win::memory::resolve_rva(0x04719608)); }
+    namespace GetPlayFabIDsFromTwitchIDsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromTwitchIDsResult__Class** type_info = (::app::GetPlayFabIDsFromTwitchIDsResult__Class**)(modloader::win::memory::resolve_rva(0x047097F8)); }
+    namespace GetPlayFabIDsFromXboxLiveIDsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromXboxLiveIDsRequest__Class** type_info = (::app::GetPlayFabIDsFromXboxLiveIDsRequest__Class**)(modloader::win::memory::resolve_rva(0x04710540)); }
+    namespace GetPlayFabIDsFromXboxLiveIDsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPlayFabIDsFromXboxLiveIDsResult__Class** type_info = (::app::GetPlayFabIDsFromXboxLiveIDsResult__Class**)(modloader::win::memory::resolve_rva(0x04767F30)); }
+    namespace GetPublisherDataRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPublisherDataRequest__Class** type_info = (::app::GetPublisherDataRequest__Class**)(modloader::win::memory::resolve_rva(0x0472D188)); }
+    namespace GetPublisherDataResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPublisherDataResult__Class** type_info = (::app::GetPublisherDataResult__Class**)(modloader::win::memory::resolve_rva(0x04747630)); }
+    namespace GetPurchaseRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPurchaseRequest__Class** type_info = (::app::GetPurchaseRequest__Class**)(modloader::win::memory::resolve_rva(0x0477C1B8)); }
+    namespace GetPurchaseResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetPurchaseResult__Class** type_info = (::app::GetPurchaseResult__Class**)(modloader::win::memory::resolve_rva(0x047802F0)); }
+    namespace GetSharedGroupDataRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetSharedGroupDataRequest__Class** type_info = (::app::GetSharedGroupDataRequest__Class**)(modloader::win::memory::resolve_rva(0x04723578)); }
+    namespace GetSharedGroupDataResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetSharedGroupDataResult__Class** type_info = (::app::GetSharedGroupDataResult__Class**)(modloader::win::memory::resolve_rva(0x04753780)); }
+    namespace GetStoreItemsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetStoreItemsRequest__Class** type_info = (::app::GetStoreItemsRequest__Class**)(modloader::win::memory::resolve_rva(0x04795148)); }
+    namespace GetStoreItemsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetStoreItemsResult__Class** type_info = (::app::GetStoreItemsResult__Class**)(modloader::win::memory::resolve_rva(0x0471CBF8)); }
+    namespace GetTimeRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetTimeRequest__Class** type_info = (::app::GetTimeRequest__Class**)(modloader::win::memory::resolve_rva(0x04724238)); }
+    namespace GetTimeResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetTimeResult__Class** type_info = (::app::GetTimeResult__Class**)(modloader::win::memory::resolve_rva(0x04712B20)); }
+    namespace GetTitleDataRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetTitleDataRequest__Class** type_info = (::app::GetTitleDataRequest__Class**)(modloader::win::memory::resolve_rva(0x0472E148)); }
+    namespace GetTitleDataResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetTitleDataResult__Class** type_info = (::app::GetTitleDataResult__Class**)(modloader::win::memory::resolve_rva(0x0472CDF0)); }
+    namespace GetTitleNewsRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetTitleNewsRequest__Class** type_info = (::app::GetTitleNewsRequest__Class**)(modloader::win::memory::resolve_rva(0x04726BE8)); }
+    namespace GetTitleNewsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetTitleNewsResult__Class** type_info = (::app::GetTitleNewsResult__Class**)(modloader::win::memory::resolve_rva(0x0474F848)); }
+    namespace GetTitlePublicKeyRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetTitlePublicKeyRequest__Class** type_info = (::app::GetTitlePublicKeyRequest__Class**)(modloader::win::memory::resolve_rva(0x04737AF8)); }
+    namespace GetTitlePublicKeyResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetTitlePublicKeyResult__Class** type_info = (::app::GetTitlePublicKeyResult__Class**)(modloader::win::memory::resolve_rva(0x04789628)); }
+    namespace GetTradeStatusRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetTradeStatusRequest__Class** type_info = (::app::GetTradeStatusRequest__Class**)(modloader::win::memory::resolve_rva(0x04765820)); }
+    namespace GetTradeStatusResponse { IL2CPP_MODLOADER_DLLEXPORT ::app::GetTradeStatusResponse__Class** type_info = (::app::GetTradeStatusResponse__Class**)(modloader::win::memory::resolve_rva(0x04779860)); }
+    namespace GetUserDataRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetUserDataRequest__Class** type_info = (::app::GetUserDataRequest__Class**)(modloader::win::memory::resolve_rva(0x0472ADE8)); }
+    namespace GetUserDataResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetUserDataResult__Class** type_info = (::app::GetUserDataResult__Class**)(modloader::win::memory::resolve_rva(0x04775D90)); }
+    namespace GetUserInventoryRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetUserInventoryRequest__Class** type_info = (::app::GetUserInventoryRequest__Class**)(modloader::win::memory::resolve_rva(0x0477CF48)); }
+    namespace GetUserInventoryResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GetUserInventoryResult__Class** type_info = (::app::GetUserInventoryResult__Class**)(modloader::win::memory::resolve_rva(0x0474EC00)); }
+    namespace GetWindowsHelloChallengeRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GetWindowsHelloChallengeRequest__Class** type_info = (::app::GetWindowsHelloChallengeRequest__Class**)(modloader::win::memory::resolve_rva(0x047819D8)); }
+    namespace GetWindowsHelloChallengeResponse { IL2CPP_MODLOADER_DLLEXPORT ::app::GetWindowsHelloChallengeResponse__Class** type_info = (::app::GetWindowsHelloChallengeResponse__Class**)(modloader::win::memory::resolve_rva(0x04785D28)); }
+    namespace GrantCharacterToUserRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::GrantCharacterToUserRequest__Class** type_info = (::app::GrantCharacterToUserRequest__Class**)(modloader::win::memory::resolve_rva(0x047809A0)); }
+    namespace GrantCharacterToUserResult { IL2CPP_MODLOADER_DLLEXPORT ::app::GrantCharacterToUserResult__Class** type_info = (::app::GrantCharacterToUserResult__Class**)(modloader::win::memory::resolve_rva(0x04724630)); }
+    namespace LinkAndroidDeviceIDRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkAndroidDeviceIDRequest__Class** type_info = (::app::LinkAndroidDeviceIDRequest__Class**)(modloader::win::memory::resolve_rva(0x0470C0A0)); }
+    namespace LinkAndroidDeviceIDResult { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkAndroidDeviceIDResult__Class** type_info = (::app::LinkAndroidDeviceIDResult__Class**)(modloader::win::memory::resolve_rva(0x0478D130)); }
+    namespace LinkCustomIDRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkCustomIDRequest__Class** type_info = (::app::LinkCustomIDRequest__Class**)(modloader::win::memory::resolve_rva(0x047391B0)); }
+    namespace LinkCustomIDResult { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkCustomIDResult__Class** type_info = (::app::LinkCustomIDResult__Class**)(modloader::win::memory::resolve_rva(0x047364F0)); }
+    namespace LinkFacebookAccountRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkFacebookAccountRequest__Class** type_info = (::app::LinkFacebookAccountRequest__Class**)(modloader::win::memory::resolve_rva(0x0471F2E0)); }
+    namespace LinkFacebookAccountResult { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkFacebookAccountResult__Class** type_info = (::app::LinkFacebookAccountResult__Class**)(modloader::win::memory::resolve_rva(0x0477A0B8)); }
+    namespace LinkFacebookInstantGamesIdRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkFacebookInstantGamesIdRequest__Class** type_info = (::app::LinkFacebookInstantGamesIdRequest__Class**)(modloader::win::memory::resolve_rva(0x0477DCC0)); }
+    namespace LinkFacebookInstantGamesIdResult { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkFacebookInstantGamesIdResult__Class** type_info = (::app::LinkFacebookInstantGamesIdResult__Class**)(modloader::win::memory::resolve_rva(0x04702110)); }
+    namespace LinkGameCenterAccountRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkGameCenterAccountRequest__Class** type_info = (::app::LinkGameCenterAccountRequest__Class**)(modloader::win::memory::resolve_rva(0x047842E0)); }
+    namespace LinkGameCenterAccountResult { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkGameCenterAccountResult__Class** type_info = (::app::LinkGameCenterAccountResult__Class**)(modloader::win::memory::resolve_rva(0x0478A518)); }
+    namespace LinkGoogleAccountRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkGoogleAccountRequest__Class** type_info = (::app::LinkGoogleAccountRequest__Class**)(modloader::win::memory::resolve_rva(0x04732258)); }
+    namespace LinkGoogleAccountResult { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkGoogleAccountResult__Class** type_info = (::app::LinkGoogleAccountResult__Class**)(modloader::win::memory::resolve_rva(0x04715FC8)); }
+    namespace LinkIOSDeviceIDRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkIOSDeviceIDRequest__Class** type_info = (::app::LinkIOSDeviceIDRequest__Class**)(modloader::win::memory::resolve_rva(0x04709038)); }
+    namespace LinkIOSDeviceIDResult { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkIOSDeviceIDResult__Class** type_info = (::app::LinkIOSDeviceIDResult__Class**)(modloader::win::memory::resolve_rva(0x04796FD8)); }
+    namespace LinkKongregateAccountRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkKongregateAccountRequest__Class** type_info = (::app::LinkKongregateAccountRequest__Class**)(modloader::win::memory::resolve_rva(0x04771668)); }
+    namespace LinkKongregateAccountResult { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkKongregateAccountResult__Class** type_info = (::app::LinkKongregateAccountResult__Class**)(modloader::win::memory::resolve_rva(0x04778068)); }
+    namespace LinkNintendoSwitchDeviceIdRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkNintendoSwitchDeviceIdRequest__Class** type_info = (::app::LinkNintendoSwitchDeviceIdRequest__Class**)(modloader::win::memory::resolve_rva(0x04798B40)); }
+    namespace LinkNintendoSwitchDeviceIdResult { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkNintendoSwitchDeviceIdResult__Class** type_info = (::app::LinkNintendoSwitchDeviceIdResult__Class**)(modloader::win::memory::resolve_rva(0x04758400)); }
+    namespace LinkOpenIdConnectRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkOpenIdConnectRequest__Class** type_info = (::app::LinkOpenIdConnectRequest__Class**)(modloader::win::memory::resolve_rva(0x0475C390)); }
+    namespace EmptyResult { IL2CPP_MODLOADER_DLLEXPORT ::app::EmptyResult__Class** type_info = (::app::EmptyResult__Class**)(modloader::win::memory::resolve_rva(0x047361D8)); }
+    namespace LinkPSNAccountRequest { IL2CPP_MODLOADER_DLLEXPORT ::app::LinkPSNAccountRequest__Class** type_info = (::app::LinkPSNAccountRequest__Class**)(modloader::win::memory::resolve_rva(0x047364C0)); }
+}

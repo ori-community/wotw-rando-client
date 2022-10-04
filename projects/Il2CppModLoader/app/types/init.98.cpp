@@ -1,405 +1,205 @@
-#include <Il2CppModLoader/app/types/DateTimeConstantAttribute__Array.h>
-#include <Il2CppModLoader/app/types/DecimalConstantAttribute__Array.h>
-#include <Il2CppModLoader/app/types/ExitGUIException.h>
-#include <Il2CppModLoader/app/types/GUIUtility.h>
-#include <Il2CppModLoader/app/types/GameFolders.h>
-#include <Il2CppModLoader/app/types/GameObjectLayer.h>
-#include <Il2CppModLoader/app/types/GarbageCollector.h>
-#include <Il2CppModLoader/app/types/GenericCastManagerFlags.h>
-#include <Il2CppModLoader/app/types/GizmoSystem.h>
-#include <Il2CppModLoader/app/types/GlobalLog.h>
-#include <Il2CppModLoader/app/types/GoThroughPlatformManager.h>
-#include <Il2CppModLoader/app/types/GraphicsExt.h>
-#include <Il2CppModLoader/app/types/HashHelpers.h>
-#include <Il2CppModLoader/app/types/HeaderInfo__Array.h>
-#include <Il2CppModLoader/app/types/HideFlagsExtensions.h>
-#include <Il2CppModLoader/app/types/HitStopManager.h>
-#include <Il2CppModLoader/app/types/HtmlTernaryTree.h>
-#include <Il2CppModLoader/app/types/HttpListenerContext__Array.h>
-#include <Il2CppModLoader/app/types/ImmutableCollectionsUtils.h>
-#include <Il2CppModLoader/app/types/InWaterMode__Enum.h>
-#include <Il2CppModLoader/app/types/InputTracking.h>
-#include <Il2CppModLoader/app/types/InputTriangle__Array.h>
-#include <Il2CppModLoader/app/types/InternalInflateConstants.h>
-#include <Il2CppModLoader/app/types/InternalRemotingServices.h>
-#include <Il2CppModLoader/app/types/Internal_SubsystemDescriptors.h>
-#include <Il2CppModLoader/app/types/Internal_SubsystemInstances.h>
-#include <Il2CppModLoader/app/types/JSONParser.h>
-#include <Il2CppModLoader/app/types/JavaScriptUtils.h>
-#include <Il2CppModLoader/app/types/JsonConvert.h>
-#include <Il2CppModLoader/app/types/KeyBuilder.h>
-#include <Il2CppModLoader/app/types/KeyBuilder_1.h>
-#include <Il2CppModLoader/app/types/LayoutUtility.h>
-#include <Il2CppModLoader/app/types/LeaderboardFilters.h>
-#include <Il2CppModLoader/app/types/LocalAppContextSwitches.h>
-#include <Il2CppModLoader/app/types/MSCompatUnicodeTableUtil.h>
-#include <Il2CppModLoader/app/types/MathfInternal.h>
-#include <Il2CppModLoader/app/types/MemoryProfiler.h>
-#include <Il2CppModLoader/app/types/MeshValidator.h>
-#include <Il2CppModLoader/app/types/MessageParserUtility.h>
-#include <Il2CppModLoader/app/types/MetaballDefs.h>
-#include <Il2CppModLoader/app/types/MoonProfilerManager.h>
-#include <Il2CppModLoader/app/types/MoonReferenceValidator.h>
-#include <Il2CppModLoader/app/types/MoonRenderContext_Samplers.h>
-#include <Il2CppModLoader/app/types/MoonRenderPipelineView_Samplers.h>
-#include <Il2CppModLoader/app/types/MoonTelemetryLogger.h>
-#include <Il2CppModLoader/app/types/NativeInputSystem.h>
-#include <Il2CppModLoader/app/types/NavMesh.h>
-#include <Il2CppModLoader/app/types/NavigationSettings.h>
-#include <Il2CppModLoader/app/types/P3D_Brush_LightPaintAdditive.h>
-#include <Il2CppModLoader/app/types/P3D_Brush_LightPaintBlur.h>
-#include <Il2CppModLoader/app/types/P3D_Brush_LightPaintErase.h>
-#include <Il2CppModLoader/app/types/P3D_Brush_LightPaintSubtractive.h>
-#include <Il2CppModLoader/app/types/Parser_MD5.h>
-#include <Il2CppModLoader/app/types/PerfTestTimer__Array.h>
-#include <Il2CppModLoader/app/types/PlayFabClientAPI.h>
-#include <Il2CppModLoader/app/types/PlayFabSendingProxy.h>
-#include <Il2CppModLoader/app/types/PlayFabSettings.h>
-#include <Il2CppModLoader/app/types/PlayFabSimpleJson.h>
-#include <Il2CppModLoader/app/types/PlayFabUtil.h>
-#include <Il2CppModLoader/app/types/ProfilerExt.h>
-#include <Il2CppModLoader/app/types/RenderTarget_Samplers.h>
-#include <Il2CppModLoader/app/types/ReplayValidator.h>
-#include <Il2CppModLoader/app/types/ShaderID_GaussianBlur.h>
-#include <Il2CppModLoader/app/types/ShaderID_Glitch.h>
-#include <Il2CppModLoader/app/types/ShaderID_GlobalDebugQuadScaleMenuItem.h>
-#include <Il2CppModLoader/app/types/ShaderID_GlobalFog.h>
-#include <Il2CppModLoader/app/types/ShaderID_GradientRamp.h>
-#include <Il2CppModLoader/app/types/ShaderID_GradientRampDynamic.h>
-#include <Il2CppModLoader/app/types/ShaderID_GrainyBlur.h>
-#include <Il2CppModLoader/app/types/ShaderID_Grayscale.h>
-#include <Il2CppModLoader/app/types/ShaderID_GrayscaleEffect.h>
-#include <Il2CppModLoader/app/types/ShaderID_Halftone.h>
-#include <Il2CppModLoader/app/types/ShaderID_HueFocus.h>
-#include <Il2CppModLoader/app/types/ShaderID_HueSaturationValue.h>
-#include <Il2CppModLoader/app/types/ShaderID_ImageEffects.h>
-#include <Il2CppModLoader/app/types/ShaderID_Kuwahara.h>
-#include <Il2CppModLoader/app/types/ShaderID_Led.h>
-#include <Il2CppModLoader/app/types/ShaderID_LensAberrations.h>
-#include <Il2CppModLoader/app/types/ShaderID_LensDistortionBlur.h>
-#include <Il2CppModLoader/app/types/ShaderID_Letterbox.h>
-#include <Il2CppModLoader/app/types/ShaderID_Levels.h>
-#include <Il2CppModLoader/app/types/ShaderID_LoFiPalette.h>
-#include <Il2CppModLoader/app/types/ShaderID_LookupFilter.h>
-#include <Il2CppModLoader/app/types/ShaderID_LookupFilter3D.h>
-#include <Il2CppModLoader/app/types/ShaderID_MotionBlur.h>
-#include <Il2CppModLoader/app/types/ShaderKeyword_LensAberrations.h>
-#include <Il2CppModLoader/app/types/ShaderKeyword_LightCanvas.h>
-#include <Il2CppModLoader/app/types/SoundComposition_1.h>
-#include <Il2CppModLoader/app/types/SpriteAtlasManager.h>
-#include <Il2CppModLoader/app/types/StencilMaterial.h>
-#include <Il2CppModLoader/app/types/SubsystemManager.h>
-#include <Il2CppModLoader/app/types/Tests.h>
-#include <Il2CppModLoader/app/types/UberShaderProperties.h>
-#include <Il2CppModLoader/app/types/UberSwarmPOIManager.h>
-#include <Il2CppModLoader/app/types/UberWaterControl_Simulation.h>
-#include <Il2CppModLoader/app/types/UnsafeNclNativeMethods_HttpApi.h>
-#include <Il2CppModLoader/app/types/UnsafeNclNativeMethods_HttpApi_HTTP_REQUEST_HEADER_ID.h>
-#include <Il2CppModLoader/app/types/UnsafeNclNativeMethods_HttpApi_HTTP_RESPONSE_HEADER_ID.h>
-#include <Il2CppModLoader/app/types/UriHelper.h>
-#include <Il2CppModLoader/app/types/WebUtility_HtmlEntities.h>
-#include <Il2CppModLoader/macros.h>
 #include <Il2CppModLoader/windows_api/memory.h>
+#include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/app/types/PhysicsUtils.h>
+#include <Il2CppModLoader/app/types/ShaderID_BloomAndFlares.h>
+#include <Il2CppModLoader/app/types/ShaderID_BloomOptimized.h>
+#include <Il2CppModLoader/app/types/ShaderID_Bloom.h>
+#include <Il2CppModLoader/app/types/ShaderID_Bloom_1.h>
+#include <Il2CppModLoader/app/types/ShaderID_BlurOptimized.h>
+#include <Il2CppModLoader/app/types/IBooleanUberState.h>
+#include <Il2CppModLoader/app/types/Statics.h>
+#include <Il2CppModLoader/app/types/TransformExtensions.h>
+#include <Il2CppModLoader/app/types/TimelineSolver.h>
+#include <Il2CppModLoader/app/types/TimelineHelper.h>
+#include <Il2CppModLoader/app/types/IIndeterminateLengthTimelineEntity.h>
+#include <Il2CppModLoader/app/types/IClipGroup.h>
+#include <Il2CppModLoader/app/types/ShaderID_BrightnessContrastGamma.h>
+#include <Il2CppModLoader/app/types/BrowserNative.h>
+#include <Il2CppModLoader/app/types/KeyMappings.h>
+#include <Il2CppModLoader/app/types/DateTimeUtils.h>
+#include <Il2CppModLoader/app/types/BuilderInfo.h>
+#include <Il2CppModLoader/app/types/ButtonIconUtility.h>
+#include <Il2CppModLoader/app/types/CCDistanceMapGenerator.h>
+#include <Il2CppModLoader/app/types/CCDistanceMapGenerator_Pixel__Array.h>
+#include <Il2CppModLoader/app/types/CCText__Array.h>
+#include <Il2CppModLoader/app/types/CCStringBuilderUtility.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_AnalogTV.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_BleachBypass.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_BrightnessContrastGamma.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_ChannelMixer.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_DoubleVision.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_FastVignette.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_Frost.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_Grayscale.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_HueSaturationValue.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_Led.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_Levels.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_PhotoFilter.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_Pixelate.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_Posterize.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_RadialBlur.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_Threshold.h>
+#include <Il2CppModLoader/app/types/ShaderID_CC_Vibrance.h>
+#include <Il2CppModLoader/app/types/CFNetwork.h>
+#include <Il2CppModLoader/app/types/CSteamAPIContext.h>
+#include <Il2CppModLoader/app/types/CSteamGameServerAPIContext.h>
+#include <Il2CppModLoader/app/types/Console.h>
+#include <Il2CppModLoader/app/types/ConsoleDriver.h>
+#include <Il2CppModLoader/app/types/CachedReflectionInfo.h>
+#include <Il2CppModLoader/app/types/ShaderID_CageTextureMaker.h>
+#include <Il2CppModLoader/app/types/CameraFovOffsetMixer.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_AAA_BloodOnScreen.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_AAA_Blood_Hit.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_AAA_Blood.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_AAA_Blood_Plus.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_AAA_SuperComputer.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_AAA_SuperHexagon.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_AAA_WaterDrop.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Alien_Vision.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Antialiasing_FXAA.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Atmosphere_Rain.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Atmosphere_Rain_Pro.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Atmosphere_Snow_8bits.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Blend.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_BlueScreen.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_ColorBurn.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_ColorDodge.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Color.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Darken.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_DarkerColor.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Difference.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Divide.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Exclusion.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_GreenScreen.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_HardLight.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_HardMix.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Hue.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Lighten.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_LighterColor.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_LinearBurn.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_LinearDodge.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_LinearLight.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Luminosity.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Multiply.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Overlay.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_PinLight.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Saturation.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Screen.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_SoftLight.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_SplitScreen.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_Subtract.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blend2Camera_VividLight.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blizzard.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blur_Bloom.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blur_BlurHole.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blur_Blurry.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blur_DitherOffset.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blur_Dithering2x2.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blur_Focus.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blur_GaussianBlur.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blur_Movie.h>
+#include <Il2CppModLoader/app/types/ShaderID_CameraFilterPack_Blur_Noise.h>
 
 namespace app::classes::types {
-    namespace GUIUtility {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GUIUtility__Class** type_info = (::app::GUIUtility__Class**)(modloader::win::memory::resolve_rva(0x0475E6E0));
-    }
-    namespace ExitGUIException {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ExitGUIException__Class** type_info = (::app::ExitGUIException__Class**)(modloader::win::memory::resolve_rva(0x04721908));
-    }
-    namespace PlayFabClientAPI {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabClientAPI__Class** type_info = (::app::PlayFabClientAPI__Class**)(modloader::win::memory::resolve_rva(0x04791658));
-    }
-    namespace GameFolders {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GameFolders__Class** type_info = (::app::GameFolders__Class**)(modloader::win::memory::resolve_rva(0x0474BB48));
-    }
-    namespace SoundComposition_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SoundComposition_1__Class** type_info = (::app::SoundComposition_1__Class**)(modloader::win::memory::resolve_rva(0x04728CD8));
-    }
-    namespace GameObjectLayer {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GameObjectLayer__Class** type_info = (::app::GameObjectLayer__Class**)(modloader::win::memory::resolve_rva(0x04776338));
-    }
-    namespace GarbageCollector {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GarbageCollector__Class** type_info = (::app::GarbageCollector__Class**)(modloader::win::memory::resolve_rva(0x047924B8));
-    }
-    namespace ShaderID_GaussianBlur {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_GaussianBlur__Class** type_info = (::app::ShaderID_GaussianBlur__Class**)(modloader::win::memory::resolve_rva(0x047380F8));
-    }
-    namespace GenericCastManagerFlags {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GenericCastManagerFlags__Class** type_info = (::app::GenericCastManagerFlags__Class**)(modloader::win::memory::resolve_rva(0x047445C0));
-    }
-    namespace InputTriangle__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InputTriangle__Array__Class** type_info = (::app::InputTriangle__Array__Class**)(modloader::win::memory::resolve_rva(0x0471B5E0));
-    }
-    namespace GizmoSystem {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GizmoSystem__Class** type_info = (::app::GizmoSystem__Class**)(modloader::win::memory::resolve_rva(0x0470DA98));
-    }
-    namespace ShaderID_Glitch {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_Glitch__Class** type_info = (::app::ShaderID_Glitch__Class**)(modloader::win::memory::resolve_rva(0x04792388));
-    }
-    namespace ShaderID_GlobalDebugQuadScaleMenuItem {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_GlobalDebugQuadScaleMenuItem__Class** type_info = (::app::ShaderID_GlobalDebugQuadScaleMenuItem__Class**)(modloader::win::memory::resolve_rva(0x047338A8));
-    }
-    namespace ShaderID_GlobalFog {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_GlobalFog__Class** type_info = (::app::ShaderID_GlobalFog__Class**)(modloader::win::memory::resolve_rva(0x04761D38));
-    }
-    namespace GlobalLog {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GlobalLog__Class** type_info = (::app::GlobalLog__Class**)(modloader::win::memory::resolve_rva(0x0476C8A8));
-    }
-    namespace GoThroughPlatformManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GoThroughPlatformManager__Class** type_info = (::app::GoThroughPlatformManager__Class**)(modloader::win::memory::resolve_rva(0x0471ECD8));
-    }
-    namespace ShaderID_GradientRampDynamic {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_GradientRampDynamic__Class** type_info = (::app::ShaderID_GradientRampDynamic__Class**)(modloader::win::memory::resolve_rva(0x0471F658));
-    }
-    namespace ShaderID_GradientRamp {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_GradientRamp__Class** type_info = (::app::ShaderID_GradientRamp__Class**)(modloader::win::memory::resolve_rva(0x04749EF8));
-    }
-    namespace ShaderID_GrainyBlur {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_GrainyBlur__Class** type_info = (::app::ShaderID_GrainyBlur__Class**)(modloader::win::memory::resolve_rva(0x0473DF50));
-    }
-    namespace GraphicsExt {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GraphicsExt__Class** type_info = (::app::GraphicsExt__Class**)(modloader::win::memory::resolve_rva(0x047254E0));
-    }
-    namespace ShaderID_GrayscaleEffect {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_GrayscaleEffect__Class** type_info = (::app::ShaderID_GrayscaleEffect__Class**)(modloader::win::memory::resolve_rva(0x04731768));
-    }
-    namespace ShaderID_Grayscale {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_Grayscale__Class** type_info = (::app::ShaderID_Grayscale__Class**)(modloader::win::memory::resolve_rva(0x0473E550));
-    }
-    namespace UnsafeNclNativeMethods_HttpApi_HTTP_REQUEST_HEADER_ID {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UnsafeNclNativeMethods_HttpApi_HTTP_REQUEST_HEADER_ID__Class** type_info = (::app::UnsafeNclNativeMethods_HttpApi_HTTP_REQUEST_HEADER_ID__Class**)(modloader::win::memory::resolve_rva(0x04760320));
-    }
-    namespace UnsafeNclNativeMethods_HttpApi_HTTP_RESPONSE_HEADER_ID {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UnsafeNclNativeMethods_HttpApi_HTTP_RESPONSE_HEADER_ID__Class** type_info = (::app::UnsafeNclNativeMethods_HttpApi_HTTP_RESPONSE_HEADER_ID__Class**)(modloader::win::memory::resolve_rva(0x04784878));
-    }
-    namespace UnsafeNclNativeMethods_HttpApi {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UnsafeNclNativeMethods_HttpApi__Class** type_info = (::app::UnsafeNclNativeMethods_HttpApi__Class**)(modloader::win::memory::resolve_rva(0x04702C40));
-    }
-    namespace ShaderID_Halftone {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_Halftone__Class** type_info = (::app::ShaderID_Halftone__Class**)(modloader::win::memory::resolve_rva(0x04731848));
-    }
-    namespace HashHelpers {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HashHelpers__Class** type_info = (::app::HashHelpers__Class**)(modloader::win::memory::resolve_rva(0x04732D20));
-    }
-    namespace HeaderInfo__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HeaderInfo__Array__Class** type_info = (::app::HeaderInfo__Array__Class**)(modloader::win::memory::resolve_rva(0x0470FE80));
-    }
-    namespace HideFlagsExtensions {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HideFlagsExtensions__Class** type_info = (::app::HideFlagsExtensions__Class**)(modloader::win::memory::resolve_rva(0x0472C2D8));
-    }
-    namespace Tests {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Tests__Class** type_info = (::app::Tests__Class**)(modloader::win::memory::resolve_rva(0x04740C18));
-    }
-    namespace PerfTestTimer__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PerfTestTimer__Array__Class** type_info = (::app::PerfTestTimer__Array__Class**)(modloader::win::memory::resolve_rva(0x04791640));
-    }
-    namespace HitStopManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HitStopManager__Class** type_info = (::app::HitStopManager__Class**)(modloader::win::memory::resolve_rva(0x0470B158));
-    }
-    namespace HtmlTernaryTree {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HtmlTernaryTree__Class** type_info = (::app::HtmlTernaryTree__Class**)(modloader::win::memory::resolve_rva(0x04793600));
-    }
-    namespace WebUtility_HtmlEntities {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::WebUtility_HtmlEntities__Class** type_info = (::app::WebUtility_HtmlEntities__Class**)(modloader::win::memory::resolve_rva(0x047707F8));
-    }
-    namespace HttpListenerContext__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HttpListenerContext__Array__Class** type_info = (::app::HttpListenerContext__Array__Class**)(modloader::win::memory::resolve_rva(0x04709098));
-    }
-    namespace ShaderID_HueFocus {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_HueFocus__Class** type_info = (::app::ShaderID_HueFocus__Class**)(modloader::win::memory::resolve_rva(0x047494E0));
-    }
-    namespace ShaderID_HueSaturationValue {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_HueSaturationValue__Class** type_info = (::app::ShaderID_HueSaturationValue__Class**)(modloader::win::memory::resolve_rva(0x04713860));
-    }
-    namespace ShaderID_ImageEffects {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_ImageEffects__Class** type_info = (::app::ShaderID_ImageEffects__Class**)(modloader::win::memory::resolve_rva(0x0472DE48));
-    }
-    namespace SpriteAtlasManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SpriteAtlasManager__Class** type_info = (::app::SpriteAtlasManager__Class**)(modloader::win::memory::resolve_rva(0x0477F1D0));
-    }
-    namespace ImmutableCollectionsUtils {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ImmutableCollectionsUtils__Class** type_info = (::app::ImmutableCollectionsUtils__Class**)(modloader::win::memory::resolve_rva(0x0475CCA0));
-    }
-    namespace InWaterMode__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InWaterMode__Enum__Class** type_info = (::app::InWaterMode__Enum__Class**)(modloader::win::memory::resolve_rva(0x0477D188));
-    }
-    namespace InternalInflateConstants {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InternalInflateConstants__Class** type_info = (::app::InternalInflateConstants__Class**)(modloader::win::memory::resolve_rva(0x047359F8));
-    }
-    namespace InputTracking {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InputTracking__Class** type_info = (::app::InputTracking__Class**)(modloader::win::memory::resolve_rva(0x047088D0));
-    }
-    namespace InternalRemotingServices {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InternalRemotingServices__Class** type_info = (::app::InternalRemotingServices__Class**)(modloader::win::memory::resolve_rva(0x04760088));
-    }
-    namespace Internal_SubsystemDescriptors {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Internal_SubsystemDescriptors__Class** type_info = (::app::Internal_SubsystemDescriptors__Class**)(modloader::win::memory::resolve_rva(0x04727370));
-    }
-    namespace SubsystemManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SubsystemManager__Class** type_info = (::app::SubsystemManager__Class**)(modloader::win::memory::resolve_rva(0x0475A6B8));
-    }
-    namespace Internal_SubsystemInstances {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Internal_SubsystemInstances__Class** type_info = (::app::Internal_SubsystemInstances__Class**)(modloader::win::memory::resolve_rva(0x047022B0));
-    }
-    namespace UriHelper {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UriHelper__Class** type_info = (::app::UriHelper__Class**)(modloader::win::memory::resolve_rva(0x04756FF0));
-    }
-    namespace JSONParser {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::JSONParser__Class** type_info = (::app::JSONParser__Class**)(modloader::win::memory::resolve_rva(0x04795250));
-    }
-    namespace JsonConvert {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::JsonConvert__Class** type_info = (::app::JsonConvert__Class**)(modloader::win::memory::resolve_rva(0x04756980));
-    }
-    namespace JavaScriptUtils {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::JavaScriptUtils__Class** type_info = (::app::JavaScriptUtils__Class**)(modloader::win::memory::resolve_rva(0x047222B0));
-    }
-    namespace PlayFabSimpleJson {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabSimpleJson__Class** type_info = (::app::PlayFabSimpleJson__Class**)(modloader::win::memory::resolve_rva(0x04732E90));
-    }
-    namespace KeyBuilder {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::KeyBuilder__Class** type_info = (::app::KeyBuilder__Class**)(modloader::win::memory::resolve_rva(0x047588C8));
-    }
-    namespace KeyBuilder_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::KeyBuilder_1__Class** type_info = (::app::KeyBuilder_1__Class**)(modloader::win::memory::resolve_rva(0x04795D78));
-    }
-    namespace ShaderID_Kuwahara {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_Kuwahara__Class** type_info = (::app::ShaderID_Kuwahara__Class**)(modloader::win::memory::resolve_rva(0x04733908));
-    }
-    namespace LayoutUtility {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LayoutUtility__Class** type_info = (::app::LayoutUtility__Class**)(modloader::win::memory::resolve_rva(0x04799B80));
-    }
-    namespace ReplayValidator {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ReplayValidator__Class** type_info = (::app::ReplayValidator__Class**)(modloader::win::memory::resolve_rva(0x0477E970));
-    }
-    namespace LeaderboardFilters {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LeaderboardFilters__Class** type_info = (::app::LeaderboardFilters__Class**)(modloader::win::memory::resolve_rva(0x047613A8));
-    }
-    namespace ShaderID_Led {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_Led__Class** type_info = (::app::ShaderID_Led__Class**)(modloader::win::memory::resolve_rva(0x0475FE88));
-    }
-    namespace ShaderKeyword_LensAberrations {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderKeyword_LensAberrations__Class** type_info = (::app::ShaderKeyword_LensAberrations__Class**)(modloader::win::memory::resolve_rva(0x047194C8));
-    }
-    namespace ShaderID_LensAberrations {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_LensAberrations__Class** type_info = (::app::ShaderID_LensAberrations__Class**)(modloader::win::memory::resolve_rva(0x04782AF8));
-    }
-    namespace ShaderID_LensDistortionBlur {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_LensDistortionBlur__Class** type_info = (::app::ShaderID_LensDistortionBlur__Class**)(modloader::win::memory::resolve_rva(0x0472B0B8));
-    }
-    namespace ShaderID_Letterbox {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_Letterbox__Class** type_info = (::app::ShaderID_Letterbox__Class**)(modloader::win::memory::resolve_rva(0x047155E0));
-    }
-    namespace ShaderID_Levels {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_Levels__Class** type_info = (::app::ShaderID_Levels__Class**)(modloader::win::memory::resolve_rva(0x0478A4E8));
-    }
-    namespace ShaderKeyword_LightCanvas {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderKeyword_LightCanvas__Class** type_info = (::app::ShaderKeyword_LightCanvas__Class**)(modloader::win::memory::resolve_rva(0x04771F28));
-    }
-    namespace P3D_Brush_LightPaintAdditive {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::P3D_Brush_LightPaintAdditive__Class** type_info = (::app::P3D_Brush_LightPaintAdditive__Class**)(modloader::win::memory::resolve_rva(0x047862A8));
-    }
-    namespace P3D_Brush_LightPaintBlur {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::P3D_Brush_LightPaintBlur__Class** type_info = (::app::P3D_Brush_LightPaintBlur__Class**)(modloader::win::memory::resolve_rva(0x0473A590));
-    }
-    namespace P3D_Brush_LightPaintErase {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::P3D_Brush_LightPaintErase__Class** type_info = (::app::P3D_Brush_LightPaintErase__Class**)(modloader::win::memory::resolve_rva(0x04753740));
-    }
-    namespace P3D_Brush_LightPaintSubtractive {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::P3D_Brush_LightPaintSubtractive__Class** type_info = (::app::P3D_Brush_LightPaintSubtractive__Class**)(modloader::win::memory::resolve_rva(0x0478D2C0));
-    }
-    namespace ShaderID_LoFiPalette {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_LoFiPalette__Class** type_info = (::app::ShaderID_LoFiPalette__Class**)(modloader::win::memory::resolve_rva(0x04756570));
-    }
-    namespace PlayFabSettings {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabSettings__Class** type_info = (::app::PlayFabSettings__Class**)(modloader::win::memory::resolve_rva(0x04715CF0));
-    }
-    namespace PlayFabUtil {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabUtil__Class** type_info = (::app::PlayFabUtil__Class**)(modloader::win::memory::resolve_rva(0x0471F3B0));
-    }
-    namespace ShaderID_LookupFilter3D {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_LookupFilter3D__Class** type_info = (::app::ShaderID_LookupFilter3D__Class**)(modloader::win::memory::resolve_rva(0x04767C90));
-    }
-    namespace ShaderID_LookupFilter {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_LookupFilter__Class** type_info = (::app::ShaderID_LookupFilter__Class**)(modloader::win::memory::resolve_rva(0x04736CE0));
-    }
-    namespace Parser_MD5 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Parser_MD5__Class** type_info = (::app::Parser_MD5__Class**)(modloader::win::memory::resolve_rva(0x0473A000));
-    }
-    namespace MSCompatUnicodeTableUtil {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MSCompatUnicodeTableUtil__Class** type_info = (::app::MSCompatUnicodeTableUtil__Class**)(modloader::win::memory::resolve_rva(0x047066C0));
-    }
-    namespace StencilMaterial {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::StencilMaterial__Class** type_info = (::app::StencilMaterial__Class**)(modloader::win::memory::resolve_rva(0x047454E8));
-    }
-    namespace MathfInternal {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MathfInternal__Class** type_info = (::app::MathfInternal__Class**)(modloader::win::memory::resolve_rva(0x04777E00));
-    }
-    namespace LocalAppContextSwitches {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LocalAppContextSwitches__Class** type_info = (::app::LocalAppContextSwitches__Class**)(modloader::win::memory::resolve_rva(0x04728E48));
-    }
-    namespace MemoryProfiler {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MemoryProfiler__Class** type_info = (::app::MemoryProfiler__Class**)(modloader::win::memory::resolve_rva(0x04792890));
-    }
-    namespace MeshValidator {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MeshValidator__Class** type_info = (::app::MeshValidator__Class**)(modloader::win::memory::resolve_rva(0x04784FA8));
-    }
-    namespace MessageParserUtility {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MessageParserUtility__Class** type_info = (::app::MessageParserUtility__Class**)(modloader::win::memory::resolve_rva(0x0475FBD8));
-    }
-    namespace MetaballDefs {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MetaballDefs__Class** type_info = (::app::MetaballDefs__Class**)(modloader::win::memory::resolve_rva(0x04770130));
-    }
-    namespace DecimalConstantAttribute__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DecimalConstantAttribute__Array__Class** type_info = (::app::DecimalConstantAttribute__Array__Class**)(modloader::win::memory::resolve_rva(0x047997D0));
-    }
-    namespace DateTimeConstantAttribute__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DateTimeConstantAttribute__Array__Class** type_info = (::app::DateTimeConstantAttribute__Array__Class**)(modloader::win::memory::resolve_rva(0x04734AE8));
-    }
-    namespace MoonProfilerManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MoonProfilerManager__Class** type_info = (::app::MoonProfilerManager__Class**)(modloader::win::memory::resolve_rva(0x047376F8));
-    }
-    namespace MoonReferenceValidator {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MoonReferenceValidator__Class** type_info = (::app::MoonReferenceValidator__Class**)(modloader::win::memory::resolve_rva(0x0477B238));
-    }
-    namespace ProfilerExt {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ProfilerExt__Class** type_info = (::app::ProfilerExt__Class**)(modloader::win::memory::resolve_rva(0x04791310));
-    }
-    namespace MoonRenderPipelineView_Samplers {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MoonRenderPipelineView_Samplers__Class** type_info = (::app::MoonRenderPipelineView_Samplers__Class**)(modloader::win::memory::resolve_rva(0x04790FC0));
-    }
-    namespace MoonRenderContext_Samplers {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MoonRenderContext_Samplers__Class** type_info = (::app::MoonRenderContext_Samplers__Class**)(modloader::win::memory::resolve_rva(0x04704ED0));
-    }
-    namespace RenderTarget_Samplers {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::RenderTarget_Samplers__Class** type_info = (::app::RenderTarget_Samplers__Class**)(modloader::win::memory::resolve_rva(0x0478FBF0));
-    }
-    namespace UberWaterControl_Simulation {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberWaterControl_Simulation__Class** type_info = (::app::UberWaterControl_Simulation__Class**)(modloader::win::memory::resolve_rva(0x047084B0));
-    }
-    namespace UberShaderProperties {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberShaderProperties__Class** type_info = (::app::UberShaderProperties__Class**)(modloader::win::memory::resolve_rva(0x047039E8));
-    }
-    namespace UberSwarmPOIManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberSwarmPOIManager__Class** type_info = (::app::UberSwarmPOIManager__Class**)(modloader::win::memory::resolve_rva(0x047748D0));
-    }
-    namespace MoonTelemetryLogger {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MoonTelemetryLogger__Class** type_info = (::app::MoonTelemetryLogger__Class**)(modloader::win::memory::resolve_rva(0x047374E8));
-    }
-    namespace PlayFabSendingProxy {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabSendingProxy__Class** type_info = (::app::PlayFabSendingProxy__Class**)(modloader::win::memory::resolve_rva(0x04731A20));
-    }
-    namespace ShaderID_MotionBlur {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_MotionBlur__Class** type_info = (::app::ShaderID_MotionBlur__Class**)(modloader::win::memory::resolve_rva(0x0474B480));
-    }
-    namespace NativeInputSystem {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NativeInputSystem__Class** type_info = (::app::NativeInputSystem__Class**)(modloader::win::memory::resolve_rva(0x04721910));
-    }
-    namespace NavMesh {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NavMesh__Class** type_info = (::app::NavMesh__Class**)(modloader::win::memory::resolve_rva(0x04721E38));
-    }
-    namespace NavigationSettings {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NavigationSettings__Class** type_info = (::app::NavigationSettings__Class**)(modloader::win::memory::resolve_rva(0x0471F438));
-    }
-} // namespace app::classes::types
+    namespace PhysicsUtils { IL2CPP_MODLOADER_DLLEXPORT ::app::PhysicsUtils__Class** type_info = (::app::PhysicsUtils__Class**)(modloader::win::memory::resolve_rva(0x04793708)); }
+    namespace ShaderID_BloomAndFlares { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_BloomAndFlares__Class** type_info = (::app::ShaderID_BloomAndFlares__Class**)(modloader::win::memory::resolve_rva(0x04798FA8)); }
+    namespace ShaderID_BloomOptimized { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_BloomOptimized__Class** type_info = (::app::ShaderID_BloomOptimized__Class**)(modloader::win::memory::resolve_rva(0x0474D718)); }
+    namespace ShaderID_Bloom { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_Bloom__Class** type_info = (::app::ShaderID_Bloom__Class**)(modloader::win::memory::resolve_rva(0x04711720)); }
+    namespace ShaderID_Bloom_1 { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_Bloom_1__Class** type_info = (::app::ShaderID_Bloom_1__Class**)(modloader::win::memory::resolve_rva(0x0470DC90)); }
+    namespace ShaderID_BlurOptimized { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_BlurOptimized__Class** type_info = (::app::ShaderID_BlurOptimized__Class**)(modloader::win::memory::resolve_rva(0x047665B8)); }
+    namespace IBooleanUberState { IL2CPP_MODLOADER_DLLEXPORT ::app::IBooleanUberState__Class** type_info = (::app::IBooleanUberState__Class**)(modloader::win::memory::resolve_rva(0x0477D5D8)); }
+    namespace Statics { IL2CPP_MODLOADER_DLLEXPORT ::app::Statics__Class** type_info = (::app::Statics__Class**)(modloader::win::memory::resolve_rva(0x04758118)); }
+    namespace TransformExtensions { IL2CPP_MODLOADER_DLLEXPORT ::app::TransformExtensions__Class** type_info = (::app::TransformExtensions__Class**)(modloader::win::memory::resolve_rva(0x04767B98)); }
+    namespace TimelineSolver { IL2CPP_MODLOADER_DLLEXPORT ::app::TimelineSolver__Class** type_info = (::app::TimelineSolver__Class**)(modloader::win::memory::resolve_rva(0x047204B8)); }
+    namespace TimelineHelper { IL2CPP_MODLOADER_DLLEXPORT ::app::TimelineHelper__Class** type_info = (::app::TimelineHelper__Class**)(modloader::win::memory::resolve_rva(0x0475CE50)); }
+    namespace IIndeterminateLengthTimelineEntity { IL2CPP_MODLOADER_DLLEXPORT ::app::IIndeterminateLengthTimelineEntity__Class** type_info = (::app::IIndeterminateLengthTimelineEntity__Class**)(modloader::win::memory::resolve_rva(0x0471CB38)); }
+    namespace IClipGroup { IL2CPP_MODLOADER_DLLEXPORT ::app::IClipGroup__Class** type_info = (::app::IClipGroup__Class**)(modloader::win::memory::resolve_rva(0x04738FC8)); }
+    namespace ShaderID_BrightnessContrastGamma { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_BrightnessContrastGamma__Class** type_info = (::app::ShaderID_BrightnessContrastGamma__Class**)(modloader::win::memory::resolve_rva(0x04739790)); }
+    namespace BrowserNative { IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative__Class** type_info = (::app::BrowserNative__Class**)(modloader::win::memory::resolve_rva(0x0474FB30)); }
+    namespace KeyMappings { IL2CPP_MODLOADER_DLLEXPORT ::app::KeyMappings__Class** type_info = (::app::KeyMappings__Class**)(modloader::win::memory::resolve_rva(0x0473C698)); }
+    namespace DateTimeUtils { IL2CPP_MODLOADER_DLLEXPORT ::app::DateTimeUtils__Class** type_info = (::app::DateTimeUtils__Class**)(modloader::win::memory::resolve_rva(0x047259A8)); }
+    namespace BuilderInfo { IL2CPP_MODLOADER_DLLEXPORT ::app::BuilderInfo__Class** type_info = (::app::BuilderInfo__Class**)(modloader::win::memory::resolve_rva(0x04741450)); }
+    namespace ButtonIconUtility { IL2CPP_MODLOADER_DLLEXPORT ::app::ButtonIconUtility__Class** type_info = (::app::ButtonIconUtility__Class**)(modloader::win::memory::resolve_rva(0x0475BC10)); }
+    namespace CCDistanceMapGenerator { IL2CPP_MODLOADER_DLLEXPORT ::app::CCDistanceMapGenerator__Class** type_info = (::app::CCDistanceMapGenerator__Class**)(modloader::win::memory::resolve_rva(0x0477FD38)); }
+    namespace CCDistanceMapGenerator_Pixel__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::CCDistanceMapGenerator_Pixel__Array__Class** type_info = (::app::CCDistanceMapGenerator_Pixel__Array__Class**)(modloader::win::memory::resolve_rva(0x0477BD60)); }
+    namespace CCText__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::CCText__Array__Class** type_info = (::app::CCText__Array__Class**)(modloader::win::memory::resolve_rva(0x04739A10)); }
+    namespace CCStringBuilderUtility { IL2CPP_MODLOADER_DLLEXPORT ::app::CCStringBuilderUtility__Class** type_info = (::app::CCStringBuilderUtility__Class**)(modloader::win::memory::resolve_rva(0x0472DE58)); }
+    namespace ShaderID_CC_AnalogTV { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_AnalogTV__Class** type_info = (::app::ShaderID_CC_AnalogTV__Class**)(modloader::win::memory::resolve_rva(0x04757100)); }
+    namespace ShaderID_CC_BleachBypass { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_BleachBypass__Class** type_info = (::app::ShaderID_CC_BleachBypass__Class**)(modloader::win::memory::resolve_rva(0x0473C378)); }
+    namespace ShaderID_CC_BrightnessContrastGamma { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_BrightnessContrastGamma__Class** type_info = (::app::ShaderID_CC_BrightnessContrastGamma__Class**)(modloader::win::memory::resolve_rva(0x04789C98)); }
+    namespace ShaderID_CC_ChannelMixer { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_ChannelMixer__Class** type_info = (::app::ShaderID_CC_ChannelMixer__Class**)(modloader::win::memory::resolve_rva(0x04730B08)); }
+    namespace ShaderID_CC_DoubleVision { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_DoubleVision__Class** type_info = (::app::ShaderID_CC_DoubleVision__Class**)(modloader::win::memory::resolve_rva(0x04730F00)); }
+    namespace ShaderID_CC_FastVignette { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_FastVignette__Class** type_info = (::app::ShaderID_CC_FastVignette__Class**)(modloader::win::memory::resolve_rva(0x04778BC8)); }
+    namespace ShaderID_CC_Frost { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_Frost__Class** type_info = (::app::ShaderID_CC_Frost__Class**)(modloader::win::memory::resolve_rva(0x0475A8D8)); }
+    namespace ShaderID_CC_Grayscale { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_Grayscale__Class** type_info = (::app::ShaderID_CC_Grayscale__Class**)(modloader::win::memory::resolve_rva(0x047756A0)); }
+    namespace ShaderID_CC_HueSaturationValue { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_HueSaturationValue__Class** type_info = (::app::ShaderID_CC_HueSaturationValue__Class**)(modloader::win::memory::resolve_rva(0x0472CD08)); }
+    namespace ShaderID_CC_Led { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_Led__Class** type_info = (::app::ShaderID_CC_Led__Class**)(modloader::win::memory::resolve_rva(0x047449B8)); }
+    namespace ShaderID_CC_Levels { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_Levels__Class** type_info = (::app::ShaderID_CC_Levels__Class**)(modloader::win::memory::resolve_rva(0x0477F8A0)); }
+    namespace ShaderID_CC_PhotoFilter { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_PhotoFilter__Class** type_info = (::app::ShaderID_CC_PhotoFilter__Class**)(modloader::win::memory::resolve_rva(0x04726790)); }
+    namespace ShaderID_CC_Pixelate { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_Pixelate__Class** type_info = (::app::ShaderID_CC_Pixelate__Class**)(modloader::win::memory::resolve_rva(0x0476C6B0)); }
+    namespace ShaderID_CC_Posterize { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_Posterize__Class** type_info = (::app::ShaderID_CC_Posterize__Class**)(modloader::win::memory::resolve_rva(0x0473A7F8)); }
+    namespace ShaderID_CC_RadialBlur { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_RadialBlur__Class** type_info = (::app::ShaderID_CC_RadialBlur__Class**)(modloader::win::memory::resolve_rva(0x0478F3E8)); }
+    namespace ShaderID_CC_Threshold { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_Threshold__Class** type_info = (::app::ShaderID_CC_Threshold__Class**)(modloader::win::memory::resolve_rva(0x04797128)); }
+    namespace ShaderID_CC_Vibrance { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CC_Vibrance__Class** type_info = (::app::ShaderID_CC_Vibrance__Class**)(modloader::win::memory::resolve_rva(0x0471F8C8)); }
+    namespace CFNetwork { IL2CPP_MODLOADER_DLLEXPORT ::app::CFNetwork__Class** type_info = (::app::CFNetwork__Class**)(modloader::win::memory::resolve_rva(0x047454D8)); }
+    namespace CSteamAPIContext { IL2CPP_MODLOADER_DLLEXPORT ::app::CSteamAPIContext__Class** type_info = (::app::CSteamAPIContext__Class**)(modloader::win::memory::resolve_rva(0x0476BC40)); }
+    namespace CSteamGameServerAPIContext { IL2CPP_MODLOADER_DLLEXPORT ::app::CSteamGameServerAPIContext__Class** type_info = (::app::CSteamGameServerAPIContext__Class**)(modloader::win::memory::resolve_rva(0x0478CA70)); }
+    namespace Console { IL2CPP_MODLOADER_DLLEXPORT ::app::Console__Class** type_info = (::app::Console__Class**)(modloader::win::memory::resolve_rva(0x04747638)); }
+    namespace ConsoleDriver { IL2CPP_MODLOADER_DLLEXPORT ::app::ConsoleDriver__Class** type_info = (::app::ConsoleDriver__Class**)(modloader::win::memory::resolve_rva(0x04756000)); }
+    namespace CachedReflectionInfo { IL2CPP_MODLOADER_DLLEXPORT ::app::CachedReflectionInfo__Class** type_info = (::app::CachedReflectionInfo__Class**)(modloader::win::memory::resolve_rva(0x0477BD10)); }
+    namespace ShaderID_CageTextureMaker { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CageTextureMaker__Class** type_info = (::app::ShaderID_CageTextureMaker__Class**)(modloader::win::memory::resolve_rva(0x0470AD78)); }
+    namespace CameraFovOffsetMixer { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraFovOffsetMixer__Class** type_info = (::app::CameraFovOffsetMixer__Class**)(modloader::win::memory::resolve_rva(0x04757060)); }
+    namespace ShaderID_CameraFilterPack_AAA_BloodOnScreen { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_AAA_BloodOnScreen__Class** type_info = (::app::ShaderID_CameraFilterPack_AAA_BloodOnScreen__Class**)(modloader::win::memory::resolve_rva(0x047734A0)); }
+    namespace ShaderID_CameraFilterPack_AAA_Blood_Hit { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_AAA_Blood_Hit__Class** type_info = (::app::ShaderID_CameraFilterPack_AAA_Blood_Hit__Class**)(modloader::win::memory::resolve_rva(0x0477CD38)); }
+    namespace ShaderID_CameraFilterPack_AAA_Blood { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_AAA_Blood__Class** type_info = (::app::ShaderID_CameraFilterPack_AAA_Blood__Class**)(modloader::win::memory::resolve_rva(0x04744E10)); }
+    namespace ShaderID_CameraFilterPack_AAA_Blood_Plus { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_AAA_Blood_Plus__Class** type_info = (::app::ShaderID_CameraFilterPack_AAA_Blood_Plus__Class**)(modloader::win::memory::resolve_rva(0x047541F8)); }
+    namespace ShaderID_CameraFilterPack_AAA_SuperComputer { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_AAA_SuperComputer__Class** type_info = (::app::ShaderID_CameraFilterPack_AAA_SuperComputer__Class**)(modloader::win::memory::resolve_rva(0x0474CFD8)); }
+    namespace ShaderID_CameraFilterPack_AAA_SuperHexagon { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_AAA_SuperHexagon__Class** type_info = (::app::ShaderID_CameraFilterPack_AAA_SuperHexagon__Class**)(modloader::win::memory::resolve_rva(0x04714720)); }
+    namespace ShaderID_CameraFilterPack_AAA_WaterDrop { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_AAA_WaterDrop__Class** type_info = (::app::ShaderID_CameraFilterPack_AAA_WaterDrop__Class**)(modloader::win::memory::resolve_rva(0x04731B30)); }
+    namespace ShaderID_CameraFilterPack_Alien_Vision { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Alien_Vision__Class** type_info = (::app::ShaderID_CameraFilterPack_Alien_Vision__Class**)(modloader::win::memory::resolve_rva(0x0470D9C8)); }
+    namespace ShaderID_CameraFilterPack_Antialiasing_FXAA { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Antialiasing_FXAA__Class** type_info = (::app::ShaderID_CameraFilterPack_Antialiasing_FXAA__Class**)(modloader::win::memory::resolve_rva(0x04727430)); }
+    namespace ShaderID_CameraFilterPack_Atmosphere_Rain { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Atmosphere_Rain__Class** type_info = (::app::ShaderID_CameraFilterPack_Atmosphere_Rain__Class**)(modloader::win::memory::resolve_rva(0x04788488)); }
+    namespace ShaderID_CameraFilterPack_Atmosphere_Rain_Pro { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Atmosphere_Rain_Pro__Class** type_info = (::app::ShaderID_CameraFilterPack_Atmosphere_Rain_Pro__Class**)(modloader::win::memory::resolve_rva(0x0474FE60)); }
+    namespace ShaderID_CameraFilterPack_Atmosphere_Snow_8bits { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Atmosphere_Snow_8bits__Class** type_info = (::app::ShaderID_CameraFilterPack_Atmosphere_Snow_8bits__Class**)(modloader::win::memory::resolve_rva(0x0477CA78)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Blend { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Blend__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Blend__Class**)(modloader::win::memory::resolve_rva(0x047166E0)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_BlueScreen { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_BlueScreen__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_BlueScreen__Class**)(modloader::win::memory::resolve_rva(0x047463C8)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_ColorBurn { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_ColorBurn__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_ColorBurn__Class**)(modloader::win::memory::resolve_rva(0x0478D730)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_ColorDodge { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_ColorDodge__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_ColorDodge__Class**)(modloader::win::memory::resolve_rva(0x04770660)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Color { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Color__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Color__Class**)(modloader::win::memory::resolve_rva(0x047267E0)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Darken { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Darken__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Darken__Class**)(modloader::win::memory::resolve_rva(0x0470F380)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_DarkerColor { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_DarkerColor__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_DarkerColor__Class**)(modloader::win::memory::resolve_rva(0x0470A760)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Difference { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Difference__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Difference__Class**)(modloader::win::memory::resolve_rva(0x04751018)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Divide { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Divide__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Divide__Class**)(modloader::win::memory::resolve_rva(0x04718810)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Exclusion { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Exclusion__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Exclusion__Class**)(modloader::win::memory::resolve_rva(0x04725310)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_GreenScreen { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_GreenScreen__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_GreenScreen__Class**)(modloader::win::memory::resolve_rva(0x0478DE60)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_HardLight { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_HardLight__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_HardLight__Class**)(modloader::win::memory::resolve_rva(0x04710DD0)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_HardMix { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_HardMix__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_HardMix__Class**)(modloader::win::memory::resolve_rva(0x047009C8)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Hue { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Hue__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Hue__Class**)(modloader::win::memory::resolve_rva(0x0478C620)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Lighten { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Lighten__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Lighten__Class**)(modloader::win::memory::resolve_rva(0x0477A568)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_LighterColor { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_LighterColor__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_LighterColor__Class**)(modloader::win::memory::resolve_rva(0x0474F120)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_LinearBurn { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_LinearBurn__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_LinearBurn__Class**)(modloader::win::memory::resolve_rva(0x04736FF8)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_LinearDodge { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_LinearDodge__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_LinearDodge__Class**)(modloader::win::memory::resolve_rva(0x0473CBB8)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_LinearLight { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_LinearLight__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_LinearLight__Class**)(modloader::win::memory::resolve_rva(0x04797FC8)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Luminosity { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Luminosity__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Luminosity__Class**)(modloader::win::memory::resolve_rva(0x04753870)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Multiply { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Multiply__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Multiply__Class**)(modloader::win::memory::resolve_rva(0x047344E8)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Overlay { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Overlay__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Overlay__Class**)(modloader::win::memory::resolve_rva(0x047821C0)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_PhotoshopFilters__Class**)(modloader::win::memory::resolve_rva(0x047282C8)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_PinLight { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_PinLight__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_PinLight__Class**)(modloader::win::memory::resolve_rva(0x0472BFE8)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Saturation { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Saturation__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Saturation__Class**)(modloader::win::memory::resolve_rva(0x0471CC58)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Screen { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Screen__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Screen__Class**)(modloader::win::memory::resolve_rva(0x047871B8)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_SoftLight { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_SoftLight__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_SoftLight__Class**)(modloader::win::memory::resolve_rva(0x04746738)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_SplitScreen { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_SplitScreen__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_SplitScreen__Class**)(modloader::win::memory::resolve_rva(0x047387A8)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_Subtract { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_Subtract__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_Subtract__Class**)(modloader::win::memory::resolve_rva(0x04760E40)); }
+    namespace ShaderID_CameraFilterPack_Blend2Camera_VividLight { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blend2Camera_VividLight__Class** type_info = (::app::ShaderID_CameraFilterPack_Blend2Camera_VividLight__Class**)(modloader::win::memory::resolve_rva(0x04705608)); }
+    namespace ShaderID_CameraFilterPack_Blizzard { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blizzard__Class** type_info = (::app::ShaderID_CameraFilterPack_Blizzard__Class**)(modloader::win::memory::resolve_rva(0x04713718)); }
+    namespace ShaderID_CameraFilterPack_Blur_Bloom { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blur_Bloom__Class** type_info = (::app::ShaderID_CameraFilterPack_Blur_Bloom__Class**)(modloader::win::memory::resolve_rva(0x04705720)); }
+    namespace ShaderID_CameraFilterPack_Blur_BlurHole { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blur_BlurHole__Class** type_info = (::app::ShaderID_CameraFilterPack_Blur_BlurHole__Class**)(modloader::win::memory::resolve_rva(0x04727718)); }
+    namespace ShaderID_CameraFilterPack_Blur_Blurry { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blur_Blurry__Class** type_info = (::app::ShaderID_CameraFilterPack_Blur_Blurry__Class**)(modloader::win::memory::resolve_rva(0x04742568)); }
+    namespace ShaderID_CameraFilterPack_Blur_DitherOffset { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blur_DitherOffset__Class** type_info = (::app::ShaderID_CameraFilterPack_Blur_DitherOffset__Class**)(modloader::win::memory::resolve_rva(0x04798A98)); }
+    namespace ShaderID_CameraFilterPack_Blur_Dithering2x2 { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blur_Dithering2x2__Class** type_info = (::app::ShaderID_CameraFilterPack_Blur_Dithering2x2__Class**)(modloader::win::memory::resolve_rva(0x04719030)); }
+    namespace ShaderID_CameraFilterPack_Blur_Focus { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blur_Focus__Class** type_info = (::app::ShaderID_CameraFilterPack_Blur_Focus__Class**)(modloader::win::memory::resolve_rva(0x0475A4C0)); }
+    namespace ShaderID_CameraFilterPack_Blur_GaussianBlur { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blur_GaussianBlur__Class** type_info = (::app::ShaderID_CameraFilterPack_Blur_GaussianBlur__Class**)(modloader::win::memory::resolve_rva(0x04789968)); }
+    namespace ShaderID_CameraFilterPack_Blur_Movie { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blur_Movie__Class** type_info = (::app::ShaderID_CameraFilterPack_Blur_Movie__Class**)(modloader::win::memory::resolve_rva(0x04753310)); }
+    namespace ShaderID_CameraFilterPack_Blur_Noise { IL2CPP_MODLOADER_DLLEXPORT ::app::ShaderID_CameraFilterPack_Blur_Noise__Class** type_info = (::app::ShaderID_CameraFilterPack_Blur_Noise__Class**)(modloader::win::memory::resolve_rva(0x04734470)); }
+}

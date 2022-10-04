@@ -1,405 +1,205 @@
-#include <Il2CppModLoader/app/types/BrowserCursor.h>
-#include <Il2CppModLoader/app/types/BrowserCursor_CursorInfo.h>
-#include <Il2CppModLoader/app/types/BrowserCursor_c.h>
-#include <Il2CppModLoader/app/types/BrowserNative_ChangeFunc.h>
-#include <Il2CppModLoader/app/types/BrowserNative_ChangeType__Enum.h>
-#include <Il2CppModLoader/app/types/BrowserNative_ConsoleFunc.h>
-#include <Il2CppModLoader/app/types/BrowserNative_CursorType__Enum.h>
-#include <Il2CppModLoader/app/types/BrowserNative_DialogType__Enum.h>
-#include <Il2CppModLoader/app/types/BrowserNative_DownloadAction__Enum.h>
-#include <Il2CppModLoader/app/types/BrowserNative_ForwardJSCallFunc.h>
-#include <Il2CppModLoader/app/types/BrowserNative_FrameCommand__Enum.h>
-#include <Il2CppModLoader/app/types/BrowserNative_MessageFunc.h>
-#include <Il2CppModLoader/app/types/BrowserNative_NewRequestFunc.h>
-#include <Il2CppModLoader/app/types/BrowserNative_NewWindowFunc.h>
-#include <Il2CppModLoader/app/types/Browser_JSCallback.h>
-#include <Il2CppModLoader/app/types/Browser_c.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass105_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass105_1.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass108_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass108_1.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass121_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass122_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass123_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass124_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass140_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass143_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass148_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass149_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass150_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass153_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass160_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass171_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass172_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass173_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass174_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass175_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass176_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass177_0.h>
-#include <Il2CppModLoader/app/types/Browser_c_DisplayClass178_0.h>
-#include <Il2CppModLoader/app/types/CVRApplications.h>
-#include <Il2CppModLoader/app/types/CVRChaperone.h>
-#include <Il2CppModLoader/app/types/CVRChaperoneSetup.h>
-#include <Il2CppModLoader/app/types/CVRCompositor.h>
-#include <Il2CppModLoader/app/types/CVRExtendedDisplay.h>
-#include <Il2CppModLoader/app/types/CVROverlay.h>
-#include <Il2CppModLoader/app/types/CVROverlay_PollNextOverlayEventPacked.h>
-#include <Il2CppModLoader/app/types/CVRRenderModels.h>
-#include <Il2CppModLoader/app/types/CVRRenderModels_GetComponentStatePacked.h>
-#include <Il2CppModLoader/app/types/CVRScreenshots.h>
-#include <Il2CppModLoader/app/types/CVRSettings.h>
-#include <Il2CppModLoader/app/types/CVRSystem.h>
-#include <Il2CppModLoader/app/types/CVRSystem_GetControllerStatePacked.h>
-#include <Il2CppModLoader/app/types/CVRSystem_GetControllerStateWithPosePacked.h>
-#include <Il2CppModLoader/app/types/CVRSystem_PollNextEventPacked.h>
-#include <Il2CppModLoader/app/types/CVRTrackedCamera.h>
-#include <Il2CppModLoader/app/types/EVRScreenshotError__Enum.h>
-#include <Il2CppModLoader/app/types/EVRScreenshotPropertyFilenames__Enum.h>
-#include <Il2CppModLoader/app/types/EVRScreenshotType__Enum.h>
-#include <Il2CppModLoader/app/types/EVRSettingsError__Enum.h>
-#include <Il2CppModLoader/app/types/FileLocations_CEFDirs.h>
-#include <Il2CppModLoader/app/types/IVRApplications.h>
-#include <Il2CppModLoader/app/types/IVRChaperone.h>
-#include <Il2CppModLoader/app/types/IVRChaperoneSetup.h>
-#include <Il2CppModLoader/app/types/IVRCompositor.h>
-#include <Il2CppModLoader/app/types/IVRDriverManager.h>
-#include <Il2CppModLoader/app/types/IVRDriverManager_GetDriverCount.h>
-#include <Il2CppModLoader/app/types/IVRDriverManager_GetDriverName.h>
-#include <Il2CppModLoader/app/types/IVRExtendedDisplay.h>
-#include <Il2CppModLoader/app/types/IVRNotifications.h>
-#include <Il2CppModLoader/app/types/IVROverlay.h>
-#include <Il2CppModLoader/app/types/IVRRenderModels.h>
-#include <Il2CppModLoader/app/types/IVRResources.h>
-#include <Il2CppModLoader/app/types/IVRResources_GetResourceFullPath.h>
-#include <Il2CppModLoader/app/types/IVRResources_LoadSharedResource.h>
-#include <Il2CppModLoader/app/types/IVRScreenshots.h>
-#include <Il2CppModLoader/app/types/IVRScreenshots_GetScreenshotPropertyFilename.h>
-#include <Il2CppModLoader/app/types/IVRScreenshots_GetScreenshotPropertyType.h>
-#include <Il2CppModLoader/app/types/IVRScreenshots_HookScreenshot.h>
-#include <Il2CppModLoader/app/types/IVRScreenshots_RequestScreenshot.h>
-#include <Il2CppModLoader/app/types/IVRScreenshots_SubmitScreenshot.h>
-#include <Il2CppModLoader/app/types/IVRScreenshots_TakeStereoScreenshot.h>
-#include <Il2CppModLoader/app/types/IVRScreenshots_UpdateScreenshotProgress.h>
-#include <Il2CppModLoader/app/types/IVRSettings.h>
-#include <Il2CppModLoader/app/types/IVRSettings_GetBool.h>
-#include <Il2CppModLoader/app/types/IVRSettings_GetFloat.h>
-#include <Il2CppModLoader/app/types/IVRSettings_GetInt32.h>
-#include <Il2CppModLoader/app/types/IVRSettings_GetString.h>
-#include <Il2CppModLoader/app/types/IVRSettings_RemoveKeyInSection.h>
-#include <Il2CppModLoader/app/types/IVRSettings_RemoveSection.h>
-#include <Il2CppModLoader/app/types/IVRSettings_SetBool.h>
-#include <Il2CppModLoader/app/types/IVRSettings_SetFloat.h>
-#include <Il2CppModLoader/app/types/IVRSettings_SetInt32.h>
-#include <Il2CppModLoader/app/types/IVRSettings_SetString.h>
-#include <Il2CppModLoader/app/types/IVRSettings_Sync.h>
-#include <Il2CppModLoader/app/types/IVRSystem.h>
-#include <Il2CppModLoader/app/types/IVRTrackedCamera.h>
-#include <Il2CppModLoader/app/types/OpenVR.h>
-#include <Il2CppModLoader/app/types/OpenVR_COpenVRContext.h>
-#include <Il2CppModLoader/app/types/VRControllerState_t_Packed.h>
-#include <Il2CppModLoader/app/types/VREvent_t_Packed.h>
-#include <Il2CppModLoader/macros.h>
 #include <Il2CppModLoader/windows_api/memory.h>
+#include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/app/types/XalAchievements_c_DisplayClass21_0.h>
+#include <Il2CppModLoader/app/types/XalAchievements_c_DisplayClass26_0.h>
+#include <Il2CppModLoader/app/types/XalAchievements_RunRequest_d_27.h>
+#include <Il2CppModLoader/app/types/XboxOneAchievements_1.h>
+#include <Il2CppModLoader/app/types/GrdkUser.h>
+#include <Il2CppModLoader/app/types/PlayFabFileDownloader.h>
+#include <Il2CppModLoader/app/types/PlayFabFileDownloader_c.h>
+#include <Il2CppModLoader/app/types/PlayFabFileUploader.h>
+#include <Il2CppModLoader/app/types/PlayFabFileUploader_c.h>
+#include <Il2CppModLoader/app/types/PlayFabRaceServiceProvider_c_DisplayClass10_0.h>
+#include <Il2CppModLoader/app/types/RaceDataCache_c.h>
+#include <Il2CppModLoader/app/types/CursorType__Enum.h>
+#include <Il2CppModLoader/app/types/fsAotVersionInfo_Member.h>
+#include <Il2CppModLoader/app/types/fsMetaType.h>
+#include <Il2CppModLoader/app/types/fsConfig.h>
+#include <Il2CppModLoader/app/types/fsMetaProperty.h>
+#include <Il2CppModLoader/app/types/fsIAotConverter.h>
+#include <Il2CppModLoader/app/types/fsAotCompilationManager.h>
+#include <Il2CppModLoader/app/types/fsAotConfiguration_Entry.h>
+#include <Il2CppModLoader/app/types/fsConverterRegistrar.h>
+#include <Il2CppModLoader/app/types/fsBaseConverter.h>
+#include <Il2CppModLoader/app/types/fsDirectConverter.h>
+#include <Il2CppModLoader/app/types/fsSerializer.h>
+#include <Il2CppModLoader/app/types/fsObjectProcessor.h>
+#include <Il2CppModLoader/app/types/fsData.h>
+#include <Il2CppModLoader/app/types/fsConverter.h>
+#include <Il2CppModLoader/app/types/fsArrayConverter.h>
+#include <Il2CppModLoader/app/types/fsResult.h>
+#include <Il2CppModLoader/app/types/fsCyclicReferenceManager.h>
+#include <Il2CppModLoader/app/types/fsSerializer_fsLazyCycleDefinitionWriter.h>
+#include <Il2CppModLoader/app/types/fsContext.h>
+#include <Il2CppModLoader/app/types/fsDataType__Enum.h>
+#include <Il2CppModLoader/app/types/fsDataType__Enum__Array.h>
+#include <Il2CppModLoader/app/types/fsBaseConverter_c.h>
+#include <Il2CppModLoader/app/types/fsConfig_c.h>
+#include <Il2CppModLoader/app/types/fsMissingVersionConstructorException.h>
+#include <Il2CppModLoader/app/types/fsDuplicateVersionNameException.h>
+#include <Il2CppModLoader/app/types/fsJsonParser.h>
+#include <Il2CppModLoader/app/types/fsTypeExtensions_c_DisplayClass2_0.h>
+#include <Il2CppModLoader/app/types/fsMetaType_AotFailureException.h>
+#include <Il2CppModLoader/app/types/fsMetaType_c_DisplayClass5_0.h>
+#include <Il2CppModLoader/app/types/fsMetaType_c_DisplayClass7_0.h>
+#include <Il2CppModLoader/app/types/fsMetaType_c_DisplayClass8_0.h>
+#include <Il2CppModLoader/app/types/fsDateConverter.h>
+#include <Il2CppModLoader/app/types/fsDictionaryConverter.h>
+#include <Il2CppModLoader/app/types/fsEnumConverter.h>
+#include <Il2CppModLoader/app/types/fsForwardConverter.h>
+#include <Il2CppModLoader/app/types/fsGuidConverter.h>
+#include <Il2CppModLoader/app/types/fsIEnumerableConverter.h>
+#include <Il2CppModLoader/app/types/fsKeyValuePairConverter.h>
+#include <Il2CppModLoader/app/types/fsNullableConverter.h>
+#include <Il2CppModLoader/app/types/fsPrimitiveConverter.h>
+#include <Il2CppModLoader/app/types/fsReflectedConverter.h>
+#include <Il2CppModLoader/app/types/fsTypeConverter.h>
+#include <Il2CppModLoader/app/types/fsWeakReferenceConverter.h>
+#include <Il2CppModLoader/app/types/fsSerializationCallbackProcessor.h>
+#include <Il2CppModLoader/app/types/fsSerializationCallbackReceiverProcessor.h>
+#include <Il2CppModLoader/app/types/fsCyclicReferenceManager_ObjectReferenceEqualityComparator.h>
+#include <Il2CppModLoader/app/types/fsPortableReflection_AttributeQueryComparator.h>
+#include <Il2CppModLoader/app/types/fsPortableReflection_GetFlattenedMethods_d_18.h>
+#include <Il2CppModLoader/app/types/fsVersionedType.h>
+#include <Il2CppModLoader/app/types/fsVersionedType__Array.h>
+#include <Il2CppModLoader/app/types/ScreenshotRecorder.h>
+#include <Il2CppModLoader/app/types/MainThreadWorkStealer.h>
+#include <Il2CppModLoader/app/types/RenderThreadWaker.h>
+#include <Il2CppModLoader/app/types/AverageBothDeltaTimeController.h>
+#include <Il2CppModLoader/app/types/DeltaTimeManager_DeltaTimeFrameHistory.h>
+#include <Il2CppModLoader/app/types/DeltaTimeManager_DeltaTimeFrameHistory__Array.h>
+#include <Il2CppModLoader/app/types/DeltaTimeManager.h>
+#include <Il2CppModLoader/app/types/IDeltaTimeController.h>
+#include <Il2CppModLoader/app/types/DirectDeltaTimeController.h>
+#include <Il2CppModLoader/app/types/FixedDeltaTimeController.h>
+#include <Il2CppModLoader/app/types/PausedDeltaTimeController.h>
+#include <Il2CppModLoader/app/types/PCQualityModeManager.h>
+#include <Il2CppModLoader/app/types/XboxQualityModeManager.h>
+#include <Il2CppModLoader/app/types/IVRSystem_GetRecommendedRenderTargetSize.h>
+#include <Il2CppModLoader/app/types/IVRSystem_GetProjectionMatrix.h>
+#include <Il2CppModLoader/app/types/HmdMatrix44_t.h>
+#include <Il2CppModLoader/app/types/EVREye__Enum.h>
+#include <Il2CppModLoader/app/types/IVRSystem_GetProjectionRaw.h>
+#include <Il2CppModLoader/app/types/IVRSystem_ComputeDistortion.h>
+#include <Il2CppModLoader/app/types/DistortionCoordinates_t.h>
+#include <Il2CppModLoader/app/types/IVRSystem_GetEyeToHeadTransform.h>
+#include <Il2CppModLoader/app/types/HmdMatrix34_t.h>
+#include <Il2CppModLoader/app/types/IVRSystem_GetTimeSinceLastVsync.h>
+#include <Il2CppModLoader/app/types/IVRSystem_GetD3D9AdapterIndex.h>
+#include <Il2CppModLoader/app/types/IVRSystem_GetDXGIOutputInfo.h>
+#include <Il2CppModLoader/app/types/IVRSystem_GetOutputDevice.h>
+#include <Il2CppModLoader/app/types/ETextureType__Enum.h>
+#include <Il2CppModLoader/app/types/IVRSystem_IsDisplayOnDesktop.h>
+#include <Il2CppModLoader/app/types/IVRSystem_SetDisplayVisibility.h>
+#include <Il2CppModLoader/app/types/IVRSystem_GetDeviceToAbsoluteTrackingPose.h>
+#include <Il2CppModLoader/app/types/ETrackingUniverseOrigin__Enum.h>
+#include <Il2CppModLoader/app/types/TrackedDevicePose_t.h>
+#include <Il2CppModLoader/app/types/IVRSystem_ResetSeatedZeroPose.h>
+#include <Il2CppModLoader/app/types/IVRSystem_GetSeatedZeroPoseToStandingAbsoluteTrackingPose.h>
+#include <Il2CppModLoader/app/types/IVRSystem_GetRawZeroPoseToStandingAbsoluteTrackingPose.h>
+#include <Il2CppModLoader/app/types/IVRSystem_GetSortedTrackedDeviceIndicesOfClass.h>
+#include <Il2CppModLoader/app/types/ETrackedDeviceClass__Enum.h>
+#include <Il2CppModLoader/app/types/IVRSystem_GetTrackedDeviceActivityLevel.h>
 
 namespace app::classes::types {
-    namespace EVRSettingsError__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EVRSettingsError__Enum__Class** type_info = (::app::EVRSettingsError__Enum__Class**)(modloader::win::memory::resolve_rva(0x04753EA8));
-    }
-    namespace IVRSettings_Sync {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSettings_Sync__Class** type_info = (::app::IVRSettings_Sync__Class**)(modloader::win::memory::resolve_rva(0x04727088));
-    }
-    namespace IVRSettings_SetBool {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSettings_SetBool__Class** type_info = (::app::IVRSettings_SetBool__Class**)(modloader::win::memory::resolve_rva(0x04782858));
-    }
-    namespace IVRSettings_SetInt32 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSettings_SetInt32__Class** type_info = (::app::IVRSettings_SetInt32__Class**)(modloader::win::memory::resolve_rva(0x04780420));
-    }
-    namespace IVRSettings_SetFloat {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSettings_SetFloat__Class** type_info = (::app::IVRSettings_SetFloat__Class**)(modloader::win::memory::resolve_rva(0x047716C0));
-    }
-    namespace IVRSettings_SetString {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSettings_SetString__Class** type_info = (::app::IVRSettings_SetString__Class**)(modloader::win::memory::resolve_rva(0x047885F8));
-    }
-    namespace IVRSettings_GetBool {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSettings_GetBool__Class** type_info = (::app::IVRSettings_GetBool__Class**)(modloader::win::memory::resolve_rva(0x04762200));
-    }
-    namespace IVRSettings_GetInt32 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSettings_GetInt32__Class** type_info = (::app::IVRSettings_GetInt32__Class**)(modloader::win::memory::resolve_rva(0x04768310));
-    }
-    namespace IVRSettings_GetFloat {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSettings_GetFloat__Class** type_info = (::app::IVRSettings_GetFloat__Class**)(modloader::win::memory::resolve_rva(0x047871C0));
-    }
-    namespace IVRSettings_GetString {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSettings_GetString__Class** type_info = (::app::IVRSettings_GetString__Class**)(modloader::win::memory::resolve_rva(0x04765D98));
-    }
-    namespace IVRSettings_RemoveSection {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSettings_RemoveSection__Class** type_info = (::app::IVRSettings_RemoveSection__Class**)(modloader::win::memory::resolve_rva(0x047036F8));
-    }
-    namespace IVRSettings_RemoveKeyInSection {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSettings_RemoveKeyInSection__Class** type_info = (::app::IVRSettings_RemoveKeyInSection__Class**)(modloader::win::memory::resolve_rva(0x0475F9A0));
-    }
-    namespace IVRScreenshots_RequestScreenshot {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRScreenshots_RequestScreenshot__Class** type_info = (::app::IVRScreenshots_RequestScreenshot__Class**)(modloader::win::memory::resolve_rva(0x047971E8));
-    }
-    namespace EVRScreenshotError__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EVRScreenshotError__Enum__Class** type_info = (::app::EVRScreenshotError__Enum__Class**)(modloader::win::memory::resolve_rva(0x04795390));
-    }
-    namespace EVRScreenshotType__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EVRScreenshotType__Enum__Class** type_info = (::app::EVRScreenshotType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04733570));
-    }
-    namespace IVRScreenshots_HookScreenshot {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRScreenshots_HookScreenshot__Class** type_info = (::app::IVRScreenshots_HookScreenshot__Class**)(modloader::win::memory::resolve_rva(0x04753D90));
-    }
-    namespace IVRScreenshots_GetScreenshotPropertyType {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRScreenshots_GetScreenshotPropertyType__Class** type_info = (::app::IVRScreenshots_GetScreenshotPropertyType__Class**)(modloader::win::memory::resolve_rva(0x04765538));
-    }
-    namespace IVRScreenshots_GetScreenshotPropertyFilename {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRScreenshots_GetScreenshotPropertyFilename__Class** type_info = (::app::IVRScreenshots_GetScreenshotPropertyFilename__Class**)(modloader::win::memory::resolve_rva(0x0477A588));
-    }
-    namespace EVRScreenshotPropertyFilenames__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::EVRScreenshotPropertyFilenames__Enum__Class** type_info = (::app::EVRScreenshotPropertyFilenames__Enum__Class**)(modloader::win::memory::resolve_rva(0x0478C0A8));
-    }
-    namespace IVRScreenshots_UpdateScreenshotProgress {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRScreenshots_UpdateScreenshotProgress__Class** type_info = (::app::IVRScreenshots_UpdateScreenshotProgress__Class**)(modloader::win::memory::resolve_rva(0x0470F7C8));
-    }
-    namespace IVRScreenshots_TakeStereoScreenshot {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRScreenshots_TakeStereoScreenshot__Class** type_info = (::app::IVRScreenshots_TakeStereoScreenshot__Class**)(modloader::win::memory::resolve_rva(0x047961D8));
-    }
-    namespace IVRScreenshots_SubmitScreenshot {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRScreenshots_SubmitScreenshot__Class** type_info = (::app::IVRScreenshots_SubmitScreenshot__Class**)(modloader::win::memory::resolve_rva(0x0477CB58));
-    }
-    namespace IVRResources_LoadSharedResource {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRResources_LoadSharedResource__Class** type_info = (::app::IVRResources_LoadSharedResource__Class**)(modloader::win::memory::resolve_rva(0x0470F940));
-    }
-    namespace IVRResources_GetResourceFullPath {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRResources_GetResourceFullPath__Class** type_info = (::app::IVRResources_GetResourceFullPath__Class**)(modloader::win::memory::resolve_rva(0x04792AA8));
-    }
-    namespace IVRDriverManager_GetDriverCount {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRDriverManager_GetDriverCount__Class** type_info = (::app::IVRDriverManager_GetDriverCount__Class**)(modloader::win::memory::resolve_rva(0x0473BE98));
-    }
-    namespace IVRDriverManager_GetDriverName {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRDriverManager_GetDriverName__Class** type_info = (::app::IVRDriverManager_GetDriverName__Class**)(modloader::win::memory::resolve_rva(0x04713CC8));
-    }
-    namespace IVRSystem {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem__Class** type_info = (::app::IVRSystem__Class**)(modloader::win::memory::resolve_rva(0x04739C28));
-    }
-    namespace CVRSystem {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRSystem__Class** type_info = (::app::CVRSystem__Class**)(modloader::win::memory::resolve_rva(0x0476C350));
-    }
-    namespace CVRSystem_PollNextEventPacked {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRSystem_PollNextEventPacked__Class** type_info = (::app::CVRSystem_PollNextEventPacked__Class**)(modloader::win::memory::resolve_rva(0x04743A20));
-    }
-    namespace VREvent_t_Packed {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::VREvent_t_Packed__Class** type_info = (::app::VREvent_t_Packed__Class**)(modloader::win::memory::resolve_rva(0x0477C0B0));
-    }
-    namespace CVRSystem_GetControllerStatePacked {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRSystem_GetControllerStatePacked__Class** type_info = (::app::CVRSystem_GetControllerStatePacked__Class**)(modloader::win::memory::resolve_rva(0x0478B868));
-    }
-    namespace VRControllerState_t_Packed {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::VRControllerState_t_Packed__Class** type_info = (::app::VRControllerState_t_Packed__Class**)(modloader::win::memory::resolve_rva(0x04775DD8));
-    }
-    namespace CVRSystem_GetControllerStateWithPosePacked {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRSystem_GetControllerStateWithPosePacked__Class** type_info = (::app::CVRSystem_GetControllerStateWithPosePacked__Class**)(modloader::win::memory::resolve_rva(0x047932F8));
-    }
-    namespace IVRExtendedDisplay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRExtendedDisplay__Class** type_info = (::app::IVRExtendedDisplay__Class**)(modloader::win::memory::resolve_rva(0x0477A700));
-    }
-    namespace CVRExtendedDisplay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRExtendedDisplay__Class** type_info = (::app::CVRExtendedDisplay__Class**)(modloader::win::memory::resolve_rva(0x04770C78));
-    }
-    namespace IVRTrackedCamera {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRTrackedCamera__Class** type_info = (::app::IVRTrackedCamera__Class**)(modloader::win::memory::resolve_rva(0x04753558));
-    }
-    namespace CVRTrackedCamera {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRTrackedCamera__Class** type_info = (::app::CVRTrackedCamera__Class**)(modloader::win::memory::resolve_rva(0x04711DC8));
-    }
-    namespace IVRApplications {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRApplications__Class** type_info = (::app::IVRApplications__Class**)(modloader::win::memory::resolve_rva(0x047878D8));
-    }
-    namespace CVRApplications {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRApplications__Class** type_info = (::app::CVRApplications__Class**)(modloader::win::memory::resolve_rva(0x04714AB0));
-    }
-    namespace IVRChaperone {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRChaperone__Class** type_info = (::app::IVRChaperone__Class**)(modloader::win::memory::resolve_rva(0x04754828));
-    }
-    namespace CVRChaperone {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRChaperone__Class** type_info = (::app::CVRChaperone__Class**)(modloader::win::memory::resolve_rva(0x047265B8));
-    }
-    namespace IVRChaperoneSetup {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRChaperoneSetup__Class** type_info = (::app::IVRChaperoneSetup__Class**)(modloader::win::memory::resolve_rva(0x0471AFA0));
-    }
-    namespace CVRChaperoneSetup {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRChaperoneSetup__Class** type_info = (::app::CVRChaperoneSetup__Class**)(modloader::win::memory::resolve_rva(0x04792898));
-    }
-    namespace IVRCompositor {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRCompositor__Class** type_info = (::app::IVRCompositor__Class**)(modloader::win::memory::resolve_rva(0x0475CA60));
-    }
-    namespace CVRCompositor {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRCompositor__Class** type_info = (::app::CVRCompositor__Class**)(modloader::win::memory::resolve_rva(0x0474B9F8));
-    }
-    namespace IVROverlay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVROverlay__Class** type_info = (::app::IVROverlay__Class**)(modloader::win::memory::resolve_rva(0x047460D0));
-    }
-    namespace CVROverlay {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVROverlay__Class** type_info = (::app::CVROverlay__Class**)(modloader::win::memory::resolve_rva(0x0475A408));
-    }
-    namespace CVROverlay_PollNextOverlayEventPacked {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVROverlay_PollNextOverlayEventPacked__Class** type_info = (::app::CVROverlay_PollNextOverlayEventPacked__Class**)(modloader::win::memory::resolve_rva(0x0474D478));
-    }
-    namespace IVRRenderModels {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRRenderModels__Class** type_info = (::app::IVRRenderModels__Class**)(modloader::win::memory::resolve_rva(0x0472D768));
-    }
-    namespace CVRRenderModels {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRRenderModels__Class** type_info = (::app::CVRRenderModels__Class**)(modloader::win::memory::resolve_rva(0x04734F80));
-    }
-    namespace CVRRenderModels_GetComponentStatePacked {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRRenderModels_GetComponentStatePacked__Class** type_info = (::app::CVRRenderModels_GetComponentStatePacked__Class**)(modloader::win::memory::resolve_rva(0x04737590));
-    }
-    namespace IVRNotifications {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRNotifications__Class** type_info = (::app::IVRNotifications__Class**)(modloader::win::memory::resolve_rva(0x047330A0));
-    }
-    namespace IVRSettings {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSettings__Class** type_info = (::app::IVRSettings__Class**)(modloader::win::memory::resolve_rva(0x04744670));
-    }
-    namespace CVRSettings {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRSettings__Class** type_info = (::app::CVRSettings__Class**)(modloader::win::memory::resolve_rva(0x04727340));
-    }
-    namespace IVRScreenshots {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRScreenshots__Class** type_info = (::app::IVRScreenshots__Class**)(modloader::win::memory::resolve_rva(0x04766368));
-    }
-    namespace CVRScreenshots {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CVRScreenshots__Class** type_info = (::app::CVRScreenshots__Class**)(modloader::win::memory::resolve_rva(0x0472CB50));
-    }
-    namespace IVRResources {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRResources__Class** type_info = (::app::IVRResources__Class**)(modloader::win::memory::resolve_rva(0x04703998));
-    }
-    namespace IVRDriverManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IVRDriverManager__Class** type_info = (::app::IVRDriverManager__Class**)(modloader::win::memory::resolve_rva(0x04701A08));
-    }
-    namespace OpenVR_COpenVRContext {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::OpenVR_COpenVRContext__Class** type_info = (::app::OpenVR_COpenVRContext__Class**)(modloader::win::memory::resolve_rva(0x0478EE18));
-    }
-    namespace OpenVR {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::OpenVR__Class** type_info = (::app::OpenVR__Class**)(modloader::win::memory::resolve_rva(0x0473A648));
-    }
-    namespace BrowserNative_ChangeType__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_ChangeType__Enum__Class** type_info = (::app::BrowserNative_ChangeType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04763218));
-    }
-    namespace BrowserNative_FrameCommand__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_FrameCommand__Enum__Class** type_info = (::app::BrowserNative_FrameCommand__Enum__Class**)(modloader::win::memory::resolve_rva(0x04725368));
-    }
-    namespace Browser_JSCallback {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_JSCallback__Class** type_info = (::app::Browser_JSCallback__Class**)(modloader::win::memory::resolve_rva(0x0478E2D8));
-    }
-    namespace BrowserNative_DownloadAction__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_DownloadAction__Enum__Class** type_info = (::app::BrowserNative_DownloadAction__Enum__Class**)(modloader::win::memory::resolve_rva(0x04758A68));
-    }
-    namespace BrowserNative_DialogType__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_DialogType__Enum__Class** type_info = (::app::BrowserNative_DialogType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04798180));
-    }
-    namespace Browser_c_DisplayClass105_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass105_0__Class** type_info = (::app::Browser_c_DisplayClass105_0__Class**)(modloader::win::memory::resolve_rva(0x0474F900));
-    }
-    namespace Browser_c_DisplayClass105_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass105_1__Class** type_info = (::app::Browser_c_DisplayClass105_1__Class**)(modloader::win::memory::resolve_rva(0x047632F0));
-    }
-    namespace Browser_c_DisplayClass108_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass108_0__Class** type_info = (::app::Browser_c_DisplayClass108_0__Class**)(modloader::win::memory::resolve_rva(0x0475DE60));
-    }
-    namespace Browser_c_DisplayClass108_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass108_1__Class** type_info = (::app::Browser_c_DisplayClass108_1__Class**)(modloader::win::memory::resolve_rva(0x04750F50));
-    }
-    namespace Browser_c_DisplayClass121_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass121_0__Class** type_info = (::app::Browser_c_DisplayClass121_0__Class**)(modloader::win::memory::resolve_rva(0x0470D278));
-    }
-    namespace Browser_c_DisplayClass122_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass122_0__Class** type_info = (::app::Browser_c_DisplayClass122_0__Class**)(modloader::win::memory::resolve_rva(0x04790CA8));
-    }
-    namespace Browser_c_DisplayClass123_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass123_0__Class** type_info = (::app::Browser_c_DisplayClass123_0__Class**)(modloader::win::memory::resolve_rva(0x047012F8));
-    }
-    namespace Browser_c_DisplayClass124_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass124_0__Class** type_info = (::app::Browser_c_DisplayClass124_0__Class**)(modloader::win::memory::resolve_rva(0x0476ED38));
-    }
-    namespace Browser_c_DisplayClass140_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass140_0__Class** type_info = (::app::Browser_c_DisplayClass140_0__Class**)(modloader::win::memory::resolve_rva(0x047034A0));
-    }
-    namespace Browser_c_DisplayClass143_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass143_0__Class** type_info = (::app::Browser_c_DisplayClass143_0__Class**)(modloader::win::memory::resolve_rva(0x0472DCA0));
-    }
-    namespace Browser_c_DisplayClass148_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass148_0__Class** type_info = (::app::Browser_c_DisplayClass148_0__Class**)(modloader::win::memory::resolve_rva(0x0470CB88));
-    }
-    namespace Browser_c_DisplayClass149_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass149_0__Class** type_info = (::app::Browser_c_DisplayClass149_0__Class**)(modloader::win::memory::resolve_rva(0x04771678));
-    }
-    namespace Browser_c_DisplayClass150_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass150_0__Class** type_info = (::app::Browser_c_DisplayClass150_0__Class**)(modloader::win::memory::resolve_rva(0x0475FAE8));
-    }
-    namespace Browser_c_DisplayClass153_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass153_0__Class** type_info = (::app::Browser_c_DisplayClass153_0__Class**)(modloader::win::memory::resolve_rva(0x04705118));
-    }
-    namespace Browser_c_DisplayClass160_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass160_0__Class** type_info = (::app::Browser_c_DisplayClass160_0__Class**)(modloader::win::memory::resolve_rva(0x047857B0));
-    }
-    namespace Browser_c_DisplayClass171_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass171_0__Class** type_info = (::app::Browser_c_DisplayClass171_0__Class**)(modloader::win::memory::resolve_rva(0x047802E0));
-    }
-    namespace Browser_c_DisplayClass172_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass172_0__Class** type_info = (::app::Browser_c_DisplayClass172_0__Class**)(modloader::win::memory::resolve_rva(0x04736178));
-    }
-    namespace Browser_c_DisplayClass173_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass173_0__Class** type_info = (::app::Browser_c_DisplayClass173_0__Class**)(modloader::win::memory::resolve_rva(0x04778668));
-    }
-    namespace Browser_c_DisplayClass174_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass174_0__Class** type_info = (::app::Browser_c_DisplayClass174_0__Class**)(modloader::win::memory::resolve_rva(0x04732268));
-    }
-    namespace Browser_c_DisplayClass175_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass175_0__Class** type_info = (::app::Browser_c_DisplayClass175_0__Class**)(modloader::win::memory::resolve_rva(0x04771218));
-    }
-    namespace Browser_c_DisplayClass176_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass176_0__Class** type_info = (::app::Browser_c_DisplayClass176_0__Class**)(modloader::win::memory::resolve_rva(0x0478EB10));
-    }
-    namespace Browser_c_DisplayClass177_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass177_0__Class** type_info = (::app::Browser_c_DisplayClass177_0__Class**)(modloader::win::memory::resolve_rva(0x0474A8F0));
-    }
-    namespace Browser_c_DisplayClass178_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c_DisplayClass178_0__Class** type_info = (::app::Browser_c_DisplayClass178_0__Class**)(modloader::win::memory::resolve_rva(0x0478FF38));
-    }
-    namespace Browser_c {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Browser_c__Class** type_info = (::app::Browser_c__Class**)(modloader::win::memory::resolve_rva(0x047116C8));
-    }
-    namespace BrowserCursor {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserCursor__Class** type_info = (::app::BrowserCursor__Class**)(modloader::win::memory::resolve_rva(0x047328A8));
-    }
-    namespace BrowserNative_CursorType__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_CursorType__Enum__Class** type_info = (::app::BrowserNative_CursorType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04705488));
-    }
-    namespace BrowserCursor_CursorInfo {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserCursor_CursorInfo__Class** type_info = (::app::BrowserCursor_CursorInfo__Class**)(modloader::win::memory::resolve_rva(0x04789DE8));
-    }
-    namespace BrowserCursor_c {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserCursor_c__Class** type_info = (::app::BrowserCursor_c__Class**)(modloader::win::memory::resolve_rva(0x047627A0));
-    }
-    namespace FileLocations_CEFDirs {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::FileLocations_CEFDirs__Class** type_info = (::app::FileLocations_CEFDirs__Class**)(modloader::win::memory::resolve_rva(0x0470AE50));
-    }
-    namespace BrowserNative_MessageFunc {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_MessageFunc__Class** type_info = (::app::BrowserNative_MessageFunc__Class**)(modloader::win::memory::resolve_rva(0x0477F1B8));
-    }
-    namespace BrowserNative_NewRequestFunc {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_NewRequestFunc__Class** type_info = (::app::BrowserNative_NewRequestFunc__Class**)(modloader::win::memory::resolve_rva(0x0476F940));
-    }
-    namespace BrowserNative_ConsoleFunc {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_ConsoleFunc__Class** type_info = (::app::BrowserNative_ConsoleFunc__Class**)(modloader::win::memory::resolve_rva(0x04786BC8));
-    }
-    namespace BrowserNative_ForwardJSCallFunc {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_ForwardJSCallFunc__Class** type_info = (::app::BrowserNative_ForwardJSCallFunc__Class**)(modloader::win::memory::resolve_rva(0x04768FD8));
-    }
-    namespace BrowserNative_NewWindowFunc {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_NewWindowFunc__Class** type_info = (::app::BrowserNative_NewWindowFunc__Class**)(modloader::win::memory::resolve_rva(0x04707600));
-    }
-    namespace BrowserNative_ChangeFunc {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BrowserNative_ChangeFunc__Class** type_info = (::app::BrowserNative_ChangeFunc__Class**)(modloader::win::memory::resolve_rva(0x04778548));
-    }
-} // namespace app::classes::types
+    namespace XalAchievements_c_DisplayClass21_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::XalAchievements_c_DisplayClass21_0__Class** type_info = (::app::XalAchievements_c_DisplayClass21_0__Class**)(modloader::win::memory::resolve_rva(0x04715828)); }
+    namespace XalAchievements_c_DisplayClass26_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::XalAchievements_c_DisplayClass26_0__Class** type_info = (::app::XalAchievements_c_DisplayClass26_0__Class**)(modloader::win::memory::resolve_rva(0x0470B288)); }
+    namespace XalAchievements_RunRequest_d_27 { IL2CPP_MODLOADER_DLLEXPORT ::app::XalAchievements_RunRequest_d_27__Class** type_info = (::app::XalAchievements_RunRequest_d_27__Class**)(modloader::win::memory::resolve_rva(0x04786EA0)); }
+    namespace XboxOneAchievements_1 { IL2CPP_MODLOADER_DLLEXPORT ::app::XboxOneAchievements_1__Class** type_info = (::app::XboxOneAchievements_1__Class**)(modloader::win::memory::resolve_rva(0x04720F60)); }
+    namespace GrdkUser { IL2CPP_MODLOADER_DLLEXPORT ::app::GrdkUser__Class** type_info = (::app::GrdkUser__Class**)(modloader::win::memory::resolve_rva(0x04736948)); }
+    namespace PlayFabFileDownloader { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabFileDownloader__Class** type_info = (::app::PlayFabFileDownloader__Class**)(modloader::win::memory::resolve_rva(0x047748B8)); }
+    namespace PlayFabFileDownloader_c { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabFileDownloader_c__Class** type_info = (::app::PlayFabFileDownloader_c__Class**)(modloader::win::memory::resolve_rva(0x0472C660)); }
+    namespace PlayFabFileUploader { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabFileUploader__Class** type_info = (::app::PlayFabFileUploader__Class**)(modloader::win::memory::resolve_rva(0x0478DDF8)); }
+    namespace PlayFabFileUploader_c { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabFileUploader_c__Class** type_info = (::app::PlayFabFileUploader_c__Class**)(modloader::win::memory::resolve_rva(0x0472ACF8)); }
+    namespace PlayFabRaceServiceProvider_c_DisplayClass10_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayFabRaceServiceProvider_c_DisplayClass10_0__Class** type_info = (::app::PlayFabRaceServiceProvider_c_DisplayClass10_0__Class**)(modloader::win::memory::resolve_rva(0x04773460)); }
+    namespace RaceDataCache_c { IL2CPP_MODLOADER_DLLEXPORT ::app::RaceDataCache_c__Class** type_info = (::app::RaceDataCache_c__Class**)(modloader::win::memory::resolve_rva(0x04774320)); }
+    namespace CursorType__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::CursorType__Enum__Class** type_info = (::app::CursorType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04725F68)); }
+    namespace fsAotVersionInfo_Member { IL2CPP_MODLOADER_DLLEXPORT ::app::fsAotVersionInfo_Member__Class** type_info = (::app::fsAotVersionInfo_Member__Class**)(modloader::win::memory::resolve_rva(0x04716148)); }
+    namespace fsMetaType { IL2CPP_MODLOADER_DLLEXPORT ::app::fsMetaType__Class** type_info = (::app::fsMetaType__Class**)(modloader::win::memory::resolve_rva(0x04783DC8)); }
+    namespace fsConfig { IL2CPP_MODLOADER_DLLEXPORT ::app::fsConfig__Class** type_info = (::app::fsConfig__Class**)(modloader::win::memory::resolve_rva(0x0471D130)); }
+    namespace fsMetaProperty { IL2CPP_MODLOADER_DLLEXPORT ::app::fsMetaProperty__Class** type_info = (::app::fsMetaProperty__Class**)(modloader::win::memory::resolve_rva(0x047613B0)); }
+    namespace fsIAotConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsIAotConverter__Class** type_info = (::app::fsIAotConverter__Class**)(modloader::win::memory::resolve_rva(0x04783DC0)); }
+    namespace fsAotCompilationManager { IL2CPP_MODLOADER_DLLEXPORT ::app::fsAotCompilationManager__Class** type_info = (::app::fsAotCompilationManager__Class**)(modloader::win::memory::resolve_rva(0x047175B8)); }
+    namespace fsAotConfiguration_Entry { IL2CPP_MODLOADER_DLLEXPORT ::app::fsAotConfiguration_Entry__Class** type_info = (::app::fsAotConfiguration_Entry__Class**)(modloader::win::memory::resolve_rva(0x04701648)); }
+    namespace fsConverterRegistrar { IL2CPP_MODLOADER_DLLEXPORT ::app::fsConverterRegistrar__Class** type_info = (::app::fsConverterRegistrar__Class**)(modloader::win::memory::resolve_rva(0x04714BD8)); }
+    namespace fsBaseConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsBaseConverter__Class** type_info = (::app::fsBaseConverter__Class**)(modloader::win::memory::resolve_rva(0x04765908)); }
+    namespace fsDirectConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsDirectConverter__Class** type_info = (::app::fsDirectConverter__Class**)(modloader::win::memory::resolve_rva(0x0475D688)); }
+    namespace fsSerializer { IL2CPP_MODLOADER_DLLEXPORT ::app::fsSerializer__Class** type_info = (::app::fsSerializer__Class**)(modloader::win::memory::resolve_rva(0x04754FF0)); }
+    namespace fsObjectProcessor { IL2CPP_MODLOADER_DLLEXPORT ::app::fsObjectProcessor__Class** type_info = (::app::fsObjectProcessor__Class**)(modloader::win::memory::resolve_rva(0x047993C0)); }
+    namespace fsData { IL2CPP_MODLOADER_DLLEXPORT ::app::fsData__Class** type_info = (::app::fsData__Class**)(modloader::win::memory::resolve_rva(0x0476C358)); }
+    namespace fsConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsConverter__Class** type_info = (::app::fsConverter__Class**)(modloader::win::memory::resolve_rva(0x04795230)); }
+    namespace fsArrayConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsArrayConverter__Class** type_info = (::app::fsArrayConverter__Class**)(modloader::win::memory::resolve_rva(0x0477D9E8)); }
+    namespace fsResult { IL2CPP_MODLOADER_DLLEXPORT ::app::fsResult__Class** type_info = (::app::fsResult__Class**)(modloader::win::memory::resolve_rva(0x047896C0)); }
+    namespace fsCyclicReferenceManager { IL2CPP_MODLOADER_DLLEXPORT ::app::fsCyclicReferenceManager__Class** type_info = (::app::fsCyclicReferenceManager__Class**)(modloader::win::memory::resolve_rva(0x04772B40)); }
+    namespace fsSerializer_fsLazyCycleDefinitionWriter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsSerializer_fsLazyCycleDefinitionWriter__Class** type_info = (::app::fsSerializer_fsLazyCycleDefinitionWriter__Class**)(modloader::win::memory::resolve_rva(0x04786070)); }
+    namespace fsContext { IL2CPP_MODLOADER_DLLEXPORT ::app::fsContext__Class** type_info = (::app::fsContext__Class**)(modloader::win::memory::resolve_rva(0x04789140)); }
+    namespace fsDataType__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::fsDataType__Enum__Class** type_info = (::app::fsDataType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04719398)); }
+    namespace fsDataType__Enum__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::fsDataType__Enum__Array__Class** type_info = (::app::fsDataType__Enum__Array__Class**)(modloader::win::memory::resolve_rva(0x04746ED0)); }
+    namespace fsBaseConverter_c { IL2CPP_MODLOADER_DLLEXPORT ::app::fsBaseConverter_c__Class** type_info = (::app::fsBaseConverter_c__Class**)(modloader::win::memory::resolve_rva(0x0478A370)); }
+    namespace fsConfig_c { IL2CPP_MODLOADER_DLLEXPORT ::app::fsConfig_c__Class** type_info = (::app::fsConfig_c__Class**)(modloader::win::memory::resolve_rva(0x04735B30)); }
+    namespace fsMissingVersionConstructorException { IL2CPP_MODLOADER_DLLEXPORT ::app::fsMissingVersionConstructorException__Class** type_info = (::app::fsMissingVersionConstructorException__Class**)(modloader::win::memory::resolve_rva(0x0478FF50)); }
+    namespace fsDuplicateVersionNameException { IL2CPP_MODLOADER_DLLEXPORT ::app::fsDuplicateVersionNameException__Class** type_info = (::app::fsDuplicateVersionNameException__Class**)(modloader::win::memory::resolve_rva(0x04748460)); }
+    namespace fsJsonParser { IL2CPP_MODLOADER_DLLEXPORT ::app::fsJsonParser__Class** type_info = (::app::fsJsonParser__Class**)(modloader::win::memory::resolve_rva(0x0473E638)); }
+    namespace fsTypeExtensions_c_DisplayClass2_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::fsTypeExtensions_c_DisplayClass2_0__Class** type_info = (::app::fsTypeExtensions_c_DisplayClass2_0__Class**)(modloader::win::memory::resolve_rva(0x04786510)); }
+    namespace fsMetaType_AotFailureException { IL2CPP_MODLOADER_DLLEXPORT ::app::fsMetaType_AotFailureException__Class** type_info = (::app::fsMetaType_AotFailureException__Class**)(modloader::win::memory::resolve_rva(0x04772950)); }
+    namespace fsMetaType_c_DisplayClass5_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::fsMetaType_c_DisplayClass5_0__Class** type_info = (::app::fsMetaType_c_DisplayClass5_0__Class**)(modloader::win::memory::resolve_rva(0x04737588)); }
+    namespace fsMetaType_c_DisplayClass7_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::fsMetaType_c_DisplayClass7_0__Class** type_info = (::app::fsMetaType_c_DisplayClass7_0__Class**)(modloader::win::memory::resolve_rva(0x04706E58)); }
+    namespace fsMetaType_c_DisplayClass8_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::fsMetaType_c_DisplayClass8_0__Class** type_info = (::app::fsMetaType_c_DisplayClass8_0__Class**)(modloader::win::memory::resolve_rva(0x04727AD8)); }
+    namespace fsDateConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsDateConverter__Class** type_info = (::app::fsDateConverter__Class**)(modloader::win::memory::resolve_rva(0x0470E880)); }
+    namespace fsDictionaryConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsDictionaryConverter__Class** type_info = (::app::fsDictionaryConverter__Class**)(modloader::win::memory::resolve_rva(0x047996A0)); }
+    namespace fsEnumConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsEnumConverter__Class** type_info = (::app::fsEnumConverter__Class**)(modloader::win::memory::resolve_rva(0x04767FA8)); }
+    namespace fsForwardConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsForwardConverter__Class** type_info = (::app::fsForwardConverter__Class**)(modloader::win::memory::resolve_rva(0x04747608)); }
+    namespace fsGuidConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsGuidConverter__Class** type_info = (::app::fsGuidConverter__Class**)(modloader::win::memory::resolve_rva(0x047161A8)); }
+    namespace fsIEnumerableConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsIEnumerableConverter__Class** type_info = (::app::fsIEnumerableConverter__Class**)(modloader::win::memory::resolve_rva(0x04755830)); }
+    namespace fsKeyValuePairConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsKeyValuePairConverter__Class** type_info = (::app::fsKeyValuePairConverter__Class**)(modloader::win::memory::resolve_rva(0x04708F60)); }
+    namespace fsNullableConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsNullableConverter__Class** type_info = (::app::fsNullableConverter__Class**)(modloader::win::memory::resolve_rva(0x047455C0)); }
+    namespace fsPrimitiveConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsPrimitiveConverter__Class** type_info = (::app::fsPrimitiveConverter__Class**)(modloader::win::memory::resolve_rva(0x0477C0F0)); }
+    namespace fsReflectedConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsReflectedConverter__Class** type_info = (::app::fsReflectedConverter__Class**)(modloader::win::memory::resolve_rva(0x0473C430)); }
+    namespace fsTypeConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsTypeConverter__Class** type_info = (::app::fsTypeConverter__Class**)(modloader::win::memory::resolve_rva(0x04782868)); }
+    namespace fsWeakReferenceConverter { IL2CPP_MODLOADER_DLLEXPORT ::app::fsWeakReferenceConverter__Class** type_info = (::app::fsWeakReferenceConverter__Class**)(modloader::win::memory::resolve_rva(0x0476C0C0)); }
+    namespace fsSerializationCallbackProcessor { IL2CPP_MODLOADER_DLLEXPORT ::app::fsSerializationCallbackProcessor__Class** type_info = (::app::fsSerializationCallbackProcessor__Class**)(modloader::win::memory::resolve_rva(0x0473CB08)); }
+    namespace fsSerializationCallbackReceiverProcessor { IL2CPP_MODLOADER_DLLEXPORT ::app::fsSerializationCallbackReceiverProcessor__Class** type_info = (::app::fsSerializationCallbackReceiverProcessor__Class**)(modloader::win::memory::resolve_rva(0x047133C8)); }
+    namespace fsCyclicReferenceManager_ObjectReferenceEqualityComparator { IL2CPP_MODLOADER_DLLEXPORT ::app::fsCyclicReferenceManager_ObjectReferenceEqualityComparator__Class** type_info = (::app::fsCyclicReferenceManager_ObjectReferenceEqualityComparator__Class**)(modloader::win::memory::resolve_rva(0x04791F50)); }
+    namespace fsPortableReflection_AttributeQueryComparator { IL2CPP_MODLOADER_DLLEXPORT ::app::fsPortableReflection_AttributeQueryComparator__Class** type_info = (::app::fsPortableReflection_AttributeQueryComparator__Class**)(modloader::win::memory::resolve_rva(0x04731850)); }
+    namespace fsPortableReflection_GetFlattenedMethods_d_18 { IL2CPP_MODLOADER_DLLEXPORT ::app::fsPortableReflection_GetFlattenedMethods_d_18__Class** type_info = (::app::fsPortableReflection_GetFlattenedMethods_d_18__Class**)(modloader::win::memory::resolve_rva(0x047503F8)); }
+    namespace fsVersionedType { IL2CPP_MODLOADER_DLLEXPORT ::app::fsVersionedType__Class** type_info = (::app::fsVersionedType__Class**)(modloader::win::memory::resolve_rva(0x047455D0)); }
+    namespace fsVersionedType__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::fsVersionedType__Array__Class** type_info = (::app::fsVersionedType__Array__Class**)(modloader::win::memory::resolve_rva(0x047530C8)); }
+    namespace ScreenshotRecorder { IL2CPP_MODLOADER_DLLEXPORT ::app::ScreenshotRecorder__Class** type_info = (::app::ScreenshotRecorder__Class**)(modloader::win::memory::resolve_rva(0x04768C00)); }
+    namespace MainThreadWorkStealer { IL2CPP_MODLOADER_DLLEXPORT ::app::MainThreadWorkStealer__Class** type_info = (::app::MainThreadWorkStealer__Class**)(modloader::win::memory::resolve_rva(0x047581D0)); }
+    namespace RenderThreadWaker { IL2CPP_MODLOADER_DLLEXPORT ::app::RenderThreadWaker__Class** type_info = (::app::RenderThreadWaker__Class**)(modloader::win::memory::resolve_rva(0x0472BF60)); }
+    namespace AverageBothDeltaTimeController { IL2CPP_MODLOADER_DLLEXPORT ::app::AverageBothDeltaTimeController__Class** type_info = (::app::AverageBothDeltaTimeController__Class**)(modloader::win::memory::resolve_rva(0x0477A590)); }
+    namespace DeltaTimeManager_DeltaTimeFrameHistory { IL2CPP_MODLOADER_DLLEXPORT ::app::DeltaTimeManager_DeltaTimeFrameHistory__Class** type_info = (::app::DeltaTimeManager_DeltaTimeFrameHistory__Class**)(modloader::win::memory::resolve_rva(0x04722860)); }
+    namespace DeltaTimeManager_DeltaTimeFrameHistory__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::DeltaTimeManager_DeltaTimeFrameHistory__Array__Class** type_info = (::app::DeltaTimeManager_DeltaTimeFrameHistory__Array__Class**)(modloader::win::memory::resolve_rva(0x04713A78)); }
+    namespace DeltaTimeManager { IL2CPP_MODLOADER_DLLEXPORT ::app::DeltaTimeManager__Class** type_info = (::app::DeltaTimeManager__Class**)(modloader::win::memory::resolve_rva(0x04704CF0)); }
+    namespace IDeltaTimeController { IL2CPP_MODLOADER_DLLEXPORT ::app::IDeltaTimeController__Class** type_info = (::app::IDeltaTimeController__Class**)(modloader::win::memory::resolve_rva(0x0477F3F0)); }
+    namespace DirectDeltaTimeController { IL2CPP_MODLOADER_DLLEXPORT ::app::DirectDeltaTimeController__Class** type_info = (::app::DirectDeltaTimeController__Class**)(modloader::win::memory::resolve_rva(0x04708340)); }
+    namespace FixedDeltaTimeController { IL2CPP_MODLOADER_DLLEXPORT ::app::FixedDeltaTimeController__Class** type_info = (::app::FixedDeltaTimeController__Class**)(modloader::win::memory::resolve_rva(0x0476EC30)); }
+    namespace PausedDeltaTimeController { IL2CPP_MODLOADER_DLLEXPORT ::app::PausedDeltaTimeController__Class** type_info = (::app::PausedDeltaTimeController__Class**)(modloader::win::memory::resolve_rva(0x04709348)); }
+    namespace PCQualityModeManager { IL2CPP_MODLOADER_DLLEXPORT ::app::PCQualityModeManager__Class** type_info = (::app::PCQualityModeManager__Class**)(modloader::win::memory::resolve_rva(0x0478A8D0)); }
+    namespace XboxQualityModeManager { IL2CPP_MODLOADER_DLLEXPORT ::app::XboxQualityModeManager__Class** type_info = (::app::XboxQualityModeManager__Class**)(modloader::win::memory::resolve_rva(0x04722410)); }
+    namespace IVRSystem_GetRecommendedRenderTargetSize { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_GetRecommendedRenderTargetSize__Class** type_info = (::app::IVRSystem_GetRecommendedRenderTargetSize__Class**)(modloader::win::memory::resolve_rva(0x04784F18)); }
+    namespace IVRSystem_GetProjectionMatrix { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_GetProjectionMatrix__Class** type_info = (::app::IVRSystem_GetProjectionMatrix__Class**)(modloader::win::memory::resolve_rva(0x04789390)); }
+    namespace HmdMatrix44_t { IL2CPP_MODLOADER_DLLEXPORT ::app::HmdMatrix44_t__Class** type_info = (::app::HmdMatrix44_t__Class**)(modloader::win::memory::resolve_rva(0x04767558)); }
+    namespace EVREye__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::EVREye__Enum__Class** type_info = (::app::EVREye__Enum__Class**)(modloader::win::memory::resolve_rva(0x047972D8)); }
+    namespace IVRSystem_GetProjectionRaw { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_GetProjectionRaw__Class** type_info = (::app::IVRSystem_GetProjectionRaw__Class**)(modloader::win::memory::resolve_rva(0x04749650)); }
+    namespace IVRSystem_ComputeDistortion { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_ComputeDistortion__Class** type_info = (::app::IVRSystem_ComputeDistortion__Class**)(modloader::win::memory::resolve_rva(0x0470F4D8)); }
+    namespace DistortionCoordinates_t { IL2CPP_MODLOADER_DLLEXPORT ::app::DistortionCoordinates_t__Class** type_info = (::app::DistortionCoordinates_t__Class**)(modloader::win::memory::resolve_rva(0x04725AD8)); }
+    namespace IVRSystem_GetEyeToHeadTransform { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_GetEyeToHeadTransform__Class** type_info = (::app::IVRSystem_GetEyeToHeadTransform__Class**)(modloader::win::memory::resolve_rva(0x04713ED0)); }
+    namespace HmdMatrix34_t { IL2CPP_MODLOADER_DLLEXPORT ::app::HmdMatrix34_t__Class** type_info = (::app::HmdMatrix34_t__Class**)(modloader::win::memory::resolve_rva(0x04765138)); }
+    namespace IVRSystem_GetTimeSinceLastVsync { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_GetTimeSinceLastVsync__Class** type_info = (::app::IVRSystem_GetTimeSinceLastVsync__Class**)(modloader::win::memory::resolve_rva(0x04773C88)); }
+    namespace IVRSystem_GetD3D9AdapterIndex { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_GetD3D9AdapterIndex__Class** type_info = (::app::IVRSystem_GetD3D9AdapterIndex__Class**)(modloader::win::memory::resolve_rva(0x047556F0)); }
+    namespace IVRSystem_GetDXGIOutputInfo { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_GetDXGIOutputInfo__Class** type_info = (::app::IVRSystem_GetDXGIOutputInfo__Class**)(modloader::win::memory::resolve_rva(0x0474EBF0)); }
+    namespace IVRSystem_GetOutputDevice { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_GetOutputDevice__Class** type_info = (::app::IVRSystem_GetOutputDevice__Class**)(modloader::win::memory::resolve_rva(0x0476EFE0)); }
+    namespace ETextureType__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::ETextureType__Enum__Class** type_info = (::app::ETextureType__Enum__Class**)(modloader::win::memory::resolve_rva(0x0477D418)); }
+    namespace IVRSystem_IsDisplayOnDesktop { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_IsDisplayOnDesktop__Class** type_info = (::app::IVRSystem_IsDisplayOnDesktop__Class**)(modloader::win::memory::resolve_rva(0x04764AE0)); }
+    namespace IVRSystem_SetDisplayVisibility { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_SetDisplayVisibility__Class** type_info = (::app::IVRSystem_SetDisplayVisibility__Class**)(modloader::win::memory::resolve_rva(0x047249D8)); }
+    namespace IVRSystem_GetDeviceToAbsoluteTrackingPose { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_GetDeviceToAbsoluteTrackingPose__Class** type_info = (::app::IVRSystem_GetDeviceToAbsoluteTrackingPose__Class**)(modloader::win::memory::resolve_rva(0x047791E0)); }
+    namespace ETrackingUniverseOrigin__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::ETrackingUniverseOrigin__Enum__Class** type_info = (::app::ETrackingUniverseOrigin__Enum__Class**)(modloader::win::memory::resolve_rva(0x047660C0)); }
+    namespace TrackedDevicePose_t { IL2CPP_MODLOADER_DLLEXPORT ::app::TrackedDevicePose_t__Class** type_info = (::app::TrackedDevicePose_t__Class**)(modloader::win::memory::resolve_rva(0x04759490)); }
+    namespace IVRSystem_ResetSeatedZeroPose { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_ResetSeatedZeroPose__Class** type_info = (::app::IVRSystem_ResetSeatedZeroPose__Class**)(modloader::win::memory::resolve_rva(0x047955C0)); }
+    namespace IVRSystem_GetSeatedZeroPoseToStandingAbsoluteTrackingPose { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_GetSeatedZeroPoseToStandingAbsoluteTrackingPose__Class** type_info = (::app::IVRSystem_GetSeatedZeroPoseToStandingAbsoluteTrackingPose__Class**)(modloader::win::memory::resolve_rva(0x04761190)); }
+    namespace IVRSystem_GetRawZeroPoseToStandingAbsoluteTrackingPose { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_GetRawZeroPoseToStandingAbsoluteTrackingPose__Class** type_info = (::app::IVRSystem_GetRawZeroPoseToStandingAbsoluteTrackingPose__Class**)(modloader::win::memory::resolve_rva(0x04700DD0)); }
+    namespace IVRSystem_GetSortedTrackedDeviceIndicesOfClass { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_GetSortedTrackedDeviceIndicesOfClass__Class** type_info = (::app::IVRSystem_GetSortedTrackedDeviceIndicesOfClass__Class**)(modloader::win::memory::resolve_rva(0x0477BD50)); }
+    namespace ETrackedDeviceClass__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::ETrackedDeviceClass__Enum__Class** type_info = (::app::ETrackedDeviceClass__Enum__Class**)(modloader::win::memory::resolve_rva(0x047248B0)); }
+    namespace IVRSystem_GetTrackedDeviceActivityLevel { IL2CPP_MODLOADER_DLLEXPORT ::app::IVRSystem_GetTrackedDeviceActivityLevel__Class** type_info = (::app::IVRSystem_GetTrackedDeviceActivityLevel__Class**)(modloader::win::memory::resolve_rva(0x04736180)); }
+}

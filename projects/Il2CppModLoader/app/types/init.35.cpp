@@ -1,405 +1,205 @@
-#include <Il2CppModLoader/app/types/AggregateNode.h>
-#include <Il2CppModLoader/app/types/AggregateType__Enum.h>
-#include <Il2CppModLoader/app/types/BoolStateMap_Mapping.h>
-#include <Il2CppModLoader/app/types/BooleanUberState.h>
-#include <Il2CppModLoader/app/types/BooleanUberStateCondition.h>
-#include <Il2CppModLoader/app/types/ByteStateMap_Mapping.h>
-#include <Il2CppModLoader/app/types/ByteUberState.h>
-#include <Il2CppModLoader/app/types/ByteUberStateCondition.h>
-#include <Il2CppModLoader/app/types/CRC32.h>
-#include <Il2CppModLoader/app/types/ColumnTypeConverter.h>
-#include <Il2CppModLoader/app/types/ConditionUberState.h>
-#include <Il2CppModLoader/app/types/Constraint_1.h>
-#include <Il2CppModLoader/app/types/DataColumn.h>
-#include <Il2CppModLoader/app/types/DataColumn__Array.h>
-#include <Il2CppModLoader/app/types/DataCommonEventSource.h>
-#include <Il2CppModLoader/app/types/DataExpression.h>
-#include <Il2CppModLoader/app/types/DataKey.h>
-#include <Il2CppModLoader/app/types/DataRelation.h>
-#include <Il2CppModLoader/app/types/DataSet.h>
-#include <Il2CppModLoader/app/types/DataSetDateTime__Enum.h>
-#include <Il2CppModLoader/app/types/DataTable.h>
-#include <Il2CppModLoader/app/types/DataView.h>
-#include <Il2CppModLoader/app/types/DataViewManager.h>
-#include <Il2CppModLoader/app/types/DataViewRowState__Enum.h>
-#include <Il2CppModLoader/app/types/DataViewSetting.h>
-#include <Il2CppModLoader/app/types/DataViewSettingCollection.h>
-#include <Il2CppModLoader/app/types/DeflateManager.h>
-#include <Il2CppModLoader/app/types/DeflateManager_CompressFunc.h>
-#include <Il2CppModLoader/app/types/DeflateManager_Config.h>
-#include <Il2CppModLoader/app/types/DeflateManager_Config__Array.h>
-#include <Il2CppModLoader/app/types/DesiredUberStateBool.h>
-#include <Il2CppModLoader/app/types/DesiredUberStateByte.h>
-#include <Il2CppModLoader/app/types/DesiredUberStateComposite.h>
-#include <Il2CppModLoader/app/types/DesiredUberStateFloat.h>
-#include <Il2CppModLoader/app/types/DesiredUberStateGeneric.h>
-#include <Il2CppModLoader/app/types/DesiredUberStateInt.h>
-#include <Il2CppModLoader/app/types/FloatRangeUberStatePair.h>
-#include <Il2CppModLoader/app/types/FloatStateMap_Mapping.h>
-#include <Il2CppModLoader/app/types/FloatUberState.h>
-#include <Il2CppModLoader/app/types/FlushType__Enum.h>
-#include <Il2CppModLoader/app/types/GZipStream_1.h>
-#include <Il2CppModLoader/app/types/GenericDataContainer.h>
-#include <Il2CppModLoader/app/types/GenericMappingEntry.h>
-#include <Il2CppModLoader/app/types/IDesiredUberState__Array.h>
-#include <Il2CppModLoader/app/types/IUberState__Array.h>
-#include <Il2CppModLoader/app/types/Index.h>
-#include <Il2CppModLoader/app/types/IndexField.h>
-#include <Il2CppModLoader/app/types/IndexedState.h>
-#include <Il2CppModLoader/app/types/InfTree.h>
-#include <Il2CppModLoader/app/types/InflateBlocks.h>
-#include <Il2CppModLoader/app/types/InflateCodes.h>
-#include <Il2CppModLoader/app/types/InflateManager.h>
-#include <Il2CppModLoader/app/types/IntStateMap_Mapping.h>
-#include <Il2CppModLoader/app/types/IntUberState.h>
-#include <Il2CppModLoader/app/types/IntUberStateCondition.h>
-#include <Il2CppModLoader/app/types/IntUberStateMatcher_IntRangeUberStatePair.h>
-#include <Il2CppModLoader/app/types/InternalDataCollectionBase.h>
-#include <Il2CppModLoader/app/types/MappingType__Enum.h>
-#include <Il2CppModLoader/app/types/NavigableOnGUI.h>
-#include <Il2CppModLoader/app/types/NewSetupStateControllerResolver.h>
-#include <Il2CppModLoader/app/types/NewSetupStateControllerResolver_IntEqualityComparer.h>
-#include <Il2CppModLoader/app/types/NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem.h>
-#include <Il2CppModLoader/app/types/NewSetupStateControllerResolver_c_DisplayClass20_0.h>
-#include <Il2CppModLoader/app/types/NewSetupStateController_ChangeModel.h>
-#include <Il2CppModLoader/app/types/ObjectUberState.h>
-#include <Il2CppModLoader/app/types/PearsonHash.h>
-#include <Il2CppModLoader/app/types/PropertyCollection.h>
-#include <Il2CppModLoader/app/types/SceneUberStateGroup.h>
-#include <Il2CppModLoader/app/types/SerializationFormat__Enum_1.h>
-#include <Il2CppModLoader/app/types/SerializedBooleanUberState.h>
-#include <Il2CppModLoader/app/types/SerializedByteUberState.h>
-#include <Il2CppModLoader/app/types/SerializedFloatUberState.h>
-#include <Il2CppModLoader/app/types/SerializedIntUberState.h>
-#include <Il2CppModLoader/app/types/SetupState.h>
-#include <Il2CppModLoader/app/types/SetupStateModifier.h>
-#include <Il2CppModLoader/app/types/SetupStateModifierData.h>
-#include <Il2CppModLoader/app/types/StateOverrideSystem.h>
-#include <Il2CppModLoader/app/types/StateOverrideSystem_PassiveStateOverride.h>
-#include <Il2CppModLoader/app/types/StateOverrideSystem_UberStateOverride.h>
-#include <Il2CppModLoader/app/types/StaticTree.h>
-#include <Il2CppModLoader/app/types/Tree.h>
-#include <Il2CppModLoader/app/types/UberID.h>
-#include <Il2CppModLoader/app/types/UberStateArchive.h>
-#include <Il2CppModLoader/app/types/UberStateCollection.h>
-#include <Il2CppModLoader/app/types/UberStateCollectionGroup.h>
-#include <Il2CppModLoader/app/types/UberStateCollectionReference.h>
-#include <Il2CppModLoader/app/types/UberStateCondition.h>
-#include <Il2CppModLoader/app/types/UberStateConditionHelper_c.h>
-#include <Il2CppModLoader/app/types/UberStateController.h>
-#include <Il2CppModLoader/app/types/UberStateController_ApplierContext.h>
-#include <Il2CppModLoader/app/types/UberStateController_c.h>
-#include <Il2CppModLoader/app/types/UberStateException.h>
-#include <Il2CppModLoader/app/types/UberStateMatcher.h>
-#include <Il2CppModLoader/app/types/UberStateSaveFileHandler.h>
-#include <Il2CppModLoader/app/types/UberStateValueGroup.h>
-#include <Il2CppModLoader/app/types/UberStateValueStore.h>
-#include <Il2CppModLoader/app/types/UniqueConstraint.h>
-#include <Il2CppModLoader/app/types/ZlibBaseStream.h>
-#include <Il2CppModLoader/app/types/ZlibCodec.h>
-#include <Il2CppModLoader/app/types/ZlibException.h>
-#include <Il2CppModLoader/macros.h>
 #include <Il2CppModLoader/windows_api/memory.h>
+#include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/app/types/IKSolver_IterationDelegate.h>
+#include <Il2CppModLoader/app/types/IKSolverTrigonometric_TrigonometricBone.h>
+#include <Il2CppModLoader/app/types/IKSolverLimb_AxisDirection__Array.h>
+#include <Il2CppModLoader/app/types/IKSolverFABRIK.h>
+#include <Il2CppModLoader/app/types/IKSolverLookAt.h>
+#include <Il2CppModLoader/app/types/IKSolverLookAt_LookAtBone.h>
+#include <Il2CppModLoader/app/types/IKSolverLookAt_LookAtBone__Array.h>
+#include <Il2CppModLoader/app/types/Constraints.h>
+#include <Il2CppModLoader/app/types/IKSolverLimb__Array.h>
+#include <Il2CppModLoader/app/types/IKSolver__Array.h>
+#include <Il2CppModLoader/app/types/Finger.h>
+#include <Il2CppModLoader/app/types/Finger__Array.h>
+#include <Il2CppModLoader/app/types/Grounding.h>
+#include <Il2CppModLoader/app/types/Grounding_Leg.h>
+#include <Il2CppModLoader/app/types/Grounding_Leg__Array.h>
+#include <Il2CppModLoader/app/types/Grounding_Pelvis.h>
+#include <Il2CppModLoader/app/types/FullBodyBipedIK.h>
+#include <Il2CppModLoader/app/types/AimIK.h>
+#include <Il2CppModLoader/app/types/IKSolverFullBodyBiped.h>
+#include <Il2CppModLoader/app/types/FBIKChain.h>
+#include <Il2CppModLoader/app/types/IKSolver_Node.h>
+#include <Il2CppModLoader/app/types/IKSolver_Node__Array.h>
+#include <Il2CppModLoader/app/types/FBIKChain_ChildConstraint.h>
+#include <Il2CppModLoader/app/types/FBIKChain_ChildConstraint__Array.h>
+#include <Il2CppModLoader/app/types/IKConstraintBend.h>
+#include <Il2CppModLoader/app/types/FBIKChain__Array.h>
+#include <Il2CppModLoader/app/types/IKEffector.h>
+#include <Il2CppModLoader/app/types/IKEffector__Array.h>
+#include <Il2CppModLoader/app/types/IKMappingSpine.h>
+#include <Il2CppModLoader/app/types/IKMapping_BoneMap.h>
+#include <Il2CppModLoader/app/types/IKMapping_BoneMap__Array.h>
+#include <Il2CppModLoader/app/types/IKMappingBone.h>
+#include <Il2CppModLoader/app/types/IKMappingBone__Array.h>
+#include <Il2CppModLoader/app/types/IKMappingLimb.h>
+#include <Il2CppModLoader/app/types/IKMappingLimb__Array.h>
+#include <Il2CppModLoader/app/types/FullBodyBipedEffector__Enum.h>
+#include <Il2CppModLoader/app/types/GrounderFBBIK_SpineEffector__Array.h>
+#include <Il2CppModLoader/app/types/IK__Array.h>
+#include <Il2CppModLoader/app/types/GrounderQuadruped_Foot__Array.h>
+#include <Il2CppModLoader/app/types/CCDIK.h>
+#include <Il2CppModLoader/app/types/IKSolverCCD.h>
+#include <Il2CppModLoader/app/types/FABRIKRoot.h>
+#include <Il2CppModLoader/app/types/IKSolverFABRIKRoot.h>
+#include <Il2CppModLoader/app/types/FABRIKChain__Array.h>
+#include <Il2CppModLoader/app/types/FBBIKHeadEffector_BendBone__Array.h>
+#include <Il2CppModLoader/app/types/InteractionEffector.h>
+#include <Il2CppModLoader/app/types/InteractionObject_WeightCurve_Type__Enum.h>
+#include <Il2CppModLoader/app/types/InteractionTrigger_Range__Array.h>
+#include <Il2CppModLoader/app/types/InteractionSystem_InteractionDelegate.h>
+#include <Il2CppModLoader/app/types/InteractionLookAt.h>
+#include <Il2CppModLoader/app/types/InteractionEffector__Array.h>
+#include <Il2CppModLoader/app/types/InteractionTarget__Array.h>
+#include <Il2CppModLoader/app/types/GenericPoser_Map.h>
+#include <Il2CppModLoader/app/types/GenericPoser_Map__Array.h>
+#include <Il2CppModLoader/app/types/InteractionObject__Array.h>
+#include <Il2CppModLoader/app/types/RagdollUtility_Rigidbone.h>
+#include <Il2CppModLoader/app/types/RagdollUtility_Rigidbone__Array.h>
+#include <Il2CppModLoader/app/types/RagdollUtility_Child.h>
+#include <Il2CppModLoader/app/types/RagdollUtility_Child__Array.h>
+#include <Il2CppModLoader/app/types/RagdollUtility_DisableRagdollSmooth_d_21.h>
+#include <Il2CppModLoader/app/types/RotationLimitHinge.h>
+#include <Il2CppModLoader/app/types/RotationLimitPolygonal_LimitPoint.h>
+#include <Il2CppModLoader/app/types/RotationLimitPolygonal_LimitPoint__Array.h>
+#include <Il2CppModLoader/app/types/RotationLimitPolygonal_ReachCone.h>
+#include <Il2CppModLoader/app/types/RotationLimitPolygonal_ReachCone__Array.h>
+#include <Il2CppModLoader/app/types/AimPoser_Pose__Array.h>
+#include <Il2CppModLoader/app/types/OffsetPose_EffectorLink__Array.h>
+#include <Il2CppModLoader/app/types/OffsetModifier_Initiate_d_8.h>
+#include <Il2CppModLoader/app/types/MechSpiderLeg_Step_d_24.h>
+#include <Il2CppModLoader/app/types/MotionAbsorb_AbsorbMotion_d_8.h>
+#include <Il2CppModLoader/app/types/ResetInteractionObject_ResetObject_d_7.h>
+#include <Il2CppModLoader/app/types/SoccerDemo_ResetDelayed_d_4.h>
+#include <Il2CppModLoader/app/types/PlatformRotator_SwitchRotation_d_14.h>
+#include <Il2CppModLoader/app/types/Phone_EnableDisplay_d_5.h>
+#include <Il2CppModLoader/app/types/KeyCode__Enum__Array.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationDescriptor.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationDescriptor_ReflectionInfo.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationDescriptor_CountGetter.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationScanner.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationScanner_EvaluationCtx.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationScanner_DynamicInstantiationPrewarmPriorityVisitor.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationScanner_VisitorCtx.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationDescriptor_c_DisplayClass28_0.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationScanner_EvaluationCtx_c.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationScanner_DynamicInstantiationProviderVisitor.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationScanner_ArrayOrListVisitor.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationScanner_GameObjectVisitor.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationScanner_ScriptableObjectVisitor.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationScanner_TypeVisitor.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationScanner_TypeVisitor_c.h>
+#include <Il2CppModLoader/app/types/DynamicInstantiationScanner_c.h>
+#include <Il2CppModLoader/app/types/SceneComponentTracker.h>
+#include <Il2CppModLoader/app/types/SceneComponentTracker_c.h>
+#include <Il2CppModLoader/app/types/CameraPositionTracker.h>
+#include <Il2CppModLoader/app/types/CameraPositionTracker_CameraPosition.h>
+#include <Il2CppModLoader/app/types/MoonFlagsSystem.h>
+#include <Il2CppModLoader/app/types/MoonFlagsSystem_HiddenFlagModification.h>
+#include <Il2CppModLoader/app/types/MoonFlagsSystem_ObjectState.h>
+#include <Il2CppModLoader/app/types/ActivateAnimatorSystem.h>
+#include <Il2CppModLoader/app/types/TransformAnimatorSystem.h>
 
 namespace app::classes::types {
-    namespace UberStateConditionHelper_c {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateConditionHelper_c__Class** type_info = (::app::UberStateConditionHelper_c__Class**)(modloader::win::memory::resolve_rva(0x04729C18));
-    }
-    namespace SerializedBooleanUberState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SerializedBooleanUberState__Class** type_info = (::app::SerializedBooleanUberState__Class**)(modloader::win::memory::resolve_rva(0x0471D768));
-    }
-    namespace UberID {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberID__Class** type_info = (::app::UberID__Class**)(modloader::win::memory::resolve_rva(0x04766D98));
-    }
-    namespace UberStateArchive {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateArchive__Class** type_info = (::app::UberStateArchive__Class**)(modloader::win::memory::resolve_rva(0x04733250));
-    }
-    namespace DesiredUberStateBool {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DesiredUberStateBool__Class** type_info = (::app::DesiredUberStateBool__Class**)(modloader::win::memory::resolve_rva(0x04741A60));
-    }
-    namespace DesiredUberStateByte {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DesiredUberStateByte__Class** type_info = (::app::DesiredUberStateByte__Class**)(modloader::win::memory::resolve_rva(0x04704228));
-    }
-    namespace DesiredUberStateComposite {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DesiredUberStateComposite__Class** type_info = (::app::DesiredUberStateComposite__Class**)(modloader::win::memory::resolve_rva(0x04750288));
-    }
-    namespace DesiredUberStateFloat {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DesiredUberStateFloat__Class** type_info = (::app::DesiredUberStateFloat__Class**)(modloader::win::memory::resolve_rva(0x04777670));
-    }
-    namespace SerializedFloatUberState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SerializedFloatUberState__Class** type_info = (::app::SerializedFloatUberState__Class**)(modloader::win::memory::resolve_rva(0x047249F0));
-    }
-    namespace DesiredUberStateInt {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DesiredUberStateInt__Class** type_info = (::app::DesiredUberStateInt__Class**)(modloader::win::memory::resolve_rva(0x04749AF0));
-    }
-    namespace SerializedIntUberState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SerializedIntUberState__Class** type_info = (::app::SerializedIntUberState__Class**)(modloader::win::memory::resolve_rva(0x0471C838));
-    }
-    namespace IUberState__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IUberState__Array__Class** type_info = (::app::IUberState__Array__Class**)(modloader::win::memory::resolve_rva(0x047331A0));
-    }
-    namespace IDesiredUberState__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IDesiredUberState__Array__Class** type_info = (::app::IDesiredUberState__Array__Class**)(modloader::win::memory::resolve_rva(0x0470B538));
-    }
-    namespace UberStateCollection {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateCollection__Class** type_info = (::app::UberStateCollection__Class**)(modloader::win::memory::resolve_rva(0x04706B28));
-    }
-    namespace UberStateCollectionGroup {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateCollectionGroup__Class** type_info = (::app::UberStateCollectionGroup__Class**)(modloader::win::memory::resolve_rva(0x0477BC58));
-    }
-    namespace UberStateCollectionReference {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateCollectionReference__Class** type_info = (::app::UberStateCollectionReference__Class**)(modloader::win::memory::resolve_rva(0x04784130));
-    }
-    namespace SetupStateModifierData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SetupStateModifierData__Class** type_info = (::app::SetupStateModifierData__Class**)(modloader::win::memory::resolve_rva(0x04720E38));
-    }
-    namespace GenericMappingEntry {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GenericMappingEntry__Class** type_info = (::app::GenericMappingEntry__Class**)(modloader::win::memory::resolve_rva(0x04768190));
-    }
-    namespace BoolStateMap_Mapping {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BoolStateMap_Mapping__Class** type_info = (::app::BoolStateMap_Mapping__Class**)(modloader::win::memory::resolve_rva(0x04732F58));
-    }
-    namespace ByteStateMap_Mapping {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ByteStateMap_Mapping__Class** type_info = (::app::ByteStateMap_Mapping__Class**)(modloader::win::memory::resolve_rva(0x0470A458));
-    }
-    namespace FloatStateMap_Mapping {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::FloatStateMap_Mapping__Class** type_info = (::app::FloatStateMap_Mapping__Class**)(modloader::win::memory::resolve_rva(0x047726F0));
-    }
-    namespace GenericDataContainer {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GenericDataContainer__Class** type_info = (::app::GenericDataContainer__Class**)(modloader::win::memory::resolve_rva(0x047317D0));
-    }
-    namespace IntStateMap_Mapping {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IntStateMap_Mapping__Class** type_info = (::app::IntStateMap_Mapping__Class**)(modloader::win::memory::resolve_rva(0x047596D0));
-    }
-    namespace SetupStateModifier {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SetupStateModifier__Class** type_info = (::app::SetupStateModifier__Class**)(modloader::win::memory::resolve_rva(0x04785A50));
-    }
-    namespace SetupState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SetupState__Class** type_info = (::app::SetupState__Class**)(modloader::win::memory::resolve_rva(0x04725E08));
-    }
-    namespace NewSetupStateControllerResolver {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NewSetupStateControllerResolver__Class** type_info = (::app::NewSetupStateControllerResolver__Class**)(modloader::win::memory::resolve_rva(0x0478FCC8));
-    }
-    namespace NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem__Class** type_info = (::app::NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem__Class**)(modloader::win::memory::resolve_rva(0x04773638));
-    }
-    namespace NewSetupStateController_ChangeModel {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NewSetupStateController_ChangeModel__Class** type_info = (::app::NewSetupStateController_ChangeModel__Class**)(modloader::win::memory::resolve_rva(0x0472BCD8));
-    }
-    namespace IndexedState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IndexedState__Class** type_info = (::app::IndexedState__Class**)(modloader::win::memory::resolve_rva(0x0471FA60));
-    }
-    namespace UberStateMatcher {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateMatcher__Class** type_info = (::app::UberStateMatcher__Class**)(modloader::win::memory::resolve_rva(0x0477DBE0));
-    }
-    namespace FloatRangeUberStatePair {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::FloatRangeUberStatePair__Class** type_info = (::app::FloatRangeUberStatePair__Class**)(modloader::win::memory::resolve_rva(0x047018C8));
-    }
-    namespace IntUberStateMatcher_IntRangeUberStatePair {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IntUberStateMatcher_IntRangeUberStatePair__Class** type_info = (::app::IntUberStateMatcher_IntRangeUberStatePair__Class**)(modloader::win::memory::resolve_rva(0x0472E400));
-    }
-    namespace StateOverrideSystem {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::StateOverrideSystem__Class** type_info = (::app::StateOverrideSystem__Class**)(modloader::win::memory::resolve_rva(0x0475A428));
-    }
-    namespace StateOverrideSystem_UberStateOverride {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::StateOverrideSystem_UberStateOverride__Class** type_info = (::app::StateOverrideSystem_UberStateOverride__Class**)(modloader::win::memory::resolve_rva(0x0476AED8));
-    }
-    namespace StateOverrideSystem_PassiveStateOverride {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::StateOverrideSystem_PassiveStateOverride__Class** type_info = (::app::StateOverrideSystem_PassiveStateOverride__Class**)(modloader::win::memory::resolve_rva(0x0476F810));
-    }
-    namespace UberStateCondition {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateCondition__Class** type_info = (::app::UberStateCondition__Class**)(modloader::win::memory::resolve_rva(0x0472FA90));
-    }
-    namespace BooleanUberStateCondition {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BooleanUberStateCondition__Class** type_info = (::app::BooleanUberStateCondition__Class**)(modloader::win::memory::resolve_rva(0x047770F8));
-    }
-    namespace ByteUberStateCondition {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ByteUberStateCondition__Class** type_info = (::app::ByteUberStateCondition__Class**)(modloader::win::memory::resolve_rva(0x0471DA48));
-    }
-    namespace IntUberStateCondition {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IntUberStateCondition__Class** type_info = (::app::IntUberStateCondition__Class**)(modloader::win::memory::resolve_rva(0x04744C68));
-    }
-    namespace DesiredUberStateGeneric {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DesiredUberStateGeneric__Class** type_info = (::app::DesiredUberStateGeneric__Class**)(modloader::win::memory::resolve_rva(0x04759970));
-    }
-    namespace UberStateController {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateController__Class** type_info = (::app::UberStateController__Class**)(modloader::win::memory::resolve_rva(0x04739128));
-    }
-    namespace UberStateController_ApplierContext {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateController_ApplierContext__Class** type_info = (::app::UberStateController_ApplierContext__Class**)(modloader::win::memory::resolve_rva(0x0477C628));
-    }
-    namespace SceneUberStateGroup {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SceneUberStateGroup__Class** type_info = (::app::SceneUberStateGroup__Class**)(modloader::win::memory::resolve_rva(0x047941E0));
-    }
-    namespace UberStateValueStore {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateValueStore__Class** type_info = (::app::UberStateValueStore__Class**)(modloader::win::memory::resolve_rva(0x0475DF90));
-    }
-    namespace UberStateValueGroup {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateValueGroup__Class** type_info = (::app::UberStateValueGroup__Class**)(modloader::win::memory::resolve_rva(0x04730EA8));
-    }
-    namespace UberStateController_c {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateController_c__Class** type_info = (::app::UberStateController_c__Class**)(modloader::win::memory::resolve_rva(0x0478E478));
-    }
-    namespace UberStateSaveFileHandler {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateSaveFileHandler__Class** type_info = (::app::UberStateSaveFileHandler__Class**)(modloader::win::memory::resolve_rva(0x04702660));
-    }
-    namespace UberStateException {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UberStateException__Class** type_info = (::app::UberStateException__Class**)(modloader::win::memory::resolve_rva(0x047546F8));
-    }
-    namespace NewSetupStateControllerResolver_IntEqualityComparer {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NewSetupStateControllerResolver_IntEqualityComparer__Class** type_info = (::app::NewSetupStateControllerResolver_IntEqualityComparer__Class**)(modloader::win::memory::resolve_rva(0x047731D0));
-    }
-    namespace NewSetupStateControllerResolver_c_DisplayClass20_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NewSetupStateControllerResolver_c_DisplayClass20_0__Class** type_info = (::app::NewSetupStateControllerResolver_c_DisplayClass20_0__Class**)(modloader::win::memory::resolve_rva(0x047468B8));
-    }
-    namespace PearsonHash {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PearsonHash__Class** type_info = (::app::PearsonHash__Class**)(modloader::win::memory::resolve_rva(0x04787260));
-    }
-    namespace BooleanUberState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BooleanUberState__Class** type_info = (::app::BooleanUberState__Class**)(modloader::win::memory::resolve_rva(0x0473B6E0));
-    }
-    namespace ByteUberState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ByteUberState__Class** type_info = (::app::ByteUberState__Class**)(modloader::win::memory::resolve_rva(0x04798970));
-    }
-    namespace ConditionUberState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ConditionUberState__Class** type_info = (::app::ConditionUberState__Class**)(modloader::win::memory::resolve_rva(0x04762DD0));
-    }
-    namespace FloatUberState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::FloatUberState__Class** type_info = (::app::FloatUberState__Class**)(modloader::win::memory::resolve_rva(0x04708810));
-    }
-    namespace IntUberState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IntUberState__Class** type_info = (::app::IntUberState__Class**)(modloader::win::memory::resolve_rva(0x04750038));
-    }
-    namespace ObjectUberState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ObjectUberState__Class** type_info = (::app::ObjectUberState__Class**)(modloader::win::memory::resolve_rva(0x0471B4B0));
-    }
-    namespace SerializedByteUberState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SerializedByteUberState__Class** type_info = (::app::SerializedByteUberState__Class**)(modloader::win::memory::resolve_rva(0x047907B0));
-    }
-    namespace NavigableOnGUI {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::NavigableOnGUI__Class** type_info = (::app::NavigableOnGUI__Class**)(modloader::win::memory::resolve_rva(0x04786E48));
-    }
-    namespace DeflateManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DeflateManager__Class** type_info = (::app::DeflateManager__Class**)(modloader::win::memory::resolve_rva(0x04723670));
-    }
-    namespace DeflateManager_CompressFunc {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DeflateManager_CompressFunc__Class** type_info = (::app::DeflateManager_CompressFunc__Class**)(modloader::win::memory::resolve_rva(0x04756818));
-    }
-    namespace FlushType__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::FlushType__Enum__Class** type_info = (::app::FlushType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04711EB0));
-    }
-    namespace ZlibCodec {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ZlibCodec__Class** type_info = (::app::ZlibCodec__Class**)(modloader::win::memory::resolve_rva(0x0474B430));
-    }
-    namespace InflateManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InflateManager__Class** type_info = (::app::InflateManager__Class**)(modloader::win::memory::resolve_rva(0x0472E0B0));
-    }
-    namespace InflateBlocks {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InflateBlocks__Class** type_info = (::app::InflateBlocks__Class**)(modloader::win::memory::resolve_rva(0x047790A8));
-    }
-    namespace InflateCodes {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InflateCodes__Class** type_info = (::app::InflateCodes__Class**)(modloader::win::memory::resolve_rva(0x047301D8));
-    }
-    namespace InfTree {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InfTree__Class** type_info = (::app::InfTree__Class**)(modloader::win::memory::resolve_rva(0x047586D0));
-    }
-    namespace DeflateManager_Config {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DeflateManager_Config__Class** type_info = (::app::DeflateManager_Config__Class**)(modloader::win::memory::resolve_rva(0x04788738));
-    }
-    namespace DeflateManager_Config__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DeflateManager_Config__Array__Class** type_info = (::app::DeflateManager_Config__Array__Class**)(modloader::win::memory::resolve_rva(0x04724000));
-    }
-    namespace Tree {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Tree__Class** type_info = (::app::Tree__Class**)(modloader::win::memory::resolve_rva(0x04779398));
-    }
-    namespace StaticTree {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::StaticTree__Class** type_info = (::app::StaticTree__Class**)(modloader::win::memory::resolve_rva(0x04776748));
-    }
-    namespace GZipStream_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GZipStream_1__Class** type_info = (::app::GZipStream_1__Class**)(modloader::win::memory::resolve_rva(0x0478E0B0));
-    }
-    namespace ZlibBaseStream {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ZlibBaseStream__Class** type_info = (::app::ZlibBaseStream__Class**)(modloader::win::memory::resolve_rva(0x0471ADC8));
-    }
-    namespace CRC32 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CRC32__Class** type_info = (::app::CRC32__Class**)(modloader::win::memory::resolve_rva(0x0478FFC8));
-    }
-    namespace ZlibException {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ZlibException__Class** type_info = (::app::ZlibException__Class**)(modloader::win::memory::resolve_rva(0x04757328));
-    }
-    namespace InternalDataCollectionBase {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InternalDataCollectionBase__Class** type_info = (::app::InternalDataCollectionBase__Class**)(modloader::win::memory::resolve_rva(0x04779AB0));
-    }
-    namespace ColumnTypeConverter {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ColumnTypeConverter__Class** type_info = (::app::ColumnTypeConverter__Class**)(modloader::win::memory::resolve_rva(0x04718D38));
-    }
-    namespace DataCommonEventSource {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataCommonEventSource__Class** type_info = (::app::DataCommonEventSource__Class**)(modloader::win::memory::resolve_rva(0x047203D0));
-    }
-    namespace Constraint_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Constraint_1__Class** type_info = (::app::Constraint_1__Class**)(modloader::win::memory::resolve_rva(0x04770B40));
-    }
-    namespace SerializationFormat__Enum_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SerializationFormat__Enum_1__Class** type_info = (::app::SerializationFormat__Enum_1__Class**)(modloader::win::memory::resolve_rva(0x04771198));
-    }
-    namespace DataSet {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataSet__Class** type_info = (::app::DataSet__Class**)(modloader::win::memory::resolve_rva(0x04777BB8));
-    }
-    namespace DataViewManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataViewManager__Class** type_info = (::app::DataViewManager__Class**)(modloader::win::memory::resolve_rva(0x0473CDC0));
-    }
-    namespace DataViewSettingCollection {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataViewSettingCollection__Class** type_info = (::app::DataViewSettingCollection__Class**)(modloader::win::memory::resolve_rva(0x0473F290));
-    }
-    namespace DataViewRowState__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataViewRowState__Enum__Class** type_info = (::app::DataViewRowState__Enum__Class**)(modloader::win::memory::resolve_rva(0x04796098));
-    }
-    namespace DataViewSetting {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataViewSetting__Class** type_info = (::app::DataViewSetting__Class**)(modloader::win::memory::resolve_rva(0x0474B828));
-    }
-    namespace DataTable {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataTable__Class** type_info = (::app::DataTable__Class**)(modloader::win::memory::resolve_rva(0x04734058));
-    }
-    namespace DataView {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataView__Class** type_info = (::app::DataView__Class**)(modloader::win::memory::resolve_rva(0x04768DA8));
-    }
-    namespace Index {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Index__Class** type_info = (::app::Index__Class**)(modloader::win::memory::resolve_rva(0x047488F0));
-    }
-    namespace IndexField {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IndexField__Class** type_info = (::app::IndexField__Class**)(modloader::win::memory::resolve_rva(0x047253B8));
-    }
-    namespace DataSetDateTime__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataSetDateTime__Enum__Class** type_info = (::app::DataSetDateTime__Enum__Class**)(modloader::win::memory::resolve_rva(0x0470AD68));
-    }
-    namespace MappingType__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MappingType__Enum__Class** type_info = (::app::MappingType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04778520));
-    }
-    namespace DataColumn {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataColumn__Class** type_info = (::app::DataColumn__Class**)(modloader::win::memory::resolve_rva(0x04713A18));
-    }
-    namespace DataExpression {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataExpression__Class** type_info = (::app::DataExpression__Class**)(modloader::win::memory::resolve_rva(0x04707590));
-    }
-    namespace AggregateType__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AggregateType__Enum__Class** type_info = (::app::AggregateType__Enum__Class**)(modloader::win::memory::resolve_rva(0x0475F8C0));
-    }
-    namespace AggregateNode {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AggregateNode__Class** type_info = (::app::AggregateNode__Class**)(modloader::win::memory::resolve_rva(0x04744E98));
-    }
-    namespace DataKey {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataKey__Class** type_info = (::app::DataKey__Class**)(modloader::win::memory::resolve_rva(0x0477B878));
-    }
-    namespace DataRelation {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataRelation__Class** type_info = (::app::DataRelation__Class**)(modloader::win::memory::resolve_rva(0x0472F728));
-    }
-    namespace PropertyCollection {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PropertyCollection__Class** type_info = (::app::PropertyCollection__Class**)(modloader::win::memory::resolve_rva(0x0473F370));
-    }
-    namespace DataColumn__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DataColumn__Array__Class** type_info = (::app::DataColumn__Array__Class**)(modloader::win::memory::resolve_rva(0x04771380));
-    }
-    namespace UniqueConstraint {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UniqueConstraint__Class** type_info = (::app::UniqueConstraint__Class**)(modloader::win::memory::resolve_rva(0x04721658));
-    }
-} // namespace app::classes::types
+    namespace IKSolver_IterationDelegate { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolver_IterationDelegate__Class** type_info = (::app::IKSolver_IterationDelegate__Class**)(modloader::win::memory::resolve_rva(0x04710B58)); }
+    namespace IKSolverTrigonometric_TrigonometricBone { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolverTrigonometric_TrigonometricBone__Class** type_info = (::app::IKSolverTrigonometric_TrigonometricBone__Class**)(modloader::win::memory::resolve_rva(0x04738DC0)); }
+    namespace IKSolverLimb_AxisDirection__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolverLimb_AxisDirection__Array__Class** type_info = (::app::IKSolverLimb_AxisDirection__Array__Class**)(modloader::win::memory::resolve_rva(0x0473C088)); }
+    namespace IKSolverFABRIK { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolverFABRIK__Class** type_info = (::app::IKSolverFABRIK__Class**)(modloader::win::memory::resolve_rva(0x047780B0)); }
+    namespace IKSolverLookAt { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolverLookAt__Class** type_info = (::app::IKSolverLookAt__Class**)(modloader::win::memory::resolve_rva(0x047729B8)); }
+    namespace IKSolverLookAt_LookAtBone { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolverLookAt_LookAtBone__Class** type_info = (::app::IKSolverLookAt_LookAtBone__Class**)(modloader::win::memory::resolve_rva(0x0478F150)); }
+    namespace IKSolverLookAt_LookAtBone__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolverLookAt_LookAtBone__Array__Class** type_info = (::app::IKSolverLookAt_LookAtBone__Array__Class**)(modloader::win::memory::resolve_rva(0x0473ADD0)); }
+    namespace Constraints { IL2CPP_MODLOADER_DLLEXPORT ::app::Constraints__Class** type_info = (::app::Constraints__Class**)(modloader::win::memory::resolve_rva(0x04729C48)); }
+    namespace IKSolverLimb__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolverLimb__Array__Class** type_info = (::app::IKSolverLimb__Array__Class**)(modloader::win::memory::resolve_rva(0x04753880)); }
+    namespace IKSolver__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolver__Array__Class** type_info = (::app::IKSolver__Array__Class**)(modloader::win::memory::resolve_rva(0x04795B20)); }
+    namespace Finger { IL2CPP_MODLOADER_DLLEXPORT ::app::Finger__Class** type_info = (::app::Finger__Class**)(modloader::win::memory::resolve_rva(0x04769F90)); }
+    namespace Finger__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::Finger__Array__Class** type_info = (::app::Finger__Array__Class**)(modloader::win::memory::resolve_rva(0x04717A20)); }
+    namespace Grounding { IL2CPP_MODLOADER_DLLEXPORT ::app::Grounding__Class** type_info = (::app::Grounding__Class**)(modloader::win::memory::resolve_rva(0x04713220)); }
+    namespace Grounding_Leg { IL2CPP_MODLOADER_DLLEXPORT ::app::Grounding_Leg__Class** type_info = (::app::Grounding_Leg__Class**)(modloader::win::memory::resolve_rva(0x04726058)); }
+    namespace Grounding_Leg__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::Grounding_Leg__Array__Class** type_info = (::app::Grounding_Leg__Array__Class**)(modloader::win::memory::resolve_rva(0x0478E6D0)); }
+    namespace Grounding_Pelvis { IL2CPP_MODLOADER_DLLEXPORT ::app::Grounding_Pelvis__Class** type_info = (::app::Grounding_Pelvis__Class**)(modloader::win::memory::resolve_rva(0x0472E0C8)); }
+    namespace FullBodyBipedIK { IL2CPP_MODLOADER_DLLEXPORT ::app::FullBodyBipedIK__Class** type_info = (::app::FullBodyBipedIK__Class**)(modloader::win::memory::resolve_rva(0x0476FA80)); }
+    namespace AimIK { IL2CPP_MODLOADER_DLLEXPORT ::app::AimIK__Class** type_info = (::app::AimIK__Class**)(modloader::win::memory::resolve_rva(0x04785A48)); }
+    namespace IKSolverFullBodyBiped { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolverFullBodyBiped__Class** type_info = (::app::IKSolverFullBodyBiped__Class**)(modloader::win::memory::resolve_rva(0x0475E1F8)); }
+    namespace FBIKChain { IL2CPP_MODLOADER_DLLEXPORT ::app::FBIKChain__Class** type_info = (::app::FBIKChain__Class**)(modloader::win::memory::resolve_rva(0x047701F0)); }
+    namespace IKSolver_Node { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolver_Node__Class** type_info = (::app::IKSolver_Node__Class**)(modloader::win::memory::resolve_rva(0x04749B30)); }
+    namespace IKSolver_Node__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolver_Node__Array__Class** type_info = (::app::IKSolver_Node__Array__Class**)(modloader::win::memory::resolve_rva(0x0478B108)); }
+    namespace FBIKChain_ChildConstraint { IL2CPP_MODLOADER_DLLEXPORT ::app::FBIKChain_ChildConstraint__Class** type_info = (::app::FBIKChain_ChildConstraint__Class**)(modloader::win::memory::resolve_rva(0x04732FB8)); }
+    namespace FBIKChain_ChildConstraint__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::FBIKChain_ChildConstraint__Array__Class** type_info = (::app::FBIKChain_ChildConstraint__Array__Class**)(modloader::win::memory::resolve_rva(0x04799AE8)); }
+    namespace IKConstraintBend { IL2CPP_MODLOADER_DLLEXPORT ::app::IKConstraintBend__Class** type_info = (::app::IKConstraintBend__Class**)(modloader::win::memory::resolve_rva(0x047654C8)); }
+    namespace FBIKChain__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::FBIKChain__Array__Class** type_info = (::app::FBIKChain__Array__Class**)(modloader::win::memory::resolve_rva(0x0472CFF0)); }
+    namespace IKEffector { IL2CPP_MODLOADER_DLLEXPORT ::app::IKEffector__Class** type_info = (::app::IKEffector__Class**)(modloader::win::memory::resolve_rva(0x04740878)); }
+    namespace IKEffector__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::IKEffector__Array__Class** type_info = (::app::IKEffector__Array__Class**)(modloader::win::memory::resolve_rva(0x04789020)); }
+    namespace IKMappingSpine { IL2CPP_MODLOADER_DLLEXPORT ::app::IKMappingSpine__Class** type_info = (::app::IKMappingSpine__Class**)(modloader::win::memory::resolve_rva(0x04713C00)); }
+    namespace IKMapping_BoneMap { IL2CPP_MODLOADER_DLLEXPORT ::app::IKMapping_BoneMap__Class** type_info = (::app::IKMapping_BoneMap__Class**)(modloader::win::memory::resolve_rva(0x04782B00)); }
+    namespace IKMapping_BoneMap__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::IKMapping_BoneMap__Array__Class** type_info = (::app::IKMapping_BoneMap__Array__Class**)(modloader::win::memory::resolve_rva(0x0473E360)); }
+    namespace IKMappingBone { IL2CPP_MODLOADER_DLLEXPORT ::app::IKMappingBone__Class** type_info = (::app::IKMappingBone__Class**)(modloader::win::memory::resolve_rva(0x04784C20)); }
+    namespace IKMappingBone__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::IKMappingBone__Array__Class** type_info = (::app::IKMappingBone__Array__Class**)(modloader::win::memory::resolve_rva(0x0475C010)); }
+    namespace IKMappingLimb { IL2CPP_MODLOADER_DLLEXPORT ::app::IKMappingLimb__Class** type_info = (::app::IKMappingLimb__Class**)(modloader::win::memory::resolve_rva(0x0472F378)); }
+    namespace IKMappingLimb__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::IKMappingLimb__Array__Class** type_info = (::app::IKMappingLimb__Array__Class**)(modloader::win::memory::resolve_rva(0x0478E6F8)); }
+    namespace FullBodyBipedEffector__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::FullBodyBipedEffector__Enum__Class** type_info = (::app::FullBodyBipedEffector__Enum__Class**)(modloader::win::memory::resolve_rva(0x04789588)); }
+    namespace GrounderFBBIK_SpineEffector__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::GrounderFBBIK_SpineEffector__Array__Class** type_info = (::app::GrounderFBBIK_SpineEffector__Array__Class**)(modloader::win::memory::resolve_rva(0x04773B20)); }
+    namespace IK__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::IK__Array__Class** type_info = (::app::IK__Array__Class**)(modloader::win::memory::resolve_rva(0x0470BF20)); }
+    namespace GrounderQuadruped_Foot__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::GrounderQuadruped_Foot__Array__Class** type_info = (::app::GrounderQuadruped_Foot__Array__Class**)(modloader::win::memory::resolve_rva(0x0476EFD0)); }
+    namespace CCDIK { IL2CPP_MODLOADER_DLLEXPORT ::app::CCDIK__Class** type_info = (::app::CCDIK__Class**)(modloader::win::memory::resolve_rva(0x047332E8)); }
+    namespace IKSolverCCD { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolverCCD__Class** type_info = (::app::IKSolverCCD__Class**)(modloader::win::memory::resolve_rva(0x0471DE40)); }
+    namespace FABRIKRoot { IL2CPP_MODLOADER_DLLEXPORT ::app::FABRIKRoot__Class** type_info = (::app::FABRIKRoot__Class**)(modloader::win::memory::resolve_rva(0x04727000)); }
+    namespace IKSolverFABRIKRoot { IL2CPP_MODLOADER_DLLEXPORT ::app::IKSolverFABRIKRoot__Class** type_info = (::app::IKSolverFABRIKRoot__Class**)(modloader::win::memory::resolve_rva(0x047237C0)); }
+    namespace FABRIKChain__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::FABRIKChain__Array__Class** type_info = (::app::FABRIKChain__Array__Class**)(modloader::win::memory::resolve_rva(0x04729BC8)); }
+    namespace FBBIKHeadEffector_BendBone__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::FBBIKHeadEffector_BendBone__Array__Class** type_info = (::app::FBBIKHeadEffector_BendBone__Array__Class**)(modloader::win::memory::resolve_rva(0x04796FC0)); }
+    namespace InteractionEffector { IL2CPP_MODLOADER_DLLEXPORT ::app::InteractionEffector__Class** type_info = (::app::InteractionEffector__Class**)(modloader::win::memory::resolve_rva(0x04769478)); }
+    namespace InteractionObject_WeightCurve_Type__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::InteractionObject_WeightCurve_Type__Enum__Class** type_info = (::app::InteractionObject_WeightCurve_Type__Enum__Class**)(modloader::win::memory::resolve_rva(0x04797BE0)); }
+    namespace InteractionTrigger_Range__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::InteractionTrigger_Range__Array__Class** type_info = (::app::InteractionTrigger_Range__Array__Class**)(modloader::win::memory::resolve_rva(0x04769B48)); }
+    namespace InteractionSystem_InteractionDelegate { IL2CPP_MODLOADER_DLLEXPORT ::app::InteractionSystem_InteractionDelegate__Class** type_info = (::app::InteractionSystem_InteractionDelegate__Class**)(modloader::win::memory::resolve_rva(0x04796630)); }
+    namespace InteractionLookAt { IL2CPP_MODLOADER_DLLEXPORT ::app::InteractionLookAt__Class** type_info = (::app::InteractionLookAt__Class**)(modloader::win::memory::resolve_rva(0x04795960)); }
+    namespace InteractionEffector__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::InteractionEffector__Array__Class** type_info = (::app::InteractionEffector__Array__Class**)(modloader::win::memory::resolve_rva(0x047474A0)); }
+    namespace InteractionTarget__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::InteractionTarget__Array__Class** type_info = (::app::InteractionTarget__Array__Class**)(modloader::win::memory::resolve_rva(0x0473D8F8)); }
+    namespace GenericPoser_Map { IL2CPP_MODLOADER_DLLEXPORT ::app::GenericPoser_Map__Class** type_info = (::app::GenericPoser_Map__Class**)(modloader::win::memory::resolve_rva(0x0478E818)); }
+    namespace GenericPoser_Map__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::GenericPoser_Map__Array__Class** type_info = (::app::GenericPoser_Map__Array__Class**)(modloader::win::memory::resolve_rva(0x0474DD20)); }
+    namespace InteractionObject__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::InteractionObject__Array__Class** type_info = (::app::InteractionObject__Array__Class**)(modloader::win::memory::resolve_rva(0x04733198)); }
+    namespace RagdollUtility_Rigidbone { IL2CPP_MODLOADER_DLLEXPORT ::app::RagdollUtility_Rigidbone__Class** type_info = (::app::RagdollUtility_Rigidbone__Class**)(modloader::win::memory::resolve_rva(0x04707790)); }
+    namespace RagdollUtility_Rigidbone__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::RagdollUtility_Rigidbone__Array__Class** type_info = (::app::RagdollUtility_Rigidbone__Array__Class**)(modloader::win::memory::resolve_rva(0x04780588)); }
+    namespace RagdollUtility_Child { IL2CPP_MODLOADER_DLLEXPORT ::app::RagdollUtility_Child__Class** type_info = (::app::RagdollUtility_Child__Class**)(modloader::win::memory::resolve_rva(0x04795C48)); }
+    namespace RagdollUtility_Child__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::RagdollUtility_Child__Array__Class** type_info = (::app::RagdollUtility_Child__Array__Class**)(modloader::win::memory::resolve_rva(0x0472FE98)); }
+    namespace RagdollUtility_DisableRagdollSmooth_d_21 { IL2CPP_MODLOADER_DLLEXPORT ::app::RagdollUtility_DisableRagdollSmooth_d_21__Class** type_info = (::app::RagdollUtility_DisableRagdollSmooth_d_21__Class**)(modloader::win::memory::resolve_rva(0x04773078)); }
+    namespace RotationLimitHinge { IL2CPP_MODLOADER_DLLEXPORT ::app::RotationLimitHinge__Class** type_info = (::app::RotationLimitHinge__Class**)(modloader::win::memory::resolve_rva(0x04747D70)); }
+    namespace RotationLimitPolygonal_LimitPoint { IL2CPP_MODLOADER_DLLEXPORT ::app::RotationLimitPolygonal_LimitPoint__Class** type_info = (::app::RotationLimitPolygonal_LimitPoint__Class**)(modloader::win::memory::resolve_rva(0x047409B0)); }
+    namespace RotationLimitPolygonal_LimitPoint__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::RotationLimitPolygonal_LimitPoint__Array__Class** type_info = (::app::RotationLimitPolygonal_LimitPoint__Array__Class**)(modloader::win::memory::resolve_rva(0x0470DFB8)); }
+    namespace RotationLimitPolygonal_ReachCone { IL2CPP_MODLOADER_DLLEXPORT ::app::RotationLimitPolygonal_ReachCone__Class** type_info = (::app::RotationLimitPolygonal_ReachCone__Class**)(modloader::win::memory::resolve_rva(0x04712228)); }
+    namespace RotationLimitPolygonal_ReachCone__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::RotationLimitPolygonal_ReachCone__Array__Class** type_info = (::app::RotationLimitPolygonal_ReachCone__Array__Class**)(modloader::win::memory::resolve_rva(0x0477C940)); }
+    namespace AimPoser_Pose__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::AimPoser_Pose__Array__Class** type_info = (::app::AimPoser_Pose__Array__Class**)(modloader::win::memory::resolve_rva(0x0477AAA8)); }
+    namespace OffsetPose_EffectorLink__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::OffsetPose_EffectorLink__Array__Class** type_info = (::app::OffsetPose_EffectorLink__Array__Class**)(modloader::win::memory::resolve_rva(0x0475A628)); }
+    namespace OffsetModifier_Initiate_d_8 { IL2CPP_MODLOADER_DLLEXPORT ::app::OffsetModifier_Initiate_d_8__Class** type_info = (::app::OffsetModifier_Initiate_d_8__Class**)(modloader::win::memory::resolve_rva(0x04772B90)); }
+    namespace MechSpiderLeg_Step_d_24 { IL2CPP_MODLOADER_DLLEXPORT ::app::MechSpiderLeg_Step_d_24__Class** type_info = (::app::MechSpiderLeg_Step_d_24__Class**)(modloader::win::memory::resolve_rva(0x0478F0B0)); }
+    namespace MotionAbsorb_AbsorbMotion_d_8 { IL2CPP_MODLOADER_DLLEXPORT ::app::MotionAbsorb_AbsorbMotion_d_8__Class** type_info = (::app::MotionAbsorb_AbsorbMotion_d_8__Class**)(modloader::win::memory::resolve_rva(0x047494C8)); }
+    namespace ResetInteractionObject_ResetObject_d_7 { IL2CPP_MODLOADER_DLLEXPORT ::app::ResetInteractionObject_ResetObject_d_7__Class** type_info = (::app::ResetInteractionObject_ResetObject_d_7__Class**)(modloader::win::memory::resolve_rva(0x0476B830)); }
+    namespace SoccerDemo_ResetDelayed_d_4 { IL2CPP_MODLOADER_DLLEXPORT ::app::SoccerDemo_ResetDelayed_d_4__Class** type_info = (::app::SoccerDemo_ResetDelayed_d_4__Class**)(modloader::win::memory::resolve_rva(0x04775CC8)); }
+    namespace PlatformRotator_SwitchRotation_d_14 { IL2CPP_MODLOADER_DLLEXPORT ::app::PlatformRotator_SwitchRotation_d_14__Class** type_info = (::app::PlatformRotator_SwitchRotation_d_14__Class**)(modloader::win::memory::resolve_rva(0x04709028)); }
+    namespace Phone_EnableDisplay_d_5 { IL2CPP_MODLOADER_DLLEXPORT ::app::Phone_EnableDisplay_d_5__Class** type_info = (::app::Phone_EnableDisplay_d_5__Class**)(modloader::win::memory::resolve_rva(0x04779940)); }
+    namespace KeyCode__Enum__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::KeyCode__Enum__Array__Class** type_info = (::app::KeyCode__Enum__Array__Class**)(modloader::win::memory::resolve_rva(0x04766760)); }
+    namespace DynamicInstantiationDescriptor { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationDescriptor__Class** type_info = (::app::DynamicInstantiationDescriptor__Class**)(modloader::win::memory::resolve_rva(0x04722930)); }
+    namespace DynamicInstantiationDescriptor_ReflectionInfo { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationDescriptor_ReflectionInfo__Class** type_info = (::app::DynamicInstantiationDescriptor_ReflectionInfo__Class**)(modloader::win::memory::resolve_rva(0x04781B08)); }
+    namespace DynamicInstantiationDescriptor_CountGetter { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationDescriptor_CountGetter__Class** type_info = (::app::DynamicInstantiationDescriptor_CountGetter__Class**)(modloader::win::memory::resolve_rva(0x04723560)); }
+    namespace DynamicInstantiationScanner { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationScanner__Class** type_info = (::app::DynamicInstantiationScanner__Class**)(modloader::win::memory::resolve_rva(0x04767C78)); }
+    namespace DynamicInstantiationScanner_EvaluationCtx { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationScanner_EvaluationCtx__Class** type_info = (::app::DynamicInstantiationScanner_EvaluationCtx__Class**)(modloader::win::memory::resolve_rva(0x04791400)); }
+    namespace DynamicInstantiationScanner_DynamicInstantiationPrewarmPriorityVisitor { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationScanner_DynamicInstantiationPrewarmPriorityVisitor__Class** type_info = (::app::DynamicInstantiationScanner_DynamicInstantiationPrewarmPriorityVisitor__Class**)(modloader::win::memory::resolve_rva(0x047759C0)); }
+    namespace DynamicInstantiationScanner_VisitorCtx { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationScanner_VisitorCtx__Class** type_info = (::app::DynamicInstantiationScanner_VisitorCtx__Class**)(modloader::win::memory::resolve_rva(0x04748018)); }
+    namespace DynamicInstantiationDescriptor_c_DisplayClass28_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationDescriptor_c_DisplayClass28_0__Class** type_info = (::app::DynamicInstantiationDescriptor_c_DisplayClass28_0__Class**)(modloader::win::memory::resolve_rva(0x047207A8)); }
+    namespace DynamicInstantiationScanner_EvaluationCtx_c { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationScanner_EvaluationCtx_c__Class** type_info = (::app::DynamicInstantiationScanner_EvaluationCtx_c__Class**)(modloader::win::memory::resolve_rva(0x047685B0)); }
+    namespace DynamicInstantiationScanner_DynamicInstantiationProviderVisitor { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationScanner_DynamicInstantiationProviderVisitor__Class** type_info = (::app::DynamicInstantiationScanner_DynamicInstantiationProviderVisitor__Class**)(modloader::win::memory::resolve_rva(0x04780D80)); }
+    namespace DynamicInstantiationScanner_ArrayOrListVisitor { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationScanner_ArrayOrListVisitor__Class** type_info = (::app::DynamicInstantiationScanner_ArrayOrListVisitor__Class**)(modloader::win::memory::resolve_rva(0x0475CB88)); }
+    namespace DynamicInstantiationScanner_GameObjectVisitor { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationScanner_GameObjectVisitor__Class** type_info = (::app::DynamicInstantiationScanner_GameObjectVisitor__Class**)(modloader::win::memory::resolve_rva(0x0476B748)); }
+    namespace DynamicInstantiationScanner_ScriptableObjectVisitor { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationScanner_ScriptableObjectVisitor__Class** type_info = (::app::DynamicInstantiationScanner_ScriptableObjectVisitor__Class**)(modloader::win::memory::resolve_rva(0x04710028)); }
+    namespace DynamicInstantiationScanner_TypeVisitor { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationScanner_TypeVisitor__Class** type_info = (::app::DynamicInstantiationScanner_TypeVisitor__Class**)(modloader::win::memory::resolve_rva(0x0474A918)); }
+    namespace DynamicInstantiationScanner_TypeVisitor_c { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationScanner_TypeVisitor_c__Class** type_info = (::app::DynamicInstantiationScanner_TypeVisitor_c__Class**)(modloader::win::memory::resolve_rva(0x04793178)); }
+    namespace DynamicInstantiationScanner_c { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicInstantiationScanner_c__Class** type_info = (::app::DynamicInstantiationScanner_c__Class**)(modloader::win::memory::resolve_rva(0x0476DDA0)); }
+    namespace SceneComponentTracker { IL2CPP_MODLOADER_DLLEXPORT ::app::SceneComponentTracker__Class** type_info = (::app::SceneComponentTracker__Class**)(modloader::win::memory::resolve_rva(0x04701D30)); }
+    namespace SceneComponentTracker_c { IL2CPP_MODLOADER_DLLEXPORT ::app::SceneComponentTracker_c__Class** type_info = (::app::SceneComponentTracker_c__Class**)(modloader::win::memory::resolve_rva(0x04791148)); }
+    namespace CameraPositionTracker { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraPositionTracker__Class** type_info = (::app::CameraPositionTracker__Class**)(modloader::win::memory::resolve_rva(0x04706CB0)); }
+    namespace CameraPositionTracker_CameraPosition { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraPositionTracker_CameraPosition__Class** type_info = (::app::CameraPositionTracker_CameraPosition__Class**)(modloader::win::memory::resolve_rva(0x0471F390)); }
+    namespace MoonFlagsSystem { IL2CPP_MODLOADER_DLLEXPORT ::app::MoonFlagsSystem__Class** type_info = (::app::MoonFlagsSystem__Class**)(modloader::win::memory::resolve_rva(0x04749F00)); }
+    namespace MoonFlagsSystem_HiddenFlagModification { IL2CPP_MODLOADER_DLLEXPORT ::app::MoonFlagsSystem_HiddenFlagModification__Class** type_info = (::app::MoonFlagsSystem_HiddenFlagModification__Class**)(modloader::win::memory::resolve_rva(0x047146E0)); }
+    namespace MoonFlagsSystem_ObjectState { IL2CPP_MODLOADER_DLLEXPORT ::app::MoonFlagsSystem_ObjectState__Class** type_info = (::app::MoonFlagsSystem_ObjectState__Class**)(modloader::win::memory::resolve_rva(0x047477C8)); }
+    namespace ActivateAnimatorSystem { IL2CPP_MODLOADER_DLLEXPORT ::app::ActivateAnimatorSystem__Class** type_info = (::app::ActivateAnimatorSystem__Class**)(modloader::win::memory::resolve_rva(0x04796D70)); }
+    namespace TransformAnimatorSystem { IL2CPP_MODLOADER_DLLEXPORT ::app::TransformAnimatorSystem__Class** type_info = (::app::TransformAnimatorSystem__Class**)(modloader::win::memory::resolve_rva(0x0472C620)); }
+}

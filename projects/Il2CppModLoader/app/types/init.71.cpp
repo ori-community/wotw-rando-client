@@ -1,405 +1,205 @@
-#include <Il2CppModLoader/app/types/AbilityUpgradeSettings.h>
-#include <Il2CppModLoader/app/types/AmbienceListener.h>
-#include <Il2CppModLoader/app/types/AmbienceZone_WiseAuxSend.h>
-#include <Il2CppModLoader/app/types/Ambience_AmbienceTrack.h>
-#include <Il2CppModLoader/app/types/Ambience_Layer_Track.h>
-#include <Il2CppModLoader/app/types/AmbientSoundZone.h>
-#include <Il2CppModLoader/app/types/AnimatingFloat.h>
-#include <Il2CppModLoader/app/types/AudioStateZone.h>
-#include <Il2CppModLoader/app/types/AxisButtonInput.h>
-#include <Il2CppModLoader/app/types/Axis__Enum_1.h>
-#include <Il2CppModLoader/app/types/Button__Enum.h>
-#include <Il2CppModLoader/app/types/CarryableRigidBody.h>
-#include <Il2CppModLoader/app/types/ChangeDifficultyScreen.h>
-#include <Il2CppModLoader/app/types/CombinedMessageProvider_GetMessages_d_3.h>
-#include <Il2CppModLoader/app/types/ControllerButtonInput.h>
-#include <Il2CppModLoader/app/types/ExtractedIntFromInt64.h>
-#include <Il2CppModLoader/app/types/ForceLanguageTranslatedMessageProvider_GetMessages_d_1.h>
-#include <Il2CppModLoader/app/types/ForceLightTorchStopChasingZone.h>
-#include <Il2CppModLoader/app/types/GhostAnimationParameterPlugin.h>
-#include <Il2CppModLoader/app/types/GhostAnimationParameterPlugin_AnimationParameterData.h>
-#include <Il2CppModLoader/app/types/GhostAnimationParameterPlugin_FloatParamenterTracker.h>
-#include <Il2CppModLoader/app/types/GhostAnimationParameterPlugin_VectorParamenterTracker.h>
-#include <Il2CppModLoader/app/types/GhostCameraPlugin.h>
-#include <Il2CppModLoader/app/types/GhostCameraPlugin_CameraData.h>
-#include <Il2CppModLoader/app/types/GhostLineRendererPlugin.h>
-#include <Il2CppModLoader/app/types/GhostLineRendererPlugin_LineRendererData.h>
-#include <Il2CppModLoader/app/types/GhostSceneTrackingPlugin.h>
-#include <Il2CppModLoader/app/types/GhostSceneTrackingPlugin_Data.h>
-#include <Il2CppModLoader/app/types/GhostServerEventsPlugin.h>
-#include <Il2CppModLoader/app/types/GhostServerEventsPlugin_ServerEventData.h>
-#include <Il2CppModLoader/app/types/GhostServerEventsPlugin_ServerEventData_ServerObjectsData.h>
-#include <Il2CppModLoader/app/types/GhostStateMachineData.h>
-#include <Il2CppModLoader/app/types/GhostStateMachinePlugin.h>
-#include <Il2CppModLoader/app/types/GhostTimeTrackingPlugin.h>
-#include <Il2CppModLoader/app/types/GhostTimeTrackingPlugin_Data.h>
-#include <Il2CppModLoader/app/types/GhostTimelineEventsPlugin.h>
-#include <Il2CppModLoader/app/types/GhostTimelineEventsPlugin_TimelineEventData.h>
-#include <Il2CppModLoader/app/types/GhostUberStatePlugin.h>
-#include <Il2CppModLoader/app/types/GhostUberStatePlugin_UberStateData.h>
-#include <Il2CppModLoader/app/types/GhostWorldObjectsLifetimePlugin.h>
-#include <Il2CppModLoader/app/types/GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry.h>
-#include <Il2CppModLoader/app/types/HealthController_c.h>
-#include <Il2CppModLoader/app/types/HoloLensController.h>
-#include <Il2CppModLoader/app/types/HoloLensFileWriteState.h>
-#include <Il2CppModLoader/app/types/IgnitableSpiritTorch_c.h>
-#include <Il2CppModLoader/app/types/InventoryManager.h>
-#include <Il2CppModLoader/app/types/LeaderboardB__Enum.h>
-#include <Il2CppModLoader/app/types/LeaderboardData.h>
-#include <Il2CppModLoader/app/types/LeaderboardData_Entry.h>
-#include <Il2CppModLoader/app/types/LeaderboardData_c_DisplayClass23_0.h>
-#include <Il2CppModLoader/app/types/LeaderboardEntryData.h>
-#include <Il2CppModLoader/app/types/Leaderboard__Enum.h>
-#include <Il2CppModLoader/app/types/LeaderboardsController.h>
-#include <Il2CppModLoader/app/types/LeaderboardsController_UploadScoresRoutine_d_32.h>
-#include <Il2CppModLoader/app/types/LightSource.h>
-#include <Il2CppModLoader/app/types/LightTorchZone.h>
-#include <Il2CppModLoader/app/types/LoadingBootstrap.h>
-#include <Il2CppModLoader/app/types/LoadingBootstrap_OnEndOfFrame_d_34.h>
-#include <Il2CppModLoader/app/types/LoadingBootstrap_Start_d_25.h>
-#include <Il2CppModLoader/app/types/LoadingBootstrap_c.h>
-#include <Il2CppModLoader/app/types/LoadingBootstrap_c_DisplayClass23_0.h>
-#include <Il2CppModLoader/app/types/LoadingBootstrap_c_DisplayClass28_0.h>
-#include <Il2CppModLoader/app/types/LoadingBootstrap_c_DisplayClass29_0.h>
-#include <Il2CppModLoader/app/types/LoadingBootstrap_c_DisplayClass37_0.h>
-#include <Il2CppModLoader/app/types/LoreNodeWisps.h>
-#include <Il2CppModLoader/app/types/MaterialVFXManager.h>
-#include <Il2CppModLoader/app/types/MessageBox_c.h>
-#include <Il2CppModLoader/app/types/MusicListener.h>
-#include <Il2CppModLoader/app/types/OnDelegate.h>
-#include <Il2CppModLoader/app/types/OrbSpawnerManager.h>
-#include <Il2CppModLoader/app/types/OrbSpawnerManager_ItemType__Enum.h>
-#include <Il2CppModLoader/app/types/PhysicalPhysicaSystemManagerPlugin_Data.h>
-#include <Il2CppModLoader/app/types/PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData.h>
-#include <Il2CppModLoader/app/types/PrewarmOperationSlot__Enum.h>
-#include <Il2CppModLoader/app/types/QuestNodeWisps.h>
-#include <Il2CppModLoader/app/types/ReplayData.h>
-#include <Il2CppModLoader/app/types/SaveInTheDarkZone.h>
-#include <Il2CppModLoader/app/types/ScenariosParticleSystemPlugin.h>
-#include <Il2CppModLoader/app/types/ScenariosRecorder.h>
-#include <Il2CppModLoader/app/types/SceneLayers.h>
-#include <Il2CppModLoader/app/types/SceneLayers_Layer.h>
-#include <Il2CppModLoader/app/types/SceneLayers_Layer__Array.h>
-#include <Il2CppModLoader/app/types/SoundZoneProcessor.h>
-#include <Il2CppModLoader/app/types/SoundZoneProcessor_Job_PositionZoneEvent.h>
-#include <Il2CppModLoader/app/types/SpawnOrbsContext.h>
-#include <Il2CppModLoader/app/types/SpiritLightCapsuleVisualAffector.h>
-#include <Il2CppModLoader/app/types/SpiritLightDarknessZone.h>
-#include <Il2CppModLoader/app/types/SpiritLightVisualAffectorManager.h>
-#include <Il2CppModLoader/app/types/TextBoxLine_1.h>
-#include <Il2CppModLoader/app/types/ThreadPriority__Enum_1__Array.h>
-#include <Il2CppModLoader/app/types/TimelineSequenceLabel.h>
-#include <Il2CppModLoader/app/types/TranslatedMessageProvider_GetMessages_d_2.h>
-#include <Il2CppModLoader/app/types/UWPVideoPlayer.h>
-#include <Il2CppModLoader/app/types/UpgradablePropertyLevel.h>
-#include <Il2CppModLoader/app/types/UserLicenseInformation.h>
-#include <Il2CppModLoader/app/types/WispMessageProvider_GetMessages_d_1.h>
-#include <Il2CppModLoader/app/types/XboxOneController_Axis__Enum.h>
-#include <Il2CppModLoader/app/types/XboxOneController_Button__Enum.h>
-#include <Il2CppModLoader/app/types/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array.h>
-#include <Il2CppModLoader/app/types/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array.h>
-#include <Il2CppModLoader/macros.h>
 #include <Il2CppModLoader/windows_api/memory.h>
+#include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/app/types/MortarWormEnemy_c.h>
+#include <Il2CppModLoader/app/types/MortarWormEnemyDeath_Start_d_4.h>
+#include <Il2CppModLoader/app/types/RespawningPlaceholder_c.h>
+#include <Il2CppModLoader/app/types/MortarWormIdleState.h>
+#include <Il2CppModLoader/app/types/MortarWormChargingState.h>
+#include <Il2CppModLoader/app/types/WormEmergingState.h>
+#include <Il2CppModLoader/app/types/WormHiddenState.h>
+#include <Il2CppModLoader/app/types/WormHidingState.h>
+#include <Il2CppModLoader/app/types/WormMortarShootingState.h>
+#include <Il2CppModLoader/app/types/IFieldOfViewInfluencer.h>
+#include <Il2CppModLoader/app/types/CameraPostProcessing.h>
+#include <Il2CppModLoader/app/types/IPostProcessInfluencer.h>
+#include <Il2CppModLoader/app/types/UberPostProcess.h>
+#include <Il2CppModLoader/app/types/FaderBrightnessContrastSettings.h>
+#include <Il2CppModLoader/app/types/CameraAdditiveSettings.h>
+#include <Il2CppModLoader/app/types/SceneDefaultSettingsHelper.h>
+#include <Il2CppModLoader/app/types/CameraPuppetController.h>
+#include <Il2CppModLoader/app/types/FloatProviderZone__Array.h>
+#include <Il2CppModLoader/app/types/CameraShakeLogic.h>
+#include <Il2CppModLoader/app/types/CameraTarget.h>
+#include <Il2CppModLoader/app/types/CameraOffsetController.h>
+#include <Il2CppModLoader/app/types/CameraScrollLockConstraint.h>
+#include <Il2CppModLoader/app/types/Ray__Array.h>
+#include <Il2CppModLoader/app/types/DynamicCameraTargetting.h>
+#include <Il2CppModLoader/app/types/InterestSettings.h>
+#include <Il2CppModLoader/app/types/EntitySettings.h>
+#include <Il2CppModLoader/app/types/IDebugMenuItem.h>
+#include <Il2CppModLoader/app/types/AbilityBasedSetting.h>
+#include <Il2CppModLoader/app/types/CameraGoThroughScrollLocks.h>
+#include <Il2CppModLoader/app/types/ControllerShakeLogic.h>
+#include <Il2CppModLoader/app/types/IControllerShake.h>
+#include <Il2CppModLoader/app/types/DefaultCameraProviderEntry_Type__Enum.h>
+#include <Il2CppModLoader/app/types/DynamicCameraWeightZone.h>
+#include <Il2CppModLoader/app/types/GameplayCameraTargetsProvider.h>
+#include <Il2CppModLoader/app/types/GameplayCameraTargetEntry.h>
+#include <Il2CppModLoader/app/types/CameraCrossFadeManager.h>
+#include <Il2CppModLoader/app/types/CameraOffsetController_c.h>
+#include <Il2CppModLoader/app/types/CameraSettingsZone.h>
+#include <Il2CppModLoader/app/types/CameraTarget_c.h>
+#include <Il2CppModLoader/app/types/SceneSettingsTransitionZone.h>
+#include <Il2CppModLoader/app/types/VerticalCameraSettingsZone_c.h>
+#include <Il2CppModLoader/app/types/ChallengeShrineManager.h>
+#include <Il2CppModLoader/app/types/SeinIdlePuppet.h>
+#include <Il2CppModLoader/app/types/SeinRunPuppet.h>
+#include <Il2CppModLoader/app/types/SeinFallPuppet.h>
+#include <Il2CppModLoader/app/types/CheckpointRestrictZone_CheckpointRestrictType__Enum.h>
+#include <Il2CppModLoader/app/types/CheckpointRestrictZone.h>
+#include <Il2CppModLoader/app/types/CharacterGravity_c.h>
+#include <Il2CppModLoader/app/types/CharacterLeftRightMovement_c.h>
+#include <Il2CppModLoader/app/types/CharacterState_c.h>
+#include <Il2CppModLoader/app/types/DeathInformation.h>
+#include <Il2CppModLoader/app/types/DeathWispsManager.h>
+#include <Il2CppModLoader/app/types/SeinDeathsManager.h>
+#include <Il2CppModLoader/app/types/ForceGrabReleaseZone.h>
+#include <Il2CppModLoader/app/types/PlayerAbilities_c.h>
+#include <Il2CppModLoader/app/types/CommandEnumComparer.h>
+#include <Il2CppModLoader/app/types/AbilityTypeEnumComparer.h>
+#include <Il2CppModLoader/app/types/PlayerInputButtonRebinder.h>
+#include <Il2CppModLoader/app/types/Input_Command__Enum__Array.h>
+#include <Il2CppModLoader/app/types/SeinBashAttackPuppet.h>
+#include <Il2CppModLoader/app/types/SeinBashAttack_c.h>
+#include <Il2CppModLoader/app/types/SeinCarry_DelayedPickupSound_d_41.h>
+#include <Il2CppModLoader/app/types/SeinChargeJumpPuppet.h>
+#include <Il2CppModLoader/app/types/IGhostGenericSoundPlayer.h>
+#include <Il2CppModLoader/app/types/SeinChargeJumpLegacy_c.h>
+#include <Il2CppModLoader/app/types/SeinCinematic_c_DisplayClass45_0.h>
+#include <Il2CppModLoader/app/types/SeinCinematic_c.h>
+#include <Il2CppModLoader/app/types/SeinClamberPuppet.h>
+#include <Il2CppModLoader/app/types/SeinDamageReciever_c_DisplayClass58_0.h>
+#include <Il2CppModLoader/app/types/SeinDamageReciever_c_DisplayClass58_1.h>
+#include <Il2CppModLoader/app/types/SeinDamageReciever_c_DisplayClass58_2.h>
+#include <Il2CppModLoader/app/types/SeinDamageReciever_FlashSprite_d_85.h>
+#include <Il2CppModLoader/app/types/SeinDamageReciever_c_DisplayClass92_0.h>
+#include <Il2CppModLoader/app/types/SeinDamageReciever_OnKillRoutine_d_97.h>
+#include <Il2CppModLoader/app/types/SeinDamageReciever_c.h>
+#include <Il2CppModLoader/app/types/SeinDashAttack_c.h>
+#include <Il2CppModLoader/app/types/MonoBehaviour__Array.h>
+#include <Il2CppModLoader/app/types/SeinDashNewPuppet.h>
+#include <Il2CppModLoader/app/types/SeinDashNew_c.h>
+#include <Il2CppModLoader/app/types/SeinDeathCounter.h>
+#include <Il2CppModLoader/app/types/SeinDoubleJumpPuppet.h>
+#include <Il2CppModLoader/app/types/SeinDoubleJump_c.h>
+#include <Il2CppModLoader/app/types/SeinDrillPuppet.h>
+#include <Il2CppModLoader/app/types/SeinFeatherFlapPuppet.h>
+#include <Il2CppModLoader/app/types/SeinFirewhirlSpell_c.h>
+#include <Il2CppModLoader/app/types/SeinFootstepsPuppet.h>
+#include <Il2CppModLoader/app/types/SeinGlidePuppet.h>
+#include <Il2CppModLoader/app/types/SeinGrabRopePuppet.h>
+#include <Il2CppModLoader/app/types/SeinGrabSurfacePuppet.h>
+#include <Il2CppModLoader/app/types/SeinGrabWallPuppet.h>
+#include <Il2CppModLoader/app/types/OriJumpPuppet.h>
+#include <Il2CppModLoader/app/types/SeinJump_c.h>
+#include <Il2CppModLoader/app/types/SeinLeverPuppet.h>
+#include <Il2CppModLoader/app/types/SeinSpiritSentrySpell_HandleSpawningSentries_d_16.h>
+#include <Il2CppModLoader/app/types/SeinSpiritSpearSpellPuppet.h>
+#include <Il2CppModLoader/app/types/SeinStomp_c.h>
+#include <Il2CppModLoader/app/types/SeinTurretSpell_HandleSpawningSentries_d_40.h>
+#include <Il2CppModLoader/app/types/SeinWallJumpPuppet.h>
+#include <Il2CppModLoader/app/types/SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50.h>
+#include <Il2CppModLoader/app/types/SeinWallJump_RoutineToReenableAirDeceleration_d_52.h>
 
 namespace app::classes::types {
-    namespace PhysicalPhysicaSystemManagerPlugin_Data {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PhysicalPhysicaSystemManagerPlugin_Data__Class** type_info = (::app::PhysicalPhysicaSystemManagerPlugin_Data__Class**)(modloader::win::memory::resolve_rva(0x04720758));
-    }
-    namespace PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData__Class** type_info = (::app::PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData__Class**)(modloader::win::memory::resolve_rva(0x04773E98));
-    }
-    namespace GhostAnimationParameterPlugin {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostAnimationParameterPlugin__Class** type_info = (::app::GhostAnimationParameterPlugin__Class**)(modloader::win::memory::resolve_rva(0x04737A10));
-    }
-    namespace GhostAnimationParameterPlugin_FloatParamenterTracker {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostAnimationParameterPlugin_FloatParamenterTracker__Class** type_info = (::app::GhostAnimationParameterPlugin_FloatParamenterTracker__Class**)(modloader::win::memory::resolve_rva(0x04710440));
-    }
-    namespace GhostAnimationParameterPlugin_VectorParamenterTracker {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostAnimationParameterPlugin_VectorParamenterTracker__Class** type_info = (::app::GhostAnimationParameterPlugin_VectorParamenterTracker__Class**)(modloader::win::memory::resolve_rva(0x0478A808));
-    }
-    namespace GhostAnimationParameterPlugin_AnimationParameterData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostAnimationParameterPlugin_AnimationParameterData__Class** type_info = (::app::GhostAnimationParameterPlugin_AnimationParameterData__Class**)(modloader::win::memory::resolve_rva(0x0476A938));
-    }
-    namespace GhostCameraPlugin {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostCameraPlugin__Class** type_info = (::app::GhostCameraPlugin__Class**)(modloader::win::memory::resolve_rva(0x04781EE8));
-    }
-    namespace GhostCameraPlugin_CameraData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostCameraPlugin_CameraData__Class** type_info = (::app::GhostCameraPlugin_CameraData__Class**)(modloader::win::memory::resolve_rva(0x04727328));
-    }
-    namespace GhostLineRendererPlugin {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostLineRendererPlugin__Class** type_info = (::app::GhostLineRendererPlugin__Class**)(modloader::win::memory::resolve_rva(0x04751FC8));
-    }
-    namespace GhostLineRendererPlugin_LineRendererData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostLineRendererPlugin_LineRendererData__Class** type_info = (::app::GhostLineRendererPlugin_LineRendererData__Class**)(modloader::win::memory::resolve_rva(0x0471BF30));
-    }
-    namespace GhostSceneTrackingPlugin {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostSceneTrackingPlugin__Class** type_info = (::app::GhostSceneTrackingPlugin__Class**)(modloader::win::memory::resolve_rva(0x04736110));
-    }
-    namespace GhostSceneTrackingPlugin_Data {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostSceneTrackingPlugin_Data__Class** type_info = (::app::GhostSceneTrackingPlugin_Data__Class**)(modloader::win::memory::resolve_rva(0x04707248));
-    }
-    namespace GhostServerEventsPlugin {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostServerEventsPlugin__Class** type_info = (::app::GhostServerEventsPlugin__Class**)(modloader::win::memory::resolve_rva(0x0477AEB0));
-    }
-    namespace GhostServerEventsPlugin_ServerEventData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostServerEventsPlugin_ServerEventData__Class** type_info = (::app::GhostServerEventsPlugin_ServerEventData__Class**)(modloader::win::memory::resolve_rva(0x047825E0));
-    }
-    namespace GhostServerEventsPlugin_ServerEventData_ServerObjectsData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class** type_info = (::app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class**)(modloader::win::memory::resolve_rva(0x04792F00));
-    }
-    namespace GhostTimelineEventsPlugin {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostTimelineEventsPlugin__Class** type_info = (::app::GhostTimelineEventsPlugin__Class**)(modloader::win::memory::resolve_rva(0x04750EC0));
-    }
-    namespace GhostTimelineEventsPlugin_TimelineEventData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostTimelineEventsPlugin_TimelineEventData__Class** type_info = (::app::GhostTimelineEventsPlugin_TimelineEventData__Class**)(modloader::win::memory::resolve_rva(0x04723A00));
-    }
-    namespace GhostTimeTrackingPlugin {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostTimeTrackingPlugin__Class** type_info = (::app::GhostTimeTrackingPlugin__Class**)(modloader::win::memory::resolve_rva(0x0473ED80));
-    }
-    namespace GhostTimeTrackingPlugin_Data {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostTimeTrackingPlugin_Data__Class** type_info = (::app::GhostTimeTrackingPlugin_Data__Class**)(modloader::win::memory::resolve_rva(0x04730608));
-    }
-    namespace GhostUberStatePlugin {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostUberStatePlugin__Class** type_info = (::app::GhostUberStatePlugin__Class**)(modloader::win::memory::resolve_rva(0x0470EE38));
-    }
-    namespace GhostUberStatePlugin_UberStateData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostUberStatePlugin_UberStateData__Class** type_info = (::app::GhostUberStatePlugin_UberStateData__Class**)(modloader::win::memory::resolve_rva(0x04719370));
-    }
-    namespace GhostWorldObjectsLifetimePlugin {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostWorldObjectsLifetimePlugin__Class** type_info = (::app::GhostWorldObjectsLifetimePlugin__Class**)(modloader::win::memory::resolve_rva(0x047517F8));
-    }
-    namespace GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry__Class** type_info = (::app::GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry__Class**)(modloader::win::memory::resolve_rva(0x047823E0));
-    }
-    namespace ScenariosParticleSystemPlugin {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ScenariosParticleSystemPlugin__Class** type_info = (::app::ScenariosParticleSystemPlugin__Class**)(modloader::win::memory::resolve_rva(0x04780A88));
-    }
-    namespace GhostStateMachineData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostStateMachineData__Class** type_info = (::app::GhostStateMachineData__Class**)(modloader::win::memory::resolve_rva(0x0477E240));
-    }
-    namespace GhostStateMachinePlugin {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::GhostStateMachinePlugin__Class** type_info = (::app::GhostStateMachinePlugin__Class**)(modloader::win::memory::resolve_rva(0x0473FBF8));
-    }
-    namespace ReplayData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ReplayData__Class** type_info = (::app::ReplayData__Class**)(modloader::win::memory::resolve_rva(0x04729598));
-    }
-    namespace ScenariosRecorder {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ScenariosRecorder__Class** type_info = (::app::ScenariosRecorder__Class**)(modloader::win::memory::resolve_rva(0x04724A18));
-    }
-    namespace HealthController_c {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HealthController_c__Class** type_info = (::app::HealthController_c__Class**)(modloader::win::memory::resolve_rva(0x047588C0));
-    }
-    namespace SpawnOrbsContext {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SpawnOrbsContext__Class** type_info = (::app::SpawnOrbsContext__Class**)(modloader::win::memory::resolve_rva(0x047741D0));
-    }
-    namespace OrbSpawnerManager_ItemType__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::OrbSpawnerManager_ItemType__Enum__Class** type_info = (::app::OrbSpawnerManager_ItemType__Enum__Class**)(modloader::win::memory::resolve_rva(0x0474DF20));
-    }
-    namespace OrbSpawnerManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::OrbSpawnerManager__Class** type_info = (::app::OrbSpawnerManager__Class**)(modloader::win::memory::resolve_rva(0x04712110));
-    }
-    namespace HoloLensController {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HoloLensController__Class** type_info = (::app::HoloLensController__Class**)(modloader::win::memory::resolve_rva(0x0478C690));
-    }
-    namespace HoloLensFileWriteState {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HoloLensFileWriteState__Class** type_info = (::app::HoloLensFileWriteState__Class**)(modloader::win::memory::resolve_rva(0x04735BD8));
-    }
-    namespace UserLicenseInformation {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UserLicenseInformation__Class** type_info = (::app::UserLicenseInformation__Class**)(modloader::win::memory::resolve_rva(0x04721388));
-    }
-    namespace LoreNodeWisps {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LoreNodeWisps__Class** type_info = (::app::LoreNodeWisps__Class**)(modloader::win::memory::resolve_rva(0x04710830));
-    }
-    namespace QuestNodeWisps {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::QuestNodeWisps__Class** type_info = (::app::QuestNodeWisps__Class**)(modloader::win::memory::resolve_rva(0x0470F7B8));
-    }
-    namespace AbilityUpgradeSettings {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AbilityUpgradeSettings__Class** type_info = (::app::AbilityUpgradeSettings__Class**)(modloader::win::memory::resolve_rva(0x04732DE0));
-    }
-    namespace UpgradablePropertyLevel {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UpgradablePropertyLevel__Class** type_info = (::app::UpgradablePropertyLevel__Class**)(modloader::win::memory::resolve_rva(0x0476F0C0));
-    }
-    namespace ChangeDifficultyScreen {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ChangeDifficultyScreen__Class** type_info = (::app::ChangeDifficultyScreen__Class**)(modloader::win::memory::resolve_rva(0x047122B0));
-    }
-    namespace InventoryManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InventoryManager__Class** type_info = (::app::InventoryManager__Class**)(modloader::win::memory::resolve_rva(0x04721EB8));
-    }
-    namespace SceneLayers {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SceneLayers__Class** type_info = (::app::SceneLayers__Class**)(modloader::win::memory::resolve_rva(0x04759848));
-    }
-    namespace SceneLayers_Layer {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SceneLayers_Layer__Class** type_info = (::app::SceneLayers_Layer__Class**)(modloader::win::memory::resolve_rva(0x04774330));
-    }
-    namespace SceneLayers_Layer__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SceneLayers_Layer__Array__Class** type_info = (::app::SceneLayers_Layer__Array__Class**)(modloader::win::memory::resolve_rva(0x04777E58));
-    }
-    namespace ExtractedIntFromInt64 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ExtractedIntFromInt64__Class** type_info = (::app::ExtractedIntFromInt64__Class**)(modloader::win::memory::resolve_rva(0x04721770));
-    }
-    namespace Leaderboard__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Leaderboard__Enum__Class** type_info = (::app::Leaderboard__Enum__Class**)(modloader::win::memory::resolve_rva(0x04743458));
-    }
-    namespace LeaderboardB__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LeaderboardB__Enum__Class** type_info = (::app::LeaderboardB__Enum__Class**)(modloader::win::memory::resolve_rva(0x047101F0));
-    }
-    namespace LeaderboardData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LeaderboardData__Class** type_info = (::app::LeaderboardData__Class**)(modloader::win::memory::resolve_rva(0x04766870));
-    }
-    namespace LeaderboardData_Entry {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LeaderboardData_Entry__Class** type_info = (::app::LeaderboardData_Entry__Class**)(modloader::win::memory::resolve_rva(0x0475B880));
-    }
-    namespace LeaderboardData_c_DisplayClass23_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LeaderboardData_c_DisplayClass23_0__Class** type_info = (::app::LeaderboardData_c_DisplayClass23_0__Class**)(modloader::win::memory::resolve_rva(0x04704E70));
-    }
-    namespace LeaderboardEntryData {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LeaderboardEntryData__Class** type_info = (::app::LeaderboardEntryData__Class**)(modloader::win::memory::resolve_rva(0x0477CB68));
-    }
-    namespace LeaderboardsController {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LeaderboardsController__Class** type_info = (::app::LeaderboardsController__Class**)(modloader::win::memory::resolve_rva(0x0476F3D0));
-    }
-    namespace LeaderboardsController_UploadScoresRoutine_d_32 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LeaderboardsController_UploadScoresRoutine_d_32__Class** type_info = (::app::LeaderboardsController_UploadScoresRoutine_d_32__Class**)(modloader::win::memory::resolve_rva(0x04790FC8));
-    }
-    namespace ForceLightTorchStopChasingZone {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ForceLightTorchStopChasingZone__Class** type_info = (::app::ForceLightTorchStopChasingZone__Class**)(modloader::win::memory::resolve_rva(0x04751D98));
-    }
-    namespace IgnitableSpiritTorch_c {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IgnitableSpiritTorch_c__Class** type_info = (::app::IgnitableSpiritTorch_c__Class**)(modloader::win::memory::resolve_rva(0x0473A7B0));
-    }
-    namespace LightSource {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LightSource__Class** type_info = (::app::LightSource__Class**)(modloader::win::memory::resolve_rva(0x0473AAC8));
-    }
-    namespace CarryableRigidBody {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CarryableRigidBody__Class** type_info = (::app::CarryableRigidBody__Class**)(modloader::win::memory::resolve_rva(0x04710A70));
-    }
-    namespace LightTorchZone {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LightTorchZone__Class** type_info = (::app::LightTorchZone__Class**)(modloader::win::memory::resolve_rva(0x04707E68));
-    }
-    namespace SaveInTheDarkZone {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SaveInTheDarkZone__Class** type_info = (::app::SaveInTheDarkZone__Class**)(modloader::win::memory::resolve_rva(0x04719010));
-    }
-    namespace SpiritLightCapsuleVisualAffector {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SpiritLightCapsuleVisualAffector__Class** type_info = (::app::SpiritLightCapsuleVisualAffector__Class**)(modloader::win::memory::resolve_rva(0x0475C3A0));
-    }
-    namespace SpiritLightDarknessZone {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SpiritLightDarknessZone__Class** type_info = (::app::SpiritLightDarknessZone__Class**)(modloader::win::memory::resolve_rva(0x0474B468));
-    }
-    namespace SpiritLightVisualAffectorManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SpiritLightVisualAffectorManager__Class** type_info = (::app::SpiritLightVisualAffectorManager__Class**)(modloader::win::memory::resolve_rva(0x04761548));
-    }
-    namespace LoadingBootstrap {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LoadingBootstrap__Class** type_info = (::app::LoadingBootstrap__Class**)(modloader::win::memory::resolve_rva(0x0478B858));
-    }
-    namespace ThreadPriority__Enum_1__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ThreadPriority__Enum_1__Array__Class** type_info = (::app::ThreadPriority__Enum_1__Array__Class**)(modloader::win::memory::resolve_rva(0x0472BE10));
-    }
-    namespace PrewarmOperationSlot__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PrewarmOperationSlot__Enum__Class** type_info = (::app::PrewarmOperationSlot__Enum__Class**)(modloader::win::memory::resolve_rva(0x04743858));
-    }
-    namespace LoadingBootstrap_c_DisplayClass23_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LoadingBootstrap_c_DisplayClass23_0__Class** type_info = (::app::LoadingBootstrap_c_DisplayClass23_0__Class**)(modloader::win::memory::resolve_rva(0x0472B998));
-    }
-    namespace LoadingBootstrap_c {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LoadingBootstrap_c__Class** type_info = (::app::LoadingBootstrap_c__Class**)(modloader::win::memory::resolve_rva(0x04761F70));
-    }
-    namespace LoadingBootstrap_Start_d_25 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LoadingBootstrap_Start_d_25__Class** type_info = (::app::LoadingBootstrap_Start_d_25__Class**)(modloader::win::memory::resolve_rva(0x04742DA8));
-    }
-    namespace LoadingBootstrap_c_DisplayClass28_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LoadingBootstrap_c_DisplayClass28_0__Class** type_info = (::app::LoadingBootstrap_c_DisplayClass28_0__Class**)(modloader::win::memory::resolve_rva(0x0477DFA8));
-    }
-    namespace LoadingBootstrap_c_DisplayClass29_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LoadingBootstrap_c_DisplayClass29_0__Class** type_info = (::app::LoadingBootstrap_c_DisplayClass29_0__Class**)(modloader::win::memory::resolve_rva(0x04750838));
-    }
-    namespace LoadingBootstrap_OnEndOfFrame_d_34 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LoadingBootstrap_OnEndOfFrame_d_34__Class** type_info = (::app::LoadingBootstrap_OnEndOfFrame_d_34__Class**)(modloader::win::memory::resolve_rva(0x04751070));
-    }
-    namespace LoadingBootstrap_c_DisplayClass37_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LoadingBootstrap_c_DisplayClass37_0__Class** type_info = (::app::LoadingBootstrap_c_DisplayClass37_0__Class**)(modloader::win::memory::resolve_rva(0x047940D0));
-    }
-    namespace TimelineSequenceLabel {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::TimelineSequenceLabel__Class** type_info = (::app::TimelineSequenceLabel__Class**)(modloader::win::memory::resolve_rva(0x04739168));
-    }
-    namespace MaterialVFXManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MaterialVFXManager__Class** type_info = (::app::MaterialVFXManager__Class**)(modloader::win::memory::resolve_rva(0x0471B120));
-    }
-    namespace Button__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Button__Enum__Class** type_info = (::app::Button__Enum__Class**)(modloader::win::memory::resolve_rva(0x047143A0));
-    }
-    namespace XboxOneController_Button__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XboxOneController_Button__Enum__Class** type_info = (::app::XboxOneController_Button__Enum__Class**)(modloader::win::memory::resolve_rva(0x04717168));
-    }
-    namespace XboxOneController_Axis__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XboxOneController_Axis__Enum__Class** type_info = (::app::XboxOneController_Axis__Enum__Class**)(modloader::win::memory::resolve_rva(0x047424C8));
-    }
-    namespace Axis__Enum_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Axis__Enum_1__Class** type_info = (::app::Axis__Enum_1__Class**)(modloader::win::memory::resolve_rva(0x0471F868));
-    }
-    namespace ControllerButtonInput {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ControllerButtonInput__Class** type_info = (::app::ControllerButtonInput__Class**)(modloader::win::memory::resolve_rva(0x04771258));
-    }
-    namespace AxisButtonInput {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AxisButtonInput__Class** type_info = (::app::AxisButtonInput__Class**)(modloader::win::memory::resolve_rva(0x0477C1A8));
-    }
-    namespace CombinedMessageProvider_GetMessages_d_3 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CombinedMessageProvider_GetMessages_d_3__Class** type_info = (::app::CombinedMessageProvider_GetMessages_d_3__Class**)(modloader::win::memory::resolve_rva(0x0475D108));
-    }
-    namespace ForceLanguageTranslatedMessageProvider_GetMessages_d_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ForceLanguageTranslatedMessageProvider_GetMessages_d_1__Class** type_info = (::app::ForceLanguageTranslatedMessageProvider_GetMessages_d_1__Class**)(modloader::win::memory::resolve_rva(0x04750618));
-    }
-    namespace MessageBox_c {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MessageBox_c__Class** type_info = (::app::MessageBox_c__Class**)(modloader::win::memory::resolve_rva(0x04792270));
-    }
-    namespace TextBoxLine_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::TextBoxLine_1__Class** type_info = (::app::TextBoxLine_1__Class**)(modloader::win::memory::resolve_rva(0x0470F4E0));
-    }
-    namespace TranslatedMessageProvider_GetMessages_d_2 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::TranslatedMessageProvider_GetMessages_d_2__Class** type_info = (::app::TranslatedMessageProvider_GetMessages_d_2__Class**)(modloader::win::memory::resolve_rva(0x047713B8));
-    }
-    namespace WispMessageProvider_GetMessages_d_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::WispMessageProvider_GetMessages_d_1__Class** type_info = (::app::WispMessageProvider_GetMessages_d_1__Class**)(modloader::win::memory::resolve_rva(0x04798F90));
-    }
-    namespace OnDelegate {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::OnDelegate__Class** type_info = (::app::OnDelegate__Class**)(modloader::win::memory::resolve_rva(0x0472B640));
-    }
-    namespace UWPVideoPlayer {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UWPVideoPlayer__Class** type_info = (::app::UWPVideoPlayer__Class**)(modloader::win::memory::resolve_rva(0x047067B8));
-    }
-    namespace AmbienceListener {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AmbienceListener__Class** type_info = (::app::AmbienceListener__Class**)(modloader::win::memory::resolve_rva(0x0479A1B0));
-    }
-    namespace Ambience_Layer_Track {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Ambience_Layer_Track__Class** type_info = (::app::Ambience_Layer_Track__Class**)(modloader::win::memory::resolve_rva(0x04742C40));
-    }
-    namespace Ambience_AmbienceTrack {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Ambience_AmbienceTrack__Class** type_info = (::app::Ambience_AmbienceTrack__Class**)(modloader::win::memory::resolve_rva(0x04745990));
-    }
-    namespace AmbientSoundZone {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AmbientSoundZone__Class** type_info = (::app::AmbientSoundZone__Class**)(modloader::win::memory::resolve_rva(0x04758350));
-    }
-    namespace AnimatingFloat {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AnimatingFloat__Class** type_info = (::app::AnimatingFloat__Class**)(modloader::win::memory::resolve_rva(0x0476BDA0));
-    }
-    namespace AudioStateZone {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AudioStateZone__Class** type_info = (::app::AudioStateZone__Class**)(modloader::win::memory::resolve_rva(0x04721C88));
-    }
-    namespace AmbienceZone_WiseAuxSend {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AmbienceZone_WiseAuxSend__Class** type_info = (::app::AmbienceZone_WiseAuxSend__Class**)(modloader::win::memory::resolve_rva(0x04720EE8));
-    }
-    namespace MusicListener {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::MusicListener__Class** type_info = (::app::MusicListener__Class**)(modloader::win::memory::resolve_rva(0x047055B0));
-    }
-    namespace SoundZoneProcessor {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SoundZoneProcessor__Class** type_info = (::app::SoundZoneProcessor__Class**)(modloader::win::memory::resolve_rva(0x0474F938));
-    }
-    namespace ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array__Class** type_info = (::app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array__Class**)(modloader::win::memory::resolve_rva(0x04719CA8));
-    }
-    namespace ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array__Class** type_info = (::app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array__Class**)(modloader::win::memory::resolve_rva(0x0474BE60));
-    }
-    namespace SoundZoneProcessor_Job_PositionZoneEvent {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SoundZoneProcessor_Job_PositionZoneEvent__Class** type_info = (::app::SoundZoneProcessor_Job_PositionZoneEvent__Class**)(modloader::win::memory::resolve_rva(0x0472D098));
-    }
-} // namespace app::classes::types
+    namespace MortarWormEnemy_c { IL2CPP_MODLOADER_DLLEXPORT ::app::MortarWormEnemy_c__Class** type_info = (::app::MortarWormEnemy_c__Class**)(modloader::win::memory::resolve_rva(0x04750C58)); }
+    namespace MortarWormEnemyDeath_Start_d_4 { IL2CPP_MODLOADER_DLLEXPORT ::app::MortarWormEnemyDeath_Start_d_4__Class** type_info = (::app::MortarWormEnemyDeath_Start_d_4__Class**)(modloader::win::memory::resolve_rva(0x0471E4E0)); }
+    namespace RespawningPlaceholder_c { IL2CPP_MODLOADER_DLLEXPORT ::app::RespawningPlaceholder_c__Class** type_info = (::app::RespawningPlaceholder_c__Class**)(modloader::win::memory::resolve_rva(0x04798B30)); }
+    namespace MortarWormIdleState { IL2CPP_MODLOADER_DLLEXPORT ::app::MortarWormIdleState__Class** type_info = (::app::MortarWormIdleState__Class**)(modloader::win::memory::resolve_rva(0x047095C0)); }
+    namespace MortarWormChargingState { IL2CPP_MODLOADER_DLLEXPORT ::app::MortarWormChargingState__Class** type_info = (::app::MortarWormChargingState__Class**)(modloader::win::memory::resolve_rva(0x047883A8)); }
+    namespace WormEmergingState { IL2CPP_MODLOADER_DLLEXPORT ::app::WormEmergingState__Class** type_info = (::app::WormEmergingState__Class**)(modloader::win::memory::resolve_rva(0x0470CCF0)); }
+    namespace WormHiddenState { IL2CPP_MODLOADER_DLLEXPORT ::app::WormHiddenState__Class** type_info = (::app::WormHiddenState__Class**)(modloader::win::memory::resolve_rva(0x04759558)); }
+    namespace WormHidingState { IL2CPP_MODLOADER_DLLEXPORT ::app::WormHidingState__Class** type_info = (::app::WormHidingState__Class**)(modloader::win::memory::resolve_rva(0x04753728)); }
+    namespace WormMortarShootingState { IL2CPP_MODLOADER_DLLEXPORT ::app::WormMortarShootingState__Class** type_info = (::app::WormMortarShootingState__Class**)(modloader::win::memory::resolve_rva(0x0476FE40)); }
+    namespace IFieldOfViewInfluencer { IL2CPP_MODLOADER_DLLEXPORT ::app::IFieldOfViewInfluencer__Class** type_info = (::app::IFieldOfViewInfluencer__Class**)(modloader::win::memory::resolve_rva(0x047581D8)); }
+    namespace CameraPostProcessing { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraPostProcessing__Class** type_info = (::app::CameraPostProcessing__Class**)(modloader::win::memory::resolve_rva(0x0472E620)); }
+    namespace IPostProcessInfluencer { IL2CPP_MODLOADER_DLLEXPORT ::app::IPostProcessInfluencer__Class** type_info = (::app::IPostProcessInfluencer__Class**)(modloader::win::memory::resolve_rva(0x0476F710)); }
+    namespace UberPostProcess { IL2CPP_MODLOADER_DLLEXPORT ::app::UberPostProcess__Class** type_info = (::app::UberPostProcess__Class**)(modloader::win::memory::resolve_rva(0x04781B50)); }
+    namespace FaderBrightnessContrastSettings { IL2CPP_MODLOADER_DLLEXPORT ::app::FaderBrightnessContrastSettings__Class** type_info = (::app::FaderBrightnessContrastSettings__Class**)(modloader::win::memory::resolve_rva(0x047297A0)); }
+    namespace CameraAdditiveSettings { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraAdditiveSettings__Class** type_info = (::app::CameraAdditiveSettings__Class**)(modloader::win::memory::resolve_rva(0x047816E8)); }
+    namespace SceneDefaultSettingsHelper { IL2CPP_MODLOADER_DLLEXPORT ::app::SceneDefaultSettingsHelper__Class** type_info = (::app::SceneDefaultSettingsHelper__Class**)(modloader::win::memory::resolve_rva(0x0476C8D0)); }
+    namespace CameraPuppetController { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraPuppetController__Class** type_info = (::app::CameraPuppetController__Class**)(modloader::win::memory::resolve_rva(0x04773108)); }
+    namespace FloatProviderZone__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::FloatProviderZone__Array__Class** type_info = (::app::FloatProviderZone__Array__Class**)(modloader::win::memory::resolve_rva(0x047391C0)); }
+    namespace CameraShakeLogic { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraShakeLogic__Class** type_info = (::app::CameraShakeLogic__Class**)(modloader::win::memory::resolve_rva(0x0473BB38)); }
+    namespace CameraTarget { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraTarget__Class** type_info = (::app::CameraTarget__Class**)(modloader::win::memory::resolve_rva(0x047630E0)); }
+    namespace CameraOffsetController { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraOffsetController__Class** type_info = (::app::CameraOffsetController__Class**)(modloader::win::memory::resolve_rva(0x0474F1F0)); }
+    namespace CameraScrollLockConstraint { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraScrollLockConstraint__Class** type_info = (::app::CameraScrollLockConstraint__Class**)(modloader::win::memory::resolve_rva(0x0477D3D0)); }
+    namespace Ray__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::Ray__Array__Class** type_info = (::app::Ray__Array__Class**)(modloader::win::memory::resolve_rva(0x04719160)); }
+    namespace DynamicCameraTargetting { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicCameraTargetting__Class** type_info = (::app::DynamicCameraTargetting__Class**)(modloader::win::memory::resolve_rva(0x04708260)); }
+    namespace InterestSettings { IL2CPP_MODLOADER_DLLEXPORT ::app::InterestSettings__Class** type_info = (::app::InterestSettings__Class**)(modloader::win::memory::resolve_rva(0x0474D1A0)); }
+    namespace EntitySettings { IL2CPP_MODLOADER_DLLEXPORT ::app::EntitySettings__Class** type_info = (::app::EntitySettings__Class**)(modloader::win::memory::resolve_rva(0x0472B7B0)); }
+    namespace IDebugMenuItem { IL2CPP_MODLOADER_DLLEXPORT ::app::IDebugMenuItem__Class** type_info = (::app::IDebugMenuItem__Class**)(modloader::win::memory::resolve_rva(0x04770F78)); }
+    namespace AbilityBasedSetting { IL2CPP_MODLOADER_DLLEXPORT ::app::AbilityBasedSetting__Class** type_info = (::app::AbilityBasedSetting__Class**)(modloader::win::memory::resolve_rva(0x0471AF90)); }
+    namespace CameraGoThroughScrollLocks { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraGoThroughScrollLocks__Class** type_info = (::app::CameraGoThroughScrollLocks__Class**)(modloader::win::memory::resolve_rva(0x04754D68)); }
+    namespace ControllerShakeLogic { IL2CPP_MODLOADER_DLLEXPORT ::app::ControllerShakeLogic__Class** type_info = (::app::ControllerShakeLogic__Class**)(modloader::win::memory::resolve_rva(0x04778C58)); }
+    namespace IControllerShake { IL2CPP_MODLOADER_DLLEXPORT ::app::IControllerShake__Class** type_info = (::app::IControllerShake__Class**)(modloader::win::memory::resolve_rva(0x04713A40)); }
+    namespace DefaultCameraProviderEntry_Type__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::DefaultCameraProviderEntry_Type__Enum__Class** type_info = (::app::DefaultCameraProviderEntry_Type__Enum__Class**)(modloader::win::memory::resolve_rva(0x04790CC0)); }
+    namespace DynamicCameraWeightZone { IL2CPP_MODLOADER_DLLEXPORT ::app::DynamicCameraWeightZone__Class** type_info = (::app::DynamicCameraWeightZone__Class**)(modloader::win::memory::resolve_rva(0x04790590)); }
+    namespace GameplayCameraTargetsProvider { IL2CPP_MODLOADER_DLLEXPORT ::app::GameplayCameraTargetsProvider__Class** type_info = (::app::GameplayCameraTargetsProvider__Class**)(modloader::win::memory::resolve_rva(0x0473E8B8)); }
+    namespace GameplayCameraTargetEntry { IL2CPP_MODLOADER_DLLEXPORT ::app::GameplayCameraTargetEntry__Class** type_info = (::app::GameplayCameraTargetEntry__Class**)(modloader::win::memory::resolve_rva(0x04760DA8)); }
+    namespace CameraCrossFadeManager { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraCrossFadeManager__Class** type_info = (::app::CameraCrossFadeManager__Class**)(modloader::win::memory::resolve_rva(0x04742730)); }
+    namespace CameraOffsetController_c { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraOffsetController_c__Class** type_info = (::app::CameraOffsetController_c__Class**)(modloader::win::memory::resolve_rva(0x0471C2C0)); }
+    namespace CameraSettingsZone { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraSettingsZone__Class** type_info = (::app::CameraSettingsZone__Class**)(modloader::win::memory::resolve_rva(0x0473AD60)); }
+    namespace CameraTarget_c { IL2CPP_MODLOADER_DLLEXPORT ::app::CameraTarget_c__Class** type_info = (::app::CameraTarget_c__Class**)(modloader::win::memory::resolve_rva(0x0478F3E0)); }
+    namespace SceneSettingsTransitionZone { IL2CPP_MODLOADER_DLLEXPORT ::app::SceneSettingsTransitionZone__Class** type_info = (::app::SceneSettingsTransitionZone__Class**)(modloader::win::memory::resolve_rva(0x04731B40)); }
+    namespace VerticalCameraSettingsZone_c { IL2CPP_MODLOADER_DLLEXPORT ::app::VerticalCameraSettingsZone_c__Class** type_info = (::app::VerticalCameraSettingsZone_c__Class**)(modloader::win::memory::resolve_rva(0x04710840)); }
+    namespace ChallengeShrineManager { IL2CPP_MODLOADER_DLLEXPORT ::app::ChallengeShrineManager__Class** type_info = (::app::ChallengeShrineManager__Class**)(modloader::win::memory::resolve_rva(0x047614A8)); }
+    namespace SeinIdlePuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinIdlePuppet__Class** type_info = (::app::SeinIdlePuppet__Class**)(modloader::win::memory::resolve_rva(0x04720B18)); }
+    namespace SeinRunPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinRunPuppet__Class** type_info = (::app::SeinRunPuppet__Class**)(modloader::win::memory::resolve_rva(0x0471CEE8)); }
+    namespace SeinFallPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinFallPuppet__Class** type_info = (::app::SeinFallPuppet__Class**)(modloader::win::memory::resolve_rva(0x047315F0)); }
+    namespace CheckpointRestrictZone_CheckpointRestrictType__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::CheckpointRestrictZone_CheckpointRestrictType__Enum__Class** type_info = (::app::CheckpointRestrictZone_CheckpointRestrictType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04783510)); }
+    namespace CheckpointRestrictZone { IL2CPP_MODLOADER_DLLEXPORT ::app::CheckpointRestrictZone__Class** type_info = (::app::CheckpointRestrictZone__Class**)(modloader::win::memory::resolve_rva(0x04734760)); }
+    namespace CharacterGravity_c { IL2CPP_MODLOADER_DLLEXPORT ::app::CharacterGravity_c__Class** type_info = (::app::CharacterGravity_c__Class**)(modloader::win::memory::resolve_rva(0x04789200)); }
+    namespace CharacterLeftRightMovement_c { IL2CPP_MODLOADER_DLLEXPORT ::app::CharacterLeftRightMovement_c__Class** type_info = (::app::CharacterLeftRightMovement_c__Class**)(modloader::win::memory::resolve_rva(0x04735548)); }
+    namespace CharacterState_c { IL2CPP_MODLOADER_DLLEXPORT ::app::CharacterState_c__Class** type_info = (::app::CharacterState_c__Class**)(modloader::win::memory::resolve_rva(0x0472F1C8)); }
+    namespace DeathInformation { IL2CPP_MODLOADER_DLLEXPORT ::app::DeathInformation__Class** type_info = (::app::DeathInformation__Class**)(modloader::win::memory::resolve_rva(0x04762B48)); }
+    namespace DeathWispsManager { IL2CPP_MODLOADER_DLLEXPORT ::app::DeathWispsManager__Class** type_info = (::app::DeathWispsManager__Class**)(modloader::win::memory::resolve_rva(0x047437C0)); }
+    namespace SeinDeathsManager { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDeathsManager__Class** type_info = (::app::SeinDeathsManager__Class**)(modloader::win::memory::resolve_rva(0x04737DE0)); }
+    namespace ForceGrabReleaseZone { IL2CPP_MODLOADER_DLLEXPORT ::app::ForceGrabReleaseZone__Class** type_info = (::app::ForceGrabReleaseZone__Class**)(modloader::win::memory::resolve_rva(0x04715B30)); }
+    namespace PlayerAbilities_c { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayerAbilities_c__Class** type_info = (::app::PlayerAbilities_c__Class**)(modloader::win::memory::resolve_rva(0x047559B0)); }
+    namespace CommandEnumComparer { IL2CPP_MODLOADER_DLLEXPORT ::app::CommandEnumComparer__Class** type_info = (::app::CommandEnumComparer__Class**)(modloader::win::memory::resolve_rva(0x04749FD0)); }
+    namespace AbilityTypeEnumComparer { IL2CPP_MODLOADER_DLLEXPORT ::app::AbilityTypeEnumComparer__Class** type_info = (::app::AbilityTypeEnumComparer__Class**)(modloader::win::memory::resolve_rva(0x04776070)); }
+    namespace PlayerInputButtonRebinder { IL2CPP_MODLOADER_DLLEXPORT ::app::PlayerInputButtonRebinder__Class** type_info = (::app::PlayerInputButtonRebinder__Class**)(modloader::win::memory::resolve_rva(0x04705C80)); }
+    namespace Input_Command__Enum__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::Input_Command__Enum__Array__Class** type_info = (::app::Input_Command__Enum__Array__Class**)(modloader::win::memory::resolve_rva(0x04715E28)); }
+    namespace SeinBashAttackPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinBashAttackPuppet__Class** type_info = (::app::SeinBashAttackPuppet__Class**)(modloader::win::memory::resolve_rva(0x0470DE20)); }
+    namespace SeinBashAttack_c { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinBashAttack_c__Class** type_info = (::app::SeinBashAttack_c__Class**)(modloader::win::memory::resolve_rva(0x04702B90)); }
+    namespace SeinCarry_DelayedPickupSound_d_41 { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinCarry_DelayedPickupSound_d_41__Class** type_info = (::app::SeinCarry_DelayedPickupSound_d_41__Class**)(modloader::win::memory::resolve_rva(0x0476AC80)); }
+    namespace SeinChargeJumpPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinChargeJumpPuppet__Class** type_info = (::app::SeinChargeJumpPuppet__Class**)(modloader::win::memory::resolve_rva(0x0475B528)); }
+    namespace IGhostGenericSoundPlayer { IL2CPP_MODLOADER_DLLEXPORT ::app::IGhostGenericSoundPlayer__Class** type_info = (::app::IGhostGenericSoundPlayer__Class**)(modloader::win::memory::resolve_rva(0x0475ABE8)); }
+    namespace SeinChargeJumpLegacy_c { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinChargeJumpLegacy_c__Class** type_info = (::app::SeinChargeJumpLegacy_c__Class**)(modloader::win::memory::resolve_rva(0x04701428)); }
+    namespace SeinCinematic_c_DisplayClass45_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinCinematic_c_DisplayClass45_0__Class** type_info = (::app::SeinCinematic_c_DisplayClass45_0__Class**)(modloader::win::memory::resolve_rva(0x047243F0)); }
+    namespace SeinCinematic_c { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinCinematic_c__Class** type_info = (::app::SeinCinematic_c__Class**)(modloader::win::memory::resolve_rva(0x04794970)); }
+    namespace SeinClamberPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinClamberPuppet__Class** type_info = (::app::SeinClamberPuppet__Class**)(modloader::win::memory::resolve_rva(0x04726498)); }
+    namespace SeinDamageReciever_c_DisplayClass58_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDamageReciever_c_DisplayClass58_0__Class** type_info = (::app::SeinDamageReciever_c_DisplayClass58_0__Class**)(modloader::win::memory::resolve_rva(0x0475FDB0)); }
+    namespace SeinDamageReciever_c_DisplayClass58_1 { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDamageReciever_c_DisplayClass58_1__Class** type_info = (::app::SeinDamageReciever_c_DisplayClass58_1__Class**)(modloader::win::memory::resolve_rva(0x0474D648)); }
+    namespace SeinDamageReciever_c_DisplayClass58_2 { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDamageReciever_c_DisplayClass58_2__Class** type_info = (::app::SeinDamageReciever_c_DisplayClass58_2__Class**)(modloader::win::memory::resolve_rva(0x04737640)); }
+    namespace SeinDamageReciever_FlashSprite_d_85 { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDamageReciever_FlashSprite_d_85__Class** type_info = (::app::SeinDamageReciever_FlashSprite_d_85__Class**)(modloader::win::memory::resolve_rva(0x047583F8)); }
+    namespace SeinDamageReciever_c_DisplayClass92_0 { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDamageReciever_c_DisplayClass92_0__Class** type_info = (::app::SeinDamageReciever_c_DisplayClass92_0__Class**)(modloader::win::memory::resolve_rva(0x04753B60)); }
+    namespace SeinDamageReciever_OnKillRoutine_d_97 { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDamageReciever_OnKillRoutine_d_97__Class** type_info = (::app::SeinDamageReciever_OnKillRoutine_d_97__Class**)(modloader::win::memory::resolve_rva(0x0474AA38)); }
+    namespace SeinDamageReciever_c { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDamageReciever_c__Class** type_info = (::app::SeinDamageReciever_c__Class**)(modloader::win::memory::resolve_rva(0x047805D8)); }
+    namespace SeinDashAttack_c { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDashAttack_c__Class** type_info = (::app::SeinDashAttack_c__Class**)(modloader::win::memory::resolve_rva(0x04783328)); }
+    namespace MonoBehaviour__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::MonoBehaviour__Array__Class** type_info = (::app::MonoBehaviour__Array__Class**)(modloader::win::memory::resolve_rva(0x0470B8F0)); }
+    namespace SeinDashNewPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDashNewPuppet__Class** type_info = (::app::SeinDashNewPuppet__Class**)(modloader::win::memory::resolve_rva(0x0472AD78)); }
+    namespace SeinDashNew_c { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDashNew_c__Class** type_info = (::app::SeinDashNew_c__Class**)(modloader::win::memory::resolve_rva(0x0470DE48)); }
+    namespace SeinDeathCounter { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDeathCounter__Class** type_info = (::app::SeinDeathCounter__Class**)(modloader::win::memory::resolve_rva(0x0471C2C8)); }
+    namespace SeinDoubleJumpPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDoubleJumpPuppet__Class** type_info = (::app::SeinDoubleJumpPuppet__Class**)(modloader::win::memory::resolve_rva(0x04725640)); }
+    namespace SeinDoubleJump_c { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDoubleJump_c__Class** type_info = (::app::SeinDoubleJump_c__Class**)(modloader::win::memory::resolve_rva(0x0475DEF8)); }
+    namespace SeinDrillPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinDrillPuppet__Class** type_info = (::app::SeinDrillPuppet__Class**)(modloader::win::memory::resolve_rva(0x0478EFB0)); }
+    namespace SeinFeatherFlapPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinFeatherFlapPuppet__Class** type_info = (::app::SeinFeatherFlapPuppet__Class**)(modloader::win::memory::resolve_rva(0x04751330)); }
+    namespace SeinFirewhirlSpell_c { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinFirewhirlSpell_c__Class** type_info = (::app::SeinFirewhirlSpell_c__Class**)(modloader::win::memory::resolve_rva(0x0474EA40)); }
+    namespace SeinFootstepsPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinFootstepsPuppet__Class** type_info = (::app::SeinFootstepsPuppet__Class**)(modloader::win::memory::resolve_rva(0x04709918)); }
+    namespace SeinGlidePuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinGlidePuppet__Class** type_info = (::app::SeinGlidePuppet__Class**)(modloader::win::memory::resolve_rva(0x0476D6C0)); }
+    namespace SeinGrabRopePuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinGrabRopePuppet__Class** type_info = (::app::SeinGrabRopePuppet__Class**)(modloader::win::memory::resolve_rva(0x0474B858)); }
+    namespace SeinGrabSurfacePuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinGrabSurfacePuppet__Class** type_info = (::app::SeinGrabSurfacePuppet__Class**)(modloader::win::memory::resolve_rva(0x04729248)); }
+    namespace SeinGrabWallPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinGrabWallPuppet__Class** type_info = (::app::SeinGrabWallPuppet__Class**)(modloader::win::memory::resolve_rva(0x0475BAD0)); }
+    namespace OriJumpPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::OriJumpPuppet__Class** type_info = (::app::OriJumpPuppet__Class**)(modloader::win::memory::resolve_rva(0x0476C610)); }
+    namespace SeinJump_c { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinJump_c__Class** type_info = (::app::SeinJump_c__Class**)(modloader::win::memory::resolve_rva(0x047945B0)); }
+    namespace SeinLeverPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinLeverPuppet__Class** type_info = (::app::SeinLeverPuppet__Class**)(modloader::win::memory::resolve_rva(0x04735F20)); }
+    namespace SeinSpiritSentrySpell_HandleSpawningSentries_d_16 { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinSpiritSentrySpell_HandleSpawningSentries_d_16__Class** type_info = (::app::SeinSpiritSentrySpell_HandleSpawningSentries_d_16__Class**)(modloader::win::memory::resolve_rva(0x047526D0)); }
+    namespace SeinSpiritSpearSpellPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinSpiritSpearSpellPuppet__Class** type_info = (::app::SeinSpiritSpearSpellPuppet__Class**)(modloader::win::memory::resolve_rva(0x0473A6E0)); }
+    namespace SeinStomp_c { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinStomp_c__Class** type_info = (::app::SeinStomp_c__Class**)(modloader::win::memory::resolve_rva(0x0470E168)); }
+    namespace SeinTurretSpell_HandleSpawningSentries_d_40 { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinTurretSpell_HandleSpawningSentries_d_40__Class** type_info = (::app::SeinTurretSpell_HandleSpawningSentries_d_40__Class**)(modloader::win::memory::resolve_rva(0x047681A0)); }
+    namespace SeinWallJumpPuppet { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinWallJumpPuppet__Class** type_info = (::app::SeinWallJumpPuppet__Class**)(modloader::win::memory::resolve_rva(0x04798BF0)); }
+    namespace SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50 { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50__Class** type_info = (::app::SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50__Class**)(modloader::win::memory::resolve_rva(0x047312F8)); }
+    namespace SeinWallJump_RoutineToReenableAirDeceleration_d_52 { IL2CPP_MODLOADER_DLLEXPORT ::app::SeinWallJump_RoutineToReenableAirDeceleration_d_52__Class** type_info = (::app::SeinWallJump_RoutineToReenableAirDeceleration_d_52__Class**)(modloader::win::memory::resolve_rva(0x04761810)); }
+}

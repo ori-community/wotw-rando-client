@@ -1,0 +1,15 @@
+#pragma once
+#include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/macros.h>
+
+namespace app::classes::types {
+    namespace IPointerDownHandler {
+        extern IL2CPP_MODLOADER_DLLEXPORT app::IPointerDownHandler__Class** type_info;
+        inline app::IPointerDownHandler__Class* get_class() {
+            return il2cpp::get_class<app::IPointerDownHandler__Class>(type_info, "UnityEngine.EventSystems", "IPointerDownHandler");
+        }
+        inline app::IPointerDownHandler* create() {
+            return il2cpp::create_object<app::IPointerDownHandler>(get_class());
+        }
+    } // namespace IPointerDownHandler
+} // namespace app::classes::types

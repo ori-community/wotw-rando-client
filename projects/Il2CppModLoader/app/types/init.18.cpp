@@ -1,405 +1,205 @@
-#include <Il2CppModLoader/app/types/AttributePSVIInfo__Array.h>
-#include <Il2CppModLoader/app/types/BaseValidator.h>
-#include <Il2CppModLoader/app/types/Boolean__Array_1.h>
-#include <Il2CppModLoader/app/types/CachingEventHandler.h>
-#include <Il2CppModLoader/app/types/DebuggerDisplayXmlNodeProxy.h>
-#include <Il2CppModLoader/app/types/DtdParser.h>
-#include <Il2CppModLoader/app/types/DtdParser_ParseElementOnlyContent_LocalFrame.h>
-#include <Il2CppModLoader/app/types/DtdParser_UndeclaredNotation.h>
-#include <Il2CppModLoader/app/types/HWStack.h>
-#include <Il2CppModLoader/app/types/IdRefNode.h>
-#include <Il2CppModLoader/app/types/InteriorNode.h>
-#include <Il2CppModLoader/app/types/LeafNode.h>
-#include <Il2CppModLoader/app/types/OpenedHost.h>
-#include <Il2CppModLoader/app/types/Parser_1.h>
-#include <Il2CppModLoader/app/types/ParticleContentValidator.h>
-#include <Il2CppModLoader/app/types/PositionInfo.h>
-#include <Il2CppModLoader/app/types/Positions.h>
-#include <Il2CppModLoader/app/types/ReaderPositionInfo.h>
-#include <Il2CppModLoader/app/types/SafeAsciiDecoder.h>
-#include <Il2CppModLoader/app/types/SequenceNode.h>
-#include <Il2CppModLoader/app/types/SymbolsDictionary.h>
-#include <Il2CppModLoader/app/types/SyntaxTreeNode.h>
-#include <Il2CppModLoader/app/types/UTF16Decoder.h>
-#include <Il2CppModLoader/app/types/Ucs4Decoder1234.h>
-#include <Il2CppModLoader/app/types/Ucs4Decoder2143.h>
-#include <Il2CppModLoader/app/types/Ucs4Decoder3412.h>
-#include <Il2CppModLoader/app/types/Ucs4Decoder4321.h>
-#include <Il2CppModLoader/app/types/Ucs4Encoding.h>
-#include <Il2CppModLoader/app/types/Ucs4Encoding1234.h>
-#include <Il2CppModLoader/app/types/Ucs4Encoding2143.h>
-#include <Il2CppModLoader/app/types/Ucs4Encoding3412.h>
-#include <Il2CppModLoader/app/types/Ucs4Encoding4321.h>
-#include <Il2CppModLoader/app/types/ValidatingReaderNodeData__Array.h>
-#include <Il2CppModLoader/app/types/WriteState__Enum__Array.h>
-#include <Il2CppModLoader/app/types/XdrBuilder.h>
-#include <Il2CppModLoader/app/types/XdrBuilder_AttributeContent.h>
-#include <Il2CppModLoader/app/types/XdrBuilder_DeclBaseInfo.h>
-#include <Il2CppModLoader/app/types/XdrBuilder_ElementContent.h>
-#include <Il2CppModLoader/app/types/XdrBuilder_GroupContent.h>
-#include <Il2CppModLoader/app/types/XdrBuilder_XdrAttributeEntry.h>
-#include <Il2CppModLoader/app/types/XdrBuilder_XdrAttributeEntry__Array.h>
-#include <Il2CppModLoader/app/types/XdrBuilder_XdrBeginChildFunction.h>
-#include <Il2CppModLoader/app/types/XdrBuilder_XdrBuildFunction.h>
-#include <Il2CppModLoader/app/types/XdrBuilder_XdrEndChildFunction.h>
-#include <Il2CppModLoader/app/types/XdrBuilder_XdrEntry.h>
-#include <Il2CppModLoader/app/types/XdrBuilder_XdrEntry__Array.h>
-#include <Il2CppModLoader/app/types/XdrBuilder_XdrInitFunction.h>
+#include <Il2CppModLoader/windows_api/memory.h>
+#include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/app/types/IDtdAttributeListInfo.h>
+#include <Il2CppModLoader/app/types/IDtdEntityInfo.h>
+#include <Il2CppModLoader/app/types/XmlSchema.h>
+#include <Il2CppModLoader/app/types/XmlSchemaCompilationSettings.h>
+#include <Il2CppModLoader/app/types/XmlSqlBinaryReader_QName.h>
+#include <Il2CppModLoader/app/types/XmlSqlBinaryReader.h>
+#include <Il2CppModLoader/app/types/ReadState__Enum_1__Array.h>
+#include <Il2CppModLoader/app/types/XmlSqlBinaryReader_QName__Array.h>
+#include <Il2CppModLoader/app/types/XmlSqlBinaryReader_NamespaceDecl.h>
+#include <Il2CppModLoader/app/types/XmlSqlBinaryReader_ElemInfo__Array.h>
+#include <Il2CppModLoader/app/types/XmlSqlBinaryReader_AttrInfo__Array.h>
+#include <Il2CppModLoader/app/types/XmlSqlBinaryReader_NestedBinXml.h>
+#include <Il2CppModLoader/app/types/SecureStringHasher.h>
+#include <Il2CppModLoader/app/types/SecureStringHasher_HashCodeOfStringDelegate.h>
+#include <Il2CppModLoader/app/types/IDtdInfo.h>
+#include <Il2CppModLoader/app/types/ByteStack.h>
+#include <Il2CppModLoader/app/types/TernaryTreeReadOnly.h>
+#include <Il2CppModLoader/app/types/XmlNodeChangedEventArgs.h>
+#include <Il2CppModLoader/app/types/XmlElement.h>
+#include <Il2CppModLoader/app/types/XmlAttribute__Array.h>
+#include <Il2CppModLoader/app/types/XmlSchemaSimpleTypeContent.h>
+#include <Il2CppModLoader/app/types/XmlName__Array.h>
+#include <Il2CppModLoader/app/types/EmptyEnumerator.h>
+#include <Il2CppModLoader/app/types/XmlDocumentType.h>
+#include <Il2CppModLoader/app/types/XmlDeclaration.h>
+#include <Il2CppModLoader/app/types/XmlComment.h>
+#include <Il2CppModLoader/app/types/XmlDocumentFragment.h>
+#include <Il2CppModLoader/app/types/XmlEntityReference.h>
+#include <Il2CppModLoader/app/types/XmlProcessingInstruction.h>
+#include <Il2CppModLoader/app/types/XmlText.h>
+#include <Il2CppModLoader/app/types/XmlSignificantWhitespace.h>
+#include <Il2CppModLoader/app/types/XmlWhitespace.h>
+#include <Il2CppModLoader/app/types/XmlTextReader.h>
+#include <Il2CppModLoader/app/types/XmlTextReaderImpl.h>
+#include <Il2CppModLoader/app/types/XmlTextReaderImpl_LaterInitParam.h>
+#include <Il2CppModLoader/app/types/XmlParserContext.h>
+#include <Il2CppModLoader/app/types/XmlTextReaderImpl_NodeData.h>
+#include <Il2CppModLoader/app/types/XmlTextReaderImpl_NodeData__Array.h>
+#include <Il2CppModLoader/app/types/XmlTextReaderImpl_XmlContext.h>
+#include <Il2CppModLoader/app/types/XmlTextReaderImpl_ParsingState__Array.h>
+#include <Il2CppModLoader/app/types/IValidationEventHandling.h>
+#include <Il2CppModLoader/app/types/XmlTextReaderImpl_OnDefaultAttributeUseDelegate.h>
+#include <Il2CppModLoader/app/types/CSharpCodeProvider.h>
+#include <Il2CppModLoader/app/types/AstNode.h>
+#include <Il2CppModLoader/app/types/Axis_AxisType__Enum.h>
+#include <Il2CppModLoader/app/types/XPathNodeType__Enum.h>
+#include <Il2CppModLoader/app/types/Axis.h>
+#include <Il2CppModLoader/app/types/Filter.h>
+#include <Il2CppModLoader/app/types/Function.h>
+#include <Il2CppModLoader/app/types/XPathResultType__Enum__Array.h>
+#include <Il2CppModLoader/app/types/Group_1.h>
+#include <Il2CppModLoader/app/types/Operand.h>
+#include <Il2CppModLoader/app/types/Operator.h>
+#include <Il2CppModLoader/app/types/Operator_Op__Enum__Array.h>
+#include <Il2CppModLoader/app/types/Root.h>
+#include <Il2CppModLoader/app/types/Variable.h>
+#include <Il2CppModLoader/app/types/XPathParser.h>
+#include <Il2CppModLoader/app/types/XPathScanner.h>
+#include <Il2CppModLoader/app/types/XPathParser_ParamInfo.h>
+#include <Il2CppModLoader/app/types/XPathItem.h>
+#include <Il2CppModLoader/app/types/XPathNavigator.h>
+#include <Il2CppModLoader/app/types/XPathDocumentNavigator.h>
+#include <Il2CppModLoader/app/types/XPathNavigatorKeyComparer.h>
+#include <Il2CppModLoader/app/types/XPathNodeInfoAtom.h>
+#include <Il2CppModLoader/app/types/XmlTextWriterBase64Encoder.h>
+#include <Il2CppModLoader/app/types/XmlTextEncoder.h>
+#include <Il2CppModLoader/app/types/BinXmlSqlDecimal.h>
+#include <Il2CppModLoader/app/types/BitStack.h>
+#include <Il2CppModLoader/app/types/XmlWriterSettings.h>
+#include <Il2CppModLoader/app/types/HtmlEncodedRawTextWriterIndent.h>
+#include <Il2CppModLoader/app/types/XmlUtf8RawTextWriter.h>
+#include <Il2CppModLoader/app/types/HtmlUtf8RawTextWriter.h>
+#include <Il2CppModLoader/app/types/HtmlUtf8RawTextWriterIndent.h>
+#include <Il2CppModLoader/app/types/IncrementalReadDummyDecoder.h>
+#include <Il2CppModLoader/app/types/QueryOutputWriter.h>
+#include <Il2CppModLoader/app/types/TextEncodedRawTextWriter.h>
+#include <Il2CppModLoader/app/types/TextUtf8RawTextWriter.h>
+#include <Il2CppModLoader/app/types/ValidatingReaderNodeData.h>
+#include <Il2CppModLoader/app/types/AttributePSVIInfo.h>
+#include <Il2CppModLoader/app/types/XmlSchemaInfo.h>
+#include <Il2CppModLoader/app/types/IXmlLineInfo.h>
+#include <Il2CppModLoader/app/types/XmlAsyncCheckReader.h>
+#include <Il2CppModLoader/app/types/XmlAsyncCheckReaderWithNS.h>
 #include <Il2CppModLoader/app/types/XmlAsyncCheckReaderWithLineInfo.h>
 #include <Il2CppModLoader/app/types/XmlAsyncCheckReaderWithLineInfoNS.h>
 #include <Il2CppModLoader/app/types/XmlAsyncCheckReaderWithLineInfoNSSchema.h>
 #include <Il2CppModLoader/app/types/XmlAsyncCheckWriter.h>
 #include <Il2CppModLoader/app/types/XmlAutoDetectWriter.h>
-#include <Il2CppModLoader/app/types/XmlCachedStream.h>
-#include <Il2CppModLoader/app/types/XmlChildEnumerator.h>
-#include <Il2CppModLoader/app/types/XmlDateTimeSerializationMode__Enum.h>
-#include <Il2CppModLoader/app/types/XmlDownloadManager.h>
-#include <Il2CppModLoader/app/types/XmlDownloadManager_c_DisplayClass4_0.h>
-#include <Il2CppModLoader/app/types/XmlEncodedRawTextWriterIndent.h>
-#include <Il2CppModLoader/app/types/XmlEntity.h>
 #include <Il2CppModLoader/app/types/XmlEventCache.h>
 #include <Il2CppModLoader/app/types/XmlEventCache_XmlEvent__Array.h>
-#include <Il2CppModLoader/app/types/XmlException.h>
-#include <Il2CppModLoader/app/types/XmlLoader.h>
-#include <Il2CppModLoader/app/types/XmlNameEx.h>
-#include <Il2CppModLoader/app/types/XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator.h>
-#include <Il2CppModLoader/app/types/XmlNodeReaderNavigator.h>
-#include <Il2CppModLoader/app/types/XmlNodeReaderNavigator_VirtualAttribute__Array.h>
-#include <Il2CppModLoader/app/types/XmlNode__Array.h>
-#include <Il2CppModLoader/app/types/XmlNotation.h>
-#include <Il2CppModLoader/app/types/XmlReader_XmlReaderDebuggerDisplayProxy.h>
-#include <Il2CppModLoader/app/types/XmlRegisteredNonCachedStream.h>
-#include <Il2CppModLoader/app/types/XmlSchemaAttribute__Array.h>
-#include <Il2CppModLoader/app/types/XmlSchemaCollection.h>
-#include <Il2CppModLoader/app/types/XmlSchemaParticle__Array.h>
-#include <Il2CppModLoader/app/types/XmlSchemaValidator.h>
-#include <Il2CppModLoader/app/types/XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer.h>
-#include <Il2CppModLoader/app/types/XmlTextReaderImpl_DtdParserProxy.h>
-#include <Il2CppModLoader/app/types/XmlTextReaderImpl_NoNamespaceManager.h>
+#include <Il2CppModLoader/app/types/XmlEncodedRawTextWriterIndent.h>
 #include <Il2CppModLoader/app/types/XmlTextWriter.h>
-#include <Il2CppModLoader/app/types/XmlTextWriter_Namespace__Array.h>
-#include <Il2CppModLoader/app/types/XmlTextWriter_State__Enum__Array.h>
 #include <Il2CppModLoader/app/types/XmlTextWriter_TagInfo__Array.h>
-#include <Il2CppModLoader/app/types/XmlUnspecifiedAttribute.h>
-#include <Il2CppModLoader/app/types/XmlUtf8RawTextWriterIndent.h>
-#include <Il2CppModLoader/app/types/XmlValidatingReader.h>
+#include <Il2CppModLoader/app/types/XmlTextWriter_State__Enum__Array.h>
+#include <Il2CppModLoader/app/types/XmlTextWriter_Namespace__Array.h>
+#include <Il2CppModLoader/app/types/XmlReader_XmlReaderDebuggerDisplayProxy.h>
 #include <Il2CppModLoader/app/types/XmlValidatingReaderImpl.h>
-#include <Il2CppModLoader/app/types/XmlValidatingReaderImpl_ValidationEventHandling.h>
-#include <Il2CppModLoader/app/types/XmlValueGetter.h>
-#include <Il2CppModLoader/app/types/XmlWellFormedWriter.h>
-#include <Il2CppModLoader/app/types/XmlWellFormedWriter_AttrName__Array.h>
-#include <Il2CppModLoader/app/types/XmlWellFormedWriter_AttributeValueCache.h>
-#include <Il2CppModLoader/app/types/XmlWellFormedWriter_AttributeValueCache_BufferChunk.h>
-#include <Il2CppModLoader/app/types/XmlWellFormedWriter_AttributeValueCache_Item.h>
-#include <Il2CppModLoader/app/types/XmlWellFormedWriter_AttributeValueCache_Item__Array.h>
-#include <Il2CppModLoader/app/types/XmlWellFormedWriter_ElementScope__Array.h>
-#include <Il2CppModLoader/app/types/XmlWellFormedWriter_NamespaceResolverProxy.h>
-#include <Il2CppModLoader/app/types/XmlWellFormedWriter_Namespace__Array.h>
-#include <Il2CppModLoader/app/types/XmlWellFormedWriter_State__Enum__Array.h>
-#include <Il2CppModLoader/app/types/XsdCachingReader.h>
-#include <Il2CppModLoader/app/types/XsdValidatingReader.h>
-#include <Il2CppModLoader/macros.h>
-#include <Il2CppModLoader/windows_api/memory.h>
+#include <Il2CppModLoader/app/types/BaseValidator.h>
+#include <Il2CppModLoader/app/types/XmlSchemaCollection.h>
+#include <Il2CppModLoader/app/types/PositionInfo.h>
 
 namespace app::classes::types {
-    namespace XmlAsyncCheckReaderWithLineInfo {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlAsyncCheckReaderWithLineInfo__Class** type_info = (::app::XmlAsyncCheckReaderWithLineInfo__Class**)(modloader::win::memory::resolve_rva(0x047010C0));
-    }
-    namespace XmlAsyncCheckReaderWithLineInfoNS {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlAsyncCheckReaderWithLineInfoNS__Class** type_info = (::app::XmlAsyncCheckReaderWithLineInfoNS__Class**)(modloader::win::memory::resolve_rva(0x0476AFD8));
-    }
-    namespace XmlAsyncCheckReaderWithLineInfoNSSchema {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlAsyncCheckReaderWithLineInfoNSSchema__Class** type_info = (::app::XmlAsyncCheckReaderWithLineInfoNSSchema__Class**)(modloader::win::memory::resolve_rva(0x04760D18));
-    }
-    namespace XmlAsyncCheckWriter {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlAsyncCheckWriter__Class** type_info = (::app::XmlAsyncCheckWriter__Class**)(modloader::win::memory::resolve_rva(0x0472B048));
-    }
-    namespace XmlAutoDetectWriter {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlAutoDetectWriter__Class** type_info = (::app::XmlAutoDetectWriter__Class**)(modloader::win::memory::resolve_rva(0x04781DB8));
-    }
-    namespace XmlEventCache {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlEventCache__Class** type_info = (::app::XmlEventCache__Class**)(modloader::win::memory::resolve_rva(0x04745A48));
-    }
-    namespace XmlEventCache_XmlEvent__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlEventCache_XmlEvent__Array__Class** type_info = (::app::XmlEventCache_XmlEvent__Array__Class**)(modloader::win::memory::resolve_rva(0x0478C780));
-    }
-    namespace XmlEncodedRawTextWriterIndent {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlEncodedRawTextWriterIndent__Class** type_info = (::app::XmlEncodedRawTextWriterIndent__Class**)(modloader::win::memory::resolve_rva(0x04771110));
-    }
-    namespace XmlTextWriter {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextWriter__Class** type_info = (::app::XmlTextWriter__Class**)(modloader::win::memory::resolve_rva(0x0477C980));
-    }
-    namespace XmlTextWriter_TagInfo__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextWriter_TagInfo__Array__Class** type_info = (::app::XmlTextWriter_TagInfo__Array__Class**)(modloader::win::memory::resolve_rva(0x04763A38));
-    }
-    namespace XmlTextWriter_State__Enum__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextWriter_State__Enum__Array__Class** type_info = (::app::XmlTextWriter_State__Enum__Array__Class**)(modloader::win::memory::resolve_rva(0x047101C0));
-    }
-    namespace XmlTextWriter_Namespace__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextWriter_Namespace__Array__Class** type_info = (::app::XmlTextWriter_Namespace__Array__Class**)(modloader::win::memory::resolve_rva(0x047750F8));
-    }
-    namespace XmlReader_XmlReaderDebuggerDisplayProxy {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlReader_XmlReaderDebuggerDisplayProxy__Class** type_info = (::app::XmlReader_XmlReaderDebuggerDisplayProxy__Class**)(modloader::win::memory::resolve_rva(0x04767DD0));
-    }
-    namespace XmlValidatingReaderImpl {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlValidatingReaderImpl__Class** type_info = (::app::XmlValidatingReaderImpl__Class**)(modloader::win::memory::resolve_rva(0x047787B0));
-    }
-    namespace BaseValidator {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::BaseValidator__Class** type_info = (::app::BaseValidator__Class**)(modloader::win::memory::resolve_rva(0x047099C0));
-    }
-    namespace XmlSchemaCollection {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSchemaCollection__Class** type_info = (::app::XmlSchemaCollection__Class**)(modloader::win::memory::resolve_rva(0x04734258));
-    }
-    namespace PositionInfo {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::PositionInfo__Class** type_info = (::app::PositionInfo__Class**)(modloader::win::memory::resolve_rva(0x04790F70));
-    }
-    namespace XmlValidatingReaderImpl_ValidationEventHandling {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlValidatingReaderImpl_ValidationEventHandling__Class** type_info = (::app::XmlValidatingReaderImpl_ValidationEventHandling__Class**)(modloader::win::memory::resolve_rva(0x0476FFB8));
-    }
-    namespace XmlTextReaderImpl_NoNamespaceManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextReaderImpl_NoNamespaceManager__Class** type_info = (::app::XmlTextReaderImpl_NoNamespaceManager__Class**)(modloader::win::memory::resolve_rva(0x04790E68));
-    }
-    namespace XmlTextReaderImpl_DtdParserProxy {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextReaderImpl_DtdParserProxy__Class** type_info = (::app::XmlTextReaderImpl_DtdParserProxy__Class**)(modloader::win::memory::resolve_rva(0x047431E8));
-    }
-    namespace XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer__Class** type_info = (::app::XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer__Class**)(modloader::win::memory::resolve_rva(0x047160A8));
-    }
-    namespace XmlUtf8RawTextWriterIndent {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlUtf8RawTextWriterIndent__Class** type_info = (::app::XmlUtf8RawTextWriterIndent__Class**)(modloader::win::memory::resolve_rva(0x0471E4A0));
-    }
-    namespace XmlValidatingReader {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlValidatingReader__Class** type_info = (::app::XmlValidatingReader__Class**)(modloader::win::memory::resolve_rva(0x04719870));
-    }
-    namespace XmlWellFormedWriter {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlWellFormedWriter__Class** type_info = (::app::XmlWellFormedWriter__Class**)(modloader::win::memory::resolve_rva(0x04745358));
-    }
-    namespace XmlWellFormedWriter_Namespace__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlWellFormedWriter_Namespace__Array__Class** type_info = (::app::XmlWellFormedWriter_Namespace__Array__Class**)(modloader::win::memory::resolve_rva(0x0472D330));
-    }
-    namespace XmlWellFormedWriter_ElementScope__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlWellFormedWriter_ElementScope__Array__Class** type_info = (::app::XmlWellFormedWriter_ElementScope__Array__Class**)(modloader::win::memory::resolve_rva(0x047432A0));
-    }
-    namespace XmlWellFormedWriter_AttrName__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlWellFormedWriter_AttrName__Array__Class** type_info = (::app::XmlWellFormedWriter_AttrName__Array__Class**)(modloader::win::memory::resolve_rva(0x0473DF48));
-    }
-    namespace XmlWellFormedWriter_AttributeValueCache {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlWellFormedWriter_AttributeValueCache__Class** type_info = (::app::XmlWellFormedWriter_AttributeValueCache__Class**)(modloader::win::memory::resolve_rva(0x0473EDB8));
-    }
-    namespace XmlWellFormedWriter_AttributeValueCache_Item {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlWellFormedWriter_AttributeValueCache_Item__Class** type_info = (::app::XmlWellFormedWriter_AttributeValueCache_Item__Class**)(modloader::win::memory::resolve_rva(0x04715208));
-    }
-    namespace XmlWellFormedWriter_AttributeValueCache_Item__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlWellFormedWriter_AttributeValueCache_Item__Array__Class** type_info = (::app::XmlWellFormedWriter_AttributeValueCache_Item__Array__Class**)(modloader::win::memory::resolve_rva(0x04743B88));
-    }
-    namespace XmlWellFormedWriter_State__Enum__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlWellFormedWriter_State__Enum__Array__Class** type_info = (::app::XmlWellFormedWriter_State__Enum__Array__Class**)(modloader::win::memory::resolve_rva(0x047796A8));
-    }
-    namespace WriteState__Enum__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::WriteState__Enum__Array__Class** type_info = (::app::WriteState__Enum__Array__Class**)(modloader::win::memory::resolve_rva(0x0475C290));
-    }
-    namespace XmlException {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlException__Class** type_info = (::app::XmlException__Class**)(modloader::win::memory::resolve_rva(0x047513E8));
-    }
-    namespace XmlWellFormedWriter_NamespaceResolverProxy {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlWellFormedWriter_NamespaceResolverProxy__Class** type_info = (::app::XmlWellFormedWriter_NamespaceResolverProxy__Class**)(modloader::win::memory::resolve_rva(0x0473D708));
-    }
-    namespace XmlWellFormedWriter_AttributeValueCache_BufferChunk {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlWellFormedWriter_AttributeValueCache_BufferChunk__Class** type_info = (::app::XmlWellFormedWriter_AttributeValueCache_BufferChunk__Class**)(modloader::win::memory::resolve_rva(0x04728CB8));
-    }
-    namespace XsdCachingReader {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XsdCachingReader__Class** type_info = (::app::XsdCachingReader__Class**)(modloader::win::memory::resolve_rva(0x047711B8));
-    }
-    namespace ValidatingReaderNodeData__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ValidatingReaderNodeData__Array__Class** type_info = (::app::ValidatingReaderNodeData__Array__Class**)(modloader::win::memory::resolve_rva(0x04792EE8));
-    }
-    namespace CachingEventHandler {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::CachingEventHandler__Class** type_info = (::app::CachingEventHandler__Class**)(modloader::win::memory::resolve_rva(0x047118D8));
-    }
-    namespace XsdValidatingReader {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XsdValidatingReader__Class** type_info = (::app::XsdValidatingReader__Class**)(modloader::win::memory::resolve_rva(0x0472B9B8));
-    }
-    namespace XmlSchemaValidator {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSchemaValidator__Class** type_info = (::app::XmlSchemaValidator__Class**)(modloader::win::memory::resolve_rva(0x04754E40));
-    }
-    namespace HWStack {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::HWStack__Class** type_info = (::app::HWStack__Class**)(modloader::win::memory::resolve_rva(0x04785BD0));
-    }
-    namespace IdRefNode {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::IdRefNode__Class** type_info = (::app::IdRefNode__Class**)(modloader::win::memory::resolve_rva(0x04760530));
-    }
-    namespace XmlSchemaParticle__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSchemaParticle__Array__Class** type_info = (::app::XmlSchemaParticle__Array__Class**)(modloader::win::memory::resolve_rva(0x0471C1D0));
-    }
-    namespace XmlSchemaAttribute__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSchemaAttribute__Array__Class** type_info = (::app::XmlSchemaAttribute__Array__Class**)(modloader::win::memory::resolve_rva(0x047652D8));
-    }
-    namespace Boolean__Array_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Boolean__Array_1__Class** type_info = (::app::Boolean__Array_1__Class**)(modloader::win::memory::resolve_rva(0x04799488));
-    }
-    namespace XmlValueGetter {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlValueGetter__Class** type_info = (::app::XmlValueGetter__Class**)(modloader::win::memory::resolve_rva(0x0477D540));
-    }
-    namespace AttributePSVIInfo__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::AttributePSVIInfo__Array__Class** type_info = (::app::AttributePSVIInfo__Array__Class**)(modloader::win::memory::resolve_rva(0x0475DC60));
-    }
-    namespace Parser_1 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Parser_1__Class** type_info = (::app::Parser_1__Class**)(modloader::win::memory::resolve_rva(0x0474CC40));
-    }
-    namespace XdrBuilder {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XdrBuilder__Class** type_info = (::app::XdrBuilder__Class**)(modloader::win::memory::resolve_rva(0x04737CB0));
-    }
-    namespace XdrBuilder_XdrAttributeEntry {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XdrBuilder_XdrAttributeEntry__Class** type_info = (::app::XdrBuilder_XdrAttributeEntry__Class**)(modloader::win::memory::resolve_rva(0x0473AC38));
-    }
-    namespace XdrBuilder_XdrBuildFunction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XdrBuilder_XdrBuildFunction__Class** type_info = (::app::XdrBuilder_XdrBuildFunction__Class**)(modloader::win::memory::resolve_rva(0x04776578));
-    }
-    namespace XdrBuilder_XdrAttributeEntry__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XdrBuilder_XdrAttributeEntry__Array__Class** type_info = (::app::XdrBuilder_XdrAttributeEntry__Array__Class**)(modloader::win::memory::resolve_rva(0x04787270));
-    }
-    namespace XdrBuilder_XdrEntry {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XdrBuilder_XdrEntry__Class** type_info = (::app::XdrBuilder_XdrEntry__Class**)(modloader::win::memory::resolve_rva(0x04720160));
-    }
-    namespace XdrBuilder_XdrInitFunction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XdrBuilder_XdrInitFunction__Class** type_info = (::app::XdrBuilder_XdrInitFunction__Class**)(modloader::win::memory::resolve_rva(0x047748E0));
-    }
-    namespace XdrBuilder_XdrBeginChildFunction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XdrBuilder_XdrBeginChildFunction__Class** type_info = (::app::XdrBuilder_XdrBeginChildFunction__Class**)(modloader::win::memory::resolve_rva(0x04798BF8));
-    }
-    namespace XdrBuilder_XdrEndChildFunction {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XdrBuilder_XdrEndChildFunction__Class** type_info = (::app::XdrBuilder_XdrEndChildFunction__Class**)(modloader::win::memory::resolve_rva(0x04714808));
-    }
-    namespace XdrBuilder_XdrEntry__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XdrBuilder_XdrEntry__Array__Class** type_info = (::app::XdrBuilder_XdrEntry__Array__Class**)(modloader::win::memory::resolve_rva(0x04754F00));
-    }
-    namespace ParticleContentValidator {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ParticleContentValidator__Class** type_info = (::app::ParticleContentValidator__Class**)(modloader::win::memory::resolve_rva(0x04766B18));
-    }
-    namespace SymbolsDictionary {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SymbolsDictionary__Class** type_info = (::app::SymbolsDictionary__Class**)(modloader::win::memory::resolve_rva(0x04787310));
-    }
-    namespace Positions {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Positions__Class** type_info = (::app::Positions__Class**)(modloader::win::memory::resolve_rva(0x04733188));
-    }
-    namespace SyntaxTreeNode {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SyntaxTreeNode__Class** type_info = (::app::SyntaxTreeNode__Class**)(modloader::win::memory::resolve_rva(0x047058F0));
-    }
-    namespace LeafNode {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::LeafNode__Class** type_info = (::app::LeafNode__Class**)(modloader::win::memory::resolve_rva(0x0477BFF0));
-    }
-    namespace InteriorNode {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::InteriorNode__Class** type_info = (::app::InteriorNode__Class**)(modloader::win::memory::resolve_rva(0x0476F3F0));
-    }
-    namespace SequenceNode {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SequenceNode__Class** type_info = (::app::SequenceNode__Class**)(modloader::win::memory::resolve_rva(0x0477BD70));
-    }
-    namespace XdrBuilder_ElementContent {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XdrBuilder_ElementContent__Class** type_info = (::app::XdrBuilder_ElementContent__Class**)(modloader::win::memory::resolve_rva(0x04737B90));
-    }
-    namespace XdrBuilder_GroupContent {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XdrBuilder_GroupContent__Class** type_info = (::app::XdrBuilder_GroupContent__Class**)(modloader::win::memory::resolve_rva(0x04755428));
-    }
-    namespace XdrBuilder_AttributeContent {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XdrBuilder_AttributeContent__Class** type_info = (::app::XdrBuilder_AttributeContent__Class**)(modloader::win::memory::resolve_rva(0x04795398));
-    }
-    namespace XdrBuilder_DeclBaseInfo {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XdrBuilder_DeclBaseInfo__Class** type_info = (::app::XdrBuilder_DeclBaseInfo__Class**)(modloader::win::memory::resolve_rva(0x04755620));
-    }
-    namespace XmlNode__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlNode__Array__Class** type_info = (::app::XmlNode__Array__Class**)(modloader::win::memory::resolve_rva(0x04707B78));
-    }
-    namespace XmlChildEnumerator {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlChildEnumerator__Class** type_info = (::app::XmlChildEnumerator__Class**)(modloader::win::memory::resolve_rva(0x04757928));
-    }
-    namespace XmlEntity {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlEntity__Class** type_info = (::app::XmlEntity__Class**)(modloader::win::memory::resolve_rva(0x047831C0));
-    }
-    namespace XmlLoader {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlLoader__Class** type_info = (::app::XmlLoader__Class**)(modloader::win::memory::resolve_rva(0x04703D28));
-    }
-    namespace XmlNameEx {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlNameEx__Class** type_info = (::app::XmlNameEx__Class**)(modloader::win::memory::resolve_rva(0x0474B7D0));
-    }
-    namespace XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator__Class** type_info = (::app::XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator__Class**)(modloader::win::memory::resolve_rva(0x0472D790));
-    }
-    namespace DebuggerDisplayXmlNodeProxy {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DebuggerDisplayXmlNodeProxy__Class** type_info = (::app::DebuggerDisplayXmlNodeProxy__Class**)(modloader::win::memory::resolve_rva(0x04780D98));
-    }
-    namespace XmlNodeReaderNavigator {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlNodeReaderNavigator__Class** type_info = (::app::XmlNodeReaderNavigator__Class**)(modloader::win::memory::resolve_rva(0x04712BD0));
-    }
-    namespace XmlNodeReaderNavigator_VirtualAttribute__Array {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlNodeReaderNavigator_VirtualAttribute__Array__Class** type_info = (::app::XmlNodeReaderNavigator_VirtualAttribute__Array__Class**)(modloader::win::memory::resolve_rva(0x04735898));
-    }
-    namespace XmlNotation {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlNotation__Class** type_info = (::app::XmlNotation__Class**)(modloader::win::memory::resolve_rva(0x04708C20));
-    }
-    namespace XmlUnspecifiedAttribute {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlUnspecifiedAttribute__Class** type_info = (::app::XmlUnspecifiedAttribute__Class**)(modloader::win::memory::resolve_rva(0x047374E0));
-    }
-    namespace ReaderPositionInfo {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::ReaderPositionInfo__Class** type_info = (::app::ReaderPositionInfo__Class**)(modloader::win::memory::resolve_rva(0x0471BFF8));
-    }
-    namespace DtdParser {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DtdParser__Class** type_info = (::app::DtdParser__Class**)(modloader::win::memory::resolve_rva(0x04753B88));
-    }
-    namespace DtdParser_UndeclaredNotation {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DtdParser_UndeclaredNotation__Class** type_info = (::app::DtdParser_UndeclaredNotation__Class**)(modloader::win::memory::resolve_rva(0x04731360));
-    }
-    namespace DtdParser_ParseElementOnlyContent_LocalFrame {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::DtdParser_ParseElementOnlyContent_LocalFrame__Class** type_info = (::app::DtdParser_ParseElementOnlyContent_LocalFrame__Class**)(modloader::win::memory::resolve_rva(0x0470D218));
-    }
-    namespace XmlDateTimeSerializationMode__Enum {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlDateTimeSerializationMode__Enum__Class** type_info = (::app::XmlDateTimeSerializationMode__Enum__Class**)(modloader::win::memory::resolve_rva(0x04737198));
-    }
-    namespace XmlDownloadManager {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlDownloadManager__Class** type_info = (::app::XmlDownloadManager__Class**)(modloader::win::memory::resolve_rva(0x04728A78));
-    }
-    namespace XmlDownloadManager_c_DisplayClass4_0 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlDownloadManager_c_DisplayClass4_0__Class** type_info = (::app::XmlDownloadManager_c_DisplayClass4_0__Class**)(modloader::win::memory::resolve_rva(0x047677D8));
-    }
-    namespace OpenedHost {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::OpenedHost__Class** type_info = (::app::OpenedHost__Class**)(modloader::win::memory::resolve_rva(0x0474A038));
-    }
-    namespace XmlRegisteredNonCachedStream {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlRegisteredNonCachedStream__Class** type_info = (::app::XmlRegisteredNonCachedStream__Class**)(modloader::win::memory::resolve_rva(0x047035B0));
-    }
-    namespace XmlCachedStream {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::XmlCachedStream__Class** type_info = (::app::XmlCachedStream__Class**)(modloader::win::memory::resolve_rva(0x04715C30));
-    }
-    namespace UTF16Decoder {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::UTF16Decoder__Class** type_info = (::app::UTF16Decoder__Class**)(modloader::win::memory::resolve_rva(0x0472F800));
-    }
-    namespace SafeAsciiDecoder {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::SafeAsciiDecoder__Class** type_info = (::app::SafeAsciiDecoder__Class**)(modloader::win::memory::resolve_rva(0x04707560));
-    }
-    namespace Ucs4Encoding {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Ucs4Encoding__Class** type_info = (::app::Ucs4Encoding__Class**)(modloader::win::memory::resolve_rva(0x04723558));
-    }
-    namespace Ucs4Decoder4321 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Ucs4Decoder4321__Class** type_info = (::app::Ucs4Decoder4321__Class**)(modloader::win::memory::resolve_rva(0x04786828));
-    }
-    namespace Ucs4Encoding1234 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Ucs4Encoding1234__Class** type_info = (::app::Ucs4Encoding1234__Class**)(modloader::win::memory::resolve_rva(0x04792B98));
-    }
-    namespace Ucs4Encoding4321 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Ucs4Encoding4321__Class** type_info = (::app::Ucs4Encoding4321__Class**)(modloader::win::memory::resolve_rva(0x04799210));
-    }
-    namespace Ucs4Encoding2143 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Ucs4Encoding2143__Class** type_info = (::app::Ucs4Encoding2143__Class**)(modloader::win::memory::resolve_rva(0x0475A260));
-    }
-    namespace Ucs4Encoding3412 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Ucs4Encoding3412__Class** type_info = (::app::Ucs4Encoding3412__Class**)(modloader::win::memory::resolve_rva(0x0471B368));
-    }
-    namespace Ucs4Decoder1234 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Ucs4Decoder1234__Class** type_info = (::app::Ucs4Decoder1234__Class**)(modloader::win::memory::resolve_rva(0x04784530));
-    }
-    namespace Ucs4Decoder2143 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Ucs4Decoder2143__Class** type_info = (::app::Ucs4Decoder2143__Class**)(modloader::win::memory::resolve_rva(0x04706E48));
-    }
-    namespace Ucs4Decoder3412 {
-        IL2CPP_MODLOADER_DLLEXPORT ::app::Ucs4Decoder3412__Class** type_info = (::app::Ucs4Decoder3412__Class**)(modloader::win::memory::resolve_rva(0x0473E030));
-    }
-} // namespace app::classes::types
+    namespace IDtdAttributeListInfo { IL2CPP_MODLOADER_DLLEXPORT ::app::IDtdAttributeListInfo__Class** type_info = (::app::IDtdAttributeListInfo__Class**)(modloader::win::memory::resolve_rva(0x0473F4D0)); }
+    namespace IDtdEntityInfo { IL2CPP_MODLOADER_DLLEXPORT ::app::IDtdEntityInfo__Class** type_info = (::app::IDtdEntityInfo__Class**)(modloader::win::memory::resolve_rva(0x0470E098)); }
+    namespace XmlSchema { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSchema__Class** type_info = (::app::XmlSchema__Class**)(modloader::win::memory::resolve_rva(0x04755C60)); }
+    namespace XmlSchemaCompilationSettings { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSchemaCompilationSettings__Class** type_info = (::app::XmlSchemaCompilationSettings__Class**)(modloader::win::memory::resolve_rva(0x0476B820)); }
+    namespace XmlSqlBinaryReader_QName { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSqlBinaryReader_QName__Class** type_info = (::app::XmlSqlBinaryReader_QName__Class**)(modloader::win::memory::resolve_rva(0x0474B948)); }
+    namespace XmlSqlBinaryReader { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSqlBinaryReader__Class** type_info = (::app::XmlSqlBinaryReader__Class**)(modloader::win::memory::resolve_rva(0x04755798)); }
+    namespace ReadState__Enum_1__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::ReadState__Enum_1__Array__Class** type_info = (::app::ReadState__Enum_1__Array__Class**)(modloader::win::memory::resolve_rva(0x04763620)); }
+    namespace XmlSqlBinaryReader_QName__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSqlBinaryReader_QName__Array__Class** type_info = (::app::XmlSqlBinaryReader_QName__Array__Class**)(modloader::win::memory::resolve_rva(0x047879F0)); }
+    namespace XmlSqlBinaryReader_NamespaceDecl { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSqlBinaryReader_NamespaceDecl__Class** type_info = (::app::XmlSqlBinaryReader_NamespaceDecl__Class**)(modloader::win::memory::resolve_rva(0x047412D0)); }
+    namespace XmlSqlBinaryReader_ElemInfo__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSqlBinaryReader_ElemInfo__Array__Class** type_info = (::app::XmlSqlBinaryReader_ElemInfo__Array__Class**)(modloader::win::memory::resolve_rva(0x0471DB48)); }
+    namespace XmlSqlBinaryReader_AttrInfo__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSqlBinaryReader_AttrInfo__Array__Class** type_info = (::app::XmlSqlBinaryReader_AttrInfo__Array__Class**)(modloader::win::memory::resolve_rva(0x04790428)); }
+    namespace XmlSqlBinaryReader_NestedBinXml { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSqlBinaryReader_NestedBinXml__Class** type_info = (::app::XmlSqlBinaryReader_NestedBinXml__Class**)(modloader::win::memory::resolve_rva(0x0476E390)); }
+    namespace SecureStringHasher { IL2CPP_MODLOADER_DLLEXPORT ::app::SecureStringHasher__Class** type_info = (::app::SecureStringHasher__Class**)(modloader::win::memory::resolve_rva(0x0476D3C8)); }
+    namespace SecureStringHasher_HashCodeOfStringDelegate { IL2CPP_MODLOADER_DLLEXPORT ::app::SecureStringHasher_HashCodeOfStringDelegate__Class** type_info = (::app::SecureStringHasher_HashCodeOfStringDelegate__Class**)(modloader::win::memory::resolve_rva(0x0471E1F0)); }
+    namespace IDtdInfo { IL2CPP_MODLOADER_DLLEXPORT ::app::IDtdInfo__Class** type_info = (::app::IDtdInfo__Class**)(modloader::win::memory::resolve_rva(0x047991B0)); }
+    namespace ByteStack { IL2CPP_MODLOADER_DLLEXPORT ::app::ByteStack__Class** type_info = (::app::ByteStack__Class**)(modloader::win::memory::resolve_rva(0x0477E348)); }
+    namespace TernaryTreeReadOnly { IL2CPP_MODLOADER_DLLEXPORT ::app::TernaryTreeReadOnly__Class** type_info = (::app::TernaryTreeReadOnly__Class**)(modloader::win::memory::resolve_rva(0x047438F0)); }
+    namespace XmlNodeChangedEventArgs { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlNodeChangedEventArgs__Class** type_info = (::app::XmlNodeChangedEventArgs__Class**)(modloader::win::memory::resolve_rva(0x047166F0)); }
+    namespace XmlElement { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlElement__Class** type_info = (::app::XmlElement__Class**)(modloader::win::memory::resolve_rva(0x04721088)); }
+    namespace XmlAttribute__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlAttribute__Array__Class** type_info = (::app::XmlAttribute__Array__Class**)(modloader::win::memory::resolve_rva(0x04790B70)); }
+    namespace XmlSchemaSimpleTypeContent { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSchemaSimpleTypeContent__Class** type_info = (::app::XmlSchemaSimpleTypeContent__Class**)(modloader::win::memory::resolve_rva(0x04772D40)); }
+    namespace XmlName__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlName__Array__Class** type_info = (::app::XmlName__Array__Class**)(modloader::win::memory::resolve_rva(0x04771D10)); }
+    namespace EmptyEnumerator { IL2CPP_MODLOADER_DLLEXPORT ::app::EmptyEnumerator__Class** type_info = (::app::EmptyEnumerator__Class**)(modloader::win::memory::resolve_rva(0x0472E118)); }
+    namespace XmlDocumentType { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlDocumentType__Class** type_info = (::app::XmlDocumentType__Class**)(modloader::win::memory::resolve_rva(0x04759590)); }
+    namespace XmlDeclaration { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlDeclaration__Class** type_info = (::app::XmlDeclaration__Class**)(modloader::win::memory::resolve_rva(0x0472B770)); }
+    namespace XmlComment { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlComment__Class** type_info = (::app::XmlComment__Class**)(modloader::win::memory::resolve_rva(0x047486E8)); }
+    namespace XmlDocumentFragment { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlDocumentFragment__Class** type_info = (::app::XmlDocumentFragment__Class**)(modloader::win::memory::resolve_rva(0x0478F840)); }
+    namespace XmlEntityReference { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlEntityReference__Class** type_info = (::app::XmlEntityReference__Class**)(modloader::win::memory::resolve_rva(0x04799928)); }
+    namespace XmlProcessingInstruction { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlProcessingInstruction__Class** type_info = (::app::XmlProcessingInstruction__Class**)(modloader::win::memory::resolve_rva(0x0470FE58)); }
+    namespace XmlText { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlText__Class** type_info = (::app::XmlText__Class**)(modloader::win::memory::resolve_rva(0x0473B100)); }
+    namespace XmlSignificantWhitespace { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSignificantWhitespace__Class** type_info = (::app::XmlSignificantWhitespace__Class**)(modloader::win::memory::resolve_rva(0x0476AC38)); }
+    namespace XmlWhitespace { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlWhitespace__Class** type_info = (::app::XmlWhitespace__Class**)(modloader::win::memory::resolve_rva(0x04767058)); }
+    namespace XmlTextReader { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextReader__Class** type_info = (::app::XmlTextReader__Class**)(modloader::win::memory::resolve_rva(0x047249E8)); }
+    namespace XmlTextReaderImpl { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextReaderImpl__Class** type_info = (::app::XmlTextReaderImpl__Class**)(modloader::win::memory::resolve_rva(0x04759D28)); }
+    namespace XmlTextReaderImpl_LaterInitParam { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextReaderImpl_LaterInitParam__Class** type_info = (::app::XmlTextReaderImpl_LaterInitParam__Class**)(modloader::win::memory::resolve_rva(0x0473A6D0)); }
+    namespace XmlParserContext { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlParserContext__Class** type_info = (::app::XmlParserContext__Class**)(modloader::win::memory::resolve_rva(0x0473F030)); }
+    namespace XmlTextReaderImpl_NodeData { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextReaderImpl_NodeData__Class** type_info = (::app::XmlTextReaderImpl_NodeData__Class**)(modloader::win::memory::resolve_rva(0x04724230)); }
+    namespace XmlTextReaderImpl_NodeData__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextReaderImpl_NodeData__Array__Class** type_info = (::app::XmlTextReaderImpl_NodeData__Array__Class**)(modloader::win::memory::resolve_rva(0x0472A4F0)); }
+    namespace XmlTextReaderImpl_XmlContext { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextReaderImpl_XmlContext__Class** type_info = (::app::XmlTextReaderImpl_XmlContext__Class**)(modloader::win::memory::resolve_rva(0x04768A60)); }
+    namespace XmlTextReaderImpl_ParsingState__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextReaderImpl_ParsingState__Array__Class** type_info = (::app::XmlTextReaderImpl_ParsingState__Array__Class**)(modloader::win::memory::resolve_rva(0x04714B18)); }
+    namespace IValidationEventHandling { IL2CPP_MODLOADER_DLLEXPORT ::app::IValidationEventHandling__Class** type_info = (::app::IValidationEventHandling__Class**)(modloader::win::memory::resolve_rva(0x04750518)); }
+    namespace XmlTextReaderImpl_OnDefaultAttributeUseDelegate { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextReaderImpl_OnDefaultAttributeUseDelegate__Class** type_info = (::app::XmlTextReaderImpl_OnDefaultAttributeUseDelegate__Class**)(modloader::win::memory::resolve_rva(0x047015E8)); }
+    namespace CSharpCodeProvider { IL2CPP_MODLOADER_DLLEXPORT ::app::CSharpCodeProvider__Class** type_info = (::app::CSharpCodeProvider__Class**)(modloader::win::memory::resolve_rva(0x04794C40)); }
+    namespace AstNode { IL2CPP_MODLOADER_DLLEXPORT ::app::AstNode__Class** type_info = (::app::AstNode__Class**)(modloader::win::memory::resolve_rva(0x0471DC48)); }
+    namespace Axis_AxisType__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::Axis_AxisType__Enum__Class** type_info = (::app::Axis_AxisType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04744908)); }
+    namespace XPathNodeType__Enum { IL2CPP_MODLOADER_DLLEXPORT ::app::XPathNodeType__Enum__Class** type_info = (::app::XPathNodeType__Enum__Class**)(modloader::win::memory::resolve_rva(0x047708D0)); }
+    namespace Axis { IL2CPP_MODLOADER_DLLEXPORT ::app::Axis__Class** type_info = (::app::Axis__Class**)(modloader::win::memory::resolve_rva(0x04776FA0)); }
+    namespace Filter { IL2CPP_MODLOADER_DLLEXPORT ::app::Filter__Class** type_info = (::app::Filter__Class**)(modloader::win::memory::resolve_rva(0x04751248)); }
+    namespace Function { IL2CPP_MODLOADER_DLLEXPORT ::app::Function__Class** type_info = (::app::Function__Class**)(modloader::win::memory::resolve_rva(0x04733030)); }
+    namespace XPathResultType__Enum__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::XPathResultType__Enum__Array__Class** type_info = (::app::XPathResultType__Enum__Array__Class**)(modloader::win::memory::resolve_rva(0x04703818)); }
+    namespace Group_1 { IL2CPP_MODLOADER_DLLEXPORT ::app::Group_1__Class** type_info = (::app::Group_1__Class**)(modloader::win::memory::resolve_rva(0x047328E8)); }
+    namespace Operand { IL2CPP_MODLOADER_DLLEXPORT ::app::Operand__Class** type_info = (::app::Operand__Class**)(modloader::win::memory::resolve_rva(0x0476AF68)); }
+    namespace Operator { IL2CPP_MODLOADER_DLLEXPORT ::app::Operator__Class** type_info = (::app::Operator__Class**)(modloader::win::memory::resolve_rva(0x0477D0D8)); }
+    namespace Operator_Op__Enum__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::Operator_Op__Enum__Array__Class** type_info = (::app::Operator_Op__Enum__Array__Class**)(modloader::win::memory::resolve_rva(0x04702190)); }
+    namespace Root { IL2CPP_MODLOADER_DLLEXPORT ::app::Root__Class** type_info = (::app::Root__Class**)(modloader::win::memory::resolve_rva(0x0471A940)); }
+    namespace Variable { IL2CPP_MODLOADER_DLLEXPORT ::app::Variable__Class** type_info = (::app::Variable__Class**)(modloader::win::memory::resolve_rva(0x04753108)); }
+    namespace XPathParser { IL2CPP_MODLOADER_DLLEXPORT ::app::XPathParser__Class** type_info = (::app::XPathParser__Class**)(modloader::win::memory::resolve_rva(0x04736CC0)); }
+    namespace XPathScanner { IL2CPP_MODLOADER_DLLEXPORT ::app::XPathScanner__Class** type_info = (::app::XPathScanner__Class**)(modloader::win::memory::resolve_rva(0x04783AD0)); }
+    namespace XPathParser_ParamInfo { IL2CPP_MODLOADER_DLLEXPORT ::app::XPathParser_ParamInfo__Class** type_info = (::app::XPathParser_ParamInfo__Class**)(modloader::win::memory::resolve_rva(0x04757F68)); }
+    namespace XPathItem { IL2CPP_MODLOADER_DLLEXPORT ::app::XPathItem__Class** type_info = (::app::XPathItem__Class**)(modloader::win::memory::resolve_rva(0x04708618)); }
+    namespace XPathNavigator { IL2CPP_MODLOADER_DLLEXPORT ::app::XPathNavigator__Class** type_info = (::app::XPathNavigator__Class**)(modloader::win::memory::resolve_rva(0x04734C68)); }
+    namespace XPathDocumentNavigator { IL2CPP_MODLOADER_DLLEXPORT ::app::XPathDocumentNavigator__Class** type_info = (::app::XPathDocumentNavigator__Class**)(modloader::win::memory::resolve_rva(0x0476DE90)); }
+    namespace XPathNavigatorKeyComparer { IL2CPP_MODLOADER_DLLEXPORT ::app::XPathNavigatorKeyComparer__Class** type_info = (::app::XPathNavigatorKeyComparer__Class**)(modloader::win::memory::resolve_rva(0x047160A0)); }
+    namespace XPathNodeInfoAtom { IL2CPP_MODLOADER_DLLEXPORT ::app::XPathNodeInfoAtom__Class** type_info = (::app::XPathNodeInfoAtom__Class**)(modloader::win::memory::resolve_rva(0x047221C0)); }
+    namespace XmlTextWriterBase64Encoder { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextWriterBase64Encoder__Class** type_info = (::app::XmlTextWriterBase64Encoder__Class**)(modloader::win::memory::resolve_rva(0x04700940)); }
+    namespace XmlTextEncoder { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextEncoder__Class** type_info = (::app::XmlTextEncoder__Class**)(modloader::win::memory::resolve_rva(0x04763228)); }
+    namespace BinXmlSqlDecimal { IL2CPP_MODLOADER_DLLEXPORT ::app::BinXmlSqlDecimal__Class** type_info = (::app::BinXmlSqlDecimal__Class**)(modloader::win::memory::resolve_rva(0x04717358)); }
+    namespace BitStack { IL2CPP_MODLOADER_DLLEXPORT ::app::BitStack__Class** type_info = (::app::BitStack__Class**)(modloader::win::memory::resolve_rva(0x0473FB90)); }
+    namespace XmlWriterSettings { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlWriterSettings__Class** type_info = (::app::XmlWriterSettings__Class**)(modloader::win::memory::resolve_rva(0x04740F80)); }
+    namespace HtmlEncodedRawTextWriterIndent { IL2CPP_MODLOADER_DLLEXPORT ::app::HtmlEncodedRawTextWriterIndent__Class** type_info = (::app::HtmlEncodedRawTextWriterIndent__Class**)(modloader::win::memory::resolve_rva(0x0471E608)); }
+    namespace XmlUtf8RawTextWriter { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlUtf8RawTextWriter__Class** type_info = (::app::XmlUtf8RawTextWriter__Class**)(modloader::win::memory::resolve_rva(0x0478E3F0)); }
+    namespace HtmlUtf8RawTextWriter { IL2CPP_MODLOADER_DLLEXPORT ::app::HtmlUtf8RawTextWriter__Class** type_info = (::app::HtmlUtf8RawTextWriter__Class**)(modloader::win::memory::resolve_rva(0x04728E30)); }
+    namespace HtmlUtf8RawTextWriterIndent { IL2CPP_MODLOADER_DLLEXPORT ::app::HtmlUtf8RawTextWriterIndent__Class** type_info = (::app::HtmlUtf8RawTextWriterIndent__Class**)(modloader::win::memory::resolve_rva(0x0475C340)); }
+    namespace IncrementalReadDummyDecoder { IL2CPP_MODLOADER_DLLEXPORT ::app::IncrementalReadDummyDecoder__Class** type_info = (::app::IncrementalReadDummyDecoder__Class**)(modloader::win::memory::resolve_rva(0x0478E820)); }
+    namespace QueryOutputWriter { IL2CPP_MODLOADER_DLLEXPORT ::app::QueryOutputWriter__Class** type_info = (::app::QueryOutputWriter__Class**)(modloader::win::memory::resolve_rva(0x0472CAF8)); }
+    namespace TextEncodedRawTextWriter { IL2CPP_MODLOADER_DLLEXPORT ::app::TextEncodedRawTextWriter__Class** type_info = (::app::TextEncodedRawTextWriter__Class**)(modloader::win::memory::resolve_rva(0x04719260)); }
+    namespace TextUtf8RawTextWriter { IL2CPP_MODLOADER_DLLEXPORT ::app::TextUtf8RawTextWriter__Class** type_info = (::app::TextUtf8RawTextWriter__Class**)(modloader::win::memory::resolve_rva(0x04704428)); }
+    namespace ValidatingReaderNodeData { IL2CPP_MODLOADER_DLLEXPORT ::app::ValidatingReaderNodeData__Class** type_info = (::app::ValidatingReaderNodeData__Class**)(modloader::win::memory::resolve_rva(0x0476DF70)); }
+    namespace AttributePSVIInfo { IL2CPP_MODLOADER_DLLEXPORT ::app::AttributePSVIInfo__Class** type_info = (::app::AttributePSVIInfo__Class**)(modloader::win::memory::resolve_rva(0x047766C0)); }
+    namespace XmlSchemaInfo { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSchemaInfo__Class** type_info = (::app::XmlSchemaInfo__Class**)(modloader::win::memory::resolve_rva(0x047418D0)); }
+    namespace IXmlLineInfo { IL2CPP_MODLOADER_DLLEXPORT ::app::IXmlLineInfo__Class** type_info = (::app::IXmlLineInfo__Class**)(modloader::win::memory::resolve_rva(0x0476E5C0)); }
+    namespace XmlAsyncCheckReader { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlAsyncCheckReader__Class** type_info = (::app::XmlAsyncCheckReader__Class**)(modloader::win::memory::resolve_rva(0x047035E0)); }
+    namespace XmlAsyncCheckReaderWithNS { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlAsyncCheckReaderWithNS__Class** type_info = (::app::XmlAsyncCheckReaderWithNS__Class**)(modloader::win::memory::resolve_rva(0x04731910)); }
+    namespace XmlAsyncCheckReaderWithLineInfo { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlAsyncCheckReaderWithLineInfo__Class** type_info = (::app::XmlAsyncCheckReaderWithLineInfo__Class**)(modloader::win::memory::resolve_rva(0x047010C0)); }
+    namespace XmlAsyncCheckReaderWithLineInfoNS { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlAsyncCheckReaderWithLineInfoNS__Class** type_info = (::app::XmlAsyncCheckReaderWithLineInfoNS__Class**)(modloader::win::memory::resolve_rva(0x0476AFD8)); }
+    namespace XmlAsyncCheckReaderWithLineInfoNSSchema { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlAsyncCheckReaderWithLineInfoNSSchema__Class** type_info = (::app::XmlAsyncCheckReaderWithLineInfoNSSchema__Class**)(modloader::win::memory::resolve_rva(0x04760D18)); }
+    namespace XmlAsyncCheckWriter { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlAsyncCheckWriter__Class** type_info = (::app::XmlAsyncCheckWriter__Class**)(modloader::win::memory::resolve_rva(0x0472B048)); }
+    namespace XmlAutoDetectWriter { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlAutoDetectWriter__Class** type_info = (::app::XmlAutoDetectWriter__Class**)(modloader::win::memory::resolve_rva(0x04781DB8)); }
+    namespace XmlEventCache { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlEventCache__Class** type_info = (::app::XmlEventCache__Class**)(modloader::win::memory::resolve_rva(0x04745A48)); }
+    namespace XmlEventCache_XmlEvent__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlEventCache_XmlEvent__Array__Class** type_info = (::app::XmlEventCache_XmlEvent__Array__Class**)(modloader::win::memory::resolve_rva(0x0478C780)); }
+    namespace XmlEncodedRawTextWriterIndent { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlEncodedRawTextWriterIndent__Class** type_info = (::app::XmlEncodedRawTextWriterIndent__Class**)(modloader::win::memory::resolve_rva(0x04771110)); }
+    namespace XmlTextWriter { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextWriter__Class** type_info = (::app::XmlTextWriter__Class**)(modloader::win::memory::resolve_rva(0x0477C980)); }
+    namespace XmlTextWriter_TagInfo__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextWriter_TagInfo__Array__Class** type_info = (::app::XmlTextWriter_TagInfo__Array__Class**)(modloader::win::memory::resolve_rva(0x04763A38)); }
+    namespace XmlTextWriter_State__Enum__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextWriter_State__Enum__Array__Class** type_info = (::app::XmlTextWriter_State__Enum__Array__Class**)(modloader::win::memory::resolve_rva(0x047101C0)); }
+    namespace XmlTextWriter_Namespace__Array { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlTextWriter_Namespace__Array__Class** type_info = (::app::XmlTextWriter_Namespace__Array__Class**)(modloader::win::memory::resolve_rva(0x047750F8)); }
+    namespace XmlReader_XmlReaderDebuggerDisplayProxy { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlReader_XmlReaderDebuggerDisplayProxy__Class** type_info = (::app::XmlReader_XmlReaderDebuggerDisplayProxy__Class**)(modloader::win::memory::resolve_rva(0x04767DD0)); }
+    namespace XmlValidatingReaderImpl { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlValidatingReaderImpl__Class** type_info = (::app::XmlValidatingReaderImpl__Class**)(modloader::win::memory::resolve_rva(0x047787B0)); }
+    namespace BaseValidator { IL2CPP_MODLOADER_DLLEXPORT ::app::BaseValidator__Class** type_info = (::app::BaseValidator__Class**)(modloader::win::memory::resolve_rva(0x047099C0)); }
+    namespace XmlSchemaCollection { IL2CPP_MODLOADER_DLLEXPORT ::app::XmlSchemaCollection__Class** type_info = (::app::XmlSchemaCollection__Class**)(modloader::win::memory::resolve_rva(0x04734258)); }
+    namespace PositionInfo { IL2CPP_MODLOADER_DLLEXPORT ::app::PositionInfo__Class** type_info = (::app::PositionInfo__Class**)(modloader::win::memory::resolve_rva(0x04790F70)); }
+}
