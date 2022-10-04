@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IFilter__Class* get_class() {
             return il2cpp::get_class<app::IFilter__Class>(type_info, "System.Data", "IFilter");
         }
-        inline app::IFilter* create() {
-            return il2cpp::create_object<app::IFilter>(get_class());
-        }
     } // namespace IFilter
 } // namespace app::classes::types

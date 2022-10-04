@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISerializerPlugin__Class* get_class() {
             return il2cpp::get_class<app::ISerializerPlugin__Class>(type_info, "PlayFab", "ISerializerPlugin");
         }
-        inline app::ISerializerPlugin* create() {
-            return il2cpp::create_object<app::ISerializerPlugin>(get_class());
-        }
     } // namespace ISerializerPlugin
 } // namespace app::classes::types

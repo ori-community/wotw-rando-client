@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IClipGroup__Class* get_class() {
             return il2cpp::get_class<app::IClipGroup__Class>(type_info, "", "IClipGroup");
         }
-        inline app::IClipGroup* create() {
-            return il2cpp::create_object<app::IClipGroup>(get_class());
-        }
     } // namespace IClipGroup
 } // namespace app::classes::types

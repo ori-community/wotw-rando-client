@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IXmlNode__Class* get_class() {
             return il2cpp::get_class<app::IXmlNode__Class>(type_info, "Newtonsoft.Json.Converters", "IXmlNode");
         }
-        inline app::IXmlNode* create() {
-            return il2cpp::create_object<app::IXmlNode>(get_class());
-        }
         inline app::IXmlNode__Array* create_array(int size) {
             return il2cpp::array_new<app::IXmlNode__Array>(get_class(), size);
         }

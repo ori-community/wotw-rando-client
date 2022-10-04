@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IWebRequestCreate__Class* get_class() {
             return il2cpp::get_class<app::IWebRequestCreate__Class>(type_info, "System.Net", "IWebRequestCreate");
         }
-        inline app::IWebRequestCreate* create() {
-            return il2cpp::create_object<app::IWebRequestCreate>(get_class());
-        }
     } // namespace IWebRequestCreate
 } // namespace app::classes::types

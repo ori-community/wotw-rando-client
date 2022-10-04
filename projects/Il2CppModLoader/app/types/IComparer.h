@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IComparer__Class* get_class() {
             return il2cpp::get_class<app::IComparer__Class>(type_info, "System.Collections", "IComparer");
         }
-        inline app::IComparer* create() {
-            return il2cpp::create_object<app::IComparer>(get_class());
-        }
     } // namespace IComparer
 } // namespace app::classes::types

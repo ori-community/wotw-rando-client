@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::StateMachineBehaviourProxy_IReceiver__Class* get_class() {
             return il2cpp::get_nested_class<app::StateMachineBehaviourProxy_IReceiver__Class>(type_info, "", "StateMachineBehaviourProxy", "IReceiver");
         }
-        inline app::StateMachineBehaviourProxy_IReceiver* create() {
-            return il2cpp::create_object<app::StateMachineBehaviourProxy_IReceiver>(get_class());
-        }
     } // namespace StateMachineBehaviourProxy_IReceiver
 } // namespace app::classes::types

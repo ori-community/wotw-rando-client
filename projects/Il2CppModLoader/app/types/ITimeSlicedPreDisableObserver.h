@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::ITimeSlicedPreDisableObserver__Class* get_class() {
             return il2cpp::get_class<app::ITimeSlicedPreDisableObserver__Class>(type_info, "Moon.TimeSlicer", "ITimeSlicedPreDisableObserver");
         }
-        inline app::ITimeSlicedPreDisableObserver* create() {
-            return il2cpp::create_object<app::ITimeSlicedPreDisableObserver>(get_class());
-        }
         inline app::ITimeSlicedPreDisableObserver__Array* create_array(int size) {
             return il2cpp::array_new<app::ITimeSlicedPreDisableObserver__Array>(get_class(), size);
         }

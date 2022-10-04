@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IReferenceResolver__Class* get_class() {
             return il2cpp::get_class<app::IReferenceResolver__Class>(type_info, "Newtonsoft.Json.Serialization", "IReferenceResolver");
         }
-        inline app::IReferenceResolver* create() {
-            return il2cpp::create_object<app::IReferenceResolver>(get_class());
-        }
     } // namespace IReferenceResolver
 } // namespace app::classes::types

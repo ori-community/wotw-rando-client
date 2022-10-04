@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IStompAttackable__Class* get_class() {
             return il2cpp::get_class<app::IStompAttackable__Class>(type_info, "", "IStompAttackable");
         }
-        inline app::IStompAttackable* create() {
-            return il2cpp::create_object<app::IStompAttackable>(get_class());
-        }
     } // namespace IStompAttackable
 } // namespace app::classes::types

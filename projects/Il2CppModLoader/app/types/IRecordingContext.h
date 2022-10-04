@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IRecordingContext__Class* get_class() {
             return il2cpp::get_class<app::IRecordingContext__Class>(type_info, "Moon.Timeline", "IRecordingContext");
         }
-        inline app::IRecordingContext* create() {
-            return il2cpp::create_object<app::IRecordingContext>(get_class());
-        }
     } // namespace IRecordingContext
 } // namespace app::classes::types

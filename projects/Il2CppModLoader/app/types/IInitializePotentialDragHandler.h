@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IInitializePotentialDragHandler__Class* get_class() {
             return il2cpp::get_class<app::IInitializePotentialDragHandler__Class>(type_info, "UnityEngine.EventSystems", "IInitializePotentialDragHandler");
         }
-        inline app::IInitializePotentialDragHandler* create() {
-            return il2cpp::create_object<app::IInitializePotentialDragHandler>(get_class());
-        }
     } // namespace IInitializePotentialDragHandler
 } // namespace app::classes::types

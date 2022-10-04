@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDebugMenuToggleable__Class* get_class() {
             return il2cpp::get_class<app::IDebugMenuToggleable__Class>(type_info, "", "IDebugMenuToggleable");
         }
-        inline app::IDebugMenuToggleable* create() {
-            return il2cpp::create_object<app::IDebugMenuToggleable>(get_class());
-        }
     } // namespace IDebugMenuToggleable
 } // namespace app::classes::types

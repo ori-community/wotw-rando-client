@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IDtdEntityInfo__Class* get_class() {
             return il2cpp::get_class<app::IDtdEntityInfo__Class>(type_info, "System.Xml", "IDtdEntityInfo");
         }
-        inline app::IDtdEntityInfo* create() {
-            return il2cpp::create_object<app::IDtdEntityInfo>(get_class());
-        }
         inline app::IDtdEntityInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::IDtdEntityInfo__Array>(get_class(), size);
         }

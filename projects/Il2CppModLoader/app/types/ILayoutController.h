@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ILayoutController__Class* get_class() {
             return il2cpp::get_class<app::ILayoutController__Class>(type_info, "UnityEngine.UI", "ILayoutController");
         }
-        inline app::ILayoutController* create() {
-            return il2cpp::create_object<app::ILayoutController>(get_class());
-        }
     } // namespace ILayoutController
 } // namespace app::classes::types

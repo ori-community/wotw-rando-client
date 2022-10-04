@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IModularZoneModifier__Class* get_class() {
             return il2cpp::get_class<app::IModularZoneModifier__Class>(type_info, "", "IModularZoneModifier");
         }
-        inline app::IModularZoneModifier* create() {
-            return il2cpp::create_object<app::IModularZoneModifier>(get_class());
-        }
         inline app::IModularZoneModifier__Array* create_array(int size) {
             return il2cpp::array_new<app::IModularZoneModifier__Array>(get_class(), size);
         }

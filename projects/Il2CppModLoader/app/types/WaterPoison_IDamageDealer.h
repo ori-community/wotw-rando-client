@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::WaterPoison_IDamageDealer__Class* get_class() {
             return il2cpp::get_nested_class<app::WaterPoison_IDamageDealer__Class>(type_info, "", "WaterPoison", "IDamageDealer");
         }
-        inline app::WaterPoison_IDamageDealer* create() {
-            return il2cpp::create_object<app::WaterPoison_IDamageDealer>(get_class());
-        }
         inline app::WaterPoison_IDamageDealer__Array* create_array(int size) {
             return il2cpp::array_new<app::WaterPoison_IDamageDealer__Array>(get_class(), size);
         }

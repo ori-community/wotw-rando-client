@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::ICameraInfluencer__Class* get_class() {
             return il2cpp::get_class<app::ICameraInfluencer__Class>(type_info, "", "ICameraInfluencer");
         }
-        inline app::ICameraInfluencer* create() {
-            return il2cpp::create_object<app::ICameraInfluencer>(get_class());
-        }
     } // namespace ICameraInfluencer
 } // namespace app::classes::types

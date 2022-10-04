@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISecurableChannel__Class* get_class() {
             return il2cpp::get_class<app::ISecurableChannel__Class>(type_info, "System.Runtime.Remoting.Channels", "ISecurableChannel");
         }
-        inline app::ISecurableChannel* create() {
-            return il2cpp::create_object<app::ISecurableChannel>(get_class());
-        }
     } // namespace ISecurableChannel
 } // namespace app::classes::types

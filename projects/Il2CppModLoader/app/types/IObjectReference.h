@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IObjectReference__Class* get_class() {
             return il2cpp::get_class<app::IObjectReference__Class>(type_info, "System.Runtime.Serialization", "IObjectReference");
         }
-        inline app::IObjectReference* create() {
-            return il2cpp::create_object<app::IObjectReference>(get_class());
-        }
     } // namespace IObjectReference
 } // namespace app::classes::types

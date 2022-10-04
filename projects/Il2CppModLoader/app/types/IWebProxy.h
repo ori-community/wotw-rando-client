@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IWebProxy__Class* get_class() {
             return il2cpp::get_class<app::IWebProxy__Class>(type_info, "System.Net", "IWebProxy");
         }
-        inline app::IWebProxy* create() {
-            return il2cpp::create_object<app::IWebProxy>(get_class());
-        }
     } // namespace IWebProxy
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::TrailPathProvider__Class* get_class() {
             return il2cpp::get_class<app::TrailPathProvider__Class>(type_info, "", "TrailPathProvider");
         }
-        inline app::TrailPathProvider* create() {
-            return il2cpp::create_object<app::TrailPathProvider>(get_class());
-        }
     } // namespace TrailPathProvider
 } // namespace app::classes::types

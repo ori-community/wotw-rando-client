@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IGlowAttackable__Class* get_class() {
             return il2cpp::get_class<app::IGlowAttackable__Class>(type_info, "", "IGlowAttackable");
         }
-        inline app::IGlowAttackable* create() {
-            return il2cpp::create_object<app::IGlowAttackable>(get_class());
-        }
     } // namespace IGlowAttackable
 } // namespace app::classes::types

@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::ITimelineEntity__Class* get_class() {
             return il2cpp::get_class<app::ITimelineEntity__Class>(type_info, "Moon.Timeline", "ITimelineEntity");
         }
-        inline app::ITimelineEntity* create() {
-            return il2cpp::create_object<app::ITimelineEntity>(get_class());
-        }
         inline app::ITimelineEntity__Array* create_array(int size) {
             return il2cpp::array_new<app::ITimelineEntity__Array>(get_class(), size);
         }

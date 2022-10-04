@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IBrigthnessContributionAgentWithUpdate__Class* get_class() {
             return il2cpp::get_class<app::IBrigthnessContributionAgentWithUpdate__Class>(type_info, "", "IBrigthnessContributionAgentWithUpdate");
         }
-        inline app::IBrigthnessContributionAgentWithUpdate* create() {
-            return il2cpp::create_object<app::IBrigthnessContributionAgentWithUpdate>(get_class());
-        }
     } // namespace IBrigthnessContributionAgentWithUpdate
 } // namespace app::classes::types

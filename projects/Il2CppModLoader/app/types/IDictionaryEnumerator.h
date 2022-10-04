@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDictionaryEnumerator__Class* get_class() {
             return il2cpp::get_class<app::IDictionaryEnumerator__Class>(type_info, "System.Collections", "IDictionaryEnumerator");
         }
-        inline app::IDictionaryEnumerator* create() {
-            return il2cpp::create_object<app::IDictionaryEnumerator>(get_class());
-        }
     } // namespace IDictionaryEnumerator
 } // namespace app::classes::types

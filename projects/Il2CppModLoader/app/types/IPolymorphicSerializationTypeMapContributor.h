@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPolymorphicSerializationTypeMapContributor__Class* get_class() {
             return il2cpp::get_class<app::IPolymorphicSerializationTypeMapContributor__Class>(type_info, "", "IPolymorphicSerializationTypeMapContributor");
         }
-        inline app::IPolymorphicSerializationTypeMapContributor* create() {
-            return il2cpp::create_object<app::IPolymorphicSerializationTypeMapContributor>(get_class());
-        }
     } // namespace IPolymorphicSerializationTypeMapContributor
 } // namespace app::classes::types

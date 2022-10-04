@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IBrainController__Class* get_class() {
             return il2cpp::get_class<app::IBrainController__Class>(type_info, "Moon", "IBrainController");
         }
-        inline app::IBrainController* create() {
-            return il2cpp::create_object<app::IBrainController>(get_class());
-        }
     } // namespace IBrainController
 } // namespace app::classes::types

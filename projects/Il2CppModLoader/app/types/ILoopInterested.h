@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ILoopInterested__Class* get_class() {
             return il2cpp::get_class<app::ILoopInterested__Class>(type_info, "Moon.Timeline", "ILoopInterested");
         }
-        inline app::ILoopInterested* create() {
-            return il2cpp::create_object<app::ILoopInterested>(get_class());
-        }
     } // namespace ILoopInterested
 } // namespace app::classes::types

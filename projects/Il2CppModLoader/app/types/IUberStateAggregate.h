@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IUberStateAggregate__Class* get_class() {
             return il2cpp::get_class<app::IUberStateAggregate__Class>(type_info, "Moon", "IUberStateAggregate");
         }
-        inline app::IUberStateAggregate* create() {
-            return il2cpp::create_object<app::IUberStateAggregate>(get_class());
-        }
     } // namespace IUberStateAggregate
 } // namespace app::classes::types

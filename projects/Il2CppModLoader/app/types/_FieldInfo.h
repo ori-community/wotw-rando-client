@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::_FieldInfo__Class* get_class() {
             return il2cpp::get_class<app::_FieldInfo__Class>(type_info, "System.Runtime.InteropServices", "_FieldInfo");
         }
-        inline app::_FieldInfo* create() {
-            return il2cpp::create_object<app::_FieldInfo>(get_class());
-        }
     } // namespace _FieldInfo
 } // namespace app::classes::types

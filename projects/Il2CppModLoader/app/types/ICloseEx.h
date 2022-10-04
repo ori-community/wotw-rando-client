@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ICloseEx__Class* get_class() {
             return il2cpp::get_class<app::ICloseEx__Class>(type_info, "System.Net", "ICloseEx");
         }
-        inline app::ICloseEx* create() {
-            return il2cpp::create_object<app::ICloseEx>(get_class());
-        }
     } // namespace ICloseEx
 } // namespace app::classes::types

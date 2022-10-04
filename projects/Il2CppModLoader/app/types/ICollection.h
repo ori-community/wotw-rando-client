@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ICollection__Class* get_class() {
             return il2cpp::get_class<app::ICollection__Class>(type_info, "System.Collections", "ICollection");
         }
-        inline app::ICollection* create() {
-            return il2cpp::create_object<app::ICollection>(get_class());
-        }
     } // namespace ICollection
 } // namespace app::classes::types

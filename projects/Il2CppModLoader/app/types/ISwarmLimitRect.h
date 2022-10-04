@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISwarmLimitRect__Class* get_class() {
             return il2cpp::get_class<app::ISwarmLimitRect__Class>(type_info, "", "ISwarmLimitRect");
         }
-        inline app::ISwarmLimitRect* create() {
-            return il2cpp::create_object<app::ISwarmLimitRect>(get_class());
-        }
     } // namespace ISwarmLimitRect
 } // namespace app::classes::types

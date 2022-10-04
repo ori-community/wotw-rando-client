@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IGizmo__Class* get_class() {
             return il2cpp::get_class<app::IGizmo__Class>(type_info, "Moon", "IGizmo");
         }
-        inline app::IGizmo* create() {
-            return il2cpp::create_object<app::IGizmo>(get_class());
-        }
         inline app::IGizmo__Array* create_array(int size) {
             return il2cpp::array_new<app::IGizmo__Array>(get_class(), size);
         }

@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::INavigationAgent__Class* get_class() {
             return il2cpp::get_class<app::INavigationAgent__Class>(type_info, "", "INavigationAgent");
         }
-        inline app::INavigationAgent* create() {
-            return il2cpp::create_object<app::INavigationAgent>(get_class());
-        }
     } // namespace INavigationAgent
 } // namespace app::classes::types

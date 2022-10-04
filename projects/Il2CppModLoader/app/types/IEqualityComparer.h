@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IEqualityComparer__Class* get_class() {
             return il2cpp::get_class<app::IEqualityComparer__Class>(type_info, "System.Collections", "IEqualityComparer");
         }
-        inline app::IEqualityComparer* create() {
-            return il2cpp::create_object<app::IEqualityComparer>(get_class());
-        }
     } // namespace IEqualityComparer
 } // namespace app::classes::types

@@ -11,9 +11,6 @@ namespace app::classes::types {
         inline app::ISubsystemDescriptor__Class* get_class() {
             return il2cpp::get_class<app::ISubsystemDescriptor__Class>(type_info, "UnityEngine.Experimental", "ISubsystemDescriptor");
         }
-        inline app::ISubsystemDescriptor* create() {
-            return il2cpp::create_object<app::ISubsystemDescriptor>(get_class());
-        }
         inline app::ISubsystemDescriptor__Array* create_array(int size) {
             return il2cpp::array_new<app::ISubsystemDescriptor__Array>(get_class(), size);
         }

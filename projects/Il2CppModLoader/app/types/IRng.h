@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IRng__Class* get_class() {
             return il2cpp::get_class<app::IRng__Class>(type_info, "Moon", "IRng");
         }
-        inline app::IRng* create() {
-            return il2cpp::create_object<app::IRng>(get_class());
-        }
     } // namespace IRng
 } // namespace app::classes::types

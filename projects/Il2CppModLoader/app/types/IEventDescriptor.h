@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IEventDescriptor__Class* get_class() {
             return il2cpp::get_class<app::IEventDescriptor__Class>(type_info, "Moon.Timeline", "IEventDescriptor");
         }
-        inline app::IEventDescriptor* create() {
-            return il2cpp::create_object<app::IEventDescriptor>(get_class());
-        }
         inline app::IEventDescriptor__Array* create_array(int size) {
             return il2cpp::array_new<app::IEventDescriptor__Array>(get_class(), size);
         }

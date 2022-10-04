@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISpiritLeashAttackable__Class* get_class() {
             return il2cpp::get_class<app::ISpiritLeashAttackable__Class>(type_info, "", "ISpiritLeashAttackable");
         }
-        inline app::ISpiritLeashAttackable* create() {
-            return il2cpp::create_object<app::ISpiritLeashAttackable>(get_class());
-        }
     } // namespace ISpiritLeashAttackable
 } // namespace app::classes::types

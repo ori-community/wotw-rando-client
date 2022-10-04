@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IConvertible__Class* get_class() {
             return il2cpp::get_class<app::IConvertible__Class>(type_info, "System", "IConvertible");
         }
-        inline app::IConvertible* create() {
-            return il2cpp::create_object<app::IConvertible>(get_class());
-        }
     } // namespace IConvertible
 } // namespace app::classes::types

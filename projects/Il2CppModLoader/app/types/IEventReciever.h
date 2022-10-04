@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IEventReciever__Class* get_class() {
             return il2cpp::get_class<app::IEventReciever__Class>(type_info, "Moon.Timeline", "IEventReciever");
         }
-        inline app::IEventReciever* create() {
-            return il2cpp::create_object<app::IEventReciever>(get_class());
-        }
     } // namespace IEventReciever
 } // namespace app::classes::types

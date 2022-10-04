@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISerializable__Class* get_class() {
             return il2cpp::get_class<app::ISerializable__Class>(type_info, "System.Runtime.Serialization", "ISerializable");
         }
-        inline app::ISerializable* create() {
-            return il2cpp::create_object<app::ISerializable>(get_class());
-        }
     } // namespace ISerializable
 } // namespace app::classes::types

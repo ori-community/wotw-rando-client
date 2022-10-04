@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IPrewarmable__Class* get_class() {
             return il2cpp::get_class<app::IPrewarmable__Class>(type_info, "", "IPrewarmable");
         }
-        inline app::IPrewarmable* create() {
-            return il2cpp::create_object<app::IPrewarmable>(get_class());
-        }
         inline app::IPrewarmable__Array* create_array(int size) {
             return il2cpp::array_new<app::IPrewarmable__Array>(get_class(), size);
         }

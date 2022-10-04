@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDeselectHandler__Class* get_class() {
             return il2cpp::get_class<app::IDeselectHandler__Class>(type_info, "UnityEngine.EventSystems", "IDeselectHandler");
         }
-        inline app::IDeselectHandler* create() {
-            return il2cpp::create_object<app::IDeselectHandler>(get_class());
-        }
     } // namespace IDeselectHandler
 } // namespace app::classes::types

@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::IMoonEffectComponentCache__Class* get_class() {
             return il2cpp::get_class<app::IMoonEffectComponentCache__Class>(type_info, "Moon.EffectsFramework", "IMoonEffectComponentCache");
         }
-        inline app::IMoonEffectComponentCache* create() {
-            return il2cpp::create_object<app::IMoonEffectComponentCache>(get_class());
-        }
     } // namespace IMoonEffectComponentCache
 } // namespace app::classes::types

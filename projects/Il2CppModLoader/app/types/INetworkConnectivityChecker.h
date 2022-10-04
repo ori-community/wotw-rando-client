@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::INetworkConnectivityChecker__Class* get_class() {
             return il2cpp::get_class<app::INetworkConnectivityChecker__Class>(type_info, "SystemIntegration", "INetworkConnectivityChecker");
         }
-        inline app::INetworkConnectivityChecker* create() {
-            return il2cpp::create_object<app::INetworkConnectivityChecker>(get_class());
-        }
     } // namespace INetworkConnectivityChecker
 } // namespace app::classes::types

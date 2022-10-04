@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDamageContext__Class* get_class() {
             return il2cpp::get_class<app::IDamageContext__Class>(type_info, "", "IDamageContext");
         }
-        inline app::IDamageContext* create() {
-            return il2cpp::create_object<app::IDamageContext>(get_class());
-        }
     } // namespace IDamageContext
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::INotifyPropertyChanged__Class* get_class() {
             return il2cpp::get_class<app::INotifyPropertyChanged__Class>(type_info, "System.ComponentModel", "INotifyPropertyChanged");
         }
-        inline app::INotifyPropertyChanged* create() {
-            return il2cpp::create_object<app::INotifyPropertyChanged>(get_class());
-        }
     } // namespace INotifyPropertyChanged
 } // namespace app::classes::types

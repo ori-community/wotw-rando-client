@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IDebugMenuItem__Class* get_class() {
             return il2cpp::get_class<app::IDebugMenuItem__Class>(type_info, "", "IDebugMenuItem");
         }
-        inline app::IDebugMenuItem* create() {
-            return il2cpp::create_object<app::IDebugMenuItem>(get_class());
-        }
         inline app::IDebugMenuItem__Array* create_array(int size) {
             return il2cpp::array_new<app::IDebugMenuItem__Array>(get_class(), size);
         }

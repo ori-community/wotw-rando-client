@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISecurityEncodable__Class* get_class() {
             return il2cpp::get_class<app::ISecurityEncodable__Class>(type_info, "System.Security", "ISecurityEncodable");
         }
-        inline app::ISecurityEncodable* create() {
-            return il2cpp::create_object<app::ISecurityEncodable>(get_class());
-        }
     } // namespace ISecurityEncodable
 } // namespace app::classes::types

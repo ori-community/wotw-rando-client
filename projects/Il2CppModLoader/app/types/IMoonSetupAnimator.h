@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMoonSetupAnimator__Class* get_class() {
             return il2cpp::get_class<app::IMoonSetupAnimator__Class>(type_info, "", "IMoonSetupAnimator");
         }
-        inline app::IMoonSetupAnimator* create() {
-            return il2cpp::create_object<app::IMoonSetupAnimator>(get_class());
-        }
     } // namespace IMoonSetupAnimator
 } // namespace app::classes::types

@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::ICondition__Class* get_class() {
             return il2cpp::get_class<app::ICondition__Class>(type_info, "", "ICondition");
         }
-        inline app::ICondition* create() {
-            return il2cpp::create_object<app::ICondition>(get_class());
-        }
         inline app::ICondition__Array* create_array(int size) {
             return il2cpp::array_new<app::ICondition__Array>(get_class(), size);
         }

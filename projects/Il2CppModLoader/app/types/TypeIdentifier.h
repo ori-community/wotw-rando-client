@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::TypeIdentifier__Class* get_class() {
             return il2cpp::get_class<app::TypeIdentifier__Class>(type_info, "System", "TypeIdentifier");
         }
-        inline app::TypeIdentifier* create() {
-            return il2cpp::create_object<app::TypeIdentifier>(get_class());
-        }
         inline app::TypeIdentifier__Array* create_array(int size) {
             return il2cpp::array_new<app::TypeIdentifier__Array>(get_class(), size);
         }

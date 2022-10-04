@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IFrameCaptureAgent__Class* get_class() {
             return il2cpp::get_class<app::IFrameCaptureAgent__Class>(type_info, "", "IFrameCaptureAgent");
         }
-        inline app::IFrameCaptureAgent* create() {
-            return il2cpp::create_object<app::IFrameCaptureAgent>(get_class());
-        }
         inline app::IFrameCaptureAgent__Array* create_array(int size) {
             return il2cpp::array_new<app::IFrameCaptureAgent__Array>(get_class(), size);
         }

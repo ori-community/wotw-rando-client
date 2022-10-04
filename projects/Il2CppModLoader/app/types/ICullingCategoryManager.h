@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::ICullingCategoryManager__Class* get_class() {
             return il2cpp::get_class<app::ICullingCategoryManager__Class>(type_info, "Moon.Rendering", "ICullingCategoryManager");
         }
-        inline app::ICullingCategoryManager* create() {
-            return il2cpp::create_object<app::ICullingCategoryManager>(get_class());
-        }
         inline app::ICullingCategoryManager__Array* create_array(int size) {
             return il2cpp::array_new<app::ICullingCategoryManager__Array>(get_class(), size);
         }

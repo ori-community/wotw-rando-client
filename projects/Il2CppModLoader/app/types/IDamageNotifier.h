@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDamageNotifier__Class* get_class() {
             return il2cpp::get_class<app::IDamageNotifier__Class>(type_info, "", "IDamageNotifier");
         }
-        inline app::IDamageNotifier* create() {
-            return il2cpp::create_object<app::IDamageNotifier>(get_class());
-        }
     } // namespace IDamageNotifier
 } // namespace app::classes::types

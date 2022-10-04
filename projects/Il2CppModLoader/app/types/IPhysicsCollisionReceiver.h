@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPhysicsCollisionReceiver__Class* get_class() {
             return il2cpp::get_class<app::IPhysicsCollisionReceiver__Class>(type_info, "", "IPhysicsCollisionReceiver");
         }
-        inline app::IPhysicsCollisionReceiver* create() {
-            return il2cpp::create_object<app::IPhysicsCollisionReceiver>(get_class());
-        }
     } // namespace IPhysicsCollisionReceiver
 } // namespace app::classes::types

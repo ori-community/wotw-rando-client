@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IContributeEnvoySink__Class* get_class() {
             return il2cpp::get_class<app::IContributeEnvoySink__Class>(type_info, "System.Runtime.Remoting.Contexts", "IContributeEnvoySink");
         }
-        inline app::IContributeEnvoySink* create() {
-            return il2cpp::create_object<app::IContributeEnvoySink>(get_class());
-        }
     } // namespace IContributeEnvoySink
 } // namespace app::classes::types

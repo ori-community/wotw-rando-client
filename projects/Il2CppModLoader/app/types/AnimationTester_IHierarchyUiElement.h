@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::AnimationTester_IHierarchyUiElement__Class* get_class() {
             return il2cpp::get_nested_class<app::AnimationTester_IHierarchyUiElement__Class>(type_info, "", "AnimationTester", "IHierarchyUiElement");
         }
-        inline app::AnimationTester_IHierarchyUiElement* create() {
-            return il2cpp::create_object<app::AnimationTester_IHierarchyUiElement>(get_class());
-        }
         inline app::AnimationTester_IHierarchyUiElement__Array* create_array(int size) {
             return il2cpp::array_new<app::AnimationTester_IHierarchyUiElement__Array>(get_class(), size);
         }

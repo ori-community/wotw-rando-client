@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IContainer__Class* get_class() {
             return il2cpp::get_class<app::IContainer__Class>(type_info, "System.ComponentModel", "IContainer");
         }
-        inline app::IContainer* create() {
-            return il2cpp::create_object<app::IContainer>(get_class());
-        }
     } // namespace IContainer
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMoonType__Class* get_class() {
             return il2cpp::get_class<app::IMoonType__Class>(type_info, "Moon", "IMoonType");
         }
-        inline app::IMoonType* create() {
-            return il2cpp::create_object<app::IMoonType>(get_class());
-        }
     } // namespace IMoonType
 } // namespace app::classes::types

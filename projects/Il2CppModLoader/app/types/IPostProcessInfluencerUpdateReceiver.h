@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPostProcessInfluencerUpdateReceiver__Class* get_class() {
             return il2cpp::get_class<app::IPostProcessInfluencerUpdateReceiver__Class>(type_info, "", "IPostProcessInfluencerUpdateReceiver");
         }
-        inline app::IPostProcessInfluencerUpdateReceiver* create() {
-            return il2cpp::create_object<app::IPostProcessInfluencerUpdateReceiver>(get_class());
-        }
     } // namespace IPostProcessInfluencerUpdateReceiver
 } // namespace app::classes::types

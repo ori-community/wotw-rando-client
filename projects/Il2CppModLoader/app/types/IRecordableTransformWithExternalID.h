@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IRecordableTransformWithExternalID__Class* get_class() {
             return il2cpp::get_class<app::IRecordableTransformWithExternalID__Class>(type_info, "", "IRecordableTransformWithExternalID");
         }
-        inline app::IRecordableTransformWithExternalID* create() {
-            return il2cpp::create_object<app::IRecordableTransformWithExternalID>(get_class());
-        }
     } // namespace IRecordableTransformWithExternalID
 } // namespace app::classes::types

@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::ISpiritFlameAttackable__Class* get_class() {
             return il2cpp::get_class<app::ISpiritFlameAttackable__Class>(type_info, "", "ISpiritFlameAttackable");
         }
-        inline app::ISpiritFlameAttackable* create() {
-            return il2cpp::create_object<app::ISpiritFlameAttackable>(get_class());
-        }
         inline app::ISpiritFlameAttackable__Array* create_array(int size) {
             return il2cpp::array_new<app::ISpiritFlameAttackable__Array>(get_class(), size);
         }

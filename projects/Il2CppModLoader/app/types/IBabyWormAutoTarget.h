@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IBabyWormAutoTarget__Class* get_class() {
             return il2cpp::get_class<app::IBabyWormAutoTarget__Class>(type_info, "", "IBabyWormAutoTarget");
         }
-        inline app::IBabyWormAutoTarget* create() {
-            return il2cpp::create_object<app::IBabyWormAutoTarget>(get_class());
-        }
     } // namespace IBabyWormAutoTarget
 } // namespace app::classes::types

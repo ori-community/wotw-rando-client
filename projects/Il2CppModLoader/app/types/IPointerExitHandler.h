@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPointerExitHandler__Class* get_class() {
             return il2cpp::get_class<app::IPointerExitHandler__Class>(type_info, "UnityEngine.EventSystems", "IPointerExitHandler");
         }
-        inline app::IPointerExitHandler* create() {
-            return il2cpp::create_object<app::IPointerExitHandler>(get_class());
-        }
     } // namespace IPointerExitHandler
 } // namespace app::classes::types

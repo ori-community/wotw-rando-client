@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IServiceProvider__Class* get_class() {
             return il2cpp::get_class<app::IServiceProvider__Class>(type_info, "System", "IServiceProvider");
         }
-        inline app::IServiceProvider* create() {
-            return il2cpp::create_object<app::IServiceProvider>(get_class());
-        }
     } // namespace IServiceProvider
 } // namespace app::classes::types

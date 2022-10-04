@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ICancelHandler__Class* get_class() {
             return il2cpp::get_class<app::ICancelHandler__Class>(type_info, "UnityEngine.EventSystems", "ICancelHandler");
         }
-        inline app::ICancelHandler* create() {
-            return il2cpp::create_object<app::ICancelHandler>(get_class());
-        }
     } // namespace ICancelHandler
 } // namespace app::classes::types

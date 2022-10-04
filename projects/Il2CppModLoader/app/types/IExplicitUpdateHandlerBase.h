@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IExplicitUpdateHandlerBase__Class* get_class() {
             return il2cpp::get_class<app::IExplicitUpdateHandlerBase__Class>(type_info, "Moon", "IExplicitUpdateHandlerBase");
         }
-        inline app::IExplicitUpdateHandlerBase* create() {
-            return il2cpp::create_object<app::IExplicitUpdateHandlerBase>(get_class());
-        }
     } // namespace IExplicitUpdateHandlerBase
 } // namespace app::classes::types

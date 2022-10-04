@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::IPlayFabEmitEventResponse__Class* get_class() {
             return il2cpp::get_class<app::IPlayFabEmitEventResponse__Class>(type_info, "PlayFab", "IPlayFabEmitEventResponse");
         }
-        inline app::IPlayFabEmitEventResponse* create() {
-            return il2cpp::create_object<app::IPlayFabEmitEventResponse>(get_class());
-        }
     } // namespace IPlayFabEmitEventResponse
 } // namespace app::classes::types

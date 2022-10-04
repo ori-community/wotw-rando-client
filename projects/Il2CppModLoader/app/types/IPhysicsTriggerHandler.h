@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPhysicsTriggerHandler__Class* get_class() {
             return il2cpp::get_class<app::IPhysicsTriggerHandler__Class>(type_info, "", "IPhysicsTriggerHandler");
         }
-        inline app::IPhysicsTriggerHandler* create() {
-            return il2cpp::create_object<app::IPhysicsTriggerHandler>(get_class());
-        }
     } // namespace IPhysicsTriggerHandler
 } // namespace app::classes::types

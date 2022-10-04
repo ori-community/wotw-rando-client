@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMoonEffectCompositionRoot__Class* get_class() {
             return il2cpp::get_class<app::IMoonEffectCompositionRoot__Class>(type_info, "Moon.EffectsFramework", "IMoonEffectCompositionRoot");
         }
-        inline app::IMoonEffectCompositionRoot* create() {
-            return il2cpp::create_object<app::IMoonEffectCompositionRoot>(get_class());
-        }
     } // namespace IMoonEffectCompositionRoot
 } // namespace app::classes::types

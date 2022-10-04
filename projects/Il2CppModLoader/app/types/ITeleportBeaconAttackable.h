@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ITeleportBeaconAttackable__Class* get_class() {
             return il2cpp::get_class<app::ITeleportBeaconAttackable__Class>(type_info, "", "ITeleportBeaconAttackable");
         }
-        inline app::ITeleportBeaconAttackable* create() {
-            return il2cpp::create_object<app::ITeleportBeaconAttackable>(get_class());
-        }
     } // namespace ITeleportBeaconAttackable
 } // namespace app::classes::types

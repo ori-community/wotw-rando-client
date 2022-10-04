@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IBehaviourEvent__Class* get_class() {
             return il2cpp::get_class<app::IBehaviourEvent__Class>(type_info, "UberBehaviourTree", "IBehaviourEvent");
         }
-        inline app::IBehaviourEvent* create() {
-            return il2cpp::create_object<app::IBehaviourEvent>(get_class());
-        }
         inline app::IBehaviourEvent__Array* create_array(int size) {
             return il2cpp::array_new<app::IBehaviourEvent__Array>(get_class(), size);
         }

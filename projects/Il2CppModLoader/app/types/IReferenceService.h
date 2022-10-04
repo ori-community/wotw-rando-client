@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IReferenceService__Class* get_class() {
             return il2cpp::get_class<app::IReferenceService__Class>(type_info, "System.ComponentModel.Design", "IReferenceService");
         }
-        inline app::IReferenceService* create() {
-            return il2cpp::create_object<app::IReferenceService>(get_class());
-        }
     } // namespace IReferenceService
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IAnimatorDriver__Class* get_class() {
             return il2cpp::get_class<app::IAnimatorDriver__Class>(type_info, "", "IAnimatorDriver");
         }
-        inline app::IAnimatorDriver* create() {
-            return il2cpp::create_object<app::IAnimatorDriver>(get_class());
-        }
     } // namespace IAnimatorDriver
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IUberStateUIWrapper__Class* get_class() {
             return il2cpp::get_class<app::IUberStateUIWrapper__Class>(type_info, "Moon.UberStateVisualization", "IUberStateUIWrapper");
         }
-        inline app::IUberStateUIWrapper* create() {
-            return il2cpp::create_object<app::IUberStateUIWrapper>(get_class());
-        }
     } // namespace IUberStateUIWrapper
 } // namespace app::classes::types

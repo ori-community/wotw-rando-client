@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IEnumerable__Class* get_class() {
             return il2cpp::get_class<app::IEnumerable__Class>(type_info, "System.Collections", "IEnumerable");
         }
-        inline app::IEnumerable* create() {
-            return il2cpp::create_object<app::IEnumerable>(get_class());
-        }
     } // namespace IEnumerable
 } // namespace app::classes::types

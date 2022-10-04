@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IEquipableOwner__Class* get_class() {
             return il2cpp::get_class<app::IEquipableOwner__Class>(type_info, "", "IEquipableOwner");
         }
-        inline app::IEquipableOwner* create() {
-            return il2cpp::create_object<app::IEquipableOwner>(get_class());
-        }
     } // namespace IEquipableOwner
 } // namespace app::classes::types

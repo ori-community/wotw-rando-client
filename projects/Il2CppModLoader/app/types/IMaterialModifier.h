@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMaterialModifier__Class* get_class() {
             return il2cpp::get_class<app::IMaterialModifier__Class>(type_info, "UnityEngine.UI", "IMaterialModifier");
         }
-        inline app::IMaterialModifier* create() {
-            return il2cpp::create_object<app::IMaterialModifier>(get_class());
-        }
     } // namespace IMaterialModifier
 } // namespace app::classes::types

@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IUberStateApplier__Class* get_class() {
             return il2cpp::get_class<app::IUberStateApplier__Class>(type_info, "Moon", "IUberStateApplier");
         }
-        inline app::IUberStateApplier* create() {
-            return il2cpp::create_object<app::IUberStateApplier>(get_class());
-        }
         inline app::IUberStateApplier__Array* create_array(int size) {
             return il2cpp::array_new<app::IUberStateApplier__Array>(get_class(), size);
         }

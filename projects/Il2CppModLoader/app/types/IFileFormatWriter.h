@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IFileFormatWriter__Class* get_class() {
             return il2cpp::get_class<app::IFileFormatWriter__Class>(type_info, "Unity.IO.Compression", "IFileFormatWriter");
         }
-        inline app::IFileFormatWriter* create() {
-            return il2cpp::create_object<app::IFileFormatWriter>(get_class());
-        }
     } // namespace IFileFormatWriter
 } // namespace app::classes::types

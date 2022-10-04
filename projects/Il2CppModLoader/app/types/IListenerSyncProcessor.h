@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IListenerSyncProcessor__Class* get_class() {
             return il2cpp::get_class<app::IListenerSyncProcessor__Class>(type_info, "Moon.Wwise", "IListenerSyncProcessor");
         }
-        inline app::IListenerSyncProcessor* create() {
-            return il2cpp::create_object<app::IListenerSyncProcessor>(get_class());
-        }
     } // namespace IListenerSyncProcessor
 } // namespace app::classes::types

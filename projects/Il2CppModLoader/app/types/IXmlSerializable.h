@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IXmlSerializable__Class* get_class() {
             return il2cpp::get_class<app::IXmlSerializable__Class>(type_info, "System.Xml.Serialization", "IXmlSerializable");
         }
-        inline app::IXmlSerializable* create() {
-            return il2cpp::create_object<app::IXmlSerializable>(get_class());
-        }
     } // namespace IXmlSerializable
 } // namespace app::classes::types

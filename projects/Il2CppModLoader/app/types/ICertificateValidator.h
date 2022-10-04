@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ICertificateValidator__Class* get_class() {
             return il2cpp::get_class<app::ICertificateValidator__Class>(type_info, "Mono.Security.Interface", "ICertificateValidator");
         }
-        inline app::ICertificateValidator* create() {
-            return il2cpp::create_object<app::ICertificateValidator>(get_class());
-        }
     } // namespace ICertificateValidator
 } // namespace app::classes::types

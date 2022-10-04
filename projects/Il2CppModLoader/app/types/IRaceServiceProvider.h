@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IRaceServiceProvider__Class* get_class() {
             return il2cpp::get_class<app::IRaceServiceProvider__Class>(type_info, "SystemIntegration.Races", "IRaceServiceProvider");
         }
-        inline app::IRaceServiceProvider* create() {
-            return il2cpp::create_object<app::IRaceServiceProvider>(get_class());
-        }
     } // namespace IRaceServiceProvider
 } // namespace app::classes::types

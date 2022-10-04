@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IAlphaBlendModeController__Class* get_class() {
             return il2cpp::get_class<app::IAlphaBlendModeController__Class>(type_info, "", "IAlphaBlendModeController");
         }
-        inline app::IAlphaBlendModeController* create() {
-            return il2cpp::create_object<app::IAlphaBlendModeController>(get_class());
-        }
     } // namespace IAlphaBlendModeController
 } // namespace app::classes::types

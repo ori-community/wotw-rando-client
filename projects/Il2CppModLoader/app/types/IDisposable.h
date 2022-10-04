@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDisposable__Class* get_class() {
             return il2cpp::get_class<app::IDisposable__Class>(type_info, "System", "IDisposable");
         }
-        inline app::IDisposable* create() {
-            return il2cpp::create_object<app::IDisposable>(get_class());
-        }
     } // namespace IDisposable
 } // namespace app::classes::types

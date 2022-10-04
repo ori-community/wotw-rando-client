@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IFieldOfViewInfluencer__Class* get_class() {
             return il2cpp::get_class<app::IFieldOfViewInfluencer__Class>(type_info, "", "IFieldOfViewInfluencer");
         }
-        inline app::IFieldOfViewInfluencer* create() {
-            return il2cpp::create_object<app::IFieldOfViewInfluencer>(get_class());
-        }
         inline app::IFieldOfViewInfluencer__Array* create_array(int size) {
             return il2cpp::array_new<app::IFieldOfViewInfluencer__Array>(get_class(), size);
         }

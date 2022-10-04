@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IAsyncLocal__Class* get_class() {
             return il2cpp::get_class<app::IAsyncLocal__Class>(type_info, "System.Threading", "IAsyncLocal");
         }
-        inline app::IAsyncLocal* create() {
-            return il2cpp::create_object<app::IAsyncLocal>(get_class());
-        }
         inline app::IAsyncLocal__Array* create_array(int size) {
             return il2cpp::array_new<app::IAsyncLocal__Array>(get_class(), size);
         }

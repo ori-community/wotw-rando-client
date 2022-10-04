@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IChannel__Class* get_class() {
             return il2cpp::get_class<app::IChannel__Class>(type_info, "System.Runtime.Remoting.Channels", "IChannel");
         }
-        inline app::IChannel* create() {
-            return il2cpp::create_object<app::IChannel>(get_class());
-        }
     } // namespace IChannel
 } // namespace app::classes::types

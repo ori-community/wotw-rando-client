@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPolygon__Class* get_class() {
             return il2cpp::get_class<app::IPolygon__Class>(type_info, "TriangleNet.Geometry", "IPolygon");
         }
-        inline app::IPolygon* create() {
-            return il2cpp::create_object<app::IPolygon>(get_class());
-        }
     } // namespace IPolygon
 } // namespace app::classes::types

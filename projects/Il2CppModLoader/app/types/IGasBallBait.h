@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IGasBallBait__Class* get_class() {
             return il2cpp::get_class<app::IGasBallBait__Class>(type_info, "", "IGasBallBait");
         }
-        inline app::IGasBallBait* create() {
-            return il2cpp::create_object<app::IGasBallBait>(get_class());
-        }
         inline app::IGasBallBait__Array* create_array(int size) {
             return il2cpp::array_new<app::IGasBallBait__Array>(get_class(), size);
         }

@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IVirtualTimelineGameObject__Class* get_class() {
             return il2cpp::get_class<app::IVirtualTimelineGameObject__Class>(type_info, "", "IVirtualTimelineGameObject");
         }
-        inline app::IVirtualTimelineGameObject* create() {
-            return il2cpp::create_object<app::IVirtualTimelineGameObject>(get_class());
-        }
         inline app::IVirtualTimelineGameObject__Array* create_array(int size) {
             return il2cpp::array_new<app::IVirtualTimelineGameObject__Array>(get_class(), size);
         }

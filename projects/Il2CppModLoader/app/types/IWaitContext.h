@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IWaitContext__Class* get_class() {
             return il2cpp::get_class<app::IWaitContext__Class>(type_info, "Moon.Timeline", "IWaitContext");
         }
-        inline app::IWaitContext* create() {
-            return il2cpp::create_object<app::IWaitContext>(get_class());
-        }
     } // namespace IWaitContext
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ICollisionContext__Class* get_class() {
             return il2cpp::get_class<app::ICollisionContext__Class>(type_info, "", "ICollisionContext");
         }
-        inline app::ICollisionContext* create() {
-            return il2cpp::create_object<app::ICollisionContext>(get_class());
-        }
     } // namespace ICollisionContext
 } // namespace app::classes::types

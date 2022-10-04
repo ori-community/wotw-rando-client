@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IDebugMenuPageHandler__Class* get_class() {
             return il2cpp::get_class<app::IDebugMenuPageHandler__Class>(type_info, "", "IDebugMenuPageHandler");
         }
-        inline app::IDebugMenuPageHandler* create() {
-            return il2cpp::create_object<app::IDebugMenuPageHandler>(get_class());
-        }
         inline app::IDebugMenuPageHandler__Array* create_array(int size) {
             return il2cpp::array_new<app::IDebugMenuPageHandler__Array>(get_class(), size);
         }

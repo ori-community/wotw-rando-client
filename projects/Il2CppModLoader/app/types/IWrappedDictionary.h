@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IWrappedDictionary__Class* get_class() {
             return il2cpp::get_class<app::IWrappedDictionary__Class>(type_info, "Newtonsoft.Json.Utilities", "IWrappedDictionary");
         }
-        inline app::IWrappedDictionary* create() {
-            return il2cpp::create_object<app::IWrappedDictionary>(get_class());
-        }
     } // namespace IWrappedDictionary
 } // namespace app::classes::types

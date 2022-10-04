@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPinnable__Class* get_class() {
             return il2cpp::get_class<app::IPinnable__Class>(type_info, "", "IPinnable");
         }
-        inline app::IPinnable* create() {
-            return il2cpp::create_object<app::IPinnable>(get_class());
-        }
     } // namespace IPinnable
 } // namespace app::classes::types

@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IAnimatedValueListener__Class* get_class() {
             return il2cpp::get_class<app::IAnimatedValueListener__Class>(type_info, "Moon", "IAnimatedValueListener");
         }
-        inline app::IAnimatedValueListener* create() {
-            return il2cpp::create_object<app::IAnimatedValueListener>(get_class());
-        }
         inline app::IAnimatedValueListener__Array* create_array(int size) {
             return il2cpp::array_new<app::IAnimatedValueListener__Array>(get_class(), size);
         }

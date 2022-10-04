@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IXmlSchemaInfo__Class* get_class() {
             return il2cpp::get_class<app::IXmlSchemaInfo__Class>(type_info, "System.Xml.Schema", "IXmlSchemaInfo");
         }
-        inline app::IXmlSchemaInfo* create() {
-            return il2cpp::create_object<app::IXmlSchemaInfo>(get_class());
-        }
     } // namespace IXmlSchemaInfo
 } // namespace app::classes::types

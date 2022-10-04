@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IRecordable__Class* get_class() {
             return il2cpp::get_class<app::IRecordable__Class>(type_info, "", "IRecordable");
         }
-        inline app::IRecordable* create() {
-            return il2cpp::create_object<app::IRecordable>(get_class());
-        }
         inline app::IRecordable__Array* create_array(int size) {
             return il2cpp::array_new<app::IRecordable__Array>(get_class(), size);
         }

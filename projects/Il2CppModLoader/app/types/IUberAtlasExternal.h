@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IUberAtlasExternal__Class* get_class() {
             return il2cpp::get_class<app::IUberAtlasExternal__Class>(type_info, "", "IUberAtlasExternal");
         }
-        inline app::IUberAtlasExternal* create() {
-            return il2cpp::create_object<app::IUberAtlasExternal>(get_class());
-        }
     } // namespace IUberAtlasExternal
 } // namespace app::classes::types

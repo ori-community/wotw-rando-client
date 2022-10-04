@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISoundListener__Class* get_class() {
             return il2cpp::get_class<app::ISoundListener__Class>(type_info, "Moon.Wwise", "ISoundListener");
         }
-        inline app::ISoundListener* create() {
-            return il2cpp::create_object<app::ISoundListener>(get_class());
-        }
     } // namespace ISoundListener
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IXmlLineInfo__Class* get_class() {
             return il2cpp::get_class<app::IXmlLineInfo__Class>(type_info, "System.Xml", "IXmlLineInfo");
         }
-        inline app::IXmlLineInfo* create() {
-            return il2cpp::create_object<app::IXmlLineInfo>(get_class());
-        }
     } // namespace IXmlLineInfo
 } // namespace app::classes::types

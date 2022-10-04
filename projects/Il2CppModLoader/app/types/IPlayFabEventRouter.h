@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPlayFabEventRouter__Class* get_class() {
             return il2cpp::get_class<app::IPlayFabEventRouter__Class>(type_info, "PlayFab", "IPlayFabEventRouter");
         }
-        inline app::IPlayFabEventRouter* create() {
-            return il2cpp::create_object<app::IPlayFabEventRouter>(get_class());
-        }
     } // namespace IPlayFabEventRouter
 } // namespace app::classes::types

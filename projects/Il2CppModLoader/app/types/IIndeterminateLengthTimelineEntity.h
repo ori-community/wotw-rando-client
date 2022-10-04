@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IIndeterminateLengthTimelineEntity__Class* get_class() {
             return il2cpp::get_class<app::IIndeterminateLengthTimelineEntity__Class>(type_info, "Moon.Timeline", "IIndeterminateLengthTimelineEntity");
         }
-        inline app::IIndeterminateLengthTimelineEntity* create() {
-            return il2cpp::create_object<app::IIndeterminateLengthTimelineEntity>(get_class());
-        }
     } // namespace IIndeterminateLengthTimelineEntity
 } // namespace app::classes::types

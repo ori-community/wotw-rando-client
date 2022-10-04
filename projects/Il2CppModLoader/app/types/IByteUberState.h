@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IByteUberState__Class* get_class() {
             return il2cpp::get_class<app::IByteUberState__Class>(type_info, "Moon", "IByteUberState");
         }
-        inline app::IByteUberState* create() {
-            return il2cpp::create_object<app::IByteUberState>(get_class());
-        }
     } // namespace IByteUberState
 } // namespace app::classes::types

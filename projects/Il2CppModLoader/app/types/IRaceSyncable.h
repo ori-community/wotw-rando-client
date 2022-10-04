@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IRaceSyncable__Class* get_class() {
             return il2cpp::get_class<app::IRaceSyncable__Class>(type_info, "Moon", "IRaceSyncable");
         }
-        inline app::IRaceSyncable* create() {
-            return il2cpp::create_object<app::IRaceSyncable>(get_class());
-        }
     } // namespace IRaceSyncable
 } // namespace app::classes::types

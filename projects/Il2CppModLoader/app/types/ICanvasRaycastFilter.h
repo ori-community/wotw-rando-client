@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ICanvasRaycastFilter__Class* get_class() {
             return il2cpp::get_class<app::ICanvasRaycastFilter__Class>(type_info, "UnityEngine", "ICanvasRaycastFilter");
         }
-        inline app::ICanvasRaycastFilter* create() {
-            return il2cpp::create_object<app::ICanvasRaycastFilter>(get_class());
-        }
     } // namespace ICanvasRaycastFilter
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPointerDownHandler__Class* get_class() {
             return il2cpp::get_class<app::IPointerDownHandler__Class>(type_info, "UnityEngine.EventSystems", "IPointerDownHandler");
         }
-        inline app::IPointerDownHandler* create() {
-            return il2cpp::create_object<app::IPointerDownHandler>(get_class());
-        }
     } // namespace IPointerDownHandler
 } // namespace app::classes::types

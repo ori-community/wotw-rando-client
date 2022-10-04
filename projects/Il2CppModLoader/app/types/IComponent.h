@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IComponent__Class* get_class() {
             return il2cpp::get_class<app::IComponent__Class>(type_info, "System.ComponentModel", "IComponent");
         }
-        inline app::IComponent* create() {
-            return il2cpp::create_object<app::IComponent>(get_class());
-        }
         inline app::IComponent__Array* create_array(int size) {
             return il2cpp::array_new<app::IComponent__Array>(get_class(), size);
         }

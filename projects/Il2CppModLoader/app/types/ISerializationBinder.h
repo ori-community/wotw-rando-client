@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISerializationBinder__Class* get_class() {
             return il2cpp::get_class<app::ISerializationBinder__Class>(type_info, "Newtonsoft.Json.Serialization", "ISerializationBinder");
         }
-        inline app::ISerializationBinder* create() {
-            return il2cpp::create_object<app::ISerializationBinder>(get_class());
-        }
     } // namespace ISerializationBinder
 } // namespace app::classes::types

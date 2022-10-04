@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::ICredentials__Class* get_class() {
             return il2cpp::get_class<app::ICredentials__Class>(type_info, "System.Net", "ICredentials");
         }
-        inline app::ICredentials* create() {
-            return il2cpp::create_object<app::ICredentials>(get_class());
-        }
         inline app::ICredentials__Array* create_array(int size) {
             return il2cpp::array_new<app::ICredentials__Array>(get_class(), size);
         }

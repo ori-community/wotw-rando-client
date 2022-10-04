@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IGlobalRecordingTableReceiver__Class* get_class() {
             return il2cpp::get_class<app::IGlobalRecordingTableReceiver__Class>(type_info, "", "IGlobalRecordingTableReceiver");
         }
-        inline app::IGlobalRecordingTableReceiver* create() {
-            return il2cpp::create_object<app::IGlobalRecordingTableReceiver>(get_class());
-        }
     } // namespace IGlobalRecordingTableReceiver
 } // namespace app::classes::types

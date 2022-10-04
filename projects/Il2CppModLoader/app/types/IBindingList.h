@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IBindingList__Class* get_class() {
             return il2cpp::get_class<app::IBindingList__Class>(type_info, "System.ComponentModel", "IBindingList");
         }
-        inline app::IBindingList* create() {
-            return il2cpp::create_object<app::IBindingList>(get_class());
-        }
     } // namespace IBindingList
 } // namespace app::classes::types

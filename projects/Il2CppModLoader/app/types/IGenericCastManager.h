@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IGenericCastManager__Class* get_class() {
             return il2cpp::get_class<app::IGenericCastManager__Class>(type_info, "", "IGenericCastManager");
         }
-        inline app::IGenericCastManager* create() {
-            return il2cpp::create_object<app::IGenericCastManager>(get_class());
-        }
     } // namespace IGenericCastManager
 } // namespace app::classes::types

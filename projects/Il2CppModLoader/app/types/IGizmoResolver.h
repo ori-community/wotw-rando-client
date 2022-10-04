@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::IGizmoResolver__Class* get_class() {
             return il2cpp::get_class<app::IGizmoResolver__Class>(type_info, "", "IGizmoResolver");
         }
-        inline app::IGizmoResolver* create() {
-            return il2cpp::create_object<app::IGizmoResolver>(get_class());
-        }
     } // namespace IGizmoResolver
 } // namespace app::classes::types

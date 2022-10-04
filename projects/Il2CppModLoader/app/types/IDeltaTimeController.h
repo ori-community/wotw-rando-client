@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDeltaTimeController__Class* get_class() {
             return il2cpp::get_class<app::IDeltaTimeController__Class>(type_info, "usedStandaloneScripts.DeltaTimeManagers", "IDeltaTimeController");
         }
-        inline app::IDeltaTimeController* create() {
-            return il2cpp::create_object<app::IDeltaTimeController>(get_class());
-        }
     } // namespace IDeltaTimeController
 } // namespace app::classes::types

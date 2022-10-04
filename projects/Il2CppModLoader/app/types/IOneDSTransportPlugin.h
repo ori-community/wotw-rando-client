@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IOneDSTransportPlugin__Class* get_class() {
             return il2cpp::get_class<app::IOneDSTransportPlugin__Class>(type_info, "PlayFab", "IOneDSTransportPlugin");
         }
-        inline app::IOneDSTransportPlugin* create() {
-            return il2cpp::create_object<app::IOneDSTransportPlugin>(get_class());
-        }
     } // namespace IOneDSTransportPlugin
 } // namespace app::classes::types

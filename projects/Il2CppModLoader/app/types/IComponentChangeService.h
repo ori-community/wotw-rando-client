@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IComponentChangeService__Class* get_class() {
             return il2cpp::get_class<app::IComponentChangeService__Class>(type_info, "System.ComponentModel.Design", "IComponentChangeService");
         }
-        inline app::IComponentChangeService* create() {
-            return il2cpp::create_object<app::IComponentChangeService>(get_class());
-        }
     } // namespace IComponentChangeService
 } // namespace app::classes::types

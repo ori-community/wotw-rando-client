@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::ILever__Class* get_class() {
             return il2cpp::get_class<app::ILever__Class>(type_info, "", "ILever");
         }
-        inline app::ILever* create() {
-            return il2cpp::create_object<app::ILever>(get_class());
-        }
         inline app::ILever__Array* create_array(int size) {
             return il2cpp::array_new<app::ILever__Array>(get_class(), size);
         }

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ILocomotionMovementProcessor__Class* get_class() {
             return il2cpp::get_class<app::ILocomotionMovementProcessor__Class>(type_info, "", "ILocomotionMovementProcessor");
         }
-        inline app::ILocomotionMovementProcessor* create() {
-            return il2cpp::create_object<app::ILocomotionMovementProcessor>(get_class());
-        }
     } // namespace ILocomotionMovementProcessor
 } // namespace app::classes::types

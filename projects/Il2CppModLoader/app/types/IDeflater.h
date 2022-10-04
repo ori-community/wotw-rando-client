@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDeflater__Class* get_class() {
             return il2cpp::get_class<app::IDeflater__Class>(type_info, "Unity.IO.Compression", "IDeflater");
         }
-        inline app::IDeflater* create() {
-            return il2cpp::create_object<app::IDeflater>(get_class());
-        }
     } // namespace IDeflater
 } // namespace app::classes::types

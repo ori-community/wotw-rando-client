@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IBouncealbeFromCartBouncer__Class* get_class() {
             return il2cpp::get_class<app::IBouncealbeFromCartBouncer__Class>(type_info, "", "IBouncealbeFromCartBouncer");
         }
-        inline app::IBouncealbeFromCartBouncer* create() {
-            return il2cpp::create_object<app::IBouncealbeFromCartBouncer>(get_class());
-        }
     } // namespace IBouncealbeFromCartBouncer
 } // namespace app::classes::types

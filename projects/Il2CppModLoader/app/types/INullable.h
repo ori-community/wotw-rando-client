@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::INullable__Class* get_class() {
             return il2cpp::get_class<app::INullable__Class>(type_info, "System.Data.SqlTypes", "INullable");
         }
-        inline app::INullable* create() {
-            return il2cpp::create_object<app::INullable>(get_class());
-        }
     } // namespace INullable
 } // namespace app::classes::types

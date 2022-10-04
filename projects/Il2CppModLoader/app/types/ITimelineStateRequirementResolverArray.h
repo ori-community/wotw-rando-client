@@ -11,9 +11,6 @@ namespace app::classes::types {
         inline app::ITimelineStateRequirementResolverArray__Class* get_class() {
             return il2cpp::get_class<app::ITimelineStateRequirementResolverArray__Class>(type_info, "", "ITimelineStateRequirementResolverArray");
         }
-        inline app::ITimelineStateRequirementResolverArray* create() {
-            return il2cpp::create_object<app::ITimelineStateRequirementResolverArray>(get_class());
-        }
         inline app::ITimelineStateRequirementResolverArray__Array* create_array(int size) {
             return il2cpp::array_new<app::ITimelineStateRequirementResolverArray__Array>(get_class(), size);
         }

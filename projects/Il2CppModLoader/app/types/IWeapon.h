@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::IWeapon__Class* get_class() {
             return il2cpp::get_class<app::IWeapon__Class>(type_info, "Moon", "IWeapon");
         }
-        inline app::IWeapon* create() {
-            return il2cpp::create_object<app::IWeapon>(get_class());
-        }
     } // namespace IWeapon
 } // namespace app::classes::types

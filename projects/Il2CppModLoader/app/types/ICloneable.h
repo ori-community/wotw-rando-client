@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ICloneable__Class* get_class() {
             return il2cpp::get_class<app::ICloneable__Class>(type_info, "System", "ICloneable");
         }
-        inline app::ICloneable* create() {
-            return il2cpp::create_object<app::ICloneable>(get_class());
-        }
     } // namespace ICloneable
 } // namespace app::classes::types

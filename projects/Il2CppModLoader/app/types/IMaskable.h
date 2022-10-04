@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMaskable__Class* get_class() {
             return il2cpp::get_class<app::IMaskable__Class>(type_info, "UnityEngine.UI", "IMaskable");
         }
-        inline app::IMaskable* create() {
-            return il2cpp::create_object<app::IMaskable>(get_class());
-        }
     } // namespace IMaskable
 } // namespace app::classes::types

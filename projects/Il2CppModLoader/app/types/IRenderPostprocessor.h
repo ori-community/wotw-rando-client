@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IRenderPostprocessor__Class* get_class() {
             return il2cpp::get_class<app::IRenderPostprocessor__Class>(type_info, "", "IRenderPostprocessor");
         }
-        inline app::IRenderPostprocessor* create() {
-            return il2cpp::create_object<app::IRenderPostprocessor>(get_class());
-        }
         inline app::IRenderPostprocessor__Array* create_array(int size) {
             return il2cpp::array_new<app::IRenderPostprocessor__Array>(get_class(), size);
         }

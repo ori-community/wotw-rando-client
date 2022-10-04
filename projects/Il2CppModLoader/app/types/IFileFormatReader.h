@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IFileFormatReader__Class* get_class() {
             return il2cpp::get_class<app::IFileFormatReader__Class>(type_info, "Unity.IO.Compression", "IFileFormatReader");
         }
-        inline app::IFileFormatReader* create() {
-            return il2cpp::create_object<app::IFileFormatReader>(get_class());
-        }
     } // namespace IFileFormatReader
 } // namespace app::classes::types

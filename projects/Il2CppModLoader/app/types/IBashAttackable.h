@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IBashAttackable__Class* get_class() {
             return il2cpp::get_class<app::IBashAttackable__Class>(type_info, "", "IBashAttackable");
         }
-        inline app::IBashAttackable* create() {
-            return il2cpp::create_object<app::IBashAttackable>(get_class());
-        }
     } // namespace IBashAttackable
 } // namespace app::classes::types

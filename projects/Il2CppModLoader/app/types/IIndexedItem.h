@@ -11,9 +11,6 @@ namespace app::classes::types {
         inline app::IIndexedItem__Class* get_class() {
             return il2cpp::get_class<app::IIndexedItem__Class>(type_info, "", "IIndexedItem");
         }
-        inline app::IIndexedItem* create() {
-            return il2cpp::create_object<app::IIndexedItem>(get_class());
-        }
         inline app::IIndexedItem__Array* create_array(int size) {
             return il2cpp::array_new<app::IIndexedItem__Array>(get_class(), size);
         }

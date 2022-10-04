@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::_MemberInfo__Class* get_class() {
             return il2cpp::get_class<app::_MemberInfo__Class>(type_info, "System.Runtime.InteropServices", "_MemberInfo");
         }
-        inline app::_MemberInfo* create() {
-            return il2cpp::create_object<app::_MemberInfo>(get_class());
-        }
     } // namespace _MemberInfo
 } // namespace app::classes::types

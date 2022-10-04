@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPlayFabTransportPlugin__Class* get_class() {
             return il2cpp::get_class<app::IPlayFabTransportPlugin__Class>(type_info, "PlayFab", "IPlayFabTransportPlugin");
         }
-        inline app::IPlayFabTransportPlugin* create() {
-            return il2cpp::create_object<app::IPlayFabTransportPlugin>(get_class());
-        }
     } // namespace IPlayFabTransportPlugin
 } // namespace app::classes::types

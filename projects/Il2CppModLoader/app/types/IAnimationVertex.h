@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::IAnimationVertex__Class* get_class() {
             return il2cpp::get_class<app::IAnimationVertex__Class>(type_info, "", "IAnimationVertex");
         }
-        inline app::IAnimationVertex* create() {
-            return il2cpp::create_object<app::IAnimationVertex>(get_class());
-        }
     } // namespace IAnimationVertex
 } // namespace app::classes::types

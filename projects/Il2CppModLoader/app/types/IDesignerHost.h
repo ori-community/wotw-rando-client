@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDesignerHost__Class* get_class() {
             return il2cpp::get_class<app::IDesignerHost__Class>(type_info, "System.ComponentModel.Design", "IDesignerHost");
         }
-        inline app::IDesignerHost* create() {
-            return il2cpp::create_object<app::IDesignerHost>(get_class());
-        }
     } // namespace IDesignerHost
 } // namespace app::classes::types

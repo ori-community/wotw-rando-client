@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISpiritLeashHook__Class* get_class() {
             return il2cpp::get_class<app::ISpiritLeashHook__Class>(type_info, "", "ISpiritLeashHook");
         }
-        inline app::ISpiritLeashHook* create() {
-            return il2cpp::create_object<app::ISpiritLeashHook>(get_class());
-        }
     } // namespace ISpiritLeashHook
 } // namespace app::classes::types

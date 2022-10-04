@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IPooled__Class* get_class() {
             return il2cpp::get_class<app::IPooled__Class>(type_info, "", "IPooled");
         }
-        inline app::IPooled* create() {
-            return il2cpp::create_object<app::IPooled>(get_class());
-        }
         inline app::IPooled__Array* create_array(int size) {
             return il2cpp::array_new<app::IPooled__Array>(get_class(), size);
         }

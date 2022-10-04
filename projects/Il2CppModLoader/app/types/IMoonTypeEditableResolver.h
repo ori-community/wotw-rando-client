@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMoonTypeEditableResolver__Class* get_class() {
             return il2cpp::get_class<app::IMoonTypeEditableResolver__Class>(type_info, "Moon", "IMoonTypeEditableResolver");
         }
-        inline app::IMoonTypeEditableResolver* create() {
-            return il2cpp::create_object<app::IMoonTypeEditableResolver>(get_class());
-        }
     } // namespace IMoonTypeEditableResolver
 } // namespace app::classes::types

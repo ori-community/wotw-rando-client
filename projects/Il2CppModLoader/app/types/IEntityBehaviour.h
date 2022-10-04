@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IEntityBehaviour__Class* get_class() {
             return il2cpp::get_class<app::IEntityBehaviour__Class>(type_info, "Moon", "IEntityBehaviour");
         }
-        inline app::IEntityBehaviour* create() {
-            return il2cpp::create_object<app::IEntityBehaviour>(get_class());
-        }
         inline app::IEntityBehaviour__Array* create_array(int size) {
             return il2cpp::array_new<app::IEntityBehaviour__Array>(get_class(), size);
         }

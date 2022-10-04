@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IUpdateHandler__Class* get_class() {
             return il2cpp::get_class<app::IUpdateHandler__Class>(type_info, "Moon", "IUpdateHandler");
         }
-        inline app::IUpdateHandler* create() {
-            return il2cpp::create_object<app::IUpdateHandler>(get_class());
-        }
     } // namespace IUpdateHandler
 } // namespace app::classes::types

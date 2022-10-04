@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPuppetBase__Class* get_class() {
             return il2cpp::get_class<app::IPuppetBase__Class>(type_info, "", "IPuppetBase");
         }
-        inline app::IPuppetBase* create() {
-            return il2cpp::create_object<app::IPuppetBase>(get_class());
-        }
     } // namespace IPuppetBase
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IRenderPipelineAsset__Class* get_class() {
             return il2cpp::get_class<app::IRenderPipelineAsset__Class>(type_info, "UnityEngine.Experimental.Rendering", "IRenderPipelineAsset");
         }
-        inline app::IRenderPipelineAsset* create() {
-            return il2cpp::create_object<app::IRenderPipelineAsset>(get_class());
-        }
     } // namespace IRenderPipelineAsset
 } // namespace app::classes::types

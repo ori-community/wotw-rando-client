@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::ICameraFrustumSuspendable__Class* get_class() {
             return il2cpp::get_class<app::ICameraFrustumSuspendable__Class>(type_info, "", "ICameraFrustumSuspendable");
         }
-        inline app::ICameraFrustumSuspendable* create() {
-            return il2cpp::create_object<app::ICameraFrustumSuspendable>(get_class());
-        }
         inline app::ICameraFrustumSuspendable__Array* create_array(int size) {
             return il2cpp::array_new<app::ICameraFrustumSuspendable__Array>(get_class(), size);
         }

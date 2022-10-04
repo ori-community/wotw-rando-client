@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IEnumerator__Class* get_class() {
             return il2cpp::get_class<app::IEnumerator__Class>(type_info, "System.Collections", "IEnumerator");
         }
-        inline app::IEnumerator* create() {
-            return il2cpp::create_object<app::IEnumerator>(get_class());
-        }
         inline app::IEnumerator__Array* create_array(int size) {
             return il2cpp::array_new<app::IEnumerator__Array>(get_class(), size);
         }

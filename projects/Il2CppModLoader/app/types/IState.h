@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IState__Class* get_class() {
             return il2cpp::get_class<app::IState__Class>(type_info, "Moon.FSM", "IState");
         }
-        inline app::IState* create() {
-            return il2cpp::create_object<app::IState>(get_class());
-        }
     } // namespace IState
 } // namespace app::classes::types

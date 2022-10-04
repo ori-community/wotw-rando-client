@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPostProcessInfluencerSceneBounded__Class* get_class() {
             return il2cpp::get_class<app::IPostProcessInfluencerSceneBounded__Class>(type_info, "", "IPostProcessInfluencerSceneBounded");
         }
-        inline app::IPostProcessInfluencerSceneBounded* create() {
-            return il2cpp::create_object<app::IPostProcessInfluencerSceneBounded>(get_class());
-        }
     } // namespace IPostProcessInfluencerSceneBounded
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IXmlTextParser__Class* get_class() {
             return il2cpp::get_class<app::IXmlTextParser__Class>(type_info, "System.Xml.Serialization", "IXmlTextParser");
         }
-        inline app::IXmlTextParser* create() {
-            return il2cpp::create_object<app::IXmlTextParser>(get_class());
-        }
     } // namespace IXmlTextParser
 } // namespace app::classes::types

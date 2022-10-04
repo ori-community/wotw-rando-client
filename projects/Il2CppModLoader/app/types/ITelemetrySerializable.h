@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ITelemetrySerializable__Class* get_class() {
             return il2cpp::get_class<app::ITelemetrySerializable__Class>(type_info, "", "ITelemetrySerializable");
         }
-        inline app::ITelemetrySerializable* create() {
-            return il2cpp::create_object<app::ITelemetrySerializable>(get_class());
-        }
     } // namespace ITelemetrySerializable
 } // namespace app::classes::types

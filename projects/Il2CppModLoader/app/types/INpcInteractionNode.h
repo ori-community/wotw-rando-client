@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::INpcInteractionNode__Class* get_class() {
             return il2cpp::get_class<app::INpcInteractionNode__Class>(type_info, "", "INpcInteractionNode");
         }
-        inline app::INpcInteractionNode* create() {
-            return il2cpp::create_object<app::INpcInteractionNode>(get_class());
-        }
     } // namespace INpcInteractionNode
 } // namespace app::classes::types

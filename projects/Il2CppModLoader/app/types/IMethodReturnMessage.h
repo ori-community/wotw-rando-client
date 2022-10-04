@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMethodReturnMessage__Class* get_class() {
             return il2cpp::get_class<app::IMethodReturnMessage__Class>(type_info, "System.Runtime.Remoting.Messaging", "IMethodReturnMessage");
         }
-        inline app::IMethodReturnMessage* create() {
-            return il2cpp::create_object<app::IMethodReturnMessage>(get_class());
-        }
     } // namespace IMethodReturnMessage
 } // namespace app::classes::types

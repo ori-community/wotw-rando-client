@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMeshModifier__Class* get_class() {
             return il2cpp::get_class<app::IMeshModifier__Class>(type_info, "UnityEngine.UI", "IMeshModifier");
         }
-        inline app::IMeshModifier* create() {
-            return il2cpp::create_object<app::IMeshModifier>(get_class());
-        }
     } // namespace IMeshModifier
 } // namespace app::classes::types

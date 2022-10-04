@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IConsoleDriver__Class* get_class() {
             return il2cpp::get_class<app::IConsoleDriver__Class>(type_info, "System", "IConsoleDriver");
         }
-        inline app::IConsoleDriver* create() {
-            return il2cpp::create_object<app::IConsoleDriver>(get_class());
-        }
     } // namespace IConsoleDriver
 } // namespace app::classes::types

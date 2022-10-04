@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IChargeDashAttackable__Class* get_class() {
             return il2cpp::get_class<app::IChargeDashAttackable__Class>(type_info, "", "IChargeDashAttackable");
         }
-        inline app::IChargeDashAttackable* create() {
-            return il2cpp::create_object<app::IChargeDashAttackable>(get_class());
-        }
     } // namespace IChargeDashAttackable
 } // namespace app::classes::types

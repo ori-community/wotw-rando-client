@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IReflectableType__Class* get_class() {
             return il2cpp::get_class<app::IReflectableType__Class>(type_info, "System.Reflection", "IReflectableType");
         }
-        inline app::IReflectableType* create() {
-            return il2cpp::create_object<app::IReflectableType>(get_class());
-        }
     } // namespace IReflectableType
 } // namespace app::classes::types

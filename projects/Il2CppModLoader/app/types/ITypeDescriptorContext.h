@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ITypeDescriptorContext__Class* get_class() {
             return il2cpp::get_class<app::ITypeDescriptorContext__Class>(type_info, "System.ComponentModel", "ITypeDescriptorContext");
         }
-        inline app::ITypeDescriptorContext* create() {
-            return il2cpp::create_object<app::ITypeDescriptorContext>(get_class());
-        }
     } // namespace ITypeDescriptorContext
 } // namespace app::classes::types

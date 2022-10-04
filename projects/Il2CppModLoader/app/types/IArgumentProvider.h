@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IArgumentProvider__Class* get_class() {
             return il2cpp::get_class<app::IArgumentProvider__Class>(type_info, "System.Linq.Expressions", "IArgumentProvider");
         }
-        inline app::IArgumentProvider* create() {
-            return il2cpp::create_object<app::IArgumentProvider>(get_class());
-        }
     } // namespace IArgumentProvider
 } // namespace app::classes::types

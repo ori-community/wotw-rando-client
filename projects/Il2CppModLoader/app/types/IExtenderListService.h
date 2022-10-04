@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IExtenderListService__Class* get_class() {
             return il2cpp::get_class<app::IExtenderListService__Class>(type_info, "System.ComponentModel.Design", "IExtenderListService");
         }
-        inline app::IExtenderListService* create() {
-            return il2cpp::create_object<app::IExtenderListService>(get_class());
-        }
     } // namespace IExtenderListService
 } // namespace app::classes::types

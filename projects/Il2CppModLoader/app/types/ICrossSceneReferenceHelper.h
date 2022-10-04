@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::ICrossSceneReferenceHelper__Class* get_class() {
             return il2cpp::get_class<app::ICrossSceneReferenceHelper__Class>(type_info, "Moon", "ICrossSceneReferenceHelper");
         }
-        inline app::ICrossSceneReferenceHelper* create() {
-            return il2cpp::create_object<app::ICrossSceneReferenceHelper>(get_class());
-        }
     } // namespace ICrossSceneReferenceHelper
 } // namespace app::classes::types

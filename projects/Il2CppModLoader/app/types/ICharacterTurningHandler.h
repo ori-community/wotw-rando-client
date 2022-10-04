@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ICharacterTurningHandler__Class* get_class() {
             return il2cpp::get_class<app::ICharacterTurningHandler__Class>(type_info, "", "ICharacterTurningHandler");
         }
-        inline app::ICharacterTurningHandler* create() {
-            return il2cpp::create_object<app::ICharacterTurningHandler>(get_class());
-        }
     } // namespace ICharacterTurningHandler
 } // namespace app::classes::types

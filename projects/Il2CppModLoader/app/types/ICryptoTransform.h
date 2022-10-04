@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ICryptoTransform__Class* get_class() {
             return il2cpp::get_class<app::ICryptoTransform__Class>(type_info, "System.Security.Cryptography", "ICryptoTransform");
         }
-        inline app::ICryptoTransform* create() {
-            return il2cpp::create_object<app::ICryptoTransform>(get_class());
-        }
     } // namespace ICryptoTransform
 } // namespace app::classes::types

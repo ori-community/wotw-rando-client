@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMoonDriverExecutionOrderMap__Class* get_class() {
             return il2cpp::get_class<app::IMoonDriverExecutionOrderMap__Class>(type_info, "Moon", "IMoonDriverExecutionOrderMap");
         }
-        inline app::IMoonDriverExecutionOrderMap* create() {
-            return il2cpp::create_object<app::IMoonDriverExecutionOrderMap>(get_class());
-        }
     } // namespace IMoonDriverExecutionOrderMap
 } // namespace app::classes::types

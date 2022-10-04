@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::_EventInfo__Class* get_class() {
             return il2cpp::get_class<app::_EventInfo__Class>(type_info, "System.Runtime.InteropServices", "_EventInfo");
         }
-        inline app::_EventInfo* create() {
-            return il2cpp::create_object<app::_EventInfo>(get_class());
-        }
     } // namespace _EventInfo
 } // namespace app::classes::types

@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IContextAttribute__Class* get_class() {
             return il2cpp::get_class<app::IContextAttribute__Class>(type_info, "System.Runtime.Remoting.Contexts", "IContextAttribute");
         }
-        inline app::IContextAttribute* create() {
-            return il2cpp::create_object<app::IContextAttribute>(get_class());
-        }
         inline app::IContextAttribute__Array* create_array(int size) {
             return il2cpp::array_new<app::IContextAttribute__Array>(get_class(), size);
         }

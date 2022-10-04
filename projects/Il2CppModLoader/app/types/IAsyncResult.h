@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IAsyncResult__Class* get_class() {
             return il2cpp::get_class<app::IAsyncResult__Class>(type_info, "System", "IAsyncResult");
         }
-        inline app::IAsyncResult* create() {
-            return il2cpp::create_object<app::IAsyncResult>(get_class());
-        }
     } // namespace IAsyncResult
 } // namespace app::classes::types

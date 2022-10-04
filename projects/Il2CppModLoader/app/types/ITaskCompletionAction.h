@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ITaskCompletionAction__Class* get_class() {
             return il2cpp::get_class<app::ITaskCompletionAction__Class>(type_info, "System.Threading.Tasks", "ITaskCompletionAction");
         }
-        inline app::ITaskCompletionAction* create() {
-            return il2cpp::create_object<app::ITaskCompletionAction>(get_class());
-        }
     } // namespace ITaskCompletionAction
 } // namespace app::classes::types

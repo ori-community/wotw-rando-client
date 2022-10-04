@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMonoSslStream__Class* get_class() {
             return il2cpp::get_class<app::IMonoSslStream__Class>(type_info, "Mono.Security.Interface", "IMonoSslStream");
         }
-        inline app::IMonoSslStream* create() {
-            return il2cpp::create_object<app::IMonoSslStream>(get_class());
-        }
     } // namespace IMonoSslStream
 } // namespace app::classes::types

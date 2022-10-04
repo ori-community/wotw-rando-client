@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDynamicMessageSink__Class* get_class() {
             return il2cpp::get_class<app::IDynamicMessageSink__Class>(type_info, "System.Runtime.Remoting.Contexts", "IDynamicMessageSink");
         }
-        inline app::IDynamicMessageSink* create() {
-            return il2cpp::create_object<app::IDynamicMessageSink>(get_class());
-        }
     } // namespace IDynamicMessageSink
 } // namespace app::classes::types

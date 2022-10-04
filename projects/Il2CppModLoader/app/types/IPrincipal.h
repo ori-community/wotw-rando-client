@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::IPrincipal__Class* get_class() {
             return il2cpp::get_class<app::IPrincipal__Class>(type_info, "System.Security.Principal", "IPrincipal");
         }
-        inline app::IPrincipal* create() {
-            return il2cpp::create_object<app::IPrincipal>(get_class());
-        }
     } // namespace IPrincipal
 } // namespace app::classes::types

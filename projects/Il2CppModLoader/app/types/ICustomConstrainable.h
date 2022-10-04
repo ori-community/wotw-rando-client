@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ICustomConstrainable__Class* get_class() {
             return il2cpp::get_class<app::ICustomConstrainable__Class>(type_info, "Moon.Timeline", "ICustomConstrainable");
         }
-        inline app::ICustomConstrainable* create() {
-            return il2cpp::create_object<app::ICustomConstrainable>(get_class());
-        }
     } // namespace ICustomConstrainable
 } // namespace app::classes::types

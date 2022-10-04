@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IGoThroughPlatformTester__Class* get_class() {
             return il2cpp::get_class<app::IGoThroughPlatformTester__Class>(type_info, "", "IGoThroughPlatformTester");
         }
-        inline app::IGoThroughPlatformTester* create() {
-            return il2cpp::create_object<app::IGoThroughPlatformTester>(get_class());
-        }
     } // namespace IGoThroughPlatformTester
 } // namespace app::classes::types

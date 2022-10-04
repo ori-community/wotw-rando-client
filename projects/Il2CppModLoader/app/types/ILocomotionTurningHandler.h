@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ILocomotionTurningHandler__Class* get_class() {
             return il2cpp::get_class<app::ILocomotionTurningHandler__Class>(type_info, "", "ILocomotionTurningHandler");
         }
-        inline app::ILocomotionTurningHandler* create() {
-            return il2cpp::create_object<app::ILocomotionTurningHandler>(get_class());
-        }
     } // namespace ILocomotionTurningHandler
 } // namespace app::classes::types

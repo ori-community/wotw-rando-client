@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::ITestInterface__Class* get_class() {
             return il2cpp::get_class<app::ITestInterface__Class>(type_info, "", "ITestInterface");
         }
-        inline app::ITestInterface* create() {
-            return il2cpp::create_object<app::ITestInterface>(get_class());
-        }
     } // namespace ITestInterface
 } // namespace app::classes::types

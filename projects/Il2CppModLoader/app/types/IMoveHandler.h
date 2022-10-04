@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMoveHandler__Class* get_class() {
             return il2cpp::get_class<app::IMoveHandler__Class>(type_info, "UnityEngine.EventSystems", "IMoveHandler");
         }
-        inline app::IMoveHandler* create() {
-            return il2cpp::create_object<app::IMoveHandler>(get_class());
-        }
     } // namespace IMoveHandler
 } // namespace app::classes::types

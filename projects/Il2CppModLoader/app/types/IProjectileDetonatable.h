@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IProjectileDetonatable__Class* get_class() {
             return il2cpp::get_class<app::IProjectileDetonatable__Class>(type_info, "", "IProjectileDetonatable");
         }
-        inline app::IProjectileDetonatable* create() {
-            return il2cpp::create_object<app::IProjectileDetonatable>(get_class());
-        }
     } // namespace IProjectileDetonatable
 } // namespace app::classes::types

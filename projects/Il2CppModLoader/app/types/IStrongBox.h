@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IStrongBox__Class* get_class() {
             return il2cpp::get_class<app::IStrongBox__Class>(type_info, "System.Runtime.CompilerServices", "IStrongBox");
         }
-        inline app::IStrongBox* create() {
-            return il2cpp::create_object<app::IStrongBox>(get_class());
-        }
         inline app::IStrongBox__Array* create_array(int size) {
             return il2cpp::array_new<app::IStrongBox__Array>(get_class(), size);
         }

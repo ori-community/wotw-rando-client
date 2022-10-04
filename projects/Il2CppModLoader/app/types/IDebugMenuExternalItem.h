@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDebugMenuExternalItem__Class* get_class() {
             return il2cpp::get_class<app::IDebugMenuExternalItem__Class>(type_info, "", "IDebugMenuExternalItem");
         }
-        inline app::IDebugMenuExternalItem* create() {
-            return il2cpp::create_object<app::IDebugMenuExternalItem>(get_class());
-        }
     } // namespace IDebugMenuExternalItem
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ICharacter__Class* get_class() {
             return il2cpp::get_class<app::ICharacter__Class>(type_info, "", "ICharacter");
         }
-        inline app::ICharacter* create() {
-            return il2cpp::create_object<app::ICharacter>(get_class());
-        }
     } // namespace ICharacter
 } // namespace app::classes::types

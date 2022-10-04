@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ITypeDescriptorFilterService__Class* get_class() {
             return il2cpp::get_class<app::ITypeDescriptorFilterService__Class>(type_info, "System.ComponentModel.Design", "ITypeDescriptorFilterService");
         }
-        inline app::ITypeDescriptorFilterService* create() {
-            return il2cpp::create_object<app::ITypeDescriptorFilterService>(get_class());
-        }
     } // namespace ITypeDescriptorFilterService
 } // namespace app::classes::types

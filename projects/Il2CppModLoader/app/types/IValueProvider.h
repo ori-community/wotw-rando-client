@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IValueProvider__Class* get_class() {
             return il2cpp::get_class<app::IValueProvider__Class>(type_info, "Newtonsoft.Json.Serialization", "IValueProvider");
         }
-        inline app::IValueProvider* create() {
-            return il2cpp::create_object<app::IValueProvider>(get_class());
-        }
     } // namespace IValueProvider
 } // namespace app::classes::types

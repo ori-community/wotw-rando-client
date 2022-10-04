@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IClientChannelSinkProvider__Class* get_class() {
             return il2cpp::get_class<app::IClientChannelSinkProvider__Class>(type_info, "System.Runtime.Remoting.Channels", "IClientChannelSinkProvider");
         }
-        inline app::IClientChannelSinkProvider* create() {
-            return il2cpp::create_object<app::IClientChannelSinkProvider>(get_class());
-        }
     } // namespace IClientChannelSinkProvider
 } // namespace app::classes::types

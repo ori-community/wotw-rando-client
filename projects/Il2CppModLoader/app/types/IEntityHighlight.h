@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IEntityHighlight__Class* get_class() {
             return il2cpp::get_class<app::IEntityHighlight__Class>(type_info, "", "IEntityHighlight");
         }
-        inline app::IEntityHighlight* create() {
-            return il2cpp::create_object<app::IEntityHighlight>(get_class());
-        }
     } // namespace IEntityHighlight
 } // namespace app::classes::types

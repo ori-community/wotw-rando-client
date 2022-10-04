@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IVirtualTimelineGameObjectSelfBuild__Class* get_class() {
             return il2cpp::get_class<app::IVirtualTimelineGameObjectSelfBuild__Class>(type_info, "", "IVirtualTimelineGameObjectSelfBuild");
         }
-        inline app::IVirtualTimelineGameObjectSelfBuild* create() {
-            return il2cpp::create_object<app::IVirtualTimelineGameObjectSelfBuild>(get_class());
-        }
     } // namespace IVirtualTimelineGameObjectSelfBuild
 } // namespace app::classes::types

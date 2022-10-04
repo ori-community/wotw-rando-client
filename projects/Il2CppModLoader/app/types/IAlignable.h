@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IAlignable__Class* get_class() {
             return il2cpp::get_class<app::IAlignable__Class>(type_info, "", "IAlignable");
         }
-        inline app::IAlignable* create() {
-            return il2cpp::create_object<app::IAlignable>(get_class());
-        }
     } // namespace IAlignable
 } // namespace app::classes::types

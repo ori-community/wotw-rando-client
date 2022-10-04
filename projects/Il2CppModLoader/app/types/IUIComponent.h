@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::IUIComponent__Class* get_class() {
             return il2cpp::get_class<app::IUIComponent__Class>(type_info, "Moon.UI", "IUIComponent");
         }
-        inline app::IUIComponent* create() {
-            return il2cpp::create_object<app::IUIComponent>(get_class());
-        }
     } // namespace IUIComponent
 } // namespace app::classes::types

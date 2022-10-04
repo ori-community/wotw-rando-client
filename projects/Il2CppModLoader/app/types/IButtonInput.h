@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IButtonInput__Class* get_class() {
             return il2cpp::get_class<app::IButtonInput__Class>(type_info, "SmartInput", "IButtonInput");
         }
-        inline app::IButtonInput* create() {
-            return il2cpp::create_object<app::IButtonInput>(get_class());
-        }
         inline app::IButtonInput__Array* create_array(int size) {
             return il2cpp::array_new<app::IButtonInput__Array>(get_class(), size);
         }

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ITriangulator__Class* get_class() {
             return il2cpp::get_class<app::ITriangulator__Class>(type_info, "TriangleNet.Meshing", "ITriangulator");
         }
-        inline app::ITriangulator* create() {
-            return il2cpp::create_object<app::ITriangulator>(get_class());
-        }
     } // namespace ITriangulator
 } // namespace app::classes::types

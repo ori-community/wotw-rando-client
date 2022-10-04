@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IExtenderProvider__Class* get_class() {
             return il2cpp::get_class<app::IExtenderProvider__Class>(type_info, "System.ComponentModel", "IExtenderProvider");
         }
-        inline app::IExtenderProvider* create() {
-            return il2cpp::create_object<app::IExtenderProvider>(get_class());
-        }
         inline app::IExtenderProvider__Array* create_array(int size) {
             return il2cpp::array_new<app::IExtenderProvider__Array>(get_class(), size);
         }

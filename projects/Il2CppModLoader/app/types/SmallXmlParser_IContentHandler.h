@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::SmallXmlParser_IContentHandler__Class* get_class() {
             return il2cpp::get_nested_class<app::SmallXmlParser_IContentHandler__Class>(type_info, "Mono.Xml", "SmallXmlParser", "IContentHandler");
         }
-        inline app::SmallXmlParser_IContentHandler* create() {
-            return il2cpp::create_object<app::SmallXmlParser_IContentHandler>(get_class());
-        }
     } // namespace SmallXmlParser_IContentHandler
 } // namespace app::classes::types

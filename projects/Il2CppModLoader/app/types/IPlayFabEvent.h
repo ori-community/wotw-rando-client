@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::IPlayFabEvent__Class* get_class() {
             return il2cpp::get_class<app::IPlayFabEvent__Class>(type_info, "PlayFab", "IPlayFabEvent");
         }
-        inline app::IPlayFabEvent* create() {
-            return il2cpp::create_object<app::IPlayFabEvent>(get_class());
-        }
     } // namespace IPlayFabEvent
 } // namespace app::classes::types

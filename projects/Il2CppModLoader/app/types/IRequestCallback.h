@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IRequestCallback__Class* get_class() {
             return il2cpp::get_class<app::IRequestCallback__Class>(type_info, "Moon.Network.Web", "IRequestCallback");
         }
-        inline app::IRequestCallback* create() {
-            return il2cpp::create_object<app::IRequestCallback>(get_class());
-        }
     } // namespace IRequestCallback
 } // namespace app::classes::types

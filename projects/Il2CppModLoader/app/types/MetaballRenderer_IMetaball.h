@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::MetaballRenderer_IMetaball__Class* get_class() {
             return il2cpp::get_nested_class<app::MetaballRenderer_IMetaball__Class>(type_info, "Metaballs2D", "MetaballRenderer", "IMetaball");
         }
-        inline app::MetaballRenderer_IMetaball* create() {
-            return il2cpp::create_object<app::MetaballRenderer_IMetaball>(get_class());
-        }
         inline app::MetaballRenderer_IMetaball__Array* create_array(int size) {
             return il2cpp::array_new<app::MetaballRenderer_IMetaball__Array>(get_class(), size);
         }

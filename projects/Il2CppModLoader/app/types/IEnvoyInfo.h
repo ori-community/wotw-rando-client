@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IEnvoyInfo__Class* get_class() {
             return il2cpp::get_class<app::IEnvoyInfo__Class>(type_info, "System.Runtime.Remoting", "IEnvoyInfo");
         }
-        inline app::IEnvoyInfo* create() {
-            return il2cpp::create_object<app::IEnvoyInfo>(get_class());
-        }
     } // namespace IEnvoyInfo
 } // namespace app::classes::types

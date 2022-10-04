@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IVideoPlayer__Class* get_class() {
             return il2cpp::get_class<app::IVideoPlayer__Class>(type_info, "", "IVideoPlayer");
         }
-        inline app::IVideoPlayer* create() {
-            return il2cpp::create_object<app::IVideoPlayer>(get_class());
-        }
     } // namespace IVideoPlayer
 } // namespace app::classes::types

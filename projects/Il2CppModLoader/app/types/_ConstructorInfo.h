@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::_ConstructorInfo__Class* get_class() {
             return il2cpp::get_class<app::_ConstructorInfo__Class>(type_info, "System.Runtime.InteropServices", "_ConstructorInfo");
         }
-        inline app::_ConstructorInfo* create() {
-            return il2cpp::create_object<app::_ConstructorInfo>(get_class());
-        }
     } // namespace _ConstructorInfo
 } // namespace app::classes::types

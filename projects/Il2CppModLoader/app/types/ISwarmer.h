@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISwarmer__Class* get_class() {
             return il2cpp::get_class<app::ISwarmer__Class>(type_info, "", "ISwarmer");
         }
-        inline app::ISwarmer* create() {
-            return il2cpp::create_object<app::ISwarmer>(get_class());
-        }
     } // namespace ISwarmer
 } // namespace app::classes::types

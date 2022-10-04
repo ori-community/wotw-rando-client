@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IInputTransition__Class* get_class() {
             return il2cpp::get_class<app::IInputTransition__Class>(type_info, "Moon.InteractionGraph", "IInputTransition");
         }
-        inline app::IInputTransition* create() {
-            return il2cpp::create_object<app::IInputTransition>(get_class());
-        }
         inline app::IInputTransition__Array* create_array(int size) {
             return il2cpp::array_new<app::IInputTransition__Array>(get_class(), size);
         }

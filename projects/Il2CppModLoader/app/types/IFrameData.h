@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IFrameData__Class* get_class() {
             return il2cpp::get_class<app::IFrameData__Class>(type_info, "", "IFrameData");
         }
-        inline app::IFrameData* create() {
-            return il2cpp::create_object<app::IFrameData>(get_class());
-        }
     } // namespace IFrameData
 } // namespace app::classes::types

@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::IMoonResolverContext__Class* get_class() {
             return il2cpp::get_class<app::IMoonResolverContext__Class>(type_info, "Moon", "IMoonResolverContext");
         }
-        inline app::IMoonResolverContext* create() {
-            return il2cpp::create_object<app::IMoonResolverContext>(get_class());
-        }
     } // namespace IMoonResolverContext
 } // namespace app::classes::types

@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::IMoonSetupLogic__Class* get_class() {
             return il2cpp::get_class<app::IMoonSetupLogic__Class>(type_info, "", "IMoonSetupLogic");
         }
-        inline app::IMoonSetupLogic* create() {
-            return il2cpp::create_object<app::IMoonSetupLogic>(get_class());
-        }
     } // namespace IMoonSetupLogic
 } // namespace app::classes::types

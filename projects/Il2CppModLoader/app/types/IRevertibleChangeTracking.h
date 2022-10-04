@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IRevertibleChangeTracking__Class* get_class() {
             return il2cpp::get_class<app::IRevertibleChangeTracking__Class>(type_info, "System.ComponentModel", "IRevertibleChangeTracking");
         }
-        inline app::IRevertibleChangeTracking* create() {
-            return il2cpp::create_object<app::IRevertibleChangeTracking>(get_class());
-        }
     } // namespace IRevertibleChangeTracking
 } // namespace app::classes::types

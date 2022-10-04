@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IFormatter__Class* get_class() {
             return il2cpp::get_class<app::IFormatter__Class>(type_info, "System.Runtime.Serialization", "IFormatter");
         }
-        inline app::IFormatter* create() {
-            return il2cpp::create_object<app::IFormatter>(get_class());
-        }
     } // namespace IFormatter
 } // namespace app::classes::types

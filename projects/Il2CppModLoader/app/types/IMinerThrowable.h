@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMinerThrowable__Class* get_class() {
             return il2cpp::get_class<app::IMinerThrowable__Class>(type_info, "", "IMinerThrowable");
         }
-        inline app::IMinerThrowable* create() {
-            return il2cpp::create_object<app::IMinerThrowable>(get_class());
-        }
     } // namespace IMinerThrowable
 } // namespace app::classes::types

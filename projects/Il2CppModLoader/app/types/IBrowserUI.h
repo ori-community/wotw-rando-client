@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IBrowserUI__Class* get_class() {
             return il2cpp::get_class<app::IBrowserUI__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "IBrowserUI");
         }
-        inline app::IBrowserUI* create() {
-            return il2cpp::create_object<app::IBrowserUI>(get_class());
-        }
     } // namespace IBrowserUI
 } // namespace app::classes::types

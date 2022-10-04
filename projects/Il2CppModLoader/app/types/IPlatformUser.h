@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPlatformUser__Class* get_class() {
             return il2cpp::get_class<app::IPlatformUser__Class>(type_info, "SystemIntegration", "IPlatformUser");
         }
-        inline app::IPlatformUser* create() {
-            return il2cpp::create_object<app::IPlatformUser>(get_class());
-        }
     } // namespace IPlatformUser
 } // namespace app::classes::types

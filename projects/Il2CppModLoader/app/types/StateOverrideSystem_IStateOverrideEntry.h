@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::StateOverrideSystem_IStateOverrideEntry__Class* get_class() {
             return il2cpp::get_nested_class<app::StateOverrideSystem_IStateOverrideEntry__Class>(type_info, "", "StateOverrideSystem", "IStateOverrideEntry");
         }
-        inline app::StateOverrideSystem_IStateOverrideEntry* create() {
-            return il2cpp::create_object<app::StateOverrideSystem_IStateOverrideEntry>(get_class());
-        }
         inline app::StateOverrideSystem_IStateOverrideEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::StateOverrideSystem_IStateOverrideEntry__Array>(get_class(), size);
         }

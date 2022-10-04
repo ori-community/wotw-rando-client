@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IRtpcFeed__Class* get_class() {
             return il2cpp::get_class<app::IRtpcFeed__Class>(type_info, "", "IRtpcFeed");
         }
-        inline app::IRtpcFeed* create() {
-            return il2cpp::create_object<app::IRtpcFeed>(get_class());
-        }
     } // namespace IRtpcFeed
 } // namespace app::classes::types

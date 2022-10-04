@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ITupleInternal__Class* get_class() {
             return il2cpp::get_class<app::ITupleInternal__Class>(type_info, "System", "ITupleInternal");
         }
-        inline app::ITupleInternal* create() {
-            return il2cpp::create_object<app::ITupleInternal>(get_class());
-        }
     } // namespace ITupleInternal
 } // namespace app::classes::types

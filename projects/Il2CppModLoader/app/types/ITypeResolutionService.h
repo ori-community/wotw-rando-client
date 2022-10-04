@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ITypeResolutionService__Class* get_class() {
             return il2cpp::get_class<app::ITypeResolutionService__Class>(type_info, "System.ComponentModel.Design", "ITypeResolutionService");
         }
-        inline app::ITypeResolutionService* create() {
-            return il2cpp::create_object<app::ITypeResolutionService>(get_class());
-        }
     } // namespace ITypeResolutionService
 } // namespace app::classes::types

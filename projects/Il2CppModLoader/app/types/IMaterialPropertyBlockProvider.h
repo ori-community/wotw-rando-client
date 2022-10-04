@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMaterialPropertyBlockProvider__Class* get_class() {
             return il2cpp::get_class<app::IMaterialPropertyBlockProvider__Class>(type_info, "", "IMaterialPropertyBlockProvider");
         }
-        inline app::IMaterialPropertyBlockProvider* create() {
-            return il2cpp::create_object<app::IMaterialPropertyBlockProvider>(get_class());
-        }
     } // namespace IMaterialPropertyBlockProvider
 } // namespace app::classes::types

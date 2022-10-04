@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IEntry__Class* get_class() {
             return il2cpp::get_class<app::IEntry__Class>(type_info, "", "IEntry");
         }
-        inline app::IEntry* create() {
-            return il2cpp::create_object<app::IEntry>(get_class());
-        }
         inline app::IEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::IEntry__Array>(get_class(), size);
         }

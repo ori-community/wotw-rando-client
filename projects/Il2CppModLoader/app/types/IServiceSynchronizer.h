@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IServiceSynchronizer__Class* get_class() {
             return il2cpp::get_class<app::IServiceSynchronizer__Class>(type_info, "SystemIntegration.Synchronizer", "IServiceSynchronizer");
         }
-        inline app::IServiceSynchronizer* create() {
-            return il2cpp::create_object<app::IServiceSynchronizer>(get_class());
-        }
     } // namespace IServiceSynchronizer
 } // namespace app::classes::types

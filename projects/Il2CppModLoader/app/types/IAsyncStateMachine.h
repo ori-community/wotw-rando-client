@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IAsyncStateMachine__Class* get_class() {
             return il2cpp::get_class<app::IAsyncStateMachine__Class>(type_info, "System.Runtime.CompilerServices", "IAsyncStateMachine");
         }
-        inline app::IAsyncStateMachine* create() {
-            return il2cpp::create_object<app::IAsyncStateMachine>(get_class());
-        }
     } // namespace IAsyncStateMachine
 } // namespace app::classes::types

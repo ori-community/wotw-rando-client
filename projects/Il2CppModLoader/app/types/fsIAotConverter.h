@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::fsIAotConverter__Class* get_class() {
             return il2cpp::get_class<app::fsIAotConverter__Class>(type_info, "FullSerializer", "fsIAotConverter");
         }
-        inline app::fsIAotConverter* create() {
-            return il2cpp::create_object<app::fsIAotConverter>(get_class());
-        }
     } // namespace fsIAotConverter
 } // namespace app::classes::types

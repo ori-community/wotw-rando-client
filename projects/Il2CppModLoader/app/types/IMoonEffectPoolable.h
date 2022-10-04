@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMoonEffectPoolable__Class* get_class() {
             return il2cpp::get_class<app::IMoonEffectPoolable__Class>(type_info, "", "IMoonEffectPoolable");
         }
-        inline app::IMoonEffectPoolable* create() {
-            return il2cpp::create_object<app::IMoonEffectPoolable>(get_class());
-        }
     } // namespace IMoonEffectPoolable
 } // namespace app::classes::types

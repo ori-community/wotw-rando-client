@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IKuReceiver__Class* get_class() {
             return il2cpp::get_class<app::IKuReceiver__Class>(type_info, "", "IKuReceiver");
         }
-        inline app::IKuReceiver* create() {
-            return il2cpp::create_object<app::IKuReceiver>(get_class());
-        }
         inline app::IKuReceiver__Array* create_array(int size) {
             return il2cpp::array_new<app::IKuReceiver__Array>(get_class(), size);
         }

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IWindPipeZoneReceiver__Class* get_class() {
             return il2cpp::get_class<app::IWindPipeZoneReceiver__Class>(type_info, "", "IWindPipeZoneReceiver");
         }
-        inline app::IWindPipeZoneReceiver* create() {
-            return il2cpp::create_object<app::IWindPipeZoneReceiver>(get_class());
-        }
     } // namespace IWindPipeZoneReceiver
 } // namespace app::classes::types

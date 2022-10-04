@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDynamicProperty__Class* get_class() {
             return il2cpp::get_class<app::IDynamicProperty__Class>(type_info, "System.Runtime.Remoting.Contexts", "IDynamicProperty");
         }
-        inline app::IDynamicProperty* create() {
-            return il2cpp::create_object<app::IDynamicProperty>(get_class());
-        }
     } // namespace IDynamicProperty
 } // namespace app::classes::types

@@ -11,9 +11,6 @@ namespace app::classes::types {
         inline app::IInstantiateObserver__Class* get_class() {
             return il2cpp::get_class<app::IInstantiateObserver__Class>(type_info, "", "IInstantiateObserver");
         }
-        inline app::IInstantiateObserver* create() {
-            return il2cpp::create_object<app::IInstantiateObserver>(get_class());
-        }
         inline app::IInstantiateObserver__Array* create_array(int size) {
             return il2cpp::array_new<app::IInstantiateObserver__Array>(get_class(), size);
         }

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMesh__Class* get_class() {
             return il2cpp::get_class<app::IMesh__Class>(type_info, "TriangleNet.Meshing", "IMesh");
         }
-        inline app::IMesh* create() {
-            return il2cpp::create_object<app::IMesh>(get_class());
-        }
     } // namespace IMesh
 } // namespace app::classes::types

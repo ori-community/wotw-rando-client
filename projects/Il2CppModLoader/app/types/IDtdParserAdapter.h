@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDtdParserAdapter__Class* get_class() {
             return il2cpp::get_class<app::IDtdParserAdapter__Class>(type_info, "System.Xml", "IDtdParserAdapter");
         }
-        inline app::IDtdParserAdapter* create() {
-            return il2cpp::create_object<app::IDtdParserAdapter>(get_class());
-        }
     } // namespace IDtdParserAdapter
 } // namespace app::classes::types

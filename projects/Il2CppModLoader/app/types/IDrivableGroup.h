@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IDrivableGroup__Class* get_class() {
             return il2cpp::get_class<app::IDrivableGroup__Class>(type_info, "Moon", "IDrivableGroup");
         }
-        inline app::IDrivableGroup* create() {
-            return il2cpp::create_object<app::IDrivableGroup>(get_class());
-        }
         inline app::IDrivableGroup__Array* create_array(int size) {
             return il2cpp::array_new<app::IDrivableGroup__Array>(get_class(), size);
         }

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IComparable__Class* get_class() {
             return il2cpp::get_class<app::IComparable__Class>(type_info, "System", "IComparable");
         }
-        inline app::IComparable* create() {
-            return il2cpp::create_object<app::IComparable>(get_class());
-        }
     } // namespace IComparable
 } // namespace app::classes::types

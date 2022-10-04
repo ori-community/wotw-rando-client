@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPointerClickHandler__Class* get_class() {
             return il2cpp::get_class<app::IPointerClickHandler__Class>(type_info, "UnityEngine.EventSystems", "IPointerClickHandler");
         }
-        inline app::IPointerClickHandler* create() {
-            return il2cpp::create_object<app::IPointerClickHandler>(get_class());
-        }
     } // namespace IPointerClickHandler
 } // namespace app::classes::types

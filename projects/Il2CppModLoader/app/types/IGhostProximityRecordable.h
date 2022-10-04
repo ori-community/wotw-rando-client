@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IGhostProximityRecordable__Class* get_class() {
             return il2cpp::get_class<app::IGhostProximityRecordable__Class>(type_info, "", "IGhostProximityRecordable");
         }
-        inline app::IGhostProximityRecordable* create() {
-            return il2cpp::create_object<app::IGhostProximityRecordable>(get_class());
-        }
     } // namespace IGhostProximityRecordable
 } // namespace app::classes::types

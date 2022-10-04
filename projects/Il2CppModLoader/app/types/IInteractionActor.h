@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::IInteractionActor__Class* get_class() {
             return il2cpp::get_class<app::IInteractionActor__Class>(type_info, "Moon.InteractionGraph", "IInteractionActor");
         }
-        inline app::IInteractionActor* create() {
-            return il2cpp::create_object<app::IInteractionActor>(get_class());
-        }
     } // namespace IInteractionActor
 } // namespace app::classes::types

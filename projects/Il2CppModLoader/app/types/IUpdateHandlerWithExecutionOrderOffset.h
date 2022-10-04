@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IUpdateHandlerWithExecutionOrderOffset__Class* get_class() {
             return il2cpp::get_class<app::IUpdateHandlerWithExecutionOrderOffset__Class>(type_info, "Moon", "IUpdateHandlerWithExecutionOrderOffset");
         }
-        inline app::IUpdateHandlerWithExecutionOrderOffset* create() {
-            return il2cpp::create_object<app::IUpdateHandlerWithExecutionOrderOffset>(get_class());
-        }
     } // namespace IUpdateHandlerWithExecutionOrderOffset
 } // namespace app::classes::types

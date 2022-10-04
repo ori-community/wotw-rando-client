@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ITorchAttackable__Class* get_class() {
             return il2cpp::get_class<app::ITorchAttackable__Class>(type_info, "", "ITorchAttackable");
         }
-        inline app::ITorchAttackable* create() {
-            return il2cpp::create_object<app::ITorchAttackable>(get_class());
-        }
     } // namespace ITorchAttackable
 } // namespace app::classes::types

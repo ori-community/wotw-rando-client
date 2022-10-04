@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IStressTest__Class* get_class() {
             return il2cpp::get_class<app::IStressTest__Class>(type_info, "", "IStressTest");
         }
-        inline app::IStressTest* create() {
-            return il2cpp::create_object<app::IStressTest>(get_class());
-        }
         inline app::IStressTest__Array* create_array(int size) {
             return il2cpp::array_new<app::IStressTest__Array>(get_class(), size);
         }

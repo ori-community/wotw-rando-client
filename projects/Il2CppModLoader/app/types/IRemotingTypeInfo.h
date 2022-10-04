@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IRemotingTypeInfo__Class* get_class() {
             return il2cpp::get_class<app::IRemotingTypeInfo__Class>(type_info, "System.Runtime.Remoting", "IRemotingTypeInfo");
         }
-        inline app::IRemotingTypeInfo* create() {
-            return il2cpp::create_object<app::IRemotingTypeInfo>(get_class());
-        }
     } // namespace IRemotingTypeInfo
 } // namespace app::classes::types

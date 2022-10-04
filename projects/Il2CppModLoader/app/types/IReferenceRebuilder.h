@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IReferenceRebuilder__Class* get_class() {
             return il2cpp::get_class<app::IReferenceRebuilder__Class>(type_info, "", "IReferenceRebuilder");
         }
-        inline app::IReferenceRebuilder* create() {
-            return il2cpp::create_object<app::IReferenceRebuilder>(get_class());
-        }
     } // namespace IReferenceRebuilder
 } // namespace app::classes::types

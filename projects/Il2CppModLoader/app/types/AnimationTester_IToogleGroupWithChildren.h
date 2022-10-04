@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::AnimationTester_IToogleGroupWithChildren__Class* get_class() {
             return il2cpp::get_nested_class<app::AnimationTester_IToogleGroupWithChildren__Class>(type_info, "", "AnimationTester", "IToogleGroupWithChildren");
         }
-        inline app::AnimationTester_IToogleGroupWithChildren* create() {
-            return il2cpp::create_object<app::AnimationTester_IToogleGroupWithChildren>(get_class());
-        }
     } // namespace AnimationTester_IToogleGroupWithChildren
 } // namespace app::classes::types

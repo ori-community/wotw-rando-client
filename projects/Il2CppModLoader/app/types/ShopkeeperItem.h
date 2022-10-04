@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::ShopkeeperItem__Class* get_class() {
             return il2cpp::get_class<app::ShopkeeperItem__Class>(type_info, "", "ShopkeeperItem");
         }
-        inline app::ShopkeeperItem* create() {
-            return il2cpp::create_object<app::ShopkeeperItem>(get_class());
-        }
         inline app::ShopkeeperItem__Array* create_array(int size) {
             return il2cpp::array_new<app::ShopkeeperItem__Array>(get_class(), size);
         }

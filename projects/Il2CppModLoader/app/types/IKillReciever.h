@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IKillReciever__Class* get_class() {
             return il2cpp::get_class<app::IKillReciever__Class>(type_info, "", "IKillReciever");
         }
-        inline app::IKillReciever* create() {
-            return il2cpp::create_object<app::IKillReciever>(get_class());
-        }
     } // namespace IKillReciever
 } // namespace app::classes::types

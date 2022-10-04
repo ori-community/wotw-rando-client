@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ILaunchable__Class* get_class() {
             return il2cpp::get_class<app::ILaunchable__Class>(type_info, "Moon", "ILaunchable");
         }
-        inline app::ILaunchable* create() {
-            return il2cpp::create_object<app::ILaunchable>(get_class());
-        }
     } // namespace ILaunchable
 } // namespace app::classes::types

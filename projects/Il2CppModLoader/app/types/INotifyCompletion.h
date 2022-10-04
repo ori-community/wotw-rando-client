@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::INotifyCompletion__Class* get_class() {
             return il2cpp::get_class<app::INotifyCompletion__Class>(type_info, "System.Runtime.CompilerServices", "INotifyCompletion");
         }
-        inline app::INotifyCompletion* create() {
-            return il2cpp::create_object<app::INotifyCompletion>(get_class());
-        }
     } // namespace INotifyCompletion
 } // namespace app::classes::types

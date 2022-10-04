@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IComNativeDescriptorHandler__Class* get_class() {
             return il2cpp::get_class<app::IComNativeDescriptorHandler__Class>(type_info, "System.ComponentModel", "IComNativeDescriptorHandler");
         }
-        inline app::IComNativeDescriptorHandler* create() {
-            return il2cpp::create_object<app::IComNativeDescriptorHandler>(get_class());
-        }
     } // namespace IComNativeDescriptorHandler
 } // namespace app::classes::types

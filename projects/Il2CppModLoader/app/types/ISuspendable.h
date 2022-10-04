@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::ISuspendable__Class* get_class() {
             return il2cpp::get_class<app::ISuspendable__Class>(type_info, "Moon", "ISuspendable");
         }
-        inline app::ISuspendable* create() {
-            return il2cpp::create_object<app::ISuspendable>(get_class());
-        }
         inline app::ISuspendable__Array* create_array(int size) {
             return il2cpp::array_new<app::ISuspendable__Array>(get_class(), size);
         }

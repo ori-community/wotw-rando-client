@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ITweenLerpInputProvider__Class* get_class() {
             return il2cpp::get_class<app::ITweenLerpInputProvider__Class>(type_info, "Moon", "ITweenLerpInputProvider");
         }
-        inline app::ITweenLerpInputProvider* create() {
-            return il2cpp::create_object<app::ITweenLerpInputProvider>(get_class());
-        }
     } // namespace ITweenLerpInputProvider
 } // namespace app::classes::types

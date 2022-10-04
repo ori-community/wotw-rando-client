@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDtdAttributeListInfo__Class* get_class() {
             return il2cpp::get_class<app::IDtdAttributeListInfo__Class>(type_info, "System.Xml", "IDtdAttributeListInfo");
         }
-        inline app::IDtdAttributeListInfo* create() {
-            return il2cpp::create_object<app::IDtdAttributeListInfo>(get_class());
-        }
     } // namespace IDtdAttributeListInfo
 } // namespace app::classes::types

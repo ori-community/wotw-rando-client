@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IEnablingModifier__Class* get_class() {
             return il2cpp::get_class<app::IEnablingModifier__Class>(type_info, "Moon.TimeSlicer", "IEnablingModifier");
         }
-        inline app::IEnablingModifier* create() {
-            return il2cpp::create_object<app::IEnablingModifier>(get_class());
-        }
     } // namespace IEnablingModifier
 } // namespace app::classes::types

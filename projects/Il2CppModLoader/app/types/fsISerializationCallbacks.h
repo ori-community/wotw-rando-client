@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::fsISerializationCallbacks__Class* get_class() {
             return il2cpp::get_class<app::fsISerializationCallbacks__Class>(type_info, "FullSerializer", "fsISerializationCallbacks");
         }
-        inline app::fsISerializationCallbacks* create() {
-            return il2cpp::create_object<app::fsISerializationCallbacks>(get_class());
-        }
     } // namespace fsISerializationCallbacks
 } // namespace app::classes::types

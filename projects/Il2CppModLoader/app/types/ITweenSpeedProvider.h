@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ITweenSpeedProvider__Class* get_class() {
             return il2cpp::get_class<app::ITweenSpeedProvider__Class>(type_info, "Moon", "ITweenSpeedProvider");
         }
-        inline app::ITweenSpeedProvider* create() {
-            return il2cpp::create_object<app::ITweenSpeedProvider>(get_class());
-        }
     } // namespace ITweenSpeedProvider
 } // namespace app::classes::types

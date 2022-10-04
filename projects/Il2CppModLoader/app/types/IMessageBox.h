@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMessageBox__Class* get_class() {
             return il2cpp::get_class<app::IMessageBox__Class>(type_info, "Moon.InteractionGraph", "IMessageBox");
         }
-        inline app::IMessageBox* create() {
-            return il2cpp::create_object<app::IMessageBox>(get_class());
-        }
     } // namespace IMessageBox
 } // namespace app::classes::types

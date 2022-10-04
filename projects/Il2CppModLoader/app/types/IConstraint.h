@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IConstraint__Class* get_class() {
             return il2cpp::get_class<app::IConstraint__Class>(type_info, "Moon.Timeline.Constraints", "IConstraint");
         }
-        inline app::IConstraint* create() {
-            return il2cpp::create_object<app::IConstraint>(get_class());
-        }
         inline app::IConstraint__Array* create_array(int size) {
             return il2cpp::array_new<app::IConstraint__Array>(get_class(), size);
         }

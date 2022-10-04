@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IAchievementData__Class* get_class() {
             return il2cpp::get_class<app::IAchievementData__Class>(type_info, "", "IAchievementData");
         }
-        inline app::IAchievementData* create() {
-            return il2cpp::create_object<app::IAchievementData>(get_class());
-        }
     } // namespace IAchievementData
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IScrollHandler__Class* get_class() {
             return il2cpp::get_class<app::IScrollHandler__Class>(type_info, "UnityEngine.EventSystems", "IScrollHandler");
         }
-        inline app::IScrollHandler* create() {
-            return il2cpp::create_object<app::IScrollHandler>(get_class());
-        }
     } // namespace IScrollHandler
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IContributeClientContextSink__Class* get_class() {
             return il2cpp::get_class<app::IContributeClientContextSink__Class>(type_info, "System.Runtime.Remoting.Contexts", "IContributeClientContextSink");
         }
-        inline app::IContributeClientContextSink* create() {
-            return il2cpp::create_object<app::IContributeClientContextSink>(get_class());
-        }
     } // namespace IContributeClientContextSink
 } // namespace app::classes::types

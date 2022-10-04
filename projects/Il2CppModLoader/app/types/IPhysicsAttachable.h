@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPhysicsAttachable__Class* get_class() {
             return il2cpp::get_class<app::IPhysicsAttachable__Class>(type_info, "Moon", "IPhysicsAttachable");
         }
-        inline app::IPhysicsAttachable* create() {
-            return il2cpp::create_object<app::IPhysicsAttachable>(get_class());
-        }
     } // namespace IPhysicsAttachable
 } // namespace app::classes::types

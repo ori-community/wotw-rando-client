@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IGhostFrameData__Class* get_class() {
             return il2cpp::get_class<app::IGhostFrameData__Class>(type_info, "", "IGhostFrameData");
         }
-        inline app::IGhostFrameData* create() {
-            return il2cpp::create_object<app::IGhostFrameData>(get_class());
-        }
         inline app::IGhostFrameData__Array* create_array(int size) {
             return il2cpp::array_new<app::IGhostFrameData__Array>(get_class(), size);
         }

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IParameterProvider__Class* get_class() {
             return il2cpp::get_class<app::IParameterProvider__Class>(type_info, "System.Linq.Expressions", "IParameterProvider");
         }
-        inline app::IParameterProvider* create() {
-            return il2cpp::create_object<app::IParameterProvider>(get_class());
-        }
     } // namespace IParameterProvider
 } // namespace app::classes::types

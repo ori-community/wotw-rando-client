@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IComboMove__Class* get_class() {
             return il2cpp::get_class<app::IComboMove__Class>(type_info, "Moon.ComboSystem", "IComboMove");
         }
-        inline app::IComboMove* create() {
-            return il2cpp::create_object<app::IComboMove>(get_class());
-        }
         inline app::IComboMove__Array* create_array(int size) {
             return il2cpp::array_new<app::IComboMove__Array>(get_class(), size);
         }

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDashAtackable__Class* get_class() {
             return il2cpp::get_class<app::IDashAtackable__Class>(type_info, "", "IDashAtackable");
         }
-        inline app::IDashAtackable* create() {
-            return il2cpp::create_object<app::IDashAtackable>(get_class());
-        }
     } // namespace IDashAtackable
 } // namespace app::classes::types

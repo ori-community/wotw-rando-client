@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMessage__Class* get_class() {
             return il2cpp::get_class<app::IMessage__Class>(type_info, "System.Runtime.Remoting.Messaging", "IMessage");
         }
-        inline app::IMessage* create() {
-            return il2cpp::create_object<app::IMessage>(get_class());
-        }
     } // namespace IMessage
 } // namespace app::classes::types

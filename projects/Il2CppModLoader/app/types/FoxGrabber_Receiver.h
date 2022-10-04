@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::FoxGrabber_Receiver__Class* get_class() {
             return il2cpp::get_nested_class<app::FoxGrabber_Receiver__Class>(type_info, "", "FoxGrabber", "Receiver");
         }
-        inline app::FoxGrabber_Receiver* create() {
-            return il2cpp::create_object<app::FoxGrabber_Receiver>(get_class());
-        }
     } // namespace FoxGrabber_Receiver
 } // namespace app::classes::types

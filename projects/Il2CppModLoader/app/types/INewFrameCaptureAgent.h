@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::INewFrameCaptureAgent__Class* get_class() {
             return il2cpp::get_class<app::INewFrameCaptureAgent__Class>(type_info, "", "INewFrameCaptureAgent");
         }
-        inline app::INewFrameCaptureAgent* create() {
-            return il2cpp::create_object<app::INewFrameCaptureAgent>(get_class());
-        }
     } // namespace INewFrameCaptureAgent
 } // namespace app::classes::types

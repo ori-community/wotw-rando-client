@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IDropHandler__Class* get_class() {
             return il2cpp::get_class<app::IDropHandler__Class>(type_info, "UnityEngine.EventSystems", "IDropHandler");
         }
-        inline app::IDropHandler* create() {
-            return il2cpp::create_object<app::IDropHandler>(get_class());
-        }
     } // namespace IDropHandler
 } // namespace app::classes::types

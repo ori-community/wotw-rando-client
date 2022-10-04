@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IJsonSerializerStrategy__Class* get_class() {
             return il2cpp::get_class<app::IJsonSerializerStrategy__Class>(type_info, "PlayFab.Json", "IJsonSerializerStrategy");
         }
-        inline app::IJsonSerializerStrategy* create() {
-            return il2cpp::create_object<app::IJsonSerializerStrategy>(get_class());
-        }
     } // namespace IJsonSerializerStrategy
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IHammerAttackable__Class* get_class() {
             return il2cpp::get_class<app::IHammerAttackable__Class>(type_info, "", "IHammerAttackable");
         }
-        inline app::IHammerAttackable* create() {
-            return il2cpp::create_object<app::IHammerAttackable>(get_class());
-        }
     } // namespace IHammerAttackable
 } // namespace app::classes::types

@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::ILayoutGroup__Class* get_class() {
             return il2cpp::get_class<app::ILayoutGroup__Class>(type_info, "UnityEngine.UI", "ILayoutGroup");
         }
-        inline app::ILayoutGroup* create() {
-            return il2cpp::create_object<app::ILayoutGroup>(get_class());
-        }
     } // namespace ILayoutGroup
 } // namespace app::classes::types

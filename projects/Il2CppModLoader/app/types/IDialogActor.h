@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::IDialogActor__Class* get_class() {
             return il2cpp::get_class<app::IDialogActor__Class>(type_info, "", "IDialogActor");
         }
-        inline app::IDialogActor* create() {
-            return il2cpp::create_object<app::IDialogActor>(get_class());
-        }
     } // namespace IDialogActor
 } // namespace app::classes::types

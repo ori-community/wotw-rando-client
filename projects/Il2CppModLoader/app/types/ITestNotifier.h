@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ITestNotifier__Class* get_class() {
             return il2cpp::get_class<app::ITestNotifier__Class>(type_info, "", "ITestNotifier");
         }
-        inline app::ITestNotifier* create() {
-            return il2cpp::create_object<app::ITestNotifier>(get_class());
-        }
     } // namespace ITestNotifier
 } // namespace app::classes::types

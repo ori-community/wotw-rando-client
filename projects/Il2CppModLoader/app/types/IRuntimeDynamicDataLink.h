@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IRuntimeDynamicDataLink__Class* get_class() {
             return il2cpp::get_class<app::IRuntimeDynamicDataLink__Class>(type_info, "Moon", "IRuntimeDynamicDataLink");
         }
-        inline app::IRuntimeDynamicDataLink* create() {
-            return il2cpp::create_object<app::IRuntimeDynamicDataLink>(get_class());
-        }
         inline app::IRuntimeDynamicDataLink__Array* create_array(int size) {
             return il2cpp::array_new<app::IRuntimeDynamicDataLink__Array>(get_class(), size);
         }

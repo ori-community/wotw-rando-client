@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::TypeName__Class* get_class() {
             return il2cpp::get_class<app::TypeName__Class>(type_info, "System", "TypeName");
         }
-        inline app::TypeName* create() {
-            return il2cpp::create_object<app::TypeName>(get_class());
-        }
     } // namespace TypeName
 } // namespace app::classes::types

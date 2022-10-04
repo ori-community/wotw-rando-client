@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMoonShadingZoneTarget__Class* get_class() {
             return il2cpp::get_class<app::IMoonShadingZoneTarget__Class>(type_info, "", "IMoonShadingZoneTarget");
         }
-        inline app::IMoonShadingZoneTarget* create() {
-            return il2cpp::create_object<app::IMoonShadingZoneTarget>(get_class());
-        }
     } // namespace IMoonShadingZoneTarget
 } // namespace app::classes::types

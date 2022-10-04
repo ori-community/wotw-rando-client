@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IInteractable__Class* get_class() {
             return il2cpp::get_class<app::IInteractable__Class>(type_info, "", "IInteractable");
         }
-        inline app::IInteractable* create() {
-            return il2cpp::create_object<app::IInteractable>(get_class());
-        }
         inline app::IInteractable__Array* create_array(int size) {
             return il2cpp::array_new<app::IInteractable__Array>(get_class(), size);
         }

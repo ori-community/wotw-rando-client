@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IPlayFabLogger__Class* get_class() {
             return il2cpp::get_class<app::IPlayFabLogger__Class>(type_info, "PlayFab.Public", "IPlayFabLogger");
         }
-        inline app::IPlayFabLogger* create() {
-            return il2cpp::create_object<app::IPlayFabLogger>(get_class());
-        }
     } // namespace IPlayFabLogger
 } // namespace app::classes::types

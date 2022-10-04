@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISpiritSlashAttackable__Class* get_class() {
             return il2cpp::get_class<app::ISpiritSlashAttackable__Class>(type_info, "", "ISpiritSlashAttackable");
         }
-        inline app::ISpiritSlashAttackable* create() {
-            return il2cpp::create_object<app::ISpiritSlashAttackable>(get_class());
-        }
     } // namespace ISpiritSlashAttackable
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISceneRootPreEnableObserver__Class* get_class() {
             return il2cpp::get_class<app::ISceneRootPreEnableObserver__Class>(type_info, "", "ISceneRootPreEnableObserver");
         }
-        inline app::ISceneRootPreEnableObserver* create() {
-            return il2cpp::create_object<app::ISceneRootPreEnableObserver>(get_class());
-        }
     } // namespace ISceneRootPreEnableObserver
 } // namespace app::classes::types

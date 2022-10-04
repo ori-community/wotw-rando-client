@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ILayoutIgnorer__Class* get_class() {
             return il2cpp::get_class<app::ILayoutIgnorer__Class>(type_info, "UnityEngine.UI", "ILayoutIgnorer");
         }
-        inline app::ILayoutIgnorer* create() {
-            return il2cpp::create_object<app::ILayoutIgnorer>(get_class());
-        }
     } // namespace ILayoutIgnorer
 } // namespace app::classes::types

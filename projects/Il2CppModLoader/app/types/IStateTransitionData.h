@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IStateTransitionData__Class* get_class() {
             return il2cpp::get_class<app::IStateTransitionData__Class>(type_info, "", "IStateTransitionData");
         }
-        inline app::IStateTransitionData* create() {
-            return il2cpp::create_object<app::IStateTransitionData>(get_class());
-        }
     } // namespace IStateTransitionData
 } // namespace app::classes::types

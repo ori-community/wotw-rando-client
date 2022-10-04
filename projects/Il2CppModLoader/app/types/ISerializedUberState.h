@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISerializedUberState__Class* get_class() {
             return il2cpp::get_class<app::ISerializedUberState__Class>(type_info, "Moon", "ISerializedUberState");
         }
-        inline app::ISerializedUberState* create() {
-            return il2cpp::create_object<app::ISerializedUberState>(get_class());
-        }
     } // namespace ISerializedUberState
 } // namespace app::classes::types

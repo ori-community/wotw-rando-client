@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IServerCommunicator__Class* get_class() {
             return il2cpp::get_class<app::IServerCommunicator__Class>(type_info, "Moon.Network.Web", "IServerCommunicator");
         }
-        inline app::IServerCommunicator* create() {
-            return il2cpp::create_object<app::IServerCommunicator>(get_class());
-        }
     } // namespace IServerCommunicator
 } // namespace app::classes::types

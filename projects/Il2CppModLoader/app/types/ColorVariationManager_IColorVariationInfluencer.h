@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::ColorVariationManager_IColorVariationInfluencer__Class* get_class() {
             return il2cpp::get_nested_class<app::ColorVariationManager_IColorVariationInfluencer__Class>(type_info, "", "ColorVariationManager", "IColorVariationInfluencer");
         }
-        inline app::ColorVariationManager_IColorVariationInfluencer* create() {
-            return il2cpp::create_object<app::ColorVariationManager_IColorVariationInfluencer>(get_class());
-        }
         inline app::ColorVariationManager_IColorVariationInfluencer__Array* create_array(int size) {
             return il2cpp::array_new<app::ColorVariationManager_IColorVariationInfluencer__Array>(get_class(), size);
         }

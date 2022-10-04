@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IDialogCallbackNotifier__Class* get_class() {
             return il2cpp::get_class<app::IDialogCallbackNotifier__Class>(type_info, "", "IDialogCallbackNotifier");
         }
-        inline app::IDialogCallbackNotifier* create() {
-            return il2cpp::create_object<app::IDialogCallbackNotifier>(get_class());
-        }
         inline app::IDialogCallbackNotifier__Array* create_array(int size) {
             return il2cpp::array_new<app::IDialogCallbackNotifier__Array>(get_class(), size);
         }

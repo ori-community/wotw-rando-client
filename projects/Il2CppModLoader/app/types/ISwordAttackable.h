@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISwordAttackable__Class* get_class() {
             return il2cpp::get_class<app::ISwordAttackable__Class>(type_info, "", "ISwordAttackable");
         }
-        inline app::ISwordAttackable* create() {
-            return il2cpp::create_object<app::ISwordAttackable>(get_class());
-        }
     } // namespace ISwordAttackable
 } // namespace app::classes::types

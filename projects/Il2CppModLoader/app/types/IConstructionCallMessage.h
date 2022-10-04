@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IConstructionCallMessage__Class* get_class() {
             return il2cpp::get_class<app::IConstructionCallMessage__Class>(type_info, "System.Runtime.Remoting.Activation", "IConstructionCallMessage");
         }
-        inline app::IConstructionCallMessage* create() {
-            return il2cpp::create_object<app::IConstructionCallMessage>(get_class());
-        }
     } // namespace IConstructionCallMessage
 } // namespace app::classes::types

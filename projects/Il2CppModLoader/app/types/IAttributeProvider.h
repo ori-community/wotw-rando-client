@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::IAttributeProvider__Class* get_class() {
             return il2cpp::get_class<app::IAttributeProvider__Class>(type_info, "Newtonsoft.Json.Serialization", "IAttributeProvider");
         }
-        inline app::IAttributeProvider* create() {
-            return il2cpp::create_object<app::IAttributeProvider>(get_class());
-        }
     } // namespace IAttributeProvider
 } // namespace app::classes::types

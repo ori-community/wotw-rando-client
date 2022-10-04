@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IScriptableRuntimeReflectionSystem__Class* get_class() {
             return il2cpp::get_class<app::IScriptableRuntimeReflectionSystem__Class>(type_info, "UnityEngine.Experimental.Rendering", "IScriptableRuntimeReflectionSystem");
         }
-        inline app::IScriptableRuntimeReflectionSystem* create() {
-            return il2cpp::create_object<app::IScriptableRuntimeReflectionSystem>(get_class());
-        }
     } // namespace IScriptableRuntimeReflectionSystem
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IMoonPlayable__Class* get_class() {
             return il2cpp::get_class<app::IMoonPlayable__Class>(type_info, "Moon.Timeline", "IMoonPlayable");
         }
-        inline app::IMoonPlayable* create() {
-            return il2cpp::create_object<app::IMoonPlayable>(get_class());
-        }
     } // namespace IMoonPlayable
 } // namespace app::classes::types

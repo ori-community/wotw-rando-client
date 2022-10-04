@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IVitalsDeathListener__Class* get_class() {
             return il2cpp::get_class<app::IVitalsDeathListener__Class>(type_info, "Moon", "IVitalsDeathListener");
         }
-        inline app::IVitalsDeathListener* create() {
-            return il2cpp::create_object<app::IVitalsDeathListener>(get_class());
-        }
         inline app::IVitalsDeathListener__Array* create_array(int size) {
             return il2cpp::array_new<app::IVitalsDeathListener__Array>(get_class(), size);
         }

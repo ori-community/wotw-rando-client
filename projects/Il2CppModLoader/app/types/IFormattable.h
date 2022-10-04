@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IFormattable__Class* get_class() {
             return il2cpp::get_class<app::IFormattable__Class>(type_info, "System", "IFormattable");
         }
-        inline app::IFormattable* create() {
-            return il2cpp::create_object<app::IFormattable>(get_class());
-        }
     } // namespace IFormattable
 } // namespace app::classes::types

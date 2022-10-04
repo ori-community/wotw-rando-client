@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IStructuralComparable__Class* get_class() {
             return il2cpp::get_class<app::IStructuralComparable__Class>(type_info, "System.Collections", "IStructuralComparable");
         }
-        inline app::IStructuralComparable* create() {
-            return il2cpp::create_object<app::IStructuralComparable>(get_class());
-        }
     } // namespace IStructuralComparable
 } // namespace app::classes::types

@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::INightBerrySpiritRingReciever__Class* get_class() {
             return il2cpp::get_class<app::INightBerrySpiritRingReciever__Class>(type_info, "", "INightBerrySpiritRingReciever");
         }
-        inline app::INightBerrySpiritRingReciever* create() {
-            return il2cpp::create_object<app::INightBerrySpiritRingReciever>(get_class());
-        }
     } // namespace INightBerrySpiritRingReciever
 } // namespace app::classes::types

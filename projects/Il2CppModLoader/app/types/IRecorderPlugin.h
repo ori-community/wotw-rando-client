@@ -8,9 +8,6 @@ namespace app::classes::types {
         inline app::IRecorderPlugin__Class* get_class() {
             return il2cpp::get_class<app::IRecorderPlugin__Class>(type_info, "", "IRecorderPlugin");
         }
-        inline app::IRecorderPlugin* create() {
-            return il2cpp::create_object<app::IRecorderPlugin>(get_class());
-        }
         inline app::IRecorderPlugin__Array* create_array(int size) {
             return il2cpp::array_new<app::IRecorderPlugin__Array>(get_class(), size);
         }

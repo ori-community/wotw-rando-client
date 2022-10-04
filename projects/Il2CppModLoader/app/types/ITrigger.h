@@ -11,8 +11,5 @@ namespace app::classes::types {
         inline app::ITrigger__Class* get_class() {
             return il2cpp::get_class<app::ITrigger__Class>(type_info, "Moon.InteractionGraph", "ITrigger");
         }
-        inline app::ITrigger* create() {
-            return il2cpp::create_object<app::ITrigger>(get_class());
-        }
     } // namespace ITrigger
 } // namespace app::classes::types

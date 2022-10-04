@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IEntityLocomotion__Class* get_class() {
             return il2cpp::get_class<app::IEntityLocomotion__Class>(type_info, "", "IEntityLocomotion");
         }
-        inline app::IEntityLocomotion* create() {
-            return il2cpp::create_object<app::IEntityLocomotion>(get_class());
-        }
     } // namespace IEntityLocomotion
 } // namespace app::classes::types

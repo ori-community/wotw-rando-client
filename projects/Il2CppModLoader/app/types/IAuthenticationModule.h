@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::IAuthenticationModule__Class* get_class() {
             return il2cpp::get_class<app::IAuthenticationModule__Class>(type_info, "System.Net", "IAuthenticationModule");
         }
-        inline app::IAuthenticationModule* create() {
-            return il2cpp::create_object<app::IAuthenticationModule>(get_class());
-        }
     } // namespace IAuthenticationModule
 } // namespace app::classes::types

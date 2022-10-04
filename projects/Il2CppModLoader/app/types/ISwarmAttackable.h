@@ -8,8 +8,5 @@ namespace app::classes::types {
         inline app::ISwarmAttackable__Class* get_class() {
             return il2cpp::get_class<app::ISwarmAttackable__Class>(type_info, "", "ISwarmAttackable");
         }
-        inline app::ISwarmAttackable* create() {
-            return il2cpp::create_object<app::ISwarmAttackable>(get_class());
-        }
     } // namespace ISwarmAttackable
 } // namespace app::classes::types
