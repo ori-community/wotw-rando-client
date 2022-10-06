@@ -226,9 +226,9 @@ namespace il2cpp {
         }
     } // namespace unity
 
-    template <typename R = Il2CppArraySize, typename T>
-    R* array_new(Il2CppClass* element, std::vector<T> items) {
-        auto arr = untyped::array_new(element, items.size());
+    template <typename R = Il2CppArraySize, typename Clazz = Il2CppClass, typename T>
+    R* array_new(Clazz* element_class, const std::vector<T>& items) {
+        auto arr = untyped::array_new(reinterpret_cast<Il2CppClass*>(element_class), items.size());
         auto elements = reinterpret_cast<T*>(arr->vector);
         for (auto i = 0; i < items.size(); ++i)
             elements[i] = items[i];
