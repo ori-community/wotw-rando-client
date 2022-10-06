@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RaceLeaderBoard__Array* create_array(int size) {
             return il2cpp::array_new<app::RaceLeaderBoard__Array>(get_class(), size);
         }
+        inline app::RaceLeaderBoard__Array* create_array(const std::vector<app::RaceLeaderBoard*>& items) {
+            return il2cpp::array_new<app::RaceLeaderBoard__Array>(get_class(), items);
+        }
     } // namespace RaceLeaderBoard
 } // namespace app::classes::types

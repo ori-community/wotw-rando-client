@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::BoolStateMap_Mapping__Array* create_array(int size) {
             return il2cpp::array_new<app::BoolStateMap_Mapping__Array>(get_class(), size);
         }
+        inline app::BoolStateMap_Mapping__Array* create_array(const std::vector<app::BoolStateMap_Mapping__Boxed>& items) {
+            return il2cpp::array_new<app::BoolStateMap_Mapping__Array>(get_class(), items);
+        }
     } // namespace BoolStateMap_Mapping
 } // namespace app::classes::types

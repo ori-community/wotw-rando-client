@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RegexFC__Array* create_array(int size) {
             return il2cpp::array_new<app::RegexFC__Array>(get_class(), size);
         }
+        inline app::RegexFC__Array* create_array(const std::vector<app::RegexFC*>& items) {
+            return il2cpp::array_new<app::RegexFC__Array>(get_class(), items);
+        }
     } // namespace RegexFC
 } // namespace app::classes::types

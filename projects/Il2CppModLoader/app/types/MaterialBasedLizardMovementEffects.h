@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MaterialBasedLizardMovementEffects__Array* create_array(int size) {
             return il2cpp::array_new<app::MaterialBasedLizardMovementEffects__Array>(get_class(), size);
         }
+        inline app::MaterialBasedLizardMovementEffects__Array* create_array(const std::vector<app::MaterialBasedLizardMovementEffects*>& items) {
+            return il2cpp::array_new<app::MaterialBasedLizardMovementEffects__Array>(get_class(), items);
+        }
     } // namespace MaterialBasedLizardMovementEffects
 } // namespace app::classes::types

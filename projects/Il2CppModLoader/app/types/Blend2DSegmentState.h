@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Blend2DSegmentState__Array* create_array(int size) {
             return il2cpp::array_new<app::Blend2DSegmentState__Array>(get_class(), size);
         }
+        inline app::Blend2DSegmentState__Array* create_array(const std::vector<app::Blend2DSegmentState*>& items) {
+            return il2cpp::array_new<app::Blend2DSegmentState__Array>(get_class(), items);
+        }
     } // namespace Blend2DSegmentState
 } // namespace app::classes::types

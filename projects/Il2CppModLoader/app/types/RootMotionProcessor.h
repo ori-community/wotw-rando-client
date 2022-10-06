@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RootMotionProcessor__Array* create_array(int size) {
             return il2cpp::array_new<app::RootMotionProcessor__Array>(get_class(), size);
         }
+        inline app::RootMotionProcessor__Array* create_array(const std::vector<app::RootMotionProcessor*>& items) {
+            return il2cpp::array_new<app::RootMotionProcessor__Array>(get_class(), items);
+        }
     } // namespace RootMotionProcessor
 } // namespace app::classes::types

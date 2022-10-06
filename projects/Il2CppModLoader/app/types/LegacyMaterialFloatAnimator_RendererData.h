@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LegacyMaterialFloatAnimator_RendererData__Array* create_array(int size) {
             return il2cpp::array_new<app::LegacyMaterialFloatAnimator_RendererData__Array>(get_class(), size);
         }
+        inline app::LegacyMaterialFloatAnimator_RendererData__Array* create_array(const std::vector<app::LegacyMaterialFloatAnimator_RendererData*>& items) {
+            return il2cpp::array_new<app::LegacyMaterialFloatAnimator_RendererData__Array>(get_class(), items);
+        }
     } // namespace LegacyMaterialFloatAnimator_RendererData
 } // namespace app::classes::types

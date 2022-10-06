@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AssetSummary__Array* create_array(int size) {
             return il2cpp::array_new<app::AssetSummary__Array>(get_class(), size);
         }
+        inline app::AssetSummary__Array* create_array(const std::vector<app::AssetSummary*>& items) {
+            return il2cpp::array_new<app::AssetSummary__Array>(get_class(), items);
+        }
     } // namespace AssetSummary
 } // namespace app::classes::types

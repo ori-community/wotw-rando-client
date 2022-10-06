@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TextureTilingAdjuster_AdjustedTexture__Array* create_array(int size) {
             return il2cpp::array_new<app::TextureTilingAdjuster_AdjustedTexture__Array>(get_class(), size);
         }
+        inline app::TextureTilingAdjuster_AdjustedTexture__Array* create_array(const std::vector<app::TextureTilingAdjuster_AdjustedTexture__Boxed>& items) {
+            return il2cpp::array_new<app::TextureTilingAdjuster_AdjustedTexture__Array>(get_class(), items);
+        }
     } // namespace TextureTilingAdjuster_AdjustedTexture
 } // namespace app::classes::types

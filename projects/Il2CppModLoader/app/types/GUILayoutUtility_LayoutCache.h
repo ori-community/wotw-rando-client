@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GUILayoutUtility_LayoutCache__Array* create_array(int size) {
             return il2cpp::array_new<app::GUILayoutUtility_LayoutCache__Array>(get_class(), size);
         }
+        inline app::GUILayoutUtility_LayoutCache__Array* create_array(const std::vector<app::GUILayoutUtility_LayoutCache*>& items) {
+            return il2cpp::array_new<app::GUILayoutUtility_LayoutCache__Array>(get_class(), items);
+        }
     } // namespace GUILayoutUtility_LayoutCache
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::JsonPosition__Array* create_array(int size) {
             return il2cpp::array_new<app::JsonPosition__Array>(get_class(), size);
         }
+        inline app::JsonPosition__Array* create_array(const std::vector<app::JsonPosition__Boxed>& items) {
+            return il2cpp::array_new<app::JsonPosition__Array>(get_class(), items);
+        }
     } // namespace JsonPosition
 } // namespace app::classes::types

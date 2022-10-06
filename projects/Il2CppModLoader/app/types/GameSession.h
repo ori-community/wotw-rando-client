@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GameSession__Array* create_array(int size) {
             return il2cpp::array_new<app::GameSession__Array>(get_class(), size);
         }
+        inline app::GameSession__Array* create_array(const std::vector<app::GameSession*>& items) {
+            return il2cpp::array_new<app::GameSession__Array>(get_class(), items);
+        }
     } // namespace GameSession
 } // namespace app::classes::types

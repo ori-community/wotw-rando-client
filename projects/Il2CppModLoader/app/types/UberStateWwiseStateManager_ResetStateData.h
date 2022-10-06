@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberStateWwiseStateManager_ResetStateData__Array* create_array(int size) {
             return il2cpp::array_new<app::UberStateWwiseStateManager_ResetStateData__Array>(get_class(), size);
         }
+        inline app::UberStateWwiseStateManager_ResetStateData__Array* create_array(const std::vector<app::UberStateWwiseStateManager_ResetStateData__Boxed>& items) {
+            return il2cpp::array_new<app::UberStateWwiseStateManager_ResetStateData__Array>(get_class(), items);
+        }
     } // namespace UberStateWwiseStateManager_ResetStateData
 } // namespace app::classes::types

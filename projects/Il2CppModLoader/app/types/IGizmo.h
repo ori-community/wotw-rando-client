@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IGizmo__Array* create_array(int size) {
             return il2cpp::array_new<app::IGizmo__Array>(get_class(), size);
         }
+        inline app::IGizmo__Array* create_array(const std::vector<app::IGizmo*>& items) {
+            return il2cpp::array_new<app::IGizmo__Array>(get_class(), items);
+        }
     } // namespace IGizmo
 } // namespace app::classes::types

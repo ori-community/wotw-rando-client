@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RuntimeQuest__Array* create_array(int size) {
             return il2cpp::array_new<app::RuntimeQuest__Array>(get_class(), size);
         }
+        inline app::RuntimeQuest__Array* create_array(const std::vector<app::RuntimeQuest*>& items) {
+            return il2cpp::array_new<app::RuntimeQuest__Array>(get_class(), items);
+        }
     } // namespace RuntimeQuest
 } // namespace app::classes::types

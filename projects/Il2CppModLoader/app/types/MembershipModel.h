@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MembershipModel__Array* create_array(int size) {
             return il2cpp::array_new<app::MembershipModel__Array>(get_class(), size);
         }
+        inline app::MembershipModel__Array* create_array(const std::vector<app::MembershipModel*>& items) {
+            return il2cpp::array_new<app::MembershipModel__Array>(get_class(), items);
+        }
     } // namespace MembershipModel
 } // namespace app::classes::types

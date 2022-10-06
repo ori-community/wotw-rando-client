@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DistortionAnimator_RendererData_Property__Array* create_array(int size) {
             return il2cpp::array_new<app::DistortionAnimator_RendererData_Property__Array>(get_class(), size);
         }
+        inline app::DistortionAnimator_RendererData_Property__Array* create_array(const std::vector<app::DistortionAnimator_RendererData_Property__Boxed>& items) {
+            return il2cpp::array_new<app::DistortionAnimator_RendererData_Property__Array>(get_class(), items);
+        }
     } // namespace DistortionAnimator_RendererData_Property
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TriggerBasedRubberBanding__Array* create_array(int size) {
             return il2cpp::array_new<app::TriggerBasedRubberBanding__Array>(get_class(), size);
         }
+        inline app::TriggerBasedRubberBanding__Array* create_array(const std::vector<app::TriggerBasedRubberBanding*>& items) {
+            return il2cpp::array_new<app::TriggerBasedRubberBanding__Array>(get_class(), items);
+        }
     } // namespace TriggerBasedRubberBanding
 } // namespace app::classes::types

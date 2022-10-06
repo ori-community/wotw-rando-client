@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IButtonInput__Array* create_array(int size) {
             return il2cpp::array_new<app::IButtonInput__Array>(get_class(), size);
         }
+        inline app::IButtonInput__Array* create_array(const std::vector<app::IButtonInput*>& items) {
+            return il2cpp::array_new<app::IButtonInput__Array>(get_class(), items);
+        }
     } // namespace IButtonInput
 } // namespace app::classes::types

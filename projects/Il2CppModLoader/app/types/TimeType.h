@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TimeType__Array* create_array(int size) {
             return il2cpp::array_new<app::TimeType__Array>(get_class(), size);
         }
+        inline app::TimeType__Array* create_array(const std::vector<app::TimeType*>& items) {
+            return il2cpp::array_new<app::TimeType__Array>(get_class(), items);
+        }
     } // namespace TimeType
 } // namespace app::classes::types

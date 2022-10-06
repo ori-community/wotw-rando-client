@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ChallengeShrineTrigger__Array* create_array(int size) {
             return il2cpp::array_new<app::ChallengeShrineTrigger__Array>(get_class(), size);
         }
+        inline app::ChallengeShrineTrigger__Array* create_array(const std::vector<app::ChallengeShrineTrigger*>& items) {
+            return il2cpp::array_new<app::ChallengeShrineTrigger__Array>(get_class(), items);
+        }
     } // namespace ChallengeShrineTrigger
 } // namespace app::classes::types

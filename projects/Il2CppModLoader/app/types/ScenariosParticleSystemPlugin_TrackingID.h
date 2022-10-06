@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ScenariosParticleSystemPlugin_TrackingID__Array* create_array(int size) {
             return il2cpp::array_new<app::ScenariosParticleSystemPlugin_TrackingID__Array>(get_class(), size);
         }
+        inline app::ScenariosParticleSystemPlugin_TrackingID__Array* create_array(const std::vector<app::ScenariosParticleSystemPlugin_TrackingID*>& items) {
+            return il2cpp::array_new<app::ScenariosParticleSystemPlugin_TrackingID__Array>(get_class(), items);
+        }
     } // namespace ScenariosParticleSystemPlugin_TrackingID
 } // namespace app::classes::types

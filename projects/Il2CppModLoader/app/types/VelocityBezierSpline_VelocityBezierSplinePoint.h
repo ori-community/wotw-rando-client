@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::VelocityBezierSpline_VelocityBezierSplinePoint__Array* create_array(int size) {
             return il2cpp::array_new<app::VelocityBezierSpline_VelocityBezierSplinePoint__Array>(get_class(), size);
         }
+        inline app::VelocityBezierSpline_VelocityBezierSplinePoint__Array* create_array(const std::vector<app::VelocityBezierSpline_VelocityBezierSplinePoint*>& items) {
+            return il2cpp::array_new<app::VelocityBezierSpline_VelocityBezierSplinePoint__Array>(get_class(), items);
+        }
     } // namespace VelocityBezierSpline_VelocityBezierSplinePoint
 } // namespace app::classes::types

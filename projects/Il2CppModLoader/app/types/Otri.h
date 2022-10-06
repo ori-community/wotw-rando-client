@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Otri__Array* create_array(int size) {
             return il2cpp::array_new<app::Otri__Array>(get_class(), size);
         }
+        inline app::Otri__Array* create_array(const std::vector<app::Otri__Boxed>& items) {
+            return il2cpp::array_new<app::Otri__Array>(get_class(), items);
+        }
     } // namespace Otri
 } // namespace app::classes::types

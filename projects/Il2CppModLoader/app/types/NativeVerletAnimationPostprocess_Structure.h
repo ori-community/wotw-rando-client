@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::NativeVerletAnimationPostprocess_Structure__Array* create_array(int size) {
             return il2cpp::array_new<app::NativeVerletAnimationPostprocess_Structure__Array>(get_class(), size);
         }
+        inline app::NativeVerletAnimationPostprocess_Structure__Array* create_array(const std::vector<app::NativeVerletAnimationPostprocess_Structure*>& items) {
+            return il2cpp::array_new<app::NativeVerletAnimationPostprocess_Structure__Array>(get_class(), items);
+        }
     } // namespace NativeVerletAnimationPostprocess_Structure
 } // namespace app::classes::types

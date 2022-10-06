@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PoisonousWaterPocket__Array* create_array(int size) {
             return il2cpp::array_new<app::PoisonousWaterPocket__Array>(get_class(), size);
         }
+        inline app::PoisonousWaterPocket__Array* create_array(const std::vector<app::PoisonousWaterPocket*>& items) {
+            return il2cpp::array_new<app::PoisonousWaterPocket__Array>(get_class(), items);
+        }
     } // namespace PoisonousWaterPocket
 } // namespace app::classes::types

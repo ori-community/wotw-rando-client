@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IPortalVisitor__Array* create_array(int size) {
             return il2cpp::array_new<app::IPortalVisitor__Array>(get_class(), size);
         }
+        inline app::IPortalVisitor__Array* create_array(const std::vector<app::IPortalVisitor*>& items) {
+            return il2cpp::array_new<app::IPortalVisitor__Array>(get_class(), items);
+        }
     } // namespace IPortalVisitor
 } // namespace app::classes::types

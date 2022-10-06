@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DebugRendererSettings_SettingsPattern__Array* create_array(int size) {
             return il2cpp::array_new<app::DebugRendererSettings_SettingsPattern__Array>(get_class(), size);
         }
+        inline app::DebugRendererSettings_SettingsPattern__Array* create_array(const std::vector<app::DebugRendererSettings_SettingsPattern*>& items) {
+            return il2cpp::array_new<app::DebugRendererSettings_SettingsPattern__Array>(get_class(), items);
+        }
     } // namespace DebugRendererSettings_SettingsPattern
 } // namespace app::classes::types

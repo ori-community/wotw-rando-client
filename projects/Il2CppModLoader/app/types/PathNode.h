@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PathNode__Array* create_array(int size) {
             return il2cpp::array_new<app::PathNode__Array>(get_class(), size);
         }
+        inline app::PathNode__Array* create_array(const std::vector<app::PathNode*>& items) {
+            return il2cpp::array_new<app::PathNode__Array>(get_class(), items);
+        }
     } // namespace PathNode
 } // namespace app::classes::types

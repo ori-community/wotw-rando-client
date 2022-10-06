@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MeshCollider__Array* create_array(int size) {
             return il2cpp::array_new<app::MeshCollider__Array>(get_class(), size);
         }
+        inline app::MeshCollider__Array* create_array(const std::vector<app::MeshCollider*>& items) {
+            return il2cpp::array_new<app::MeshCollider__Array>(get_class(), items);
+        }
     } // namespace MeshCollider
 } // namespace app::classes::types

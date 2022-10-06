@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Renderer__Array* create_array(int size) {
             return il2cpp::array_new<app::Renderer__Array>(get_class(), size);
         }
+        inline app::Renderer__Array* create_array(const std::vector<app::Renderer*>& items) {
+            return il2cpp::array_new<app::Renderer__Array>(get_class(), items);
+        }
     } // namespace Renderer
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TorchComboMoveAdapter__Array* create_array(int size) {
             return il2cpp::array_new<app::TorchComboMoveAdapter__Array>(get_class(), size);
         }
+        inline app::TorchComboMoveAdapter__Array* create_array(const std::vector<app::TorchComboMoveAdapter*>& items) {
+            return il2cpp::array_new<app::TorchComboMoveAdapter__Array>(get_class(), items);
+        }
     } // namespace TorchComboMoveAdapter
 } // namespace app::classes::types

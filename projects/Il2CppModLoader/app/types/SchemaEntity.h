@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SchemaEntity__Array* create_array(int size) {
             return il2cpp::array_new<app::SchemaEntity__Array>(get_class(), size);
         }
+        inline app::SchemaEntity__Array* create_array(const std::vector<app::SchemaEntity*>& items) {
+            return il2cpp::array_new<app::SchemaEntity__Array>(get_class(), items);
+        }
     } // namespace SchemaEntity
 } // namespace app::classes::types

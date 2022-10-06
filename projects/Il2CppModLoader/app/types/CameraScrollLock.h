@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CameraScrollLock__Array* create_array(int size) {
             return il2cpp::array_new<app::CameraScrollLock__Array>(get_class(), size);
         }
+        inline app::CameraScrollLock__Array* create_array(const std::vector<app::CameraScrollLock*>& items) {
+            return il2cpp::array_new<app::CameraScrollLock__Array>(get_class(), items);
+        }
     } // namespace CameraScrollLock
 } // namespace app::classes::types

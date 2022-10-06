@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberInteractionActor__Array* create_array(int size) {
             return il2cpp::array_new<app::UberInteractionActor__Array>(get_class(), size);
         }
+        inline app::UberInteractionActor__Array* create_array(const std::vector<app::UberInteractionActor*>& items) {
+            return il2cpp::array_new<app::UberInteractionActor__Array>(get_class(), items);
+        }
     } // namespace UberInteractionActor
 } // namespace app::classes::types

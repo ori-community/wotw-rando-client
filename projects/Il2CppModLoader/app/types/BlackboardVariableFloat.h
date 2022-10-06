@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::BlackboardVariableFloat__Array* create_array(int size) {
             return il2cpp::array_new<app::BlackboardVariableFloat__Array>(get_class(), size);
         }
+        inline app::BlackboardVariableFloat__Array* create_array(const std::vector<app::BlackboardVariableFloat*>& items) {
+            return il2cpp::array_new<app::BlackboardVariableFloat__Array>(get_class(), items);
+        }
     } // namespace BlackboardVariableFloat
 } // namespace app::classes::types

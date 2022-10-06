@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MeleeWeaponColliderStick_DebugCircle__Array* create_array(int size) {
             return il2cpp::array_new<app::MeleeWeaponColliderStick_DebugCircle__Array>(get_class(), size);
         }
+        inline app::MeleeWeaponColliderStick_DebugCircle__Array* create_array(const std::vector<app::MeleeWeaponColliderStick_DebugCircle*>& items) {
+            return il2cpp::array_new<app::MeleeWeaponColliderStick_DebugCircle__Array>(get_class(), items);
+        }
     } // namespace MeleeWeaponColliderStick_DebugCircle
 } // namespace app::classes::types

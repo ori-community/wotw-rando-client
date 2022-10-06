@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AchievementAsset__Array* create_array(int size) {
             return il2cpp::array_new<app::AchievementAsset__Array>(get_class(), size);
         }
+        inline app::AchievementAsset__Array* create_array(const std::vector<app::AchievementAsset*>& items) {
+            return il2cpp::array_new<app::AchievementAsset__Array>(get_class(), items);
+        }
     } // namespace AchievementAsset
 } // namespace app::classes::types

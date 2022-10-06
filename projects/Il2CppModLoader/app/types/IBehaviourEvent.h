@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IBehaviourEvent__Array* create_array(int size) {
             return il2cpp::array_new<app::IBehaviourEvent__Array>(get_class(), size);
         }
+        inline app::IBehaviourEvent__Array* create_array(const std::vector<app::IBehaviourEvent*>& items) {
+            return il2cpp::array_new<app::IBehaviourEvent__Array>(get_class(), items);
+        }
     } // namespace IBehaviourEvent
 } // namespace app::classes::types

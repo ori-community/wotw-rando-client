@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CCFont_Char__Array* create_array(int size) {
             return il2cpp::array_new<app::CCFont_Char__Array>(get_class(), size);
         }
+        inline app::CCFont_Char__Array* create_array(const std::vector<app::CCFont_Char*>& items) {
+            return il2cpp::array_new<app::CCFont_Char__Array>(get_class(), items);
+        }
     } // namespace CCFont_Char
 } // namespace app::classes::types

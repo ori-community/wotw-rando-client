@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ShrineCombat_WaveProgressMarker__Array* create_array(int size) {
             return il2cpp::array_new<app::ShrineCombat_WaveProgressMarker__Array>(get_class(), size);
         }
+        inline app::ShrineCombat_WaveProgressMarker__Array* create_array(const std::vector<app::ShrineCombat_WaveProgressMarker*>& items) {
+            return il2cpp::array_new<app::ShrineCombat_WaveProgressMarker__Array>(get_class(), items);
+        }
     } // namespace ShrineCombat_WaveProgressMarker
 } // namespace app::classes::types

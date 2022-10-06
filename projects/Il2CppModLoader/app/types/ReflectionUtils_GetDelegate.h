@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ReflectionUtils_GetDelegate__Array* create_array(int size) {
             return il2cpp::array_new<app::ReflectionUtils_GetDelegate__Array>(get_class(), size);
         }
+        inline app::ReflectionUtils_GetDelegate__Array* create_array(const std::vector<app::ReflectionUtils_GetDelegate*>& items) {
+            return il2cpp::array_new<app::ReflectionUtils_GetDelegate__Array>(get_class(), items);
+        }
     } // namespace ReflectionUtils_GetDelegate
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::VerticalCameraSettingsZone_CameraPostMetaData__Array* create_array(int size) {
             return il2cpp::array_new<app::VerticalCameraSettingsZone_CameraPostMetaData__Array>(get_class(), size);
         }
+        inline app::VerticalCameraSettingsZone_CameraPostMetaData__Array* create_array(const std::vector<app::VerticalCameraSettingsZone_CameraPostMetaData*>& items) {
+            return il2cpp::array_new<app::VerticalCameraSettingsZone_CameraPostMetaData__Array>(get_class(), items);
+        }
     } // namespace VerticalCameraSettingsZone_CameraPostMetaData
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::VirtualClipsBuilder_BuilderScope__Array* create_array(int size) {
             return il2cpp::array_new<app::VirtualClipsBuilder_BuilderScope__Array>(get_class(), size);
         }
+        inline app::VirtualClipsBuilder_BuilderScope__Array* create_array(const std::vector<app::VirtualClipsBuilder_BuilderScope*>& items) {
+            return il2cpp::array_new<app::VirtualClipsBuilder_BuilderScope__Array>(get_class(), items);
+        }
     } // namespace VirtualClipsBuilder_BuilderScope
 } // namespace app::classes::types

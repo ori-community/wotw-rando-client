@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TurningAnimation__Array* create_array(int size) {
             return il2cpp::array_new<app::TurningAnimation__Array>(get_class(), size);
         }
+        inline app::TurningAnimation__Array* create_array(const std::vector<app::TurningAnimation*>& items) {
+            return il2cpp::array_new<app::TurningAnimation__Array>(get_class(), items);
+        }
     } // namespace TurningAnimation
 } // namespace app::classes::types

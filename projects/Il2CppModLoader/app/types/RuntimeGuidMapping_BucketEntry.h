@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::RuntimeGuidMapping_BucketEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::RuntimeGuidMapping_BucketEntry__Array>(get_class(), size);
         }
+        inline app::RuntimeGuidMapping_BucketEntry__Array* create_array(const std::vector<app::RuntimeGuidMapping_BucketEntry__Boxed>& items) {
+            return il2cpp::array_new<app::RuntimeGuidMapping_BucketEntry__Array>(get_class(), items);
+        }
     } // namespace RuntimeGuidMapping_BucketEntry
 } // namespace app::classes::types

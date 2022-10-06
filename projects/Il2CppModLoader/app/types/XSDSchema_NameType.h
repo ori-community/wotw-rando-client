@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XSDSchema_NameType__Array* create_array(int size) {
             return il2cpp::array_new<app::XSDSchema_NameType__Array>(get_class(), size);
         }
+        inline app::XSDSchema_NameType__Array* create_array(const std::vector<app::XSDSchema_NameType*>& items) {
+            return il2cpp::array_new<app::XSDSchema_NameType__Array>(get_class(), items);
+        }
     } // namespace XSDSchema_NameType
 } // namespace app::classes::types

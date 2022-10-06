@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DamageReceiver_OverrideInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::DamageReceiver_OverrideInfo__Array>(get_class(), size);
         }
+        inline app::DamageReceiver_OverrideInfo__Array* create_array(const std::vector<app::DamageReceiver_OverrideInfo*>& items) {
+            return il2cpp::array_new<app::DamageReceiver_OverrideInfo__Array>(get_class(), items);
+        }
     } // namespace DamageReceiver_OverrideInfo
 } // namespace app::classes::types

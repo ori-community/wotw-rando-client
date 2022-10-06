@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ISkipCutsceneAction__Array* create_array(int size) {
             return il2cpp::array_new<app::ISkipCutsceneAction__Array>(get_class(), size);
         }
+        inline app::ISkipCutsceneAction__Array* create_array(const std::vector<app::ISkipCutsceneAction*>& items) {
+            return il2cpp::array_new<app::ISkipCutsceneAction__Array>(get_class(), items);
+        }
     } // namespace ISkipCutsceneAction
 } // namespace app::classes::types

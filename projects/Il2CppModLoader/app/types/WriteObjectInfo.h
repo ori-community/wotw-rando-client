@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::WriteObjectInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::WriteObjectInfo__Array>(get_class(), size);
         }
+        inline app::WriteObjectInfo__Array* create_array(const std::vector<app::WriteObjectInfo*>& items) {
+            return il2cpp::array_new<app::WriteObjectInfo__Array>(get_class(), items);
+        }
     } // namespace WriteObjectInfo
 } // namespace app::classes::types

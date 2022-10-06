@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RectTransform__Array* create_array(int size) {
             return il2cpp::array_new<app::RectTransform__Array>(get_class(), size);
         }
+        inline app::RectTransform__Array* create_array(const std::vector<app::RectTransform*>& items) {
+            return il2cpp::array_new<app::RectTransform__Array>(get_class(), items);
+        }
     } // namespace RectTransform
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::JsonConverter__Array* create_array(int size) {
             return il2cpp::array_new<app::JsonConverter__Array>(get_class(), size);
         }
+        inline app::JsonConverter__Array* create_array(const std::vector<app::JsonConverter*>& items) {
+            return il2cpp::array_new<app::JsonConverter__Array>(get_class(), items);
+        }
     } // namespace JsonConverter
 } // namespace app::classes::types

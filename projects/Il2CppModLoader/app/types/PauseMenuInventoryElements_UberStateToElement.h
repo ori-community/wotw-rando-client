@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::PauseMenuInventoryElements_UberStateToElement__Array* create_array(int size) {
             return il2cpp::array_new<app::PauseMenuInventoryElements_UberStateToElement__Array>(get_class(), size);
         }
+        inline app::PauseMenuInventoryElements_UberStateToElement__Array* create_array(const std::vector<app::PauseMenuInventoryElements_UberStateToElement__Boxed>& items) {
+            return il2cpp::array_new<app::PauseMenuInventoryElements_UberStateToElement__Array>(get_class(), items);
+        }
     } // namespace PauseMenuInventoryElements_UberStateToElement
 } // namespace app::classes::types

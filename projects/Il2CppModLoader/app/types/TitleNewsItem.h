@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TitleNewsItem__Array* create_array(int size) {
             return il2cpp::array_new<app::TitleNewsItem__Array>(get_class(), size);
         }
+        inline app::TitleNewsItem__Array* create_array(const std::vector<app::TitleNewsItem*>& items) {
+            return il2cpp::array_new<app::TitleNewsItem__Array>(get_class(), items);
+        }
     } // namespace TitleNewsItem
 } // namespace app::classes::types

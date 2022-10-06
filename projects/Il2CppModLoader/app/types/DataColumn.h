@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DataColumn__Array* create_array(int size) {
             return il2cpp::array_new<app::DataColumn__Array>(get_class(), size);
         }
+        inline app::DataColumn__Array* create_array(const std::vector<app::DataColumn*>& items) {
+            return il2cpp::array_new<app::DataColumn__Array>(get_class(), items);
+        }
     } // namespace DataColumn
 } // namespace app::classes::types

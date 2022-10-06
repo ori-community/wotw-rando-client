@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ControlSettingsItem__Array* create_array(int size) {
             return il2cpp::array_new<app::ControlSettingsItem__Array>(get_class(), size);
         }
+        inline app::ControlSettingsItem__Array* create_array(const std::vector<app::ControlSettingsItem*>& items) {
+            return il2cpp::array_new<app::ControlSettingsItem__Array>(get_class(), items);
+        }
     } // namespace ControlSettingsItem
 } // namespace app::classes::types

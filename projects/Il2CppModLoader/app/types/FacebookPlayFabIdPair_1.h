@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::FacebookPlayFabIdPair_1__Array* create_array(int size) {
             return il2cpp::array_new<app::FacebookPlayFabIdPair_1__Array>(get_class(), size);
         }
+        inline app::FacebookPlayFabIdPair_1__Array* create_array(const std::vector<app::FacebookPlayFabIdPair_1*>& items) {
+            return il2cpp::array_new<app::FacebookPlayFabIdPair_1__Array>(get_class(), items);
+        }
     } // namespace FacebookPlayFabIdPair_1
 } // namespace app::classes::types

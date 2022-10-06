@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SnakeSolver_JointEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::SnakeSolver_JointEntry__Array>(get_class(), size);
         }
+        inline app::SnakeSolver_JointEntry__Array* create_array(const std::vector<app::SnakeSolver_JointEntry*>& items) {
+            return il2cpp::array_new<app::SnakeSolver_JointEntry__Array>(get_class(), items);
+        }
     } // namespace SnakeSolver_JointEntry
 } // namespace app::classes::types

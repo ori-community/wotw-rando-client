@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberStateValueGroup__Array* create_array(int size) {
             return il2cpp::array_new<app::UberStateValueGroup__Array>(get_class(), size);
         }
+        inline app::UberStateValueGroup__Array* create_array(const std::vector<app::UberStateValueGroup*>& items) {
+            return il2cpp::array_new<app::UberStateValueGroup__Array>(get_class(), items);
+        }
     } // namespace UberStateValueGroup
 } // namespace app::classes::types

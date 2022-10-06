@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Asttree__Array* create_array(int size) {
             return il2cpp::array_new<app::Asttree__Array>(get_class(), size);
         }
+        inline app::Asttree__Array* create_array(const std::vector<app::Asttree*>& items) {
+            return il2cpp::array_new<app::Asttree__Array>(get_class(), items);
+        }
     } // namespace Asttree
 } // namespace app::classes::types

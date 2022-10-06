@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SpiderBossAttackCallMinions_DelayedSpawnInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiderBossAttackCallMinions_DelayedSpawnInfo__Array>(get_class(), size);
         }
+        inline app::SpiderBossAttackCallMinions_DelayedSpawnInfo__Array* create_array(const std::vector<app::SpiderBossAttackCallMinions_DelayedSpawnInfo*>& items) {
+            return il2cpp::array_new<app::SpiderBossAttackCallMinions_DelayedSpawnInfo__Array>(get_class(), items);
+        }
     } // namespace SpiderBossAttackCallMinions_DelayedSpawnInfo
 } // namespace app::classes::types

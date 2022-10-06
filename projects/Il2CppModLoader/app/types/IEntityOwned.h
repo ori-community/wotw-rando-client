@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IEntityOwned__Array* create_array(int size) {
             return il2cpp::array_new<app::IEntityOwned__Array>(get_class(), size);
         }
+        inline app::IEntityOwned__Array* create_array(const std::vector<app::IEntityOwned*>& items) {
+            return il2cpp::array_new<app::IEntityOwned__Array>(get_class(), items);
+        }
     } // namespace IEntityOwned
 } // namespace app::classes::types

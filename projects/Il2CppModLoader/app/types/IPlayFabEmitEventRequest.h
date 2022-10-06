@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::IPlayFabEmitEventRequest__Array* create_array(int size) {
             return il2cpp::array_new<app::IPlayFabEmitEventRequest__Array>(get_class(), size);
         }
+        inline app::IPlayFabEmitEventRequest__Array* create_array(const std::vector<app::IPlayFabEmitEventRequest*>& items) {
+            return il2cpp::array_new<app::IPlayFabEmitEventRequest__Array>(get_class(), items);
+        }
     } // namespace IPlayFabEmitEventRequest
 } // namespace app::classes::types

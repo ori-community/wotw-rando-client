@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::XmlTextWriter_Namespace__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlTextWriter_Namespace__Array>(get_class(), size);
         }
+        inline app::XmlTextWriter_Namespace__Array* create_array(const std::vector<app::XmlTextWriter_Namespace__Boxed>& items) {
+            return il2cpp::array_new<app::XmlTextWriter_Namespace__Array>(get_class(), items);
+        }
     } // namespace XmlTextWriter_Namespace
 } // namespace app::classes::types

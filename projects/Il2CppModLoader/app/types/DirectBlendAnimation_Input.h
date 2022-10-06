@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DirectBlendAnimation_Input__Array* create_array(int size) {
             return il2cpp::array_new<app::DirectBlendAnimation_Input__Array>(get_class(), size);
         }
+        inline app::DirectBlendAnimation_Input__Array* create_array(const std::vector<app::DirectBlendAnimation_Input*>& items) {
+            return il2cpp::array_new<app::DirectBlendAnimation_Input__Array>(get_class(), items);
+        }
     } // namespace DirectBlendAnimation_Input
 } // namespace app::classes::types

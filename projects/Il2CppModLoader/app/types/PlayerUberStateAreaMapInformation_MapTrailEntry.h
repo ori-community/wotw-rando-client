@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PlayerUberStateAreaMapInformation_MapTrailEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::PlayerUberStateAreaMapInformation_MapTrailEntry__Array>(get_class(), size);
         }
+        inline app::PlayerUberStateAreaMapInformation_MapTrailEntry__Array* create_array(const std::vector<app::PlayerUberStateAreaMapInformation_MapTrailEntry*>& items) {
+            return il2cpp::array_new<app::PlayerUberStateAreaMapInformation_MapTrailEntry__Array>(get_class(), items);
+        }
     } // namespace PlayerUberStateAreaMapInformation_MapTrailEntry
 } // namespace app::classes::types

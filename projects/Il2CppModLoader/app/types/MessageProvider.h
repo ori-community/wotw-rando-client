@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MessageProvider__Array* create_array(int size) {
             return il2cpp::array_new<app::MessageProvider__Array>(get_class(), size);
         }
+        inline app::MessageProvider__Array* create_array(const std::vector<app::MessageProvider*>& items) {
+            return il2cpp::array_new<app::MessageProvider__Array>(get_class(), items);
+        }
     } // namespace MessageProvider
 } // namespace app::classes::types

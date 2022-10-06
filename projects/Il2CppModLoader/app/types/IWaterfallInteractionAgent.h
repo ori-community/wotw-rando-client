@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IWaterfallInteractionAgent__Array* create_array(int size) {
             return il2cpp::array_new<app::IWaterfallInteractionAgent__Array>(get_class(), size);
         }
+        inline app::IWaterfallInteractionAgent__Array* create_array(const std::vector<app::IWaterfallInteractionAgent*>& items) {
+            return il2cpp::array_new<app::IWaterfallInteractionAgent__Array>(get_class(), items);
+        }
     } // namespace IWaterfallInteractionAgent
 } // namespace app::classes::types

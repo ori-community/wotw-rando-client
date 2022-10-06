@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SharedGroupDataRecord__Array* create_array(int size) {
             return il2cpp::array_new<app::SharedGroupDataRecord__Array>(get_class(), size);
         }
+        inline app::SharedGroupDataRecord__Array* create_array(const std::vector<app::SharedGroupDataRecord*>& items) {
+            return il2cpp::array_new<app::SharedGroupDataRecord__Array>(get_class(), items);
+        }
     } // namespace SharedGroupDataRecord
 } // namespace app::classes::types

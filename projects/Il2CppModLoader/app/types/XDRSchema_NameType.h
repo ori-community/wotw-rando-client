@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XDRSchema_NameType__Array* create_array(int size) {
             return il2cpp::array_new<app::XDRSchema_NameType__Array>(get_class(), size);
         }
+        inline app::XDRSchema_NameType__Array* create_array(const std::vector<app::XDRSchema_NameType*>& items) {
+            return il2cpp::array_new<app::XDRSchema_NameType__Array>(get_class(), items);
+        }
     } // namespace XDRSchema_NameType
 } // namespace app::classes::types

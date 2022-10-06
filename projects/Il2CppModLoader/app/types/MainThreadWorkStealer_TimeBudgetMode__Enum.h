@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MainThreadWorkStealer_TimeBudgetMode__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::MainThreadWorkStealer_TimeBudgetMode__Enum__Array>(get_class(), size);
         }
+        inline app::MainThreadWorkStealer_TimeBudgetMode__Enum__Array* create_array(const std::vector<app::MainThreadWorkStealer_TimeBudgetMode__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::MainThreadWorkStealer_TimeBudgetMode__Enum__Array>(get_class(), items);
+        }
     } // namespace MainThreadWorkStealer_TimeBudgetMode__Enum
 } // namespace app::classes::types

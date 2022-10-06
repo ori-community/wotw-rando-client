@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::BitmapFontChar__Array* create_array(int size) {
             return il2cpp::array_new<app::BitmapFontChar__Array>(get_class(), size);
         }
+        inline app::BitmapFontChar__Array* create_array(const std::vector<app::BitmapFontChar*>& items) {
+            return il2cpp::array_new<app::BitmapFontChar__Array>(get_class(), items);
+        }
     } // namespace BitmapFontChar
 } // namespace app::classes::types

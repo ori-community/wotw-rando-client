@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::IKEffector__Array* create_array(int size) {
             return il2cpp::array_new<app::IKEffector__Array>(get_class(), size);
         }
+        inline app::IKEffector__Array* create_array(const std::vector<app::IKEffector*>& items) {
+            return il2cpp::array_new<app::IKEffector__Array>(get_class(), items);
+        }
     } // namespace IKEffector
 } // namespace app::classes::types

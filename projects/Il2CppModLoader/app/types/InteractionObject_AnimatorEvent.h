@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::InteractionObject_AnimatorEvent__Array* create_array(int size) {
             return il2cpp::array_new<app::InteractionObject_AnimatorEvent__Array>(get_class(), size);
         }
+        inline app::InteractionObject_AnimatorEvent__Array* create_array(const std::vector<app::InteractionObject_AnimatorEvent*>& items) {
+            return il2cpp::array_new<app::InteractionObject_AnimatorEvent__Array>(get_class(), items);
+        }
     } // namespace InteractionObject_AnimatorEvent
 } // namespace app::classes::types

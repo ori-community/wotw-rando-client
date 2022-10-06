@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SwitchController_VibrationDataEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::SwitchController_VibrationDataEntry__Array>(get_class(), size);
         }
+        inline app::SwitchController_VibrationDataEntry__Array* create_array(const std::vector<app::SwitchController_VibrationDataEntry*>& items) {
+            return il2cpp::array_new<app::SwitchController_VibrationDataEntry__Array>(get_class(), items);
+        }
     } // namespace SwitchController_VibrationDataEntry
 } // namespace app::classes::types

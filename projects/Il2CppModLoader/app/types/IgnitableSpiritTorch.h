@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::IgnitableSpiritTorch__Array* create_array(int size) {
             return il2cpp::array_new<app::IgnitableSpiritTorch__Array>(get_class(), size);
         }
+        inline app::IgnitableSpiritTorch__Array* create_array(const std::vector<app::IgnitableSpiritTorch*>& items) {
+            return il2cpp::array_new<app::IgnitableSpiritTorch__Array>(get_class(), items);
+        }
     } // namespace IgnitableSpiritTorch
 } // namespace app::classes::types

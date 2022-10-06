@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IClippable__Array* create_array(int size) {
             return il2cpp::array_new<app::IClippable__Array>(get_class(), size);
         }
+        inline app::IClippable__Array* create_array(const std::vector<app::IClippable*>& items) {
+            return il2cpp::array_new<app::IClippable__Array>(get_class(), items);
+        }
     } // namespace IClippable
 } // namespace app::classes::types

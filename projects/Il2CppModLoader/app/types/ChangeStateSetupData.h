@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ChangeStateSetupData__Array* create_array(int size) {
             return il2cpp::array_new<app::ChangeStateSetupData__Array>(get_class(), size);
         }
+        inline app::ChangeStateSetupData__Array* create_array(const std::vector<app::ChangeStateSetupData*>& items) {
+            return il2cpp::array_new<app::ChangeStateSetupData__Array>(get_class(), items);
+        }
     } // namespace ChangeStateSetupData
 } // namespace app::classes::types

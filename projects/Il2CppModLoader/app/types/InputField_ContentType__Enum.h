@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::InputField_ContentType__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::InputField_ContentType__Enum__Array>(get_class(), size);
         }
+        inline app::InputField_ContentType__Enum__Array* create_array(const std::vector<app::InputField_ContentType__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::InputField_ContentType__Enum__Array>(get_class(), items);
+        }
     } // namespace InputField_ContentType__Enum
 } // namespace app::classes::types

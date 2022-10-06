@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::RigidbodyInteractionController_InstanciationInteractionSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::RigidbodyInteractionController_InstanciationInteractionSettings__Array>(get_class(), size);
         }
+        inline app::RigidbodyInteractionController_InstanciationInteractionSettings__Array* create_array(const std::vector<app::RigidbodyInteractionController_InstanciationInteractionSettings*>& items) {
+            return il2cpp::array_new<app::RigidbodyInteractionController_InstanciationInteractionSettings__Array>(get_class(), items);
+        }
     } // namespace RigidbodyInteractionController_InstanciationInteractionSettings
 } // namespace app::classes::types

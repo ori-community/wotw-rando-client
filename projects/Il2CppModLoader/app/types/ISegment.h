@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ISegment__Array* create_array(int size) {
             return il2cpp::array_new<app::ISegment__Array>(get_class(), size);
         }
+        inline app::ISegment__Array* create_array(const std::vector<app::ISegment*>& items) {
+            return il2cpp::array_new<app::ISegment__Array>(get_class(), items);
+        }
     } // namespace ISegment
 } // namespace app::classes::types

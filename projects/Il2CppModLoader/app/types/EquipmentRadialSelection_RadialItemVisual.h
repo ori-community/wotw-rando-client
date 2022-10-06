@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EquipmentRadialSelection_RadialItemVisual__Array* create_array(int size) {
             return il2cpp::array_new<app::EquipmentRadialSelection_RadialItemVisual__Array>(get_class(), size);
         }
+        inline app::EquipmentRadialSelection_RadialItemVisual__Array* create_array(const std::vector<app::EquipmentRadialSelection_RadialItemVisual*>& items) {
+            return il2cpp::array_new<app::EquipmentRadialSelection_RadialItemVisual__Array>(get_class(), items);
+        }
     } // namespace EquipmentRadialSelection_RadialItemVisual
 } // namespace app::classes::types

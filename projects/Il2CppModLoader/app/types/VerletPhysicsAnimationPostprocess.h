@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::VerletPhysicsAnimationPostprocess__Array* create_array(int size) {
             return il2cpp::array_new<app::VerletPhysicsAnimationPostprocess__Array>(get_class(), size);
         }
+        inline app::VerletPhysicsAnimationPostprocess__Array* create_array(const std::vector<app::VerletPhysicsAnimationPostprocess*>& items) {
+            return il2cpp::array_new<app::VerletPhysicsAnimationPostprocess__Array>(get_class(), items);
+        }
     } // namespace VerletPhysicsAnimationPostprocess
 } // namespace app::classes::types

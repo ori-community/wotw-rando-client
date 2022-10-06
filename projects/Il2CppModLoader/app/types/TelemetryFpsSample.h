@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TelemetryFpsSample__Array* create_array(int size) {
             return il2cpp::array_new<app::TelemetryFpsSample__Array>(get_class(), size);
         }
+        inline app::TelemetryFpsSample__Array* create_array(const std::vector<app::TelemetryFpsSample*>& items) {
+            return il2cpp::array_new<app::TelemetryFpsSample__Array>(get_class(), items);
+        }
     } // namespace TelemetryFpsSample
 } // namespace app::classes::types

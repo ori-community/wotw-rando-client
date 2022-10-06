@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::XmlMemberMapping__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlMemberMapping__Array>(get_class(), size);
         }
+        inline app::XmlMemberMapping__Array* create_array(const std::vector<app::XmlMemberMapping*>& items) {
+            return il2cpp::array_new<app::XmlMemberMapping__Array>(get_class(), items);
+        }
     } // namespace XmlMemberMapping
 } // namespace app::classes::types

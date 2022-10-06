@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UpgradeAbilityItem__Array* create_array(int size) {
             return il2cpp::array_new<app::UpgradeAbilityItem__Array>(get_class(), size);
         }
+        inline app::UpgradeAbilityItem__Array* create_array(const std::vector<app::UpgradeAbilityItem*>& items) {
+            return il2cpp::array_new<app::UpgradeAbilityItem__Array>(get_class(), items);
+        }
     } // namespace UpgradeAbilityItem
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MonoChunkStream_Chunk__Array* create_array(int size) {
             return il2cpp::array_new<app::MonoChunkStream_Chunk__Array>(get_class(), size);
         }
+        inline app::MonoChunkStream_Chunk__Array* create_array(const std::vector<app::MonoChunkStream_Chunk*>& items) {
+            return il2cpp::array_new<app::MonoChunkStream_Chunk__Array>(get_class(), items);
+        }
     } // namespace MonoChunkStream_Chunk
 } // namespace app::classes::types

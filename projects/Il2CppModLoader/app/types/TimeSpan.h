@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TimeSpan__Array* create_array(int size) {
             return il2cpp::array_new<app::TimeSpan__Array>(get_class(), size);
         }
+        inline app::TimeSpan__Array* create_array(const std::vector<app::TimeSpan__Boxed>& items) {
+            return il2cpp::array_new<app::TimeSpan__Array>(get_class(), items);
+        }
     } // namespace TimeSpan
 } // namespace app::classes::types

@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IEventPipeline__Array* create_array(int size) {
             return il2cpp::array_new<app::IEventPipeline__Array>(get_class(), size);
         }
+        inline app::IEventPipeline__Array* create_array(const std::vector<app::IEventPipeline*>& items) {
+            return il2cpp::array_new<app::IEventPipeline__Array>(get_class(), items);
+        }
     } // namespace IEventPipeline
 } // namespace app::classes::types

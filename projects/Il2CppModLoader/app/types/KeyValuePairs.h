@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::KeyValuePairs__Array* create_array(int size) {
             return il2cpp::array_new<app::KeyValuePairs__Array>(get_class(), size);
         }
+        inline app::KeyValuePairs__Array* create_array(const std::vector<app::KeyValuePairs*>& items) {
+            return il2cpp::array_new<app::KeyValuePairs__Array>(get_class(), items);
+        }
     } // namespace KeyValuePairs
 } // namespace app::classes::types

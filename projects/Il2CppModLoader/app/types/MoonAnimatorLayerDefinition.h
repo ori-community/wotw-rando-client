@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MoonAnimatorLayerDefinition__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonAnimatorLayerDefinition__Array>(get_class(), size);
         }
+        inline app::MoonAnimatorLayerDefinition__Array* create_array(const std::vector<app::MoonAnimatorLayerDefinition__Boxed>& items) {
+            return il2cpp::array_new<app::MoonAnimatorLayerDefinition__Array>(get_class(), items);
+        }
     } // namespace MoonAnimatorLayerDefinition
 } // namespace app::classes::types

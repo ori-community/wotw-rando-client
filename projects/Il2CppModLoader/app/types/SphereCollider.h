@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SphereCollider__Array* create_array(int size) {
             return il2cpp::array_new<app::SphereCollider__Array>(get_class(), size);
         }
+        inline app::SphereCollider__Array* create_array(const std::vector<app::SphereCollider*>& items) {
+            return il2cpp::array_new<app::SphereCollider__Array>(get_class(), items);
+        }
     } // namespace SphereCollider
 } // namespace app::classes::types

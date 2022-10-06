@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SkeetoEntity_SkeetoState__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::SkeetoEntity_SkeetoState__Enum__Array>(get_class(), size);
         }
+        inline app::SkeetoEntity_SkeetoState__Enum__Array* create_array(const std::vector<app::SkeetoEntity_SkeetoState__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::SkeetoEntity_SkeetoState__Enum__Array>(get_class(), items);
+        }
     } // namespace SkeetoEntity_SkeetoState__Enum
 } // namespace app::classes::types

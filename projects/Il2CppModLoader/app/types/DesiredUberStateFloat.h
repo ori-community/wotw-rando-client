@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DesiredUberStateFloat__Array* create_array(int size) {
             return il2cpp::array_new<app::DesiredUberStateFloat__Array>(get_class(), size);
         }
+        inline app::DesiredUberStateFloat__Array* create_array(const std::vector<app::DesiredUberStateFloat*>& items) {
+            return il2cpp::array_new<app::DesiredUberStateFloat__Array>(get_class(), items);
+        }
     } // namespace DesiredUberStateFloat
 } // namespace app::classes::types

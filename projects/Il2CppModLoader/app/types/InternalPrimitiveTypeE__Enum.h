@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::InternalPrimitiveTypeE__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::InternalPrimitiveTypeE__Enum__Array>(get_class(), size);
         }
+        inline app::InternalPrimitiveTypeE__Enum__Array* create_array(const std::vector<app::InternalPrimitiveTypeE__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::InternalPrimitiveTypeE__Enum__Array>(get_class(), items);
+        }
     } // namespace InternalPrimitiveTypeE__Enum
 } // namespace app::classes::types

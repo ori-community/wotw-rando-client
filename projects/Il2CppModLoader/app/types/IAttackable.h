@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IAttackable__Array* create_array(int size) {
             return il2cpp::array_new<app::IAttackable__Array>(get_class(), size);
         }
+        inline app::IAttackable__Array* create_array(const std::vector<app::IAttackable*>& items) {
+            return il2cpp::array_new<app::IAttackable__Array>(get_class(), items);
+        }
     } // namespace IAttackable
 } // namespace app::classes::types

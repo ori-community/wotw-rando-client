@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::AreaMapIconFilterFooterLabel__Array* create_array(int size) {
             return il2cpp::array_new<app::AreaMapIconFilterFooterLabel__Array>(get_class(), size);
         }
+        inline app::AreaMapIconFilterFooterLabel__Array* create_array(const std::vector<app::AreaMapIconFilterFooterLabel__Boxed>& items) {
+            return il2cpp::array_new<app::AreaMapIconFilterFooterLabel__Array>(get_class(), items);
+        }
     } // namespace AreaMapIconFilterFooterLabel
 } // namespace app::classes::types

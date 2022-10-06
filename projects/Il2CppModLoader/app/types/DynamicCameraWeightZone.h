@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DynamicCameraWeightZone__Array* create_array(int size) {
             return il2cpp::array_new<app::DynamicCameraWeightZone__Array>(get_class(), size);
         }
+        inline app::DynamicCameraWeightZone__Array* create_array(const std::vector<app::DynamicCameraWeightZone*>& items) {
+            return il2cpp::array_new<app::DynamicCameraWeightZone__Array>(get_class(), items);
+        }
     } // namespace DynamicCameraWeightZone
 } // namespace app::classes::types

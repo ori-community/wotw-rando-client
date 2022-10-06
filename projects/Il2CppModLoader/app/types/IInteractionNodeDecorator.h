@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IInteractionNodeDecorator__Array* create_array(int size) {
             return il2cpp::array_new<app::IInteractionNodeDecorator__Array>(get_class(), size);
         }
+        inline app::IInteractionNodeDecorator__Array* create_array(const std::vector<app::IInteractionNodeDecorator*>& items) {
+            return il2cpp::array_new<app::IInteractionNodeDecorator__Array>(get_class(), items);
+        }
     } // namespace IInteractionNodeDecorator
 } // namespace app::classes::types

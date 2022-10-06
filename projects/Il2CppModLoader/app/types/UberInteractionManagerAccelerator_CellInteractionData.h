@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::UberInteractionManagerAccelerator_CellInteractionData__Array* create_array(int size) {
             return il2cpp::array_new<app::UberInteractionManagerAccelerator_CellInteractionData__Array>(get_class(), size);
         }
+        inline app::UberInteractionManagerAccelerator_CellInteractionData__Array* create_array(const std::vector<app::UberInteractionManagerAccelerator_CellInteractionData__Boxed>& items) {
+            return il2cpp::array_new<app::UberInteractionManagerAccelerator_CellInteractionData__Array>(get_class(), items);
+        }
     } // namespace UberInteractionManagerAccelerator_CellInteractionData
 } // namespace app::classes::types

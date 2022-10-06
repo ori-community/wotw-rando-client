@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XmlWellFormedWriter_AttributeValueCache_Item__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlWellFormedWriter_AttributeValueCache_Item__Array>(get_class(), size);
         }
+        inline app::XmlWellFormedWriter_AttributeValueCache_Item__Array* create_array(const std::vector<app::XmlWellFormedWriter_AttributeValueCache_Item*>& items) {
+            return il2cpp::array_new<app::XmlWellFormedWriter_AttributeValueCache_Item__Array>(get_class(), items);
+        }
     } // namespace XmlWellFormedWriter_AttributeValueCache_Item
 } // namespace app::classes::types

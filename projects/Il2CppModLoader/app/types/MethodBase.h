@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MethodBase__Array* create_array(int size) {
             return il2cpp::array_new<app::MethodBase__Array>(get_class(), size);
         }
+        inline app::MethodBase__Array* create_array(const std::vector<app::MethodBase*>& items) {
+            return il2cpp::array_new<app::MethodBase__Array>(get_class(), items);
+        }
     } // namespace MethodBase
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::StressTester_SceneIdentifier__Array* create_array(int size) {
             return il2cpp::array_new<app::StressTester_SceneIdentifier__Array>(get_class(), size);
         }
+        inline app::StressTester_SceneIdentifier__Array* create_array(const std::vector<app::StressTester_SceneIdentifier*>& items) {
+            return il2cpp::array_new<app::StressTester_SceneIdentifier__Array>(get_class(), items);
+        }
     } // namespace StressTester_SceneIdentifier
 } // namespace app::classes::types

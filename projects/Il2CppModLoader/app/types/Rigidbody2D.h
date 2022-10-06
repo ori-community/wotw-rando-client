@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Rigidbody2D__Array* create_array(int size) {
             return il2cpp::array_new<app::Rigidbody2D__Array>(get_class(), size);
         }
+        inline app::Rigidbody2D__Array* create_array(const std::vector<app::Rigidbody2D*>& items) {
+            return il2cpp::array_new<app::Rigidbody2D__Array>(get_class(), items);
+        }
     } // namespace Rigidbody2D
 } // namespace app::classes::types

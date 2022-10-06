@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SqlChars__Array* create_array(int size) {
             return il2cpp::array_new<app::SqlChars__Array>(get_class(), size);
         }
+        inline app::SqlChars__Array* create_array(const std::vector<app::SqlChars*>& items) {
+            return il2cpp::array_new<app::SqlChars__Array>(get_class(), items);
+        }
     } // namespace SqlChars
 } // namespace app::classes::types

@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::TimeSpanParse_TimeSpanToken__Array* create_array(int size) {
             return il2cpp::array_new<app::TimeSpanParse_TimeSpanToken__Array>(get_class(), size);
         }
+        inline app::TimeSpanParse_TimeSpanToken__Array* create_array(const std::vector<app::TimeSpanParse_TimeSpanToken__Boxed>& items) {
+            return il2cpp::array_new<app::TimeSpanParse_TimeSpanToken__Array>(get_class(), items);
+        }
     } // namespace TimeSpanParse_TimeSpanToken
 } // namespace app::classes::types

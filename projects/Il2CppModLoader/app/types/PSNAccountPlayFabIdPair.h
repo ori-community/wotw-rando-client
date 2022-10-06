@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PSNAccountPlayFabIdPair__Array* create_array(int size) {
             return il2cpp::array_new<app::PSNAccountPlayFabIdPair__Array>(get_class(), size);
         }
+        inline app::PSNAccountPlayFabIdPair__Array* create_array(const std::vector<app::PSNAccountPlayFabIdPair*>& items) {
+            return il2cpp::array_new<app::PSNAccountPlayFabIdPair__Array>(get_class(), items);
+        }
     } // namespace PSNAccountPlayFabIdPair
 } // namespace app::classes::types

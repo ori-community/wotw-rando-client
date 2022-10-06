@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::FogSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::FogSettings__Array>(get_class(), size);
         }
+        inline app::FogSettings__Array* create_array(const std::vector<app::FogSettings*>& items) {
+            return il2cpp::array_new<app::FogSettings__Array>(get_class(), items);
+        }
     } // namespace FogSettings
 } // namespace app::classes::types

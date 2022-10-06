@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::InputInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::InputInfo__Array>(get_class(), size);
         }
+        inline app::InputInfo__Array* create_array(const std::vector<app::InputInfo*>& items) {
+            return il2cpp::array_new<app::InputInfo__Array>(get_class(), items);
+        }
     } // namespace InputInfo
 } // namespace app::classes::types

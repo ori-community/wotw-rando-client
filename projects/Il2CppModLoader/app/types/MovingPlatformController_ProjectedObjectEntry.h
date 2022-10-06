@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MovingPlatformController_ProjectedObjectEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::MovingPlatformController_ProjectedObjectEntry__Array>(get_class(), size);
         }
+        inline app::MovingPlatformController_ProjectedObjectEntry__Array* create_array(const std::vector<app::MovingPlatformController_ProjectedObjectEntry*>& items) {
+            return il2cpp::array_new<app::MovingPlatformController_ProjectedObjectEntry__Array>(get_class(), items);
+        }
     } // namespace MovingPlatformController_ProjectedObjectEntry
 } // namespace app::classes::types

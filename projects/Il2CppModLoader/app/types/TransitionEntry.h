@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TransitionEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::TransitionEntry__Array>(get_class(), size);
         }
+        inline app::TransitionEntry__Array* create_array(const std::vector<app::TransitionEntry*>& items) {
+            return il2cpp::array_new<app::TransitionEntry__Array>(get_class(), items);
+        }
     } // namespace TransitionEntry
 } // namespace app::classes::types

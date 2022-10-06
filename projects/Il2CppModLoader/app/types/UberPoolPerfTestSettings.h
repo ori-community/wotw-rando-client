@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberPoolPerfTestSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::UberPoolPerfTestSettings__Array>(get_class(), size);
         }
+        inline app::UberPoolPerfTestSettings__Array* create_array(const std::vector<app::UberPoolPerfTestSettings*>& items) {
+            return il2cpp::array_new<app::UberPoolPerfTestSettings__Array>(get_class(), items);
+        }
     } // namespace UberPoolPerfTestSettings
 } // namespace app::classes::types

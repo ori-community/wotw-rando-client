@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TextRenderer__Array* create_array(int size) {
             return il2cpp::array_new<app::TextRenderer__Array>(get_class(), size);
         }
+        inline app::TextRenderer__Array* create_array(const std::vector<app::TextRenderer*>& items) {
+            return il2cpp::array_new<app::TextRenderer__Array>(get_class(), items);
+        }
     } // namespace TextRenderer
 } // namespace app::classes::types

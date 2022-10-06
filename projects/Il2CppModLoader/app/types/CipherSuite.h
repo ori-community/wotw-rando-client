@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CipherSuite__Array* create_array(int size) {
             return il2cpp::array_new<app::CipherSuite__Array>(get_class(), size);
         }
+        inline app::CipherSuite__Array* create_array(const std::vector<app::CipherSuite*>& items) {
+            return il2cpp::array_new<app::CipherSuite__Array>(get_class(), items);
+        }
     } // namespace CipherSuite
 } // namespace app::classes::types

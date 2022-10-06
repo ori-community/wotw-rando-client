@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Axis__Enum_1__Array* create_array(int size) {
             return il2cpp::array_new<app::Axis__Enum_1__Array>(get_class(), size);
         }
+        inline app::Axis__Enum_1__Array* create_array(const std::vector<app::Axis__Enum_1__Boxed*>& items) {
+            return il2cpp::array_new<app::Axis__Enum_1__Array>(get_class(), items);
+        }
     } // namespace Axis__Enum_1
 } // namespace app::classes::types

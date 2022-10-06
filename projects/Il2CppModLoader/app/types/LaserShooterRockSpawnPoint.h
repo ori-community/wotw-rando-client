@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LaserShooterRockSpawnPoint__Array* create_array(int size) {
             return il2cpp::array_new<app::LaserShooterRockSpawnPoint__Array>(get_class(), size);
         }
+        inline app::LaserShooterRockSpawnPoint__Array* create_array(const std::vector<app::LaserShooterRockSpawnPoint*>& items) {
+            return il2cpp::array_new<app::LaserShooterRockSpawnPoint__Array>(get_class(), items);
+        }
     } // namespace LaserShooterRockSpawnPoint
 } // namespace app::classes::types

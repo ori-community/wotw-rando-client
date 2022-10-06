@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CameraOffsetAnimationZone_OffsetBlend__Array* create_array(int size) {
             return il2cpp::array_new<app::CameraOffsetAnimationZone_OffsetBlend__Array>(get_class(), size);
         }
+        inline app::CameraOffsetAnimationZone_OffsetBlend__Array* create_array(const std::vector<app::CameraOffsetAnimationZone_OffsetBlend*>& items) {
+            return il2cpp::array_new<app::CameraOffsetAnimationZone_OffsetBlend__Array>(get_class(), items);
+        }
     } // namespace CameraOffsetAnimationZone_OffsetBlend
 } // namespace app::classes::types

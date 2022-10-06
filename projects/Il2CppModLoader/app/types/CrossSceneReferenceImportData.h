@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CrossSceneReferenceImportData__Array* create_array(int size) {
             return il2cpp::array_new<app::CrossSceneReferenceImportData__Array>(get_class(), size);
         }
+        inline app::CrossSceneReferenceImportData__Array* create_array(const std::vector<app::CrossSceneReferenceImportData*>& items) {
+            return il2cpp::array_new<app::CrossSceneReferenceImportData__Array>(get_class(), items);
+        }
     } // namespace CrossSceneReferenceImportData
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LineRenderer__Array* create_array(int size) {
             return il2cpp::array_new<app::LineRenderer__Array>(get_class(), size);
         }
+        inline app::LineRenderer__Array* create_array(const std::vector<app::LineRenderer*>& items) {
+            return il2cpp::array_new<app::LineRenderer__Array>(get_class(), items);
+        }
     } // namespace LineRenderer
 } // namespace app::classes::types

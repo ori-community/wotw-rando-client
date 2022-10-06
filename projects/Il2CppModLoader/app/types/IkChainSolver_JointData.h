@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::IkChainSolver_JointData__Array* create_array(int size) {
             return il2cpp::array_new<app::IkChainSolver_JointData__Array>(get_class(), size);
         }
+        inline app::IkChainSolver_JointData__Array* create_array(const std::vector<app::IkChainSolver_JointData__Boxed>& items) {
+            return il2cpp::array_new<app::IkChainSolver_JointData__Array>(get_class(), items);
+        }
     } // namespace IkChainSolver_JointData
 } // namespace app::classes::types

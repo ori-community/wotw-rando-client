@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DamageReceiver_DamageEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::DamageReceiver_DamageEntry__Array>(get_class(), size);
         }
+        inline app::DamageReceiver_DamageEntry__Array* create_array(const std::vector<app::DamageReceiver_DamageEntry*>& items) {
+            return il2cpp::array_new<app::DamageReceiver_DamageEntry__Array>(get_class(), items);
+        }
     } // namespace DamageReceiver_DamageEntry
 } // namespace app::classes::types

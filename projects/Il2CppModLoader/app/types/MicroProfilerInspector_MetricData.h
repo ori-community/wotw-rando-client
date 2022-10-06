@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MicroProfilerInspector_MetricData__Array* create_array(int size) {
             return il2cpp::array_new<app::MicroProfilerInspector_MetricData__Array>(get_class(), size);
         }
+        inline app::MicroProfilerInspector_MetricData__Array* create_array(const std::vector<app::MicroProfilerInspector_MetricData__Boxed>& items) {
+            return il2cpp::array_new<app::MicroProfilerInspector_MetricData__Array>(get_class(), items);
+        }
     } // namespace MicroProfilerInspector_MetricData
 } // namespace app::classes::types

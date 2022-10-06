@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Index__Array* create_array(int size) {
             return il2cpp::array_new<app::Index__Array>(get_class(), size);
         }
+        inline app::Index__Array* create_array(const std::vector<app::Index*>& items) {
+            return il2cpp::array_new<app::Index__Array>(get_class(), items);
+        }
     } // namespace Index
 } // namespace app::classes::types

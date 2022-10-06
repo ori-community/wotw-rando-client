@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::WeakReference__Array* create_array(int size) {
             return il2cpp::array_new<app::WeakReference__Array>(get_class(), size);
         }
+        inline app::WeakReference__Array* create_array(const std::vector<app::WeakReference*>& items) {
+            return il2cpp::array_new<app::WeakReference__Array>(get_class(), items);
+        }
     } // namespace WeakReference
 } // namespace app::classes::types

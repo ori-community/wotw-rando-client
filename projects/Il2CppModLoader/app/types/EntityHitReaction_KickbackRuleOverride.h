@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::EntityHitReaction_KickbackRuleOverride__Array* create_array(int size) {
             return il2cpp::array_new<app::EntityHitReaction_KickbackRuleOverride__Array>(get_class(), size);
         }
+        inline app::EntityHitReaction_KickbackRuleOverride__Array* create_array(const std::vector<app::EntityHitReaction_KickbackRuleOverride*>& items) {
+            return il2cpp::array_new<app::EntityHitReaction_KickbackRuleOverride__Array>(get_class(), items);
+        }
     } // namespace EntityHitReaction_KickbackRuleOverride
 } // namespace app::classes::types

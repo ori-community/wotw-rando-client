@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LightCullingSystem_LightCullingGroup__Array* create_array(int size) {
             return il2cpp::array_new<app::LightCullingSystem_LightCullingGroup__Array>(get_class(), size);
         }
+        inline app::LightCullingSystem_LightCullingGroup__Array* create_array(const std::vector<app::LightCullingSystem_LightCullingGroup*>& items) {
+            return il2cpp::array_new<app::LightCullingSystem_LightCullingGroup__Array>(get_class(), items);
+        }
     } // namespace LightCullingSystem_LightCullingGroup
 } // namespace app::classes::types

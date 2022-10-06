@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GroupInvitation__Array* create_array(int size) {
             return il2cpp::array_new<app::GroupInvitation__Array>(get_class(), size);
         }
+        inline app::GroupInvitation__Array* create_array(const std::vector<app::GroupInvitation*>& items) {
+            return il2cpp::array_new<app::GroupInvitation__Array>(get_class(), items);
+        }
     } // namespace GroupInvitation
 } // namespace app::classes::types

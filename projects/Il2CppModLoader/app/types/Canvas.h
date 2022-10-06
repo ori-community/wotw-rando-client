@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Canvas__Array* create_array(int size) {
             return il2cpp::array_new<app::Canvas__Array>(get_class(), size);
         }
+        inline app::Canvas__Array* create_array(const std::vector<app::Canvas*>& items) {
+            return il2cpp::array_new<app::Canvas__Array>(get_class(), items);
+        }
     } // namespace Canvas
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TransitionManager__Array* create_array(int size) {
             return il2cpp::array_new<app::TransitionManager__Array>(get_class(), size);
         }
+        inline app::TransitionManager__Array* create_array(const std::vector<app::TransitionManager*>& items) {
+            return il2cpp::array_new<app::TransitionManager__Array>(get_class(), items);
+        }
     } // namespace TransitionManager
 } // namespace app::classes::types

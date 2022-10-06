@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XmlEventCache_XmlEvent__Array__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlEventCache_XmlEvent__Array__Array>(get_class(), size);
         }
+        inline app::XmlEventCache_XmlEvent__Array__Array* create_array(const std::vector<app::XmlEventCache_XmlEvent__Array*>& items) {
+            return il2cpp::array_new<app::XmlEventCache_XmlEvent__Array__Array>(get_class(), items);
+        }
     } // namespace XmlEventCache_XmlEvent__Array
 } // namespace app::classes::types

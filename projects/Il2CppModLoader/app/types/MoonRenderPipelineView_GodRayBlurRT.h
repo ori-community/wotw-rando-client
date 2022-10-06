@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonRenderPipelineView_GodRayBlurRT__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonRenderPipelineView_GodRayBlurRT__Array>(get_class(), size);
         }
+        inline app::MoonRenderPipelineView_GodRayBlurRT__Array* create_array(const std::vector<app::MoonRenderPipelineView_GodRayBlurRT*>& items) {
+            return il2cpp::array_new<app::MoonRenderPipelineView_GodRayBlurRT__Array>(get_class(), items);
+        }
     } // namespace MoonRenderPipelineView_GodRayBlurRT
 } // namespace app::classes::types

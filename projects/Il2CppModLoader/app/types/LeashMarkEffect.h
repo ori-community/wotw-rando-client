@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LeashMarkEffect__Array* create_array(int size) {
             return il2cpp::array_new<app::LeashMarkEffect__Array>(get_class(), size);
         }
+        inline app::LeashMarkEffect__Array* create_array(const std::vector<app::LeashMarkEffect*>& items) {
+            return il2cpp::array_new<app::LeashMarkEffect__Array>(get_class(), items);
+        }
     } // namespace LeashMarkEffect
 } // namespace app::classes::types

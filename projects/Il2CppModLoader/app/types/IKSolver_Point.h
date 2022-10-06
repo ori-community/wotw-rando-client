@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::IKSolver_Point__Array* create_array(int size) {
             return il2cpp::array_new<app::IKSolver_Point__Array>(get_class(), size);
         }
+        inline app::IKSolver_Point__Array* create_array(const std::vector<app::IKSolver_Point*>& items) {
+            return il2cpp::array_new<app::IKSolver_Point__Array>(get_class(), items);
+        }
     } // namespace IKSolver_Point
 } // namespace app::classes::types

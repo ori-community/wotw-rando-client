@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UpgradableShardItem__Array* create_array(int size) {
             return il2cpp::array_new<app::UpgradableShardItem__Array>(get_class(), size);
         }
+        inline app::UpgradableShardItem__Array* create_array(const std::vector<app::UpgradableShardItem*>& items) {
+            return il2cpp::array_new<app::UpgradableShardItem__Array>(get_class(), items);
+        }
     } // namespace UpgradableShardItem
 } // namespace app::classes::types

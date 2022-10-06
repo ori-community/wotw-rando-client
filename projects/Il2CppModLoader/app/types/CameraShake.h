@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CameraShake__Array* create_array(int size) {
             return il2cpp::array_new<app::CameraShake__Array>(get_class(), size);
         }
+        inline app::CameraShake__Array* create_array(const std::vector<app::CameraShake*>& items) {
+            return il2cpp::array_new<app::CameraShake__Array>(get_class(), items);
+        }
     } // namespace CameraShake
 } // namespace app::classes::types

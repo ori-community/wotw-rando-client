@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MultiplyLayerModifier__Array* create_array(int size) {
             return il2cpp::array_new<app::MultiplyLayerModifier__Array>(get_class(), size);
         }
+        inline app::MultiplyLayerModifier__Array* create_array(const std::vector<app::MultiplyLayerModifier*>& items) {
+            return il2cpp::array_new<app::MultiplyLayerModifier__Array>(get_class(), items);
+        }
     } // namespace MultiplyLayerModifier
 } // namespace app::classes::types

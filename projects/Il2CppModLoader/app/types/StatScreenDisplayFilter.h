@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::StatScreenDisplayFilter__Array* create_array(int size) {
             return il2cpp::array_new<app::StatScreenDisplayFilter__Array>(get_class(), size);
         }
+        inline app::StatScreenDisplayFilter__Array* create_array(const std::vector<app::StatScreenDisplayFilter*>& items) {
+            return il2cpp::array_new<app::StatScreenDisplayFilter__Array>(get_class(), items);
+        }
     } // namespace StatScreenDisplayFilter
 } // namespace app::classes::types

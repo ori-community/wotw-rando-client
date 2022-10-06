@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TradeInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::TradeInfo__Array>(get_class(), size);
         }
+        inline app::TradeInfo__Array* create_array(const std::vector<app::TradeInfo*>& items) {
+            return il2cpp::array_new<app::TradeInfo__Array>(get_class(), items);
+        }
     } // namespace TradeInfo
 } // namespace app::classes::types

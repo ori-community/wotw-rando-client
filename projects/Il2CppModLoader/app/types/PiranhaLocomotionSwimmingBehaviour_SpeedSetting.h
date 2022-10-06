@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PiranhaLocomotionSwimmingBehaviour_SpeedSetting__Array* create_array(int size) {
             return il2cpp::array_new<app::PiranhaLocomotionSwimmingBehaviour_SpeedSetting__Array>(get_class(), size);
         }
+        inline app::PiranhaLocomotionSwimmingBehaviour_SpeedSetting__Array* create_array(const std::vector<app::PiranhaLocomotionSwimmingBehaviour_SpeedSetting*>& items) {
+            return il2cpp::array_new<app::PiranhaLocomotionSwimmingBehaviour_SpeedSetting__Array>(get_class(), items);
+        }
     } // namespace PiranhaLocomotionSwimmingBehaviour_SpeedSetting
 } // namespace app::classes::types

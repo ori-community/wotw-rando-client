@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::EnvironmentSoundPair__Array* create_array(int size) {
             return il2cpp::array_new<app::EnvironmentSoundPair__Array>(get_class(), size);
         }
+        inline app::EnvironmentSoundPair__Array* create_array(const std::vector<app::EnvironmentSoundPair*>& items) {
+            return il2cpp::array_new<app::EnvironmentSoundPair__Array>(get_class(), items);
+        }
     } // namespace EnvironmentSoundPair
 } // namespace app::classes::types

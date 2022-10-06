@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::XmlNamespaceManager_NamespaceDeclaration__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlNamespaceManager_NamespaceDeclaration__Array>(get_class(), size);
         }
+        inline app::XmlNamespaceManager_NamespaceDeclaration__Array* create_array(const std::vector<app::XmlNamespaceManager_NamespaceDeclaration__Boxed>& items) {
+            return il2cpp::array_new<app::XmlNamespaceManager_NamespaceDeclaration__Array>(get_class(), items);
+        }
     } // namespace XmlNamespaceManager_NamespaceDeclaration
 } // namespace app::classes::types

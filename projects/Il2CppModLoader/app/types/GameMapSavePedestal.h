@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GameMapSavePedestal__Array* create_array(int size) {
             return il2cpp::array_new<app::GameMapSavePedestal__Array>(get_class(), size);
         }
+        inline app::GameMapSavePedestal__Array* create_array(const std::vector<app::GameMapSavePedestal*>& items) {
+            return il2cpp::array_new<app::GameMapSavePedestal__Array>(get_class(), items);
+        }
     } // namespace GameMapSavePedestal
 } // namespace app::classes::types

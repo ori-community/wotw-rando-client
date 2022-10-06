@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::StackTrace__Array* create_array(int size) {
             return il2cpp::array_new<app::StackTrace__Array>(get_class(), size);
         }
+        inline app::StackTrace__Array* create_array(const std::vector<app::StackTrace*>& items) {
+            return il2cpp::array_new<app::StackTrace__Array>(get_class(), items);
+        }
     } // namespace StackTrace
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SrpSampler__Array* create_array(int size) {
             return il2cpp::array_new<app::SrpSampler__Array>(get_class(), size);
         }
+        inline app::SrpSampler__Array* create_array(const std::vector<app::SrpSampler__Boxed>& items) {
+            return il2cpp::array_new<app::SrpSampler__Array>(get_class(), items);
+        }
     } // namespace SrpSampler
 } // namespace app::classes::types

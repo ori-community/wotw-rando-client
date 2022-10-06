@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ActivateCooldownRule__Array* create_array(int size) {
             return il2cpp::array_new<app::ActivateCooldownRule__Array>(get_class(), size);
         }
+        inline app::ActivateCooldownRule__Array* create_array(const std::vector<app::ActivateCooldownRule*>& items) {
+            return il2cpp::array_new<app::ActivateCooldownRule__Array>(get_class(), items);
+        }
     } // namespace ActivateCooldownRule
 } // namespace app::classes::types

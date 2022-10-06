@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::HitReaction_HitPointBone_BoneLink__Array* create_array(int size) {
             return il2cpp::array_new<app::HitReaction_HitPointBone_BoneLink__Array>(get_class(), size);
         }
+        inline app::HitReaction_HitPointBone_BoneLink__Array* create_array(const std::vector<app::HitReaction_HitPointBone_BoneLink*>& items) {
+            return il2cpp::array_new<app::HitReaction_HitPointBone_BoneLink__Array>(get_class(), items);
+        }
     } // namespace HitReaction_HitPointBone_BoneLink
 } // namespace app::classes::types

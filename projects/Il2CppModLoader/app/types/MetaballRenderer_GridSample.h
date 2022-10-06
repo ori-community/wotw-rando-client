@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MetaballRenderer_GridSample__Array* create_array(int size) {
             return il2cpp::array_new<app::MetaballRenderer_GridSample__Array>(get_class(), size);
         }
+        inline app::MetaballRenderer_GridSample__Array* create_array(const std::vector<app::MetaballRenderer_GridSample*>& items) {
+            return il2cpp::array_new<app::MetaballRenderer_GridSample__Array>(get_class(), items);
+        }
     } // namespace MetaballRenderer_GridSample
 } // namespace app::classes::types

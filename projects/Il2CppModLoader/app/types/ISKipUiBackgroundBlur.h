@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ISKipUiBackgroundBlur__Array* create_array(int size) {
             return il2cpp::array_new<app::ISKipUiBackgroundBlur__Array>(get_class(), size);
         }
+        inline app::ISKipUiBackgroundBlur__Array* create_array(const std::vector<app::ISKipUiBackgroundBlur*>& items) {
+            return il2cpp::array_new<app::ISKipUiBackgroundBlur__Array>(get_class(), items);
+        }
     } // namespace ISKipUiBackgroundBlur
 } // namespace app::classes::types

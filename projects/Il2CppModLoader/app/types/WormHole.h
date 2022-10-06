@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::WormHole__Array* create_array(int size) {
             return il2cpp::array_new<app::WormHole__Array>(get_class(), size);
         }
+        inline app::WormHole__Array* create_array(const std::vector<app::WormHole*>& items) {
+            return il2cpp::array_new<app::WormHole__Array>(get_class(), items);
+        }
     } // namespace WormHole
 } // namespace app::classes::types

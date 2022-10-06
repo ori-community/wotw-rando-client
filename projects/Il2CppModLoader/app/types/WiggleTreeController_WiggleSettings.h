@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::WiggleTreeController_WiggleSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::WiggleTreeController_WiggleSettings__Array>(get_class(), size);
         }
+        inline app::WiggleTreeController_WiggleSettings__Array* create_array(const std::vector<app::WiggleTreeController_WiggleSettings*>& items) {
+            return il2cpp::array_new<app::WiggleTreeController_WiggleSettings__Array>(get_class(), items);
+        }
     } // namespace WiggleTreeController_WiggleSettings
 } // namespace app::classes::types

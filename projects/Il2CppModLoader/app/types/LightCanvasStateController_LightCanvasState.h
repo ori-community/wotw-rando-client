@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LightCanvasStateController_LightCanvasState__Array* create_array(int size) {
             return il2cpp::array_new<app::LightCanvasStateController_LightCanvasState__Array>(get_class(), size);
         }
+        inline app::LightCanvasStateController_LightCanvasState__Array* create_array(const std::vector<app::LightCanvasStateController_LightCanvasState*>& items) {
+            return il2cpp::array_new<app::LightCanvasStateController_LightCanvasState__Array>(get_class(), items);
+        }
     } // namespace LightCanvasStateController_LightCanvasState
 } // namespace app::classes::types

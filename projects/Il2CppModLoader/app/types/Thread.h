@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Thread__Array* create_array(int size) {
             return il2cpp::array_new<app::Thread__Array>(get_class(), size);
         }
+        inline app::Thread__Array* create_array(const std::vector<app::Thread*>& items) {
+            return il2cpp::array_new<app::Thread__Array>(get_class(), items);
+        }
     } // namespace Thread
 } // namespace app::classes::types

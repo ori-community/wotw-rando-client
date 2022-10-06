@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::RailType__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::RailType__Enum__Array>(get_class(), size);
         }
+        inline app::RailType__Enum__Array* create_array(const std::vector<app::RailType__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::RailType__Enum__Array>(get_class(), items);
+        }
     } // namespace RailType__Enum
 } // namespace app::classes::types

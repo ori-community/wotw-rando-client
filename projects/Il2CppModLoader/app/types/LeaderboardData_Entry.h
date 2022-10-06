@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LeaderboardData_Entry__Array* create_array(int size) {
             return il2cpp::array_new<app::LeaderboardData_Entry__Array>(get_class(), size);
         }
+        inline app::LeaderboardData_Entry__Array* create_array(const std::vector<app::LeaderboardData_Entry*>& items) {
+            return il2cpp::array_new<app::LeaderboardData_Entry__Array>(get_class(), items);
+        }
     } // namespace LeaderboardData_Entry
 } // namespace app::classes::types

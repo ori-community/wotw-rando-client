@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ResolutionPreset__Array* create_array(int size) {
             return il2cpp::array_new<app::ResolutionPreset__Array>(get_class(), size);
         }
+        inline app::ResolutionPreset__Array* create_array(const std::vector<app::ResolutionPreset*>& items) {
+            return il2cpp::array_new<app::ResolutionPreset__Array>(get_class(), items);
+        }
     } // namespace ResolutionPreset
 } // namespace app::classes::types

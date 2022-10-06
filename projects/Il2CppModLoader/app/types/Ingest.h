@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Ingest__Array* create_array(int size) {
             return il2cpp::array_new<app::Ingest__Array>(get_class(), size);
         }
+        inline app::Ingest__Array* create_array(const std::vector<app::Ingest*>& items) {
+            return il2cpp::array_new<app::Ingest__Array>(get_class(), items);
+        }
     } // namespace Ingest
 } // namespace app::classes::types

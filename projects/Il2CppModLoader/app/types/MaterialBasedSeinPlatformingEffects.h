@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MaterialBasedSeinPlatformingEffects__Array* create_array(int size) {
             return il2cpp::array_new<app::MaterialBasedSeinPlatformingEffects__Array>(get_class(), size);
         }
+        inline app::MaterialBasedSeinPlatformingEffects__Array* create_array(const std::vector<app::MaterialBasedSeinPlatformingEffects*>& items) {
+            return il2cpp::array_new<app::MaterialBasedSeinPlatformingEffects__Array>(get_class(), items);
+        }
     } // namespace MaterialBasedSeinPlatformingEffects
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PointerEventData__Array* create_array(int size) {
             return il2cpp::array_new<app::PointerEventData__Array>(get_class(), size);
         }
+        inline app::PointerEventData__Array* create_array(const std::vector<app::PointerEventData*>& items) {
+            return il2cpp::array_new<app::PointerEventData__Array>(get_class(), items);
+        }
     } // namespace PointerEventData
 } // namespace app::classes::types

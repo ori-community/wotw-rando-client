@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberSwarmer__Array* create_array(int size) {
             return il2cpp::array_new<app::UberSwarmer__Array>(get_class(), size);
         }
+        inline app::UberSwarmer__Array* create_array(const std::vector<app::UberSwarmer*>& items) {
+            return il2cpp::array_new<app::UberSwarmer__Array>(get_class(), items);
+        }
     } // namespace UberSwarmer
 } // namespace app::classes::types

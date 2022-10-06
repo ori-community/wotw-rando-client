@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Array* create_array(int size) {
             return il2cpp::array_new<app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Array>(get_class(), size);
         }
+        inline app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Array* create_array(const std::vector<app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Boxed>& items) {
+            return il2cpp::array_new<app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Array>(get_class(), items);
+        }
     } // namespace SneezeSlugBurrowBehaviour_UnburrowPointRate
 } // namespace app::classes::types

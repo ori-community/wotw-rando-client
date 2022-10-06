@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AssetReference__Array* create_array(int size) {
             return il2cpp::array_new<app::AssetReference__Array>(get_class(), size);
         }
+        inline app::AssetReference__Array* create_array(const std::vector<app::AssetReference*>& items) {
+            return il2cpp::array_new<app::AssetReference__Array>(get_class(), items);
+        }
     } // namespace AssetReference
 } // namespace app::classes::types

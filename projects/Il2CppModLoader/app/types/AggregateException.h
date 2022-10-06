@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AggregateException__Array* create_array(int size) {
             return il2cpp::array_new<app::AggregateException__Array>(get_class(), size);
         }
+        inline app::AggregateException__Array* create_array(const std::vector<app::AggregateException*>& items) {
+            return il2cpp::array_new<app::AggregateException__Array>(get_class(), items);
+        }
     } // namespace AggregateException
 } // namespace app::classes::types

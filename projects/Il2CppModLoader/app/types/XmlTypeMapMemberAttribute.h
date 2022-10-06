@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XmlTypeMapMemberAttribute__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlTypeMapMemberAttribute__Array>(get_class(), size);
         }
+        inline app::XmlTypeMapMemberAttribute__Array* create_array(const std::vector<app::XmlTypeMapMemberAttribute*>& items) {
+            return il2cpp::array_new<app::XmlTypeMapMemberAttribute__Array>(get_class(), items);
+        }
     } // namespace XmlTypeMapMemberAttribute
 } // namespace app::classes::types

@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::XmlSqlBinaryReader_AttrInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlSqlBinaryReader_AttrInfo__Array>(get_class(), size);
         }
+        inline app::XmlSqlBinaryReader_AttrInfo__Array* create_array(const std::vector<app::XmlSqlBinaryReader_AttrInfo__Boxed>& items) {
+            return il2cpp::array_new<app::XmlSqlBinaryReader_AttrInfo__Array>(get_class(), items);
+        }
     } // namespace XmlSqlBinaryReader_AttrInfo
 } // namespace app::classes::types

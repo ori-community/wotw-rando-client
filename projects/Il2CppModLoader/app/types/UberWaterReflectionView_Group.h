@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberWaterReflectionView_Group__Array* create_array(int size) {
             return il2cpp::array_new<app::UberWaterReflectionView_Group__Array>(get_class(), size);
         }
+        inline app::UberWaterReflectionView_Group__Array* create_array(const std::vector<app::UberWaterReflectionView_Group*>& items) {
+            return il2cpp::array_new<app::UberWaterReflectionView_Group__Array>(get_class(), items);
+        }
     } // namespace UberWaterReflectionView_Group
 } // namespace app::classes::types

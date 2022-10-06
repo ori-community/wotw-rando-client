@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::VerletPhysicsAnimationPostprocess_JointMetadata__Array* create_array(int size) {
             return il2cpp::array_new<app::VerletPhysicsAnimationPostprocess_JointMetadata__Array>(get_class(), size);
         }
+        inline app::VerletPhysicsAnimationPostprocess_JointMetadata__Array* create_array(const std::vector<app::VerletPhysicsAnimationPostprocess_JointMetadata*>& items) {
+            return il2cpp::array_new<app::VerletPhysicsAnimationPostprocess_JointMetadata__Array>(get_class(), items);
+        }
     } // namespace VerletPhysicsAnimationPostprocess_JointMetadata
 } // namespace app::classes::types

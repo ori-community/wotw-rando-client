@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::HttpListenerContext__Array* create_array(int size) {
             return il2cpp::array_new<app::HttpListenerContext__Array>(get_class(), size);
         }
+        inline app::HttpListenerContext__Array* create_array(const std::vector<app::HttpListenerContext*>& items) {
+            return il2cpp::array_new<app::HttpListenerContext__Array>(get_class(), items);
+        }
     } // namespace HttpListenerContext
 } // namespace app::classes::types

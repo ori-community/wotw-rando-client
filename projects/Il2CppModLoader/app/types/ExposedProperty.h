@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ExposedProperty__Array* create_array(int size) {
             return il2cpp::array_new<app::ExposedProperty__Array>(get_class(), size);
         }
+        inline app::ExposedProperty__Array* create_array(const std::vector<app::ExposedProperty*>& items) {
+            return il2cpp::array_new<app::ExposedProperty__Array>(get_class(), items);
+        }
     } // namespace ExposedProperty
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberShaderAnimatorStrategyStandard_RendererState__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderAnimatorStrategyStandard_RendererState__Array>(get_class(), size);
         }
+        inline app::UberShaderAnimatorStrategyStandard_RendererState__Array* create_array(const std::vector<app::UberShaderAnimatorStrategyStandard_RendererState*>& items) {
+            return il2cpp::array_new<app::UberShaderAnimatorStrategyStandard_RendererState__Array>(get_class(), items);
+        }
     } // namespace UberShaderAnimatorStrategyStandard_RendererState
 } // namespace app::classes::types

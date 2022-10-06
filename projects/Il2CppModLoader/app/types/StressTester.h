@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::StressTester__Array* create_array(int size) {
             return il2cpp::array_new<app::StressTester__Array>(get_class(), size);
         }
+        inline app::StressTester__Array* create_array(const std::vector<app::StressTester*>& items) {
+            return il2cpp::array_new<app::StressTester__Array>(get_class(), items);
+        }
     } // namespace StressTester
 } // namespace app::classes::types

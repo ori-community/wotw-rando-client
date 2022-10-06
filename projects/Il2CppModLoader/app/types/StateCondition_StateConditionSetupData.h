@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::StateCondition_StateConditionSetupData__Array* create_array(int size) {
             return il2cpp::array_new<app::StateCondition_StateConditionSetupData__Array>(get_class(), size);
         }
+        inline app::StateCondition_StateConditionSetupData__Array* create_array(const std::vector<app::StateCondition_StateConditionSetupData*>& items) {
+            return il2cpp::array_new<app::StateCondition_StateConditionSetupData__Array>(get_class(), items);
+        }
     } // namespace StateCondition_StateConditionSetupData
 } // namespace app::classes::types

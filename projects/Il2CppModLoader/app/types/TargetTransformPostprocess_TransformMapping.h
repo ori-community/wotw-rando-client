@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TargetTransformPostprocess_TransformMapping__Array* create_array(int size) {
             return il2cpp::array_new<app::TargetTransformPostprocess_TransformMapping__Array>(get_class(), size);
         }
+        inline app::TargetTransformPostprocess_TransformMapping__Array* create_array(const std::vector<app::TargetTransformPostprocess_TransformMapping*>& items) {
+            return il2cpp::array_new<app::TargetTransformPostprocess_TransformMapping__Array>(get_class(), items);
+        }
     } // namespace TargetTransformPostprocess_TransformMapping
 } // namespace app::classes::types

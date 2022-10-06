@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::FacetsChecker_FacetsCompiler_Map__Array* create_array(int size) {
             return il2cpp::array_new<app::FacetsChecker_FacetsCompiler_Map__Array>(get_class(), size);
         }
+        inline app::FacetsChecker_FacetsCompiler_Map__Array* create_array(const std::vector<app::FacetsChecker_FacetsCompiler_Map__Boxed>& items) {
+            return il2cpp::array_new<app::FacetsChecker_FacetsCompiler_Map__Array>(get_class(), items);
+        }
     } // namespace FacetsChecker_FacetsCompiler_Map
 } // namespace app::classes::types

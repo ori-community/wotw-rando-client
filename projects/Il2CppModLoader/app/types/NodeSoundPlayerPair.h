@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::NodeSoundPlayerPair__Array* create_array(int size) {
             return il2cpp::array_new<app::NodeSoundPlayerPair__Array>(get_class(), size);
         }
+        inline app::NodeSoundPlayerPair__Array* create_array(const std::vector<app::NodeSoundPlayerPair*>& items) {
+            return il2cpp::array_new<app::NodeSoundPlayerPair__Array>(get_class(), items);
+        }
     } // namespace NodeSoundPlayerPair
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberShaderVectorAnimator_VectorProperty__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderVectorAnimator_VectorProperty__Enum__Array>(get_class(), size);
         }
+        inline app::UberShaderVectorAnimator_VectorProperty__Enum__Array* create_array(const std::vector<app::UberShaderVectorAnimator_VectorProperty__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::UberShaderVectorAnimator_VectorProperty__Enum__Array>(get_class(), items);
+        }
     } // namespace UberShaderVectorAnimator_VectorProperty__Enum
 } // namespace app::classes::types

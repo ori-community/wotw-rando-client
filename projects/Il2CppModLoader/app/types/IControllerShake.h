@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IControllerShake__Array* create_array(int size) {
             return il2cpp::array_new<app::IControllerShake__Array>(get_class(), size);
         }
+        inline app::IControllerShake__Array* create_array(const std::vector<app::IControllerShake*>& items) {
+            return il2cpp::array_new<app::IControllerShake__Array>(get_class(), items);
+        }
     } // namespace IControllerShake
 } // namespace app::classes::types

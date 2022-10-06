@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PetrifiedOwlBossBaseBehaviour__Array* create_array(int size) {
             return il2cpp::array_new<app::PetrifiedOwlBossBaseBehaviour__Array>(get_class(), size);
         }
+        inline app::PetrifiedOwlBossBaseBehaviour__Array* create_array(const std::vector<app::PetrifiedOwlBossBaseBehaviour*>& items) {
+            return il2cpp::array_new<app::PetrifiedOwlBossBaseBehaviour__Array>(get_class(), items);
+        }
     } // namespace PetrifiedOwlBossBaseBehaviour
 } // namespace app::classes::types

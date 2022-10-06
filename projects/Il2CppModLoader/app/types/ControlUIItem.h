@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ControlUIItem__Array* create_array(int size) {
             return il2cpp::array_new<app::ControlUIItem__Array>(get_class(), size);
         }
+        inline app::ControlUIItem__Array* create_array(const std::vector<app::ControlUIItem*>& items) {
+            return il2cpp::array_new<app::ControlUIItem__Array>(get_class(), items);
+        }
     } // namespace ControlUIItem
 } // namespace app::classes::types

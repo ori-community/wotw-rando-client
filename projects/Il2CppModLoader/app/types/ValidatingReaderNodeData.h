@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ValidatingReaderNodeData__Array* create_array(int size) {
             return il2cpp::array_new<app::ValidatingReaderNodeData__Array>(get_class(), size);
         }
+        inline app::ValidatingReaderNodeData__Array* create_array(const std::vector<app::ValidatingReaderNodeData*>& items) {
+            return il2cpp::array_new<app::ValidatingReaderNodeData__Array>(get_class(), items);
+        }
     } // namespace ValidatingReaderNodeData
 } // namespace app::classes::types

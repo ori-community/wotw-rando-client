@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IGrabbableRope__Array* create_array(int size) {
             return il2cpp::array_new<app::IGrabbableRope__Array>(get_class(), size);
         }
+        inline app::IGrabbableRope__Array* create_array(const std::vector<app::IGrabbableRope*>& items) {
+            return il2cpp::array_new<app::IGrabbableRope__Array>(get_class(), items);
+        }
     } // namespace IGrabbableRope
 } // namespace app::classes::types

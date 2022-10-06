@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XmlNode__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlNode__Array>(get_class(), size);
         }
+        inline app::XmlNode__Array* create_array(const std::vector<app::XmlNode*>& items) {
+            return il2cpp::array_new<app::XmlNode__Array>(get_class(), items);
+        }
     } // namespace XmlNode
 } // namespace app::classes::types

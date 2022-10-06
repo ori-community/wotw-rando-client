@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DebugMenu_ExternalItem__Array* create_array(int size) {
             return il2cpp::array_new<app::DebugMenu_ExternalItem__Array>(get_class(), size);
         }
+        inline app::DebugMenu_ExternalItem__Array* create_array(const std::vector<app::DebugMenu_ExternalItem__Boxed>& items) {
+            return il2cpp::array_new<app::DebugMenu_ExternalItem__Array>(get_class(), items);
+        }
     } // namespace DebugMenu_ExternalItem
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Challenge__Array* create_array(int size) {
             return il2cpp::array_new<app::Challenge__Array>(get_class(), size);
         }
+        inline app::Challenge__Array* create_array(const std::vector<app::Challenge*>& items) {
+            return il2cpp::array_new<app::Challenge__Array>(get_class(), items);
+        }
     } // namespace Challenge
 } // namespace app::classes::types

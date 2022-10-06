@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Font__Array* create_array(int size) {
             return il2cpp::array_new<app::Font__Array>(get_class(), size);
         }
+        inline app::Font__Array* create_array(const std::vector<app::Font*>& items) {
+            return il2cpp::array_new<app::Font__Array>(get_class(), items);
+        }
     } // namespace Font
 } // namespace app::classes::types

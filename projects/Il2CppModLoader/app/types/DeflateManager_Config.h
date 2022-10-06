@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DeflateManager_Config__Array* create_array(int size) {
             return il2cpp::array_new<app::DeflateManager_Config__Array>(get_class(), size);
         }
+        inline app::DeflateManager_Config__Array* create_array(const std::vector<app::DeflateManager_Config*>& items) {
+            return il2cpp::array_new<app::DeflateManager_Config__Array>(get_class(), items);
+        }
     } // namespace DeflateManager_Config
 } // namespace app::classes::types

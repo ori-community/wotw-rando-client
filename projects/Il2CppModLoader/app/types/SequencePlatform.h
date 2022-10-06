@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SequencePlatform__Array* create_array(int size) {
             return il2cpp::array_new<app::SequencePlatform__Array>(get_class(), size);
         }
+        inline app::SequencePlatform__Array* create_array(const std::vector<app::SequencePlatform*>& items) {
+            return il2cpp::array_new<app::SequencePlatform__Array>(get_class(), items);
+        }
     } // namespace SequencePlatform
 } // namespace app::classes::types

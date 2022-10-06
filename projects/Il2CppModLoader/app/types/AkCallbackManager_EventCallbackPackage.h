@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AkCallbackManager_EventCallbackPackage__Array* create_array(int size) {
             return il2cpp::array_new<app::AkCallbackManager_EventCallbackPackage__Array>(get_class(), size);
         }
+        inline app::AkCallbackManager_EventCallbackPackage__Array* create_array(const std::vector<app::AkCallbackManager_EventCallbackPackage*>& items) {
+            return il2cpp::array_new<app::AkCallbackManager_EventCallbackPackage__Array>(get_class(), items);
+        }
     } // namespace AkCallbackManager_EventCallbackPackage
 } // namespace app::classes::types

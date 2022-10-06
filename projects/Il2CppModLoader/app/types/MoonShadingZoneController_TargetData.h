@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonShadingZoneController_TargetData__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonShadingZoneController_TargetData__Array>(get_class(), size);
         }
+        inline app::MoonShadingZoneController_TargetData__Array* create_array(const std::vector<app::MoonShadingZoneController_TargetData*>& items) {
+            return il2cpp::array_new<app::MoonShadingZoneController_TargetData__Array>(get_class(), items);
+        }
     } // namespace MoonShadingZoneController_TargetData
 } // namespace app::classes::types

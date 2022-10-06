@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RaceStateMachineContext_OfflineRaceMetaData_WaypointRect__Array* create_array(int size) {
             return il2cpp::array_new<app::RaceStateMachineContext_OfflineRaceMetaData_WaypointRect__Array>(get_class(), size);
         }
+        inline app::RaceStateMachineContext_OfflineRaceMetaData_WaypointRect__Array* create_array(const std::vector<app::RaceStateMachineContext_OfflineRaceMetaData_WaypointRect*>& items) {
+            return il2cpp::array_new<app::RaceStateMachineContext_OfflineRaceMetaData_WaypointRect__Array>(get_class(), items);
+        }
     } // namespace RaceStateMachineContext_OfflineRaceMetaData_WaypointRect
 } // namespace app::classes::types

@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IPoolableTimelineEntity__Array* create_array(int size) {
             return il2cpp::array_new<app::IPoolableTimelineEntity__Array>(get_class(), size);
         }
+        inline app::IPoolableTimelineEntity__Array* create_array(const std::vector<app::IPoolableTimelineEntity*>& items) {
+            return il2cpp::array_new<app::IPoolableTimelineEntity__Array>(get_class(), items);
+        }
     } // namespace IPoolableTimelineEntity
 } // namespace app::classes::types

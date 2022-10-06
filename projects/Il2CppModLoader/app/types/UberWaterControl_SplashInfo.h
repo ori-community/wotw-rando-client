@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberWaterControl_SplashInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::UberWaterControl_SplashInfo__Array>(get_class(), size);
         }
+        inline app::UberWaterControl_SplashInfo__Array* create_array(const std::vector<app::UberWaterControl_SplashInfo__Boxed>& items) {
+            return il2cpp::array_new<app::UberWaterControl_SplashInfo__Array>(get_class(), items);
+        }
     } // namespace UberWaterControl_SplashInfo
 } // namespace app::classes::types

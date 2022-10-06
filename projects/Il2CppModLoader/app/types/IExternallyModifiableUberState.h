@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IExternallyModifiableUberState__Array* create_array(int size) {
             return il2cpp::array_new<app::IExternallyModifiableUberState__Array>(get_class(), size);
         }
+        inline app::IExternallyModifiableUberState__Array* create_array(const std::vector<app::IExternallyModifiableUberState*>& items) {
+            return il2cpp::array_new<app::IExternallyModifiableUberState__Array>(get_class(), items);
+        }
     } // namespace IExternallyModifiableUberState
 } // namespace app::classes::types

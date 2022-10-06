@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SceneMetaData_SceneSavePedestal__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneMetaData_SceneSavePedestal__Array>(get_class(), size);
         }
+        inline app::SceneMetaData_SceneSavePedestal__Array* create_array(const std::vector<app::SceneMetaData_SceneSavePedestal*>& items) {
+            return il2cpp::array_new<app::SceneMetaData_SceneSavePedestal__Array>(get_class(), items);
+        }
     } // namespace SceneMetaData_SceneSavePedestal
 } // namespace app::classes::types

@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::MoonRenderPipelineView_FinalSliceCompositionInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonRenderPipelineView_FinalSliceCompositionInfo__Array>(get_class(), size);
         }
+        inline app::MoonRenderPipelineView_FinalSliceCompositionInfo__Array* create_array(const std::vector<app::MoonRenderPipelineView_FinalSliceCompositionInfo__Boxed>& items) {
+            return il2cpp::array_new<app::MoonRenderPipelineView_FinalSliceCompositionInfo__Array>(get_class(), items);
+        }
     } // namespace MoonRenderPipelineView_FinalSliceCompositionInfo
 } // namespace app::classes::types

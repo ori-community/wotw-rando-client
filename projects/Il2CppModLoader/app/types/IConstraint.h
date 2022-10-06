@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IConstraint__Array* create_array(int size) {
             return il2cpp::array_new<app::IConstraint__Array>(get_class(), size);
         }
+        inline app::IConstraint__Array* create_array(const std::vector<app::IConstraint*>& items) {
+            return il2cpp::array_new<app::IConstraint__Array>(get_class(), items);
+        }
     } // namespace IConstraint
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GCFinalizerTablePrewarm_ObjWithFinalizer__Array* create_array(int size) {
             return il2cpp::array_new<app::GCFinalizerTablePrewarm_ObjWithFinalizer__Array>(get_class(), size);
         }
+        inline app::GCFinalizerTablePrewarm_ObjWithFinalizer__Array* create_array(const std::vector<app::GCFinalizerTablePrewarm_ObjWithFinalizer*>& items) {
+            return il2cpp::array_new<app::GCFinalizerTablePrewarm_ObjWithFinalizer__Array>(get_class(), items);
+        }
     } // namespace GCFinalizerTablePrewarm_ObjWithFinalizer
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TestSet__Array* create_array(int size) {
             return il2cpp::array_new<app::TestSet__Array>(get_class(), size);
         }
+        inline app::TestSet__Array* create_array(const std::vector<app::TestSet*>& items) {
+            return il2cpp::array_new<app::TestSet__Array>(get_class(), items);
+        }
     } // namespace TestSet
 } // namespace app::classes::types

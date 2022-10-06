@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ScriptableObject__Array* create_array(int size) {
             return il2cpp::array_new<app::ScriptableObject__Array>(get_class(), size);
         }
+        inline app::ScriptableObject__Array* create_array(const std::vector<app::ScriptableObject*>& items) {
+            return il2cpp::array_new<app::ScriptableObject__Array>(get_class(), items);
+        }
     } // namespace ScriptableObject
 } // namespace app::classes::types

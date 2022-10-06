@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonRenderPipelineDebug_Slice__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonRenderPipelineDebug_Slice__Array>(get_class(), size);
         }
+        inline app::MoonRenderPipelineDebug_Slice__Array* create_array(const std::vector<app::MoonRenderPipelineDebug_Slice*>& items) {
+            return il2cpp::array_new<app::MoonRenderPipelineDebug_Slice__Array>(get_class(), items);
+        }
     } // namespace MoonRenderPipelineDebug_Slice
 } // namespace app::classes::types

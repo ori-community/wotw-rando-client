@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SwarmAgent__Array* create_array(int size) {
             return il2cpp::array_new<app::SwarmAgent__Array>(get_class(), size);
         }
+        inline app::SwarmAgent__Array* create_array(const std::vector<app::SwarmAgent*>& items) {
+            return il2cpp::array_new<app::SwarmAgent__Array>(get_class(), items);
+        }
     } // namespace SwarmAgent
 } // namespace app::classes::types

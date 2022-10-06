@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Grounding_Leg__Array* create_array(int size) {
             return il2cpp::array_new<app::Grounding_Leg__Array>(get_class(), size);
         }
+        inline app::Grounding_Leg__Array* create_array(const std::vector<app::Grounding_Leg*>& items) {
+            return il2cpp::array_new<app::Grounding_Leg__Array>(get_class(), items);
+        }
     } // namespace Grounding_Leg
 } // namespace app::classes::types

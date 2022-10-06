@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ChangeStateInteractionNodeDecorator_StateConditionSetupData__Array* create_array(int size) {
             return il2cpp::array_new<app::ChangeStateInteractionNodeDecorator_StateConditionSetupData__Array>(get_class(), size);
         }
+        inline app::ChangeStateInteractionNodeDecorator_StateConditionSetupData__Array* create_array(const std::vector<app::ChangeStateInteractionNodeDecorator_StateConditionSetupData*>& items) {
+            return il2cpp::array_new<app::ChangeStateInteractionNodeDecorator_StateConditionSetupData__Array>(get_class(), items);
+        }
     } // namespace ChangeStateInteractionNodeDecorator_StateConditionSetupData
 } // namespace app::classes::types

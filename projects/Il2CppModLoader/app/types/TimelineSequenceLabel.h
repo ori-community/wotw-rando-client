@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TimelineSequenceLabel__Array* create_array(int size) {
             return il2cpp::array_new<app::TimelineSequenceLabel__Array>(get_class(), size);
         }
+        inline app::TimelineSequenceLabel__Array* create_array(const std::vector<app::TimelineSequenceLabel*>& items) {
+            return il2cpp::array_new<app::TimelineSequenceLabel__Array>(get_class(), items);
+        }
     } // namespace TimelineSequenceLabel
 } // namespace app::classes::types

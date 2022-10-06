@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::WotwUberStateToWwiseData_AbilityRequirementCondition__Array* create_array(int size) {
             return il2cpp::array_new<app::WotwUberStateToWwiseData_AbilityRequirementCondition__Array>(get_class(), size);
         }
+        inline app::WotwUberStateToWwiseData_AbilityRequirementCondition__Array* create_array(const std::vector<app::WotwUberStateToWwiseData_AbilityRequirementCondition*>& items) {
+            return il2cpp::array_new<app::WotwUberStateToWwiseData_AbilityRequirementCondition__Array>(get_class(), items);
+        }
     } // namespace WotwUberStateToWwiseData_AbilityRequirementCondition
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MoonAnimator_BlendInstance__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonAnimator_BlendInstance__Array>(get_class(), size);
         }
+        inline app::MoonAnimator_BlendInstance__Array* create_array(const std::vector<app::MoonAnimator_BlendInstance*>& items) {
+            return il2cpp::array_new<app::MoonAnimator_BlendInstance__Array>(get_class(), items);
+        }
     } // namespace MoonAnimator_BlendInstance
 } // namespace app::classes::types

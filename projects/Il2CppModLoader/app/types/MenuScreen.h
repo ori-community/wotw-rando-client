@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MenuScreen__Array* create_array(int size) {
             return il2cpp::array_new<app::MenuScreen__Array>(get_class(), size);
         }
+        inline app::MenuScreen__Array* create_array(const std::vector<app::MenuScreen*>& items) {
+            return il2cpp::array_new<app::MenuScreen__Array>(get_class(), items);
+        }
     } // namespace MenuScreen
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ValleyOfTheWindKuroDeathZone__Array* create_array(int size) {
             return il2cpp::array_new<app::ValleyOfTheWindKuroDeathZone__Array>(get_class(), size);
         }
+        inline app::ValleyOfTheWindKuroDeathZone__Array* create_array(const std::vector<app::ValleyOfTheWindKuroDeathZone*>& items) {
+            return il2cpp::array_new<app::ValleyOfTheWindKuroDeathZone__Array>(get_class(), items);
+        }
     } // namespace ValleyOfTheWindKuroDeathZone
 } // namespace app::classes::types

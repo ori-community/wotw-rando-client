@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TimesliceJobTracker_TimesliceJobSample__Array* create_array(int size) {
             return il2cpp::array_new<app::TimesliceJobTracker_TimesliceJobSample__Array>(get_class(), size);
         }
+        inline app::TimesliceJobTracker_TimesliceJobSample__Array* create_array(const std::vector<app::TimesliceJobTracker_TimesliceJobSample*>& items) {
+            return il2cpp::array_new<app::TimesliceJobTracker_TimesliceJobSample__Array>(get_class(), items);
+        }
     } // namespace TimesliceJobTracker_TimesliceJobSample
 } // namespace app::classes::types

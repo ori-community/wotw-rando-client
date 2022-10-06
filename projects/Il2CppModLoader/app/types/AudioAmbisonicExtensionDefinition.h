@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AudioAmbisonicExtensionDefinition__Array* create_array(int size) {
             return il2cpp::array_new<app::AudioAmbisonicExtensionDefinition__Array>(get_class(), size);
         }
+        inline app::AudioAmbisonicExtensionDefinition__Array* create_array(const std::vector<app::AudioAmbisonicExtensionDefinition*>& items) {
+            return il2cpp::array_new<app::AudioAmbisonicExtensionDefinition__Array>(get_class(), items);
+        }
     } // namespace AudioAmbisonicExtensionDefinition
 } // namespace app::classes::types

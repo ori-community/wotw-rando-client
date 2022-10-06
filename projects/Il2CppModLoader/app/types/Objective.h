@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Objective__Array* create_array(int size) {
             return il2cpp::array_new<app::Objective__Array>(get_class(), size);
         }
+        inline app::Objective__Array* create_array(const std::vector<app::Objective*>& items) {
+            return il2cpp::array_new<app::Objective__Array>(get_class(), items);
+        }
     } // namespace Objective
 } // namespace app::classes::types

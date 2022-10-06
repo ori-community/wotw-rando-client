@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Display__Array* create_array(int size) {
             return il2cpp::array_new<app::Display__Array>(get_class(), size);
         }
+        inline app::Display__Array* create_array(const std::vector<app::Display*>& items) {
+            return il2cpp::array_new<app::Display__Array>(get_class(), items);
+        }
     } // namespace Display
 } // namespace app::classes::types

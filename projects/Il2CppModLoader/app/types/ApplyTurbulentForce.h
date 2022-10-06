@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ApplyTurbulentForce__Array* create_array(int size) {
             return il2cpp::array_new<app::ApplyTurbulentForce__Array>(get_class(), size);
         }
+        inline app::ApplyTurbulentForce__Array* create_array(const std::vector<app::ApplyTurbulentForce*>& items) {
+            return il2cpp::array_new<app::ApplyTurbulentForce__Array>(get_class(), items);
+        }
     } // namespace ApplyTurbulentForce
 } // namespace app::classes::types

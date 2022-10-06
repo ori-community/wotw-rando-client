@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Mesh__Array* create_array(int size) {
             return il2cpp::array_new<app::Mesh__Array>(get_class(), size);
         }
+        inline app::Mesh__Array* create_array(const std::vector<app::Mesh*>& items) {
+            return il2cpp::array_new<app::Mesh__Array>(get_class(), items);
+        }
     } // namespace Mesh
 } // namespace app::classes::types

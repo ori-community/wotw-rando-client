@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Guid__Array* create_array(int size) {
             return il2cpp::array_new<app::Guid__Array>(get_class(), size);
         }
+        inline app::Guid__Array* create_array(const std::vector<app::Guid__Boxed>& items) {
+            return il2cpp::array_new<app::Guid__Array>(get_class(), items);
+        }
     } // namespace Guid
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Operator_Op__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::Operator_Op__Enum__Array>(get_class(), size);
         }
+        inline app::Operator_Op__Enum__Array* create_array(const std::vector<app::Operator_Op__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::Operator_Op__Enum__Array>(get_class(), items);
+        }
     } // namespace Operator_Op__Enum
 } // namespace app::classes::types

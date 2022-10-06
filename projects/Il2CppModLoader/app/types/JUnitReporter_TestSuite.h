@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::JUnitReporter_TestSuite__Array* create_array(int size) {
             return il2cpp::array_new<app::JUnitReporter_TestSuite__Array>(get_class(), size);
         }
+        inline app::JUnitReporter_TestSuite__Array* create_array(const std::vector<app::JUnitReporter_TestSuite*>& items) {
+            return il2cpp::array_new<app::JUnitReporter_TestSuite__Array>(get_class(), items);
+        }
     } // namespace JUnitReporter_TestSuite
 } // namespace app::classes::types

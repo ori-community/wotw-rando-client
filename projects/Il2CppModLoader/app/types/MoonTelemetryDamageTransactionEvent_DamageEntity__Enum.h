@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonTelemetryDamageTransactionEvent_DamageEntity__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonTelemetryDamageTransactionEvent_DamageEntity__Enum__Array>(get_class(), size);
         }
+        inline app::MoonTelemetryDamageTransactionEvent_DamageEntity__Enum__Array* create_array(const std::vector<app::MoonTelemetryDamageTransactionEvent_DamageEntity__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::MoonTelemetryDamageTransactionEvent_DamageEntity__Enum__Array>(get_class(), items);
+        }
     } // namespace MoonTelemetryDamageTransactionEvent_DamageEntity__Enum
 } // namespace app::classes::types

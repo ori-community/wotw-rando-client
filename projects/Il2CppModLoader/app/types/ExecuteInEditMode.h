@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ExecuteInEditMode__Array* create_array(int size) {
             return il2cpp::array_new<app::ExecuteInEditMode__Array>(get_class(), size);
         }
+        inline app::ExecuteInEditMode__Array* create_array(const std::vector<app::ExecuteInEditMode*>& items) {
+            return il2cpp::array_new<app::ExecuteInEditMode__Array>(get_class(), items);
+        }
     } // namespace ExecuteInEditMode
 } // namespace app::classes::types

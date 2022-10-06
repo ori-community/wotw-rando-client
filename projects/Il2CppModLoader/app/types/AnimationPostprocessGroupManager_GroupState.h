@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AnimationPostprocessGroupManager_GroupState__Array* create_array(int size) {
             return il2cpp::array_new<app::AnimationPostprocessGroupManager_GroupState__Array>(get_class(), size);
         }
+        inline app::AnimationPostprocessGroupManager_GroupState__Array* create_array(const std::vector<app::AnimationPostprocessGroupManager_GroupState*>& items) {
+            return il2cpp::array_new<app::AnimationPostprocessGroupManager_GroupState__Array>(get_class(), items);
+        }
     } // namespace AnimationPostprocessGroupManager_GroupState
 } // namespace app::classes::types

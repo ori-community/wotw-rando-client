@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IDesiredUberState__Array* create_array(int size) {
             return il2cpp::array_new<app::IDesiredUberState__Array>(get_class(), size);
         }
+        inline app::IDesiredUberState__Array* create_array(const std::vector<app::IDesiredUberState*>& items) {
+            return il2cpp::array_new<app::IDesiredUberState__Array>(get_class(), items);
+        }
     } // namespace IDesiredUberState
 } // namespace app::classes::types

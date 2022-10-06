@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SceneScreenshot_BackgroundSceneMoveData__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneScreenshot_BackgroundSceneMoveData__Array>(get_class(), size);
         }
+        inline app::SceneScreenshot_BackgroundSceneMoveData__Array* create_array(const std::vector<app::SceneScreenshot_BackgroundSceneMoveData*>& items) {
+            return il2cpp::array_new<app::SceneScreenshot_BackgroundSceneMoveData__Array>(get_class(), items);
+        }
     } // namespace SceneScreenshot_BackgroundSceneMoveData
 } // namespace app::classes::types

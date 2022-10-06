@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Panel__Array* create_array(int size) {
             return il2cpp::array_new<app::Panel__Array>(get_class(), size);
         }
+        inline app::Panel__Array* create_array(const std::vector<app::Panel*>& items) {
+            return il2cpp::array_new<app::Panel__Array>(get_class(), items);
+        }
     } // namespace Panel
 } // namespace app::classes::types

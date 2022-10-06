@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EraInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::EraInfo__Array>(get_class(), size);
         }
+        inline app::EraInfo__Array* create_array(const std::vector<app::EraInfo*>& items) {
+            return il2cpp::array_new<app::EraInfo__Array>(get_class(), items);
+        }
     } // namespace EraInfo
 } // namespace app::classes::types

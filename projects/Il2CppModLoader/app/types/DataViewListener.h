@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DataViewListener__Array* create_array(int size) {
             return il2cpp::array_new<app::DataViewListener__Array>(get_class(), size);
         }
+        inline app::DataViewListener__Array* create_array(const std::vector<app::DataViewListener*>& items) {
+            return il2cpp::array_new<app::DataViewListener__Array>(get_class(), items);
+        }
     } // namespace DataViewListener
 } // namespace app::classes::types

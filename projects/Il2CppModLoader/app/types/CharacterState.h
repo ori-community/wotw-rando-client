@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CharacterState__Array* create_array(int size) {
             return il2cpp::array_new<app::CharacterState__Array>(get_class(), size);
         }
+        inline app::CharacterState__Array* create_array(const std::vector<app::CharacterState*>& items) {
+            return il2cpp::array_new<app::CharacterState__Array>(get_class(), items);
+        }
     } // namespace CharacterState
 } // namespace app::classes::types

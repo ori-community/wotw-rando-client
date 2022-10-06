@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FallingRocksGroup_AnticSpawnInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::FallingRocksGroup_AnticSpawnInfo__Array>(get_class(), size);
         }
+        inline app::FallingRocksGroup_AnticSpawnInfo__Array* create_array(const std::vector<app::FallingRocksGroup_AnticSpawnInfo*>& items) {
+            return il2cpp::array_new<app::FallingRocksGroup_AnticSpawnInfo__Array>(get_class(), items);
+        }
     } // namespace FallingRocksGroup_AnticSpawnInfo
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MultiplayerServerSummary__Array* create_array(int size) {
             return il2cpp::array_new<app::MultiplayerServerSummary__Array>(get_class(), size);
         }
+        inline app::MultiplayerServerSummary__Array* create_array(const std::vector<app::MultiplayerServerSummary*>& items) {
+            return il2cpp::array_new<app::MultiplayerServerSummary__Array>(get_class(), items);
+        }
     } // namespace MultiplayerServerSummary
 } // namespace app::classes::types

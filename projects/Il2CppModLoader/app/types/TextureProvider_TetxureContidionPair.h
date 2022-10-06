@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TextureProvider_TetxureContidionPair__Array* create_array(int size) {
             return il2cpp::array_new<app::TextureProvider_TetxureContidionPair__Array>(get_class(), size);
         }
+        inline app::TextureProvider_TetxureContidionPair__Array* create_array(const std::vector<app::TextureProvider_TetxureContidionPair*>& items) {
+            return il2cpp::array_new<app::TextureProvider_TetxureContidionPair__Array>(get_class(), items);
+        }
     } // namespace TextureProvider_TetxureContidionPair
 } // namespace app::classes::types

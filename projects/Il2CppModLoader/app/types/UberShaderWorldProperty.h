@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberShaderWorldProperty__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderWorldProperty__Array>(get_class(), size);
         }
+        inline app::UberShaderWorldProperty__Array* create_array(const std::vector<app::UberShaderWorldProperty*>& items) {
+            return il2cpp::array_new<app::UberShaderWorldProperty__Array>(get_class(), items);
+        }
     } // namespace UberShaderWorldProperty
 } // namespace app::classes::types

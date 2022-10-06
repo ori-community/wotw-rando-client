@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SceneLoadingQueue_QueueSceneToLoad__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneLoadingQueue_QueueSceneToLoad__Array>(get_class(), size);
         }
+        inline app::SceneLoadingQueue_QueueSceneToLoad__Array* create_array(const std::vector<app::SceneLoadingQueue_QueueSceneToLoad__Boxed>& items) {
+            return il2cpp::array_new<app::SceneLoadingQueue_QueueSceneToLoad__Array>(get_class(), items);
+        }
     } // namespace SceneLoadingQueue_QueueSceneToLoad
 } // namespace app::classes::types

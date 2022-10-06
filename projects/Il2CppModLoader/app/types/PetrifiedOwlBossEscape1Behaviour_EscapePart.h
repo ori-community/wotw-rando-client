@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PetrifiedOwlBossEscape1Behaviour_EscapePart__Array* create_array(int size) {
             return il2cpp::array_new<app::PetrifiedOwlBossEscape1Behaviour_EscapePart__Array>(get_class(), size);
         }
+        inline app::PetrifiedOwlBossEscape1Behaviour_EscapePart__Array* create_array(const std::vector<app::PetrifiedOwlBossEscape1Behaviour_EscapePart*>& items) {
+            return il2cpp::array_new<app::PetrifiedOwlBossEscape1Behaviour_EscapePart__Array>(get_class(), items);
+        }
     } // namespace PetrifiedOwlBossEscape1Behaviour_EscapePart
 } // namespace app::classes::types

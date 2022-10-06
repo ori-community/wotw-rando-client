@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::ZoneScalingData_ZoneMonsterData__Array* create_array(int size) {
             return il2cpp::array_new<app::ZoneScalingData_ZoneMonsterData__Array>(get_class(), size);
         }
+        inline app::ZoneScalingData_ZoneMonsterData__Array* create_array(const std::vector<app::ZoneScalingData_ZoneMonsterData__Boxed>& items) {
+            return il2cpp::array_new<app::ZoneScalingData_ZoneMonsterData__Array>(get_class(), items);
+        }
     } // namespace ZoneScalingData_ZoneMonsterData
 } // namespace app::classes::types

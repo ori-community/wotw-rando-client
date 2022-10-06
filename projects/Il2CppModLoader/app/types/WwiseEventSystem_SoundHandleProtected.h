@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::WwiseEventSystem_SoundHandleProtected__Array* create_array(int size) {
             return il2cpp::array_new<app::WwiseEventSystem_SoundHandleProtected__Array>(get_class(), size);
         }
+        inline app::WwiseEventSystem_SoundHandleProtected__Array* create_array(const std::vector<app::WwiseEventSystem_SoundHandleProtected*>& items) {
+            return il2cpp::array_new<app::WwiseEventSystem_SoundHandleProtected__Array>(get_class(), items);
+        }
     } // namespace WwiseEventSystem_SoundHandleProtected
 } // namespace app::classes::types

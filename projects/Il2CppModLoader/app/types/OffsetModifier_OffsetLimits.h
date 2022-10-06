@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::OffsetModifier_OffsetLimits__Array* create_array(int size) {
             return il2cpp::array_new<app::OffsetModifier_OffsetLimits__Array>(get_class(), size);
         }
+        inline app::OffsetModifier_OffsetLimits__Array* create_array(const std::vector<app::OffsetModifier_OffsetLimits*>& items) {
+            return il2cpp::array_new<app::OffsetModifier_OffsetLimits__Array>(get_class(), items);
+        }
     } // namespace OffsetModifier_OffsetLimits
 } // namespace app::classes::types

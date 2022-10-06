@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ICanActivatePressurePlate__Array* create_array(int size) {
             return il2cpp::array_new<app::ICanActivatePressurePlate__Array>(get_class(), size);
         }
+        inline app::ICanActivatePressurePlate__Array* create_array(const std::vector<app::ICanActivatePressurePlate*>& items) {
+            return il2cpp::array_new<app::ICanActivatePressurePlate__Array>(get_class(), items);
+        }
     } // namespace ICanActivatePressurePlate
 } // namespace app::classes::types

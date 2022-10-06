@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::IK__Array* create_array(int size) {
             return il2cpp::array_new<app::IK__Array>(get_class(), size);
         }
+        inline app::IK__Array* create_array(const std::vector<app::IK*>& items) {
+            return il2cpp::array_new<app::IK__Array>(get_class(), items);
+        }
     } // namespace IK
 } // namespace app::classes::types

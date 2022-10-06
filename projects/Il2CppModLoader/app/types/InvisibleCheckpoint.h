@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::InvisibleCheckpoint__Array* create_array(int size) {
             return il2cpp::array_new<app::InvisibleCheckpoint__Array>(get_class(), size);
         }
+        inline app::InvisibleCheckpoint__Array* create_array(const std::vector<app::InvisibleCheckpoint*>& items) {
+            return il2cpp::array_new<app::InvisibleCheckpoint__Array>(get_class(), items);
+        }
     } // namespace InvisibleCheckpoint
 } // namespace app::classes::types

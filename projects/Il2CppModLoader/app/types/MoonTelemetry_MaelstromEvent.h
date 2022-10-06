@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonTelemetry_MaelstromEvent__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonTelemetry_MaelstromEvent__Array>(get_class(), size);
         }
+        inline app::MoonTelemetry_MaelstromEvent__Array* create_array(const std::vector<app::MoonTelemetry_MaelstromEvent*>& items) {
+            return il2cpp::array_new<app::MoonTelemetry_MaelstromEvent__Array>(get_class(), items);
+        }
     } // namespace MoonTelemetry_MaelstromEvent
 } // namespace app::classes::types

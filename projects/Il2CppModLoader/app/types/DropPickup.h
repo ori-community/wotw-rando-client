@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DropPickup__Array* create_array(int size) {
             return il2cpp::array_new<app::DropPickup__Array>(get_class(), size);
         }
+        inline app::DropPickup__Array* create_array(const std::vector<app::DropPickup*>& items) {
+            return il2cpp::array_new<app::DropPickup__Array>(get_class(), items);
+        }
     } // namespace DropPickup
 } // namespace app::classes::types

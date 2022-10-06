@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CustomerContent__Array* create_array(int size) {
             return il2cpp::array_new<app::CustomerContent__Array>(get_class(), size);
         }
+        inline app::CustomerContent__Array* create_array(const std::vector<app::CustomerContent*>& items) {
+            return il2cpp::array_new<app::CustomerContent__Array>(get_class(), items);
+        }
     } // namespace CustomerContent
 } // namespace app::classes::types

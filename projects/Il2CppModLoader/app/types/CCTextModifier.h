@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CCTextModifier__Array* create_array(int size) {
             return il2cpp::array_new<app::CCTextModifier__Array>(get_class(), size);
         }
+        inline app::CCTextModifier__Array* create_array(const std::vector<app::CCTextModifier*>& items) {
+            return il2cpp::array_new<app::CCTextModifier__Array>(get_class(), items);
+        }
     } // namespace CCTextModifier
 } // namespace app::classes::types

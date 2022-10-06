@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RuntimeMethodInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::RuntimeMethodInfo__Array>(get_class(), size);
         }
+        inline app::RuntimeMethodInfo__Array* create_array(const std::vector<app::RuntimeMethodInfo*>& items) {
+            return il2cpp::array_new<app::RuntimeMethodInfo__Array>(get_class(), items);
+        }
     } // namespace RuntimeMethodInfo
 } // namespace app::classes::types

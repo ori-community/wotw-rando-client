@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EnemyStopper__Array* create_array(int size) {
             return il2cpp::array_new<app::EnemyStopper__Array>(get_class(), size);
         }
+        inline app::EnemyStopper__Array* create_array(const std::vector<app::EnemyStopper*>& items) {
+            return il2cpp::array_new<app::EnemyStopper__Array>(get_class(), items);
+        }
     } // namespace EnemyStopper
 } // namespace app::classes::types

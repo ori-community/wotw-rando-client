@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::LegacySwarmEnemyManager_SpawnInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::LegacySwarmEnemyManager_SpawnInfo__Array>(get_class(), size);
         }
+        inline app::LegacySwarmEnemyManager_SpawnInfo__Array* create_array(const std::vector<app::LegacySwarmEnemyManager_SpawnInfo__Boxed>& items) {
+            return il2cpp::array_new<app::LegacySwarmEnemyManager_SpawnInfo__Array>(get_class(), items);
+        }
     } // namespace LegacySwarmEnemyManager_SpawnInfo
 } // namespace app::classes::types

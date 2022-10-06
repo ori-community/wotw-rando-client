@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PositionSyncTask__Array__Array* create_array(int size) {
             return il2cpp::array_new<app::PositionSyncTask__Array__Array>(get_class(), size);
         }
+        inline app::PositionSyncTask__Array__Array* create_array(const std::vector<app::PositionSyncTask__Array*>& items) {
+            return il2cpp::array_new<app::PositionSyncTask__Array__Array>(get_class(), items);
+        }
     } // namespace PositionSyncTask__Array
 } // namespace app::classes::types

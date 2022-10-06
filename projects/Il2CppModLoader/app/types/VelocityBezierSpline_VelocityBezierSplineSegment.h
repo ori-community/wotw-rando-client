@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::VelocityBezierSpline_VelocityBezierSplineSegment__Array* create_array(int size) {
             return il2cpp::array_new<app::VelocityBezierSpline_VelocityBezierSplineSegment__Array>(get_class(), size);
         }
+        inline app::VelocityBezierSpline_VelocityBezierSplineSegment__Array* create_array(const std::vector<app::VelocityBezierSpline_VelocityBezierSplineSegment*>& items) {
+            return il2cpp::array_new<app::VelocityBezierSpline_VelocityBezierSplineSegment__Array>(get_class(), items);
+        }
     } // namespace VelocityBezierSpline_VelocityBezierSplineSegment
 } // namespace app::classes::types

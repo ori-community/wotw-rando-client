@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Loc__Array* create_array(int size) {
             return il2cpp::array_new<app::Loc__Array>(get_class(), size);
         }
+        inline app::Loc__Array* create_array(const std::vector<app::Loc*>& items) {
+            return il2cpp::array_new<app::Loc__Array>(get_class(), items);
+        }
     } // namespace Loc
 } // namespace app::classes::types

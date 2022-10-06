@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MatchmakingQueueConfig__Array* create_array(int size) {
             return il2cpp::array_new<app::MatchmakingQueueConfig__Array>(get_class(), size);
         }
+        inline app::MatchmakingQueueConfig__Array* create_array(const std::vector<app::MatchmakingQueueConfig*>& items) {
+            return il2cpp::array_new<app::MatchmakingQueueConfig__Array>(get_class(), items);
+        }
     } // namespace MatchmakingQueueConfig
 } // namespace app::classes::types

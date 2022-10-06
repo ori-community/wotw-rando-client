@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::PauseMenuProgressElements_UberStateToElement__Array* create_array(int size) {
             return il2cpp::array_new<app::PauseMenuProgressElements_UberStateToElement__Array>(get_class(), size);
         }
+        inline app::PauseMenuProgressElements_UberStateToElement__Array* create_array(const std::vector<app::PauseMenuProgressElements_UberStateToElement__Boxed>& items) {
+            return il2cpp::array_new<app::PauseMenuProgressElements_UberStateToElement__Array>(get_class(), items);
+        }
     } // namespace PauseMenuProgressElements_UberStateToElement
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LocationModel__Array* create_array(int size) {
             return il2cpp::array_new<app::LocationModel__Array>(get_class(), size);
         }
+        inline app::LocationModel__Array* create_array(const std::vector<app::LocationModel*>& items) {
+            return il2cpp::array_new<app::LocationModel__Array>(get_class(), items);
+        }
     } // namespace LocationModel
 } // namespace app::classes::types

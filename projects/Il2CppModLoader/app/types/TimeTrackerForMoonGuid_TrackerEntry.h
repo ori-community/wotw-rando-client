@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TimeTrackerForMoonGuid_TrackerEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::TimeTrackerForMoonGuid_TrackerEntry__Array>(get_class(), size);
         }
+        inline app::TimeTrackerForMoonGuid_TrackerEntry__Array* create_array(const std::vector<app::TimeTrackerForMoonGuid_TrackerEntry*>& items) {
+            return il2cpp::array_new<app::TimeTrackerForMoonGuid_TrackerEntry__Array>(get_class(), items);
+        }
     } // namespace TimeTrackerForMoonGuid_TrackerEntry
 } // namespace app::classes::types

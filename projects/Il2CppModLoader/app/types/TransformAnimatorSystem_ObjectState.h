@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TransformAnimatorSystem_ObjectState__Array* create_array(int size) {
             return il2cpp::array_new<app::TransformAnimatorSystem_ObjectState__Array>(get_class(), size);
         }
+        inline app::TransformAnimatorSystem_ObjectState__Array* create_array(const std::vector<app::TransformAnimatorSystem_ObjectState*>& items) {
+            return il2cpp::array_new<app::TransformAnimatorSystem_ObjectState__Array>(get_class(), items);
+        }
     } // namespace TransformAnimatorSystem_ObjectState
 } // namespace app::classes::types

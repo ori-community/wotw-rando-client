@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::LianaEntity_TongueJoint__Array* create_array(int size) {
             return il2cpp::array_new<app::LianaEntity_TongueJoint__Array>(get_class(), size);
         }
+        inline app::LianaEntity_TongueJoint__Array* create_array(const std::vector<app::LianaEntity_TongueJoint__Boxed>& items) {
+            return il2cpp::array_new<app::LianaEntity_TongueJoint__Array>(get_class(), items);
+        }
     } // namespace LianaEntity_TongueJoint
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ServerObject__Array* create_array(int size) {
             return il2cpp::array_new<app::ServerObject__Array>(get_class(), size);
         }
+        inline app::ServerObject__Array* create_array(const std::vector<app::ServerObject*>& items) {
+            return il2cpp::array_new<app::ServerObject__Array>(get_class(), items);
+        }
     } // namespace ServerObject
 } // namespace app::classes::types

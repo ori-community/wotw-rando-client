@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LegacyAttackableSwitch_AttackTypes__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::LegacyAttackableSwitch_AttackTypes__Enum__Array>(get_class(), size);
         }
+        inline app::LegacyAttackableSwitch_AttackTypes__Enum__Array* create_array(const std::vector<app::LegacyAttackableSwitch_AttackTypes__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::LegacyAttackableSwitch_AttackTypes__Enum__Array>(get_class(), items);
+        }
     } // namespace LegacyAttackableSwitch_AttackTypes__Enum
 } // namespace app::classes::types

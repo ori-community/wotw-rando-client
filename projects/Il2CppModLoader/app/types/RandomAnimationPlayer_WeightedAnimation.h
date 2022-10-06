@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::RandomAnimationPlayer_WeightedAnimation__Array* create_array(int size) {
             return il2cpp::array_new<app::RandomAnimationPlayer_WeightedAnimation__Array>(get_class(), size);
         }
+        inline app::RandomAnimationPlayer_WeightedAnimation__Array* create_array(const std::vector<app::RandomAnimationPlayer_WeightedAnimation*>& items) {
+            return il2cpp::array_new<app::RandomAnimationPlayer_WeightedAnimation__Array>(get_class(), items);
+        }
     } // namespace RandomAnimationPlayer_WeightedAnimation
 } // namespace app::classes::types

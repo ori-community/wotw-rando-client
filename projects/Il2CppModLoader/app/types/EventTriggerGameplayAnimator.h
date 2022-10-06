@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::EventTriggerGameplayAnimator__Array* create_array(int size) {
             return il2cpp::array_new<app::EventTriggerGameplayAnimator__Array>(get_class(), size);
         }
+        inline app::EventTriggerGameplayAnimator__Array* create_array(const std::vector<app::EventTriggerGameplayAnimator*>& items) {
+            return il2cpp::array_new<app::EventTriggerGameplayAnimator__Array>(get_class(), items);
+        }
     } // namespace EventTriggerGameplayAnimator
 } // namespace app::classes::types

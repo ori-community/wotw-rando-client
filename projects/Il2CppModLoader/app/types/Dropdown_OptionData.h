@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Dropdown_OptionData__Array* create_array(int size) {
             return il2cpp::array_new<app::Dropdown_OptionData__Array>(get_class(), size);
         }
+        inline app::Dropdown_OptionData__Array* create_array(const std::vector<app::Dropdown_OptionData*>& items) {
+            return il2cpp::array_new<app::Dropdown_OptionData__Array>(get_class(), items);
+        }
     } // namespace Dropdown_OptionData
 } // namespace app::classes::types

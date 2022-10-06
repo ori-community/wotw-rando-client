@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ComboInput__Array* create_array(int size) {
             return il2cpp::array_new<app::ComboInput__Array>(get_class(), size);
         }
+        inline app::ComboInput__Array* create_array(const std::vector<app::ComboInput*>& items) {
+            return il2cpp::array_new<app::ComboInput__Array>(get_class(), items);
+        }
     } // namespace ComboInput
 } // namespace app::classes::types

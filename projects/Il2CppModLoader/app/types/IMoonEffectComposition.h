@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IMoonEffectComposition__Array* create_array(int size) {
             return il2cpp::array_new<app::IMoonEffectComposition__Array>(get_class(), size);
         }
+        inline app::IMoonEffectComposition__Array* create_array(const std::vector<app::IMoonEffectComposition*>& items) {
+            return il2cpp::array_new<app::IMoonEffectComposition__Array>(get_class(), items);
+        }
     } // namespace IMoonEffectComposition
 } // namespace app::classes::types

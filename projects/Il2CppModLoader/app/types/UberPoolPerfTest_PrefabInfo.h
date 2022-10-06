@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberPoolPerfTest_PrefabInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::UberPoolPerfTest_PrefabInfo__Array>(get_class(), size);
         }
+        inline app::UberPoolPerfTest_PrefabInfo__Array* create_array(const std::vector<app::UberPoolPerfTest_PrefabInfo*>& items) {
+            return il2cpp::array_new<app::UberPoolPerfTest_PrefabInfo__Array>(get_class(), items);
+        }
     } // namespace UberPoolPerfTest_PrefabInfo
 } // namespace app::classes::types

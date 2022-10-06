@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ResultTableNode__Array* create_array(int size) {
             return il2cpp::array_new<app::ResultTableNode__Array>(get_class(), size);
         }
+        inline app::ResultTableNode__Array* create_array(const std::vector<app::ResultTableNode*>& items) {
+            return il2cpp::array_new<app::ResultTableNode__Array>(get_class(), items);
+        }
     } // namespace ResultTableNode
 } // namespace app::classes::types

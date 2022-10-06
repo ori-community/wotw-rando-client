@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CharacterStatePuppet__Array* create_array(int size) {
             return il2cpp::array_new<app::CharacterStatePuppet__Array>(get_class(), size);
         }
+        inline app::CharacterStatePuppet__Array* create_array(const std::vector<app::CharacterStatePuppet*>& items) {
+            return il2cpp::array_new<app::CharacterStatePuppet__Array>(get_class(), items);
+        }
     } // namespace CharacterStatePuppet
 } // namespace app::classes::types

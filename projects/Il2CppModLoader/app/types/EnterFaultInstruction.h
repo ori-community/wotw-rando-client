@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EnterFaultInstruction__Array* create_array(int size) {
             return il2cpp::array_new<app::EnterFaultInstruction__Array>(get_class(), size);
         }
+        inline app::EnterFaultInstruction__Array* create_array(const std::vector<app::EnterFaultInstruction*>& items) {
+            return il2cpp::array_new<app::EnterFaultInstruction__Array>(get_class(), items);
+        }
     } // namespace EnterFaultInstruction
 } // namespace app::classes::types

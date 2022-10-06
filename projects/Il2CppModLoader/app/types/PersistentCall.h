@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PersistentCall__Array* create_array(int size) {
             return il2cpp::array_new<app::PersistentCall__Array>(get_class(), size);
         }
+        inline app::PersistentCall__Array* create_array(const std::vector<app::PersistentCall*>& items) {
+            return il2cpp::array_new<app::PersistentCall__Array>(get_class(), items);
+        }
     } // namespace PersistentCall
 } // namespace app::classes::types

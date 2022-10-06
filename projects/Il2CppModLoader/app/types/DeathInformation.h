@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DeathInformation__Array* create_array(int size) {
             return il2cpp::array_new<app::DeathInformation__Array>(get_class(), size);
         }
+        inline app::DeathInformation__Array* create_array(const std::vector<app::DeathInformation*>& items) {
+            return il2cpp::array_new<app::DeathInformation__Array>(get_class(), items);
+        }
     } // namespace DeathInformation
 } // namespace app::classes::types

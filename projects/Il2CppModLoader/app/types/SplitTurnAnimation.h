@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SplitTurnAnimation__Array* create_array(int size) {
             return il2cpp::array_new<app::SplitTurnAnimation__Array>(get_class(), size);
         }
+        inline app::SplitTurnAnimation__Array* create_array(const std::vector<app::SplitTurnAnimation*>& items) {
+            return il2cpp::array_new<app::SplitTurnAnimation__Array>(get_class(), items);
+        }
     } // namespace SplitTurnAnimation
 } // namespace app::classes::types

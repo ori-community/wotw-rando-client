@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonSwarmer__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonSwarmer__Array>(get_class(), size);
         }
+        inline app::MoonSwarmer__Array* create_array(const std::vector<app::MoonSwarmer*>& items) {
+            return il2cpp::array_new<app::MoonSwarmer__Array>(get_class(), items);
+        }
     } // namespace MoonSwarmer
 } // namespace app::classes::types

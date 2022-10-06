@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EntityTask__Array* create_array(int size) {
             return il2cpp::array_new<app::EntityTask__Array>(get_class(), size);
         }
+        inline app::EntityTask__Array* create_array(const std::vector<app::EntityTask*>& items) {
+            return il2cpp::array_new<app::EntityTask__Array>(get_class(), items);
+        }
     } // namespace EntityTask
 } // namespace app::classes::types

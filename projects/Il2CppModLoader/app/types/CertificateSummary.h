@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CertificateSummary__Array* create_array(int size) {
             return il2cpp::array_new<app::CertificateSummary__Array>(get_class(), size);
         }
+        inline app::CertificateSummary__Array* create_array(const std::vector<app::CertificateSummary*>& items) {
+            return il2cpp::array_new<app::CertificateSummary__Array>(get_class(), items);
+        }
     } // namespace CertificateSummary
 } // namespace app::classes::types

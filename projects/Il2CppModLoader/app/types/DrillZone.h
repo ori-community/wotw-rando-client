@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DrillZone__Array* create_array(int size) {
             return il2cpp::array_new<app::DrillZone__Array>(get_class(), size);
         }
+        inline app::DrillZone__Array* create_array(const std::vector<app::DrillZone*>& items) {
+            return il2cpp::array_new<app::DrillZone__Array>(get_class(), items);
+        }
     } // namespace DrillZone
 } // namespace app::classes::types

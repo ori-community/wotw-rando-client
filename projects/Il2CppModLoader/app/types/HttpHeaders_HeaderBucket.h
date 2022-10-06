@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::HttpHeaders_HeaderBucket__Array* create_array(int size) {
             return il2cpp::array_new<app::HttpHeaders_HeaderBucket__Array>(get_class(), size);
         }
+        inline app::HttpHeaders_HeaderBucket__Array* create_array(const std::vector<app::HttpHeaders_HeaderBucket*>& items) {
+            return il2cpp::array_new<app::HttpHeaders_HeaderBucket__Array>(get_class(), items);
+        }
     } // namespace HttpHeaders_HeaderBucket
 } // namespace app::classes::types

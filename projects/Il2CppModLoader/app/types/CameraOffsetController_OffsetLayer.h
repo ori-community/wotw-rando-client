@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CameraOffsetController_OffsetLayer__Array* create_array(int size) {
             return il2cpp::array_new<app::CameraOffsetController_OffsetLayer__Array>(get_class(), size);
         }
+        inline app::CameraOffsetController_OffsetLayer__Array* create_array(const std::vector<app::CameraOffsetController_OffsetLayer*>& items) {
+            return il2cpp::array_new<app::CameraOffsetController_OffsetLayer__Array>(get_class(), items);
+        }
     } // namespace CameraOffsetController_OffsetLayer
 } // namespace app::classes::types

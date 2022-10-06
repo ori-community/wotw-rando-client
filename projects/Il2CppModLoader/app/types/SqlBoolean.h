@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SqlBoolean__Array* create_array(int size) {
             return il2cpp::array_new<app::SqlBoolean__Array>(get_class(), size);
         }
+        inline app::SqlBoolean__Array* create_array(const std::vector<app::SqlBoolean__Boxed>& items) {
+            return il2cpp::array_new<app::SqlBoolean__Array>(get_class(), items);
+        }
     } // namespace SqlBoolean
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::FeedingGroundsDangerZone__Array* create_array(int size) {
             return il2cpp::array_new<app::FeedingGroundsDangerZone__Array>(get_class(), size);
         }
+        inline app::FeedingGroundsDangerZone__Array* create_array(const std::vector<app::FeedingGroundsDangerZone*>& items) {
+            return il2cpp::array_new<app::FeedingGroundsDangerZone__Array>(get_class(), items);
+        }
     } // namespace FeedingGroundsDangerZone
 } // namespace app::classes::types

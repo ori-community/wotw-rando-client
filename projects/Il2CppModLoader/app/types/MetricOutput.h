@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::MetricOutput__Array* create_array(int size) {
             return il2cpp::array_new<app::MetricOutput__Array>(get_class(), size);
         }
+        inline app::MetricOutput__Array* create_array(const std::vector<app::MetricOutput__Boxed>& items) {
+            return il2cpp::array_new<app::MetricOutput__Array>(get_class(), items);
+        }
     } // namespace MetricOutput
 } // namespace app::classes::types

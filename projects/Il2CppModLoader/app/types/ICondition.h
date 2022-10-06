@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ICondition__Array* create_array(int size) {
             return il2cpp::array_new<app::ICondition__Array>(get_class(), size);
         }
+        inline app::ICondition__Array* create_array(const std::vector<app::ICondition*>& items) {
+            return il2cpp::array_new<app::ICondition__Array>(get_class(), items);
+        }
     } // namespace ICondition
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::String__Array* create_array(int size) {
             return il2cpp::array_new<app::String__Array>(get_class(), size);
         }
+        inline app::String__Array* create_array(const std::vector<app::String*>& items) {
+            return il2cpp::array_new<app::String__Array>(get_class(), items);
+        }
     } // namespace String
 } // namespace app::classes::types

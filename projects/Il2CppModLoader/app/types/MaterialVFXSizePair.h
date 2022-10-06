@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MaterialVFXSizePair__Array* create_array(int size) {
             return il2cpp::array_new<app::MaterialVFXSizePair__Array>(get_class(), size);
         }
+        inline app::MaterialVFXSizePair__Array* create_array(const std::vector<app::MaterialVFXSizePair*>& items) {
+            return il2cpp::array_new<app::MaterialVFXSizePair__Array>(get_class(), items);
+        }
     } // namespace MaterialVFXSizePair
 } // namespace app::classes::types

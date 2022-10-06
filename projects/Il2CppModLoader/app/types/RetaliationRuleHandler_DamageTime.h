@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RetaliationRuleHandler_DamageTime__Array* create_array(int size) {
             return il2cpp::array_new<app::RetaliationRuleHandler_DamageTime__Array>(get_class(), size);
         }
+        inline app::RetaliationRuleHandler_DamageTime__Array* create_array(const std::vector<app::RetaliationRuleHandler_DamageTime*>& items) {
+            return il2cpp::array_new<app::RetaliationRuleHandler_DamageTime__Array>(get_class(), items);
+        }
     } // namespace RetaliationRuleHandler_DamageTime
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EnemyZone__Array* create_array(int size) {
             return il2cpp::array_new<app::EnemyZone__Array>(get_class(), size);
         }
+        inline app::EnemyZone__Array* create_array(const std::vector<app::EnemyZone*>& items) {
+            return il2cpp::array_new<app::EnemyZone__Array>(get_class(), items);
+        }
     } // namespace EnemyZone
 } // namespace app::classes::types

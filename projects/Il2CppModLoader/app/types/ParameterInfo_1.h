@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ParameterInfo_1__Array* create_array(int size) {
             return il2cpp::array_new<app::ParameterInfo_1__Array>(get_class(), size);
         }
+        inline app::ParameterInfo_1__Array* create_array(const std::vector<app::ParameterInfo_1*>& items) {
+            return il2cpp::array_new<app::ParameterInfo_1__Array>(get_class(), items);
+        }
     } // namespace ParameterInfo_1
 } // namespace app::classes::types

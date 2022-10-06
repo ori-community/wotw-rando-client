@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SandWormTailPost__Array* create_array(int size) {
             return il2cpp::array_new<app::SandWormTailPost__Array>(get_class(), size);
         }
+        inline app::SandWormTailPost__Array* create_array(const std::vector<app::SandWormTailPost*>& items) {
+            return il2cpp::array_new<app::SandWormTailPost__Array>(get_class(), items);
+        }
     } // namespace SandWormTailPost
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FieldMetadata__Array* create_array(int size) {
             return il2cpp::array_new<app::FieldMetadata__Array>(get_class(), size);
         }
+        inline app::FieldMetadata__Array* create_array(const std::vector<app::FieldMetadata*>& items) {
+            return il2cpp::array_new<app::FieldMetadata__Array>(get_class(), items);
+        }
     } // namespace FieldMetadata
 } // namespace app::classes::types

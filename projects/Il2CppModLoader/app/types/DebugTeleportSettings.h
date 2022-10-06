@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DebugTeleportSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::DebugTeleportSettings__Array>(get_class(), size);
         }
+        inline app::DebugTeleportSettings__Array* create_array(const std::vector<app::DebugTeleportSettings*>& items) {
+            return il2cpp::array_new<app::DebugTeleportSettings__Array>(get_class(), items);
+        }
     } // namespace DebugTeleportSettings
 } // namespace app::classes::types

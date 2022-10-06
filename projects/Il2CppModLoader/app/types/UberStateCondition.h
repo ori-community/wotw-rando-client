@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberStateCondition__Array* create_array(int size) {
             return il2cpp::array_new<app::UberStateCondition__Array>(get_class(), size);
         }
+        inline app::UberStateCondition__Array* create_array(const std::vector<app::UberStateCondition*>& items) {
+            return il2cpp::array_new<app::UberStateCondition__Array>(get_class(), items);
+        }
     } // namespace UberStateCondition
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RagdollUtility_Rigidbone__Array* create_array(int size) {
             return il2cpp::array_new<app::RagdollUtility_Rigidbone__Array>(get_class(), size);
         }
+        inline app::RagdollUtility_Rigidbone__Array* create_array(const std::vector<app::RagdollUtility_Rigidbone*>& items) {
+            return il2cpp::array_new<app::RagdollUtility_Rigidbone__Array>(get_class(), items);
+        }
     } // namespace RagdollUtility_Rigidbone
 } // namespace app::classes::types

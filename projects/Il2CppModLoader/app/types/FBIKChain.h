@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FBIKChain__Array* create_array(int size) {
             return il2cpp::array_new<app::FBIKChain__Array>(get_class(), size);
         }
+        inline app::FBIKChain__Array* create_array(const std::vector<app::FBIKChain*>& items) {
+            return il2cpp::array_new<app::FBIKChain__Array>(get_class(), items);
+        }
     } // namespace FBIKChain
 } // namespace app::classes::types

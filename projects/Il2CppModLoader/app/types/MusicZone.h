@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MusicZone__Array* create_array(int size) {
             return il2cpp::array_new<app::MusicZone__Array>(get_class(), size);
         }
+        inline app::MusicZone__Array* create_array(const std::vector<app::MusicZone*>& items) {
+            return il2cpp::array_new<app::MusicZone__Array>(get_class(), items);
+        }
     } // namespace MusicZone
 } // namespace app::classes::types

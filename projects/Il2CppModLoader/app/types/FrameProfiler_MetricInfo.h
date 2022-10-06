@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FrameProfiler_MetricInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::FrameProfiler_MetricInfo__Array>(get_class(), size);
         }
+        inline app::FrameProfiler_MetricInfo__Array* create_array(const std::vector<app::FrameProfiler_MetricInfo*>& items) {
+            return il2cpp::array_new<app::FrameProfiler_MetricInfo__Array>(get_class(), items);
+        }
     } // namespace FrameProfiler_MetricInfo
 } // namespace app::classes::types

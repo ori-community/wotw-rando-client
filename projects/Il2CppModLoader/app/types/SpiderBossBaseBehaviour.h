@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SpiderBossBaseBehaviour__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiderBossBaseBehaviour__Array>(get_class(), size);
         }
+        inline app::SpiderBossBaseBehaviour__Array* create_array(const std::vector<app::SpiderBossBaseBehaviour*>& items) {
+            return il2cpp::array_new<app::SpiderBossBaseBehaviour__Array>(get_class(), items);
+        }
     } // namespace SpiderBossBaseBehaviour
 } // namespace app::classes::types

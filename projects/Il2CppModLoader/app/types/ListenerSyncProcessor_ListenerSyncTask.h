@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ListenerSyncProcessor_ListenerSyncTask__Array* create_array(int size) {
             return il2cpp::array_new<app::ListenerSyncProcessor_ListenerSyncTask__Array>(get_class(), size);
         }
+        inline app::ListenerSyncProcessor_ListenerSyncTask__Array* create_array(const std::vector<app::ListenerSyncProcessor_ListenerSyncTask*>& items) {
+            return il2cpp::array_new<app::ListenerSyncProcessor_ListenerSyncTask__Array>(get_class(), items);
+        }
     } // namespace ListenerSyncProcessor_ListenerSyncTask
 } // namespace app::classes::types

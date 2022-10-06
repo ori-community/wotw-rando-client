@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::JointChains_Chain__Array* create_array(int size) {
             return il2cpp::array_new<app::JointChains_Chain__Array>(get_class(), size);
         }
+        inline app::JointChains_Chain__Array* create_array(const std::vector<app::JointChains_Chain*>& items) {
+            return il2cpp::array_new<app::JointChains_Chain__Array>(get_class(), items);
+        }
     } // namespace JointChains_Chain
 } // namespace app::classes::types

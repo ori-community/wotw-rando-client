@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::GrounderQuadruped_Foot__Array* create_array(int size) {
             return il2cpp::array_new<app::GrounderQuadruped_Foot__Array>(get_class(), size);
         }
+        inline app::GrounderQuadruped_Foot__Array* create_array(const std::vector<app::GrounderQuadruped_Foot__Boxed>& items) {
+            return il2cpp::array_new<app::GrounderQuadruped_Foot__Array>(get_class(), items);
+        }
     } // namespace GrounderQuadruped_Foot
 } // namespace app::classes::types

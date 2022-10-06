@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DiscriminatedUnionConverter_UnionCase__Array* create_array(int size) {
             return il2cpp::array_new<app::DiscriminatedUnionConverter_UnionCase__Array>(get_class(), size);
         }
+        inline app::DiscriminatedUnionConverter_UnionCase__Array* create_array(const std::vector<app::DiscriminatedUnionConverter_UnionCase*>& items) {
+            return il2cpp::array_new<app::DiscriminatedUnionConverter_UnionCase__Array>(get_class(), items);
+        }
     } // namespace DiscriminatedUnionConverter_UnionCase
 } // namespace app::classes::types

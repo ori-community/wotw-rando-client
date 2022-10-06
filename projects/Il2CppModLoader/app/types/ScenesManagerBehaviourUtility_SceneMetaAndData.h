@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ScenesManagerBehaviourUtility_SceneMetaAndData__Array* create_array(int size) {
             return il2cpp::array_new<app::ScenesManagerBehaviourUtility_SceneMetaAndData__Array>(get_class(), size);
         }
+        inline app::ScenesManagerBehaviourUtility_SceneMetaAndData__Array* create_array(const std::vector<app::ScenesManagerBehaviourUtility_SceneMetaAndData__Boxed>& items) {
+            return il2cpp::array_new<app::ScenesManagerBehaviourUtility_SceneMetaAndData__Array>(get_class(), items);
+        }
     } // namespace ScenesManagerBehaviourUtility_SceneMetaAndData
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AttachSpriteToPhysicsSystem__Array* create_array(int size) {
             return il2cpp::array_new<app::AttachSpriteToPhysicsSystem__Array>(get_class(), size);
         }
+        inline app::AttachSpriteToPhysicsSystem__Array* create_array(const std::vector<app::AttachSpriteToPhysicsSystem*>& items) {
+            return il2cpp::array_new<app::AttachSpriteToPhysicsSystem__Array>(get_class(), items);
+        }
     } // namespace AttachSpriteToPhysicsSystem
 } // namespace app::classes::types

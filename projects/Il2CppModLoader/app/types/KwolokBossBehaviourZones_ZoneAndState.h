@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::KwolokBossBehaviourZones_ZoneAndState__Array* create_array(int size) {
             return il2cpp::array_new<app::KwolokBossBehaviourZones_ZoneAndState__Array>(get_class(), size);
         }
+        inline app::KwolokBossBehaviourZones_ZoneAndState__Array* create_array(const std::vector<app::KwolokBossBehaviourZones_ZoneAndState*>& items) {
+            return il2cpp::array_new<app::KwolokBossBehaviourZones_ZoneAndState__Array>(get_class(), items);
+        }
     } // namespace KwolokBossBehaviourZones_ZoneAndState
 } // namespace app::classes::types

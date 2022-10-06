@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Turret_Part__Array* create_array(int size) {
             return il2cpp::array_new<app::Turret_Part__Array>(get_class(), size);
         }
+        inline app::Turret_Part__Array* create_array(const std::vector<app::Turret_Part*>& items) {
+            return il2cpp::array_new<app::Turret_Part__Array>(get_class(), items);
+        }
     } // namespace Turret_Part
 } // namespace app::classes::types

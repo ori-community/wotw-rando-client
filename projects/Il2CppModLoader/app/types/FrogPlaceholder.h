@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::FrogPlaceholder__Array* create_array(int size) {
             return il2cpp::array_new<app::FrogPlaceholder__Array>(get_class(), size);
         }
+        inline app::FrogPlaceholder__Array* create_array(const std::vector<app::FrogPlaceholder*>& items) {
+            return il2cpp::array_new<app::FrogPlaceholder__Array>(get_class(), items);
+        }
     } // namespace FrogPlaceholder
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ReflectPropertyDescriptor__Array* create_array(int size) {
             return il2cpp::array_new<app::ReflectPropertyDescriptor__Array>(get_class(), size);
         }
+        inline app::ReflectPropertyDescriptor__Array* create_array(const std::vector<app::ReflectPropertyDescriptor*>& items) {
+            return il2cpp::array_new<app::ReflectPropertyDescriptor__Array>(get_class(), items);
+        }
     } // namespace ReflectPropertyDescriptor
 } // namespace app::classes::types

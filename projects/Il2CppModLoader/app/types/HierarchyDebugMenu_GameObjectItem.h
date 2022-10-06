@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::HierarchyDebugMenu_GameObjectItem__Array* create_array(int size) {
             return il2cpp::array_new<app::HierarchyDebugMenu_GameObjectItem__Array>(get_class(), size);
         }
+        inline app::HierarchyDebugMenu_GameObjectItem__Array* create_array(const std::vector<app::HierarchyDebugMenu_GameObjectItem*>& items) {
+            return il2cpp::array_new<app::HierarchyDebugMenu_GameObjectItem__Array>(get_class(), items);
+        }
     } // namespace HierarchyDebugMenu_GameObjectItem
 } // namespace app::classes::types

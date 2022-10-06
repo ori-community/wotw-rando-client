@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LocalDefinition__Array* create_array(int size) {
             return il2cpp::array_new<app::LocalDefinition__Array>(get_class(), size);
         }
+        inline app::LocalDefinition__Array* create_array(const std::vector<app::LocalDefinition__Boxed>& items) {
+            return il2cpp::array_new<app::LocalDefinition__Array>(get_class(), items);
+        }
     } // namespace LocalDefinition
 } // namespace app::classes::types

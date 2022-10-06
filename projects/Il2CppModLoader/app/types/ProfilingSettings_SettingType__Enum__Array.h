@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ProfilingSettings_SettingType__Enum__Array__Array* create_array(int size) {
             return il2cpp::array_new<app::ProfilingSettings_SettingType__Enum__Array__Array>(get_class(), size);
         }
+        inline app::ProfilingSettings_SettingType__Enum__Array__Array* create_array(const std::vector<app::ProfilingSettings_SettingType__Enum__Array*>& items) {
+            return il2cpp::array_new<app::ProfilingSettings_SettingType__Enum__Array__Array>(get_class(), items);
+        }
     } // namespace ProfilingSettings_SettingType__Enum__Array
 } // namespace app::classes::types

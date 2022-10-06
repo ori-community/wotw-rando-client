@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::VerletBodyIndexed_Link__Array* create_array(int size) {
             return il2cpp::array_new<app::VerletBodyIndexed_Link__Array>(get_class(), size);
         }
+        inline app::VerletBodyIndexed_Link__Array* create_array(const std::vector<app::VerletBodyIndexed_Link__Boxed>& items) {
+            return il2cpp::array_new<app::VerletBodyIndexed_Link__Array>(get_class(), items);
+        }
     } // namespace VerletBodyIndexed_Link
 } // namespace app::classes::types

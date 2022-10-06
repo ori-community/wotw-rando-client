@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LegacyMaterialColorGradientAnimator__Array* create_array(int size) {
             return il2cpp::array_new<app::LegacyMaterialColorGradientAnimator__Array>(get_class(), size);
         }
+        inline app::LegacyMaterialColorGradientAnimator__Array* create_array(const std::vector<app::LegacyMaterialColorGradientAnimator*>& items) {
+            return il2cpp::array_new<app::LegacyMaterialColorGradientAnimator__Array>(get_class(), items);
+        }
     } // namespace LegacyMaterialColorGradientAnimator
 } // namespace app::classes::types

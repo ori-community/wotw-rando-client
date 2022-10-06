@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UserOpenIdInfo_1__Array* create_array(int size) {
             return il2cpp::array_new<app::UserOpenIdInfo_1__Array>(get_class(), size);
         }
+        inline app::UserOpenIdInfo_1__Array* create_array(const std::vector<app::UserOpenIdInfo_1*>& items) {
+            return il2cpp::array_new<app::UserOpenIdInfo_1__Array>(get_class(), items);
+        }
     } // namespace UserOpenIdInfo_1
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PrefabAreaData__Array* create_array(int size) {
             return il2cpp::array_new<app::PrefabAreaData__Array>(get_class(), size);
         }
+        inline app::PrefabAreaData__Array* create_array(const std::vector<app::PrefabAreaData*>& items) {
+            return il2cpp::array_new<app::PrefabAreaData__Array>(get_class(), items);
+        }
     } // namespace PrefabAreaData
 } // namespace app::classes::types

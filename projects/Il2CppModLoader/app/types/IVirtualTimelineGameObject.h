@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IVirtualTimelineGameObject__Array* create_array(int size) {
             return il2cpp::array_new<app::IVirtualTimelineGameObject__Array>(get_class(), size);
         }
+        inline app::IVirtualTimelineGameObject__Array* create_array(const std::vector<app::IVirtualTimelineGameObject*>& items) {
+            return il2cpp::array_new<app::IVirtualTimelineGameObject__Array>(get_class(), items);
+        }
     } // namespace IVirtualTimelineGameObject
 } // namespace app::classes::types

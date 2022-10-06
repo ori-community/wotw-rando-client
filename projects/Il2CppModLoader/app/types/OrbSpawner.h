@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::OrbSpawner__Array* create_array(int size) {
             return il2cpp::array_new<app::OrbSpawner__Array>(get_class(), size);
         }
+        inline app::OrbSpawner__Array* create_array(const std::vector<app::OrbSpawner*>& items) {
+            return il2cpp::array_new<app::OrbSpawner__Array>(get_class(), items);
+        }
     } // namespace OrbSpawner
 } // namespace app::classes::types

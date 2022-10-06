@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AxisAlignedBox__Array* create_array(int size) {
             return il2cpp::array_new<app::AxisAlignedBox__Array>(get_class(), size);
         }
+        inline app::AxisAlignedBox__Array* create_array(const std::vector<app::AxisAlignedBox*>& items) {
+            return il2cpp::array_new<app::AxisAlignedBox__Array>(get_class(), items);
+        }
     } // namespace AxisAlignedBox
 } // namespace app::classes::types

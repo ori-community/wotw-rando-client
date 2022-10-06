@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ColorAnimatorSystem_RendererState__Array* create_array(int size) {
             return il2cpp::array_new<app::ColorAnimatorSystem_RendererState__Array>(get_class(), size);
         }
+        inline app::ColorAnimatorSystem_RendererState__Array* create_array(const std::vector<app::ColorAnimatorSystem_RendererState*>& items) {
+            return il2cpp::array_new<app::ColorAnimatorSystem_RendererState__Array>(get_class(), items);
+        }
     } // namespace ColorAnimatorSystem_RendererState
 } // namespace app::classes::types

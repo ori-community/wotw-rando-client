@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::IntStateMap_Mapping__Array* create_array(int size) {
             return il2cpp::array_new<app::IntStateMap_Mapping__Array>(get_class(), size);
         }
+        inline app::IntStateMap_Mapping__Array* create_array(const std::vector<app::IntStateMap_Mapping__Boxed>& items) {
+            return il2cpp::array_new<app::IntStateMap_Mapping__Array>(get_class(), items);
+        }
     } // namespace IntStateMap_Mapping
 } // namespace app::classes::types

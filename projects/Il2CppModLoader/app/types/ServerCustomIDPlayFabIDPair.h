@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ServerCustomIDPlayFabIDPair__Array* create_array(int size) {
             return il2cpp::array_new<app::ServerCustomIDPlayFabIDPair__Array>(get_class(), size);
         }
+        inline app::ServerCustomIDPlayFabIDPair__Array* create_array(const std::vector<app::ServerCustomIDPlayFabIDPair*>& items) {
+            return il2cpp::array_new<app::ServerCustomIDPlayFabIDPair__Array>(get_class(), items);
+        }
     } // namespace ServerCustomIDPlayFabIDPair
 } // namespace app::classes::types

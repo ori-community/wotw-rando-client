@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Cheat__Array* create_array(int size) {
             return il2cpp::array_new<app::Cheat__Array>(get_class(), size);
         }
+        inline app::Cheat__Array* create_array(const std::vector<app::Cheat*>& items) {
+            return il2cpp::array_new<app::Cheat__Array>(get_class(), items);
+        }
     } // namespace Cheat
 } // namespace app::classes::types

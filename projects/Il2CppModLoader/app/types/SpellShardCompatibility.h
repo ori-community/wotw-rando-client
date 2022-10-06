@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SpellShardCompatibility__Array* create_array(int size) {
             return il2cpp::array_new<app::SpellShardCompatibility__Array>(get_class(), size);
         }
+        inline app::SpellShardCompatibility__Array* create_array(const std::vector<app::SpellShardCompatibility*>& items) {
+            return il2cpp::array_new<app::SpellShardCompatibility__Array>(get_class(), items);
+        }
     } // namespace SpellShardCompatibility
 } // namespace app::classes::types

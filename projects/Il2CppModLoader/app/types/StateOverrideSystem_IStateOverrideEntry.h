@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::StateOverrideSystem_IStateOverrideEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::StateOverrideSystem_IStateOverrideEntry__Array>(get_class(), size);
         }
+        inline app::StateOverrideSystem_IStateOverrideEntry__Array* create_array(const std::vector<app::StateOverrideSystem_IStateOverrideEntry*>& items) {
+            return il2cpp::array_new<app::StateOverrideSystem_IStateOverrideEntry__Array>(get_class(), items);
+        }
     } // namespace StateOverrideSystem_IStateOverrideEntry
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::StatisticModel_1__Array* create_array(int size) {
             return il2cpp::array_new<app::StatisticModel_1__Array>(get_class(), size);
         }
+        inline app::StatisticModel_1__Array* create_array(const std::vector<app::StatisticModel_1*>& items) {
+            return il2cpp::array_new<app::StatisticModel_1__Array>(get_class(), items);
+        }
     } // namespace StatisticModel_1
 } // namespace app::classes::types

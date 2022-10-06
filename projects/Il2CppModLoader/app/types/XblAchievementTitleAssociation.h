@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XblAchievementTitleAssociation__Array* create_array(int size) {
             return il2cpp::array_new<app::XblAchievementTitleAssociation__Array>(get_class(), size);
         }
+        inline app::XblAchievementTitleAssociation__Array* create_array(const std::vector<app::XblAchievementTitleAssociation*>& items) {
+            return il2cpp::array_new<app::XblAchievementTitleAssociation__Array>(get_class(), items);
+        }
     } // namespace XblAchievementTitleAssociation
 } // namespace app::classes::types

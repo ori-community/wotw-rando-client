@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::QosServer__Array* create_array(int size) {
             return il2cpp::array_new<app::QosServer__Array>(get_class(), size);
         }
+        inline app::QosServer__Array* create_array(const std::vector<app::QosServer*>& items) {
+            return il2cpp::array_new<app::QosServer__Array>(get_class(), items);
+        }
     } // namespace QosServer
 } // namespace app::classes::types

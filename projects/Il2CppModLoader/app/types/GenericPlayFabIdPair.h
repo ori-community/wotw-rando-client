@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GenericPlayFabIdPair__Array* create_array(int size) {
             return il2cpp::array_new<app::GenericPlayFabIdPair__Array>(get_class(), size);
         }
+        inline app::GenericPlayFabIdPair__Array* create_array(const std::vector<app::GenericPlayFabIdPair*>& items) {
+            return il2cpp::array_new<app::GenericPlayFabIdPair__Array>(get_class(), items);
+        }
     } // namespace GenericPlayFabIdPair
 } // namespace app::classes::types

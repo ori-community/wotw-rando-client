@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::WaterZone__Array* create_array(int size) {
             return il2cpp::array_new<app::WaterZone__Array>(get_class(), size);
         }
+        inline app::WaterZone__Array* create_array(const std::vector<app::WaterZone*>& items) {
+            return il2cpp::array_new<app::WaterZone__Array>(get_class(), items);
+        }
     } // namespace WaterZone
 } // namespace app::classes::types

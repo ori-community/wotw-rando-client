@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SneezeSlugEntity_HitProtectionState__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::SneezeSlugEntity_HitProtectionState__Enum__Array>(get_class(), size);
         }
+        inline app::SneezeSlugEntity_HitProtectionState__Enum__Array* create_array(const std::vector<app::SneezeSlugEntity_HitProtectionState__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::SneezeSlugEntity_HitProtectionState__Enum__Array>(get_class(), items);
+        }
     } // namespace SneezeSlugEntity_HitProtectionState__Enum
 } // namespace app::classes::types

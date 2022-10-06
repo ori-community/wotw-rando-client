@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DebugMenuToggler_ToggleOption__Array* create_array(int size) {
             return il2cpp::array_new<app::DebugMenuToggler_ToggleOption__Array>(get_class(), size);
         }
+        inline app::DebugMenuToggler_ToggleOption__Array* create_array(const std::vector<app::DebugMenuToggler_ToggleOption*>& items) {
+            return il2cpp::array_new<app::DebugMenuToggler_ToggleOption__Array>(get_class(), items);
+        }
     } // namespace DebugMenuToggler_ToggleOption
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LegacyTransparencyAnimator_RendererData__Array* create_array(int size) {
             return il2cpp::array_new<app::LegacyTransparencyAnimator_RendererData__Array>(get_class(), size);
         }
+        inline app::LegacyTransparencyAnimator_RendererData__Array* create_array(const std::vector<app::LegacyTransparencyAnimator_RendererData__Boxed>& items) {
+            return il2cpp::array_new<app::LegacyTransparencyAnimator_RendererData__Array>(get_class(), items);
+        }
     } // namespace LegacyTransparencyAnimator_RendererData
 } // namespace app::classes::types

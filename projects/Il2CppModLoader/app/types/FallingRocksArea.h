@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::FallingRocksArea__Array* create_array(int size) {
             return il2cpp::array_new<app::FallingRocksArea__Array>(get_class(), size);
         }
+        inline app::FallingRocksArea__Array* create_array(const std::vector<app::FallingRocksArea*>& items) {
+            return il2cpp::array_new<app::FallingRocksArea__Array>(get_class(), items);
+        }
     } // namespace FallingRocksArea
 } // namespace app::classes::types

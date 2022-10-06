@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PhysicalSystemProfiler_UpdateInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::PhysicalSystemProfiler_UpdateInfo__Array>(get_class(), size);
         }
+        inline app::PhysicalSystemProfiler_UpdateInfo__Array* create_array(const std::vector<app::PhysicalSystemProfiler_UpdateInfo*>& items) {
+            return il2cpp::array_new<app::PhysicalSystemProfiler_UpdateInfo__Array>(get_class(), items);
+        }
     } // namespace PhysicalSystemProfiler_UpdateInfo
 } // namespace app::classes::types

@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::InternalEncodingDataItem__Array* create_array(int size) {
             return il2cpp::array_new<app::InternalEncodingDataItem__Array>(get_class(), size);
         }
+        inline app::InternalEncodingDataItem__Array* create_array(const std::vector<app::InternalEncodingDataItem__Boxed>& items) {
+            return il2cpp::array_new<app::InternalEncodingDataItem__Array>(get_class(), items);
+        }
     } // namespace InternalEncodingDataItem
 } // namespace app::classes::types

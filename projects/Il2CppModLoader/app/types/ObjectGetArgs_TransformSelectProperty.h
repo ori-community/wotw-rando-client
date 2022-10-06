@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ObjectGetArgs_TransformSelectProperty__Array* create_array(int size) {
             return il2cpp::array_new<app::ObjectGetArgs_TransformSelectProperty__Array>(get_class(), size);
         }
+        inline app::ObjectGetArgs_TransformSelectProperty__Array* create_array(const std::vector<app::ObjectGetArgs_TransformSelectProperty*>& items) {
+            return il2cpp::array_new<app::ObjectGetArgs_TransformSelectProperty__Array>(get_class(), items);
+        }
     } // namespace ObjectGetArgs_TransformSelectProperty
 } // namespace app::classes::types

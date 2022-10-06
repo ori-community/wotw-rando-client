@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ActivationChild__Array* create_array(int size) {
             return il2cpp::array_new<app::ActivationChild__Array>(get_class(), size);
         }
+        inline app::ActivationChild__Array* create_array(const std::vector<app::ActivationChild*>& items) {
+            return il2cpp::array_new<app::ActivationChild__Array>(get_class(), items);
+        }
     } // namespace ActivationChild
 } // namespace app::classes::types

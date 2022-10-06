@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::BaseAnimator__Array* create_array(int size) {
             return il2cpp::array_new<app::BaseAnimator__Array>(get_class(), size);
         }
+        inline app::BaseAnimator__Array* create_array(const std::vector<app::BaseAnimator*>& items) {
+            return il2cpp::array_new<app::BaseAnimator__Array>(get_class(), items);
+        }
     } // namespace BaseAnimator
 } // namespace app::classes::types

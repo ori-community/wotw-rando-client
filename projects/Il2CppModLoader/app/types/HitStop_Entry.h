@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::HitStop_Entry__Array* create_array(int size) {
             return il2cpp::array_new<app::HitStop_Entry__Array>(get_class(), size);
         }
+        inline app::HitStop_Entry__Array* create_array(const std::vector<app::HitStop_Entry*>& items) {
+            return il2cpp::array_new<app::HitStop_Entry__Array>(get_class(), items);
+        }
     } // namespace HitStop_Entry
 } // namespace app::classes::types

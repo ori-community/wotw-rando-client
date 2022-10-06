@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonAnimation__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonAnimation__Array>(get_class(), size);
         }
+        inline app::MoonAnimation__Array* create_array(const std::vector<app::MoonAnimation*>& items) {
+            return il2cpp::array_new<app::MoonAnimation__Array>(get_class(), items);
+        }
     } // namespace MoonAnimation
 } // namespace app::classes::types

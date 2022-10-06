@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ISuspendable__Array* create_array(int size) {
             return il2cpp::array_new<app::ISuspendable__Array>(get_class(), size);
         }
+        inline app::ISuspendable__Array* create_array(const std::vector<app::ISuspendable*>& items) {
+            return il2cpp::array_new<app::ISuspendable__Array>(get_class(), items);
+        }
     } // namespace ISuspendable
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SeinHold_ThrowAnimationSet__Array* create_array(int size) {
             return il2cpp::array_new<app::SeinHold_ThrowAnimationSet__Array>(get_class(), size);
         }
+        inline app::SeinHold_ThrowAnimationSet__Array* create_array(const std::vector<app::SeinHold_ThrowAnimationSet*>& items) {
+            return il2cpp::array_new<app::SeinHold_ThrowAnimationSet__Array>(get_class(), items);
+        }
     } // namespace SeinHold_ThrowAnimationSet
 } // namespace app::classes::types

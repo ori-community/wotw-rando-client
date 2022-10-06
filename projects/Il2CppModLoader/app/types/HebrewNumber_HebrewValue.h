@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::HebrewNumber_HebrewValue__Array* create_array(int size) {
             return il2cpp::array_new<app::HebrewNumber_HebrewValue__Array>(get_class(), size);
         }
+        inline app::HebrewNumber_HebrewValue__Array* create_array(const std::vector<app::HebrewNumber_HebrewValue*>& items) {
+            return il2cpp::array_new<app::HebrewNumber_HebrewValue__Array>(get_class(), items);
+        }
     } // namespace HebrewNumber_HebrewValue
 } // namespace app::classes::types

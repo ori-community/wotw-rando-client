@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::EntityLocomotionTask__Array* create_array(int size) {
             return il2cpp::array_new<app::EntityLocomotionTask__Array>(get_class(), size);
         }
+        inline app::EntityLocomotionTask__Array* create_array(const std::vector<app::EntityLocomotionTask*>& items) {
+            return il2cpp::array_new<app::EntityLocomotionTask__Array>(get_class(), items);
+        }
     } // namespace EntityLocomotionTask
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Mask_1__Array* create_array(int size) {
             return il2cpp::array_new<app::Mask_1__Array>(get_class(), size);
         }
+        inline app::Mask_1__Array* create_array(const std::vector<app::Mask_1*>& items) {
+            return il2cpp::array_new<app::Mask_1__Array>(get_class(), items);
+        }
     } // namespace Mask_1
 } // namespace app::classes::types

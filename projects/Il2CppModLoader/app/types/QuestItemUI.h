@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::QuestItemUI__Array* create_array(int size) {
             return il2cpp::array_new<app::QuestItemUI__Array>(get_class(), size);
         }
+        inline app::QuestItemUI__Array* create_array(const std::vector<app::QuestItemUI*>& items) {
+            return il2cpp::array_new<app::QuestItemUI__Array>(get_class(), items);
+        }
     } // namespace QuestItemUI
 } // namespace app::classes::types

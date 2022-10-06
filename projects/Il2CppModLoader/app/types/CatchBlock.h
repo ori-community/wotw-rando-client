@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CatchBlock__Array* create_array(int size) {
             return il2cpp::array_new<app::CatchBlock__Array>(get_class(), size);
         }
+        inline app::CatchBlock__Array* create_array(const std::vector<app::CatchBlock*>& items) {
+            return il2cpp::array_new<app::CatchBlock__Array>(get_class(), items);
+        }
     } // namespace CatchBlock
 } // namespace app::classes::types

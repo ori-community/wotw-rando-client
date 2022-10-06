@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Utc__Array* create_array(int size) {
             return il2cpp::array_new<app::Utc__Array>(get_class(), size);
         }
+        inline app::Utc__Array* create_array(const std::vector<app::Utc*>& items) {
+            return il2cpp::array_new<app::Utc__Array>(get_class(), items);
+        }
     } // namespace Utc
 } // namespace app::classes::types

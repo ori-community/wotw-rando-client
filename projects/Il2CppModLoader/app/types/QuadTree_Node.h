@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::QuadTree_Node__Array* create_array(int size) {
             return il2cpp::array_new<app::QuadTree_Node__Array>(get_class(), size);
         }
+        inline app::QuadTree_Node__Array* create_array(const std::vector<app::QuadTree_Node*>& items) {
+            return il2cpp::array_new<app::QuadTree_Node__Array>(get_class(), items);
+        }
     } // namespace QuadTree_Node
 } // namespace app::classes::types

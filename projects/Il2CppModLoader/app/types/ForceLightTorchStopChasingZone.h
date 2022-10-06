@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ForceLightTorchStopChasingZone__Array* create_array(int size) {
             return il2cpp::array_new<app::ForceLightTorchStopChasingZone__Array>(get_class(), size);
         }
+        inline app::ForceLightTorchStopChasingZone__Array* create_array(const std::vector<app::ForceLightTorchStopChasingZone*>& items) {
+            return il2cpp::array_new<app::ForceLightTorchStopChasingZone__Array>(get_class(), items);
+        }
     } // namespace ForceLightTorchStopChasingZone
 } // namespace app::classes::types

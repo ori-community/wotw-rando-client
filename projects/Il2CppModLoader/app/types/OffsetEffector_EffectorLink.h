@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::OffsetEffector_EffectorLink__Array* create_array(int size) {
             return il2cpp::array_new<app::OffsetEffector_EffectorLink__Array>(get_class(), size);
         }
+        inline app::OffsetEffector_EffectorLink__Array* create_array(const std::vector<app::OffsetEffector_EffectorLink*>& items) {
+            return il2cpp::array_new<app::OffsetEffector_EffectorLink__Array>(get_class(), items);
+        }
     } // namespace OffsetEffector_EffectorLink
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::EntityId__Array* create_array(int size) {
             return il2cpp::array_new<app::EntityId__Array>(get_class(), size);
         }
+        inline app::EntityId__Array* create_array(const std::vector<app::EntityId__Boxed>& items) {
+            return il2cpp::array_new<app::EntityId__Array>(get_class(), items);
+        }
     } // namespace EntityId
 } // namespace app::classes::types

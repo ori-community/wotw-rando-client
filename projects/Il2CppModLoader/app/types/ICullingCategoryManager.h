@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ICullingCategoryManager__Array* create_array(int size) {
             return il2cpp::array_new<app::ICullingCategoryManager__Array>(get_class(), size);
         }
+        inline app::ICullingCategoryManager__Array* create_array(const std::vector<app::ICullingCategoryManager*>& items) {
+            return il2cpp::array_new<app::ICullingCategoryManager__Array>(get_class(), items);
+        }
     } // namespace ICullingCategoryManager
 } // namespace app::classes::types

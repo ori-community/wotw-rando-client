@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::AnimationTester_IHierarchyUiElement__Array* create_array(int size) {
             return il2cpp::array_new<app::AnimationTester_IHierarchyUiElement__Array>(get_class(), size);
         }
+        inline app::AnimationTester_IHierarchyUiElement__Array* create_array(const std::vector<app::AnimationTester_IHierarchyUiElement*>& items) {
+            return il2cpp::array_new<app::AnimationTester_IHierarchyUiElement__Array>(get_class(), items);
+        }
     } // namespace AnimationTester_IHierarchyUiElement
 } // namespace app::classes::types

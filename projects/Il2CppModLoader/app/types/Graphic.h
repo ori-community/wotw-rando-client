@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Graphic__Array* create_array(int size) {
             return il2cpp::array_new<app::Graphic__Array>(get_class(), size);
         }
+        inline app::Graphic__Array* create_array(const std::vector<app::Graphic*>& items) {
+            return il2cpp::array_new<app::Graphic__Array>(get_class(), items);
+        }
     } // namespace Graphic
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LoadDebugMenuPage_DebugSaveInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::LoadDebugMenuPage_DebugSaveInfo__Array>(get_class(), size);
         }
+        inline app::LoadDebugMenuPage_DebugSaveInfo__Array* create_array(const std::vector<app::LoadDebugMenuPage_DebugSaveInfo__Boxed>& items) {
+            return il2cpp::array_new<app::LoadDebugMenuPage_DebugSaveInfo__Array>(get_class(), items);
+        }
     } // namespace LoadDebugMenuPage_DebugSaveInfo
 } // namespace app::classes::types

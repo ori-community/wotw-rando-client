@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MeleeComboTransition__Array* create_array(int size) {
             return il2cpp::array_new<app::MeleeComboTransition__Array>(get_class(), size);
         }
+        inline app::MeleeComboTransition__Array* create_array(const std::vector<app::MeleeComboTransition*>& items) {
+            return il2cpp::array_new<app::MeleeComboTransition__Array>(get_class(), items);
+        }
     } // namespace MeleeComboTransition
 } // namespace app::classes::types

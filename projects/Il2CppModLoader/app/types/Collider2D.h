@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Collider2D__Array* create_array(int size) {
             return il2cpp::array_new<app::Collider2D__Array>(get_class(), size);
         }
+        inline app::Collider2D__Array* create_array(const std::vector<app::Collider2D*>& items) {
+            return il2cpp::array_new<app::Collider2D__Array>(get_class(), items);
+        }
     } // namespace Collider2D
 } // namespace app::classes::types

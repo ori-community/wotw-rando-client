@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonGetAbilityPedestal__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonGetAbilityPedestal__Array>(get_class(), size);
         }
+        inline app::MoonGetAbilityPedestal__Array* create_array(const std::vector<app::MoonGetAbilityPedestal*>& items) {
+            return il2cpp::array_new<app::MoonGetAbilityPedestal__Array>(get_class(), items);
+        }
     } // namespace MoonGetAbilityPedestal
 } // namespace app::classes::types

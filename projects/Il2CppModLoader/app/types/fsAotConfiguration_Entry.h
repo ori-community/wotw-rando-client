@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::fsAotConfiguration_Entry__Array* create_array(int size) {
             return il2cpp::array_new<app::fsAotConfiguration_Entry__Array>(get_class(), size);
         }
+        inline app::fsAotConfiguration_Entry__Array* create_array(const std::vector<app::fsAotConfiguration_Entry__Boxed>& items) {
+            return il2cpp::array_new<app::fsAotConfiguration_Entry__Array>(get_class(), items);
+        }
     } // namespace fsAotConfiguration_Entry
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::HeaderInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::HeaderInfo__Array>(get_class(), size);
         }
+        inline app::HeaderInfo__Array* create_array(const std::vector<app::HeaderInfo*>& items) {
+            return il2cpp::array_new<app::HeaderInfo__Array>(get_class(), items);
+        }
     } // namespace HeaderInfo
 } // namespace app::classes::types

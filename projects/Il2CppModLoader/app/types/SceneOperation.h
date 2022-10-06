@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SceneOperation__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneOperation__Array>(get_class(), size);
         }
+        inline app::SceneOperation__Array* create_array(const std::vector<app::SceneOperation__Boxed>& items) {
+            return il2cpp::array_new<app::SceneOperation__Array>(get_class(), items);
+        }
     } // namespace SceneOperation
 } // namespace app::classes::types

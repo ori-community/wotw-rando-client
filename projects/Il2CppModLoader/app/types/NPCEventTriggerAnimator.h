@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::NPCEventTriggerAnimator__Array* create_array(int size) {
             return il2cpp::array_new<app::NPCEventTriggerAnimator__Array>(get_class(), size);
         }
+        inline app::NPCEventTriggerAnimator__Array* create_array(const std::vector<app::NPCEventTriggerAnimator*>& items) {
+            return il2cpp::array_new<app::NPCEventTriggerAnimator__Array>(get_class(), items);
+        }
     } // namespace NPCEventTriggerAnimator
 } // namespace app::classes::types

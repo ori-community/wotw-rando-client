@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::StateMachineBehaviour__Array* create_array(int size) {
             return il2cpp::array_new<app::StateMachineBehaviour__Array>(get_class(), size);
         }
+        inline app::StateMachineBehaviour__Array* create_array(const std::vector<app::StateMachineBehaviour*>& items) {
+            return il2cpp::array_new<app::StateMachineBehaviour__Array>(get_class(), items);
+        }
     } // namespace StateMachineBehaviour
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RotationLimitPolygonal_ReachCone__Array* create_array(int size) {
             return il2cpp::array_new<app::RotationLimitPolygonal_ReachCone__Array>(get_class(), size);
         }
+        inline app::RotationLimitPolygonal_ReachCone__Array* create_array(const std::vector<app::RotationLimitPolygonal_ReachCone*>& items) {
+            return il2cpp::array_new<app::RotationLimitPolygonal_ReachCone__Array>(get_class(), items);
+        }
     } // namespace RotationLimitPolygonal_ReachCone
 } // namespace app::classes::types

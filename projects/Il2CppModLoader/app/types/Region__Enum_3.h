@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Region__Enum_3__Array* create_array(int size) {
             return il2cpp::array_new<app::Region__Enum_3__Array>(get_class(), size);
         }
+        inline app::Region__Enum_3__Array* create_array(const std::vector<app::Region__Enum_3__Boxed*>& items) {
+            return il2cpp::array_new<app::Region__Enum_3__Array>(get_class(), items);
+        }
     } // namespace Region__Enum_3
 } // namespace app::classes::types

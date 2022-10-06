@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Flammable__Array* create_array(int size) {
             return il2cpp::array_new<app::Flammable__Array>(get_class(), size);
         }
+        inline app::Flammable__Array* create_array(const std::vector<app::Flammable*>& items) {
+            return il2cpp::array_new<app::Flammable__Array>(get_class(), items);
+        }
     } // namespace Flammable
 } // namespace app::classes::types

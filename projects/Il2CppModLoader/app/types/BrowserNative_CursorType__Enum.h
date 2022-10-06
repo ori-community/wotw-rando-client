@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::BrowserNative_CursorType__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::BrowserNative_CursorType__Enum__Array>(get_class(), size);
         }
+        inline app::BrowserNative_CursorType__Enum__Array* create_array(const std::vector<app::BrowserNative_CursorType__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::BrowserNative_CursorType__Enum__Array>(get_class(), items);
+        }
     } // namespace BrowserNative_CursorType__Enum
 } // namespace app::classes::types

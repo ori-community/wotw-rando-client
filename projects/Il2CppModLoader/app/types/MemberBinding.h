@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MemberBinding__Array* create_array(int size) {
             return il2cpp::array_new<app::MemberBinding__Array>(get_class(), size);
         }
+        inline app::MemberBinding__Array* create_array(const std::vector<app::MemberBinding*>& items) {
+            return il2cpp::array_new<app::MemberBinding__Array>(get_class(), items);
+        }
     } // namespace MemberBinding
 } // namespace app::classes::types

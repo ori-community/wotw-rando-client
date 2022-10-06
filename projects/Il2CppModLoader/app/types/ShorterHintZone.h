@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ShorterHintZone__Array* create_array(int size) {
             return il2cpp::array_new<app::ShorterHintZone__Array>(get_class(), size);
         }
+        inline app::ShorterHintZone__Array* create_array(const std::vector<app::ShorterHintZone*>& items) {
+            return il2cpp::array_new<app::ShorterHintZone__Array>(get_class(), items);
+        }
     } // namespace ShorterHintZone
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::RangePositionInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::RangePositionInfo__Array>(get_class(), size);
         }
+        inline app::RangePositionInfo__Array* create_array(const std::vector<app::RangePositionInfo__Boxed>& items) {
+            return il2cpp::array_new<app::RangePositionInfo__Array>(get_class(), items);
+        }
     } // namespace RangePositionInfo
 } // namespace app::classes::types

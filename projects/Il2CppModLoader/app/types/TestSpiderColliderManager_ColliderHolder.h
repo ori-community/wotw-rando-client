@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TestSpiderColliderManager_ColliderHolder__Array* create_array(int size) {
             return il2cpp::array_new<app::TestSpiderColliderManager_ColliderHolder__Array>(get_class(), size);
         }
+        inline app::TestSpiderColliderManager_ColliderHolder__Array* create_array(const std::vector<app::TestSpiderColliderManager_ColliderHolder*>& items) {
+            return il2cpp::array_new<app::TestSpiderColliderManager_ColliderHolder__Array>(get_class(), items);
+        }
     } // namespace TestSpiderColliderManager_ColliderHolder
 } // namespace app::classes::types

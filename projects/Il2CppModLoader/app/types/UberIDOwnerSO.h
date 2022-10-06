@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberIDOwnerSO__Array* create_array(int size) {
             return il2cpp::array_new<app::UberIDOwnerSO__Array>(get_class(), size);
         }
+        inline app::UberIDOwnerSO__Array* create_array(const std::vector<app::UberIDOwnerSO*>& items) {
+            return il2cpp::array_new<app::UberIDOwnerSO__Array>(get_class(), items);
+        }
     } // namespace UberIDOwnerSO
 } // namespace app::classes::types

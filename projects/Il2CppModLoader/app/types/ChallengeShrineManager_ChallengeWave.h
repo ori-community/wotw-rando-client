@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::ChallengeShrineManager_ChallengeWave__Array* create_array(int size) {
             return il2cpp::array_new<app::ChallengeShrineManager_ChallengeWave__Array>(get_class(), size);
         }
+        inline app::ChallengeShrineManager_ChallengeWave__Array* create_array(const std::vector<app::ChallengeShrineManager_ChallengeWave__Boxed>& items) {
+            return il2cpp::array_new<app::ChallengeShrineManager_ChallengeWave__Array>(get_class(), items);
+        }
     } // namespace ChallengeShrineManager_ChallengeWave
 } // namespace app::classes::types

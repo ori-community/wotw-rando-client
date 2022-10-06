@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FullBodyBipedEffector__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::FullBodyBipedEffector__Enum__Array>(get_class(), size);
         }
+        inline app::FullBodyBipedEffector__Enum__Array* create_array(const std::vector<app::FullBodyBipedEffector__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::FullBodyBipedEffector__Enum__Array>(get_class(), items);
+        }
     } // namespace FullBodyBipedEffector__Enum
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::EventPipelineKey__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::EventPipelineKey__Enum__Array>(get_class(), size);
         }
+        inline app::EventPipelineKey__Enum__Array* create_array(const std::vector<app::EventPipelineKey__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::EventPipelineKey__Enum__Array>(get_class(), items);
+        }
     } // namespace EventPipelineKey__Enum
 } // namespace app::classes::types

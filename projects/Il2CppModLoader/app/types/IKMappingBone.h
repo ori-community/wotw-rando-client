@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::IKMappingBone__Array* create_array(int size) {
             return il2cpp::array_new<app::IKMappingBone__Array>(get_class(), size);
         }
+        inline app::IKMappingBone__Array* create_array(const std::vector<app::IKMappingBone*>& items) {
+            return il2cpp::array_new<app::IKMappingBone__Array>(get_class(), items);
+        }
     } // namespace IKMappingBone
 } // namespace app::classes::types

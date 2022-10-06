@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GrounderFBBIK_SpineEffector__Array* create_array(int size) {
             return il2cpp::array_new<app::GrounderFBBIK_SpineEffector__Array>(get_class(), size);
         }
+        inline app::GrounderFBBIK_SpineEffector__Array* create_array(const std::vector<app::GrounderFBBIK_SpineEffector*>& items) {
+            return il2cpp::array_new<app::GrounderFBBIK_SpineEffector__Array>(get_class(), items);
+        }
     } // namespace GrounderFBBIK_SpineEffector
 } // namespace app::classes::types

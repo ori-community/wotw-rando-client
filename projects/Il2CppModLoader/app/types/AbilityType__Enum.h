@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AbilityType__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::AbilityType__Enum__Array>(get_class(), size);
         }
+        inline app::AbilityType__Enum__Array* create_array(const std::vector<app::AbilityType__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::AbilityType__Enum__Array>(get_class(), items);
+        }
     } // namespace AbilityType__Enum
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RockExplodeZone__Array* create_array(int size) {
             return il2cpp::array_new<app::RockExplodeZone__Array>(get_class(), size);
         }
+        inline app::RockExplodeZone__Array* create_array(const std::vector<app::RockExplodeZone*>& items) {
+            return il2cpp::array_new<app::RockExplodeZone__Array>(get_class(), items);
+        }
     } // namespace RockExplodeZone
 } // namespace app::classes::types

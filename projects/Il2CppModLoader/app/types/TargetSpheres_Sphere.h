@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TargetSpheres_Sphere__Array* create_array(int size) {
             return il2cpp::array_new<app::TargetSpheres_Sphere__Array>(get_class(), size);
         }
+        inline app::TargetSpheres_Sphere__Array* create_array(const std::vector<app::TargetSpheres_Sphere*>& items) {
+            return il2cpp::array_new<app::TargetSpheres_Sphere__Array>(get_class(), items);
+        }
     } // namespace TargetSpheres_Sphere
 } // namespace app::classes::types

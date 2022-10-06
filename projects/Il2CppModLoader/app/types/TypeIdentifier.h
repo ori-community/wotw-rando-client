@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::TypeIdentifier__Array* create_array(int size) {
             return il2cpp::array_new<app::TypeIdentifier__Array>(get_class(), size);
         }
+        inline app::TypeIdentifier__Array* create_array(const std::vector<app::TypeIdentifier*>& items) {
+            return il2cpp::array_new<app::TypeIdentifier__Array>(get_class(), items);
+        }
     } // namespace TypeIdentifier
 } // namespace app::classes::types

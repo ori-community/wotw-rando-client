@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::SpiritShardIcons_IconTexture__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiritShardIcons_IconTexture__Array>(get_class(), size);
         }
+        inline app::SpiritShardIcons_IconTexture__Array* create_array(const std::vector<app::SpiritShardIcons_IconTexture__Boxed>& items) {
+            return il2cpp::array_new<app::SpiritShardIcons_IconTexture__Array>(get_class(), items);
+        }
     } // namespace SpiritShardIcons_IconTexture
 } // namespace app::classes::types

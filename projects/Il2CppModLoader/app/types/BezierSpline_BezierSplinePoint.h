@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::BezierSpline_BezierSplinePoint__Array* create_array(int size) {
             return il2cpp::array_new<app::BezierSpline_BezierSplinePoint__Array>(get_class(), size);
         }
+        inline app::BezierSpline_BezierSplinePoint__Array* create_array(const std::vector<app::BezierSpline_BezierSplinePoint*>& items) {
+            return il2cpp::array_new<app::BezierSpline_BezierSplinePoint__Array>(get_class(), items);
+        }
     } // namespace BezierSpline_BezierSplinePoint
 } // namespace app::classes::types

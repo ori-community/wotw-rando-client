@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SkinnedMeshRenderer__Array* create_array(int size) {
             return il2cpp::array_new<app::SkinnedMeshRenderer__Array>(get_class(), size);
         }
+        inline app::SkinnedMeshRenderer__Array* create_array(const std::vector<app::SkinnedMeshRenderer*>& items) {
+            return il2cpp::array_new<app::SkinnedMeshRenderer__Array>(get_class(), items);
+        }
     } // namespace SkinnedMeshRenderer
 } // namespace app::classes::types

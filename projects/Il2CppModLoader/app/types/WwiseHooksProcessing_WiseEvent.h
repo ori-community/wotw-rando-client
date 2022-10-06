@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::WwiseHooksProcessing_WiseEvent__Array* create_array(int size) {
             return il2cpp::array_new<app::WwiseHooksProcessing_WiseEvent__Array>(get_class(), size);
         }
+        inline app::WwiseHooksProcessing_WiseEvent__Array* create_array(const std::vector<app::WwiseHooksProcessing_WiseEvent*>& items) {
+            return il2cpp::array_new<app::WwiseHooksProcessing_WiseEvent__Array>(get_class(), items);
+        }
     } // namespace WwiseHooksProcessing_WiseEvent
 } // namespace app::classes::types

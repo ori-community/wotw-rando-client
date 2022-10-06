@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ShadingZoneRendererTarget__Array* create_array(int size) {
             return il2cpp::array_new<app::ShadingZoneRendererTarget__Array>(get_class(), size);
         }
+        inline app::ShadingZoneRendererTarget__Array* create_array(const std::vector<app::ShadingZoneRendererTarget*>& items) {
+            return il2cpp::array_new<app::ShadingZoneRendererTarget__Array>(get_class(), items);
+        }
     } // namespace ShadingZoneRendererTarget
 } // namespace app::classes::types

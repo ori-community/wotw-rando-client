@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LightInfluence__Array* create_array(int size) {
             return il2cpp::array_new<app::LightInfluence__Array>(get_class(), size);
         }
+        inline app::LightInfluence__Array* create_array(const std::vector<app::LightInfluence*>& items) {
+            return il2cpp::array_new<app::LightInfluence__Array>(get_class(), items);
+        }
     } // namespace LightInfluence
 } // namespace app::classes::types

@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::MoonTelemetryCharacterBaseEvent_SpiritShardData__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonTelemetryCharacterBaseEvent_SpiritShardData__Array>(get_class(), size);
         }
+        inline app::MoonTelemetryCharacterBaseEvent_SpiritShardData__Array* create_array(const std::vector<app::MoonTelemetryCharacterBaseEvent_SpiritShardData__Boxed>& items) {
+            return il2cpp::array_new<app::MoonTelemetryCharacterBaseEvent_SpiritShardData__Array>(get_class(), items);
+        }
     } // namespace MoonTelemetryCharacterBaseEvent_SpiritShardData
 } // namespace app::classes::types

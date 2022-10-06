@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CSteamID__Array* create_array(int size) {
             return il2cpp::array_new<app::CSteamID__Array>(get_class(), size);
         }
+        inline app::CSteamID__Array* create_array(const std::vector<app::CSteamID__Boxed>& items) {
+            return il2cpp::array_new<app::CSteamID__Array>(get_class(), items);
+        }
     } // namespace CSteamID
 } // namespace app::classes::types

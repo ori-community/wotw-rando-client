@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MonoCustomAttrs_AttributeInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::MonoCustomAttrs_AttributeInfo__Array>(get_class(), size);
         }
+        inline app::MonoCustomAttrs_AttributeInfo__Array* create_array(const std::vector<app::MonoCustomAttrs_AttributeInfo*>& items) {
+            return il2cpp::array_new<app::MonoCustomAttrs_AttributeInfo__Array>(get_class(), items);
+        }
     } // namespace MonoCustomAttrs_AttributeInfo
 } // namespace app::classes::types

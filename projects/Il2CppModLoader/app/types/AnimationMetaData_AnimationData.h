@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AnimationMetaData_AnimationData__Array* create_array(int size) {
             return il2cpp::array_new<app::AnimationMetaData_AnimationData__Array>(get_class(), size);
         }
+        inline app::AnimationMetaData_AnimationData__Array* create_array(const std::vector<app::AnimationMetaData_AnimationData*>& items) {
+            return il2cpp::array_new<app::AnimationMetaData_AnimationData__Array>(get_class(), items);
+        }
     } // namespace AnimationMetaData_AnimationData
 } // namespace app::classes::types

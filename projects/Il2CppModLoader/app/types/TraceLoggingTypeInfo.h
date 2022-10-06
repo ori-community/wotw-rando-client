@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TraceLoggingTypeInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::TraceLoggingTypeInfo__Array>(get_class(), size);
         }
+        inline app::TraceLoggingTypeInfo__Array* create_array(const std::vector<app::TraceLoggingTypeInfo*>& items) {
+            return il2cpp::array_new<app::TraceLoggingTypeInfo__Array>(get_class(), items);
+        }
     } // namespace TraceLoggingTypeInfo
 } // namespace app::classes::types

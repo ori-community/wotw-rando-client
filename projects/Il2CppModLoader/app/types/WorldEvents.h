@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::WorldEvents__Array* create_array(int size) {
             return il2cpp::array_new<app::WorldEvents__Array>(get_class(), size);
         }
+        inline app::WorldEvents__Array* create_array(const std::vector<app::WorldEvents*>& items) {
+            return il2cpp::array_new<app::WorldEvents__Array>(get_class(), items);
+        }
     } // namespace WorldEvents
 } // namespace app::classes::types

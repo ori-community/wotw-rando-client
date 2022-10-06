@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TurbulenceStateDefinition_TurbulenceState__Array* create_array(int size) {
             return il2cpp::array_new<app::TurbulenceStateDefinition_TurbulenceState__Array>(get_class(), size);
         }
+        inline app::TurbulenceStateDefinition_TurbulenceState__Array* create_array(const std::vector<app::TurbulenceStateDefinition_TurbulenceState*>& items) {
+            return il2cpp::array_new<app::TurbulenceStateDefinition_TurbulenceState__Array>(get_class(), items);
+        }
     } // namespace TurbulenceStateDefinition_TurbulenceState
 } // namespace app::classes::types

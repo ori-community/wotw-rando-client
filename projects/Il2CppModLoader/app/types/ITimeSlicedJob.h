@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ITimeSlicedJob__Array* create_array(int size) {
             return il2cpp::array_new<app::ITimeSlicedJob__Array>(get_class(), size);
         }
+        inline app::ITimeSlicedJob__Array* create_array(const std::vector<app::ITimeSlicedJob*>& items) {
+            return il2cpp::array_new<app::ITimeSlicedJob__Array>(get_class(), items);
+        }
     } // namespace ITimeSlicedJob
 } // namespace app::classes::types

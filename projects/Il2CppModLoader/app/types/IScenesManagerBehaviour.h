@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IScenesManagerBehaviour__Array* create_array(int size) {
             return il2cpp::array_new<app::IScenesManagerBehaviour__Array>(get_class(), size);
         }
+        inline app::IScenesManagerBehaviour__Array* create_array(const std::vector<app::IScenesManagerBehaviour*>& items) {
+            return il2cpp::array_new<app::IScenesManagerBehaviour__Array>(get_class(), items);
+        }
     } // namespace IScenesManagerBehaviour
 } // namespace app::classes::types

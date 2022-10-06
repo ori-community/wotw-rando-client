@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LeaderboardTableUI_LeaderboardMetaData__Array* create_array(int size) {
             return il2cpp::array_new<app::LeaderboardTableUI_LeaderboardMetaData__Array>(get_class(), size);
         }
+        inline app::LeaderboardTableUI_LeaderboardMetaData__Array* create_array(const std::vector<app::LeaderboardTableUI_LeaderboardMetaData*>& items) {
+            return il2cpp::array_new<app::LeaderboardTableUI_LeaderboardMetaData__Array>(get_class(), items);
+        }
     } // namespace LeaderboardTableUI_LeaderboardMetaData
 } // namespace app::classes::types

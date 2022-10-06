@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DecoratorNode__Array* create_array(int size) {
             return il2cpp::array_new<app::DecoratorNode__Array>(get_class(), size);
         }
+        inline app::DecoratorNode__Array* create_array(const std::vector<app::DecoratorNode*>& items) {
+            return il2cpp::array_new<app::DecoratorNode__Array>(get_class(), items);
+        }
     } // namespace DecoratorNode
 } // namespace app::classes::types

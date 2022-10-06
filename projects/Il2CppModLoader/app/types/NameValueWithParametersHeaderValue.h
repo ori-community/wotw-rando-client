@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::NameValueWithParametersHeaderValue__Array* create_array(int size) {
             return il2cpp::array_new<app::NameValueWithParametersHeaderValue__Array>(get_class(), size);
         }
+        inline app::NameValueWithParametersHeaderValue__Array* create_array(const std::vector<app::NameValueWithParametersHeaderValue*>& items) {
+            return il2cpp::array_new<app::NameValueWithParametersHeaderValue__Array>(get_class(), items);
+        }
     } // namespace NameValueWithParametersHeaderValue
 } // namespace app::classes::types

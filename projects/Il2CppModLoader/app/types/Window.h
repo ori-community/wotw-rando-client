@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Window__Array* create_array(int size) {
             return il2cpp::array_new<app::Window__Array>(get_class(), size);
         }
+        inline app::Window__Array* create_array(const std::vector<app::Window*>& items) {
+            return il2cpp::array_new<app::Window__Array>(get_class(), items);
+        }
     } // namespace Window
 } // namespace app::classes::types

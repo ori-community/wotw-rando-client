@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FixedDurationSceneEntity__Array* create_array(int size) {
             return il2cpp::array_new<app::FixedDurationSceneEntity__Array>(get_class(), size);
         }
+        inline app::FixedDurationSceneEntity__Array* create_array(const std::vector<app::FixedDurationSceneEntity*>& items) {
+            return il2cpp::array_new<app::FixedDurationSceneEntity__Array>(get_class(), items);
+        }
     } // namespace FixedDurationSceneEntity
 } // namespace app::classes::types

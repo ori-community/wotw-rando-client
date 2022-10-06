@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MaterialBasedHornBugMovementEffects__Array* create_array(int size) {
             return il2cpp::array_new<app::MaterialBasedHornBugMovementEffects__Array>(get_class(), size);
         }
+        inline app::MaterialBasedHornBugMovementEffects__Array* create_array(const std::vector<app::MaterialBasedHornBugMovementEffects*>& items) {
+            return il2cpp::array_new<app::MaterialBasedHornBugMovementEffects__Array>(get_class(), items);
+        }
     } // namespace MaterialBasedHornBugMovementEffects
 } // namespace app::classes::types

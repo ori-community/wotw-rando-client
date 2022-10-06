@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::BugReporter_Attachment__Array* create_array(int size) {
             return il2cpp::array_new<app::BugReporter_Attachment__Array>(get_class(), size);
         }
+        inline app::BugReporter_Attachment__Array* create_array(const std::vector<app::BugReporter_Attachment*>& items) {
+            return il2cpp::array_new<app::BugReporter_Attachment__Array>(get_class(), items);
+        }
     } // namespace BugReporter_Attachment
 } // namespace app::classes::types

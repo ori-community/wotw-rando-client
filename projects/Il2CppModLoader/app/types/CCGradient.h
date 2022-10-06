@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CCGradient__Array* create_array(int size) {
             return il2cpp::array_new<app::CCGradient__Array>(get_class(), size);
         }
+        inline app::CCGradient__Array* create_array(const std::vector<app::CCGradient*>& items) {
+            return il2cpp::array_new<app::CCGradient__Array>(get_class(), items);
+        }
     } // namespace CCGradient
 } // namespace app::classes::types

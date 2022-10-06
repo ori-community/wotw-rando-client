@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AkAudioInputManager_AudioFormatDelegate__Array* create_array(int size) {
             return il2cpp::array_new<app::AkAudioInputManager_AudioFormatDelegate__Array>(get_class(), size);
         }
+        inline app::AkAudioInputManager_AudioFormatDelegate__Array* create_array(const std::vector<app::AkAudioInputManager_AudioFormatDelegate*>& items) {
+            return il2cpp::array_new<app::AkAudioInputManager_AudioFormatDelegate__Array>(get_class(), items);
+        }
     } // namespace AkAudioInputManager_AudioFormatDelegate
 } // namespace app::classes::types

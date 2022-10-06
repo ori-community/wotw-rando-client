@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AttackableSwitchSetupData__Array* create_array(int size) {
             return il2cpp::array_new<app::AttackableSwitchSetupData__Array>(get_class(), size);
         }
+        inline app::AttackableSwitchSetupData__Array* create_array(const std::vector<app::AttackableSwitchSetupData*>& items) {
+            return il2cpp::array_new<app::AttackableSwitchSetupData__Array>(get_class(), items);
+        }
     } // namespace AttackableSwitchSetupData
 } // namespace app::classes::types

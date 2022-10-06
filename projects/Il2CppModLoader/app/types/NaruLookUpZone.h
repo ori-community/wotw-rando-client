@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::NaruLookUpZone__Array* create_array(int size) {
             return il2cpp::array_new<app::NaruLookUpZone__Array>(get_class(), size);
         }
+        inline app::NaruLookUpZone__Array* create_array(const std::vector<app::NaruLookUpZone*>& items) {
+            return il2cpp::array_new<app::NaruLookUpZone__Array>(get_class(), items);
+        }
     } // namespace NaruLookUpZone
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CombinedUpgradeEffectiveness_UpgradableAbility__Array* create_array(int size) {
             return il2cpp::array_new<app::CombinedUpgradeEffectiveness_UpgradableAbility__Array>(get_class(), size);
         }
+        inline app::CombinedUpgradeEffectiveness_UpgradableAbility__Array* create_array(const std::vector<app::CombinedUpgradeEffectiveness_UpgradableAbility*>& items) {
+            return il2cpp::array_new<app::CombinedUpgradeEffectiveness_UpgradableAbility__Array>(get_class(), items);
+        }
     } // namespace CombinedUpgradeEffectiveness_UpgradableAbility
 } // namespace app::classes::types

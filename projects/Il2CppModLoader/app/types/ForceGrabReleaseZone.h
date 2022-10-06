@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ForceGrabReleaseZone__Array* create_array(int size) {
             return il2cpp::array_new<app::ForceGrabReleaseZone__Array>(get_class(), size);
         }
+        inline app::ForceGrabReleaseZone__Array* create_array(const std::vector<app::ForceGrabReleaseZone*>& items) {
+            return il2cpp::array_new<app::ForceGrabReleaseZone__Array>(get_class(), items);
+        }
     } // namespace ForceGrabReleaseZone
 } // namespace app::classes::types

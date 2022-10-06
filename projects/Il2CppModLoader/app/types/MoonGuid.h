@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonGuid__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonGuid__Array>(get_class(), size);
         }
+        inline app::MoonGuid__Array* create_array(const std::vector<app::MoonGuid*>& items) {
+            return il2cpp::array_new<app::MoonGuid__Array>(get_class(), items);
+        }
     } // namespace MoonGuid
 } // namespace app::classes::types

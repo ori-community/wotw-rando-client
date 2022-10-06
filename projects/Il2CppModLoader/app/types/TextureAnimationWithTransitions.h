@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TextureAnimationWithTransitions__Array* create_array(int size) {
             return il2cpp::array_new<app::TextureAnimationWithTransitions__Array>(get_class(), size);
         }
+        inline app::TextureAnimationWithTransitions__Array* create_array(const std::vector<app::TextureAnimationWithTransitions*>& items) {
+            return il2cpp::array_new<app::TextureAnimationWithTransitions__Array>(get_class(), items);
+        }
     } // namespace TextureAnimationWithTransitions
 } // namespace app::classes::types

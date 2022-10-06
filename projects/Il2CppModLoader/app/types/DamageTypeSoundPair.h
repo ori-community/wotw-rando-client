@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DamageTypeSoundPair__Array* create_array(int size) {
             return il2cpp::array_new<app::DamageTypeSoundPair__Array>(get_class(), size);
         }
+        inline app::DamageTypeSoundPair__Array* create_array(const std::vector<app::DamageTypeSoundPair*>& items) {
+            return il2cpp::array_new<app::DamageTypeSoundPair__Array>(get_class(), items);
+        }
     } // namespace DamageTypeSoundPair
 } // namespace app::classes::types

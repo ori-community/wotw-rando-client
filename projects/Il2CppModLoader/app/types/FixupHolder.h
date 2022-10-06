@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FixupHolder__Array* create_array(int size) {
             return il2cpp::array_new<app::FixupHolder__Array>(get_class(), size);
         }
+        inline app::FixupHolder__Array* create_array(const std::vector<app::FixupHolder*>& items) {
+            return il2cpp::array_new<app::FixupHolder__Array>(get_class(), items);
+        }
     } // namespace FixupHolder
 } // namespace app::classes::types

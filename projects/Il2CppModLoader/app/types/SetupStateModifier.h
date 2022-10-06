@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SetupStateModifier__Array* create_array(int size) {
             return il2cpp::array_new<app::SetupStateModifier__Array>(get_class(), size);
         }
+        inline app::SetupStateModifier__Array* create_array(const std::vector<app::SetupStateModifier*>& items) {
+            return il2cpp::array_new<app::SetupStateModifier__Array>(get_class(), items);
+        }
     } // namespace SetupStateModifier
 } // namespace app::classes::types

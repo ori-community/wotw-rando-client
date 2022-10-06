@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AbilitiesPlugin_FieldInfoCollection__Array* create_array(int size) {
             return il2cpp::array_new<app::AbilitiesPlugin_FieldInfoCollection__Array>(get_class(), size);
         }
+        inline app::AbilitiesPlugin_FieldInfoCollection__Array* create_array(const std::vector<app::AbilitiesPlugin_FieldInfoCollection*>& items) {
+            return il2cpp::array_new<app::AbilitiesPlugin_FieldInfoCollection__Array>(get_class(), items);
+        }
     } // namespace AbilitiesPlugin_FieldInfoCollection
 } // namespace app::classes::types

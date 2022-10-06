@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MistyWoodsKuroGameplayHideZone__Array* create_array(int size) {
             return il2cpp::array_new<app::MistyWoodsKuroGameplayHideZone__Array>(get_class(), size);
         }
+        inline app::MistyWoodsKuroGameplayHideZone__Array* create_array(const std::vector<app::MistyWoodsKuroGameplayHideZone*>& items) {
+            return il2cpp::array_new<app::MistyWoodsKuroGameplayHideZone__Array>(get_class(), items);
+        }
     } // namespace MistyWoodsKuroGameplayHideZone
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TextureAnimation__Array* create_array(int size) {
             return il2cpp::array_new<app::TextureAnimation__Array>(get_class(), size);
         }
+        inline app::TextureAnimation__Array* create_array(const std::vector<app::TextureAnimation*>& items) {
+            return il2cpp::array_new<app::TextureAnimation__Array>(get_class(), items);
+        }
     } // namespace TextureAnimation
 } // namespace app::classes::types

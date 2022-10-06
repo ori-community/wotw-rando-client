@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ITriangle__Array* create_array(int size) {
             return il2cpp::array_new<app::ITriangle__Array>(get_class(), size);
         }
+        inline app::ITriangle__Array* create_array(const std::vector<app::ITriangle*>& items) {
+            return il2cpp::array_new<app::ITriangle__Array>(get_class(), items);
+        }
     } // namespace ITriangle
 } // namespace app::classes::types

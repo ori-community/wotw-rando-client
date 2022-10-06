@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DofAnimator__Array* create_array(int size) {
             return il2cpp::array_new<app::DofAnimator__Array>(get_class(), size);
         }
+        inline app::DofAnimator__Array* create_array(const std::vector<app::DofAnimator*>& items) {
+            return il2cpp::array_new<app::DofAnimator__Array>(get_class(), items);
+        }
     } // namespace DofAnimator
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::JSONNode__Array* create_array(int size) {
             return il2cpp::array_new<app::JSONNode__Array>(get_class(), size);
         }
+        inline app::JSONNode__Array* create_array(const std::vector<app::JSONNode*>& items) {
+            return il2cpp::array_new<app::JSONNode__Array>(get_class(), items);
+        }
     } // namespace JSONNode
 } // namespace app::classes::types

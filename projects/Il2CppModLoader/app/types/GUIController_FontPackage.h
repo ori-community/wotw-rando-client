@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GUIController_FontPackage__Array* create_array(int size) {
             return il2cpp::array_new<app::GUIController_FontPackage__Array>(get_class(), size);
         }
+        inline app::GUIController_FontPackage__Array* create_array(const std::vector<app::GUIController_FontPackage*>& items) {
+            return il2cpp::array_new<app::GUIController_FontPackage__Array>(get_class(), items);
+        }
     } // namespace GUIController_FontPackage
 } // namespace app::classes::types

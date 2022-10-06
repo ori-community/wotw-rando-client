@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::MicroProfiler_MarkerInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::MicroProfiler_MarkerInfo__Array>(get_class(), size);
         }
+        inline app::MicroProfiler_MarkerInfo__Array* create_array(const std::vector<app::MicroProfiler_MarkerInfo__Boxed>& items) {
+            return il2cpp::array_new<app::MicroProfiler_MarkerInfo__Array>(get_class(), items);
+        }
     } // namespace MicroProfiler_MarkerInfo
 } // namespace app::classes::types

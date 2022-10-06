@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RaceDataCache__Array* create_array(int size) {
             return il2cpp::array_new<app::RaceDataCache__Array>(get_class(), size);
         }
+        inline app::RaceDataCache__Array* create_array(const std::vector<app::RaceDataCache*>& items) {
+            return il2cpp::array_new<app::RaceDataCache__Array>(get_class(), items);
+        }
     } // namespace RaceDataCache
 } // namespace app::classes::types

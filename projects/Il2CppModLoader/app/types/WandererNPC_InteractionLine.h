@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::WandererNPC_InteractionLine__Array* create_array(int size) {
             return il2cpp::array_new<app::WandererNPC_InteractionLine__Array>(get_class(), size);
         }
+        inline app::WandererNPC_InteractionLine__Array* create_array(const std::vector<app::WandererNPC_InteractionLine*>& items) {
+            return il2cpp::array_new<app::WandererNPC_InteractionLine__Array>(get_class(), items);
+        }
     } // namespace WandererNPC_InteractionLine
 } // namespace app::classes::types

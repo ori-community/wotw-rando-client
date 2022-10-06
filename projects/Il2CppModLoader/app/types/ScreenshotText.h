@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ScreenshotText__Array* create_array(int size) {
             return il2cpp::array_new<app::ScreenshotText__Array>(get_class(), size);
         }
+        inline app::ScreenshotText__Array* create_array(const std::vector<app::ScreenshotText*>& items) {
+            return il2cpp::array_new<app::ScreenshotText__Array>(get_class(), items);
+        }
     } // namespace ScreenshotText
 } // namespace app::classes::types

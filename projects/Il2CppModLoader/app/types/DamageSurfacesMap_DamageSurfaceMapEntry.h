@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DamageSurfacesMap_DamageSurfaceMapEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::DamageSurfacesMap_DamageSurfaceMapEntry__Array>(get_class(), size);
         }
+        inline app::DamageSurfacesMap_DamageSurfaceMapEntry__Array* create_array(const std::vector<app::DamageSurfacesMap_DamageSurfaceMapEntry*>& items) {
+            return il2cpp::array_new<app::DamageSurfacesMap_DamageSurfaceMapEntry__Array>(get_class(), items);
+        }
     } // namespace DamageSurfacesMap_DamageSurfaceMapEntry
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SeinPowerslideSpell_FireTrailPoint__Array* create_array(int size) {
             return il2cpp::array_new<app::SeinPowerslideSpell_FireTrailPoint__Array>(get_class(), size);
         }
+        inline app::SeinPowerslideSpell_FireTrailPoint__Array* create_array(const std::vector<app::SeinPowerslideSpell_FireTrailPoint*>& items) {
+            return il2cpp::array_new<app::SeinPowerslideSpell_FireTrailPoint__Array>(get_class(), items);
+        }
     } // namespace SeinPowerslideSpell_FireTrailPoint
 } // namespace app::classes::types

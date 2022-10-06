@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DateTimeConstantAttribute__Array* create_array(int size) {
             return il2cpp::array_new<app::DateTimeConstantAttribute__Array>(get_class(), size);
         }
+        inline app::DateTimeConstantAttribute__Array* create_array(const std::vector<app::DateTimeConstantAttribute*>& items) {
+            return il2cpp::array_new<app::DateTimeConstantAttribute__Array>(get_class(), items);
+        }
     } // namespace DateTimeConstantAttribute
 } // namespace app::classes::types

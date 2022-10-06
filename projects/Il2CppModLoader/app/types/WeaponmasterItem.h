@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::WeaponmasterItem__Array* create_array(int size) {
             return il2cpp::array_new<app::WeaponmasterItem__Array>(get_class(), size);
         }
+        inline app::WeaponmasterItem__Array* create_array(const std::vector<app::WeaponmasterItem*>& items) {
+            return il2cpp::array_new<app::WeaponmasterItem__Array>(get_class(), items);
+        }
     } // namespace WeaponmasterItem
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SceneMetaData_RaceInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneMetaData_RaceInfo__Array>(get_class(), size);
         }
+        inline app::SceneMetaData_RaceInfo__Array* create_array(const std::vector<app::SceneMetaData_RaceInfo*>& items) {
+            return il2cpp::array_new<app::SceneMetaData_RaceInfo__Array>(get_class(), items);
+        }
     } // namespace SceneMetaData_RaceInfo
 } // namespace app::classes::types

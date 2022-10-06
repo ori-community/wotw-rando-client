@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ActionTimer_TimedAction__Array* create_array(int size) {
             return il2cpp::array_new<app::ActionTimer_TimedAction__Array>(get_class(), size);
         }
+        inline app::ActionTimer_TimedAction__Array* create_array(const std::vector<app::ActionTimer_TimedAction*>& items) {
+            return il2cpp::array_new<app::ActionTimer_TimedAction__Array>(get_class(), items);
+        }
     } // namespace ActionTimer_TimedAction
 } // namespace app::classes::types

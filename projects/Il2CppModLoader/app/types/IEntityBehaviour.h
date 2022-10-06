@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IEntityBehaviour__Array* create_array(int size) {
             return il2cpp::array_new<app::IEntityBehaviour__Array>(get_class(), size);
         }
+        inline app::IEntityBehaviour__Array* create_array(const std::vector<app::IEntityBehaviour*>& items) {
+            return il2cpp::array_new<app::IEntityBehaviour__Array>(get_class(), items);
+        }
     } // namespace IEntityBehaviour
 } // namespace app::classes::types

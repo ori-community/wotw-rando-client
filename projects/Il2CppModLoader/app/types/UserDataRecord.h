@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UserDataRecord__Array* create_array(int size) {
             return il2cpp::array_new<app::UserDataRecord__Array>(get_class(), size);
         }
+        inline app::UserDataRecord__Array* create_array(const std::vector<app::UserDataRecord*>& items) {
+            return il2cpp::array_new<app::UserDataRecord__Array>(get_class(), items);
+        }
     } // namespace UserDataRecord
 } // namespace app::classes::types

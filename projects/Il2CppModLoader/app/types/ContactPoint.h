@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::ContactPoint__Array* create_array(int size) {
             return il2cpp::array_new<app::ContactPoint__Array>(get_class(), size);
         }
+        inline app::ContactPoint__Array* create_array(const std::vector<app::ContactPoint__Boxed>& items) {
+            return il2cpp::array_new<app::ContactPoint__Array>(get_class(), items);
+        }
     } // namespace ContactPoint
 } // namespace app::classes::types

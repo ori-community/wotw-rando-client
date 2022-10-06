@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SpiderBossLocationTimelineSet_LocationTimelineGroup__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiderBossLocationTimelineSet_LocationTimelineGroup__Array>(get_class(), size);
         }
+        inline app::SpiderBossLocationTimelineSet_LocationTimelineGroup__Array* create_array(const std::vector<app::SpiderBossLocationTimelineSet_LocationTimelineGroup*>& items) {
+            return il2cpp::array_new<app::SpiderBossLocationTimelineSet_LocationTimelineGroup__Array>(get_class(), items);
+        }
     } // namespace SpiderBossLocationTimelineSet_LocationTimelineGroup
 } // namespace app::classes::types

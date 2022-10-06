@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RuntimeSceneMetaData__Array* create_array(int size) {
             return il2cpp::array_new<app::RuntimeSceneMetaData__Array>(get_class(), size);
         }
+        inline app::RuntimeSceneMetaData__Array* create_array(const std::vector<app::RuntimeSceneMetaData*>& items) {
+            return il2cpp::array_new<app::RuntimeSceneMetaData__Array>(get_class(), items);
+        }
     } // namespace RuntimeSceneMetaData
 } // namespace app::classes::types

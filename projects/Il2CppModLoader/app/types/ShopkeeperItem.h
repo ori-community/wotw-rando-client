@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ShopkeeperItem__Array* create_array(int size) {
             return il2cpp::array_new<app::ShopkeeperItem__Array>(get_class(), size);
         }
+        inline app::ShopkeeperItem__Array* create_array(const std::vector<app::ShopkeeperItem*>& items) {
+            return il2cpp::array_new<app::ShopkeeperItem__Array>(get_class(), items);
+        }
     } // namespace ShopkeeperItem
 } // namespace app::classes::types

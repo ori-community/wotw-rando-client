@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GroupRole__Array* create_array(int size) {
             return il2cpp::array_new<app::GroupRole__Array>(get_class(), size);
         }
+        inline app::GroupRole__Array* create_array(const std::vector<app::GroupRole*>& items) {
+            return il2cpp::array_new<app::GroupRole__Array>(get_class(), items);
+        }
     } // namespace GroupRole
 } // namespace app::classes::types

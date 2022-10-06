@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AreaMapCanvasOverlay__Array* create_array(int size) {
             return il2cpp::array_new<app::AreaMapCanvasOverlay__Array>(get_class(), size);
         }
+        inline app::AreaMapCanvasOverlay__Array* create_array(const std::vector<app::AreaMapCanvasOverlay*>& items) {
+            return il2cpp::array_new<app::AreaMapCanvasOverlay__Array>(get_class(), items);
+        }
     } // namespace AreaMapCanvasOverlay
 } // namespace app::classes::types

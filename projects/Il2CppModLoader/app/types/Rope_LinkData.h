@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::Rope_LinkData__Array* create_array(int size) {
             return il2cpp::array_new<app::Rope_LinkData__Array>(get_class(), size);
         }
+        inline app::Rope_LinkData__Array* create_array(const std::vector<app::Rope_LinkData__Boxed>& items) {
+            return il2cpp::array_new<app::Rope_LinkData__Array>(get_class(), items);
+        }
     } // namespace Rope_LinkData
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CleverMenuItemGroup__Array* create_array(int size) {
             return il2cpp::array_new<app::CleverMenuItemGroup__Array>(get_class(), size);
         }
+        inline app::CleverMenuItemGroup__Array* create_array(const std::vector<app::CleverMenuItemGroup*>& items) {
+            return il2cpp::array_new<app::CleverMenuItemGroup__Array>(get_class(), items);
+        }
     } // namespace CleverMenuItemGroup
 } // namespace app::classes::types

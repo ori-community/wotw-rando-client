@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SkinningModifier__Array* create_array(int size) {
             return il2cpp::array_new<app::SkinningModifier__Array>(get_class(), size);
         }
+        inline app::SkinningModifier__Array* create_array(const std::vector<app::SkinningModifier*>& items) {
+            return il2cpp::array_new<app::SkinningModifier__Array>(get_class(), items);
+        }
     } // namespace SkinningModifier
 } // namespace app::classes::types

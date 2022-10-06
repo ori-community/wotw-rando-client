@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Rigidbody__Array* create_array(int size) {
             return il2cpp::array_new<app::Rigidbody__Array>(get_class(), size);
         }
+        inline app::Rigidbody__Array* create_array(const std::vector<app::Rigidbody*>& items) {
+            return il2cpp::array_new<app::Rigidbody__Array>(get_class(), items);
+        }
     } // namespace Rigidbody
 } // namespace app::classes::types

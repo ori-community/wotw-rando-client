@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Record__Array* create_array(int size) {
             return il2cpp::array_new<app::Record__Array>(get_class(), size);
         }
+        inline app::Record__Array* create_array(const std::vector<app::Record*>& items) {
+            return il2cpp::array_new<app::Record__Array>(get_class(), items);
+        }
     } // namespace Record
 } // namespace app::classes::types

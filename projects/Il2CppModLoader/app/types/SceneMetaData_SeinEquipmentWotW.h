@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SceneMetaData_SeinEquipmentWotW__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneMetaData_SeinEquipmentWotW__Array>(get_class(), size);
         }
+        inline app::SceneMetaData_SeinEquipmentWotW__Array* create_array(const std::vector<app::SceneMetaData_SeinEquipmentWotW*>& items) {
+            return il2cpp::array_new<app::SceneMetaData_SeinEquipmentWotW__Array>(get_class(), items);
+        }
     } // namespace SceneMetaData_SeinEquipmentWotW
 } // namespace app::classes::types

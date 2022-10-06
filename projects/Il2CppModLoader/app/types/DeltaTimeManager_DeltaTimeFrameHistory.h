@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DeltaTimeManager_DeltaTimeFrameHistory__Array* create_array(int size) {
             return il2cpp::array_new<app::DeltaTimeManager_DeltaTimeFrameHistory__Array>(get_class(), size);
         }
+        inline app::DeltaTimeManager_DeltaTimeFrameHistory__Array* create_array(const std::vector<app::DeltaTimeManager_DeltaTimeFrameHistory*>& items) {
+            return il2cpp::array_new<app::DeltaTimeManager_DeltaTimeFrameHistory__Array>(get_class(), items);
+        }
     } // namespace DeltaTimeManager_DeltaTimeFrameHistory
 } // namespace app::classes::types

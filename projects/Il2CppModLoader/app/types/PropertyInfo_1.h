@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PropertyInfo_1__Array* create_array(int size) {
             return il2cpp::array_new<app::PropertyInfo_1__Array>(get_class(), size);
         }
+        inline app::PropertyInfo_1__Array* create_array(const std::vector<app::PropertyInfo_1*>& items) {
+            return il2cpp::array_new<app::PropertyInfo_1__Array>(get_class(), items);
+        }
     } // namespace PropertyInfo_1
 } // namespace app::classes::types

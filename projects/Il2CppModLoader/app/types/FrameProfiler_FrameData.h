@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FrameProfiler_FrameData__Array* create_array(int size) {
             return il2cpp::array_new<app::FrameProfiler_FrameData__Array>(get_class(), size);
         }
+        inline app::FrameProfiler_FrameData__Array* create_array(const std::vector<app::FrameProfiler_FrameData*>& items) {
+            return il2cpp::array_new<app::FrameProfiler_FrameData__Array>(get_class(), items);
+        }
     } // namespace FrameProfiler_FrameData
 } // namespace app::classes::types

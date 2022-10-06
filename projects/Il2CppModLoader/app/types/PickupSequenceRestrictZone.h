@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PickupSequenceRestrictZone__Array* create_array(int size) {
             return il2cpp::array_new<app::PickupSequenceRestrictZone__Array>(get_class(), size);
         }
+        inline app::PickupSequenceRestrictZone__Array* create_array(const std::vector<app::PickupSequenceRestrictZone*>& items) {
+            return il2cpp::array_new<app::PickupSequenceRestrictZone__Array>(get_class(), items);
+        }
     } // namespace PickupSequenceRestrictZone
 } // namespace app::classes::types

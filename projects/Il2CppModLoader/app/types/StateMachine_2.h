@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::StateMachine_2__Array* create_array(int size) {
             return il2cpp::array_new<app::StateMachine_2__Array>(get_class(), size);
         }
+        inline app::StateMachine_2__Array* create_array(const std::vector<app::StateMachine_2*>& items) {
+            return il2cpp::array_new<app::StateMachine_2__Array>(get_class(), items);
+        }
     } // namespace StateMachine_2
 } // namespace app::classes::types

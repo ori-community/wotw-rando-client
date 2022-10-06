@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ICageMetaData__Array* create_array(int size) {
             return il2cpp::array_new<app::ICageMetaData__Array>(get_class(), size);
         }
+        inline app::ICageMetaData__Array* create_array(const std::vector<app::ICageMetaData*>& items) {
+            return il2cpp::array_new<app::ICageMetaData__Array>(get_class(), items);
+        }
     } // namespace ICageMetaData
 } // namespace app::classes::types

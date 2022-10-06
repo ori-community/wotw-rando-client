@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GhostAnimationParameterPlugin_RecordableAnimatorEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::GhostAnimationParameterPlugin_RecordableAnimatorEntry__Array>(get_class(), size);
         }
+        inline app::GhostAnimationParameterPlugin_RecordableAnimatorEntry__Array* create_array(const std::vector<app::GhostAnimationParameterPlugin_RecordableAnimatorEntry*>& items) {
+            return il2cpp::array_new<app::GhostAnimationParameterPlugin_RecordableAnimatorEntry__Array>(get_class(), items);
+        }
     } // namespace GhostAnimationParameterPlugin_RecordableAnimatorEntry
 } // namespace app::classes::types

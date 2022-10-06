@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GenericDamageTrigger_DamageTriggerSetupData__Array* create_array(int size) {
             return il2cpp::array_new<app::GenericDamageTrigger_DamageTriggerSetupData__Array>(get_class(), size);
         }
+        inline app::GenericDamageTrigger_DamageTriggerSetupData__Array* create_array(const std::vector<app::GenericDamageTrigger_DamageTriggerSetupData*>& items) {
+            return il2cpp::array_new<app::GenericDamageTrigger_DamageTriggerSetupData__Array>(get_class(), items);
+        }
     } // namespace GenericDamageTrigger_DamageTriggerSetupData
 } // namespace app::classes::types

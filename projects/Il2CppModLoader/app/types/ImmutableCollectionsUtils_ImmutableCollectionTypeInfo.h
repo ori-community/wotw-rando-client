@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ImmutableCollectionsUtils_ImmutableCollectionTypeInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::ImmutableCollectionsUtils_ImmutableCollectionTypeInfo__Array>(get_class(), size);
         }
+        inline app::ImmutableCollectionsUtils_ImmutableCollectionTypeInfo__Array* create_array(const std::vector<app::ImmutableCollectionsUtils_ImmutableCollectionTypeInfo*>& items) {
+            return il2cpp::array_new<app::ImmutableCollectionsUtils_ImmutableCollectionTypeInfo__Array>(get_class(), items);
+        }
     } // namespace ImmutableCollectionsUtils_ImmutableCollectionTypeInfo
 } // namespace app::classes::types

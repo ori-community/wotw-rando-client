@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IExplicitFixedUpdateHandler__Array* create_array(int size) {
             return il2cpp::array_new<app::IExplicitFixedUpdateHandler__Array>(get_class(), size);
         }
+        inline app::IExplicitFixedUpdateHandler__Array* create_array(const std::vector<app::IExplicitFixedUpdateHandler*>& items) {
+            return il2cpp::array_new<app::IExplicitFixedUpdateHandler__Array>(get_class(), items);
+        }
     } // namespace IExplicitFixedUpdateHandler
 } // namespace app::classes::types

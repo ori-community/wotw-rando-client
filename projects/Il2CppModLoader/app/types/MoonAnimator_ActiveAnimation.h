@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonAnimator_ActiveAnimation__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonAnimator_ActiveAnimation__Array>(get_class(), size);
         }
+        inline app::MoonAnimator_ActiveAnimation__Array* create_array(const std::vector<app::MoonAnimator_ActiveAnimation*>& items) {
+            return il2cpp::array_new<app::MoonAnimator_ActiveAnimation__Array>(get_class(), items);
+        }
     } // namespace MoonAnimator_ActiveAnimation
 } // namespace app::classes::types

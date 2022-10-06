@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonTrailSystem_ComputeBufferWrapper__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonTrailSystem_ComputeBufferWrapper__Array>(get_class(), size);
         }
+        inline app::MoonTrailSystem_ComputeBufferWrapper__Array* create_array(const std::vector<app::MoonTrailSystem_ComputeBufferWrapper*>& items) {
+            return il2cpp::array_new<app::MoonTrailSystem_ComputeBufferWrapper__Array>(get_class(), items);
+        }
     } // namespace MoonTrailSystem_ComputeBufferWrapper
 } // namespace app::classes::types

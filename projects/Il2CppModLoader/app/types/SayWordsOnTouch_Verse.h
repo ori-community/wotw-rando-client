@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SayWordsOnTouch_Verse__Array* create_array(int size) {
             return il2cpp::array_new<app::SayWordsOnTouch_Verse__Array>(get_class(), size);
         }
+        inline app::SayWordsOnTouch_Verse__Array* create_array(const std::vector<app::SayWordsOnTouch_Verse*>& items) {
+            return il2cpp::array_new<app::SayWordsOnTouch_Verse__Array>(get_class(), items);
+        }
     } // namespace SayWordsOnTouch_Verse
 } // namespace app::classes::types

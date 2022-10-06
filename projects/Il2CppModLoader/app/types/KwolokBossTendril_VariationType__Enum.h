@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::KwolokBossTendril_VariationType__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::KwolokBossTendril_VariationType__Enum__Array>(get_class(), size);
         }
+        inline app::KwolokBossTendril_VariationType__Enum__Array* create_array(const std::vector<app::KwolokBossTendril_VariationType__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::KwolokBossTendril_VariationType__Enum__Array>(get_class(), items);
+        }
     } // namespace KwolokBossTendril_VariationType__Enum
 } // namespace app::classes::types

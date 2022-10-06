@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CalendarData__Array* create_array(int size) {
             return il2cpp::array_new<app::CalendarData__Array>(get_class(), size);
         }
+        inline app::CalendarData__Array* create_array(const std::vector<app::CalendarData*>& items) {
+            return il2cpp::array_new<app::CalendarData__Array>(get_class(), items);
+        }
     } // namespace CalendarData
 } // namespace app::classes::types

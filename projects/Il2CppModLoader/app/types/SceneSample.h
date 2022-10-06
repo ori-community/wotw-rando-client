@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SceneSample__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneSample__Array>(get_class(), size);
         }
+        inline app::SceneSample__Array* create_array(const std::vector<app::SceneSample*>& items) {
+            return il2cpp::array_new<app::SceneSample__Array>(get_class(), items);
+        }
     } // namespace SceneSample
 } // namespace app::classes::types

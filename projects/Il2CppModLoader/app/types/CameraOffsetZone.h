@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CameraOffsetZone__Array* create_array(int size) {
             return il2cpp::array_new<app::CameraOffsetZone__Array>(get_class(), size);
         }
+        inline app::CameraOffsetZone__Array* create_array(const std::vector<app::CameraOffsetZone*>& items) {
+            return il2cpp::array_new<app::CameraOffsetZone__Array>(get_class(), items);
+        }
     } // namespace CameraOffsetZone
 } // namespace app::classes::types

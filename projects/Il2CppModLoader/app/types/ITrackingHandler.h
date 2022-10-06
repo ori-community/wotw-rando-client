@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ITrackingHandler__Array* create_array(int size) {
             return il2cpp::array_new<app::ITrackingHandler__Array>(get_class(), size);
         }
+        inline app::ITrackingHandler__Array* create_array(const std::vector<app::ITrackingHandler*>& items) {
+            return il2cpp::array_new<app::ITrackingHandler__Array>(get_class(), items);
+        }
     } // namespace ITrackingHandler
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SchemaNotation__Array* create_array(int size) {
             return il2cpp::array_new<app::SchemaNotation__Array>(get_class(), size);
         }
+        inline app::SchemaNotation__Array* create_array(const std::vector<app::SchemaNotation*>& items) {
+            return il2cpp::array_new<app::SchemaNotation__Array>(get_class(), items);
+        }
     } // namespace SchemaNotation
 } // namespace app::classes::types

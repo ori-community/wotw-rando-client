@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PhysicalSystemManager__Array* create_array(int size) {
             return il2cpp::array_new<app::PhysicalSystemManager__Array>(get_class(), size);
         }
+        inline app::PhysicalSystemManager__Array* create_array(const std::vector<app::PhysicalSystemManager*>& items) {
+            return il2cpp::array_new<app::PhysicalSystemManager__Array>(get_class(), items);
+        }
     } // namespace PhysicalSystemManager
 } // namespace app::classes::types

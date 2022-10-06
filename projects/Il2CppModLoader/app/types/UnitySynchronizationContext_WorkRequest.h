@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UnitySynchronizationContext_WorkRequest__Array* create_array(int size) {
             return il2cpp::array_new<app::UnitySynchronizationContext_WorkRequest__Array>(get_class(), size);
         }
+        inline app::UnitySynchronizationContext_WorkRequest__Array* create_array(const std::vector<app::UnitySynchronizationContext_WorkRequest__Boxed>& items) {
+            return il2cpp::array_new<app::UnitySynchronizationContext_WorkRequest__Array>(get_class(), items);
+        }
     } // namespace UnitySynchronizationContext_WorkRequest
 } // namespace app::classes::types

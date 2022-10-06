@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::WaterFall_WaterLine__Array* create_array(int size) {
             return il2cpp::array_new<app::WaterFall_WaterLine__Array>(get_class(), size);
         }
+        inline app::WaterFall_WaterLine__Array* create_array(const std::vector<app::WaterFall_WaterLine*>& items) {
+            return il2cpp::array_new<app::WaterFall_WaterLine__Array>(get_class(), items);
+        }
     } // namespace WaterFall_WaterLine
 } // namespace app::classes::types

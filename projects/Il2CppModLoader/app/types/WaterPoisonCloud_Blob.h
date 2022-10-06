@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::WaterPoisonCloud_Blob__Array* create_array(int size) {
             return il2cpp::array_new<app::WaterPoisonCloud_Blob__Array>(get_class(), size);
         }
+        inline app::WaterPoisonCloud_Blob__Array* create_array(const std::vector<app::WaterPoisonCloud_Blob__Boxed>& items) {
+            return il2cpp::array_new<app::WaterPoisonCloud_Blob__Array>(get_class(), items);
+        }
     } // namespace WaterPoisonCloud_Blob
 } // namespace app::classes::types

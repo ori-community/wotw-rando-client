@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PhysicMaterial__Array* create_array(int size) {
             return il2cpp::array_new<app::PhysicMaterial__Array>(get_class(), size);
         }
+        inline app::PhysicMaterial__Array* create_array(const std::vector<app::PhysicMaterial*>& items) {
+            return il2cpp::array_new<app::PhysicMaterial__Array>(get_class(), items);
+        }
     } // namespace PhysicMaterial
 } // namespace app::classes::types

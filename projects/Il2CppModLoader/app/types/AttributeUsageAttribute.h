@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AttributeUsageAttribute__Array* create_array(int size) {
             return il2cpp::array_new<app::AttributeUsageAttribute__Array>(get_class(), size);
         }
+        inline app::AttributeUsageAttribute__Array* create_array(const std::vector<app::AttributeUsageAttribute*>& items) {
+            return il2cpp::array_new<app::AttributeUsageAttribute__Array>(get_class(), items);
+        }
     } // namespace AttributeUsageAttribute
 } // namespace app::classes::types

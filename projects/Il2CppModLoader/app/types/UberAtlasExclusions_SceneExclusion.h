@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberAtlasExclusions_SceneExclusion__Array* create_array(int size) {
             return il2cpp::array_new<app::UberAtlasExclusions_SceneExclusion__Array>(get_class(), size);
         }
+        inline app::UberAtlasExclusions_SceneExclusion__Array* create_array(const std::vector<app::UberAtlasExclusions_SceneExclusion__Boxed>& items) {
+            return il2cpp::array_new<app::UberAtlasExclusions_SceneExclusion__Array>(get_class(), items);
+        }
     } // namespace UberAtlasExclusions_SceneExclusion
 } // namespace app::classes::types

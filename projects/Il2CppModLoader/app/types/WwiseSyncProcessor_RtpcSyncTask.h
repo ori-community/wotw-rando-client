@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::WwiseSyncProcessor_RtpcSyncTask__Array* create_array(int size) {
             return il2cpp::array_new<app::WwiseSyncProcessor_RtpcSyncTask__Array>(get_class(), size);
         }
+        inline app::WwiseSyncProcessor_RtpcSyncTask__Array* create_array(const std::vector<app::WwiseSyncProcessor_RtpcSyncTask*>& items) {
+            return il2cpp::array_new<app::WwiseSyncProcessor_RtpcSyncTask__Array>(get_class(), items);
+        }
     } // namespace WwiseSyncProcessor_RtpcSyncTask
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CageStructureTool__Array* create_array(int size) {
             return il2cpp::array_new<app::CageStructureTool__Array>(get_class(), size);
         }
+        inline app::CageStructureTool__Array* create_array(const std::vector<app::CageStructureTool*>& items) {
+            return il2cpp::array_new<app::CageStructureTool__Array>(get_class(), items);
+        }
     } // namespace CageStructureTool
 } // namespace app::classes::types

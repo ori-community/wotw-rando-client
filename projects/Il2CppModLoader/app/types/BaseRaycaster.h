@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::BaseRaycaster__Array* create_array(int size) {
             return il2cpp::array_new<app::BaseRaycaster__Array>(get_class(), size);
         }
+        inline app::BaseRaycaster__Array* create_array(const std::vector<app::BaseRaycaster*>& items) {
+            return il2cpp::array_new<app::BaseRaycaster__Array>(get_class(), items);
+        }
     } // namespace BaseRaycaster
 } // namespace app::classes::types

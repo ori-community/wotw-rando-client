@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FrogEntity__Array* create_array(int size) {
             return il2cpp::array_new<app::FrogEntity__Array>(get_class(), size);
         }
+        inline app::FrogEntity__Array* create_array(const std::vector<app::FrogEntity*>& items) {
+            return il2cpp::array_new<app::FrogEntity__Array>(get_class(), items);
+        }
     } // namespace FrogEntity
 } // namespace app::classes::types

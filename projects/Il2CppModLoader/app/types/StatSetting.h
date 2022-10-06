@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::StatSetting__Array* create_array(int size) {
             return il2cpp::array_new<app::StatSetting__Array>(get_class(), size);
         }
+        inline app::StatSetting__Array* create_array(const std::vector<app::StatSetting*>& items) {
+            return il2cpp::array_new<app::StatSetting__Array>(get_class(), items);
+        }
     } // namespace StatSetting
 } // namespace app::classes::types

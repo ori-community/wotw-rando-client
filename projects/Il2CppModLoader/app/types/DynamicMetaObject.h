@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DynamicMetaObject__Array* create_array(int size) {
             return il2cpp::array_new<app::DynamicMetaObject__Array>(get_class(), size);
         }
+        inline app::DynamicMetaObject__Array* create_array(const std::vector<app::DynamicMetaObject*>& items) {
+            return il2cpp::array_new<app::DynamicMetaObject__Array>(get_class(), items);
+        }
     } // namespace DynamicMetaObject
 } // namespace app::classes::types

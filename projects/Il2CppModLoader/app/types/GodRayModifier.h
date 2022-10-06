@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GodRayModifier__Array* create_array(int size) {
             return il2cpp::array_new<app::GodRayModifier__Array>(get_class(), size);
         }
+        inline app::GodRayModifier__Array* create_array(const std::vector<app::GodRayModifier*>& items) {
+            return il2cpp::array_new<app::GodRayModifier__Array>(get_class(), items);
+        }
     } // namespace GodRayModifier
 } // namespace app::classes::types

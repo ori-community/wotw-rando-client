@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ProtectiveLightRadial__Array* create_array(int size) {
             return il2cpp::array_new<app::ProtectiveLightRadial__Array>(get_class(), size);
         }
+        inline app::ProtectiveLightRadial__Array* create_array(const std::vector<app::ProtectiveLightRadial*>& items) {
+            return il2cpp::array_new<app::ProtectiveLightRadial__Array>(get_class(), items);
+        }
     } // namespace ProtectiveLightRadial
 } // namespace app::classes::types

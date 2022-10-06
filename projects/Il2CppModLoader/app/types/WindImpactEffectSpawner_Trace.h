@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::WindImpactEffectSpawner_Trace__Array* create_array(int size) {
             return il2cpp::array_new<app::WindImpactEffectSpawner_Trace__Array>(get_class(), size);
         }
+        inline app::WindImpactEffectSpawner_Trace__Array* create_array(const std::vector<app::WindImpactEffectSpawner_Trace__Boxed>& items) {
+            return il2cpp::array_new<app::WindImpactEffectSpawner_Trace__Array>(get_class(), items);
+        }
     } // namespace WindImpactEffectSpawner_Trace
 } // namespace app::classes::types

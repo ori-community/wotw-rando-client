@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::FirewhirlBeam__Array* create_array(int size) {
             return il2cpp::array_new<app::FirewhirlBeam__Array>(get_class(), size);
         }
+        inline app::FirewhirlBeam__Array* create_array(const std::vector<app::FirewhirlBeam*>& items) {
+            return il2cpp::array_new<app::FirewhirlBeam__Array>(get_class(), items);
+        }
     } // namespace FirewhirlBeam
 } // namespace app::classes::types

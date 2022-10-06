@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::VirtualClipsBuilder_Layout__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::VirtualClipsBuilder_Layout__Enum__Array>(get_class(), size);
         }
+        inline app::VirtualClipsBuilder_Layout__Enum__Array* create_array(const std::vector<app::VirtualClipsBuilder_Layout__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::VirtualClipsBuilder_Layout__Enum__Array>(get_class(), items);
+        }
     } // namespace VirtualClipsBuilder_Layout__Enum
 } // namespace app::classes::types

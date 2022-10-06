@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::JToken__Array* create_array(int size) {
             return il2cpp::array_new<app::JToken__Array>(get_class(), size);
         }
+        inline app::JToken__Array* create_array(const std::vector<app::JToken*>& items) {
+            return il2cpp::array_new<app::JToken__Array>(get_class(), items);
+        }
     } // namespace JToken
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::BaseInput__Array* create_array(int size) {
             return il2cpp::array_new<app::BaseInput__Array>(get_class(), size);
         }
+        inline app::BaseInput__Array* create_array(const std::vector<app::BaseInput*>& items) {
+            return il2cpp::array_new<app::BaseInput__Array>(get_class(), items);
+        }
     } // namespace BaseInput
 } // namespace app::classes::types

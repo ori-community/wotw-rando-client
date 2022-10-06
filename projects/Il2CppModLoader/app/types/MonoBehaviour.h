@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MonoBehaviour__Array* create_array(int size) {
             return il2cpp::array_new<app::MonoBehaviour__Array>(get_class(), size);
         }
+        inline app::MonoBehaviour__Array* create_array(const std::vector<app::MonoBehaviour*>& items) {
+            return il2cpp::array_new<app::MonoBehaviour__Array>(get_class(), items);
+        }
     } // namespace MonoBehaviour
 } // namespace app::classes::types

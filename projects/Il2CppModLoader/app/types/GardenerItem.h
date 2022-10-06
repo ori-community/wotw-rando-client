@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GardenerItem__Array* create_array(int size) {
             return il2cpp::array_new<app::GardenerItem__Array>(get_class(), size);
         }
+        inline app::GardenerItem__Array* create_array(const std::vector<app::GardenerItem*>& items) {
+            return il2cpp::array_new<app::GardenerItem__Array>(get_class(), items);
+        }
     } // namespace GardenerItem
 } // namespace app::classes::types

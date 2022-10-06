@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CancellationTokenRegistration__Array* create_array(int size) {
             return il2cpp::array_new<app::CancellationTokenRegistration__Array>(get_class(), size);
         }
+        inline app::CancellationTokenRegistration__Array* create_array(const std::vector<app::CancellationTokenRegistration__Boxed>& items) {
+            return il2cpp::array_new<app::CancellationTokenRegistration__Array>(get_class(), items);
+        }
     } // namespace CancellationTokenRegistration
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GoToSequenceData__Array* create_array(int size) {
             return il2cpp::array_new<app::GoToSequenceData__Array>(get_class(), size);
         }
+        inline app::GoToSequenceData__Array* create_array(const std::vector<app::GoToSequenceData*>& items) {
+            return il2cpp::array_new<app::GoToSequenceData__Array>(get_class(), items);
+        }
     } // namespace GoToSequenceData
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::fsMetaProperty__Array* create_array(int size) {
             return il2cpp::array_new<app::fsMetaProperty__Array>(get_class(), size);
         }
+        inline app::fsMetaProperty__Array* create_array(const std::vector<app::fsMetaProperty*>& items) {
+            return il2cpp::array_new<app::fsMetaProperty__Array>(get_class(), items);
+        }
     } // namespace fsMetaProperty
 } // namespace app::classes::types

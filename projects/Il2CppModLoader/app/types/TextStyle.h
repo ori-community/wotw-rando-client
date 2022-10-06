@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TextStyle__Array* create_array(int size) {
             return il2cpp::array_new<app::TextStyle__Array>(get_class(), size);
         }
+        inline app::TextStyle__Array* create_array(const std::vector<app::TextStyle*>& items) {
+            return il2cpp::array_new<app::TextStyle__Array>(get_class(), items);
+        }
     } // namespace TextStyle
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DamageTypePrefabPair__Array* create_array(int size) {
             return il2cpp::array_new<app::DamageTypePrefabPair__Array>(get_class(), size);
         }
+        inline app::DamageTypePrefabPair__Array* create_array(const std::vector<app::DamageTypePrefabPair*>& items) {
+            return il2cpp::array_new<app::DamageTypePrefabPair__Array>(get_class(), items);
+        }
     } // namespace DamageTypePrefabPair
 } // namespace app::classes::types

@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::TextureAnimation_AnimationTextureInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::TextureAnimation_AnimationTextureInfo__Array>(get_class(), size);
         }
+        inline app::TextureAnimation_AnimationTextureInfo__Array* create_array(const std::vector<app::TextureAnimation_AnimationTextureInfo__Boxed>& items) {
+            return il2cpp::array_new<app::TextureAnimation_AnimationTextureInfo__Array>(get_class(), items);
+        }
     } // namespace TextureAnimation_AnimationTextureInfo
 } // namespace app::classes::types

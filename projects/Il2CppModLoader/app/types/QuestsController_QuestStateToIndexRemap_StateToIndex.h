@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::QuestsController_QuestStateToIndexRemap_StateToIndex__Array* create_array(int size) {
             return il2cpp::array_new<app::QuestsController_QuestStateToIndexRemap_StateToIndex__Array>(get_class(), size);
         }
+        inline app::QuestsController_QuestStateToIndexRemap_StateToIndex__Array* create_array(const std::vector<app::QuestsController_QuestStateToIndexRemap_StateToIndex*>& items) {
+            return il2cpp::array_new<app::QuestsController_QuestStateToIndexRemap_StateToIndex__Array>(get_class(), items);
+        }
     } // namespace QuestsController_QuestStateToIndexRemap_StateToIndex
 } // namespace app::classes::types

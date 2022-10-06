@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::JsonSerializerInternalReader_CreatorPropertyContext__Array* create_array(int size) {
             return il2cpp::array_new<app::JsonSerializerInternalReader_CreatorPropertyContext__Array>(get_class(), size);
         }
+        inline app::JsonSerializerInternalReader_CreatorPropertyContext__Array* create_array(const std::vector<app::JsonSerializerInternalReader_CreatorPropertyContext*>& items) {
+            return il2cpp::array_new<app::JsonSerializerInternalReader_CreatorPropertyContext__Array>(get_class(), items);
+        }
     } // namespace JsonSerializerInternalReader_CreatorPropertyContext
 } // namespace app::classes::types

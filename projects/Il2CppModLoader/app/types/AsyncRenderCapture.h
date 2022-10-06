@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AsyncRenderCapture__Array* create_array(int size) {
             return il2cpp::array_new<app::AsyncRenderCapture__Array>(get_class(), size);
         }
+        inline app::AsyncRenderCapture__Array* create_array(const std::vector<app::AsyncRenderCapture*>& items) {
+            return il2cpp::array_new<app::AsyncRenderCapture__Array>(get_class(), items);
+        }
     } // namespace AsyncRenderCapture
 } // namespace app::classes::types

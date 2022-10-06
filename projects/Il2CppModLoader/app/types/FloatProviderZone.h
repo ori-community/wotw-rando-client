@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::FloatProviderZone__Array* create_array(int size) {
             return il2cpp::array_new<app::FloatProviderZone__Array>(get_class(), size);
         }
+        inline app::FloatProviderZone__Array* create_array(const std::vector<app::FloatProviderZone*>& items) {
+            return il2cpp::array_new<app::FloatProviderZone__Array>(get_class(), items);
+        }
     } // namespace FloatProviderZone
 } // namespace app::classes::types

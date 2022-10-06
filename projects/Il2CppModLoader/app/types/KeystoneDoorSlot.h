@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::KeystoneDoorSlot__Array* create_array(int size) {
             return il2cpp::array_new<app::KeystoneDoorSlot__Array>(get_class(), size);
         }
+        inline app::KeystoneDoorSlot__Array* create_array(const std::vector<app::KeystoneDoorSlot*>& items) {
+            return il2cpp::array_new<app::KeystoneDoorSlot__Array>(get_class(), items);
+        }
     } // namespace KeystoneDoorSlot
 } // namespace app::classes::types

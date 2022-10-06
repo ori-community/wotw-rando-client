@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::StressTester_StressTestPoint__Array* create_array(int size) {
             return il2cpp::array_new<app::StressTester_StressTestPoint__Array>(get_class(), size);
         }
+        inline app::StressTester_StressTestPoint__Array* create_array(const std::vector<app::StressTester_StressTestPoint*>& items) {
+            return il2cpp::array_new<app::StressTester_StressTestPoint__Array>(get_class(), items);
+        }
     } // namespace StressTester_StressTestPoint
 } // namespace app::classes::types

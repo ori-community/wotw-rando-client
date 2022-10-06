@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EntityPlaceholder__Array* create_array(int size) {
             return il2cpp::array_new<app::EntityPlaceholder__Array>(get_class(), size);
         }
+        inline app::EntityPlaceholder__Array* create_array(const std::vector<app::EntityPlaceholder*>& items) {
+            return il2cpp::array_new<app::EntityPlaceholder__Array>(get_class(), items);
+        }
     } // namespace EntityPlaceholder
 } // namespace app::classes::types

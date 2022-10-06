@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::BlendAnimation_Input__Array* create_array(int size) {
             return il2cpp::array_new<app::BlendAnimation_Input__Array>(get_class(), size);
         }
+        inline app::BlendAnimation_Input__Array* create_array(const std::vector<app::BlendAnimation_Input*>& items) {
+            return il2cpp::array_new<app::BlendAnimation_Input__Array>(get_class(), items);
+        }
     } // namespace BlendAnimation_Input
 } // namespace app::classes::types

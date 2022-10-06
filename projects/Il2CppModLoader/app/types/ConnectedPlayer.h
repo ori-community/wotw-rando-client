@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ConnectedPlayer__Array* create_array(int size) {
             return il2cpp::array_new<app::ConnectedPlayer__Array>(get_class(), size);
         }
+        inline app::ConnectedPlayer__Array* create_array(const std::vector<app::ConnectedPlayer*>& items) {
+            return il2cpp::array_new<app::ConnectedPlayer__Array>(get_class(), items);
+        }
     } // namespace ConnectedPlayer
 } // namespace app::classes::types

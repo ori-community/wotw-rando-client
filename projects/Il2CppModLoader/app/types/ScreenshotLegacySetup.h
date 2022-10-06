@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ScreenshotLegacySetup__Array* create_array(int size) {
             return il2cpp::array_new<app::ScreenshotLegacySetup__Array>(get_class(), size);
         }
+        inline app::ScreenshotLegacySetup__Array* create_array(const std::vector<app::ScreenshotLegacySetup*>& items) {
+            return il2cpp::array_new<app::ScreenshotLegacySetup__Array>(get_class(), items);
+        }
     } // namespace ScreenshotLegacySetup
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Elevator_ElevatorStop__Array* create_array(int size) {
             return il2cpp::array_new<app::Elevator_ElevatorStop__Array>(get_class(), size);
         }
+        inline app::Elevator_ElevatorStop__Array* create_array(const std::vector<app::Elevator_ElevatorStop*>& items) {
+            return il2cpp::array_new<app::Elevator_ElevatorStop__Array>(get_class(), items);
+        }
     } // namespace Elevator_ElevatorStop
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Blend2DTriangleState__Array* create_array(int size) {
             return il2cpp::array_new<app::Blend2DTriangleState__Array>(get_class(), size);
         }
+        inline app::Blend2DTriangleState__Array* create_array(const std::vector<app::Blend2DTriangleState*>& items) {
+            return il2cpp::array_new<app::Blend2DTriangleState__Array>(get_class(), items);
+        }
     } // namespace Blend2DTriangleState
 } // namespace app::classes::types

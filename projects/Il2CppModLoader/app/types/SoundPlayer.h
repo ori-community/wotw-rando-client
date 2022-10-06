@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SoundPlayer__Array* create_array(int size) {
             return il2cpp::array_new<app::SoundPlayer__Array>(get_class(), size);
         }
+        inline app::SoundPlayer__Array* create_array(const std::vector<app::SoundPlayer*>& items) {
+            return il2cpp::array_new<app::SoundPlayer__Array>(get_class(), items);
+        }
     } // namespace SoundPlayer
 } // namespace app::classes::types

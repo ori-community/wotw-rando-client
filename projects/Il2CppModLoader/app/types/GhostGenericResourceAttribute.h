@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GhostGenericResourceAttribute__Array* create_array(int size) {
             return il2cpp::array_new<app::GhostGenericResourceAttribute__Array>(get_class(), size);
         }
+        inline app::GhostGenericResourceAttribute__Array* create_array(const std::vector<app::GhostGenericResourceAttribute*>& items) {
+            return il2cpp::array_new<app::GhostGenericResourceAttribute__Array>(get_class(), items);
+        }
     } // namespace GhostGenericResourceAttribute
 } // namespace app::classes::types

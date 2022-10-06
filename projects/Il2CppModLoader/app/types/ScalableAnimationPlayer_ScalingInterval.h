@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ScalableAnimationPlayer_ScalingInterval__Array* create_array(int size) {
             return il2cpp::array_new<app::ScalableAnimationPlayer_ScalingInterval__Array>(get_class(), size);
         }
+        inline app::ScalableAnimationPlayer_ScalingInterval__Array* create_array(const std::vector<app::ScalableAnimationPlayer_ScalingInterval*>& items) {
+            return il2cpp::array_new<app::ScalableAnimationPlayer_ScalingInterval__Array>(get_class(), items);
+        }
     } // namespace ScalableAnimationPlayer_ScalingInterval
 } // namespace app::classes::types

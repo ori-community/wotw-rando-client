@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AnimatedCritter__Array* create_array(int size) {
             return il2cpp::array_new<app::AnimatedCritter__Array>(get_class(), size);
         }
+        inline app::AnimatedCritter__Array* create_array(const std::vector<app::AnimatedCritter*>& items) {
+            return il2cpp::array_new<app::AnimatedCritter__Array>(get_class(), items);
+        }
     } // namespace AnimatedCritter
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DataRelation__Array* create_array(int size) {
             return il2cpp::array_new<app::DataRelation__Array>(get_class(), size);
         }
+        inline app::DataRelation__Array* create_array(const std::vector<app::DataRelation*>& items) {
+            return il2cpp::array_new<app::DataRelation__Array>(get_class(), items);
+        }
     } // namespace DataRelation
 } // namespace app::classes::types

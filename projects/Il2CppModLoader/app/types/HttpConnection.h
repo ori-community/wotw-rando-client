@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::HttpConnection__Array* create_array(int size) {
             return il2cpp::array_new<app::HttpConnection__Array>(get_class(), size);
         }
+        inline app::HttpConnection__Array* create_array(const std::vector<app::HttpConnection*>& items) {
+            return il2cpp::array_new<app::HttpConnection__Array>(get_class(), items);
+        }
     } // namespace HttpConnection
 } // namespace app::classes::types

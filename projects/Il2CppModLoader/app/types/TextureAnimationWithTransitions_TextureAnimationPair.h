@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TextureAnimationWithTransitions_TextureAnimationPair__Array* create_array(int size) {
             return il2cpp::array_new<app::TextureAnimationWithTransitions_TextureAnimationPair__Array>(get_class(), size);
         }
+        inline app::TextureAnimationWithTransitions_TextureAnimationPair__Array* create_array(const std::vector<app::TextureAnimationWithTransitions_TextureAnimationPair*>& items) {
+            return il2cpp::array_new<app::TextureAnimationWithTransitions_TextureAnimationPair__Array>(get_class(), items);
+        }
     } // namespace TextureAnimationWithTransitions_TextureAnimationPair
 } // namespace app::classes::types

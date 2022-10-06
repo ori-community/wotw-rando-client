@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array* create_array(int size) {
             return il2cpp::array_new<app::List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array>(get_class(), size);
         }
+        inline app::List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array* create_array(const std::vector<app::List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array*>& items) {
+            return il2cpp::array_new<app::List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array>(get_class(), items);
+        }
     } // namespace List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array
 } // namespace app::classes::types

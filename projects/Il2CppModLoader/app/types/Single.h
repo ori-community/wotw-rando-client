@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Single__Array* create_array(int size) {
             return il2cpp::array_new<app::Single__Array>(get_class(), size);
         }
+        inline app::Single__Array* create_array(const std::vector<app::Single__Boxed>& items) {
+            return il2cpp::array_new<app::Single__Array>(get_class(), items);
+        }
     } // namespace Single
 } // namespace app::classes::types

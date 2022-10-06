@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::IKSolverLookAt_LookAtBone__Array* create_array(int size) {
             return il2cpp::array_new<app::IKSolverLookAt_LookAtBone__Array>(get_class(), size);
         }
+        inline app::IKSolverLookAt_LookAtBone__Array* create_array(const std::vector<app::IKSolverLookAt_LookAtBone*>& items) {
+            return il2cpp::array_new<app::IKSolverLookAt_LookAtBone__Array>(get_class(), items);
+        }
     } // namespace IKSolverLookAt_LookAtBone
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SmoothLinesPlugin_NodeMetaData__Array* create_array(int size) {
             return il2cpp::array_new<app::SmoothLinesPlugin_NodeMetaData__Array>(get_class(), size);
         }
+        inline app::SmoothLinesPlugin_NodeMetaData__Array* create_array(const std::vector<app::SmoothLinesPlugin_NodeMetaData*>& items) {
+            return il2cpp::array_new<app::SmoothLinesPlugin_NodeMetaData__Array>(get_class(), items);
+        }
     } // namespace SmoothLinesPlugin_NodeMetaData
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TriggerColliderCallback__Array* create_array(int size) {
             return il2cpp::array_new<app::TriggerColliderCallback__Array>(get_class(), size);
         }
+        inline app::TriggerColliderCallback__Array* create_array(const std::vector<app::TriggerColliderCallback*>& items) {
+            return il2cpp::array_new<app::TriggerColliderCallback__Array>(get_class(), items);
+        }
     } // namespace TriggerColliderCallback
 } // namespace app::classes::types

@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ILayeredRenderInfluencer__Array* create_array(int size) {
             return il2cpp::array_new<app::ILayeredRenderInfluencer__Array>(get_class(), size);
         }
+        inline app::ILayeredRenderInfluencer__Array* create_array(const std::vector<app::ILayeredRenderInfluencer*>& items) {
+            return il2cpp::array_new<app::ILayeredRenderInfluencer__Array>(get_class(), items);
+        }
     } // namespace ILayeredRenderInfluencer
 } // namespace app::classes::types

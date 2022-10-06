@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SimpleSwayAnimPostprocess_SwayChain__Array* create_array(int size) {
             return il2cpp::array_new<app::SimpleSwayAnimPostprocess_SwayChain__Array>(get_class(), size);
         }
+        inline app::SimpleSwayAnimPostprocess_SwayChain__Array* create_array(const std::vector<app::SimpleSwayAnimPostprocess_SwayChain*>& items) {
+            return il2cpp::array_new<app::SimpleSwayAnimPostprocess_SwayChain__Array>(get_class(), items);
+        }
     } // namespace SimpleSwayAnimPostprocess_SwayChain
 } // namespace app::classes::types

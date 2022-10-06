@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::KuState__Array* create_array(int size) {
             return il2cpp::array_new<app::KuState__Array>(get_class(), size);
         }
+        inline app::KuState__Array* create_array(const std::vector<app::KuState*>& items) {
+            return il2cpp::array_new<app::KuState__Array>(get_class(), items);
+        }
     } // namespace KuState
 } // namespace app::classes::types

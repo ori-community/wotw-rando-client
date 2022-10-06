@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SpellInventory_Binding__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::SpellInventory_Binding__Enum__Array>(get_class(), size);
         }
+        inline app::SpellInventory_Binding__Enum__Array* create_array(const std::vector<app::SpellInventory_Binding__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::SpellInventory_Binding__Enum__Array>(get_class(), items);
+        }
     } // namespace SpellInventory_Binding__Enum
 } // namespace app::classes::types

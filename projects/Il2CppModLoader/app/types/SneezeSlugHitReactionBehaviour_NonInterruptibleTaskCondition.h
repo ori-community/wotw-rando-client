@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SneezeSlugHitReactionBehaviour_NonInterruptibleTaskCondition__Array* create_array(int size) {
             return il2cpp::array_new<app::SneezeSlugHitReactionBehaviour_NonInterruptibleTaskCondition__Array>(get_class(), size);
         }
+        inline app::SneezeSlugHitReactionBehaviour_NonInterruptibleTaskCondition__Array* create_array(const std::vector<app::SneezeSlugHitReactionBehaviour_NonInterruptibleTaskCondition*>& items) {
+            return il2cpp::array_new<app::SneezeSlugHitReactionBehaviour_NonInterruptibleTaskCondition__Array>(get_class(), items);
+        }
     } // namespace SneezeSlugHitReactionBehaviour_NonInterruptibleTaskCondition
 } // namespace app::classes::types

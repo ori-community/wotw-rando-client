@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SetObjectInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::SetObjectInfo__Array>(get_class(), size);
         }
+        inline app::SetObjectInfo__Array* create_array(const std::vector<app::SetObjectInfo*>& items) {
+            return il2cpp::array_new<app::SetObjectInfo__Array>(get_class(), items);
+        }
     } // namespace SetObjectInfo
 } // namespace app::classes::types

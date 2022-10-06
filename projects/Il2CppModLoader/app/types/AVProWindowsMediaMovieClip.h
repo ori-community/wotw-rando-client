@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AVProWindowsMediaMovieClip__Array* create_array(int size) {
             return il2cpp::array_new<app::AVProWindowsMediaMovieClip__Array>(get_class(), size);
         }
+        inline app::AVProWindowsMediaMovieClip__Array* create_array(const std::vector<app::AVProWindowsMediaMovieClip*>& items) {
+            return il2cpp::array_new<app::AVProWindowsMediaMovieClip__Array>(get_class(), items);
+        }
     } // namespace AVProWindowsMediaMovieClip
 } // namespace app::classes::types

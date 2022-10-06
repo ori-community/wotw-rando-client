@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::BuildSummary__Array* create_array(int size) {
             return il2cpp::array_new<app::BuildSummary__Array>(get_class(), size);
         }
+        inline app::BuildSummary__Array* create_array(const std::vector<app::BuildSummary*>& items) {
+            return il2cpp::array_new<app::BuildSummary__Array>(get_class(), items);
+        }
     } // namespace BuildSummary
 } // namespace app::classes::types

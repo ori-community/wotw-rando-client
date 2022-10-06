@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberShaderCustomShaderModifierResult__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderCustomShaderModifierResult__Array>(get_class(), size);
         }
+        inline app::UberShaderCustomShaderModifierResult__Array* create_array(const std::vector<app::UberShaderCustomShaderModifierResult*>& items) {
+            return il2cpp::array_new<app::UberShaderCustomShaderModifierResult__Array>(get_class(), items);
+        }
     } // namespace UberShaderCustomShaderModifierResult
 } // namespace app::classes::types

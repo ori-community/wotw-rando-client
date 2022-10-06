@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IRecorderPlugin__Array* create_array(int size) {
             return il2cpp::array_new<app::IRecorderPlugin__Array>(get_class(), size);
         }
+        inline app::IRecorderPlugin__Array* create_array(const std::vector<app::IRecorderPlugin*>& items) {
+            return il2cpp::array_new<app::IRecorderPlugin__Array>(get_class(), items);
+        }
     } // namespace IRecorderPlugin
 } // namespace app::classes::types

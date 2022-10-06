@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PhysicsSystemPointSet_PhysicsSystemPoint__Array* create_array(int size) {
             return il2cpp::array_new<app::PhysicsSystemPointSet_PhysicsSystemPoint__Array>(get_class(), size);
         }
+        inline app::PhysicsSystemPointSet_PhysicsSystemPoint__Array* create_array(const std::vector<app::PhysicsSystemPointSet_PhysicsSystemPoint*>& items) {
+            return il2cpp::array_new<app::PhysicsSystemPointSet_PhysicsSystemPoint__Array>(get_class(), items);
+        }
     } // namespace PhysicsSystemPointSet_PhysicsSystemPoint
 } // namespace app::classes::types

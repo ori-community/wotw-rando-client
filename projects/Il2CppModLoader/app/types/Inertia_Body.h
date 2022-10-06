@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Inertia_Body__Array* create_array(int size) {
             return il2cpp::array_new<app::Inertia_Body__Array>(get_class(), size);
         }
+        inline app::Inertia_Body__Array* create_array(const std::vector<app::Inertia_Body*>& items) {
+            return il2cpp::array_new<app::Inertia_Body__Array>(get_class(), items);
+        }
     } // namespace Inertia_Body
 } // namespace app::classes::types

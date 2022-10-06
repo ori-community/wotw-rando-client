@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PressurePlateSetupData__Array* create_array(int size) {
             return il2cpp::array_new<app::PressurePlateSetupData__Array>(get_class(), size);
         }
+        inline app::PressurePlateSetupData__Array* create_array(const std::vector<app::PressurePlateSetupData*>& items) {
+            return il2cpp::array_new<app::PressurePlateSetupData__Array>(get_class(), items);
+        }
     } // namespace PressurePlateSetupData
 } // namespace app::classes::types

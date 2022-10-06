@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::InventoryScreenPickupElements__Array* create_array(int size) {
             return il2cpp::array_new<app::InventoryScreenPickupElements__Array>(get_class(), size);
         }
+        inline app::InventoryScreenPickupElements__Array* create_array(const std::vector<app::InventoryScreenPickupElements*>& items) {
+            return il2cpp::array_new<app::InventoryScreenPickupElements__Array>(get_class(), items);
+        }
     } // namespace InventoryScreenPickupElements
 } // namespace app::classes::types

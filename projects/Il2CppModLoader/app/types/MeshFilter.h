@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MeshFilter__Array* create_array(int size) {
             return il2cpp::array_new<app::MeshFilter__Array>(get_class(), size);
         }
+        inline app::MeshFilter__Array* create_array(const std::vector<app::MeshFilter*>& items) {
+            return il2cpp::array_new<app::MeshFilter__Array>(get_class(), items);
+        }
     } // namespace MeshFilter
 } // namespace app::classes::types

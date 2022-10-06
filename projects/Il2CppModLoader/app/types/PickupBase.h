@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PickupBase__Array* create_array(int size) {
             return il2cpp::array_new<app::PickupBase__Array>(get_class(), size);
         }
+        inline app::PickupBase__Array* create_array(const std::vector<app::PickupBase*>& items) {
+            return il2cpp::array_new<app::PickupBase__Array>(get_class(), items);
+        }
     } // namespace PickupBase
 } // namespace app::classes::types

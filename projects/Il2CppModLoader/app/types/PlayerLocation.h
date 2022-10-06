@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PlayerLocation__Array* create_array(int size) {
             return il2cpp::array_new<app::PlayerLocation__Array>(get_class(), size);
         }
+        inline app::PlayerLocation__Array* create_array(const std::vector<app::PlayerLocation*>& items) {
+            return il2cpp::array_new<app::PlayerLocation__Array>(get_class(), items);
+        }
     } // namespace PlayerLocation
 } // namespace app::classes::types

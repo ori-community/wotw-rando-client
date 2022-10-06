@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::WaterFallMask__Array* create_array(int size) {
             return il2cpp::array_new<app::WaterFallMask__Array>(get_class(), size);
         }
+        inline app::WaterFallMask__Array* create_array(const std::vector<app::WaterFallMask*>& items) {
+            return il2cpp::array_new<app::WaterFallMask__Array>(get_class(), items);
+        }
     } // namespace WaterFallMask
 } // namespace app::classes::types

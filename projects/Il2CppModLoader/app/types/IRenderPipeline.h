@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IRenderPipeline__Array* create_array(int size) {
             return il2cpp::array_new<app::IRenderPipeline__Array>(get_class(), size);
         }
+        inline app::IRenderPipeline__Array* create_array(const std::vector<app::IRenderPipeline*>& items) {
+            return il2cpp::array_new<app::IRenderPipeline__Array>(get_class(), items);
+        }
     } // namespace IRenderPipeline
 } // namespace app::classes::types

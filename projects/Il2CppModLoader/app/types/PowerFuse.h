@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PowerFuse__Array* create_array(int size) {
             return il2cpp::array_new<app::PowerFuse__Array>(get_class(), size);
         }
+        inline app::PowerFuse__Array* create_array(const std::vector<app::PowerFuse*>& items) {
+            return il2cpp::array_new<app::PowerFuse__Array>(get_class(), items);
+        }
     } // namespace PowerFuse
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::WaterPoisonTrail_DamagePoint__Array* create_array(int size) {
             return il2cpp::array_new<app::WaterPoisonTrail_DamagePoint__Array>(get_class(), size);
         }
+        inline app::WaterPoisonTrail_DamagePoint__Array* create_array(const std::vector<app::WaterPoisonTrail_DamagePoint__Boxed>& items) {
+            return il2cpp::array_new<app::WaterPoisonTrail_DamagePoint__Array>(get_class(), items);
+        }
     } // namespace WaterPoisonTrail_DamagePoint
 } // namespace app::classes::types

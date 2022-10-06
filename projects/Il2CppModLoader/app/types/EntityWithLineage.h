@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::EntityWithLineage__Array* create_array(int size) {
             return il2cpp::array_new<app::EntityWithLineage__Array>(get_class(), size);
         }
+        inline app::EntityWithLineage__Array* create_array(const std::vector<app::EntityWithLineage*>& items) {
+            return il2cpp::array_new<app::EntityWithLineage__Array>(get_class(), items);
+        }
     } // namespace EntityWithLineage
 } // namespace app::classes::types

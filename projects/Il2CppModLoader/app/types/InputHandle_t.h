@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::InputHandle_t__Array* create_array(int size) {
             return il2cpp::array_new<app::InputHandle_t__Array>(get_class(), size);
         }
+        inline app::InputHandle_t__Array* create_array(const std::vector<app::InputHandle_t__Boxed>& items) {
+            return il2cpp::array_new<app::InputHandle_t__Array>(get_class(), items);
+        }
     } // namespace InputHandle_t
 } // namespace app::classes::types

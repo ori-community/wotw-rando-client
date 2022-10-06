@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ReplayModel__Array* create_array(int size) {
             return il2cpp::array_new<app::ReplayModel__Array>(get_class(), size);
         }
+        inline app::ReplayModel__Array* create_array(const std::vector<app::ReplayModel*>& items) {
+            return il2cpp::array_new<app::ReplayModel__Array>(get_class(), items);
+        }
     } // namespace ReplayModel
 } // namespace app::classes::types

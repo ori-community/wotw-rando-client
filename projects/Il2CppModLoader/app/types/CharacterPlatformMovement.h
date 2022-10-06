@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CharacterPlatformMovement__Array* create_array(int size) {
             return il2cpp::array_new<app::CharacterPlatformMovement__Array>(get_class(), size);
         }
+        inline app::CharacterPlatformMovement__Array* create_array(const std::vector<app::CharacterPlatformMovement*>& items) {
+            return il2cpp::array_new<app::CharacterPlatformMovement__Array>(get_class(), items);
+        }
     } // namespace CharacterPlatformMovement
 } // namespace app::classes::types

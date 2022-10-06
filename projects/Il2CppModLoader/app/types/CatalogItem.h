@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CatalogItem__Array* create_array(int size) {
             return il2cpp::array_new<app::CatalogItem__Array>(get_class(), size);
         }
+        inline app::CatalogItem__Array* create_array(const std::vector<app::CatalogItem*>& items) {
+            return il2cpp::array_new<app::CatalogItem__Array>(get_class(), items);
+        }
     } // namespace CatalogItem
 } // namespace app::classes::types

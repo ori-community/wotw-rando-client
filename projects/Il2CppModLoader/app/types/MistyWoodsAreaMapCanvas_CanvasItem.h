@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MistyWoodsAreaMapCanvas_CanvasItem__Array* create_array(int size) {
             return il2cpp::array_new<app::MistyWoodsAreaMapCanvas_CanvasItem__Array>(get_class(), size);
         }
+        inline app::MistyWoodsAreaMapCanvas_CanvasItem__Array* create_array(const std::vector<app::MistyWoodsAreaMapCanvas_CanvasItem*>& items) {
+            return il2cpp::array_new<app::MistyWoodsAreaMapCanvas_CanvasItem__Array>(get_class(), items);
+        }
     } // namespace MistyWoodsAreaMapCanvas_CanvasItem
 } // namespace app::classes::types

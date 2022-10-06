@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::MoonTelemetryCharacterBaseEvent_AbilityData__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonTelemetryCharacterBaseEvent_AbilityData__Array>(get_class(), size);
         }
+        inline app::MoonTelemetryCharacterBaseEvent_AbilityData__Array* create_array(const std::vector<app::MoonTelemetryCharacterBaseEvent_AbilityData__Boxed>& items) {
+            return il2cpp::array_new<app::MoonTelemetryCharacterBaseEvent_AbilityData__Array>(get_class(), items);
+        }
     } // namespace MoonTelemetryCharacterBaseEvent_AbilityData
 } // namespace app::classes::types

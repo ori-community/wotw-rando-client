@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MeshTrail_MeshTrailEmitter__Array* create_array(int size) {
             return il2cpp::array_new<app::MeshTrail_MeshTrailEmitter__Array>(get_class(), size);
         }
+        inline app::MeshTrail_MeshTrailEmitter__Array* create_array(const std::vector<app::MeshTrail_MeshTrailEmitter__Boxed>& items) {
+            return il2cpp::array_new<app::MeshTrail_MeshTrailEmitter__Array>(get_class(), items);
+        }
     } // namespace MeshTrail_MeshTrailEmitter
 } // namespace app::classes::types

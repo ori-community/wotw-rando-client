@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MasterTimelineSequence_SceneSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::MasterTimelineSequence_SceneSettings__Array>(get_class(), size);
         }
+        inline app::MasterTimelineSequence_SceneSettings__Array* create_array(const std::vector<app::MasterTimelineSequence_SceneSettings*>& items) {
+            return il2cpp::array_new<app::MasterTimelineSequence_SceneSettings__Array>(get_class(), items);
+        }
     } // namespace MasterTimelineSequence_SceneSettings
 } // namespace app::classes::types

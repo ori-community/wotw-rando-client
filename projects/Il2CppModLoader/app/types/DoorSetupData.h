@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DoorSetupData__Array* create_array(int size) {
             return il2cpp::array_new<app::DoorSetupData__Array>(get_class(), size);
         }
+        inline app::DoorSetupData__Array* create_array(const std::vector<app::DoorSetupData*>& items) {
+            return il2cpp::array_new<app::DoorSetupData__Array>(get_class(), items);
+        }
     } // namespace DoorSetupData
 } // namespace app::classes::types

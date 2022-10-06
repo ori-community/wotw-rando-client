@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DataView__Array* create_array(int size) {
             return il2cpp::array_new<app::DataView__Array>(get_class(), size);
         }
+        inline app::DataView__Array* create_array(const std::vector<app::DataView*>& items) {
+            return il2cpp::array_new<app::DataView__Array>(get_class(), items);
+        }
     } // namespace DataView
 } // namespace app::classes::types

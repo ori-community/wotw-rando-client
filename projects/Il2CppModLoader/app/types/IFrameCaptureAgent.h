@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IFrameCaptureAgent__Array* create_array(int size) {
             return il2cpp::array_new<app::IFrameCaptureAgent__Array>(get_class(), size);
         }
+        inline app::IFrameCaptureAgent__Array* create_array(const std::vector<app::IFrameCaptureAgent*>& items) {
+            return il2cpp::array_new<app::IFrameCaptureAgent__Array>(get_class(), items);
+        }
     } // namespace IFrameCaptureAgent
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::FABRIKChain__Array* create_array(int size) {
             return il2cpp::array_new<app::FABRIKChain__Array>(get_class(), size);
         }
+        inline app::FABRIKChain__Array* create_array(const std::vector<app::FABRIKChain*>& items) {
+            return il2cpp::array_new<app::FABRIKChain__Array>(get_class(), items);
+        }
     } // namespace FABRIKChain
 } // namespace app::classes::types

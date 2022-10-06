@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DateTimeOffset__Array* create_array(int size) {
             return il2cpp::array_new<app::DateTimeOffset__Array>(get_class(), size);
         }
+        inline app::DateTimeOffset__Array* create_array(const std::vector<app::DateTimeOffset__Boxed>& items) {
+            return il2cpp::array_new<app::DateTimeOffset__Array>(get_class(), items);
+        }
     } // namespace DateTimeOffset
 } // namespace app::classes::types

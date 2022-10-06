@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::HalfEdge__Array* create_array(int size) {
             return il2cpp::array_new<app::HalfEdge__Array>(get_class(), size);
         }
+        inline app::HalfEdge__Array* create_array(const std::vector<app::HalfEdge*>& items) {
+            return il2cpp::array_new<app::HalfEdge__Array>(get_class(), items);
+        }
     } // namespace HalfEdge
 } // namespace app::classes::types

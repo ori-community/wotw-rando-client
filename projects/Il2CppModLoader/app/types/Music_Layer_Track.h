@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Music_Layer_Track__Array* create_array(int size) {
             return il2cpp::array_new<app::Music_Layer_Track__Array>(get_class(), size);
         }
+        inline app::Music_Layer_Track__Array* create_array(const std::vector<app::Music_Layer_Track*>& items) {
+            return il2cpp::array_new<app::Music_Layer_Track__Array>(get_class(), items);
+        }
     } // namespace Music_Layer_Track
 } // namespace app::classes::types

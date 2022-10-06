@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Encoding__Array* create_array(int size) {
             return il2cpp::array_new<app::Encoding__Array>(get_class(), size);
         }
+        inline app::Encoding__Array* create_array(const std::vector<app::Encoding*>& items) {
+            return il2cpp::array_new<app::Encoding__Array>(get_class(), items);
+        }
     } // namespace Encoding
 } // namespace app::classes::types

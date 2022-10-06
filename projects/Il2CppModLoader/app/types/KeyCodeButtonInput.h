@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::KeyCodeButtonInput__Array* create_array(int size) {
             return il2cpp::array_new<app::KeyCodeButtonInput__Array>(get_class(), size);
         }
+        inline app::KeyCodeButtonInput__Array* create_array(const std::vector<app::KeyCodeButtonInput*>& items) {
+            return il2cpp::array_new<app::KeyCodeButtonInput__Array>(get_class(), items);
+        }
     } // namespace KeyCodeButtonInput
 } // namespace app::classes::types

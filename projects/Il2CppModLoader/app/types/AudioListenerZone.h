@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AudioListenerZone__Array* create_array(int size) {
             return il2cpp::array_new<app::AudioListenerZone__Array>(get_class(), size);
         }
+        inline app::AudioListenerZone__Array* create_array(const std::vector<app::AudioListenerZone*>& items) {
+            return il2cpp::array_new<app::AudioListenerZone__Array>(get_class(), items);
+        }
     } // namespace AudioListenerZone
 } // namespace app::classes::types

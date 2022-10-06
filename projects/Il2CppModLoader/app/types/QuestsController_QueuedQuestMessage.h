@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::QuestsController_QueuedQuestMessage__Array* create_array(int size) {
             return il2cpp::array_new<app::QuestsController_QueuedQuestMessage__Array>(get_class(), size);
         }
+        inline app::QuestsController_QueuedQuestMessage__Array* create_array(const std::vector<app::QuestsController_QueuedQuestMessage__Boxed>& items) {
+            return il2cpp::array_new<app::QuestsController_QueuedQuestMessage__Array>(get_class(), items);
+        }
     } // namespace QuestsController_QueuedQuestMessage
 } // namespace app::classes::types

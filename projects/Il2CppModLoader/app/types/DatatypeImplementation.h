@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DatatypeImplementation__Array* create_array(int size) {
             return il2cpp::array_new<app::DatatypeImplementation__Array>(get_class(), size);
         }
+        inline app::DatatypeImplementation__Array* create_array(const std::vector<app::DatatypeImplementation*>& items) {
+            return il2cpp::array_new<app::DatatypeImplementation__Array>(get_class(), items);
+        }
     } // namespace DatatypeImplementation
 } // namespace app::classes::types

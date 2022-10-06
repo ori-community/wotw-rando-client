@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Rail__Array* create_array(int size) {
             return il2cpp::array_new<app::Rail__Array>(get_class(), size);
         }
+        inline app::Rail__Array* create_array(const std::vector<app::Rail*>& items) {
+            return il2cpp::array_new<app::Rail__Array>(get_class(), items);
+        }
     } // namespace Rail
 } // namespace app::classes::types

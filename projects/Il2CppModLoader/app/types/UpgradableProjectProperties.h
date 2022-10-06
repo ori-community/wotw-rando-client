@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UpgradableProjectProperties__Array* create_array(int size) {
             return il2cpp::array_new<app::UpgradableProjectProperties__Array>(get_class(), size);
         }
+        inline app::UpgradableProjectProperties__Array* create_array(const std::vector<app::UpgradableProjectProperties*>& items) {
+            return il2cpp::array_new<app::UpgradableProjectProperties__Array>(get_class(), items);
+        }
     } // namespace UpgradableProjectProperties
 } // namespace app::classes::types

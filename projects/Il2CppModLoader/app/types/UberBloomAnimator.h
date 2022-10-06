@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberBloomAnimator__Array* create_array(int size) {
             return il2cpp::array_new<app::UberBloomAnimator__Array>(get_class(), size);
         }
+        inline app::UberBloomAnimator__Array* create_array(const std::vector<app::UberBloomAnimator*>& items) {
+            return il2cpp::array_new<app::UberBloomAnimator__Array>(get_class(), items);
+        }
     } // namespace UberBloomAnimator
 } // namespace app::classes::types

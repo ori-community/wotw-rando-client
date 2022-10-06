@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CouponGrantedInventoryItem__Array* create_array(int size) {
             return il2cpp::array_new<app::CouponGrantedInventoryItem__Array>(get_class(), size);
         }
+        inline app::CouponGrantedInventoryItem__Array* create_array(const std::vector<app::CouponGrantedInventoryItem*>& items) {
+            return il2cpp::array_new<app::CouponGrantedInventoryItem__Array>(get_class(), items);
+        }
     } // namespace CouponGrantedInventoryItem
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LegacyEntity__Array* create_array(int size) {
             return il2cpp::array_new<app::LegacyEntity__Array>(get_class(), size);
         }
+        inline app::LegacyEntity__Array* create_array(const std::vector<app::LegacyEntity*>& items) {
+            return il2cpp::array_new<app::LegacyEntity__Array>(get_class(), items);
+        }
     } // namespace LegacyEntity
 } // namespace app::classes::types

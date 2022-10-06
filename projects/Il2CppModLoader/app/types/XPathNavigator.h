@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XPathNavigator__Array* create_array(int size) {
             return il2cpp::array_new<app::XPathNavigator__Array>(get_class(), size);
         }
+        inline app::XPathNavigator__Array* create_array(const std::vector<app::XPathNavigator*>& items) {
+            return il2cpp::array_new<app::XPathNavigator__Array>(get_class(), items);
+        }
     } // namespace XPathNavigator
 } // namespace app::classes::types

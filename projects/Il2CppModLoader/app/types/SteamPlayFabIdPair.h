@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SteamPlayFabIdPair__Array* create_array(int size) {
             return il2cpp::array_new<app::SteamPlayFabIdPair__Array>(get_class(), size);
         }
+        inline app::SteamPlayFabIdPair__Array* create_array(const std::vector<app::SteamPlayFabIdPair*>& items) {
+            return il2cpp::array_new<app::SteamPlayFabIdPair__Array>(get_class(), items);
+        }
     } // namespace SteamPlayFabIdPair
 } // namespace app::classes::types

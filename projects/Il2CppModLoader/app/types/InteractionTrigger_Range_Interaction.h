@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::InteractionTrigger_Range_Interaction__Array* create_array(int size) {
             return il2cpp::array_new<app::InteractionTrigger_Range_Interaction__Array>(get_class(), size);
         }
+        inline app::InteractionTrigger_Range_Interaction__Array* create_array(const std::vector<app::InteractionTrigger_Range_Interaction*>& items) {
+            return il2cpp::array_new<app::InteractionTrigger_Range_Interaction__Array>(get_class(), items);
+        }
     } // namespace InteractionTrigger_Range_Interaction
 } // namespace app::classes::types

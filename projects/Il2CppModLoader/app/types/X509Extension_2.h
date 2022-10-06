@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::X509Extension_2__Array* create_array(int size) {
             return il2cpp::array_new<app::X509Extension_2__Array>(get_class(), size);
         }
+        inline app::X509Extension_2__Array* create_array(const std::vector<app::X509Extension_2*>& items) {
+            return il2cpp::array_new<app::X509Extension_2__Array>(get_class(), items);
+        }
     } // namespace X509Extension_2
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::IPromiseInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::IPromiseInfo__Array>(get_class(), size);
         }
+        inline app::IPromiseInfo__Array* create_array(const std::vector<app::IPromiseInfo*>& items) {
+            return il2cpp::array_new<app::IPromiseInfo__Array>(get_class(), items);
+        }
     } // namespace IPromiseInfo
 } // namespace app::classes::types

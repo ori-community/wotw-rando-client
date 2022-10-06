@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SaveSlotsUI_StorageOperation__Array* create_array(int size) {
             return il2cpp::array_new<app::SaveSlotsUI_StorageOperation__Array>(get_class(), size);
         }
+        inline app::SaveSlotsUI_StorageOperation__Array* create_array(const std::vector<app::SaveSlotsUI_StorageOperation*>& items) {
+            return il2cpp::array_new<app::SaveSlotsUI_StorageOperation__Array>(get_class(), items);
+        }
     } // namespace SaveSlotsUI_StorageOperation
 } // namespace app::classes::types

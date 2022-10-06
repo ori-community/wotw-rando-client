@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EnumMap_EnumMapMember__Array* create_array(int size) {
             return il2cpp::array_new<app::EnumMap_EnumMapMember__Array>(get_class(), size);
         }
+        inline app::EnumMap_EnumMapMember__Array* create_array(const std::vector<app::EnumMap_EnumMapMember*>& items) {
+            return il2cpp::array_new<app::EnumMap_EnumMapMember__Array>(get_class(), items);
+        }
     } // namespace EnumMap_EnumMapMember
 } // namespace app::classes::types

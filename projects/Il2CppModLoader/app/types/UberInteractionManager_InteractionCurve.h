@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberInteractionManager_InteractionCurve__Array* create_array(int size) {
             return il2cpp::array_new<app::UberInteractionManager_InteractionCurve__Array>(get_class(), size);
         }
+        inline app::UberInteractionManager_InteractionCurve__Array* create_array(const std::vector<app::UberInteractionManager_InteractionCurve*>& items) {
+            return il2cpp::array_new<app::UberInteractionManager_InteractionCurve__Array>(get_class(), items);
+        }
     } // namespace UberInteractionManager_InteractionCurve
 } // namespace app::classes::types

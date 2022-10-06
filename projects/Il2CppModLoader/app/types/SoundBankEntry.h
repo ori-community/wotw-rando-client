@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SoundBankEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::SoundBankEntry__Array>(get_class(), size);
         }
+        inline app::SoundBankEntry__Array* create_array(const std::vector<app::SoundBankEntry*>& items) {
+            return il2cpp::array_new<app::SoundBankEntry__Array>(get_class(), items);
+        }
     } // namespace SoundBankEntry
 } // namespace app::classes::types

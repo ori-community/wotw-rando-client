@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GeneralDebugMenuPage_SceneInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::GeneralDebugMenuPage_SceneInfo__Array>(get_class(), size);
         }
+        inline app::GeneralDebugMenuPage_SceneInfo__Array* create_array(const std::vector<app::GeneralDebugMenuPage_SceneInfo__Boxed>& items) {
+            return il2cpp::array_new<app::GeneralDebugMenuPage_SceneInfo__Array>(get_class(), items);
+        }
     } // namespace GeneralDebugMenuPage_SceneInfo
 } // namespace app::classes::types

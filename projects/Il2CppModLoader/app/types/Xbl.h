@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Xbl__Array* create_array(int size) {
             return il2cpp::array_new<app::Xbl__Array>(get_class(), size);
         }
+        inline app::Xbl__Array* create_array(const std::vector<app::Xbl*>& items) {
+            return il2cpp::array_new<app::Xbl__Array>(get_class(), items);
+        }
     } // namespace Xbl
 } // namespace app::classes::types

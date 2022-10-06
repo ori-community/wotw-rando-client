@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonTelemetry_SendRequestData__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonTelemetry_SendRequestData__Array>(get_class(), size);
         }
+        inline app::MoonTelemetry_SendRequestData__Array* create_array(const std::vector<app::MoonTelemetry_SendRequestData*>& items) {
+            return il2cpp::array_new<app::MoonTelemetry_SendRequestData__Array>(get_class(), items);
+        }
     } // namespace MoonTelemetry_SendRequestData
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EntityData_EntityPosition__Array* create_array(int size) {
             return il2cpp::array_new<app::EntityData_EntityPosition__Array>(get_class(), size);
         }
+        inline app::EntityData_EntityPosition__Array* create_array(const std::vector<app::EntityData_EntityPosition*>& items) {
+            return il2cpp::array_new<app::EntityData_EntityPosition__Array>(get_class(), items);
+        }
     } // namespace EntityData_EntityPosition
 } // namespace app::classes::types

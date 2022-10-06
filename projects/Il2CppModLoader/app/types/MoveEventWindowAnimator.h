@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MoveEventWindowAnimator__Array* create_array(int size) {
             return il2cpp::array_new<app::MoveEventWindowAnimator__Array>(get_class(), size);
         }
+        inline app::MoveEventWindowAnimator__Array* create_array(const std::vector<app::MoveEventWindowAnimator*>& items) {
+            return il2cpp::array_new<app::MoveEventWindowAnimator__Array>(get_class(), items);
+        }
     } // namespace MoveEventWindowAnimator
 } // namespace app::classes::types

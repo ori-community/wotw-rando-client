@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DebugInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::DebugInfo__Array>(get_class(), size);
         }
+        inline app::DebugInfo__Array* create_array(const std::vector<app::DebugInfo*>& items) {
+            return il2cpp::array_new<app::DebugInfo__Array>(get_class(), items);
+        }
     } // namespace DebugInfo
 } // namespace app::classes::types

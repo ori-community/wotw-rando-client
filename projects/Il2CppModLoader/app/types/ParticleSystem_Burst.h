@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::ParticleSystem_Burst__Array* create_array(int size) {
             return il2cpp::array_new<app::ParticleSystem_Burst__Array>(get_class(), size);
         }
+        inline app::ParticleSystem_Burst__Array* create_array(const std::vector<app::ParticleSystem_Burst__Boxed>& items) {
+            return il2cpp::array_new<app::ParticleSystem_Burst__Array>(get_class(), items);
+        }
     } // namespace ParticleSystem_Burst
 } // namespace app::classes::types

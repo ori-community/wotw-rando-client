@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PaymentOption__Array* create_array(int size) {
             return il2cpp::array_new<app::PaymentOption__Array>(get_class(), size);
         }
+        inline app::PaymentOption__Array* create_array(const std::vector<app::PaymentOption*>& items) {
+            return il2cpp::array_new<app::PaymentOption__Array>(get_class(), items);
+        }
     } // namespace PaymentOption
 } // namespace app::classes::types

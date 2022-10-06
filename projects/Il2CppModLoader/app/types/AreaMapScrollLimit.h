@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AreaMapScrollLimit__Array* create_array(int size) {
             return il2cpp::array_new<app::AreaMapScrollLimit__Array>(get_class(), size);
         }
+        inline app::AreaMapScrollLimit__Array* create_array(const std::vector<app::AreaMapScrollLimit*>& items) {
+            return il2cpp::array_new<app::AreaMapScrollLimit__Array>(get_class(), items);
+        }
     } // namespace AreaMapScrollLimit
 } // namespace app::classes::types

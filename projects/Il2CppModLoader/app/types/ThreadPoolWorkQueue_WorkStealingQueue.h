@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ThreadPoolWorkQueue_WorkStealingQueue__Array* create_array(int size) {
             return il2cpp::array_new<app::ThreadPoolWorkQueue_WorkStealingQueue__Array>(get_class(), size);
         }
+        inline app::ThreadPoolWorkQueue_WorkStealingQueue__Array* create_array(const std::vector<app::ThreadPoolWorkQueue_WorkStealingQueue*>& items) {
+            return il2cpp::array_new<app::ThreadPoolWorkQueue_WorkStealingQueue__Array>(get_class(), items);
+        }
     } // namespace ThreadPoolWorkQueue_WorkStealingQueue
 } // namespace app::classes::types

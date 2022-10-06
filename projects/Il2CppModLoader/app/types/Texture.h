@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Texture__Array* create_array(int size) {
             return il2cpp::array_new<app::Texture__Array>(get_class(), size);
         }
+        inline app::Texture__Array* create_array(const std::vector<app::Texture*>& items) {
+            return il2cpp::array_new<app::Texture__Array>(get_class(), items);
+        }
     } // namespace Texture
 } // namespace app::classes::types

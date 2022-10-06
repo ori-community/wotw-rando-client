@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DataTable__Array* create_array(int size) {
             return il2cpp::array_new<app::DataTable__Array>(get_class(), size);
         }
+        inline app::DataTable__Array* create_array(const std::vector<app::DataTable*>& items) {
+            return il2cpp::array_new<app::DataTable__Array>(get_class(), items);
+        }
     } // namespace DataTable
 } // namespace app::classes::types

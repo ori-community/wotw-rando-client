@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData__Array* create_array(int size) {
             return il2cpp::array_new<app::PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData__Array>(get_class(), size);
         }
+        inline app::PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData__Array* create_array(const std::vector<app::PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData*>& items) {
+            return il2cpp::array_new<app::PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData__Array>(get_class(), items);
+        }
     } // namespace PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData
 } // namespace app::classes::types

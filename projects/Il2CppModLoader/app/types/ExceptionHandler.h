@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ExceptionHandler__Array* create_array(int size) {
             return il2cpp::array_new<app::ExceptionHandler__Array>(get_class(), size);
         }
+        inline app::ExceptionHandler__Array* create_array(const std::vector<app::ExceptionHandler*>& items) {
+            return il2cpp::array_new<app::ExceptionHandler__Array>(get_class(), items);
+        }
     } // namespace ExceptionHandler
 } // namespace app::classes::types

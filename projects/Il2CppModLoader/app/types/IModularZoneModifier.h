@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IModularZoneModifier__Array* create_array(int size) {
             return il2cpp::array_new<app::IModularZoneModifier__Array>(get_class(), size);
         }
+        inline app::IModularZoneModifier__Array* create_array(const std::vector<app::IModularZoneModifier*>& items) {
+            return il2cpp::array_new<app::IModularZoneModifier__Array>(get_class(), items);
+        }
     } // namespace IModularZoneModifier
 } // namespace app::classes::types

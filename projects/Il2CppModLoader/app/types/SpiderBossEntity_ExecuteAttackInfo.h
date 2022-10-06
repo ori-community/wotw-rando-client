@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SpiderBossEntity_ExecuteAttackInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiderBossEntity_ExecuteAttackInfo__Array>(get_class(), size);
         }
+        inline app::SpiderBossEntity_ExecuteAttackInfo__Array* create_array(const std::vector<app::SpiderBossEntity_ExecuteAttackInfo*>& items) {
+            return il2cpp::array_new<app::SpiderBossEntity_ExecuteAttackInfo__Array>(get_class(), items);
+        }
     } // namespace SpiderBossEntity_ExecuteAttackInfo
 } // namespace app::classes::types

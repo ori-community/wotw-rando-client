@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CameraSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::CameraSettings__Array>(get_class(), size);
         }
+        inline app::CameraSettings__Array* create_array(const std::vector<app::CameraSettings*>& items) {
+            return il2cpp::array_new<app::CameraSettings__Array>(get_class(), items);
+        }
     } // namespace CameraSettings
 } // namespace app::classes::types

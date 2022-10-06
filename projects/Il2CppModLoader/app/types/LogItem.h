@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LogItem__Array* create_array(int size) {
             return il2cpp::array_new<app::LogItem__Array>(get_class(), size);
         }
+        inline app::LogItem__Array* create_array(const std::vector<app::LogItem*>& items) {
+            return il2cpp::array_new<app::LogItem__Array>(get_class(), items);
+        }
     } // namespace LogItem
 } // namespace app::classes::types

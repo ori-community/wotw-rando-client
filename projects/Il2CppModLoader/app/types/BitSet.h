@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::BitSet__Array* create_array(int size) {
             return il2cpp::array_new<app::BitSet__Array>(get_class(), size);
         }
+        inline app::BitSet__Array* create_array(const std::vector<app::BitSet*>& items) {
+            return il2cpp::array_new<app::BitSet__Array>(get_class(), items);
+        }
     } // namespace BitSet
 } // namespace app::classes::types

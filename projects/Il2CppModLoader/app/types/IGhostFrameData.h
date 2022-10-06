@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IGhostFrameData__Array* create_array(int size) {
             return il2cpp::array_new<app::IGhostFrameData__Array>(get_class(), size);
         }
+        inline app::IGhostFrameData__Array* create_array(const std::vector<app::IGhostFrameData*>& items) {
+            return il2cpp::array_new<app::IGhostFrameData__Array>(get_class(), items);
+        }
     } // namespace IGhostFrameData
 } // namespace app::classes::types

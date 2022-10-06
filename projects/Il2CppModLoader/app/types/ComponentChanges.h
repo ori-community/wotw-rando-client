@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ComponentChanges__Array* create_array(int size) {
             return il2cpp::array_new<app::ComponentChanges__Array>(get_class(), size);
         }
+        inline app::ComponentChanges__Array* create_array(const std::vector<app::ComponentChanges*>& items) {
+            return il2cpp::array_new<app::ComponentChanges__Array>(get_class(), items);
+        }
     } // namespace ComponentChanges
 } // namespace app::classes::types

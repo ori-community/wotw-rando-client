@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GrabbableSurface__Array* create_array(int size) {
             return il2cpp::array_new<app::GrabbableSurface__Array>(get_class(), size);
         }
+        inline app::GrabbableSurface__Array* create_array(const std::vector<app::GrabbableSurface*>& items) {
+            return il2cpp::array_new<app::GrabbableSurface__Array>(get_class(), items);
+        }
     } // namespace GrabbableSurface
 } // namespace app::classes::types

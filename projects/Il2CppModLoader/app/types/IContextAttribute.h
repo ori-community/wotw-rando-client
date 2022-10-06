@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IContextAttribute__Array* create_array(int size) {
             return il2cpp::array_new<app::IContextAttribute__Array>(get_class(), size);
         }
+        inline app::IContextAttribute__Array* create_array(const std::vector<app::IContextAttribute*>& items) {
+            return il2cpp::array_new<app::IContextAttribute__Array>(get_class(), items);
+        }
     } // namespace IContextAttribute
 } // namespace app::classes::types

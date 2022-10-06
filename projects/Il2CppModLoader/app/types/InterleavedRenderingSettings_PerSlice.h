@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::InterleavedRenderingSettings_PerSlice__Array* create_array(int size) {
             return il2cpp::array_new<app::InterleavedRenderingSettings_PerSlice__Array>(get_class(), size);
         }
+        inline app::InterleavedRenderingSettings_PerSlice__Array* create_array(const std::vector<app::InterleavedRenderingSettings_PerSlice*>& items) {
+            return il2cpp::array_new<app::InterleavedRenderingSettings_PerSlice__Array>(get_class(), items);
+        }
     } // namespace InterleavedRenderingSettings_PerSlice
 } // namespace app::classes::types

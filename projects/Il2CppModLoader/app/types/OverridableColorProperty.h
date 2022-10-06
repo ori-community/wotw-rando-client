@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::OverridableColorProperty__Array* create_array(int size) {
             return il2cpp::array_new<app::OverridableColorProperty__Array>(get_class(), size);
         }
+        inline app::OverridableColorProperty__Array* create_array(const std::vector<app::OverridableColorProperty*>& items) {
+            return il2cpp::array_new<app::OverridableColorProperty__Array>(get_class(), items);
+        }
     } // namespace OverridableColorProperty
 } // namespace app::classes::types

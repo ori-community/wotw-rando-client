@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DynamicInstantiationDescriptor_ReflectionInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::DynamicInstantiationDescriptor_ReflectionInfo__Array>(get_class(), size);
         }
+        inline app::DynamicInstantiationDescriptor_ReflectionInfo__Array* create_array(const std::vector<app::DynamicInstantiationDescriptor_ReflectionInfo__Boxed>& items) {
+            return il2cpp::array_new<app::DynamicInstantiationDescriptor_ReflectionInfo__Array>(get_class(), items);
+        }
     } // namespace DynamicInstantiationDescriptor_ReflectionInfo
 } // namespace app::classes::types

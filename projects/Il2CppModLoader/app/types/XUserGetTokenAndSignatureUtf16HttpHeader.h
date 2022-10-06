@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::XUserGetTokenAndSignatureUtf16HttpHeader__Array* create_array(int size) {
             return il2cpp::array_new<app::XUserGetTokenAndSignatureUtf16HttpHeader__Array>(get_class(), size);
         }
+        inline app::XUserGetTokenAndSignatureUtf16HttpHeader__Array* create_array(const std::vector<app::XUserGetTokenAndSignatureUtf16HttpHeader*>& items) {
+            return il2cpp::array_new<app::XUserGetTokenAndSignatureUtf16HttpHeader__Array>(get_class(), items);
+        }
     } // namespace XUserGetTokenAndSignatureUtf16HttpHeader
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::InputCacheManager_SetupTempData_Node__Array* create_array(int size) {
             return il2cpp::array_new<app::InputCacheManager_SetupTempData_Node__Array>(get_class(), size);
         }
+        inline app::InputCacheManager_SetupTempData_Node__Array* create_array(const std::vector<app::InputCacheManager_SetupTempData_Node*>& items) {
+            return il2cpp::array_new<app::InputCacheManager_SetupTempData_Node__Array>(get_class(), items);
+        }
     } // namespace InputCacheManager_SetupTempData_Node
 } // namespace app::classes::types

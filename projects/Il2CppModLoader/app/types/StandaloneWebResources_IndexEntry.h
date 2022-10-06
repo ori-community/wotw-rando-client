@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::StandaloneWebResources_IndexEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::StandaloneWebResources_IndexEntry__Array>(get_class(), size);
         }
+        inline app::StandaloneWebResources_IndexEntry__Array* create_array(const std::vector<app::StandaloneWebResources_IndexEntry__Boxed>& items) {
+            return il2cpp::array_new<app::StandaloneWebResources_IndexEntry__Array>(get_class(), items);
+        }
     } // namespace StandaloneWebResources_IndexEntry
 } // namespace app::classes::types

@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::XmlTextReaderImpl_ParsingState__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlTextReaderImpl_ParsingState__Array>(get_class(), size);
         }
+        inline app::XmlTextReaderImpl_ParsingState__Array* create_array(const std::vector<app::XmlTextReaderImpl_ParsingState__Boxed>& items) {
+            return il2cpp::array_new<app::XmlTextReaderImpl_ParsingState__Array>(get_class(), items);
+        }
     } // namespace XmlTextReaderImpl_ParsingState
 } // namespace app::classes::types

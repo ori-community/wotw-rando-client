@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PointerInputModule_ButtonState__Array* create_array(int size) {
             return il2cpp::array_new<app::PointerInputModule_ButtonState__Array>(get_class(), size);
         }
+        inline app::PointerInputModule_ButtonState__Array* create_array(const std::vector<app::PointerInputModule_ButtonState*>& items) {
+            return il2cpp::array_new<app::PointerInputModule_ButtonState__Array>(get_class(), items);
+        }
     } // namespace PointerInputModule_ButtonState
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::RotationTrackingChain_ChainEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::RotationTrackingChain_ChainEntry__Array>(get_class(), size);
         }
+        inline app::RotationTrackingChain_ChainEntry__Array* create_array(const std::vector<app::RotationTrackingChain_ChainEntry*>& items) {
+            return il2cpp::array_new<app::RotationTrackingChain_ChainEntry__Array>(get_class(), items);
+        }
     } // namespace RotationTrackingChain_ChainEntry
 } // namespace app::classes::types

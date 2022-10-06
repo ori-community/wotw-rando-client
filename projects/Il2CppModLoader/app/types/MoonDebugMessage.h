@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonDebugMessage__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonDebugMessage__Array>(get_class(), size);
         }
+        inline app::MoonDebugMessage__Array* create_array(const std::vector<app::MoonDebugMessage*>& items) {
+            return il2cpp::array_new<app::MoonDebugMessage__Array>(get_class(), items);
+        }
     } // namespace MoonDebugMessage
 } // namespace app::classes::types

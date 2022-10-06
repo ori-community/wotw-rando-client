@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Material__Array__Array* create_array(int size) {
             return il2cpp::array_new<app::Material__Array__Array>(get_class(), size);
         }
+        inline app::Material__Array__Array* create_array(const std::vector<app::Material__Array*>& items) {
+            return il2cpp::array_new<app::Material__Array__Array>(get_class(), items);
+        }
     } // namespace Material__Array
 } // namespace app::classes::types

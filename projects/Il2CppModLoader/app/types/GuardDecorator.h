@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GuardDecorator__Array* create_array(int size) {
             return il2cpp::array_new<app::GuardDecorator__Array>(get_class(), size);
         }
+        inline app::GuardDecorator__Array* create_array(const std::vector<app::GuardDecorator*>& items) {
+            return il2cpp::array_new<app::GuardDecorator__Array>(get_class(), items);
+        }
     } // namespace GuardDecorator
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LoreNodeWisps_LoreStep__Array* create_array(int size) {
             return il2cpp::array_new<app::LoreNodeWisps_LoreStep__Array>(get_class(), size);
         }
+        inline app::LoreNodeWisps_LoreStep__Array* create_array(const std::vector<app::LoreNodeWisps_LoreStep*>& items) {
+            return il2cpp::array_new<app::LoreNodeWisps_LoreStep__Array>(get_class(), items);
+        }
     } // namespace LoreNodeWisps_LoreStep
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SkillItem__Array* create_array(int size) {
             return il2cpp::array_new<app::SkillItem__Array>(get_class(), size);
         }
+        inline app::SkillItem__Array* create_array(const std::vector<app::SkillItem*>& items) {
+            return il2cpp::array_new<app::SkillItem__Array>(get_class(), items);
+        }
     } // namespace SkillItem
 } // namespace app::classes::types

@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::Hashtable_bucket__Array* create_array(int size) {
             return il2cpp::array_new<app::Hashtable_bucket__Array>(get_class(), size);
         }
+        inline app::Hashtable_bucket__Array* create_array(const std::vector<app::Hashtable_bucket__Boxed>& items) {
+            return il2cpp::array_new<app::Hashtable_bucket__Array>(get_class(), items);
+        }
     } // namespace Hashtable_bucket
 } // namespace app::classes::types

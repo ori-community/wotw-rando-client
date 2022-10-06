@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::EquipmentSelectionGrid_EquipmentAnchorGroup__Array* create_array(int size) {
             return il2cpp::array_new<app::EquipmentSelectionGrid_EquipmentAnchorGroup__Array>(get_class(), size);
         }
+        inline app::EquipmentSelectionGrid_EquipmentAnchorGroup__Array* create_array(const std::vector<app::EquipmentSelectionGrid_EquipmentAnchorGroup*>& items) {
+            return il2cpp::array_new<app::EquipmentSelectionGrid_EquipmentAnchorGroup__Array>(get_class(), items);
+        }
     } // namespace EquipmentSelectionGrid_EquipmentAnchorGroup
 } // namespace app::classes::types

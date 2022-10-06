@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::HitReactionBehaviour_HitReactionEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::HitReactionBehaviour_HitReactionEntry__Array>(get_class(), size);
         }
+        inline app::HitReactionBehaviour_HitReactionEntry__Array* create_array(const std::vector<app::HitReactionBehaviour_HitReactionEntry*>& items) {
+            return il2cpp::array_new<app::HitReactionBehaviour_HitReactionEntry__Array>(get_class(), items);
+        }
     } // namespace HitReactionBehaviour_HitReactionEntry
 } // namespace app::classes::types

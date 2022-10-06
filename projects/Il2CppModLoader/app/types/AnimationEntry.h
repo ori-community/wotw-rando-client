@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AnimationEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::AnimationEntry__Array>(get_class(), size);
         }
+        inline app::AnimationEntry__Array* create_array(const std::vector<app::AnimationEntry*>& items) {
+            return il2cpp::array_new<app::AnimationEntry__Array>(get_class(), items);
+        }
     } // namespace AnimationEntry
 } // namespace app::classes::types

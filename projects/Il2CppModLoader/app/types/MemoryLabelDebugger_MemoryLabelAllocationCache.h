@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MemoryLabelDebugger_MemoryLabelAllocationCache__Array* create_array(int size) {
             return il2cpp::array_new<app::MemoryLabelDebugger_MemoryLabelAllocationCache__Array>(get_class(), size);
         }
+        inline app::MemoryLabelDebugger_MemoryLabelAllocationCache__Array* create_array(const std::vector<app::MemoryLabelDebugger_MemoryLabelAllocationCache*>& items) {
+            return il2cpp::array_new<app::MemoryLabelDebugger_MemoryLabelAllocationCache__Array>(get_class(), items);
+        }
     } // namespace MemoryLabelDebugger_MemoryLabelAllocationCache
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SerializableUberSaderModifierWrapper__Array* create_array(int size) {
             return il2cpp::array_new<app::SerializableUberSaderModifierWrapper__Array>(get_class(), size);
         }
+        inline app::SerializableUberSaderModifierWrapper__Array* create_array(const std::vector<app::SerializableUberSaderModifierWrapper*>& items) {
+            return il2cpp::array_new<app::SerializableUberSaderModifierWrapper__Array>(get_class(), items);
+        }
     } // namespace SerializableUberSaderModifierWrapper
 } // namespace app::classes::types

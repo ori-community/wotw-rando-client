@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::FrameCounter_SecondInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::FrameCounter_SecondInfo__Array>(get_class(), size);
         }
+        inline app::FrameCounter_SecondInfo__Array* create_array(const std::vector<app::FrameCounter_SecondInfo__Boxed>& items) {
+            return il2cpp::array_new<app::FrameCounter_SecondInfo__Array>(get_class(), items);
+        }
     } // namespace FrameCounter_SecondInfo
 } // namespace app::classes::types

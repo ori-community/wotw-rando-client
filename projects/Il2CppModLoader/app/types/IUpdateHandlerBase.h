@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::IUpdateHandlerBase__Array* create_array(int size) {
             return il2cpp::array_new<app::IUpdateHandlerBase__Array>(get_class(), size);
         }
+        inline app::IUpdateHandlerBase__Array* create_array(const std::vector<app::IUpdateHandlerBase*>& items) {
+            return il2cpp::array_new<app::IUpdateHandlerBase__Array>(get_class(), items);
+        }
     } // namespace IUpdateHandlerBase
 } // namespace app::classes::types

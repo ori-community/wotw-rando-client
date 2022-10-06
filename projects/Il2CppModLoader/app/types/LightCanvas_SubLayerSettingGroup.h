@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LightCanvas_SubLayerSettingGroup__Array* create_array(int size) {
             return il2cpp::array_new<app::LightCanvas_SubLayerSettingGroup__Array>(get_class(), size);
         }
+        inline app::LightCanvas_SubLayerSettingGroup__Array* create_array(const std::vector<app::LightCanvas_SubLayerSettingGroup*>& items) {
+            return il2cpp::array_new<app::LightCanvas_SubLayerSettingGroup__Array>(get_class(), items);
+        }
     } // namespace LightCanvas_SubLayerSettingGroup
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::VolumetricPointLight__Array* create_array(int size) {
             return il2cpp::array_new<app::VolumetricPointLight__Array>(get_class(), size);
         }
+        inline app::VolumetricPointLight__Array* create_array(const std::vector<app::VolumetricPointLight*>& items) {
+            return il2cpp::array_new<app::VolumetricPointLight__Array>(get_class(), items);
+        }
     } // namespace VolumetricPointLight
 } // namespace app::classes::types

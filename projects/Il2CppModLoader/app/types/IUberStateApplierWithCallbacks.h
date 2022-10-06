@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IUberStateApplierWithCallbacks__Array* create_array(int size) {
             return il2cpp::array_new<app::IUberStateApplierWithCallbacks__Array>(get_class(), size);
         }
+        inline app::IUberStateApplierWithCallbacks__Array* create_array(const std::vector<app::IUberStateApplierWithCallbacks*>& items) {
+            return il2cpp::array_new<app::IUberStateApplierWithCallbacks__Array>(get_class(), items);
+        }
     } // namespace IUberStateApplierWithCallbacks
 } // namespace app::classes::types

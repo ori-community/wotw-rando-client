@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SwitchCase__Array* create_array(int size) {
             return il2cpp::array_new<app::SwitchCase__Array>(get_class(), size);
         }
+        inline app::SwitchCase__Array* create_array(const std::vector<app::SwitchCase*>& items) {
+            return il2cpp::array_new<app::SwitchCase__Array>(get_class(), items);
+        }
     } // namespace SwitchCase
 } // namespace app::classes::types

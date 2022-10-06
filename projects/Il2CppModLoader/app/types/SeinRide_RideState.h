@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SeinRide_RideState__Array* create_array(int size) {
             return il2cpp::array_new<app::SeinRide_RideState__Array>(get_class(), size);
         }
+        inline app::SeinRide_RideState__Array* create_array(const std::vector<app::SeinRide_RideState*>& items) {
+            return il2cpp::array_new<app::SeinRide_RideState__Array>(get_class(), items);
+        }
     } // namespace SeinRide_RideState
 } // namespace app::classes::types

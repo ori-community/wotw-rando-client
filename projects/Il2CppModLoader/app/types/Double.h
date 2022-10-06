@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Double__Array* create_array(int size) {
             return il2cpp::array_new<app::Double__Array>(get_class(), size);
         }
+        inline app::Double__Array* create_array(const std::vector<app::Double__Boxed>& items) {
+            return il2cpp::array_new<app::Double__Array>(get_class(), items);
+        }
     } // namespace Double
 } // namespace app::classes::types

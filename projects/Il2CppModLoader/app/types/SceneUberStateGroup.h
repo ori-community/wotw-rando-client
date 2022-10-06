@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SceneUberStateGroup__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneUberStateGroup__Array>(get_class(), size);
         }
+        inline app::SceneUberStateGroup__Array* create_array(const std::vector<app::SceneUberStateGroup*>& items) {
+            return il2cpp::array_new<app::SceneUberStateGroup__Array>(get_class(), items);
+        }
     } // namespace SceneUberStateGroup
 } // namespace app::classes::types

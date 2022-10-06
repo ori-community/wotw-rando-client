@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SplitTurnAnimationMoonTimeline__Array* create_array(int size) {
             return il2cpp::array_new<app::SplitTurnAnimationMoonTimeline__Array>(get_class(), size);
         }
+        inline app::SplitTurnAnimationMoonTimeline__Array* create_array(const std::vector<app::SplitTurnAnimationMoonTimeline*>& items) {
+            return il2cpp::array_new<app::SplitTurnAnimationMoonTimeline__Array>(get_class(), items);
+        }
     } // namespace SplitTurnAnimationMoonTimeline
 } // namespace app::classes::types

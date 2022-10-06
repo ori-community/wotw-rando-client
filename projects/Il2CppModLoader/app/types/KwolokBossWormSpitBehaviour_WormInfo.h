@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::KwolokBossWormSpitBehaviour_WormInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::KwolokBossWormSpitBehaviour_WormInfo__Array>(get_class(), size);
         }
+        inline app::KwolokBossWormSpitBehaviour_WormInfo__Array* create_array(const std::vector<app::KwolokBossWormSpitBehaviour_WormInfo*>& items) {
+            return il2cpp::array_new<app::KwolokBossWormSpitBehaviour_WormInfo__Array>(get_class(), items);
+        }
     } // namespace KwolokBossWormSpitBehaviour_WormInfo
 } // namespace app::classes::types

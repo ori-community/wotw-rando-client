@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberPoolPrewarmMasterList_PrewarmConfig__Array* create_array(int size) {
             return il2cpp::array_new<app::UberPoolPrewarmMasterList_PrewarmConfig__Array>(get_class(), size);
         }
+        inline app::UberPoolPrewarmMasterList_PrewarmConfig__Array* create_array(const std::vector<app::UberPoolPrewarmMasterList_PrewarmConfig*>& items) {
+            return il2cpp::array_new<app::UberPoolPrewarmMasterList_PrewarmConfig__Array>(get_class(), items);
+        }
     } // namespace UberPoolPrewarmMasterList_PrewarmConfig
 } // namespace app::classes::types

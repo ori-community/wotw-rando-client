@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RuntimeEventInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::RuntimeEventInfo__Array>(get_class(), size);
         }
+        inline app::RuntimeEventInfo__Array* create_array(const std::vector<app::RuntimeEventInfo*>& items) {
+            return il2cpp::array_new<app::RuntimeEventInfo__Array>(get_class(), items);
+        }
     } // namespace RuntimeEventInfo
 } // namespace app::classes::types

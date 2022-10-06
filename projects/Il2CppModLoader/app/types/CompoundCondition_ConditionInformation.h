@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CompoundCondition_ConditionInformation__Array* create_array(int size) {
             return il2cpp::array_new<app::CompoundCondition_ConditionInformation__Array>(get_class(), size);
         }
+        inline app::CompoundCondition_ConditionInformation__Array* create_array(const std::vector<app::CompoundCondition_ConditionInformation*>& items) {
+            return il2cpp::array_new<app::CompoundCondition_ConditionInformation__Array>(get_class(), items);
+        }
     } // namespace CompoundCondition_ConditionInformation
 } // namespace app::classes::types

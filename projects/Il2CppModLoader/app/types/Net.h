@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Net__Array* create_array(int size) {
             return il2cpp::array_new<app::Net__Array>(get_class(), size);
         }
+        inline app::Net__Array* create_array(const std::vector<app::Net*>& items) {
+            return il2cpp::array_new<app::Net__Array>(get_class(), items);
+        }
     } // namespace Net
 } // namespace app::classes::types

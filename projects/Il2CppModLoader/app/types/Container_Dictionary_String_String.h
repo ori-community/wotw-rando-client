@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Container_Dictionary_String_String__Array* create_array(int size) {
             return il2cpp::array_new<app::Container_Dictionary_String_String__Array>(get_class(), size);
         }
+        inline app::Container_Dictionary_String_String__Array* create_array(const std::vector<app::Container_Dictionary_String_String*>& items) {
+            return il2cpp::array_new<app::Container_Dictionary_String_String__Array>(get_class(), items);
+        }
     } // namespace Container_Dictionary_String_String
 } // namespace app::classes::types

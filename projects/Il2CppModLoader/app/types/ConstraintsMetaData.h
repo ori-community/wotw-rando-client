@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ConstraintsMetaData__Array* create_array(int size) {
             return il2cpp::array_new<app::ConstraintsMetaData__Array>(get_class(), size);
         }
+        inline app::ConstraintsMetaData__Array* create_array(const std::vector<app::ConstraintsMetaData*>& items) {
+            return il2cpp::array_new<app::ConstraintsMetaData__Array>(get_class(), items);
+        }
     } // namespace ConstraintsMetaData
 } // namespace app::classes::types

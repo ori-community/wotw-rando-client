@@ -32,5 +32,8 @@ namespace app::classes::types {
         inline app::Test__Array* create_array(int size) {
             return il2cpp::array_new<app::Test__Array>(get_class(), size);
         }
+        inline app::Test__Array* create_array(const std::vector<app::Test*>& items) {
+            return il2cpp::array_new<app::Test__Array>(get_class(), items);
+        }
     } // namespace Test
 } // namespace app::classes::types

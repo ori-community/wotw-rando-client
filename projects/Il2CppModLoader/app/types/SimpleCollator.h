@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SimpleCollator__Array* create_array(int size) {
             return il2cpp::array_new<app::SimpleCollator__Array>(get_class(), size);
         }
+        inline app::SimpleCollator__Array* create_array(const std::vector<app::SimpleCollator*>& items) {
+            return il2cpp::array_new<app::SimpleCollator__Array>(get_class(), items);
+        }
     } // namespace SimpleCollator
 } // namespace app::classes::types

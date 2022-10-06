@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::RequireComponent__Array* create_array(int size) {
             return il2cpp::array_new<app::RequireComponent__Array>(get_class(), size);
         }
+        inline app::RequireComponent__Array* create_array(const std::vector<app::RequireComponent*>& items) {
+            return il2cpp::array_new<app::RequireComponent__Array>(get_class(), items);
+        }
     } // namespace RequireComponent
 } // namespace app::classes::types

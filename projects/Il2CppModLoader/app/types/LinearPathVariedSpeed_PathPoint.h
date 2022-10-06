@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LinearPathVariedSpeed_PathPoint__Array* create_array(int size) {
             return il2cpp::array_new<app::LinearPathVariedSpeed_PathPoint__Array>(get_class(), size);
         }
+        inline app::LinearPathVariedSpeed_PathPoint__Array* create_array(const std::vector<app::LinearPathVariedSpeed_PathPoint*>& items) {
+            return il2cpp::array_new<app::LinearPathVariedSpeed_PathPoint__Array>(get_class(), items);
+        }
     } // namespace LinearPathVariedSpeed_PathPoint
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ExpressionNode__Array* create_array(int size) {
             return il2cpp::array_new<app::ExpressionNode__Array>(get_class(), size);
         }
+        inline app::ExpressionNode__Array* create_array(const std::vector<app::ExpressionNode*>& items) {
+            return il2cpp::array_new<app::ExpressionNode__Array>(get_class(), items);
+        }
     } // namespace ExpressionNode
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CommandBuffer__Array* create_array(int size) {
             return il2cpp::array_new<app::CommandBuffer__Array>(get_class(), size);
         }
+        inline app::CommandBuffer__Array* create_array(const std::vector<app::CommandBuffer*>& items) {
+            return il2cpp::array_new<app::CommandBuffer__Array>(get_class(), items);
+        }
     } // namespace CommandBuffer
 } // namespace app::classes::types

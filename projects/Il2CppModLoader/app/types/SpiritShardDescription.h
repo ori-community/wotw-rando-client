@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SpiritShardDescription__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiritShardDescription__Array>(get_class(), size);
         }
+        inline app::SpiritShardDescription__Array* create_array(const std::vector<app::SpiritShardDescription*>& items) {
+            return il2cpp::array_new<app::SpiritShardDescription__Array>(get_class(), items);
+        }
     } // namespace SpiritShardDescription
 } // namespace app::classes::types

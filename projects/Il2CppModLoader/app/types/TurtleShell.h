@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TurtleShell__Array* create_array(int size) {
             return il2cpp::array_new<app::TurtleShell__Array>(get_class(), size);
         }
+        inline app::TurtleShell__Array* create_array(const std::vector<app::TurtleShell*>& items) {
+            return il2cpp::array_new<app::TurtleShell__Array>(get_class(), items);
+        }
     } // namespace TurtleShell
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GPUAutoProfilerReport_ReportSampleEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::GPUAutoProfilerReport_ReportSampleEntry__Array>(get_class(), size);
         }
+        inline app::GPUAutoProfilerReport_ReportSampleEntry__Array* create_array(const std::vector<app::GPUAutoProfilerReport_ReportSampleEntry*>& items) {
+            return il2cpp::array_new<app::GPUAutoProfilerReport_ReportSampleEntry__Array>(get_class(), items);
+        }
     } // namespace GPUAutoProfilerReport_ReportSampleEntry
 } // namespace app::classes::types

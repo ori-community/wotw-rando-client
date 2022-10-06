@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::fsAotVersionInfo_Member__Array* create_array(int size) {
             return il2cpp::array_new<app::fsAotVersionInfo_Member__Array>(get_class(), size);
         }
+        inline app::fsAotVersionInfo_Member__Array* create_array(const std::vector<app::fsAotVersionInfo_Member__Boxed>& items) {
+            return il2cpp::array_new<app::fsAotVersionInfo_Member__Array>(get_class(), items);
+        }
     } // namespace fsAotVersionInfo_Member
 } // namespace app::classes::types

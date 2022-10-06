@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::HeatUpPlatform__Array* create_array(int size) {
             return il2cpp::array_new<app::HeatUpPlatform__Array>(get_class(), size);
         }
+        inline app::HeatUpPlatform__Array* create_array(const std::vector<app::HeatUpPlatform*>& items) {
+            return il2cpp::array_new<app::HeatUpPlatform__Array>(get_class(), items);
+        }
     } // namespace HeatUpPlatform
 } // namespace app::classes::types

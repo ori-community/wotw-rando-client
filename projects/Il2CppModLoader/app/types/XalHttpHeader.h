@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::XalHttpHeader__Array* create_array(int size) {
             return il2cpp::array_new<app::XalHttpHeader__Array>(get_class(), size);
         }
+        inline app::XalHttpHeader__Array* create_array(const std::vector<app::XalHttpHeader__Boxed>& items) {
+            return il2cpp::array_new<app::XalHttpHeader__Array>(get_class(), items);
+        }
     } // namespace XalHttpHeader
 } // namespace app::classes::types

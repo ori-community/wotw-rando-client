@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::P3D_Node__Array* create_array(int size) {
             return il2cpp::array_new<app::P3D_Node__Array>(get_class(), size);
         }
+        inline app::P3D_Node__Array* create_array(const std::vector<app::P3D_Node*>& items) {
+            return il2cpp::array_new<app::P3D_Node__Array>(get_class(), items);
+        }
     } // namespace P3D_Node
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ChangeStateDialogDecorator_StateConditionSetupData__Array* create_array(int size) {
             return il2cpp::array_new<app::ChangeStateDialogDecorator_StateConditionSetupData__Array>(get_class(), size);
         }
+        inline app::ChangeStateDialogDecorator_StateConditionSetupData__Array* create_array(const std::vector<app::ChangeStateDialogDecorator_StateConditionSetupData*>& items) {
+            return il2cpp::array_new<app::ChangeStateDialogDecorator_StateConditionSetupData__Array>(get_class(), items);
+        }
     } // namespace ChangeStateDialogDecorator_StateConditionSetupData
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CatAndMouseKuroLandZone__Array* create_array(int size) {
             return il2cpp::array_new<app::CatAndMouseKuroLandZone__Array>(get_class(), size);
         }
+        inline app::CatAndMouseKuroLandZone__Array* create_array(const std::vector<app::CatAndMouseKuroLandZone*>& items) {
+            return il2cpp::array_new<app::CatAndMouseKuroLandZone__Array>(get_class(), items);
+        }
     } // namespace CatAndMouseKuroLandZone
 } // namespace app::classes::types

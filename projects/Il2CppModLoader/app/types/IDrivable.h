@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IDrivable__Array* create_array(int size) {
             return il2cpp::array_new<app::IDrivable__Array>(get_class(), size);
         }
+        inline app::IDrivable__Array* create_array(const std::vector<app::IDrivable*>& items) {
+            return il2cpp::array_new<app::IDrivable__Array>(get_class(), items);
+        }
     } // namespace IDrivable
 } // namespace app::classes::types

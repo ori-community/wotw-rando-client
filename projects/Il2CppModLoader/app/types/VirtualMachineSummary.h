@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::VirtualMachineSummary__Array* create_array(int size) {
             return il2cpp::array_new<app::VirtualMachineSummary__Array>(get_class(), size);
         }
+        inline app::VirtualMachineSummary__Array* create_array(const std::vector<app::VirtualMachineSummary*>& items) {
+            return il2cpp::array_new<app::VirtualMachineSummary__Array>(get_class(), items);
+        }
     } // namespace VirtualMachineSummary
 } // namespace app::classes::types

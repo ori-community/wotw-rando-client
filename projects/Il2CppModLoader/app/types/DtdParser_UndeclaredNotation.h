@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DtdParser_UndeclaredNotation__Array* create_array(int size) {
             return il2cpp::array_new<app::DtdParser_UndeclaredNotation__Array>(get_class(), size);
         }
+        inline app::DtdParser_UndeclaredNotation__Array* create_array(const std::vector<app::DtdParser_UndeclaredNotation*>& items) {
+            return il2cpp::array_new<app::DtdParser_UndeclaredNotation__Array>(get_class(), items);
+        }
     } // namespace DtdParser_UndeclaredNotation
 } // namespace app::classes::types

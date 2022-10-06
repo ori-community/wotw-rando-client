@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TriangleQuadTree_QuadNode__Array* create_array(int size) {
             return il2cpp::array_new<app::TriangleQuadTree_QuadNode__Array>(get_class(), size);
         }
+        inline app::TriangleQuadTree_QuadNode__Array* create_array(const std::vector<app::TriangleQuadTree_QuadNode*>& items) {
+            return il2cpp::array_new<app::TriangleQuadTree_QuadNode__Array>(get_class(), items);
+        }
     } // namespace TriangleQuadTree_QuadNode
 } // namespace app::classes::types

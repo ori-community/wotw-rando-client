@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberPoolPrefabSetting__Array* create_array(int size) {
             return il2cpp::array_new<app::UberPoolPrefabSetting__Array>(get_class(), size);
         }
+        inline app::UberPoolPrefabSetting__Array* create_array(const std::vector<app::UberPoolPrefabSetting*>& items) {
+            return il2cpp::array_new<app::UberPoolPrefabSetting__Array>(get_class(), items);
+        }
     } // namespace UberPoolPrefabSetting
 } // namespace app::classes::types

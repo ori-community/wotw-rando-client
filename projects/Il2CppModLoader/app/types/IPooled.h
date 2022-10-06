@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IPooled__Array* create_array(int size) {
             return il2cpp::array_new<app::IPooled__Array>(get_class(), size);
         }
+        inline app::IPooled__Array* create_array(const std::vector<app::IPooled*>& items) {
+            return il2cpp::array_new<app::IPooled__Array>(get_class(), items);
+        }
     } // namespace IPooled
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TwitchPlayFabIdPair__Array* create_array(int size) {
             return il2cpp::array_new<app::TwitchPlayFabIdPair__Array>(get_class(), size);
         }
+        inline app::TwitchPlayFabIdPair__Array* create_array(const std::vector<app::TwitchPlayFabIdPair*>& items) {
+            return il2cpp::array_new<app::TwitchPlayFabIdPair__Array>(get_class(), items);
+        }
     } // namespace TwitchPlayFabIdPair
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CartLogicCycle_IsAllowedDelegate__Array* create_array(int size) {
             return il2cpp::array_new<app::CartLogicCycle_IsAllowedDelegate__Array>(get_class(), size);
         }
+        inline app::CartLogicCycle_IsAllowedDelegate__Array* create_array(const std::vector<app::CartLogicCycle_IsAllowedDelegate*>& items) {
+            return il2cpp::array_new<app::CartLogicCycle_IsAllowedDelegate__Array>(get_class(), items);
+        }
     } // namespace CartLogicCycle_IsAllowedDelegate
 } // namespace app::classes::types

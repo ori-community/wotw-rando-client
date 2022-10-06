@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PreRecordingInstantiationEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::PreRecordingInstantiationEntry__Array>(get_class(), size);
         }
+        inline app::PreRecordingInstantiationEntry__Array* create_array(const std::vector<app::PreRecordingInstantiationEntry__Boxed>& items) {
+            return il2cpp::array_new<app::PreRecordingInstantiationEntry__Array>(get_class(), items);
+        }
     } // namespace PreRecordingInstantiationEntry
 } // namespace app::classes::types

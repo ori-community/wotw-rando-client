@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TrailerShot__Array* create_array(int size) {
             return il2cpp::array_new<app::TrailerShot__Array>(get_class(), size);
         }
+        inline app::TrailerShot__Array* create_array(const std::vector<app::TrailerShot*>& items) {
+            return il2cpp::array_new<app::TrailerShot__Array>(get_class(), items);
+        }
     } // namespace TrailerShot
 } // namespace app::classes::types

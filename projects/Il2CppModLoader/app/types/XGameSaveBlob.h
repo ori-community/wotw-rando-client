@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XGameSaveBlob__Array* create_array(int size) {
             return il2cpp::array_new<app::XGameSaveBlob__Array>(get_class(), size);
         }
+        inline app::XGameSaveBlob__Array* create_array(const std::vector<app::XGameSaveBlob*>& items) {
+            return il2cpp::array_new<app::XGameSaveBlob__Array>(get_class(), items);
+        }
     } // namespace XGameSaveBlob
 } // namespace app::classes::types

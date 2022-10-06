@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Portal_AssistConfig__Array* create_array(int size) {
             return il2cpp::array_new<app::Portal_AssistConfig__Array>(get_class(), size);
         }
+        inline app::Portal_AssistConfig__Array* create_array(const std::vector<app::Portal_AssistConfig*>& items) {
+            return il2cpp::array_new<app::Portal_AssistConfig__Array>(get_class(), items);
+        }
     } // namespace Portal_AssistConfig
 } // namespace app::classes::types

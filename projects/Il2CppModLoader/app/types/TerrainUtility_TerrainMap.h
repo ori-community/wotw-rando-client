@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TerrainUtility_TerrainMap__Array* create_array(int size) {
             return il2cpp::array_new<app::TerrainUtility_TerrainMap__Array>(get_class(), size);
         }
+        inline app::TerrainUtility_TerrainMap__Array* create_array(const std::vector<app::TerrainUtility_TerrainMap*>& items) {
+            return il2cpp::array_new<app::TerrainUtility_TerrainMap__Array>(get_class(), items);
+        }
     } // namespace TerrainUtility_TerrainMap
 } // namespace app::classes::types

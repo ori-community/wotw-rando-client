@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IBrigthnessContributionAgent__Array* create_array(int size) {
             return il2cpp::array_new<app::IBrigthnessContributionAgent__Array>(get_class(), size);
         }
+        inline app::IBrigthnessContributionAgent__Array* create_array(const std::vector<app::IBrigthnessContributionAgent*>& items) {
+            return il2cpp::array_new<app::IBrigthnessContributionAgent__Array>(get_class(), items);
+        }
     } // namespace IBrigthnessContributionAgent
 } // namespace app::classes::types

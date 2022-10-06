@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::FPSTestFields_FieldDef__Array* create_array(int size) {
             return il2cpp::array_new<app::FPSTestFields_FieldDef__Array>(get_class(), size);
         }
+        inline app::FPSTestFields_FieldDef__Array* create_array(const std::vector<app::FPSTestFields_FieldDef__Boxed>& items) {
+            return il2cpp::array_new<app::FPSTestFields_FieldDef__Array>(get_class(), items);
+        }
     } // namespace FPSTestFields_FieldDef
 } // namespace app::classes::types

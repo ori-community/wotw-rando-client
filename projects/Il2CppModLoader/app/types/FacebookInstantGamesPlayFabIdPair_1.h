@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::FacebookInstantGamesPlayFabIdPair_1__Array* create_array(int size) {
             return il2cpp::array_new<app::FacebookInstantGamesPlayFabIdPair_1__Array>(get_class(), size);
         }
+        inline app::FacebookInstantGamesPlayFabIdPair_1__Array* create_array(const std::vector<app::FacebookInstantGamesPlayFabIdPair_1*>& items) {
+            return il2cpp::array_new<app::FacebookInstantGamesPlayFabIdPair_1__Array>(get_class(), items);
+        }
     } // namespace FacebookInstantGamesPlayFabIdPair_1
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CharacterAnimationSystem_CharacterAnimationState__Array* create_array(int size) {
             return il2cpp::array_new<app::CharacterAnimationSystem_CharacterAnimationState__Array>(get_class(), size);
         }
+        inline app::CharacterAnimationSystem_CharacterAnimationState__Array* create_array(const std::vector<app::CharacterAnimationSystem_CharacterAnimationState*>& items) {
+            return il2cpp::array_new<app::CharacterAnimationSystem_CharacterAnimationState__Array>(get_class(), items);
+        }
     } // namespace CharacterAnimationSystem_CharacterAnimationState
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::EquipmentUIInventoryItem__Array* create_array(int size) {
             return il2cpp::array_new<app::EquipmentUIInventoryItem__Array>(get_class(), size);
         }
+        inline app::EquipmentUIInventoryItem__Array* create_array(const std::vector<app::EquipmentUIInventoryItem*>& items) {
+            return il2cpp::array_new<app::EquipmentUIInventoryItem__Array>(get_class(), items);
+        }
     } // namespace EquipmentUIInventoryItem
 } // namespace app::classes::types

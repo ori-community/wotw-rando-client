@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::VerletStructure__Array* create_array(int size) {
             return il2cpp::array_new<app::VerletStructure__Array>(get_class(), size);
         }
+        inline app::VerletStructure__Array* create_array(const std::vector<app::VerletStructure*>& items) {
+            return il2cpp::array_new<app::VerletStructure__Array>(get_class(), items);
+        }
     } // namespace VerletStructure
 } // namespace app::classes::types

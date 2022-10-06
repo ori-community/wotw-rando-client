@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SpellIconsCollection_Icons__Array* create_array(int size) {
             return il2cpp::array_new<app::SpellIconsCollection_Icons__Array>(get_class(), size);
         }
+        inline app::SpellIconsCollection_Icons__Array* create_array(const std::vector<app::SpellIconsCollection_Icons__Boxed>& items) {
+            return il2cpp::array_new<app::SpellIconsCollection_Icons__Array>(get_class(), items);
+        }
     } // namespace SpellIconsCollection_Icons
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::StencilMaterial_MatEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::StencilMaterial_MatEntry__Array>(get_class(), size);
         }
+        inline app::StencilMaterial_MatEntry__Array* create_array(const std::vector<app::StencilMaterial_MatEntry*>& items) {
+            return il2cpp::array_new<app::StencilMaterial_MatEntry__Array>(get_class(), items);
+        }
     } // namespace StencilMaterial_MatEntry
 } // namespace app::classes::types

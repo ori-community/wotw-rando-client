@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberShaderComponent__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderComponent__Array>(get_class(), size);
         }
+        inline app::UberShaderComponent__Array* create_array(const std::vector<app::UberShaderComponent*>& items) {
+            return il2cpp::array_new<app::UberShaderComponent__Array>(get_class(), items);
+        }
     } // namespace UberShaderComponent
 } // namespace app::classes::types

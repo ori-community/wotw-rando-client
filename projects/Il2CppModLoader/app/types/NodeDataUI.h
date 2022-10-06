@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::NodeDataUI__Array* create_array(int size) {
             return il2cpp::array_new<app::NodeDataUI__Array>(get_class(), size);
         }
+        inline app::NodeDataUI__Array* create_array(const std::vector<app::NodeDataUI*>& items) {
+            return il2cpp::array_new<app::NodeDataUI__Array>(get_class(), items);
+        }
     } // namespace NodeDataUI
 } // namespace app::classes::types

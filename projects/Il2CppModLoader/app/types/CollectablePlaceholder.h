@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CollectablePlaceholder__Array* create_array(int size) {
             return il2cpp::array_new<app::CollectablePlaceholder__Array>(get_class(), size);
         }
+        inline app::CollectablePlaceholder__Array* create_array(const std::vector<app::CollectablePlaceholder*>& items) {
+            return il2cpp::array_new<app::CollectablePlaceholder__Array>(get_class(), items);
+        }
     } // namespace CollectablePlaceholder
 } // namespace app::classes::types

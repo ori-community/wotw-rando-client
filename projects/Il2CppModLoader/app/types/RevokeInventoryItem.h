@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::RevokeInventoryItem__Array* create_array(int size) {
             return il2cpp::array_new<app::RevokeInventoryItem__Array>(get_class(), size);
         }
+        inline app::RevokeInventoryItem__Array* create_array(const std::vector<app::RevokeInventoryItem*>& items) {
+            return il2cpp::array_new<app::RevokeInventoryItem__Array>(get_class(), items);
+        }
     } // namespace RevokeInventoryItem
 } // namespace app::classes::types

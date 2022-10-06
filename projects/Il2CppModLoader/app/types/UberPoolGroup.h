@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberPoolGroup__Array* create_array(int size) {
             return il2cpp::array_new<app::UberPoolGroup__Array>(get_class(), size);
         }
+        inline app::UberPoolGroup__Array* create_array(const std::vector<app::UberPoolGroup*>& items) {
+            return il2cpp::array_new<app::UberPoolGroup__Array>(get_class(), items);
+        }
     } // namespace UberPoolGroup
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::YouCanLeaveYourHatOn_Data__Array* create_array(int size) {
             return il2cpp::array_new<app::YouCanLeaveYourHatOn_Data__Array>(get_class(), size);
         }
+        inline app::YouCanLeaveYourHatOn_Data__Array* create_array(const std::vector<app::YouCanLeaveYourHatOn_Data*>& items) {
+            return il2cpp::array_new<app::YouCanLeaveYourHatOn_Data__Array>(get_class(), items);
+        }
     } // namespace YouCanLeaveYourHatOn_Data
 } // namespace app::classes::types

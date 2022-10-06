@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::StatSettingStrings_EnemyLabels__Array* create_array(int size) {
             return il2cpp::array_new<app::StatSettingStrings_EnemyLabels__Array>(get_class(), size);
         }
+        inline app::StatSettingStrings_EnemyLabels__Array* create_array(const std::vector<app::StatSettingStrings_EnemyLabels__Boxed>& items) {
+            return il2cpp::array_new<app::StatSettingStrings_EnemyLabels__Array>(get_class(), items);
+        }
     } // namespace StatSettingStrings_EnemyLabels
 } // namespace app::classes::types

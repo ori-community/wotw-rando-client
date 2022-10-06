@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::AppOverrideKeys_t__Array* create_array(int size) {
             return il2cpp::array_new<app::AppOverrideKeys_t__Array>(get_class(), size);
         }
+        inline app::AppOverrideKeys_t__Array* create_array(const std::vector<app::AppOverrideKeys_t__Boxed>& items) {
+            return il2cpp::array_new<app::AppOverrideKeys_t__Array>(get_class(), items);
+        }
     } // namespace AppOverrideKeys_t
 } // namespace app::classes::types

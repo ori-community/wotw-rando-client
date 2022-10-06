@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ITimeSlicedPostEnableObserver__Array* create_array(int size) {
             return il2cpp::array_new<app::ITimeSlicedPostEnableObserver__Array>(get_class(), size);
         }
+        inline app::ITimeSlicedPostEnableObserver__Array* create_array(const std::vector<app::ITimeSlicedPostEnableObserver*>& items) {
+            return il2cpp::array_new<app::ITimeSlicedPostEnableObserver__Array>(get_class(), items);
+        }
     } // namespace ITimeSlicedPostEnableObserver
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TimelineEntityRecord__Array* create_array(int size) {
             return il2cpp::array_new<app::TimelineEntityRecord__Array>(get_class(), size);
         }
+        inline app::TimelineEntityRecord__Array* create_array(const std::vector<app::TimelineEntityRecord*>& items) {
+            return il2cpp::array_new<app::TimelineEntityRecord__Array>(get_class(), items);
+        }
     } // namespace TimelineEntityRecord
 } // namespace app::classes::types

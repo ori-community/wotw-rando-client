@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::WebConnectionGroup_ConnectionState__Array* create_array(int size) {
             return il2cpp::array_new<app::WebConnectionGroup_ConnectionState__Array>(get_class(), size);
         }
+        inline app::WebConnectionGroup_ConnectionState__Array* create_array(const std::vector<app::WebConnectionGroup_ConnectionState*>& items) {
+            return il2cpp::array_new<app::WebConnectionGroup_ConnectionState__Array>(get_class(), items);
+        }
     } // namespace WebConnectionGroup_ConnectionState
 } // namespace app::classes::types

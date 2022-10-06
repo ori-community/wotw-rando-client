@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LeakedSceneObjectDetector_ObjectData__Array* create_array(int size) {
             return il2cpp::array_new<app::LeakedSceneObjectDetector_ObjectData__Array>(get_class(), size);
         }
+        inline app::LeakedSceneObjectDetector_ObjectData__Array* create_array(const std::vector<app::LeakedSceneObjectDetector_ObjectData*>& items) {
+            return il2cpp::array_new<app::LeakedSceneObjectDetector_ObjectData__Array>(get_class(), items);
+        }
     } // namespace LeakedSceneObjectDetector_ObjectData
 } // namespace app::classes::types

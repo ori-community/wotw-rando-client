@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IThreadPoolWorkItem__Array* create_array(int size) {
             return il2cpp::array_new<app::IThreadPoolWorkItem__Array>(get_class(), size);
         }
+        inline app::IThreadPoolWorkItem__Array* create_array(const std::vector<app::IThreadPoolWorkItem*>& items) {
+            return il2cpp::array_new<app::IThreadPoolWorkItem__Array>(get_class(), items);
+        }
     } // namespace IThreadPoolWorkItem
 } // namespace app::classes::types

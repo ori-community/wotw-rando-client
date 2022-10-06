@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::HitFlash3D_Flash__Array* create_array(int size) {
             return il2cpp::array_new<app::HitFlash3D_Flash__Array>(get_class(), size);
         }
+        inline app::HitFlash3D_Flash__Array* create_array(const std::vector<app::HitFlash3D_Flash*>& items) {
+            return il2cpp::array_new<app::HitFlash3D_Flash__Array>(get_class(), items);
+        }
     } // namespace HitFlash3D_Flash
 } // namespace app::classes::types

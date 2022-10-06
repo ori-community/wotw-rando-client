@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ContactEmailInfo_1__Array* create_array(int size) {
             return il2cpp::array_new<app::ContactEmailInfo_1__Array>(get_class(), size);
         }
+        inline app::ContactEmailInfo_1__Array* create_array(const std::vector<app::ContactEmailInfo_1*>& items) {
+            return il2cpp::array_new<app::ContactEmailInfo_1__Array>(get_class(), items);
+        }
     } // namespace ContactEmailInfo_1
 } // namespace app::classes::types

@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IMoonShadingZone__Array* create_array(int size) {
             return il2cpp::array_new<app::IMoonShadingZone__Array>(get_class(), size);
         }
+        inline app::IMoonShadingZone__Array* create_array(const std::vector<app::IMoonShadingZone*>& items) {
+            return il2cpp::array_new<app::IMoonShadingZone__Array>(get_class(), items);
+        }
     } // namespace IMoonShadingZone
 } // namespace app::classes::types

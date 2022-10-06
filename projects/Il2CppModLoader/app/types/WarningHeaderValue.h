@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::WarningHeaderValue__Array* create_array(int size) {
             return il2cpp::array_new<app::WarningHeaderValue__Array>(get_class(), size);
         }
+        inline app::WarningHeaderValue__Array* create_array(const std::vector<app::WarningHeaderValue*>& items) {
+            return il2cpp::array_new<app::WarningHeaderValue__Array>(get_class(), items);
+        }
     } // namespace WarningHeaderValue
 } // namespace app::classes::types

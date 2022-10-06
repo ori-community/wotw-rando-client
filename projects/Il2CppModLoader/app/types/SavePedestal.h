@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SavePedestal__Array* create_array(int size) {
             return il2cpp::array_new<app::SavePedestal__Array>(get_class(), size);
         }
+        inline app::SavePedestal__Array* create_array(const std::vector<app::SavePedestal*>& items) {
+            return il2cpp::array_new<app::SavePedestal__Array>(get_class(), items);
+        }
     } // namespace SavePedestal
 } // namespace app::classes::types

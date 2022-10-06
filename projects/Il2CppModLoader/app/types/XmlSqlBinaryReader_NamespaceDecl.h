@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XmlSqlBinaryReader_NamespaceDecl__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlSqlBinaryReader_NamespaceDecl__Array>(get_class(), size);
         }
+        inline app::XmlSqlBinaryReader_NamespaceDecl__Array* create_array(const std::vector<app::XmlSqlBinaryReader_NamespaceDecl*>& items) {
+            return il2cpp::array_new<app::XmlSqlBinaryReader_NamespaceDecl__Array>(get_class(), items);
+        }
     } // namespace XmlSqlBinaryReader_NamespaceDecl
 } // namespace app::classes::types

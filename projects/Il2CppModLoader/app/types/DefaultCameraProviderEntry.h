@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DefaultCameraProviderEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::DefaultCameraProviderEntry__Array>(get_class(), size);
         }
+        inline app::DefaultCameraProviderEntry__Array* create_array(const std::vector<app::DefaultCameraProviderEntry*>& items) {
+            return il2cpp::array_new<app::DefaultCameraProviderEntry__Array>(get_class(), items);
+        }
     } // namespace DefaultCameraProviderEntry
 } // namespace app::classes::types

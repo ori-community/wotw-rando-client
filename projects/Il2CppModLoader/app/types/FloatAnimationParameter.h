@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FloatAnimationParameter__Array* create_array(int size) {
             return il2cpp::array_new<app::FloatAnimationParameter__Array>(get_class(), size);
         }
+        inline app::FloatAnimationParameter__Array* create_array(const std::vector<app::FloatAnimationParameter*>& items) {
+            return il2cpp::array_new<app::FloatAnimationParameter__Array>(get_class(), items);
+        }
     } // namespace FloatAnimationParameter
 } // namespace app::classes::types

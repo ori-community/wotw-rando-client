@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IComboMoveProvider__Array* create_array(int size) {
             return il2cpp::array_new<app::IComboMoveProvider__Array>(get_class(), size);
         }
+        inline app::IComboMoveProvider__Array* create_array(const std::vector<app::IComboMoveProvider*>& items) {
+            return il2cpp::array_new<app::IComboMoveProvider__Array>(get_class(), items);
+        }
     } // namespace IComboMoveProvider
 } // namespace app::classes::types

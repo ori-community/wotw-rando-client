@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XsdBuilder_XsdEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::XsdBuilder_XsdEntry__Array>(get_class(), size);
         }
+        inline app::XsdBuilder_XsdEntry__Array* create_array(const std::vector<app::XsdBuilder_XsdEntry*>& items) {
+            return il2cpp::array_new<app::XsdBuilder_XsdEntry__Array>(get_class(), items);
+        }
     } // namespace XsdBuilder_XsdEntry
 } // namespace app::classes::types

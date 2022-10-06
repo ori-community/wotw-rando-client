@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::SteamPartyBeaconLocation_t__Array* create_array(int size) {
             return il2cpp::array_new<app::SteamPartyBeaconLocation_t__Array>(get_class(), size);
         }
+        inline app::SteamPartyBeaconLocation_t__Array* create_array(const std::vector<app::SteamPartyBeaconLocation_t__Boxed>& items) {
+            return il2cpp::array_new<app::SteamPartyBeaconLocation_t__Array>(get_class(), items);
+        }
     } // namespace SteamPartyBeaconLocation_t
 } // namespace app::classes::types

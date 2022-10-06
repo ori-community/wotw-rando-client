@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AimPoser_Pose__Array* create_array(int size) {
             return il2cpp::array_new<app::AimPoser_Pose__Array>(get_class(), size);
         }
+        inline app::AimPoser_Pose__Array* create_array(const std::vector<app::AimPoser_Pose*>& items) {
+            return il2cpp::array_new<app::AimPoser_Pose__Array>(get_class(), items);
+        }
     } // namespace AimPoser_Pose
 } // namespace app::classes::types

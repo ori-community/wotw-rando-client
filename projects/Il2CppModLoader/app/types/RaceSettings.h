@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RaceSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::RaceSettings__Array>(get_class(), size);
         }
+        inline app::RaceSettings__Array* create_array(const std::vector<app::RaceSettings*>& items) {
+            return il2cpp::array_new<app::RaceSettings__Array>(get_class(), items);
+        }
     } // namespace RaceSettings
 } // namespace app::classes::types

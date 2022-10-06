@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Texture_t__Array* create_array(int size) {
             return il2cpp::array_new<app::Texture_t__Array>(get_class(), size);
         }
+        inline app::Texture_t__Array* create_array(const std::vector<app::Texture_t__Boxed>& items) {
+            return il2cpp::array_new<app::Texture_t__Array>(get_class(), items);
+        }
     } // namespace Texture_t
 } // namespace app::classes::types

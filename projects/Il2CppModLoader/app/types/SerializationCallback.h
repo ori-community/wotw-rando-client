@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SerializationCallback__Array* create_array(int size) {
             return il2cpp::array_new<app::SerializationCallback__Array>(get_class(), size);
         }
+        inline app::SerializationCallback__Array* create_array(const std::vector<app::SerializationCallback*>& items) {
+            return il2cpp::array_new<app::SerializationCallback__Array>(get_class(), items);
+        }
     } // namespace SerializationCallback
 } // namespace app::classes::types

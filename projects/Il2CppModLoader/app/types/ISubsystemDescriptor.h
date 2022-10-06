@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ISubsystemDescriptor__Array* create_array(int size) {
             return il2cpp::array_new<app::ISubsystemDescriptor__Array>(get_class(), size);
         }
+        inline app::ISubsystemDescriptor__Array* create_array(const std::vector<app::ISubsystemDescriptor*>& items) {
+            return il2cpp::array_new<app::ISubsystemDescriptor__Array>(get_class(), items);
+        }
     } // namespace ISubsystemDescriptor
 } // namespace app::classes::types

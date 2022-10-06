@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SpecialAbilityZone__Array* create_array(int size) {
             return il2cpp::array_new<app::SpecialAbilityZone__Array>(get_class(), size);
         }
+        inline app::SpecialAbilityZone__Array* create_array(const std::vector<app::SpecialAbilityZone*>& items) {
+            return il2cpp::array_new<app::SpecialAbilityZone__Array>(get_class(), items);
+        }
     } // namespace SpecialAbilityZone
 } // namespace app::classes::types

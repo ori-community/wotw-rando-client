@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SeinEventsDebugger_Entry__Array* create_array(int size) {
             return il2cpp::array_new<app::SeinEventsDebugger_Entry__Array>(get_class(), size);
         }
+        inline app::SeinEventsDebugger_Entry__Array* create_array(const std::vector<app::SeinEventsDebugger_Entry*>& items) {
+            return il2cpp::array_new<app::SeinEventsDebugger_Entry__Array>(get_class(), items);
+        }
     } // namespace SeinEventsDebugger_Entry
 } // namespace app::classes::types

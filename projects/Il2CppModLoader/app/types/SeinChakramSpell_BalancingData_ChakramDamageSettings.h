@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SeinChakramSpell_BalancingData_ChakramDamageSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::SeinChakramSpell_BalancingData_ChakramDamageSettings__Array>(get_class(), size);
         }
+        inline app::SeinChakramSpell_BalancingData_ChakramDamageSettings__Array* create_array(const std::vector<app::SeinChakramSpell_BalancingData_ChakramDamageSettings*>& items) {
+            return il2cpp::array_new<app::SeinChakramSpell_BalancingData_ChakramDamageSettings__Array>(get_class(), items);
+        }
     } // namespace SeinChakramSpell_BalancingData_ChakramDamageSettings
 } // namespace app::classes::types

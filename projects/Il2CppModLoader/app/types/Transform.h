@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Transform__Array* create_array(int size) {
             return il2cpp::array_new<app::Transform__Array>(get_class(), size);
         }
+        inline app::Transform__Array* create_array(const std::vector<app::Transform*>& items) {
+            return il2cpp::array_new<app::Transform__Array>(get_class(), items);
+        }
     } // namespace Transform
 } // namespace app::classes::types

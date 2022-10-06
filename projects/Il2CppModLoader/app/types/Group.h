@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Group__Array* create_array(int size) {
             return il2cpp::array_new<app::Group__Array>(get_class(), size);
         }
+        inline app::Group__Array* create_array(const std::vector<app::Group*>& items) {
+            return il2cpp::array_new<app::Group__Array>(get_class(), items);
+        }
     } // namespace Group
 } // namespace app::classes::types

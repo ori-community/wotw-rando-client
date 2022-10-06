@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SceneLayers_Layer__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneLayers_Layer__Array>(get_class(), size);
         }
+        inline app::SceneLayers_Layer__Array* create_array(const std::vector<app::SceneLayers_Layer*>& items) {
+            return il2cpp::array_new<app::SceneLayers_Layer__Array>(get_class(), items);
+        }
     } // namespace SceneLayers_Layer
 } // namespace app::classes::types

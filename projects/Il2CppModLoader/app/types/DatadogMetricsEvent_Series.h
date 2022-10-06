@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DatadogMetricsEvent_Series__Array* create_array(int size) {
             return il2cpp::array_new<app::DatadogMetricsEvent_Series__Array>(get_class(), size);
         }
+        inline app::DatadogMetricsEvent_Series__Array* create_array(const std::vector<app::DatadogMetricsEvent_Series*>& items) {
+            return il2cpp::array_new<app::DatadogMetricsEvent_Series__Array>(get_class(), items);
+        }
     } // namespace DatadogMetricsEvent_Series
 } // namespace app::classes::types

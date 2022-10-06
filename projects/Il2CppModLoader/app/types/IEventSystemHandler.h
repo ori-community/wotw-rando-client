@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IEventSystemHandler__Array* create_array(int size) {
             return il2cpp::array_new<app::IEventSystemHandler__Array>(get_class(), size);
         }
+        inline app::IEventSystemHandler__Array* create_array(const std::vector<app::IEventSystemHandler*>& items) {
+            return il2cpp::array_new<app::IEventSystemHandler__Array>(get_class(), items);
+        }
     } // namespace IEventSystemHandler
 } // namespace app::classes::types

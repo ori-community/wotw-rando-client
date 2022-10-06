@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::NvnMemoryDebugger_NvnPoolCache__Array* create_array(int size) {
             return il2cpp::array_new<app::NvnMemoryDebugger_NvnPoolCache__Array>(get_class(), size);
         }
+        inline app::NvnMemoryDebugger_NvnPoolCache__Array* create_array(const std::vector<app::NvnMemoryDebugger_NvnPoolCache*>& items) {
+            return il2cpp::array_new<app::NvnMemoryDebugger_NvnPoolCache__Array>(get_class(), items);
+        }
     } // namespace NvnMemoryDebugger_NvnPoolCache
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DesiredUberStateByte__Array* create_array(int size) {
             return il2cpp::array_new<app::DesiredUberStateByte__Array>(get_class(), size);
         }
+        inline app::DesiredUberStateByte__Array* create_array(const std::vector<app::DesiredUberStateByte*>& items) {
+            return il2cpp::array_new<app::DesiredUberStateByte__Array>(get_class(), items);
+        }
     } // namespace DesiredUberStateByte
 } // namespace app::classes::types

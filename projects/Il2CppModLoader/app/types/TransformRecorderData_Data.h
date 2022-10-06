@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TransformRecorderData_Data__Array* create_array(int size) {
             return il2cpp::array_new<app::TransformRecorderData_Data__Array>(get_class(), size);
         }
+        inline app::TransformRecorderData_Data__Array* create_array(const std::vector<app::TransformRecorderData_Data*>& items) {
+            return il2cpp::array_new<app::TransformRecorderData_Data__Array>(get_class(), items);
+        }
     } // namespace TransformRecorderData_Data
 } // namespace app::classes::types

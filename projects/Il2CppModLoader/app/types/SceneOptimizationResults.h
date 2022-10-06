@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SceneOptimizationResults__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneOptimizationResults__Array>(get_class(), size);
         }
+        inline app::SceneOptimizationResults__Array* create_array(const std::vector<app::SceneOptimizationResults*>& items) {
+            return il2cpp::array_new<app::SceneOptimizationResults__Array>(get_class(), items);
+        }
     } // namespace SceneOptimizationResults
 } // namespace app::classes::types

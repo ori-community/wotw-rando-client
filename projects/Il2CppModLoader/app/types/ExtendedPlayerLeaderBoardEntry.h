@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ExtendedPlayerLeaderBoardEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::ExtendedPlayerLeaderBoardEntry__Array>(get_class(), size);
         }
+        inline app::ExtendedPlayerLeaderBoardEntry__Array* create_array(const std::vector<app::ExtendedPlayerLeaderBoardEntry*>& items) {
+            return il2cpp::array_new<app::ExtendedPlayerLeaderBoardEntry__Array>(get_class(), items);
+        }
     } // namespace ExtendedPlayerLeaderBoardEntry
 } // namespace app::classes::types

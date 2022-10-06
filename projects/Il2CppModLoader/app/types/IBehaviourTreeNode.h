@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::IBehaviourTreeNode__Array* create_array(int size) {
             return il2cpp::array_new<app::IBehaviourTreeNode__Array>(get_class(), size);
         }
+        inline app::IBehaviourTreeNode__Array* create_array(const std::vector<app::IBehaviourTreeNode*>& items) {
+            return il2cpp::array_new<app::IBehaviourTreeNode__Array>(get_class(), items);
+        }
     } // namespace IBehaviourTreeNode
 } // namespace app::classes::types

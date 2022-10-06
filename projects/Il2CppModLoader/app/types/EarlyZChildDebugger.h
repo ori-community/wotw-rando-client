@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::EarlyZChildDebugger__Array* create_array(int size) {
             return il2cpp::array_new<app::EarlyZChildDebugger__Array>(get_class(), size);
         }
+        inline app::EarlyZChildDebugger__Array* create_array(const std::vector<app::EarlyZChildDebugger*>& items) {
+            return il2cpp::array_new<app::EarlyZChildDebugger__Array>(get_class(), items);
+        }
     } // namespace EarlyZChildDebugger
 } // namespace app::classes::types

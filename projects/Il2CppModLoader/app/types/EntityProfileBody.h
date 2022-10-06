@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::EntityProfileBody__Array* create_array(int size) {
             return il2cpp::array_new<app::EntityProfileBody__Array>(get_class(), size);
         }
+        inline app::EntityProfileBody__Array* create_array(const std::vector<app::EntityProfileBody*>& items) {
+            return il2cpp::array_new<app::EntityProfileBody__Array>(get_class(), items);
+        }
     } // namespace EntityProfileBody
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Locomotion__Array* create_array(int size) {
             return il2cpp::array_new<app::Locomotion__Array>(get_class(), size);
         }
+        inline app::Locomotion__Array* create_array(const std::vector<app::Locomotion*>& items) {
+            return il2cpp::array_new<app::Locomotion__Array>(get_class(), items);
+        }
     } // namespace Locomotion
 } // namespace app::classes::types

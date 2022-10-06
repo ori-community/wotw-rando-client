@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IPrewarmOperation__Array* create_array(int size) {
             return il2cpp::array_new<app::IPrewarmOperation__Array>(get_class(), size);
         }
+        inline app::IPrewarmOperation__Array* create_array(const std::vector<app::IPrewarmOperation*>& items) {
+            return il2cpp::array_new<app::IPrewarmOperation__Array>(get_class(), items);
+        }
     } // namespace IPrewarmOperation
 } // namespace app::classes::types

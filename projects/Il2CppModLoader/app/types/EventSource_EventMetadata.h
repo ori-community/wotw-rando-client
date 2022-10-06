@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::EventSource_EventMetadata__Array* create_array(int size) {
             return il2cpp::array_new<app::EventSource_EventMetadata__Array>(get_class(), size);
         }
+        inline app::EventSource_EventMetadata__Array* create_array(const std::vector<app::EventSource_EventMetadata__Boxed>& items) {
+            return il2cpp::array_new<app::EventSource_EventMetadata__Array>(get_class(), items);
+        }
     } // namespace EventSource_EventMetadata
 } // namespace app::classes::types

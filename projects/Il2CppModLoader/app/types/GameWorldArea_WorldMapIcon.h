@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GameWorldArea_WorldMapIcon__Array* create_array(int size) {
             return il2cpp::array_new<app::GameWorldArea_WorldMapIcon__Array>(get_class(), size);
         }
+        inline app::GameWorldArea_WorldMapIcon__Array* create_array(const std::vector<app::GameWorldArea_WorldMapIcon*>& items) {
+            return il2cpp::array_new<app::GameWorldArea_WorldMapIcon__Array>(get_class(), items);
+        }
     } // namespace GameWorldArea_WorldMapIcon
 } // namespace app::classes::types

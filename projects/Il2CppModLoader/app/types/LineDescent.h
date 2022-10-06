@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LineDescent__Array* create_array(int size) {
             return il2cpp::array_new<app::LineDescent__Array>(get_class(), size);
         }
+        inline app::LineDescent__Array* create_array(const std::vector<app::LineDescent__Boxed>& items) {
+            return il2cpp::array_new<app::LineDescent__Array>(get_class(), items);
+        }
     } // namespace LineDescent
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XElement__Array* create_array(int size) {
             return il2cpp::array_new<app::XElement__Array>(get_class(), size);
         }
+        inline app::XElement__Array* create_array(const std::vector<app::XElement*>& items) {
+            return il2cpp::array_new<app::XElement__Array>(get_class(), items);
+        }
     } // namespace XElement
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberStateToWwiseData_DesiredConditionUberState__Array* create_array(int size) {
             return il2cpp::array_new<app::UberStateToWwiseData_DesiredConditionUberState__Array>(get_class(), size);
         }
+        inline app::UberStateToWwiseData_DesiredConditionUberState__Array* create_array(const std::vector<app::UberStateToWwiseData_DesiredConditionUberState*>& items) {
+            return il2cpp::array_new<app::UberStateToWwiseData_DesiredConditionUberState__Array>(get_class(), items);
+        }
     } // namespace UberStateToWwiseData_DesiredConditionUberState
 } // namespace app::classes::types

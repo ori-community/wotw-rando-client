@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SkillTreeManager_AbilityMessageProvider__Array* create_array(int size) {
             return il2cpp::array_new<app::SkillTreeManager_AbilityMessageProvider__Array>(get_class(), size);
         }
+        inline app::SkillTreeManager_AbilityMessageProvider__Array* create_array(const std::vector<app::SkillTreeManager_AbilityMessageProvider*>& items) {
+            return il2cpp::array_new<app::SkillTreeManager_AbilityMessageProvider__Array>(get_class(), items);
+        }
     } // namespace SkillTreeManager_AbilityMessageProvider
 } // namespace app::classes::types

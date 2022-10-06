@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DamageDealer__Array* create_array(int size) {
             return il2cpp::array_new<app::DamageDealer__Array>(get_class(), size);
         }
+        inline app::DamageDealer__Array* create_array(const std::vector<app::DamageDealer*>& items) {
+            return il2cpp::array_new<app::DamageDealer__Array>(get_class(), items);
+        }
     } // namespace DamageDealer
 } // namespace app::classes::types

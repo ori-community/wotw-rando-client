@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IRuntimeDynamicDataLink__Array* create_array(int size) {
             return il2cpp::array_new<app::IRuntimeDynamicDataLink__Array>(get_class(), size);
         }
+        inline app::IRuntimeDynamicDataLink__Array* create_array(const std::vector<app::IRuntimeDynamicDataLink*>& items) {
+            return il2cpp::array_new<app::IRuntimeDynamicDataLink__Array>(get_class(), items);
+        }
     } // namespace IRuntimeDynamicDataLink
 } // namespace app::classes::types

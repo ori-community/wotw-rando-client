@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ChainLevelAndCount__Array* create_array(int size) {
             return il2cpp::array_new<app::ChainLevelAndCount__Array>(get_class(), size);
         }
+        inline app::ChainLevelAndCount__Array* create_array(const std::vector<app::ChainLevelAndCount__Boxed>& items) {
+            return il2cpp::array_new<app::ChainLevelAndCount__Array>(get_class(), items);
+        }
     } // namespace ChainLevelAndCount
 } // namespace app::classes::types

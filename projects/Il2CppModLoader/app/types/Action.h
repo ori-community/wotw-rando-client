@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Action__Array* create_array(int size) {
             return il2cpp::array_new<app::Action__Array>(get_class(), size);
         }
+        inline app::Action__Array* create_array(const std::vector<app::Action*>& items) {
+            return il2cpp::array_new<app::Action__Array>(get_class(), items);
+        }
     } // namespace Action
 } // namespace app::classes::types

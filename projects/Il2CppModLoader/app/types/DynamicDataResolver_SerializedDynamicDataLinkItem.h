@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DynamicDataResolver_SerializedDynamicDataLinkItem__Array* create_array(int size) {
             return il2cpp::array_new<app::DynamicDataResolver_SerializedDynamicDataLinkItem__Array>(get_class(), size);
         }
+        inline app::DynamicDataResolver_SerializedDynamicDataLinkItem__Array* create_array(const std::vector<app::DynamicDataResolver_SerializedDynamicDataLinkItem__Boxed>& items) {
+            return il2cpp::array_new<app::DynamicDataResolver_SerializedDynamicDataLinkItem__Array>(get_class(), items);
+        }
     } // namespace DynamicDataResolver_SerializedDynamicDataLinkItem
 } // namespace app::classes::types

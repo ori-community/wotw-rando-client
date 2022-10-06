@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SqlString__Array* create_array(int size) {
             return il2cpp::array_new<app::SqlString__Array>(get_class(), size);
         }
+        inline app::SqlString__Array* create_array(const std::vector<app::SqlString__Boxed>& items) {
+            return il2cpp::array_new<app::SqlString__Array>(get_class(), items);
+        }
     } // namespace SqlString
 } // namespace app::classes::types

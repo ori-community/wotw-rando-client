@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PostStateDefinition_PostState__Array* create_array(int size) {
             return il2cpp::array_new<app::PostStateDefinition_PostState__Array>(get_class(), size);
         }
+        inline app::PostStateDefinition_PostState__Array* create_array(const std::vector<app::PostStateDefinition_PostState*>& items) {
+            return il2cpp::array_new<app::PostStateDefinition_PostState__Array>(get_class(), items);
+        }
     } // namespace PostStateDefinition_PostState
 } // namespace app::classes::types

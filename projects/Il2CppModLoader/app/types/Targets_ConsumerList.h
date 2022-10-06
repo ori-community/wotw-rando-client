@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Targets_ConsumerList__Array* create_array(int size) {
             return il2cpp::array_new<app::Targets_ConsumerList__Array>(get_class(), size);
         }
+        inline app::Targets_ConsumerList__Array* create_array(const std::vector<app::Targets_ConsumerList*>& items) {
+            return il2cpp::array_new<app::Targets_ConsumerList__Array>(get_class(), items);
+        }
     } // namespace Targets_ConsumerList
 } // namespace app::classes::types

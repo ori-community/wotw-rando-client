@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CollapsingPlatform__Array* create_array(int size) {
             return il2cpp::array_new<app::CollapsingPlatform__Array>(get_class(), size);
         }
+        inline app::CollapsingPlatform__Array* create_array(const std::vector<app::CollapsingPlatform*>& items) {
+            return il2cpp::array_new<app::CollapsingPlatform__Array>(get_class(), items);
+        }
     } // namespace CollapsingPlatform
 } // namespace app::classes::types

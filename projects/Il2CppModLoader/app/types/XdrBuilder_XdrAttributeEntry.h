@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XdrBuilder_XdrAttributeEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::XdrBuilder_XdrAttributeEntry__Array>(get_class(), size);
         }
+        inline app::XdrBuilder_XdrAttributeEntry__Array* create_array(const std::vector<app::XdrBuilder_XdrAttributeEntry*>& items) {
+            return il2cpp::array_new<app::XdrBuilder_XdrAttributeEntry__Array>(get_class(), items);
+        }
     } // namespace XdrBuilder_XdrAttributeEntry
 } // namespace app::classes::types

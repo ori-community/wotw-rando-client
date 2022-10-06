@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DebugMenuPage__Array* create_array(int size) {
             return il2cpp::array_new<app::DebugMenuPage__Array>(get_class(), size);
         }
+        inline app::DebugMenuPage__Array* create_array(const std::vector<app::DebugMenuPage*>& items) {
+            return il2cpp::array_new<app::DebugMenuPage__Array>(get_class(), items);
+        }
     } // namespace DebugMenuPage
 } // namespace app::classes::types

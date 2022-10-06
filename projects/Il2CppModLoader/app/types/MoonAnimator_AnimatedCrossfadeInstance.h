@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MoonAnimator_AnimatedCrossfadeInstance__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonAnimator_AnimatedCrossfadeInstance__Array>(get_class(), size);
         }
+        inline app::MoonAnimator_AnimatedCrossfadeInstance__Array* create_array(const std::vector<app::MoonAnimator_AnimatedCrossfadeInstance*>& items) {
+            return il2cpp::array_new<app::MoonAnimator_AnimatedCrossfadeInstance__Array>(get_class(), items);
+        }
     } // namespace MoonAnimator_AnimatedCrossfadeInstance
 } // namespace app::classes::types

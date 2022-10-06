@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::XAchievement__Array* create_array(int size) {
             return il2cpp::array_new<app::XAchievement__Array>(get_class(), size);
         }
+        inline app::XAchievement__Array* create_array(const std::vector<app::XAchievement*>& items) {
+            return il2cpp::array_new<app::XAchievement__Array>(get_class(), items);
+        }
     } // namespace XAchievement
 } // namespace app::classes::types

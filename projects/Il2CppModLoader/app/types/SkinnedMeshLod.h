@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SkinnedMeshLod__Array* create_array(int size) {
             return il2cpp::array_new<app::SkinnedMeshLod__Array>(get_class(), size);
         }
+        inline app::SkinnedMeshLod__Array* create_array(const std::vector<app::SkinnedMeshLod*>& items) {
+            return il2cpp::array_new<app::SkinnedMeshLod__Array>(get_class(), items);
+        }
     } // namespace SkinnedMeshLod
 } // namespace app::classes::types

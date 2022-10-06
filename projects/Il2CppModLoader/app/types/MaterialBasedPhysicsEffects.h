@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MaterialBasedPhysicsEffects__Array* create_array(int size) {
             return il2cpp::array_new<app::MaterialBasedPhysicsEffects__Array>(get_class(), size);
         }
+        inline app::MaterialBasedPhysicsEffects__Array* create_array(const std::vector<app::MaterialBasedPhysicsEffects*>& items) {
+            return il2cpp::array_new<app::MaterialBasedPhysicsEffects__Array>(get_class(), items);
+        }
     } // namespace MaterialBasedPhysicsEffects
 } // namespace app::classes::types

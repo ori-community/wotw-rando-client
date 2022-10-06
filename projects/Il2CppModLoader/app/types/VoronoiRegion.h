@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::VoronoiRegion__Array* create_array(int size) {
             return il2cpp::array_new<app::VoronoiRegion__Array>(get_class(), size);
         }
+        inline app::VoronoiRegion__Array* create_array(const std::vector<app::VoronoiRegion*>& items) {
+            return il2cpp::array_new<app::VoronoiRegion__Array>(get_class(), items);
+        }
     } // namespace VoronoiRegion
 } // namespace app::classes::types

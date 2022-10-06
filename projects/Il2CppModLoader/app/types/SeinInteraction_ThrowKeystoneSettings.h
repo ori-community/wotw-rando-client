@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SeinInteraction_ThrowKeystoneSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::SeinInteraction_ThrowKeystoneSettings__Array>(get_class(), size);
         }
+        inline app::SeinInteraction_ThrowKeystoneSettings__Array* create_array(const std::vector<app::SeinInteraction_ThrowKeystoneSettings*>& items) {
+            return il2cpp::array_new<app::SeinInteraction_ThrowKeystoneSettings__Array>(get_class(), items);
+        }
     } // namespace SeinInteraction_ThrowKeystoneSettings
 } // namespace app::classes::types

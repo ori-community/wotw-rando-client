@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LocomotionTimelineAnimation__Array* create_array(int size) {
             return il2cpp::array_new<app::LocomotionTimelineAnimation__Array>(get_class(), size);
         }
+        inline app::LocomotionTimelineAnimation__Array* create_array(const std::vector<app::LocomotionTimelineAnimation*>& items) {
+            return il2cpp::array_new<app::LocomotionTimelineAnimation__Array>(get_class(), items);
+        }
     } // namespace LocomotionTimelineAnimation
 } // namespace app::classes::types

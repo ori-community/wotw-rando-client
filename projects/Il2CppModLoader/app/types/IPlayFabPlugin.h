@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IPlayFabPlugin__Array* create_array(int size) {
             return il2cpp::array_new<app::IPlayFabPlugin__Array>(get_class(), size);
         }
+        inline app::IPlayFabPlugin__Array* create_array(const std::vector<app::IPlayFabPlugin*>& items) {
+            return il2cpp::array_new<app::IPlayFabPlugin__Array>(get_class(), items);
+        }
     } // namespace IPlayFabPlugin
 } // namespace app::classes::types

@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IUtilityProvider__Array* create_array(int size) {
             return il2cpp::array_new<app::IUtilityProvider__Array>(get_class(), size);
         }
+        inline app::IUtilityProvider__Array* create_array(const std::vector<app::IUtilityProvider*>& items) {
+            return il2cpp::array_new<app::IUtilityProvider__Array>(get_class(), items);
+        }
     } // namespace IUtilityProvider
 } // namespace app::classes::types

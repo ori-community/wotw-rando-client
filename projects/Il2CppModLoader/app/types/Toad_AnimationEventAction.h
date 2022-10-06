@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Toad_AnimationEventAction__Array* create_array(int size) {
             return il2cpp::array_new<app::Toad_AnimationEventAction__Array>(get_class(), size);
         }
+        inline app::Toad_AnimationEventAction__Array* create_array(const std::vector<app::Toad_AnimationEventAction*>& items) {
+            return il2cpp::array_new<app::Toad_AnimationEventAction__Array>(get_class(), items);
+        }
     } // namespace Toad_AnimationEventAction
 } // namespace app::classes::types

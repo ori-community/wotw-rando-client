@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::GlobalPlaceholderCountData_Tally__Array* create_array(int size) {
             return il2cpp::array_new<app::GlobalPlaceholderCountData_Tally__Array>(get_class(), size);
         }
+        inline app::GlobalPlaceholderCountData_Tally__Array* create_array(const std::vector<app::GlobalPlaceholderCountData_Tally__Boxed>& items) {
+            return il2cpp::array_new<app::GlobalPlaceholderCountData_Tally__Array>(get_class(), items);
+        }
     } // namespace GlobalPlaceholderCountData_Tally
 } // namespace app::classes::types

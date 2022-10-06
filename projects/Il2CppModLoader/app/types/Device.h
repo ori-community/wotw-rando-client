@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Device__Array* create_array(int size) {
             return il2cpp::array_new<app::Device__Array>(get_class(), size);
         }
+        inline app::Device__Array* create_array(const std::vector<app::Device*>& items) {
+            return il2cpp::array_new<app::Device__Array>(get_class(), items);
+        }
     } // namespace Device
 } // namespace app::classes::types

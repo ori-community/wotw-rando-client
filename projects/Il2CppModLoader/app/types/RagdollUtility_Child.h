@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RagdollUtility_Child__Array* create_array(int size) {
             return il2cpp::array_new<app::RagdollUtility_Child__Array>(get_class(), size);
         }
+        inline app::RagdollUtility_Child__Array* create_array(const std::vector<app::RagdollUtility_Child*>& items) {
+            return il2cpp::array_new<app::RagdollUtility_Child__Array>(get_class(), items);
+        }
     } // namespace RagdollUtility_Child
 } // namespace app::classes::types

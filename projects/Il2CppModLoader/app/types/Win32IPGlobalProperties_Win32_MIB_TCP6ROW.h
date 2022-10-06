@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Win32IPGlobalProperties_Win32_MIB_TCP6ROW__Array* create_array(int size) {
             return il2cpp::array_new<app::Win32IPGlobalProperties_Win32_MIB_TCP6ROW__Array>(get_class(), size);
         }
+        inline app::Win32IPGlobalProperties_Win32_MIB_TCP6ROW__Array* create_array(const std::vector<app::Win32IPGlobalProperties_Win32_MIB_TCP6ROW*>& items) {
+            return il2cpp::array_new<app::Win32IPGlobalProperties_Win32_MIB_TCP6ROW__Array>(get_class(), items);
+        }
     } // namespace Win32IPGlobalProperties_Win32_MIB_TCP6ROW
 } // namespace app::classes::types

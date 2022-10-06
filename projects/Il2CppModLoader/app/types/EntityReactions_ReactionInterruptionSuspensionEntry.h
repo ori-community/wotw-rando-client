@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::EntityReactions_ReactionInterruptionSuspensionEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::EntityReactions_ReactionInterruptionSuspensionEntry__Array>(get_class(), size);
         }
+        inline app::EntityReactions_ReactionInterruptionSuspensionEntry__Array* create_array(const std::vector<app::EntityReactions_ReactionInterruptionSuspensionEntry__Boxed>& items) {
+            return il2cpp::array_new<app::EntityReactions_ReactionInterruptionSuspensionEntry__Array>(get_class(), items);
+        }
     } // namespace EntityReactions_ReactionInterruptionSuspensionEntry
 } // namespace app::classes::types

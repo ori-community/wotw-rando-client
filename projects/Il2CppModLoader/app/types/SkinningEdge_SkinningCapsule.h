@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SkinningEdge_SkinningCapsule__Array* create_array(int size) {
             return il2cpp::array_new<app::SkinningEdge_SkinningCapsule__Array>(get_class(), size);
         }
+        inline app::SkinningEdge_SkinningCapsule__Array* create_array(const std::vector<app::SkinningEdge_SkinningCapsule*>& items) {
+            return il2cpp::array_new<app::SkinningEdge_SkinningCapsule__Array>(get_class(), items);
+        }
     } // namespace SkinningEdge_SkinningCapsule
 } // namespace app::classes::types

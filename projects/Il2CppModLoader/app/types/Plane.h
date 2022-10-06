@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::Plane__Array* create_array(int size) {
             return il2cpp::array_new<app::Plane__Array>(get_class(), size);
         }
+        inline app::Plane__Array* create_array(const std::vector<app::Plane__Boxed>& items) {
+            return il2cpp::array_new<app::Plane__Array>(get_class(), items);
+        }
     } // namespace Plane
 } // namespace app::classes::types

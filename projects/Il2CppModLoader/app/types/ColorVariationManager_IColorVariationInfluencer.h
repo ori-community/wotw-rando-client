@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ColorVariationManager_IColorVariationInfluencer__Array* create_array(int size) {
             return il2cpp::array_new<app::ColorVariationManager_IColorVariationInfluencer__Array>(get_class(), size);
         }
+        inline app::ColorVariationManager_IColorVariationInfluencer__Array* create_array(const std::vector<app::ColorVariationManager_IColorVariationInfluencer*>& items) {
+            return il2cpp::array_new<app::ColorVariationManager_IColorVariationInfluencer__Array>(get_class(), items);
+        }
     } // namespace ColorVariationManager_IColorVariationInfluencer
 } // namespace app::classes::types

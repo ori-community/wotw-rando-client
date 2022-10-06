@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CameraSettingsAsset__Array* create_array(int size) {
             return il2cpp::array_new<app::CameraSettingsAsset__Array>(get_class(), size);
         }
+        inline app::CameraSettingsAsset__Array* create_array(const std::vector<app::CameraSettingsAsset*>& items) {
+            return il2cpp::array_new<app::CameraSettingsAsset__Array>(get_class(), items);
+        }
     } // namespace CameraSettingsAsset
 } // namespace app::classes::types

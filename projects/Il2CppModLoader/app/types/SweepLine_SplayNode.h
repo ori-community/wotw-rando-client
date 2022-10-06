@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SweepLine_SplayNode__Array* create_array(int size) {
             return il2cpp::array_new<app::SweepLine_SplayNode__Array>(get_class(), size);
         }
+        inline app::SweepLine_SplayNode__Array* create_array(const std::vector<app::SweepLine_SplayNode*>& items) {
+            return il2cpp::array_new<app::SweepLine_SplayNode__Array>(get_class(), items);
+        }
     } // namespace SweepLine_SplayNode
 } // namespace app::classes::types

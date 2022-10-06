@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberPresetSerializedComponent__Array* create_array(int size) {
             return il2cpp::array_new<app::UberPresetSerializedComponent__Array>(get_class(), size);
         }
+        inline app::UberPresetSerializedComponent__Array* create_array(const std::vector<app::UberPresetSerializedComponent*>& items) {
+            return il2cpp::array_new<app::UberPresetSerializedComponent__Array>(get_class(), items);
+        }
     } // namespace UberPresetSerializedComponent
 } // namespace app::classes::types

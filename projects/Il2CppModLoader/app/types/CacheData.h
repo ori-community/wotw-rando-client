@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CacheData__Array* create_array(int size) {
             return il2cpp::array_new<app::CacheData__Array>(get_class(), size);
         }
+        inline app::CacheData__Array* create_array(const std::vector<app::CacheData*>& items) {
+            return il2cpp::array_new<app::CacheData__Array>(get_class(), items);
+        }
     } // namespace CacheData
 } // namespace app::classes::types

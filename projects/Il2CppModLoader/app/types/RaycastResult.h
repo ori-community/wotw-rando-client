@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::RaycastResult__Array* create_array(int size) {
             return il2cpp::array_new<app::RaycastResult__Array>(get_class(), size);
         }
+        inline app::RaycastResult__Array* create_array(const std::vector<app::RaycastResult__Boxed>& items) {
+            return il2cpp::array_new<app::RaycastResult__Array>(get_class(), items);
+        }
     } // namespace RaycastResult
 } // namespace app::classes::types

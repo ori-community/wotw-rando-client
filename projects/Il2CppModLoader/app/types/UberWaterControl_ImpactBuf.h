@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::UberWaterControl_ImpactBuf__Array* create_array(int size) {
             return il2cpp::array_new<app::UberWaterControl_ImpactBuf__Array>(get_class(), size);
         }
+        inline app::UberWaterControl_ImpactBuf__Array* create_array(const std::vector<app::UberWaterControl_ImpactBuf__Boxed>& items) {
+            return il2cpp::array_new<app::UberWaterControl_ImpactBuf__Array>(get_class(), items);
+        }
     } // namespace UberWaterControl_ImpactBuf
 } // namespace app::classes::types

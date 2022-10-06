@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CrossSceneReferenceId__Array* create_array(int size) {
             return il2cpp::array_new<app::CrossSceneReferenceId__Array>(get_class(), size);
         }
+        inline app::CrossSceneReferenceId__Array* create_array(const std::vector<app::CrossSceneReferenceId__Boxed>& items) {
+            return il2cpp::array_new<app::CrossSceneReferenceId__Array>(get_class(), items);
+        }
     } // namespace CrossSceneReferenceId
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CollisionMaterialSoundPair__Array* create_array(int size) {
             return il2cpp::array_new<app::CollisionMaterialSoundPair__Array>(get_class(), size);
         }
+        inline app::CollisionMaterialSoundPair__Array* create_array(const std::vector<app::CollisionMaterialSoundPair*>& items) {
+            return il2cpp::array_new<app::CollisionMaterialSoundPair__Array>(get_class(), items);
+        }
     } // namespace CollisionMaterialSoundPair
 } // namespace app::classes::types

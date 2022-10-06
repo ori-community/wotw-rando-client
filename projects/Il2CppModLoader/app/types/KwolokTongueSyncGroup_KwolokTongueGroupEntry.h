@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::KwolokTongueSyncGroup_KwolokTongueGroupEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::KwolokTongueSyncGroup_KwolokTongueGroupEntry__Array>(get_class(), size);
         }
+        inline app::KwolokTongueSyncGroup_KwolokTongueGroupEntry__Array* create_array(const std::vector<app::KwolokTongueSyncGroup_KwolokTongueGroupEntry*>& items) {
+            return il2cpp::array_new<app::KwolokTongueSyncGroup_KwolokTongueGroupEntry__Array>(get_class(), items);
+        }
     } // namespace KwolokTongueSyncGroup_KwolokTongueGroupEntry
 } // namespace app::classes::types

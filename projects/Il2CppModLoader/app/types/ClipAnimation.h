@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ClipAnimation__Array* create_array(int size) {
             return il2cpp::array_new<app::ClipAnimation__Array>(get_class(), size);
         }
+        inline app::ClipAnimation__Array* create_array(const std::vector<app::ClipAnimation*>& items) {
+            return il2cpp::array_new<app::ClipAnimation__Array>(get_class(), items);
+        }
     } // namespace ClipAnimation
 } // namespace app::classes::types

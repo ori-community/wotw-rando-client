@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MotionAbsorb_Absorber__Array* create_array(int size) {
             return il2cpp::array_new<app::MotionAbsorb_Absorber__Array>(get_class(), size);
         }
+        inline app::MotionAbsorb_Absorber__Array* create_array(const std::vector<app::MotionAbsorb_Absorber*>& items) {
+            return il2cpp::array_new<app::MotionAbsorb_Absorber__Array>(get_class(), items);
+        }
     } // namespace MotionAbsorb_Absorber
 } // namespace app::classes::types

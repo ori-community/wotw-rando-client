@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CollisionTriggerSetupData__Array* create_array(int size) {
             return il2cpp::array_new<app::CollisionTriggerSetupData__Array>(get_class(), size);
         }
+        inline app::CollisionTriggerSetupData__Array* create_array(const std::vector<app::CollisionTriggerSetupData*>& items) {
+            return il2cpp::array_new<app::CollisionTriggerSetupData__Array>(get_class(), items);
+        }
     } // namespace CollisionTriggerSetupData
 } // namespace app::classes::types

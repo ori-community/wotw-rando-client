@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GPUAutoProfiler_Sample__Array* create_array(int size) {
             return il2cpp::array_new<app::GPUAutoProfiler_Sample__Array>(get_class(), size);
         }
+        inline app::GPUAutoProfiler_Sample__Array* create_array(const std::vector<app::GPUAutoProfiler_Sample*>& items) {
+            return il2cpp::array_new<app::GPUAutoProfiler_Sample__Array>(get_class(), items);
+        }
     } // namespace GPUAutoProfiler_Sample
 } // namespace app::classes::types

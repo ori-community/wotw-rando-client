@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AmplifyColorVolumeBase__Array* create_array(int size) {
             return il2cpp::array_new<app::AmplifyColorVolumeBase__Array>(get_class(), size);
         }
+        inline app::AmplifyColorVolumeBase__Array* create_array(const std::vector<app::AmplifyColorVolumeBase*>& items) {
+            return il2cpp::array_new<app::AmplifyColorVolumeBase__Array>(get_class(), items);
+        }
     } // namespace AmplifyColorVolumeBase
 } // namespace app::classes::types

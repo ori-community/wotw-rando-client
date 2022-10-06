@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ParticleSystemEmissionRateOverDistance__Array* create_array(int size) {
             return il2cpp::array_new<app::ParticleSystemEmissionRateOverDistance__Array>(get_class(), size);
         }
+        inline app::ParticleSystemEmissionRateOverDistance__Array* create_array(const std::vector<app::ParticleSystemEmissionRateOverDistance*>& items) {
+            return il2cpp::array_new<app::ParticleSystemEmissionRateOverDistance__Array>(get_class(), items);
+        }
     } // namespace ParticleSystemEmissionRateOverDistance
 } // namespace app::classes::types

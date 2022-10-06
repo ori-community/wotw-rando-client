@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Array* create_array(int size) {
             return il2cpp::array_new<app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Array>(get_class(), size);
         }
+        inline app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Array* create_array(const std::vector<app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData*>& items) {
+            return il2cpp::array_new<app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Array>(get_class(), items);
+        }
     } // namespace GhostServerEventsPlugin_ServerEventData_ServerObjectsData
 } // namespace app::classes::types

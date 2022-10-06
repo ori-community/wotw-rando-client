@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SeinGlowSpell_QuickGlowSetupInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::SeinGlowSpell_QuickGlowSetupInfo__Array>(get_class(), size);
         }
+        inline app::SeinGlowSpell_QuickGlowSetupInfo__Array* create_array(const std::vector<app::SeinGlowSpell_QuickGlowSetupInfo*>& items) {
+            return il2cpp::array_new<app::SeinGlowSpell_QuickGlowSetupInfo__Array>(get_class(), items);
+        }
     } // namespace SeinGlowSpell_QuickGlowSetupInfo
 } // namespace app::classes::types

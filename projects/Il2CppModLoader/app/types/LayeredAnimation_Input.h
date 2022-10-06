@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LayeredAnimation_Input__Array* create_array(int size) {
             return il2cpp::array_new<app::LayeredAnimation_Input__Array>(get_class(), size);
         }
+        inline app::LayeredAnimation_Input__Array* create_array(const std::vector<app::LayeredAnimation_Input*>& items) {
+            return il2cpp::array_new<app::LayeredAnimation_Input__Array>(get_class(), items);
+        }
     } // namespace LayeredAnimation_Input
 } // namespace app::classes::types

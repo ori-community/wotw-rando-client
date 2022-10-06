@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DataPoint__Array* create_array(int size) {
             return il2cpp::array_new<app::DataPoint__Array>(get_class(), size);
         }
+        inline app::DataPoint__Array* create_array(const std::vector<app::DataPoint*>& items) {
+            return il2cpp::array_new<app::DataPoint__Array>(get_class(), items);
+        }
     } // namespace DataPoint
 } // namespace app::classes::types

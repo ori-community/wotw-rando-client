@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DynamicInstantiationDescriptor__Array* create_array(int size) {
             return il2cpp::array_new<app::DynamicInstantiationDescriptor__Array>(get_class(), size);
         }
+        inline app::DynamicInstantiationDescriptor__Array* create_array(const std::vector<app::DynamicInstantiationDescriptor*>& items) {
+            return il2cpp::array_new<app::DynamicInstantiationDescriptor__Array>(get_class(), items);
+        }
     } // namespace DynamicInstantiationDescriptor
 } // namespace app::classes::types

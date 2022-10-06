@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::InteractionTarget_Multiplier__Array* create_array(int size) {
             return il2cpp::array_new<app::InteractionTarget_Multiplier__Array>(get_class(), size);
         }
+        inline app::InteractionTarget_Multiplier__Array* create_array(const std::vector<app::InteractionTarget_Multiplier*>& items) {
+            return il2cpp::array_new<app::InteractionTarget_Multiplier__Array>(get_class(), items);
+        }
     } // namespace InteractionTarget_Multiplier
 } // namespace app::classes::types

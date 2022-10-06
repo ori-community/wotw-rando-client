@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PlayerUberStateInventory_InventoryItem__Array* create_array(int size) {
             return il2cpp::array_new<app::PlayerUberStateInventory_InventoryItem__Array>(get_class(), size);
         }
+        inline app::PlayerUberStateInventory_InventoryItem__Array* create_array(const std::vector<app::PlayerUberStateInventory_InventoryItem*>& items) {
+            return il2cpp::array_new<app::PlayerUberStateInventory_InventoryItem__Array>(get_class(), items);
+        }
     } // namespace PlayerUberStateInventory_InventoryItem
 } // namespace app::classes::types

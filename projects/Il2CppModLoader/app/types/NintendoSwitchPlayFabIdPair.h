@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::NintendoSwitchPlayFabIdPair__Array* create_array(int size) {
             return il2cpp::array_new<app::NintendoSwitchPlayFabIdPair__Array>(get_class(), size);
         }
+        inline app::NintendoSwitchPlayFabIdPair__Array* create_array(const std::vector<app::NintendoSwitchPlayFabIdPair*>& items) {
+            return il2cpp::array_new<app::NintendoSwitchPlayFabIdPair__Array>(get_class(), items);
+        }
     } // namespace NintendoSwitchPlayFabIdPair
 } // namespace app::classes::types

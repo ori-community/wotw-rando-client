@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::QuestNodeSetup_QuestInteraction__Array* create_array(int size) {
             return il2cpp::array_new<app::QuestNodeSetup_QuestInteraction__Array>(get_class(), size);
         }
+        inline app::QuestNodeSetup_QuestInteraction__Array* create_array(const std::vector<app::QuestNodeSetup_QuestInteraction*>& items) {
+            return il2cpp::array_new<app::QuestNodeSetup_QuestInteraction__Array>(get_class(), items);
+        }
     } // namespace QuestNodeSetup_QuestInteraction
 } // namespace app::classes::types

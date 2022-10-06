@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::SeinSpiritLeashAbility_RayDependency__Array* create_array(int size) {
             return il2cpp::array_new<app::SeinSpiritLeashAbility_RayDependency__Array>(get_class(), size);
         }
+        inline app::SeinSpiritLeashAbility_RayDependency__Array* create_array(const std::vector<app::SeinSpiritLeashAbility_RayDependency__Boxed>& items) {
+            return il2cpp::array_new<app::SeinSpiritLeashAbility_RayDependency__Array>(get_class(), items);
+        }
     } // namespace SeinSpiritLeashAbility_RayDependency
 } // namespace app::classes::types

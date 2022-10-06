@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FuncCondition__Array* create_array(int size) {
             return il2cpp::array_new<app::FuncCondition__Array>(get_class(), size);
         }
+        inline app::FuncCondition__Array* create_array(const std::vector<app::FuncCondition*>& items) {
+            return il2cpp::array_new<app::FuncCondition__Array>(get_class(), items);
+        }
     } // namespace FuncCondition
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::fsData__Array* create_array(int size) {
             return il2cpp::array_new<app::fsData__Array>(get_class(), size);
         }
+        inline app::fsData__Array* create_array(const std::vector<app::fsData*>& items) {
+            return il2cpp::array_new<app::fsData__Array>(get_class(), items);
+        }
     } // namespace fsData
 } // namespace app::classes::types

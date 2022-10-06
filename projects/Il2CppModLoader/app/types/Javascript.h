@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Javascript__Array* create_array(int size) {
             return il2cpp::array_new<app::Javascript__Array>(get_class(), size);
         }
+        inline app::Javascript__Array* create_array(const std::vector<app::Javascript*>& items) {
+            return il2cpp::array_new<app::Javascript__Array>(get_class(), items);
+        }
     } // namespace Javascript
 } // namespace app::classes::types

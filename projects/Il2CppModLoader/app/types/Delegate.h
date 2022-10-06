@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Delegate__Array* create_array(int size) {
             return il2cpp::array_new<app::Delegate__Array>(get_class(), size);
         }
+        inline app::Delegate__Array* create_array(const std::vector<app::Delegate*>& items) {
+            return il2cpp::array_new<app::Delegate__Array>(get_class(), items);
+        }
     } // namespace Delegate
 } // namespace app::classes::types

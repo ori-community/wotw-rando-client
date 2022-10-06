@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SpiritShardType__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiritShardType__Enum__Array>(get_class(), size);
         }
+        inline app::SpiritShardType__Enum__Array* create_array(const std::vector<app::SpiritShardType__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::SpiritShardType__Enum__Array>(get_class(), items);
+        }
     } // namespace SpiritShardType__Enum
 } // namespace app::classes::types

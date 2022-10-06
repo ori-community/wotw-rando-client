@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AreaComment__Array* create_array(int size) {
             return il2cpp::array_new<app::AreaComment__Array>(get_class(), size);
         }
+        inline app::AreaComment__Array* create_array(const std::vector<app::AreaComment*>& items) {
+            return il2cpp::array_new<app::AreaComment__Array>(get_class(), items);
+        }
     } // namespace AreaComment
 } // namespace app::classes::types

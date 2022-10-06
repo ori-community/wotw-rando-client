@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XmlSchemaParticle__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlSchemaParticle__Array>(get_class(), size);
         }
+        inline app::XmlSchemaParticle__Array* create_array(const std::vector<app::XmlSchemaParticle*>& items) {
+            return il2cpp::array_new<app::XmlSchemaParticle__Array>(get_class(), items);
+        }
     } // namespace XmlSchemaParticle
 } // namespace app::classes::types

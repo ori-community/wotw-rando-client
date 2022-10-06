@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DroppedFrameMonitor_TempData__Array* create_array(int size) {
             return il2cpp::array_new<app::DroppedFrameMonitor_TempData__Array>(get_class(), size);
         }
+        inline app::DroppedFrameMonitor_TempData__Array* create_array(const std::vector<app::DroppedFrameMonitor_TempData*>& items) {
+            return il2cpp::array_new<app::DroppedFrameMonitor_TempData__Array>(get_class(), items);
+        }
     } // namespace DroppedFrameMonitor_TempData
 } // namespace app::classes::types

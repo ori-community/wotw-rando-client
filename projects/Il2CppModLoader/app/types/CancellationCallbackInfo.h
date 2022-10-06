@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CancellationCallbackInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::CancellationCallbackInfo__Array>(get_class(), size);
         }
+        inline app::CancellationCallbackInfo__Array* create_array(const std::vector<app::CancellationCallbackInfo*>& items) {
+            return il2cpp::array_new<app::CancellationCallbackInfo__Array>(get_class(), items);
+        }
     } // namespace CancellationCallbackInfo
 } // namespace app::classes::types

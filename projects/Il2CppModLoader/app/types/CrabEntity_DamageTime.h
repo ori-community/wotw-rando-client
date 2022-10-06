@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CrabEntity_DamageTime__Array* create_array(int size) {
             return il2cpp::array_new<app::CrabEntity_DamageTime__Array>(get_class(), size);
         }
+        inline app::CrabEntity_DamageTime__Array* create_array(const std::vector<app::CrabEntity_DamageTime*>& items) {
+            return il2cpp::array_new<app::CrabEntity_DamageTime__Array>(get_class(), items);
+        }
     } // namespace CrabEntity_DamageTime
 } // namespace app::classes::types

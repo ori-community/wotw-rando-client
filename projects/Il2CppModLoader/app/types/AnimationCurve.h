@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AnimationCurve__Array* create_array(int size) {
             return il2cpp::array_new<app::AnimationCurve__Array>(get_class(), size);
         }
+        inline app::AnimationCurve__Array* create_array(const std::vector<app::AnimationCurve*>& items) {
+            return il2cpp::array_new<app::AnimationCurve__Array>(get_class(), items);
+        }
     } // namespace AnimationCurve
 } // namespace app::classes::types

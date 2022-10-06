@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::BabyCrabEntity__Array* create_array(int size) {
             return il2cpp::array_new<app::BabyCrabEntity__Array>(get_class(), size);
         }
+        inline app::BabyCrabEntity__Array* create_array(const std::vector<app::BabyCrabEntity*>& items) {
+            return il2cpp::array_new<app::BabyCrabEntity__Array>(get_class(), items);
+        }
     } // namespace BabyCrabEntity
 } // namespace app::classes::types

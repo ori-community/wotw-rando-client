@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EntityTargetting__Array* create_array(int size) {
             return il2cpp::array_new<app::EntityTargetting__Array>(get_class(), size);
         }
+        inline app::EntityTargetting__Array* create_array(const std::vector<app::EntityTargetting*>& items) {
+            return il2cpp::array_new<app::EntityTargetting__Array>(get_class(), items);
+        }
     } // namespace EntityTargetting
 } // namespace app::classes::types

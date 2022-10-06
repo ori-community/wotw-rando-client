@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RotationLimitPolygonal_LimitPoint__Array* create_array(int size) {
             return il2cpp::array_new<app::RotationLimitPolygonal_LimitPoint__Array>(get_class(), size);
         }
+        inline app::RotationLimitPolygonal_LimitPoint__Array* create_array(const std::vector<app::RotationLimitPolygonal_LimitPoint*>& items) {
+            return il2cpp::array_new<app::RotationLimitPolygonal_LimitPoint__Array>(get_class(), items);
+        }
     } // namespace RotationLimitPolygonal_LimitPoint
 } // namespace app::classes::types

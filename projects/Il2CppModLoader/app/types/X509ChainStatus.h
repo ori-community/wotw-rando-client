@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::X509ChainStatus__Array* create_array(int size) {
             return il2cpp::array_new<app::X509ChainStatus__Array>(get_class(), size);
         }
+        inline app::X509ChainStatus__Array* create_array(const std::vector<app::X509ChainStatus__Boxed>& items) {
+            return il2cpp::array_new<app::X509ChainStatus__Array>(get_class(), items);
+        }
     } // namespace X509ChainStatus
 } // namespace app::classes::types

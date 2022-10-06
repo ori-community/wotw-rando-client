@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SimpleIKSolver_JointEntity__Array* create_array(int size) {
             return il2cpp::array_new<app::SimpleIKSolver_JointEntity__Array>(get_class(), size);
         }
+        inline app::SimpleIKSolver_JointEntity__Array* create_array(const std::vector<app::SimpleIKSolver_JointEntity*>& items) {
+            return il2cpp::array_new<app::SimpleIKSolver_JointEntity__Array>(get_class(), items);
+        }
     } // namespace SimpleIKSolver_JointEntity
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DynamicInstantiationScanner_Visitor__Array* create_array(int size) {
             return il2cpp::array_new<app::DynamicInstantiationScanner_Visitor__Array>(get_class(), size);
         }
+        inline app::DynamicInstantiationScanner_Visitor__Array* create_array(const std::vector<app::DynamicInstantiationScanner_Visitor*>& items) {
+            return il2cpp::array_new<app::DynamicInstantiationScanner_Visitor__Array>(get_class(), items);
+        }
     } // namespace DynamicInstantiationScanner_Visitor
 } // namespace app::classes::types

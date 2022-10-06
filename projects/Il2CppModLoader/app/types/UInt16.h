@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UInt16__Array* create_array(int size) {
             return il2cpp::array_new<app::UInt16__Array>(get_class(), size);
         }
+        inline app::UInt16__Array* create_array(const std::vector<app::UInt16__Boxed>& items) {
+            return il2cpp::array_new<app::UInt16__Array>(get_class(), items);
+        }
     } // namespace UInt16
 } // namespace app::classes::types

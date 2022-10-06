@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Point__Array* create_array(int size) {
             return il2cpp::array_new<app::Point__Array>(get_class(), size);
         }
+        inline app::Point__Array* create_array(const std::vector<app::Point*>& items) {
+            return il2cpp::array_new<app::Point__Array>(get_class(), items);
+        }
     } // namespace Point
 } // namespace app::classes::types

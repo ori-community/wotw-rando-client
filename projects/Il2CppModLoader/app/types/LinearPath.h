@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LinearPath__Array* create_array(int size) {
             return il2cpp::array_new<app::LinearPath__Array>(get_class(), size);
         }
+        inline app::LinearPath__Array* create_array(const std::vector<app::LinearPath*>& items) {
+            return il2cpp::array_new<app::LinearPath__Array>(get_class(), items);
+        }
     } // namespace LinearPath
 } // namespace app::classes::types

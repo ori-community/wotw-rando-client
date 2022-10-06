@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TransferCodingWithQualityHeaderValue__Array* create_array(int size) {
             return il2cpp::array_new<app::TransferCodingWithQualityHeaderValue__Array>(get_class(), size);
         }
+        inline app::TransferCodingWithQualityHeaderValue__Array* create_array(const std::vector<app::TransferCodingWithQualityHeaderValue*>& items) {
+            return il2cpp::array_new<app::TransferCodingWithQualityHeaderValue__Array>(get_class(), items);
+        }
     } // namespace TransferCodingWithQualityHeaderValue
 } // namespace app::classes::types

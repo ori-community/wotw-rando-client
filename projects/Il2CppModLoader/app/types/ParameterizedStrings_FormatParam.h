@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::ParameterizedStrings_FormatParam__Array* create_array(int size) {
             return il2cpp::array_new<app::ParameterizedStrings_FormatParam__Array>(get_class(), size);
         }
+        inline app::ParameterizedStrings_FormatParam__Array* create_array(const std::vector<app::ParameterizedStrings_FormatParam__Boxed>& items) {
+            return il2cpp::array_new<app::ParameterizedStrings_FormatParam__Array>(get_class(), items);
+        }
     } // namespace ParameterizedStrings_FormatParam
 } // namespace app::classes::types

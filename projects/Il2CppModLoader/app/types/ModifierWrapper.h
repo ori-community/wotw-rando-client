@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ModifierWrapper__Array* create_array(int size) {
             return il2cpp::array_new<app::ModifierWrapper__Array>(get_class(), size);
         }
+        inline app::ModifierWrapper__Array* create_array(const std::vector<app::ModifierWrapper*>& items) {
+            return il2cpp::array_new<app::ModifierWrapper__Array>(get_class(), items);
+        }
     } // namespace ModifierWrapper
 } // namespace app::classes::types

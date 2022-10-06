@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TentacleEnemy_Joint__Array* create_array(int size) {
             return il2cpp::array_new<app::TentacleEnemy_Joint__Array>(get_class(), size);
         }
+        inline app::TentacleEnemy_Joint__Array* create_array(const std::vector<app::TentacleEnemy_Joint*>& items) {
+            return il2cpp::array_new<app::TentacleEnemy_Joint__Array>(get_class(), items);
+        }
     } // namespace TentacleEnemy_Joint
 } // namespace app::classes::types

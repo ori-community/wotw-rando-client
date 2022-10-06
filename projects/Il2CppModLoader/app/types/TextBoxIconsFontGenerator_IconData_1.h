@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TextBoxIconsFontGenerator_IconData_1__Array* create_array(int size) {
             return il2cpp::array_new<app::TextBoxIconsFontGenerator_IconData_1__Array>(get_class(), size);
         }
+        inline app::TextBoxIconsFontGenerator_IconData_1__Array* create_array(const std::vector<app::TextBoxIconsFontGenerator_IconData_1*>& items) {
+            return il2cpp::array_new<app::TextBoxIconsFontGenerator_IconData_1__Array>(get_class(), items);
+        }
     } // namespace TextBoxIconsFontGenerator_IconData_1
 } // namespace app::classes::types

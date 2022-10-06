@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::NameTable_Entry__Array* create_array(int size) {
             return il2cpp::array_new<app::NameTable_Entry__Array>(get_class(), size);
         }
+        inline app::NameTable_Entry__Array* create_array(const std::vector<app::NameTable_Entry*>& items) {
+            return il2cpp::array_new<app::NameTable_Entry__Array>(get_class(), items);
+        }
     } // namespace NameTable_Entry
 } // namespace app::classes::types

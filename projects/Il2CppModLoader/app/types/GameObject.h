@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GameObject__Array* create_array(int size) {
             return il2cpp::array_new<app::GameObject__Array>(get_class(), size);
         }
+        inline app::GameObject__Array* create_array(const std::vector<app::GameObject*>& items) {
+            return il2cpp::array_new<app::GameObject__Array>(get_class(), items);
+        }
     } // namespace GameObject
 } // namespace app::classes::types

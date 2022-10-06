@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::InternalCodePageDataItem__Array* create_array(int size) {
             return il2cpp::array_new<app::InternalCodePageDataItem__Array>(get_class(), size);
         }
+        inline app::InternalCodePageDataItem__Array* create_array(const std::vector<app::InternalCodePageDataItem__Boxed>& items) {
+            return il2cpp::array_new<app::InternalCodePageDataItem__Array>(get_class(), items);
+        }
     } // namespace InternalCodePageDataItem
 } // namespace app::classes::types

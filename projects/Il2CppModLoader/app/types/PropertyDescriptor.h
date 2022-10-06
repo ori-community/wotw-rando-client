@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PropertyDescriptor__Array* create_array(int size) {
             return il2cpp::array_new<app::PropertyDescriptor__Array>(get_class(), size);
         }
+        inline app::PropertyDescriptor__Array* create_array(const std::vector<app::PropertyDescriptor*>& items) {
+            return il2cpp::array_new<app::PropertyDescriptor__Array>(get_class(), items);
+        }
     } // namespace PropertyDescriptor
 } // namespace app::classes::types

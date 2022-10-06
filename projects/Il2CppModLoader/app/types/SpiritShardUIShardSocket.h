@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SpiritShardUIShardSocket__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiritShardUIShardSocket__Array>(get_class(), size);
         }
+        inline app::SpiritShardUIShardSocket__Array* create_array(const std::vector<app::SpiritShardUIShardSocket*>& items) {
+            return il2cpp::array_new<app::SpiritShardUIShardSocket__Array>(get_class(), items);
+        }
     } // namespace SpiritShardUIShardSocket
 } // namespace app::classes::types

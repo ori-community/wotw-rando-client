@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::MetaballRenderer_IMetaball__Array* create_array(int size) {
             return il2cpp::array_new<app::MetaballRenderer_IMetaball__Array>(get_class(), size);
         }
+        inline app::MetaballRenderer_IMetaball__Array* create_array(const std::vector<app::MetaballRenderer_IMetaball*>& items) {
+            return il2cpp::array_new<app::MetaballRenderer_IMetaball__Array>(get_class(), items);
+        }
     } // namespace MetaballRenderer_IMetaball
 } // namespace app::classes::types

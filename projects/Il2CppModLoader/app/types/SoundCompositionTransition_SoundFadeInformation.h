@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SoundCompositionTransition_SoundFadeInformation__Array* create_array(int size) {
             return il2cpp::array_new<app::SoundCompositionTransition_SoundFadeInformation__Array>(get_class(), size);
         }
+        inline app::SoundCompositionTransition_SoundFadeInformation__Array* create_array(const std::vector<app::SoundCompositionTransition_SoundFadeInformation*>& items) {
+            return il2cpp::array_new<app::SoundCompositionTransition_SoundFadeInformation__Array>(get_class(), items);
+        }
     } // namespace SoundCompositionTransition_SoundFadeInformation
 } // namespace app::classes::types

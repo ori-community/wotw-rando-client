@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Cloud__Array* create_array(int size) {
             return il2cpp::array_new<app::Cloud__Array>(get_class(), size);
         }
+        inline app::Cloud__Array* create_array(const std::vector<app::Cloud*>& items) {
+            return il2cpp::array_new<app::Cloud__Array>(get_class(), items);
+        }
     } // namespace Cloud
 } // namespace app::classes::types

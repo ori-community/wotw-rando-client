@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PII__Array* create_array(int size) {
             return il2cpp::array_new<app::PII__Array>(get_class(), size);
         }
+        inline app::PII__Array* create_array(const std::vector<app::PII*>& items) {
+            return il2cpp::array_new<app::PII__Array>(get_class(), items);
+        }
     } // namespace PII
 } // namespace app::classes::types

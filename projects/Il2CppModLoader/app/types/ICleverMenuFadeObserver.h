@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ICleverMenuFadeObserver__Array* create_array(int size) {
             return il2cpp::array_new<app::ICleverMenuFadeObserver__Array>(get_class(), size);
         }
+        inline app::ICleverMenuFadeObserver__Array* create_array(const std::vector<app::ICleverMenuFadeObserver*>& items) {
+            return il2cpp::array_new<app::ICleverMenuFadeObserver__Array>(get_class(), items);
+        }
     } // namespace ICleverMenuFadeObserver
 } // namespace app::classes::types

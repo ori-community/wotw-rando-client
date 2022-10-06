@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SceneMetaData__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneMetaData__Array>(get_class(), size);
         }
+        inline app::SceneMetaData__Array* create_array(const std::vector<app::SceneMetaData*>& items) {
+            return il2cpp::array_new<app::SceneMetaData__Array>(get_class(), items);
+        }
     } // namespace SceneMetaData
 } // namespace app::classes::types

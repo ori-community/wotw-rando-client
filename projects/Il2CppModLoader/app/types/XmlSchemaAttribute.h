@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XmlSchemaAttribute__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlSchemaAttribute__Array>(get_class(), size);
         }
+        inline app::XmlSchemaAttribute__Array* create_array(const std::vector<app::XmlSchemaAttribute*>& items) {
+            return il2cpp::array_new<app::XmlSchemaAttribute__Array>(get_class(), items);
+        }
     } // namespace XmlSchemaAttribute
 } // namespace app::classes::types

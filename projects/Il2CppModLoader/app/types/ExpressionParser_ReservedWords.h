@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::ExpressionParser_ReservedWords__Array* create_array(int size) {
             return il2cpp::array_new<app::ExpressionParser_ReservedWords__Array>(get_class(), size);
         }
+        inline app::ExpressionParser_ReservedWords__Array* create_array(const std::vector<app::ExpressionParser_ReservedWords__Boxed>& items) {
+            return il2cpp::array_new<app::ExpressionParser_ReservedWords__Array>(get_class(), items);
+        }
     } // namespace ExpressionParser_ReservedWords
 } // namespace app::classes::types

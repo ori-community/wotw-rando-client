@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SmoothCurve_PathNode__Array* create_array(int size) {
             return il2cpp::array_new<app::SmoothCurve_PathNode__Array>(get_class(), size);
         }
+        inline app::SmoothCurve_PathNode__Array* create_array(const std::vector<app::SmoothCurve_PathNode*>& items) {
+            return il2cpp::array_new<app::SmoothCurve_PathNode__Array>(get_class(), items);
+        }
     } // namespace SmoothCurve_PathNode
 } // namespace app::classes::types

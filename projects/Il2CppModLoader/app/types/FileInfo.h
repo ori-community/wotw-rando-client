@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FileInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::FileInfo__Array>(get_class(), size);
         }
+        inline app::FileInfo__Array* create_array(const std::vector<app::FileInfo*>& items) {
+            return il2cpp::array_new<app::FileInfo__Array>(get_class(), items);
+        }
     } // namespace FileInfo
 } // namespace app::classes::types

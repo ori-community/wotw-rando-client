@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::StringWithQualityHeaderValue__Array* create_array(int size) {
             return il2cpp::array_new<app::StringWithQualityHeaderValue__Array>(get_class(), size);
         }
+        inline app::StringWithQualityHeaderValue__Array* create_array(const std::vector<app::StringWithQualityHeaderValue*>& items) {
+            return il2cpp::array_new<app::StringWithQualityHeaderValue__Array>(get_class(), items);
+        }
     } // namespace StringWithQualityHeaderValue
 } // namespace app::classes::types

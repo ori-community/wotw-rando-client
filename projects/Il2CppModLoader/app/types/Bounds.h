@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Bounds__Array* create_array(int size) {
             return il2cpp::array_new<app::Bounds__Array>(get_class(), size);
         }
+        inline app::Bounds__Array* create_array(const std::vector<app::Bounds__Boxed>& items) {
+            return il2cpp::array_new<app::Bounds__Array>(get_class(), items);
+        }
     } // namespace Bounds
 } // namespace app::classes::types

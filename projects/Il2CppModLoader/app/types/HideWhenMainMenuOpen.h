@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::HideWhenMainMenuOpen__Array* create_array(int size) {
             return il2cpp::array_new<app::HideWhenMainMenuOpen__Array>(get_class(), size);
         }
+        inline app::HideWhenMainMenuOpen__Array* create_array(const std::vector<app::HideWhenMainMenuOpen*>& items) {
+            return il2cpp::array_new<app::HideWhenMainMenuOpen__Array>(get_class(), items);
+        }
     } // namespace HideWhenMainMenuOpen
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LegacyTimelineSequence_SequenceEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::LegacyTimelineSequence_SequenceEntry__Array>(get_class(), size);
         }
+        inline app::LegacyTimelineSequence_SequenceEntry__Array* create_array(const std::vector<app::LegacyTimelineSequence_SequenceEntry*>& items) {
+            return il2cpp::array_new<app::LegacyTimelineSequence_SequenceEntry__Array>(get_class(), items);
+        }
     } // namespace LegacyTimelineSequence_SequenceEntry
 } // namespace app::classes::types

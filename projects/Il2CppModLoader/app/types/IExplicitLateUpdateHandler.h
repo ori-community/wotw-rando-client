@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IExplicitLateUpdateHandler__Array* create_array(int size) {
             return il2cpp::array_new<app::IExplicitLateUpdateHandler__Array>(get_class(), size);
         }
+        inline app::IExplicitLateUpdateHandler__Array* create_array(const std::vector<app::IExplicitLateUpdateHandler*>& items) {
+            return il2cpp::array_new<app::IExplicitLateUpdateHandler__Array>(get_class(), items);
+        }
     } // namespace IExplicitLateUpdateHandler
 } // namespace app::classes::types

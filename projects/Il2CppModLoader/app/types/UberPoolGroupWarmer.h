@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberPoolGroupWarmer__Array* create_array(int size) {
             return il2cpp::array_new<app::UberPoolGroupWarmer__Array>(get_class(), size);
         }
+        inline app::UberPoolGroupWarmer__Array* create_array(const std::vector<app::UberPoolGroupWarmer*>& items) {
+            return il2cpp::array_new<app::UberPoolGroupWarmer__Array>(get_class(), items);
+        }
     } // namespace UberPoolGroupWarmer
 } // namespace app::classes::types

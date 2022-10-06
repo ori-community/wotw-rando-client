@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LightAttackData__Array* create_array(int size) {
             return il2cpp::array_new<app::LightAttackData__Array>(get_class(), size);
         }
+        inline app::LightAttackData__Array* create_array(const std::vector<app::LightAttackData*>& items) {
+            return il2cpp::array_new<app::LightAttackData__Array>(get_class(), items);
+        }
     } // namespace LightAttackData
 } // namespace app::classes::types

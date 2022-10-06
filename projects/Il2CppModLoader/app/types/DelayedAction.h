@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DelayedAction__Array* create_array(int size) {
             return il2cpp::array_new<app::DelayedAction__Array>(get_class(), size);
         }
+        inline app::DelayedAction__Array* create_array(const std::vector<app::DelayedAction*>& items) {
+            return il2cpp::array_new<app::DelayedAction__Array>(get_class(), items);
+        }
     } // namespace DelayedAction
 } // namespace app::classes::types

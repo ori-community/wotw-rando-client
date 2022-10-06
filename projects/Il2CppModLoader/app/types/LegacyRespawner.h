@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LegacyRespawner__Array* create_array(int size) {
             return il2cpp::array_new<app::LegacyRespawner__Array>(get_class(), size);
         }
+        inline app::LegacyRespawner__Array* create_array(const std::vector<app::LegacyRespawner*>& items) {
+            return il2cpp::array_new<app::LegacyRespawner__Array>(get_class(), items);
+        }
     } // namespace LegacyRespawner
 } // namespace app::classes::types

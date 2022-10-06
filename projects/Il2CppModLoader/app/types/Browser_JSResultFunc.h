@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Browser_JSResultFunc__Array* create_array(int size) {
             return il2cpp::array_new<app::Browser_JSResultFunc__Array>(get_class(), size);
         }
+        inline app::Browser_JSResultFunc__Array* create_array(const std::vector<app::Browser_JSResultFunc*>& items) {
+            return il2cpp::array_new<app::Browser_JSResultFunc__Array>(get_class(), items);
+        }
     } // namespace Browser_JSResultFunc
 } // namespace app::classes::types

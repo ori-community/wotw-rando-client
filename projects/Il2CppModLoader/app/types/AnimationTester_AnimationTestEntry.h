@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AnimationTester_AnimationTestEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::AnimationTester_AnimationTestEntry__Array>(get_class(), size);
         }
+        inline app::AnimationTester_AnimationTestEntry__Array* create_array(const std::vector<app::AnimationTester_AnimationTestEntry*>& items) {
+            return il2cpp::array_new<app::AnimationTester_AnimationTestEntry__Array>(get_class(), items);
+        }
     } // namespace AnimationTester_AnimationTestEntry
 } // namespace app::classes::types

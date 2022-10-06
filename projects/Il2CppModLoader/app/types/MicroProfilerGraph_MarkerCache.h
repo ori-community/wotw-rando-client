@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MicroProfilerGraph_MarkerCache__Array* create_array(int size) {
             return il2cpp::array_new<app::MicroProfilerGraph_MarkerCache__Array>(get_class(), size);
         }
+        inline app::MicroProfilerGraph_MarkerCache__Array* create_array(const std::vector<app::MicroProfilerGraph_MarkerCache__Boxed>& items) {
+            return il2cpp::array_new<app::MicroProfilerGraph_MarkerCache__Array>(get_class(), items);
+        }
     } // namespace MicroProfilerGraph_MarkerCache
 } // namespace app::classes::types

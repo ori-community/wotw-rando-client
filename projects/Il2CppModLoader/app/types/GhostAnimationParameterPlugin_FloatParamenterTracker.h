@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GhostAnimationParameterPlugin_FloatParamenterTracker__Array* create_array(int size) {
             return il2cpp::array_new<app::GhostAnimationParameterPlugin_FloatParamenterTracker__Array>(get_class(), size);
         }
+        inline app::GhostAnimationParameterPlugin_FloatParamenterTracker__Array* create_array(const std::vector<app::GhostAnimationParameterPlugin_FloatParamenterTracker*>& items) {
+            return il2cpp::array_new<app::GhostAnimationParameterPlugin_FloatParamenterTracker__Array>(get_class(), items);
+        }
     } // namespace GhostAnimationParameterPlugin_FloatParamenterTracker
 } // namespace app::classes::types

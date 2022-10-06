@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RespawningPlaceholder__Array* create_array(int size) {
             return il2cpp::array_new<app::RespawningPlaceholder__Array>(get_class(), size);
         }
+        inline app::RespawningPlaceholder__Array* create_array(const std::vector<app::RespawningPlaceholder*>& items) {
+            return il2cpp::array_new<app::RespawningPlaceholder__Array>(get_class(), items);
+        }
     } // namespace RespawningPlaceholder
 } // namespace app::classes::types

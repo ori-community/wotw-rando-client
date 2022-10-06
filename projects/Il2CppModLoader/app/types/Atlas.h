@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Atlas__Array* create_array(int size) {
             return il2cpp::array_new<app::Atlas__Array>(get_class(), size);
         }
+        inline app::Atlas__Array* create_array(const std::vector<app::Atlas*>& items) {
+            return il2cpp::array_new<app::Atlas__Array>(get_class(), items);
+        }
     } // namespace Atlas
 } // namespace app::classes::types

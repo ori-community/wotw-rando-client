@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CleverMenuItemGroup_CleverMenuItemGroupItem__Array* create_array(int size) {
             return il2cpp::array_new<app::CleverMenuItemGroup_CleverMenuItemGroupItem__Array>(get_class(), size);
         }
+        inline app::CleverMenuItemGroup_CleverMenuItemGroupItem__Array* create_array(const std::vector<app::CleverMenuItemGroup_CleverMenuItemGroupItem*>& items) {
+            return il2cpp::array_new<app::CleverMenuItemGroup_CleverMenuItemGroupItem__Array>(get_class(), items);
+        }
     } // namespace CleverMenuItemGroup_CleverMenuItemGroupItem
 } // namespace app::classes::types

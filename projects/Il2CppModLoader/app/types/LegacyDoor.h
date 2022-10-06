@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LegacyDoor__Array* create_array(int size) {
             return il2cpp::array_new<app::LegacyDoor__Array>(get_class(), size);
         }
+        inline app::LegacyDoor__Array* create_array(const std::vector<app::LegacyDoor*>& items) {
+            return il2cpp::array_new<app::LegacyDoor__Array>(get_class(), items);
+        }
     } // namespace LegacyDoor
 } // namespace app::classes::types

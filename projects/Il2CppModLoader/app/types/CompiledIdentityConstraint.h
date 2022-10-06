@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CompiledIdentityConstraint__Array* create_array(int size) {
             return il2cpp::array_new<app::CompiledIdentityConstraint__Array>(get_class(), size);
         }
+        inline app::CompiledIdentityConstraint__Array* create_array(const std::vector<app::CompiledIdentityConstraint*>& items) {
+            return il2cpp::array_new<app::CompiledIdentityConstraint__Array>(get_class(), items);
+        }
     } // namespace CompiledIdentityConstraint
 } // namespace app::classes::types

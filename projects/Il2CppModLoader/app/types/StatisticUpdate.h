@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::StatisticUpdate__Array* create_array(int size) {
             return il2cpp::array_new<app::StatisticUpdate__Array>(get_class(), size);
         }
+        inline app::StatisticUpdate__Array* create_array(const std::vector<app::StatisticUpdate*>& items) {
+            return il2cpp::array_new<app::StatisticUpdate__Array>(get_class(), items);
+        }
     } // namespace StatisticUpdate
 } // namespace app::classes::types

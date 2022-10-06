@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EnvironmentLight__Array* create_array(int size) {
             return il2cpp::array_new<app::EnvironmentLight__Array>(get_class(), size);
         }
+        inline app::EnvironmentLight__Array* create_array(const std::vector<app::EnvironmentLight*>& items) {
+            return il2cpp::array_new<app::EnvironmentLight__Array>(get_class(), items);
+        }
     } // namespace EnvironmentLight
 } // namespace app::classes::types

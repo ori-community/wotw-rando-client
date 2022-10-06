@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GenericPuppet__Array* create_array(int size) {
             return il2cpp::array_new<app::GenericPuppet__Array>(get_class(), size);
         }
+        inline app::GenericPuppet__Array* create_array(const std::vector<app::GenericPuppet*>& items) {
+            return il2cpp::array_new<app::GenericPuppet__Array>(get_class(), items);
+        }
     } // namespace GenericPuppet
 } // namespace app::classes::types

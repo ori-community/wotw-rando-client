@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MainThreadLoadingDebugger_NotifyEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::MainThreadLoadingDebugger_NotifyEntry__Array>(get_class(), size);
         }
+        inline app::MainThreadLoadingDebugger_NotifyEntry__Array* create_array(const std::vector<app::MainThreadLoadingDebugger_NotifyEntry*>& items) {
+            return il2cpp::array_new<app::MainThreadLoadingDebugger_NotifyEntry__Array>(get_class(), items);
+        }
     } // namespace MainThreadLoadingDebugger_NotifyEntry
 } // namespace app::classes::types

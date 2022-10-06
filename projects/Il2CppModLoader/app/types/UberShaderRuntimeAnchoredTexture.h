@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberShaderRuntimeAnchoredTexture__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderRuntimeAnchoredTexture__Array>(get_class(), size);
         }
+        inline app::UberShaderRuntimeAnchoredTexture__Array* create_array(const std::vector<app::UberShaderRuntimeAnchoredTexture*>& items) {
+            return il2cpp::array_new<app::UberShaderRuntimeAnchoredTexture__Array>(get_class(), items);
+        }
     } // namespace UberShaderRuntimeAnchoredTexture
 } // namespace app::classes::types

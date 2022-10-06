@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::XmlSerializer__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlSerializer__Array>(get_class(), size);
         }
+        inline app::XmlSerializer__Array* create_array(const std::vector<app::XmlSerializer*>& items) {
+            return il2cpp::array_new<app::XmlSerializer__Array>(get_class(), items);
+        }
     } // namespace XmlSerializer
 } // namespace app::classes::types

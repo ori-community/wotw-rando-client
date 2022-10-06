@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::KeySizes__Array* create_array(int size) {
             return il2cpp::array_new<app::KeySizes__Array>(get_class(), size);
         }
+        inline app::KeySizes__Array* create_array(const std::vector<app::KeySizes*>& items) {
+            return il2cpp::array_new<app::KeySizes__Array>(get_class(), items);
+        }
     } // namespace KeySizes
 } // namespace app::classes::types

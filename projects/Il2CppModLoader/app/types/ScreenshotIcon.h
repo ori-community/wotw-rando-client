@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ScreenshotIcon__Array* create_array(int size) {
             return il2cpp::array_new<app::ScreenshotIcon__Array>(get_class(), size);
         }
+        inline app::ScreenshotIcon__Array* create_array(const std::vector<app::ScreenshotIcon*>& items) {
+            return il2cpp::array_new<app::ScreenshotIcon__Array>(get_class(), items);
+        }
     } // namespace ScreenshotIcon
 } // namespace app::classes::types

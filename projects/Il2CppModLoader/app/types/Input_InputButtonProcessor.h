@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Input_InputButtonProcessor__Array* create_array(int size) {
             return il2cpp::array_new<app::Input_InputButtonProcessor__Array>(get_class(), size);
         }
+        inline app::Input_InputButtonProcessor__Array* create_array(const std::vector<app::Input_InputButtonProcessor*>& items) {
+            return il2cpp::array_new<app::Input_InputButtonProcessor__Array>(get_class(), items);
+        }
     } // namespace Input_InputButtonProcessor
 } // namespace app::classes::types

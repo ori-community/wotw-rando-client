@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FramePerformanceMonitor_PerformanceEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::FramePerformanceMonitor_PerformanceEntry__Array>(get_class(), size);
         }
+        inline app::FramePerformanceMonitor_PerformanceEntry__Array* create_array(const std::vector<app::FramePerformanceMonitor_PerformanceEntry*>& items) {
+            return il2cpp::array_new<app::FramePerformanceMonitor_PerformanceEntry__Array>(get_class(), items);
+        }
     } // namespace FramePerformanceMonitor_PerformanceEntry
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::BadSubseg__Array* create_array(int size) {
             return il2cpp::array_new<app::BadSubseg__Array>(get_class(), size);
         }
+        inline app::BadSubseg__Array* create_array(const std::vector<app::BadSubseg*>& items) {
+            return il2cpp::array_new<app::BadSubseg__Array>(get_class(), items);
+        }
     } // namespace BadSubseg
 } // namespace app::classes::types

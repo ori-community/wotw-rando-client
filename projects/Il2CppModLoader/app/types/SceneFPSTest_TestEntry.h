@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SceneFPSTest_TestEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneFPSTest_TestEntry__Array>(get_class(), size);
         }
+        inline app::SceneFPSTest_TestEntry__Array* create_array(const std::vector<app::SceneFPSTest_TestEntry*>& items) {
+            return il2cpp::array_new<app::SceneFPSTest_TestEntry__Array>(get_class(), items);
+        }
     } // namespace SceneFPSTest_TestEntry
 } // namespace app::classes::types

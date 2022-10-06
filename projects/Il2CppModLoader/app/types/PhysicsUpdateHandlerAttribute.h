@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PhysicsUpdateHandlerAttribute__Array* create_array(int size) {
             return il2cpp::array_new<app::PhysicsUpdateHandlerAttribute__Array>(get_class(), size);
         }
+        inline app::PhysicsUpdateHandlerAttribute__Array* create_array(const std::vector<app::PhysicsUpdateHandlerAttribute*>& items) {
+            return il2cpp::array_new<app::PhysicsUpdateHandlerAttribute__Array>(get_class(), items);
+        }
     } // namespace PhysicsUpdateHandlerAttribute
 } // namespace app::classes::types

@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IRevertMoonEffectLogic__Array* create_array(int size) {
             return il2cpp::array_new<app::IRevertMoonEffectLogic__Array>(get_class(), size);
         }
+        inline app::IRevertMoonEffectLogic__Array* create_array(const std::vector<app::IRevertMoonEffectLogic*>& items) {
+            return il2cpp::array_new<app::IRevertMoonEffectLogic__Array>(get_class(), items);
+        }
     } // namespace IRevertMoonEffectLogic
 } // namespace app::classes::types

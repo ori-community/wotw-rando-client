@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GUILayoutEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::GUILayoutEntry__Array>(get_class(), size);
         }
+        inline app::GUILayoutEntry__Array* create_array(const std::vector<app::GUILayoutEntry*>& items) {
+            return il2cpp::array_new<app::GUILayoutEntry__Array>(get_class(), items);
+        }
     } // namespace GUILayoutEntry
 } // namespace app::classes::types

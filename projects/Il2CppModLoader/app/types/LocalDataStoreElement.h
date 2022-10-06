@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LocalDataStoreElement__Array* create_array(int size) {
             return il2cpp::array_new<app::LocalDataStoreElement__Array>(get_class(), size);
         }
+        inline app::LocalDataStoreElement__Array* create_array(const std::vector<app::LocalDataStoreElement*>& items) {
+            return il2cpp::array_new<app::LocalDataStoreElement__Array>(get_class(), items);
+        }
     } // namespace LocalDataStoreElement
 } // namespace app::classes::types

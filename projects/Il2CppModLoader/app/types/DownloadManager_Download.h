@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DownloadManager_Download__Array* create_array(int size) {
             return il2cpp::array_new<app::DownloadManager_Download__Array>(get_class(), size);
         }
+        inline app::DownloadManager_Download__Array* create_array(const std::vector<app::DownloadManager_Download*>& items) {
+            return il2cpp::array_new<app::DownloadManager_Download__Array>(get_class(), items);
+        }
     } // namespace DownloadManager_Download
 } // namespace app::classes::types

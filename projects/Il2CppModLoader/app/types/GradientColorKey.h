@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::GradientColorKey__Array* create_array(int size) {
             return il2cpp::array_new<app::GradientColorKey__Array>(get_class(), size);
         }
+        inline app::GradientColorKey__Array* create_array(const std::vector<app::GradientColorKey__Boxed>& items) {
+            return il2cpp::array_new<app::GradientColorKey__Array>(get_class(), items);
+        }
     } // namespace GradientColorKey
 } // namespace app::classes::types

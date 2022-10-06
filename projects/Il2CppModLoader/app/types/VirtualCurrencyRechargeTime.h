@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::VirtualCurrencyRechargeTime__Array* create_array(int size) {
             return il2cpp::array_new<app::VirtualCurrencyRechargeTime__Array>(get_class(), size);
         }
+        inline app::VirtualCurrencyRechargeTime__Array* create_array(const std::vector<app::VirtualCurrencyRechargeTime*>& items) {
+            return il2cpp::array_new<app::VirtualCurrencyRechargeTime__Array>(get_class(), items);
+        }
     } // namespace VirtualCurrencyRechargeTime
 } // namespace app::classes::types

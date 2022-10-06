@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ClipAnimation_EventMetadata__Array* create_array(int size) {
             return il2cpp::array_new<app::ClipAnimation_EventMetadata__Array>(get_class(), size);
         }
+        inline app::ClipAnimation_EventMetadata__Array* create_array(const std::vector<app::ClipAnimation_EventMetadata*>& items) {
+            return il2cpp::array_new<app::ClipAnimation_EventMetadata__Array>(get_class(), items);
+        }
     } // namespace ClipAnimation_EventMetadata
 } // namespace app::classes::types

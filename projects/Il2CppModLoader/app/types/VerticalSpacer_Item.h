@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::VerticalSpacer_Item__Array* create_array(int size) {
             return il2cpp::array_new<app::VerticalSpacer_Item__Array>(get_class(), size);
         }
+        inline app::VerticalSpacer_Item__Array* create_array(const std::vector<app::VerticalSpacer_Item__Boxed>& items) {
+            return il2cpp::array_new<app::VerticalSpacer_Item__Array>(get_class(), items);
+        }
     } // namespace VerticalSpacer_Item
 } // namespace app::classes::types

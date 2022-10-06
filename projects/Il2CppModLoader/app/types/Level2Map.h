@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Level2Map__Array* create_array(int size) {
             return il2cpp::array_new<app::Level2Map__Array>(get_class(), size);
         }
+        inline app::Level2Map__Array* create_array(const std::vector<app::Level2Map*>& items) {
+            return il2cpp::array_new<app::Level2Map__Array>(get_class(), items);
+        }
     } // namespace Level2Map
 } // namespace app::classes::types

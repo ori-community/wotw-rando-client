@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::JobBasedAnimatorPostprocessGroupData__Array* create_array(int size) {
             return il2cpp::array_new<app::JobBasedAnimatorPostprocessGroupData__Array>(get_class(), size);
         }
+        inline app::JobBasedAnimatorPostprocessGroupData__Array* create_array(const std::vector<app::JobBasedAnimatorPostprocessGroupData__Boxed>& items) {
+            return il2cpp::array_new<app::JobBasedAnimatorPostprocessGroupData__Array>(get_class(), items);
+        }
     } // namespace JobBasedAnimatorPostprocessGroupData
 } // namespace app::classes::types

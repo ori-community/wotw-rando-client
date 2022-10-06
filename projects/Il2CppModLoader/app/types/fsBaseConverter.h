@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::fsBaseConverter__Array* create_array(int size) {
             return il2cpp::array_new<app::fsBaseConverter__Array>(get_class(), size);
         }
+        inline app::fsBaseConverter__Array* create_array(const std::vector<app::fsBaseConverter*>& items) {
+            return il2cpp::array_new<app::fsBaseConverter__Array>(get_class(), items);
+        }
     } // namespace fsBaseConverter
 } // namespace app::classes::types

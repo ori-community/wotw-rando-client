@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LoadingBoostController_BoostModeSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::LoadingBoostController_BoostModeSettings__Array>(get_class(), size);
         }
+        inline app::LoadingBoostController_BoostModeSettings__Array* create_array(const std::vector<app::LoadingBoostController_BoostModeSettings*>& items) {
+            return il2cpp::array_new<app::LoadingBoostController_BoostModeSettings__Array>(get_class(), items);
+        }
     } // namespace LoadingBoostController_BoostModeSettings
 } // namespace app::classes::types

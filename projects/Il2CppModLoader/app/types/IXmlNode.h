@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IXmlNode__Array* create_array(int size) {
             return il2cpp::array_new<app::IXmlNode__Array>(get_class(), size);
         }
+        inline app::IXmlNode__Array* create_array(const std::vector<app::IXmlNode*>& items) {
+            return il2cpp::array_new<app::IXmlNode__Array>(get_class(), items);
+        }
     } // namespace IXmlNode
 } // namespace app::classes::types

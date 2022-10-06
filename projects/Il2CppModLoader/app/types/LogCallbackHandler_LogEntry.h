@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LogCallbackHandler_LogEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::LogCallbackHandler_LogEntry__Array>(get_class(), size);
         }
+        inline app::LogCallbackHandler_LogEntry__Array* create_array(const std::vector<app::LogCallbackHandler_LogEntry*>& items) {
+            return il2cpp::array_new<app::LogCallbackHandler_LogEntry__Array>(get_class(), items);
+        }
     } // namespace LogCallbackHandler_LogEntry
 } // namespace app::classes::types

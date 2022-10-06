@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GameMapPins_Pin__Array* create_array(int size) {
             return il2cpp::array_new<app::GameMapPins_Pin__Array>(get_class(), size);
         }
+        inline app::GameMapPins_Pin__Array* create_array(const std::vector<app::GameMapPins_Pin*>& items) {
+            return il2cpp::array_new<app::GameMapPins_Pin__Array>(get_class(), items);
+        }
     } // namespace GameMapPins_Pin
 } // namespace app::classes::types

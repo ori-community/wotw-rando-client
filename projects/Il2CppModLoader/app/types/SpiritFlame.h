@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SpiritFlame__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiritFlame__Array>(get_class(), size);
         }
+        inline app::SpiritFlame__Array* create_array(const std::vector<app::SpiritFlame*>& items) {
+            return il2cpp::array_new<app::SpiritFlame__Array>(get_class(), items);
+        }
     } // namespace SpiritFlame
 } // namespace app::classes::types

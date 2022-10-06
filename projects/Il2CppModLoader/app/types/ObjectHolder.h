@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ObjectHolder__Array* create_array(int size) {
             return il2cpp::array_new<app::ObjectHolder__Array>(get_class(), size);
         }
+        inline app::ObjectHolder__Array* create_array(const std::vector<app::ObjectHolder*>& items) {
+            return il2cpp::array_new<app::ObjectHolder__Array>(get_class(), items);
+        }
     } // namespace ObjectHolder
 } // namespace app::classes::types

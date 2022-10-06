@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::JumpShootSharkPlaceholder__Array* create_array(int size) {
             return il2cpp::array_new<app::JumpShootSharkPlaceholder__Array>(get_class(), size);
         }
+        inline app::JumpShootSharkPlaceholder__Array* create_array(const std::vector<app::JumpShootSharkPlaceholder*>& items) {
+            return il2cpp::array_new<app::JumpShootSharkPlaceholder__Array>(get_class(), items);
+        }
     } // namespace JumpShootSharkPlaceholder
 } // namespace app::classes::types

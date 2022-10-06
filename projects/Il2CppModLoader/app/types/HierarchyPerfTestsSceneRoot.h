@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::HierarchyPerfTestsSceneRoot__Array* create_array(int size) {
             return il2cpp::array_new<app::HierarchyPerfTestsSceneRoot__Array>(get_class(), size);
         }
+        inline app::HierarchyPerfTestsSceneRoot__Array* create_array(const std::vector<app::HierarchyPerfTestsSceneRoot*>& items) {
+            return il2cpp::array_new<app::HierarchyPerfTestsSceneRoot__Array>(get_class(), items);
+        }
     } // namespace HierarchyPerfTestsSceneRoot
 } // namespace app::classes::types

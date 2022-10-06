@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SceneManagementSystem_SceneLoadedState__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneManagementSystem_SceneLoadedState__Array>(get_class(), size);
         }
+        inline app::SceneManagementSystem_SceneLoadedState__Array* create_array(const std::vector<app::SceneManagementSystem_SceneLoadedState*>& items) {
+            return il2cpp::array_new<app::SceneManagementSystem_SceneLoadedState__Array>(get_class(), items);
+        }
     } // namespace SceneManagementSystem_SceneLoadedState
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PlayFabSharedSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::PlayFabSharedSettings__Array>(get_class(), size);
         }
+        inline app::PlayFabSharedSettings__Array* create_array(const std::vector<app::PlayFabSharedSettings*>& items) {
+            return il2cpp::array_new<app::PlayFabSharedSettings__Array>(get_class(), items);
+        }
     } // namespace PlayFabSharedSettings
 } // namespace app::classes::types

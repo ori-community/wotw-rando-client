@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::BsonToken__Array* create_array(int size) {
             return il2cpp::array_new<app::BsonToken__Array>(get_class(), size);
         }
+        inline app::BsonToken__Array* create_array(const std::vector<app::BsonToken*>& items) {
+            return il2cpp::array_new<app::BsonToken__Array>(get_class(), items);
+        }
     } // namespace BsonToken
 } // namespace app::classes::types

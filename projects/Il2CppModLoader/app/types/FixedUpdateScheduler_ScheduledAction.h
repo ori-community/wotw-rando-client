@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::FixedUpdateScheduler_ScheduledAction__Array* create_array(int size) {
             return il2cpp::array_new<app::FixedUpdateScheduler_ScheduledAction__Array>(get_class(), size);
         }
+        inline app::FixedUpdateScheduler_ScheduledAction__Array* create_array(const std::vector<app::FixedUpdateScheduler_ScheduledAction*>& items) {
+            return il2cpp::array_new<app::FixedUpdateScheduler_ScheduledAction__Array>(get_class(), items);
+        }
     } // namespace FixedUpdateScheduler_ScheduledAction
 } // namespace app::classes::types

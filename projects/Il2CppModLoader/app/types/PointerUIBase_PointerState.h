@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PointerUIBase_PointerState__Array* create_array(int size) {
             return il2cpp::array_new<app::PointerUIBase_PointerState__Array>(get_class(), size);
         }
+        inline app::PointerUIBase_PointerState__Array* create_array(const std::vector<app::PointerUIBase_PointerState__Boxed>& items) {
+            return il2cpp::array_new<app::PointerUIBase_PointerState__Array>(get_class(), items);
+        }
     } // namespace PointerUIBase_PointerState
 } // namespace app::classes::types

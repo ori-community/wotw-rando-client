@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Quaternion__Array* create_array(int size) {
             return il2cpp::array_new<app::Quaternion__Array>(get_class(), size);
         }
+        inline app::Quaternion__Array* create_array(const std::vector<app::Quaternion__Boxed>& items) {
+            return il2cpp::array_new<app::Quaternion__Array>(get_class(), items);
+        }
     } // namespace Quaternion
 } // namespace app::classes::types

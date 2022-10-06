@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LinkedPlatformAccountModel_1__Array* create_array(int size) {
             return il2cpp::array_new<app::LinkedPlatformAccountModel_1__Array>(get_class(), size);
         }
+        inline app::LinkedPlatformAccountModel_1__Array* create_array(const std::vector<app::LinkedPlatformAccountModel_1*>& items) {
+            return il2cpp::array_new<app::LinkedPlatformAccountModel_1__Array>(get_class(), items);
+        }
     } // namespace LinkedPlatformAccountModel_1
 } // namespace app::classes::types

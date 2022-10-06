@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IRenderEntity__Array* create_array(int size) {
             return il2cpp::array_new<app::IRenderEntity__Array>(get_class(), size);
         }
+        inline app::IRenderEntity__Array* create_array(const std::vector<app::IRenderEntity*>& items) {
+            return il2cpp::array_new<app::IRenderEntity__Array>(get_class(), items);
+        }
     } // namespace IRenderEntity
 } // namespace app::classes::types

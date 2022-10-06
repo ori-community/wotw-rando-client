@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SpiderBossLocomotionMoveBehaviour_SpiderBossTransition__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiderBossLocomotionMoveBehaviour_SpiderBossTransition__Array>(get_class(), size);
         }
+        inline app::SpiderBossLocomotionMoveBehaviour_SpiderBossTransition__Array* create_array(const std::vector<app::SpiderBossLocomotionMoveBehaviour_SpiderBossTransition*>& items) {
+            return il2cpp::array_new<app::SpiderBossLocomotionMoveBehaviour_SpiderBossTransition__Array>(get_class(), items);
+        }
     } // namespace SpiderBossLocomotionMoveBehaviour_SpiderBossTransition
 } // namespace app::classes::types

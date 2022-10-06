@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Amplifier_Body__Array* create_array(int size) {
             return il2cpp::array_new<app::Amplifier_Body__Array>(get_class(), size);
         }
+        inline app::Amplifier_Body__Array* create_array(const std::vector<app::Amplifier_Body*>& items) {
+            return il2cpp::array_new<app::Amplifier_Body__Array>(get_class(), items);
+        }
     } // namespace Amplifier_Body
 } // namespace app::classes::types

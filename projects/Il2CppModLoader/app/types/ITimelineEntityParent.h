@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ITimelineEntityParent__Array* create_array(int size) {
             return il2cpp::array_new<app::ITimelineEntityParent__Array>(get_class(), size);
         }
+        inline app::ITimelineEntityParent__Array* create_array(const std::vector<app::ITimelineEntityParent*>& items) {
+            return il2cpp::array_new<app::ITimelineEntityParent__Array>(get_class(), items);
+        }
     } // namespace ITimelineEntityParent
 } // namespace app::classes::types

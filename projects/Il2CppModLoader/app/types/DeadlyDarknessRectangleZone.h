@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::DeadlyDarknessRectangleZone__Array* create_array(int size) {
             return il2cpp::array_new<app::DeadlyDarknessRectangleZone__Array>(get_class(), size);
         }
+        inline app::DeadlyDarknessRectangleZone__Array* create_array(const std::vector<app::DeadlyDarknessRectangleZone*>& items) {
+            return il2cpp::array_new<app::DeadlyDarknessRectangleZone__Array>(get_class(), items);
+        }
     } // namespace DeadlyDarknessRectangleZone
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::VolumetricAreaLight__Array* create_array(int size) {
             return il2cpp::array_new<app::VolumetricAreaLight__Array>(get_class(), size);
         }
+        inline app::VolumetricAreaLight__Array* create_array(const std::vector<app::VolumetricAreaLight*>& items) {
+            return il2cpp::array_new<app::VolumetricAreaLight__Array>(get_class(), items);
+        }
     } // namespace VolumetricAreaLight
 } // namespace app::classes::types

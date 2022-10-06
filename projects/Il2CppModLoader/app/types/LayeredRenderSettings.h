@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LayeredRenderSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::LayeredRenderSettings__Array>(get_class(), size);
         }
+        inline app::LayeredRenderSettings__Array* create_array(const std::vector<app::LayeredRenderSettings*>& items) {
+            return il2cpp::array_new<app::LayeredRenderSettings__Array>(get_class(), items);
+        }
     } // namespace LayeredRenderSettings
 } // namespace app::classes::types

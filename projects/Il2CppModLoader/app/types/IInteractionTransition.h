@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IInteractionTransition__Array* create_array(int size) {
             return il2cpp::array_new<app::IInteractionTransition__Array>(get_class(), size);
         }
+        inline app::IInteractionTransition__Array* create_array(const std::vector<app::IInteractionTransition*>& items) {
+            return il2cpp::array_new<app::IInteractionTransition__Array>(get_class(), items);
+        }
     } // namespace IInteractionTransition
 } // namespace app::classes::types

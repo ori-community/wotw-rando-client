@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LegacyGetAbilityPedestal__Array* create_array(int size) {
             return il2cpp::array_new<app::LegacyGetAbilityPedestal__Array>(get_class(), size);
         }
+        inline app::LegacyGetAbilityPedestal__Array* create_array(const std::vector<app::LegacyGetAbilityPedestal*>& items) {
+            return il2cpp::array_new<app::LegacyGetAbilityPedestal__Array>(get_class(), items);
+        }
     } // namespace LegacyGetAbilityPedestal
 } // namespace app::classes::types

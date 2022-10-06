@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GenericPoser_Map__Array* create_array(int size) {
             return il2cpp::array_new<app::GenericPoser_Map__Array>(get_class(), size);
         }
+        inline app::GenericPoser_Map__Array* create_array(const std::vector<app::GenericPoser_Map*>& items) {
+            return il2cpp::array_new<app::GenericPoser_Map__Array>(get_class(), items);
+        }
     } // namespace GenericPoser_Map
 } // namespace app::classes::types

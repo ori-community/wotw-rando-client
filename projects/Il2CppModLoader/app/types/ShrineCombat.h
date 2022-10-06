@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ShrineCombat__Array* create_array(int size) {
             return il2cpp::array_new<app::ShrineCombat__Array>(get_class(), size);
         }
+        inline app::ShrineCombat__Array* create_array(const std::vector<app::ShrineCombat*>& items) {
+            return il2cpp::array_new<app::ShrineCombat__Array>(get_class(), items);
+        }
     } // namespace ShrineCombat
 } // namespace app::classes::types

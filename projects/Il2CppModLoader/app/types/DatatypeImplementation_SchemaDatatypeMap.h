@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DatatypeImplementation_SchemaDatatypeMap__Array* create_array(int size) {
             return il2cpp::array_new<app::DatatypeImplementation_SchemaDatatypeMap__Array>(get_class(), size);
         }
+        inline app::DatatypeImplementation_SchemaDatatypeMap__Array* create_array(const std::vector<app::DatatypeImplementation_SchemaDatatypeMap*>& items) {
+            return il2cpp::array_new<app::DatatypeImplementation_SchemaDatatypeMap__Array>(get_class(), items);
+        }
     } // namespace DatatypeImplementation_SchemaDatatypeMap
 } // namespace app::classes::types

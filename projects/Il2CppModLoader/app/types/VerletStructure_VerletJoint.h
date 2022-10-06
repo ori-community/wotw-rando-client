@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::VerletStructure_VerletJoint__Array* create_array(int size) {
             return il2cpp::array_new<app::VerletStructure_VerletJoint__Array>(get_class(), size);
         }
+        inline app::VerletStructure_VerletJoint__Array* create_array(const std::vector<app::VerletStructure_VerletJoint*>& items) {
+            return il2cpp::array_new<app::VerletStructure_VerletJoint__Array>(get_class(), items);
+        }
     } // namespace VerletStructure_VerletJoint
 } // namespace app::classes::types

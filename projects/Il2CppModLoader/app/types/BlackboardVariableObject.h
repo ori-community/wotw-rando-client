@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::BlackboardVariableObject__Array* create_array(int size) {
             return il2cpp::array_new<app::BlackboardVariableObject__Array>(get_class(), size);
         }
+        inline app::BlackboardVariableObject__Array* create_array(const std::vector<app::BlackboardVariableObject*>& items) {
+            return il2cpp::array_new<app::BlackboardVariableObject__Array>(get_class(), items);
+        }
     } // namespace BlackboardVariableObject
 } // namespace app::classes::types

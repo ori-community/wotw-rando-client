@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TimedActionExecuter__Array* create_array(int size) {
             return il2cpp::array_new<app::TimedActionExecuter__Array>(get_class(), size);
         }
+        inline app::TimedActionExecuter__Array* create_array(const std::vector<app::TimedActionExecuter*>& items) {
+            return il2cpp::array_new<app::TimedActionExecuter__Array>(get_class(), items);
+        }
     } // namespace TimedActionExecuter
 } // namespace app::classes::types

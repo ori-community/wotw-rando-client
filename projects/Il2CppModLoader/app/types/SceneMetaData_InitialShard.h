@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SceneMetaData_InitialShard__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneMetaData_InitialShard__Array>(get_class(), size);
         }
+        inline app::SceneMetaData_InitialShard__Array* create_array(const std::vector<app::SceneMetaData_InitialShard*>& items) {
+            return il2cpp::array_new<app::SceneMetaData_InitialShard__Array>(get_class(), items);
+        }
     } // namespace SceneMetaData_InitialShard
 } // namespace app::classes::types

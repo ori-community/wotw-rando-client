@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::BsonProperty__Array* create_array(int size) {
             return il2cpp::array_new<app::BsonProperty__Array>(get_class(), size);
         }
+        inline app::BsonProperty__Array* create_array(const std::vector<app::BsonProperty*>& items) {
+            return il2cpp::array_new<app::BsonProperty__Array>(get_class(), items);
+        }
     } // namespace BsonProperty
 } // namespace app::classes::types

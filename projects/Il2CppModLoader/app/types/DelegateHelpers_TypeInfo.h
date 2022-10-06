@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DelegateHelpers_TypeInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::DelegateHelpers_TypeInfo__Array>(get_class(), size);
         }
+        inline app::DelegateHelpers_TypeInfo__Array* create_array(const std::vector<app::DelegateHelpers_TypeInfo*>& items) {
+            return il2cpp::array_new<app::DelegateHelpers_TypeInfo__Array>(get_class(), items);
+        }
     } // namespace DelegateHelpers_TypeInfo
 } // namespace app::classes::types

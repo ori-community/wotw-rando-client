@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::WaterPoison_IDamageDealer__Array* create_array(int size) {
             return il2cpp::array_new<app::WaterPoison_IDamageDealer__Array>(get_class(), size);
         }
+        inline app::WaterPoison_IDamageDealer__Array* create_array(const std::vector<app::WaterPoison_IDamageDealer*>& items) {
+            return il2cpp::array_new<app::WaterPoison_IDamageDealer__Array>(get_class(), items);
+        }
     } // namespace WaterPoison_IDamageDealer
 } // namespace app::classes::types

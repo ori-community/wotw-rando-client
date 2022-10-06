@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DestroyManager_CountAndCallback__Array* create_array(int size) {
             return il2cpp::array_new<app::DestroyManager_CountAndCallback__Array>(get_class(), size);
         }
+        inline app::DestroyManager_CountAndCallback__Array* create_array(const std::vector<app::DestroyManager_CountAndCallback*>& items) {
+            return il2cpp::array_new<app::DestroyManager_CountAndCallback__Array>(get_class(), items);
+        }
     } // namespace DestroyManager_CountAndCallback
 } // namespace app::classes::types

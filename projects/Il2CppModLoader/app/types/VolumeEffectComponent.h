@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::VolumeEffectComponent__Array* create_array(int size) {
             return il2cpp::array_new<app::VolumeEffectComponent__Array>(get_class(), size);
         }
+        inline app::VolumeEffectComponent__Array* create_array(const std::vector<app::VolumeEffectComponent*>& items) {
+            return il2cpp::array_new<app::VolumeEffectComponent__Array>(get_class(), items);
+        }
     } // namespace VolumeEffectComponent
 } // namespace app::classes::types

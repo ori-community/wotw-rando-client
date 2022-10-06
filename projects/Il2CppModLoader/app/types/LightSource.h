@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LightSource__Array* create_array(int size) {
             return il2cpp::array_new<app::LightSource__Array>(get_class(), size);
         }
+        inline app::LightSource__Array* create_array(const std::vector<app::LightSource*>& items) {
+            return il2cpp::array_new<app::LightSource__Array>(get_class(), items);
+        }
     } // namespace LightSource
 } // namespace app::classes::types

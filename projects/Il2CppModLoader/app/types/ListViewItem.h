@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ListViewItem__Array* create_array(int size) {
             return il2cpp::array_new<app::ListViewItem__Array>(get_class(), size);
         }
+        inline app::ListViewItem__Array* create_array(const std::vector<app::ListViewItem*>& items) {
+            return il2cpp::array_new<app::ListViewItem__Array>(get_class(), items);
+        }
     } // namespace ListViewItem
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CharacterInventory__Array* create_array(int size) {
             return il2cpp::array_new<app::CharacterInventory__Array>(get_class(), size);
         }
+        inline app::CharacterInventory__Array* create_array(const std::vector<app::CharacterInventory*>& items) {
+            return il2cpp::array_new<app::CharacterInventory__Array>(get_class(), items);
+        }
     } // namespace CharacterInventory
 } // namespace app::classes::types

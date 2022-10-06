@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SeinDigging_DiggingEffects__Array* create_array(int size) {
             return il2cpp::array_new<app::SeinDigging_DiggingEffects__Array>(get_class(), size);
         }
+        inline app::SeinDigging_DiggingEffects__Array* create_array(const std::vector<app::SeinDigging_DiggingEffects*>& items) {
+            return il2cpp::array_new<app::SeinDigging_DiggingEffects__Array>(get_class(), items);
+        }
     } // namespace SeinDigging_DiggingEffects
 } // namespace app::classes::types

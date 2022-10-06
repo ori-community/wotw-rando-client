@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MeleeAttackTimelineBehaviourNew_Attack__Array* create_array(int size) {
             return il2cpp::array_new<app::MeleeAttackTimelineBehaviourNew_Attack__Array>(get_class(), size);
         }
+        inline app::MeleeAttackTimelineBehaviourNew_Attack__Array* create_array(const std::vector<app::MeleeAttackTimelineBehaviourNew_Attack*>& items) {
+            return il2cpp::array_new<app::MeleeAttackTimelineBehaviourNew_Attack__Array>(get_class(), items);
+        }
     } // namespace MeleeAttackTimelineBehaviourNew_Attack
 } // namespace app::classes::types

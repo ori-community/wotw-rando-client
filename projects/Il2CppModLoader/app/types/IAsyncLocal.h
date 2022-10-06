@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IAsyncLocal__Array* create_array(int size) {
             return il2cpp::array_new<app::IAsyncLocal__Array>(get_class(), size);
         }
+        inline app::IAsyncLocal__Array* create_array(const std::vector<app::IAsyncLocal*>& items) {
+            return il2cpp::array_new<app::IAsyncLocal__Array>(get_class(), items);
+        }
     } // namespace IAsyncLocal
 } // namespace app::classes::types

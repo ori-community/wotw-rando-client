@@ -17,6 +17,9 @@ namespace app::classes::types {
         inline app::Rect__Array* create_array(int size) {
             return il2cpp::array_new<app::Rect__Array>(get_class(), size);
         }
+        inline app::Rect__Array* create_array(const std::vector<app::Rect__Boxed>& items) {
+            return il2cpp::array_new<app::Rect__Array>(get_class(), items);
+        }
     } // namespace Rect
 } // namespace app::classes::types
 #pragma once

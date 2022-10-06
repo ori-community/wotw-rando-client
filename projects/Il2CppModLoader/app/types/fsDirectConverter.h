@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::fsDirectConverter__Array* create_array(int size) {
             return il2cpp::array_new<app::fsDirectConverter__Array>(get_class(), size);
         }
+        inline app::fsDirectConverter__Array* create_array(const std::vector<app::fsDirectConverter*>& items) {
+            return il2cpp::array_new<app::fsDirectConverter__Array>(get_class(), items);
+        }
     } // namespace fsDirectConverter
 } // namespace app::classes::types

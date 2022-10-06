@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MoonEffectVariationModifier__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonEffectVariationModifier__Array>(get_class(), size);
         }
+        inline app::MoonEffectVariationModifier__Array* create_array(const std::vector<app::MoonEffectVariationModifier*>& items) {
+            return il2cpp::array_new<app::MoonEffectVariationModifier__Array>(get_class(), items);
+        }
     } // namespace MoonEffectVariationModifier
 } // namespace app::classes::types

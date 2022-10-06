@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SpiderBossLocationAnimationSet_LocationGroup__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiderBossLocationAnimationSet_LocationGroup__Array>(get_class(), size);
         }
+        inline app::SpiderBossLocationAnimationSet_LocationGroup__Array* create_array(const std::vector<app::SpiderBossLocationAnimationSet_LocationGroup*>& items) {
+            return il2cpp::array_new<app::SpiderBossLocationAnimationSet_LocationGroup__Array>(get_class(), items);
+        }
     } // namespace SpiderBossLocationAnimationSet_LocationGroup
 } // namespace app::classes::types

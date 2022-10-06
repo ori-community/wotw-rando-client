@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::IPEndPoint__Array* create_array(int size) {
             return il2cpp::array_new<app::IPEndPoint__Array>(get_class(), size);
         }
+        inline app::IPEndPoint__Array* create_array(const std::vector<app::IPEndPoint*>& items) {
+            return il2cpp::array_new<app::IPEndPoint__Array>(get_class(), items);
+        }
     } // namespace IPEndPoint
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::XboxLiveAccountPlayFabIdPair__Array* create_array(int size) {
             return il2cpp::array_new<app::XboxLiveAccountPlayFabIdPair__Array>(get_class(), size);
         }
+        inline app::XboxLiveAccountPlayFabIdPair__Array* create_array(const std::vector<app::XboxLiveAccountPlayFabIdPair*>& items) {
+            return il2cpp::array_new<app::XboxLiveAccountPlayFabIdPair__Array>(get_class(), items);
+        }
     } // namespace XboxLiveAccountPlayFabIdPair
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberShaderAnimatorStrategyExperimental_FloatRequest__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderAnimatorStrategyExperimental_FloatRequest__Array>(get_class(), size);
         }
+        inline app::UberShaderAnimatorStrategyExperimental_FloatRequest__Array* create_array(const std::vector<app::UberShaderAnimatorStrategyExperimental_FloatRequest__Boxed>& items) {
+            return il2cpp::array_new<app::UberShaderAnimatorStrategyExperimental_FloatRequest__Array>(get_class(), items);
+        }
     } // namespace UberShaderAnimatorStrategyExperimental_FloatRequest
 } // namespace app::classes::types

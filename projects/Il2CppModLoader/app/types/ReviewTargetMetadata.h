@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ReviewTargetMetadata__Array* create_array(int size) {
             return il2cpp::array_new<app::ReviewTargetMetadata__Array>(get_class(), size);
         }
+        inline app::ReviewTargetMetadata__Array* create_array(const std::vector<app::ReviewTargetMetadata*>& items) {
+            return il2cpp::array_new<app::ReviewTargetMetadata__Array>(get_class(), items);
+        }
     } // namespace ReviewTargetMetadata
 } // namespace app::classes::types

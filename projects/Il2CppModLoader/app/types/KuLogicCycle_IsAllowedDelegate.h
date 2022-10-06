@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::KuLogicCycle_IsAllowedDelegate__Array* create_array(int size) {
             return il2cpp::array_new<app::KuLogicCycle_IsAllowedDelegate__Array>(get_class(), size);
         }
+        inline app::KuLogicCycle_IsAllowedDelegate__Array* create_array(const std::vector<app::KuLogicCycle_IsAllowedDelegate*>& items) {
+            return il2cpp::array_new<app::KuLogicCycle_IsAllowedDelegate__Array>(get_class(), items);
+        }
     } // namespace KuLogicCycle_IsAllowedDelegate
 } // namespace app::classes::types

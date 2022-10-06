@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ServerTriggeredActionData__Array* create_array(int size) {
             return il2cpp::array_new<app::ServerTriggeredActionData__Array>(get_class(), size);
         }
+        inline app::ServerTriggeredActionData__Array* create_array(const std::vector<app::ServerTriggeredActionData*>& items) {
+            return il2cpp::array_new<app::ServerTriggeredActionData__Array>(get_class(), items);
+        }
     } // namespace ServerTriggeredActionData
 } // namespace app::classes::types

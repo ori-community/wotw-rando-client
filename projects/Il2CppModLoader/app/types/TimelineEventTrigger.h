@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::TimelineEventTrigger__Array* create_array(int size) {
             return il2cpp::array_new<app::TimelineEventTrigger__Array>(get_class(), size);
         }
+        inline app::TimelineEventTrigger__Array* create_array(const std::vector<app::TimelineEventTrigger*>& items) {
+            return il2cpp::array_new<app::TimelineEventTrigger__Array>(get_class(), items);
+        }
     } // namespace TimelineEventTrigger
 } // namespace app::classes::types

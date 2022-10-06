@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ILegacyTimelineStateObserver__Array* create_array(int size) {
             return il2cpp::array_new<app::ILegacyTimelineStateObserver__Array>(get_class(), size);
         }
+        inline app::ILegacyTimelineStateObserver__Array* create_array(const std::vector<app::ILegacyTimelineStateObserver*>& items) {
+            return il2cpp::array_new<app::ILegacyTimelineStateObserver__Array>(get_class(), items);
+        }
     } // namespace ILegacyTimelineStateObserver
 } // namespace app::classes::types

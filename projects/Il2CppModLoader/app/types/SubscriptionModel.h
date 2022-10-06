@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SubscriptionModel__Array* create_array(int size) {
             return il2cpp::array_new<app::SubscriptionModel__Array>(get_class(), size);
         }
+        inline app::SubscriptionModel__Array* create_array(const std::vector<app::SubscriptionModel*>& items) {
+            return il2cpp::array_new<app::SubscriptionModel__Array>(get_class(), items);
+        }
     } // namespace SubscriptionModel
 } // namespace app::classes::types

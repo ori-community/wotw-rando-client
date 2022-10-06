@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MeleeComboMove__Array* create_array(int size) {
             return il2cpp::array_new<app::MeleeComboMove__Array>(get_class(), size);
         }
+        inline app::MeleeComboMove__Array* create_array(const std::vector<app::MeleeComboMove*>& items) {
+            return il2cpp::array_new<app::MeleeComboMove__Array>(get_class(), items);
+        }
     } // namespace MeleeComboMove
 } // namespace app::classes::types

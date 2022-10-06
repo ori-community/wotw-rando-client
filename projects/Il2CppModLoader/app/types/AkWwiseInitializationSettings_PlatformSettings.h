@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AkWwiseInitializationSettings_PlatformSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::AkWwiseInitializationSettings_PlatformSettings__Array>(get_class(), size);
         }
+        inline app::AkWwiseInitializationSettings_PlatformSettings__Array* create_array(const std::vector<app::AkWwiseInitializationSettings_PlatformSettings*>& items) {
+            return il2cpp::array_new<app::AkWwiseInitializationSettings_PlatformSettings__Array>(get_class(), items);
+        }
     } // namespace AkWwiseInitializationSettings_PlatformSettings
 } // namespace app::classes::types

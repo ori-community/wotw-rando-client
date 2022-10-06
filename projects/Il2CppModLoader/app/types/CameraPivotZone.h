@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CameraPivotZone__Array* create_array(int size) {
             return il2cpp::array_new<app::CameraPivotZone__Array>(get_class(), size);
         }
+        inline app::CameraPivotZone__Array* create_array(const std::vector<app::CameraPivotZone*>& items) {
+            return il2cpp::array_new<app::CameraPivotZone__Array>(get_class(), items);
+        }
     } // namespace CameraPivotZone
 } // namespace app::classes::types

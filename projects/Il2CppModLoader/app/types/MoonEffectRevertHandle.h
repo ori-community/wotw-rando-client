@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonEffectRevertHandle__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonEffectRevertHandle__Array>(get_class(), size);
         }
+        inline app::MoonEffectRevertHandle__Array* create_array(const std::vector<app::MoonEffectRevertHandle*>& items) {
+            return il2cpp::array_new<app::MoonEffectRevertHandle__Array>(get_class(), items);
+        }
     } // namespace MoonEffectRevertHandle
 } // namespace app::classes::types

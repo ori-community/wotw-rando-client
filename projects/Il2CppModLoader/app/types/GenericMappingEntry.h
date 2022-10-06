@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::GenericMappingEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::GenericMappingEntry__Array>(get_class(), size);
         }
+        inline app::GenericMappingEntry__Array* create_array(const std::vector<app::GenericMappingEntry*>& items) {
+            return il2cpp::array_new<app::GenericMappingEntry__Array>(get_class(), items);
+        }
     } // namespace GenericMappingEntry
 } // namespace app::classes::types

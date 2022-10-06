@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::OverridableTextureProperty__Array* create_array(int size) {
             return il2cpp::array_new<app::OverridableTextureProperty__Array>(get_class(), size);
         }
+        inline app::OverridableTextureProperty__Array* create_array(const std::vector<app::OverridableTextureProperty*>& items) {
+            return il2cpp::array_new<app::OverridableTextureProperty__Array>(get_class(), items);
+        }
     } // namespace OverridableTextureProperty
 } // namespace app::classes::types

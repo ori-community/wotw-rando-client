@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AttachPrefabsToLiannaTongue_TonguePoints__Array* create_array(int size) {
             return il2cpp::array_new<app::AttachPrefabsToLiannaTongue_TonguePoints__Array>(get_class(), size);
         }
+        inline app::AttachPrefabsToLiannaTongue_TonguePoints__Array* create_array(const std::vector<app::AttachPrefabsToLiannaTongue_TonguePoints__Boxed>& items) {
+            return il2cpp::array_new<app::AttachPrefabsToLiannaTongue_TonguePoints__Array>(get_class(), items);
+        }
     } // namespace AttachPrefabsToLiannaTongue_TonguePoints
 } // namespace app::classes::types

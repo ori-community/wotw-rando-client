@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::GradientAlphaKey__Array* create_array(int size) {
             return il2cpp::array_new<app::GradientAlphaKey__Array>(get_class(), size);
         }
+        inline app::GradientAlphaKey__Array* create_array(const std::vector<app::GradientAlphaKey__Boxed>& items) {
+            return il2cpp::array_new<app::GradientAlphaKey__Array>(get_class(), items);
+        }
     } // namespace GradientAlphaKey
 } // namespace app::classes::types

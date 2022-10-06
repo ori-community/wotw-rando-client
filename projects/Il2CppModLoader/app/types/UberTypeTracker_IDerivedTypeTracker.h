@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::UberTypeTracker_IDerivedTypeTracker__Array* create_array(int size) {
             return il2cpp::array_new<app::UberTypeTracker_IDerivedTypeTracker__Array>(get_class(), size);
         }
+        inline app::UberTypeTracker_IDerivedTypeTracker__Array* create_array(const std::vector<app::UberTypeTracker_IDerivedTypeTracker*>& items) {
+            return il2cpp::array_new<app::UberTypeTracker_IDerivedTypeTracker__Array>(get_class(), items);
+        }
     } // namespace UberTypeTracker_IDerivedTypeTracker
 } // namespace app::classes::types

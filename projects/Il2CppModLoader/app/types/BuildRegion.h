@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::BuildRegion__Array* create_array(int size) {
             return il2cpp::array_new<app::BuildRegion__Array>(get_class(), size);
         }
+        inline app::BuildRegion__Array* create_array(const std::vector<app::BuildRegion*>& items) {
+            return il2cpp::array_new<app::BuildRegion__Array>(get_class(), items);
+        }
     } // namespace BuildRegion
 } // namespace app::classes::types

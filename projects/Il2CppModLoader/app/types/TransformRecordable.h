@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TransformRecordable__Array* create_array(int size) {
             return il2cpp::array_new<app::TransformRecordable__Array>(get_class(), size);
         }
+        inline app::TransformRecordable__Array* create_array(const std::vector<app::TransformRecordable*>& items) {
+            return il2cpp::array_new<app::TransformRecordable__Array>(get_class(), items);
+        }
     } // namespace TransformRecordable
 } // namespace app::classes::types

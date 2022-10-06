@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LegacyAnimator__Array* create_array(int size) {
             return il2cpp::array_new<app::LegacyAnimator__Array>(get_class(), size);
         }
+        inline app::LegacyAnimator__Array* create_array(const std::vector<app::LegacyAnimator*>& items) {
+            return il2cpp::array_new<app::LegacyAnimator__Array>(get_class(), items);
+        }
     } // namespace LegacyAnimator
 } // namespace app::classes::types

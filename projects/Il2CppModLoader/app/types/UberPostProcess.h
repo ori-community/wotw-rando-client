@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberPostProcess__Array* create_array(int size) {
             return il2cpp::array_new<app::UberPostProcess__Array>(get_class(), size);
         }
+        inline app::UberPostProcess__Array* create_array(const std::vector<app::UberPostProcess*>& items) {
+            return il2cpp::array_new<app::UberPostProcess__Array>(get_class(), items);
+        }
     } // namespace UberPostProcess
 } // namespace app::classes::types

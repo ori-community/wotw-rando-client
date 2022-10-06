@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LegacyBabySandWorm_PositionHistoryEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::LegacyBabySandWorm_PositionHistoryEntry__Array>(get_class(), size);
         }
+        inline app::LegacyBabySandWorm_PositionHistoryEntry__Array* create_array(const std::vector<app::LegacyBabySandWorm_PositionHistoryEntry__Boxed>& items) {
+            return il2cpp::array_new<app::LegacyBabySandWorm_PositionHistoryEntry__Array>(get_class(), items);
+        }
     } // namespace LegacyBabySandWorm_PositionHistoryEntry
 } // namespace app::classes::types

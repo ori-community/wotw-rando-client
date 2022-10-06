@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::InteractionGraph__Array* create_array(int size) {
             return il2cpp::array_new<app::InteractionGraph__Array>(get_class(), size);
         }
+        inline app::InteractionGraph__Array* create_array(const std::vector<app::InteractionGraph*>& items) {
+            return il2cpp::array_new<app::InteractionGraph__Array>(get_class(), items);
+        }
     } // namespace InteractionGraph
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::BrowserCursor_CursorInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::BrowserCursor_CursorInfo__Array>(get_class(), size);
         }
+        inline app::BrowserCursor_CursorInfo__Array* create_array(const std::vector<app::BrowserCursor_CursorInfo*>& items) {
+            return il2cpp::array_new<app::BrowserCursor_CursorInfo__Array>(get_class(), items);
+        }
     } // namespace BrowserCursor_CursorInfo
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TimeZoneInfo_AdjustmentRule__Array* create_array(int size) {
             return il2cpp::array_new<app::TimeZoneInfo_AdjustmentRule__Array>(get_class(), size);
         }
+        inline app::TimeZoneInfo_AdjustmentRule__Array* create_array(const std::vector<app::TimeZoneInfo_AdjustmentRule*>& items) {
+            return il2cpp::array_new<app::TimeZoneInfo_AdjustmentRule__Array>(get_class(), items);
+        }
     } // namespace TimeZoneInfo_AdjustmentRule
 } // namespace app::classes::types

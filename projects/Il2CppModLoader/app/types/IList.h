@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IList__Array* create_array(int size) {
             return il2cpp::array_new<app::IList__Array>(get_class(), size);
         }
+        inline app::IList__Array* create_array(const std::vector<app::IList*>& items) {
+            return il2cpp::array_new<app::IList__Array>(get_class(), items);
+        }
     } // namespace IList
 } // namespace app::classes::types

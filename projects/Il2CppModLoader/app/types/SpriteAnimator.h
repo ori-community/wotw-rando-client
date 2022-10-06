@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SpriteAnimator__Array* create_array(int size) {
             return il2cpp::array_new<app::SpriteAnimator__Array>(get_class(), size);
         }
+        inline app::SpriteAnimator__Array* create_array(const std::vector<app::SpriteAnimator*>& items) {
+            return il2cpp::array_new<app::SpriteAnimator__Array>(get_class(), items);
+        }
     } // namespace SpriteAnimator
 } // namespace app::classes::types

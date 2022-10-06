@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IDtdEntityInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::IDtdEntityInfo__Array>(get_class(), size);
         }
+        inline app::IDtdEntityInfo__Array* create_array(const std::vector<app::IDtdEntityInfo*>& items) {
+            return il2cpp::array_new<app::IDtdEntityInfo__Array>(get_class(), items);
+        }
     } // namespace IDtdEntityInfo
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MirroringData__Array* create_array(int size) {
             return il2cpp::array_new<app::MirroringData__Array>(get_class(), size);
         }
+        inline app::MirroringData__Array* create_array(const std::vector<app::MirroringData*>& items) {
+            return il2cpp::array_new<app::MirroringData__Array>(get_class(), items);
+        }
     } // namespace MirroringData
 } // namespace app::classes::types

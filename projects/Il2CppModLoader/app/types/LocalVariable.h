@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LocalVariable__Array* create_array(int size) {
             return il2cpp::array_new<app::LocalVariable__Array>(get_class(), size);
         }
+        inline app::LocalVariable__Array* create_array(const std::vector<app::LocalVariable*>& items) {
+            return il2cpp::array_new<app::LocalVariable__Array>(get_class(), items);
+        }
     } // namespace LocalVariable
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::EntityPlaceholderScalingData__Array* create_array(int size) {
             return il2cpp::array_new<app::EntityPlaceholderScalingData__Array>(get_class(), size);
         }
+        inline app::EntityPlaceholderScalingData__Array* create_array(const std::vector<app::EntityPlaceholderScalingData*>& items) {
+            return il2cpp::array_new<app::EntityPlaceholderScalingData__Array>(get_class(), items);
+        }
     } // namespace EntityPlaceholderScalingData
 } // namespace app::classes::types

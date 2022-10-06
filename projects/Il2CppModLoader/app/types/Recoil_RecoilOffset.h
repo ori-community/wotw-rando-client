@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Recoil_RecoilOffset__Array* create_array(int size) {
             return il2cpp::array_new<app::Recoil_RecoilOffset__Array>(get_class(), size);
         }
+        inline app::Recoil_RecoilOffset__Array* create_array(const std::vector<app::Recoil_RecoilOffset*>& items) {
+            return il2cpp::array_new<app::Recoil_RecoilOffset__Array>(get_class(), items);
+        }
     } // namespace Recoil_RecoilOffset
 } // namespace app::classes::types

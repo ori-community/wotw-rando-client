@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DefaultJsonNameTable_Entry__Array* create_array(int size) {
             return il2cpp::array_new<app::DefaultJsonNameTable_Entry__Array>(get_class(), size);
         }
+        inline app::DefaultJsonNameTable_Entry__Array* create_array(const std::vector<app::DefaultJsonNameTable_Entry*>& items) {
+            return il2cpp::array_new<app::DefaultJsonNameTable_Entry__Array>(get_class(), items);
+        }
     } // namespace DefaultJsonNameTable_Entry
 } // namespace app::classes::types

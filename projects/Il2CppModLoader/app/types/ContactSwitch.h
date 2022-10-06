@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ContactSwitch__Array* create_array(int size) {
             return il2cpp::array_new<app::ContactSwitch__Array>(get_class(), size);
         }
+        inline app::ContactSwitch__Array* create_array(const std::vector<app::ContactSwitch*>& items) {
+            return il2cpp::array_new<app::ContactSwitch__Array>(get_class(), items);
+        }
     } // namespace ContactSwitch
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::NegativeScaleFixer_TransformAndWorldMatrix__Array* create_array(int size) {
             return il2cpp::array_new<app::NegativeScaleFixer_TransformAndWorldMatrix__Array>(get_class(), size);
         }
+        inline app::NegativeScaleFixer_TransformAndWorldMatrix__Array* create_array(const std::vector<app::NegativeScaleFixer_TransformAndWorldMatrix*>& items) {
+            return il2cpp::array_new<app::NegativeScaleFixer_TransformAndWorldMatrix__Array>(get_class(), items);
+        }
     } // namespace NegativeScaleFixer_TransformAndWorldMatrix
 } // namespace app::classes::types

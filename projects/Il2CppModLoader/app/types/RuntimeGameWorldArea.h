@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RuntimeGameWorldArea__Array* create_array(int size) {
             return il2cpp::array_new<app::RuntimeGameWorldArea__Array>(get_class(), size);
         }
+        inline app::RuntimeGameWorldArea__Array* create_array(const std::vector<app::RuntimeGameWorldArea*>& items) {
+            return il2cpp::array_new<app::RuntimeGameWorldArea__Array>(get_class(), items);
+        }
     } // namespace RuntimeGameWorldArea
 } // namespace app::classes::types

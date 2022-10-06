@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AutoDamageCollider_AutoDamageColliderEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::AutoDamageCollider_AutoDamageColliderEntry__Array>(get_class(), size);
         }
+        inline app::AutoDamageCollider_AutoDamageColliderEntry__Array* create_array(const std::vector<app::AutoDamageCollider_AutoDamageColliderEntry*>& items) {
+            return il2cpp::array_new<app::AutoDamageCollider_AutoDamageColliderEntry__Array>(get_class(), items);
+        }
     } // namespace AutoDamageCollider_AutoDamageColliderEntry
 } // namespace app::classes::types

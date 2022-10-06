@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::BreakablePhysicalSetupData__Array* create_array(int size) {
             return il2cpp::array_new<app::BreakablePhysicalSetupData__Array>(get_class(), size);
         }
+        inline app::BreakablePhysicalSetupData__Array* create_array(const std::vector<app::BreakablePhysicalSetupData*>& items) {
+            return il2cpp::array_new<app::BreakablePhysicalSetupData__Array>(get_class(), items);
+        }
     } // namespace BreakablePhysicalSetupData
 } // namespace app::classes::types

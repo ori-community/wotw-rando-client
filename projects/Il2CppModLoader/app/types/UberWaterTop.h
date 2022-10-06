@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberWaterTop__Array* create_array(int size) {
             return il2cpp::array_new<app::UberWaterTop__Array>(get_class(), size);
         }
+        inline app::UberWaterTop__Array* create_array(const std::vector<app::UberWaterTop*>& items) {
+            return il2cpp::array_new<app::UberWaterTop__Array>(get_class(), items);
+        }
     } // namespace UberWaterTop
 } // namespace app::classes::types

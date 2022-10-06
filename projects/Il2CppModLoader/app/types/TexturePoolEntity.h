@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TexturePoolEntity__Array* create_array(int size) {
             return il2cpp::array_new<app::TexturePoolEntity__Array>(get_class(), size);
         }
+        inline app::TexturePoolEntity__Array* create_array(const std::vector<app::TexturePoolEntity*>& items) {
+            return il2cpp::array_new<app::TexturePoolEntity__Array>(get_class(), items);
+        }
     } // namespace TexturePoolEntity
 } // namespace app::classes::types

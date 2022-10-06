@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::XRequirements__Array* create_array(int size) {
             return il2cpp::array_new<app::XRequirements__Array>(get_class(), size);
         }
+        inline app::XRequirements__Array* create_array(const std::vector<app::XRequirements*>& items) {
+            return il2cpp::array_new<app::XRequirements__Array>(get_class(), items);
+        }
     } // namespace XRequirements
 } // namespace app::classes::types

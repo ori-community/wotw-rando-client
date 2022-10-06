@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SpiritLeashEffectPoseAnimator__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiritLeashEffectPoseAnimator__Array>(get_class(), size);
         }
+        inline app::SpiritLeashEffectPoseAnimator__Array* create_array(const std::vector<app::SpiritLeashEffectPoseAnimator*>& items) {
+            return il2cpp::array_new<app::SpiritLeashEffectPoseAnimator__Array>(get_class(), items);
+        }
     } // namespace SpiritLeashEffectPoseAnimator
 } // namespace app::classes::types

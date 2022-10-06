@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Toggle__Array* create_array(int size) {
             return il2cpp::array_new<app::Toggle__Array>(get_class(), size);
         }
+        inline app::Toggle__Array* create_array(const std::vector<app::Toggle*>& items) {
+            return il2cpp::array_new<app::Toggle__Array>(get_class(), items);
+        }
     } // namespace Toggle
 } // namespace app::classes::types

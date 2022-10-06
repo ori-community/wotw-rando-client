@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PlayerUberStateShards_Shard__Array* create_array(int size) {
             return il2cpp::array_new<app::PlayerUberStateShards_Shard__Array>(get_class(), size);
         }
+        inline app::PlayerUberStateShards_Shard__Array* create_array(const std::vector<app::PlayerUberStateShards_Shard*>& items) {
+            return il2cpp::array_new<app::PlayerUberStateShards_Shard__Array>(get_class(), items);
+        }
     } // namespace PlayerUberStateShards_Shard
 } // namespace app::classes::types

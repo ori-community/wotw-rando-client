@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Vitals_DamageProcessHelper_DamageBucket__Array* create_array(int size) {
             return il2cpp::array_new<app::Vitals_DamageProcessHelper_DamageBucket__Array>(get_class(), size);
         }
+        inline app::Vitals_DamageProcessHelper_DamageBucket__Array* create_array(const std::vector<app::Vitals_DamageProcessHelper_DamageBucket__Boxed>& items) {
+            return il2cpp::array_new<app::Vitals_DamageProcessHelper_DamageBucket__Array>(get_class(), items);
+        }
     } // namespace Vitals_DamageProcessHelper_DamageBucket
 } // namespace app::classes::types

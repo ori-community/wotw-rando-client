@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UpdateManager_GenericEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::UpdateManager_GenericEntry__Array>(get_class(), size);
         }
+        inline app::UpdateManager_GenericEntry__Array* create_array(const std::vector<app::UpdateManager_GenericEntry*>& items) {
+            return il2cpp::array_new<app::UpdateManager_GenericEntry__Array>(get_class(), items);
+        }
     } // namespace UpdateManager_GenericEntry
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CFNetwork_GetProxyData__Array* create_array(int size) {
             return il2cpp::array_new<app::CFNetwork_GetProxyData__Array>(get_class(), size);
         }
+        inline app::CFNetwork_GetProxyData__Array* create_array(const std::vector<app::CFNetwork_GetProxyData*>& items) {
+            return il2cpp::array_new<app::CFNetwork_GetProxyData__Array>(get_class(), items);
+        }
     } // namespace CFNetwork_GetProxyData
 } // namespace app::classes::types

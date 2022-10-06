@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::LegacyBabySandWorm__Array* create_array(int size) {
             return il2cpp::array_new<app::LegacyBabySandWorm__Array>(get_class(), size);
         }
+        inline app::LegacyBabySandWorm__Array* create_array(const std::vector<app::LegacyBabySandWorm*>& items) {
+            return il2cpp::array_new<app::LegacyBabySandWorm__Array>(get_class(), items);
+        }
     } // namespace LegacyBabySandWorm
 } // namespace app::classes::types

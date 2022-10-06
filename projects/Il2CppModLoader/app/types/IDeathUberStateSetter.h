@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IDeathUberStateSetter__Array* create_array(int size) {
             return il2cpp::array_new<app::IDeathUberStateSetter__Array>(get_class(), size);
         }
+        inline app::IDeathUberStateSetter__Array* create_array(const std::vector<app::IDeathUberStateSetter*>& items) {
+            return il2cpp::array_new<app::IDeathUberStateSetter__Array>(get_class(), items);
+        }
     } // namespace IDeathUberStateSetter
 } // namespace app::classes::types

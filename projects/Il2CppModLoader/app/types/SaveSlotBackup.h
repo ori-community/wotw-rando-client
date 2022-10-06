@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SaveSlotBackup__Array* create_array(int size) {
             return il2cpp::array_new<app::SaveSlotBackup__Array>(get_class(), size);
         }
+        inline app::SaveSlotBackup__Array* create_array(const std::vector<app::SaveSlotBackup*>& items) {
+            return il2cpp::array_new<app::SaveSlotBackup__Array>(get_class(), items);
+        }
     } // namespace SaveSlotBackup
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EquipmentRadialSelection_ItemCache__Array* create_array(int size) {
             return il2cpp::array_new<app::EquipmentRadialSelection_ItemCache__Array>(get_class(), size);
         }
+        inline app::EquipmentRadialSelection_ItemCache__Array* create_array(const std::vector<app::EquipmentRadialSelection_ItemCache*>& items) {
+            return il2cpp::array_new<app::EquipmentRadialSelection_ItemCache__Array>(get_class(), items);
+        }
     } // namespace EquipmentRadialSelection_ItemCache
 } // namespace app::classes::types

@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::LaserShieldPieceProjectile_Ring__Array* create_array(int size) {
             return il2cpp::array_new<app::LaserShieldPieceProjectile_Ring__Array>(get_class(), size);
         }
+        inline app::LaserShieldPieceProjectile_Ring__Array* create_array(const std::vector<app::LaserShieldPieceProjectile_Ring__Boxed>& items) {
+            return il2cpp::array_new<app::LaserShieldPieceProjectile_Ring__Array>(get_class(), items);
+        }
     } // namespace LaserShieldPieceProjectile_Ring
 } // namespace app::classes::types

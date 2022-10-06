@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ICanvasElement__Array* create_array(int size) {
             return il2cpp::array_new<app::ICanvasElement__Array>(get_class(), size);
         }
+        inline app::ICanvasElement__Array* create_array(const std::vector<app::ICanvasElement*>& items) {
+            return il2cpp::array_new<app::ICanvasElement__Array>(get_class(), items);
+        }
     } // namespace ICanvasElement
 } // namespace app::classes::types

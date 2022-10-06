@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Array>(get_class(), size);
         }
+        inline app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Array* create_array(const std::vector<app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Boxed>& items) {
+            return il2cpp::array_new<app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Array>(get_class(), items);
+        }
     } // namespace MoonTelemetryCharacterHeartbeatEvent_Cleanup
 } // namespace app::classes::types

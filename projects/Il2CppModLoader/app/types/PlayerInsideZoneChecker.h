@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PlayerInsideZoneChecker__Array* create_array(int size) {
             return il2cpp::array_new<app::PlayerInsideZoneChecker__Array>(get_class(), size);
         }
+        inline app::PlayerInsideZoneChecker__Array* create_array(const std::vector<app::PlayerInsideZoneChecker*>& items) {
+            return il2cpp::array_new<app::PlayerInsideZoneChecker__Array>(get_class(), items);
+        }
     } // namespace PlayerInsideZoneChecker
 } // namespace app::classes::types

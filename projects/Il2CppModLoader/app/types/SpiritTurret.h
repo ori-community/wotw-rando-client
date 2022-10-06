@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SpiritTurret__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiritTurret__Array>(get_class(), size);
         }
+        inline app::SpiritTurret__Array* create_array(const std::vector<app::SpiritTurret*>& items) {
+            return il2cpp::array_new<app::SpiritTurret__Array>(get_class(), items);
+        }
     } // namespace SpiritTurret
 } // namespace app::classes::types

@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::ISpiritFlameAttackable__Array* create_array(int size) {
             return il2cpp::array_new<app::ISpiritFlameAttackable__Array>(get_class(), size);
         }
+        inline app::ISpiritFlameAttackable__Array* create_array(const std::vector<app::ISpiritFlameAttackable*>& items) {
+            return il2cpp::array_new<app::ISpiritFlameAttackable__Array>(get_class(), items);
+        }
     } // namespace ISpiritFlameAttackable
 } // namespace app::classes::types

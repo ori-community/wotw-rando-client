@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ProductHeaderValue__Array* create_array(int size) {
             return il2cpp::array_new<app::ProductHeaderValue__Array>(get_class(), size);
         }
+        inline app::ProductHeaderValue__Array* create_array(const std::vector<app::ProductHeaderValue*>& items) {
+            return il2cpp::array_new<app::ProductHeaderValue__Array>(get_class(), items);
+        }
     } // namespace ProductHeaderValue
 } // namespace app::classes::types

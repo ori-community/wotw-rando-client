@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EntityBehaviourNode__Array* create_array(int size) {
             return il2cpp::array_new<app::EntityBehaviourNode__Array>(get_class(), size);
         }
+        inline app::EntityBehaviourNode__Array* create_array(const std::vector<app::EntityBehaviourNode*>& items) {
+            return il2cpp::array_new<app::EntityBehaviourNode__Array>(get_class(), items);
+        }
     } // namespace EntityBehaviourNode
 } // namespace app::classes::types

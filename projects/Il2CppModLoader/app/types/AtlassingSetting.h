@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::AtlassingSetting__Array* create_array(int size) {
             return il2cpp::array_new<app::AtlassingSetting__Array>(get_class(), size);
         }
+        inline app::AtlassingSetting__Array* create_array(const std::vector<app::AtlassingSetting__Boxed>& items) {
+            return il2cpp::array_new<app::AtlassingSetting__Array>(get_class(), items);
+        }
     } // namespace AtlassingSetting
 } // namespace app::classes::types

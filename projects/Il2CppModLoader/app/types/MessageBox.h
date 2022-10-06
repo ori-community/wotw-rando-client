@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::MessageBox__Array* create_array(int size) {
             return il2cpp::array_new<app::MessageBox__Array>(get_class(), size);
         }
+        inline app::MessageBox__Array* create_array(const std::vector<app::MessageBox*>& items) {
+            return il2cpp::array_new<app::MessageBox__Array>(get_class(), items);
+        }
     } // namespace MessageBox
 } // namespace app::classes::types

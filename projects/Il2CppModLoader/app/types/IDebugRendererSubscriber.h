@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IDebugRendererSubscriber__Array* create_array(int size) {
             return il2cpp::array_new<app::IDebugRendererSubscriber__Array>(get_class(), size);
         }
+        inline app::IDebugRendererSubscriber__Array* create_array(const std::vector<app::IDebugRendererSubscriber*>& items) {
+            return il2cpp::array_new<app::IDebugRendererSubscriber__Array>(get_class(), items);
+        }
     } // namespace IDebugRendererSubscriber
 } // namespace app::classes::types

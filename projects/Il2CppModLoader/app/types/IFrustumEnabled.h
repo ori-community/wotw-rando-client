@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IFrustumEnabled__Array* create_array(int size) {
             return il2cpp::array_new<app::IFrustumEnabled__Array>(get_class(), size);
         }
+        inline app::IFrustumEnabled__Array* create_array(const std::vector<app::IFrustumEnabled*>& items) {
+            return il2cpp::array_new<app::IFrustumEnabled__Array>(get_class(), items);
+        }
     } // namespace IFrustumEnabled
 } // namespace app::classes::types

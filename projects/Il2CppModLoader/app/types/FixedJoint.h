@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::FixedJoint__Array* create_array(int size) {
             return il2cpp::array_new<app::FixedJoint__Array>(get_class(), size);
         }
+        inline app::FixedJoint__Array* create_array(const std::vector<app::FixedJoint*>& items) {
+            return il2cpp::array_new<app::FixedJoint__Array>(get_class(), items);
+        }
     } // namespace FixedJoint
 } // namespace app::classes::types

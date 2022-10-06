@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Cookie__Array* create_array(int size) {
             return il2cpp::array_new<app::Cookie__Array>(get_class(), size);
         }
+        inline app::Cookie__Array* create_array(const std::vector<app::Cookie*>& items) {
+            return il2cpp::array_new<app::Cookie__Array>(get_class(), items);
+        }
     } // namespace Cookie
 } // namespace app::classes::types

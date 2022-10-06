@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::InstantiationHistory_PrefabData__Array* create_array(int size) {
             return il2cpp::array_new<app::InstantiationHistory_PrefabData__Array>(get_class(), size);
         }
+        inline app::InstantiationHistory_PrefabData__Array* create_array(const std::vector<app::InstantiationHistory_PrefabData*>& items) {
+            return il2cpp::array_new<app::InstantiationHistory_PrefabData__Array>(get_class(), items);
+        }
     } // namespace InstantiationHistory_PrefabData
 } // namespace app::classes::types

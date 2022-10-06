@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AttackTokens_Request__Array* create_array(int size) {
             return il2cpp::array_new<app::AttackTokens_Request__Array>(get_class(), size);
         }
+        inline app::AttackTokens_Request__Array* create_array(const std::vector<app::AttackTokens_Request__Boxed>& items) {
+            return il2cpp::array_new<app::AttackTokens_Request__Array>(get_class(), items);
+        }
     } // namespace AttackTokens_Request
 } // namespace app::classes::types

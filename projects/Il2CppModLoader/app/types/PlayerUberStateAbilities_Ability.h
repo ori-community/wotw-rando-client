@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::PlayerUberStateAbilities_Ability__Array* create_array(int size) {
             return il2cpp::array_new<app::PlayerUberStateAbilities_Ability__Array>(get_class(), size);
         }
+        inline app::PlayerUberStateAbilities_Ability__Array* create_array(const std::vector<app::PlayerUberStateAbilities_Ability*>& items) {
+            return il2cpp::array_new<app::PlayerUberStateAbilities_Ability__Array>(get_class(), items);
+        }
     } // namespace PlayerUberStateAbilities_Ability
 } // namespace app::classes::types

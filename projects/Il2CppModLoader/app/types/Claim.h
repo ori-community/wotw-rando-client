@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Claim__Array* create_array(int size) {
             return il2cpp::array_new<app::Claim__Array>(get_class(), size);
         }
+        inline app::Claim__Array* create_array(const std::vector<app::Claim*>& items) {
+            return il2cpp::array_new<app::Claim__Array>(get_class(), items);
+        }
     } // namespace Claim
 } // namespace app::classes::types

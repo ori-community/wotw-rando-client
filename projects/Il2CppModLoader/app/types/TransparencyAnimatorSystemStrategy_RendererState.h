@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::TransparencyAnimatorSystemStrategy_RendererState__Array* create_array(int size) {
             return il2cpp::array_new<app::TransparencyAnimatorSystemStrategy_RendererState__Array>(get_class(), size);
         }
+        inline app::TransparencyAnimatorSystemStrategy_RendererState__Array* create_array(const std::vector<app::TransparencyAnimatorSystemStrategy_RendererState*>& items) {
+            return il2cpp::array_new<app::TransparencyAnimatorSystemStrategy_RendererState__Array>(get_class(), items);
+        }
     } // namespace TransparencyAnimatorSystemStrategy_RendererState
 } // namespace app::classes::types

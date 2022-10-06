@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::CheckpointRestrictZone__Array* create_array(int size) {
             return il2cpp::array_new<app::CheckpointRestrictZone__Array>(get_class(), size);
         }
+        inline app::CheckpointRestrictZone__Array* create_array(const std::vector<app::CheckpointRestrictZone*>& items) {
+            return il2cpp::array_new<app::CheckpointRestrictZone__Array>(get_class(), items);
+        }
     } // namespace CheckpointRestrictZone
 } // namespace app::classes::types

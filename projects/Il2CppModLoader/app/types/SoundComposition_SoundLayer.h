@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SoundComposition_SoundLayer__Array* create_array(int size) {
             return il2cpp::array_new<app::SoundComposition_SoundLayer__Array>(get_class(), size);
         }
+        inline app::SoundComposition_SoundLayer__Array* create_array(const std::vector<app::SoundComposition_SoundLayer*>& items) {
+            return il2cpp::array_new<app::SoundComposition_SoundLayer__Array>(get_class(), items);
+        }
     } // namespace SoundComposition_SoundLayer
 } // namespace app::classes::types

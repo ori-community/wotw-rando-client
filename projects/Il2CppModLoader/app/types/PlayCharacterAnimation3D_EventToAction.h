@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PlayCharacterAnimation3D_EventToAction__Array* create_array(int size) {
             return il2cpp::array_new<app::PlayCharacterAnimation3D_EventToAction__Array>(get_class(), size);
         }
+        inline app::PlayCharacterAnimation3D_EventToAction__Array* create_array(const std::vector<app::PlayCharacterAnimation3D_EventToAction*>& items) {
+            return il2cpp::array_new<app::PlayCharacterAnimation3D_EventToAction__Array>(get_class(), items);
+        }
     } // namespace PlayCharacterAnimation3D_EventToAction
 } // namespace app::classes::types

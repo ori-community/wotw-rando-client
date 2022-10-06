@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::FOVConversionReport_Issue__Array* create_array(int size) {
             return il2cpp::array_new<app::FOVConversionReport_Issue__Array>(get_class(), size);
         }
+        inline app::FOVConversionReport_Issue__Array* create_array(const std::vector<app::FOVConversionReport_Issue*>& items) {
+            return il2cpp::array_new<app::FOVConversionReport_Issue__Array>(get_class(), items);
+        }
     } // namespace FOVConversionReport_Issue
 } // namespace app::classes::types

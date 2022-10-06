@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Timer__Array* create_array(int size) {
             return il2cpp::array_new<app::Timer__Array>(get_class(), size);
         }
+        inline app::Timer__Array* create_array(const std::vector<app::Timer*>& items) {
+            return il2cpp::array_new<app::Timer__Array>(get_class(), items);
+        }
     } // namespace Timer
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::WorldEventsOnAwake_WorldEventState__Array* create_array(int size) {
             return il2cpp::array_new<app::WorldEventsOnAwake_WorldEventState__Array>(get_class(), size);
         }
+        inline app::WorldEventsOnAwake_WorldEventState__Array* create_array(const std::vector<app::WorldEventsOnAwake_WorldEventState*>& items) {
+            return il2cpp::array_new<app::WorldEventsOnAwake_WorldEventState__Array>(get_class(), items);
+        }
     } // namespace WorldEventsOnAwake_WorldEventState
 } // namespace app::classes::types

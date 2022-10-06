@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AbilitiesData__Array* create_array(int size) {
             return il2cpp::array_new<app::AbilitiesData__Array>(get_class(), size);
         }
+        inline app::AbilitiesData__Array* create_array(const std::vector<app::AbilitiesData*>& items) {
+            return il2cpp::array_new<app::AbilitiesData__Array>(get_class(), items);
+        }
     } // namespace AbilitiesData
 } // namespace app::classes::types

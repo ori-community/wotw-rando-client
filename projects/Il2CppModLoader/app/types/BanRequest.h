@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::BanRequest__Array* create_array(int size) {
             return il2cpp::array_new<app::BanRequest__Array>(get_class(), size);
         }
+        inline app::BanRequest__Array* create_array(const std::vector<app::BanRequest*>& items) {
+            return il2cpp::array_new<app::BanRequest__Array>(get_class(), items);
+        }
     } // namespace BanRequest
 } // namespace app::classes::types

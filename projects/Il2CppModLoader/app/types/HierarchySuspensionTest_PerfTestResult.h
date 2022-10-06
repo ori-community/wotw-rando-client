@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::HierarchySuspensionTest_PerfTestResult__Array* create_array(int size) {
             return il2cpp::array_new<app::HierarchySuspensionTest_PerfTestResult__Array>(get_class(), size);
         }
+        inline app::HierarchySuspensionTest_PerfTestResult__Array* create_array(const std::vector<app::HierarchySuspensionTest_PerfTestResult*>& items) {
+            return il2cpp::array_new<app::HierarchySuspensionTest_PerfTestResult__Array>(get_class(), items);
+        }
     } // namespace HierarchySuspensionTest_PerfTestResult
 } // namespace app::classes::types

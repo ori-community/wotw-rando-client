@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::VisibleReflectionProbe__Array* create_array(int size) {
             return il2cpp::array_new<app::VisibleReflectionProbe__Array>(get_class(), size);
         }
+        inline app::VisibleReflectionProbe__Array* create_array(const std::vector<app::VisibleReflectionProbe__Boxed>& items) {
+            return il2cpp::array_new<app::VisibleReflectionProbe__Array>(get_class(), items);
+        }
     } // namespace VisibleReflectionProbe
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SceneSettingsTransitionZone__Array* create_array(int size) {
             return il2cpp::array_new<app::SceneSettingsTransitionZone__Array>(get_class(), size);
         }
+        inline app::SceneSettingsTransitionZone__Array* create_array(const std::vector<app::SceneSettingsTransitionZone*>& items) {
+            return il2cpp::array_new<app::SceneSettingsTransitionZone__Array>(get_class(), items);
+        }
     } // namespace SceneSettingsTransitionZone
 } // namespace app::classes::types

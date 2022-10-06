@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberStateVolitileOverrideAnimator__Array* create_array(int size) {
             return il2cpp::array_new<app::UberStateVolitileOverrideAnimator__Array>(get_class(), size);
         }
+        inline app::UberStateVolitileOverrideAnimator__Array* create_array(const std::vector<app::UberStateVolitileOverrideAnimator*>& items) {
+            return il2cpp::array_new<app::UberStateVolitileOverrideAnimator__Array>(get_class(), items);
+        }
     } // namespace UberStateVolitileOverrideAnimator
 } // namespace app::classes::types

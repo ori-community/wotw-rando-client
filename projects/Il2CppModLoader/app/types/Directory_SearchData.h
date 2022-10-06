@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::Directory_SearchData__Array* create_array(int size) {
             return il2cpp::array_new<app::Directory_SearchData__Array>(get_class(), size);
         }
+        inline app::Directory_SearchData__Array* create_array(const std::vector<app::Directory_SearchData*>& items) {
+            return il2cpp::array_new<app::Directory_SearchData__Array>(get_class(), items);
+        }
     } // namespace Directory_SearchData
 } // namespace app::classes::types

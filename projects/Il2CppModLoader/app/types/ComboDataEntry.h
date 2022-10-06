@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ComboDataEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::ComboDataEntry__Array>(get_class(), size);
         }
+        inline app::ComboDataEntry__Array* create_array(const std::vector<app::ComboDataEntry*>& items) {
+            return il2cpp::array_new<app::ComboDataEntry__Array>(get_class(), items);
+        }
     } // namespace ComboDataEntry
 } // namespace app::classes::types

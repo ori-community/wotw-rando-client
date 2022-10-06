@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::RunActionCondition__Array* create_array(int size) {
             return il2cpp::array_new<app::RunActionCondition__Array>(get_class(), size);
         }
+        inline app::RunActionCondition__Array* create_array(const std::vector<app::RunActionCondition*>& items) {
+            return il2cpp::array_new<app::RunActionCondition__Array>(get_class(), items);
+        }
     } // namespace RunActionCondition
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberGCLogic_GCLogicSettings_FaderOverrideAction__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::UberGCLogic_GCLogicSettings_FaderOverrideAction__Enum__Array>(get_class(), size);
         }
+        inline app::UberGCLogic_GCLogicSettings_FaderOverrideAction__Enum__Array* create_array(const std::vector<app::UberGCLogic_GCLogicSettings_FaderOverrideAction__Enum__Boxed*>& items) {
+            return il2cpp::array_new<app::UberGCLogic_GCLogicSettings_FaderOverrideAction__Enum__Array>(get_class(), items);
+        }
     } // namespace UberGCLogic_GCLogicSettings_FaderOverrideAction__Enum
 } // namespace app::classes::types

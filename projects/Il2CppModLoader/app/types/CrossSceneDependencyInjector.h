@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CrossSceneDependencyInjector__Array* create_array(int size) {
             return il2cpp::array_new<app::CrossSceneDependencyInjector__Array>(get_class(), size);
         }
+        inline app::CrossSceneDependencyInjector__Array* create_array(const std::vector<app::CrossSceneDependencyInjector*>& items) {
+            return il2cpp::array_new<app::CrossSceneDependencyInjector__Array>(get_class(), items);
+        }
     } // namespace CrossSceneDependencyInjector
 } // namespace app::classes::types

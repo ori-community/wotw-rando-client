@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::UberShaderBuildUpdate_WorldProjectionUpdateEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderBuildUpdate_WorldProjectionUpdateEntry__Array>(get_class(), size);
         }
+        inline app::UberShaderBuildUpdate_WorldProjectionUpdateEntry__Array* create_array(const std::vector<app::UberShaderBuildUpdate_WorldProjectionUpdateEntry*>& items) {
+            return il2cpp::array_new<app::UberShaderBuildUpdate_WorldProjectionUpdateEntry__Array>(get_class(), items);
+        }
     } // namespace UberShaderBuildUpdate_WorldProjectionUpdateEntry
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MeshRendererFrustrumOptimiser__Array* create_array(int size) {
             return il2cpp::array_new<app::MeshRendererFrustrumOptimiser__Array>(get_class(), size);
         }
+        inline app::MeshRendererFrustrumOptimiser__Array* create_array(const std::vector<app::MeshRendererFrustrumOptimiser*>& items) {
+            return il2cpp::array_new<app::MeshRendererFrustrumOptimiser__Array>(get_class(), items);
+        }
     } // namespace MeshRendererFrustrumOptimiser
 } // namespace app::classes::types

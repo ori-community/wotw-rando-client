@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RecordableObjectPuppet__Array* create_array(int size) {
             return il2cpp::array_new<app::RecordableObjectPuppet__Array>(get_class(), size);
         }
+        inline app::RecordableObjectPuppet__Array* create_array(const std::vector<app::RecordableObjectPuppet*>& items) {
+            return il2cpp::array_new<app::RecordableObjectPuppet__Array>(get_class(), items);
+        }
     } // namespace RecordableObjectPuppet
 } // namespace app::classes::types

@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::SeinNaruComboAnimator_AtlasAndSpriteTexture__Array* create_array(int size) {
             return il2cpp::array_new<app::SeinNaruComboAnimator_AtlasAndSpriteTexture__Array>(get_class(), size);
         }
+        inline app::SeinNaruComboAnimator_AtlasAndSpriteTexture__Array* create_array(const std::vector<app::SeinNaruComboAnimator_AtlasAndSpriteTexture__Boxed>& items) {
+            return il2cpp::array_new<app::SeinNaruComboAnimator_AtlasAndSpriteTexture__Array>(get_class(), items);
+        }
     } // namespace SeinNaruComboAnimator_AtlasAndSpriteTexture
 } // namespace app::classes::types

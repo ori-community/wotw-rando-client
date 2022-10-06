@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Char__Array* create_array(int size) {
             return il2cpp::array_new<app::Char__Array>(get_class(), size);
         }
+        inline app::Char__Array* create_array(const std::vector<app::Char__Boxed>& items) {
+            return il2cpp::array_new<app::Char__Array>(get_class(), items);
+        }
     } // namespace Char
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AttachToRope__Array* create_array(int size) {
             return il2cpp::array_new<app::AttachToRope__Array>(get_class(), size);
         }
+        inline app::AttachToRope__Array* create_array(const std::vector<app::AttachToRope*>& items) {
+            return il2cpp::array_new<app::AttachToRope__Array>(get_class(), items);
+        }
     } // namespace AttachToRope
 } // namespace app::classes::types

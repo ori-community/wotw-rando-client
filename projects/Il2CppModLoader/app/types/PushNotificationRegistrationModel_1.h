@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::PushNotificationRegistrationModel_1__Array* create_array(int size) {
             return il2cpp::array_new<app::PushNotificationRegistrationModel_1__Array>(get_class(), size);
         }
+        inline app::PushNotificationRegistrationModel_1__Array* create_array(const std::vector<app::PushNotificationRegistrationModel_1*>& items) {
+            return il2cpp::array_new<app::PushNotificationRegistrationModel_1__Array>(get_class(), items);
+        }
     } // namespace PushNotificationRegistrationModel_1
 } // namespace app::classes::types

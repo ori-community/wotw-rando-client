@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GameCertificateReference__Array* create_array(int size) {
             return il2cpp::array_new<app::GameCertificateReference__Array>(get_class(), size);
         }
+        inline app::GameCertificateReference__Array* create_array(const std::vector<app::GameCertificateReference*>& items) {
+            return il2cpp::array_new<app::GameCertificateReference__Array>(get_class(), items);
+        }
     } // namespace GameCertificateReference
 } // namespace app::classes::types

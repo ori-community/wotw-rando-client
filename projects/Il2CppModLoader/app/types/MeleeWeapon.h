@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MeleeWeapon__Array* create_array(int size) {
             return il2cpp::array_new<app::MeleeWeapon__Array>(get_class(), size);
         }
+        inline app::MeleeWeapon__Array* create_array(const std::vector<app::MeleeWeapon*>& items) {
+            return il2cpp::array_new<app::MeleeWeapon__Array>(get_class(), items);
+        }
     } // namespace MeleeWeapon
 } // namespace app::classes::types

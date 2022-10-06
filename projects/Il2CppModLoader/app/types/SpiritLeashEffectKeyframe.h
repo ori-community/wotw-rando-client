@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SpiritLeashEffectKeyframe__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiritLeashEffectKeyframe__Array>(get_class(), size);
         }
+        inline app::SpiritLeashEffectKeyframe__Array* create_array(const std::vector<app::SpiritLeashEffectKeyframe*>& items) {
+            return il2cpp::array_new<app::SpiritLeashEffectKeyframe__Array>(get_class(), items);
+        }
     } // namespace SpiritLeashEffectKeyframe
 } // namespace app::classes::types

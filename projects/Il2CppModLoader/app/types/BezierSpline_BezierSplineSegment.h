@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::BezierSpline_BezierSplineSegment__Array* create_array(int size) {
             return il2cpp::array_new<app::BezierSpline_BezierSplineSegment__Array>(get_class(), size);
         }
+        inline app::BezierSpline_BezierSplineSegment__Array* create_array(const std::vector<app::BezierSpline_BezierSplineSegment*>& items) {
+            return il2cpp::array_new<app::BezierSpline_BezierSplineSegment__Array>(get_class(), items);
+        }
     } // namespace BezierSpline_BezierSplineSegment
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::KwolokBossLocomotion_StepSoundInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::KwolokBossLocomotion_StepSoundInfo__Array>(get_class(), size);
         }
+        inline app::KwolokBossLocomotion_StepSoundInfo__Array* create_array(const std::vector<app::KwolokBossLocomotion_StepSoundInfo*>& items) {
+            return il2cpp::array_new<app::KwolokBossLocomotion_StepSoundInfo__Array>(get_class(), items);
+        }
     } // namespace KwolokBossLocomotion_StepSoundInfo
 } // namespace app::classes::types

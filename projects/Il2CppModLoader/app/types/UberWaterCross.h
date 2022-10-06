@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::UberWaterCross__Array* create_array(int size) {
             return il2cpp::array_new<app::UberWaterCross__Array>(get_class(), size);
         }
+        inline app::UberWaterCross__Array* create_array(const std::vector<app::UberWaterCross*>& items) {
+            return il2cpp::array_new<app::UberWaterCross__Array>(get_class(), items);
+        }
     } // namespace UberWaterCross
 } // namespace app::classes::types

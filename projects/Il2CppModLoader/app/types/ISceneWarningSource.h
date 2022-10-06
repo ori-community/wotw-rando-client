@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ISceneWarningSource__Array* create_array(int size) {
             return il2cpp::array_new<app::ISceneWarningSource__Array>(get_class(), size);
         }
+        inline app::ISceneWarningSource__Array* create_array(const std::vector<app::ISceneWarningSource*>& items) {
+            return il2cpp::array_new<app::ISceneWarningSource__Array>(get_class(), items);
+        }
     } // namespace ISceneWarningSource
 } // namespace app::classes::types

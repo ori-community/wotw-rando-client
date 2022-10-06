@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ArtKitVersionInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::ArtKitVersionInfo__Array>(get_class(), size);
         }
+        inline app::ArtKitVersionInfo__Array* create_array(const std::vector<app::ArtKitVersionInfo*>& items) {
+            return il2cpp::array_new<app::ArtKitVersionInfo__Array>(get_class(), items);
+        }
     } // namespace ArtKitVersionInfo
 } // namespace app::classes::types

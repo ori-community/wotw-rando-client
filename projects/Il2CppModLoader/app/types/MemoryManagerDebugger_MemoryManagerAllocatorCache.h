@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MemoryManagerDebugger_MemoryManagerAllocatorCache__Array* create_array(int size) {
             return il2cpp::array_new<app::MemoryManagerDebugger_MemoryManagerAllocatorCache__Array>(get_class(), size);
         }
+        inline app::MemoryManagerDebugger_MemoryManagerAllocatorCache__Array* create_array(const std::vector<app::MemoryManagerDebugger_MemoryManagerAllocatorCache*>& items) {
+            return il2cpp::array_new<app::MemoryManagerDebugger_MemoryManagerAllocatorCache__Array>(get_class(), items);
+        }
     } // namespace MemoryManagerDebugger_MemoryManagerAllocatorCache
 } // namespace app::classes::types

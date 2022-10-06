@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ParticleSystem__Array* create_array(int size) {
             return il2cpp::array_new<app::ParticleSystem__Array>(get_class(), size);
         }
+        inline app::ParticleSystem__Array* create_array(const std::vector<app::ParticleSystem*>& items) {
+            return il2cpp::array_new<app::ParticleSystem__Array>(get_class(), items);
+        }
     } // namespace ParticleSystem
 } // namespace app::classes::types

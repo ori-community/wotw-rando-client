@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::OrbSpawnerManager_ItemToSpawn__Array* create_array(int size) {
             return il2cpp::array_new<app::OrbSpawnerManager_ItemToSpawn__Array>(get_class(), size);
         }
+        inline app::OrbSpawnerManager_ItemToSpawn__Array* create_array(const std::vector<app::OrbSpawnerManager_ItemToSpawn__Boxed>& items) {
+            return il2cpp::array_new<app::OrbSpawnerManager_ItemToSpawn__Array>(get_class(), items);
+        }
     } // namespace OrbSpawnerManager_ItemToSpawn
 } // namespace app::classes::types

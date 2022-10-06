@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SinMovement_Affect__Array* create_array(int size) {
             return il2cpp::array_new<app::SinMovement_Affect__Array>(get_class(), size);
         }
+        inline app::SinMovement_Affect__Array* create_array(const std::vector<app::SinMovement_Affect*>& items) {
+            return il2cpp::array_new<app::SinMovement_Affect__Array>(get_class(), items);
+        }
     } // namespace SinMovement_Affect
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::ExceptionHandlingClause__Array* create_array(int size) {
             return il2cpp::array_new<app::ExceptionHandlingClause__Array>(get_class(), size);
         }
+        inline app::ExceptionHandlingClause__Array* create_array(const std::vector<app::ExceptionHandlingClause*>& items) {
+            return il2cpp::array_new<app::ExceptionHandlingClause__Array>(get_class(), items);
+        }
     } // namespace ExceptionHandlingClause
 } // namespace app::classes::types

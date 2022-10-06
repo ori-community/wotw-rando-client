@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::StatisticNameVersion__Array* create_array(int size) {
             return il2cpp::array_new<app::StatisticNameVersion__Array>(get_class(), size);
         }
+        inline app::StatisticNameVersion__Array* create_array(const std::vector<app::StatisticNameVersion*>& items) {
+            return il2cpp::array_new<app::StatisticNameVersion__Array>(get_class(), items);
+        }
     } // namespace StatisticNameVersion
 } // namespace app::classes::types

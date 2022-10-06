@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::Port__Array* create_array(int size) {
             return il2cpp::array_new<app::Port__Array>(get_class(), size);
         }
+        inline app::Port__Array* create_array(const std::vector<app::Port*>& items) {
+            return il2cpp::array_new<app::Port__Array>(get_class(), items);
+        }
     } // namespace Port
 } // namespace app::classes::types

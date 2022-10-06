@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::RecorderMessageData__Array* create_array(int size) {
             return il2cpp::array_new<app::RecorderMessageData__Array>(get_class(), size);
         }
+        inline app::RecorderMessageData__Array* create_array(const std::vector<app::RecorderMessageData*>& items) {
+            return il2cpp::array_new<app::RecorderMessageData__Array>(get_class(), items);
+        }
     } // namespace RecorderMessageData
 } // namespace app::classes::types

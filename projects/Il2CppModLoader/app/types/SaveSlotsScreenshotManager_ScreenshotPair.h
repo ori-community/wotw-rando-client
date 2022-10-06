@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SaveSlotsScreenshotManager_ScreenshotPair__Array* create_array(int size) {
             return il2cpp::array_new<app::SaveSlotsScreenshotManager_ScreenshotPair__Array>(get_class(), size);
         }
+        inline app::SaveSlotsScreenshotManager_ScreenshotPair__Array* create_array(const std::vector<app::SaveSlotsScreenshotManager_ScreenshotPair*>& items) {
+            return il2cpp::array_new<app::SaveSlotsScreenshotManager_ScreenshotPair__Array>(get_class(), items);
+        }
     } // namespace SaveSlotsScreenshotManager_ScreenshotPair
 } // namespace app::classes::types

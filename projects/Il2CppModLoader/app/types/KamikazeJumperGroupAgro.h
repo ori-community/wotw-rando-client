@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::KamikazeJumperGroupAgro__Array* create_array(int size) {
             return il2cpp::array_new<app::KamikazeJumperGroupAgro__Array>(get_class(), size);
         }
+        inline app::KamikazeJumperGroupAgro__Array* create_array(const std::vector<app::KamikazeJumperGroupAgro*>& items) {
+            return il2cpp::array_new<app::KamikazeJumperGroupAgro__Array>(get_class(), items);
+        }
     } // namespace KamikazeJumperGroupAgro
 } // namespace app::classes::types

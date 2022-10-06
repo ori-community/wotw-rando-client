@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SandWormEntity_SandWormBodyWave__Array* create_array(int size) {
             return il2cpp::array_new<app::SandWormEntity_SandWormBodyWave__Array>(get_class(), size);
         }
+        inline app::SandWormEntity_SandWormBodyWave__Array* create_array(const std::vector<app::SandWormEntity_SandWormBodyWave*>& items) {
+            return il2cpp::array_new<app::SandWormEntity_SandWormBodyWave__Array>(get_class(), items);
+        }
     } // namespace SandWormEntity_SandWormBodyWave
 } // namespace app::classes::types

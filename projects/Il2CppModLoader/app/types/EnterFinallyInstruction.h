@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::EnterFinallyInstruction__Array* create_array(int size) {
             return il2cpp::array_new<app::EnterFinallyInstruction__Array>(get_class(), size);
         }
+        inline app::EnterFinallyInstruction__Array* create_array(const std::vector<app::EnterFinallyInstruction*>& items) {
+            return il2cpp::array_new<app::EnterFinallyInstruction__Array>(get_class(), items);
+        }
     } // namespace EnterFinallyInstruction
 } // namespace app::classes::types

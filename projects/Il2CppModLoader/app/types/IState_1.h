@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IState_1__Array* create_array(int size) {
             return il2cpp::array_new<app::IState_1__Array>(get_class(), size);
         }
+        inline app::IState_1__Array* create_array(const std::vector<app::IState_1*>& items) {
+            return il2cpp::array_new<app::IState_1__Array>(get_class(), items);
+        }
     } // namespace IState_1
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonEffectGenericRevertibleData_MoonEffectRevertibleRendererData__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonEffectGenericRevertibleData_MoonEffectRevertibleRendererData__Array>(get_class(), size);
         }
+        inline app::MoonEffectGenericRevertibleData_MoonEffectRevertibleRendererData__Array* create_array(const std::vector<app::MoonEffectGenericRevertibleData_MoonEffectRevertibleRendererData*>& items) {
+            return il2cpp::array_new<app::MoonEffectGenericRevertibleData_MoonEffectRevertibleRendererData__Array>(get_class(), items);
+        }
     } // namespace MoonEffectGenericRevertibleData_MoonEffectRevertibleRendererData
 } // namespace app::classes::types

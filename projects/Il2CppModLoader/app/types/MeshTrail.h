@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MeshTrail__Array* create_array(int size) {
             return il2cpp::array_new<app::MeshTrail__Array>(get_class(), size);
         }
+        inline app::MeshTrail__Array* create_array(const std::vector<app::MeshTrail*>& items) {
+            return il2cpp::array_new<app::MeshTrail__Array>(get_class(), items);
+        }
     } // namespace MeshTrail
 } // namespace app::classes::types

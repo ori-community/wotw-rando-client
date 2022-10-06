@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::GetSegmentResult__Array* create_array(int size) {
             return il2cpp::array_new<app::GetSegmentResult__Array>(get_class(), size);
         }
+        inline app::GetSegmentResult__Array* create_array(const std::vector<app::GetSegmentResult*>& items) {
+            return il2cpp::array_new<app::GetSegmentResult__Array>(get_class(), items);
+        }
     } // namespace GetSegmentResult
 } // namespace app::classes::types

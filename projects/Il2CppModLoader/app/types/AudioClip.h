@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AudioClip__Array* create_array(int size) {
             return il2cpp::array_new<app::AudioClip__Array>(get_class(), size);
         }
+        inline app::AudioClip__Array* create_array(const std::vector<app::AudioClip*>& items) {
+            return il2cpp::array_new<app::AudioClip__Array>(get_class(), items);
+        }
     } // namespace AudioClip
 } // namespace app::classes::types

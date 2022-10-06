@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::HammerTrail_TrailPoint__Array* create_array(int size) {
             return il2cpp::array_new<app::HammerTrail_TrailPoint__Array>(get_class(), size);
         }
+        inline app::HammerTrail_TrailPoint__Array* create_array(const std::vector<app::HammerTrail_TrailPoint__Boxed>& items) {
+            return il2cpp::array_new<app::HammerTrail_TrailPoint__Array>(get_class(), items);
+        }
     } // namespace HammerTrail_TrailPoint
 } // namespace app::classes::types

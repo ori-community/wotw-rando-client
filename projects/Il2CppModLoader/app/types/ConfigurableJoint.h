@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ConfigurableJoint__Array* create_array(int size) {
             return il2cpp::array_new<app::ConfigurableJoint__Array>(get_class(), size);
         }
+        inline app::ConfigurableJoint__Array* create_array(const std::vector<app::ConfigurableJoint*>& items) {
+            return il2cpp::array_new<app::ConfigurableJoint__Array>(get_class(), items);
+        }
     } // namespace ConfigurableJoint
 } // namespace app::classes::types

@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::FileSet__Array* create_array(int size) {
             return il2cpp::array_new<app::FileSet__Array>(get_class(), size);
         }
+        inline app::FileSet__Array* create_array(const std::vector<app::FileSet*>& items) {
+            return il2cpp::array_new<app::FileSet__Array>(get_class(), items);
+        }
     } // namespace FileSet
 } // namespace app::classes::types

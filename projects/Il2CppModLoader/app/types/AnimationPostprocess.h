@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::AnimationPostprocess__Array* create_array(int size) {
             return il2cpp::array_new<app::AnimationPostprocess__Array>(get_class(), size);
         }
+        inline app::AnimationPostprocess__Array* create_array(const std::vector<app::AnimationPostprocess*>& items) {
+            return il2cpp::array_new<app::AnimationPostprocess__Array>(get_class(), items);
+        }
     } // namespace AnimationPostprocess
 } // namespace app::classes::types

@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::IKSolver_Bone__Array* create_array(int size) {
             return il2cpp::array_new<app::IKSolver_Bone__Array>(get_class(), size);
         }
+        inline app::IKSolver_Bone__Array* create_array(const std::vector<app::IKSolver_Bone*>& items) {
+            return il2cpp::array_new<app::IKSolver_Bone__Array>(get_class(), items);
+        }
     } // namespace IKSolver_Bone
 } // namespace app::classes::types

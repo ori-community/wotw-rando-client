@@ -20,5 +20,8 @@ namespace app::classes::types {
         inline app::BindingRestrictions_TestBuilder_AndNode__Array* create_array(int size) {
             return il2cpp::array_new<app::BindingRestrictions_TestBuilder_AndNode__Array>(get_class(), size);
         }
+        inline app::BindingRestrictions_TestBuilder_AndNode__Array* create_array(const std::vector<app::BindingRestrictions_TestBuilder_AndNode__Boxed>& items) {
+            return il2cpp::array_new<app::BindingRestrictions_TestBuilder_AndNode__Array>(get_class(), items);
+        }
     } // namespace BindingRestrictions_TestBuilder_AndNode
 } // namespace app::classes::types

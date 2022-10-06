@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AkBankManager_BankHandle__Array* create_array(int size) {
             return il2cpp::array_new<app::AkBankManager_BankHandle__Array>(get_class(), size);
         }
+        inline app::AkBankManager_BankHandle__Array* create_array(const std::vector<app::AkBankManager_BankHandle*>& items) {
+            return il2cpp::array_new<app::AkBankManager_BankHandle__Array>(get_class(), items);
+        }
     } // namespace AkBankManager_BankHandle
 } // namespace app::classes::types

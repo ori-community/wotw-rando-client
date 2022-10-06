@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SaveSerialize__Array* create_array(int size) {
             return il2cpp::array_new<app::SaveSerialize__Array>(get_class(), size);
         }
+        inline app::SaveSerialize__Array* create_array(const std::vector<app::SaveSerialize*>& items) {
+            return il2cpp::array_new<app::SaveSerialize__Array>(get_class(), items);
+        }
     } // namespace SaveSerialize
 } // namespace app::classes::types

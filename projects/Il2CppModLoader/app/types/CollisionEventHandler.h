@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CollisionEventHandler__Array* create_array(int size) {
             return il2cpp::array_new<app::CollisionEventHandler__Array>(get_class(), size);
         }
+        inline app::CollisionEventHandler__Array* create_array(const std::vector<app::CollisionEventHandler*>& items) {
+            return il2cpp::array_new<app::CollisionEventHandler__Array>(get_class(), items);
+        }
     } // namespace CollisionEventHandler
 } // namespace app::classes::types

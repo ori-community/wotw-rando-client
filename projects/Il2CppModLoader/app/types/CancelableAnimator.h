@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::CancelableAnimator__Array* create_array(int size) {
             return il2cpp::array_new<app::CancelableAnimator__Array>(get_class(), size);
         }
+        inline app::CancelableAnimator__Array* create_array(const std::vector<app::CancelableAnimator*>& items) {
+            return il2cpp::array_new<app::CancelableAnimator__Array>(get_class(), items);
+        }
     } // namespace CancelableAnimator
 } // namespace app::classes::types

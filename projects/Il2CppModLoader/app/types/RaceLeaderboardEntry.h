@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::RaceLeaderboardEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::RaceLeaderboardEntry__Array>(get_class(), size);
         }
+        inline app::RaceLeaderboardEntry__Array* create_array(const std::vector<app::RaceLeaderboardEntry*>& items) {
+            return il2cpp::array_new<app::RaceLeaderboardEntry__Array>(get_class(), items);
+        }
     } // namespace RaceLeaderboardEntry
 } // namespace app::classes::types

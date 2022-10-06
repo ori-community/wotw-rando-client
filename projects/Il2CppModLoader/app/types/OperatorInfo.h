@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::OperatorInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::OperatorInfo__Array>(get_class(), size);
         }
+        inline app::OperatorInfo__Array* create_array(const std::vector<app::OperatorInfo*>& items) {
+            return il2cpp::array_new<app::OperatorInfo__Array>(get_class(), items);
+        }
     } // namespace OperatorInfo
 } // namespace app::classes::types

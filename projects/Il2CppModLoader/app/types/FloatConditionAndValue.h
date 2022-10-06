@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::FloatConditionAndValue__Array* create_array(int size) {
             return il2cpp::array_new<app::FloatConditionAndValue__Array>(get_class(), size);
         }
+        inline app::FloatConditionAndValue__Array* create_array(const std::vector<app::FloatConditionAndValue*>& items) {
+            return il2cpp::array_new<app::FloatConditionAndValue__Array>(get_class(), items);
+        }
     } // namespace FloatConditionAndValue
 } // namespace app::classes::types

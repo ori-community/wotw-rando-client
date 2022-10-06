@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MapmakerItem__Array* create_array(int size) {
             return il2cpp::array_new<app::MapmakerItem__Array>(get_class(), size);
         }
+        inline app::MapmakerItem__Array* create_array(const std::vector<app::MapmakerItem*>& items) {
+            return il2cpp::array_new<app::MapmakerItem__Array>(get_class(), items);
+        }
     } // namespace MapmakerItem
 } // namespace app::classes::types

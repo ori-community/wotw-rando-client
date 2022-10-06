@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SoundHost__Array* create_array(int size) {
             return il2cpp::array_new<app::SoundHost__Array>(get_class(), size);
         }
+        inline app::SoundHost__Array* create_array(const std::vector<app::SoundHost*>& items) {
+            return il2cpp::array_new<app::SoundHost__Array>(get_class(), items);
+        }
     } // namespace SoundHost
 } // namespace app::classes::types

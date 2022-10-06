@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::SqlDecimal__Array* create_array(int size) {
             return il2cpp::array_new<app::SqlDecimal__Array>(get_class(), size);
         }
+        inline app::SqlDecimal__Array* create_array(const std::vector<app::SqlDecimal__Boxed>& items) {
+            return il2cpp::array_new<app::SqlDecimal__Array>(get_class(), items);
+        }
     } // namespace SqlDecimal
 } // namespace app::classes::types

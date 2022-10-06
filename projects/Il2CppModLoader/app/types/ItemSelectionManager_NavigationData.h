@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ItemSelectionManager_NavigationData__Array* create_array(int size) {
             return il2cpp::array_new<app::ItemSelectionManager_NavigationData__Array>(get_class(), size);
         }
+        inline app::ItemSelectionManager_NavigationData__Array* create_array(const std::vector<app::ItemSelectionManager_NavigationData*>& items) {
+            return il2cpp::array_new<app::ItemSelectionManager_NavigationData__Array>(get_class(), items);
+        }
     } // namespace ItemSelectionManager_NavigationData
 } // namespace app::classes::types

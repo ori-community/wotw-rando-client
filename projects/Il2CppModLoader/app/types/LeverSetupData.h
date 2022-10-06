@@ -17,5 +17,8 @@ namespace app::classes::types {
         inline app::LeverSetupData__Array* create_array(int size) {
             return il2cpp::array_new<app::LeverSetupData__Array>(get_class(), size);
         }
+        inline app::LeverSetupData__Array* create_array(const std::vector<app::LeverSetupData*>& items) {
+            return il2cpp::array_new<app::LeverSetupData__Array>(get_class(), items);
+        }
     } // namespace LeverSetupData
 } // namespace app::classes::types

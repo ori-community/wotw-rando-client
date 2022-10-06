@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::InteractionEffector__Array* create_array(int size) {
             return il2cpp::array_new<app::InteractionEffector__Array>(get_class(), size);
         }
+        inline app::InteractionEffector__Array* create_array(const std::vector<app::InteractionEffector*>& items) {
+            return il2cpp::array_new<app::InteractionEffector__Array>(get_class(), items);
+        }
     } // namespace InteractionEffector
 } // namespace app::classes::types

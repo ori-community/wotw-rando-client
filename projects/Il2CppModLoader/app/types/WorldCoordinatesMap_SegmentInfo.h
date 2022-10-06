@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::WorldCoordinatesMap_SegmentInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::WorldCoordinatesMap_SegmentInfo__Array>(get_class(), size);
         }
+        inline app::WorldCoordinatesMap_SegmentInfo__Array* create_array(const std::vector<app::WorldCoordinatesMap_SegmentInfo*>& items) {
+            return il2cpp::array_new<app::WorldCoordinatesMap_SegmentInfo__Array>(get_class(), items);
+        }
     } // namespace WorldCoordinatesMap_SegmentInfo
 } // namespace app::classes::types

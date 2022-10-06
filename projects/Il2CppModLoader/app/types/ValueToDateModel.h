@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::ValueToDateModel__Array* create_array(int size) {
             return il2cpp::array_new<app::ValueToDateModel__Array>(get_class(), size);
         }
+        inline app::ValueToDateModel__Array* create_array(const std::vector<app::ValueToDateModel*>& items) {
+            return il2cpp::array_new<app::ValueToDateModel__Array>(get_class(), items);
+        }
     } // namespace ValueToDateModel
 } // namespace app::classes::types

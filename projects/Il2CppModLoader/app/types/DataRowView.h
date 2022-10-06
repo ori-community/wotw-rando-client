@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::DataRowView__Array* create_array(int size) {
             return il2cpp::array_new<app::DataRowView__Array>(get_class(), size);
         }
+        inline app::DataRowView__Array* create_array(const std::vector<app::DataRowView*>& items) {
+            return il2cpp::array_new<app::DataRowView__Array>(get_class(), items);
+        }
     } // namespace DataRowView
 } // namespace app::classes::types

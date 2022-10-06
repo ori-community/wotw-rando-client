@@ -11,5 +11,8 @@ namespace app::classes::types {
         inline app::IFrustumOptimizable__Array* create_array(int size) {
             return il2cpp::array_new<app::IFrustumOptimizable__Array>(get_class(), size);
         }
+        inline app::IFrustumOptimizable__Array* create_array(const std::vector<app::IFrustumOptimizable*>& items) {
+            return il2cpp::array_new<app::IFrustumOptimizable__Array>(get_class(), items);
+        }
     } // namespace IFrustumOptimizable
 } // namespace app::classes::types

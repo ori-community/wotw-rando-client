@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::AnimationTransition__Array* create_array(int size) {
             return il2cpp::array_new<app::AnimationTransition__Array>(get_class(), size);
         }
+        inline app::AnimationTransition__Array* create_array(const std::vector<app::AnimationTransition*>& items) {
+            return il2cpp::array_new<app::AnimationTransition__Array>(get_class(), items);
+        }
     } // namespace AnimationTransition
 } // namespace app::classes::types

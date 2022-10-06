@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::SpiritLightCapsuleVisualAffector__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiritLightCapsuleVisualAffector__Array>(get_class(), size);
         }
+        inline app::SpiritLightCapsuleVisualAffector__Array* create_array(const std::vector<app::SpiritLightCapsuleVisualAffector*>& items) {
+            return il2cpp::array_new<app::SpiritLightCapsuleVisualAffector__Array>(get_class(), items);
+        }
     } // namespace SpiritLightCapsuleVisualAffector
 } // namespace app::classes::types

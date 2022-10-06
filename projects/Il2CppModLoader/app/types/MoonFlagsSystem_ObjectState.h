@@ -14,5 +14,8 @@ namespace app::classes::types {
         inline app::MoonFlagsSystem_ObjectState__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonFlagsSystem_ObjectState__Array>(get_class(), size);
         }
+        inline app::MoonFlagsSystem_ObjectState__Array* create_array(const std::vector<app::MoonFlagsSystem_ObjectState*>& items) {
+            return il2cpp::array_new<app::MoonFlagsSystem_ObjectState__Array>(get_class(), items);
+        }
     } // namespace MoonFlagsSystem_ObjectState
 } // namespace app::classes::types
