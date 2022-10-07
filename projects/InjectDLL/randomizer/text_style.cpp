@@ -132,7 +132,7 @@ namespace text_style {
             for (int i = 0; i < new_styles.size(); ++i)
                 arr->vector[i + styles->max_length] = new_styles.at(i);
 
-            box->fields.styleCollection->fields.styles = reinterpret_cast<app::TextStyle__Array*>(arr);
+            box->fields.styleCollection->fields.styles = arr;
             for (auto i = 0; i < box->fields.styleCollection->fields.styles->max_length; ++i)
                 auto name = il2cpp::convert_csstring(box->fields.styleCollection->fields.styles->vector[i]->fields.name);
         }

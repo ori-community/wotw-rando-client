@@ -213,7 +213,7 @@ namespace randomizer::textures {
         // TODO: Use UberShaderPrefabWarmer if we can figure out how to instantiate the List<Texture> class.
         auto holder = il2cpp::unity::add_component<app::SpiritShardUIShardBackdrop>(texture_holder, "", "SpiritShardUIShardBackdrop");
         il2cpp::invoke(holder, ".ctor");
-        holder->fields.Socket_0 = reinterpret_cast<app::Texture__Array*>(types::Texture::create_array(HOLDER_SIZE));
+        holder->fields.Socket_0 = types::Texture::create_array(HOLDER_SIZE);
         return texture_holder;
     }
 

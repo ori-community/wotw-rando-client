@@ -742,9 +742,7 @@ namespace {
 
     void check_and_initialize_filter_labels(app::AreaMapIconManager* icon_manager) {
         if (il2cpp::is_assignable(icon_manager, types::AreaMapIconManager::get_class()) && icon_manager->fields.Labels->max_length < static_cast<int>(NewFilters::COUNT)) {
-            auto arr = reinterpret_cast<app::AreaMapIconFilterFooterLabel__Array*>(
-                types::AreaMapIconFilterFooterLabel::create_array(static_cast<int>(NewFilters::COUNT))
-            );
+            auto arr = types::AreaMapIconFilterFooterLabel::create_array(static_cast<int>(NewFilters::COUNT));
 
             for (auto i = 0; i < static_cast<int>(app::AreaMapIconFilter__Enum::COUNT); ++i)
                 arr->vector[i] = icon_manager->fields.Labels->vector[i];
