@@ -14,7 +14,7 @@ namespace app::classes::types {
         inline app::WorldMapAreaState__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::WorldMapAreaState__Enum__Array>(get_class(), size);
         }
-        inline app::WorldMapAreaState__Enum__Array* create_array(const std::vector<app::WorldMapAreaState__Enum__Boxed*>& items) {
+        inline app::WorldMapAreaState__Enum__Array* create_array(const std::vector<app::WorldMapAreaState__Enum*>& items) {
             return il2cpp::array_new<app::WorldMapAreaState__Enum__Array>(get_class(), items);
         }
     } // namespace WorldMapAreaState__Enum

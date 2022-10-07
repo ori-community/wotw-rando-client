@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::RendererCullingCategoryParameters__Array* create_array(int size) {
             return il2cpp::array_new<app::RendererCullingCategoryParameters__Array>(get_class(), size);
         }
-        inline app::RendererCullingCategoryParameters__Array* create_array(const std::vector<app::RendererCullingCategoryParameters__Boxed>& items) {
+        inline app::RendererCullingCategoryParameters__Array* create_array(const std::vector<app::RendererCullingCategoryParameters>& items) {
             return il2cpp::array_new<app::RendererCullingCategoryParameters__Array>(get_class(), items);
         }
     } // namespace RendererCullingCategoryParameters

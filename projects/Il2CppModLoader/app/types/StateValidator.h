@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::StateValidator__Array* create_array(int size) {
             return il2cpp::array_new<app::StateValidator__Array>(get_class(), size);
         }
-        inline app::StateValidator__Array* create_array(const std::vector<app::StateValidator__Boxed>& items) {
+        inline app::StateValidator__Array* create_array(const std::vector<app::StateValidator>& items) {
             return il2cpp::array_new<app::StateValidator__Array>(get_class(), items);
         }
     } // namespace StateValidator

@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::UberShaderAnimatorStrategyExperimental_FloatValue__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderAnimatorStrategyExperimental_FloatValue__Array>(get_class(), size);
         }
-        inline app::UberShaderAnimatorStrategyExperimental_FloatValue__Array* create_array(const std::vector<app::UberShaderAnimatorStrategyExperimental_FloatValue__Boxed>& items) {
+        inline app::UberShaderAnimatorStrategyExperimental_FloatValue__Array* create_array(const std::vector<app::UberShaderAnimatorStrategyExperimental_FloatValue>& items) {
             return il2cpp::array_new<app::UberShaderAnimatorStrategyExperimental_FloatValue__Array>(get_class(), items);
         }
     } // namespace UberShaderAnimatorStrategyExperimental_FloatValue

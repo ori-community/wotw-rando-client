@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::NearbySceneData__Array* create_array(int size) {
             return il2cpp::array_new<app::NearbySceneData__Array>(get_class(), size);
         }
-        inline app::NearbySceneData__Array* create_array(const std::vector<app::NearbySceneData__Boxed>& items) {
+        inline app::NearbySceneData__Array* create_array(const std::vector<app::NearbySceneData>& items) {
             return il2cpp::array_new<app::NearbySceneData__Array>(get_class(), items);
         }
     } // namespace NearbySceneData

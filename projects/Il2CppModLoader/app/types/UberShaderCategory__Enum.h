@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::UberShaderCategory__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderCategory__Enum__Array>(get_class(), size);
         }
-        inline app::UberShaderCategory__Enum__Array* create_array(const std::vector<app::UberShaderCategory__Enum__Boxed*>& items) {
+        inline app::UberShaderCategory__Enum__Array* create_array(const std::vector<app::UberShaderCategory__Enum*>& items) {
             return il2cpp::array_new<app::UberShaderCategory__Enum__Array>(get_class(), items);
         }
     } // namespace UberShaderCategory__Enum

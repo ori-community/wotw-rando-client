@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::RendererCullingCategoryResults__Array* create_array(int size) {
             return il2cpp::array_new<app::RendererCullingCategoryResults__Array>(get_class(), size);
         }
-        inline app::RendererCullingCategoryResults__Array* create_array(const std::vector<app::RendererCullingCategoryResults__Boxed>& items) {
+        inline app::RendererCullingCategoryResults__Array* create_array(const std::vector<app::RendererCullingCategoryResults>& items) {
             return il2cpp::array_new<app::RendererCullingCategoryResults__Array>(get_class(), items);
         }
     } // namespace RendererCullingCategoryResults

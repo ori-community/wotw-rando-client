@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::GhostWorldObjectsLifetimePlugin_PendingInstantiation__Array* create_array(int size) {
             return il2cpp::array_new<app::GhostWorldObjectsLifetimePlugin_PendingInstantiation__Array>(get_class(), size);
         }
-        inline app::GhostWorldObjectsLifetimePlugin_PendingInstantiation__Array* create_array(const std::vector<app::GhostWorldObjectsLifetimePlugin_PendingInstantiation__Boxed>& items) {
+        inline app::GhostWorldObjectsLifetimePlugin_PendingInstantiation__Array* create_array(const std::vector<app::GhostWorldObjectsLifetimePlugin_PendingInstantiation>& items) {
             return il2cpp::array_new<app::GhostWorldObjectsLifetimePlugin_PendingInstantiation__Array>(get_class(), items);
         }
     } // namespace GhostWorldObjectsLifetimePlugin_PendingInstantiation

@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::Motion_FrameBlendingFilter_Frame__Array* create_array(int size) {
             return il2cpp::array_new<app::Motion_FrameBlendingFilter_Frame__Array>(get_class(), size);
         }
-        inline app::Motion_FrameBlendingFilter_Frame__Array* create_array(const std::vector<app::Motion_FrameBlendingFilter_Frame__Boxed>& items) {
+        inline app::Motion_FrameBlendingFilter_Frame__Array* create_array(const std::vector<app::Motion_FrameBlendingFilter_Frame>& items) {
             return il2cpp::array_new<app::Motion_FrameBlendingFilter_Frame__Array>(get_class(), items);
         }
     } // namespace Motion_FrameBlendingFilter_Frame

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::SpiritShardIconsCollection_Icons__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiritShardIconsCollection_Icons__Array>(get_class(), size);
         }
-        inline app::SpiritShardIconsCollection_Icons__Array* create_array(const std::vector<app::SpiritShardIconsCollection_Icons__Boxed>& items) {
+        inline app::SpiritShardIconsCollection_Icons__Array* create_array(const std::vector<app::SpiritShardIconsCollection_Icons>& items) {
             return il2cpp::array_new<app::SpiritShardIconsCollection_Icons__Array>(get_class(), items);
         }
     } // namespace SpiritShardIconsCollection_Icons

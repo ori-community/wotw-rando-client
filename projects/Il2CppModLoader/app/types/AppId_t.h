@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::AppId_t__Array* create_array(int size) {
             return il2cpp::array_new<app::AppId_t__Array>(get_class(), size);
         }
-        inline app::AppId_t__Array* create_array(const std::vector<app::AppId_t__Boxed>& items) {
+        inline app::AppId_t__Array* create_array(const std::vector<app::AppId_t>& items) {
             return il2cpp::array_new<app::AppId_t__Array>(get_class(), items);
         }
     } // namespace AppId_t

@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::UberShaderAtlasUtilities_TextureInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderAtlasUtilities_TextureInfo__Array>(get_class(), size);
         }
-        inline app::UberShaderAtlasUtilities_TextureInfo__Array* create_array(const std::vector<app::UberShaderAtlasUtilities_TextureInfo__Boxed>& items) {
+        inline app::UberShaderAtlasUtilities_TextureInfo__Array* create_array(const std::vector<app::UberShaderAtlasUtilities_TextureInfo>& items) {
             return il2cpp::array_new<app::UberShaderAtlasUtilities_TextureInfo__Array>(get_class(), items);
         }
     } // namespace UberShaderAtlasUtilities_TextureInfo

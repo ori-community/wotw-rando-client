@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::InterpretedFrameInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::InterpretedFrameInfo__Array>(get_class(), size);
         }
-        inline app::InterpretedFrameInfo__Array* create_array(const std::vector<app::InterpretedFrameInfo__Boxed>& items) {
+        inline app::InterpretedFrameInfo__Array* create_array(const std::vector<app::InterpretedFrameInfo>& items) {
             return il2cpp::array_new<app::InterpretedFrameInfo__Array>(get_class(), items);
         }
     } // namespace InterpretedFrameInfo

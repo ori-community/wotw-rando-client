@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::ConfigurableJointMotion__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::ConfigurableJointMotion__Enum__Array>(get_class(), size);
         }
-        inline app::ConfigurableJointMotion__Enum__Array* create_array(const std::vector<app::ConfigurableJointMotion__Enum__Boxed*>& items) {
+        inline app::ConfigurableJointMotion__Enum__Array* create_array(const std::vector<app::ConfigurableJointMotion__Enum*>& items) {
             return il2cpp::array_new<app::ConfigurableJointMotion__Enum__Array>(get_class(), items);
         }
     } // namespace ConfigurableJointMotion__Enum

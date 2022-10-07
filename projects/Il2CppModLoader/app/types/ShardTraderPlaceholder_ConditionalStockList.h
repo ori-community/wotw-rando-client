@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::ShardTraderPlaceholder_ConditionalStockList__Array* create_array(int size) {
             return il2cpp::array_new<app::ShardTraderPlaceholder_ConditionalStockList__Array>(get_class(), size);
         }
-        inline app::ShardTraderPlaceholder_ConditionalStockList__Array* create_array(const std::vector<app::ShardTraderPlaceholder_ConditionalStockList__Boxed>& items) {
+        inline app::ShardTraderPlaceholder_ConditionalStockList__Array* create_array(const std::vector<app::ShardTraderPlaceholder_ConditionalStockList>& items) {
             return il2cpp::array_new<app::ShardTraderPlaceholder_ConditionalStockList__Array>(get_class(), items);
         }
     } // namespace ShardTraderPlaceholder_ConditionalStockList

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::WeaponJoint__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::WeaponJoint__Enum__Array>(get_class(), size);
         }
-        inline app::WeaponJoint__Enum__Array* create_array(const std::vector<app::WeaponJoint__Enum__Boxed*>& items) {
+        inline app::WeaponJoint__Enum__Array* create_array(const std::vector<app::WeaponJoint__Enum*>& items) {
             return il2cpp::array_new<app::WeaponJoint__Enum__Array>(get_class(), items);
         }
     } // namespace WeaponJoint__Enum

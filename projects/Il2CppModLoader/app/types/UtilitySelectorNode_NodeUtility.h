@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::UtilitySelectorNode_NodeUtility__Array* create_array(int size) {
             return il2cpp::array_new<app::UtilitySelectorNode_NodeUtility__Array>(get_class(), size);
         }
-        inline app::UtilitySelectorNode_NodeUtility__Array* create_array(const std::vector<app::UtilitySelectorNode_NodeUtility__Boxed>& items) {
+        inline app::UtilitySelectorNode_NodeUtility__Array* create_array(const std::vector<app::UtilitySelectorNode_NodeUtility>& items) {
             return il2cpp::array_new<app::UtilitySelectorNode_NodeUtility__Array>(get_class(), items);
         }
     } // namespace UtilitySelectorNode_NodeUtility

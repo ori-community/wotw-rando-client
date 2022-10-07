@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::FXAA_Preset__Array* create_array(int size) {
             return il2cpp::array_new<app::FXAA_Preset__Array>(get_class(), size);
         }
-        inline app::FXAA_Preset__Array* create_array(const std::vector<app::FXAA_Preset__Boxed>& items) {
+        inline app::FXAA_Preset__Array* create_array(const std::vector<app::FXAA_Preset>& items) {
             return il2cpp::array_new<app::FXAA_Preset__Array>(get_class(), items);
         }
     } // namespace FXAA_Preset

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::ReadType__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::ReadType__Enum__Array>(get_class(), size);
         }
-        inline app::ReadType__Enum__Array* create_array(const std::vector<app::ReadType__Enum__Boxed*>& items) {
+        inline app::ReadType__Enum__Array* create_array(const std::vector<app::ReadType__Enum*>& items) {
             return il2cpp::array_new<app::ReadType__Enum__Array>(get_class(), items);
         }
     } // namespace ReadType__Enum

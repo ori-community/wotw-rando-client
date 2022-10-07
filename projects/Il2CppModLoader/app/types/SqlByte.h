@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::SqlByte__Array* create_array(int size) {
             return il2cpp::array_new<app::SqlByte__Array>(get_class(), size);
         }
-        inline app::SqlByte__Array* create_array(const std::vector<app::SqlByte__Boxed>& items) {
+        inline app::SqlByte__Array* create_array(const std::vector<app::SqlByte>& items) {
             return il2cpp::array_new<app::SqlByte__Array>(get_class(), items);
         }
     } // namespace SqlByte

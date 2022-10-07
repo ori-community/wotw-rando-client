@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::RuntimeLabel__Array* create_array(int size) {
             return il2cpp::array_new<app::RuntimeLabel__Array>(get_class(), size);
         }
-        inline app::RuntimeLabel__Array* create_array(const std::vector<app::RuntimeLabel__Boxed>& items) {
+        inline app::RuntimeLabel__Array* create_array(const std::vector<app::RuntimeLabel>& items) {
             return il2cpp::array_new<app::RuntimeLabel__Array>(get_class(), items);
         }
     } // namespace RuntimeLabel

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::BeforeRenderHelper_OrderBlock__Array* create_array(int size) {
             return il2cpp::array_new<app::BeforeRenderHelper_OrderBlock__Array>(get_class(), size);
         }
-        inline app::BeforeRenderHelper_OrderBlock__Array* create_array(const std::vector<app::BeforeRenderHelper_OrderBlock__Boxed>& items) {
+        inline app::BeforeRenderHelper_OrderBlock__Array* create_array(const std::vector<app::BeforeRenderHelper_OrderBlock>& items) {
             return il2cpp::array_new<app::BeforeRenderHelper_OrderBlock__Array>(get_class(), items);
         }
     } // namespace BeforeRenderHelper_OrderBlock

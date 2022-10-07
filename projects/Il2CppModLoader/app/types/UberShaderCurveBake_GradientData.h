@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::UberShaderCurveBake_GradientData__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderCurveBake_GradientData__Array>(get_class(), size);
         }
-        inline app::UberShaderCurveBake_GradientData__Array* create_array(const std::vector<app::UberShaderCurveBake_GradientData__Boxed>& items) {
+        inline app::UberShaderCurveBake_GradientData__Array* create_array(const std::vector<app::UberShaderCurveBake_GradientData>& items) {
             return il2cpp::array_new<app::UberShaderCurveBake_GradientData__Array>(get_class(), items);
         }
     } // namespace UberShaderCurveBake_GradientData

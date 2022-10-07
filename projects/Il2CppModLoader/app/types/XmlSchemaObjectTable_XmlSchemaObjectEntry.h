@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Array>(get_class(), size);
         }
-        inline app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Array* create_array(const std::vector<app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Boxed>& items) {
+        inline app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Array* create_array(const std::vector<app::XmlSchemaObjectTable_XmlSchemaObjectEntry>& items) {
             return il2cpp::array_new<app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Array>(get_class(), items);
         }
     } // namespace XmlSchemaObjectTable_XmlSchemaObjectEntry

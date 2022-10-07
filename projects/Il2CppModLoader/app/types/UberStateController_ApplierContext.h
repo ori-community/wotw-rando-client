@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::UberStateController_ApplierContext__Array* create_array(int size) {
             return il2cpp::array_new<app::UberStateController_ApplierContext__Array>(get_class(), size);
         }
-        inline app::UberStateController_ApplierContext__Array* create_array(const std::vector<app::UberStateController_ApplierContext__Boxed>& items) {
+        inline app::UberStateController_ApplierContext__Array* create_array(const std::vector<app::UberStateController_ApplierContext>& items) {
             return il2cpp::array_new<app::UberStateController_ApplierContext__Array>(get_class(), items);
         }
     } // namespace UberStateController_ApplierContext

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::ColorBlock__Array* create_array(int size) {
             return il2cpp::array_new<app::ColorBlock__Array>(get_class(), size);
         }
-        inline app::ColorBlock__Array* create_array(const std::vector<app::ColorBlock__Boxed>& items) {
+        inline app::ColorBlock__Array* create_array(const std::vector<app::ColorBlock>& items) {
             return il2cpp::array_new<app::ColorBlock__Array>(get_class(), items);
         }
     } // namespace ColorBlock

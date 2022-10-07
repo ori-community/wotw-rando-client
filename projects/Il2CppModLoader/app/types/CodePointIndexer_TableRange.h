@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::CodePointIndexer_TableRange__Array* create_array(int size) {
             return il2cpp::array_new<app::CodePointIndexer_TableRange__Array>(get_class(), size);
         }
-        inline app::CodePointIndexer_TableRange__Array* create_array(const std::vector<app::CodePointIndexer_TableRange__Boxed>& items) {
+        inline app::CodePointIndexer_TableRange__Array* create_array(const std::vector<app::CodePointIndexer_TableRange>& items) {
             return il2cpp::array_new<app::CodePointIndexer_TableRange__Array>(get_class(), items);
         }
     } // namespace CodePointIndexer_TableRange

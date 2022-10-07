@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::MoonAnimatorParallelUpdater_AnimatorState__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonAnimatorParallelUpdater_AnimatorState__Array>(get_class(), size);
         }
-        inline app::MoonAnimatorParallelUpdater_AnimatorState__Array* create_array(const std::vector<app::MoonAnimatorParallelUpdater_AnimatorState__Boxed>& items) {
+        inline app::MoonAnimatorParallelUpdater_AnimatorState__Array* create_array(const std::vector<app::MoonAnimatorParallelUpdater_AnimatorState>& items) {
             return il2cpp::array_new<app::MoonAnimatorParallelUpdater_AnimatorState__Array>(get_class(), items);
         }
     } // namespace MoonAnimatorParallelUpdater_AnimatorState

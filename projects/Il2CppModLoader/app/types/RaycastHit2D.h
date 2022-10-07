@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::RaycastHit2D__Array* create_array(int size) {
             return il2cpp::array_new<app::RaycastHit2D__Array>(get_class(), size);
         }
-        inline app::RaycastHit2D__Array* create_array(const std::vector<app::RaycastHit2D__Boxed>& items) {
+        inline app::RaycastHit2D__Array* create_array(const std::vector<app::RaycastHit2D>& items) {
             return il2cpp::array_new<app::RaycastHit2D__Array>(get_class(), items);
         }
     } // namespace RaycastHit2D

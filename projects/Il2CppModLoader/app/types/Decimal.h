@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::Decimal__Array* create_array(int size) {
             return il2cpp::array_new<app::Decimal__Array>(get_class(), size);
         }
-        inline app::Decimal__Array* create_array(const std::vector<app::Decimal__Boxed>& items) {
+        inline app::Decimal__Array* create_array(const std::vector<app::Decimal>& items) {
             return il2cpp::array_new<app::Decimal__Array>(get_class(), items);
         }
     } // namespace Decimal

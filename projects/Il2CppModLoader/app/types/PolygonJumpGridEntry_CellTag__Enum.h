@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::PolygonJumpGridEntry_CellTag__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::PolygonJumpGridEntry_CellTag__Enum__Array>(get_class(), size);
         }
-        inline app::PolygonJumpGridEntry_CellTag__Enum__Array* create_array(const std::vector<app::PolygonJumpGridEntry_CellTag__Enum__Boxed*>& items) {
+        inline app::PolygonJumpGridEntry_CellTag__Enum__Array* create_array(const std::vector<app::PolygonJumpGridEntry_CellTag__Enum*>& items) {
             return il2cpp::array_new<app::PolygonJumpGridEntry_CellTag__Enum__Array>(get_class(), items);
         }
     } // namespace PolygonJumpGridEntry_CellTag__Enum

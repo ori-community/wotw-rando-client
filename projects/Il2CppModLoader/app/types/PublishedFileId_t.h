@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::PublishedFileId_t__Array* create_array(int size) {
             return il2cpp::array_new<app::PublishedFileId_t__Array>(get_class(), size);
         }
-        inline app::PublishedFileId_t__Array* create_array(const std::vector<app::PublishedFileId_t__Boxed>& items) {
+        inline app::PublishedFileId_t__Array* create_array(const std::vector<app::PublishedFileId_t>& items) {
             return il2cpp::array_new<app::PublishedFileId_t__Array>(get_class(), items);
         }
     } // namespace PublishedFileId_t

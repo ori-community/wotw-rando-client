@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::XmlWellFormedWriter_ElementScope__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlWellFormedWriter_ElementScope__Array>(get_class(), size);
         }
-        inline app::XmlWellFormedWriter_ElementScope__Array* create_array(const std::vector<app::XmlWellFormedWriter_ElementScope__Boxed>& items) {
+        inline app::XmlWellFormedWriter_ElementScope__Array* create_array(const std::vector<app::XmlWellFormedWriter_ElementScope>& items) {
             return il2cpp::array_new<app::XmlWellFormedWriter_ElementScope__Array>(get_class(), items);
         }
     } // namespace XmlWellFormedWriter_ElementScope

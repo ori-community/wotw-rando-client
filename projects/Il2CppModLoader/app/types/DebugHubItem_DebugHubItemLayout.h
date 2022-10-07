@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::DebugHubItem_DebugHubItemLayout__Array* create_array(int size) {
             return il2cpp::array_new<app::DebugHubItem_DebugHubItemLayout__Array>(get_class(), size);
         }
-        inline app::DebugHubItem_DebugHubItemLayout__Array* create_array(const std::vector<app::DebugHubItem_DebugHubItemLayout__Boxed>& items) {
+        inline app::DebugHubItem_DebugHubItemLayout__Array* create_array(const std::vector<app::DebugHubItem_DebugHubItemLayout>& items) {
             return il2cpp::array_new<app::DebugHubItem_DebugHubItemLayout__Array>(get_class(), items);
         }
     } // namespace DebugHubItem_DebugHubItemLayout

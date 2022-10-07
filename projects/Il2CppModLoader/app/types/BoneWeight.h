@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::BoneWeight__Array* create_array(int size) {
             return il2cpp::array_new<app::BoneWeight__Array>(get_class(), size);
         }
-        inline app::BoneWeight__Array* create_array(const std::vector<app::BoneWeight__Boxed>& items) {
+        inline app::BoneWeight__Array* create_array(const std::vector<app::BoneWeight>& items) {
             return il2cpp::array_new<app::BoneWeight__Array>(get_class(), items);
         }
     } // namespace BoneWeight

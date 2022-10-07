@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::EntityWeightData_EntityWeightSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::EntityWeightData_EntityWeightSettings__Array>(get_class(), size);
         }
-        inline app::EntityWeightData_EntityWeightSettings__Array* create_array(const std::vector<app::EntityWeightData_EntityWeightSettings__Boxed>& items) {
+        inline app::EntityWeightData_EntityWeightSettings__Array* create_array(const std::vector<app::EntityWeightData_EntityWeightSettings>& items) {
             return il2cpp::array_new<app::EntityWeightData_EntityWeightSettings__Array>(get_class(), items);
         }
     } // namespace EntityWeightData_EntityWeightSettings

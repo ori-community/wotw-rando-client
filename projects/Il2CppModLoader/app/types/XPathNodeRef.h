@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::XPathNodeRef__Array* create_array(int size) {
             return il2cpp::array_new<app::XPathNodeRef__Array>(get_class(), size);
         }
-        inline app::XPathNodeRef__Array* create_array(const std::vector<app::XPathNodeRef__Boxed>& items) {
+        inline app::XPathNodeRef__Array* create_array(const std::vector<app::XPathNodeRef>& items) {
             return il2cpp::array_new<app::XPathNodeRef__Array>(get_class(), items);
         }
     } // namespace XPathNodeRef

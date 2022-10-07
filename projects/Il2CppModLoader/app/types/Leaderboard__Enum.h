@@ -14,7 +14,7 @@ namespace app::classes::types {
         inline app::Leaderboard__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::Leaderboard__Enum__Array>(get_class(), size);
         }
-        inline app::Leaderboard__Enum__Array* create_array(const std::vector<app::Leaderboard__Enum__Boxed*>& items) {
+        inline app::Leaderboard__Enum__Array* create_array(const std::vector<app::Leaderboard__Enum*>& items) {
             return il2cpp::array_new<app::Leaderboard__Enum__Array>(get_class(), items);
         }
     } // namespace Leaderboard__Enum

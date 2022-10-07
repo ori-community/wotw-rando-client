@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::CsvReader_Cell__Array* create_array(int size) {
             return il2cpp::array_new<app::CsvReader_Cell__Array>(get_class(), size);
         }
-        inline app::CsvReader_Cell__Array* create_array(const std::vector<app::CsvReader_Cell__Boxed>& items) {
+        inline app::CsvReader_Cell__Array* create_array(const std::vector<app::CsvReader_Cell>& items) {
             return il2cpp::array_new<app::CsvReader_Cell__Array>(get_class(), items);
         }
     } // namespace CsvReader_Cell

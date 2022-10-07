@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::UInt32__Array* create_array(int size) {
             return il2cpp::array_new<app::UInt32__Array>(get_class(), size);
         }
-        inline app::UInt32__Array* create_array(const std::vector<app::UInt32__Boxed>& items) {
+        inline app::UInt32__Array* create_array(const std::vector<app::UInt32>& items) {
             return il2cpp::array_new<app::UInt32__Array>(get_class(), items);
         }
     } // namespace UInt32

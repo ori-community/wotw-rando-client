@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::MoonTrail_SimulationFrameData__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonTrail_SimulationFrameData__Array>(get_class(), size);
         }
-        inline app::MoonTrail_SimulationFrameData__Array* create_array(const std::vector<app::MoonTrail_SimulationFrameData__Boxed>& items) {
+        inline app::MoonTrail_SimulationFrameData__Array* create_array(const std::vector<app::MoonTrail_SimulationFrameData>& items) {
             return il2cpp::array_new<app::MoonTrail_SimulationFrameData__Array>(get_class(), items);
         }
     } // namespace MoonTrail_SimulationFrameData

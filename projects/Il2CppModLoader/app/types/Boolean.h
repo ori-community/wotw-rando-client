@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::Boolean__Array* create_array(int size) {
             return il2cpp::array_new<app::Boolean__Array>(get_class(), size);
         }
-        inline app::Boolean__Array* create_array(const std::vector<app::Boolean__Boxed>& items) {
+        inline app::Boolean__Array* create_array(const std::vector<app::Boolean>& items) {
             return il2cpp::array_new<app::Boolean__Array>(get_class(), items);
         }
     } // namespace Boolean

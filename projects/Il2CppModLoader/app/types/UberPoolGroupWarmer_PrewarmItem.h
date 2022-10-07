@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::UberPoolGroupWarmer_PrewarmItem__Array* create_array(int size) {
             return il2cpp::array_new<app::UberPoolGroupWarmer_PrewarmItem__Array>(get_class(), size);
         }
-        inline app::UberPoolGroupWarmer_PrewarmItem__Array* create_array(const std::vector<app::UberPoolGroupWarmer_PrewarmItem__Boxed>& items) {
+        inline app::UberPoolGroupWarmer_PrewarmItem__Array* create_array(const std::vector<app::UberPoolGroupWarmer_PrewarmItem>& items) {
             return il2cpp::array_new<app::UberPoolGroupWarmer_PrewarmItem__Array>(get_class(), items);
         }
     } // namespace UberPoolGroupWarmer_PrewarmItem

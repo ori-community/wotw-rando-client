@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::Ray__Array* create_array(int size) {
             return il2cpp::array_new<app::Ray__Array>(get_class(), size);
         }
-        inline app::Ray__Array* create_array(const std::vector<app::Ray__Boxed>& items) {
+        inline app::Ray__Array* create_array(const std::vector<app::Ray>& items) {
             return il2cpp::array_new<app::Ray__Array>(get_class(), items);
         }
     } // namespace Ray

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::GameplaySoundManager_AudioQualitySetting__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::GameplaySoundManager_AudioQualitySetting__Enum__Array>(get_class(), size);
         }
-        inline app::GameplaySoundManager_AudioQualitySetting__Enum__Array* create_array(const std::vector<app::GameplaySoundManager_AudioQualitySetting__Enum__Boxed*>& items) {
+        inline app::GameplaySoundManager_AudioQualitySetting__Enum__Array* create_array(const std::vector<app::GameplaySoundManager_AudioQualitySetting__Enum*>& items) {
             return il2cpp::array_new<app::GameplaySoundManager_AudioQualitySetting__Enum__Array>(get_class(), items);
         }
     } // namespace GameplaySoundManager_AudioQualitySetting__Enum

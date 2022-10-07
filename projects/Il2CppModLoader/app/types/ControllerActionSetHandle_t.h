@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::ControllerActionSetHandle_t__Array* create_array(int size) {
             return il2cpp::array_new<app::ControllerActionSetHandle_t__Array>(get_class(), size);
         }
-        inline app::ControllerActionSetHandle_t__Array* create_array(const std::vector<app::ControllerActionSetHandle_t__Boxed>& items) {
+        inline app::ControllerActionSetHandle_t__Array* create_array(const std::vector<app::ControllerActionSetHandle_t>& items) {
             return il2cpp::array_new<app::ControllerActionSetHandle_t__Array>(get_class(), items);
         }
     } // namespace ControllerActionSetHandle_t

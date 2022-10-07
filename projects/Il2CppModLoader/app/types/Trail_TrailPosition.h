@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::Trail_TrailPosition__Array* create_array(int size) {
             return il2cpp::array_new<app::Trail_TrailPosition__Array>(get_class(), size);
         }
-        inline app::Trail_TrailPosition__Array* create_array(const std::vector<app::Trail_TrailPosition__Boxed>& items) {
+        inline app::Trail_TrailPosition__Array* create_array(const std::vector<app::Trail_TrailPosition>& items) {
             return il2cpp::array_new<app::Trail_TrailPosition__Array>(get_class(), items);
         }
     } // namespace Trail_TrailPosition

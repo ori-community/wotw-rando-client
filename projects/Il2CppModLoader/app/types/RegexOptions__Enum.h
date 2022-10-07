@@ -14,7 +14,7 @@ namespace app::classes::types {
         inline app::RegexOptions__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::RegexOptions__Enum__Array>(get_class(), size);
         }
-        inline app::RegexOptions__Enum__Array* create_array(const std::vector<app::RegexOptions__Enum__Boxed*>& items) {
+        inline app::RegexOptions__Enum__Array* create_array(const std::vector<app::RegexOptions__Enum*>& items) {
             return il2cpp::array_new<app::RegexOptions__Enum__Array>(get_class(), items);
         }
     } // namespace RegexOptions__Enum

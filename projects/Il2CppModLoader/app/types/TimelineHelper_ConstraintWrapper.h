@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::TimelineHelper_ConstraintWrapper__Array* create_array(int size) {
             return il2cpp::array_new<app::TimelineHelper_ConstraintWrapper__Array>(get_class(), size);
         }
-        inline app::TimelineHelper_ConstraintWrapper__Array* create_array(const std::vector<app::TimelineHelper_ConstraintWrapper__Boxed>& items) {
+        inline app::TimelineHelper_ConstraintWrapper__Array* create_array(const std::vector<app::TimelineHelper_ConstraintWrapper>& items) {
             return il2cpp::array_new<app::TimelineHelper_ConstraintWrapper__Array>(get_class(), items);
         }
     } // namespace TimelineHelper_ConstraintWrapper

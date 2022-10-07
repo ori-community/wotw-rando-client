@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::SeinSpiritSpearSpell_FlyingSpear__Array* create_array(int size) {
             return il2cpp::array_new<app::SeinSpiritSpearSpell_FlyingSpear__Array>(get_class(), size);
         }
-        inline app::SeinSpiritSpearSpell_FlyingSpear__Array* create_array(const std::vector<app::SeinSpiritSpearSpell_FlyingSpear__Boxed>& items) {
+        inline app::SeinSpiritSpearSpell_FlyingSpear__Array* create_array(const std::vector<app::SeinSpiritSpearSpell_FlyingSpear>& items) {
             return il2cpp::array_new<app::SeinSpiritSpearSpell_FlyingSpear__Array>(get_class(), items);
         }
     } // namespace SeinSpiritSpearSpell_FlyingSpear

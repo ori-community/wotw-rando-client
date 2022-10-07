@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::OneWayCapsuleCollider_ColliderEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::OneWayCapsuleCollider_ColliderEntry__Array>(get_class(), size);
         }
-        inline app::OneWayCapsuleCollider_ColliderEntry__Array* create_array(const std::vector<app::OneWayCapsuleCollider_ColliderEntry__Boxed>& items) {
+        inline app::OneWayCapsuleCollider_ColliderEntry__Array* create_array(const std::vector<app::OneWayCapsuleCollider_ColliderEntry>& items) {
             return il2cpp::array_new<app::OneWayCapsuleCollider_ColliderEntry__Array>(get_class(), items);
         }
     } // namespace OneWayCapsuleCollider_ColliderEntry

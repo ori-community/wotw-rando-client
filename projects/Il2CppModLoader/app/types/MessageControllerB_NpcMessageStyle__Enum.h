@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::MessageControllerB_NpcMessageStyle__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::MessageControllerB_NpcMessageStyle__Enum__Array>(get_class(), size);
         }
-        inline app::MessageControllerB_NpcMessageStyle__Enum__Array* create_array(const std::vector<app::MessageControllerB_NpcMessageStyle__Enum__Boxed*>& items) {
+        inline app::MessageControllerB_NpcMessageStyle__Enum__Array* create_array(const std::vector<app::MessageControllerB_NpcMessageStyle__Enum*>& items) {
             return il2cpp::array_new<app::MessageControllerB_NpcMessageStyle__Enum__Array>(get_class(), items);
         }
     } // namespace MessageControllerB_NpcMessageStyle__Enum

@@ -14,7 +14,7 @@ namespace app::classes::types {
         inline app::XboxOneController_Axis__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::XboxOneController_Axis__Enum__Array>(get_class(), size);
         }
-        inline app::XboxOneController_Axis__Enum__Array* create_array(const std::vector<app::XboxOneController_Axis__Enum__Boxed*>& items) {
+        inline app::XboxOneController_Axis__Enum__Array* create_array(const std::vector<app::XboxOneController_Axis__Enum*>& items) {
             return il2cpp::array_new<app::XboxOneController_Axis__Enum__Array>(get_class(), items);
         }
     } // namespace XboxOneController_Axis__Enum

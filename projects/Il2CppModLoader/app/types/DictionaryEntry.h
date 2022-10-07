@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::DictionaryEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::DictionaryEntry__Array>(get_class(), size);
         }
-        inline app::DictionaryEntry__Array* create_array(const std::vector<app::DictionaryEntry__Boxed>& items) {
+        inline app::DictionaryEntry__Array* create_array(const std::vector<app::DictionaryEntry>& items) {
             return il2cpp::array_new<app::DictionaryEntry__Array>(get_class(), items);
         }
     } // namespace DictionaryEntry

@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::VerletBodyIndexed_Point__Array* create_array(int size) {
             return il2cpp::array_new<app::VerletBodyIndexed_Point__Array>(get_class(), size);
         }
-        inline app::VerletBodyIndexed_Point__Array* create_array(const std::vector<app::VerletBodyIndexed_Point__Boxed>& items) {
+        inline app::VerletBodyIndexed_Point__Array* create_array(const std::vector<app::VerletBodyIndexed_Point>& items) {
             return il2cpp::array_new<app::VerletBodyIndexed_Point__Array>(get_class(), items);
         }
     } // namespace VerletBodyIndexed_Point

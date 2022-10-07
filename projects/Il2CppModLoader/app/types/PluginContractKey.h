@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::PluginContractKey__Array* create_array(int size) {
             return il2cpp::array_new<app::PluginContractKey__Array>(get_class(), size);
         }
-        inline app::PluginContractKey__Array* create_array(const std::vector<app::PluginContractKey__Boxed>& items) {
+        inline app::PluginContractKey__Array* create_array(const std::vector<app::PluginContractKey>& items) {
             return il2cpp::array_new<app::PluginContractKey__Array>(get_class(), items);
         }
     } // namespace PluginContractKey

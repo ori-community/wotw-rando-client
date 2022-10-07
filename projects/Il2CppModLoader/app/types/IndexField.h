@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::IndexField__Array* create_array(int size) {
             return il2cpp::array_new<app::IndexField__Array>(get_class(), size);
         }
-        inline app::IndexField__Array* create_array(const std::vector<app::IndexField__Boxed>& items) {
+        inline app::IndexField__Array* create_array(const std::vector<app::IndexField>& items) {
             return il2cpp::array_new<app::IndexField__Array>(get_class(), items);
         }
     } // namespace IndexField

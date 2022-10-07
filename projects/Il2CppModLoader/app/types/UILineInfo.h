@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::UILineInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::UILineInfo__Array>(get_class(), size);
         }
-        inline app::UILineInfo__Array* create_array(const std::vector<app::UILineInfo__Boxed>& items) {
+        inline app::UILineInfo__Array* create_array(const std::vector<app::UILineInfo>& items) {
             return il2cpp::array_new<app::UILineInfo__Array>(get_class(), items);
         }
     } // namespace UILineInfo

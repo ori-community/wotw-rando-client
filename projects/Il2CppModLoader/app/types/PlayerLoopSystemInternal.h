@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::PlayerLoopSystemInternal__Array* create_array(int size) {
             return il2cpp::array_new<app::PlayerLoopSystemInternal__Array>(get_class(), size);
         }
-        inline app::PlayerLoopSystemInternal__Array* create_array(const std::vector<app::PlayerLoopSystemInternal__Boxed>& items) {
+        inline app::PlayerLoopSystemInternal__Array* create_array(const std::vector<app::PlayerLoopSystemInternal>& items) {
             return il2cpp::array_new<app::PlayerLoopSystemInternal__Array>(get_class(), items);
         }
     } // namespace PlayerLoopSystemInternal

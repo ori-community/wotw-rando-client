@@ -14,7 +14,7 @@ namespace app::classes::types {
         inline app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum__Array>(get_class(), size);
         }
-        inline app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum__Array* create_array(const std::vector<app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum__Boxed*>& items) {
+        inline app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum__Array* create_array(const std::vector<app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum*>& items) {
             return il2cpp::array_new<app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum__Array>(get_class(), items);
         }
     } // namespace UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum

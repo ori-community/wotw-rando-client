@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::SequenceNode_SequenceConstructPosContext__Array* create_array(int size) {
             return il2cpp::array_new<app::SequenceNode_SequenceConstructPosContext__Array>(get_class(), size);
         }
-        inline app::SequenceNode_SequenceConstructPosContext__Array* create_array(const std::vector<app::SequenceNode_SequenceConstructPosContext__Boxed>& items) {
+        inline app::SequenceNode_SequenceConstructPosContext__Array* create_array(const std::vector<app::SequenceNode_SequenceConstructPosContext>& items) {
             return il2cpp::array_new<app::SequenceNode_SequenceConstructPosContext__Array>(get_class(), items);
         }
     } // namespace SequenceNode_SequenceConstructPosContext

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::BlockableLaser_ActivationTimeslicer_Request__Array* create_array(int size) {
             return il2cpp::array_new<app::BlockableLaser_ActivationTimeslicer_Request__Array>(get_class(), size);
         }
-        inline app::BlockableLaser_ActivationTimeslicer_Request__Array* create_array(const std::vector<app::BlockableLaser_ActivationTimeslicer_Request__Boxed>& items) {
+        inline app::BlockableLaser_ActivationTimeslicer_Request__Array* create_array(const std::vector<app::BlockableLaser_ActivationTimeslicer_Request>& items) {
             return il2cpp::array_new<app::BlockableLaser_ActivationTimeslicer_Request__Array>(get_class(), items);
         }
     } // namespace BlockableLaser_ActivationTimeslicer_Request

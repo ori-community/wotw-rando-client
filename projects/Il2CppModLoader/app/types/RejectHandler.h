@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::RejectHandler__Array* create_array(int size) {
             return il2cpp::array_new<app::RejectHandler__Array>(get_class(), size);
         }
-        inline app::RejectHandler__Array* create_array(const std::vector<app::RejectHandler__Boxed>& items) {
+        inline app::RejectHandler__Array* create_array(const std::vector<app::RejectHandler>& items) {
             return il2cpp::array_new<app::RejectHandler__Array>(get_class(), items);
         }
     } // namespace RejectHandler

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Array* create_array(int size) {
             return il2cpp::array_new<app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Array>(get_class(), size);
         }
-        inline app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Array* create_array(const std::vector<app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Boxed>& items) {
+        inline app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Array* create_array(const std::vector<app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData>& items) {
             return il2cpp::array_new<app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Array>(get_class(), items);
         }
     } // namespace LightCanvasEditorTextureCache_LightCanvasEditorTextureData

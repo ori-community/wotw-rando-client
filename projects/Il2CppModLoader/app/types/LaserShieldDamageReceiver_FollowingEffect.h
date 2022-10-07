@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::LaserShieldDamageReceiver_FollowingEffect__Array* create_array(int size) {
             return il2cpp::array_new<app::LaserShieldDamageReceiver_FollowingEffect__Array>(get_class(), size);
         }
-        inline app::LaserShieldDamageReceiver_FollowingEffect__Array* create_array(const std::vector<app::LaserShieldDamageReceiver_FollowingEffect__Boxed>& items) {
+        inline app::LaserShieldDamageReceiver_FollowingEffect__Array* create_array(const std::vector<app::LaserShieldDamageReceiver_FollowingEffect>& items) {
             return il2cpp::array_new<app::LaserShieldDamageReceiver_FollowingEffect__Array>(get_class(), items);
         }
     } // namespace LaserShieldDamageReceiver_FollowingEffect

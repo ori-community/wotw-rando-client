@@ -14,7 +14,7 @@ namespace app::classes::types {
         inline app::RenderTextureFormat__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::RenderTextureFormat__Enum__Array>(get_class(), size);
         }
-        inline app::RenderTextureFormat__Enum__Array* create_array(const std::vector<app::RenderTextureFormat__Enum__Boxed*>& items) {
+        inline app::RenderTextureFormat__Enum__Array* create_array(const std::vector<app::RenderTextureFormat__Enum*>& items) {
             return il2cpp::array_new<app::RenderTextureFormat__Enum__Array>(get_class(), items);
         }
     } // namespace RenderTextureFormat__Enum

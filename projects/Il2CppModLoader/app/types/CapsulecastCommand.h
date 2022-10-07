@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::CapsulecastCommand__Array* create_array(int size) {
             return il2cpp::array_new<app::CapsulecastCommand__Array>(get_class(), size);
         }
-        inline app::CapsulecastCommand__Array* create_array(const std::vector<app::CapsulecastCommand__Boxed>& items) {
+        inline app::CapsulecastCommand__Array* create_array(const std::vector<app::CapsulecastCommand>& items) {
             return il2cpp::array_new<app::CapsulecastCommand__Array>(get_class(), items);
         }
     } // namespace CapsulecastCommand

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::XboxOneStatistics_StatisticReading__Array* create_array(int size) {
             return il2cpp::array_new<app::XboxOneStatistics_StatisticReading__Array>(get_class(), size);
         }
-        inline app::XboxOneStatistics_StatisticReading__Array* create_array(const std::vector<app::XboxOneStatistics_StatisticReading__Boxed>& items) {
+        inline app::XboxOneStatistics_StatisticReading__Array* create_array(const std::vector<app::XboxOneStatistics_StatisticReading>& items) {
             return il2cpp::array_new<app::XboxOneStatistics_StatisticReading__Array>(get_class(), items);
         }
     } // namespace XboxOneStatistics_StatisticReading

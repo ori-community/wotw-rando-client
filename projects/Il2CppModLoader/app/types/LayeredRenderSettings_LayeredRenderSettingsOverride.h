@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::LayeredRenderSettings_LayeredRenderSettingsOverride__Array* create_array(int size) {
             return il2cpp::array_new<app::LayeredRenderSettings_LayeredRenderSettingsOverride__Array>(get_class(), size);
         }
-        inline app::LayeredRenderSettings_LayeredRenderSettingsOverride__Array* create_array(const std::vector<app::LayeredRenderSettings_LayeredRenderSettingsOverride__Boxed>& items) {
+        inline app::LayeredRenderSettings_LayeredRenderSettingsOverride__Array* create_array(const std::vector<app::LayeredRenderSettings_LayeredRenderSettingsOverride>& items) {
             return il2cpp::array_new<app::LayeredRenderSettings_LayeredRenderSettingsOverride__Array>(get_class(), items);
         }
     } // namespace LayeredRenderSettings_LayeredRenderSettingsOverride

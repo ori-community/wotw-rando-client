@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::SpiritTurret_AttackableRayHandle__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiritTurret_AttackableRayHandle__Array>(get_class(), size);
         }
-        inline app::SpiritTurret_AttackableRayHandle__Array* create_array(const std::vector<app::SpiritTurret_AttackableRayHandle__Boxed>& items) {
+        inline app::SpiritTurret_AttackableRayHandle__Array* create_array(const std::vector<app::SpiritTurret_AttackableRayHandle>& items) {
             return il2cpp::array_new<app::SpiritTurret_AttackableRayHandle__Array>(get_class(), items);
         }
     } // namespace SpiritTurret_AttackableRayHandle

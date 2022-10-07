@@ -14,7 +14,7 @@ namespace app::classes::types {
         inline app::KeyCode__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::KeyCode__Enum__Array>(get_class(), size);
         }
-        inline app::KeyCode__Enum__Array* create_array(const std::vector<app::KeyCode__Enum__Boxed*>& items) {
+        inline app::KeyCode__Enum__Array* create_array(const std::vector<app::KeyCode__Enum*>& items) {
             return il2cpp::array_new<app::KeyCode__Enum__Array>(get_class(), items);
         }
     } // namespace KeyCode__Enum

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::TentacleStabBehaviour_TentacleAttack__Array* create_array(int size) {
             return il2cpp::array_new<app::TentacleStabBehaviour_TentacleAttack__Array>(get_class(), size);
         }
-        inline app::TentacleStabBehaviour_TentacleAttack__Array* create_array(const std::vector<app::TentacleStabBehaviour_TentacleAttack__Boxed>& items) {
+        inline app::TentacleStabBehaviour_TentacleAttack__Array* create_array(const std::vector<app::TentacleStabBehaviour_TentacleAttack>& items) {
             return il2cpp::array_new<app::TentacleStabBehaviour_TentacleAttack__Array>(get_class(), items);
         }
     } // namespace TentacleStabBehaviour_TentacleAttack

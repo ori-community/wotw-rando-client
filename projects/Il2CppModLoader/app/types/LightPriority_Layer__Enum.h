@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::LightPriority_Layer__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::LightPriority_Layer__Enum__Array>(get_class(), size);
         }
-        inline app::LightPriority_Layer__Enum__Array* create_array(const std::vector<app::LightPriority_Layer__Enum__Boxed*>& items) {
+        inline app::LightPriority_Layer__Enum__Array* create_array(const std::vector<app::LightPriority_Layer__Enum*>& items) {
             return il2cpp::array_new<app::LightPriority_Layer__Enum__Array>(get_class(), items);
         }
     } // namespace LightPriority_Layer__Enum

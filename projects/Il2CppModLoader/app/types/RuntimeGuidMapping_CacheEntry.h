@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::RuntimeGuidMapping_CacheEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::RuntimeGuidMapping_CacheEntry__Array>(get_class(), size);
         }
-        inline app::RuntimeGuidMapping_CacheEntry__Array* create_array(const std::vector<app::RuntimeGuidMapping_CacheEntry__Boxed>& items) {
+        inline app::RuntimeGuidMapping_CacheEntry__Array* create_array(const std::vector<app::RuntimeGuidMapping_CacheEntry>& items) {
             return il2cpp::array_new<app::RuntimeGuidMapping_CacheEntry__Array>(get_class(), items);
         }
     } // namespace RuntimeGuidMapping_CacheEntry

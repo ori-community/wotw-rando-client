@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::DeltaTimeManager_ControllerType__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::DeltaTimeManager_ControllerType__Enum__Array>(get_class(), size);
         }
-        inline app::DeltaTimeManager_ControllerType__Enum__Array* create_array(const std::vector<app::DeltaTimeManager_ControllerType__Enum__Boxed*>& items) {
+        inline app::DeltaTimeManager_ControllerType__Enum__Array* create_array(const std::vector<app::DeltaTimeManager_ControllerType__Enum*>& items) {
             return il2cpp::array_new<app::DeltaTimeManager_ControllerType__Enum__Array>(get_class(), items);
         }
     } // namespace DeltaTimeManager_ControllerType__Enum

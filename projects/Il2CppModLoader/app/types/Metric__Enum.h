@@ -14,7 +14,7 @@ namespace app::classes::types {
         inline app::Metric__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::Metric__Enum__Array>(get_class(), size);
         }
-        inline app::Metric__Enum__Array* create_array(const std::vector<app::Metric__Enum__Boxed*>& items) {
+        inline app::Metric__Enum__Array* create_array(const std::vector<app::Metric__Enum*>& items) {
             return il2cpp::array_new<app::Metric__Enum__Array>(get_class(), items);
         }
     } // namespace Metric__Enum

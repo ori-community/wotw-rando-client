@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::InventoryScreenPickupElements_UberStateToElement__Array* create_array(int size) {
             return il2cpp::array_new<app::InventoryScreenPickupElements_UberStateToElement__Array>(get_class(), size);
         }
-        inline app::InventoryScreenPickupElements_UberStateToElement__Array* create_array(const std::vector<app::InventoryScreenPickupElements_UberStateToElement__Boxed>& items) {
+        inline app::InventoryScreenPickupElements_UberStateToElement__Array* create_array(const std::vector<app::InventoryScreenPickupElements_UberStateToElement>& items) {
             return il2cpp::array_new<app::InventoryScreenPickupElements_UberStateToElement__Array>(get_class(), items);
         }
     } // namespace InventoryScreenPickupElements_UberStateToElement

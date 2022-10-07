@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::UberShaderPrewarmer_PrewarmedShader__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderPrewarmer_PrewarmedShader__Array>(get_class(), size);
         }
-        inline app::UberShaderPrewarmer_PrewarmedShader__Array* create_array(const std::vector<app::UberShaderPrewarmer_PrewarmedShader__Boxed>& items) {
+        inline app::UberShaderPrewarmer_PrewarmedShader__Array* create_array(const std::vector<app::UberShaderPrewarmer_PrewarmedShader>& items) {
             return il2cpp::array_new<app::UberShaderPrewarmer_PrewarmedShader__Array>(get_class(), items);
         }
     } // namespace UberShaderPrewarmer_PrewarmedShader

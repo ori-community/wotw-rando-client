@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::CookieTokenizer_RecognizedAttribute__Array* create_array(int size) {
             return il2cpp::array_new<app::CookieTokenizer_RecognizedAttribute__Array>(get_class(), size);
         }
-        inline app::CookieTokenizer_RecognizedAttribute__Array* create_array(const std::vector<app::CookieTokenizer_RecognizedAttribute__Boxed>& items) {
+        inline app::CookieTokenizer_RecognizedAttribute__Array* create_array(const std::vector<app::CookieTokenizer_RecognizedAttribute>& items) {
             return il2cpp::array_new<app::CookieTokenizer_RecognizedAttribute__Array>(get_class(), items);
         }
     } // namespace CookieTokenizer_RecognizedAttribute

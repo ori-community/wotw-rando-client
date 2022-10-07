@@ -14,7 +14,7 @@ namespace app::classes::types {
         inline app::Int32Enum__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::Int32Enum__Enum__Array>(get_class(), size);
         }
-        inline app::Int32Enum__Enum__Array* create_array(const std::vector<app::Int32Enum__Enum__Boxed*>& items) {
+        inline app::Int32Enum__Enum__Array* create_array(const std::vector<app::Int32Enum__Enum*>& items) {
             return il2cpp::array_new<app::Int32Enum__Enum__Array>(get_class(), items);
         }
     } // namespace Int32Enum__Enum

@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::AreaMapIcon_AttentionMarkerActiveCondition__Array* create_array(int size) {
             return il2cpp::array_new<app::AreaMapIcon_AttentionMarkerActiveCondition__Array>(get_class(), size);
         }
-        inline app::AreaMapIcon_AttentionMarkerActiveCondition__Array* create_array(const std::vector<app::AreaMapIcon_AttentionMarkerActiveCondition__Boxed>& items) {
+        inline app::AreaMapIcon_AttentionMarkerActiveCondition__Array* create_array(const std::vector<app::AreaMapIcon_AttentionMarkerActiveCondition>& items) {
             return il2cpp::array_new<app::AreaMapIcon_AttentionMarkerActiveCondition__Array>(get_class(), items);
         }
     } // namespace AreaMapIcon_AttentionMarkerActiveCondition

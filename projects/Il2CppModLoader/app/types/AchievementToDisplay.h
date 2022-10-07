@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::AchievementToDisplay__Array* create_array(int size) {
             return il2cpp::array_new<app::AchievementToDisplay__Array>(get_class(), size);
         }
-        inline app::AchievementToDisplay__Array* create_array(const std::vector<app::AchievementToDisplay__Boxed>& items) {
+        inline app::AchievementToDisplay__Array* create_array(const std::vector<app::AchievementToDisplay>& items) {
             return il2cpp::array_new<app::AchievementToDisplay__Array>(get_class(), items);
         }
     } // namespace AchievementToDisplay

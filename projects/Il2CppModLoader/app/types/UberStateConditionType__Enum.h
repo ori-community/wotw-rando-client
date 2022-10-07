@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::UberStateConditionType__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::UberStateConditionType__Enum__Array>(get_class(), size);
         }
-        inline app::UberStateConditionType__Enum__Array* create_array(const std::vector<app::UberStateConditionType__Enum__Boxed*>& items) {
+        inline app::UberStateConditionType__Enum__Array* create_array(const std::vector<app::UberStateConditionType__Enum*>& items) {
             return il2cpp::array_new<app::UberStateConditionType__Enum__Array>(get_class(), items);
         }
     } // namespace UberStateConditionType__Enum

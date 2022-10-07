@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::RegexCharClass_LowerCaseMapping__Array* create_array(int size) {
             return il2cpp::array_new<app::RegexCharClass_LowerCaseMapping__Array>(get_class(), size);
         }
-        inline app::RegexCharClass_LowerCaseMapping__Array* create_array(const std::vector<app::RegexCharClass_LowerCaseMapping__Boxed>& items) {
+        inline app::RegexCharClass_LowerCaseMapping__Array* create_array(const std::vector<app::RegexCharClass_LowerCaseMapping>& items) {
             return il2cpp::array_new<app::RegexCharClass_LowerCaseMapping__Array>(get_class(), items);
         }
     } // namespace RegexCharClass_LowerCaseMapping

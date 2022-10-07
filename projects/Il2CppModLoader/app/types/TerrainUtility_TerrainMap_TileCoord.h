@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::TerrainUtility_TerrainMap_TileCoord__Array* create_array(int size) {
             return il2cpp::array_new<app::TerrainUtility_TerrainMap_TileCoord__Array>(get_class(), size);
         }
-        inline app::TerrainUtility_TerrainMap_TileCoord__Array* create_array(const std::vector<app::TerrainUtility_TerrainMap_TileCoord__Boxed>& items) {
+        inline app::TerrainUtility_TerrainMap_TileCoord__Array* create_array(const std::vector<app::TerrainUtility_TerrainMap_TileCoord>& items) {
             return il2cpp::array_new<app::TerrainUtility_TerrainMap_TileCoord__Array>(get_class(), items);
         }
     } // namespace TerrainUtility_TerrainMap_TileCoord

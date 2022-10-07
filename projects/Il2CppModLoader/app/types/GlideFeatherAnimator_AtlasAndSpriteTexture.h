@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::GlideFeatherAnimator_AtlasAndSpriteTexture__Array* create_array(int size) {
             return il2cpp::array_new<app::GlideFeatherAnimator_AtlasAndSpriteTexture__Array>(get_class(), size);
         }
-        inline app::GlideFeatherAnimator_AtlasAndSpriteTexture__Array* create_array(const std::vector<app::GlideFeatherAnimator_AtlasAndSpriteTexture__Boxed>& items) {
+        inline app::GlideFeatherAnimator_AtlasAndSpriteTexture__Array* create_array(const std::vector<app::GlideFeatherAnimator_AtlasAndSpriteTexture>& items) {
             return il2cpp::array_new<app::GlideFeatherAnimator_AtlasAndSpriteTexture__Array>(get_class(), items);
         }
     } // namespace GlideFeatherAnimator_AtlasAndSpriteTexture

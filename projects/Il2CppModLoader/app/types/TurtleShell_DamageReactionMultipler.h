@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::TurtleShell_DamageReactionMultipler__Array* create_array(int size) {
             return il2cpp::array_new<app::TurtleShell_DamageReactionMultipler__Array>(get_class(), size);
         }
-        inline app::TurtleShell_DamageReactionMultipler__Array* create_array(const std::vector<app::TurtleShell_DamageReactionMultipler__Boxed>& items) {
+        inline app::TurtleShell_DamageReactionMultipler__Array* create_array(const std::vector<app::TurtleShell_DamageReactionMultipler>& items) {
             return il2cpp::array_new<app::TurtleShell_DamageReactionMultipler__Array>(get_class(), items);
         }
     } // namespace TurtleShell_DamageReactionMultipler

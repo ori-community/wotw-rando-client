@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::AzureRegion__Enum_1__Array* create_array(int size) {
             return il2cpp::array_new<app::AzureRegion__Enum_1__Array>(get_class(), size);
         }
-        inline app::AzureRegion__Enum_1__Array* create_array(const std::vector<app::AzureRegion__Enum_1__Boxed*>& items) {
+        inline app::AzureRegion__Enum_1__Array* create_array(const std::vector<app::AzureRegion__Enum_1*>& items) {
             return il2cpp::array_new<app::AzureRegion__Enum_1__Array>(get_class(), items);
         }
     } // namespace AzureRegion__Enum_1

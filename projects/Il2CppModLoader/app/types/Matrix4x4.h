@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::Matrix4x4__Array* create_array(int size) {
             return il2cpp::array_new<app::Matrix4x4__Array>(get_class(), size);
         }
-        inline app::Matrix4x4__Array* create_array(const std::vector<app::Matrix4x4__Boxed>& items) {
+        inline app::Matrix4x4__Array* create_array(const std::vector<app::Matrix4x4>& items) {
             return il2cpp::array_new<app::Matrix4x4__Array>(get_class(), items);
         }
     } // namespace Matrix4x4

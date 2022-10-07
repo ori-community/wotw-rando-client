@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::CameraFrustumOptimizer_EarlyZActivation__Array* create_array(int size) {
             return il2cpp::array_new<app::CameraFrustumOptimizer_EarlyZActivation__Array>(get_class(), size);
         }
-        inline app::CameraFrustumOptimizer_EarlyZActivation__Array* create_array(const std::vector<app::CameraFrustumOptimizer_EarlyZActivation__Boxed>& items) {
+        inline app::CameraFrustumOptimizer_EarlyZActivation__Array* create_array(const std::vector<app::CameraFrustumOptimizer_EarlyZActivation>& items) {
             return il2cpp::array_new<app::CameraFrustumOptimizer_EarlyZActivation__Array>(get_class(), items);
         }
     } // namespace CameraFrustumOptimizer_EarlyZActivation

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::SaveSlotBackupsManager_BackupParseQueue__Array* create_array(int size) {
             return il2cpp::array_new<app::SaveSlotBackupsManager_BackupParseQueue__Array>(get_class(), size);
         }
-        inline app::SaveSlotBackupsManager_BackupParseQueue__Array* create_array(const std::vector<app::SaveSlotBackupsManager_BackupParseQueue__Boxed>& items) {
+        inline app::SaveSlotBackupsManager_BackupParseQueue__Array* create_array(const std::vector<app::SaveSlotBackupsManager_BackupParseQueue>& items) {
             return il2cpp::array_new<app::SaveSlotBackupsManager_BackupParseQueue__Array>(get_class(), items);
         }
     } // namespace SaveSlotBackupsManager_BackupParseQueue

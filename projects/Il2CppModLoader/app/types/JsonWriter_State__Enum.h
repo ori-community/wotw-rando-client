@@ -14,7 +14,7 @@ namespace app::classes::types {
         inline app::JsonWriter_State__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::JsonWriter_State__Enum__Array>(get_class(), size);
         }
-        inline app::JsonWriter_State__Enum__Array* create_array(const std::vector<app::JsonWriter_State__Enum__Boxed*>& items) {
+        inline app::JsonWriter_State__Enum__Array* create_array(const std::vector<app::JsonWriter_State__Enum*>& items) {
             return il2cpp::array_new<app::JsonWriter_State__Enum__Array>(get_class(), items);
         }
     } // namespace JsonWriter_State__Enum

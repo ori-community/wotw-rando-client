@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::Reaction__Array* create_array(int size) {
             return il2cpp::array_new<app::Reaction__Array>(get_class(), size);
         }
-        inline app::Reaction__Array* create_array(const std::vector<app::Reaction__Boxed>& items) {
+        inline app::Reaction__Array* create_array(const std::vector<app::Reaction>& items) {
             return il2cpp::array_new<app::Reaction__Array>(get_class(), items);
         }
     } // namespace Reaction

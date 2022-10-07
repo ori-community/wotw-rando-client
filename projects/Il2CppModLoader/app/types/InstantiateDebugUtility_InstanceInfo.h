@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::InstantiateDebugUtility_InstanceInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::InstantiateDebugUtility_InstanceInfo__Array>(get_class(), size);
         }
-        inline app::InstantiateDebugUtility_InstanceInfo__Array* create_array(const std::vector<app::InstantiateDebugUtility_InstanceInfo__Boxed>& items) {
+        inline app::InstantiateDebugUtility_InstanceInfo__Array* create_array(const std::vector<app::InstantiateDebugUtility_InstanceInfo>& items) {
             return il2cpp::array_new<app::InstantiateDebugUtility_InstanceInfo__Array>(get_class(), items);
         }
     } // namespace InstantiateDebugUtility_InstanceInfo

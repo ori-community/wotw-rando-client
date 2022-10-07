@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::ActiveAnimationHandle__Array* create_array(int size) {
             return il2cpp::array_new<app::ActiveAnimationHandle__Array>(get_class(), size);
         }
-        inline app::ActiveAnimationHandle__Array* create_array(const std::vector<app::ActiveAnimationHandle__Boxed>& items) {
+        inline app::ActiveAnimationHandle__Array* create_array(const std::vector<app::ActiveAnimationHandle>& items) {
             return il2cpp::array_new<app::ActiveAnimationHandle__Array>(get_class(), items);
         }
     } // namespace ActiveAnimationHandle

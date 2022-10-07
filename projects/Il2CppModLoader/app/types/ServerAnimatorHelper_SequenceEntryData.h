@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::ServerAnimatorHelper_SequenceEntryData__Array* create_array(int size) {
             return il2cpp::array_new<app::ServerAnimatorHelper_SequenceEntryData__Array>(get_class(), size);
         }
-        inline app::ServerAnimatorHelper_SequenceEntryData__Array* create_array(const std::vector<app::ServerAnimatorHelper_SequenceEntryData__Boxed>& items) {
+        inline app::ServerAnimatorHelper_SequenceEntryData__Array* create_array(const std::vector<app::ServerAnimatorHelper_SequenceEntryData>& items) {
             return il2cpp::array_new<app::ServerAnimatorHelper_SequenceEntryData__Array>(get_class(), items);
         }
     } // namespace ServerAnimatorHelper_SequenceEntryData

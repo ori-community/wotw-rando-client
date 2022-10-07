@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::DataError_ColumnError__Array* create_array(int size) {
             return il2cpp::array_new<app::DataError_ColumnError__Array>(get_class(), size);
         }
-        inline app::DataError_ColumnError__Array* create_array(const std::vector<app::DataError_ColumnError__Boxed>& items) {
+        inline app::DataError_ColumnError__Array* create_array(const std::vector<app::DataError_ColumnError>& items) {
             return il2cpp::array_new<app::DataError_ColumnError__Array>(get_class(), items);
         }
     } // namespace DataError_ColumnError

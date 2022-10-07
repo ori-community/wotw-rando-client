@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::EventProvider_SessionInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::EventProvider_SessionInfo__Array>(get_class(), size);
         }
-        inline app::EventProvider_SessionInfo__Array* create_array(const std::vector<app::EventProvider_SessionInfo__Boxed>& items) {
+        inline app::EventProvider_SessionInfo__Array* create_array(const std::vector<app::EventProvider_SessionInfo>& items) {
             return il2cpp::array_new<app::EventProvider_SessionInfo__Array>(get_class(), items);
         }
     } // namespace EventProvider_SessionInfo

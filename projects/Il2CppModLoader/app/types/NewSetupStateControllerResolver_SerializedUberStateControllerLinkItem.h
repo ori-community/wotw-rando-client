@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem__Array* create_array(int size) {
             return il2cpp::array_new<app::NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem__Array>(get_class(), size);
         }
-        inline app::NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem__Array* create_array(const std::vector<app::NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem__Boxed>& items) {
+        inline app::NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem__Array* create_array(const std::vector<app::NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem>& items) {
             return il2cpp::array_new<app::NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem__Array>(get_class(), items);
         }
     } // namespace NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem

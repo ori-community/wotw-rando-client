@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::fsPortableReflection_AttributeQuery__Array* create_array(int size) {
             return il2cpp::array_new<app::fsPortableReflection_AttributeQuery__Array>(get_class(), size);
         }
-        inline app::fsPortableReflection_AttributeQuery__Array* create_array(const std::vector<app::fsPortableReflection_AttributeQuery__Boxed>& items) {
+        inline app::fsPortableReflection_AttributeQuery__Array* create_array(const std::vector<app::fsPortableReflection_AttributeQuery>& items) {
             return il2cpp::array_new<app::fsPortableReflection_AttributeQuery__Array>(get_class(), items);
         }
     } // namespace fsPortableReflection_AttributeQuery

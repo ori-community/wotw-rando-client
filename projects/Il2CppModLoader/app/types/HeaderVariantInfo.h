@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::HeaderVariantInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::HeaderVariantInfo__Array>(get_class(), size);
         }
-        inline app::HeaderVariantInfo__Array* create_array(const std::vector<app::HeaderVariantInfo__Boxed>& items) {
+        inline app::HeaderVariantInfo__Array* create_array(const std::vector<app::HeaderVariantInfo>& items) {
             return il2cpp::array_new<app::HeaderVariantInfo__Array>(get_class(), items);
         }
     } // namespace HeaderVariantInfo

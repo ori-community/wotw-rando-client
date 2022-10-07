@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::Substr__Array* create_array(int size) {
             return il2cpp::array_new<app::Substr__Array>(get_class(), size);
         }
-        inline app::Substr__Array* create_array(const std::vector<app::Substr__Boxed>& items) {
+        inline app::Substr__Array* create_array(const std::vector<app::Substr>& items) {
             return il2cpp::array_new<app::Substr__Array>(get_class(), items);
         }
     } // namespace Substr

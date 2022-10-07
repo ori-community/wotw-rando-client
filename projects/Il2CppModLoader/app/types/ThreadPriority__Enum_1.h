@@ -14,7 +14,7 @@ namespace app::classes::types {
         inline app::ThreadPriority__Enum_1__Array* create_array(int size) {
             return il2cpp::array_new<app::ThreadPriority__Enum_1__Array>(get_class(), size);
         }
-        inline app::ThreadPriority__Enum_1__Array* create_array(const std::vector<app::ThreadPriority__Enum_1__Boxed*>& items) {
+        inline app::ThreadPriority__Enum_1__Array* create_array(const std::vector<app::ThreadPriority__Enum_1*>& items) {
             return il2cpp::array_new<app::ThreadPriority__Enum_1__Array>(get_class(), items);
         }
     } // namespace ThreadPriority__Enum_1

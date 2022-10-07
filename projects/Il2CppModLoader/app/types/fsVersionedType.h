@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::fsVersionedType__Array* create_array(int size) {
             return il2cpp::array_new<app::fsVersionedType__Array>(get_class(), size);
         }
-        inline app::fsVersionedType__Array* create_array(const std::vector<app::fsVersionedType__Boxed>& items) {
+        inline app::fsVersionedType__Array* create_array(const std::vector<app::fsVersionedType>& items) {
             return il2cpp::array_new<app::fsVersionedType__Array>(get_class(), items);
         }
     } // namespace fsVersionedType

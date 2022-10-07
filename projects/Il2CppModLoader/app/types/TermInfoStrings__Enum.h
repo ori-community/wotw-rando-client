@@ -14,7 +14,7 @@ namespace app::classes::types {
         inline app::TermInfoStrings__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::TermInfoStrings__Enum__Array>(get_class(), size);
         }
-        inline app::TermInfoStrings__Enum__Array* create_array(const std::vector<app::TermInfoStrings__Enum__Boxed*>& items) {
+        inline app::TermInfoStrings__Enum__Array* create_array(const std::vector<app::TermInfoStrings__Enum*>& items) {
             return il2cpp::array_new<app::TermInfoStrings__Enum__Array>(get_class(), items);
         }
     } // namespace TermInfoStrings__Enum

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::MoonIconRenderer_IconObject__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonIconRenderer_IconObject__Array>(get_class(), size);
         }
-        inline app::MoonIconRenderer_IconObject__Array* create_array(const std::vector<app::MoonIconRenderer_IconObject__Boxed>& items) {
+        inline app::MoonIconRenderer_IconObject__Array* create_array(const std::vector<app::MoonIconRenderer_IconObject>& items) {
             return il2cpp::array_new<app::MoonIconRenderer_IconObject__Array>(get_class(), items);
         }
     } // namespace MoonIconRenderer_IconObject

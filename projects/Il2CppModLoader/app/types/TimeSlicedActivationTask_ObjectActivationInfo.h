@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::TimeSlicedActivationTask_ObjectActivationInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::TimeSlicedActivationTask_ObjectActivationInfo__Array>(get_class(), size);
         }
-        inline app::TimeSlicedActivationTask_ObjectActivationInfo__Array* create_array(const std::vector<app::TimeSlicedActivationTask_ObjectActivationInfo__Boxed>& items) {
+        inline app::TimeSlicedActivationTask_ObjectActivationInfo__Array* create_array(const std::vector<app::TimeSlicedActivationTask_ObjectActivationInfo>& items) {
             return il2cpp::array_new<app::TimeSlicedActivationTask_ObjectActivationInfo__Array>(get_class(), items);
         }
     } // namespace TimeSlicedActivationTask_ObjectActivationInfo

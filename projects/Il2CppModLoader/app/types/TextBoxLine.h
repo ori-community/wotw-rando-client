@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::TextBoxLine__Array* create_array(int size) {
             return il2cpp::array_new<app::TextBoxLine__Array>(get_class(), size);
         }
-        inline app::TextBoxLine__Array* create_array(const std::vector<app::TextBoxLine__Boxed>& items) {
+        inline app::TextBoxLine__Array* create_array(const std::vector<app::TextBoxLine>& items) {
             return il2cpp::array_new<app::TextBoxLine__Array>(get_class(), items);
         }
     } // namespace TextBoxLine

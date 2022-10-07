@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::MatchMakingKeyValuePair_t__Array* create_array(int size) {
             return il2cpp::array_new<app::MatchMakingKeyValuePair_t__Array>(get_class(), size);
         }
-        inline app::MatchMakingKeyValuePair_t__Array* create_array(const std::vector<app::MatchMakingKeyValuePair_t__Boxed>& items) {
+        inline app::MatchMakingKeyValuePair_t__Array* create_array(const std::vector<app::MatchMakingKeyValuePair_t>& items) {
             return il2cpp::array_new<app::MatchMakingKeyValuePair_t__Array>(get_class(), items);
         }
     } // namespace MatchMakingKeyValuePair_t

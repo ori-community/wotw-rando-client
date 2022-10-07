@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::UberShaderTextureBase_SubBindIdCache__Array* create_array(int size) {
             return il2cpp::array_new<app::UberShaderTextureBase_SubBindIdCache__Array>(get_class(), size);
         }
-        inline app::UberShaderTextureBase_SubBindIdCache__Array* create_array(const std::vector<app::UberShaderTextureBase_SubBindIdCache__Boxed>& items) {
+        inline app::UberShaderTextureBase_SubBindIdCache__Array* create_array(const std::vector<app::UberShaderTextureBase_SubBindIdCache>& items) {
             return il2cpp::array_new<app::UberShaderTextureBase_SubBindIdCache__Array>(get_class(), items);
         }
     } // namespace UberShaderTextureBase_SubBindIdCache

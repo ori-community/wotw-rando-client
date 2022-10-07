@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::Color32__Array* create_array(int size) {
             return il2cpp::array_new<app::Color32__Array>(get_class(), size);
         }
-        inline app::Color32__Array* create_array(const std::vector<app::Color32__Boxed>& items) {
+        inline app::Color32__Array* create_array(const std::vector<app::Color32>& items) {
             return il2cpp::array_new<app::Color32__Array>(get_class(), items);
         }
     } // namespace Color32

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::CustomAttributeTypedArgument__Array* create_array(int size) {
             return il2cpp::array_new<app::CustomAttributeTypedArgument__Array>(get_class(), size);
         }
-        inline app::CustomAttributeTypedArgument__Array* create_array(const std::vector<app::CustomAttributeTypedArgument__Boxed>& items) {
+        inline app::CustomAttributeTypedArgument__Array* create_array(const std::vector<app::CustomAttributeTypedArgument>& items) {
             return il2cpp::array_new<app::CustomAttributeTypedArgument__Array>(get_class(), items);
         }
     } // namespace CustomAttributeTypedArgument

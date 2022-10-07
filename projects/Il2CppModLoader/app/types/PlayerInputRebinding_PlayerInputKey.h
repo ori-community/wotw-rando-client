@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::PlayerInputRebinding_PlayerInputKey__Array* create_array(int size) {
             return il2cpp::array_new<app::PlayerInputRebinding_PlayerInputKey__Array>(get_class(), size);
         }
-        inline app::PlayerInputRebinding_PlayerInputKey__Array* create_array(const std::vector<app::PlayerInputRebinding_PlayerInputKey__Boxed>& items) {
+        inline app::PlayerInputRebinding_PlayerInputKey__Array* create_array(const std::vector<app::PlayerInputRebinding_PlayerInputKey>& items) {
             return il2cpp::array_new<app::PlayerInputRebinding_PlayerInputKey__Array>(get_class(), items);
         }
     } // namespace PlayerInputRebinding_PlayerInputKey

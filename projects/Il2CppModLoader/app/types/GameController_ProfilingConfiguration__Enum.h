@@ -14,7 +14,7 @@ namespace app::classes::types {
         inline app::GameController_ProfilingConfiguration__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::GameController_ProfilingConfiguration__Enum__Array>(get_class(), size);
         }
-        inline app::GameController_ProfilingConfiguration__Enum__Array* create_array(const std::vector<app::GameController_ProfilingConfiguration__Enum__Boxed*>& items) {
+        inline app::GameController_ProfilingConfiguration__Enum__Array* create_array(const std::vector<app::GameController_ProfilingConfiguration__Enum*>& items) {
             return il2cpp::array_new<app::GameController_ProfilingConfiguration__Enum__Array>(get_class(), items);
         }
     } // namespace GameController_ProfilingConfiguration__Enum

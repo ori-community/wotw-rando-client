@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::Promise_ResolveHandler__Array* create_array(int size) {
             return il2cpp::array_new<app::Promise_ResolveHandler__Array>(get_class(), size);
         }
-        inline app::Promise_ResolveHandler__Array* create_array(const std::vector<app::Promise_ResolveHandler__Boxed>& items) {
+        inline app::Promise_ResolveHandler__Array* create_array(const std::vector<app::Promise_ResolveHandler>& items) {
             return il2cpp::array_new<app::Promise_ResolveHandler__Array>(get_class(), items);
         }
     } // namespace Promise_ResolveHandler

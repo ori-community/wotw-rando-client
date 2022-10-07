@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::ParticleCollisionEvent__Array* create_array(int size) {
             return il2cpp::array_new<app::ParticleCollisionEvent__Array>(get_class(), size);
         }
-        inline app::ParticleCollisionEvent__Array* create_array(const std::vector<app::ParticleCollisionEvent__Boxed>& items) {
+        inline app::ParticleCollisionEvent__Array* create_array(const std::vector<app::ParticleCollisionEvent>& items) {
             return il2cpp::array_new<app::ParticleCollisionEvent__Array>(get_class(), items);
         }
     } // namespace ParticleCollisionEvent

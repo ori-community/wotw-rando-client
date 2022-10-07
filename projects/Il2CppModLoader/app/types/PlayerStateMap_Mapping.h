@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::PlayerStateMap_Mapping__Array* create_array(int size) {
             return il2cpp::array_new<app::PlayerStateMap_Mapping__Array>(get_class(), size);
         }
-        inline app::PlayerStateMap_Mapping__Array* create_array(const std::vector<app::PlayerStateMap_Mapping__Boxed>& items) {
+        inline app::PlayerStateMap_Mapping__Array* create_array(const std::vector<app::PlayerStateMap_Mapping>& items) {
             return il2cpp::array_new<app::PlayerStateMap_Mapping__Array>(get_class(), items);
         }
     } // namespace PlayerStateMap_Mapping

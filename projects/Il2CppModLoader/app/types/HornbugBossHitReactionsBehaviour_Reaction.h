@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::HornbugBossHitReactionsBehaviour_Reaction__Array* create_array(int size) {
             return il2cpp::array_new<app::HornbugBossHitReactionsBehaviour_Reaction__Array>(get_class(), size);
         }
-        inline app::HornbugBossHitReactionsBehaviour_Reaction__Array* create_array(const std::vector<app::HornbugBossHitReactionsBehaviour_Reaction__Boxed>& items) {
+        inline app::HornbugBossHitReactionsBehaviour_Reaction__Array* create_array(const std::vector<app::HornbugBossHitReactionsBehaviour_Reaction>& items) {
             return il2cpp::array_new<app::HornbugBossHitReactionsBehaviour_Reaction__Array>(get_class(), items);
         }
     } // namespace HornbugBossHitReactionsBehaviour_Reaction

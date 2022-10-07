@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::ClientCertificateType__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::ClientCertificateType__Enum__Array>(get_class(), size);
         }
-        inline app::ClientCertificateType__Enum__Array* create_array(const std::vector<app::ClientCertificateType__Enum__Boxed*>& items) {
+        inline app::ClientCertificateType__Enum__Array* create_array(const std::vector<app::ClientCertificateType__Enum*>& items) {
             return il2cpp::array_new<app::ClientCertificateType__Enum__Array>(get_class(), items);
         }
     } // namespace ClientCertificateType__Enum

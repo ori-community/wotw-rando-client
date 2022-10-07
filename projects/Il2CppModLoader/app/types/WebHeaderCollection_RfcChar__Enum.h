@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::WebHeaderCollection_RfcChar__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::WebHeaderCollection_RfcChar__Enum__Array>(get_class(), size);
         }
-        inline app::WebHeaderCollection_RfcChar__Enum__Array* create_array(const std::vector<app::WebHeaderCollection_RfcChar__Enum__Boxed*>& items) {
+        inline app::WebHeaderCollection_RfcChar__Enum__Array* create_array(const std::vector<app::WebHeaderCollection_RfcChar__Enum*>& items) {
             return il2cpp::array_new<app::WebHeaderCollection_RfcChar__Enum__Array>(get_class(), items);
         }
     } // namespace WebHeaderCollection_RfcChar__Enum

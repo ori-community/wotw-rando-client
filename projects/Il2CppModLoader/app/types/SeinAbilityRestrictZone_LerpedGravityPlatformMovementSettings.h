@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Array* create_array(int size) {
             return il2cpp::array_new<app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Array>(get_class(), size);
         }
-        inline app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Array* create_array(const std::vector<app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Boxed>& items) {
+        inline app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Array* create_array(const std::vector<app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings>& items) {
             return il2cpp::array_new<app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Array>(get_class(), items);
         }
     } // namespace SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings

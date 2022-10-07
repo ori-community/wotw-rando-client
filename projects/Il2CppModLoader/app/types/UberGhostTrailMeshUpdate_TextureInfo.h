@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::UberGhostTrailMeshUpdate_TextureInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::UberGhostTrailMeshUpdate_TextureInfo__Array>(get_class(), size);
         }
-        inline app::UberGhostTrailMeshUpdate_TextureInfo__Array* create_array(const std::vector<app::UberGhostTrailMeshUpdate_TextureInfo__Boxed>& items) {
+        inline app::UberGhostTrailMeshUpdate_TextureInfo__Array* create_array(const std::vector<app::UberGhostTrailMeshUpdate_TextureInfo>& items) {
             return il2cpp::array_new<app::UberGhostTrailMeshUpdate_TextureInfo__Array>(get_class(), items);
         }
     } // namespace UberGhostTrailMeshUpdate_TextureInfo

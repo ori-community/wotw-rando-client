@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::ScreenshotIcon_NPCType__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::ScreenshotIcon_NPCType__Enum__Array>(get_class(), size);
         }
-        inline app::ScreenshotIcon_NPCType__Enum__Array* create_array(const std::vector<app::ScreenshotIcon_NPCType__Enum__Boxed*>& items) {
+        inline app::ScreenshotIcon_NPCType__Enum__Array* create_array(const std::vector<app::ScreenshotIcon_NPCType__Enum*>& items) {
             return il2cpp::array_new<app::ScreenshotIcon_NPCType__Enum__Array>(get_class(), items);
         }
     } // namespace ScreenshotIcon_NPCType__Enum

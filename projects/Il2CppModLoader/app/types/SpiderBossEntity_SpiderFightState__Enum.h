@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::SpiderBossEntity_SpiderFightState__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::SpiderBossEntity_SpiderFightState__Enum__Array>(get_class(), size);
         }
-        inline app::SpiderBossEntity_SpiderFightState__Enum__Array* create_array(const std::vector<app::SpiderBossEntity_SpiderFightState__Enum__Boxed*>& items) {
+        inline app::SpiderBossEntity_SpiderFightState__Enum__Array* create_array(const std::vector<app::SpiderBossEntity_SpiderFightState__Enum*>& items) {
             return il2cpp::array_new<app::SpiderBossEntity_SpiderFightState__Enum__Array>(get_class(), items);
         }
     } // namespace SpiderBossEntity_SpiderFightState__Enum

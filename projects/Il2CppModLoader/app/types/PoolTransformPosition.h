@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::PoolTransformPosition__Array* create_array(int size) {
             return il2cpp::array_new<app::PoolTransformPosition__Array>(get_class(), size);
         }
-        inline app::PoolTransformPosition__Array* create_array(const std::vector<app::PoolTransformPosition__Boxed>& items) {
+        inline app::PoolTransformPosition__Array* create_array(const std::vector<app::PoolTransformPosition>& items) {
             return il2cpp::array_new<app::PoolTransformPosition__Array>(get_class(), items);
         }
     } // namespace PoolTransformPosition

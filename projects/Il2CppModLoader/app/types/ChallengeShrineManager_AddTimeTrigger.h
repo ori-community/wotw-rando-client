@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::ChallengeShrineManager_AddTimeTrigger__Array* create_array(int size) {
             return il2cpp::array_new<app::ChallengeShrineManager_AddTimeTrigger__Array>(get_class(), size);
         }
-        inline app::ChallengeShrineManager_AddTimeTrigger__Array* create_array(const std::vector<app::ChallengeShrineManager_AddTimeTrigger__Boxed>& items) {
+        inline app::ChallengeShrineManager_AddTimeTrigger__Array* create_array(const std::vector<app::ChallengeShrineManager_AddTimeTrigger>& items) {
             return il2cpp::array_new<app::ChallengeShrineManager_AddTimeTrigger__Array>(get_class(), items);
         }
     } // namespace ChallengeShrineManager_AddTimeTrigger

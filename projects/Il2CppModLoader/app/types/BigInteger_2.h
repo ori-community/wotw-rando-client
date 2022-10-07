@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::BigInteger_2__Array* create_array(int size) {
             return il2cpp::array_new<app::BigInteger_2__Array>(get_class(), size);
         }
-        inline app::BigInteger_2__Array* create_array(const std::vector<app::BigInteger_2__Boxed>& items) {
+        inline app::BigInteger_2__Array* create_array(const std::vector<app::BigInteger_2>& items) {
             return il2cpp::array_new<app::BigInteger_2__Array>(get_class(), items);
         }
     } // namespace BigInteger_2

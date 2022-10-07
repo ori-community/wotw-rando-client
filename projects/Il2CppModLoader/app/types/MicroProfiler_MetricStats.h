@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::MicroProfiler_MetricStats__Array* create_array(int size) {
             return il2cpp::array_new<app::MicroProfiler_MetricStats__Array>(get_class(), size);
         }
-        inline app::MicroProfiler_MetricStats__Array* create_array(const std::vector<app::MicroProfiler_MetricStats__Boxed>& items) {
+        inline app::MicroProfiler_MetricStats__Array* create_array(const std::vector<app::MicroProfiler_MetricStats>& items) {
             return il2cpp::array_new<app::MicroProfiler_MetricStats__Array>(get_class(), items);
         }
     } // namespace MicroProfiler_MetricStats

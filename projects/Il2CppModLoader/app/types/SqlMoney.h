@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::SqlMoney__Array* create_array(int size) {
             return il2cpp::array_new<app::SqlMoney__Array>(get_class(), size);
         }
-        inline app::SqlMoney__Array* create_array(const std::vector<app::SqlMoney__Boxed>& items) {
+        inline app::SqlMoney__Array* create_array(const std::vector<app::SqlMoney>& items) {
             return il2cpp::array_new<app::SqlMoney__Array>(get_class(), items);
         }
     } // namespace SqlMoney

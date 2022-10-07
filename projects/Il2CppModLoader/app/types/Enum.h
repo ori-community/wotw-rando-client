@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::Enum__Array>(get_class(), size);
         }
-        inline app::Enum__Array* create_array(const std::vector<app::Enum__Boxed>& items) {
+        inline app::Enum__Array* create_array(const std::vector<app::Enum>& items) {
             return il2cpp::array_new<app::Enum__Array>(get_class(), items);
         }
     } // namespace Enum

@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::Socket_WSABUF__Array* create_array(int size) {
             return il2cpp::array_new<app::Socket_WSABUF__Array>(get_class(), size);
         }
-        inline app::Socket_WSABUF__Array* create_array(const std::vector<app::Socket_WSABUF__Boxed>& items) {
+        inline app::Socket_WSABUF__Array* create_array(const std::vector<app::Socket_WSABUF>& items) {
             return il2cpp::array_new<app::Socket_WSABUF__Array>(get_class(), items);
         }
     } // namespace Socket_WSABUF

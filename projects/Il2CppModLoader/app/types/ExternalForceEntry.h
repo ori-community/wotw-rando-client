@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::ExternalForceEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::ExternalForceEntry__Array>(get_class(), size);
         }
-        inline app::ExternalForceEntry__Array* create_array(const std::vector<app::ExternalForceEntry__Boxed>& items) {
+        inline app::ExternalForceEntry__Array* create_array(const std::vector<app::ExternalForceEntry>& items) {
             return il2cpp::array_new<app::ExternalForceEntry__Array>(get_class(), items);
         }
     } // namespace ExternalForceEntry

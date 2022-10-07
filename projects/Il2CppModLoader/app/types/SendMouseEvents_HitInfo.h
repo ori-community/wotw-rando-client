@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::SendMouseEvents_HitInfo__Array* create_array(int size) {
             return il2cpp::array_new<app::SendMouseEvents_HitInfo__Array>(get_class(), size);
         }
-        inline app::SendMouseEvents_HitInfo__Array* create_array(const std::vector<app::SendMouseEvents_HitInfo__Boxed>& items) {
+        inline app::SendMouseEvents_HitInfo__Array* create_array(const std::vector<app::SendMouseEvents_HitInfo>& items) {
             return il2cpp::array_new<app::SendMouseEvents_HitInfo__Array>(get_class(), items);
         }
     } // namespace SendMouseEvents_HitInfo

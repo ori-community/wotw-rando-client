@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::ResourceLocator__Array* create_array(int size) {
             return il2cpp::array_new<app::ResourceLocator__Array>(get_class(), size);
         }
-        inline app::ResourceLocator__Array* create_array(const std::vector<app::ResourceLocator__Boxed>& items) {
+        inline app::ResourceLocator__Array* create_array(const std::vector<app::ResourceLocator>& items) {
             return il2cpp::array_new<app::ResourceLocator__Array>(get_class(), items);
         }
     } // namespace ResourceLocator

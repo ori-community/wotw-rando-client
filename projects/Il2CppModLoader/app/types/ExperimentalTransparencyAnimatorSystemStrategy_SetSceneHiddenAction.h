@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array* create_array(int size) {
             return il2cpp::array_new<app::ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array>(get_class(), size);
         }
-        inline app::ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array* create_array(const std::vector<app::ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Boxed>& items) {
+        inline app::ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array* create_array(const std::vector<app::ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction>& items) {
             return il2cpp::array_new<app::ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array>(get_class(), items);
         }
     } // namespace ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction

@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::Resolution__Array* create_array(int size) {
             return il2cpp::array_new<app::Resolution__Array>(get_class(), size);
         }
-        inline app::Resolution__Array* create_array(const std::vector<app::Resolution__Boxed>& items) {
+        inline app::Resolution__Array* create_array(const std::vector<app::Resolution>& items) {
             return il2cpp::array_new<app::Resolution__Array>(get_class(), items);
         }
     } // namespace Resolution

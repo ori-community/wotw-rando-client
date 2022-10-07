@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::IKSolverLimb_AxisDirection__Array* create_array(int size) {
             return il2cpp::array_new<app::IKSolverLimb_AxisDirection__Array>(get_class(), size);
         }
-        inline app::IKSolverLimb_AxisDirection__Array* create_array(const std::vector<app::IKSolverLimb_AxisDirection__Boxed>& items) {
+        inline app::IKSolverLimb_AxisDirection__Array* create_array(const std::vector<app::IKSolverLimb_AxisDirection>& items) {
             return il2cpp::array_new<app::IKSolverLimb_AxisDirection__Array>(get_class(), items);
         }
     } // namespace IKSolverLimb_AxisDirection

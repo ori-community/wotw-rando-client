@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::AppliedTextStyle__Array* create_array(int size) {
             return il2cpp::array_new<app::AppliedTextStyle__Array>(get_class(), size);
         }
-        inline app::AppliedTextStyle__Array* create_array(const std::vector<app::AppliedTextStyle__Boxed>& items) {
+        inline app::AppliedTextStyle__Array* create_array(const std::vector<app::AppliedTextStyle>& items) {
             return il2cpp::array_new<app::AppliedTextStyle__Array>(get_class(), items);
         }
     } // namespace AppliedTextStyle

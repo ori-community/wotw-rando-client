@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::SteamItemDetails_t__Array* create_array(int size) {
             return il2cpp::array_new<app::SteamItemDetails_t__Array>(get_class(), size);
         }
-        inline app::SteamItemDetails_t__Array* create_array(const std::vector<app::SteamItemDetails_t__Boxed>& items) {
+        inline app::SteamItemDetails_t__Array* create_array(const std::vector<app::SteamItemDetails_t>& items) {
             return il2cpp::array_new<app::SteamItemDetails_t__Array>(get_class(), items);
         }
     } // namespace SteamItemDetails_t

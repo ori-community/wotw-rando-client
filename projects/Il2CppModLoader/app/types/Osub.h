@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::Osub__Array* create_array(int size) {
             return il2cpp::array_new<app::Osub__Array>(get_class(), size);
         }
-        inline app::Osub__Array* create_array(const std::vector<app::Osub__Boxed>& items) {
+        inline app::Osub__Array* create_array(const std::vector<app::Osub>& items) {
             return il2cpp::array_new<app::Osub__Array>(get_class(), items);
         }
     } // namespace Osub

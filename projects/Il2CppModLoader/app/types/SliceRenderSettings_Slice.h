@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::SliceRenderSettings_Slice__Array* create_array(int size) {
             return il2cpp::array_new<app::SliceRenderSettings_Slice__Array>(get_class(), size);
         }
-        inline app::SliceRenderSettings_Slice__Array* create_array(const std::vector<app::SliceRenderSettings_Slice__Boxed>& items) {
+        inline app::SliceRenderSettings_Slice__Array* create_array(const std::vector<app::SliceRenderSettings_Slice>& items) {
             return il2cpp::array_new<app::SliceRenderSettings_Slice__Array>(get_class(), items);
         }
     } // namespace SliceRenderSettings_Slice

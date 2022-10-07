@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::Vitals_DamageProcessHelper_SortedDamageEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::Vitals_DamageProcessHelper_SortedDamageEntry__Array>(get_class(), size);
         }
-        inline app::Vitals_DamageProcessHelper_SortedDamageEntry__Array* create_array(const std::vector<app::Vitals_DamageProcessHelper_SortedDamageEntry__Boxed>& items) {
+        inline app::Vitals_DamageProcessHelper_SortedDamageEntry__Array* create_array(const std::vector<app::Vitals_DamageProcessHelper_SortedDamageEntry>& items) {
             return il2cpp::array_new<app::Vitals_DamageProcessHelper_SortedDamageEntry__Array>(get_class(), items);
         }
     } // namespace Vitals_DamageProcessHelper_SortedDamageEntry

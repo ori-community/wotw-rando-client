@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::CharMetaData__Array* create_array(int size) {
             return il2cpp::array_new<app::CharMetaData__Array>(get_class(), size);
         }
-        inline app::CharMetaData__Array* create_array(const std::vector<app::CharMetaData__Boxed>& items) {
+        inline app::CharMetaData__Array* create_array(const std::vector<app::CharMetaData>& items) {
             return il2cpp::array_new<app::CharMetaData__Array>(get_class(), items);
         }
     } // namespace CharMetaData

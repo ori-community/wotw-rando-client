@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::RenderTargetIdentifier__Array* create_array(int size) {
             return il2cpp::array_new<app::RenderTargetIdentifier__Array>(get_class(), size);
         }
-        inline app::RenderTargetIdentifier__Array* create_array(const std::vector<app::RenderTargetIdentifier__Boxed>& items) {
+        inline app::RenderTargetIdentifier__Array* create_array(const std::vector<app::RenderTargetIdentifier>& items) {
             return il2cpp::array_new<app::RenderTargetIdentifier__Array>(get_class(), items);
         }
     } // namespace RenderTargetIdentifier

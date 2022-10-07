@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::UInt64__Array* create_array(int size) {
             return il2cpp::array_new<app::UInt64__Array>(get_class(), size);
         }
-        inline app::UInt64__Array* create_array(const std::vector<app::UInt64__Boxed>& items) {
+        inline app::UInt64__Array* create_array(const std::vector<app::UInt64>& items) {
             return il2cpp::array_new<app::UInt64__Array>(get_class(), items);
         }
     } // namespace UInt64

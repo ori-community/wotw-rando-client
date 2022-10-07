@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::GameplayCameraTargetEntry__Array* create_array(int size) {
             return il2cpp::array_new<app::GameplayCameraTargetEntry__Array>(get_class(), size);
         }
-        inline app::GameplayCameraTargetEntry__Array* create_array(const std::vector<app::GameplayCameraTargetEntry__Boxed>& items) {
+        inline app::GameplayCameraTargetEntry__Array* create_array(const std::vector<app::GameplayCameraTargetEntry>& items) {
             return il2cpp::array_new<app::GameplayCameraTargetEntry__Array>(get_class(), items);
         }
     } // namespace GameplayCameraTargetEntry

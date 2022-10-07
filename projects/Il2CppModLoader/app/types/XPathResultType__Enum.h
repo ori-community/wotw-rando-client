@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::XPathResultType__Enum__Array* create_array(int size) {
             return il2cpp::array_new<app::XPathResultType__Enum__Array>(get_class(), size);
         }
-        inline app::XPathResultType__Enum__Array* create_array(const std::vector<app::XPathResultType__Enum__Boxed*>& items) {
+        inline app::XPathResultType__Enum__Array* create_array(const std::vector<app::XPathResultType__Enum*>& items) {
             return il2cpp::array_new<app::XPathResultType__Enum__Array>(get_class(), items);
         }
     } // namespace XPathResultType__Enum

@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::ContactPoint2D__Array* create_array(int size) {
             return il2cpp::array_new<app::ContactPoint2D__Array>(get_class(), size);
         }
-        inline app::ContactPoint2D__Array* create_array(const std::vector<app::ContactPoint2D__Boxed>& items) {
+        inline app::ContactPoint2D__Array* create_array(const std::vector<app::ContactPoint2D>& items) {
             return il2cpp::array_new<app::ContactPoint2D__Array>(get_class(), items);
         }
     } // namespace ContactPoint2D

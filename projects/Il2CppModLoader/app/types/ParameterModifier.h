@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::ParameterModifier__Array* create_array(int size) {
             return il2cpp::array_new<app::ParameterModifier__Array>(get_class(), size);
         }
-        inline app::ParameterModifier__Array* create_array(const std::vector<app::ParameterModifier__Boxed>& items) {
+        inline app::ParameterModifier__Array* create_array(const std::vector<app::ParameterModifier>& items) {
             return il2cpp::array_new<app::ParameterModifier__Array>(get_class(), items);
         }
     } // namespace ParameterModifier

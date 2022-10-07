@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::ScalableAnimationPlayer_ScenarioPlaybackData__Array* create_array(int size) {
             return il2cpp::array_new<app::ScalableAnimationPlayer_ScenarioPlaybackData__Array>(get_class(), size);
         }
-        inline app::ScalableAnimationPlayer_ScenarioPlaybackData__Array* create_array(const std::vector<app::ScalableAnimationPlayer_ScenarioPlaybackData__Boxed>& items) {
+        inline app::ScalableAnimationPlayer_ScenarioPlaybackData__Array* create_array(const std::vector<app::ScalableAnimationPlayer_ScenarioPlaybackData>& items) {
             return il2cpp::array_new<app::ScalableAnimationPlayer_ScenarioPlaybackData__Array>(get_class(), items);
         }
     } // namespace ScalableAnimationPlayer_ScenarioPlaybackData

@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::XmlNodeReaderNavigator_VirtualAttribute__Array* create_array(int size) {
             return il2cpp::array_new<app::XmlNodeReaderNavigator_VirtualAttribute__Array>(get_class(), size);
         }
-        inline app::XmlNodeReaderNavigator_VirtualAttribute__Array* create_array(const std::vector<app::XmlNodeReaderNavigator_VirtualAttribute__Boxed>& items) {
+        inline app::XmlNodeReaderNavigator_VirtualAttribute__Array* create_array(const std::vector<app::XmlNodeReaderNavigator_VirtualAttribute>& items) {
             return il2cpp::array_new<app::XmlNodeReaderNavigator_VirtualAttribute__Array>(get_class(), items);
         }
     } // namespace XmlNodeReaderNavigator_VirtualAttribute

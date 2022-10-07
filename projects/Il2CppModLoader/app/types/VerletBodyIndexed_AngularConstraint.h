@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::VerletBodyIndexed_AngularConstraint__Array* create_array(int size) {
             return il2cpp::array_new<app::VerletBodyIndexed_AngularConstraint__Array>(get_class(), size);
         }
-        inline app::VerletBodyIndexed_AngularConstraint__Array* create_array(const std::vector<app::VerletBodyIndexed_AngularConstraint__Boxed>& items) {
+        inline app::VerletBodyIndexed_AngularConstraint__Array* create_array(const std::vector<app::VerletBodyIndexed_AngularConstraint>& items) {
             return il2cpp::array_new<app::VerletBodyIndexed_AngularConstraint__Array>(get_class(), items);
         }
     } // namespace VerletBodyIndexed_AngularConstraint

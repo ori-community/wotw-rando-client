@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::MoonAnimator_AnimatorPostprocessData__Array* create_array(int size) {
             return il2cpp::array_new<app::MoonAnimator_AnimatorPostprocessData__Array>(get_class(), size);
         }
-        inline app::MoonAnimator_AnimatorPostprocessData__Array* create_array(const std::vector<app::MoonAnimator_AnimatorPostprocessData__Boxed>& items) {
+        inline app::MoonAnimator_AnimatorPostprocessData__Array* create_array(const std::vector<app::MoonAnimator_AnimatorPostprocessData>& items) {
             return il2cpp::array_new<app::MoonAnimator_AnimatorPostprocessData__Array>(get_class(), items);
         }
     } // namespace MoonAnimator_AnimatorPostprocessData

@@ -20,7 +20,7 @@ namespace app::classes::types {
         inline app::RenderBuffer__Array* create_array(int size) {
             return il2cpp::array_new<app::RenderBuffer__Array>(get_class(), size);
         }
-        inline app::RenderBuffer__Array* create_array(const std::vector<app::RenderBuffer__Boxed>& items) {
+        inline app::RenderBuffer__Array* create_array(const std::vector<app::RenderBuffer>& items) {
             return il2cpp::array_new<app::RenderBuffer__Array>(get_class(), items);
         }
     } // namespace RenderBuffer
