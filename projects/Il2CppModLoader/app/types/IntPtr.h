@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::IntPtr__Array* create_array(int size) {
             return il2cpp::array_new<app::IntPtr__Array>(get_class(), size);
         }
-        inline app::IntPtr__Array* create_array(const std::vector<app::IntPtr>& items) {
+        inline app::IntPtr__Array* create_array(const std::vector<void*>& items) {
             return il2cpp::array_new<app::IntPtr__Array>(get_class(), items);
         }
     } // namespace IntPtr

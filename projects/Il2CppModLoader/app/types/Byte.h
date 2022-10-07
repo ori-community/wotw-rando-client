@@ -17,7 +17,7 @@ namespace app::classes::types {
         inline app::Byte__Array* create_array(int size) {
             return il2cpp::array_new<app::Byte__Array>(get_class(), size);
         }
-        inline app::Byte__Array* create_array(const std::vector<app::Byte>& items) {
+        inline app::Byte__Array* create_array(const std::vector<uint8_t>& items) {
             return il2cpp::array_new<app::Byte__Array>(get_class(), items);
         }
     } // namespace Byte
