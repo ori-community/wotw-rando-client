@@ -178,8 +178,7 @@ namespace dev::visualize {
             auto position = Transform::get_localPosition(transform);
             auto scale = Transform::get_localScale(transform);
             auto rotation = Transform::get_rotation(transform);
-            auto boxed_rotation = il2cpp::box_value<app::Quaternion__Boxed>(
-                    reinterpret_cast<Il2CppClass*>(types::Quaternion::get_class()), rotation);
+            auto boxed_rotation = types::Quaternion::box(rotation);
             auto euler = Quaternion::get_eulerAngles(boxed_rotation);
 
             indent(visualizer, 1);

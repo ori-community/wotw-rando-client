@@ -27,13 +27,12 @@ using namespace app::classes::UnityEngine;
 namespace randomizer {
     namespace {
         app::Vector2__Array* make_uvs(float x = 0, float y = 0, float w = 1, float h = 1) {
-            return il2cpp::array_new<app::Vector2__Array>(
-                    reinterpret_cast<Il2CppClass*>(types::Vector2::get_class()),
-                    std::vector<app::Vector2>{
-                            { x, y },
-                            { x + w, y },
-                            { x, y + h },
-                            { x + w, y + h } }
+            return types::Vector2::create_array(
+                std::vector<app::Vector2>{
+                    { x, y },
+                    { x + w, y },
+                    { x, y + h },
+                    { x + w, y + h } }
             );
         }
 

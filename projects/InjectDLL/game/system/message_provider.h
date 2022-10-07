@@ -1,12 +1,15 @@
 #pragma once
 
 #include <Il2CppModLoader\il2cpp_helpers.h>
+#include <Il2CppModLoader/app/types/TranslatedMessageProvider_MessageItem.h>
+
+using namespace app::classes;
 
 namespace utils {
     template <typename T>
     void add_to_message_provider(app::TranslatedMessageProvider* provider, T message) {
         auto il2cpp_str = il2cpp::string_new(message);
-        auto item = il2cpp::create_object<app::TranslatedMessageProvider_MessageItem>("", "TranslatedMessageProvider", "MessageItem");
+        auto item = types::TranslatedMessageProvider_MessageItem::create();
         item->fields.English = il2cpp_str;
         item->fields.French = il2cpp_str;
         item->fields.Italian = il2cpp_str;

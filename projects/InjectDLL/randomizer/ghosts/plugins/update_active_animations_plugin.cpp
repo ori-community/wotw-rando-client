@@ -37,10 +37,7 @@ namespace ghosts::plugins {
             il2cpp::invoke<app::Int32__Boxed>(generic_puppet->fields.m_activeAnimationIndexMap, "TryGetValue", &animation_handle, &index);
 
             auto animation = Moon::ActiveAnimationHandle::get_Animation(
-                    il2cpp::box_value<app::ActiveAnimationHandle__Boxed>(
-                            reinterpret_cast<Il2CppClass*>(types::ActiveAnimationHandle::get_class()),
-                            animation_handle
-                    )
+                types::ActiveAnimationHandle::box(animation_handle)
             );
             auto attribute = GenericPuppet::GetGhostGenericResourceAttributeForFieldWithValue(
                     generic_puppet,
