@@ -420,14 +420,14 @@ namespace {
 
     CALL_ON_INIT(initialize_wheel);
 
-    void select_closest(app::CleverMenuItemSelectionManager* manager, app::Vector2& axis) {
+    void select_closest(app::CleverMenuItemSelectionManager* manager, const app::Vector2& axis) {
         auto magnitude = sqrtf(axis.x * axis.x + axis.y * axis.y);
         if (magnitude < 0.2f)
             return;
 
         auto manager_go = il2cpp::unity::get_game_object(manager);
 
-        if (manager_go != nullptr) {
+        if (manager_go == nullptr) {
             return;
         }
 
@@ -470,7 +470,6 @@ namespace {
             case app::ControlScheme__Enum::Switch:
             case app::ControlScheme__Enum::Controller:
             case app::ControlScheme__Enum::Keyboard:
-                // TODO: Maybe use some other axis.
                 select_closest(manager, manager->fields.m_lastMenuAxis);
                 break;
             case app::ControlScheme__Enum::KeyboardAndMouse:
