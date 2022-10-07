@@ -34,5 +34,5 @@ namespace ghosts {
     bool has_new_frame_data();
     std::vector<std::byte> get_frame_data();
     std::vector<std::byte> serialize_frame(app::GhostFrame* frame);
-    app::GhostFrame* deserialize_frame(std::vector<std::byte> buffer);
+    app::GhostFrame* deserialize_frame(const std::vector<std::byte>& buffer);
 } // namespace ghosts

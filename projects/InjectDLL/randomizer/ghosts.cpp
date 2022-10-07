@@ -414,9 +414,9 @@ namespace ghosts {
         return target_buffer;
     }
 
-    app::GhostFrame* deserialize_frame(std::vector<std::byte> buffer) {
+    app::GhostFrame* deserialize_frame(const std::vector<std::byte>& buffer) {
         auto memory_stream = il2cpp::create_object<app::MemoryStream>("System.IO", "MemoryStream");
-        auto byte_array = il2cpp::array_new<app::Byte__Array>(il2cpp::get_class("System", "Byte"), std::move(buffer));
+        auto byte_array = il2cpp::array_new<app::Byte__Array>(il2cpp::get_class("System", "Byte"), buffer);
 
         MemoryStream::ctor_3(memory_stream, byte_array);
 
