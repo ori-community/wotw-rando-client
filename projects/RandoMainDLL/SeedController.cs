@@ -26,27 +26,10 @@ namespace RandoMainDLL {
   }
 
   public static class Flag {
-    public const string NOHINTS = "No Hints";
-    public const string NOKEYSTONES = "No KS Doors";
-    public const string ALLWISPS = "Force Wisps";
-    public const string ALLTREES = "Force Trees";
-    public const string ALLQUESTS = "Force Quests";
-    public const string NOSWORD = "No Free Sword";
-    public const string RAIN = "Rainy Marsh";
-    public const string RAND = "Random Spawn";
-    public const string RELIC_HUNT = "World Tour";
-
-    public static readonly Dictionary<string, string> FALLBACK_NAMES = new Dictionary<string, string>() {
-      { "NoHints", "No Hints" },
-      { "NoKSDoors", "No KS Doors" },
-      { "ForceWisps", "Force Wisps" },
-      { "ForceTrees", "Force Trees" },
-      { "ForceQuests", "Force Quests" },
-      { "NoFreeSword", "No Free Sword" },
-      { "RainyMarsh", "Rainy Marsh" },
-      { "RandomSpawn", "Random Spawn" },
-      { "WorldTour", "World Tour" },
-    };
+    public const string ALL_WISPS = "All Wisps";
+    public const string ALL_TREES = "All Trees";
+    public const string ALL_QUESTS = "All Quests";
+    public const string RELICS = "Relics";
   }
 
   public class UberStateCondition : IComparable<UberStateCondition> {
@@ -199,9 +182,9 @@ namespace RandoMainDLL {
       var loc = goalCond.Loc();
       if (loc.Type == LocType.Tree /*&& flags.Contains(Flag.ALLTREES) */)
         return true;
-      if (Flags.Contains(Flag.ALLWISPS) && UberStateController.Wisps.Exists(w => w.GetUberId().Equals(goalCond.Id)))
+      if (Flags.Contains(Flag.ALL_WISPS) && UberStateController.Wisps.Exists(w => w.GetUberId().Equals(goalCond.Id)))
         return true;
-      if (Flags.Contains(Flag.ALLQUESTS) && UberStateController.Quests.Exists(q => q.GetUberId().Equals(goalCond.Id) && q.ValueAsInt() == goalCond.Target))
+      if (Flags.Contains(Flag.ALL_QUESTS) && UberStateController.Quests.Exists(q => q.GetUberId().Equals(goalCond.Id) && q.ValueAsInt() == goalCond.Target))
         return true;
       return false;
     }
@@ -338,21 +321,11 @@ namespace RandoMainDLL {
 
     public static bool EnableLogicFilter { get => !Settings.DisableLogicFilter; }
     public static bool HasInternalSpoilers { get => !Settings.RaceMode; }
-    public static bool KSDoorsOpen { get => Flags.Contains(Flag.NOKEYSTONES); }
     public static void ProcessFlags(string flagline) {
       if (Flags.Count > 0)
         Randomizer.Warn("ProcessFlags", "called with non-empty flagline. Check seed for extra flaglines");
-      foreach (var rawFlag in flagline.Replace("Flags:", "").Trim().Split(',')) {
-        var flag = rawFlag.Trim();
-        if (flag.ToLower() == "nosword")
-          Flags.Add(Flag.NOSWORD);
-        else {
-          // TODO: Remove with 2.0
-          if (Flag.FALLBACK_NAMES.ContainsKey(flag))
-            flag = Flag.FALLBACK_NAMES[flag];
-
-          Flags.Add(flag);
-        }
+      foreach (var flag in flagline.Replace("Flags:", "").Trim().Split(',').Select(f => f.Trim())) {
+        Flags.Add(flag);
       }
     }
 
@@ -1019,36 +992,36 @@ namespace RandoMainDLL {
       if (InterOp.Utils.get_game_state() != GameState.Game)
         return ""; // don't even try!
       var goalMsgs = new List<String>();
-      if (Flags.Contains(Flag.ALLWISPS)) {
+      if (Flags.Contains(Flag.ALL_WISPS)) {
         var max = UberStateController.Wisps.Count;
         var amount = UberStateController.Wisps.Count((UberState s) => s.GetValue().Bool);
         var w = amount == max ? met : unmet;
         goalMsgs.Add($"{w}Wisps: {amount}/{max}{w}");
       }
-      if (Flags.Contains(Flag.ALLTREES)) {
+      if (Flags.Contains(Flag.ALL_TREES)) {
         var amount = SaveController.TreeCount;
         var w = amount == 14 ? met : unmet;
         goalMsgs.Add($"{w}Trees: {amount}/{14}{w}");
       }
-      if (Flags.Contains(Flag.ALLQUESTS)) {
+      if (Flags.Contains(Flag.ALL_QUESTS)) {
         var max = UberStateController.Quests.Count;
         var amount = UberStateController.Quests.Count((UberState s) => s.GetValue().Int == s.Value.Int);
         var w = amount == max ? met : unmet;
         goalMsgs.Add($"{w}Quests: {amount}/{max}{w}");
       }
       var msg = String.Join(", ", goalMsgs);
-      if (withRelics && Flags.Contains(Flag.RELIC_HUNT))
+      if (withRelics && Flags.Contains(Flag.RELICS))
         msg += "\n" + Relic.RelicMessage();
       return goalMsgs.Count > 0 ? (progress ? "\n" : "") + msg : msg;
     }
 
     public static void UpdateGoal() {
       bool finished = true;
-      if (Flags.Contains(Flag.ALLTREES)) {
+      if (Flags.Contains(Flag.ALL_TREES)) {
         finished = finished && SaveController.TreeCount == 14;
       }
 
-      if (finished && Flags.Contains(Flag.ALLWISPS)) {
+      if (finished && Flags.Contains(Flag.ALL_WISPS)) {
         foreach (var uber_state in UberStateController.Wisps) {
           finished = finished && uber_state.GetValue().Bool;
           if (!finished)
@@ -1056,7 +1029,7 @@ namespace RandoMainDLL {
         }
       }
 
-      if (finished && Flags.Contains(Flag.ALLQUESTS)) {
+      if (finished && Flags.Contains(Flag.ALL_QUESTS)) {
         foreach (var uber_state in UberStateController.Quests) {
           finished = finished && uber_state.GetValue().Int == uber_state.Value.Int;
           if (!finished)

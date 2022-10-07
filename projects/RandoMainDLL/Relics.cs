@@ -74,7 +74,7 @@ namespace RandoMainDLL {
       });
     }
 
-    public static bool Valid { get => !SeedController.Flags.Contains(Flag.RELIC_HUNT) || RelicZones.All(z => Counts[z] <= UberGet.value(ZoneToId[z]).Byte); }
+    public static bool Valid { get => !SeedController.Flags.Contains(Flag.RELICS) || RelicZones.All(z => Counts[z] <= UberGet.value(ZoneToId[z]).Byte); }
 
     public override PickupType Type => PickupType.Relic;
 

@@ -542,7 +542,7 @@ namespace RandoMainDLL {
         InterOp.System.save();
       }
       // should happen in both branches
-      if (SeedController.Flags.Contains(Flag.ALLWISPS))
+      if (SeedController.Flags.Contains(Flag.ALL_WISPS))
         HintsController.ProgressWithHints();
     }
     private static bool ShouldRevert(UberState uber_state, UberValue old) {
@@ -566,9 +566,6 @@ namespace RandoMainDLL {
         foreach (UberState s in DefaultUberStates) { s.Write(); }
         foreach (UberState s in Kuberstates) { s.Write(); }
         foreach (UberState s in DialogAndRumors) { s.Write(); }
-
-        if (SeedController.KSDoorsOpen)
-          foreach (UberState s in KeystoneDoors) { s.Write(); }
 
         // Always remove cutscenes until logic has been written
         foreach (UberState s in ShortCutscenes) { s.Write(); }
