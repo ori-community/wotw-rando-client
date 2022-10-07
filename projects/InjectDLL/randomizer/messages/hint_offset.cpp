@@ -4,6 +4,7 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
 #include <Il2CppModLoader/app/methods/Game/UI_Hints.h>
 #include <Il2CppModLoader/app/methods/MessageBox.h>
+#include <Il2CppModLoader/app/types/UI_Hints.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 
 #include <Il2CppModLoader/common.h>
@@ -20,7 +21,7 @@ INJECT_C_DLLEXPORT bool messages_is_showing_hint() {
 }
 
 INJECT_C_DLLEXPORT int messages_active_hint_lines() {
-    auto ui_hints = il2cpp::get_nested_class<app::UI_Hints__Class>("Game", "UI", "Hints");
+    auto ui_hints = types::UI_Hints::get_class();
     auto current_hint_message_box = ui_hints->static_fields->m_currentHint;
 
     if (!il2cpp::unity::is_valid(current_hint_message_box)) {

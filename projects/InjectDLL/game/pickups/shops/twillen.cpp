@@ -22,6 +22,7 @@
 #include <Il2CppModLoader/app/methods/UberShaderAPI.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/app/methods/UpgradableShardItem.h>
+#include <Il2CppModLoader/app/types/SpiritShardSettings.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
@@ -154,7 +155,7 @@ namespace {
             }
         }
 
-        auto* const settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
+        auto* const settings = types::SpiritShardSettings::get_class()->static_fields->Instance;
 
         auto* const description = il2cpp::invoke<app::SpiritShardDescription>(settings->fields.Descriptions, "GetValue", &type);
         if (!(item->fields.m_gained || !this_ptr->fields.RequireOwned) || locked_shard_overwrite)
@@ -168,7 +169,7 @@ namespace {
             } else {
                 auto it = shard_textures.find(type);
                 if (it == shard_textures.end()) {
-                    auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")
+                    auto shard_icons = types::SpiritShardSettings::get_class()
                                                ->static_fields->Instance->fields.Icons;
                     auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &type);
 
@@ -229,7 +230,7 @@ namespace {
         csharp_bridge::update_shop_data();
         auto sein = game::player::sein();
         if (sein != nullptr && sein->fields.PlayerSpiritShards != nullptr) {
-            auto settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
+            auto settings = types::SpiritShardSettings::get_class()->static_fields->Instance;
             auto shards_to_buy = sein->fields.PlayerSpiritShards->fields.InventoryItemsAvailableToBuy;
             for (int i = 0; i < shards_to_buy->fields._size; ++i) {
                 auto shard = shards_to_buy->fields._items->vector[i];
@@ -291,7 +292,7 @@ namespace {
                 UberShaderAPI::SetColor_1(background_renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.UnpurchaseableColor);
             }
 
-            auto descriptions = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance->fields.Descriptions;
+            auto descriptions = types::SpiritShardSettings::get_class()->static_fields->Instance->fields.Descriptions;
             auto* shard_description = il2cpp::invoke<app::SpiritShardDescription>(descriptions, "GetValue", &shard->fields.m_type);
             // auto cost = SpiritShardDescription::get_BuyCost(shard_description);
             app::MessageDescriptor descriptor = { 0 };

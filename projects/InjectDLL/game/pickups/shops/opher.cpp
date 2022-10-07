@@ -10,6 +10,7 @@
 #include <Il2CppModLoader/app/methods/UISoundSettingsAsset.h>
 #include <Il2CppModLoader/app/methods/UpgradableShardItem.h>
 #include <Il2CppModLoader/app/methods/WeaponmasterItem.h>
+#include <Il2CppModLoader/app/types/WeaponmasterItem.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 
@@ -127,7 +128,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(WeaponmasterItem, bool, get_IsVisible, (app::WeaponmasterItem * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterItem") && this_ptr->fields.Upgrade != nullptr) {
+        if (il2cpp::is_assignable(this_ptr, types::WeaponmasterItem::get_class()) && this_ptr->fields.Upgrade != nullptr) {
             const auto key = get_key(this_ptr);
             const auto it = opher_overrides.find(key);
             if (it != opher_overrides.end())
@@ -140,7 +141,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(WeaponmasterItem, bool, get_IsLocked, (app::WeaponmasterItem * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterItem") && this_ptr->fields.Upgrade != nullptr) {
+        if (il2cpp::is_assignable(this_ptr, types::WeaponmasterItem::get_class()) && this_ptr->fields.Upgrade != nullptr) {
             const auto key = get_key(this_ptr);
             const auto it = opher_overrides.find(key);
             if (it != opher_overrides.end())

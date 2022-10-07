@@ -31,6 +31,11 @@
 #include <Il2CppModLoader/app/methods/SpellUIItem.h>
 #include <Il2CppModLoader/app/methods/SeinCharacter.h>
 #include <Il2CppModLoader/app/methods/MoonMath_Line.h>
+#include <Il2CppModLoader/app/types/Input_Cmd.h>
+#include <Il2CppModLoader/app/types/GameSettings.h>
+#include <Il2CppModLoader/app/types/SpellSettings.h>
+#include <Il2CppModLoader/app/types/UI.h>
+#include <Il2CppModLoader/app/types/EquipmentWheel.h>
 #include <Common/ext.cpp>
 
 #include <unordered_map>
@@ -153,14 +158,14 @@ namespace {
             if (!can_show_wheel())
                 return;
 
-            auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
+            auto wheel = types::EquipmentWheel::get_class()->static_fields->Instance;
             switch (wheel_behavior) {
                 case WheelBehavior::Standalone:
                     custom_wheel_input = true;
                     if (is_wheel_visible)
                         refresh_wheel();
                     else {
-                        auto* msm = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu;
+                        auto* msm = types::UI::get_class()->static_fields->m_sMenu;
                         MenuScreenManager::ShowEquipmentWheel(msm);
                     }
 
@@ -173,13 +178,13 @@ namespace {
             if (wheels.empty() || wheels[wheel_index].entries.empty())
                 return;
 
-            auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
+            auto wheel = types::EquipmentWheel::get_class()->static_fields->Instance;
             switch (wheel_behavior) {
                 case WheelBehavior::Standalone: {
                     custom_wheel_input = false;
 
-                    if (!il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd")->static_fields->OpenWeaponWheel->fields.IsPressed) {
-                        auto* msm = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu;
+                    if (!types::Input_Cmd::get_class()->static_fields->OpenWeaponWheel->fields.IsPressed) {
+                        auto* msm = types::UI::get_class()->static_fields->m_sMenu;
                         MenuScreenManager::HideEquipmentWhell(msm);
                     } else
                         refresh_wheel();
@@ -227,7 +232,7 @@ namespace {
 
         next::EquipmentRadialSelection::Populate(this_ptr, inventory_items, grid_context);
 
-        auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
+        auto wheel = types::EquipmentWheel::get_class()->static_fields->Instance;
         EquipmentWheelUIDetails::UpdateContext(wheel->fields.EquipmentDetailsCanvas, false);
         const int count = CleverMenuItemSelectionManager::get_MenuItemsCount(wheel_selection_manager);
         if (custom_wheel_on) {
@@ -341,7 +346,7 @@ namespace {
 
             if (entry->texture_data == nullptr) {
                 entry->texture_data = randomizer::textures::create_texture();
-                auto* spell_settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings");
+                auto* spell_settings = types::SpellSettings::get_class();
                 auto* icons = spell_settings->static_fields->Instance->fields.Icons;
                 entry->texture_data->set_texture(reinterpret_cast<app::Texture*>(icons->fields._.Missing.InventoryIcon));
             }
@@ -383,7 +388,7 @@ namespace {
     //    CleverMenuItem::OnPressed(this_ptr);
     //    if (custom_wheel_on && this_ptr->fields.m_selectionManager == wheel_selection_manager)
     //    {
-    //        auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
+    //        auto wheel = types::EquipmentWheel::get_class()->static_fields->Instance;
     //        auto* item = EquipmentWheel::get_SelectedSpellUIItem(wheel);
     //        if (item != nullptr && item->fields.m_spell != nullptr)
     //        {
@@ -399,7 +404,7 @@ namespace {
         entry.callback(wheel_index, index, binding);
 
         // Refresh things.
-        auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
+        auto wheel = types::EquipmentWheel::get_class()->static_fields->Instance;
         EquipmentWheelUIDetails::UpdateContext(wheel->fields.EquipmentDetailsCanvas, false);
         SpellUIItem::UpdateSpellIcon(item);
     }
@@ -461,11 +466,11 @@ namespace {
     }
 
     void update_wheel_position() {
-        auto wheel = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel")->static_fields->Instance;
+        auto wheel = types::EquipmentWheel::get_class()->static_fields->Instance;
         auto* manager = wheel->fields.RadialSelection->fields.m_navigationManager;
 
         // Trigger movement so wheel updates selection after refresh.
-        auto scheme = il2cpp::get_class<app::GameSettings__Class>("", "GameSettings")->static_fields->Instance->fields.m_currentControlSchemes;
+        auto scheme = types::GameSettings::get_class()->static_fields->Instance->fields.m_currentControlSchemes;
         switch (scheme) {
             case app::ControlScheme__Enum::Switch:
             case app::ControlScheme__Enum::Controller:
@@ -583,7 +588,7 @@ INJECT_C_DLLEXPORT bool clear_wheel_item(int wheel, int item) {
 INJECT_C_DLLEXPORT void refresh_wheel() {
     if (is_wheel_visible) {
         dont_fade = true;
-        auto wheel_class = il2cpp::get_class<app::EquipmentWheel__Class>("", "EquipmentWheel");
+        auto wheel_class = types::EquipmentWheel::get_class();
 
         if (!il2cpp::unity::is_valid(wheel_class)) {
             return;

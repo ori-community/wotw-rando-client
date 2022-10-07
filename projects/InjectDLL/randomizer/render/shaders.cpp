@@ -6,13 +6,14 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Material.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Shader.h>
 #include <Il2CppModLoader/app/methods/UberShaderAPI.h>
+#include <Il2CppModLoader/app/types/Material.h>
 
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
 
 namespace randomizer::shaders {
     app::Material *copy_material(app::Material *source) {
-        auto instanced_material = il2cpp::create_object<app::Material>("UnityEngine", "Material");
+        auto instanced_material = types::Material::create();
         Material::ctor_2(instanced_material, source);
         Material::CopyPropertiesFromMaterial(instanced_material, source);
         return instanced_material;

@@ -15,12 +15,14 @@
 #include <Il2CppModLoader/il2cpp_math.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/windows_api/console.h>
+#include <Il2CppModLoader/app/types/GameObject.h>
 
 #include <nlohmann/json.hpp>
 
 #include <fstream>
 #include <unordered_map>
 
+using namespace app::classes;
 using namespace modloader;
 using namespace randomizer;
 
@@ -88,7 +90,7 @@ namespace randomizer {
 
     Animation::Animation(AnimationDefinition const& definition) :
             m_sprite(), m_color_modulate{ 1, 1, 1, 1 }, m_duration(definition.duration), m_frame(0), m_frames(definition.frames) {
-        m_root = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
+        m_root = types::GameObject::create();
         il2cpp::invoke(m_root, ".ctor");
         il2cpp::invoke(m_root, "set_name", il2cpp::string_new("rando_animation"));
         game::add_to_container(game::RandoContainer::GameObjects, m_root);

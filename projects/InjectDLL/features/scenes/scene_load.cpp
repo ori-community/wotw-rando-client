@@ -7,6 +7,7 @@
 #include <Il2CppModLoader/app/methods/SceneManagerScene.h>
 #include <Il2CppModLoader/app/methods/ScenesManager.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
+#include <Il2CppModLoader/app/types/Scenes.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 
@@ -31,7 +32,7 @@ namespace scenes {
 
     app::ScenesManager* get_scenes_manager() {
         if (scenes_manager_instance == nullptr) {
-            const auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
+            const auto scenes = types::Scenes::get_class();
             scenes_manager_instance = scenes->static_fields->Manager;
         }
 
@@ -207,7 +208,7 @@ namespace scenes {
     }
 
     app::GameObject* get_root(std::string_view name) {
-        const auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
+        const auto scenes = types::Scenes::get_class();
         auto manager = scenes->static_fields->Manager;
         auto cname = il2cpp::string_new(name);
         auto meta = ScenesManager::GetSceneInformation(manager, cname);
@@ -228,7 +229,7 @@ namespace scenes {
 
     std::vector<app::GameObject*> get_roots_from_active() {
         std::vector<app::GameObject*> game_objects;
-        const auto scenes = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes");
+        const auto scenes = types::Scenes::get_class();
         auto manager = scenes->static_fields->Manager;
         for (auto i = 0; i < manager->fields.ActiveScenes->fields._size; ++i) {
             auto scene = manager->fields.ActiveScenes->fields._items->vector[i];

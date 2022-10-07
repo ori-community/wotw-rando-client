@@ -19,6 +19,10 @@
 #include <Il2CppModLoader/app/methods/RuntimeGameWorldArea.h>
 #include <Il2CppModLoader/app/methods/RuntimeWorldMapIcon.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Vector3.h>
+#include <Il2CppModLoader/app/types/Input_Cmd.h>
+#include <Il2CppModLoader/app/types/GameMapTransitionManager.h>
+#include <Il2CppModLoader/app/types/QuestsUI.h>
+#include <Il2CppModLoader/app/types/GameWorld.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -53,7 +57,7 @@ namespace {
     };
 
     app::GameWorld* get_game_world() {
-        return il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
+        return types::GameWorld::get_class()->static_fields->Instance;
     }
 
     IL2CPP_INTERCEPT(CartographerEntity, int, get_MapCost, (app::CartographerEntity * this_ptr)) {
@@ -157,7 +161,7 @@ namespace {
         if (this_ptr->fields.m_scrollPosition.x != previous_x || this_ptr->fields.m_scrollPosition.y != previous_y) {
             ScopedSetter setter(allow_showing_description_ui, true);
 
-            auto quests_ui = il2cpp::get_class<app::QuestsUI__Class>("", "QuestsUI")->static_fields->Instance;
+            auto quests_ui = types::QuestsUI::get_class()->static_fields->Instance;
             QuestsUI::UpdateDescriptionUI_2(quests_ui, nullptr);
         }
     }
@@ -219,7 +223,7 @@ namespace {
      * calculate distance from the cursor instead of screen center).
      */
     IL2CPP_INTERCEPT(GameMapUI, void, NormalInput, (app::GameMapUI * this_ptr)) {
-        auto focus_objective_button = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd")->static_fields->MapFocusObjective;
+        auto focus_objective_button = types::Input_Cmd::get_class()->static_fields->MapFocusObjective;
 
         auto focus_objective_button_pressed = focus_objective_button->fields.IsPressed && !focus_objective_button->fields.WasPressed && !focus_objective_button->fields.Used;
         if (focus_objective_button_pressed) {
@@ -255,7 +259,7 @@ namespace {
     float original_scale = -1.0f;
     IL2CPP_INTERCEPT(AreaMapUI, void, Awake, (app::AreaMapUI * this_ptr)) {
         next::AreaMapUI::Awake(this_ptr);
-        auto transition = il2cpp::get_class<app::GameMapTransitionManager__Class>("", "GameMapTransitionManager");
+        auto transition = types::GameMapTransitionManager::get_class();
         transition->static_fields->WorldMapEnabled = csharp_bridge::check_ini("WorldMapEnabled");
         if (original_zoom < 0.0f)
             original_zoom = this_ptr->fields._Navigation_k__BackingField->fields.AreaMapZoomLevel;

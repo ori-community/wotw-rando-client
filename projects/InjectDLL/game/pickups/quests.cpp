@@ -4,6 +4,8 @@
 #include <Il2CppModLoader/app/methods/QuestsController.h>
 #include <Il2CppModLoader/app/methods/RaceHandler.h>
 #include <Il2CppModLoader/app/methods/RuntimeQuest.h>
+#include <Il2CppModLoader/app/types/QuestsController.h>
+#include <Il2CppModLoader/app/types/SeinWorldState.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -293,7 +295,7 @@ namespace game::pickups::quests {
         }
 
         void report_world_state(std::string const& command, std::vector<console::CommandParam> const& params) {
-            auto sein_world_state = il2cpp::get_class<app::SeinWorldState__Class>("", "SeinWorldState");
+            auto sein_world_state = types::SeinWorldState::get_class();
             auto state = sein_world_state->static_fields->Instance;
             send_state(state->fields.ForlornRuinsKey);
             send_state(state->fields.GinsoTreeKey);
@@ -329,7 +331,7 @@ namespace game::pickups::quests {
     } // namespace
 
     app::QuestsController* controller() {
-        return il2cpp::get_class<app::QuestsController__Class>("", "QuestsController")->static_fields->Instance;
+        return types::QuestsController::get_class()->static_fields->Instance;
     }
 
     void set_allow_changing_active_quest(bool allow) {

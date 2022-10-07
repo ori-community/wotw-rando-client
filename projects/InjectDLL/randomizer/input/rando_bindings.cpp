@@ -13,6 +13,7 @@
 #include <Il2CppModLoader/app/methods/PlayerInput.h>
 #include <Il2CppModLoader/app/methods/SavePedestalController.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Input.h>
+#include <Il2CppModLoader/app/types/PlayerInput.h>
 
 #include <fstream>
 #include <unordered_map>
@@ -116,7 +117,7 @@ namespace randomizer::input {
         }
 
         IL2CPP_INTERCEPT(SavePedestalController, void, BeginTeleportation, (app::Vector2 teleport_target_world_position)) {
-            auto player_input = il2cpp::get_class<app::PlayerInput__Class>("", "PlayerInput")->static_fields->Instance;
+            auto player_input = types::PlayerInput::get_class()->static_fields->Instance;
             auto prev = player_input->fields.Active;
             next::SavePedestalController::BeginTeleportation(teleport_target_world_position);
             player_input->fields.Active = prev;

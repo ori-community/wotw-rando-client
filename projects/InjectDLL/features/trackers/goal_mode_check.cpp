@@ -2,6 +2,7 @@
 #include <Il2CppModLoader/windows_api/console.h>
 #include <Il2CppModLoader/app/methods/SeinCharacter.h>
 #include <Il2CppModLoader/app/methods/GameplayCamera.h>
+#include <Il2CppModLoader/app/types/UI_Cameras.h>
 #include <game/player.h>
 #include <interop/csharp_bridge.h>
 
@@ -48,7 +49,7 @@ namespace {
     uber_states::UberState goal_modes_complete(UberStateGroup::GameState, 11);
     IL2CPP_INTERCEPT(SeinCharacter, void, FixedUpdate, (app::SeinCharacter * this_ptr)) {
         if (!goal_modes_complete.get<bool>()) {
-            auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
+            auto cameras = types::UI_Cameras::get_class();
             if (set_camera_next_update) {
                 if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
                     // We need to do this on the next frame to allow state to update without causing flickering.

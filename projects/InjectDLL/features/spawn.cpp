@@ -20,6 +20,11 @@
 #include <Il2CppModLoader/app/methods/SeinCharacter.h>
 #include <Il2CppModLoader/app/methods/TitleScreenManager.h>
 #include <Il2CppModLoader/app/methods/WaitAction.h>
+#include <Il2CppModLoader/app/types/UI_Cameras.h>
+#include <Il2CppModLoader/app/types/GameStateMachine.h>
+#include <Il2CppModLoader/app/types/SaveSlotsUI.h>
+#include <Il2CppModLoader/app/types/QuestsUI.h>
+#include <Il2CppModLoader/app/types/AreaMapUI.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/windows_api/console.h>
@@ -64,8 +69,8 @@ namespace {
 
             teleport_state = TeleportState::None;
 
-            auto area_map_ui = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
-            auto quests_ui = il2cpp::get_class<app::QuestsUI__Class>("", "QuestsUI")->static_fields->Instance;
+            auto area_map_ui = types::AreaMapUI::get_class()->static_fields->Instance;
+            auto quests_ui = types::QuestsUI::get_class()->static_fields->Instance;
             AreaMapNavigation::SetLocationPlayer(area_map_ui->fields._Navigation_k__BackingField);
             QuestsUI::UpdateDescriptionUI_2(quests_ui, nullptr);
         }
@@ -96,7 +101,7 @@ namespace {
 
     // region Preload when selecting empty save slot
     app::SaveSlotsUI* get_save_slots_ui() {
-        auto save_slots_ui_klass = il2cpp::get_class<app::SaveSlotsUI__Class>("", "SaveSlotsUI");
+        auto save_slots_ui_klass = types::SaveSlotsUI::get_class();
         return save_slots_ui_klass->static_fields->Instance;
     }
 
@@ -216,9 +221,9 @@ namespace {
     }
 
     void on_new_game(GameEvent event, EventTiming timing) {
-        auto game_state_machine = il2cpp::get_class<app::GameStateMachine__Class>("", "GameStateMachine")->static_fields->m_instance;
+        auto game_state_machine = types::GameStateMachine::get_class()->static_fields->m_instance;
 
-        auto camera = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras")->static_fields->Current;
+        auto camera = types::UI_Cameras::get_class()->static_fields->Current;
         GameplayCamera::DisableGoThroughScrollLocks(camera, reinterpret_cast<app::Object_1*>(game_state_machine));
         ScenesManager::ClearPreventUnloading(scenes::get_scenes_manager());
 

@@ -9,6 +9,7 @@
 #include <Il2CppModLoader/app/methods/Game/UI.h>
 #include <Il2CppModLoader/app/methods/MenuScreenManager.h>
 #include <Il2CppModLoader/app/methods/SeinUI.h>
+#include <Il2CppModLoader/app/types/UI.h>
 
 using namespace modloader;
 using namespace app::classes;
@@ -31,7 +32,7 @@ namespace game {
         } // namespace
 
         app::UI__Class *get() {
-            return il2cpp::get_class<app::UI__Class>("Game", "UI");
+            return types::UI::get_class();
         }
 
         bool area_map_open() {

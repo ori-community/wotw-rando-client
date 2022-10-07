@@ -3,6 +3,7 @@
 #include <Il2CppModLoader/app/methods/BlockableLaser.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/app/methods/Damage.h>
+#include <Il2CppModLoader/app/types/Damage.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 
@@ -27,7 +28,7 @@ namespace {
             return next::BlockableLaser::DealLaserDamage(this_ptr, target);
         }
 
-        auto damage = il2cpp::create_object<app::Damage>("", "Damage");
+        auto damage = types::Damage::create();
         Damage::ctor(damage, 0.f, app::Vector2{ 0.f, 0.f }, app::Vector3{ 0.f, 0.f, 0.f }, app::DamageType__Enum::Laser, app::AbilityType__Enum::None, nullptr, 0, nullptr, app::SpiritShardType__Enum::None, true, app::DamageWeight__Enum::Default, 0.f, false);
 
         return damage;

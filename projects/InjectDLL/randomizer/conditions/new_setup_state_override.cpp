@@ -10,6 +10,8 @@
 #include <Il2CppModLoader/app/methods/Moon/SerializedIntUberState.h>
 #include <Il2CppModLoader/app/methods/Moon/UberStateController.h>
 #include <Il2CppModLoader/app/methods/NewSetupStateController.h>
+#include <Il2CppModLoader/app/types/PlayerStateMap.h>
+#include <Il2CppModLoader/app/types/PlayerStateMap_Mapping.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -63,7 +65,7 @@ namespace randomizer {
                     if (tree.valid())
                         output = csharp_bridge::is_tree_activated(entry.m_ability) ^ (entry.m_matchType != 0);
                     else
-                        output = il2cpp::invoke(il2cpp::box_value<app::PlayerStateMap_Mapping__Boxed>(il2cpp::get_nested_class("Moon.uberSerializationWisp", "PlayerStateMap", "Mapping"), entry), "", state);
+                        output = il2cpp::invoke(types::PlayerStateMap_Mapping::box(entry), "", state);
 
                     if (output)
                         return entry.m_index;
@@ -77,7 +79,7 @@ namespace randomizer {
                 auto state = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "Resolve", nullptr);
                 auto mapping = this_ptr->fields.StateHolder->fields._._.Mapping;
                 int32_t mapping_result = 0;
-                if (il2cpp::is_assignable(mapping, "Moon.uberSerializationWisp", "PlayerStateMap"))
+                if (il2cpp::is_assignable(mapping, types::PlayerStateMap::get_class()))
                     mapping_result = handle_player_state_map(reinterpret_cast<app::PlayerStateMap*>(mapping), state);
                 else
                     mapping_result = il2cpp::invoke<app::Int32__Boxed>(mapping, "Resolve", state)->fields;

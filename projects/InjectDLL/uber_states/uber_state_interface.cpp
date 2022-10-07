@@ -31,6 +31,8 @@
 #include <Il2CppModLoader/app/methods/Moon/UberStateVisualization/SerializedIntUberStateWrapper.h>
 #include <Il2CppModLoader/app/methods/SavePedestalController.h>
 #include <Il2CppModLoader/app/methods/GameMapSavePedestal.h>
+#include <Il2CppModLoader/app/types/UberStateCollection.h>
+#include <Il2CppModLoader/app/types/UberStateController.h>
 #include <Il2CppModLoader/app/types/SerializedBooleanUberState.h>
 #include <Il2CppModLoader/app/types/SerializedByteUberState.h>
 #include <Il2CppModLoader/app/types/SerializedIntUberState.h>
@@ -393,7 +395,7 @@ namespace uber_states {
 
         game::player::unbind_all();
 
-        auto instance = il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController")->static_fields->m_currentStateValueStore;
+        auto instance = types::UberStateController::get_class()->static_fields->m_currentStateValueStore;
         instance->fields.m_isInitialized = false;
         il2cpp::invoke(instance->fields.m_groupMap, "Clear");
         UberStateValueStore::FinalizeInitialization(instance, false);
@@ -482,7 +484,7 @@ INJECT_C_DLLEXPORT UberStateDef* get_uber_states(int& size) {
     temp_string_vector.clear();
     temp_vector.clear();
 
-    auto collection = il2cpp::get_class<app::UberStateCollection__Class>("Moon", "UberStateCollection")
+    auto collection = types::UberStateCollection::get_class()
                               ->static_fields->m_instance->fields.m_descriptors->fields;
 
     temp_vector.resize(collection._size);

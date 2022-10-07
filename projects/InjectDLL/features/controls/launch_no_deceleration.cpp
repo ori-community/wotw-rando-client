@@ -6,6 +6,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/app/methods/Game/UI.h>
 #include <Il2CppModLoader/app/methods/TimeUtility.h>
+#include <Il2CppModLoader/app/types/UI.h>
 
 using namespace modloader;
 using namespace app::classes;
@@ -51,5 +52,5 @@ void handle_launch_no_deceleration(app::CharacterAirNoDeceleration* this_ptr) {
 }
 
 INJECT_C_DLLEXPORT bool in_menu() {
-    return il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->m_sMenu->fields.m_equipmentWhellVisible || Game::UI::get_MainMenuVisible() || Game::UI::get_WorldMapVisible() || Game::UI::get_ShardShopVisible() || Game::UI::IsInventoryVisible();
+    return types::UI::get_class()->static_fields->m_sMenu->fields.m_equipmentWhellVisible || Game::UI::get_MainMenuVisible() || Game::UI::get_WorldMapVisible() || Game::UI::get_ShardShopVisible() || Game::UI::IsInventoryVisible();
 }

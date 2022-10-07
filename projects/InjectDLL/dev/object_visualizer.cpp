@@ -10,6 +10,9 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Quaternion.h>
 #include <Il2CppModLoader/app/methods/UberShaderAPI.h>
+#include <Il2CppModLoader/app/types/Quaternion.h>
+#include <Il2CppModLoader/app/types/IUberState.h>
+#include <Il2CppModLoader/app/types/Object.h>
 
 #include <unordered_map>
 
@@ -52,7 +55,7 @@ namespace dev::visualize {
         }
 
         app::IUberStateGroup *get_group(app::IUberState *state) {
-            return il2cpp::invoke_virtual<app::IUberStateGroup>(state, il2cpp::get_class("Moon", "IUberState"),
+            return il2cpp::invoke_virtual<app::IUberStateGroup>(state, reinterpret_cast<Il2CppClass*>(types::IUberState::get_class()),
                                                                 "get_UberStateGroup");
         }
 
@@ -176,7 +179,7 @@ namespace dev::visualize {
             auto scale = Transform::get_localScale(transform);
             auto rotation = Transform::get_rotation(transform);
             auto boxed_rotation = il2cpp::box_value<app::Quaternion__Boxed>(
-                    il2cpp::get_class("UnityEngine", "Quaternion"), rotation);
+                    reinterpret_cast<Il2CppClass*>(types::Quaternion::get_class()), rotation);
             auto euler = Quaternion::get_eulerAngles(boxed_rotation);
 
             indent(visualizer, 1);
@@ -639,7 +642,7 @@ namespace dev::visualize {
             visualizer.visualizer_queue.erase(visualizer.visualizer_queue.begin());
             visualizer.last_queue_size = visualizer.visualizer_queue.size();
 
-            if (current.first == nullptr || (il2cpp::is_assignable(current.first, "UnityEngine", "Object") &&
+            if (current.first == nullptr || (il2cpp::is_assignable(current.first, types::Object::get_class()) &&
                                              !il2cpp::unity::is_valid(current.first))) {
                 indent(visualizer);
                 visualizer.stream << "nullptr" << visualizer.new_line;

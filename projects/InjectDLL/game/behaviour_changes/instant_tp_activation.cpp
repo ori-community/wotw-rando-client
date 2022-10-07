@@ -5,6 +5,7 @@
 #include <Common/ext.h>
 
 #include <Il2CppModLoader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
+#include <Il2CppModLoader/app/types/PlayerUberStateGroup.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -51,7 +52,7 @@ namespace {
 } // namespace
 
 INJECT_C_DLLEXPORT bool is_visited(app::GameWorldAreaID__Enum area, int index) {
-    auto player_group = il2cpp::get_class<app::PlayerUberStateGroup__Class>("", "PlayerUberStateGroup")->static_fields->Instance;
+    auto player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
     if (!il2cpp::unity::is_valid(player_group))
         return false;
 

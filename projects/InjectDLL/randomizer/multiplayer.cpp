@@ -16,6 +16,7 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Object.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
+#include <Il2CppModLoader/app/types/AreaMapUI.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/il2cpp_math.h>
@@ -76,7 +77,7 @@ namespace multiplayer {
     constexpr float DOT_TIMEOUT = 0.25f;
     constexpr float DOT_MIN_DISTANCE = 2.0f;
     void initialize_dots(PlayerInfo& player) {
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
         while (player.dots.size() <= DOT_COUNT) {
             auto& dot = player.dots.emplace_back();
             dot.dot = reinterpret_cast<app::GameObject*>(Object::Instantiate_3(reinterpret_cast<app::Object_1*>(area_map->fields.TrailPrefab)));
@@ -113,7 +114,7 @@ namespace multiplayer {
         if (player.dots.size() != DOT_COUNT)
             return;
 
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
 
         auto& dot = player.dots[player.next_dot_index];
         il2cpp::unity::set_active(dot.dot, player.map_avatar.visible);
@@ -162,14 +163,14 @@ namespace multiplayer {
 
         if (info.map_avatar.handle != 0) {
             app::Vector3 pos{ info.map_avatar.position.x, info.map_avatar.position.y, 0.f };
-            auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+            auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
             if (il2cpp::unity::is_valid(area_map))
                 IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, info.map_avatar.root, pos, false);
         }
     }
 
     PlayerInfo::Icon create_avatar_icon(std::wstring postfix, PlayerInfo const& info, int layer) {
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
         auto icons = area_map->fields._IconManager_k__BackingField->fields.Icons;
         PlayerInfo::Icon icon;
         switch (info.icon) {
@@ -203,7 +204,7 @@ namespace multiplayer {
     }
 
     void create_icons(PlayerInfo& info) {
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
         if (!il2cpp::unity::is_valid(area_map))
             return;
 
@@ -250,7 +251,7 @@ namespace multiplayer {
     }
 
     void create_avatar(PlayerInfo& info) {
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
         if (!il2cpp::unity::is_valid(area_map))
             return;
 
@@ -292,7 +293,7 @@ namespace multiplayer {
         if (info.map_avatar.handle != 0) {
             auto target = il2cpp::gchandle_target(info.map_avatar.handle);
             if (il2cpp::unity::is_valid(target)) {
-                auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+                auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
                 IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, info.map_avatar.root);
                 il2cpp::unity::destroy_object(target);
             }
@@ -309,7 +310,7 @@ namespace multiplayer {
             info.name_handle = 0;
         }
 
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
         for (auto const& dot : info.dots) {
             IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, dot.dot);
             il2cpp::unity::destroy_object(dot.dot);
@@ -362,7 +363,7 @@ namespace multiplayer {
     }
 
     void show_icon_prefabs(std::string const& name, std::vector<console::CommandParam> const& params) {
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
         auto icons = area_map->fields._IconManager_k__BackingField->fields.Icons;
         dev::Visualizer v;
         dev::visualize::visualize_object(v, icons->fields.Moki);

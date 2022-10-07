@@ -3,6 +3,7 @@
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
+#include <Il2CppModLoader/app/types/TextStyle.h>
 #include <constants.h>
 #include <game/player.h>
 #include <macros.h>
@@ -11,6 +12,7 @@
 #include <unordered_set>
 #include <vector>
 
+using namespace app::classes;
 using namespace modloader;
 
 namespace text_style {
@@ -54,7 +56,7 @@ namespace text_style {
     }
 
     app::TextStyle* create_style(std::string_view name) {
-        auto style = il2cpp::create_object<app::TextStyle>("CatlikeCoding.TextBox", "TextStyle");
+        auto style = types::TextStyle::create();
         il2cpp::invoke(style, ".ctor");
         style->fields.name = reinterpret_cast<app::String*>(il2cpp::string_new(name));
         style->fields.rendererId = -1;
@@ -123,7 +125,7 @@ namespace text_style {
         if (!new_styles.empty()) {
             auto* styles = box->fields.styleCollection->fields.styles;
             auto size = styles->max_length + new_styles.size();
-            auto arr = il2cpp::untyped::array_new(il2cpp::get_class("CatlikeCoding.TextBox", "TextStyle"), size);
+            auto arr = types::TextStyle::create_array(size);
             for (int i = 0; i < styles->max_length; ++i)
                 arr->vector[i] = styles->vector[i];
 

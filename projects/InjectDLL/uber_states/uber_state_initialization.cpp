@@ -8,6 +8,15 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/windows_api/console.h>
 #include <Il2CppModLoader/app/methods/Moon/UberStateCollection.h>
+#include <Il2CppModLoader/app/types/FloatUberState.h>
+#include <Il2CppModLoader/app/types/IntUberState.h>
+#include <Il2CppModLoader/app/types/ByteUberState.h>
+#include <Il2CppModLoader/app/types/BooleanUberState.h>
+#include <Il2CppModLoader/app/types/SerializedFloatUberState.h>
+#include <Il2CppModLoader/app/types/SerializedIntUberState.h>
+#include <Il2CppModLoader/app/types/SerializedByteUberState.h>
+#include <Il2CppModLoader/app/types/SerializedBooleanUberState.h>
+#include <Il2CppModLoader/app/types/UberID.h>
 
 #include <chrono>
 
@@ -16,7 +25,7 @@ using namespace app::classes;
 
 namespace {
     app::UberID* create_uber_id_ptr(int id) {
-        auto uber_id = il2cpp::create_object<app::UberID>("Moon", "UberID");
+        auto uber_id = types::UberID::create();
         uber_id->fields.m_id = id;
         return uber_id;
     }
@@ -30,35 +39,35 @@ namespace {
     Il2CppClass* get_klass();
     template <>
     Il2CppClass* get_klass<app::SerializedBooleanUberState>() {
-        return il2cpp::get_class("Moon", "SerializedBooleanUberState");
+        return reinterpret_cast<Il2CppClass*>(types::SerializedBooleanUberState::get_class());
     }
     template <>
     Il2CppClass* get_klass<app::SerializedByteUberState>() {
-        return il2cpp::get_class("Moon", "SerializedByteUberState");
+        return reinterpret_cast<Il2CppClass*>(types::SerializedByteUberState::get_class());
     }
     template <>
     Il2CppClass* get_klass<app::SerializedIntUberState>() {
-        return il2cpp::get_class("Moon", "SerializedIntUberState");
+        return reinterpret_cast<Il2CppClass*>(types::SerializedIntUberState::get_class());
     }
     template <>
     Il2CppClass* get_klass<app::SerializedFloatUberState>() {
-        return il2cpp::get_class("Moon", "SerializedFloatUberState");
+        return reinterpret_cast<Il2CppClass*>(types::SerializedFloatUberState::get_class());
     }
     template <>
     Il2CppClass* get_klass<app::BooleanUberState>() {
-        return il2cpp::get_class("Moon", "BooleanUberState");
+        return reinterpret_cast<Il2CppClass*>(types::BooleanUberState::get_class());
     }
     template <>
     Il2CppClass* get_klass<app::ByteUberState>() {
-        return il2cpp::get_class("Moon", "ByteUberState");
+        return reinterpret_cast<Il2CppClass*>(types::ByteUberState::get_class());
     }
     template <>
     Il2CppClass* get_klass<app::IntUberState>() {
-        return il2cpp::get_class("Moon", "IntUberState");
+        return reinterpret_cast<Il2CppClass*>(types::IntUberState::get_class());
     }
     template <>
     Il2CppClass* get_klass<app::FloatUberState>() {
-        return il2cpp::get_class("Moon", "FloatUberState");
+        return reinterpret_cast<Il2CppClass*>(types::FloatUberState::get_class());
     }
 
     template <typename T, typename V>

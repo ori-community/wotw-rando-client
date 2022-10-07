@@ -14,6 +14,7 @@
 #include <Il2CppModLoader/il2cpp_math.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Quaternion.h>
+#include <Il2CppModLoader/app/types/GameObject.h>
 
 using namespace modloader;
 using namespace app::classes;
@@ -81,7 +82,7 @@ namespace randomizer {
 
     Timeline::Timeline(std::vector<std::shared_ptr<timeline_entries::Base>> entries, TimelineState state) :
             m_entries(entries), m_state(state), m_entry(0), m_started(false), m_attached(nullptr), m_attach_offset{ 0, 0, 0 } {
-        m_state.root = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
+        m_state.root = types::GameObject::create();
         il2cpp::invoke(m_state.root, ".ctor");
         il2cpp::invoke(m_state.root, "set_name", il2cpp::string_new("rando_timeline"));
         game::add_to_container(game::RandoContainer::GameObjects, m_state.root);
@@ -96,7 +97,7 @@ namespace randomizer {
     Timeline::Timeline(Timeline const& other) :
             m_entries(other.m_entries), m_entry(0), m_started(false), m_attached(nullptr), m_attach_offset{ 0, 0, 0 } {
         m_state.variables = other.m_state.variables;
-        m_state.root = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
+        m_state.root = types::GameObject::create();
         il2cpp::invoke(m_state.root, ".ctor");
         il2cpp::invoke(m_state.root, "set_name", il2cpp::string_new("rando_timeline"));
         game::add_to_container(game::RandoContainer::GameObjects, m_state.root);

@@ -9,6 +9,9 @@
 #include <Il2CppModLoader/app/methods/SeinChakramSpell.h>
 #include <Il2CppModLoader/app/methods/SeinBowAttack.h>
 #include <Il2CppModLoader/app/methods/Game/Targets.h>
+#include <Il2CppModLoader/app/types/IAttackable.h>
+
+using namespace app::classes;
 
 namespace {
     bool overwrite_attackables = false;
@@ -36,17 +39,8 @@ namespace {
 
     uint32_t handle = 0;
     IL2CPP_INTERCEPT(Game::Targets, app::IEnumerable_1_IAttackable_*, get_Attackables, ()) {
-        if (overwrite_attackables) {
-            Il2CppArraySize *arr = nullptr;
-            if (handle == 0) {
-                arr = il2cpp::untyped::array_new(il2cpp::get_class("", "IAttackable"), 0);
-                il2cpp::gchandle_new(arr, false);
-            } else
-                arr = reinterpret_cast<Il2CppArraySize *>(il2cpp::gchandle_target(handle));
-
-            return reinterpret_cast<app::IEnumerable_1_IAttackable_ *>(arr);
-        }
-
-        return next::Game::Targets::get_Attackables();
+        return overwrite_attackables
+            ? reinterpret_cast<app::IEnumerable_1_IAttackable_*>(types::IAttackable::create_array(0))
+            : next::Game::Targets::get_Attackables();
     }
 } // namespace

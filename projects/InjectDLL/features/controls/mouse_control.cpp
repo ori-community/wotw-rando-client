@@ -14,6 +14,8 @@
 #include <Il2CppModLoader/app/methods/SeinSwimming.h>
 #include <Il2CppModLoader/app/methods/SeinSpiritLeashAbility.h>
 #include <Il2CppModLoader/app/methods/Core/Input.h>
+#include <Il2CppModLoader/app/types/PlayerInput.h>
+#include <Il2CppModLoader/app/types/GameSettings.h>
 
 #include <cmath>
 #include <limits>
@@ -34,7 +36,7 @@ namespace {
         if (il2cpp::unity::is_valid(settings))
             return settings->fields.m_currentControlSchemes;
 
-        settings = il2cpp::get_class<app::GameSettings__Class>("", "GameSettings")->static_fields->Instance;
+        settings = types::GameSettings::get_class()->static_fields->Instance;
         return il2cpp::unity::is_valid(settings)
                 ? settings->fields.m_currentControlSchemes
                 : app::ControlScheme__Enum::KeyboardAndMouse;
@@ -110,7 +112,7 @@ namespace {
 
     IL2CPP_INTERCEPT(Core::Input, app::Vector2, get_Axis, ()) {
         app::Vector2 ret{ 0 };
-        auto player_input = il2cpp::get_class<app::PlayerInput__Class>("", "PlayerInput")->static_fields->Instance;
+        auto player_input = types::PlayerInput::get_class()->static_fields->Instance;
         if (!player_input->fields.Active)
             return ret;
 

@@ -12,6 +12,7 @@
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/app/methods/GameController.h>
+#include <Il2CppModLoader/app/types/PlayerInput.h>
 
 #include <interop/csharp_bridge.h>
 
@@ -78,11 +79,11 @@ namespace uber_states {
             { std::make_pair(UberStateGroup::RandoVirtual, 112),
               { "Player input active",
                 [](double x) {
-                    auto player_input = il2cpp::get_class<app::PlayerInput__Class>("", "PlayerInput")->static_fields->Instance;
+                    auto player_input = types::PlayerInput::get_class()->static_fields->Instance;
                     player_input->fields.Active = x > 0.5;
                 },
                 []() -> double {
-                    auto player_input = il2cpp::get_class<app::PlayerInput__Class>("", "PlayerInput")->static_fields->Instance;
+                    auto player_input = types::PlayerInput::get_class()->static_fields->Instance;
                     return static_cast<double>(player_input->fields.Active);
                 } } },
             { std::make_pair(UberStateGroup::RandoVirtual, 200),

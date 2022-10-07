@@ -20,6 +20,13 @@
 #include <Il2CppModLoader/app/methods/SeinCharacter.h>
 #include <Il2CppModLoader/app/methods/SeinLevel.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
+#include <Il2CppModLoader/app/types/Scenes.h>
+#include <Il2CppModLoader/app/types/GameController.h>
+#include <Il2CppModLoader/app/types/GameWorld.h>
+#include <Il2CppModLoader/app/types/GameStateMachine.h>
+#include <Il2CppModLoader/app/types/DebugValues.h>
+#include <Il2CppModLoader/app/types/PlayerUberStateGroup.h>
+#include <Il2CppModLoader/app/types/CheatsHandler.h>
 
 #include <array>
 
@@ -31,26 +38,26 @@ using namespace app::classes::UnityEngine;
 
 namespace {
     app::CheatsHandler__StaticFields* get_cheats() {
-        return il2cpp::get_class<app::CheatsHandler__Class>("", "CheatsHandler")->static_fields;
+        return types::CheatsHandler::get_class()->static_fields;
     }
 
     app::PlayerUberStateStats* get_stats() {
-        app::PlayerUberStateGroup* player_group = il2cpp::get_class<app::PlayerUberStateGroup__Class>("", "PlayerUberStateGroup")->static_fields->Instance;
+        app::PlayerUberStateGroup* player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
         return player_group->fields.PlayerUberState->fields.m_state->fields.Stats;
     }
 
     app::PlayerUberStateInventory* get_inventory() {
-        app::PlayerUberStateGroup* player_group = il2cpp::get_class<app::PlayerUberStateGroup__Class>("", "PlayerUberStateGroup")->static_fields->Instance;
+        app::PlayerUberStateGroup* player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
         return player_group->fields.PlayerUberState->fields.m_state->fields.Inventory;
     }
 
     app::PlayerUberStateShards* get_shards() {
-        app::PlayerUberStateGroup* player_group = il2cpp::get_class<app::PlayerUberStateGroup__Class>("", "PlayerUberStateGroup")->static_fields->Instance;
+        app::PlayerUberStateGroup* player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
         return player_group->fields.PlayerUberState->fields.m_state->fields.Shards;
     }
 
     app::PlayerUberStateAbilities* get_abilities() {
-        app::PlayerUberStateGroup* player_group = il2cpp::get_class<app::PlayerUberStateGroup__Class>("", "PlayerUberStateGroup")->static_fields->Instance;
+        app::PlayerUberStateGroup* player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
         return player_group->fields.PlayerUberState->fields.m_state->fields.Abilities;
     }
 } // namespace
@@ -61,7 +68,7 @@ INJECT_C_DLLEXPORT void set_debug_controls(bool value) {
         cheats->Instance->fields.DebugEnabled = value;
         cheats->DebugWasEnabled = value;
         cheats->DebugAlwaysEnabled = value;
-        il2cpp::get_class<app::DebugValues__Class>("Game", "DebugValues")->static_fields->DebugControlsEnabled = value;
+        types::DebugValues::get_class()->static_fields->DebugControlsEnabled = value;
     }
 }
 
@@ -263,7 +270,7 @@ INJECT_C_DLLEXPORT void set_velocity(app::Vector2 velocity) {
 }
 
 INJECT_C_DLLEXPORT app::GameStateMachine_State__Enum get_game_state() {
-    return il2cpp::get_class<app::GameStateMachine__Class>("", "GameStateMachine")
+    return types::GameStateMachine::get_class()
             ->static_fields->m_instance->fields._CurrentState_k__BackingField;
 }
 
@@ -322,19 +329,19 @@ INJECT_C_DLLEXPORT void set_ability_level(app::AbilityType__Enum type, int value
 }
 
 INJECT_C_DLLEXPORT app::GameWorldAreaID__Enum get_player_area() {
-    app::GameWorld* game_world = il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
+    app::GameWorld* game_world = types::GameWorld::get_class()->static_fields->Instance;
     if (game_world == nullptr || game_world->fields.CurrentArea == nullptr || game_world->fields.CurrentArea->fields.Area == nullptr)
         return app::GameWorldAreaID__Enum::None;
     return game_world->fields.CurrentArea->fields.Area->fields.WorldMapAreaUniqueID;
 }
 
 INJECT_C_DLLEXPORT bool is_loading_game() {
-    auto controller_klass = il2cpp::get_class<app::GameController__Class>("", "GameController");
+    auto controller_klass = types::GameController::get_class();
     auto controller = controller_klass->static_fields->Instance;
     if (controller_klass->static_fields->FreezeFixedUpdate || controller->fields.m_isLoadingGame)
         return true;
 
-    auto scenes_manager = il2cpp::get_class<app::Scenes__Class>("Core", "Scenes")->static_fields->Manager;
+    auto scenes_manager = types::Scenes::get_class()->static_fields->Manager;
     auto scene = scenes_manager->fields.m_currentScene;
 
     if (scene == nullptr) {
@@ -342,7 +349,7 @@ INJECT_C_DLLEXPORT bool is_loading_game() {
     }
 
     auto scene_name = il2cpp::convert_csstring(scene->fields.Scene);
-    auto game_state_machine = il2cpp::get_class<app::GameStateMachine__Class>("", "GameStateMachine")->static_fields->m_instance;
+    auto game_state_machine = types::GameStateMachine::get_class()->static_fields->m_instance;
     return game_state_machine->fields._CurrentState_k__BackingField == app::GameStateMachine_State__Enum::Game &&
             (scene_name == "wotwTitleScreen" || scene_name == "kuFlyAway");
 }

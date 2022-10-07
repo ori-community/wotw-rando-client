@@ -21,6 +21,8 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Object.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
+#include <Il2CppModLoader/app/types/UI.h>
+#include <Il2CppModLoader/app/types/OnScreenPositions.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -88,7 +90,7 @@ namespace {
     }
 
     bool is_on_screen_positions_initialized() {
-        auto on_screen_positions = il2cpp::get_class<app::OnScreenPositions__Class>("", "OnScreenPositions");
+        auto on_screen_positions = types::OnScreenPositions::get_class();
         auto mono_instance = reinterpret_cast<app::MonoSingleInstance_1_OnScreenPositions___Class*>(on_screen_positions->_0.parent);
         return mono_instance->static_fields->m_initialized;
     }
@@ -184,7 +186,7 @@ namespace {
     }
 
     app::GameObject* create_permanent_box(RandoMessage& message, bool instant = false) {
-        auto controller = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->MessageController;
+        auto controller = types::UI::get_class()->static_fields->MessageController;
         auto go = reinterpret_cast<app::GameObject*>(Object::Instantiate_3(reinterpret_cast<app::Object_1*>(controller->fields.HintSmallMessage)));
         game::add_to_container(game::RandoContainer::Messages, go);
 

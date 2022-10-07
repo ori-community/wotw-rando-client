@@ -24,6 +24,12 @@
 #include <Il2CppModLoader/app/methods/SpiritShardUIShardBackdrop.h>
 #include <Il2CppModLoader/app/methods/TimeUtility.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
+#include <Il2CppModLoader/app/types/SpiritShardSettings.h>
+#include <Il2CppModLoader/app/types/SpiritShardsShopScreen.h>
+#include <Il2CppModLoader/app/types/BuilderScreen.h>
+#include <Il2CppModLoader/app/types/MapmakerScreen.h>
+#include <Il2CppModLoader/app/types/ShardUpgradeScreen.h>
+#include <Il2CppModLoader/app/types/WeaponmasterScreen.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -61,8 +67,8 @@ namespace {
     bool stop_shop_overwrite = false;
     bool should_shop_overwrite = false;
     IL2CPP_INTERCEPT(ShopkeeperScreen, void, Show, (app::ShopkeeperScreen * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "WeaponmasterScreen") ||
-            il2cpp::is_assignable(this_ptr, "", "ShardUpgradeScreen")) {
+        if (il2cpp::is_assignable(this_ptr, types::WeaponmasterScreen::get_class()) ||
+            il2cpp::is_assignable(this_ptr, types::ShardUpgradeScreen::get_class())) {
             stop_shop_overwrite = false;
             should_shop_overwrite = true;
         }
@@ -290,13 +296,13 @@ namespace shops {
 
         switch (type) {
             case ShopType::Lupo: {
-                auto* const mapmaker_screen_class = il2cpp::get_class<app::MapmakerScreen__Class>("", "MapmakerScreen");
+                auto* const mapmaker_screen_class = types::MapmakerScreen::get_class();
                 auto* const mapmaker_screen = mapmaker_screen_class->static_fields->Instance;
                 return mapmaker_screen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(mapmaker_screen));
             }
             case ShopType::Grom: {
 #if GROM_ENABLED == 1
-                auto* const builder_screen_class = il2cpp::get_class<app::BuilderScreen__Class>("", "BuilderScreen");
+                auto* const builder_screen_class = types::BuilderScreen::get_class();
                 auto* const builder_screen = builder_screen_class->static_fields->_Instance_k__BackingField;
                 return builder_screen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(builder_screen));
 #else
@@ -304,11 +310,11 @@ namespace shops {
 #endif
             }
             case ShopType::Opher: {
-                const auto weaponmasterScreen = il2cpp::get_class<app::WeaponmasterScreen__Class>("", "WeaponmasterScreen")->static_fields->_Instance_k__BackingField;
+                const auto weaponmasterScreen = types::WeaponmasterScreen::get_class()->static_fields->_Instance_k__BackingField;
                 return weaponmasterScreen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(weaponmasterScreen));
             }
             case ShopType::Twillen: {
-                auto* const shop_screen = il2cpp::get_class<app::SpiritShardsShopScreen__Class>("", "SpiritShardsShopScreen");
+                auto* const shop_screen = types::SpiritShardsShopScreen::get_class();
                 const auto spiritShardsShopScreen = shop_screen->static_fields->Instance;
                 return spiritShardsShopScreen && PurchaseThingScreen::get_IsShopOpen(reinterpret_cast<app::PurchaseThingScreen*>(spiritShardsShopScreen));
             }
@@ -370,7 +376,7 @@ namespace shops {
 
         if (default_texture == nullptr) {
             default_texture = randomizer::textures::create_texture();
-            auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")
+            auto shard_icons = types::SpiritShardSettings::get_class()
                                        ->static_fields->Instance->fields.Icons;
             auto icon = 0;
             auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);

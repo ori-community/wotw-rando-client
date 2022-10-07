@@ -28,6 +28,24 @@
 #include <Il2CppModLoader/app/methods/SeinSwimming.h>
 #include <Il2CppModLoader/app/methods/SeinFeatherFlap.h>
 #include <Il2CppModLoader/app/methods/SeinMeditateSpell.h>
+#include <Il2CppModLoader/app/types/SeinFeatherFlap.h>
+#include <Il2CppModLoader/app/types/SeinDigging.h>
+#include <Il2CppModLoader/app/types/SeinDashNew.h>
+#include <Il2CppModLoader/app/types/SeinChargeJump.h>
+#include <Il2CppModLoader/app/types/SeinGlowSpell.h>
+#include <Il2CppModLoader/app/types/SeinChakramSpell.h>
+#include <Il2CppModLoader/app/types/SeinSpiritSpearSpell.h>
+#include <Il2CppModLoader/app/types/MeleeComboMoveHammerStomp.h>
+#include <Il2CppModLoader/app/types/MeleeComboMoveHammerChargeable.h>
+#include <Il2CppModLoader/app/types/MeleeComboMoveHammer.h>
+#include <Il2CppModLoader/app/types/MeleeComboMoveHammerSimple.h>
+#include <Il2CppModLoader/app/types/MeleeComboMoveSword.h>
+#include <Il2CppModLoader/app/types/MeleeComboMoveSwordAirDown.h>
+#include <Il2CppModLoader/app/types/MeleeComboMoveSwordCharge.h>
+#include <Il2CppModLoader/app/types/SeinGlide.h>
+#include <Il2CppModLoader/app/types/SeinBashAttack.h>
+#include <Il2CppModLoader/app/types/SeinDoubleJump.h>
+#include <Il2CppModLoader/app/types/SeinJump.h>
 #include <uber_states/uber_state_interface.h>
 
 using namespace modloader;
@@ -56,7 +74,7 @@ namespace {
     uber_states::UberState on_regenerate(UberStateGroup::GameState, 49);
 
     IL2CPP_INTERCEPT(SeinJump, void, PerformJump, (app::SeinJump * this_ptr)) {
-        auto is_ability = il2cpp::is_assignable(this_ptr, "", "SeinJump");
+        auto is_ability = il2cpp::is_assignable(this_ptr, types::SeinJump::get_class());
         // TODO: Maybe check if we are on a wall and then not do this?
         if (is_ability)
             on_jump.set(1);
@@ -66,7 +84,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinJump, void, PerformSpringJump, (app::SeinJump * this_ptr)) {
-        auto is_ability = il2cpp::is_assignable(this_ptr, "", "SeinJump");
+        auto is_ability = il2cpp::is_assignable(this_ptr, types::SeinJump::get_class());
         if (is_ability)
             on_jump.set(1);
         next::SeinJump::PerformSpringJump(this_ptr);
@@ -75,7 +93,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinDoubleJump, void, PerformDoubleJump, (app::SeinDoubleJump * this_ptr)) {
-        auto is_ability = il2cpp::is_assignable(this_ptr, "", "SeinDoubleJump");
+        auto is_ability = il2cpp::is_assignable(this_ptr, types::SeinDoubleJump::get_class());
         if (is_ability)
             on_double_jump.set(1);
         next::SeinDoubleJump::PerformDoubleJump(this_ptr);
@@ -84,135 +102,135 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinBashAttack, void, BeginBash, (app::SeinBashAttack * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "SeinBashAttack"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinBashAttack::get_class()))
             on_bash.set(1);
         next::SeinBashAttack::BeginBash(this_ptr);
     }
 
     IL2CPP_INTERCEPT(SeinBashAttack, void, ExitBash, (app::SeinBashAttack * this_ptr)) {
         next::SeinBashAttack::ExitBash(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "SeinBashAttack"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinBashAttack::get_class()))
             on_bash.set(0);
     }
 
     IL2CPP_INTERCEPT(SeinGlide, void, EnterGlide, (app::SeinGlide * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "SeinGlide"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinGlide::get_class()))
             on_dash.set(1);
         next::SeinGlide::EnterGlide(this_ptr);
     }
 
     IL2CPP_INTERCEPT(SeinGlide, void, ExitGlide, (app::SeinGlide * this_ptr)) {
         next::SeinGlide::ExitGlide(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "SeinGlide"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinGlide::get_class()))
             on_dash.set(0);
     }
 
     IL2CPP_INTERCEPT(Moon::MeleeComboMoveSwordCharge, void, EnterMove, (app::MeleeComboMoveSwordCharge * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveSwordCharge"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveSwordCharge::get_class()))
             on_sword.set(1);
         next::Moon::MeleeComboMoveSwordCharge::EnterMove(this_ptr);
     }
 
     IL2CPP_INTERCEPT(Moon::MeleeComboMoveSwordCharge, void, ExitMove, (app::MeleeComboMoveSwordCharge * this_ptr)) {
         next::Moon::MeleeComboMoveSwordCharge::ExitMove(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveSwordCharge"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveSwordCharge::get_class()))
             on_sword.set(0);
     }
 
     IL2CPP_INTERCEPT(MeleeComboMoveSwordAirDown, void, EnterMove, (app::MeleeComboMoveSwordAirDown * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveSwordAirDown"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveSwordAirDown::get_class()))
             on_sword.set(1);
         next::MeleeComboMoveSwordAirDown::EnterMove(this_ptr);
     }
 
     IL2CPP_INTERCEPT(MeleeComboMoveSwordAirDown, void, ExitMove, (app::MeleeComboMoveSwordAirDown * this_ptr)) {
         next::MeleeComboMoveSwordAirDown::ExitMove(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveSwordAirDown"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveSwordAirDown::get_class()))
             on_sword.set(0);
     }
 
     IL2CPP_INTERCEPT(MeleeComboMoveSword, void, EnterMove, (app::MeleeComboMoveSword * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveSword"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveSword::get_class()))
             on_sword.set(1);
         next::MeleeComboMoveSword::EnterMove(this_ptr);
     }
 
     IL2CPP_INTERCEPT(MeleeComboMoveSword, void, ExitMove, (app::MeleeComboMoveSword * this_ptr)) {
         next::MeleeComboMoveSword::ExitMove(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveSword"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveSword::get_class()))
             on_sword.set(0);
     }
 
     IL2CPP_INTERCEPT(MeleeComboMoveHammerSimple, void, EnterMove, (app::MeleeComboMoveHammerSimple * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveHammerSimple"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveHammerSimple::get_class()))
             on_hammer.set(1);
         next::MeleeComboMoveHammerSimple::EnterMove(this_ptr);
     }
 
     IL2CPP_INTERCEPT(MeleeComboMoveHammerSimple, void, ExitMove, (app::MeleeComboMoveHammerSimple * this_ptr)) {
         next::MeleeComboMoveHammerSimple::ExitMove(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveHammerSimple"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveHammerSimple::get_class()))
             on_hammer.set(0);
     }
 
     IL2CPP_INTERCEPT(MeleeComboMoveHammer, void, EnterMove, (app::MeleeComboMoveHammer * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveHammer"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveHammer::get_class()))
             on_hammer.set(1);
         next::MeleeComboMoveHammer::EnterMove(this_ptr);
     }
 
     IL2CPP_INTERCEPT(MeleeComboMoveHammer, void, ExitMove, (app::MeleeComboMoveHammer * this_ptr)) {
         next::MeleeComboMoveHammer::ExitMove(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveHammer"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveHammer::get_class()))
             on_hammer.set(0);
     }
 
     IL2CPP_INTERCEPT(MeleeComboMoveHammerChargeable, void, EnterMove,
                      (app::MeleeComboMoveHammerChargeable * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveHammerChargeable"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveHammerChargeable::get_class()))
             on_hammer.set(1);
         next::MeleeComboMoveHammerChargeable::EnterMove(this_ptr);
     }
 
     IL2CPP_INTERCEPT(MeleeComboMoveHammerChargeable, void, ExitMove, (app::MeleeComboMoveHammerChargeable * this_ptr)) {
         next::MeleeComboMoveHammerChargeable::ExitMove(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveHammerChargeable"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveHammerChargeable::get_class()))
             on_hammer.set(0);
     }
 
     IL2CPP_INTERCEPT(MeleeComboMoveHammerStomp, void, EnterMove, (app::MeleeComboMoveHammerStomp * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveHammerStomp"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveHammerStomp::get_class()))
             on_hammer.set(1);
         next::MeleeComboMoveHammerStomp::EnterMove(this_ptr);
     }
 
     IL2CPP_INTERCEPT(MeleeComboMoveHammerStomp, void, ExitMove, (app::MeleeComboMoveHammerStomp * this_ptr)) {
         next::MeleeComboMoveHammerStomp::ExitMove(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "MeleeComboMoveHammerStomp"))
+        if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveHammerStomp::get_class()))
             on_hammer.set(0);
     }
 
     IL2CPP_INTERCEPT(SeinSpiritSpearSpell, void, EnterMove, (app::SeinSpiritSpearSpell * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "SeinSpiritSpearSpell"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinSpiritSpearSpell::get_class()))
             on_spear.set(1);
         next::SeinSpiritSpearSpell::EnterMove(this_ptr);
     }
 
     IL2CPP_INTERCEPT(SeinSpiritSpearSpell, void, ExitMove, (app::SeinSpiritSpearSpell * this_ptr)) {
         next::SeinSpiritSpearSpell::ExitMove(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "SeinSpiritSpearSpell"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinSpiritSpearSpell::get_class()))
             on_spear.set(0);
     }
 
     IL2CPP_INTERCEPT(SeinChakramSpell, void, EnterMove, (app::SeinChakramSpell * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "SeinChakramSpell"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinChakramSpell::get_class()))
             on_shuriken.set(1);
         next::SeinChakramSpell::EnterMove(this_ptr);
     }
 
     IL2CPP_INTERCEPT(SeinChakramSpell, void, ExitMove, (app::SeinChakramSpell * this_ptr)) {
         next::SeinChakramSpell::ExitMove(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "SeinChakramSpell"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinChakramSpell::get_class()))
             on_shuriken.set(0);
     }
 
@@ -267,26 +285,26 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinGlowSpell, void, OnEnterQuickGlow, (app::SeinGlowSpell * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "SeinGlowSpell"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinGlowSpell::get_class()))
             on_flash.set(1);
         next::SeinGlowSpell::OnEnterQuickGlow(this_ptr);
     }
 
     IL2CPP_INTERCEPT(SeinGlowSpell, void, OnExitQuickGlow, (app::SeinGlowSpell * this_ptr)) {
         next::SeinGlowSpell::OnExitQuickGlow(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "SeinGlowSpell"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinGlowSpell::get_class()))
             on_flash.set(0);
     }
 
     IL2CPP_INTERCEPT(SeinChargeJump, void, EnterMove, (app::SeinChargeJump * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "SeinChargeJump"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinChargeJump::get_class()))
             on_launch.set(1);
         next::SeinChargeJump::EnterMove(this_ptr);
     }
 
     IL2CPP_INTERCEPT(SeinChargeJump, void, ExitMove, (app::SeinChargeJump * this_ptr)) {
         next::SeinChargeJump::ExitMove(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "SeinChargeJump"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinChargeJump::get_class()))
             on_launch.set(0);
     }
 
@@ -300,7 +318,7 @@ namespace {
     bool digging = false;
     bool swimming_on_surface = false;
     IL2CPP_INTERCEPT(SeinDashNew, void, EnterMove, (app::SeinDashNew * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "SeinDashNew")) {
+        if (il2cpp::is_assignable(this_ptr, types::SeinDashNew::get_class())) {
             if (SeinDashNew::ShouldDig(this_ptr)) {
                 on_burrow.set(1);
                 digging = true;
@@ -314,7 +332,7 @@ namespace {
 
     IL2CPP_INTERCEPT(SeinDashNew, void, ExitMove, (app::SeinDashNew * this_ptr)) {
         next::SeinDashNew::ExitMove(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "SeinDashNew")) {
+        if (il2cpp::is_assignable(this_ptr, types::SeinDashNew::get_class())) {
             if (swimming_on_surface)
                 on_water_dash.set(0);
             else if (digging && !out_of_water) // Special case if we are starting to burrow while underwater
@@ -325,14 +343,14 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinDigging, void, StartDashing, (app::SeinDigging * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "SeinDigging"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinDigging::get_class()))
             on_burrow.set(1);
         next::SeinDigging::StartDashing(this_ptr);
     }
 
     IL2CPP_INTERCEPT(SeinDigging, void, EndDash, (app::SeinDigging * this_ptr)) {
         next::SeinDigging::EndDash(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "SeinDigging"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinDigging::get_class()))
             on_burrow.set(0);
     }
 
@@ -355,14 +373,14 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinFeatherFlap, void, EnterAttack, (app::SeinFeatherFlap * this_ptr)) {
-        if (il2cpp::is_assignable(this_ptr, "", "SeinFeatherFlap"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinFeatherFlap::get_class()))
             on_flap.set(1);
         next::SeinFeatherFlap::EnterAttack(this_ptr);
     }
 
     IL2CPP_INTERCEPT(SeinFeatherFlap, void, ExitAttack, (app::SeinFeatherFlap * this_ptr)) {
         next::SeinFeatherFlap::ExitAttack(this_ptr);
-        if (il2cpp::is_assignable(this_ptr, "", "SeinFeatherFlap"))
+        if (il2cpp::is_assignable(this_ptr, types::SeinFeatherFlap::get_class()))
             on_flap.set(0);
     }
 

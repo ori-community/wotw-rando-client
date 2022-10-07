@@ -19,6 +19,7 @@
 #include <Il2CppModLoader/app/methods/Moon/SerializedBooleanUberState.h>
 #include <Il2CppModLoader/app/methods/UberShaderAPI.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
+#include <Il2CppModLoader/app/types/Input_Cmd.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -76,7 +77,7 @@ namespace {
     }
 
     bool show_hint(app::MapmakerScreen* screen, app::MessageProvider* provider) {
-        auto klass = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
+        auto klass = types::Input_Cmd::get_class();
         auto selected = klass->static_fields->MenuSelect;
         if (!(selected->fields.IsPressed == false || selected->fields.WasPressed != false || selected->fields.Used != false)) {
             selected->fields.Used = true;

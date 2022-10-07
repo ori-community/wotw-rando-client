@@ -9,6 +9,8 @@
 #include <Il2CppModLoader/app/methods/SeinCharacter.h>
 #include <Il2CppModLoader/app/methods/Damage.h>
 #include <Il2CppModLoader/app/methods/SeinBlazeSpell.h>
+#include <Il2CppModLoader/app/types/UI_Cameras.h>
+#include <Il2CppModLoader/app/types/Damage.h>
 
 using namespace app::classes;
 
@@ -28,8 +30,7 @@ namespace {
         // Damage
         const auto damage_id = Damage::GetNewDamageID();
 
-        auto *const camera = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI",
-                                                                              "Cameras")->static_fields->Current;
+        auto *const camera = types::UI_Cameras::get_class()->static_fields->Current;
         auto *const colliders = UnityEngine::Physics::OverlapSphere_1(source_pos, range < 0 ? 150 : range, 0xfffffff,
                                                                       app::QueryTriggerInteraction__Enum::Collide);
         for (auto i = 0; i < colliders->max_length; ++i) {
@@ -43,7 +44,7 @@ namespace {
             }
 
             const auto direction = modloader::math::direction(source_pos, pos);
-            auto *const damage = il2cpp::create_object<app::Damage>("", "Damage");
+            auto *const damage = types::Damage::create();
             Damage::ctor(
                     damage,
                     initial_damage,

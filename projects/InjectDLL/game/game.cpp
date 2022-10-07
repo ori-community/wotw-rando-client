@@ -12,6 +12,7 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Behaviour.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Object.h>
+#include <Il2CppModLoader/app/types/GameObject.h>
 #include <Il2CppModLoader/app/types/SimpleFPS.h>
 #include <Il2CppModLoader/app/types/GameController.h>
 #include <Il2CppModLoader/common.h>
@@ -36,7 +37,7 @@ namespace game {
         SaveOptions save_request_options{};
 
         void make_container(RandoContainer container) {
-            auto obj = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
+            auto obj = types::GameObject::create();
             UnityEngine::GameObject::ctor_1(obj, il2cpp::string_new(magic_enum::enum_name(container)));
 
             containers[container] = obj;

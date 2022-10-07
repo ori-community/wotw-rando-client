@@ -14,6 +14,7 @@
 
 #include <Il2CppModLoader/app/methods/GameplayCamera.h>
 #include <Il2CppModLoader/app/methods/ScenesManager.h>
+#include <Il2CppModLoader/app/types/UI_Cameras.h>
 #include <features/scenes/scene_load.h>
 #include <magic_enum.hpp>
 
@@ -94,7 +95,7 @@ namespace game {
         }
 
         void snap_camera() {
-            auto *const cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
+            auto *const cameras = types::UI_Cameras::get_class();
             if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
                 // We need to do this on the next frame to allow state to update without causing flickering.
                 auto *const camera = cameras->static_fields->Current;

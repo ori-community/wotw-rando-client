@@ -4,6 +4,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/windows_api/console.h>
 #include <Il2CppModLoader/app/methods/FaderB.h>
+#include <Il2CppModLoader/app/types/UI.h>
 
 using namespace app::classes;
 
@@ -13,7 +14,7 @@ namespace faderb {
 
         app::FaderB *get_faderb() {
             if (faderb_cache == nullptr) {
-                auto ui = il2cpp::get_class<app::UI__Class>("Game", "UI");
+                auto ui = types::UI::get_class();
                 faderb_cache = ui->static_fields->Fader;
             }
 

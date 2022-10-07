@@ -4,6 +4,7 @@
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Camera.h>
 #include <Il2CppModLoader/app/methods/GameplayCamera.h>
+#include <Il2CppModLoader/app/types/UI_Cameras.h>
 
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
@@ -15,7 +16,7 @@ namespace {
     };
 
     app::Vector3 convert_position(app::Vector3 position, ConvertPositionType type) {
-        auto cameras = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras");
+        auto cameras = types::UI_Cameras::get_class();
         if (!il2cpp::unity::is_valid(cameras->static_fields->Current) || !il2cpp::unity::is_valid(cameras->static_fields->System->fields.GUICamera))
             return position;
 

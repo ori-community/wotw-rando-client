@@ -1,5 +1,6 @@
 #include <Common/ext.h>
 #include <Il2CppModLoader/app/methods/Moon/ScalableAnimationPlayer_ScalingInterval.h>
+#include <Il2CppModLoader/app/types/ScalableAnimationPlayer_ScalingInterval.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <event_bus.h>
@@ -31,7 +32,7 @@ namespace {
                 auto scalable_animation_player = il2cpp::unity::get_component<app::ScalableAnimationPlayer>(timeline_go, "Moon", "ScalableAnimationPlayer");
 
                 // Moon why
-                auto interval = il2cpp::create_object<app::ScalableAnimationPlayer_ScalingInterval>("Moon", "ScalableAnimationPlayer", "ScalingInterval");
+                auto interval = types::ScalableAnimationPlayer_ScalingInterval::create();
                 Moon::ScalableAnimationPlayer_ScalingInterval::ctor(interval);
                 interval->fields.NormalizedStart = 0.f;
                 interval->fields.NormalizedDuration = 1.f;

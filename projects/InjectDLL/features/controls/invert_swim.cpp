@@ -11,6 +11,7 @@
 #include <Il2CppModLoader/app/methods/SeinSwimming.h>
 #include <Il2CppModLoader/app/methods/SaveGameController.h>
 #include <Il2CppModLoader/app/methods/SeinHealthController.h>
+#include <Il2CppModLoader/app/types/Input_Cmd.h>
 #include <settings.h>
 
 using namespace app::classes;
@@ -32,7 +33,7 @@ namespace {
 
     IL2CPP_INTERCEPT(SeinSwimming, void, UpdateSwimMovingUnderwaterState, (app::SeinSwimming * this_ptr)) {
         if (invert_swim) {
-            auto input_cmd = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
+            auto input_cmd = types::Input_Cmd::get_class();
             auto is_jump_pressed = input_cmd->static_fields->Jump->fields.IsPressed;
             auto was_jump_pressed = input_cmd->static_fields->Jump->fields.WasPressed;
 

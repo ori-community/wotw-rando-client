@@ -4,6 +4,8 @@
 #include <Il2CppModLoader/app/methods/UberShaderAPI.h>
 #include <Il2CppModLoader/app/methods/MoonGuid.h>
 #include <Il2CppModLoader/app/methods/UberShaderColor.h>
+#include <Il2CppModLoader/app/types/UberShaderColor.h>
+#include <Il2CppModLoader/app/types/MoonGuid.h>
 
 using namespace app::classes;
 
@@ -34,13 +36,13 @@ namespace utils {
     }
 
     app::MoonGuid* moon_guid(int a, int b, int c, int d) {
-        auto guid = il2cpp::create_object<app::MoonGuid>("", "MoonGuid");
+        auto guid = types::MoonGuid::create();
         MoonGuid::ctor_2(guid, a, b, c, d);
         return guid;
     }
 
     app::UberShaderColor* uber_shader_color(app::Color& color) {
-        auto shader_color = il2cpp::create_object<app::UberShaderColor>("", "UberShaderColor");
+        auto shader_color = types::UberShaderColor::create();
         UberShaderColor::ctor_2(shader_color, color);
         return shader_color;
     }

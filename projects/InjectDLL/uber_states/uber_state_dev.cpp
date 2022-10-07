@@ -8,6 +8,7 @@
 #include <Il2CppModLoader/windows_api/console.h>
 #include <Il2CppModLoader/app/methods/Moon/UberStateController.h>
 #include <Il2CppModLoader/app/methods/GameController.h>
+#include <Il2CppModLoader/app/types/UberStateController.h>
 
 #include <algorithm>
 #include <array>
@@ -119,7 +120,7 @@ namespace {
     }
 
     void check_appliers(std::vector<console::CommandParam> const& params) {
-        auto uber_state_controller = il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController");
+        auto uber_state_controller = types::UberStateController::get_class();
         int state = 0;
         int group = 0;
         if (!find_state_group(params, state, group))
@@ -145,7 +146,7 @@ namespace {
     }
 
     void check_all_appliers(std::vector<console::CommandParam> const& params) {
-        auto uber_state_controller = il2cpp::get_class<app::UberStateController__Class>("Moon", "UberStateController");
+        auto uber_state_controller = types::UberStateController::get_class();
         dev::Visualizer visualizer;
         visualizer_setup(visualizer, params, 1, 1);
 

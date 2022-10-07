@@ -12,6 +12,10 @@
 #include <Il2CppModLoader/app/methods/SmartInput/CompoundButtonInput.h>
 #include <Il2CppModLoader/app/methods/SmartInput/ControllerAxisInput.h>
 #include <Il2CppModLoader/app/methods/SmartInput/ControllerButtonInput.h>
+#include <Il2CppModLoader/app/types/PlayerInputRebinding.h>
+#include <Il2CppModLoader/app/types/ControllerButtonInput.h>
+#include <Il2CppModLoader/app/types/AxisButtonInput.h>
+#include <Il2CppModLoader/app/types/ControllerAxisInput.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -45,19 +49,19 @@ namespace randomizer::input {
         }
 
         uint32_t create_axis_input(app::XboxControllerInput_Axis__Enum axis) {
-            auto* input = il2cpp::create_object<app::ControllerAxisInput>("SmartInput", "ControllerAxisInput");
+            auto* input = types::ControllerAxisInput::create();
             ControllerAxisInput::ctor(input, axis);
             return il2cpp::gchandle_new(input, false);
         }
 
         uint32_t create_axis_button_input(app::XboxControllerInput_Axis__Enum axis, app::AxisButtonInput_AxisMode__Enum mode, float value) {
-            auto* input = il2cpp::create_object<app::AxisButtonInput>("SmartInput", "AxisButtonInput");
+            auto* input = types::AxisButtonInput::create();
             AxisButtonInput::ctor(input, get_axis_input(axis), mode, value);
             return il2cpp::gchandle_new(input, false);
         }
 
         uint32_t create_button_input(app::XboxControllerInput_Button__Enum button) {
-            auto* input = il2cpp::create_object<app::ControllerButtonInput>("SmartInput", "ControllerButtonInput");
+            auto* input = types::ControllerButtonInput::create();
             ControllerButtonInput::ctor(input, button);
             return il2cpp::gchandle_new(input, false);
         }
@@ -125,7 +129,7 @@ namespace randomizer::input {
             // If we fail to read the bindings we want to use default game bindings.
             auto bindings_read = read_bindings(base_path + CONTROLLER_REBIND_FILE, handle_binding);
 
-            auto* player_input_rebinding_klass = il2cpp::get_class<app::PlayerInputRebinding__Class>("", "PlayerInputRebinding");
+            auto* player_input_rebinding_klass = types::PlayerInputRebinding::get_class();
             if (!bindings_read || !player_input_rebinding_klass->static_fields->USE_NEW_BINDINGS_TEST) {
                 // If we are here something weird is happening.
                 next::PlayerInput::AddControllerControls(this_ptr);

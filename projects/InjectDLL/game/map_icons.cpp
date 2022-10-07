@@ -18,6 +18,13 @@
 #include <Il2CppModLoader/app/methods/RuntimeWorldMapIcon.h>
 #include <Il2CppModLoader/app/methods/UberShaderAPI.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
+#include <Il2CppModLoader/app/types/Input_Cmd.h>
+#include <Il2CppModLoader/app/types/AreaMapUI.h>
+#include <Il2CppModLoader/app/types/AreaMapIconFilterFooterLabel.h>
+#include <Il2CppModLoader/app/types/GameWorld.h>
+#include <Il2CppModLoader/app/types/RuntimeWorldMapIcon.h>
+#include <Il2CppModLoader/app/types/MoonGuid.h>
+#include <Il2CppModLoader/app/types/AreaMapIconManager.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -122,7 +129,7 @@ namespace {
     }
 
     app::MoonGuid* create_guid() {
-        auto guid = il2cpp::create_object<app::MoonGuid>("", "MoonGuid");
+        auto guid = types::MoonGuid::create();
         MoonGuid::ctor_2(
                 guid,
                 static_cast<int>(generator()),
@@ -323,7 +330,7 @@ namespace {
 
     uber_states::UberState custom_filter_icons_enabled_state(UberStateGroup::MapFilter, 70);
     void icon_resolver(app::RuntimeGameWorldArea* area, ExtraIcon& icon) {
-        auto* runtime_icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
+        auto* runtime_icon = types::RuntimeWorldMapIcon::create();
         runtime_icon->fields.Guid = create_guid();
         auto guid = stringify_guid(runtime_icon->fields.Guid);
 
@@ -383,7 +390,7 @@ namespace {
         } else
             return;
 
-        auto* icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
+        auto* icon = types::RuntimeWorldMapIcon::create();
 
         // TODO: get icon.
         if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
@@ -417,7 +424,7 @@ namespace {
             return;
 
         ExtraState actual_state = extra_icon.custom.valid ? extra_icon.custom : extra_icon.collected;
-        auto* icon = il2cpp::create_object<app::RuntimeWorldMapIcon>("", "RuntimeWorldMapIcon");
+        auto* icon = types::RuntimeWorldMapIcon::create();
 
         if (csharp_bridge::filter_enabled(static_cast<int>(NewFilters::Spoilers)))
             icon->fields.Icon = static_cast<app::WorldMapIconType__Enum>(csharp_bridge::filter_icon_type(
@@ -698,7 +705,7 @@ namespace {
 
     IL2CPP_INTERCEPT(AreaMapIconManager, void, ShowAreaIcons, (app::AreaMapIconManager * this_ptr)) {
         // Start ShowAreaIcons function.
-        auto world = il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
+        auto world = types::GameWorld::get_class()->static_fields->Instance;
         for (auto i = 0; i < world->fields.RuntimeAreas->fields._size; ++i) {
             auto runtime_area = world->fields.RuntimeAreas->fields._items->vector[i];
             for (auto j = 0; j < runtime_area->fields.Icons->fields._size; ++j) {
@@ -734,9 +741,9 @@ namespace {
     }
 
     void check_and_initialize_filter_labels(app::AreaMapIconManager* icon_manager) {
-        if (il2cpp::is_assignable(icon_manager, "", "AreaMapIconManager") && icon_manager->fields.Labels->max_length < static_cast<int>(NewFilters::COUNT)) {
+        if (il2cpp::is_assignable(icon_manager, types::AreaMapIconManager::get_class()) && icon_manager->fields.Labels->max_length < static_cast<int>(NewFilters::COUNT)) {
             auto arr = reinterpret_cast<app::AreaMapIconFilterFooterLabel__Array*>(il2cpp::untyped::array_new(
-                    il2cpp::get_class("", "AreaMapIconFilterFooterLabel"), static_cast<int>(NewFilters::COUNT)
+                    reinterpret_cast<Il2CppClass*>(types::AreaMapIconFilterFooterLabel::get_class()), static_cast<int>(NewFilters::COUNT)
             ));
 
             for (auto i = 0; i < static_cast<int>(app::AreaMapIconFilter__Enum::COUNT); ++i)
@@ -782,7 +789,7 @@ namespace {
         next::GameMapUI::NormalInput(this_ptr);
         ignore_filter_input = false;
 
-        auto input_cmd = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
+        auto input_cmd = types::Input_Cmd::get_class();
         if (input_cmd->static_fields->MapFilter->fields.IsPressed && !input_cmd->static_fields->MapFilter->fields.WasPressed) {
             cycle_filter(this_ptr->fields.m_areaMap);
             dirty_filter = true;
@@ -800,7 +807,7 @@ namespace {
     }
 
     void on_area_map_open(GameEvent game_event, EventTiming timing) {
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
         if (il2cpp::unity::is_valid(area_map->fields._PlayerPositionMarker_k__BackingField)) {
             auto color = multiplayer::get_local_player_color();
             if (color.r < 0.99f || color.g < 0.99f || color.b < 0.99f || color.a < 0.99f)
@@ -868,7 +875,7 @@ INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, int id, app::W
     };
 
     if (initialized) {
-        auto* game_world = il2cpp::get_class<app::GameWorld__Class>("", "GameWorld")->static_fields->Instance;
+        auto* game_world = types::GameWorld::get_class()->static_fields->Instance;
         for (auto i = 0; i < game_world->fields.RuntimeAreas->fields._size; ++i) {
             auto* runtime_area = game_world->fields.RuntimeAreas->fields._items->vector[i];
             if (runtime_area->fields.Area->fields.WorldMapAreaUniqueID == area) {
@@ -878,7 +885,7 @@ INJECT_C_DLLEXPORT void add_icon(app::GameWorldAreaID__Enum area, int id, app::W
                 if (should_create(icon.creation, ExtraIconDisplayCondition::Spoiler))
                     spoiler_resolver(runtime_area, icon);
 
-                auto* icon_manager = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")
+                auto* icon_manager = types::AreaMapUI::get_class()
                                              ->static_fields->Instance->fields._IconManager_k__BackingField;
 
                 handle_show_toggle(icon.runtime_icon, should_show_icon_with_current_filter(icon_manager, icon.runtime_icon));
@@ -919,7 +926,7 @@ INJECT_C_DLLEXPORT void clear_icons() {
 
 INJECT_C_DLLEXPORT void refresh_map() {
     if (game::ui::area_map_open()) {
-        auto area_map = il2cpp::get_class<app::AreaMapUI__Class>("", "AreaMapUI")->static_fields->Instance;
+        auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
         AreaMapIconManager::ShowAreaIcons(area_map->fields._IconManager_k__BackingField);
     }
 }

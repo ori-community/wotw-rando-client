@@ -7,6 +7,7 @@
 #include <Il2CppModLoader/app/methods/UberPostProcess.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Camera.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Color.h>
+#include <Il2CppModLoader/app/types/UI_Cameras.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/windows_api/console.h>
@@ -96,7 +97,7 @@ namespace {
 
     void set_vignette_command(std::string const& command, std::vector<console::CommandParam> const& params) {
         if (read_single_bool_from_command(params, enable_vignette)) {
-            auto const gameplay_camera = il2cpp::get_nested_class<app::UI_Cameras__Class>("Game", "UI", "Cameras")->static_fields->Current;
+            auto const gameplay_camera = types::UI_Cameras::get_class()->static_fields->Current;
             auto const camera_post_processing = GameplayCamera::get_CameraPostProcessing(gameplay_camera);
             auto uber_post_process = camera_post_processing->fields.UberPostProcess;
             UberPostProcess::ApplySettings_2(uber_post_process, CameraPostProcessing::get_CameraSettingsToUse(camera_post_processing));

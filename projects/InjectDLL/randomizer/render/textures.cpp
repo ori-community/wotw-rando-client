@@ -8,6 +8,15 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Texture2D.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Material.h>
 #include <Il2CppModLoader/app/methods/UberShaderAPI.h>
+#include <Il2CppModLoader/app/types/GardenerScreen.h>
+#include <Il2CppModLoader/app/types/BuilderScreen.h>
+#include <Il2CppModLoader/app/types/MapmakerScreen.h>
+#include <Il2CppModLoader/app/types/WeaponmasterScreen.h>
+#include <Il2CppModLoader/app/types/SpellSettings.h>
+#include <Il2CppModLoader/app/types/SpiritShardSettings.h>
+#include <Il2CppModLoader/app/types/Texture2D.h>
+#include <Il2CppModLoader/app/types/GameObject.h>
+#include <Il2CppModLoader/app/types/Texture.h>
 
 #include <game/game.h>
 #include <utils/stb_image.h>
@@ -197,14 +206,14 @@ namespace randomizer::textures {
         if (texture_holder != nullptr)
             return texture_holder;
 
-        texture_holder = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
+        texture_holder = types::GameObject::create();
         il2cpp::invoke(texture_holder, ".ctor");
         il2cpp::invoke(texture_holder, "set_name", il2cpp::string_new("TextureHolder"));
         game::add_to_container(game::RandoContainer::Randomizer, texture_holder);
         // TODO: Use UberShaderPrefabWarmer if we can figure out how to instantiate the List<Texture> class.
         auto holder = il2cpp::unity::add_component<app::SpiritShardUIShardBackdrop>(texture_holder, "", "SpiritShardUIShardBackdrop");
         il2cpp::invoke(holder, ".ctor");
-        holder->fields.Socket_0 = reinterpret_cast<app::Texture__Array*>(il2cpp::untyped::array_new(il2cpp::get_class("UnityEngine", "Texture"), HOLDER_SIZE));
+        holder->fields.Socket_0 = reinterpret_cast<app::Texture__Array*>(types::Texture::create_array(HOLDER_SIZE));
         return texture_holder;
     }
 
@@ -235,7 +244,7 @@ namespace randomizer::textures {
 
             if (type == L"shard") {
                 auto actual_value = static_cast<app::SpiritShardType__Enum>(std::stoi(value));
-                auto settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
+                auto settings = types::SpiritShardSettings::get_class()->static_fields->Instance;
                 if (settings != nullptr) {
                     auto item = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
                     if (item != nullptr)
@@ -243,7 +252,7 @@ namespace randomizer::textures {
                 }
             } else if (type == L"ability") {
                 auto actual_value = static_cast<app::AbilityType__Enum>(std::stoi(value));
-                auto settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings")->static_fields->Instance;
+                auto settings = types::SpellSettings::get_class()->static_fields->Instance;
                 if (settings != nullptr) {
                     auto item = il2cpp::invoke<app::Texture2D>(settings->fields.CustomAbilityIcons, "GetValue", &actual_value);
                     if (item != nullptr)
@@ -251,13 +260,13 @@ namespace randomizer::textures {
                 }
             } else if (type == L"spell") {
                 auto actual_value = static_cast<app::EquipmentType__Enum>(std::stoi(value));
-                auto settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings")->static_fields->Instance;
+                auto settings = types::SpellSettings::get_class()->static_fields->Instance;
                 auto item = il2cpp::invoke<app::SpellIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
                 if (item != nullptr)
                     texture = il2cpp::gchandle_new_weak(item->fields.InventoryIcon, true);
             } else if (type == L"opher") {
                 auto actual_value = std::stoi(value);
-                auto screen = il2cpp::get_class<app::WeaponmasterScreen__Class>("", "WeaponmasterScreen")->static_fields->_Instance_k__BackingField;
+                auto screen = types::WeaponmasterScreen::get_class()->static_fields->_Instance_k__BackingField;
                 if (screen != nullptr) {
                     auto items = screen->fields.WeaponmasterItems;
                     if (actual_value >= 0 && actual_value < items->max_length)
@@ -265,7 +274,7 @@ namespace randomizer::textures {
                 }
             } else if (type == L"lupo") {
                 auto actual_value = std::stoi(value);
-                auto screen = il2cpp::get_class<app::MapmakerScreen__Class>("", "MapmakerScreen")->static_fields->Instance;
+                auto screen = types::MapmakerScreen::get_class()->static_fields->Instance;
                 if (screen != nullptr) {
                     auto items = screen->fields.Purchases;
                     if (actual_value >= 0 && actual_value < items->max_length)
@@ -273,7 +282,7 @@ namespace randomizer::textures {
                 }
             } else if (type == L"grom") {
                 auto actual_value = std::stoi(value);
-                auto screen = il2cpp::get_class<app::BuilderScreen__Class>("", "BuilderScreen")->static_fields->_Instance_k__BackingField;
+                auto screen = types::BuilderScreen::get_class()->static_fields->_Instance_k__BackingField;
                 if (screen != nullptr) {
                     auto items = screen->fields.BuilderItems;
                     if (actual_value >= 0 && actual_value < items->max_length)
@@ -281,7 +290,7 @@ namespace randomizer::textures {
                 }
             } else if (type == L"tuley") {
                 auto actual_value = std::stoi(value);
-                auto screen = il2cpp::get_class<app::GardenerScreen__Class>("", "GardenerScreen")->static_fields->_Instance_k__BackingField;
+                auto screen = types::GardenerScreen::get_class()->static_fields->_Instance_k__BackingField;
                 if (screen != nullptr) {
                     auto items = screen->fields.GardenerItems;
                     if (actual_value >= 0 && actual_value < items->max_length)
@@ -304,14 +313,14 @@ namespace randomizer::textures {
                 unsigned char* png_data = stbi_load(texture_path.c_str(), &x, &y, &n, STBI_rgb_alpha);
                 if (png_data == nullptr) {
                     auto icon = 0;
-                    auto shard_icons = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance->fields.Icons;
+                    auto shard_icons = types::SpiritShardSettings::get_class()->static_fields->Instance->fields.Icons;
                     auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);
                     texture = il2cpp::gchandle_new_weak(icons->fields.InventoryIcon, true);
                     modloader::warn("textures", format("failed to load texture %s (%s).", texture_path.c_str(), stbi_failure_reason()));
                     return;
                 }
 
-                auto texture_ptr = il2cpp::create_object<app::Texture2D>("UnityEngine", "Texture2D");
+                auto texture_ptr = types::Texture2D::create();
 
                 auto format = n == 3 ? app::TextureFormat__Enum::RGB24 : app::TextureFormat__Enum::RGBA32;
                 Texture2D::ctor_4(texture_ptr, x, y, format, false, false);
@@ -339,37 +348,37 @@ namespace randomizer::textures {
         auto value = std::wstring(path.substr(separator + 1));
         if (type == L"shard") {
             auto actual_value = static_cast<app::SpiritShardType__Enum>(std::stoi(value));
-            auto settings = il2cpp::get_class<app::SpiritShardSettings__Class>("", "SpiritShardSettings")->static_fields->Instance;
+            auto settings = types::SpiritShardSettings::get_class()->static_fields->Instance;
             auto item = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
             return item != nullptr;
         } else if (type == L"ability") {
             auto actual_value = static_cast<app::AbilityType__Enum>(std::stoi(value));
-            auto settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings")->static_fields->Instance;
+            auto settings = types::SpellSettings::get_class()->static_fields->Instance;
             auto item = il2cpp::invoke<app::Texture2D>(settings->fields.CustomAbilityIcons, "GetValue", &actual_value);
             return item != nullptr;
         } else if (type == L"spell") {
             auto actual_value = static_cast<app::EquipmentType__Enum>(std::stoi(value));
-            auto settings = il2cpp::get_class<app::SpellSettings__Class>("", "SpellSettings")->static_fields->Instance;
+            auto settings = types::SpellSettings::get_class()->static_fields->Instance;
             auto item = il2cpp::invoke<app::SpellIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
             return item != nullptr;
         } else if (type == L"opher") {
             auto actual_value = std::stoi(value);
-            auto screen = il2cpp::get_class<app::WeaponmasterScreen__Class>("", "WeaponmasterScreen")->static_fields->_Instance_k__BackingField;
+            auto screen = types::WeaponmasterScreen::get_class()->static_fields->_Instance_k__BackingField;
             auto items = screen->fields.WeaponmasterItems;
             return actual_value >= 0 && actual_value < items->max_length;
         } else if (type == L"lupo") {
             auto actual_value = std::stoi(value);
-            auto screen = il2cpp::get_class<app::MapmakerScreen__Class>("", "MapmakerScreen")->static_fields->Instance;
+            auto screen = types::MapmakerScreen::get_class()->static_fields->Instance;
             auto items = screen->fields.Purchases;
             return actual_value >= 0 && actual_value < items->max_length;
         } else if (type == L"grom") {
             auto actual_value = std::stoi(value);
-            auto screen = il2cpp::get_class<app::BuilderScreen__Class>("", "BuilderScreen")->static_fields->_Instance_k__BackingField;
+            auto screen = types::BuilderScreen::get_class()->static_fields->_Instance_k__BackingField;
             auto items = screen->fields.BuilderItems;
             return actual_value >= 0 && actual_value < items->max_length;
         } else if (type == L"tuley") {
             auto actual_value = std::stoi(value);
-            auto screen = il2cpp::get_class<app::GardenerScreen__Class>("", "GardenerScreen")->static_fields->_Instance_k__BackingField;
+            auto screen = types::GardenerScreen::get_class()->static_fields->_Instance_k__BackingField;
             auto items = screen->fields.GardenerItems;
             return actual_value >= 0 && actual_value < items->max_length;
         } else if (type == L"file")

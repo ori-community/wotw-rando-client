@@ -3,6 +3,7 @@
 #include <Il2CppModLoader/app/methods/NPCMessageBox.h>
 #include <Il2CppModLoader/app/methods/MessageBox.h>
 #include <Il2CppModLoader/app/methods/TimeUtility.h>
+#include <Il2CppModLoader/app/types/Input_Cmd.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/interception_macros.h>
@@ -33,7 +34,7 @@ namespace {
     }
 
     void on_fixed_update(GameEvent game_event, EventTiming timing) {
-        auto input_cmd = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
+        auto input_cmd = types::Input_Cmd::get_class();
         auto skip_pressed = input_cmd->static_fields->DialogueAdvance->fields.IsPressed;
 
         if (!skip_pressed) {
@@ -75,7 +76,7 @@ namespace {
         if (this_ptr->fields.m_state == app::NPCMessageBox_State__Enum::Writing && should_do_dialogue_skip()) {
             MessageBox::FinishWriting(this_ptr->fields.MessageBox);
         } else if (this_ptr->fields.m_state == app::NPCMessageBox_State__Enum::Completed && should_do_dialogue_skip()) {
-            auto input_cmd = il2cpp::get_nested_class<app::Input_Cmd__Class>("Core", "Input", "Cmd");
+            auto input_cmd = types::Input_Cmd::get_class();
             if (input_cmd->static_fields->DialogueOption1->fields.IsPressed && this_ptr->fields.XInteractionBinding != nullptr) {
                 NPCMessageBox::EndMessageBox(this_ptr, this_ptr->fields.XInteractionBinding->fields.Action);
                 input_cmd->static_fields->DialogueOption1->fields.Used = true;

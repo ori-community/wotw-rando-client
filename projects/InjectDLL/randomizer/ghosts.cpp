@@ -20,6 +20,18 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/GameObject.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Material.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Renderer.h>
+#include <Il2CppModLoader/app/types/GhostManager.h>
+#include <Il2CppModLoader/app/types/GhostFrame.h>
+#include <Il2CppModLoader/app/types/BinaryReader.h>
+#include <Il2CppModLoader/app/types/BinaryWriter.h>
+#include <Il2CppModLoader/app/types/MemoryStream.h>
+#include <Il2CppModLoader/app/types/OriGhostRigVisuals_GhostVisualSettings.h>
+#include <Il2CppModLoader/app/types/GhostGenericEventsPlugin.h>
+#include <Il2CppModLoader/app/types/GhostStateMachinePlugin.h>
+#include <Il2CppModLoader/app/types/GhostCharacterAbilitiesPlugin.h>
+#include <Il2CppModLoader/app/types/GhostCharacterPlugin.h>
+#include <Il2CppModLoader/app/types/GhostRecorderData.h>
+#include <Il2CppModLoader/app/types/Byte.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <constants.h>
 #include <game/game.h>
@@ -117,7 +129,7 @@ namespace ghosts {
     bool RandoGhost::initialize() {
         modloader::ScopedSetter setter(intercept_ghost_player_on_enable, true);
 
-        auto ghost_manager = il2cpp::get_class<app::GhostManager__Class>("", "GhostManager")->static_fields->instance;
+        auto ghost_manager = types::GhostManager::get_class()->static_fields->instance;
 
         if (!il2cpp::unity::is_valid(ghost_manager)) {
             return false;
@@ -128,15 +140,15 @@ namespace ghosts {
 
         UnityEngine::GameObject::set_tag(ghost_go, il2cpp::string_new(RANDO_GHOST_TAG));
 
-        auto ghost_recorder_data = il2cpp::create_object<app::GhostRecorderData>("", "GhostRecorderData");
+        auto ghost_recorder_data = types::GhostRecorderData::create();
         GhostRecorderData::ctor(ghost_recorder_data);
         this->ghost_player->fields.GhostRecorderData = ghost_recorder_data;
 
         // Register plugins
-        auto const character_plugin = il2cpp::create_object<app::GhostCharacterPlugin>("", "GhostCharacterPlugin");
-        auto const character_abilities_plugin = il2cpp::create_object<app::GhostCharacterAbilitiesPlugin>("", "GhostCharacterAbilitiesPlugin");
-        auto const state_machine_plugin = il2cpp::create_object<app::GhostStateMachinePlugin>("", "GhostStateMachinePlugin");
-        auto const generic_events_plugin = il2cpp::create_object<app::GhostGenericEventsPlugin>("", "GhostGenericEventsPlugin");
+        auto const character_plugin = types::GhostCharacterPlugin::create();
+        auto const character_abilities_plugin = types::GhostCharacterAbilitiesPlugin::create();
+        auto const state_machine_plugin = types::GhostStateMachinePlugin::create();
+        auto const generic_events_plugin = types::GhostGenericEventsPlugin::create();
 
         GhostCharacterPlugin::ctor(character_plugin);
         GhostCharacterAbilitiesPlugin::ctor(character_abilities_plugin);
@@ -238,7 +250,7 @@ namespace ghosts {
             .05f,
         };
 
-        auto visual_settings = il2cpp::create_object<app::OriGhostRigVisuals_GhostVisualSettings>("", "OriGhostRigVisuals", "GhostVisualSettings");
+        auto visual_settings = types::OriGhostRigVisuals_GhostVisualSettings::create();
         OriGhostRigVisuals_GhostVisualSettings::ctor(visual_settings);
 
         visual_settings->fields.MultiplyLayerColor = utils::uber_shader_color(color);
@@ -328,10 +340,10 @@ namespace ghosts {
     app::GhostRecorder* create_recorder() {
         auto const ghost_recorder = GhostManager::GetOrCreateRecorder();
 
-        auto const character_plugin = il2cpp::create_object<app::GhostCharacterPlugin>("", "GhostCharacterPlugin");
-        auto const character_abilities_plugin = il2cpp::create_object<app::GhostCharacterAbilitiesPlugin>("", "GhostCharacterAbilitiesPlugin");
-        auto const state_machine_plugin = il2cpp::create_object<app::GhostStateMachinePlugin>("", "GhostStateMachinePlugin");
-        auto const generic_events_plugin = il2cpp::create_object<app::GhostGenericEventsPlugin>("", "GhostGenericEventsPlugin");
+        auto const character_plugin = types::GhostCharacterPlugin::create();
+        auto const character_abilities_plugin = types::GhostCharacterAbilitiesPlugin::create();
+        auto const state_machine_plugin = types::GhostStateMachinePlugin::create();
+        auto const generic_events_plugin = types::GhostGenericEventsPlugin::create();
 
         GhostCharacterPlugin::ctor(character_plugin);
         GhostCharacterAbilitiesPlugin::ctor(character_abilities_plugin);
@@ -394,10 +406,10 @@ namespace ghosts {
      * @return
      */
     std::vector<std::byte> serialize_frame(app::GhostFrame* frame) {
-        auto memory_stream = il2cpp::create_object<app::MemoryStream>("System.IO", "MemoryStream");
+        auto memory_stream = types::MemoryStream::create();
         MemoryStream::ctor_1(memory_stream);
 
-        auto binary_writer = il2cpp::create_object<app::BinaryWriter>("System.IO", "BinaryWriter");
+        auto binary_writer = types::BinaryWriter::create();
         BinaryWriter::ctor_2(binary_writer, reinterpret_cast<app::Stream*>(memory_stream));
 
         GhostFrame::SaveToFile(frame, binary_writer);
@@ -415,15 +427,15 @@ namespace ghosts {
     }
 
     app::GhostFrame* deserialize_frame(const std::vector<std::byte>& buffer) {
-        auto memory_stream = il2cpp::create_object<app::MemoryStream>("System.IO", "MemoryStream");
-        auto byte_array = il2cpp::array_new<app::Byte__Array>(il2cpp::get_class("System", "Byte"), buffer);
+        auto memory_stream = types::MemoryStream::create();
+        auto byte_array = types::Byte::create_array(buffer);
 
         MemoryStream::ctor_3(memory_stream, byte_array);
 
-        auto binary_reader = il2cpp::create_object<app::BinaryReader>("System.IO", "BinaryReader");
+        auto binary_reader = types::BinaryReader::create();
         BinaryReader::ctor_1(binary_reader, reinterpret_cast<app::Stream*>(memory_stream));
 
-        auto frame = il2cpp::create_object<app::GhostFrame>("", "GhostFrame");
+        auto frame = types::GhostFrame::create();
         GhostFrame::ctor(frame);
 
         GhostFrame::LoadFromFile(frame, binary_reader, GHOST_RECORDER_DATA_VERSION);

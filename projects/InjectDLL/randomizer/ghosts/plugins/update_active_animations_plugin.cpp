@@ -5,6 +5,9 @@
 #include <Il2CppModLoader/app/methods/GhostPlayer.h>
 #include <Il2CppModLoader/app/methods/Moon/MoonAnimator.h>
 #include <Il2CppModLoader/app/methods/System/Collections/Generic/HashSet_1_GenericPuppet_.h>
+#include <Il2CppModLoader/app/types/MoonAnimator_ActiveAnimation.h>
+#include <Il2CppModLoader/app/types/ActiveAnimationHandle.h>
+#include <Il2CppModLoader/app/types/GenericPuppet.h>
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/windows_api/console.h>
 
@@ -35,7 +38,7 @@ namespace ghosts::plugins {
 
             auto animation = Moon::ActiveAnimationHandle::get_Animation(
                     il2cpp::box_value<app::ActiveAnimationHandle__Boxed>(
-                            il2cpp::get_class("Moon", "ActiveAnimationHandle"),
+                            reinterpret_cast<Il2CppClass*>(types::ActiveAnimationHandle::get_class()),
                             animation_handle
                     )
             );
@@ -47,7 +50,7 @@ namespace ghosts::plugins {
             if (attribute != nullptr) {
                 auto priority = 0;
 
-                if (il2cpp::is_assignable(animation_handle.m_activeAnimation, il2cpp::get_nested_class("", "MoonAnimator", "ActiveAnimation"))) {
+                if (il2cpp::is_assignable(animation_handle.m_activeAnimation, reinterpret_cast<Il2CppClass*>(types::MoonAnimator_ActiveAnimation::get_class()))) {
                     auto active_animation = reinterpret_cast<app::MoonAnimator_ActiveAnimation*>(animation_handle.m_activeAnimation);
                     priority = active_animation->fields.m_priority;
                 }
@@ -67,7 +70,7 @@ namespace ghosts::plugins {
         if (--frames_until_record <= 0) {
             std::unordered_map<int, std::vector<ActiveAnimation>> active_animations_map;
 
-            auto puppets = il2cpp::array_new<app::GenericPuppet__Array>(il2cpp::get_class("", "GenericPuppet"), recorder->klass->static_fields->s_puppets->fields._count);
+            auto puppets = types::GenericPuppet::create_array(recorder->klass->static_fields->s_puppets->fields._count);
             il2cpp::invoke(recorder->klass->static_fields->s_puppets, "CopyTo", puppets);
 
             for (int i = 0; i < puppets->max_length; ++i) {

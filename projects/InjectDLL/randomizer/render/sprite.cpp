@@ -12,6 +12,14 @@
 #include <Il2CppModLoader/app/methods/UnityEngine/Quaternion.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
 #include <Il2CppModLoader/app/methods/UnityEngine/Material.h>
+#include <Il2CppModLoader/app/types/UI.h>
+#include <Il2CppModLoader/app/types/Vector2.h>
+#include <Il2CppModLoader/app/types/Material.h>
+#include <Il2CppModLoader/app/types/Mesh.h>
+#include <Il2CppModLoader/app/types/GameObject.h>
+#include <Il2CppModLoader/app/types/String.h>
+#include <Il2CppModLoader/app/types/Int32.h>
+#include <Il2CppModLoader/app/types/Vector3.h>
 
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
@@ -20,7 +28,7 @@ namespace randomizer {
     namespace {
         app::Vector2__Array* make_uvs(float x = 0, float y = 0, float w = 1, float h = 1) {
             return il2cpp::array_new<app::Vector2__Array>(
-                    il2cpp::get_class("UnityEngine", "Vector2"),
+                    reinterpret_cast<Il2CppClass*>(types::Vector2::get_class()),
                     std::vector<app::Vector2>{
                             { x, y },
                             { x + w, y },
@@ -40,7 +48,7 @@ namespace randomizer {
             app::Renderer* renderer = nullptr;
             app::MeshFilter* mesh_filter = nullptr;
             if (use_prefab) {
-                auto controller = il2cpp::get_class<app::UI__Class>("Game", "UI")->static_fields->MessageController;
+                auto controller = types::UI::get_class()->static_fields->MessageController;
                 auto message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(controller->fields.HintSmallMessage, "", "MessageBox");
                 auto icon_renderer = reinterpret_cast<app::MoonIconRenderer*>(
                         message_box->fields.TextBox->fields.styleCollection->fields.styles->vector[1]->fields.renderer
@@ -51,7 +59,7 @@ namespace randomizer {
                 mesh_filter = il2cpp::unity::get_component<app::MeshFilter>(icon, "UnityEngine", "MeshFilter");
                 renderer = il2cpp::unity::get_component<app::Renderer>(icon, "UnityEngine", "MeshRenderer");
             } else {
-                icon = il2cpp::create_object<app::GameObject>("UnityEngine", "GameObject");
+                icon = types::GameObject::create();
                 il2cpp::invoke(icon, ".ctor");
                 mesh_filter = il2cpp::unity::add_component<app::MeshFilter>(icon, "UnityEngine", "MeshFilter");
                 renderer = il2cpp::unity::add_component<app::Renderer>(icon, "UnityEngine", "MeshRenderer");
@@ -63,12 +71,12 @@ namespace randomizer {
 
             il2cpp::unity::set_active(icon, false);
             game::add_to_container(game::RandoContainer::GameObjects, icon);
-            auto mesh = il2cpp::create_object<app::Mesh>("UnityEngine", "Mesh");
+            auto mesh = types::Mesh::create();
             il2cpp::invoke(mesh, ".ctor");
             il2cpp::invoke(icon, "set_name", il2cpp::string_new("rando_sprite"));
-            auto vertices = il2cpp::array_new(il2cpp::get_class("UnityEngine", "Vector3"), std::vector<app::Vector3>{ { -0.5f, -0.5f, 0 }, { 0.5f, -0.5f, 0 }, { -0.5f, 0.5f, 0 }, { 0.5f, 0.5f, 0 } });
-            auto triangles = il2cpp::array_new(il2cpp::get_class("System", "Int32"), std::vector<int>{ 0, 2, 1, 2, 3, 1 });
-            auto normals = il2cpp::array_new(il2cpp::get_class("UnityEngine", "Vector3"), std::vector<app::Vector3>{ { 0, 0, 1 }, { 0, 0, 1 }, { 0, 0, 1 }, { 0, 0, 1 } });
+            auto vertices = types::Vector3::create_array(std::vector<app::Vector3>{ { -0.5f, -0.5f, 0 }, { 0.5f, -0.5f, 0 }, { -0.5f, 0.5f, 0 }, { 0.5f, 0.5f, 0 } });
+            auto triangles = types::Int32::create_array(std::vector<int>{ 0, 2, 1, 2, 3, 1 });
+            auto normals = types::Vector3::create_array(std::vector<app::Vector3>{ { 0, 0, 1 }, { 0, 0, 1 }, { 0, 0, 1 }, { 0, 0, 1 } });
             auto uv = make_uvs();
 
             il2cpp::invoke(mesh, "set_vertices", vertices);
@@ -80,10 +88,10 @@ namespace randomizer {
 
             if (custom_shader) {
                 auto shader = Shader::Find(il2cpp::string_new("Hidden/UberShader/59F9A629AA8A0ABB2D0B3EAE1933B13F"));
-                auto mat = il2cpp::create_object<app::Material>("UnityEngine", "Material");
+                auto mat = types::Material::create();
                 Material::ctor_1(mat, shader);
 
-                auto keywords = il2cpp::array_new(il2cpp::get_class("System", "String"), std::vector<app::String*>{ il2cpp::string_new("DISABLE_ALPHA_CUTOFF") });
+                auto keywords = types::String::create_array(std::vector<app::String*>{ il2cpp::string_new("DISABLE_ALPHA_CUTOFF") });
                 il2cpp::invoke(mat, "set_shaderKeywords", keywords);
 
                 randomizer::shaders::set_float(mat, "_UberShaderAlphaMask", 9);
