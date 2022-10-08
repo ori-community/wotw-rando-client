@@ -406,6 +406,21 @@ namespace ghosts {
         }
     }
 
+    IL2CPP_INTERCEPT(GhostRecorder, void, InitializeRecorder, (app::GhostRecorder * this_ptr, app::String* path)) {
+        next::GhostRecorder::InitializeRecorder(this_ptr, path);
+
+        /**
+         * The game calls InitializeRecorder when starting a spirit trial
+         * and writes the format identifier "record" and some other header
+         * information to the stream. Since this would disrupt our rando
+         * recorder, we have to truncate the stream after running
+         * InitializeRecorder.
+         */
+        if (ghost_recorder == this_ptr) {
+            MemoryStream::SetLength(ghost_recorder->klass->static_fields->m_stream, 0);
+        }
+    }
+
     bool has_new_frame_data() {
         return last_frame_data_new;
     }
