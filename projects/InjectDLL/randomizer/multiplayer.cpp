@@ -578,7 +578,7 @@ INJECT_C_DLLEXPORT void update_player_position(const wchar_t* id, float x, float
     if (it != multiplayer::player_map.end()) {
         multiplayer::PlayerInfo& info = multiplayer::players[it->second];
 
-        if (info.world_ghost.is_initialized() && ghost_frame_data != nullptr) {
+        if (info.world_ghost.is_initialized() && ghost_frame_data_length != 0) {
             std::vector<std::byte> frame_data;
 
             for (int i = 0; i < ghost_frame_data_length; ++i) {
