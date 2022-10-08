@@ -285,7 +285,7 @@ namespace RandoMainDLL {
           break;
 
         child.Grant(true, position);
-        if (child.Muted || child.DisplayName == Pickup.DisplayNameEmpty || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
+        if (child.Muted || child.DisplayName == Pickup.DisplayNameEmpty || child.DisplayName == "" || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
           continue;
 
         nameAfterGrant += child.DisplayName + (child.DisplayName.EndsWith("<\\>") ? "" : "\n");
@@ -309,7 +309,7 @@ namespace RandoMainDLL {
           if (child is ConditionalStop s && s.StopActive())
             break;
 
-          if (child.Muted || child.DisplayName == DisplayNameEmpty || child.Frames == 0 ||
+          if (child.Muted || child.DisplayName == DisplayNameEmpty || child.DisplayName == "" || child.Frames == 0 ||
             squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
             continue;
 
