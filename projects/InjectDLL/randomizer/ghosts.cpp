@@ -181,6 +181,7 @@ namespace ghosts {
         this->ghost_go_gchandle = il2cpp::gchandle_new(ghost_go, true);
         this->ghost_player->fields.GhostRecordingFilePath = il2cpp::string_new(RANDO_GHOST_TAG);
 
+        il2cpp::unity::set_position(this->ghost_player->fields.m_oriRig, app::Vector3{ 0.f, 0.f, 0.f });
         GhostPlayer::SetPosition(this->ghost_player, app::Vector3{ 0.f, 0.f, 0.f });
 
         return true;
