@@ -181,8 +181,14 @@ namespace ghosts {
         this->ghost_go_gchandle = il2cpp::gchandle_new(ghost_go, true);
         this->ghost_player->fields.GhostRecordingFilePath = il2cpp::string_new(RANDO_GHOST_TAG);
 
-        il2cpp::unity::set_position(this->ghost_player->fields.m_oriRig, app::Vector3{ 0.f, 0.f, 0.f });
+        il2cpp::unity::set_local_position(this->ghost_player->fields.m_oriRig, app::Vector3{ 0.f, 0.f, 0.f });
         GhostPlayer::SetPosition(this->ghost_player, app::Vector3{ 0.f, 0.f, 0.f });
+
+        auto character_data = GhostPlayer::get_CurrentGhostCharacterData(this->ghost_player);
+        if (il2cpp::unity::is_valid(character_data)) {
+            character_data->fields.Position = app::Vector3{ 0.f, 0.f, 0.f };
+            character_data->fields.LocalSpeed = app::Vector2{ 0.f, 0.f };
+        }
 
         return true;
     }
@@ -325,6 +331,14 @@ namespace ghosts {
     }
 
     IL2CPP_INTERCEPT(GhostRecorder, void, Cancel, (app::GhostRecorder * this_ptr)) {
+        // Noop
+    }
+
+    IL2CPP_INTERCEPT(GhostRecorder, void, WriteToFile, (app::GhostRecorder * this_ptr, app::String* path, bool allow_append)) {
+        // Noop
+    }
+
+    IL2CPP_INTERCEPT(GhostManager, void, OnRaceFinish, (app::String * race_id, app::GhostRecorder* recorder, app::RaceTimer* timer, app::ScoreResult__Enum* result, app::ITrialData* trial_data)) {
         // Noop
     }
 

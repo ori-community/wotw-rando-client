@@ -35,7 +35,7 @@ using namespace app::classes::System::IO;
 namespace {
     app::GhostRecorder* recorder = nullptr;
     std::vector<std::vector<std::byte>> frames;
-    long current_frame = -200;
+    long current_frame = -500;
     ghosts::RandoGhost ghost1;
     ghosts::RandoGhost ghost2;
     std::random_device random_device;
@@ -57,11 +57,10 @@ namespace {
         for (const auto& item : frame_data) {
             hex += format("%02X ", static_cast<unsigned int>(item));
         }
-        // console_send(hex);
+        console_send(hex);
+        console_flush();
 
         frames.push_back(frame_data);
-
-        // console_flush();
         ++current_frame;
 
         if (current_frame == 0) {
@@ -74,7 +73,7 @@ namespace {
             // ghost2.set_color(app::Color{ 56.f / 255.f, 142.f / 255.f, 60.f / 255.f });
         }
 
-        if (current_frame >= 0 && rng() % 2 == 0) {
+        if (current_frame >= 0) {
             ghost1.play_frame_data(frames[current_frame]);
         }
 
