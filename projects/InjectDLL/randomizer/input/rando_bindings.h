@@ -12,8 +12,6 @@ namespace randomizer {
 
         void add_on_pressed_callback(Action action, rando_input_callback callback);
         void add_on_released_callback(Action action, rando_input_callback callback);
-
-        bool is_pressed(Action action);
     } // namespace input
 } // namespace randomizer
 

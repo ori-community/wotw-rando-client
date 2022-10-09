@@ -37,7 +37,6 @@ namespace {
         overwrite_attackables = false;
     }
 
-    uint32_t handle = 0;
     IL2CPP_INTERCEPT(Game::Targets, app::IEnumerable_1_IAttackable_*, get_Attackables, ()) {
         return overwrite_attackables
             ? reinterpret_cast<app::IEnumerable_1_IAttackable_*>(types::IAttackable::create_array(0))

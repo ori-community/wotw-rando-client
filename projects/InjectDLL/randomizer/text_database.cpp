@@ -13,7 +13,7 @@
 namespace text_database {
     struct TextEntry {
         std::vector<std::string> text;
-        uint32_t provider = -1;
+        gchandle provider = -1;
     };
 
     // Start dynamic entries after all static values.

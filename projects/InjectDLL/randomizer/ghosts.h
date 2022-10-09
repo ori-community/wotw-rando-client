@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <Il2CppModLoader/il2cpp_helpers.h>
 
 namespace ghosts {
     struct RandoGhost {
@@ -12,7 +13,7 @@ namespace ghosts {
             int priority;
         };
 
-        uint32_t ghost_go_gchandle = 0;
+        gchandle ghost_go_gchandle = 0;
         app::GhostPlayer* ghost_player = nullptr;
         bool preventing_tpose = false;
         std::unordered_map<int, std::unordered_map<int, ActiveAnimation>> active_animations;

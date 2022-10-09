@@ -574,19 +574,19 @@ namespace il2cpp {
         il2cpp_free(obj);
     }
 
-    uint32_t gchandle_new(void* obj, bool pinned) {
+    gchandle gchandle_new(void* obj, bool pinned) {
         return il2cpp_gchandle_new(reinterpret_cast<Il2CppObject*>(obj), pinned);
     }
 
-    uint32_t gchandle_new_weak(void* obj, bool track_ressurection) {
+    gchandle gchandle_new_weak(void* obj, bool track_ressurection) {
         return il2cpp_gchandle_new_weakref(reinterpret_cast<Il2CppObject*>(obj), track_ressurection);
     }
 
-    Il2CppObject* gchandle_target(uint32_t handle) {
+    Il2CppObject* gchandle_target(gchandle handle) {
         return il2cpp_gchandle_get_target(handle);
     }
 
-    void gchandle_free(uint32_t handle) {
+    void gchandle_free(gchandle handle) {
         il2cpp_gchandle_free(handle);
     }
 

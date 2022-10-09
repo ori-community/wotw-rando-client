@@ -13,7 +13,7 @@ namespace multiplayer {
 
     struct PlayerInfo {
         struct Icon {
-            uint64_t handle = 0;
+            gchandle handle = 0;
             app::Vector2 position = { 0 };
             int facing = 1;
             float last_facing_pos = 0.0f;
@@ -31,7 +31,7 @@ namespace multiplayer {
 
         std::wstring id;
         std::wstring name;
-        int64_t name_handle = 0;
+        gchandle name_handle = 0;
         bool online = true;
         bool world_visible = true;
         bool map_visible = true;

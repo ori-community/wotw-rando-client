@@ -45,7 +45,7 @@ namespace randomizer {
         private:
             bool initialized = true;
             std::wstring path;
-            std::optional<uint32_t> texture;
+            std::optional<gchandle> texture;
             MaterialParams local;
 
             void load_texture();

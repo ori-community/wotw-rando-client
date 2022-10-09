@@ -14,15 +14,15 @@ namespace randomizer::input {
     std::unordered_map<app::CompoundButtonInput*, Action> input_handles;
     std::unordered_map<Action, bool> simulators;
 
-    Action find_input_info(app::CompoundButtonInput* input) {
+    Action* find_input_info(app::CompoundButtonInput* input) {
         auto it = input_handles.find(input);
-        return it != input_handles.end() ? it->second : Action::TOTAL;
+        return it != input_handles.end() ? &it->second : nullptr;
     }
 
     namespace {
         IL2CPP_INTERCEPT(SmartInput::CompoundButtonInput, bool, GetValue, (app::CompoundButtonInput * this_ptr)) {
             auto action = find_input_info(this_ptr);
-            if (action != Action::TOTAL && simulators[action])
+            if (action != nullptr && simulators[*action])
                 return true;
 
             return next::SmartInput::CompoundButtonInput::GetValue(this_ptr);
@@ -30,7 +30,7 @@ namespace randomizer::input {
 
         IL2CPP_INTERCEPT(SmartInput::CachedButtonInput, bool, GetButton, (app::CachedButtonInput * this_ptr)) {
             auto action = find_input_info(reinterpret_cast<app::CompoundButtonInput*>(this_ptr));
-            if (action != Action::TOTAL && simulators[action])
+            if (action != nullptr && simulators[*action])
                 return true;
 
             return next::SmartInput::CachedButtonInput::GetButton(this_ptr);

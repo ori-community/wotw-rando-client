@@ -5,6 +5,8 @@
 #include <string_view>
 #include <vector>
 
+using gchandle = uint32_t;
+
 namespace il2cpp {
     struct MethodOverloadInfo {
         std::string name;
@@ -35,10 +37,10 @@ namespace il2cpp {
 
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring_fast(app::String* str);
-    IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new(void* obj, bool pinned);
-    IL2CPP_MODLOADER_DLLEXPORT uint32_t gchandle_new_weak(void* obj, bool track_ressurection);
-    IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* gchandle_target(uint32_t handle);
-    IL2CPP_MODLOADER_DLLEXPORT void gchandle_free(uint32_t handle);
+    IL2CPP_MODLOADER_DLLEXPORT gchandle gchandle_new(void* obj, bool pinned);
+    IL2CPP_MODLOADER_DLLEXPORT gchandle gchandle_new_weak(void* obj, bool track_ressurection);
+    IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* gchandle_target(gchandle handle);
+    IL2CPP_MODLOADER_DLLEXPORT void gchandle_free(gchandle handle);
 
     IL2CPP_MODLOADER_DLLEXPORT std::vector<MethodOverloadInfo> const& get_all_methods(void* klass);
     IL2CPP_MODLOADER_DLLEXPORT int get_method_overload_count(Il2CppClass* klass, std::string_view method, int param_count);
@@ -245,7 +247,7 @@ namespace il2cpp {
     void load_all_types();
 
     template <typename Return>
-    Return* gchandle_target(uint32_t handle) {
+    Return* gchandle_target(gchandle handle) {
         return reinterpret_cast<Return*>(il2cpp::gchandle_target(handle));
     }
 

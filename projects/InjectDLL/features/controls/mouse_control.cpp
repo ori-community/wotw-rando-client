@@ -69,44 +69,44 @@ namespace {
             return app::Vector2{ pos.x / magnitude, pos.y / magnitude };
     }
 
-    bool overwrite_input = false;
+    bool use_mouse_aiming_for_axis_input = false;
     IL2CPP_INTERCEPT(SeinDashNew, bool, ShouldDig, (app::SeinDashNew * this_ptr)) {
         if (randomizer::settings::burrow_mouse_control() && current_control_scheme_is_kbm())
-            overwrite_input = true;
+            use_mouse_aiming_for_axis_input = true;
 
         auto ret = next::SeinDashNew::ShouldDig(this_ptr);
-        overwrite_input = false;
+        use_mouse_aiming_for_axis_input = false;
         return ret;
     }
 
     IL2CPP_INTERCEPT(SeinDigging, void, UpdateCharacterState, (app::SeinDigging * this_ptr)) {
         if (randomizer::settings::burrow_mouse_control() && current_control_scheme_is_kbm())
-            overwrite_input = true;
+            use_mouse_aiming_for_axis_input = true;
 
         next::SeinDigging::UpdateCharacterState(this_ptr);
-        overwrite_input = false;
+        use_mouse_aiming_for_axis_input = false;
     }
 
     IL2CPP_INTERCEPT(SeinDashNew, bool, ShouldSwim, (app::SeinDashNew * this_ptr)) {
         if (randomizer::settings::water_dash_mouse_control() && current_control_scheme_is_kbm()) {
             deadzone_active = true;
-            overwrite_input = true;
+            use_mouse_aiming_for_axis_input = true;
         }
 
         auto ret = next::SeinDashNew::ShouldSwim(this_ptr);
         deadzone_active = false;
-        overwrite_input = false;
+        use_mouse_aiming_for_axis_input = false;
         return ret;
     }
 
     IL2CPP_INTERCEPT(SeinSwimming, void, UpdateCharacterState, (app::SeinSwimming * this_ptr)) {
         if (randomizer::settings::water_dash_mouse_control() && current_control_scheme_is_kbm()) {
-            overwrite_input = true;
+            use_mouse_aiming_for_axis_input = true;
             deadzone_active = true;
         }
 
         next::SeinSwimming::UpdateCharacterState(this_ptr);
-        overwrite_input = false;
+        use_mouse_aiming_for_axis_input = false;
         deadzone_active = false;
     }
 
@@ -116,7 +116,7 @@ namespace {
         if (!player_input->fields.Active)
             return ret;
 
-        if (overwrite_input && get_current_control_scheme() == app::ControlScheme__Enum::KeyboardAndMouse)
+        if (use_mouse_aiming_for_axis_input && get_current_control_scheme() == app::ControlScheme__Enum::KeyboardAndMouse)
             ret = get_mouse_dir();
         else
             ret = next::Core::Input::get_Axis();

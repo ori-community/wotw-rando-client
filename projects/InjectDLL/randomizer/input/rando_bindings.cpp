@@ -52,7 +52,7 @@ namespace randomizer::input {
 
         std::unordered_map<Action, ControlInfo> bindings;
 
-        void add_keyboard_binding(Action action, KeyboardMouseInput input) {
+        void add_keyboard_binding(Action action, const KeyboardMouseInput& input) {
             if (action < Action::RANDO_ACTIONS_START)
                 return;
 
@@ -62,7 +62,7 @@ namespace randomizer::input {
             bindings[action].kbm_bindings.push_back(input);
         }
 
-        void handle_binding(Action action, std::vector<int> const& buttons, bool respects_modifiers) {
+        void on_binding_read(Action action, std::vector<int> const& buttons, bool respects_modifiers) {
             KeyboardMouseInput input;
             input.respects_modifiers = respects_modifiers;
             for (auto const& button : buttons) {
@@ -90,11 +90,11 @@ namespace randomizer::input {
 
         IL2CPP_INTERCEPT(PlayerInput, void, AddKeyboardControls, (app::PlayerInput * this_ptr)) {
             next::PlayerInput::AddKeyboardControls(this_ptr);
-            read_bindings(base_path + KEYBOARD_REBIND_FILE, handle_binding);
+            read_bindings(base_path + KEYBOARD_REBIND_FILE, on_binding_read);
             register_simulators(this_ptr);
         }
 
-        bool is_pressed(KeyboardMouseInput const& input) {
+        bool is_kbm_pressed(KeyboardMouseInput const& input) {
             if (input.respects_modifiers) {
                 auto shift = Input::GetKeyInt(app::KeyCode__Enum::LeftShift) || Input::GetKeyInt(app::KeyCode__Enum::RightShift);
                 auto ctrl = Input::GetKeyInt(app::KeyCode__Enum::LeftControl) || Input::GetKeyInt(app::KeyCode__Enum::RightControl);
@@ -125,13 +125,12 @@ namespace randomizer::input {
 
         IL2CPP_INTERCEPT(PlayerInput, void, RefreshControls, (app::PlayerInput * this_ptr)) {
             next::PlayerInput::RefreshControls(this_ptr);
-            refresh_controller_controls();
 
             for (auto& binding : bindings) {
                 auto pressed = is_controller_pressed(binding.first);
                 if (!pressed) {
                     for (auto const& input : binding.second.kbm_bindings) {
-                        if (is_pressed(input)) {
+                        if (is_kbm_pressed(input)) {
                             pressed = true;
                             break;
                         }
@@ -153,13 +152,6 @@ namespace randomizer::input {
             }
         }
     } // namespace
-
-    bool is_pressed(Action action) {
-        if (action < Action::RANDO_ACTIONS_START)
-            return false;
-
-        return bindings[action].is_pressed;
-    }
 
     void add_on_pressed_callback(Action action, rando_input_callback callback) {
         if (action < Action::RANDO_ACTIONS_START)

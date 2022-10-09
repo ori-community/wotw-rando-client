@@ -31,9 +31,9 @@ using namespace app::classes::UnityEngine;
 
 namespace randomizer::textures {
     namespace {
-        std::unordered_map<std::wstring, uint32_t> files;
+        std::unordered_map<std::wstring, gchandle> files;
         std::unordered_map<std::wstring, std::vector<std::weak_ptr<TextureData>>> file_instances;
-        std::unordered_map<app::Renderer*, std::pair<uint32_t, MaterialParams>> default_params;
+        std::unordered_map<app::Renderer*, std::pair<gchandle, MaterialParams>> default_params;
     } // namespace
 
     TextureData::~TextureData() {

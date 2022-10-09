@@ -14,8 +14,8 @@ namespace shops {
     };
 
     struct ShopItem {
-        uint32_t name = 0;
-        uint32_t description = 0;
+        gchandle name = 0;
+        gchandle description = 0;
         std::shared_ptr<randomizer::textures::TextureData> texture_data;
         bool uses_energy = false;
         bool is_locked = false;
