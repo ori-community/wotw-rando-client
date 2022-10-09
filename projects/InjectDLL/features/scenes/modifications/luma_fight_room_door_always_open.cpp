@@ -22,7 +22,7 @@ namespace {
 
     bool open_door() {
         if (
-                !scenes::scene_is_loaded("lumaPoolsC") ||
+                !scenes::scene_is_enabled("lumaPoolsC") ||
                 !il2cpp::unity::is_valid(left_door_transform) ||
                 !il2cpp::unity::is_valid(right_door_transform) ||
                 !il2cpp::unity::is_valid(keyrings_go) ||

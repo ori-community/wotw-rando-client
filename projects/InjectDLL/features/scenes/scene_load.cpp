@@ -121,6 +121,11 @@ namespace scenes {
         return ScenesManager::SceneIsLoaded(get_scenes_manager(), metadata->fields.SceneMoonGuid);
     }
 
+    bool scene_is_enabled(std::string_view scene) {
+        auto metadata = get_scene_metadata(scene);
+        return ScenesManager::SceneIsEnabled_2(get_scenes_manager(), metadata->fields.SceneMoonGuid);
+    }
+
     app::SceneState__Enum scene_state(std::string_view scene) {
         auto metadata = get_scene_metadata(scene);
         auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(get_scenes_manager(), metadata);
