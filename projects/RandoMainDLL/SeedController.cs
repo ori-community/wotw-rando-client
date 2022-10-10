@@ -306,7 +306,7 @@ namespace RandoMainDLL {
     }
 
     public static void ReadSeed(bool connect = true, bool init = false) {
-      SeedFile = File.ReadAllText(Randomizer.SeedPathFile);
+      SeedFile = File.ReadAllText(Randomizer.SeedPathFile).Trim();
       if (SeedFile.StartsWith("server:")) {
         // If we are asking the server for a seed then it is obviously a netcode thing.
         Settings.NetcodeEnabled = true;
