@@ -217,6 +217,8 @@ namespace RandoMainDLL {
       Relic.Reset();
       InterOp.Map.clear_icons();
       InterOp.TextDatabase.text_database_clear_dynamic();
+      Settings = new SeedGenSettings();
+
       string line = "";
       string coordsRaw = "";
       foreach (string rawLine in lines) {
