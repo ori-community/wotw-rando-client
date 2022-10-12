@@ -130,7 +130,7 @@ namespace RandoMainDLL {
             CallbackName = "on_uber_state_applied"
           },
           new Method() {
-            Delegate = new f_bool_int_int_int(MapController.FilterIconShow),
+            Delegate = new f_bool_int_int_int_cmp(MapController.FilterIconShow),
             CallbackName = "filter_icon_show"
           },
           new Method() {
@@ -239,7 +239,7 @@ namespace RandoMainDLL {
     public delegate bool f_bool();
     public delegate bool f_bool_at(AbilityType at);
     public delegate bool f_bool_int(int i);
-    public delegate bool f_bool_int_int_int(int i, int j, int k);
+    public delegate bool f_bool_int_int_int_cmp(int i, int j, int k, UberStateCondition.Comparison comparison);
     public delegate bool f_bool_st(ShardType st);
     public delegate bool f_bool_str([MarshalAs(UnmanagedType.LPStr)] string str);
     public delegate int f_int();

@@ -228,17 +228,17 @@ namespace RandoMainDLL {
       return args.Contains(obj);
     }
 
-    public static string Symbol(this UberStateCondition.Handler handler) {
-      switch (handler) {
-        case UberStateCondition.Handler.Less:
+    public static string Symbol(this UberStateCondition.Comparison comparison) {
+      switch (comparison) {
+        case UberStateCondition.Comparison.Less:
           return "<";
-        case UberStateCondition.Handler.LessOrEquals:
+        case UberStateCondition.Comparison.LessOrEquals:
           return "<=";
-        case UberStateCondition.Handler.Greater:
+        case UberStateCondition.Comparison.Greater:
           return ">";
-        case UberStateCondition.Handler.GreaterOrEquals:
+        case UberStateCondition.Comparison.GreaterOrEquals:
           return ">=";
-        case UberStateCondition.Handler.Equals:
+        case UberStateCondition.Comparison.Equals:
           return "=";
         default:
           return "";

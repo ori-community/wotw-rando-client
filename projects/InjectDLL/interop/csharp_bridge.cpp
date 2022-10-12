@@ -67,7 +67,7 @@ namespace csharp_bridge {
 
     signatures::f_void_int on_found_tp = nullptr;
     signatures::f_void_float_float on_map_tp_active = nullptr;
-    signatures::f_bool_int_int_int filter_icon_show = nullptr;
+    signatures::f_bool_int_int_int_cmp filter_icon_show = nullptr;
     signatures::f_int_int_int_int filter_icon_type = nullptr;
     signatures::f_void_ptr_int_int_int_int_int filter_icon_text = nullptr;
     signatures::f_bool_int filter_enabled = nullptr;

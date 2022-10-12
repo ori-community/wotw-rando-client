@@ -161,6 +161,7 @@ set(
         "dev/object_visualizer.h"
         "enums/actions.h"
         "enums/buttons.h"
+        "enums/comparison.h"
         "enums/game_event.h"
         "enums/layer.h"
         "enums/sound.h"

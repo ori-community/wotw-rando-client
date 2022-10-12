@@ -27,12 +27,12 @@ namespace RandoMainDLL {
     }
 
     private Tuple<UberStateCondition, Pickup> GetEqCondition(UberId id, double value) {
-      var cond = new UberStateCondition(id, (int)value, UberStateCondition.Handler.Equals);
+      var cond = new UberStateCondition(id, (int)value, UberStateCondition.Comparison.Equals);
       return Tuple.Create(cond, UberStateEqualsPickups.GetOrElse(cond, null));
     }
 
     private Tuple<UberStateCondition, Pickup> GetEqCondition(UberState uber_state) {
-      var cond = new UberStateCondition(uber_state.GroupID, uber_state.ID, uber_state.ValueAsInt(), UberStateCondition.Handler.Equals);
+      var cond = new UberStateCondition(uber_state.GroupID, uber_state.ID, uber_state.ValueAsInt(), UberStateCondition.Comparison.Equals);
       return Tuple.Create(cond, UberStateEqualsPickups.GetOrElse(cond, null));
     }
 
@@ -50,7 +50,7 @@ namespace RandoMainDLL {
     }
 
     public Pickup Pickup(UberStateCondition cond) {
-      if (cond.TargetHandler == UberStateCondition.Handler.Equals)
+      if (cond.TargetComparison == UberStateCondition.Comparison.Equals)
         return UberStateEqualsPickups.GetOrElse(cond, Multi.Empty);
       else
         return UberStatePickups.GetOrElse(cond.Id, null).GetOrElse(cond, Multi.Empty);
@@ -84,7 +84,7 @@ namespace RandoMainDLL {
     }
 
     public void Add(UberStateCondition condition, Pickup pickup) {
-      if (condition.TargetHandler == UberStateCondition.Handler.Equals) {
+      if (condition.TargetComparison == UberStateCondition.Comparison.Equals) {
         var p = UberStateEqualsPickups.GetOrElse(condition, Multi.Empty);
         UberStateEqualsPickups.Remove(condition);
         UberStateEqualsPickups.Add(condition, p.Concat(pickup));

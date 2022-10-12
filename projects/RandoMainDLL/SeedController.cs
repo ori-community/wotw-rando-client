@@ -33,13 +33,13 @@ namespace RandoMainDLL {
   }
 
   public class UberStateCondition : IComparable<UberStateCondition> {
-    public enum Handler {
+    public enum Comparison : byte {
       // Order here is important because bad code
-      GreaterOrEquals,
-      LessOrEquals,
-      Greater,
-      Less,
-      Equals
+      GreaterOrEquals = 0,
+      LessOrEquals = 1,
+      Greater = 2,
+      Less = 3,
+      Equals = 4,
     }
 
     public enum TriggerBehaviour {
@@ -49,29 +49,29 @@ namespace RandoMainDLL {
 
     public UberId Id;
     public int Target;
-    public Handler TargetHandler;
+    public Comparison TargetComparison;
     public TriggerBehaviour Behaviour;
 
-    public UberStateCondition(UberId id, int target, Handler handler) {
-      TargetHandler = handler;
+    public UberStateCondition(UberId id, int target, Comparison comparison) {
+      TargetComparison = comparison;
       Id = id;
       Target = target;
       Behaviour = TriggerBehaviour.Always;
     }
-    public UberStateCondition(int groupId, int id, int target, Handler handler) {
-      TargetHandler = handler;
+    public UberStateCondition(int groupId, int id, int target, Comparison comparison) {
+      TargetComparison = comparison;
       Id = new UberId(groupId, id);
       if (target > 0)
         Target = target;
     }
     public UberStateCondition(int groupId, string rawTarget) {
-      foreach (Handler value in Enum.GetValues(typeof(Handler))) {
+      foreach (Comparison value in Enum.GetValues(typeof(Comparison))) {
         var symbol = value.Symbol();
         if (rawTarget.Contains(symbol)) {
           var idAndTarget = rawTarget.Split(new string[] { symbol }, StringSplitOptions.None);
           Id = new UberId(groupId, idAndTarget[0].ParseToInt("UberStateCondition.Id"));
           Target = idAndTarget[1].ParseToInt("UberStateCondition.Target");
-          TargetHandler = value;
+          TargetComparison = value;
           Behaviour = TriggerBehaviour.Once;
           return;
         }
@@ -79,21 +79,21 @@ namespace RandoMainDLL {
 
       Id = new UberId(groupId, int.Parse(rawTarget));
       Target = 0;
-      TargetHandler = Handler.Greater;
+      TargetComparison = Comparison.Greater;
       Behaviour = TriggerBehaviour.Always;
     }
 
     private bool CheckTarget(double value) {
-      switch (TargetHandler) {
-        case Handler.Less:
+      switch (TargetComparison) {
+        case Comparison.Less:
           return value < Target;
-        case Handler.LessOrEquals:
+        case Comparison.LessOrEquals:
           return value <= Target;
-        case Handler.Greater:
+        case Comparison.Greater:
           return value > Target;
-        case Handler.GreaterOrEquals:
+        case Comparison.GreaterOrEquals:
           return value >= Target;
-        case Handler.Equals:
+        case Comparison.Equals:
           return value == Target;
         default:
           return false;
@@ -127,8 +127,8 @@ namespace RandoMainDLL {
       return false;
     }
 
-    public override string ToString() => $"{Id}{TargetHandler.Symbol()}{Target}";
-    public override int GetHashCode() => Id.GetHashCode() + TargetHandler.GetHashCode() + Target;
+    public override string ToString() => $"{Id}{TargetComparison.Symbol()}{Target}";
+    public override int GetHashCode() => Id.GetHashCode() + TargetComparison.GetHashCode() + Target;
     public override bool Equals(object obj) => obj is UberStateCondition other && (Id.Equals(other.Id) && Target == other.Target);
 
     public int CompareTo(UberStateCondition other) {
@@ -138,8 +138,8 @@ namespace RandoMainDLL {
       if (Id.ID != other.Id.ID)
         return other.Id.ID - Id.ID;
 
-      if (TargetHandler != other.TargetHandler)
-        return (int)TargetHandler - (int)other.TargetHandler;
+      if (TargetComparison != other.TargetComparison)
+        return (int)TargetComparison - (int)other.TargetComparison;
 
       return Target - other.Target;
     }

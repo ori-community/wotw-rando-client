@@ -188,7 +188,7 @@ namespace RandoMainDLL {
 
     public static int FilterIconType(int groupId, int id, int value) {
       var cond = new UberStateCondition(groupId, id, value == 0 ? 1 : value,
-        value == -1 ? UberStateCondition.Handler.Greater : UberStateCondition.Handler.Equals);
+        value == -1 ? UberStateCondition.Comparison.Greater : UberStateCondition.Comparison.Equals);
       var pickup = cond.Pickup();
 
       if (pickup.NonEmpty || cond.Loc() != LocData.Void)
@@ -199,7 +199,7 @@ namespace RandoMainDLL {
 
     public static void FilterIconText(IntPtr buffer, int length, int groupId, int id, int value, int filterId) {
       var cond = new UberStateCondition(groupId, id, value == 0 ? 1 : value,
-        value == -1 ? UberStateCondition.Handler.Greater : UberStateCondition.Handler.Equals);
+        value == -1 ? UberStateCondition.Comparison.Greater : UberStateCondition.Comparison.Equals);
       var pickup = cond.Pickup();
       var f = (FilterType)filterId;
 
@@ -265,9 +265,14 @@ namespace RandoMainDLL {
 
     public static bool NameLabels = false;
 
-    public static bool FilterIconShow(int groupId, int id, int value) {
-      return Reachable.Contains(new UberStateCondition(groupId, id, value,
-        value == -1 ? UberStateCondition.Handler.Greater : UberStateCondition.Handler.Equals));
+    public static bool FilterIconShow(int groupId, int id, int value, UberStateCondition.Comparison comparison) {
+      if (groupId == 14019 && id == 26318) {
+        var x = 0;
+      }
+      
+      var reachable = Reachable.Contains(new UberStateCondition(groupId, id, value, comparison));
+
+      return reachable;
     }
 
     public static HashSet<UberStateCondition> Reachable = new();

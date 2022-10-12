@@ -1,6 +1,7 @@
 #pragma once
 
 #include <enums/actions.h>
+#include <enums/comparison.h>
 #include <interop/enum_definitions.h>
 
 #include <string>
@@ -34,7 +35,7 @@ namespace csharp_bridge {
         using f_bool = bool (*)();
         using f_bool_at = bool (*)(app::AbilityType__Enum);
         using f_bool_int = bool (*)(int);
-        using f_bool_int_int_int = bool (*)(int, int, int);
+        using f_bool_int_int_int_cmp = bool (*)(int, int, int, Comparison);
         using f_bool_st = bool (*)(ShardType);
         using f_bool_str = bool (*)(const char*);
         using f_int = int (*)();
@@ -91,7 +92,7 @@ namespace csharp_bridge {
     // Map
     extern signatures::f_void_int on_found_tp;
     extern signatures::f_void_float_float on_map_tp_active;
-    extern signatures::f_bool_int_int_int filter_icon_show;
+    extern signatures::f_bool_int_int_int_cmp filter_icon_show;
     extern signatures::f_int_int_int_int filter_icon_type;
     extern signatures::f_void_ptr_int_int_int_int_int filter_icon_text;
     extern signatures::f_bool_int filter_enabled;
