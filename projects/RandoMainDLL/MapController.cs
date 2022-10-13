@@ -266,13 +266,7 @@ namespace RandoMainDLL {
     public static bool NameLabels = false;
 
     public static bool FilterIconShow(int groupId, int id, int value, UberStateCondition.Comparison comparison) {
-      if (groupId == 14019 && id == 26318) {
-        var x = 0;
-      }
-      
-      var reachable = Reachable.Contains(new UberStateCondition(groupId, id, value, comparison));
-
-      return reachable;
+      return Reachable.Contains(new UberStateCondition(groupId, id, value, comparison));
     }
 
     public static HashSet<UberStateCondition> Reachable = new();
