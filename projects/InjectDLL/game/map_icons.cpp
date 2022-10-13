@@ -108,6 +108,8 @@ namespace {
     };
 
     bool start_in_logic_filter = true;
+    bool start_in_logic_filter_done_since_new_game = false;
+
     std::unordered_map<app::GameWorldAreaID__Enum, std::unordered_map<int, ExtraIcon>> header_icons;
     std::unordered_map<std::string, IconState> custom_filter_icon_states;
     std::unordered_map<app::GameWorldAreaID__Enum, std::vector<ExtraIcon>> extra_icons;
@@ -784,7 +786,8 @@ namespace {
         next::AreaMapUI::Init(this_ptr);
         auto icon_manager = this_ptr->fields._IconManager_k__BackingField;
         check_and_initialize_filter_labels(icon_manager);
-        if (start_in_logic_filter && csharp_bridge::filter_enabled(static_cast<int>(NewFilters::InLogic))) {
+
+        if (start_in_logic_filter && !start_in_logic_filter_done_since_new_game && csharp_bridge::filter_enabled(static_cast<int>(NewFilters::InLogic))) {
             current_filter = static_cast<int>(NewFilters::InLogic);
             AreaMapUI::set_IconFilter(this_ptr, static_cast<app::AreaMapIconFilter__Enum>(NewFilters::InLogic));
             dirty_filter = true;
@@ -834,8 +837,13 @@ namespace {
         dirty_filter = true;
     }
 
+    void on_area_map_open(GameEvent game_event, EventTiming timing) {
+        start_in_logic_filter_done_since_new_game = false;
+    }
+
     void initialize() {
         game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::Start, &on_area_map_open);
+        game::event_bus().register_handler(GameEvent::NewGame, EventTiming::Start, &on_new_game);
     }
 
     CALL_ON_INIT(initialize);
