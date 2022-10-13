@@ -48,7 +48,7 @@ namespace RandoMainDLL {
       CreateWheelItemInternal(9000, 2, "Warp to credits", "Warp directly to the credits,\nonly works if you have finished the bingo.", "file:assets/icons/wheel/warp_to_credits.blue.png", Color.White, ptr);
       CreateWheelItemInternal(9000, 3, "Toggle keystones", "Toggle to always show the keystone ui.", "shard:1", Color.White, ptr);
       CreateWheelItemInternal(9000, 4, "Toggle cursor lock", "Toggle to confine the mouse cursor to the window.", "file:assets/icons/wheel/cursor_lock.blue.png", Color.White, ptr);
-      CreateWheelItemInternal(9000, 5, "Toggle autoaim", "Toggle autoaim for bow/shuriken/spear.", "file:assets/icons/wheel/toggle_autoaim.blue.png", Color.White, ptr);
+      CreateWheelItemInternal(9000, 5, "Toggle autoaim", "Toggle autoaim for bow/shuriken.", "file:assets/icons/wheel/toggle_autoaim.blue.png", Color.White, ptr);
       CreateWheelItemInternal(9000, 10, "Reload", "Reloads the seed file", "file:assets/icons/wheel/reload_seed.blue.png", Color.White, ptr);
       CreateWheelItemInternal(9000, 11, "Next", "Go to next page of actions", "file:assets/icons/wheel/menu.blue.png", Color.White, ptr);
       CreateWheelItemInternal(9001, 0, "Toggle dev", "Toggles the dev flag.", "file:assets/icons/wheel/dev_mode.blue.png", Color.White, ptr);

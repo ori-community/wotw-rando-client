@@ -16,11 +16,11 @@ using namespace app::classes;
 namespace {
     bool overwrite_attackables = false;
 
-    IL2CPP_INTERCEPT(SeinSpiritSpearSpell, void, FindClosestAttackTarget, (app::SeinSpiritSpearSpell * this_ptr)) {
-        overwrite_attackables = !randomizer::settings::autoaim();
-        next::SeinSpiritSpearSpell::FindClosestAttackTarget(this_ptr);
-        overwrite_attackables = false;
-    }
+    // IL2CPP_INTERCEPT(SeinSpiritSpearSpell, void, FindClosestAttackTarget, (app::SeinSpiritSpearSpell * this_ptr)) {
+    //     overwrite_attackables = !randomizer::settings::autoaim();
+    //     next::SeinSpiritSpearSpell::FindClosestAttackTarget(this_ptr);
+    //     overwrite_attackables = false;
+    // }
 
     IL2CPP_INTERCEPT(SeinChakramSpell, void, UpdateCharacterState, (app::SeinChakramSpell * this_ptr)) {
         this_ptr->fields.AutoAimEnabled = randomizer::settings::autoaim();
