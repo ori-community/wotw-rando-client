@@ -791,6 +791,7 @@ namespace {
             current_filter = static_cast<int>(NewFilters::InLogic);
             AreaMapUI::set_IconFilter(this_ptr, static_cast<app::AreaMapIconFilter__Enum>(NewFilters::InLogic));
             dirty_filter = true;
+            start_in_logic_filter_done_since_new_game = true;
         }
     }
 
