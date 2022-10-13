@@ -837,7 +837,7 @@ namespace {
         dirty_filter = true;
     }
 
-    void on_area_map_open(GameEvent game_event, EventTiming timing) {
+    void on_new_game(GameEvent game_event, EventTiming timing) {
         start_in_logic_filter_done_since_new_game = false;
     }
 
