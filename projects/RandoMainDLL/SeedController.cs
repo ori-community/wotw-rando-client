@@ -491,7 +491,7 @@ namespace RandoMainDLL {
                 }
                 var slot = extras[0].ParseToByte("BuildPickup.BindSlot");
                 var equip = extras[1].ParseToInt("BuildPickup.BindTarget");
-                if (!Enum.IsDefined(typeof(EquipmentType), equip)) {
+                if (!Enum.IsDefined(typeof(EquipmentType), equip) && (EquipmentType)equip != EquipmentType.None) {
                   Randomizer.Log($"invalid equipment type {equip} in {command}", false);
                   return new Message($"Invalid command {command}!");
                 }
