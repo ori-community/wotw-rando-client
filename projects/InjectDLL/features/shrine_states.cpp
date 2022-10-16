@@ -27,6 +27,10 @@ namespace {
             this_ptr->fields.OptionalWaveState = uber_states::UberState(UberStateGroup::ShrineStates, 3).ptr<app::IntUberState>();
         } else if (completed_state_group == 58674 && completed_state_id == 56043) {
             this_ptr->fields.OptionalWaveState = uber_states::UberState(UberStateGroup::ShrineStates, 4).ptr<app::IntUberState>();
+        } else if (completed_state_group == 9593 && completed_state_id == 59418) {
+            // Noop: inkwaterMarshStateGroup.enemyRoom
+        } else if (completed_state_group == 21786 && completed_state_id == 35598) {
+            // Noop: swampStateGroup.enemyArenaComplete
         } else {
             trace(MessageType::Error, 3, "shrine_states", format("Could not set up wave state. Unknown shrine state: %d|%d", completed_state_group, completed_state_id));
         }
