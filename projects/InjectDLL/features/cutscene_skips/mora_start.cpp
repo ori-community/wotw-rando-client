@@ -73,7 +73,7 @@ namespace {
                 PerformBackOutAction::ActivateAbandonChallange(nullptr);
 
                 game::player::set_position(701.912f, -4481.552f);
-                game::save(true, game::SaveOptions(false, false, false, true));
+                game::save(true, game::SaveOptions(true, true, false, true));
 
                 next_frame_action = Idle;
                 break;
