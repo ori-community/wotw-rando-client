@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XboxOneStatistics_StatisticReading {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XboxOneStatistics_StatisticReading__Class** type_info;
+        inline app::XboxOneStatistics_StatisticReading__Class** type_info = (app::XboxOneStatistics_StatisticReading__Class**)(modloader::win::memory::resolve_rva(0x04793590));
         inline app::XboxOneStatistics_StatisticReading__Class* get_class() {
             return il2cpp::get_nested_class<app::XboxOneStatistics_StatisticReading__Class>(type_info, "", "XboxOneStatistics", "StatisticReading");
         }

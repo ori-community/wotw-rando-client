@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayFabWebRequest_c_DisplayClass31_0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PlayFabWebRequest_c_DisplayClass31_0__Class** type_info;
+        inline app::PlayFabWebRequest_c_DisplayClass31_0__Class** type_info = (app::PlayFabWebRequest_c_DisplayClass31_0__Class**)(modloader::win::memory::resolve_rva(0x0472C630));
         inline app::PlayFabWebRequest_c_DisplayClass31_0__Class* get_class() {
             return il2cpp::get_nested_class<app::PlayFabWebRequest_c_DisplayClass31_0__Class>(type_info, "PlayFab.Internal", "PlayFabWebRequest", "<>c__DisplayClass31_0");
         }

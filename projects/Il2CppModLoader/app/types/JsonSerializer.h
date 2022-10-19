@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace JsonSerializer {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::JsonSerializer__Class** type_info;
+        inline app::JsonSerializer__Class** type_info = (app::JsonSerializer__Class**)(modloader::win::memory::resolve_rva(0x0472B7C8));
         inline app::JsonSerializer__Class* get_class() {
             return il2cpp::get_class<app::JsonSerializer__Class>(type_info, "Newtonsoft.Json", "JsonSerializer");
         }

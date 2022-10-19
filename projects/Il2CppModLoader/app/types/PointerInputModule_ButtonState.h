@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PointerInputModule_ButtonState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PointerInputModule_ButtonState__Class** type_info;
+        inline app::PointerInputModule_ButtonState__Class** type_info = (app::PointerInputModule_ButtonState__Class**)(modloader::win::memory::resolve_rva(0x04778278));
         inline app::PointerInputModule_ButtonState__Class* get_class() {
             return il2cpp::get_nested_class<app::PointerInputModule_ButtonState__Class>(type_info, "UnityEngine.EventSystems", "PointerInputModule", "ButtonState");
         }

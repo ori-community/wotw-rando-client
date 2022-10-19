@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RaceStateMachineContext_OfflineRaceMetaData_Position {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RaceStateMachineContext_OfflineRaceMetaData_Position__Class** type_info;
+        inline app::RaceStateMachineContext_OfflineRaceMetaData_Position__Class** type_info = (app::RaceStateMachineContext_OfflineRaceMetaData_Position__Class**)(modloader::win::memory::resolve_rva(0x047675C8));
         inline app::RaceStateMachineContext_OfflineRaceMetaData_Position__Class* get_class() {
             return il2cpp::get_nested_class<app::RaceStateMachineContext_OfflineRaceMetaData_Position__Class>(type_info, "", "RaceStateMachineContext+OfflineRaceMetaData", "Position");
         }

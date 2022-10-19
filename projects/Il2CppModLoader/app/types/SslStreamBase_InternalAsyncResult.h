@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SslStreamBase_InternalAsyncResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SslStreamBase_InternalAsyncResult__Class** type_info;
+        inline app::SslStreamBase_InternalAsyncResult__Class** type_info = (app::SslStreamBase_InternalAsyncResult__Class**)(modloader::win::memory::resolve_rva(0x0471CFC8));
         inline app::SslStreamBase_InternalAsyncResult__Class* get_class() {
             return il2cpp::get_nested_class<app::SslStreamBase_InternalAsyncResult__Class>(type_info, "Mono.Security.Protocol.Tls", "SslStreamBase", "InternalAsyncResult");
         }

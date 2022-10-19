@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayerPositionOverride {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PlayerPositionOverride__Class** type_info;
+        inline app::PlayerPositionOverride__Class** type_info = (app::PlayerPositionOverride__Class**)(modloader::win::memory::resolve_rva(0x0471EDD8));
         inline app::PlayerPositionOverride__Class* get_class() {
             return il2cpp::get_class<app::PlayerPositionOverride__Class>(type_info, "", "PlayerPositionOverride");
         }

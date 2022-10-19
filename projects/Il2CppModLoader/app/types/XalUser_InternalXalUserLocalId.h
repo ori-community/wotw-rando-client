@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XalUser_InternalXalUserLocalId {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XalUser_InternalXalUserLocalId__Class** type_info;
+        inline app::XalUser_InternalXalUserLocalId__Class** type_info = (app::XalUser_InternalXalUserLocalId__Class**)(modloader::win::memory::resolve_rva(0x04702060));
         inline app::XalUser_InternalXalUserLocalId__Class* get_class() {
             return il2cpp::get_nested_class<app::XalUser_InternalXalUserLocalId__Class>(type_info, "Microsoft.Xbox.Services.Xal", "XalUser", "InternalXalUserLocalId");
         }

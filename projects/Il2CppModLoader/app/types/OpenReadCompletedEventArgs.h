@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace OpenReadCompletedEventArgs {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::OpenReadCompletedEventArgs__Class** type_info;
+        inline app::OpenReadCompletedEventArgs__Class** type_info = (app::OpenReadCompletedEventArgs__Class**)(modloader::win::memory::resolve_rva(0x04722C18));
         inline app::OpenReadCompletedEventArgs__Class* get_class() {
             return il2cpp::get_class<app::OpenReadCompletedEventArgs__Class>(type_info, "System.Net", "OpenReadCompletedEventArgs");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CallbackFlags {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CallbackFlags__Class** type_info;
+        inline app::CallbackFlags__Class** type_info = (app::CallbackFlags__Class**)(modloader::win::memory::resolve_rva(0x04758268));
         inline app::CallbackFlags__Class* get_class() {
             return il2cpp::get_class<app::CallbackFlags__Class>(type_info, "AK.Wwise", "CallbackFlags");
         }

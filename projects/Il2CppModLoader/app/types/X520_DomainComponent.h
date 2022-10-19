@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace X520_DomainComponent {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::X520_DomainComponent__Class** type_info;
+        inline app::X520_DomainComponent__Class** type_info = (app::X520_DomainComponent__Class**)(modloader::win::memory::resolve_rva(0x04787A00));
         inline app::X520_DomainComponent__Class* get_class() {
             return il2cpp::get_nested_class<app::X520_DomainComponent__Class>(type_info, "Mono.Security.X509", "X520", "DomainComponent");
         }

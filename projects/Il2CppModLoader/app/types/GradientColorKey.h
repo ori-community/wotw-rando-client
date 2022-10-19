@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GradientColorKey {
         namespace {
-            app::GradientColorKey__Class* type_info_ref = nullptr;
+            inline app::GradientColorKey__Class* type_info_ref = nullptr;
         }
-        app::GradientColorKey__Class** type_info = &type_info_ref;
+        inline app::GradientColorKey__Class** type_info = &type_info_ref;
         inline app::GradientColorKey__Class* get_class() {
             return il2cpp::get_class<app::GradientColorKey__Class>(type_info, "UnityEngine", "GradientColorKey");
         }

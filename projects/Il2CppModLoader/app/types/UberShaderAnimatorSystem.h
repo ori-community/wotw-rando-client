@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberShaderAnimatorSystem {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberShaderAnimatorSystem__Class** type_info;
+        inline app::UberShaderAnimatorSystem__Class** type_info = (app::UberShaderAnimatorSystem__Class**)(modloader::win::memory::resolve_rva(0x047212D8));
         inline app::UberShaderAnimatorSystem__Class* get_class() {
             return il2cpp::get_class<app::UberShaderAnimatorSystem__Class>(type_info, "Moon.Timeline", "UberShaderAnimatorSystem");
         }

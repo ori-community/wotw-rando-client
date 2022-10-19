@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ScatterGatherBuffers_MemoryChunk {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ScatterGatherBuffers_MemoryChunk__Class** type_info;
+        inline app::ScatterGatherBuffers_MemoryChunk__Class** type_info = (app::ScatterGatherBuffers_MemoryChunk__Class**)(modloader::win::memory::resolve_rva(0x04750D20));
         inline app::ScatterGatherBuffers_MemoryChunk__Class* get_class() {
             return il2cpp::get_nested_class<app::ScatterGatherBuffers_MemoryChunk__Class>(type_info, "System.Net", "ScatterGatherBuffers", "MemoryChunk");
         }

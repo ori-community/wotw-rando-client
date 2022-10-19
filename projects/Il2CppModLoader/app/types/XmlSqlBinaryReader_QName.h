@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlSqlBinaryReader_QName {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlSqlBinaryReader_QName__Class** type_info;
+        inline app::XmlSqlBinaryReader_QName__Class** type_info = (app::XmlSqlBinaryReader_QName__Class**)(modloader::win::memory::resolve_rva(0x0474B948));
         inline app::XmlSqlBinaryReader_QName__Class* get_class() {
             return il2cpp::get_nested_class<app::XmlSqlBinaryReader_QName__Class>(type_info, "System.Xml", "XmlSqlBinaryReader", "QName");
         }

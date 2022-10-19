@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DesiredUberStateFloat {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DesiredUberStateFloat__Class** type_info;
+        inline app::DesiredUberStateFloat__Class** type_info = (app::DesiredUberStateFloat__Class**)(modloader::win::memory::resolve_rva(0x04777670));
         inline app::DesiredUberStateFloat__Class* get_class() {
             return il2cpp::get_class<app::DesiredUberStateFloat__Class>(type_info, "", "DesiredUberStateFloat");
         }

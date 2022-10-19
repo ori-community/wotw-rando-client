@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XblAchievementMediaAsset {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XblAchievementMediaAsset__Class** type_info;
+        inline app::XblAchievementMediaAsset__Class** type_info = (app::XblAchievementMediaAsset__Class**)(modloader::win::memory::resolve_rva(0x04782C88));
         inline app::XblAchievementMediaAsset__Class* get_class() {
             return il2cpp::get_class<app::XblAchievementMediaAsset__Class>(type_info, "XGamingRuntime", "XblAchievementMediaAsset");
         }

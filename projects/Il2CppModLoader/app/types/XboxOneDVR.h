@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XboxOneDVR {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XboxOneDVR__Class** type_info;
+        inline app::XboxOneDVR__Class** type_info = (app::XboxOneDVR__Class**)(modloader::win::memory::resolve_rva(0x04787A78));
         inline app::XboxOneDVR__Class* get_class() {
             return il2cpp::get_class<app::XboxOneDVR__Class>(type_info, "", "XboxOneDVR");
         }

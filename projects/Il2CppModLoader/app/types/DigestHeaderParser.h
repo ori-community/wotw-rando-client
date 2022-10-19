@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DigestHeaderParser {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DigestHeaderParser__Class** type_info;
+        inline app::DigestHeaderParser__Class** type_info = (app::DigestHeaderParser__Class**)(modloader::win::memory::resolve_rva(0x0476F0A8));
         inline app::DigestHeaderParser__Class* get_class() {
             return il2cpp::get_class<app::DigestHeaderParser__Class>(type_info, "System.Net", "DigestHeaderParser");
         }

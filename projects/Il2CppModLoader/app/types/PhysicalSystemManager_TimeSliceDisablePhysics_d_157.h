@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PhysicalSystemManager_TimeSliceDisablePhysics_d_157 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PhysicalSystemManager_TimeSliceDisablePhysics_d_157__Class** type_info;
+        inline app::PhysicalSystemManager_TimeSliceDisablePhysics_d_157__Class** type_info = (app::PhysicalSystemManager_TimeSliceDisablePhysics_d_157__Class**)(modloader::win::memory::resolve_rva(0x04755A50));
         inline app::PhysicalSystemManager_TimeSliceDisablePhysics_d_157__Class* get_class() {
             return il2cpp::get_nested_class<app::PhysicalSystemManager_TimeSliceDisablePhysics_d_157__Class>(type_info, "", "PhysicalSystemManager", "<TimeSliceDisablePhysics>d__157");
         }

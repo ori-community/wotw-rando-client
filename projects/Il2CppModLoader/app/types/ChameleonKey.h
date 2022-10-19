@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ChameleonKey {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ChameleonKey__Class** type_info;
+        inline app::ChameleonKey__Class** type_info = (app::ChameleonKey__Class**)(modloader::win::memory::resolve_rva(0x047830E8));
         inline app::ChameleonKey__Class* get_class() {
             return il2cpp::get_class<app::ChameleonKey__Class>(type_info, "System.Xml.Schema", "ChameleonKey");
         }

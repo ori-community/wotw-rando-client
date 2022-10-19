@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Missing {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Missing__Class** type_info;
+        inline app::Missing__Class** type_info = (app::Missing__Class**)(modloader::win::memory::resolve_rva(0x04708798));
         inline app::Missing__Class* get_class() {
             return il2cpp::get_class<app::Missing__Class>(type_info, "System.Reflection", "Missing");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AnimationPostprocessGroupManager_GroupState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AnimationPostprocessGroupManager_GroupState__Class** type_info;
+        inline app::AnimationPostprocessGroupManager_GroupState__Class** type_info = (app::AnimationPostprocessGroupManager_GroupState__Class**)(modloader::win::memory::resolve_rva(0x0471CD40));
         inline app::AnimationPostprocessGroupManager_GroupState__Class* get_class() {
             return il2cpp::get_nested_class<app::AnimationPostprocessGroupManager_GroupState__Class>(type_info, "Moon", "AnimationPostprocessGroupManager", "GroupState");
         }

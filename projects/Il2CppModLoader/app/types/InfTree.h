@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace InfTree {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::InfTree__Class** type_info;
+        inline app::InfTree__Class** type_info = (app::InfTree__Class**)(modloader::win::memory::resolve_rva(0x047586D0));
         inline app::InfTree__Class* get_class() {
             return il2cpp::get_class<app::InfTree__Class>(type_info, "Ionic.Zlib", "InfTree");
         }

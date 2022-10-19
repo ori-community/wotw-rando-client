@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SeinController3D_EventId__Enum {
         namespace {
-            app::SeinController3D_EventId__Enum__Class* type_info_ref = nullptr;
+            inline app::SeinController3D_EventId__Enum__Class* type_info_ref = nullptr;
         }
-        app::SeinController3D_EventId__Enum__Class** type_info = &type_info_ref;
+        inline app::SeinController3D_EventId__Enum__Class** type_info = &type_info_ref;
         inline app::SeinController3D_EventId__Enum__Class* get_class() {
             return il2cpp::get_nested_class<app::SeinController3D_EventId__Enum__Class>(type_info, "", "SeinController3D", "EventId");
         }

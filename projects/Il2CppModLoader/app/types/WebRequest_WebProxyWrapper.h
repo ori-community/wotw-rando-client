@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WebRequest_WebProxyWrapper {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WebRequest_WebProxyWrapper__Class** type_info;
+        inline app::WebRequest_WebProxyWrapper__Class** type_info = (app::WebRequest_WebProxyWrapper__Class**)(modloader::win::memory::resolve_rva(0x0472B730));
         inline app::WebRequest_WebProxyWrapper__Class* get_class() {
             return il2cpp::get_nested_class<app::WebRequest_WebProxyWrapper__Class>(type_info, "System.Net", "WebRequest", "WebProxyWrapper");
         }

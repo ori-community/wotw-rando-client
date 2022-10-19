@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TypeLoadException {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TypeLoadException__Class** type_info;
+        inline app::TypeLoadException__Class** type_info = (app::TypeLoadException__Class**)(modloader::win::memory::resolve_rva(0x04719D48));
         inline app::TypeLoadException__Class* get_class() {
             return il2cpp::get_class<app::TypeLoadException__Class>(type_info, "System", "TypeLoadException");
         }

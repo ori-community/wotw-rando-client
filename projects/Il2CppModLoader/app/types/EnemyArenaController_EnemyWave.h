@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace EnemyArenaController_EnemyWave {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::EnemyArenaController_EnemyWave__Class** type_info;
+        inline app::EnemyArenaController_EnemyWave__Class** type_info = (app::EnemyArenaController_EnemyWave__Class**)(modloader::win::memory::resolve_rva(0x04732F50));
         inline app::EnemyArenaController_EnemyWave__Class* get_class() {
             return il2cpp::get_nested_class<app::EnemyArenaController_EnemyWave__Class>(type_info, "", "EnemyArenaController", "EnemyWave");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RankException {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RankException__Class** type_info;
+        inline app::RankException__Class** type_info = (app::RankException__Class**)(modloader::win::memory::resolve_rva(0x0475C458));
         inline app::RankException__Class* get_class() {
             return il2cpp::get_class<app::RankException__Class>(type_info, "System", "RankException");
         }

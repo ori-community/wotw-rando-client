@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GetFriendLeaderboardAroundPlayerRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GetFriendLeaderboardAroundPlayerRequest__Class** type_info;
+        inline app::GetFriendLeaderboardAroundPlayerRequest__Class** type_info = (app::GetFriendLeaderboardAroundPlayerRequest__Class**)(modloader::win::memory::resolve_rva(0x04775A28));
         inline app::GetFriendLeaderboardAroundPlayerRequest__Class* get_class() {
             return il2cpp::get_class<app::GetFriendLeaderboardAroundPlayerRequest__Class>(type_info, "PlayFab.ClientModels", "GetFriendLeaderboardAroundPlayerRequest");
         }

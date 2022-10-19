@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ITimelineEntity {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ITimelineEntity__Class** type_info;
+        inline app::ITimelineEntity__Class** type_info = (app::ITimelineEntity__Class**)(modloader::win::memory::resolve_rva(0x0476FF20));
         inline app::ITimelineEntity__Class* get_class() {
             return il2cpp::get_class<app::ITimelineEntity__Class>(type_info, "Moon.Timeline", "ITimelineEntity");
         }

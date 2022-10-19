@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FloatZone {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FloatZone__Class** type_info;
+        inline app::FloatZone__Class** type_info = (app::FloatZone__Class**)(modloader::win::memory::resolve_rva(0x0470F590));
         inline app::FloatZone__Class* get_class() {
             return il2cpp::get_class<app::FloatZone__Class>(type_info, "", "FloatZone");
         }

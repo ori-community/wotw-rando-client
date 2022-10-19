@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AcidSlugCrawlingState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AcidSlugCrawlingState__Class** type_info;
+        inline app::AcidSlugCrawlingState__Class** type_info = (app::AcidSlugCrawlingState__Class**)(modloader::win::memory::resolve_rva(0x0477A500));
         inline app::AcidSlugCrawlingState__Class* get_class() {
             return il2cpp::get_class<app::AcidSlugCrawlingState__Class>(type_info, "", "AcidSlugCrawlingState");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AkMarkerCallbackInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AkMarkerCallbackInfo__Class** type_info;
+        inline app::AkMarkerCallbackInfo__Class** type_info = (app::AkMarkerCallbackInfo__Class**)(modloader::win::memory::resolve_rva(0x047063E0));
         inline app::AkMarkerCallbackInfo__Class* get_class() {
             return il2cpp::get_class<app::AkMarkerCallbackInfo__Class>(type_info, "", "AkMarkerCallbackInfo");
         }

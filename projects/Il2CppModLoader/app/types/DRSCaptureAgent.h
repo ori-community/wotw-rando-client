@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DRSCaptureAgent {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DRSCaptureAgent__Class** type_info;
+        inline app::DRSCaptureAgent__Class** type_info = (app::DRSCaptureAgent__Class**)(modloader::win::memory::resolve_rva(0x04762530));
         inline app::DRSCaptureAgent__Class* get_class() {
             return il2cpp::get_class<app::DRSCaptureAgent__Class>(type_info, "", "DRSCaptureAgent");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NewArrayBoundsExpression {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NewArrayBoundsExpression__Class** type_info;
+        inline app::NewArrayBoundsExpression__Class** type_info = (app::NewArrayBoundsExpression__Class**)(modloader::win::memory::resolve_rva(0x0478FBA8));
         inline app::NewArrayBoundsExpression__Class* get_class() {
             return il2cpp::get_class<app::NewArrayBoundsExpression__Class>(type_info, "System.Linq.Expressions", "NewArrayBoundsExpression");
         }

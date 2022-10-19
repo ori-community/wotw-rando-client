@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ServerInstantiateAction_InstantiateActionData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ServerInstantiateAction_InstantiateActionData__Class** type_info;
+        inline app::ServerInstantiateAction_InstantiateActionData__Class** type_info = (app::ServerInstantiateAction_InstantiateActionData__Class**)(modloader::win::memory::resolve_rva(0x04701C60));
         inline app::ServerInstantiateAction_InstantiateActionData__Class* get_class() {
             return il2cpp::get_nested_class<app::ServerInstantiateAction_InstantiateActionData__Class>(type_info, "", "ServerInstantiateAction", "InstantiateActionData");
         }

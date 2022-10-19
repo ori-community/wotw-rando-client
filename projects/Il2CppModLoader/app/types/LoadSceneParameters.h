@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LoadSceneParameters {
         namespace {
-            app::LoadSceneParameters__Class* type_info_ref = nullptr;
+            inline app::LoadSceneParameters__Class* type_info_ref = nullptr;
         }
-        app::LoadSceneParameters__Class** type_info = &type_info_ref;
+        inline app::LoadSceneParameters__Class** type_info = &type_info_ref;
         inline app::LoadSceneParameters__Class* get_class() {
             return il2cpp::get_class<app::LoadSceneParameters__Class>(type_info, "UnityEngine.SceneManagement", "LoadSceneParameters");
         }

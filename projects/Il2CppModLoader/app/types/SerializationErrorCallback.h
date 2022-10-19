@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SerializationErrorCallback {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SerializationErrorCallback__Class** type_info;
+        inline app::SerializationErrorCallback__Class** type_info = (app::SerializationErrorCallback__Class**)(modloader::win::memory::resolve_rva(0x047087C0));
         inline app::SerializationErrorCallback__Class* get_class() {
             return il2cpp::get_class<app::SerializationErrorCallback__Class>(type_info, "Newtonsoft.Json.Serialization", "SerializationErrorCallback");
         }

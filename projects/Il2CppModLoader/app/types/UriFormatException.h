@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UriFormatException {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UriFormatException__Class** type_info;
+        inline app::UriFormatException__Class** type_info = (app::UriFormatException__Class**)(modloader::win::memory::resolve_rva(0x0477C668));
         inline app::UriFormatException__Class* get_class() {
             return il2cpp::get_class<app::UriFormatException__Class>(type_info, "System", "UriFormatException");
         }

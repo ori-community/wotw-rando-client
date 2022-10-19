@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PreserveSigAttribute {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PreserveSigAttribute__Class** type_info;
+        inline app::PreserveSigAttribute__Class** type_info = (app::PreserveSigAttribute__Class**)(modloader::win::memory::resolve_rva(0x04763D40));
         inline app::PreserveSigAttribute__Class* get_class() {
             return il2cpp::get_class<app::PreserveSigAttribute__Class>(type_info, "System.Runtime.InteropServices", "PreserveSigAttribute");
         }

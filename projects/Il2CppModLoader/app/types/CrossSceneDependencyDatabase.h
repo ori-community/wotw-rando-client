@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CrossSceneDependencyDatabase {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CrossSceneDependencyDatabase__Class** type_info;
+        inline app::CrossSceneDependencyDatabase__Class** type_info = (app::CrossSceneDependencyDatabase__Class**)(modloader::win::memory::resolve_rva(0x04774098));
         inline app::CrossSceneDependencyDatabase__Class* get_class() {
             return il2cpp::get_class<app::CrossSceneDependencyDatabase__Class>(type_info, "Moon", "CrossSceneDependencyDatabase");
         }

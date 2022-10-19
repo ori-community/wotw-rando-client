@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ShaderID_VRAnimatorController {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ShaderID_VRAnimatorController__Class** type_info;
+        inline app::ShaderID_VRAnimatorController__Class** type_info = (app::ShaderID_VRAnimatorController__Class**)(modloader::win::memory::resolve_rva(0x04788E98));
         inline app::ShaderID_VRAnimatorController__Class* get_class() {
             return il2cpp::get_class<app::ShaderID_VRAnimatorController__Class>(type_info, "RootMotion.Demos", "ShaderID_VRAnimatorController");
         }

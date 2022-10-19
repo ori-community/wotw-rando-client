@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace KwolokBossWormSpitBehaviour_WormInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::KwolokBossWormSpitBehaviour_WormInfo__Class** type_info;
+        inline app::KwolokBossWormSpitBehaviour_WormInfo__Class** type_info = (app::KwolokBossWormSpitBehaviour_WormInfo__Class**)(modloader::win::memory::resolve_rva(0x04771DF8));
         inline app::KwolokBossWormSpitBehaviour_WormInfo__Class* get_class() {
             return il2cpp::get_nested_class<app::KwolokBossWormSpitBehaviour_WormInfo__Class>(type_info, "", "KwolokBossWormSpitBehaviour", "WormInfo");
         }

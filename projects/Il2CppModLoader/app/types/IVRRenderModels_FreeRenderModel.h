@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IVRRenderModels_FreeRenderModel {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IVRRenderModels_FreeRenderModel__Class** type_info;
+        inline app::IVRRenderModels_FreeRenderModel__Class** type_info = (app::IVRRenderModels_FreeRenderModel__Class**)(modloader::win::memory::resolve_rva(0x0476DE98));
         inline app::IVRRenderModels_FreeRenderModel__Class* get_class() {
             return il2cpp::get_nested_class<app::IVRRenderModels_FreeRenderModel__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "IVRRenderModels", "_FreeRenderModel");
         }

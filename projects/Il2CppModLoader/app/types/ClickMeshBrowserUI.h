@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ClickMeshBrowserUI {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ClickMeshBrowserUI__Class** type_info;
+        inline app::ClickMeshBrowserUI__Class** type_info = (app::ClickMeshBrowserUI__Class**)(modloader::win::memory::resolve_rva(0x047903C0));
         inline app::ClickMeshBrowserUI__Class* get_class() {
             return il2cpp::get_class<app::ClickMeshBrowserUI__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "ClickMeshBrowserUI");
         }

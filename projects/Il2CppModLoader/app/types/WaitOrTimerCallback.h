@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WaitOrTimerCallback {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WaitOrTimerCallback__Class** type_info;
+        inline app::WaitOrTimerCallback__Class** type_info = (app::WaitOrTimerCallback__Class**)(modloader::win::memory::resolve_rva(0x04724F30));
         inline app::WaitOrTimerCallback__Class* get_class() {
             return il2cpp::get_class<app::WaitOrTimerCallback__Class>(type_info, "System.Threading", "WaitOrTimerCallback");
         }

@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace EVRCompositorError__Enum {
         namespace {
-            app::EVRCompositorError__Enum__Class* type_info_ref = nullptr;
+            inline app::EVRCompositorError__Enum__Class* type_info_ref = nullptr;
         }
-        app::EVRCompositorError__Enum__Class** type_info = &type_info_ref;
+        inline app::EVRCompositorError__Enum__Class** type_info = &type_info_ref;
         inline app::EVRCompositorError__Enum__Class* get_class() {
             return il2cpp::get_class<app::EVRCompositorError__Enum__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "EVRCompositorError");
         }

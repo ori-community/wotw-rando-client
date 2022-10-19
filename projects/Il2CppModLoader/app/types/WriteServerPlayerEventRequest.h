@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WriteServerPlayerEventRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WriteServerPlayerEventRequest__Class** type_info;
+        inline app::WriteServerPlayerEventRequest__Class** type_info = (app::WriteServerPlayerEventRequest__Class**)(modloader::win::memory::resolve_rva(0x0473FF80));
         inline app::WriteServerPlayerEventRequest__Class* get_class() {
             return il2cpp::get_class<app::WriteServerPlayerEventRequest__Class>(type_info, "PlayFab.ServerModels", "WriteServerPlayerEventRequest");
         }

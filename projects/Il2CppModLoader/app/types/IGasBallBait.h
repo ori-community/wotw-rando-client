@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IGasBallBait {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IGasBallBait__Class** type_info;
+        inline app::IGasBallBait__Class** type_info = (app::IGasBallBait__Class**)(modloader::win::memory::resolve_rva(0x04724A08));
         inline app::IGasBallBait__Class* get_class() {
             return il2cpp::get_class<app::IGasBallBait__Class>(type_info, "", "IGasBallBait");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MenuTabManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MenuTabManager__Class** type_info;
+        inline app::MenuTabManager__Class** type_info = (app::MenuTabManager__Class**)(modloader::win::memory::resolve_rva(0x0472A508));
         inline app::MenuTabManager__Class* get_class() {
             return il2cpp::get_class<app::MenuTabManager__Class>(type_info, "", "MenuTabManager");
         }

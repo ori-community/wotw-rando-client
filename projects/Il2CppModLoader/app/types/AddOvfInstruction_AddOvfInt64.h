@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AddOvfInstruction_AddOvfInt64 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AddOvfInstruction_AddOvfInt64__Class** type_info;
+        inline app::AddOvfInstruction_AddOvfInt64__Class** type_info = (app::AddOvfInstruction_AddOvfInt64__Class**)(modloader::win::memory::resolve_rva(0x0476BB78));
         inline app::AddOvfInstruction_AddOvfInt64__Class* get_class() {
             return il2cpp::get_nested_class<app::AddOvfInstruction_AddOvfInt64__Class>(type_info, "System.Linq.Expressions.Interpreter", "AddOvfInstruction", "AddOvfInt64");
         }

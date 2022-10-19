@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XObjectChangeEventArgs {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XObjectChangeEventArgs__Class** type_info;
+        inline app::XObjectChangeEventArgs__Class** type_info = (app::XObjectChangeEventArgs__Class**)(modloader::win::memory::resolve_rva(0x04754868));
         inline app::XObjectChangeEventArgs__Class* get_class() {
             return il2cpp::get_class<app::XObjectChangeEventArgs__Class>(type_info, "System.Xml.Linq", "XObjectChangeEventArgs");
         }

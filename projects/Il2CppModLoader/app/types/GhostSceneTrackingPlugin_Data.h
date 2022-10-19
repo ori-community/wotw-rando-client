@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GhostSceneTrackingPlugin_Data {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GhostSceneTrackingPlugin_Data__Class** type_info;
+        inline app::GhostSceneTrackingPlugin_Data__Class** type_info = (app::GhostSceneTrackingPlugin_Data__Class**)(modloader::win::memory::resolve_rva(0x04707248));
         inline app::GhostSceneTrackingPlugin_Data__Class* get_class() {
             return il2cpp::get_nested_class<app::GhostSceneTrackingPlugin_Data__Class>(type_info, "", "GhostSceneTrackingPlugin", "Data");
         }

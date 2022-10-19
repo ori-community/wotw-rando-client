@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberGaussianBlur {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberGaussianBlur__Class** type_info;
+        inline app::UberGaussianBlur__Class** type_info = (app::UberGaussianBlur__Class**)(modloader::win::memory::resolve_rva(0x0471DF40));
         inline app::UberGaussianBlur__Class* get_class() {
             return il2cpp::get_class<app::UberGaussianBlur__Class>(type_info, "", "UberGaussianBlur");
         }

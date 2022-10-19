@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace EnableMultiplayerServersForTitleRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::EnableMultiplayerServersForTitleRequest__Class** type_info;
+        inline app::EnableMultiplayerServersForTitleRequest__Class** type_info = (app::EnableMultiplayerServersForTitleRequest__Class**)(modloader::win::memory::resolve_rva(0x04786AD8));
         inline app::EnableMultiplayerServersForTitleRequest__Class* get_class() {
             return il2cpp::get_class<app::EnableMultiplayerServersForTitleRequest__Class>(type_info, "PlayFab.MultiplayerModels", "EnableMultiplayerServersForTitleRequest");
         }

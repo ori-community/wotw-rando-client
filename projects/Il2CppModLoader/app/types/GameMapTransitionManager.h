@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GameMapTransitionManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GameMapTransitionManager__Class** type_info;
+        inline app::GameMapTransitionManager__Class** type_info = (app::GameMapTransitionManager__Class**)(modloader::win::memory::resolve_rva(0x047939D8));
         inline app::GameMapTransitionManager__Class* get_class() {
             return il2cpp::get_class<app::GameMapTransitionManager__Class>(type_info, "", "GameMapTransitionManager");
         }

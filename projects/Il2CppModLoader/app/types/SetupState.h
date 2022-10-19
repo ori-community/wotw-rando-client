@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SetupState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SetupState__Class** type_info;
+        inline app::SetupState__Class** type_info = (app::SetupState__Class**)(modloader::win::memory::resolve_rva(0x04725E08));
         inline app::SetupState__Class* get_class() {
             return il2cpp::get_class<app::SetupState__Class>(type_info, "", "SetupState");
         }

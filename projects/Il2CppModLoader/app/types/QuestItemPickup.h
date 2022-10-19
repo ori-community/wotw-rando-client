@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace QuestItemPickup {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::QuestItemPickup__Class** type_info;
+        inline app::QuestItemPickup__Class** type_info = (app::QuestItemPickup__Class**)(modloader::win::memory::resolve_rva(0x047573B8));
         inline app::QuestItemPickup__Class* get_class() {
             return il2cpp::get_class<app::QuestItemPickup__Class>(type_info, "", "QuestItemPickup");
         }

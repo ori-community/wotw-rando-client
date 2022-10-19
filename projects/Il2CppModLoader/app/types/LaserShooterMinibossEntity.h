@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LaserShooterMinibossEntity {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LaserShooterMinibossEntity__Class** type_info;
+        inline app::LaserShooterMinibossEntity__Class** type_info = (app::LaserShooterMinibossEntity__Class**)(modloader::win::memory::resolve_rva(0x0472E5D0));
         inline app::LaserShooterMinibossEntity__Class* get_class() {
             return il2cpp::get_class<app::LaserShooterMinibossEntity__Class>(type_info, "", "LaserShooterMinibossEntity");
         }

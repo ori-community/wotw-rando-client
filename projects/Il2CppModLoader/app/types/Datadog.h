@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Datadog {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Datadog__Class** type_info;
+        inline app::Datadog__Class** type_info = (app::Datadog__Class**)(modloader::win::memory::resolve_rva(0x04779A70));
         inline app::Datadog__Class* get_class() {
             return il2cpp::get_class<app::Datadog__Class>(type_info, "", "Datadog");
         }

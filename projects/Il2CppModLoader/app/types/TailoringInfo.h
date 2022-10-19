@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TailoringInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TailoringInfo__Class** type_info;
+        inline app::TailoringInfo__Class** type_info = (app::TailoringInfo__Class**)(modloader::win::memory::resolve_rva(0x0474A7C0));
         inline app::TailoringInfo__Class* get_class() {
             return il2cpp::get_class<app::TailoringInfo__Class>(type_info, "Mono.Globalization.Unicode", "TailoringInfo");
         }

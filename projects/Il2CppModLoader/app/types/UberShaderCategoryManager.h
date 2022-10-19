@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberShaderCategoryManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberShaderCategoryManager__Class** type_info;
+        inline app::UberShaderCategoryManager__Class** type_info = (app::UberShaderCategoryManager__Class**)(modloader::win::memory::resolve_rva(0x047530C0));
         inline app::UberShaderCategoryManager__Class* get_class() {
             return il2cpp::get_class<app::UberShaderCategoryManager__Class>(type_info, "", "UberShaderCategoryManager");
         }

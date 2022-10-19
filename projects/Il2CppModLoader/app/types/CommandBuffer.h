@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CommandBuffer {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CommandBuffer__Class** type_info;
+        inline app::CommandBuffer__Class** type_info = (app::CommandBuffer__Class**)(modloader::win::memory::resolve_rva(0x047309C0));
         inline app::CommandBuffer__Class* get_class() {
             return il2cpp::get_class<app::CommandBuffer__Class>(type_info, "UnityEngine.Rendering", "CommandBuffer");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TestRunner {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TestRunner__Class** type_info;
+        inline app::TestRunner__Class** type_info = (app::TestRunner__Class**)(modloader::win::memory::resolve_rva(0x0477A378));
         inline app::TestRunner__Class* get_class() {
             return il2cpp::get_class<app::TestRunner__Class>(type_info, "HierarchyPerfTest", "TestRunner");
         }

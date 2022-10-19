@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberWaterControl_Simulation {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberWaterControl_Simulation__Class** type_info;
+        inline app::UberWaterControl_Simulation__Class** type_info = (app::UberWaterControl_Simulation__Class**)(modloader::win::memory::resolve_rva(0x047084B0));
         inline app::UberWaterControl_Simulation__Class* get_class() {
             return il2cpp::get_nested_class<app::UberWaterControl_Simulation__Class>(type_info, "", "UberWaterControl", "Simulation");
         }

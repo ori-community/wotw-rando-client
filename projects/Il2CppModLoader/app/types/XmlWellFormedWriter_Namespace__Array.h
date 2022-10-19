@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlWellFormedWriter_Namespace__Array {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlWellFormedWriter_Namespace__Array__Class** type_info;
+        inline app::XmlWellFormedWriter_Namespace__Array__Class** type_info = (app::XmlWellFormedWriter_Namespace__Array__Class**)(modloader::win::memory::resolve_rva(0x0472D330));
         inline app::XmlWellFormedWriter_Namespace__Array__Class* get_class() {
             return il2cpp::get_class<app::XmlWellFormedWriter_Namespace__Array__Class>(type_info, "System.Xml", "XmlWellFormedWriter+Namespace[]");
         }

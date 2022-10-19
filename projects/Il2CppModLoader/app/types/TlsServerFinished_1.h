@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TlsServerFinished_1 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TlsServerFinished_1__Class** type_info;
+        inline app::TlsServerFinished_1__Class** type_info = (app::TlsServerFinished_1__Class**)(modloader::win::memory::resolve_rva(0x047896D0));
         inline app::TlsServerFinished_1__Class* get_class() {
             return il2cpp::get_class<app::TlsServerFinished_1__Class>(type_info, "Mono.Security.Protocol.Tls.Handshake.Client", "TlsServerFinished");
         }

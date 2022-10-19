@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace JProperty_JPropertyList {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::JProperty_JPropertyList__Class** type_info;
+        inline app::JProperty_JPropertyList__Class** type_info = (app::JProperty_JPropertyList__Class**)(modloader::win::memory::resolve_rva(0x04793D90));
         inline app::JProperty_JPropertyList__Class* get_class() {
             return il2cpp::get_nested_class<app::JProperty_JPropertyList__Class>(type_info, "Newtonsoft.Json.Linq", "JProperty", "JPropertyList");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XPathException {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XPathException__Class** type_info;
+        inline app::XPathException__Class** type_info = (app::XPathException__Class**)(modloader::win::memory::resolve_rva(0x04758110));
         inline app::XPathException__Class* get_class() {
             return il2cpp::get_class<app::XPathException__Class>(type_info, "System.Xml.XPath", "XPathException");
         }

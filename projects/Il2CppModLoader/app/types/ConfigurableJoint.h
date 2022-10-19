@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ConfigurableJoint {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ConfigurableJoint__Class** type_info;
+        inline app::ConfigurableJoint__Class** type_info = (app::ConfigurableJoint__Class**)(modloader::win::memory::resolve_rva(0x04752560));
         inline app::ConfigurableJoint__Class* get_class() {
             return il2cpp::get_class<app::ConfigurableJoint__Class>(type_info, "UnityEngine", "ConfigurableJoint");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Configuration_1 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Configuration_1__Class** type_info;
+        inline app::Configuration_1__Class** type_info = (app::Configuration_1__Class**)(modloader::win::memory::resolve_rva(0x04739060));
         inline app::Configuration_1__Class* get_class() {
             return il2cpp::get_class<app::Configuration_1__Class>(type_info, "TriangleNet", "Configuration");
         }

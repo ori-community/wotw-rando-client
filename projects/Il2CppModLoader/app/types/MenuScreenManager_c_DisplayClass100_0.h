@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MenuScreenManager_c_DisplayClass100_0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MenuScreenManager_c_DisplayClass100_0__Class** type_info;
+        inline app::MenuScreenManager_c_DisplayClass100_0__Class** type_info = (app::MenuScreenManager_c_DisplayClass100_0__Class**)(modloader::win::memory::resolve_rva(0x0474E8F0));
         inline app::MenuScreenManager_c_DisplayClass100_0__Class* get_class() {
             return il2cpp::get_nested_class<app::MenuScreenManager_c_DisplayClass100_0__Class>(type_info, "", "MenuScreenManager", "<>c__DisplayClass100_0");
         }

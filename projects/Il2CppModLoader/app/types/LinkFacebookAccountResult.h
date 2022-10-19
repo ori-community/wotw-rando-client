@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LinkFacebookAccountResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LinkFacebookAccountResult__Class** type_info;
+        inline app::LinkFacebookAccountResult__Class** type_info = (app::LinkFacebookAccountResult__Class**)(modloader::win::memory::resolve_rva(0x0477A0B8));
         inline app::LinkFacebookAccountResult__Class* get_class() {
             return il2cpp::get_class<app::LinkFacebookAccountResult__Class>(type_info, "PlayFab.ClientModels", "LinkFacebookAccountResult");
         }

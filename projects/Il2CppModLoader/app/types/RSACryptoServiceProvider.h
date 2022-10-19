@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RSACryptoServiceProvider {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RSACryptoServiceProvider__Class** type_info;
+        inline app::RSACryptoServiceProvider__Class** type_info = (app::RSACryptoServiceProvider__Class**)(modloader::win::memory::resolve_rva(0x047547C0));
         inline app::RSACryptoServiceProvider__Class* get_class() {
             return il2cpp::get_class<app::RSACryptoServiceProvider__Class>(type_info, "System.Security.Cryptography", "RSACryptoServiceProvider");
         }

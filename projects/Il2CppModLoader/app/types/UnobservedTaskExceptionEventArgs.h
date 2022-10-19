@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UnobservedTaskExceptionEventArgs {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UnobservedTaskExceptionEventArgs__Class** type_info;
+        inline app::UnobservedTaskExceptionEventArgs__Class** type_info = (app::UnobservedTaskExceptionEventArgs__Class**)(modloader::win::memory::resolve_rva(0x0478E2E0));
         inline app::UnobservedTaskExceptionEventArgs__Class* get_class() {
             return il2cpp::get_class<app::UnobservedTaskExceptionEventArgs__Class>(type_info, "System.Threading.Tasks", "UnobservedTaskExceptionEventArgs");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Hashtable_SyncHashtable {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Hashtable_SyncHashtable__Class** type_info;
+        inline app::Hashtable_SyncHashtable__Class** type_info = (app::Hashtable_SyncHashtable__Class**)(modloader::win::memory::resolve_rva(0x04734518));
         inline app::Hashtable_SyncHashtable__Class* get_class() {
             return il2cpp::get_nested_class<app::Hashtable_SyncHashtable__Class>(type_info, "System.Collections", "Hashtable", "SyncHashtable");
         }

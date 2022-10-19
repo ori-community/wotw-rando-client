@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TextureTilingAdjuster_AdjustedTexture {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TextureTilingAdjuster_AdjustedTexture__Class** type_info;
+        inline app::TextureTilingAdjuster_AdjustedTexture__Class** type_info = (app::TextureTilingAdjuster_AdjustedTexture__Class**)(modloader::win::memory::resolve_rva(0x0478E980));
         inline app::TextureTilingAdjuster_AdjustedTexture__Class* get_class() {
             return il2cpp::get_nested_class<app::TextureTilingAdjuster_AdjustedTexture__Class>(type_info, "", "TextureTilingAdjuster", "AdjustedTexture");
         }

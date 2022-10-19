@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SoundPlayer {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SoundPlayer__Class** type_info;
+        inline app::SoundPlayer__Class** type_info = (app::SoundPlayer__Class**)(modloader::win::memory::resolve_rva(0x0477A6B0));
         inline app::SoundPlayer__Class* get_class() {
             return il2cpp::get_class<app::SoundPlayer__Class>(type_info, "", "SoundPlayer");
         }

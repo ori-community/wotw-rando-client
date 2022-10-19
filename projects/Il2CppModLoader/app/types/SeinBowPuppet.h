@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SeinBowPuppet {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SeinBowPuppet__Class** type_info;
+        inline app::SeinBowPuppet__Class** type_info = (app::SeinBowPuppet__Class**)(modloader::win::memory::resolve_rva(0x04708E98));
         inline app::SeinBowPuppet__Class* get_class() {
             return il2cpp::get_class<app::SeinBowPuppet__Class>(type_info, "", "SeinBowPuppet");
         }

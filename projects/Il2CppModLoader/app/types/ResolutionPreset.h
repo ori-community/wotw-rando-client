@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ResolutionPreset {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ResolutionPreset__Class** type_info;
+        inline app::ResolutionPreset__Class** type_info = (app::ResolutionPreset__Class**)(modloader::win::memory::resolve_rva(0x04770638));
         inline app::ResolutionPreset__Class* get_class() {
             return il2cpp::get_class<app::ResolutionPreset__Class>(type_info, "Moon.ArtOptimization", "ResolutionPreset");
         }

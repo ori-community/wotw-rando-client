@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SupportedRenderingFeatures {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SupportedRenderingFeatures__Class** type_info;
+        inline app::SupportedRenderingFeatures__Class** type_info = (app::SupportedRenderingFeatures__Class**)(modloader::win::memory::resolve_rva(0x047482E8));
         inline app::SupportedRenderingFeatures__Class* get_class() {
             return il2cpp::get_class<app::SupportedRenderingFeatures__Class>(type_info, "UnityEngine.Experimental.Rendering", "SupportedRenderingFeatures");
         }

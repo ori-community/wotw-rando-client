@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AssemblyBridge {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AssemblyBridge__Class** type_info;
+        inline app::AssemblyBridge__Class** type_info = (app::AssemblyBridge__Class**)(modloader::win::memory::resolve_rva(0x0478B838));
         inline app::AssemblyBridge__Class* get_class() {
             return il2cpp::get_class<app::AssemblyBridge__Class>(type_info, "", "AssemblyBridge");
         }

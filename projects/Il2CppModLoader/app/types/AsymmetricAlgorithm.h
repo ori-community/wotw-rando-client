@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AsymmetricAlgorithm {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AsymmetricAlgorithm__Class** type_info;
+        inline app::AsymmetricAlgorithm__Class** type_info = (app::AsymmetricAlgorithm__Class**)(modloader::win::memory::resolve_rva(0x04739EA8));
         inline app::AsymmetricAlgorithm__Class* get_class() {
             return il2cpp::get_class<app::AsymmetricAlgorithm__Class>(type_info, "System.Security.Cryptography", "AsymmetricAlgorithm");
         }

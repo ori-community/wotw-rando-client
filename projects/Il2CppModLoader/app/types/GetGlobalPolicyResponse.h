@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GetGlobalPolicyResponse {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GetGlobalPolicyResponse__Class** type_info;
+        inline app::GetGlobalPolicyResponse__Class** type_info = (app::GetGlobalPolicyResponse__Class**)(modloader::win::memory::resolve_rva(0x04765420));
         inline app::GetGlobalPolicyResponse__Class* get_class() {
             return il2cpp::get_class<app::GetGlobalPolicyResponse__Class>(type_info, "PlayFab.ProfilesModels", "GetGlobalPolicyResponse");
         }

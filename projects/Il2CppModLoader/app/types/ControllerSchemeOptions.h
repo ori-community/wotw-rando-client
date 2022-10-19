@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ControllerSchemeOptions {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ControllerSchemeOptions__Class** type_info;
+        inline app::ControllerSchemeOptions__Class** type_info = (app::ControllerSchemeOptions__Class**)(modloader::win::memory::resolve_rva(0x0475E750));
         inline app::ControllerSchemeOptions__Class* get_class() {
             return il2cpp::get_class<app::ControllerSchemeOptions__Class>(type_info, "", "ControllerSchemeOptions");
         }

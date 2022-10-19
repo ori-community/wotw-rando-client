@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GUIHelper {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GUIHelper__Class** type_info;
+        inline app::GUIHelper__Class** type_info = (app::GUIHelper__Class**)(modloader::win::memory::resolve_rva(0x0477BC70));
         inline app::GUIHelper__Class* get_class() {
             return il2cpp::get_class<app::GUIHelper__Class>(type_info, "", "GUIHelper");
         }

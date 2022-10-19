@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RenderTextureDescriptor {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RenderTextureDescriptor__Class** type_info;
+        inline app::RenderTextureDescriptor__Class** type_info = (app::RenderTextureDescriptor__Class**)(modloader::win::memory::resolve_rva(0x0474C5A8));
         inline app::RenderTextureDescriptor__Class* get_class() {
             return il2cpp::get_class<app::RenderTextureDescriptor__Class>(type_info, "UnityEngine", "RenderTextureDescriptor");
         }

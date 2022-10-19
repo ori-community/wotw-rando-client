@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BezierSpline_BezierSplinePoint {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BezierSpline_BezierSplinePoint__Class** type_info;
+        inline app::BezierSpline_BezierSplinePoint__Class** type_info = (app::BezierSpline_BezierSplinePoint__Class**)(modloader::win::memory::resolve_rva(0x04770038));
         inline app::BezierSpline_BezierSplinePoint__Class* get_class() {
             return il2cpp::get_nested_class<app::BezierSpline_BezierSplinePoint__Class>(type_info, "", "BezierSpline", "BezierSplinePoint");
         }

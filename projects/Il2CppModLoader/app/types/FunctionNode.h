@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FunctionNode {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FunctionNode__Class** type_info;
+        inline app::FunctionNode__Class** type_info = (app::FunctionNode__Class**)(modloader::win::memory::resolve_rva(0x04790698));
         inline app::FunctionNode__Class* get_class() {
             return il2cpp::get_class<app::FunctionNode__Class>(type_info, "System.Data", "FunctionNode");
         }

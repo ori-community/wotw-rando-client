@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Scrollbar_ClickRepeat_c_Iterator0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Scrollbar_ClickRepeat_c_Iterator0__Class** type_info;
+        inline app::Scrollbar_ClickRepeat_c_Iterator0__Class** type_info = (app::Scrollbar_ClickRepeat_c_Iterator0__Class**)(modloader::win::memory::resolve_rva(0x04755EB0));
         inline app::Scrollbar_ClickRepeat_c_Iterator0__Class* get_class() {
             return il2cpp::get_nested_class<app::Scrollbar_ClickRepeat_c_Iterator0__Class>(type_info, "UnityEngine.UI", "Scrollbar", "<ClickRepeat>c__Iterator0");
         }

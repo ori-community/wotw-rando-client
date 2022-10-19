@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UnlinkIOSDeviceIDResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UnlinkIOSDeviceIDResult__Class** type_info;
+        inline app::UnlinkIOSDeviceIDResult__Class** type_info = (app::UnlinkIOSDeviceIDResult__Class**)(modloader::win::memory::resolve_rva(0x0473F080));
         inline app::UnlinkIOSDeviceIDResult__Class* get_class() {
             return il2cpp::get_class<app::UnlinkIOSDeviceIDResult__Class>(type_info, "PlayFab.ClientModels", "UnlinkIOSDeviceIDResult");
         }

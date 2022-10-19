@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TagModel {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TagModel__Class** type_info;
+        inline app::TagModel__Class** type_info = (app::TagModel__Class**)(modloader::win::memory::resolve_rva(0x047504D8));
         inline app::TagModel__Class* get_class() {
             return il2cpp::get_class<app::TagModel__Class>(type_info, "PlayFab.ClientModels", "TagModel");
         }

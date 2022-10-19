@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ContactPoint__Array {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ContactPoint__Array__Class** type_info;
+        inline app::ContactPoint__Array__Class** type_info = (app::ContactPoint__Array__Class**)(modloader::win::memory::resolve_rva(0x04715B40));
         inline app::ContactPoint__Array__Class* get_class() {
             return il2cpp::get_class<app::ContactPoint__Array__Class>(type_info, "UnityEngine", "ContactPoint[]");
         }

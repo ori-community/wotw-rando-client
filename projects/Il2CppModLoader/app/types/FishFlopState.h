@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FishFlopState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FishFlopState__Class** type_info;
+        inline app::FishFlopState__Class** type_info = (app::FishFlopState__Class**)(modloader::win::memory::resolve_rva(0x04706100));
         inline app::FishFlopState__Class* get_class() {
             return il2cpp::get_class<app::FishFlopState__Class>(type_info, "", "FishFlopState");
         }

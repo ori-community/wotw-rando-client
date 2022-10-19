@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ShowUIType__Enum {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ShowUIType__Enum__Class** type_info;
+        inline app::ShowUIType__Enum__Class** type_info = (app::ShowUIType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04753F20));
         inline app::ShowUIType__Enum__Class* get_class() {
             return il2cpp::get_class<app::ShowUIType__Enum__Class>(type_info, "", "ShowUIType");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DebugOutput {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DebugOutput__Class** type_info;
+        inline app::DebugOutput__Class** type_info = (app::DebugOutput__Class**)(modloader::win::memory::resolve_rva(0x0474FF20));
         inline app::DebugOutput__Class* get_class() {
             return il2cpp::get_class<app::DebugOutput__Class>(type_info, "", "DebugOutput");
         }

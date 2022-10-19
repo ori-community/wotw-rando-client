@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HServerQuery {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::HServerQuery__Class** type_info;
+        inline app::HServerQuery__Class** type_info = (app::HServerQuery__Class**)(modloader::win::memory::resolve_rva(0x047164A0));
         inline app::HServerQuery__Class* get_class() {
             return il2cpp::get_class<app::HServerQuery__Class>(type_info, "Steamworks", "HServerQuery");
         }

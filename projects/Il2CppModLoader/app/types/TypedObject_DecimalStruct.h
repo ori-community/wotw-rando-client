@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TypedObject_DecimalStruct {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TypedObject_DecimalStruct__Class** type_info;
+        inline app::TypedObject_DecimalStruct__Class** type_info = (app::TypedObject_DecimalStruct__Class**)(modloader::win::memory::resolve_rva(0x04750268));
         inline app::TypedObject_DecimalStruct__Class* get_class() {
             return il2cpp::get_nested_class<app::TypedObject_DecimalStruct__Class>(type_info, "System.Xml.Schema", "TypedObject", "DecimalStruct");
         }

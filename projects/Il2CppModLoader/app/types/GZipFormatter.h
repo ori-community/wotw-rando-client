@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GZipFormatter {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GZipFormatter__Class** type_info;
+        inline app::GZipFormatter__Class** type_info = (app::GZipFormatter__Class**)(modloader::win::memory::resolve_rva(0x047971B8));
         inline app::GZipFormatter__Class* get_class() {
             return il2cpp::get_class<app::GZipFormatter__Class>(type_info, "Unity.IO.Compression", "GZipFormatter");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AnalyticsSessionInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AnalyticsSessionInfo__Class** type_info;
+        inline app::AnalyticsSessionInfo__Class** type_info = (app::AnalyticsSessionInfo__Class**)(modloader::win::memory::resolve_rva(0x047668F0));
         inline app::AnalyticsSessionInfo__Class* get_class() {
             return il2cpp::get_class<app::AnalyticsSessionInfo__Class>(type_info, "UnityEngine.Analytics", "AnalyticsSessionInfo");
         }

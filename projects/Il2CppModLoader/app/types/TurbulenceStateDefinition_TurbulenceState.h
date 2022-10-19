@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TurbulenceStateDefinition_TurbulenceState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TurbulenceStateDefinition_TurbulenceState__Class** type_info;
+        inline app::TurbulenceStateDefinition_TurbulenceState__Class** type_info = (app::TurbulenceStateDefinition_TurbulenceState__Class**)(modloader::win::memory::resolve_rva(0x04786348));
         inline app::TurbulenceStateDefinition_TurbulenceState__Class* get_class() {
             return il2cpp::get_nested_class<app::TurbulenceStateDefinition_TurbulenceState__Class>(type_info, "", "TurbulenceStateDefinition", "TurbulenceState");
         }

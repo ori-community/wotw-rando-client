@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LayoutRebuilder {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LayoutRebuilder__Class** type_info;
+        inline app::LayoutRebuilder__Class** type_info = (app::LayoutRebuilder__Class**)(modloader::win::memory::resolve_rva(0x0470FF40));
         inline app::LayoutRebuilder__Class* get_class() {
             return il2cpp::get_class<app::LayoutRebuilder__Class>(type_info, "UnityEngine.UI", "LayoutRebuilder");
         }

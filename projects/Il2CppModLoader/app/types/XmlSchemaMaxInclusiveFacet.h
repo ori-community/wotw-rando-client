@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlSchemaMaxInclusiveFacet {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlSchemaMaxInclusiveFacet__Class** type_info;
+        inline app::XmlSchemaMaxInclusiveFacet__Class** type_info = (app::XmlSchemaMaxInclusiveFacet__Class**)(modloader::win::memory::resolve_rva(0x0476FBC8));
         inline app::XmlSchemaMaxInclusiveFacet__Class* get_class() {
             return il2cpp::get_class<app::XmlSchemaMaxInclusiveFacet__Class>(type_info, "System.Xml.Schema", "XmlSchemaMaxInclusiveFacet");
         }

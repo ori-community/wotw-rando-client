@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WaterPoisonTrail_DamagePoint {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WaterPoisonTrail_DamagePoint__Class** type_info;
+        inline app::WaterPoisonTrail_DamagePoint__Class** type_info = (app::WaterPoisonTrail_DamagePoint__Class**)(modloader::win::memory::resolve_rva(0x0474E240));
         inline app::WaterPoisonTrail_DamagePoint__Class* get_class() {
             return il2cpp::get_nested_class<app::WaterPoisonTrail_DamagePoint__Class>(type_info, "", "WaterPoisonTrail", "DamagePoint");
         }

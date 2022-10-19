@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace JPropertyKeyedCollection {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::JPropertyKeyedCollection__Class** type_info;
+        inline app::JPropertyKeyedCollection__Class** type_info = (app::JPropertyKeyedCollection__Class**)(modloader::win::memory::resolve_rva(0x047886B0));
         inline app::JPropertyKeyedCollection__Class* get_class() {
             return il2cpp::get_class<app::JPropertyKeyedCollection__Class>(type_info, "Newtonsoft.Json.Linq", "JPropertyKeyedCollection");
         }

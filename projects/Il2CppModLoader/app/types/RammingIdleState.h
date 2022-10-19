@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RammingIdleState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RammingIdleState__Class** type_info;
+        inline app::RammingIdleState__Class** type_info = (app::RammingIdleState__Class**)(modloader::win::memory::resolve_rva(0x0478E618));
         inline app::RammingIdleState__Class* get_class() {
             return il2cpp::get_class<app::RammingIdleState__Class>(type_info, "", "RammingIdleState");
         }

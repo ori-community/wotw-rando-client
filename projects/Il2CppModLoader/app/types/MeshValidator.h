@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MeshValidator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MeshValidator__Class** type_info;
+        inline app::MeshValidator__Class** type_info = (app::MeshValidator__Class**)(modloader::win::memory::resolve_rva(0x04784FA8));
         inline app::MeshValidator__Class* get_class() {
             return il2cpp::get_class<app::MeshValidator__Class>(type_info, "TriangleNet", "MeshValidator");
         }

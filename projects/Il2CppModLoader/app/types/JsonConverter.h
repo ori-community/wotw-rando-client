@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace JsonConverter {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::JsonConverter__Class** type_info;
+        inline app::JsonConverter__Class** type_info = (app::JsonConverter__Class**)(modloader::win::memory::resolve_rva(0x04781530));
         inline app::JsonConverter__Class* get_class() {
             return il2cpp::get_class<app::JsonConverter__Class>(type_info, "Newtonsoft.Json", "JsonConverter");
         }

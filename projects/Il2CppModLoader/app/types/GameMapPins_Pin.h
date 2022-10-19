@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GameMapPins_Pin {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GameMapPins_Pin__Class** type_info;
+        inline app::GameMapPins_Pin__Class** type_info = (app::GameMapPins_Pin__Class**)(modloader::win::memory::resolve_rva(0x04743ED8));
         inline app::GameMapPins_Pin__Class* get_class() {
             return il2cpp::get_nested_class<app::GameMapPins_Pin__Class>(type_info, "", "GameMapPins", "Pin");
         }

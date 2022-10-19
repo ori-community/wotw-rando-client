@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BsonString {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BsonString__Class** type_info;
+        inline app::BsonString__Class** type_info = (app::BsonString__Class**)(modloader::win::memory::resolve_rva(0x0470E7F0));
         inline app::BsonString__Class* get_class() {
             return il2cpp::get_class<app::BsonString__Class>(type_info, "Newtonsoft.Json.Bson", "BsonString");
         }

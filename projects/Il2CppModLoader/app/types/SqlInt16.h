@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SqlInt16 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SqlInt16__Class** type_info;
+        inline app::SqlInt16__Class** type_info = (app::SqlInt16__Class**)(modloader::win::memory::resolve_rva(0x0478D820));
         inline app::SqlInt16__Class* get_class() {
             return il2cpp::get_class<app::SqlInt16__Class>(type_info, "System.Data.SqlTypes", "SqlInt16");
         }

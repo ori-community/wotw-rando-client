@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SNetSocket_t {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SNetSocket_t__Class** type_info;
+        inline app::SNetSocket_t__Class** type_info = (app::SNetSocket_t__Class**)(modloader::win::memory::resolve_rva(0x0473AF98));
         inline app::SNetSocket_t__Class* get_class() {
             return il2cpp::get_class<app::SNetSocket_t__Class>(type_info, "Steamworks", "SNetSocket_t");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MemberExpression {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MemberExpression__Class** type_info;
+        inline app::MemberExpression__Class** type_info = (app::MemberExpression__Class**)(modloader::win::memory::resolve_rva(0x047062A0));
         inline app::MemberExpression__Class* get_class() {
             return il2cpp::get_class<app::MemberExpression__Class>(type_info, "System.Linq.Expressions", "MemberExpression");
         }

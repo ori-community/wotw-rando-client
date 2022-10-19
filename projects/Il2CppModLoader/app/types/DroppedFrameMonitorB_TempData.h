@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DroppedFrameMonitorB_TempData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DroppedFrameMonitorB_TempData__Class** type_info;
+        inline app::DroppedFrameMonitorB_TempData__Class** type_info = (app::DroppedFrameMonitorB_TempData__Class**)(modloader::win::memory::resolve_rva(0x04782140));
         inline app::DroppedFrameMonitorB_TempData__Class* get_class() {
             return il2cpp::get_nested_class<app::DroppedFrameMonitorB_TempData__Class>(type_info, "", "DroppedFrameMonitorB", "TempData");
         }

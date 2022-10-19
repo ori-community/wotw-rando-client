@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HttpListenerPrefixCollection {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::HttpListenerPrefixCollection__Class** type_info;
+        inline app::HttpListenerPrefixCollection__Class** type_info = (app::HttpListenerPrefixCollection__Class**)(modloader::win::memory::resolve_rva(0x0476EA60));
         inline app::HttpListenerPrefixCollection__Class* get_class() {
             return il2cpp::get_class<app::HttpListenerPrefixCollection__Class>(type_info, "System.Net", "HttpListenerPrefixCollection");
         }

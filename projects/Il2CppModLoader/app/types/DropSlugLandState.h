@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DropSlugLandState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DropSlugLandState__Class** type_info;
+        inline app::DropSlugLandState__Class** type_info = (app::DropSlugLandState__Class**)(modloader::win::memory::resolve_rva(0x04715A88));
         inline app::DropSlugLandState__Class* get_class() {
             return il2cpp::get_class<app::DropSlugLandState__Class>(type_info, "", "DropSlugLandState");
         }

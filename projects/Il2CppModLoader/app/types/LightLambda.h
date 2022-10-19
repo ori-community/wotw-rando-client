@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LightLambda {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LightLambda__Class** type_info;
+        inline app::LightLambda__Class** type_info = (app::LightLambda__Class**)(modloader::win::memory::resolve_rva(0x0472A460));
         inline app::LightLambda__Class* get_class() {
             return il2cpp::get_class<app::LightLambda__Class>(type_info, "System.Linq.Expressions.Interpreter", "LightLambda");
         }

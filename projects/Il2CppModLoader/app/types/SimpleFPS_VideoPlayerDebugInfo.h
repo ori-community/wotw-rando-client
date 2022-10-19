@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SimpleFPS_VideoPlayerDebugInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SimpleFPS_VideoPlayerDebugInfo__Class** type_info;
+        inline app::SimpleFPS_VideoPlayerDebugInfo__Class** type_info = (app::SimpleFPS_VideoPlayerDebugInfo__Class**)(modloader::win::memory::resolve_rva(0x04732EB8));
         inline app::SimpleFPS_VideoPlayerDebugInfo__Class* get_class() {
             return il2cpp::get_nested_class<app::SimpleFPS_VideoPlayerDebugInfo__Class>(type_info, "", "SimpleFPS", "VideoPlayerDebugInfo");
         }

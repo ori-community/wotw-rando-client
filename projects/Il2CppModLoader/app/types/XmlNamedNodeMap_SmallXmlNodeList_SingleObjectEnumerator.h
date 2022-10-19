@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator__Class** type_info;
+        inline app::XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator__Class** type_info = (app::XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator__Class**)(modloader::win::memory::resolve_rva(0x0472D790));
         inline app::XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator__Class* get_class() {
             return il2cpp::get_nested_class<app::XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator__Class>(type_info, "System.Xml", "XmlNamedNodeMap+SmallXmlNodeList", "SingleObjectEnumerator");
         }

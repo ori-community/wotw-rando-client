@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HMACSHA384 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::HMACSHA384__Class** type_info;
+        inline app::HMACSHA384__Class** type_info = (app::HMACSHA384__Class**)(modloader::win::memory::resolve_rva(0x0474E618));
         inline app::HMACSHA384__Class* get_class() {
             return il2cpp::get_class<app::HMACSHA384__Class>(type_info, "System.Security.Cryptography", "HMACSHA384");
         }

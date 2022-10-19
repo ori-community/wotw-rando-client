@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SaveSlotsManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SaveSlotsManager__Class** type_info;
+        inline app::SaveSlotsManager__Class** type_info = (app::SaveSlotsManager__Class**)(modloader::win::memory::resolve_rva(0x04760018));
         inline app::SaveSlotsManager__Class* get_class() {
             return il2cpp::get_class<app::SaveSlotsManager__Class>(type_info, "", "SaveSlotsManager");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ArraySubsetEnumerator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ArraySubsetEnumerator__Class** type_info;
+        inline app::ArraySubsetEnumerator__Class** type_info = (app::ArraySubsetEnumerator__Class**)(modloader::win::memory::resolve_rva(0x04752188));
         inline app::ArraySubsetEnumerator__Class* get_class() {
             return il2cpp::get_class<app::ArraySubsetEnumerator__Class>(type_info, "System.ComponentModel", "ArraySubsetEnumerator");
         }

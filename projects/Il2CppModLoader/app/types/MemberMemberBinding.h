@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MemberMemberBinding {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MemberMemberBinding__Class** type_info;
+        inline app::MemberMemberBinding__Class** type_info = (app::MemberMemberBinding__Class**)(modloader::win::memory::resolve_rva(0x047896E0));
         inline app::MemberMemberBinding__Class* get_class() {
             return il2cpp::get_class<app::MemberMemberBinding__Class>(type_info, "System.Linq.Expressions", "MemberMemberBinding");
         }

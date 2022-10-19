@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UI_Cameras {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UI_Cameras__Class** type_info;
+        inline app::UI_Cameras__Class** type_info = (app::UI_Cameras__Class**)(modloader::win::memory::resolve_rva(0x04704778));
         inline app::UI_Cameras__Class* get_class() {
             return il2cpp::get_nested_class<app::UI_Cameras__Class>(type_info, "Game", "UI", "Cameras");
         }

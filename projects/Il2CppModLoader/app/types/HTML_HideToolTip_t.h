@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HTML_HideToolTip_t {
         namespace {
-            app::HTML_HideToolTip_t__Class* type_info_ref = nullptr;
+            inline app::HTML_HideToolTip_t__Class* type_info_ref = nullptr;
         }
-        app::HTML_HideToolTip_t__Class** type_info = &type_info_ref;
+        inline app::HTML_HideToolTip_t__Class** type_info = &type_info_ref;
         inline app::HTML_HideToolTip_t__Class* get_class() {
             return il2cpp::get_class<app::HTML_HideToolTip_t__Class>(type_info, "Steamworks", "HTML_HideToolTip_t");
         }

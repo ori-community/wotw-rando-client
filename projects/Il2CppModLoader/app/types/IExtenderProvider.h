@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IExtenderProvider {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IExtenderProvider__Class** type_info;
+        inline app::IExtenderProvider__Class** type_info = (app::IExtenderProvider__Class**)(modloader::win::memory::resolve_rva(0x04785CA0));
         inline app::IExtenderProvider__Class* get_class() {
             return il2cpp::get_class<app::IExtenderProvider__Class>(type_info, "System.ComponentModel", "IExtenderProvider");
         }

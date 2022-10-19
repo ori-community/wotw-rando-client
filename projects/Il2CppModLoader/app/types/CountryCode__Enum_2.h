@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CountryCode__Enum_2 {
         namespace {
-            app::CountryCode__Enum_2__Class* type_info_ref = nullptr;
+            inline app::CountryCode__Enum_2__Class* type_info_ref = nullptr;
         }
-        app::CountryCode__Enum_2__Class** type_info = &type_info_ref;
+        inline app::CountryCode__Enum_2__Class** type_info = &type_info_ref;
         inline app::CountryCode__Enum_2__Class* get_class() {
             return il2cpp::get_class<app::CountryCode__Enum_2__Class>(type_info, "PlayFab.PlayStreamModels", "CountryCode");
         }

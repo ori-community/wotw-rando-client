@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RevokeInventoryItemsResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RevokeInventoryItemsResult__Class** type_info;
+        inline app::RevokeInventoryItemsResult__Class** type_info = (app::RevokeInventoryItemsResult__Class**)(modloader::win::memory::resolve_rva(0x047879B8));
         inline app::RevokeInventoryItemsResult__Class* get_class() {
             return il2cpp::get_class<app::RevokeInventoryItemsResult__Class>(type_info, "PlayFab.ServerModels", "RevokeInventoryItemsResult");
         }

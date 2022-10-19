@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace QuadTree_Node {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::QuadTree_Node__Class** type_info;
+        inline app::QuadTree_Node__Class** type_info = (app::QuadTree_Node__Class**)(modloader::win::memory::resolve_rva(0x04787548));
         inline app::QuadTree_Node__Class* get_class() {
             return il2cpp::get_nested_class<app::QuadTree_Node__Class>(type_info, "Moon", "QuadTree", "Node");
         }

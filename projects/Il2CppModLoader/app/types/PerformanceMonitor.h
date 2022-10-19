@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PerformanceMonitor {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PerformanceMonitor__Class** type_info;
+        inline app::PerformanceMonitor__Class** type_info = (app::PerformanceMonitor__Class**)(modloader::win::memory::resolve_rva(0x04729E08));
         inline app::PerformanceMonitor__Class* get_class() {
             return il2cpp::get_class<app::PerformanceMonitor__Class>(type_info, "", "PerformanceMonitor");
         }

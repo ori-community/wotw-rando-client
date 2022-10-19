@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LineDescent {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LineDescent__Class** type_info;
+        inline app::LineDescent__Class** type_info = (app::LineDescent__Class**)(modloader::win::memory::resolve_rva(0x04760C68));
         inline app::LineDescent__Class* get_class() {
             return il2cpp::get_class<app::LineDescent__Class>(type_info, "CatlikeCoding.TextBox", "LineDescent");
         }

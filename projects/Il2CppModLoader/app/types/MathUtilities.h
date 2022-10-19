@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MathUtilities {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MathUtilities__Class** type_info;
+        inline app::MathUtilities__Class** type_info = (app::MathUtilities__Class**)(modloader::win::memory::resolve_rva(0x04770DA0));
         inline app::MathUtilities__Class* get_class() {
             return il2cpp::get_class<app::MathUtilities__Class>(type_info, "UberShader.SpriteSharp", "MathUtilities");
         }

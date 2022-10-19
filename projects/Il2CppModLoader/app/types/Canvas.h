@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Canvas {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Canvas__Class** type_info;
+        inline app::Canvas__Class** type_info = (app::Canvas__Class**)(modloader::win::memory::resolve_rva(0x04734B70));
         inline app::Canvas__Class* get_class() {
             return il2cpp::get_class<app::Canvas__Class>(type_info, "UnityEngine", "Canvas");
         }

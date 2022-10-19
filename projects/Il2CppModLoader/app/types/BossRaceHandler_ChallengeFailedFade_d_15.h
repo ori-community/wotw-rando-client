@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BossRaceHandler_ChallengeFailedFade_d_15 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BossRaceHandler_ChallengeFailedFade_d_15__Class** type_info;
+        inline app::BossRaceHandler_ChallengeFailedFade_d_15__Class** type_info = (app::BossRaceHandler_ChallengeFailedFade_d_15__Class**)(modloader::win::memory::resolve_rva(0x0473D6D0));
         inline app::BossRaceHandler_ChallengeFailedFade_d_15__Class* get_class() {
             return il2cpp::get_nested_class<app::BossRaceHandler_ChallengeFailedFade_d_15__Class>(type_info, "", "BossRaceHandler", "<ChallengeFailedFade>d__15");
         }

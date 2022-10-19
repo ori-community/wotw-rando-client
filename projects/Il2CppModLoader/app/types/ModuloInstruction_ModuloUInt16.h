@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ModuloInstruction_ModuloUInt16 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ModuloInstruction_ModuloUInt16__Class** type_info;
+        inline app::ModuloInstruction_ModuloUInt16__Class** type_info = (app::ModuloInstruction_ModuloUInt16__Class**)(modloader::win::memory::resolve_rva(0x047647C0));
         inline app::ModuloInstruction_ModuloUInt16__Class* get_class() {
             return il2cpp::get_nested_class<app::ModuloInstruction_ModuloUInt16__Class>(type_info, "System.Linq.Expressions.Interpreter", "ModuloInstruction", "ModuloUInt16");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace OrInstruction_OrBoolean {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::OrInstruction_OrBoolean__Class** type_info;
+        inline app::OrInstruction_OrBoolean__Class** type_info = (app::OrInstruction_OrBoolean__Class**)(modloader::win::memory::resolve_rva(0x047438F8));
         inline app::OrInstruction_OrBoolean__Class* get_class() {
             return il2cpp::get_nested_class<app::OrInstruction_OrBoolean__Class>(type_info, "System.Linq.Expressions.Interpreter", "OrInstruction", "OrBoolean");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Level2Map {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Level2Map__Class** type_info;
+        inline app::Level2Map__Class** type_info = (app::Level2Map__Class**)(modloader::win::memory::resolve_rva(0x04717BC8));
         inline app::Level2Map__Class* get_class() {
             return il2cpp::get_class<app::Level2Map__Class>(type_info, "Mono.Globalization.Unicode", "Level2Map");
         }

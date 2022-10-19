@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlSchemaSimpleContentRestriction {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlSchemaSimpleContentRestriction__Class** type_info;
+        inline app::XmlSchemaSimpleContentRestriction__Class** type_info = (app::XmlSchemaSimpleContentRestriction__Class**)(modloader::win::memory::resolve_rva(0x0477A2C8));
         inline app::XmlSchemaSimpleContentRestriction__Class* get_class() {
             return il2cpp::get_class<app::XmlSchemaSimpleContentRestriction__Class>(type_info, "System.Xml.Schema", "XmlSchemaSimpleContentRestriction");
         }

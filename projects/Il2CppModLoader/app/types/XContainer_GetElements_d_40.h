@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XContainer_GetElements_d_40 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XContainer_GetElements_d_40__Class** type_info;
+        inline app::XContainer_GetElements_d_40__Class** type_info = (app::XContainer_GetElements_d_40__Class**)(modloader::win::memory::resolve_rva(0x0470F928));
         inline app::XContainer_GetElements_d_40__Class* get_class() {
             return il2cpp::get_nested_class<app::XContainer_GetElements_d_40__Class>(type_info, "System.Xml.Linq", "XContainer", "<GetElements>d__40");
         }

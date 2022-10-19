@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UnsafeNativeMethods_ManifestEtw_EVENT_FILTER_DESCRIPTORPtr {
         namespace {
-            app::UnsafeNativeMethods_ManifestEtw_EVENT_FILTER_DESCRIPTORPtr__Class* type_info_ref = nullptr;
+            inline app::UnsafeNativeMethods_ManifestEtw_EVENT_FILTER_DESCRIPTORPtr__Class* type_info_ref = nullptr;
         }
-        app::UnsafeNativeMethods_ManifestEtw_EVENT_FILTER_DESCRIPTORPtr__Class** type_info = &type_info_ref;
+        inline app::UnsafeNativeMethods_ManifestEtw_EVENT_FILTER_DESCRIPTORPtr__Class** type_info = &type_info_ref;
         inline app::UnsafeNativeMethods_ManifestEtw_EVENT_FILTER_DESCRIPTORPtr__Class* get_class() {
             return il2cpp::get_class<app::UnsafeNativeMethods_ManifestEtw_EVENT_FILTER_DESCRIPTORPtr__Class>(type_info, "Microsoft.Win32", "UnsafeNativeMethods+ManifestEtw+EVENT_FILTER_DESCRIPTOR*");
         }

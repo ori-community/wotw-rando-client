@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace X509CertificateCollection_X509CertificateEnumerator_1 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::X509CertificateCollection_X509CertificateEnumerator_1__Class** type_info;
+        inline app::X509CertificateCollection_X509CertificateEnumerator_1__Class** type_info = (app::X509CertificateCollection_X509CertificateEnumerator_1__Class**)(modloader::win::memory::resolve_rva(0x0472EE38));
         inline app::X509CertificateCollection_X509CertificateEnumerator_1__Class* get_class() {
             return il2cpp::get_nested_class<app::X509CertificateCollection_X509CertificateEnumerator_1__Class>(type_info, "System.Security.Cryptography.X509Certificates", "X509CertificateCollection", "X509CertificateEnumerator");
         }

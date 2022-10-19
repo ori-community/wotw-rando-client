@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FireStick {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FireStick__Class** type_info;
+        inline app::FireStick__Class** type_info = (app::FireStick__Class**)(modloader::win::memory::resolve_rva(0x0476AE50));
         inline app::FireStick__Class* get_class() {
             return il2cpp::get_class<app::FireStick__Class>(type_info, "", "FireStick");
         }

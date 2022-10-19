@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace fsIEnumerableConverter {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::fsIEnumerableConverter__Class** type_info;
+        inline app::fsIEnumerableConverter__Class** type_info = (app::fsIEnumerableConverter__Class**)(modloader::win::memory::resolve_rva(0x04755830));
         inline app::fsIEnumerableConverter__Class* get_class() {
             return il2cpp::get_class<app::fsIEnumerableConverter__Class>(type_info, "FullSerializer.Internal", "fsIEnumerableConverter");
         }

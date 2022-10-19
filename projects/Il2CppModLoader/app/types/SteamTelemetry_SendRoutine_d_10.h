@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SteamTelemetry_SendRoutine_d_10 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SteamTelemetry_SendRoutine_d_10__Class** type_info;
+        inline app::SteamTelemetry_SendRoutine_d_10__Class** type_info = (app::SteamTelemetry_SendRoutine_d_10__Class**)(modloader::win::memory::resolve_rva(0x04758C30));
         inline app::SteamTelemetry_SendRoutine_d_10__Class* get_class() {
             return il2cpp::get_nested_class<app::SteamTelemetry_SendRoutine_d_10__Class>(type_info, "", "SteamTelemetry", "<SendRoutine>d__10");
         }

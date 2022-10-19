@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BuiltinRuntimeReflectionSystem {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BuiltinRuntimeReflectionSystem__Class** type_info;
+        inline app::BuiltinRuntimeReflectionSystem__Class** type_info = (app::BuiltinRuntimeReflectionSystem__Class**)(modloader::win::memory::resolve_rva(0x0477E0D8));
         inline app::BuiltinRuntimeReflectionSystem__Class* get_class() {
             return il2cpp::get_class<app::BuiltinRuntimeReflectionSystem__Class>(type_info, "UnityEngine.Experimental.Rendering", "BuiltinRuntimeReflectionSystem");
         }

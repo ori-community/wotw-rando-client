@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SeinUI {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SeinUI__Class** type_info;
+        inline app::SeinUI__Class** type_info = (app::SeinUI__Class**)(modloader::win::memory::resolve_rva(0x04702748));
         inline app::SeinUI__Class* get_class() {
             return il2cpp::get_class<app::SeinUI__Class>(type_info, "", "SeinUI");
         }

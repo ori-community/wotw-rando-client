@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WebClient_c_DisplayClass231_0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WebClient_c_DisplayClass231_0__Class** type_info;
+        inline app::WebClient_c_DisplayClass231_0__Class** type_info = (app::WebClient_c_DisplayClass231_0__Class**)(modloader::win::memory::resolve_rva(0x047048B0));
         inline app::WebClient_c_DisplayClass231_0__Class* get_class() {
             return il2cpp::get_nested_class<app::WebClient_c_DisplayClass231_0__Class>(type_info, "System.Net", "WebClient", "<>c__DisplayClass231_0");
         }

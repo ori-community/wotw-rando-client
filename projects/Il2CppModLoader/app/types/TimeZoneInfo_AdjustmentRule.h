@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TimeZoneInfo_AdjustmentRule {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TimeZoneInfo_AdjustmentRule__Class** type_info;
+        inline app::TimeZoneInfo_AdjustmentRule__Class** type_info = (app::TimeZoneInfo_AdjustmentRule__Class**)(modloader::win::memory::resolve_rva(0x04783EE0));
         inline app::TimeZoneInfo_AdjustmentRule__Class* get_class() {
             return il2cpp::get_nested_class<app::TimeZoneInfo_AdjustmentRule__Class>(type_info, "System", "TimeZoneInfo", "AdjustmentRule");
         }

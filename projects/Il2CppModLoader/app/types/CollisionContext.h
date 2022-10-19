@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CollisionContext {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CollisionContext__Class** type_info;
+        inline app::CollisionContext__Class** type_info = (app::CollisionContext__Class**)(modloader::win::memory::resolve_rva(0x04719130));
         inline app::CollisionContext__Class* get_class() {
             return il2cpp::get_class<app::CollisionContext__Class>(type_info, "", "CollisionContext");
         }

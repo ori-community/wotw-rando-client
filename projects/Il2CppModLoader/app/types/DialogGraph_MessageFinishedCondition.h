@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DialogGraph_MessageFinishedCondition {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DialogGraph_MessageFinishedCondition__Class** type_info;
+        inline app::DialogGraph_MessageFinishedCondition__Class** type_info = (app::DialogGraph_MessageFinishedCondition__Class**)(modloader::win::memory::resolve_rva(0x0472AAB8));
         inline app::DialogGraph_MessageFinishedCondition__Class* get_class() {
             return il2cpp::get_nested_class<app::DialogGraph_MessageFinishedCondition__Class>(type_info, "", "DialogGraph", "MessageFinishedCondition");
         }

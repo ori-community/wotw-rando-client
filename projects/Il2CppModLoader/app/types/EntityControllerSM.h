@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace EntityControllerSM {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::EntityControllerSM__Class** type_info;
+        inline app::EntityControllerSM__Class** type_info = (app::EntityControllerSM__Class**)(modloader::win::memory::resolve_rva(0x0470ED20));
         inline app::EntityControllerSM__Class* get_class() {
             return il2cpp::get_class<app::EntityControllerSM__Class>(type_info, "", "EntityControllerSM");
         }

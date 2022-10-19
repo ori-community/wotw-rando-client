@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Root {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Root__Class** type_info;
+        inline app::Root__Class** type_info = (app::Root__Class**)(modloader::win::memory::resolve_rva(0x0471A940));
         inline app::Root__Class* get_class() {
             return il2cpp::get_class<app::Root__Class>(type_info, "MS.Internal.Xml.XPath", "Root");
         }

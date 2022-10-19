@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlReader_XmlReaderDebuggerDisplayProxy {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlReader_XmlReaderDebuggerDisplayProxy__Class** type_info;
+        inline app::XmlReader_XmlReaderDebuggerDisplayProxy__Class** type_info = (app::XmlReader_XmlReaderDebuggerDisplayProxy__Class**)(modloader::win::memory::resolve_rva(0x04767DD0));
         inline app::XmlReader_XmlReaderDebuggerDisplayProxy__Class* get_class() {
             return il2cpp::get_nested_class<app::XmlReader_XmlReaderDebuggerDisplayProxy__Class>(type_info, "System.Xml", "XmlReader", "XmlReaderDebuggerDisplayProxy");
         }

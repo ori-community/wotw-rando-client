@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AndInstruction_AndInt16 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AndInstruction_AndInt16__Class** type_info;
+        inline app::AndInstruction_AndInt16__Class** type_info = (app::AndInstruction_AndInt16__Class**)(modloader::win::memory::resolve_rva(0x0475D1A8));
         inline app::AndInstruction_AndInt16__Class* get_class() {
             return il2cpp::get_nested_class<app::AndInstruction_AndInt16__Class>(type_info, "System.Linq.Expressions.Interpreter", "AndInstruction", "AndInt16");
         }

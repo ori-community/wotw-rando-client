@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Encoding {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Encoding__Class** type_info;
+        inline app::Encoding__Class** type_info = (app::Encoding__Class**)(modloader::win::memory::resolve_rva(0x047831A8));
         inline app::Encoding__Class* get_class() {
             return il2cpp::get_class<app::Encoding__Class>(type_info, "System.Text", "Encoding");
         }

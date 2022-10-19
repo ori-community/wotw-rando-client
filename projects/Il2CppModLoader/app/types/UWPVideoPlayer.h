@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UWPVideoPlayer {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UWPVideoPlayer__Class** type_info;
+        inline app::UWPVideoPlayer__Class** type_info = (app::UWPVideoPlayer__Class**)(modloader::win::memory::resolve_rva(0x047067B8));
         inline app::UWPVideoPlayer__Class* get_class() {
             return il2cpp::get_class<app::UWPVideoPlayer__Class>(type_info, "", "UWPVideoPlayer");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CreateGroupRoleResponse {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CreateGroupRoleResponse__Class** type_info;
+        inline app::CreateGroupRoleResponse__Class** type_info = (app::CreateGroupRoleResponse__Class**)(modloader::win::memory::resolve_rva(0x0473A630));
         inline app::CreateGroupRoleResponse__Class* get_class() {
             return il2cpp::get_class<app::CreateGroupRoleResponse__Class>(type_info, "PlayFab.GroupsModels", "CreateGroupRoleResponse");
         }

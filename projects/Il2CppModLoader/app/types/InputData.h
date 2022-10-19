@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace InputData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::InputData__Class** type_info;
+        inline app::InputData__Class** type_info = (app::InputData__Class**)(modloader::win::memory::resolve_rva(0x0470BF30));
         inline app::InputData__Class* get_class() {
             return il2cpp::get_class<app::InputData__Class>(type_info, "", "InputData");
         }

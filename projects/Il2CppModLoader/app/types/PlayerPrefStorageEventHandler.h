@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayerPrefStorageEventHandler {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PlayerPrefStorageEventHandler__Class** type_info;
+        inline app::PlayerPrefStorageEventHandler__Class** type_info = (app::PlayerPrefStorageEventHandler__Class**)(modloader::win::memory::resolve_rva(0x0476F060));
         inline app::PlayerPrefStorageEventHandler__Class* get_class() {
             return il2cpp::get_class<app::PlayerPrefStorageEventHandler__Class>(type_info, "frameworks.xboxLive", "PlayerPrefStorageEventHandler");
         }

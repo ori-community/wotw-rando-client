@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IConstraint {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IConstraint__Class** type_info;
+        inline app::IConstraint__Class** type_info = (app::IConstraint__Class**)(modloader::win::memory::resolve_rva(0x04749108));
         inline app::IConstraint__Class* get_class() {
             return il2cpp::get_class<app::IConstraint__Class>(type_info, "Moon.Timeline.Constraints", "IConstraint");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace VertexHelper {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::VertexHelper__Class** type_info;
+        inline app::VertexHelper__Class** type_info = (app::VertexHelper__Class**)(modloader::win::memory::resolve_rva(0x04710068));
         inline app::VertexHelper__Class* get_class() {
             return il2cpp::get_class<app::VertexHelper__Class>(type_info, "UnityEngine.UI", "VertexHelper");
         }

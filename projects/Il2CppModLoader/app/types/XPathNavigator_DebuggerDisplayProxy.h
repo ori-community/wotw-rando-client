@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XPathNavigator_DebuggerDisplayProxy {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XPathNavigator_DebuggerDisplayProxy__Class** type_info;
+        inline app::XPathNavigator_DebuggerDisplayProxy__Class** type_info = (app::XPathNavigator_DebuggerDisplayProxy__Class**)(modloader::win::memory::resolve_rva(0x04744B08));
         inline app::XPathNavigator_DebuggerDisplayProxy__Class* get_class() {
             return il2cpp::get_nested_class<app::XPathNavigator_DebuggerDisplayProxy__Class>(type_info, "System.Xml.XPath", "XPathNavigator", "DebuggerDisplayProxy");
         }

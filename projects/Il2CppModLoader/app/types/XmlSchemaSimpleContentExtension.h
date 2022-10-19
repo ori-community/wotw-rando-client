@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlSchemaSimpleContentExtension {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlSchemaSimpleContentExtension__Class** type_info;
+        inline app::XmlSchemaSimpleContentExtension__Class** type_info = (app::XmlSchemaSimpleContentExtension__Class**)(modloader::win::memory::resolve_rva(0x0473A338));
         inline app::XmlSchemaSimpleContentExtension__Class* get_class() {
             return il2cpp::get_class<app::XmlSchemaSimpleContentExtension__Class>(type_info, "System.Xml.Schema", "XmlSchemaSimpleContentExtension");
         }

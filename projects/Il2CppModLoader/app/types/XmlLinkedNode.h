@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlLinkedNode {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlLinkedNode__Class** type_info;
+        inline app::XmlLinkedNode__Class** type_info = (app::XmlLinkedNode__Class**)(modloader::win::memory::resolve_rva(0x04702AD8));
         inline app::XmlLinkedNode__Class* get_class() {
             return il2cpp::get_class<app::XmlLinkedNode__Class>(type_info, "System.Xml", "XmlLinkedNode");
         }

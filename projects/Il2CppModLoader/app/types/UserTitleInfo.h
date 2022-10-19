@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UserTitleInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UserTitleInfo__Class** type_info;
+        inline app::UserTitleInfo__Class** type_info = (app::UserTitleInfo__Class**)(modloader::win::memory::resolve_rva(0x0470C630));
         inline app::UserTitleInfo__Class* get_class() {
             return il2cpp::get_class<app::UserTitleInfo__Class>(type_info, "PlayFab.ClientModels", "UserTitleInfo");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ThreadStateException {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ThreadStateException__Class** type_info;
+        inline app::ThreadStateException__Class** type_info = (app::ThreadStateException__Class**)(modloader::win::memory::resolve_rva(0x0475A5F8));
         inline app::ThreadStateException__Class* get_class() {
             return il2cpp::get_class<app::ThreadStateException__Class>(type_info, "System.Threading", "ThreadStateException");
         }

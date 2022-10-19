@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SpiritShardIconsCollection_Icons {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SpiritShardIconsCollection_Icons__Class** type_info;
+        inline app::SpiritShardIconsCollection_Icons__Class** type_info = (app::SpiritShardIconsCollection_Icons__Class**)(modloader::win::memory::resolve_rva(0x047638F0));
         inline app::SpiritShardIconsCollection_Icons__Class* get_class() {
             return il2cpp::get_nested_class<app::SpiritShardIconsCollection_Icons__Class>(type_info, "", "SpiritShardIconsCollection", "Icons");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MD2Managed {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MD2Managed__Class** type_info;
+        inline app::MD2Managed__Class** type_info = (app::MD2Managed__Class**)(modloader::win::memory::resolve_rva(0x0477CD50));
         inline app::MD2Managed__Class* get_class() {
             return il2cpp::get_class<app::MD2Managed__Class>(type_info, "Mono.Security.Cryptography", "MD2Managed");
         }

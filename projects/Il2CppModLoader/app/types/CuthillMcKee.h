@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CuthillMcKee {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CuthillMcKee__Class** type_info;
+        inline app::CuthillMcKee__Class** type_info = (app::CuthillMcKee__Class**)(modloader::win::memory::resolve_rva(0x0472BDA0));
         inline app::CuthillMcKee__Class* get_class() {
             return il2cpp::get_class<app::CuthillMcKee__Class>(type_info, "TriangleNet.Tools", "CuthillMcKee");
         }

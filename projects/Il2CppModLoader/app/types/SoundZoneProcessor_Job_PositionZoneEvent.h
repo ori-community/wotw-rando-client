@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SoundZoneProcessor_Job_PositionZoneEvent {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SoundZoneProcessor_Job_PositionZoneEvent__Class** type_info;
+        inline app::SoundZoneProcessor_Job_PositionZoneEvent__Class** type_info = (app::SoundZoneProcessor_Job_PositionZoneEvent__Class**)(modloader::win::memory::resolve_rva(0x0472D098));
         inline app::SoundZoneProcessor_Job_PositionZoneEvent__Class* get_class() {
             return il2cpp::get_nested_class<app::SoundZoneProcessor_Job_PositionZoneEvent__Class>(type_info, "", "SoundZoneProcessor+Job", "PositionZoneEvent");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ServerSetRigidBodyPropertiesAction_SetRigidBodyPropertiesActionData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ServerSetRigidBodyPropertiesAction_SetRigidBodyPropertiesActionData__Class** type_info;
+        inline app::ServerSetRigidBodyPropertiesAction_SetRigidBodyPropertiesActionData__Class** type_info = (app::ServerSetRigidBodyPropertiesAction_SetRigidBodyPropertiesActionData__Class**)(modloader::win::memory::resolve_rva(0x0474D7C8));
         inline app::ServerSetRigidBodyPropertiesAction_SetRigidBodyPropertiesActionData__Class* get_class() {
             return il2cpp::get_nested_class<app::ServerSetRigidBodyPropertiesAction_SetRigidBodyPropertiesActionData__Class>(type_info, "", "ServerSetRigidBodyPropertiesAction", "SetRigidBodyPropertiesActionData");
         }

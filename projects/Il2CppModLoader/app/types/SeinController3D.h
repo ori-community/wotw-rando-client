@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SeinController3D {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SeinController3D__Class** type_info;
+        inline app::SeinController3D__Class** type_info = (app::SeinController3D__Class**)(modloader::win::memory::resolve_rva(0x04756750));
         inline app::SeinController3D__Class* get_class() {
             return il2cpp::get_class<app::SeinController3D__Class>(type_info, "", "SeinController3D");
         }

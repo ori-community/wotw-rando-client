@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IVirtualTimelineGameObject {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IVirtualTimelineGameObject__Class** type_info;
+        inline app::IVirtualTimelineGameObject__Class** type_info = (app::IVirtualTimelineGameObject__Class**)(modloader::win::memory::resolve_rva(0x04791F08));
         inline app::IVirtualTimelineGameObject__Class* get_class() {
             return il2cpp::get_class<app::IVirtualTimelineGameObject__Class>(type_info, "", "IVirtualTimelineGameObject");
         }

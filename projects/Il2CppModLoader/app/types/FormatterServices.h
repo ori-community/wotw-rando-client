@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FormatterServices {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FormatterServices__Class** type_info;
+        inline app::FormatterServices__Class** type_info = (app::FormatterServices__Class**)(modloader::win::memory::resolve_rva(0x04738670));
         inline app::FormatterServices__Class* get_class() {
             return il2cpp::get_class<app::FormatterServices__Class>(type_info, "System.Runtime.Serialization", "FormatterServices");
         }

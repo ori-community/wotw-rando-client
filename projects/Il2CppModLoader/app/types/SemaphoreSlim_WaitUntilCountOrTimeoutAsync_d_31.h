@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SemaphoreSlim_WaitUntilCountOrTimeoutAsync_d_31 {
         namespace {
-            app::SemaphoreSlim_WaitUntilCountOrTimeoutAsync_d_31__Class* type_info_ref = nullptr;
+            inline app::SemaphoreSlim_WaitUntilCountOrTimeoutAsync_d_31__Class* type_info_ref = nullptr;
         }
-        app::SemaphoreSlim_WaitUntilCountOrTimeoutAsync_d_31__Class** type_info = &type_info_ref;
+        inline app::SemaphoreSlim_WaitUntilCountOrTimeoutAsync_d_31__Class** type_info = &type_info_ref;
         inline app::SemaphoreSlim_WaitUntilCountOrTimeoutAsync_d_31__Class* get_class() {
             return il2cpp::get_nested_class<app::SemaphoreSlim_WaitUntilCountOrTimeoutAsync_d_31__Class>(type_info, "System.Threading", "SemaphoreSlim", "<WaitUntilCountOrTimeoutAsync>d__31");
         }

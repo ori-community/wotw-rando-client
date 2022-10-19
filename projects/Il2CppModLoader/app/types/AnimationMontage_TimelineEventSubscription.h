@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AnimationMontage_TimelineEventSubscription {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AnimationMontage_TimelineEventSubscription__Class** type_info;
+        inline app::AnimationMontage_TimelineEventSubscription__Class** type_info = (app::AnimationMontage_TimelineEventSubscription__Class**)(modloader::win::memory::resolve_rva(0x0477CD18));
         inline app::AnimationMontage_TimelineEventSubscription__Class* get_class() {
             return il2cpp::get_nested_class<app::AnimationMontage_TimelineEventSubscription__Class>(type_info, "Moon", "AnimationMontage", "TimelineEventSubscription");
         }

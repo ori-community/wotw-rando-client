@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Dns {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Dns__Class** type_info;
+        inline app::Dns__Class** type_info = (app::Dns__Class**)(modloader::win::memory::resolve_rva(0x047743C0));
         inline app::Dns__Class* get_class() {
             return il2cpp::get_class<app::Dns__Class>(type_info, "System.Net", "Dns");
         }

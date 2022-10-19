@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TelemetryComunicator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TelemetryComunicator__Class** type_info;
+        inline app::TelemetryComunicator__Class** type_info = (app::TelemetryComunicator__Class**)(modloader::win::memory::resolve_rva(0x04732858));
         inline app::TelemetryComunicator__Class* get_class() {
             return il2cpp::get_class<app::TelemetryComunicator__Class>(type_info, "Moon.Telemetry", "TelemetryComunicator");
         }

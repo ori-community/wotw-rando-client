@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace KuLogicCycle_IsAllowedDelegate {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::KuLogicCycle_IsAllowedDelegate__Class** type_info;
+        inline app::KuLogicCycle_IsAllowedDelegate__Class** type_info = (app::KuLogicCycle_IsAllowedDelegate__Class**)(modloader::win::memory::resolve_rva(0x04740DD0));
         inline app::KuLogicCycle_IsAllowedDelegate__Class* get_class() {
             return il2cpp::get_nested_class<app::KuLogicCycle_IsAllowedDelegate__Class>(type_info, "", "KuLogicCycle", "IsAllowedDelegate");
         }

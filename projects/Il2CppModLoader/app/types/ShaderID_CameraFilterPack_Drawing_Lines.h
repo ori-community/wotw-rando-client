@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ShaderID_CameraFilterPack_Drawing_Lines {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ShaderID_CameraFilterPack_Drawing_Lines__Class** type_info;
+        inline app::ShaderID_CameraFilterPack_Drawing_Lines__Class** type_info = (app::ShaderID_CameraFilterPack_Drawing_Lines__Class**)(modloader::win::memory::resolve_rva(0x0472A088));
         inline app::ShaderID_CameraFilterPack_Drawing_Lines__Class* get_class() {
             return il2cpp::get_class<app::ShaderID_CameraFilterPack_Drawing_Lines__Class>(type_info, "", "ShaderID_CameraFilterPack_Drawing_Lines");
         }

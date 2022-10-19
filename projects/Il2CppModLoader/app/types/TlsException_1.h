@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TlsException_1 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TlsException_1__Class** type_info;
+        inline app::TlsException_1__Class** type_info = (app::TlsException_1__Class**)(modloader::win::memory::resolve_rva(0x04747B60));
         inline app::TlsException_1__Class* get_class() {
             return il2cpp::get_class<app::TlsException_1__Class>(type_info, "Mono.Security.Interface", "TlsException");
         }

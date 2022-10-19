@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LerpVector3Tweenable {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LerpVector3Tweenable__Class** type_info;
+        inline app::LerpVector3Tweenable__Class** type_info = (app::LerpVector3Tweenable__Class**)(modloader::win::memory::resolve_rva(0x0473C8F0));
         inline app::LerpVector3Tweenable__Class* get_class() {
             return il2cpp::get_class<app::LerpVector3Tweenable__Class>(type_info, "Moon", "LerpVector3Tweenable");
         }

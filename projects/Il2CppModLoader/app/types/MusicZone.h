@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MusicZone {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MusicZone__Class** type_info;
+        inline app::MusicZone__Class** type_info = (app::MusicZone__Class**)(modloader::win::memory::resolve_rva(0x0470AEA0));
         inline app::MusicZone__Class* get_class() {
             return il2cpp::get_class<app::MusicZone__Class>(type_info, "", "MusicZone");
         }

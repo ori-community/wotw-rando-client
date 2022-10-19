@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ISteamMatchmakingRulesResponse_VTable {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ISteamMatchmakingRulesResponse_VTable__Class** type_info;
+        inline app::ISteamMatchmakingRulesResponse_VTable__Class** type_info = (app::ISteamMatchmakingRulesResponse_VTable__Class**)(modloader::win::memory::resolve_rva(0x047756B8));
         inline app::ISteamMatchmakingRulesResponse_VTable__Class* get_class() {
             return il2cpp::get_nested_class<app::ISteamMatchmakingRulesResponse_VTable__Class>(type_info, "Steamworks", "ISteamMatchmakingRulesResponse", "VTable");
         }

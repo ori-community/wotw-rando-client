@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AnimationMetaDataCurveProcessor_c {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AnimationMetaDataCurveProcessor_c__Class** type_info;
+        inline app::AnimationMetaDataCurveProcessor_c__Class** type_info = (app::AnimationMetaDataCurveProcessor_c__Class**)(modloader::win::memory::resolve_rva(0x04761888));
         inline app::AnimationMetaDataCurveProcessor_c__Class* get_class() {
             return il2cpp::get_nested_class<app::AnimationMetaDataCurveProcessor_c__Class>(type_info, "", "AnimationMetaDataCurveProcessor", "<>c");
         }

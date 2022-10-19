@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SeinGlowSpell_QuickGlowSetupInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SeinGlowSpell_QuickGlowSetupInfo__Class** type_info;
+        inline app::SeinGlowSpell_QuickGlowSetupInfo__Class** type_info = (app::SeinGlowSpell_QuickGlowSetupInfo__Class**)(modloader::win::memory::resolve_rva(0x04720760));
         inline app::SeinGlowSpell_QuickGlowSetupInfo__Class* get_class() {
             return il2cpp::get_nested_class<app::SeinGlowSpell_QuickGlowSetupInfo__Class>(type_info, "", "SeinGlowSpell", "QuickGlowSetupInfo");
         }

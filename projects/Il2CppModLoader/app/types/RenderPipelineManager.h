@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RenderPipelineManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RenderPipelineManager__Class** type_info;
+        inline app::RenderPipelineManager__Class** type_info = (app::RenderPipelineManager__Class**)(modloader::win::memory::resolve_rva(0x047063F8));
         inline app::RenderPipelineManager__Class* get_class() {
             return il2cpp::get_class<app::RenderPipelineManager__Class>(type_info, "UnityEngine.Experimental.Rendering", "RenderPipelineManager");
         }

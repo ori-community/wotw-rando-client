@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NotInstruction {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NotInstruction__Class** type_info;
+        inline app::NotInstruction__Class** type_info = (app::NotInstruction__Class**)(modloader::win::memory::resolve_rva(0x047652C8));
         inline app::NotInstruction__Class* get_class() {
             return il2cpp::get_class<app::NotInstruction__Class>(type_info, "System.Linq.Expressions.Interpreter", "NotInstruction");
         }

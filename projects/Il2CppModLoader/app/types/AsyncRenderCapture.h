@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AsyncRenderCapture {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AsyncRenderCapture__Class** type_info;
+        inline app::AsyncRenderCapture__Class** type_info = (app::AsyncRenderCapture__Class**)(modloader::win::memory::resolve_rva(0x0472DAA0));
         inline app::AsyncRenderCapture__Class* get_class() {
             return il2cpp::get_class<app::AsyncRenderCapture__Class>(type_info, "", "AsyncRenderCapture");
         }

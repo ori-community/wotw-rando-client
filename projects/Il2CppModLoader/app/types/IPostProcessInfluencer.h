@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IPostProcessInfluencer {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IPostProcessInfluencer__Class** type_info;
+        inline app::IPostProcessInfluencer__Class** type_info = (app::IPostProcessInfluencer__Class**)(modloader::win::memory::resolve_rva(0x0476F710));
         inline app::IPostProcessInfluencer__Class* get_class() {
             return il2cpp::get_class<app::IPostProcessInfluencer__Class>(type_info, "", "IPostProcessInfluencer");
         }

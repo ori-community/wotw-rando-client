@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace VectorAnimationParameter_Instance {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::VectorAnimationParameter_Instance__Class** type_info;
+        inline app::VectorAnimationParameter_Instance__Class** type_info = (app::VectorAnimationParameter_Instance__Class**)(modloader::win::memory::resolve_rva(0x04776870));
         inline app::VectorAnimationParameter_Instance__Class* get_class() {
             return il2cpp::get_nested_class<app::VectorAnimationParameter_Instance__Class>(type_info, "Moon", "VectorAnimationParameter", "Instance");
         }

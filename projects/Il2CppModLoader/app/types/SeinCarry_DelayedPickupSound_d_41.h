@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SeinCarry_DelayedPickupSound_d_41 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SeinCarry_DelayedPickupSound_d_41__Class** type_info;
+        inline app::SeinCarry_DelayedPickupSound_d_41__Class** type_info = (app::SeinCarry_DelayedPickupSound_d_41__Class**)(modloader::win::memory::resolve_rva(0x0476AC80));
         inline app::SeinCarry_DelayedPickupSound_d_41__Class* get_class() {
             return il2cpp::get_nested_class<app::SeinCarry_DelayedPickupSound_d_41__Class>(type_info, "", "SeinCarry", "<DelayedPickupSound>d__41");
         }

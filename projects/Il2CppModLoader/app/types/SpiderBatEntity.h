@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SpiderBatEntity {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SpiderBatEntity__Class** type_info;
+        inline app::SpiderBatEntity__Class** type_info = (app::SpiderBatEntity__Class**)(modloader::win::memory::resolve_rva(0x04765BA0));
         inline app::SpiderBatEntity__Class* get_class() {
             return il2cpp::get_class<app::SpiderBatEntity__Class>(type_info, "", "SpiderBatEntity");
         }

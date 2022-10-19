@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SingleArrayTypeInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SingleArrayTypeInfo__Class** type_info;
+        inline app::SingleArrayTypeInfo__Class** type_info = (app::SingleArrayTypeInfo__Class**)(modloader::win::memory::resolve_rva(0x04736E00));
         inline app::SingleArrayTypeInfo__Class* get_class() {
             return il2cpp::get_class<app::SingleArrayTypeInfo__Class>(type_info, "System.Diagnostics.Tracing", "SingleArrayTypeInfo");
         }

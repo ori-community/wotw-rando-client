@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Enumerable_RangeIterator_d_115 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Enumerable_RangeIterator_d_115__Class** type_info;
+        inline app::Enumerable_RangeIterator_d_115__Class** type_info = (app::Enumerable_RangeIterator_d_115__Class**)(modloader::win::memory::resolve_rva(0x0475BE40));
         inline app::Enumerable_RangeIterator_d_115__Class* get_class() {
             return il2cpp::get_nested_class<app::Enumerable_RangeIterator_d_115__Class>(type_info, "System.Linq", "Enumerable", "<RangeIterator>d__115");
         }

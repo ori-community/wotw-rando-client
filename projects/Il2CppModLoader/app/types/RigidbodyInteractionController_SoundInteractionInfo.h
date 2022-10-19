@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RigidbodyInteractionController_SoundInteractionInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RigidbodyInteractionController_SoundInteractionInfo__Class** type_info;
+        inline app::RigidbodyInteractionController_SoundInteractionInfo__Class** type_info = (app::RigidbodyInteractionController_SoundInteractionInfo__Class**)(modloader::win::memory::resolve_rva(0x04793C68));
         inline app::RigidbodyInteractionController_SoundInteractionInfo__Class* get_class() {
             return il2cpp::get_nested_class<app::RigidbodyInteractionController_SoundInteractionInfo__Class>(type_info, "", "RigidbodyInteractionController", "SoundInteractionInfo");
         }

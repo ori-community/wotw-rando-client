@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XsdDateTime {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XsdDateTime__Class** type_info;
+        inline app::XsdDateTime__Class** type_info = (app::XsdDateTime__Class**)(modloader::win::memory::resolve_rva(0x04746FD8));
         inline app::XsdDateTime__Class* get_class() {
             return il2cpp::get_class<app::XsdDateTime__Class>(type_info, "System.Xml.Schema", "XsdDateTime");
         }

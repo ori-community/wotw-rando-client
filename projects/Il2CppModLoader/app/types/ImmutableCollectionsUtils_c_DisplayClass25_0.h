@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ImmutableCollectionsUtils_c_DisplayClass25_0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ImmutableCollectionsUtils_c_DisplayClass25_0__Class** type_info;
+        inline app::ImmutableCollectionsUtils_c_DisplayClass25_0__Class** type_info = (app::ImmutableCollectionsUtils_c_DisplayClass25_0__Class**)(modloader::win::memory::resolve_rva(0x0477C618));
         inline app::ImmutableCollectionsUtils_c_DisplayClass25_0__Class* get_class() {
             return il2cpp::get_nested_class<app::ImmutableCollectionsUtils_c_DisplayClass25_0__Class>(type_info, "Newtonsoft.Json.Utilities", "ImmutableCollectionsUtils", "<>c__DisplayClass25_0");
         }

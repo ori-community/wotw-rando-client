@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SplineEventHandler {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SplineEventHandler__Class** type_info;
+        inline app::SplineEventHandler__Class** type_info = (app::SplineEventHandler__Class**)(modloader::win::memory::resolve_rva(0x0471D868));
         inline app::SplineEventHandler__Class* get_class() {
             return il2cpp::get_class<app::SplineEventHandler__Class>(type_info, "", "SplineEventHandler");
         }

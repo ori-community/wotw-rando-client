@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CharTypeInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CharTypeInfo__Class** type_info;
+        inline app::CharTypeInfo__Class** type_info = (app::CharTypeInfo__Class**)(modloader::win::memory::resolve_rva(0x04780E38));
         inline app::CharTypeInfo__Class* get_class() {
             return il2cpp::get_class<app::CharTypeInfo__Class>(type_info, "System.Diagnostics.Tracing", "CharTypeInfo");
         }

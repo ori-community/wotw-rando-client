@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Entity_EntityState__Enum {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Entity_EntityState__Enum__Class** type_info;
+        inline app::Entity_EntityState__Enum__Class** type_info = (app::Entity_EntityState__Enum__Class**)(modloader::win::memory::resolve_rva(0x04721B10));
         inline app::Entity_EntityState__Enum__Class* get_class() {
             return il2cpp::get_nested_class<app::Entity_EntityState__Enum__Class>(type_info, "Moon", "Entity", "EntityState");
         }

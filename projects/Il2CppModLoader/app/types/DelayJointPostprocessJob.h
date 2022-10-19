@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DelayJointPostprocessJob {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DelayJointPostprocessJob__Class** type_info;
+        inline app::DelayJointPostprocessJob__Class** type_info = (app::DelayJointPostprocessJob__Class**)(modloader::win::memory::resolve_rva(0x0471EB28));
         inline app::DelayJointPostprocessJob__Class* get_class() {
             return il2cpp::get_class<app::DelayJointPostprocessJob__Class>(type_info, "Moon.Animation", "DelayJointPostprocessJob");
         }

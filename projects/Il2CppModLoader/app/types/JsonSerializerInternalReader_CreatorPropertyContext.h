@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace JsonSerializerInternalReader_CreatorPropertyContext {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::JsonSerializerInternalReader_CreatorPropertyContext__Class** type_info;
+        inline app::JsonSerializerInternalReader_CreatorPropertyContext__Class** type_info = (app::JsonSerializerInternalReader_CreatorPropertyContext__Class**)(modloader::win::memory::resolve_rva(0x0478F478));
         inline app::JsonSerializerInternalReader_CreatorPropertyContext__Class* get_class() {
             return il2cpp::get_nested_class<app::JsonSerializerInternalReader_CreatorPropertyContext__Class>(type_info, "Newtonsoft.Json.Serialization", "JsonSerializerInternalReader", "CreatorPropertyContext");
         }

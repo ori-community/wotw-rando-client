@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DamageDealer_TweakDamageDelegate {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DamageDealer_TweakDamageDelegate__Class** type_info;
+        inline app::DamageDealer_TweakDamageDelegate__Class** type_info = (app::DamageDealer_TweakDamageDelegate__Class**)(modloader::win::memory::resolve_rva(0x0476AD70));
         inline app::DamageDealer_TweakDamageDelegate__Class* get_class() {
             return il2cpp::get_nested_class<app::DamageDealer_TweakDamageDelegate__Class>(type_info, "", "DamageDealer", "TweakDamageDelegate");
         }

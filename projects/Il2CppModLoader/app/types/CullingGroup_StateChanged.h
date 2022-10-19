@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CullingGroup_StateChanged {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CullingGroup_StateChanged__Class** type_info;
+        inline app::CullingGroup_StateChanged__Class** type_info = (app::CullingGroup_StateChanged__Class**)(modloader::win::memory::resolve_rva(0x0476EF38));
         inline app::CullingGroup_StateChanged__Class* get_class() {
             return il2cpp::get_nested_class<app::CullingGroup_StateChanged__Class>(type_info, "UnityEngine", "CullingGroup", "StateChanged");
         }

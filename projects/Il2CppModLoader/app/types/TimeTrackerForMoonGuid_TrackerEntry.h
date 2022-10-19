@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TimeTrackerForMoonGuid_TrackerEntry {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TimeTrackerForMoonGuid_TrackerEntry__Class** type_info;
+        inline app::TimeTrackerForMoonGuid_TrackerEntry__Class** type_info = (app::TimeTrackerForMoonGuid_TrackerEntry__Class**)(modloader::win::memory::resolve_rva(0x0476B2E8));
         inline app::TimeTrackerForMoonGuid_TrackerEntry__Class* get_class() {
             return il2cpp::get_nested_class<app::TimeTrackerForMoonGuid_TrackerEntry__Class>(type_info, "", "TimeTrackerForMoonGuid", "TrackerEntry");
         }

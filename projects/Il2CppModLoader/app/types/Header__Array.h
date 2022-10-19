@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Header__Array {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Header__Array__Class** type_info;
+        inline app::Header__Array__Class** type_info = (app::Header__Array__Class**)(modloader::win::memory::resolve_rva(0x04714518));
         inline app::Header__Array__Class* get_class() {
             return il2cpp::get_class<app::Header__Array__Class>(type_info, "System.Runtime.Remoting.Messaging", "Header[]");
         }

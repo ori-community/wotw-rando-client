@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberStateController_ApplierContext {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberStateController_ApplierContext__Class** type_info;
+        inline app::UberStateController_ApplierContext__Class** type_info = (app::UberStateController_ApplierContext__Class**)(modloader::win::memory::resolve_rva(0x0477C628));
         inline app::UberStateController_ApplierContext__Class* get_class() {
             return il2cpp::get_nested_class<app::UberStateController_ApplierContext__Class>(type_info, "Moon", "UberStateController", "ApplierContext");
         }

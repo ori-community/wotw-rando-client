@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AVProWindowsMediaMovieClip {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AVProWindowsMediaMovieClip__Class** type_info;
+        inline app::AVProWindowsMediaMovieClip__Class** type_info = (app::AVProWindowsMediaMovieClip__Class**)(modloader::win::memory::resolve_rva(0x0472CA28));
         inline app::AVProWindowsMediaMovieClip__Class* get_class() {
             return il2cpp::get_class<app::AVProWindowsMediaMovieClip__Class>(type_info, "", "AVProWindowsMediaMovieClip");
         }

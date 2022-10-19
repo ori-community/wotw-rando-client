@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RuntimeOps_MergedRuntimeVariables {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RuntimeOps_MergedRuntimeVariables__Class** type_info;
+        inline app::RuntimeOps_MergedRuntimeVariables__Class** type_info = (app::RuntimeOps_MergedRuntimeVariables__Class**)(modloader::win::memory::resolve_rva(0x04715990));
         inline app::RuntimeOps_MergedRuntimeVariables__Class* get_class() {
             return il2cpp::get_nested_class<app::RuntimeOps_MergedRuntimeVariables__Class>(type_info, "System.Runtime.CompilerServices", "RuntimeOps", "MergedRuntimeVariables");
         }

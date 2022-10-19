@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LeftShiftInstruction_LeftShiftSByte {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LeftShiftInstruction_LeftShiftSByte__Class** type_info;
+        inline app::LeftShiftInstruction_LeftShiftSByte__Class** type_info = (app::LeftShiftInstruction_LeftShiftSByte__Class**)(modloader::win::memory::resolve_rva(0x04712290));
         inline app::LeftShiftInstruction_LeftShiftSByte__Class* get_class() {
             return il2cpp::get_nested_class<app::LeftShiftInstruction_LeftShiftSByte__Class>(type_info, "System.Linq.Expressions.Interpreter", "LeftShiftInstruction", "LeftShiftSByte");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FishingMiniGameController_IdleState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FishingMiniGameController_IdleState__Class** type_info;
+        inline app::FishingMiniGameController_IdleState__Class** type_info = (app::FishingMiniGameController_IdleState__Class**)(modloader::win::memory::resolve_rva(0x0474C980));
         inline app::FishingMiniGameController_IdleState__Class* get_class() {
             return il2cpp::get_nested_class<app::FishingMiniGameController_IdleState__Class>(type_info, "", "FishingMiniGameController", "IdleState");
         }

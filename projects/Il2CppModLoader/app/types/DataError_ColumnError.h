@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DataError_ColumnError {
         namespace {
-            app::DataError_ColumnError__Class* type_info_ref = nullptr;
+            inline app::DataError_ColumnError__Class* type_info_ref = nullptr;
         }
-        app::DataError_ColumnError__Class** type_info = &type_info_ref;
+        inline app::DataError_ColumnError__Class** type_info = &type_info_ref;
         inline app::DataError_ColumnError__Class* get_class() {
             return il2cpp::get_nested_class<app::DataError_ColumnError__Class>(type_info, "System.Data", "DataError", "ColumnError");
         }

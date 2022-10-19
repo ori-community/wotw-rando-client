@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Hashtable_ValueCollection {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Hashtable_ValueCollection__Class** type_info;
+        inline app::Hashtable_ValueCollection__Class** type_info = (app::Hashtable_ValueCollection__Class**)(modloader::win::memory::resolve_rva(0x04714D20));
         inline app::Hashtable_ValueCollection__Class* get_class() {
             return il2cpp::get_nested_class<app::Hashtable_ValueCollection__Class>(type_info, "System.Collections", "Hashtable", "ValueCollection");
         }

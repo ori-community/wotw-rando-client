@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace EntryPointNotFoundException {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::EntryPointNotFoundException__Class** type_info;
+        inline app::EntryPointNotFoundException__Class** type_info = (app::EntryPointNotFoundException__Class**)(modloader::win::memory::resolve_rva(0x04714FD0));
         inline app::EntryPointNotFoundException__Class* get_class() {
             return il2cpp::get_class<app::EntryPointNotFoundException__Class>(type_info, "System", "EntryPointNotFoundException");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace VirtualTimelineEntityPool {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::VirtualTimelineEntityPool__Class** type_info;
+        inline app::VirtualTimelineEntityPool__Class** type_info = (app::VirtualTimelineEntityPool__Class**)(modloader::win::memory::resolve_rva(0x0470CD68));
         inline app::VirtualTimelineEntityPool__Class* get_class() {
             return il2cpp::get_class<app::VirtualTimelineEntityPool__Class>(type_info, "Moon.Timeline", "VirtualTimelineEntityPool");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AsyncProtocolResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AsyncProtocolResult__Class** type_info;
+        inline app::AsyncProtocolResult__Class** type_info = (app::AsyncProtocolResult__Class**)(modloader::win::memory::resolve_rva(0x04748AA8));
         inline app::AsyncProtocolResult__Class* get_class() {
             return il2cpp::get_class<app::AsyncProtocolResult__Class>(type_info, "Mono.Net.Security", "AsyncProtocolResult");
         }

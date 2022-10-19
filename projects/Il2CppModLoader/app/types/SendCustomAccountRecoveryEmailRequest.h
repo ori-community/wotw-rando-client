@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SendCustomAccountRecoveryEmailRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SendCustomAccountRecoveryEmailRequest__Class** type_info;
+        inline app::SendCustomAccountRecoveryEmailRequest__Class** type_info = (app::SendCustomAccountRecoveryEmailRequest__Class**)(modloader::win::memory::resolve_rva(0x04733898));
         inline app::SendCustomAccountRecoveryEmailRequest__Class* get_class() {
             return il2cpp::get_class<app::SendCustomAccountRecoveryEmailRequest__Class>(type_info, "PlayFab.ServerModels", "SendCustomAccountRecoveryEmailRequest");
         }

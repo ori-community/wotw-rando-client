@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Group {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Group__Class** type_info;
+        inline app::Group__Class** type_info = (app::Group__Class**)(modloader::win::memory::resolve_rva(0x0477AAC0));
         inline app::Group__Class* get_class() {
             return il2cpp::get_class<app::Group__Class>(type_info, "System.Text.RegularExpressions", "Group");
         }

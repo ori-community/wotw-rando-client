@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AnimationMetaData_AnimationData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AnimationMetaData_AnimationData__Class** type_info;
+        inline app::AnimationMetaData_AnimationData__Class** type_info = (app::AnimationMetaData_AnimationData__Class**)(modloader::win::memory::resolve_rva(0x0476BE38));
         inline app::AnimationMetaData_AnimationData__Class* get_class() {
             return il2cpp::get_nested_class<app::AnimationMetaData_AnimationData__Class>(type_info, "", "AnimationMetaData", "AnimationData");
         }

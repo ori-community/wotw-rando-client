@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MoonTelemetryDeathEvent {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MoonTelemetryDeathEvent__Class** type_info;
+        inline app::MoonTelemetryDeathEvent__Class** type_info = (app::MoonTelemetryDeathEvent__Class**)(modloader::win::memory::resolve_rva(0x04704370));
         inline app::MoonTelemetryDeathEvent__Class* get_class() {
             return il2cpp::get_class<app::MoonTelemetryDeathEvent__Class>(type_info, "", "MoonTelemetryDeathEvent");
         }

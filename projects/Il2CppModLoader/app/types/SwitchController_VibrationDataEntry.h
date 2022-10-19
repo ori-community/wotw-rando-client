@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SwitchController_VibrationDataEntry {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SwitchController_VibrationDataEntry__Class** type_info;
+        inline app::SwitchController_VibrationDataEntry__Class** type_info = (app::SwitchController_VibrationDataEntry__Class**)(modloader::win::memory::resolve_rva(0x0474AA50));
         inline app::SwitchController_VibrationDataEntry__Class* get_class() {
             return il2cpp::get_nested_class<app::SwitchController_VibrationDataEntry__Class>(type_info, "frameworks.Switch", "SwitchController", "VibrationDataEntry");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MicroProfilerGraph_MarkerCache {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MicroProfilerGraph_MarkerCache__Class** type_info;
+        inline app::MicroProfilerGraph_MarkerCache__Class** type_info = (app::MicroProfilerGraph_MarkerCache__Class**)(modloader::win::memory::resolve_rva(0x047526E8));
         inline app::MicroProfilerGraph_MarkerCache__Class* get_class() {
             return il2cpp::get_nested_class<app::MicroProfilerGraph_MarkerCache__Class>(type_info, "", "MicroProfilerGraph", "MarkerCache");
         }

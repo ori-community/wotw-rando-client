@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GPUAutoProfiler_Sample_SamplingState__Enum {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GPUAutoProfiler_Sample_SamplingState__Enum__Class** type_info;
+        inline app::GPUAutoProfiler_Sample_SamplingState__Enum__Class** type_info = (app::GPUAutoProfiler_Sample_SamplingState__Enum__Class**)(modloader::win::memory::resolve_rva(0x047199B0));
         inline app::GPUAutoProfiler_Sample_SamplingState__Enum__Class* get_class() {
             return il2cpp::get_nested_class<app::GPUAutoProfiler_Sample_SamplingState__Enum__Class>(type_info, "Moon.Telemetry.Performance.profilers", "GPUAutoProfiler+Sample", "SamplingState");
         }

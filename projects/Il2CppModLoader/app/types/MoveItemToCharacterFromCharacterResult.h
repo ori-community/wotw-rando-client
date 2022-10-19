@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MoveItemToCharacterFromCharacterResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MoveItemToCharacterFromCharacterResult__Class** type_info;
+        inline app::MoveItemToCharacterFromCharacterResult__Class** type_info = (app::MoveItemToCharacterFromCharacterResult__Class**)(modloader::win::memory::resolve_rva(0x0470E650));
         inline app::MoveItemToCharacterFromCharacterResult__Class* get_class() {
             return il2cpp::get_class<app::MoveItemToCharacterFromCharacterResult__Class>(type_info, "PlayFab.ServerModels", "MoveItemToCharacterFromCharacterResult");
         }

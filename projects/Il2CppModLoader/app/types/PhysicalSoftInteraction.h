@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PhysicalSoftInteraction {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PhysicalSoftInteraction__Class** type_info;
+        inline app::PhysicalSoftInteraction__Class** type_info = (app::PhysicalSoftInteraction__Class**)(modloader::win::memory::resolve_rva(0x047736E0));
         inline app::PhysicalSoftInteraction__Class* get_class() {
             return il2cpp::get_class<app::PhysicalSoftInteraction__Class>(type_info, "", "PhysicalSoftInteraction");
         }

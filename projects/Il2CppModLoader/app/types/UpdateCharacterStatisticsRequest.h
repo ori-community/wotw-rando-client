@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UpdateCharacterStatisticsRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UpdateCharacterStatisticsRequest__Class** type_info;
+        inline app::UpdateCharacterStatisticsRequest__Class** type_info = (app::UpdateCharacterStatisticsRequest__Class**)(modloader::win::memory::resolve_rva(0x047607A8));
         inline app::UpdateCharacterStatisticsRequest__Class* get_class() {
             return il2cpp::get_class<app::UpdateCharacterStatisticsRequest__Class>(type_info, "PlayFab.ClientModels", "UpdateCharacterStatisticsRequest");
         }

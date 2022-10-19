@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MeleeAttackTimelineBehaviourNew_Attack {
         namespace {
-            app::MeleeAttackTimelineBehaviourNew_Attack__Class* type_info_ref = nullptr;
+            inline app::MeleeAttackTimelineBehaviourNew_Attack__Class* type_info_ref = nullptr;
         }
-        app::MeleeAttackTimelineBehaviourNew_Attack__Class** type_info = &type_info_ref;
+        inline app::MeleeAttackTimelineBehaviourNew_Attack__Class** type_info = &type_info_ref;
         inline app::MeleeAttackTimelineBehaviourNew_Attack__Class* get_class() {
             return il2cpp::get_nested_class<app::MeleeAttackTimelineBehaviourNew_Attack__Class>(type_info, "Moon", "MeleeAttackTimelineBehaviourNew", "Attack");
         }

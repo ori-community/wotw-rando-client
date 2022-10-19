@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace StoreLocalInstruction {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::StoreLocalInstruction__Class** type_info;
+        inline app::StoreLocalInstruction__Class** type_info = (app::StoreLocalInstruction__Class**)(modloader::win::memory::resolve_rva(0x0471A8D8));
         inline app::StoreLocalInstruction__Class* get_class() {
             return il2cpp::get_class<app::StoreLocalInstruction__Class>(type_info, "System.Linq.Expressions.Interpreter", "StoreLocalInstruction");
         }

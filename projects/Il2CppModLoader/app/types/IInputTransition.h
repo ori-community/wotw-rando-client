@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IInputTransition {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IInputTransition__Class** type_info;
+        inline app::IInputTransition__Class** type_info = (app::IInputTransition__Class**)(modloader::win::memory::resolve_rva(0x04791A98));
         inline app::IInputTransition__Class* get_class() {
             return il2cpp::get_class<app::IInputTransition__Class>(type_info, "Moon.InteractionGraph", "IInputTransition");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ServerMeshCollider_MeshColliderData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ServerMeshCollider_MeshColliderData__Class** type_info;
+        inline app::ServerMeshCollider_MeshColliderData__Class** type_info = (app::ServerMeshCollider_MeshColliderData__Class**)(modloader::win::memory::resolve_rva(0x04774630));
         inline app::ServerMeshCollider_MeshColliderData__Class* get_class() {
             return il2cpp::get_nested_class<app::ServerMeshCollider_MeshColliderData__Class>(type_info, "", "ServerMeshCollider", "MeshColliderData");
         }

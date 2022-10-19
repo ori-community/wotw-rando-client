@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AudioSettings {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AudioSettings__Class** type_info;
+        inline app::AudioSettings__Class** type_info = (app::AudioSettings__Class**)(modloader::win::memory::resolve_rva(0x0472FE88));
         inline app::AudioSettings__Class* get_class() {
             return il2cpp::get_class<app::AudioSettings__Class>(type_info, "UnityEngine", "AudioSettings");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LegacyBabySandWorm {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LegacyBabySandWorm__Class** type_info;
+        inline app::LegacyBabySandWorm__Class** type_info = (app::LegacyBabySandWorm__Class**)(modloader::win::memory::resolve_rva(0x047941C8));
         inline app::LegacyBabySandWorm__Class* get_class() {
             return il2cpp::get_class<app::LegacyBabySandWorm__Class>(type_info, "", "LegacyBabySandWorm");
         }

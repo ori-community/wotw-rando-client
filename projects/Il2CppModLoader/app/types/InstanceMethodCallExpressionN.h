@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace InstanceMethodCallExpressionN {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::InstanceMethodCallExpressionN__Class** type_info;
+        inline app::InstanceMethodCallExpressionN__Class** type_info = (app::InstanceMethodCallExpressionN__Class**)(modloader::win::memory::resolve_rva(0x04721278));
         inline app::InstanceMethodCallExpressionN__Class* get_class() {
             return il2cpp::get_class<app::InstanceMethodCallExpressionN__Class>(type_info, "System.Linq.Expressions", "InstanceMethodCallExpressionN");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ListSortDescription {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ListSortDescription__Class** type_info;
+        inline app::ListSortDescription__Class** type_info = (app::ListSortDescription__Class**)(modloader::win::memory::resolve_rva(0x04707FE0));
         inline app::ListSortDescription__Class* get_class() {
             return il2cpp::get_class<app::ListSortDescription__Class>(type_info, "System.ComponentModel", "ListSortDescription");
         }

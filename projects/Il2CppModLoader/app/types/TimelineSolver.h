@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TimelineSolver {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TimelineSolver__Class** type_info;
+        inline app::TimelineSolver__Class** type_info = (app::TimelineSolver__Class**)(modloader::win::memory::resolve_rva(0x047204B8));
         inline app::TimelineSolver__Class* get_class() {
             return il2cpp::get_class<app::TimelineSolver__Class>(type_info, "Moon.Timeline.Constraints", "TimelineSolver");
         }

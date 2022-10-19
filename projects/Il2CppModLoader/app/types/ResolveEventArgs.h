@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ResolveEventArgs {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ResolveEventArgs__Class** type_info;
+        inline app::ResolveEventArgs__Class** type_info = (app::ResolveEventArgs__Class**)(modloader::win::memory::resolve_rva(0x04785A60));
         inline app::ResolveEventArgs__Class* get_class() {
             return il2cpp::get_class<app::ResolveEventArgs__Class>(type_info, "System", "ResolveEventArgs");
         }

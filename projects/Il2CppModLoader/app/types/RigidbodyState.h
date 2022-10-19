@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RigidbodyState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RigidbodyState__Class** type_info;
+        inline app::RigidbodyState__Class** type_info = (app::RigidbodyState__Class**)(modloader::win::memory::resolve_rva(0x0478AA58));
         inline app::RigidbodyState__Class* get_class() {
             return il2cpp::get_class<app::RigidbodyState__Class>(type_info, "", "RigidbodyState");
         }

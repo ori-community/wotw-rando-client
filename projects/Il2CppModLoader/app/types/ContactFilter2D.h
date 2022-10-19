@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ContactFilter2D {
         namespace {
-            app::ContactFilter2D__Class* type_info_ref = nullptr;
+            inline app::ContactFilter2D__Class* type_info_ref = nullptr;
         }
-        app::ContactFilter2D__Class** type_info = &type_info_ref;
+        inline app::ContactFilter2D__Class** type_info = &type_info_ref;
         inline app::ContactFilter2D__Class* get_class() {
             return il2cpp::get_class<app::ContactFilter2D__Class>(type_info, "UnityEngine", "ContactFilter2D");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberPoolManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberPoolManager__Class** type_info;
+        inline app::UberPoolManager__Class** type_info = (app::UberPoolManager__Class**)(modloader::win::memory::resolve_rva(0x0474D0D0));
         inline app::UberPoolManager__Class* get_class() {
             return il2cpp::get_class<app::UberPoolManager__Class>(type_info, "", "UberPoolManager");
         }

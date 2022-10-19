@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace fsPortableReflection_AttributeQuery {
         namespace {
-            app::fsPortableReflection_AttributeQuery__Class* type_info_ref = nullptr;
+            inline app::fsPortableReflection_AttributeQuery__Class* type_info_ref = nullptr;
         }
-        app::fsPortableReflection_AttributeQuery__Class** type_info = &type_info_ref;
+        inline app::fsPortableReflection_AttributeQuery__Class** type_info = &type_info_ref;
         inline app::fsPortableReflection_AttributeQuery__Class* get_class() {
             return il2cpp::get_nested_class<app::fsPortableReflection_AttributeQuery__Class>(type_info, "FullSerializer.Internal", "fsPortableReflection", "AttributeQuery");
         }

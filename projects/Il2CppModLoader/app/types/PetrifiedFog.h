@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PetrifiedFog {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PetrifiedFog__Class** type_info;
+        inline app::PetrifiedFog__Class** type_info = (app::PetrifiedFog__Class**)(modloader::win::memory::resolve_rva(0x04765128));
         inline app::PetrifiedFog__Class* get_class() {
             return il2cpp::get_class<app::PetrifiedFog__Class>(type_info, "", "PetrifiedFog");
         }

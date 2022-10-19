@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlAttributeCollection {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlAttributeCollection__Class** type_info;
+        inline app::XmlAttributeCollection__Class** type_info = (app::XmlAttributeCollection__Class**)(modloader::win::memory::resolve_rva(0x047815B8));
         inline app::XmlAttributeCollection__Class* get_class() {
             return il2cpp::get_class<app::XmlAttributeCollection__Class>(type_info, "System.Xml", "XmlAttributeCollection");
         }

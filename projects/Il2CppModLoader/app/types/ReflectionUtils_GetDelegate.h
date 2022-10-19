@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ReflectionUtils_GetDelegate {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ReflectionUtils_GetDelegate__Class** type_info;
+        inline app::ReflectionUtils_GetDelegate__Class** type_info = (app::ReflectionUtils_GetDelegate__Class**)(modloader::win::memory::resolve_rva(0x04774DB8));
         inline app::ReflectionUtils_GetDelegate__Class* get_class() {
             return il2cpp::get_nested_class<app::ReflectionUtils_GetDelegate__Class>(type_info, "PlayFab.Json", "ReflectionUtils", "GetDelegate");
         }

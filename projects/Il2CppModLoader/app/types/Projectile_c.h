@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Projectile_c {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Projectile_c__Class** type_info;
+        inline app::Projectile_c__Class** type_info = (app::Projectile_c__Class**)(modloader::win::memory::resolve_rva(0x04750EC8));
         inline app::Projectile_c__Class* get_class() {
             return il2cpp::get_nested_class<app::Projectile_c__Class>(type_info, "", "Projectile", "<>c");
         }

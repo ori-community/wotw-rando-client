@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DepthOfFieldDeprecated {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DepthOfFieldDeprecated__Class** type_info;
+        inline app::DepthOfFieldDeprecated__Class** type_info = (app::DepthOfFieldDeprecated__Class**)(modloader::win::memory::resolve_rva(0x0470BB70));
         inline app::DepthOfFieldDeprecated__Class* get_class() {
             return il2cpp::get_class<app::DepthOfFieldDeprecated__Class>(type_info, "UnityStandardAssets.ImageEffects", "DepthOfFieldDeprecated");
         }

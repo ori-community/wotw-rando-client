@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SteamItemInstanceID_t {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SteamItemInstanceID_t__Class** type_info;
+        inline app::SteamItemInstanceID_t__Class** type_info = (app::SteamItemInstanceID_t__Class**)(modloader::win::memory::resolve_rva(0x047867D8));
         inline app::SteamItemInstanceID_t__Class* get_class() {
             return il2cpp::get_class<app::SteamItemInstanceID_t__Class>(type_info, "Steamworks", "SteamItemInstanceID_t");
         }

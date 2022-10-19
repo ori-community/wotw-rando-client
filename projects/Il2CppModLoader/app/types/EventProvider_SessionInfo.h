@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace EventProvider_SessionInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::EventProvider_SessionInfo__Class** type_info;
+        inline app::EventProvider_SessionInfo__Class** type_info = (app::EventProvider_SessionInfo__Class**)(modloader::win::memory::resolve_rva(0x047118F8));
         inline app::EventProvider_SessionInfo__Class* get_class() {
             return il2cpp::get_nested_class<app::EventProvider_SessionInfo__Class>(type_info, "System.Diagnostics.Tracing", "EventProvider", "SessionInfo");
         }

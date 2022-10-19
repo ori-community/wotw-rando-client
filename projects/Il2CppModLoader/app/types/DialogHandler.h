@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DialogHandler {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DialogHandler__Class** type_info;
+        inline app::DialogHandler__Class** type_info = (app::DialogHandler__Class**)(modloader::win::memory::resolve_rva(0x0473B4E0));
         inline app::DialogHandler__Class* get_class() {
             return il2cpp::get_class<app::DialogHandler__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "DialogHandler");
         }

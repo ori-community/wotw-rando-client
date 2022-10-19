@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LayeredRenderSettings_LayeredRenderSettingsOverride {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LayeredRenderSettings_LayeredRenderSettingsOverride__Class** type_info;
+        inline app::LayeredRenderSettings_LayeredRenderSettingsOverride__Class** type_info = (app::LayeredRenderSettings_LayeredRenderSettingsOverride__Class**)(modloader::win::memory::resolve_rva(0x04753B90));
         inline app::LayeredRenderSettings_LayeredRenderSettingsOverride__Class* get_class() {
             return il2cpp::get_nested_class<app::LayeredRenderSettings_LayeredRenderSettingsOverride__Class>(type_info, "", "LayeredRenderSettings", "LayeredRenderSettingsOverride");
         }

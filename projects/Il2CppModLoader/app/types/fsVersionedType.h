@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace fsVersionedType {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::fsVersionedType__Class** type_info;
+        inline app::fsVersionedType__Class** type_info = (app::fsVersionedType__Class**)(modloader::win::memory::resolve_rva(0x047455D0));
         inline app::fsVersionedType__Class* get_class() {
             return il2cpp::get_class<app::fsVersionedType__Class>(type_info, "FullSerializer.Internal", "fsVersionedType");
         }

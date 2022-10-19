@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberWaterControl_c_DisplayClass116_0 {
         namespace {
-            app::UberWaterControl_c_DisplayClass116_0__Class* type_info_ref = nullptr;
+            inline app::UberWaterControl_c_DisplayClass116_0__Class* type_info_ref = nullptr;
         }
-        app::UberWaterControl_c_DisplayClass116_0__Class** type_info = &type_info_ref;
+        inline app::UberWaterControl_c_DisplayClass116_0__Class** type_info = &type_info_ref;
         inline app::UberWaterControl_c_DisplayClass116_0__Class* get_class() {
             return il2cpp::get_nested_class<app::UberWaterControl_c_DisplayClass116_0__Class>(type_info, "", "UberWaterControl", "<>c__DisplayClass116_0");
         }

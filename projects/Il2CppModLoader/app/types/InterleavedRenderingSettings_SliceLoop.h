@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace InterleavedRenderingSettings_SliceLoop {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::InterleavedRenderingSettings_SliceLoop__Class** type_info;
+        inline app::InterleavedRenderingSettings_SliceLoop__Class** type_info = (app::InterleavedRenderingSettings_SliceLoop__Class**)(modloader::win::memory::resolve_rva(0x0475F680));
         inline app::InterleavedRenderingSettings_SliceLoop__Class* get_class() {
             return il2cpp::get_nested_class<app::InterleavedRenderingSettings_SliceLoop__Class>(type_info, "Moon.Rendering", "InterleavedRenderingSettings", "SliceLoop");
         }

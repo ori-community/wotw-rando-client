@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DynamicCameraTargetting {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DynamicCameraTargetting__Class** type_info;
+        inline app::DynamicCameraTargetting__Class** type_info = (app::DynamicCameraTargetting__Class**)(modloader::win::memory::resolve_rva(0x04708260));
         inline app::DynamicCameraTargetting__Class* get_class() {
             return il2cpp::get_class<app::DynamicCameraTargetting__Class>(type_info, "Moon", "DynamicCameraTargetting");
         }

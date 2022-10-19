@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GetAllSegmentsRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GetAllSegmentsRequest__Class** type_info;
+        inline app::GetAllSegmentsRequest__Class** type_info = (app::GetAllSegmentsRequest__Class**)(modloader::win::memory::resolve_rva(0x04736258));
         inline app::GetAllSegmentsRequest__Class* get_class() {
             return il2cpp::get_class<app::GetAllSegmentsRequest__Class>(type_info, "PlayFab.ServerModels", "GetAllSegmentsRequest");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GUIWordWrapSizer {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GUIWordWrapSizer__Class** type_info;
+        inline app::GUIWordWrapSizer__Class** type_info = (app::GUIWordWrapSizer__Class**)(modloader::win::memory::resolve_rva(0x047751D8));
         inline app::GUIWordWrapSizer__Class* get_class() {
             return il2cpp::get_class<app::GUIWordWrapSizer__Class>(type_info, "UnityEngine", "GUIWordWrapSizer");
         }

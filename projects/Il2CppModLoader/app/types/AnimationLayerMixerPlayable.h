@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AnimationLayerMixerPlayable {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AnimationLayerMixerPlayable__Class** type_info;
+        inline app::AnimationLayerMixerPlayable__Class** type_info = (app::AnimationLayerMixerPlayable__Class**)(modloader::win::memory::resolve_rva(0x0471DA80));
         inline app::AnimationLayerMixerPlayable__Class* get_class() {
             return il2cpp::get_class<app::AnimationLayerMixerPlayable__Class>(type_info, "UnityEngine.Animations", "AnimationLayerMixerPlayable");
         }

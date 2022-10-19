@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TimeSpanStorage {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TimeSpanStorage__Class** type_info;
+        inline app::TimeSpanStorage__Class** type_info = (app::TimeSpanStorage__Class**)(modloader::win::memory::resolve_rva(0x04732570));
         inline app::TimeSpanStorage__Class* get_class() {
             return il2cpp::get_class<app::TimeSpanStorage__Class>(type_info, "System.Data.Common", "TimeSpanStorage");
         }

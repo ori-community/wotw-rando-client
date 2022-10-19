@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace EnumTools {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::EnumTools__Class** type_info;
+        inline app::EnumTools__Class** type_info = (app::EnumTools__Class**)(modloader::win::memory::resolve_rva(0x04752638));
         inline app::EnumTools__Class* get_class() {
             return il2cpp::get_class<app::EnumTools__Class>(type_info, "", "EnumTools");
         }

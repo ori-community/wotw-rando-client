@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GUIStyle {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GUIStyle__Class** type_info;
+        inline app::GUIStyle__Class** type_info = (app::GUIStyle__Class**)(modloader::win::memory::resolve_rva(0x047437D0));
         inline app::GUIStyle__Class* get_class() {
             return il2cpp::get_class<app::GUIStyle__Class>(type_info, "UnityEngine", "GUIStyle");
         }

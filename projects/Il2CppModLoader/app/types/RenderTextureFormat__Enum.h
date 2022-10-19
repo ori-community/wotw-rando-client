@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RenderTextureFormat__Enum {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RenderTextureFormat__Enum__Class** type_info;
+        inline app::RenderTextureFormat__Enum__Class** type_info = (app::RenderTextureFormat__Enum__Class**)(modloader::win::memory::resolve_rva(0x04711420));
         inline app::RenderTextureFormat__Enum__Class* get_class() {
             return il2cpp::get_class<app::RenderTextureFormat__Enum__Class>(type_info, "UnityEngine", "RenderTextureFormat");
         }

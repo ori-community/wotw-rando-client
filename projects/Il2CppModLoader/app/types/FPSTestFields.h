@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FPSTestFields {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FPSTestFields__Class** type_info;
+        inline app::FPSTestFields__Class** type_info = (app::FPSTestFields__Class**)(modloader::win::memory::resolve_rva(0x0473D0A0));
         inline app::FPSTestFields__Class* get_class() {
             return il2cpp::get_class<app::FPSTestFields__Class>(type_info, "", "FPSTestFields");
         }

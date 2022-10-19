@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlSerializationFixupCallback {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlSerializationFixupCallback__Class** type_info;
+        inline app::XmlSerializationFixupCallback__Class** type_info = (app::XmlSerializationFixupCallback__Class**)(modloader::win::memory::resolve_rva(0x04759238));
         inline app::XmlSerializationFixupCallback__Class* get_class() {
             return il2cpp::get_class<app::XmlSerializationFixupCallback__Class>(type_info, "System.Xml.Serialization", "XmlSerializationFixupCallback");
         }

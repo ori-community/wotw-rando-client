@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AndInstruction_AndSByte {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AndInstruction_AndSByte__Class** type_info;
+        inline app::AndInstruction_AndSByte__Class** type_info = (app::AndInstruction_AndSByte__Class**)(modloader::win::memory::resolve_rva(0x04793138));
         inline app::AndInstruction_AndSByte__Class* get_class() {
             return il2cpp::get_nested_class<app::AndInstruction_AndSByte__Class>(type_info, "System.Linq.Expressions.Interpreter", "AndInstruction", "AndSByte");
         }

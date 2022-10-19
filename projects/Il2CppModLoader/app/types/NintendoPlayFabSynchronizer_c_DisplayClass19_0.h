@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NintendoPlayFabSynchronizer_c_DisplayClass19_0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NintendoPlayFabSynchronizer_c_DisplayClass19_0__Class** type_info;
+        inline app::NintendoPlayFabSynchronizer_c_DisplayClass19_0__Class** type_info = (app::NintendoPlayFabSynchronizer_c_DisplayClass19_0__Class**)(modloader::win::memory::resolve_rva(0x04762208));
         inline app::NintendoPlayFabSynchronizer_c_DisplayClass19_0__Class* get_class() {
             return il2cpp::get_nested_class<app::NintendoPlayFabSynchronizer_c_DisplayClass19_0__Class>(type_info, "SystemIntegration", "NintendoPlayFabSynchronizer", "<>c__DisplayClass19_0");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BlockableLaser {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BlockableLaser__Class** type_info;
+        inline app::BlockableLaser__Class** type_info = (app::BlockableLaser__Class**)(modloader::win::memory::resolve_rva(0x047009E8));
         inline app::BlockableLaser__Class* get_class() {
             return il2cpp::get_class<app::BlockableLaser__Class>(type_info, "", "BlockableLaser");
         }

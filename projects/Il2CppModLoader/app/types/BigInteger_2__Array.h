@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BigInteger_2__Array {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BigInteger_2__Array__Class** type_info;
+        inline app::BigInteger_2__Array__Class** type_info = (app::BigInteger_2__Array__Class**)(modloader::win::memory::resolve_rva(0x047495A8));
         inline app::BigInteger_2__Array__Class* get_class() {
             return il2cpp::get_class<app::BigInteger_2__Array__Class>(type_info, "System.Numerics", "BigInteger[]");
         }

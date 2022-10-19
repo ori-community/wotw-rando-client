@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace InputAnalogActionData_t {
         namespace {
-            app::InputAnalogActionData_t__Class* type_info_ref = nullptr;
+            inline app::InputAnalogActionData_t__Class* type_info_ref = nullptr;
         }
-        app::InputAnalogActionData_t__Class** type_info = &type_info_ref;
+        inline app::InputAnalogActionData_t__Class** type_info = &type_info_ref;
         inline app::InputAnalogActionData_t__Class* get_class() {
             return il2cpp::get_class<app::InputAnalogActionData_t__Class>(type_info, "Steamworks", "InputAnalogActionData_t");
         }

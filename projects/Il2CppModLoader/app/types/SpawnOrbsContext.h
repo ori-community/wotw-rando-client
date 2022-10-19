@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SpawnOrbsContext {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SpawnOrbsContext__Class** type_info;
+        inline app::SpawnOrbsContext__Class** type_info = (app::SpawnOrbsContext__Class**)(modloader::win::memory::resolve_rva(0x047741D0));
         inline app::SpawnOrbsContext__Class* get_class() {
             return il2cpp::get_class<app::SpawnOrbsContext__Class>(type_info, "", "SpawnOrbsContext");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ComboInput {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ComboInput__Class** type_info;
+        inline app::ComboInput__Class** type_info = (app::ComboInput__Class**)(modloader::win::memory::resolve_rva(0x0470BF40));
         inline app::ComboInput__Class* get_class() {
             return il2cpp::get_class<app::ComboInput__Class>(type_info, "Moon.ComboSystem", "ComboInput");
         }

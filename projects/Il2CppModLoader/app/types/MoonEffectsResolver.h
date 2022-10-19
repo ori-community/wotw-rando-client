@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MoonEffectsResolver {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MoonEffectsResolver__Class** type_info;
+        inline app::MoonEffectsResolver__Class** type_info = (app::MoonEffectsResolver__Class**)(modloader::win::memory::resolve_rva(0x047066F0));
         inline app::MoonEffectsResolver__Class* get_class() {
             return il2cpp::get_class<app::MoonEffectsResolver__Class>(type_info, "Moon.EffectsFramework", "MoonEffectsResolver");
         }

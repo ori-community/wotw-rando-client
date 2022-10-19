@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WebResponse_1 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WebResponse_1__Class** type_info;
+        inline app::WebResponse_1__Class** type_info = (app::WebResponse_1__Class**)(modloader::win::memory::resolve_rva(0x04713D08));
         inline app::WebResponse_1__Class* get_class() {
             return il2cpp::get_class<app::WebResponse_1__Class>(type_info, "Moon.Network.Web", "WebResponse");
         }

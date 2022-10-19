@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ReplayCameraAnimator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ReplayCameraAnimator__Class** type_info;
+        inline app::ReplayCameraAnimator__Class** type_info = (app::ReplayCameraAnimator__Class**)(modloader::win::memory::resolve_rva(0x0478B638));
         inline app::ReplayCameraAnimator__Class* get_class() {
             return il2cpp::get_class<app::ReplayCameraAnimator__Class>(type_info, "Moon.Timeline", "ReplayCameraAnimator");
         }

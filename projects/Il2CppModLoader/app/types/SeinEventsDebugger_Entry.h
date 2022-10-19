@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SeinEventsDebugger_Entry {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SeinEventsDebugger_Entry__Class** type_info;
+        inline app::SeinEventsDebugger_Entry__Class** type_info = (app::SeinEventsDebugger_Entry__Class**)(modloader::win::memory::resolve_rva(0x04774A30));
         inline app::SeinEventsDebugger_Entry__Class* get_class() {
             return il2cpp::get_nested_class<app::SeinEventsDebugger_Entry__Class>(type_info, "", "SeinEventsDebugger", "Entry");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PositionAnimatorEntity {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PositionAnimatorEntity__Class** type_info;
+        inline app::PositionAnimatorEntity__Class** type_info = (app::PositionAnimatorEntity__Class**)(modloader::win::memory::resolve_rva(0x04745768));
         inline app::PositionAnimatorEntity__Class* get_class() {
             return il2cpp::get_class<app::PositionAnimatorEntity__Class>(type_info, "Moon.Timeline", "PositionAnimatorEntity");
         }

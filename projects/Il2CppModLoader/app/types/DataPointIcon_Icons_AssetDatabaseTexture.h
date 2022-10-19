@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DataPointIcon_Icons_AssetDatabaseTexture {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DataPointIcon_Icons_AssetDatabaseTexture__Class** type_info;
+        inline app::DataPointIcon_Icons_AssetDatabaseTexture__Class** type_info = (app::DataPointIcon_Icons_AssetDatabaseTexture__Class**)(modloader::win::memory::resolve_rva(0x0470E868));
         inline app::DataPointIcon_Icons_AssetDatabaseTexture__Class* get_class() {
             return il2cpp::get_nested_class<app::DataPointIcon_Icons_AssetDatabaseTexture__Class>(type_info, "Moon.Telemetry", "DataPointIcon+Icons", "AssetDatabaseTexture");
         }

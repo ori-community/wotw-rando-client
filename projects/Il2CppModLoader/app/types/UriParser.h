@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UriParser {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UriParser__Class** type_info;
+        inline app::UriParser__Class** type_info = (app::UriParser__Class**)(modloader::win::memory::resolve_rva(0x0475CD60));
         inline app::UriParser__Class* get_class() {
             return il2cpp::get_class<app::UriParser__Class>(type_info, "System", "UriParser");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ServerPhysicalSystemManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ServerPhysicalSystemManager__Class** type_info;
+        inline app::ServerPhysicalSystemManager__Class** type_info = (app::ServerPhysicalSystemManager__Class**)(modloader::win::memory::resolve_rva(0x0474AB70));
         inline app::ServerPhysicalSystemManager__Class* get_class() {
             return il2cpp::get_class<app::ServerPhysicalSystemManager__Class>(type_info, "", "ServerPhysicalSystemManager");
         }

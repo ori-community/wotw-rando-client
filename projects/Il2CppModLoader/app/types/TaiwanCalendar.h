@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TaiwanCalendar {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TaiwanCalendar__Class** type_info;
+        inline app::TaiwanCalendar__Class** type_info = (app::TaiwanCalendar__Class**)(modloader::win::memory::resolve_rva(0x0476F820));
         inline app::TaiwanCalendar__Class* get_class() {
             return il2cpp::get_class<app::TaiwanCalendar__Class>(type_info, "System.Globalization", "TaiwanCalendar");
         }

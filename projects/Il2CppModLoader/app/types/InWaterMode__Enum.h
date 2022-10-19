@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace InWaterMode__Enum {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::InWaterMode__Enum__Class** type_info;
+        inline app::InWaterMode__Enum__Class** type_info = (app::InWaterMode__Enum__Class**)(modloader::win::memory::resolve_rva(0x0477D188));
         inline app::InWaterMode__Enum__Class* get_class() {
             return il2cpp::get_class<app::InWaterMode__Enum__Class>(type_info, "", "InWaterMode");
         }

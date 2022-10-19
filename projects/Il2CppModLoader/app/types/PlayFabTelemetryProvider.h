@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayFabTelemetryProvider {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PlayFabTelemetryProvider__Class** type_info;
+        inline app::PlayFabTelemetryProvider__Class** type_info = (app::PlayFabTelemetryProvider__Class**)(modloader::win::memory::resolve_rva(0x04752C48));
         inline app::PlayFabTelemetryProvider__Class* get_class() {
             return il2cpp::get_class<app::PlayFabTelemetryProvider__Class>(type_info, "SystemIntegration.Synchronizer.Telemetry", "PlayFabTelemetryProvider");
         }

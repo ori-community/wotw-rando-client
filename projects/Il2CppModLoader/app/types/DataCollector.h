@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DataCollector {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DataCollector__Class** type_info;
+        inline app::DataCollector__Class** type_info = (app::DataCollector__Class**)(modloader::win::memory::resolve_rva(0x047437C8));
         inline app::DataCollector__Class* get_class() {
             return il2cpp::get_class<app::DataCollector__Class>(type_info, "System.Diagnostics.Tracing", "DataCollector");
         }

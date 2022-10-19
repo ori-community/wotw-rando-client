@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayerUberStateShards_Shard {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PlayerUberStateShards_Shard__Class** type_info;
+        inline app::PlayerUberStateShards_Shard__Class** type_info = (app::PlayerUberStateShards_Shard__Class**)(modloader::win::memory::resolve_rva(0x0477E3C8));
         inline app::PlayerUberStateShards_Shard__Class* get_class() {
             return il2cpp::get_nested_class<app::PlayerUberStateShards_Shard__Class>(type_info, "Moon.uberSerializationWisp", "PlayerUberStateShards", "Shard");
         }

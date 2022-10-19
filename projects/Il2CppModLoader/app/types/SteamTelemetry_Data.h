@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SteamTelemetry_Data {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SteamTelemetry_Data__Class** type_info;
+        inline app::SteamTelemetry_Data__Class** type_info = (app::SteamTelemetry_Data__Class**)(modloader::win::memory::resolve_rva(0x0471B240));
         inline app::SteamTelemetry_Data__Class* get_class() {
             return il2cpp::get_nested_class<app::SteamTelemetry_Data__Class>(type_info, "", "SteamTelemetry", "Data");
         }

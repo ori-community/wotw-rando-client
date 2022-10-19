@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ITask {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ITask__Class** type_info;
+        inline app::ITask__Class** type_info = (app::ITask__Class**)(modloader::win::memory::resolve_rva(0x04766EC0));
         inline app::ITask__Class* get_class() {
             return il2cpp::get_class<app::ITask__Class>(type_info, "Moon.BehaviourSystem", "ITask");
         }

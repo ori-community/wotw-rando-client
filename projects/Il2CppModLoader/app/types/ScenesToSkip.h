@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ScenesToSkip {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ScenesToSkip__Class** type_info;
+        inline app::ScenesToSkip__Class** type_info = (app::ScenesToSkip__Class**)(modloader::win::memory::resolve_rva(0x04732D30));
         inline app::ScenesToSkip__Class* get_class() {
             return il2cpp::get_class<app::ScenesToSkip__Class>(type_info, "", "ScenesToSkip");
         }

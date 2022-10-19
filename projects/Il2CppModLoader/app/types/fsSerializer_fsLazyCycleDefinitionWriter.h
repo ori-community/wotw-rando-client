@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace fsSerializer_fsLazyCycleDefinitionWriter {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::fsSerializer_fsLazyCycleDefinitionWriter__Class** type_info;
+        inline app::fsSerializer_fsLazyCycleDefinitionWriter__Class** type_info = (app::fsSerializer_fsLazyCycleDefinitionWriter__Class**)(modloader::win::memory::resolve_rva(0x04786070));
         inline app::fsSerializer_fsLazyCycleDefinitionWriter__Class* get_class() {
             return il2cpp::get_nested_class<app::fsSerializer_fsLazyCycleDefinitionWriter__Class>(type_info, "FullSerializer", "fsSerializer", "fsLazyCycleDefinitionWriter");
         }

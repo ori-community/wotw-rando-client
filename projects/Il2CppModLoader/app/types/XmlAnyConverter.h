@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlAnyConverter {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlAnyConverter__Class** type_info;
+        inline app::XmlAnyConverter__Class** type_info = (app::XmlAnyConverter__Class**)(modloader::win::memory::resolve_rva(0x0470EA10));
         inline app::XmlAnyConverter__Class* get_class() {
             return il2cpp::get_class<app::XmlAnyConverter__Class>(type_info, "System.Xml.Schema", "XmlAnyConverter");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CFProxySettings {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CFProxySettings__Class** type_info;
+        inline app::CFProxySettings__Class** type_info = (app::CFProxySettings__Class**)(modloader::win::memory::resolve_rva(0x047746F8));
         inline app::CFProxySettings__Class* get_class() {
             return il2cpp::get_class<app::CFProxySettings__Class>(type_info, "Mono.Net", "CFProxySettings");
         }

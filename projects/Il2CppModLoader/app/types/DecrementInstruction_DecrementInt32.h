@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DecrementInstruction_DecrementInt32 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DecrementInstruction_DecrementInt32__Class** type_info;
+        inline app::DecrementInstruction_DecrementInt32__Class** type_info = (app::DecrementInstruction_DecrementInt32__Class**)(modloader::win::memory::resolve_rva(0x0471FD58));
         inline app::DecrementInstruction_DecrementInt32__Class* get_class() {
             return il2cpp::get_nested_class<app::DecrementInstruction_DecrementInt32__Class>(type_info, "System.Linq.Expressions.Interpreter", "DecrementInstruction", "DecrementInt32");
         }

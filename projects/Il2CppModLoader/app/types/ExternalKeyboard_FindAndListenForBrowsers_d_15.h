@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ExternalKeyboard_FindAndListenForBrowsers_d_15 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ExternalKeyboard_FindAndListenForBrowsers_d_15__Class** type_info;
+        inline app::ExternalKeyboard_FindAndListenForBrowsers_d_15__Class** type_info = (app::ExternalKeyboard_FindAndListenForBrowsers_d_15__Class**)(modloader::win::memory::resolve_rva(0x047433D8));
         inline app::ExternalKeyboard_FindAndListenForBrowsers_d_15__Class* get_class() {
             return il2cpp::get_nested_class<app::ExternalKeyboard_FindAndListenForBrowsers_d_15__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "ExternalKeyboard", "<FindAndListenForBrowsers>d__15");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CameraFrustumOptimizer_EarlyZActivation {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CameraFrustumOptimizer_EarlyZActivation__Class** type_info;
+        inline app::CameraFrustumOptimizer_EarlyZActivation__Class** type_info = (app::CameraFrustumOptimizer_EarlyZActivation__Class**)(modloader::win::memory::resolve_rva(0x0472F070));
         inline app::CameraFrustumOptimizer_EarlyZActivation__Class* get_class() {
             return il2cpp::get_nested_class<app::CameraFrustumOptimizer_EarlyZActivation__Class>(type_info, "", "CameraFrustumOptimizer", "EarlyZActivation");
         }

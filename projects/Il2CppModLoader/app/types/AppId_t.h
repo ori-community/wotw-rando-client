@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AppId_t {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AppId_t__Class** type_info;
+        inline app::AppId_t__Class** type_info = (app::AppId_t__Class**)(modloader::win::memory::resolve_rva(0x04778470));
         inline app::AppId_t__Class* get_class() {
             return il2cpp::get_class<app::AppId_t__Class>(type_info, "Steamworks", "AppId_t");
         }

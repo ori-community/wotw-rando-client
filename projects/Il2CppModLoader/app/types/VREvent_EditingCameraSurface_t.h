@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace VREvent_EditingCameraSurface_t {
         namespace {
-            app::VREvent_EditingCameraSurface_t__Class* type_info_ref = nullptr;
+            inline app::VREvent_EditingCameraSurface_t__Class* type_info_ref = nullptr;
         }
-        app::VREvent_EditingCameraSurface_t__Class** type_info = &type_info_ref;
+        inline app::VREvent_EditingCameraSurface_t__Class** type_info = &type_info_ref;
         inline app::VREvent_EditingCameraSurface_t__Class* get_class() {
             return il2cpp::get_class<app::VREvent_EditingCameraSurface_t__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "VREvent_EditingCameraSurface_t");
         }

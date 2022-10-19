@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SafeFindHandle {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SafeFindHandle__Class** type_info;
+        inline app::SafeFindHandle__Class** type_info = (app::SafeFindHandle__Class**)(modloader::win::memory::resolve_rva(0x047711F8));
         inline app::SafeFindHandle__Class* get_class() {
             return il2cpp::get_class<app::SafeFindHandle__Class>(type_info, "Microsoft.Win32.SafeHandles", "SafeFindHandle");
         }

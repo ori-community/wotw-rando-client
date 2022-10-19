@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace YouCanLeaveYourHatOn_AssetWithSize {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::YouCanLeaveYourHatOn_AssetWithSize__Class** type_info;
+        inline app::YouCanLeaveYourHatOn_AssetWithSize__Class** type_info = (app::YouCanLeaveYourHatOn_AssetWithSize__Class**)(modloader::win::memory::resolve_rva(0x0476DB88));
         inline app::YouCanLeaveYourHatOn_AssetWithSize__Class* get_class() {
             return il2cpp::get_nested_class<app::YouCanLeaveYourHatOn_AssetWithSize__Class>(type_info, "", "YouCanLeaveYourHatOn", "AssetWithSize");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LeakedSceneObjectDetector_ObjectData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LeakedSceneObjectDetector_ObjectData__Class** type_info;
+        inline app::LeakedSceneObjectDetector_ObjectData__Class** type_info = (app::LeakedSceneObjectDetector_ObjectData__Class**)(modloader::win::memory::resolve_rva(0x047440B0));
         inline app::LeakedSceneObjectDetector_ObjectData__Class* get_class() {
             return il2cpp::get_nested_class<app::LeakedSceneObjectDetector_ObjectData__Class>(type_info, "", "LeakedSceneObjectDetector", "ObjectData");
         }

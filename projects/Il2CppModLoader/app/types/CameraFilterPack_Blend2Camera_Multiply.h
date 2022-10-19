@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CameraFilterPack_Blend2Camera_Multiply {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CameraFilterPack_Blend2Camera_Multiply__Class** type_info;
+        inline app::CameraFilterPack_Blend2Camera_Multiply__Class** type_info = (app::CameraFilterPack_Blend2Camera_Multiply__Class**)(modloader::win::memory::resolve_rva(0x0471D108));
         inline app::CameraFilterPack_Blend2Camera_Multiply__Class* get_class() {
             return il2cpp::get_class<app::CameraFilterPack_Blend2Camera_Multiply__Class>(type_info, "", "CameraFilterPack_Blend2Camera_Multiply");
         }

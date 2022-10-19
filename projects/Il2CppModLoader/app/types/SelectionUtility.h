@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SelectionUtility {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SelectionUtility__Class** type_info;
+        inline app::SelectionUtility__Class** type_info = (app::SelectionUtility__Class**)(modloader::win::memory::resolve_rva(0x04742BA0));
         inline app::SelectionUtility__Class* get_class() {
             return il2cpp::get_class<app::SelectionUtility__Class>(type_info, "", "SelectionUtility");
         }

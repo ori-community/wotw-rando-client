@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MessageDescriptor {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MessageDescriptor__Class** type_info;
+        inline app::MessageDescriptor__Class** type_info = (app::MessageDescriptor__Class**)(modloader::win::memory::resolve_rva(0x04708F20));
         inline app::MessageDescriptor__Class* get_class() {
             return il2cpp::get_class<app::MessageDescriptor__Class>(type_info, "", "MessageDescriptor");
         }

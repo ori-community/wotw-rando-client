@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace KuCrouch {
         namespace {
-            app::KuCrouch__Class* type_info_ref = nullptr;
+            inline app::KuCrouch__Class* type_info_ref = nullptr;
         }
-        app::KuCrouch__Class** type_info = &type_info_ref;
+        inline app::KuCrouch__Class** type_info = &type_info_ref;
         inline app::KuCrouch__Class* get_class() {
             return il2cpp::get_class<app::KuCrouch__Class>(type_info, "", "KuCrouch");
         }

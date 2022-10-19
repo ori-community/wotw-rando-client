@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace State_c_1 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::State_c_1__Class** type_info;
+        inline app::State_c_1__Class** type_info = (app::State_c_1__Class**)(modloader::win::memory::resolve_rva(0x0477A4D0));
         inline app::State_c_1__Class* get_class() {
             return il2cpp::get_nested_class<app::State_c_1__Class>(type_info, "fsm", "State", "<>c");
         }

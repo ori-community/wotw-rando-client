@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LabelExpression {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LabelExpression__Class** type_info;
+        inline app::LabelExpression__Class** type_info = (app::LabelExpression__Class**)(modloader::win::memory::resolve_rva(0x04779840));
         inline app::LabelExpression__Class* get_class() {
             return il2cpp::get_class<app::LabelExpression__Class>(type_info, "System.Linq.Expressions", "LabelExpression");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IKSolverCCD {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IKSolverCCD__Class** type_info;
+        inline app::IKSolverCCD__Class** type_info = (app::IKSolverCCD__Class**)(modloader::win::memory::resolve_rva(0x0471DE40));
         inline app::IKSolverCCD__Class* get_class() {
             return il2cpp::get_class<app::IKSolverCCD__Class>(type_info, "RootMotion.FinalIK", "IKSolverCCD");
         }

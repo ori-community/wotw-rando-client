@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GUILayoutUtility_LayoutCache {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GUILayoutUtility_LayoutCache__Class** type_info;
+        inline app::GUILayoutUtility_LayoutCache__Class** type_info = (app::GUILayoutUtility_LayoutCache__Class**)(modloader::win::memory::resolve_rva(0x0470AD58));
         inline app::GUILayoutUtility_LayoutCache__Class* get_class() {
             return il2cpp::get_nested_class<app::GUILayoutUtility_LayoutCache__Class>(type_info, "UnityEngine", "GUILayoutUtility", "LayoutCache");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NativeInputSystem {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NativeInputSystem__Class** type_info;
+        inline app::NativeInputSystem__Class** type_info = (app::NativeInputSystem__Class**)(modloader::win::memory::resolve_rva(0x04721910));
         inline app::NativeInputSystem__Class* get_class() {
             return il2cpp::get_class<app::NativeInputSystem__Class>(type_info, "UnityEngineInternal.Input", "NativeInputSystem");
         }

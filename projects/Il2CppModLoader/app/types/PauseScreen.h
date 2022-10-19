@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PauseScreen {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PauseScreen__Class** type_info;
+        inline app::PauseScreen__Class** type_info = (app::PauseScreen__Class**)(modloader::win::memory::resolve_rva(0x0478EEB8));
         inline app::PauseScreen__Class* get_class() {
             return il2cpp::get_class<app::PauseScreen__Class>(type_info, "", "PauseScreen");
         }

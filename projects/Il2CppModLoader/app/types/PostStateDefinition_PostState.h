@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PostStateDefinition_PostState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PostStateDefinition_PostState__Class** type_info;
+        inline app::PostStateDefinition_PostState__Class** type_info = (app::PostStateDefinition_PostState__Class**)(modloader::win::memory::resolve_rva(0x0471E7B0));
         inline app::PostStateDefinition_PostState__Class* get_class() {
             return il2cpp::get_nested_class<app::PostStateDefinition_PostState__Class>(type_info, "", "PostStateDefinition", "PostState");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace VREvent_t {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::VREvent_t__Class** type_info;
+        inline app::VREvent_t__Class** type_info = (app::VREvent_t__Class**)(modloader::win::memory::resolve_rva(0x0470F4D0));
         inline app::VREvent_t__Class* get_class() {
             return il2cpp::get_class<app::VREvent_t__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "VREvent_t");
         }

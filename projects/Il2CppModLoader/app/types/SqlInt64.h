@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SqlInt64 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SqlInt64__Class** type_info;
+        inline app::SqlInt64__Class** type_info = (app::SqlInt64__Class**)(modloader::win::memory::resolve_rva(0x04713D00));
         inline app::SqlInt64__Class* get_class() {
             return il2cpp::get_class<app::SqlInt64__Class>(type_info, "System.Data.SqlTypes", "SqlInt64");
         }

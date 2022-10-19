@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayerInputRebinding_PlayerInputKey {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PlayerInputRebinding_PlayerInputKey__Class** type_info;
+        inline app::PlayerInputRebinding_PlayerInputKey__Class** type_info = (app::PlayerInputRebinding_PlayerInputKey__Class**)(modloader::win::memory::resolve_rva(0x04718818));
         inline app::PlayerInputRebinding_PlayerInputKey__Class* get_class() {
             return il2cpp::get_nested_class<app::PlayerInputRebinding_PlayerInputKey__Class>(type_info, "", "PlayerInputRebinding", "PlayerInputKey");
         }

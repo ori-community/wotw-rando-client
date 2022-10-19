@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XalService_c_DisplayClass28_0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XalService_c_DisplayClass28_0__Class** type_info;
+        inline app::XalService_c_DisplayClass28_0__Class** type_info = (app::XalService_c_DisplayClass28_0__Class**)(modloader::win::memory::resolve_rva(0x0477AC18));
         inline app::XalService_c_DisplayClass28_0__Class* get_class() {
             return il2cpp::get_nested_class<app::XalService_c_DisplayClass28_0__Class>(type_info, "Microsoft.Xbox.Services.Xal", "XalService", "<>c__DisplayClass28_0");
         }

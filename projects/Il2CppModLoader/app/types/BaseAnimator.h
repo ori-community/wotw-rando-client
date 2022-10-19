@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BaseAnimator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BaseAnimator__Class** type_info;
+        inline app::BaseAnimator__Class** type_info = (app::BaseAnimator__Class**)(modloader::win::memory::resolve_rva(0x04757058));
         inline app::BaseAnimator__Class* get_class() {
             return il2cpp::get_class<app::BaseAnimator__Class>(type_info, "", "BaseAnimator");
         }

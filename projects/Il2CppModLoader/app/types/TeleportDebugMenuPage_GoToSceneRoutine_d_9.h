@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TeleportDebugMenuPage_GoToSceneRoutine_d_9 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TeleportDebugMenuPage_GoToSceneRoutine_d_9__Class** type_info;
+        inline app::TeleportDebugMenuPage_GoToSceneRoutine_d_9__Class** type_info = (app::TeleportDebugMenuPage_GoToSceneRoutine_d_9__Class**)(modloader::win::memory::resolve_rva(0x04727F90));
         inline app::TeleportDebugMenuPage_GoToSceneRoutine_d_9__Class* get_class() {
             return il2cpp::get_nested_class<app::TeleportDebugMenuPage_GoToSceneRoutine_d_9__Class>(type_info, "", "TeleportDebugMenuPage", "<GoToSceneRoutine>d__9");
         }

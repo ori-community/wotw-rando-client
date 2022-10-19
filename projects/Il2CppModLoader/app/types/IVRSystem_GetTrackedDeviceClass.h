@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IVRSystem_GetTrackedDeviceClass {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IVRSystem_GetTrackedDeviceClass__Class** type_info;
+        inline app::IVRSystem_GetTrackedDeviceClass__Class** type_info = (app::IVRSystem_GetTrackedDeviceClass__Class**)(modloader::win::memory::resolve_rva(0x04702450));
         inline app::IVRSystem_GetTrackedDeviceClass__Class* get_class() {
             return il2cpp::get_nested_class<app::IVRSystem_GetTrackedDeviceClass__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "IVRSystem", "_GetTrackedDeviceClass");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IDialogDecorator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IDialogDecorator__Class** type_info;
+        inline app::IDialogDecorator__Class** type_info = (app::IDialogDecorator__Class**)(modloader::win::memory::resolve_rva(0x04726920));
         inline app::IDialogDecorator__Class* get_class() {
             return il2cpp::get_class<app::IDialogDecorator__Class>(type_info, "", "IDialogDecorator");
         }

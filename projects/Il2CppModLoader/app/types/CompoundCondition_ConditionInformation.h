@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CompoundCondition_ConditionInformation {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CompoundCondition_ConditionInformation__Class** type_info;
+        inline app::CompoundCondition_ConditionInformation__Class** type_info = (app::CompoundCondition_ConditionInformation__Class**)(modloader::win::memory::resolve_rva(0x04706108));
         inline app::CompoundCondition_ConditionInformation__Class* get_class() {
             return il2cpp::get_nested_class<app::CompoundCondition_ConditionInformation__Class>(type_info, "", "CompoundCondition", "ConditionInformation");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CVRSystem_PollNextEventPacked {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CVRSystem_PollNextEventPacked__Class** type_info;
+        inline app::CVRSystem_PollNextEventPacked__Class** type_info = (app::CVRSystem_PollNextEventPacked__Class**)(modloader::win::memory::resolve_rva(0x04743A20));
         inline app::CVRSystem_PollNextEventPacked__Class* get_class() {
             return il2cpp::get_nested_class<app::CVRSystem_PollNextEventPacked__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "CVRSystem", "_PollNextEventPacked");
         }

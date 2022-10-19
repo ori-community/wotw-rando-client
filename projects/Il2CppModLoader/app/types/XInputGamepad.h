@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XInputGamepad {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XInputGamepad__Class** type_info;
+        inline app::XInputGamepad__Class** type_info = (app::XInputGamepad__Class**)(modloader::win::memory::resolve_rva(0x04750400));
         inline app::XInputGamepad__Class* get_class() {
             return il2cpp::get_class<app::XInputGamepad__Class>(type_info, "J2i.Net.XInputWrapper", "XInputGamepad");
         }

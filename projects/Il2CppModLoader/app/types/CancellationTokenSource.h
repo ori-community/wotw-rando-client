@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CancellationTokenSource {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CancellationTokenSource__Class** type_info;
+        inline app::CancellationTokenSource__Class** type_info = (app::CancellationTokenSource__Class**)(modloader::win::memory::resolve_rva(0x0477A518));
         inline app::CancellationTokenSource__Class* get_class() {
             return il2cpp::get_class<app::CancellationTokenSource__Class>(type_info, "System.Threading", "CancellationTokenSource");
         }

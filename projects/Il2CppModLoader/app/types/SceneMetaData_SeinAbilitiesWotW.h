@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SceneMetaData_SeinAbilitiesWotW {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SceneMetaData_SeinAbilitiesWotW__Class** type_info;
+        inline app::SceneMetaData_SeinAbilitiesWotW__Class** type_info = (app::SceneMetaData_SeinAbilitiesWotW__Class**)(modloader::win::memory::resolve_rva(0x04705A70));
         inline app::SceneMetaData_SeinAbilitiesWotW__Class* get_class() {
             return il2cpp::get_nested_class<app::SceneMetaData_SeinAbilitiesWotW__Class>(type_info, "", "SceneMetaData", "SeinAbilitiesWotW");
         }

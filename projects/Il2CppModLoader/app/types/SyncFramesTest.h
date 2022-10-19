@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SyncFramesTest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SyncFramesTest__Class** type_info;
+        inline app::SyncFramesTest__Class** type_info = (app::SyncFramesTest__Class**)(modloader::win::memory::resolve_rva(0x047731C0));
         inline app::SyncFramesTest__Class* get_class() {
             return il2cpp::get_class<app::SyncFramesTest__Class>(type_info, "", "SyncFramesTest");
         }

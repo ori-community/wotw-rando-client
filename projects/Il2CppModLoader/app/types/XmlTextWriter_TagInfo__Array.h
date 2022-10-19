@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlTextWriter_TagInfo__Array {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlTextWriter_TagInfo__Array__Class** type_info;
+        inline app::XmlTextWriter_TagInfo__Array__Class** type_info = (app::XmlTextWriter_TagInfo__Array__Class**)(modloader::win::memory::resolve_rva(0x04763A38));
         inline app::XmlTextWriter_TagInfo__Array__Class* get_class() {
             return il2cpp::get_class<app::XmlTextWriter_TagInfo__Array__Class>(type_info, "System.Xml", "XmlTextWriter+TagInfo[]");
         }

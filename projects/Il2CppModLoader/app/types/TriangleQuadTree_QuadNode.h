@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TriangleQuadTree_QuadNode {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TriangleQuadTree_QuadNode__Class** type_info;
+        inline app::TriangleQuadTree_QuadNode__Class** type_info = (app::TriangleQuadTree_QuadNode__Class**)(modloader::win::memory::resolve_rva(0x04753A50));
         inline app::TriangleQuadTree_QuadNode__Class* get_class() {
             return il2cpp::get_nested_class<app::TriangleQuadTree_QuadNode__Class>(type_info, "TriangleNet.Tools", "TriangleQuadTree", "QuadNode");
         }

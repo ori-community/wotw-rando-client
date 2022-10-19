@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CopyEncoder {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CopyEncoder__Class** type_info;
+        inline app::CopyEncoder__Class** type_info = (app::CopyEncoder__Class**)(modloader::win::memory::resolve_rva(0x04739AD0));
         inline app::CopyEncoder__Class* get_class() {
             return il2cpp::get_class<app::CopyEncoder__Class>(type_info, "Unity.IO.Compression", "CopyEncoder");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IKSolverFullBodyBiped {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IKSolverFullBodyBiped__Class** type_info;
+        inline app::IKSolverFullBodyBiped__Class** type_info = (app::IKSolverFullBodyBiped__Class**)(modloader::win::memory::resolve_rva(0x0475E1F8));
         inline app::IKSolverFullBodyBiped__Class* get_class() {
             return il2cpp::get_class<app::IKSolverFullBodyBiped__Class>(type_info, "RootMotion.FinalIK", "IKSolverFullBodyBiped");
         }

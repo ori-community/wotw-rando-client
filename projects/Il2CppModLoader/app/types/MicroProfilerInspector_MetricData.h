@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MicroProfilerInspector_MetricData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MicroProfilerInspector_MetricData__Class** type_info;
+        inline app::MicroProfilerInspector_MetricData__Class** type_info = (app::MicroProfilerInspector_MetricData__Class**)(modloader::win::memory::resolve_rva(0x04747F30));
         inline app::MicroProfilerInspector_MetricData__Class* get_class() {
             return il2cpp::get_nested_class<app::MicroProfilerInspector_MetricData__Class>(type_info, "", "MicroProfilerInspector", "MetricData");
         }

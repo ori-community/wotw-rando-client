@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Boid {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Boid__Class** type_info;
+        inline app::Boid__Class** type_info = (app::Boid__Class**)(modloader::win::memory::resolve_rva(0x04737F80));
         inline app::Boid__Class* get_class() {
             return il2cpp::get_class<app::Boid__Class>(type_info, "", "Boid");
         }

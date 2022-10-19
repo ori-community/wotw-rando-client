@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TrackedReference {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TrackedReference__Class** type_info;
+        inline app::TrackedReference__Class** type_info = (app::TrackedReference__Class**)(modloader::win::memory::resolve_rva(0x0471B878));
         inline app::TrackedReference__Class* get_class() {
             return il2cpp::get_class<app::TrackedReference__Class>(type_info, "UnityEngine", "TrackedReference");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Browser {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Browser__Class** type_info;
+        inline app::Browser__Class** type_info = (app::Browser__Class**)(modloader::win::memory::resolve_rva(0x04731500));
         inline app::Browser__Class* get_class() {
             return il2cpp::get_class<app::Browser__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "Browser");
         }

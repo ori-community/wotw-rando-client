@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AnimatorControllerPlayable {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AnimatorControllerPlayable__Class** type_info;
+        inline app::AnimatorControllerPlayable__Class** type_info = (app::AnimatorControllerPlayable__Class**)(modloader::win::memory::resolve_rva(0x04709170));
         inline app::AnimatorControllerPlayable__Class* get_class() {
             return il2cpp::get_class<app::AnimatorControllerPlayable__Class>(type_info, "UnityEngine.Animations", "AnimatorControllerPlayable");
         }

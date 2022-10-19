@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace VerletPhysicsAnimationPostprocess_VerletChain {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::VerletPhysicsAnimationPostprocess_VerletChain__Class** type_info;
+        inline app::VerletPhysicsAnimationPostprocess_VerletChain__Class** type_info = (app::VerletPhysicsAnimationPostprocess_VerletChain__Class**)(modloader::win::memory::resolve_rva(0x047050E0));
         inline app::VerletPhysicsAnimationPostprocess_VerletChain__Class* get_class() {
             return il2cpp::get_nested_class<app::VerletPhysicsAnimationPostprocess_VerletChain__Class>(type_info, "Moon", "VerletPhysicsAnimationPostprocess", "VerletChain");
         }

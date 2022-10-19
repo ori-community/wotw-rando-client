@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MeshRendererFrustrumOptimiser {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MeshRendererFrustrumOptimiser__Class** type_info;
+        inline app::MeshRendererFrustrumOptimiser__Class** type_info = (app::MeshRendererFrustrumOptimiser__Class**)(modloader::win::memory::resolve_rva(0x0473B1C0));
         inline app::MeshRendererFrustrumOptimiser__Class* get_class() {
             return il2cpp::get_class<app::MeshRendererFrustrumOptimiser__Class>(type_info, "", "MeshRendererFrustrumOptimiser");
         }

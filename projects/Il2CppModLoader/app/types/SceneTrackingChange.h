@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SceneTrackingChange {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SceneTrackingChange__Class** type_info;
+        inline app::SceneTrackingChange__Class** type_info = (app::SceneTrackingChange__Class**)(modloader::win::memory::resolve_rva(0x04790580));
         inline app::SceneTrackingChange__Class* get_class() {
             return il2cpp::get_class<app::SceneTrackingChange__Class>(type_info, "Moon.EditorTools.SceneTracking", "SceneTrackingChange");
         }

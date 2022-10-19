@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CCFont_Char {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CCFont_Char__Class** type_info;
+        inline app::CCFont_Char__Class** type_info = (app::CCFont_Char__Class**)(modloader::win::memory::resolve_rva(0x047074C8));
         inline app::CCFont_Char__Class* get_class() {
             return il2cpp::get_nested_class<app::CCFont_Char__Class>(type_info, "", "CCFont", "Char");
         }

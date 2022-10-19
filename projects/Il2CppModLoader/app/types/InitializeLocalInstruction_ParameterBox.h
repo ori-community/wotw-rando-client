@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace InitializeLocalInstruction_ParameterBox {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::InitializeLocalInstruction_ParameterBox__Class** type_info;
+        inline app::InitializeLocalInstruction_ParameterBox__Class** type_info = (app::InitializeLocalInstruction_ParameterBox__Class**)(modloader::win::memory::resolve_rva(0x0472FAF0));
         inline app::InitializeLocalInstruction_ParameterBox__Class* get_class() {
             return il2cpp::get_nested_class<app::InitializeLocalInstruction_ParameterBox__Class>(type_info, "System.Linq.Expressions.Interpreter", "InitializeLocalInstruction", "ParameterBox");
         }

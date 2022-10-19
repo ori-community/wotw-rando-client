@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RemoveFriendResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RemoveFriendResult__Class** type_info;
+        inline app::RemoveFriendResult__Class** type_info = (app::RemoveFriendResult__Class**)(modloader::win::memory::resolve_rva(0x04735710));
         inline app::RemoveFriendResult__Class* get_class() {
             return il2cpp::get_class<app::RemoveFriendResult__Class>(type_info, "PlayFab.ClientModels", "RemoveFriendResult");
         }

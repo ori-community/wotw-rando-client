@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CredentialKey {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CredentialKey__Class** type_info;
+        inline app::CredentialKey__Class** type_info = (app::CredentialKey__Class**)(modloader::win::memory::resolve_rva(0x04782148));
         inline app::CredentialKey__Class* get_class() {
             return il2cpp::get_class<app::CredentialKey__Class>(type_info, "System.Net", "CredentialKey");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HideMenuAction {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::HideMenuAction__Class** type_info;
+        inline app::HideMenuAction__Class** type_info = (app::HideMenuAction__Class**)(modloader::win::memory::resolve_rva(0x0475A748));
         inline app::HideMenuAction__Class* get_class() {
             return il2cpp::get_class<app::HideMenuAction__Class>(type_info, "", "HideMenuAction");
         }

@@ -42,13 +42,6 @@ endforeach ()
 
 file(GLOB_RECURSE METHODS ${PROJECT_DIR}/app/methods *.h)
 file(GLOB_RECURSE TYPES ${PROJECT_DIR}/app/types *.h)
-file(GLOB_RECURSE TYPES_INIT ${PROJECT_DIR}/app/types *.cpp)
-
-list(
-        APPEND
-        SOURCE_FILES
-        ${TYPES_INIT}
-)
 
 list(
         APPEND

@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SessionMask {
         namespace {
-            app::SessionMask__Class* type_info_ref = nullptr;
+            inline app::SessionMask__Class* type_info_ref = nullptr;
         }
-        app::SessionMask__Class** type_info = &type_info_ref;
+        inline app::SessionMask__Class** type_info = &type_info_ref;
         inline app::SessionMask__Class* get_class() {
             return il2cpp::get_class<app::SessionMask__Class>(type_info, "System.Diagnostics.Tracing", "SessionMask");
         }

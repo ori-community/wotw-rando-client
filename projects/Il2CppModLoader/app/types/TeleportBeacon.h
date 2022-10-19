@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TeleportBeacon {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TeleportBeacon__Class** type_info;
+        inline app::TeleportBeacon__Class** type_info = (app::TeleportBeacon__Class**)(modloader::win::memory::resolve_rva(0x0472EAC0));
         inline app::TeleportBeacon__Class* get_class() {
             return il2cpp::get_class<app::TeleportBeacon__Class>(type_info, "", "TeleportBeacon");
         }

@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RendererCullingParameters_SliceList_z_FixedBuffer8 {
         namespace {
-            app::RendererCullingParameters_SliceList_z_FixedBuffer8__Class* type_info_ref = nullptr;
+            inline app::RendererCullingParameters_SliceList_z_FixedBuffer8__Class* type_info_ref = nullptr;
         }
-        app::RendererCullingParameters_SliceList_z_FixedBuffer8__Class** type_info = &type_info_ref;
+        inline app::RendererCullingParameters_SliceList_z_FixedBuffer8__Class** type_info = &type_info_ref;
         inline app::RendererCullingParameters_SliceList_z_FixedBuffer8__Class* get_class() {
             return il2cpp::get_nested_class<app::RendererCullingParameters_SliceList_z_FixedBuffer8__Class>(type_info, "UnityEngine.Experimental.Rendering", "RendererCullingParameters+SliceList", "<z>__FixedBuffer8");
         }

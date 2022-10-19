@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XsdCachingReader {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XsdCachingReader__Class** type_info;
+        inline app::XsdCachingReader__Class** type_info = (app::XsdCachingReader__Class**)(modloader::win::memory::resolve_rva(0x047711B8));
         inline app::XsdCachingReader__Class* get_class() {
             return il2cpp::get_class<app::XsdCachingReader__Class>(type_info, "System.Xml", "XsdCachingReader");
         }

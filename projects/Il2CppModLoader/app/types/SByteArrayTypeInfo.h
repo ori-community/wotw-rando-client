@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SByteArrayTypeInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SByteArrayTypeInfo__Class** type_info;
+        inline app::SByteArrayTypeInfo__Class** type_info = (app::SByteArrayTypeInfo__Class**)(modloader::win::memory::resolve_rva(0x04755708));
         inline app::SByteArrayTypeInfo__Class* get_class() {
             return il2cpp::get_class<app::SByteArrayTypeInfo__Class>(type_info, "System.Diagnostics.Tracing", "SByteArrayTypeInfo");
         }

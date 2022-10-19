@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AppDomainUnloadedException {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AppDomainUnloadedException__Class** type_info;
+        inline app::AppDomainUnloadedException__Class** type_info = (app::AppDomainUnloadedException__Class**)(modloader::win::memory::resolve_rva(0x04765190));
         inline app::AppDomainUnloadedException__Class* get_class() {
             return il2cpp::get_class<app::AppDomainUnloadedException__Class>(type_info, "System", "AppDomainUnloadedException");
         }

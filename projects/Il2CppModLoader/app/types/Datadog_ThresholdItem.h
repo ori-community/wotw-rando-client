@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Datadog_ThresholdItem {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Datadog_ThresholdItem__Class** type_info;
+        inline app::Datadog_ThresholdItem__Class** type_info = (app::Datadog_ThresholdItem__Class**)(modloader::win::memory::resolve_rva(0x04769EB0));
         inline app::Datadog_ThresholdItem__Class* get_class() {
             return il2cpp::get_nested_class<app::Datadog_ThresholdItem__Class>(type_info, "", "Datadog", "ThresholdItem");
         }

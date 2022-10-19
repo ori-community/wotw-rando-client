@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DropSlugEnemy_States {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DropSlugEnemy_States__Class** type_info;
+        inline app::DropSlugEnemy_States__Class** type_info = (app::DropSlugEnemy_States__Class**)(modloader::win::memory::resolve_rva(0x047109B0));
         inline app::DropSlugEnemy_States__Class* get_class() {
             return il2cpp::get_nested_class<app::DropSlugEnemy_States__Class>(type_info, "", "DropSlugEnemy", "States");
         }

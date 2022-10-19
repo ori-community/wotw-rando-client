@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Ambience_Layer_Track {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Ambience_Layer_Track__Class** type_info;
+        inline app::Ambience_Layer_Track__Class** type_info = (app::Ambience_Layer_Track__Class**)(modloader::win::memory::resolve_rva(0x04742C40));
         inline app::Ambience_Layer_Track__Class* get_class() {
             return il2cpp::get_nested_class<app::Ambience_Layer_Track__Class>(type_info, "Core", "Ambience+Layer", "Track");
         }

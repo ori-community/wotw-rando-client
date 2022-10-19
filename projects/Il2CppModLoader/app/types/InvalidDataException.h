@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace InvalidDataException {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::InvalidDataException__Class** type_info;
+        inline app::InvalidDataException__Class** type_info = (app::InvalidDataException__Class**)(modloader::win::memory::resolve_rva(0x0470F018));
         inline app::InvalidDataException__Class* get_class() {
             return il2cpp::get_class<app::InvalidDataException__Class>(type_info, "System.IO", "InvalidDataException");
         }

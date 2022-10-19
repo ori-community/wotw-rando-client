@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace EntityCinematicData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::EntityCinematicData__Class** type_info;
+        inline app::EntityCinematicData__Class** type_info = (app::EntityCinematicData__Class**)(modloader::win::memory::resolve_rva(0x0470F4C8));
         inline app::EntityCinematicData__Class* get_class() {
             return il2cpp::get_class<app::EntityCinematicData__Class>(type_info, "", "EntityCinematicData");
         }

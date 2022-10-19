@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RightShiftInstruction_RightShiftUInt64 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RightShiftInstruction_RightShiftUInt64__Class** type_info;
+        inline app::RightShiftInstruction_RightShiftUInt64__Class** type_info = (app::RightShiftInstruction_RightShiftUInt64__Class**)(modloader::win::memory::resolve_rva(0x04707150));
         inline app::RightShiftInstruction_RightShiftUInt64__Class* get_class() {
             return il2cpp::get_nested_class<app::RightShiftInstruction_RightShiftUInt64__Class>(type_info, "System.Linq.Expressions.Interpreter", "RightShiftInstruction", "RightShiftUInt64");
         }

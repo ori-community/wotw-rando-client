@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LeaderboardEntryData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LeaderboardEntryData__Class** type_info;
+        inline app::LeaderboardEntryData__Class** type_info = (app::LeaderboardEntryData__Class**)(modloader::win::memory::resolve_rva(0x0477CB68));
         inline app::LeaderboardEntryData__Class* get_class() {
             return il2cpp::get_class<app::LeaderboardEntryData__Class>(type_info, "", "LeaderboardEntryData");
         }

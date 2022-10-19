@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HornBugSpawnSetup {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::HornBugSpawnSetup__Class** type_info;
+        inline app::HornBugSpawnSetup__Class** type_info = (app::HornBugSpawnSetup__Class**)(modloader::win::memory::resolve_rva(0x0478FE98));
         inline app::HornBugSpawnSetup__Class* get_class() {
             return il2cpp::get_class<app::HornBugSpawnSetup__Class>(type_info, "", "HornBugSpawnSetup");
         }

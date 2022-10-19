@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace EquipmentRadialSelection_RadialItemVisual {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::EquipmentRadialSelection_RadialItemVisual__Class** type_info;
+        inline app::EquipmentRadialSelection_RadialItemVisual__Class** type_info = (app::EquipmentRadialSelection_RadialItemVisual__Class**)(modloader::win::memory::resolve_rva(0x0475D278));
         inline app::EquipmentRadialSelection_RadialItemVisual__Class* get_class() {
             return il2cpp::get_nested_class<app::EquipmentRadialSelection_RadialItemVisual__Class>(type_info, "", "EquipmentRadialSelection", "RadialItemVisual");
         }

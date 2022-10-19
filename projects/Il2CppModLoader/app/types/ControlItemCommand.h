@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ControlItemCommand {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ControlItemCommand__Class** type_info;
+        inline app::ControlItemCommand__Class** type_info = (app::ControlItemCommand__Class**)(modloader::win::memory::resolve_rva(0x04701A58));
         inline app::ControlItemCommand__Class* get_class() {
             return il2cpp::get_class<app::ControlItemCommand__Class>(type_info, "", "ControlItemCommand");
         }

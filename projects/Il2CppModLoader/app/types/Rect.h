@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Rect {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Rect__Class** type_info;
+        inline app::Rect__Class** type_info = (app::Rect__Class**)(modloader::win::memory::resolve_rva(0x0475B480));
         inline app::Rect__Class* get_class() {
             return il2cpp::get_class<app::Rect__Class>(type_info, "UnityEngine", "Rect");
         }
@@ -25,10 +26,11 @@ namespace app::classes::types {
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RECT {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RECT__Class** type_info;
+        inline app::RECT__Class** type_info = (app::RECT__Class**)(modloader::win::memory::resolve_rva(0x0473E098));
         inline app::RECT__Class* get_class() {
             return il2cpp::get_class<app::RECT__Class>(type_info, "", "RECT");
         }

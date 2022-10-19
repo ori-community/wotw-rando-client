@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MapmakerItem {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MapmakerItem__Class** type_info;
+        inline app::MapmakerItem__Class** type_info = (app::MapmakerItem__Class**)(modloader::win::memory::resolve_rva(0x047426E8));
         inline app::MapmakerItem__Class* get_class() {
             return il2cpp::get_class<app::MapmakerItem__Class>(type_info, "", "MapmakerItem");
         }

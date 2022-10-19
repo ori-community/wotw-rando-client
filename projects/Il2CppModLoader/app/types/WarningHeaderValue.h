@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WarningHeaderValue {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WarningHeaderValue__Class** type_info;
+        inline app::WarningHeaderValue__Class** type_info = (app::WarningHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x047090C8));
         inline app::WarningHeaderValue__Class* get_class() {
             return il2cpp::get_class<app::WarningHeaderValue__Class>(type_info, "System.Net.Http.Headers", "WarningHeaderValue");
         }

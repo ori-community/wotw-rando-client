@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberPoolPerfTest_PrefabInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberPoolPerfTest_PrefabInfo__Class** type_info;
+        inline app::UberPoolPerfTest_PrefabInfo__Class** type_info = (app::UberPoolPerfTest_PrefabInfo__Class**)(modloader::win::memory::resolve_rva(0x04764FD8));
         inline app::UberPoolPerfTest_PrefabInfo__Class* get_class() {
             return il2cpp::get_nested_class<app::UberPoolPerfTest_PrefabInfo__Class>(type_info, "", "UberPoolPerfTest", "PrefabInfo");
         }

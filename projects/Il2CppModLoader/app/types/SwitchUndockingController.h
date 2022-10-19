@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SwitchUndockingController {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SwitchUndockingController__Class** type_info;
+        inline app::SwitchUndockingController__Class** type_info = (app::SwitchUndockingController__Class**)(modloader::win::memory::resolve_rva(0x0476AC88));
         inline app::SwitchUndockingController__Class* get_class() {
             return il2cpp::get_class<app::SwitchUndockingController__Class>(type_info, "UberShader.optimizations.gc", "SwitchUndockingController");
         }

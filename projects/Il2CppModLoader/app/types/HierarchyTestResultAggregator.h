@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HierarchyTestResultAggregator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::HierarchyTestResultAggregator__Class** type_info;
+        inline app::HierarchyTestResultAggregator__Class** type_info = (app::HierarchyTestResultAggregator__Class**)(modloader::win::memory::resolve_rva(0x04755398));
         inline app::HierarchyTestResultAggregator__Class* get_class() {
             return il2cpp::get_class<app::HierarchyTestResultAggregator__Class>(type_info, "Moon.HierarchyPerformanceTest", "HierarchyTestResultAggregator");
         }

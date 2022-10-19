@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ESteamControllerLEDFlag__Enum {
         namespace {
-            app::ESteamControllerLEDFlag__Enum__Class* type_info_ref = nullptr;
+            inline app::ESteamControllerLEDFlag__Enum__Class* type_info_ref = nullptr;
         }
-        app::ESteamControllerLEDFlag__Enum__Class** type_info = &type_info_ref;
+        inline app::ESteamControllerLEDFlag__Enum__Class** type_info = &type_info_ref;
         inline app::ESteamControllerLEDFlag__Enum__Class* get_class() {
             return il2cpp::get_class<app::ESteamControllerLEDFlag__Enum__Class>(type_info, "Steamworks", "ESteamControllerLEDFlag");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ScreenSpaceReflection_SSRSettings {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ScreenSpaceReflection_SSRSettings__Class** type_info;
+        inline app::ScreenSpaceReflection_SSRSettings__Class** type_info = (app::ScreenSpaceReflection_SSRSettings__Class**)(modloader::win::memory::resolve_rva(0x047338A0));
         inline app::ScreenSpaceReflection_SSRSettings__Class* get_class() {
             return il2cpp::get_nested_class<app::ScreenSpaceReflection_SSRSettings__Class>(type_info, "UnityStandardAssets.CinematicEffects", "ScreenSpaceReflection", "SSRSettings");
         }

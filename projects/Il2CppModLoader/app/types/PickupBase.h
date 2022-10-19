@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PickupBase {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PickupBase__Class** type_info;
+        inline app::PickupBase__Class** type_info = (app::PickupBase__Class**)(modloader::win::memory::resolve_rva(0x047099E0));
         inline app::PickupBase__Class* get_class() {
             return il2cpp::get_class<app::PickupBase__Class>(type_info, "", "PickupBase");
         }

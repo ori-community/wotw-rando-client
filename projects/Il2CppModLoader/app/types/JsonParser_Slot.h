@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace JsonParser_Slot {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::JsonParser_Slot__Class** type_info;
+        inline app::JsonParser_Slot__Class** type_info = (app::JsonParser_Slot__Class**)(modloader::win::memory::resolve_rva(0x0477D798));
         inline app::JsonParser_Slot__Class* get_class() {
             return il2cpp::get_nested_class<app::JsonParser_Slot__Class>(type_info, "Moon", "JsonParser", "Slot");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Aes {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Aes__Class** type_info;
+        inline app::Aes__Class** type_info = (app::Aes__Class**)(modloader::win::memory::resolve_rva(0x047688D0));
         inline app::Aes__Class* get_class() {
             return il2cpp::get_class<app::Aes__Class>(type_info, "System.Security.Cryptography", "Aes");
         }

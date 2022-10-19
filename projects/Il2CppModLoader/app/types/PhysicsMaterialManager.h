@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PhysicsMaterialManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PhysicsMaterialManager__Class** type_info;
+        inline app::PhysicsMaterialManager__Class** type_info = (app::PhysicsMaterialManager__Class**)(modloader::win::memory::resolve_rva(0x0473B3B0));
         inline app::PhysicsMaterialManager__Class* get_class() {
             return il2cpp::get_class<app::PhysicsMaterialManager__Class>(type_info, "", "PhysicsMaterialManager");
         }

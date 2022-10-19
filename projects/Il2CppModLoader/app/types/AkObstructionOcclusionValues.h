@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AkObstructionOcclusionValues {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AkObstructionOcclusionValues__Class** type_info;
+        inline app::AkObstructionOcclusionValues__Class** type_info = (app::AkObstructionOcclusionValues__Class**)(modloader::win::memory::resolve_rva(0x047498D0));
         inline app::AkObstructionOcclusionValues__Class* get_class() {
             return il2cpp::get_class<app::AkObstructionOcclusionValues__Class>(type_info, "", "AkObstructionOcclusionValues");
         }

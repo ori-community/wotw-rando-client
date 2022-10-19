@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CCText {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CCText__Class** type_info;
+        inline app::CCText__Class** type_info = (app::CCText__Class**)(modloader::win::memory::resolve_rva(0x04787F38));
         inline app::CCText__Class* get_class() {
             return il2cpp::get_class<app::CCText__Class>(type_info, "", "CCText");
         }

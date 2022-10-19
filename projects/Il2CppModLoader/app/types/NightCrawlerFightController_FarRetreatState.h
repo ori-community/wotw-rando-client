@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NightCrawlerFightController_FarRetreatState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NightCrawlerFightController_FarRetreatState__Class** type_info;
+        inline app::NightCrawlerFightController_FarRetreatState__Class** type_info = (app::NightCrawlerFightController_FarRetreatState__Class**)(modloader::win::memory::resolve_rva(0x04783848));
         inline app::NightCrawlerFightController_FarRetreatState__Class* get_class() {
             return il2cpp::get_nested_class<app::NightCrawlerFightController_FarRetreatState__Class>(type_info, "", "NightCrawlerFightController", "FarRetreatState");
         }

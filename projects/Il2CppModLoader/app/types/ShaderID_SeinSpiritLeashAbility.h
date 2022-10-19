@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ShaderID_SeinSpiritLeashAbility {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ShaderID_SeinSpiritLeashAbility__Class** type_info;
+        inline app::ShaderID_SeinSpiritLeashAbility__Class** type_info = (app::ShaderID_SeinSpiritLeashAbility__Class**)(modloader::win::memory::resolve_rva(0x04775A38));
         inline app::ShaderID_SeinSpiritLeashAbility__Class* get_class() {
             return il2cpp::get_class<app::ShaderID_SeinSpiritLeashAbility__Class>(type_info, "", "ShaderID_SeinSpiritLeashAbility");
         }

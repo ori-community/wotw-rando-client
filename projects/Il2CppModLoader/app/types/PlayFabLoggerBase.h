@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayFabLoggerBase {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PlayFabLoggerBase__Class** type_info;
+        inline app::PlayFabLoggerBase__Class** type_info = (app::PlayFabLoggerBase__Class**)(modloader::win::memory::resolve_rva(0x047084A8));
         inline app::PlayFabLoggerBase__Class* get_class() {
             return il2cpp::get_class<app::PlayFabLoggerBase__Class>(type_info, "PlayFab.Public", "PlayFabLoggerBase");
         }

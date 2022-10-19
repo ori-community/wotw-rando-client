@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UnloadPreviousTestComplete {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UnloadPreviousTestComplete__Class** type_info;
+        inline app::UnloadPreviousTestComplete__Class** type_info = (app::UnloadPreviousTestComplete__Class**)(modloader::win::memory::resolve_rva(0x047369C0));
         inline app::UnloadPreviousTestComplete__Class* get_class() {
             return il2cpp::get_class<app::UnloadPreviousTestComplete__Class>(type_info, "", "UnloadPreviousTestComplete");
         }

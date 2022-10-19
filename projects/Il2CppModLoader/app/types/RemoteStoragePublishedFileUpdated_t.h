@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RemoteStoragePublishedFileUpdated_t {
         namespace {
-            app::RemoteStoragePublishedFileUpdated_t__Class* type_info_ref = nullptr;
+            inline app::RemoteStoragePublishedFileUpdated_t__Class* type_info_ref = nullptr;
         }
-        app::RemoteStoragePublishedFileUpdated_t__Class** type_info = &type_info_ref;
+        inline app::RemoteStoragePublishedFileUpdated_t__Class** type_info = &type_info_ref;
         inline app::RemoteStoragePublishedFileUpdated_t__Class* get_class() {
             return il2cpp::get_class<app::RemoteStoragePublishedFileUpdated_t__Class>(type_info, "Steamworks", "RemoteStoragePublishedFileUpdated_t");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ForceRefreshAnimatorContext {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ForceRefreshAnimatorContext__Class** type_info;
+        inline app::ForceRefreshAnimatorContext__Class** type_info = (app::ForceRefreshAnimatorContext__Class**)(modloader::win::memory::resolve_rva(0x0477EC70));
         inline app::ForceRefreshAnimatorContext__Class* get_class() {
             return il2cpp::get_class<app::ForceRefreshAnimatorContext__Class>(type_info, "Moon.Timeline", "ForceRefreshAnimatorContext");
         }

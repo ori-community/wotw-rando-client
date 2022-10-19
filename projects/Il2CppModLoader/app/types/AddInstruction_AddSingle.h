@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AddInstruction_AddSingle {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AddInstruction_AddSingle__Class** type_info;
+        inline app::AddInstruction_AddSingle__Class** type_info = (app::AddInstruction_AddSingle__Class**)(modloader::win::memory::resolve_rva(0x0470F040));
         inline app::AddInstruction_AddSingle__Class* get_class() {
             return il2cpp::get_nested_class<app::AddInstruction_AddSingle__Class>(type_info, "System.Linq.Expressions.Interpreter", "AddInstruction", "AddSingle");
         }

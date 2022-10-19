@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlSerializableMapping {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlSerializableMapping__Class** type_info;
+        inline app::XmlSerializableMapping__Class** type_info = (app::XmlSerializableMapping__Class**)(modloader::win::memory::resolve_rva(0x04726B50));
         inline app::XmlSerializableMapping__Class* get_class() {
             return il2cpp::get_class<app::XmlSerializableMapping__Class>(type_info, "System.Xml.Serialization", "XmlSerializableMapping");
         }

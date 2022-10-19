@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LeashHookAnimator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LeashHookAnimator__Class** type_info;
+        inline app::LeashHookAnimator__Class** type_info = (app::LeashHookAnimator__Class**)(modloader::win::memory::resolve_rva(0x0472F880));
         inline app::LeashHookAnimator__Class* get_class() {
             return il2cpp::get_class<app::LeashHookAnimator__Class>(type_info, "", "LeashHookAnimator");
         }

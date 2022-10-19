@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace StartGameRequest_1 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::StartGameRequest_1__Class** type_info;
+        inline app::StartGameRequest_1__Class** type_info = (app::StartGameRequest_1__Class**)(modloader::win::memory::resolve_rva(0x0478A2C8));
         inline app::StartGameRequest_1__Class* get_class() {
             return il2cpp::get_class<app::StartGameRequest_1__Class>(type_info, "PlayFab.MatchmakerModels", "StartGameRequest");
         }

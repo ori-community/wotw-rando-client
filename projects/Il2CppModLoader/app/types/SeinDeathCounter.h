@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SeinDeathCounter {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SeinDeathCounter__Class** type_info;
+        inline app::SeinDeathCounter__Class** type_info = (app::SeinDeathCounter__Class**)(modloader::win::memory::resolve_rva(0x0471C2C8));
         inline app::SeinDeathCounter__Class* get_class() {
             return il2cpp::get_class<app::SeinDeathCounter__Class>(type_info, "", "SeinDeathCounter");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HybridDictionary {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::HybridDictionary__Class** type_info;
+        inline app::HybridDictionary__Class** type_info = (app::HybridDictionary__Class**)(modloader::win::memory::resolve_rva(0x0475CF60));
         inline app::HybridDictionary__Class* get_class() {
             return il2cpp::get_class<app::HybridDictionary__Class>(type_info, "System.Collections.Specialized", "HybridDictionary");
         }

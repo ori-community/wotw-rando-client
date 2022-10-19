@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WwiseBootstrap_c {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WwiseBootstrap_c__Class** type_info;
+        inline app::WwiseBootstrap_c__Class** type_info = (app::WwiseBootstrap_c__Class**)(modloader::win::memory::resolve_rva(0x04733488));
         inline app::WwiseBootstrap_c__Class* get_class() {
             return il2cpp::get_nested_class<app::WwiseBootstrap_c__Class>(type_info, "Moon.Wwise", "WwiseBootstrap", "<>c");
         }

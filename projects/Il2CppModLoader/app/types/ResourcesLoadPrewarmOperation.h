@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ResourcesLoadPrewarmOperation {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ResourcesLoadPrewarmOperation__Class** type_info;
+        inline app::ResourcesLoadPrewarmOperation__Class** type_info = (app::ResourcesLoadPrewarmOperation__Class**)(modloader::win::memory::resolve_rva(0x047335E0));
         inline app::ResourcesLoadPrewarmOperation__Class* get_class() {
             return il2cpp::get_class<app::ResourcesLoadPrewarmOperation__Class>(type_info, "frameworks.loading.Prewarmers", "ResourcesLoadPrewarmOperation");
         }

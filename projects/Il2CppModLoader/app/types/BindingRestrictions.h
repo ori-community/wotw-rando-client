@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BindingRestrictions {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BindingRestrictions__Class** type_info;
+        inline app::BindingRestrictions__Class** type_info = (app::BindingRestrictions__Class**)(modloader::win::memory::resolve_rva(0x04755790));
         inline app::BindingRestrictions__Class* get_class() {
             return il2cpp::get_class<app::BindingRestrictions__Class>(type_info, "System.Dynamic", "BindingRestrictions");
         }

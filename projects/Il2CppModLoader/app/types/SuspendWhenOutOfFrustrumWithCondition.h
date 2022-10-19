@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SuspendWhenOutOfFrustrumWithCondition {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SuspendWhenOutOfFrustrumWithCondition__Class** type_info;
+        inline app::SuspendWhenOutOfFrustrumWithCondition__Class** type_info = (app::SuspendWhenOutOfFrustrumWithCondition__Class**)(modloader::win::memory::resolve_rva(0x0477FBC0));
         inline app::SuspendWhenOutOfFrustrumWithCondition__Class* get_class() {
             return il2cpp::get_class<app::SuspendWhenOutOfFrustrumWithCondition__Class>(type_info, "", "SuspendWhenOutOfFrustrumWithCondition");
         }

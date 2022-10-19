@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace InstructionList {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::InstructionList__Class** type_info;
+        inline app::InstructionList__Class** type_info = (app::InstructionList__Class**)(modloader::win::memory::resolve_rva(0x0470A620));
         inline app::InstructionList__Class* get_class() {
             return il2cpp::get_class<app::InstructionList__Class>(type_info, "System.Linq.Expressions.Interpreter", "InstructionList");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BuilderScreen {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BuilderScreen__Class** type_info;
+        inline app::BuilderScreen__Class** type_info = (app::BuilderScreen__Class**)(modloader::win::memory::resolve_rva(0x04704B28));
         inline app::BuilderScreen__Class* get_class() {
             return il2cpp::get_class<app::BuilderScreen__Class>(type_info, "", "BuilderScreen");
         }

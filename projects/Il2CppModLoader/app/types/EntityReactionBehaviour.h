@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace EntityReactionBehaviour {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::EntityReactionBehaviour__Class** type_info;
+        inline app::EntityReactionBehaviour__Class** type_info = (app::EntityReactionBehaviour__Class**)(modloader::win::memory::resolve_rva(0x0477EA68));
         inline app::EntityReactionBehaviour__Class* get_class() {
             return il2cpp::get_class<app::EntityReactionBehaviour__Class>(type_info, "", "EntityReactionBehaviour");
         }

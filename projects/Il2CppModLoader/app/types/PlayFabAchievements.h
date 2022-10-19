@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayFabAchievements {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PlayFabAchievements__Class** type_info;
+        inline app::PlayFabAchievements__Class** type_info = (app::PlayFabAchievements__Class**)(modloader::win::memory::resolve_rva(0x04737F30));
         inline app::PlayFabAchievements__Class* get_class() {
             return il2cpp::get_class<app::PlayFabAchievements__Class>(type_info, "SystemIntegration.Synchronizer.Achievements", "PlayFabAchievements");
         }

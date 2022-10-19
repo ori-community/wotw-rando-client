@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MantisGrayboxEntity_c {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MantisGrayboxEntity_c__Class** type_info;
+        inline app::MantisGrayboxEntity_c__Class** type_info = (app::MantisGrayboxEntity_c__Class**)(modloader::win::memory::resolve_rva(0x0477A1A0));
         inline app::MantisGrayboxEntity_c__Class* get_class() {
             return il2cpp::get_nested_class<app::MantisGrayboxEntity_c__Class>(type_info, "", "MantisGrayboxEntity", "<>c");
         }

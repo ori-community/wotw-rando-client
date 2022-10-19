@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BugHornEntity {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BugHornEntity__Class** type_info;
+        inline app::BugHornEntity__Class** type_info = (app::BugHornEntity__Class**)(modloader::win::memory::resolve_rva(0x0470D408));
         inline app::BugHornEntity__Class* get_class() {
             return il2cpp::get_class<app::BugHornEntity__Class>(type_info, "", "BugHornEntity");
         }

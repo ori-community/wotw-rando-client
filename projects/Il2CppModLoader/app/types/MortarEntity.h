@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MortarEntity {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MortarEntity__Class** type_info;
+        inline app::MortarEntity__Class** type_info = (app::MortarEntity__Class**)(modloader::win::memory::resolve_rva(0x0475E648));
         inline app::MortarEntity__Class* get_class() {
             return il2cpp::get_class<app::MortarEntity__Class>(type_info, "", "MortarEntity");
         }

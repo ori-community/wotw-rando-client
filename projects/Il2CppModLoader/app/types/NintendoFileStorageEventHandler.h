@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NintendoFileStorageEventHandler {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NintendoFileStorageEventHandler__Class** type_info;
+        inline app::NintendoFileStorageEventHandler__Class** type_info = (app::NintendoFileStorageEventHandler__Class**)(modloader::win::memory::resolve_rva(0x0470EBC0));
         inline app::NintendoFileStorageEventHandler__Class* get_class() {
             return il2cpp::get_class<app::NintendoFileStorageEventHandler__Class>(type_info, "frameworks.xboxLive", "NintendoFileStorageEventHandler");
         }

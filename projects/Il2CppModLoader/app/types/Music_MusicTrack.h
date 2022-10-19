@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Music_MusicTrack {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Music_MusicTrack__Class** type_info;
+        inline app::Music_MusicTrack__Class** type_info = (app::Music_MusicTrack__Class**)(modloader::win::memory::resolve_rva(0x0473DCC0));
         inline app::Music_MusicTrack__Class* get_class() {
             return il2cpp::get_nested_class<app::Music_MusicTrack__Class>(type_info, "Core", "Music", "MusicTrack");
         }

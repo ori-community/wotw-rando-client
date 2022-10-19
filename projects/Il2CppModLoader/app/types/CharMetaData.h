@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CharMetaData {
         namespace {
-            app::CharMetaData__Class* type_info_ref = nullptr;
+            inline app::CharMetaData__Class* type_info_ref = nullptr;
         }
-        app::CharMetaData__Class** type_info = &type_info_ref;
+        inline app::CharMetaData__Class** type_info = &type_info_ref;
         inline app::CharMetaData__Class* get_class() {
             return il2cpp::get_class<app::CharMetaData__Class>(type_info, "CatlikeCoding.TextBox", "CharMetaData");
         }

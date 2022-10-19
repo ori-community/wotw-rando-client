@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ResourceManager_ResourceManagerMediator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ResourceManager_ResourceManagerMediator__Class** type_info;
+        inline app::ResourceManager_ResourceManagerMediator__Class** type_info = (app::ResourceManager_ResourceManagerMediator__Class**)(modloader::win::memory::resolve_rva(0x04750420));
         inline app::ResourceManager_ResourceManagerMediator__Class* get_class() {
             return il2cpp::get_nested_class<app::ResourceManager_ResourceManagerMediator__Class>(type_info, "System.Resources", "ResourceManager", "ResourceManagerMediator");
         }

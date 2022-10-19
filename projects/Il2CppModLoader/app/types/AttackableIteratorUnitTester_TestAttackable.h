@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AttackableIteratorUnitTester_TestAttackable {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AttackableIteratorUnitTester_TestAttackable__Class** type_info;
+        inline app::AttackableIteratorUnitTester_TestAttackable__Class** type_info = (app::AttackableIteratorUnitTester_TestAttackable__Class**)(modloader::win::memory::resolve_rva(0x047429C8));
         inline app::AttackableIteratorUnitTester_TestAttackable__Class* get_class() {
             return il2cpp::get_nested_class<app::AttackableIteratorUnitTester_TestAttackable__Class>(type_info, "Game", "AttackableIteratorUnitTester", "TestAttackable");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UnixRegistryApi {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UnixRegistryApi__Class** type_info;
+        inline app::UnixRegistryApi__Class** type_info = (app::UnixRegistryApi__Class**)(modloader::win::memory::resolve_rva(0x04703BD0));
         inline app::UnixRegistryApi__Class* get_class() {
             return il2cpp::get_class<app::UnixRegistryApi__Class>(type_info, "Microsoft.Win32", "UnixRegistryApi");
         }

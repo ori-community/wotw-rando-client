@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RectTransform {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RectTransform__Class** type_info;
+        inline app::RectTransform__Class** type_info = (app::RectTransform__Class**)(modloader::win::memory::resolve_rva(0x047725C8));
         inline app::RectTransform__Class* get_class() {
             return il2cpp::get_class<app::RectTransform__Class>(type_info, "UnityEngine", "RectTransform");
         }

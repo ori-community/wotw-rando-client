@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DashOwlDashState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DashOwlDashState__Class** type_info;
+        inline app::DashOwlDashState__Class** type_info = (app::DashOwlDashState__Class**)(modloader::win::memory::resolve_rva(0x047096D0));
         inline app::DashOwlDashState__Class* get_class() {
             return il2cpp::get_class<app::DashOwlDashState__Class>(type_info, "", "DashOwlDashState");
         }

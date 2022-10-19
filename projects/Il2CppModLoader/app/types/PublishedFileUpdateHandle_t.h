@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PublishedFileUpdateHandle_t {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PublishedFileUpdateHandle_t__Class** type_info;
+        inline app::PublishedFileUpdateHandle_t__Class** type_info = (app::PublishedFileUpdateHandle_t__Class**)(modloader::win::memory::resolve_rva(0x0474B068));
         inline app::PublishedFileUpdateHandle_t__Class* get_class() {
             return il2cpp::get_class<app::PublishedFileUpdateHandle_t__Class>(type_info, "Steamworks", "PublishedFileUpdateHandle_t");
         }

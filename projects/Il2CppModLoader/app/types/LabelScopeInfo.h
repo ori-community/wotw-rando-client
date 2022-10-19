@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LabelScopeInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LabelScopeInfo__Class** type_info;
+        inline app::LabelScopeInfo__Class** type_info = (app::LabelScopeInfo__Class**)(modloader::win::memory::resolve_rva(0x047401F0));
         inline app::LabelScopeInfo__Class* get_class() {
             return il2cpp::get_class<app::LabelScopeInfo__Class>(type_info, "System.Linq.Expressions.Interpreter", "LabelScopeInfo");
         }

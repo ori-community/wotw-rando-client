@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace KwolokBossLocomotion_StayAtRangeSettings {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::KwolokBossLocomotion_StayAtRangeSettings__Class** type_info;
+        inline app::KwolokBossLocomotion_StayAtRangeSettings__Class** type_info = (app::KwolokBossLocomotion_StayAtRangeSettings__Class**)(modloader::win::memory::resolve_rva(0x0475F7C8));
         inline app::KwolokBossLocomotion_StayAtRangeSettings__Class* get_class() {
             return il2cpp::get_nested_class<app::KwolokBossLocomotion_StayAtRangeSettings__Class>(type_info, "", "KwolokBossLocomotion", "StayAtRangeSettings");
         }

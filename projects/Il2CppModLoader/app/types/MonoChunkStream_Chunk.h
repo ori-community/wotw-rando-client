@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MonoChunkStream_Chunk {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MonoChunkStream_Chunk__Class** type_info;
+        inline app::MonoChunkStream_Chunk__Class** type_info = (app::MonoChunkStream_Chunk__Class**)(modloader::win::memory::resolve_rva(0x04795F30));
         inline app::MonoChunkStream_Chunk__Class* get_class() {
             return il2cpp::get_nested_class<app::MonoChunkStream_Chunk__Class>(type_info, "System.Net", "MonoChunkStream", "Chunk");
         }

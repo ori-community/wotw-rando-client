@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace EarlyZDelayedUnhide {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::EarlyZDelayedUnhide__Class** type_info;
+        inline app::EarlyZDelayedUnhide__Class** type_info = (app::EarlyZDelayedUnhide__Class**)(modloader::win::memory::resolve_rva(0x0472BF18));
         inline app::EarlyZDelayedUnhide__Class* get_class() {
             return il2cpp::get_class<app::EarlyZDelayedUnhide__Class>(type_info, "Moon.Rendering", "EarlyZDelayedUnhide");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MenuScreenManager_CallNextFrame_d_93 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MenuScreenManager_CallNextFrame_d_93__Class** type_info;
+        inline app::MenuScreenManager_CallNextFrame_d_93__Class** type_info = (app::MenuScreenManager_CallNextFrame_d_93__Class**)(modloader::win::memory::resolve_rva(0x047435D0));
         inline app::MenuScreenManager_CallNextFrame_d_93__Class* get_class() {
             return il2cpp::get_nested_class<app::MenuScreenManager_CallNextFrame_d_93__Class>(type_info, "", "MenuScreenManager", "<CallNextFrame>d__93");
         }

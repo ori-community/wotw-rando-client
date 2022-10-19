@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AwaitTaskContinuation {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AwaitTaskContinuation__Class** type_info;
+        inline app::AwaitTaskContinuation__Class** type_info = (app::AwaitTaskContinuation__Class**)(modloader::win::memory::resolve_rva(0x0471CBE8));
         inline app::AwaitTaskContinuation__Class* get_class() {
             return il2cpp::get_class<app::AwaitTaskContinuation__Class>(type_info, "System.Threading.Tasks", "AwaitTaskContinuation");
         }

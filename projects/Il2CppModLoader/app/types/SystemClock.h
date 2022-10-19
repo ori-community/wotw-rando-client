@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SystemClock {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SystemClock__Class** type_info;
+        inline app::SystemClock__Class** type_info = (app::SystemClock__Class**)(modloader::win::memory::resolve_rva(0x0473AB50));
         inline app::SystemClock__Class* get_class() {
             return il2cpp::get_class<app::SystemClock__Class>(type_info, "UnityEngine", "SystemClock");
         }

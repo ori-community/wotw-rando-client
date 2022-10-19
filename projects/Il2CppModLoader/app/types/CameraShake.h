@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CameraShake {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CameraShake__Class** type_info;
+        inline app::CameraShake__Class** type_info = (app::CameraShake__Class**)(modloader::win::memory::resolve_rva(0x047914B0));
         inline app::CameraShake__Class* get_class() {
             return il2cpp::get_class<app::CameraShake__Class>(type_info, "", "CameraShake");
         }

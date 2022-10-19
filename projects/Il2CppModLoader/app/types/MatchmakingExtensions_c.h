@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MatchmakingExtensions_c {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MatchmakingExtensions_c__Class** type_info;
+        inline app::MatchmakingExtensions_c__Class** type_info = (app::MatchmakingExtensions_c__Class**)(modloader::win::memory::resolve_rva(0x04772010));
         inline app::MatchmakingExtensions_c__Class* get_class() {
             return il2cpp::get_nested_class<app::MatchmakingExtensions_c__Class>(type_info, "Moon.Race", "MatchmakingExtensions", "<>c");
         }

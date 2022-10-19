@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TypedConstantExpression {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TypedConstantExpression__Class** type_info;
+        inline app::TypedConstantExpression__Class** type_info = (app::TypedConstantExpression__Class**)(modloader::win::memory::resolve_rva(0x04742E60));
         inline app::TypedConstantExpression__Class* get_class() {
             return il2cpp::get_class<app::TypedConstantExpression__Class>(type_info, "System.Linq.Expressions", "TypedConstantExpression");
         }

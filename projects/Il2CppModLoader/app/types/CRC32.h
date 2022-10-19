@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CRC32 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CRC32__Class** type_info;
+        inline app::CRC32__Class** type_info = (app::CRC32__Class**)(modloader::win::memory::resolve_rva(0x0478FFC8));
         inline app::CRC32__Class* get_class() {
             return il2cpp::get_class<app::CRC32__Class>(type_info, "Ionic.Crc", "CRC32");
         }

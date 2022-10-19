@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ItemInstance {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ItemInstance__Class** type_info;
+        inline app::ItemInstance__Class** type_info = (app::ItemInstance__Class**)(modloader::win::memory::resolve_rva(0x04720B28));
         inline app::ItemInstance__Class* get_class() {
             return il2cpp::get_class<app::ItemInstance__Class>(type_info, "PlayFab.ClientModels", "ItemInstance");
         }

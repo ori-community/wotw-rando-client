@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace OneDsUnityHttpPlugin_c_DisplayClass1_0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::OneDsUnityHttpPlugin_c_DisplayClass1_0__Class** type_info;
+        inline app::OneDsUnityHttpPlugin_c_DisplayClass1_0__Class** type_info = (app::OneDsUnityHttpPlugin_c_DisplayClass1_0__Class**)(modloader::win::memory::resolve_rva(0x04752548));
         inline app::OneDsUnityHttpPlugin_c_DisplayClass1_0__Class* get_class() {
             return il2cpp::get_nested_class<app::OneDsUnityHttpPlugin_c_DisplayClass1_0__Class>(type_info, "PlayFab.Internal", "OneDsUnityHttpPlugin", "<>c__DisplayClass1_0");
         }

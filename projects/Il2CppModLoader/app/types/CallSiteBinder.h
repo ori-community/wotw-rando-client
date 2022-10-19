@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CallSiteBinder {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CallSiteBinder__Class** type_info;
+        inline app::CallSiteBinder__Class** type_info = (app::CallSiteBinder__Class**)(modloader::win::memory::resolve_rva(0x0471AB58));
         inline app::CallSiteBinder__Class* get_class() {
             return il2cpp::get_class<app::CallSiteBinder__Class>(type_info, "System.Runtime.CompilerServices", "CallSiteBinder");
         }

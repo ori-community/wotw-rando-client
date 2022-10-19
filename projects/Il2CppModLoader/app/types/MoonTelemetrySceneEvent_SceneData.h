@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MoonTelemetrySceneEvent_SceneData {
         namespace {
-            app::MoonTelemetrySceneEvent_SceneData__Class* type_info_ref = nullptr;
+            inline app::MoonTelemetrySceneEvent_SceneData__Class* type_info_ref = nullptr;
         }
-        app::MoonTelemetrySceneEvent_SceneData__Class** type_info = &type_info_ref;
+        inline app::MoonTelemetrySceneEvent_SceneData__Class** type_info = &type_info_ref;
         inline app::MoonTelemetrySceneEvent_SceneData__Class* get_class() {
             return il2cpp::get_nested_class<app::MoonTelemetrySceneEvent_SceneData__Class>(type_info, "", "MoonTelemetrySceneEvent", "SceneData");
         }

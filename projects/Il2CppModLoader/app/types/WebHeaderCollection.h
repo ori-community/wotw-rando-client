@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WebHeaderCollection {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WebHeaderCollection__Class** type_info;
+        inline app::WebHeaderCollection__Class** type_info = (app::WebHeaderCollection__Class**)(modloader::win::memory::resolve_rva(0x0477B2E8));
         inline app::WebHeaderCollection__Class* get_class() {
             return il2cpp::get_class<app::WebHeaderCollection__Class>(type_info, "System.Net", "WebHeaderCollection");
         }

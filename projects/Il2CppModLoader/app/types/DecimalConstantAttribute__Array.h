@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DecimalConstantAttribute__Array {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DecimalConstantAttribute__Array__Class** type_info;
+        inline app::DecimalConstantAttribute__Array__Class** type_info = (app::DecimalConstantAttribute__Array__Class**)(modloader::win::memory::resolve_rva(0x047997D0));
         inline app::DecimalConstantAttribute__Array__Class* get_class() {
             return il2cpp::get_class<app::DecimalConstantAttribute__Array__Class>(type_info, "System.Runtime.CompilerServices", "DecimalConstantAttribute[]");
         }

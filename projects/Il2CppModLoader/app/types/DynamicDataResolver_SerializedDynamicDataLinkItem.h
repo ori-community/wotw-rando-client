@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DynamicDataResolver_SerializedDynamicDataLinkItem {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DynamicDataResolver_SerializedDynamicDataLinkItem__Class** type_info;
+        inline app::DynamicDataResolver_SerializedDynamicDataLinkItem__Class** type_info = (app::DynamicDataResolver_SerializedDynamicDataLinkItem__Class**)(modloader::win::memory::resolve_rva(0x04706458));
         inline app::DynamicDataResolver_SerializedDynamicDataLinkItem__Class* get_class() {
             return il2cpp::get_nested_class<app::DynamicDataResolver_SerializedDynamicDataLinkItem__Class>(type_info, "Moon", "DynamicDataResolver", "SerializedDynamicDataLinkItem");
         }

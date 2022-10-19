@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SpiritShardType__Enum__Array {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SpiritShardType__Enum__Array__Class** type_info;
+        inline app::SpiritShardType__Enum__Array__Class** type_info = (app::SpiritShardType__Enum__Array__Class**)(modloader::win::memory::resolve_rva(0x04795B30));
         inline app::SpiritShardType__Enum__Array__Class* get_class() {
             return il2cpp::get_class<app::SpiritShardType__Enum__Array__Class>(type_info, "", "SpiritShardType[]");
         }

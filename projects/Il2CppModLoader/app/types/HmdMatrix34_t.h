@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HmdMatrix34_t {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::HmdMatrix34_t__Class** type_info;
+        inline app::HmdMatrix34_t__Class** type_info = (app::HmdMatrix34_t__Class**)(modloader::win::memory::resolve_rva(0x04765138));
         inline app::HmdMatrix34_t__Class* get_class() {
             return il2cpp::get_class<app::HmdMatrix34_t__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "HmdMatrix34_t");
         }

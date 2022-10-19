@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HitStop {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::HitStop__Class** type_info;
+        inline app::HitStop__Class** type_info = (app::HitStop__Class**)(modloader::win::memory::resolve_rva(0x04719EC8));
         inline app::HitStop__Class* get_class() {
             return il2cpp::get_class<app::HitStop__Class>(type_info, "Moon", "HitStop");
         }

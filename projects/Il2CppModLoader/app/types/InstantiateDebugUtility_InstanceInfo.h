@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace InstantiateDebugUtility_InstanceInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::InstantiateDebugUtility_InstanceInfo__Class** type_info;
+        inline app::InstantiateDebugUtility_InstanceInfo__Class** type_info = (app::InstantiateDebugUtility_InstanceInfo__Class**)(modloader::win::memory::resolve_rva(0x04736CB0));
         inline app::InstantiateDebugUtility_InstanceInfo__Class* get_class() {
             return il2cpp::get_nested_class<app::InstantiateDebugUtility_InstanceInfo__Class>(type_info, "InstantiateDebug", "InstantiateDebugUtility", "InstanceInfo");
         }

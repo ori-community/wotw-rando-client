@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RammingEnemy_States {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RammingEnemy_States__Class** type_info;
+        inline app::RammingEnemy_States__Class** type_info = (app::RammingEnemy_States__Class**)(modloader::win::memory::resolve_rva(0x04714E20));
         inline app::RammingEnemy_States__Class* get_class() {
             return il2cpp::get_nested_class<app::RammingEnemy_States__Class>(type_info, "", "RammingEnemy", "States");
         }

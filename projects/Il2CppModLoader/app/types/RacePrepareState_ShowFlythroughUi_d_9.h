@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RacePrepareState_ShowFlythroughUi_d_9 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RacePrepareState_ShowFlythroughUi_d_9__Class** type_info;
+        inline app::RacePrepareState_ShowFlythroughUi_d_9__Class** type_info = (app::RacePrepareState_ShowFlythroughUi_d_9__Class**)(modloader::win::memory::resolve_rva(0x04722458));
         inline app::RacePrepareState_ShowFlythroughUi_d_9__Class* get_class() {
             return il2cpp::get_nested_class<app::RacePrepareState_ShowFlythroughUi_d_9__Class>(type_info, "", "RacePrepareState", "<ShowFlythroughUi>d__9");
         }

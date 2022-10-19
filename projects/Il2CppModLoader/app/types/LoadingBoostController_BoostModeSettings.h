@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LoadingBoostController_BoostModeSettings {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LoadingBoostController_BoostModeSettings__Class** type_info;
+        inline app::LoadingBoostController_BoostModeSettings__Class** type_info = (app::LoadingBoostController_BoostModeSettings__Class**)(modloader::win::memory::resolve_rva(0x047109B8));
         inline app::LoadingBoostController_BoostModeSettings__Class* get_class() {
             return il2cpp::get_nested_class<app::LoadingBoostController_BoostModeSettings__Class>(type_info, "", "LoadingBoostController", "BoostModeSettings");
         }

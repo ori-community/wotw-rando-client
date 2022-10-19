@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FXAA_Preset {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FXAA_Preset__Class** type_info;
+        inline app::FXAA_Preset__Class** type_info = (app::FXAA_Preset__Class**)(modloader::win::memory::resolve_rva(0x04747438));
         inline app::FXAA_Preset__Class* get_class() {
             return il2cpp::get_nested_class<app::FXAA_Preset__Class>(type_info, "UnityStandardAssets.CinematicEffects", "FXAA", "Preset");
         }

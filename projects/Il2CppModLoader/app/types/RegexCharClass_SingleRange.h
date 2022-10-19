@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RegexCharClass_SingleRange {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RegexCharClass_SingleRange__Class** type_info;
+        inline app::RegexCharClass_SingleRange__Class** type_info = (app::RegexCharClass_SingleRange__Class**)(modloader::win::memory::resolve_rva(0x0475CEB0));
         inline app::RegexCharClass_SingleRange__Class* get_class() {
             return il2cpp::get_nested_class<app::RegexCharClass_SingleRange__Class>(type_info, "System.Text.RegularExpressions", "RegexCharClass", "SingleRange");
         }

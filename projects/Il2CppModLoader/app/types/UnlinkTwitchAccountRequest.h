@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UnlinkTwitchAccountRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UnlinkTwitchAccountRequest__Class** type_info;
+        inline app::UnlinkTwitchAccountRequest__Class** type_info = (app::UnlinkTwitchAccountRequest__Class**)(modloader::win::memory::resolve_rva(0x0471DFB0));
         inline app::UnlinkTwitchAccountRequest__Class* get_class() {
             return il2cpp::get_class<app::UnlinkTwitchAccountRequest__Class>(type_info, "PlayFab.ClientModels", "UnlinkTwitchAccountRequest");
         }

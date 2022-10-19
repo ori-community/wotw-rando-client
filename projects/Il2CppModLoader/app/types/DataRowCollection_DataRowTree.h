@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DataRowCollection_DataRowTree {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DataRowCollection_DataRowTree__Class** type_info;
+        inline app::DataRowCollection_DataRowTree__Class** type_info = (app::DataRowCollection_DataRowTree__Class**)(modloader::win::memory::resolve_rva(0x04709B10));
         inline app::DataRowCollection_DataRowTree__Class* get_class() {
             return il2cpp::get_nested_class<app::DataRowCollection_DataRowTree__Class>(type_info, "System.Data", "DataRowCollection", "DataRowTree");
         }

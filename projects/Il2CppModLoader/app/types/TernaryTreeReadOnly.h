@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TernaryTreeReadOnly {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TernaryTreeReadOnly__Class** type_info;
+        inline app::TernaryTreeReadOnly__Class** type_info = (app::TernaryTreeReadOnly__Class**)(modloader::win::memory::resolve_rva(0x047438F0));
         inline app::TernaryTreeReadOnly__Class* get_class() {
             return il2cpp::get_class<app::TernaryTreeReadOnly__Class>(type_info, "System.Xml", "TernaryTreeReadOnly");
         }

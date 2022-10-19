@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GhostAnimationParameterPlugin_FloatParamenterTracker {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GhostAnimationParameterPlugin_FloatParamenterTracker__Class** type_info;
+        inline app::GhostAnimationParameterPlugin_FloatParamenterTracker__Class** type_info = (app::GhostAnimationParameterPlugin_FloatParamenterTracker__Class**)(modloader::win::memory::resolve_rva(0x04710440));
         inline app::GhostAnimationParameterPlugin_FloatParamenterTracker__Class* get_class() {
             return il2cpp::get_nested_class<app::GhostAnimationParameterPlugin_FloatParamenterTracker__Class>(type_info, "", "GhostAnimationParameterPlugin", "FloatParamenterTracker");
         }

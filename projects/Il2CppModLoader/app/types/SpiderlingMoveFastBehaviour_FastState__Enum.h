@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SpiderlingMoveFastBehaviour_FastState__Enum {
         namespace {
-            app::SpiderlingMoveFastBehaviour_FastState__Enum__Class* type_info_ref = nullptr;
+            inline app::SpiderlingMoveFastBehaviour_FastState__Enum__Class* type_info_ref = nullptr;
         }
-        app::SpiderlingMoveFastBehaviour_FastState__Enum__Class** type_info = &type_info_ref;
+        inline app::SpiderlingMoveFastBehaviour_FastState__Enum__Class** type_info = &type_info_ref;
         inline app::SpiderlingMoveFastBehaviour_FastState__Enum__Class* get_class() {
             return il2cpp::get_nested_class<app::SpiderlingMoveFastBehaviour_FastState__Enum__Class>(type_info, "Moon", "SpiderlingMoveFastBehaviour", "FastState");
         }

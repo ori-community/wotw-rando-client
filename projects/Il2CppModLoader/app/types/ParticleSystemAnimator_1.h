@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ParticleSystemAnimator_1 {
         namespace {
-            app::ParticleSystemAnimator_1__Class* type_info_ref = nullptr;
+            inline app::ParticleSystemAnimator_1__Class* type_info_ref = nullptr;
         }
-        app::ParticleSystemAnimator_1__Class** type_info = &type_info_ref;
+        inline app::ParticleSystemAnimator_1__Class** type_info = &type_info_ref;
         inline app::ParticleSystemAnimator_1__Class* get_class() {
             return il2cpp::get_class<app::ParticleSystemAnimator_1__Class>(type_info, "", "ParticleSystemAnimator");
         }

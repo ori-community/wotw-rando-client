@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XblAchievementTitleAssociation__Array {
         namespace {
-            app::XblAchievementTitleAssociation__Array__Class* type_info_ref = nullptr;
+            inline app::XblAchievementTitleAssociation__Array__Class* type_info_ref = nullptr;
         }
-        app::XblAchievementTitleAssociation__Array__Class** type_info = &type_info_ref;
+        inline app::XblAchievementTitleAssociation__Array__Class** type_info = &type_info_ref;
         inline app::XblAchievementTitleAssociation__Array__Class* get_class() {
             return il2cpp::get_class<app::XblAchievementTitleAssociation__Array__Class>(type_info, "XGamingRuntime", "XblAchievementTitleAssociation[]");
         }

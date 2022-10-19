@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GrantItemsToUsersRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GrantItemsToUsersRequest__Class** type_info;
+        inline app::GrantItemsToUsersRequest__Class** type_info = (app::GrantItemsToUsersRequest__Class**)(modloader::win::memory::resolve_rva(0x047207E0));
         inline app::GrantItemsToUsersRequest__Class* get_class() {
             return il2cpp::get_class<app::GrantItemsToUsersRequest__Class>(type_info, "PlayFab.ServerModels", "GrantItemsToUsersRequest");
         }

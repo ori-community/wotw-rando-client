@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace VerletStructure_VerletLink {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::VerletStructure_VerletLink__Class** type_info;
+        inline app::VerletStructure_VerletLink__Class** type_info = (app::VerletStructure_VerletLink__Class**)(modloader::win::memory::resolve_rva(0x04790F98));
         inline app::VerletStructure_VerletLink__Class* get_class() {
             return il2cpp::get_nested_class<app::VerletStructure_VerletLink__Class>(type_info, "", "VerletStructure", "VerletLink");
         }

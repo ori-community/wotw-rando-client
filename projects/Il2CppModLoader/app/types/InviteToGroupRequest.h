@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace InviteToGroupRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::InviteToGroupRequest__Class** type_info;
+        inline app::InviteToGroupRequest__Class** type_info = (app::InviteToGroupRequest__Class**)(modloader::win::memory::resolve_rva(0x0472CAD8));
         inline app::InviteToGroupRequest__Class* get_class() {
             return il2cpp::get_class<app::InviteToGroupRequest__Class>(type_info, "PlayFab.GroupsModels", "InviteToGroupRequest");
         }

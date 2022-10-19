@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LoginWithIOSDeviceIDRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LoginWithIOSDeviceIDRequest__Class** type_info;
+        inline app::LoginWithIOSDeviceIDRequest__Class** type_info = (app::LoginWithIOSDeviceIDRequest__Class**)(modloader::win::memory::resolve_rva(0x0470DF18));
         inline app::LoginWithIOSDeviceIDRequest__Class* get_class() {
             return il2cpp::get_class<app::LoginWithIOSDeviceIDRequest__Class>(type_info, "PlayFab.ClientModels", "LoginWithIOSDeviceIDRequest");
         }

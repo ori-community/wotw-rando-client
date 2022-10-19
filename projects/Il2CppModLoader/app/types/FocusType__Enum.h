@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FocusType__Enum {
         namespace {
-            app::FocusType__Enum__Class* type_info_ref = nullptr;
+            inline app::FocusType__Enum__Class* type_info_ref = nullptr;
         }
-        app::FocusType__Enum__Class** type_info = &type_info_ref;
+        inline app::FocusType__Enum__Class** type_info = &type_info_ref;
         inline app::FocusType__Enum__Class* get_class() {
             return il2cpp::get_class<app::FocusType__Enum__Class>(type_info, "UnityEngine", "FocusType");
         }

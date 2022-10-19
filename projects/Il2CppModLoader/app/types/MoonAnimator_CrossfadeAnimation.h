@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MoonAnimator_CrossfadeAnimation {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MoonAnimator_CrossfadeAnimation__Class** type_info;
+        inline app::MoonAnimator_CrossfadeAnimation__Class** type_info = (app::MoonAnimator_CrossfadeAnimation__Class**)(modloader::win::memory::resolve_rva(0x04722780));
         inline app::MoonAnimator_CrossfadeAnimation__Class* get_class() {
             return il2cpp::get_nested_class<app::MoonAnimator_CrossfadeAnimation__Class>(type_info, "Moon", "MoonAnimator", "CrossfadeAnimation");
         }

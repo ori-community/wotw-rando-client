@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UpdateManager_ActiveEntryComparer {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UpdateManager_ActiveEntryComparer__Class** type_info;
+        inline app::UpdateManager_ActiveEntryComparer__Class** type_info = (app::UpdateManager_ActiveEntryComparer__Class**)(modloader::win::memory::resolve_rva(0x04761E70));
         inline app::UpdateManager_ActiveEntryComparer__Class* get_class() {
             return il2cpp::get_nested_class<app::UpdateManager_ActiveEntryComparer__Class>(type_info, "Moon.Driver", "UpdateManager", "ActiveEntryComparer");
         }

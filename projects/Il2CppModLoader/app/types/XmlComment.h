@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlComment {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlComment__Class** type_info;
+        inline app::XmlComment__Class** type_info = (app::XmlComment__Class**)(modloader::win::memory::resolve_rva(0x047486E8));
         inline app::XmlComment__Class* get_class() {
             return il2cpp::get_class<app::XmlComment__Class>(type_info, "System.Xml", "XmlComment");
         }

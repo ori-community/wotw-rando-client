@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace JapaneseCalendar {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::JapaneseCalendar__Class** type_info;
+        inline app::JapaneseCalendar__Class** type_info = (app::JapaneseCalendar__Class**)(modloader::win::memory::resolve_rva(0x04730838));
         inline app::JapaneseCalendar__Class* get_class() {
             return il2cpp::get_class<app::JapaneseCalendar__Class>(type_info, "System.Globalization", "JapaneseCalendar");
         }

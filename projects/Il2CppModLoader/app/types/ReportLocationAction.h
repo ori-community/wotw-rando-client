@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ReportLocationAction {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ReportLocationAction__Class** type_info;
+        inline app::ReportLocationAction__Class** type_info = (app::ReportLocationAction__Class**)(modloader::win::memory::resolve_rva(0x0475F7C0));
         inline app::ReportLocationAction__Class* get_class() {
             return il2cpp::get_class<app::ReportLocationAction__Class>(type_info, "", "ReportLocationAction");
         }

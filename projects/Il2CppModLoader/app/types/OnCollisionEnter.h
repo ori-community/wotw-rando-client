@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace OnCollisionEnter {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::OnCollisionEnter__Class** type_info;
+        inline app::OnCollisionEnter__Class** type_info = (app::OnCollisionEnter__Class**)(modloader::win::memory::resolve_rva(0x04786E30));
         inline app::OnCollisionEnter__Class* get_class() {
             return il2cpp::get_class<app::OnCollisionEnter__Class>(type_info, "fsm.triggers", "OnCollisionEnter");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace VolumeEffectComponent {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::VolumeEffectComponent__Class** type_info;
+        inline app::VolumeEffectComponent__Class** type_info = (app::VolumeEffectComponent__Class**)(modloader::win::memory::resolve_rva(0x047232D8));
         inline app::VolumeEffectComponent__Class* get_class() {
             return il2cpp::get_class<app::VolumeEffectComponent__Class>(type_info, "AmplifyColor", "VolumeEffectComponent");
         }

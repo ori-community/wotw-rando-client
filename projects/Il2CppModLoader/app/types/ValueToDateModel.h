@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ValueToDateModel {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ValueToDateModel__Class** type_info;
+        inline app::ValueToDateModel__Class** type_info = (app::ValueToDateModel__Class**)(modloader::win::memory::resolve_rva(0x047259B0));
         inline app::ValueToDateModel__Class* get_class() {
             return il2cpp::get_class<app::ValueToDateModel__Class>(type_info, "PlayFab.ClientModels", "ValueToDateModel");
         }

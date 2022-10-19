@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TimeType {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TimeType__Class** type_info;
+        inline app::TimeType__Class** type_info = (app::TimeType__Class**)(modloader::win::memory::resolve_rva(0x04748690));
         inline app::TimeType__Class* get_class() {
             return il2cpp::get_class<app::TimeType__Class>(type_info, "System", "TimeType");
         }

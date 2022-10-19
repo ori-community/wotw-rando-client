@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BehaviourNode {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BehaviourNode__Class** type_info;
+        inline app::BehaviourNode__Class** type_info = (app::BehaviourNode__Class**)(modloader::win::memory::resolve_rva(0x0472EAB0));
         inline app::BehaviourNode__Class* get_class() {
             return il2cpp::get_class<app::BehaviourNode__Class>(type_info, "Moon.BehaviourSystem", "BehaviourNode");
         }

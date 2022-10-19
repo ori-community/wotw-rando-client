@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace P3D_BrushPreview {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::P3D_BrushPreview__Class** type_info;
+        inline app::P3D_BrushPreview__Class** type_info = (app::P3D_BrushPreview__Class**)(modloader::win::memory::resolve_rva(0x04737F38));
         inline app::P3D_BrushPreview__Class* get_class() {
             return il2cpp::get_class<app::P3D_BrushPreview__Class>(type_info, "", "P3D_BrushPreview");
         }

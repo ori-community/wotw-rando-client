@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TentacleEnemy_DyingState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TentacleEnemy_DyingState__Class** type_info;
+        inline app::TentacleEnemy_DyingState__Class** type_info = (app::TentacleEnemy_DyingState__Class**)(modloader::win::memory::resolve_rva(0x047202C8));
         inline app::TentacleEnemy_DyingState__Class* get_class() {
             return il2cpp::get_nested_class<app::TentacleEnemy_DyingState__Class>(type_info, "", "TentacleEnemy", "DyingState");
         }

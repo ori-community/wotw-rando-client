@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AudioClip_PCMSetPositionCallback {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AudioClip_PCMSetPositionCallback__Class** type_info;
+        inline app::AudioClip_PCMSetPositionCallback__Class** type_info = (app::AudioClip_PCMSetPositionCallback__Class**)(modloader::win::memory::resolve_rva(0x0475C870));
         inline app::AudioClip_PCMSetPositionCallback__Class* get_class() {
             return il2cpp::get_nested_class<app::AudioClip_PCMSetPositionCallback__Class>(type_info, "UnityEngine", "AudioClip", "PCMSetPositionCallback");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SerializationInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SerializationInfo__Class** type_info;
+        inline app::SerializationInfo__Class** type_info = (app::SerializationInfo__Class**)(modloader::win::memory::resolve_rva(0x047592D0));
         inline app::SerializationInfo__Class* get_class() {
             return il2cpp::get_class<app::SerializationInfo__Class>(type_info, "System.Runtime.Serialization", "SerializationInfo");
         }

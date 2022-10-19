@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Object_1 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Object_1__Class** type_info;
+        inline app::Object_1__Class** type_info = (app::Object_1__Class**)(modloader::win::memory::resolve_rva(0x047766B8));
         inline app::Object_1__Class* get_class() {
             return il2cpp::get_class<app::Object_1__Class>(type_info, "UnityEngine", "Object");
         }

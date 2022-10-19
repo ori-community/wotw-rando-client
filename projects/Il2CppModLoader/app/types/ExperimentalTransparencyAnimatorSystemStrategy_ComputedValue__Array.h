@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue__Array {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue__Array__Class** type_info;
+        inline app::ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue__Array__Class** type_info = (app::ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue__Array__Class**)(modloader::win::memory::resolve_rva(0x04763058));
         inline app::ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue__Array__Class* get_class() {
             return il2cpp::get_class<app::ExperimentalTransparencyAnimatorSystemStrategy_ComputedValue__Array__Class>(type_info, "Moon.Timeline", "ExperimentalTransparencyAnimatorSystemStrategy+ComputedValue[]");
         }

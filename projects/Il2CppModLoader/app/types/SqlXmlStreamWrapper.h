@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SqlXmlStreamWrapper {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SqlXmlStreamWrapper__Class** type_info;
+        inline app::SqlXmlStreamWrapper__Class** type_info = (app::SqlXmlStreamWrapper__Class**)(modloader::win::memory::resolve_rva(0x0471F398));
         inline app::SqlXmlStreamWrapper__Class* get_class() {
             return il2cpp::get_class<app::SqlXmlStreamWrapper__Class>(type_info, "System.Data.SqlTypes", "SqlXmlStreamWrapper");
         }

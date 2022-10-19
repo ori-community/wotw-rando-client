@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Browser_JSResultFunc {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Browser_JSResultFunc__Class** type_info;
+        inline app::Browser_JSResultFunc__Class** type_info = (app::Browser_JSResultFunc__Class**)(modloader::win::memory::resolve_rva(0x04754210));
         inline app::Browser_JSResultFunc__Class* get_class() {
             return il2cpp::get_nested_class<app::Browser_JSResultFunc__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "Browser", "JSResultFunc");
         }

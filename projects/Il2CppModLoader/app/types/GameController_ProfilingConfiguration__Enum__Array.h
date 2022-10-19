@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GameController_ProfilingConfiguration__Enum__Array {
         namespace {
-            app::GameController_ProfilingConfiguration__Enum__Array__Class* type_info_ref = nullptr;
+            inline app::GameController_ProfilingConfiguration__Enum__Array__Class* type_info_ref = nullptr;
         }
-        app::GameController_ProfilingConfiguration__Enum__Array__Class** type_info = &type_info_ref;
+        inline app::GameController_ProfilingConfiguration__Enum__Array__Class** type_info = &type_info_ref;
         inline app::GameController_ProfilingConfiguration__Enum__Array__Class* get_class() {
             return il2cpp::get_class<app::GameController_ProfilingConfiguration__Enum__Array__Class>(type_info, "", "GameController+ProfilingConfiguration[]");
         }

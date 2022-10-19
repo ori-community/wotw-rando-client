@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DownloadManager_Download {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DownloadManager_Download__Class** type_info;
+        inline app::DownloadManager_Download__Class** type_info = (app::DownloadManager_Download__Class**)(modloader::win::memory::resolve_rva(0x0470D5D8));
         inline app::DownloadManager_Download__Class* get_class() {
             return il2cpp::get_nested_class<app::DownloadManager_Download__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "DownloadManager", "Download");
         }

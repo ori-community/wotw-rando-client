@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ISceneRootPostEnableObserver {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ISceneRootPostEnableObserver__Class** type_info;
+        inline app::ISceneRootPostEnableObserver__Class** type_info = (app::ISceneRootPostEnableObserver__Class**)(modloader::win::memory::resolve_rva(0x04771988));
         inline app::ISceneRootPostEnableObserver__Class* get_class() {
             return il2cpp::get_class<app::ISceneRootPostEnableObserver__Class>(type_info, "", "ISceneRootPostEnableObserver");
         }

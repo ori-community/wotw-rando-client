@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DialogNodeContext {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DialogNodeContext__Class** type_info;
+        inline app::DialogNodeContext__Class** type_info = (app::DialogNodeContext__Class**)(modloader::win::memory::resolve_rva(0x047900E8));
         inline app::DialogNodeContext__Class* get_class() {
             return il2cpp::get_class<app::DialogNodeContext__Class>(type_info, "", "DialogNodeContext");
         }

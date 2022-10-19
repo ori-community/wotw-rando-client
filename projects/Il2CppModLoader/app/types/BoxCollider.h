@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BoxCollider {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BoxCollider__Class** type_info;
+        inline app::BoxCollider__Class** type_info = (app::BoxCollider__Class**)(modloader::win::memory::resolve_rva(0x04784060));
         inline app::BoxCollider__Class* get_class() {
             return il2cpp::get_class<app::BoxCollider__Class>(type_info, "UnityEngine", "BoxCollider");
         }

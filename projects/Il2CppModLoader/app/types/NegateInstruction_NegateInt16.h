@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NegateInstruction_NegateInt16 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NegateInstruction_NegateInt16__Class** type_info;
+        inline app::NegateInstruction_NegateInt16__Class** type_info = (app::NegateInstruction_NegateInt16__Class**)(modloader::win::memory::resolve_rva(0x04789F20));
         inline app::NegateInstruction_NegateInt16__Class* get_class() {
             return il2cpp::get_nested_class<app::NegateInstruction_NegateInt16__Class>(type_info, "System.Linq.Expressions.Interpreter", "NegateInstruction", "NegateInt16");
         }

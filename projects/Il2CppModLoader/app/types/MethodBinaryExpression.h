@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MethodBinaryExpression {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MethodBinaryExpression__Class** type_info;
+        inline app::MethodBinaryExpression__Class** type_info = (app::MethodBinaryExpression__Class**)(modloader::win::memory::resolve_rva(0x04716FA8));
         inline app::MethodBinaryExpression__Class* get_class() {
             return il2cpp::get_class<app::MethodBinaryExpression__Class>(type_info, "System.Linq.Expressions", "MethodBinaryExpression");
         }

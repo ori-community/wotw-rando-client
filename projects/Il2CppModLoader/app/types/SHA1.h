@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SHA1 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SHA1__Class** type_info;
+        inline app::SHA1__Class** type_info = (app::SHA1__Class**)(modloader::win::memory::resolve_rva(0x04733180));
         inline app::SHA1__Class* get_class() {
             return il2cpp::get_class<app::SHA1__Class>(type_info, "System.Security.Cryptography", "SHA1");
         }

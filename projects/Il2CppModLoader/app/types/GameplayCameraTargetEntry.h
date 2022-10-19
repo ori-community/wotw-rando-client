@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GameplayCameraTargetEntry {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GameplayCameraTargetEntry__Class** type_info;
+        inline app::GameplayCameraTargetEntry__Class** type_info = (app::GameplayCameraTargetEntry__Class**)(modloader::win::memory::resolve_rva(0x04760DA8));
         inline app::GameplayCameraTargetEntry__Class* get_class() {
             return il2cpp::get_class<app::GameplayCameraTargetEntry__Class>(type_info, "", "GameplayCameraTargetEntry");
         }

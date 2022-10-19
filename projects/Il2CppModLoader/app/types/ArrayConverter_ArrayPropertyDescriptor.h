@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ArrayConverter_ArrayPropertyDescriptor {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ArrayConverter_ArrayPropertyDescriptor__Class** type_info;
+        inline app::ArrayConverter_ArrayPropertyDescriptor__Class** type_info = (app::ArrayConverter_ArrayPropertyDescriptor__Class**)(modloader::win::memory::resolve_rva(0x04780C38));
         inline app::ArrayConverter_ArrayPropertyDescriptor__Class* get_class() {
             return il2cpp::get_nested_class<app::ArrayConverter_ArrayPropertyDescriptor__Class>(type_info, "System.ComponentModel", "ArrayConverter", "ArrayPropertyDescriptor");
         }

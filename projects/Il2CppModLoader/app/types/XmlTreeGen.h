@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlTreeGen {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlTreeGen__Class** type_info;
+        inline app::XmlTreeGen__Class** type_info = (app::XmlTreeGen__Class**)(modloader::win::memory::resolve_rva(0x04757398));
         inline app::XmlTreeGen__Class* get_class() {
             return il2cpp::get_class<app::XmlTreeGen__Class>(type_info, "System.Data", "XmlTreeGen");
         }

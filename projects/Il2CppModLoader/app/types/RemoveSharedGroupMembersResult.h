@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RemoveSharedGroupMembersResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RemoveSharedGroupMembersResult__Class** type_info;
+        inline app::RemoveSharedGroupMembersResult__Class** type_info = (app::RemoveSharedGroupMembersResult__Class**)(modloader::win::memory::resolve_rva(0x04723180));
         inline app::RemoveSharedGroupMembersResult__Class* get_class() {
             return il2cpp::get_class<app::RemoveSharedGroupMembersResult__Class>(type_info, "PlayFab.ClientModels", "RemoveSharedGroupMembersResult");
         }

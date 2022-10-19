@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PassiveStateVolitileOverrideAnimator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PassiveStateVolitileOverrideAnimator__Class** type_info;
+        inline app::PassiveStateVolitileOverrideAnimator__Class** type_info = (app::PassiveStateVolitileOverrideAnimator__Class**)(modloader::win::memory::resolve_rva(0x04718808));
         inline app::PassiveStateVolitileOverrideAnimator__Class* get_class() {
             return il2cpp::get_class<app::PassiveStateVolitileOverrideAnimator__Class>(type_info, "Moon.Timeline", "PassiveStateVolitileOverrideAnimator");
         }

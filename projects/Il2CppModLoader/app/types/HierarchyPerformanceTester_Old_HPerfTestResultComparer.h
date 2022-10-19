@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HierarchyPerformanceTester_Old_HPerfTestResultComparer {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::HierarchyPerformanceTester_Old_HPerfTestResultComparer__Class** type_info;
+        inline app::HierarchyPerformanceTester_Old_HPerfTestResultComparer__Class** type_info = (app::HierarchyPerformanceTester_Old_HPerfTestResultComparer__Class**)(modloader::win::memory::resolve_rva(0x0472CCE8));
         inline app::HierarchyPerformanceTester_Old_HPerfTestResultComparer__Class* get_class() {
             return il2cpp::get_nested_class<app::HierarchyPerformanceTester_Old_HPerfTestResultComparer__Class>(type_info, "Moon.HierarchyPerformanceTest", "HierarchyPerformanceTester_Old", "HPerfTestResultComparer");
         }

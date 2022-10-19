@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MetaballRenderer_IMetaball {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MetaballRenderer_IMetaball__Class** type_info;
+        inline app::MetaballRenderer_IMetaball__Class** type_info = (app::MetaballRenderer_IMetaball__Class**)(modloader::win::memory::resolve_rva(0x04787DE0));
         inline app::MetaballRenderer_IMetaball__Class* get_class() {
             return il2cpp::get_nested_class<app::MetaballRenderer_IMetaball__Class>(type_info, "Metaballs2D", "MetaballRenderer", "IMetaball");
         }

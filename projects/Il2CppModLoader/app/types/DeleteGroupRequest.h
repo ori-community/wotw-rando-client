@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DeleteGroupRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DeleteGroupRequest__Class** type_info;
+        inline app::DeleteGroupRequest__Class** type_info = (app::DeleteGroupRequest__Class**)(modloader::win::memory::resolve_rva(0x04762210));
         inline app::DeleteGroupRequest__Class* get_class() {
             return il2cpp::get_class<app::DeleteGroupRequest__Class>(type_info, "PlayFab.GroupsModels", "DeleteGroupRequest");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GCFinalizerTablePrewarm_ObjWithFinalizer {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GCFinalizerTablePrewarm_ObjWithFinalizer__Class** type_info;
+        inline app::GCFinalizerTablePrewarm_ObjWithFinalizer__Class** type_info = (app::GCFinalizerTablePrewarm_ObjWithFinalizer__Class**)(modloader::win::memory::resolve_rva(0x04759568));
         inline app::GCFinalizerTablePrewarm_ObjWithFinalizer__Class* get_class() {
             return il2cpp::get_nested_class<app::GCFinalizerTablePrewarm_ObjWithFinalizer__Class>(type_info, "frameworks.loading.Prewarmers", "GCFinalizerTablePrewarm", "ObjWithFinalizer");
         }

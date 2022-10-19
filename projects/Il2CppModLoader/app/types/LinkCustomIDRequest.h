@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LinkCustomIDRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LinkCustomIDRequest__Class** type_info;
+        inline app::LinkCustomIDRequest__Class** type_info = (app::LinkCustomIDRequest__Class**)(modloader::win::memory::resolve_rva(0x047391B0));
         inline app::LinkCustomIDRequest__Class* get_class() {
             return il2cpp::get_class<app::LinkCustomIDRequest__Class>(type_info, "PlayFab.ClientModels", "LinkCustomIDRequest");
         }

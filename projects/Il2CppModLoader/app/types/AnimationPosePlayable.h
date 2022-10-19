@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AnimationPosePlayable {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AnimationPosePlayable__Class** type_info;
+        inline app::AnimationPosePlayable__Class** type_info = (app::AnimationPosePlayable__Class**)(modloader::win::memory::resolve_rva(0x047246E8));
         inline app::AnimationPosePlayable__Class* get_class() {
             return il2cpp::get_class<app::AnimationPosePlayable__Class>(type_info, "UnityEngine.Animations", "AnimationPosePlayable");
         }

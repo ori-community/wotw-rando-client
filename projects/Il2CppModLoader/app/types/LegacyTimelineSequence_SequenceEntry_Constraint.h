@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LegacyTimelineSequence_SequenceEntry_Constraint {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LegacyTimelineSequence_SequenceEntry_Constraint__Class** type_info;
+        inline app::LegacyTimelineSequence_SequenceEntry_Constraint__Class** type_info = (app::LegacyTimelineSequence_SequenceEntry_Constraint__Class**)(modloader::win::memory::resolve_rva(0x04774EC8));
         inline app::LegacyTimelineSequence_SequenceEntry_Constraint__Class* get_class() {
             return il2cpp::get_nested_class<app::LegacyTimelineSequence_SequenceEntry_Constraint__Class>(type_info, "", "LegacyTimelineSequence+SequenceEntry", "Constraint");
         }

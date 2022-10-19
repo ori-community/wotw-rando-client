@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IDtdEntityInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IDtdEntityInfo__Class** type_info;
+        inline app::IDtdEntityInfo__Class** type_info = (app::IDtdEntityInfo__Class**)(modloader::win::memory::resolve_rva(0x0470E098));
         inline app::IDtdEntityInfo__Class* get_class() {
             return il2cpp::get_class<app::IDtdEntityInfo__Class>(type_info, "System.Xml", "IDtdEntityInfo");
         }

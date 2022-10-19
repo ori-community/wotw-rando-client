@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace StandaloneWebResources {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::StandaloneWebResources__Class** type_info;
+        inline app::StandaloneWebResources__Class** type_info = (app::StandaloneWebResources__Class**)(modloader::win::memory::resolve_rva(0x04702998));
         inline app::StandaloneWebResources__Class* get_class() {
             return il2cpp::get_class<app::StandaloneWebResources__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "StandaloneWebResources");
         }

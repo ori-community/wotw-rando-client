@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Scene {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Scene__Class** type_info;
+        inline app::Scene__Class** type_info = (app::Scene__Class**)(modloader::win::memory::resolve_rva(0x0475CAF0));
         inline app::Scene__Class* get_class() {
             return il2cpp::get_class<app::Scene__Class>(type_info, "UnityEngine.SceneManagement", "Scene");
         }

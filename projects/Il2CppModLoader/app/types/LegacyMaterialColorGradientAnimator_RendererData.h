@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LegacyMaterialColorGradientAnimator_RendererData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LegacyMaterialColorGradientAnimator_RendererData__Class** type_info;
+        inline app::LegacyMaterialColorGradientAnimator_RendererData__Class** type_info = (app::LegacyMaterialColorGradientAnimator_RendererData__Class**)(modloader::win::memory::resolve_rva(0x0478C2C8));
         inline app::LegacyMaterialColorGradientAnimator_RendererData__Class* get_class() {
             return il2cpp::get_nested_class<app::LegacyMaterialColorGradientAnimator_RendererData__Class>(type_info, "", "LegacyMaterialColorGradientAnimator", "RendererData");
         }

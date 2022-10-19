@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TriggerColliderCallback_OnTrigger_Callback {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TriggerColliderCallback_OnTrigger_Callback__Class** type_info;
+        inline app::TriggerColliderCallback_OnTrigger_Callback__Class** type_info = (app::TriggerColliderCallback_OnTrigger_Callback__Class**)(modloader::win::memory::resolve_rva(0x0476CC68));
         inline app::TriggerColliderCallback_OnTrigger_Callback__Class* get_class() {
             return il2cpp::get_nested_class<app::TriggerColliderCallback_OnTrigger_Callback__Class>(type_info, "", "TriggerColliderCallback", "OnTrigger_Callback");
         }

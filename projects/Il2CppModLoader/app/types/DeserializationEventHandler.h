@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DeserializationEventHandler {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DeserializationEventHandler__Class** type_info;
+        inline app::DeserializationEventHandler__Class** type_info = (app::DeserializationEventHandler__Class**)(modloader::win::memory::resolve_rva(0x047172E0));
         inline app::DeserializationEventHandler__Class* get_class() {
             return il2cpp::get_class<app::DeserializationEventHandler__Class>(type_info, "System.Runtime.Serialization", "DeserializationEventHandler");
         }

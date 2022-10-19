@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XsdCachingReader_CachingReaderState__Enum {
         namespace {
-            app::XsdCachingReader_CachingReaderState__Enum__Class* type_info_ref = nullptr;
+            inline app::XsdCachingReader_CachingReaderState__Enum__Class* type_info_ref = nullptr;
         }
-        app::XsdCachingReader_CachingReaderState__Enum__Class** type_info = &type_info_ref;
+        inline app::XsdCachingReader_CachingReaderState__Enum__Class** type_info = &type_info_ref;
         inline app::XsdCachingReader_CachingReaderState__Enum__Class* get_class() {
             return il2cpp::get_nested_class<app::XsdCachingReader_CachingReaderState__Enum__Class>(type_info, "System.Xml", "XsdCachingReader", "CachingReaderState");
         }

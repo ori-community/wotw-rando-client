@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CrossSceneReferenceId {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CrossSceneReferenceId__Class** type_info;
+        inline app::CrossSceneReferenceId__Class** type_info = (app::CrossSceneReferenceId__Class**)(modloader::win::memory::resolve_rva(0x0477DA88));
         inline app::CrossSceneReferenceId__Class* get_class() {
             return il2cpp::get_class<app::CrossSceneReferenceId__Class>(type_info, "Moon", "CrossSceneReferenceId");
         }

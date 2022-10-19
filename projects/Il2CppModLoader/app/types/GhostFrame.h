@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GhostFrame {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GhostFrame__Class** type_info;
+        inline app::GhostFrame__Class** type_info = (app::GhostFrame__Class**)(modloader::win::memory::resolve_rva(0x047987A0));
         inline app::GhostFrame__Class* get_class() {
             return il2cpp::get_class<app::GhostFrame__Class>(type_info, "", "GhostFrame");
         }

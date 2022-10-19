@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MultiplyLayerModifier {
         namespace {
-            app::MultiplyLayerModifier__Class* type_info_ref = nullptr;
+            inline app::MultiplyLayerModifier__Class* type_info_ref = nullptr;
         }
-        app::MultiplyLayerModifier__Class** type_info = &type_info_ref;
+        inline app::MultiplyLayerModifier__Class** type_info = &type_info_ref;
         inline app::MultiplyLayerModifier__Class* get_class() {
             return il2cpp::get_class<app::MultiplyLayerModifier__Class>(type_info, "", "MultiplyLayerModifier");
         }

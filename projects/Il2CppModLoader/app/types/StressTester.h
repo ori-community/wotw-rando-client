@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace StressTester {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::StressTester__Class** type_info;
+        inline app::StressTester__Class** type_info = (app::StressTester__Class**)(modloader::win::memory::resolve_rva(0x04733568));
         inline app::StressTester__Class* get_class() {
             return il2cpp::get_class<app::StressTester__Class>(type_info, "", "StressTester");
         }

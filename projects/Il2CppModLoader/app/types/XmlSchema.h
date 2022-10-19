@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlSchema {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlSchema__Class** type_info;
+        inline app::XmlSchema__Class** type_info = (app::XmlSchema__Class**)(modloader::win::memory::resolve_rva(0x04755C60));
         inline app::XmlSchema__Class* get_class() {
             return il2cpp::get_class<app::XmlSchema__Class>(type_info, "System.Xml.Schema", "XmlSchema");
         }
@@ -22,13 +23,14 @@ namespace app::classes::types {
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XMLSchema {
         namespace {
-            app::XMLSchema__Class* type_info_ref = nullptr;
+            inline app::XMLSchema__Class* type_info_ref = nullptr;
         }
-        app::XMLSchema__Class** type_info = &type_info_ref;
+        inline app::XMLSchema__Class** type_info = &type_info_ref;
         inline app::XMLSchema__Class* get_class() {
             return il2cpp::get_class<app::XMLSchema__Class>(type_info, "System.Data", "XMLSchema");
         }

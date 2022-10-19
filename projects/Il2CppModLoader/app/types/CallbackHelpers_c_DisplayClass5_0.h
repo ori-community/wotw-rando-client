@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CallbackHelpers_c_DisplayClass5_0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CallbackHelpers_c_DisplayClass5_0__Class** type_info;
+        inline app::CallbackHelpers_c_DisplayClass5_0__Class** type_info = (app::CallbackHelpers_c_DisplayClass5_0__Class**)(modloader::win::memory::resolve_rva(0x0478EFD0));
         inline app::CallbackHelpers_c_DisplayClass5_0__Class* get_class() {
             return il2cpp::get_nested_class<app::CallbackHelpers_c_DisplayClass5_0__Class>(type_info, "Mono.Net.Security.Private", "CallbackHelpers", "<>c__DisplayClass5_0");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RecordableObjectPuppet {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RecordableObjectPuppet__Class** type_info;
+        inline app::RecordableObjectPuppet__Class** type_info = (app::RecordableObjectPuppet__Class**)(modloader::win::memory::resolve_rva(0x04780B60));
         inline app::RecordableObjectPuppet__Class* get_class() {
             return il2cpp::get_class<app::RecordableObjectPuppet__Class>(type_info, "", "RecordableObjectPuppet");
         }

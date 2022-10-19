@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace KwolokBossEntity {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::KwolokBossEntity__Class** type_info;
+        inline app::KwolokBossEntity__Class** type_info = (app::KwolokBossEntity__Class**)(modloader::win::memory::resolve_rva(0x04757790));
         inline app::KwolokBossEntity__Class* get_class() {
             return il2cpp::get_class<app::KwolokBossEntity__Class>(type_info, "", "KwolokBossEntity");
         }

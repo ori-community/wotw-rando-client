@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TextAsset {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TextAsset__Class** type_info;
+        inline app::TextAsset__Class** type_info = (app::TextAsset__Class**)(modloader::win::memory::resolve_rva(0x0470FDB0));
         inline app::TextAsset__Class* get_class() {
             return il2cpp::get_class<app::TextAsset__Class>(type_info, "UnityEngine", "TextAsset");
         }

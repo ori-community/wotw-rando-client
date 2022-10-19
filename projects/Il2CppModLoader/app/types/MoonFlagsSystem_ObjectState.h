@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MoonFlagsSystem_ObjectState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MoonFlagsSystem_ObjectState__Class** type_info;
+        inline app::MoonFlagsSystem_ObjectState__Class** type_info = (app::MoonFlagsSystem_ObjectState__Class**)(modloader::win::memory::resolve_rva(0x047477C8));
         inline app::MoonFlagsSystem_ObjectState__Class* get_class() {
             return il2cpp::get_nested_class<app::MoonFlagsSystem_ObjectState__Class>(type_info, "", "MoonFlagsSystem", "ObjectState");
         }

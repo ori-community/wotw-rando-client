@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LegacyDoor {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LegacyDoor__Class** type_info;
+        inline app::LegacyDoor__Class** type_info = (app::LegacyDoor__Class**)(modloader::win::memory::resolve_rva(0x04799AF0));
         inline app::LegacyDoor__Class* get_class() {
             return il2cpp::get_class<app::LegacyDoor__Class>(type_info, "", "LegacyDoor");
         }

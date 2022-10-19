@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CompletionActionInvoker {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CompletionActionInvoker__Class** type_info;
+        inline app::CompletionActionInvoker__Class** type_info = (app::CompletionActionInvoker__Class**)(modloader::win::memory::resolve_rva(0x04700ED8));
         inline app::CompletionActionInvoker__Class* get_class() {
             return il2cpp::get_class<app::CompletionActionInvoker__Class>(type_info, "System.Threading.Tasks", "CompletionActionInvoker");
         }

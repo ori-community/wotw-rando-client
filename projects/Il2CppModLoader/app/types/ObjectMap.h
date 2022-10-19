@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ObjectMap {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ObjectMap__Class** type_info;
+        inline app::ObjectMap__Class** type_info = (app::ObjectMap__Class**)(modloader::win::memory::resolve_rva(0x04705968));
         inline app::ObjectMap__Class* get_class() {
             return il2cpp::get_class<app::ObjectMap__Class>(type_info, "System.Runtime.Serialization.Formatters.Binary", "ObjectMap");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MembershipModel {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MembershipModel__Class** type_info;
+        inline app::MembershipModel__Class** type_info = (app::MembershipModel__Class**)(modloader::win::memory::resolve_rva(0x0474EB08));
         inline app::MembershipModel__Class* get_class() {
             return il2cpp::get_class<app::MembershipModel__Class>(type_info, "PlayFab.ClientModels", "MembershipModel");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DllImportAttribute {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DllImportAttribute__Class** type_info;
+        inline app::DllImportAttribute__Class** type_info = (app::DllImportAttribute__Class**)(modloader::win::memory::resolve_rva(0x04757528));
         inline app::DllImportAttribute__Class* get_class() {
             return il2cpp::get_class<app::DllImportAttribute__Class>(type_info, "System.Runtime.InteropServices", "DllImportAttribute");
         }

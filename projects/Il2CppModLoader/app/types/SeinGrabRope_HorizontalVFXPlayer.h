@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SeinGrabRope_HorizontalVFXPlayer {
         namespace {
-            app::SeinGrabRope_HorizontalVFXPlayer__Class* type_info_ref = nullptr;
+            inline app::SeinGrabRope_HorizontalVFXPlayer__Class* type_info_ref = nullptr;
         }
-        app::SeinGrabRope_HorizontalVFXPlayer__Class** type_info = &type_info_ref;
+        inline app::SeinGrabRope_HorizontalVFXPlayer__Class** type_info = &type_info_ref;
         inline app::SeinGrabRope_HorizontalVFXPlayer__Class* get_class() {
             return il2cpp::get_nested_class<app::SeinGrabRope_HorizontalVFXPlayer__Class>(type_info, "", "SeinGrabRope", "HorizontalVFXPlayer");
         }

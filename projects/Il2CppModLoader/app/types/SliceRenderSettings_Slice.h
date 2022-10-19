@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SliceRenderSettings_Slice {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SliceRenderSettings_Slice__Class** type_info;
+        inline app::SliceRenderSettings_Slice__Class** type_info = (app::SliceRenderSettings_Slice__Class**)(modloader::win::memory::resolve_rva(0x04776AC0));
         inline app::SliceRenderSettings_Slice__Class* get_class() {
             return il2cpp::get_nested_class<app::SliceRenderSettings_Slice__Class>(type_info, "Moon.Rendering", "SliceRenderSettings", "Slice");
         }

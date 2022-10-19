@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DesiredStateTransition {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DesiredStateTransition__Class** type_info;
+        inline app::DesiredStateTransition__Class** type_info = (app::DesiredStateTransition__Class**)(modloader::win::memory::resolve_rva(0x0471C450));
         inline app::DesiredStateTransition__Class* get_class() {
             return il2cpp::get_class<app::DesiredStateTransition__Class>(type_info, "Moon.Timeline", "DesiredStateTransition");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayerPrefsException {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PlayerPrefsException__Class** type_info;
+        inline app::PlayerPrefsException__Class** type_info = (app::PlayerPrefsException__Class**)(modloader::win::memory::resolve_rva(0x04738940));
         inline app::PlayerPrefsException__Class* get_class() {
             return il2cpp::get_class<app::PlayerPrefsException__Class>(type_info, "UnityEngine", "PlayerPrefsException");
         }

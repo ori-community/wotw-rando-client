@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlChoiceIdentifierAttribute {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlChoiceIdentifierAttribute__Class** type_info;
+        inline app::XmlChoiceIdentifierAttribute__Class** type_info = (app::XmlChoiceIdentifierAttribute__Class**)(modloader::win::memory::resolve_rva(0x047194E0));
         inline app::XmlChoiceIdentifierAttribute__Class* get_class() {
             return il2cpp::get_class<app::XmlChoiceIdentifierAttribute__Class>(type_info, "System.Xml.Serialization", "XmlChoiceIdentifierAttribute");
         }

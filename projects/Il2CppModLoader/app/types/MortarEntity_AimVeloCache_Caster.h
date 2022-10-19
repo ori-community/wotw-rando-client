@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MortarEntity_AimVeloCache_Caster {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MortarEntity_AimVeloCache_Caster__Class** type_info;
+        inline app::MortarEntity_AimVeloCache_Caster__Class** type_info = (app::MortarEntity_AimVeloCache_Caster__Class**)(modloader::win::memory::resolve_rva(0x0472F368));
         inline app::MortarEntity_AimVeloCache_Caster__Class* get_class() {
             return il2cpp::get_nested_class<app::MortarEntity_AimVeloCache_Caster__Class>(type_info, "", "MortarEntity+AimVeloCache", "Caster");
         }

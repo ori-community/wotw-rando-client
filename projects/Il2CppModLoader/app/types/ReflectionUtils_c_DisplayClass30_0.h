@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ReflectionUtils_c_DisplayClass30_0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ReflectionUtils_c_DisplayClass30_0__Class** type_info;
+        inline app::ReflectionUtils_c_DisplayClass30_0__Class** type_info = (app::ReflectionUtils_c_DisplayClass30_0__Class**)(modloader::win::memory::resolve_rva(0x047975D8));
         inline app::ReflectionUtils_c_DisplayClass30_0__Class* get_class() {
             return il2cpp::get_nested_class<app::ReflectionUtils_c_DisplayClass30_0__Class>(type_info, "PlayFab.Json", "ReflectionUtils", "<>c__DisplayClass30_0");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Authorization {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Authorization__Class** type_info;
+        inline app::Authorization__Class** type_info = (app::Authorization__Class**)(modloader::win::memory::resolve_rva(0x0474C108));
         inline app::Authorization__Class* get_class() {
             return il2cpp::get_class<app::Authorization__Class>(type_info, "System.Net", "Authorization");
         }

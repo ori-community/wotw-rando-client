@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ConsumeItemRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ConsumeItemRequest__Class** type_info;
+        inline app::ConsumeItemRequest__Class** type_info = (app::ConsumeItemRequest__Class**)(modloader::win::memory::resolve_rva(0x047412C8));
         inline app::ConsumeItemRequest__Class* get_class() {
             return il2cpp::get_class<app::ConsumeItemRequest__Class>(type_info, "PlayFab.ClientModels", "ConsumeItemRequest");
         }

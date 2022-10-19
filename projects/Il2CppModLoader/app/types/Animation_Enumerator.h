@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Animation_Enumerator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Animation_Enumerator__Class** type_info;
+        inline app::Animation_Enumerator__Class** type_info = (app::Animation_Enumerator__Class**)(modloader::win::memory::resolve_rva(0x0475C580));
         inline app::Animation_Enumerator__Class* get_class() {
             return il2cpp::get_nested_class<app::Animation_Enumerator__Class>(type_info, "UnityEngine", "Animation", "Enumerator");
         }

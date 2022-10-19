@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AttackTokens_Request {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AttackTokens_Request__Class** type_info;
+        inline app::AttackTokens_Request__Class** type_info = (app::AttackTokens_Request__Class**)(modloader::win::memory::resolve_rva(0x04728AA0));
         inline app::AttackTokens_Request__Class* get_class() {
             return il2cpp::get_nested_class<app::AttackTokens_Request__Class>(type_info, "", "AttackTokens", "Request");
         }

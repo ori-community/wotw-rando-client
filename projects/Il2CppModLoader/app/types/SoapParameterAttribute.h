@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SoapParameterAttribute {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SoapParameterAttribute__Class** type_info;
+        inline app::SoapParameterAttribute__Class** type_info = (app::SoapParameterAttribute__Class**)(modloader::win::memory::resolve_rva(0x04799680));
         inline app::SoapParameterAttribute__Class* get_class() {
             return il2cpp::get_class<app::SoapParameterAttribute__Class>(type_info, "System.Runtime.Remoting.Metadata", "SoapParameterAttribute");
         }

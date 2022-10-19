@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SerializedFloatUberStateWrapper {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SerializedFloatUberStateWrapper__Class** type_info;
+        inline app::SerializedFloatUberStateWrapper__Class** type_info = (app::SerializedFloatUberStateWrapper__Class**)(modloader::win::memory::resolve_rva(0x0472EE48));
         inline app::SerializedFloatUberStateWrapper__Class* get_class() {
             return il2cpp::get_class<app::SerializedFloatUberStateWrapper__Class>(type_info, "Moon.UberStateVisualization", "SerializedFloatUberStateWrapper");
         }

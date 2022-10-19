@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Receipts {
         namespace {
-            app::Receipts__Class* type_info_ref = nullptr;
+            inline app::Receipts__Class* type_info_ref = nullptr;
         }
-        app::Receipts__Class** type_info = &type_info_ref;
+        inline app::Receipts__Class** type_info = &type_info_ref;
         inline app::Receipts__Class* get_class() {
             return il2cpp::get_class<app::Receipts__Class>(type_info, "Microsoft.Applications.Events.DataModels", "Receipts");
         }

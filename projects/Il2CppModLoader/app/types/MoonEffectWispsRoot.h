@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MoonEffectWispsRoot {
         namespace {
-            app::MoonEffectWispsRoot__Class* type_info_ref = nullptr;
+            inline app::MoonEffectWispsRoot__Class* type_info_ref = nullptr;
         }
-        app::MoonEffectWispsRoot__Class** type_info = &type_info_ref;
+        inline app::MoonEffectWispsRoot__Class** type_info = &type_info_ref;
         inline app::MoonEffectWispsRoot__Class* get_class() {
             return il2cpp::get_class<app::MoonEffectWispsRoot__Class>(type_info, "Moon.EffectsFramework.Wisps", "MoonEffectWispsRoot");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XDRSchema_NameType {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XDRSchema_NameType__Class** type_info;
+        inline app::XDRSchema_NameType__Class** type_info = (app::XDRSchema_NameType__Class**)(modloader::win::memory::resolve_rva(0x0473D818));
         inline app::XDRSchema_NameType__Class* get_class() {
             return il2cpp::get_nested_class<app::XDRSchema_NameType__Class>(type_info, "System.Data", "XDRSchema", "NameType");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BrowserNative_MessageFunc {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BrowserNative_MessageFunc__Class** type_info;
+        inline app::BrowserNative_MessageFunc__Class** type_info = (app::BrowserNative_MessageFunc__Class**)(modloader::win::memory::resolve_rva(0x0477F1B8));
         inline app::BrowserNative_MessageFunc__Class* get_class() {
             return il2cpp::get_nested_class<app::BrowserNative_MessageFunc__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "BrowserNative", "MessageFunc");
         }

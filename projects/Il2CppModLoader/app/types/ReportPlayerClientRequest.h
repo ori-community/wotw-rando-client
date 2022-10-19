@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ReportPlayerClientRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ReportPlayerClientRequest__Class** type_info;
+        inline app::ReportPlayerClientRequest__Class** type_info = (app::ReportPlayerClientRequest__Class**)(modloader::win::memory::resolve_rva(0x0474B6D0));
         inline app::ReportPlayerClientRequest__Class* get_class() {
             return il2cpp::get_class<app::ReportPlayerClientRequest__Class>(type_info, "PlayFab.ClientModels", "ReportPlayerClientRequest");
         }

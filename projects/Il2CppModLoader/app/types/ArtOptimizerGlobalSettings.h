@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ArtOptimizerGlobalSettings {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ArtOptimizerGlobalSettings__Class** type_info;
+        inline app::ArtOptimizerGlobalSettings__Class** type_info = (app::ArtOptimizerGlobalSettings__Class**)(modloader::win::memory::resolve_rva(0x047813C8));
         inline app::ArtOptimizerGlobalSettings__Class* get_class() {
             return il2cpp::get_class<app::ArtOptimizerGlobalSettings__Class>(type_info, "Moon.ArtOptimization", "ArtOptimizerGlobalSettings");
         }

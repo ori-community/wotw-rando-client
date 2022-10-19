@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GameControllerLate_OnEndOfFrame_d_6 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GameControllerLate_OnEndOfFrame_d_6__Class** type_info;
+        inline app::GameControllerLate_OnEndOfFrame_d_6__Class** type_info = (app::GameControllerLate_OnEndOfFrame_d_6__Class**)(modloader::win::memory::resolve_rva(0x0470FA60));
         inline app::GameControllerLate_OnEndOfFrame_d_6__Class* get_class() {
             return il2cpp::get_nested_class<app::GameControllerLate_OnEndOfFrame_d_6__Class>(type_info, "", "GameControllerLate", "<OnEndOfFrame>d__6");
         }

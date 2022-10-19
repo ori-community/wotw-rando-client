@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace VoronoiFactory {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::VoronoiFactory__Class** type_info;
+        inline app::VoronoiFactory__Class** type_info = (app::VoronoiFactory__Class**)(modloader::win::memory::resolve_rva(0x0478DDA0));
         inline app::VoronoiFactory__Class* get_class() {
             return il2cpp::get_class<app::VoronoiFactory__Class>(type_info, "TriangleNet.Smoothing", "VoronoiFactory");
         }

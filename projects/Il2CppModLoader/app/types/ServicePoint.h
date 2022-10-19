@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ServicePoint {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ServicePoint__Class** type_info;
+        inline app::ServicePoint__Class** type_info = (app::ServicePoint__Class**)(modloader::win::memory::resolve_rva(0x04707FB8));
         inline app::ServicePoint__Class* get_class() {
             return il2cpp::get_class<app::ServicePoint__Class>(type_info, "System.Net", "ServicePoint");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RootMotionProcessor {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RootMotionProcessor__Class** type_info;
+        inline app::RootMotionProcessor__Class** type_info = (app::RootMotionProcessor__Class**)(modloader::win::memory::resolve_rva(0x047111A8));
         inline app::RootMotionProcessor__Class* get_class() {
             return il2cpp::get_class<app::RootMotionProcessor__Class>(type_info, "", "RootMotionProcessor");
         }

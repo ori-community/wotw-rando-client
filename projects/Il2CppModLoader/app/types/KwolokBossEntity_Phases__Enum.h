@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace KwolokBossEntity_Phases__Enum {
         namespace {
-            app::KwolokBossEntity_Phases__Enum__Class* type_info_ref = nullptr;
+            inline app::KwolokBossEntity_Phases__Enum__Class* type_info_ref = nullptr;
         }
-        app::KwolokBossEntity_Phases__Enum__Class** type_info = &type_info_ref;
+        inline app::KwolokBossEntity_Phases__Enum__Class** type_info = &type_info_ref;
         inline app::KwolokBossEntity_Phases__Enum__Class* get_class() {
             return il2cpp::get_nested_class<app::KwolokBossEntity_Phases__Enum__Class>(type_info, "", "KwolokBossEntity", "Phases");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RecordProtocol_SendRecordAsyncResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RecordProtocol_SendRecordAsyncResult__Class** type_info;
+        inline app::RecordProtocol_SendRecordAsyncResult__Class** type_info = (app::RecordProtocol_SendRecordAsyncResult__Class**)(modloader::win::memory::resolve_rva(0x0472B628));
         inline app::RecordProtocol_SendRecordAsyncResult__Class* get_class() {
             return il2cpp::get_nested_class<app::RecordProtocol_SendRecordAsyncResult__Class>(type_info, "Mono.Security.Protocol.Tls", "RecordProtocol", "SendRecordAsyncResult");
         }

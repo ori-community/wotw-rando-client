@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Utils_2 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Utils_2__Class** type_info;
+        inline app::Utils_2__Class** type_info = (app::Utils_2__Class**)(modloader::win::memory::resolve_rva(0x047372D0));
         inline app::Utils_2__Class* get_class() {
             return il2cpp::get_class<app::Utils_2__Class>(type_info, "", "Utils");
         }

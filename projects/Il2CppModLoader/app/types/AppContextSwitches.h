@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AppContextSwitches {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AppContextSwitches__Class** type_info;
+        inline app::AppContextSwitches__Class** type_info = (app::AppContextSwitches__Class**)(modloader::win::memory::resolve_rva(0x04784528));
         inline app::AppContextSwitches__Class* get_class() {
             return il2cpp::get_class<app::AppContextSwitches__Class>(type_info, "System", "AppContextSwitches");
         }

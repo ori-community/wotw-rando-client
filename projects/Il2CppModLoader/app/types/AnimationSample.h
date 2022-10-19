@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AnimationSample {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AnimationSample__Class** type_info;
+        inline app::AnimationSample__Class** type_info = (app::AnimationSample__Class**)(modloader::win::memory::resolve_rva(0x047009F8));
         inline app::AnimationSample__Class* get_class() {
             return il2cpp::get_class<app::AnimationSample__Class>(type_info, "Moon.ArtOptimization", "AnimationSample");
         }

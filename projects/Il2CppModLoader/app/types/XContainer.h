@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XContainer {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XContainer__Class** type_info;
+        inline app::XContainer__Class** type_info = (app::XContainer__Class**)(modloader::win::memory::resolve_rva(0x0476A7F8));
         inline app::XContainer__Class* get_class() {
             return il2cpp::get_class<app::XContainer__Class>(type_info, "System.Xml.Linq", "XContainer");
         }

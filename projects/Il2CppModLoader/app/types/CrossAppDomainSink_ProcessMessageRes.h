@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CrossAppDomainSink_ProcessMessageRes {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CrossAppDomainSink_ProcessMessageRes__Class** type_info;
+        inline app::CrossAppDomainSink_ProcessMessageRes__Class** type_info = (app::CrossAppDomainSink_ProcessMessageRes__Class**)(modloader::win::memory::resolve_rva(0x0473A4C8));
         inline app::CrossAppDomainSink_ProcessMessageRes__Class* get_class() {
             return il2cpp::get_nested_class<app::CrossAppDomainSink_ProcessMessageRes__Class>(type_info, "System.Runtime.Remoting.Channels", "CrossAppDomainSink", "ProcessMessageRes");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CallbackState_c {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CallbackState_c__Class** type_info;
+        inline app::CallbackState_c__Class** type_info = (app::CallbackState_c__Class**)(modloader::win::memory::resolve_rva(0x0471EA20));
         inline app::CallbackState_c__Class* get_class() {
             return il2cpp::get_nested_class<app::CallbackState_c__Class>(type_info, "Moon.InteractionGraph", "CallbackState", "<>c");
         }

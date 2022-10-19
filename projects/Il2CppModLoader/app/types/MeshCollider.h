@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MeshCollider {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MeshCollider__Class** type_info;
+        inline app::MeshCollider__Class** type_info = (app::MeshCollider__Class**)(modloader::win::memory::resolve_rva(0x0478E830));
         inline app::MeshCollider__Class* get_class() {
             return il2cpp::get_class<app::MeshCollider__Class>(type_info, "UnityEngine", "MeshCollider");
         }

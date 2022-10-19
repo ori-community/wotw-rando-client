@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UnitySynchronizationContext {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UnitySynchronizationContext__Class** type_info;
+        inline app::UnitySynchronizationContext__Class** type_info = (app::UnitySynchronizationContext__Class**)(modloader::win::memory::resolve_rva(0x0472BC38));
         inline app::UnitySynchronizationContext__Class* get_class() {
             return il2cpp::get_class<app::UnitySynchronizationContext__Class>(type_info, "UnityEngine", "UnitySynchronizationContext");
         }

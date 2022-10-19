@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NumberFormatInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NumberFormatInfo__Class** type_info;
+        inline app::NumberFormatInfo__Class** type_info = (app::NumberFormatInfo__Class**)(modloader::win::memory::resolve_rva(0x04710600));
         inline app::NumberFormatInfo__Class* get_class() {
             return il2cpp::get_class<app::NumberFormatInfo__Class>(type_info, "System.Globalization", "NumberFormatInfo");
         }

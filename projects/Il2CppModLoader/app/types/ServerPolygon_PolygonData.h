@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ServerPolygon_PolygonData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ServerPolygon_PolygonData__Class** type_info;
+        inline app::ServerPolygon_PolygonData__Class** type_info = (app::ServerPolygon_PolygonData__Class**)(modloader::win::memory::resolve_rva(0x04759498));
         inline app::ServerPolygon_PolygonData__Class* get_class() {
             return il2cpp::get_nested_class<app::ServerPolygon_PolygonData__Class>(type_info, "", "ServerPolygon", "PolygonData");
         }

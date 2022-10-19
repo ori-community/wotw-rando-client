@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BaseLoggingObject {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BaseLoggingObject__Class** type_info;
+        inline app::BaseLoggingObject__Class** type_info = (app::BaseLoggingObject__Class**)(modloader::win::memory::resolve_rva(0x0477E5C0));
         inline app::BaseLoggingObject__Class* get_class() {
             return il2cpp::get_class<app::BaseLoggingObject__Class>(type_info, "System.Net", "BaseLoggingObject");
         }

@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FoxBehaviour {
         namespace {
-            app::FoxBehaviour__Class* type_info_ref = nullptr;
+            inline app::FoxBehaviour__Class* type_info_ref = nullptr;
         }
-        app::FoxBehaviour__Class** type_info = &type_info_ref;
+        inline app::FoxBehaviour__Class** type_info = &type_info_ref;
         inline app::FoxBehaviour__Class* get_class() {
             return il2cpp::get_class<app::FoxBehaviour__Class>(type_info, "", "FoxBehaviour");
         }

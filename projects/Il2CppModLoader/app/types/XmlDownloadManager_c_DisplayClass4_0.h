@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlDownloadManager_c_DisplayClass4_0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlDownloadManager_c_DisplayClass4_0__Class** type_info;
+        inline app::XmlDownloadManager_c_DisplayClass4_0__Class** type_info = (app::XmlDownloadManager_c_DisplayClass4_0__Class**)(modloader::win::memory::resolve_rva(0x047677D8));
         inline app::XmlDownloadManager_c_DisplayClass4_0__Class* get_class() {
             return il2cpp::get_nested_class<app::XmlDownloadManager_c_DisplayClass4_0__Class>(type_info, "System.Xml", "XmlDownloadManager", "<>c__DisplayClass4_0");
         }

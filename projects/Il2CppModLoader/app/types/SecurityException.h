@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SecurityException {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SecurityException__Class** type_info;
+        inline app::SecurityException__Class** type_info = (app::SecurityException__Class**)(modloader::win::memory::resolve_rva(0x0477B4B0));
         inline app::SecurityException__Class* get_class() {
             return il2cpp::get_class<app::SecurityException__Class>(type_info, "System.Security", "SecurityException");
         }

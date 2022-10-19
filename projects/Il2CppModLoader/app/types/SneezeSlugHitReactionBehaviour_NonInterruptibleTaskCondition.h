@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SneezeSlugHitReactionBehaviour_NonInterruptibleTaskCondition {
         namespace {
-            app::SneezeSlugHitReactionBehaviour_NonInterruptibleTaskCondition__Class* type_info_ref = nullptr;
+            inline app::SneezeSlugHitReactionBehaviour_NonInterruptibleTaskCondition__Class* type_info_ref = nullptr;
         }
-        app::SneezeSlugHitReactionBehaviour_NonInterruptibleTaskCondition__Class** type_info = &type_info_ref;
+        inline app::SneezeSlugHitReactionBehaviour_NonInterruptibleTaskCondition__Class** type_info = &type_info_ref;
         inline app::SneezeSlugHitReactionBehaviour_NonInterruptibleTaskCondition__Class* get_class() {
             return il2cpp::get_nested_class<app::SneezeSlugHitReactionBehaviour_NonInterruptibleTaskCondition__Class>(type_info, "", "SneezeSlugHitReactionBehaviour", "NonInterruptibleTaskCondition");
         }

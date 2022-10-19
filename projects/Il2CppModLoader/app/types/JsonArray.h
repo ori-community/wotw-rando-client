@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace JsonArray {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::JsonArray__Class** type_info;
+        inline app::JsonArray__Class** type_info = (app::JsonArray__Class**)(modloader::win::memory::resolve_rva(0x047263B8));
         inline app::JsonArray__Class* get_class() {
             return il2cpp::get_class<app::JsonArray__Class>(type_info, "PlayFab.Json", "JsonArray");
         }

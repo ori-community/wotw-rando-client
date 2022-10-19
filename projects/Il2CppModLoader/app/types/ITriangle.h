@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ITriangle {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ITriangle__Class** type_info;
+        inline app::ITriangle__Class** type_info = (app::ITriangle__Class**)(modloader::win::memory::resolve_rva(0x0471BC50));
         inline app::ITriangle__Class* get_class() {
             return il2cpp::get_class<app::ITriangle__Class>(type_info, "TriangleNet.Geometry", "ITriangle");
         }

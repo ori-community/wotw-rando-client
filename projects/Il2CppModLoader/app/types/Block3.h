@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Block3 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Block3__Class** type_info;
+        inline app::Block3__Class** type_info = (app::Block3__Class**)(modloader::win::memory::resolve_rva(0x04773898));
         inline app::Block3__Class* get_class() {
             return il2cpp::get_class<app::Block3__Class>(type_info, "System.Linq.Expressions", "Block3");
         }

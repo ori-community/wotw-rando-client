@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ConnectionPool_AsyncConnectionPoolRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ConnectionPool_AsyncConnectionPoolRequest__Class** type_info;
+        inline app::ConnectionPool_AsyncConnectionPoolRequest__Class** type_info = (app::ConnectionPool_AsyncConnectionPoolRequest__Class**)(modloader::win::memory::resolve_rva(0x047754A8));
         inline app::ConnectionPool_AsyncConnectionPoolRequest__Class* get_class() {
             return il2cpp::get_nested_class<app::ConnectionPool_AsyncConnectionPoolRequest__Class>(type_info, "System.Net", "ConnectionPool", "AsyncConnectionPoolRequest");
         }

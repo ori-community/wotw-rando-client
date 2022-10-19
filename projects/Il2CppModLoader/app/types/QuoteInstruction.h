@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace QuoteInstruction {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::QuoteInstruction__Class** type_info;
+        inline app::QuoteInstruction__Class** type_info = (app::QuoteInstruction__Class**)(modloader::win::memory::resolve_rva(0x04749FF0));
         inline app::QuoteInstruction__Class* get_class() {
             return il2cpp::get_class<app::QuoteInstruction__Class>(type_info, "System.Linq.Expressions.Interpreter", "QuoteInstruction");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AsyncGPUReadbackRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AsyncGPUReadbackRequest__Class** type_info;
+        inline app::AsyncGPUReadbackRequest__Class** type_info = (app::AsyncGPUReadbackRequest__Class**)(modloader::win::memory::resolve_rva(0x04735A08));
         inline app::AsyncGPUReadbackRequest__Class* get_class() {
             return il2cpp::get_class<app::AsyncGPUReadbackRequest__Class>(type_info, "UnityEngine.Rendering", "AsyncGPUReadbackRequest");
         }

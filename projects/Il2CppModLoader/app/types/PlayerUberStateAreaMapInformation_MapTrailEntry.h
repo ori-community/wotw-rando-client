@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayerUberStateAreaMapInformation_MapTrailEntry {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PlayerUberStateAreaMapInformation_MapTrailEntry__Class** type_info;
+        inline app::PlayerUberStateAreaMapInformation_MapTrailEntry__Class** type_info = (app::PlayerUberStateAreaMapInformation_MapTrailEntry__Class**)(modloader::win::memory::resolve_rva(0x0471EC90));
         inline app::PlayerUberStateAreaMapInformation_MapTrailEntry__Class* get_class() {
             return il2cpp::get_nested_class<app::PlayerUberStateAreaMapInformation_MapTrailEntry__Class>(type_info, "Moon.uberSerializationWisp", "PlayerUberStateAreaMapInformation", "MapTrailEntry");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SecurityParameters {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SecurityParameters__Class** type_info;
+        inline app::SecurityParameters__Class** type_info = (app::SecurityParameters__Class**)(modloader::win::memory::resolve_rva(0x0478D150));
         inline app::SecurityParameters__Class* get_class() {
             return il2cpp::get_class<app::SecurityParameters__Class>(type_info, "Mono.Security.Protocol.Tls", "SecurityParameters");
         }

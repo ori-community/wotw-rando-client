@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DefaultProxySectionInternal {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DefaultProxySectionInternal__Class** type_info;
+        inline app::DefaultProxySectionInternal__Class** type_info = (app::DefaultProxySectionInternal__Class**)(modloader::win::memory::resolve_rva(0x047553A8));
         inline app::DefaultProxySectionInternal__Class* get_class() {
             return il2cpp::get_class<app::DefaultProxySectionInternal__Class>(type_info, "System.Net.Configuration", "DefaultProxySectionInternal");
         }

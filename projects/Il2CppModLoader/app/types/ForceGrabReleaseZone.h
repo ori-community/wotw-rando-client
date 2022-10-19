@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ForceGrabReleaseZone {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ForceGrabReleaseZone__Class** type_info;
+        inline app::ForceGrabReleaseZone__Class** type_info = (app::ForceGrabReleaseZone__Class**)(modloader::win::memory::resolve_rva(0x04715B30));
         inline app::ForceGrabReleaseZone__Class* get_class() {
             return il2cpp::get_class<app::ForceGrabReleaseZone__Class>(type_info, "", "ForceGrabReleaseZone");
         }

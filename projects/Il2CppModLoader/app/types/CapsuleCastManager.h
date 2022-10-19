@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CapsuleCastManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CapsuleCastManager__Class** type_info;
+        inline app::CapsuleCastManager__Class** type_info = (app::CapsuleCastManager__Class**)(modloader::win::memory::resolve_rva(0x04702D60));
         inline app::CapsuleCastManager__Class* get_class() {
             return il2cpp::get_class<app::CapsuleCastManager__Class>(type_info, "", "CapsuleCastManager");
         }

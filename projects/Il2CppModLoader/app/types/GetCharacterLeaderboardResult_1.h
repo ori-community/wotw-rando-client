@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GetCharacterLeaderboardResult_1 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GetCharacterLeaderboardResult_1__Class** type_info;
+        inline app::GetCharacterLeaderboardResult_1__Class** type_info = (app::GetCharacterLeaderboardResult_1__Class**)(modloader::win::memory::resolve_rva(0x0473E3F0));
         inline app::GetCharacterLeaderboardResult_1__Class* get_class() {
             return il2cpp::get_class<app::GetCharacterLeaderboardResult_1__Class>(type_info, "PlayFab.ServerModels", "GetCharacterLeaderboardResult");
         }

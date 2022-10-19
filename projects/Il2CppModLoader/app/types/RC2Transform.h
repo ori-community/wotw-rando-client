@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RC2Transform {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RC2Transform__Class** type_info;
+        inline app::RC2Transform__Class** type_info = (app::RC2Transform__Class**)(modloader::win::memory::resolve_rva(0x047821D8));
         inline app::RC2Transform__Class* get_class() {
             return il2cpp::get_class<app::RC2Transform__Class>(type_info, "System.Security.Cryptography", "RC2Transform");
         }

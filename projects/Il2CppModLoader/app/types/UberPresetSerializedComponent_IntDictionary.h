@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberPresetSerializedComponent_IntDictionary {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberPresetSerializedComponent_IntDictionary__Class** type_info;
+        inline app::UberPresetSerializedComponent_IntDictionary__Class** type_info = (app::UberPresetSerializedComponent_IntDictionary__Class**)(modloader::win::memory::resolve_rva(0x04704990));
         inline app::UberPresetSerializedComponent_IntDictionary__Class* get_class() {
             return il2cpp::get_nested_class<app::UberPresetSerializedComponent_IntDictionary__Class>(type_info, "", "UberPresetSerializedComponent", "IntDictionary");
         }

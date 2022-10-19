@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ListFacetsChecker {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ListFacetsChecker__Class** type_info;
+        inline app::ListFacetsChecker__Class** type_info = (app::ListFacetsChecker__Class**)(modloader::win::memory::resolve_rva(0x04779598));
         inline app::ListFacetsChecker__Class* get_class() {
             return il2cpp::get_class<app::ListFacetsChecker__Class>(type_info, "System.Xml.Schema", "ListFacetsChecker");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SpaceMongerWidget_c {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SpaceMongerWidget_c__Class** type_info;
+        inline app::SpaceMongerWidget_c__Class** type_info = (app::SpaceMongerWidget_c__Class**)(modloader::win::memory::resolve_rva(0x0474C9D8));
         inline app::SpaceMongerWidget_c__Class* get_class() {
             return il2cpp::get_nested_class<app::SpaceMongerWidget_c__Class>(type_info, "Moon.UberStateVisualization", "SpaceMongerWidget", "<>c");
         }

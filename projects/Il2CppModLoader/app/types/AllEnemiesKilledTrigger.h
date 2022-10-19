@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AllEnemiesKilledTrigger {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AllEnemiesKilledTrigger__Class** type_info;
+        inline app::AllEnemiesKilledTrigger__Class** type_info = (app::AllEnemiesKilledTrigger__Class**)(modloader::win::memory::resolve_rva(0x047560E8));
         inline app::AllEnemiesKilledTrigger__Class* get_class() {
             return il2cpp::get_class<app::AllEnemiesKilledTrigger__Class>(type_info, "", "AllEnemiesKilledTrigger");
         }

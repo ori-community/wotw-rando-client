@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SceneManagementSystem_SceneLoadedState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SceneManagementSystem_SceneLoadedState__Class** type_info;
+        inline app::SceneManagementSystem_SceneLoadedState__Class** type_info = (app::SceneManagementSystem_SceneLoadedState__Class**)(modloader::win::memory::resolve_rva(0x0470F388));
         inline app::SceneManagementSystem_SceneLoadedState__Class* get_class() {
             return il2cpp::get_nested_class<app::SceneManagementSystem_SceneLoadedState__Class>(type_info, "Moon.Timeline.Systems", "SceneManagementSystem", "SceneLoadedState");
         }

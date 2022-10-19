@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ForcedCooperation_Comply_d_3 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ForcedCooperation_Comply_d_3__Class** type_info;
+        inline app::ForcedCooperation_Comply_d_3__Class** type_info = (app::ForcedCooperation_Comply_d_3__Class**)(modloader::win::memory::resolve_rva(0x047023D8));
         inline app::ForcedCooperation_Comply_d_3__Class* get_class() {
             return il2cpp::get_nested_class<app::ForcedCooperation_Comply_d_3__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "ForcedCooperation", "<_Comply>d__3");
         }

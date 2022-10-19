@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ContentType__Enum {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ContentType__Enum__Class** type_info;
+        inline app::ContentType__Enum__Class** type_info = (app::ContentType__Enum__Class**)(modloader::win::memory::resolve_rva(0x047504B8));
         inline app::ContentType__Enum__Class* get_class() {
             return il2cpp::get_class<app::ContentType__Enum__Class>(type_info, "Mono.Security.Protocol.Tls", "ContentType");
         }

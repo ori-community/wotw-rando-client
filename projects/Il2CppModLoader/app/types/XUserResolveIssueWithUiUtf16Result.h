@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XUserResolveIssueWithUiUtf16Result {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XUserResolveIssueWithUiUtf16Result__Class** type_info;
+        inline app::XUserResolveIssueWithUiUtf16Result__Class** type_info = (app::XUserResolveIssueWithUiUtf16Result__Class**)(modloader::win::memory::resolve_rva(0x0473DC90));
         inline app::XUserResolveIssueWithUiUtf16Result__Class* get_class() {
             return il2cpp::get_class<app::XUserResolveIssueWithUiUtf16Result__Class>(type_info, "XGamingRuntime", "XUserResolveIssueWithUiUtf16Result");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PopInstruction {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PopInstruction__Class** type_info;
+        inline app::PopInstruction__Class** type_info = (app::PopInstruction__Class**)(modloader::win::memory::resolve_rva(0x04709228));
         inline app::PopInstruction__Class* get_class() {
             return il2cpp::get_class<app::PopInstruction__Class>(type_info, "System.Linq.Expressions.Interpreter", "PopInstruction");
         }

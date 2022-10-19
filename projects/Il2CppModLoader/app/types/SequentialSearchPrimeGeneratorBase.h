@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SequentialSearchPrimeGeneratorBase {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SequentialSearchPrimeGeneratorBase__Class** type_info;
+        inline app::SequentialSearchPrimeGeneratorBase__Class** type_info = (app::SequentialSearchPrimeGeneratorBase__Class**)(modloader::win::memory::resolve_rva(0x04708130));
         inline app::SequentialSearchPrimeGeneratorBase__Class* get_class() {
             return il2cpp::get_class<app::SequentialSearchPrimeGeneratorBase__Class>(type_info, "Mono.Math.Prime.Generator", "SequentialSearchPrimeGeneratorBase");
         }

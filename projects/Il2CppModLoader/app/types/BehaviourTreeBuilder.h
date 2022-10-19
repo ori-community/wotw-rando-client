@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BehaviourTreeBuilder {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BehaviourTreeBuilder__Class** type_info;
+        inline app::BehaviourTreeBuilder__Class** type_info = (app::BehaviourTreeBuilder__Class**)(modloader::win::memory::resolve_rva(0x0477E9C0));
         inline app::BehaviourTreeBuilder__Class* get_class() {
             return il2cpp::get_class<app::BehaviourTreeBuilder__Class>(type_info, "UberBehaviourTree", "BehaviourTreeBuilder");
         }

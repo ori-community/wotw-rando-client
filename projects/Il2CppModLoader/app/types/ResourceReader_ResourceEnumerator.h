@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ResourceReader_ResourceEnumerator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ResourceReader_ResourceEnumerator__Class** type_info;
+        inline app::ResourceReader_ResourceEnumerator__Class** type_info = (app::ResourceReader_ResourceEnumerator__Class**)(modloader::win::memory::resolve_rva(0x04799800));
         inline app::ResourceReader_ResourceEnumerator__Class* get_class() {
             return il2cpp::get_nested_class<app::ResourceReader_ResourceEnumerator__Class>(type_info, "System.Resources", "ResourceReader", "ResourceEnumerator");
         }

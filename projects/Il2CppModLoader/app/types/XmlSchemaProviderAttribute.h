@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlSchemaProviderAttribute {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlSchemaProviderAttribute__Class** type_info;
+        inline app::XmlSchemaProviderAttribute__Class** type_info = (app::XmlSchemaProviderAttribute__Class**)(modloader::win::memory::resolve_rva(0x047555D8));
         inline app::XmlSchemaProviderAttribute__Class* get_class() {
             return il2cpp::get_class<app::XmlSchemaProviderAttribute__Class>(type_info, "System.Xml.Serialization", "XmlSchemaProviderAttribute");
         }

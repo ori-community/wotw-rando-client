@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayerLoopHelper_InsertionMode__Enum {
         namespace {
-            app::PlayerLoopHelper_InsertionMode__Enum__Class* type_info_ref = nullptr;
+            inline app::PlayerLoopHelper_InsertionMode__Enum__Class* type_info_ref = nullptr;
         }
-        app::PlayerLoopHelper_InsertionMode__Enum__Class** type_info = &type_info_ref;
+        inline app::PlayerLoopHelper_InsertionMode__Enum__Class** type_info = &type_info_ref;
         inline app::PlayerLoopHelper_InsertionMode__Enum__Class* get_class() {
             return il2cpp::get_nested_class<app::PlayerLoopHelper_InsertionMode__Enum__Class>(type_info, "Moon", "PlayerLoopHelper", "InsertionMode");
         }

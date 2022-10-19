@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FoxTailHurtZone_c {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FoxTailHurtZone_c__Class** type_info;
+        inline app::FoxTailHurtZone_c__Class** type_info = (app::FoxTailHurtZone_c__Class**)(modloader::win::memory::resolve_rva(0x04707DE8));
         inline app::FoxTailHurtZone_c__Class* get_class() {
             return il2cpp::get_nested_class<app::FoxTailHurtZone_c__Class>(type_info, "", "FoxTailHurtZone", "<>c");
         }

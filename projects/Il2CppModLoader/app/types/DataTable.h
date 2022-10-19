@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DataTable {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DataTable__Class** type_info;
+        inline app::DataTable__Class** type_info = (app::DataTable__Class**)(modloader::win::memory::resolve_rva(0x04734058));
         inline app::DataTable__Class* get_class() {
             return il2cpp::get_class<app::DataTable__Class>(type_info, "System.Data", "DataTable");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberBrightnessContrastAnimator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberBrightnessContrastAnimator__Class** type_info;
+        inline app::UberBrightnessContrastAnimator__Class** type_info = (app::UberBrightnessContrastAnimator__Class**)(modloader::win::memory::resolve_rva(0x04792A38));
         inline app::UberBrightnessContrastAnimator__Class* get_class() {
             return il2cpp::get_class<app::UberBrightnessContrastAnimator__Class>(type_info, "", "UberBrightnessContrastAnimator");
         }

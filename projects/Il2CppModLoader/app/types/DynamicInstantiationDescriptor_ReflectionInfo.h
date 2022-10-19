@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DynamicInstantiationDescriptor_ReflectionInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DynamicInstantiationDescriptor_ReflectionInfo__Class** type_info;
+        inline app::DynamicInstantiationDescriptor_ReflectionInfo__Class** type_info = (app::DynamicInstantiationDescriptor_ReflectionInfo__Class**)(modloader::win::memory::resolve_rva(0x04781B08));
         inline app::DynamicInstantiationDescriptor_ReflectionInfo__Class* get_class() {
             return il2cpp::get_nested_class<app::DynamicInstantiationDescriptor_ReflectionInfo__Class>(type_info, "", "DynamicInstantiationDescriptor", "ReflectionInfo");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Behaviour {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Behaviour__Class** type_info;
+        inline app::Behaviour__Class** type_info = (app::Behaviour__Class**)(modloader::win::memory::resolve_rva(0x0470C6F0));
         inline app::Behaviour__Class* get_class() {
             return il2cpp::get_class<app::Behaviour__Class>(type_info, "UnityEngine", "Behaviour");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XElementElementPropertyDescriptor {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XElementElementPropertyDescriptor__Class** type_info;
+        inline app::XElementElementPropertyDescriptor__Class** type_info = (app::XElementElementPropertyDescriptor__Class**)(modloader::win::memory::resolve_rva(0x0471C178));
         inline app::XElementElementPropertyDescriptor__Class* get_class() {
             return il2cpp::get_class<app::XElementElementPropertyDescriptor__Class>(type_info, "MS.Internal.Xml.Linq.ComponentModel", "XElementElementPropertyDescriptor");
         }

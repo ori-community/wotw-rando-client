@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Utils_4 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Utils_4__Class** type_info;
+        inline app::Utils_4__Class** type_info = (app::Utils_4__Class**)(modloader::win::memory::resolve_rva(0x04727380));
         inline app::Utils_4__Class* get_class() {
             return il2cpp::get_class<app::Utils_4__Class>(type_info, "Microsoft.Applications.Events", "Utils");
         }

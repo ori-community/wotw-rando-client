@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ListGroupApplicationsResponse {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ListGroupApplicationsResponse__Class** type_info;
+        inline app::ListGroupApplicationsResponse__Class** type_info = (app::ListGroupApplicationsResponse__Class**)(modloader::win::memory::resolve_rva(0x04705700));
         inline app::ListGroupApplicationsResponse__Class* get_class() {
             return il2cpp::get_class<app::ListGroupApplicationsResponse__Class>(type_info, "PlayFab.GroupsModels", "ListGroupApplicationsResponse");
         }

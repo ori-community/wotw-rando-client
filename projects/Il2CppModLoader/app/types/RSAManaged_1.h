@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RSAManaged_1 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RSAManaged_1__Class** type_info;
+        inline app::RSAManaged_1__Class** type_info = (app::RSAManaged_1__Class**)(modloader::win::memory::resolve_rva(0x04726908));
         inline app::RSAManaged_1__Class* get_class() {
             return il2cpp::get_class<app::RSAManaged_1__Class>(type_info, "Mono.Security.Cryptography", "RSAManaged");
         }

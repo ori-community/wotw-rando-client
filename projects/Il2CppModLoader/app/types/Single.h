@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Single {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Single__Class** type_info;
+        inline app::Single__Class** type_info = (app::Single__Class**)(modloader::win::memory::resolve_rva(0x0475E4D8));
         inline app::Single__Class* get_class() {
             return il2cpp::get_class<app::Single__Class>(type_info, "System", "Single");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FormattableStringFactory_ConcreteFormattableString {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FormattableStringFactory_ConcreteFormattableString__Class** type_info;
+        inline app::FormattableStringFactory_ConcreteFormattableString__Class** type_info = (app::FormattableStringFactory_ConcreteFormattableString__Class**)(modloader::win::memory::resolve_rva(0x04791410));
         inline app::FormattableStringFactory_ConcreteFormattableString__Class* get_class() {
             return il2cpp::get_nested_class<app::FormattableStringFactory_ConcreteFormattableString__Class>(type_info, "System.Runtime.CompilerServices", "FormattableStringFactory", "ConcreteFormattableString");
         }

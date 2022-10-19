@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RockExplodeZone {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RockExplodeZone__Class** type_info;
+        inline app::RockExplodeZone__Class** type_info = (app::RockExplodeZone__Class**)(modloader::win::memory::resolve_rva(0x0478D070));
         inline app::RockExplodeZone__Class* get_class() {
             return il2cpp::get_class<app::RockExplodeZone__Class>(type_info, "", "RockExplodeZone");
         }

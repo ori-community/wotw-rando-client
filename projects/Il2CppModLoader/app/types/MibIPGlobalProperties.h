@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MibIPGlobalProperties {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MibIPGlobalProperties__Class** type_info;
+        inline app::MibIPGlobalProperties__Class** type_info = (app::MibIPGlobalProperties__Class**)(modloader::win::memory::resolve_rva(0x0471AA98));
         inline app::MibIPGlobalProperties__Class* get_class() {
             return il2cpp::get_class<app::MibIPGlobalProperties__Class>(type_info, "System.Net.NetworkInformation", "MibIPGlobalProperties");
         }

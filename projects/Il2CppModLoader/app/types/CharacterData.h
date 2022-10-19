@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CharacterData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CharacterData__Class** type_info;
+        inline app::CharacterData__Class** type_info = (app::CharacterData__Class**)(modloader::win::memory::resolve_rva(0x0476FF30));
         inline app::CharacterData__Class* get_class() {
             return il2cpp::get_class<app::CharacterData__Class>(type_info, "", "CharacterData");
         }

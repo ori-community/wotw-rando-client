@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NewLocation {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NewLocation__Class** type_info;
+        inline app::NewLocation__Class** type_info = (app::NewLocation__Class**)(modloader::win::memory::resolve_rva(0x0472FFE8));
         inline app::NewLocation__Class* get_class() {
             return il2cpp::get_class<app::NewLocation__Class>(type_info, "TriangleNet", "NewLocation");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ICachableInput {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ICachableInput__Class** type_info;
+        inline app::ICachableInput__Class** type_info = (app::ICachableInput__Class**)(modloader::win::memory::resolve_rva(0x047042A0));
         inline app::ICachableInput__Class* get_class() {
             return il2cpp::get_class<app::ICachableInput__Class>(type_info, "SmartInput", "ICachableInput");
         }

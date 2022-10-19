@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MainThreadLoadingDebugger_NotifyEntry {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MainThreadLoadingDebugger_NotifyEntry__Class** type_info;
+        inline app::MainThreadLoadingDebugger_NotifyEntry__Class** type_info = (app::MainThreadLoadingDebugger_NotifyEntry__Class**)(modloader::win::memory::resolve_rva(0x04799088));
         inline app::MainThreadLoadingDebugger_NotifyEntry__Class* get_class() {
             return il2cpp::get_nested_class<app::MainThreadLoadingDebugger_NotifyEntry__Class>(type_info, "", "MainThreadLoadingDebugger", "NotifyEntry");
         }

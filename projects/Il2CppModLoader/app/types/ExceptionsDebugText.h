@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ExceptionsDebugText {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ExceptionsDebugText__Class** type_info;
+        inline app::ExceptionsDebugText__Class** type_info = (app::ExceptionsDebugText__Class**)(modloader::win::memory::resolve_rva(0x04757AB0));
         inline app::ExceptionsDebugText__Class* get_class() {
             return il2cpp::get_class<app::ExceptionsDebugText__Class>(type_info, "", "ExceptionsDebugText");
         }

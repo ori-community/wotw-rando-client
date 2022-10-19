@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Label {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Label__Class** type_info;
+        inline app::Label__Class** type_info = (app::Label__Class**)(modloader::win::memory::resolve_rva(0x0477F998));
         inline app::Label__Class* get_class() {
             return il2cpp::get_class<app::Label__Class>(type_info, "System.Reflection.Emit", "Label");
         }

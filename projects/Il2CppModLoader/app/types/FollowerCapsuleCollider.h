@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FollowerCapsuleCollider {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FollowerCapsuleCollider__Class** type_info;
+        inline app::FollowerCapsuleCollider__Class** type_info = (app::FollowerCapsuleCollider__Class**)(modloader::win::memory::resolve_rva(0x047395B8));
         inline app::FollowerCapsuleCollider__Class* get_class() {
             return il2cpp::get_class<app::FollowerCapsuleCollider__Class>(type_info, "", "FollowerCapsuleCollider");
         }

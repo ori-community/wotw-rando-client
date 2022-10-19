@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SetPlayerSecretRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SetPlayerSecretRequest__Class** type_info;
+        inline app::SetPlayerSecretRequest__Class** type_info = (app::SetPlayerSecretRequest__Class**)(modloader::win::memory::resolve_rva(0x04722608));
         inline app::SetPlayerSecretRequest__Class* get_class() {
             return il2cpp::get_class<app::SetPlayerSecretRequest__Class>(type_info, "PlayFab.ClientModels", "SetPlayerSecretRequest");
         }

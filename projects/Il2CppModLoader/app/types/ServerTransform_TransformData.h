@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ServerTransform_TransformData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ServerTransform_TransformData__Class** type_info;
+        inline app::ServerTransform_TransformData__Class** type_info = (app::ServerTransform_TransformData__Class**)(modloader::win::memory::resolve_rva(0x047307E8));
         inline app::ServerTransform_TransformData__Class* get_class() {
             return il2cpp::get_nested_class<app::ServerTransform_TransformData__Class>(type_info, "", "ServerTransform", "TransformData");
         }

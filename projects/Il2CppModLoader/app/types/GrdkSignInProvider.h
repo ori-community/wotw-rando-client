@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GrdkSignInProvider {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GrdkSignInProvider__Class** type_info;
+        inline app::GrdkSignInProvider__Class** type_info = (app::GrdkSignInProvider__Class**)(modloader::win::memory::resolve_rva(0x0470F4C0));
         inline app::GrdkSignInProvider__Class* get_class() {
             return il2cpp::get_class<app::GrdkSignInProvider__Class>(type_info, "SystemIntegration", "GrdkSignInProvider");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ValidateAmazonReceiptResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ValidateAmazonReceiptResult__Class** type_info;
+        inline app::ValidateAmazonReceiptResult__Class** type_info = (app::ValidateAmazonReceiptResult__Class**)(modloader::win::memory::resolve_rva(0x04775928));
         inline app::ValidateAmazonReceiptResult__Class* get_class() {
             return il2cpp::get_class<app::ValidateAmazonReceiptResult__Class>(type_info, "PlayFab.ClientModels", "ValidateAmazonReceiptResult");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ShaderID_LensAberrations {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ShaderID_LensAberrations__Class** type_info;
+        inline app::ShaderID_LensAberrations__Class** type_info = (app::ShaderID_LensAberrations__Class**)(modloader::win::memory::resolve_rva(0x04782AF8));
         inline app::ShaderID_LensAberrations__Class* get_class() {
             return il2cpp::get_class<app::ShaderID_LensAberrations__Class>(type_info, "UnityStandardAssets.CinematicEffects", "ShaderID_LensAberrations");
         }

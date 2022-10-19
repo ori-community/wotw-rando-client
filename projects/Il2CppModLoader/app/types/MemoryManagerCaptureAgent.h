@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MemoryManagerCaptureAgent {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MemoryManagerCaptureAgent__Class** type_info;
+        inline app::MemoryManagerCaptureAgent__Class** type_info = (app::MemoryManagerCaptureAgent__Class**)(modloader::win::memory::resolve_rva(0x04796500));
         inline app::MemoryManagerCaptureAgent__Class* get_class() {
             return il2cpp::get_class<app::MemoryManagerCaptureAgent__Class>(type_info, "", "MemoryManagerCaptureAgent");
         }

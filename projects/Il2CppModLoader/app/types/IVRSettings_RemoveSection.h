@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IVRSettings_RemoveSection {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IVRSettings_RemoveSection__Class** type_info;
+        inline app::IVRSettings_RemoveSection__Class** type_info = (app::IVRSettings_RemoveSection__Class**)(modloader::win::memory::resolve_rva(0x047036F8));
         inline app::IVRSettings_RemoveSection__Class* get_class() {
             return il2cpp::get_nested_class<app::IVRSettings_RemoveSection__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "IVRSettings", "_RemoveSection");
         }

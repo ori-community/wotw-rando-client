@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AimPoser_Pose__Array {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AimPoser_Pose__Array__Class** type_info;
+        inline app::AimPoser_Pose__Array__Class** type_info = (app::AimPoser_Pose__Array__Class**)(modloader::win::memory::resolve_rva(0x0477AAA8));
         inline app::AimPoser_Pose__Array__Class* get_class() {
             return il2cpp::get_class<app::AimPoser_Pose__Array__Class>(type_info, "RootMotion.FinalIK", "AimPoser+Pose[]");
         }

@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XalSignInProvider_SignInSilently_b_30_0_d {
         namespace {
-            app::XalSignInProvider_SignInSilently_b_30_0_d__Class* type_info_ref = nullptr;
+            inline app::XalSignInProvider_SignInSilently_b_30_0_d__Class* type_info_ref = nullptr;
         }
-        app::XalSignInProvider_SignInSilently_b_30_0_d__Class** type_info = &type_info_ref;
+        inline app::XalSignInProvider_SignInSilently_b_30_0_d__Class** type_info = &type_info_ref;
         inline app::XalSignInProvider_SignInSilently_b_30_0_d__Class* get_class() {
             return il2cpp::get_nested_class<app::XalSignInProvider_SignInSilently_b_30_0_d__Class>(type_info, "SystemIntegration", "XalSignInProvider", "<<SignInSilently>b__30_0>d");
         }

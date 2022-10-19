@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace InterpretedFrame_GetStackTraceDebugInfo_d_29 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::InterpretedFrame_GetStackTraceDebugInfo_d_29__Class** type_info;
+        inline app::InterpretedFrame_GetStackTraceDebugInfo_d_29__Class** type_info = (app::InterpretedFrame_GetStackTraceDebugInfo_d_29__Class**)(modloader::win::memory::resolve_rva(0x0470FDE0));
         inline app::InterpretedFrame_GetStackTraceDebugInfo_d_29__Class* get_class() {
             return il2cpp::get_nested_class<app::InterpretedFrame_GetStackTraceDebugInfo_d_29__Class>(type_info, "System.Linq.Expressions.Interpreter", "InterpretedFrame", "<GetStackTraceDebugInfo>d__29");
         }

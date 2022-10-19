@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DelayedActionManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DelayedActionManager__Class** type_info;
+        inline app::DelayedActionManager__Class** type_info = (app::DelayedActionManager__Class**)(modloader::win::memory::resolve_rva(0x0472E660));
         inline app::DelayedActionManager__Class* get_class() {
             return il2cpp::get_class<app::DelayedActionManager__Class>(type_info, "", "DelayedActionManager");
         }

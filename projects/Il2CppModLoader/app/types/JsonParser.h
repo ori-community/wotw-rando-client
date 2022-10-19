@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace JsonParser {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::JsonParser__Class** type_info;
+        inline app::JsonParser__Class** type_info = (app::JsonParser__Class**)(modloader::win::memory::resolve_rva(0x047294A0));
         inline app::JsonParser__Class* get_class() {
             return il2cpp::get_class<app::JsonParser__Class>(type_info, "Moon", "JsonParser");
         }
@@ -22,10 +23,11 @@ namespace app::classes::types {
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace JSONParser {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::JSONParser__Class** type_info;
+        inline app::JSONParser__Class** type_info = (app::JSONParser__Class**)(modloader::win::memory::resolve_rva(0x04795250));
         inline app::JSONParser__Class* get_class() {
             return il2cpp::get_class<app::JSONParser__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "JSONParser");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SpikeSlugLocomotion {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SpikeSlugLocomotion__Class** type_info;
+        inline app::SpikeSlugLocomotion__Class** type_info = (app::SpikeSlugLocomotion__Class**)(modloader::win::memory::resolve_rva(0x04737880));
         inline app::SpikeSlugLocomotion__Class* get_class() {
             return il2cpp::get_class<app::SpikeSlugLocomotion__Class>(type_info, "", "SpikeSlugLocomotion");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PropertyChangingEventHandler {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PropertyChangingEventHandler__Class** type_info;
+        inline app::PropertyChangingEventHandler__Class** type_info = (app::PropertyChangingEventHandler__Class**)(modloader::win::memory::resolve_rva(0x0476BF38));
         inline app::PropertyChangingEventHandler__Class* get_class() {
             return il2cpp::get_class<app::PropertyChangingEventHandler__Class>(type_info, "System.ComponentModel", "PropertyChangingEventHandler");
         }

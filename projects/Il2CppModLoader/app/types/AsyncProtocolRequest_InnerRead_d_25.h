@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AsyncProtocolRequest_InnerRead_d_25 {
         namespace {
-            app::AsyncProtocolRequest_InnerRead_d_25__Class* type_info_ref = nullptr;
+            inline app::AsyncProtocolRequest_InnerRead_d_25__Class* type_info_ref = nullptr;
         }
-        app::AsyncProtocolRequest_InnerRead_d_25__Class** type_info = &type_info_ref;
+        inline app::AsyncProtocolRequest_InnerRead_d_25__Class** type_info = &type_info_ref;
         inline app::AsyncProtocolRequest_InnerRead_d_25__Class* get_class() {
             return il2cpp::get_nested_class<app::AsyncProtocolRequest_InnerRead_d_25__Class>(type_info, "Mono.Net.Security", "AsyncProtocolRequest", "<InnerRead>d__25");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Playable {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Playable__Class** type_info;
+        inline app::Playable__Class** type_info = (app::Playable__Class**)(modloader::win::memory::resolve_rva(0x0475E0A8));
         inline app::Playable__Class* get_class() {
             return il2cpp::get_class<app::Playable__Class>(type_info, "UnityEngine.Playables", "Playable");
         }

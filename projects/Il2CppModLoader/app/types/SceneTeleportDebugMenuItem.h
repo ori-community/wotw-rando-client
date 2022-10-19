@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SceneTeleportDebugMenuItem {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SceneTeleportDebugMenuItem__Class** type_info;
+        inline app::SceneTeleportDebugMenuItem__Class** type_info = (app::SceneTeleportDebugMenuItem__Class**)(modloader::win::memory::resolve_rva(0x047561A0));
         inline app::SceneTeleportDebugMenuItem__Class* get_class() {
             return il2cpp::get_class<app::SceneTeleportDebugMenuItem__Class>(type_info, "", "SceneTeleportDebugMenuItem");
         }

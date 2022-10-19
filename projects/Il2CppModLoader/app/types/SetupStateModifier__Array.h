@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SetupStateModifier__Array {
         namespace {
-            app::SetupStateModifier__Array__Class* type_info_ref = nullptr;
+            inline app::SetupStateModifier__Array__Class* type_info_ref = nullptr;
         }
-        app::SetupStateModifier__Array__Class** type_info = &type_info_ref;
+        inline app::SetupStateModifier__Array__Class** type_info = &type_info_ref;
         inline app::SetupStateModifier__Array__Class* get_class() {
             return il2cpp::get_class<app::SetupStateModifier__Array__Class>(type_info, "", "SetupStateModifier[]");
         }

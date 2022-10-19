@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NamedPermissionSet {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NamedPermissionSet__Class** type_info;
+        inline app::NamedPermissionSet__Class** type_info = (app::NamedPermissionSet__Class**)(modloader::win::memory::resolve_rva(0x04775848));
         inline app::NamedPermissionSet__Class* get_class() {
             return il2cpp::get_class<app::NamedPermissionSet__Class>(type_info, "System.Security", "NamedPermissionSet");
         }

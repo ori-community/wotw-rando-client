@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION {
         namespace {
-            app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class* type_info_ref = nullptr;
+            inline app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class* type_info_ref = nullptr;
         }
-        app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class** type_info = &type_info_ref;
+        inline app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class** type_info = &type_info_ref;
         inline app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class* get_class() {
             return il2cpp::get_nested_class<app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class>(type_info, "System", "TimeZoneInfo", "DYNAMIC_TIME_ZONE_INFORMATION");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RemoveContactEmailResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RemoveContactEmailResult__Class** type_info;
+        inline app::RemoveContactEmailResult__Class** type_info = (app::RemoveContactEmailResult__Class**)(modloader::win::memory::resolve_rva(0x04726800));
         inline app::RemoveContactEmailResult__Class* get_class() {
             return il2cpp::get_class<app::RemoveContactEmailResult__Class>(type_info, "PlayFab.ClientModels", "RemoveContactEmailResult");
         }

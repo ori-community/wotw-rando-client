@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace InGameUIEnabler {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::InGameUIEnabler__Class** type_info;
+        inline app::InGameUIEnabler__Class** type_info = (app::InGameUIEnabler__Class**)(modloader::win::memory::resolve_rva(0x0474E768));
         inline app::InGameUIEnabler__Class* get_class() {
             return il2cpp::get_class<app::InGameUIEnabler__Class>(type_info, "", "InGameUIEnabler");
         }

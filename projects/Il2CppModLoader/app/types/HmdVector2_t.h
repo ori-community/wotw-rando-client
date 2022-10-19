@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HmdVector2_t {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::HmdVector2_t__Class** type_info;
+        inline app::HmdVector2_t__Class** type_info = (app::HmdVector2_t__Class**)(modloader::win::memory::resolve_rva(0x0471A000));
         inline app::HmdVector2_t__Class* get_class() {
             return il2cpp::get_class<app::HmdVector2_t__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "HmdVector2_t");
         }

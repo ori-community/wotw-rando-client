@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TimesliceJobTracker_TimesliceJobSample {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TimesliceJobTracker_TimesliceJobSample__Class** type_info;
+        inline app::TimesliceJobTracker_TimesliceJobSample__Class** type_info = (app::TimesliceJobTracker_TimesliceJobSample__Class**)(modloader::win::memory::resolve_rva(0x047076C8));
         inline app::TimesliceJobTracker_TimesliceJobSample__Class* get_class() {
             return il2cpp::get_nested_class<app::TimesliceJobTracker_TimesliceJobSample__Class>(type_info, "", "TimesliceJobTracker", "TimesliceJobSample");
         }

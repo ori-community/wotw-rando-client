@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CullingGroupEvent {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CullingGroupEvent__Class** type_info;
+        inline app::CullingGroupEvent__Class** type_info = (app::CullingGroupEvent__Class**)(modloader::win::memory::resolve_rva(0x04740728));
         inline app::CullingGroupEvent__Class* get_class() {
             return il2cpp::get_class<app::CullingGroupEvent__Class>(type_info, "UnityEngine", "CullingGroupEvent");
         }

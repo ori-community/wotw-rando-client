@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlSchemaAnyAttribute {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlSchemaAnyAttribute__Class** type_info;
+        inline app::XmlSchemaAnyAttribute__Class** type_info = (app::XmlSchemaAnyAttribute__Class**)(modloader::win::memory::resolve_rva(0x04791120));
         inline app::XmlSchemaAnyAttribute__Class* get_class() {
             return il2cpp::get_class<app::XmlSchemaAnyAttribute__Class>(type_info, "System.Xml.Schema", "XmlSchemaAnyAttribute");
         }

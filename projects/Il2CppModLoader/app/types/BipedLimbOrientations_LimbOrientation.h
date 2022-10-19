@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BipedLimbOrientations_LimbOrientation {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BipedLimbOrientations_LimbOrientation__Class** type_info;
+        inline app::BipedLimbOrientations_LimbOrientation__Class** type_info = (app::BipedLimbOrientations_LimbOrientation__Class**)(modloader::win::memory::resolve_rva(0x04767DC0));
         inline app::BipedLimbOrientations_LimbOrientation__Class* get_class() {
             return il2cpp::get_nested_class<app::BipedLimbOrientations_LimbOrientation__Class>(type_info, "RootMotion", "BipedLimbOrientations", "LimbOrientation");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SortedList {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SortedList__Class** type_info;
+        inline app::SortedList__Class** type_info = (app::SortedList__Class**)(modloader::win::memory::resolve_rva(0x047128C8));
         inline app::SortedList__Class* get_class() {
             return il2cpp::get_class<app::SortedList__Class>(type_info, "System.Collections", "SortedList");
         }

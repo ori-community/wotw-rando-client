@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MonoTlsProvider {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MonoTlsProvider__Class** type_info;
+        inline app::MonoTlsProvider__Class** type_info = (app::MonoTlsProvider__Class**)(modloader::win::memory::resolve_rva(0x047245B0));
         inline app::MonoTlsProvider__Class* get_class() {
             return il2cpp::get_class<app::MonoTlsProvider__Class>(type_info, "Mono.Security.Interface", "MonoTlsProvider");
         }

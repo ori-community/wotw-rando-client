@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayerJoinedRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PlayerJoinedRequest__Class** type_info;
+        inline app::PlayerJoinedRequest__Class** type_info = (app::PlayerJoinedRequest__Class**)(modloader::win::memory::resolve_rva(0x047420A8));
         inline app::PlayerJoinedRequest__Class* get_class() {
             return il2cpp::get_class<app::PlayerJoinedRequest__Class>(type_info, "PlayFab.MatchmakerModels", "PlayerJoinedRequest");
         }

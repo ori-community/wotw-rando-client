@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SeinInteraction_ThrowKeystoneSettings {
         namespace {
-            app::SeinInteraction_ThrowKeystoneSettings__Class* type_info_ref = nullptr;
+            inline app::SeinInteraction_ThrowKeystoneSettings__Class* type_info_ref = nullptr;
         }
-        app::SeinInteraction_ThrowKeystoneSettings__Class** type_info = &type_info_ref;
+        inline app::SeinInteraction_ThrowKeystoneSettings__Class** type_info = &type_info_ref;
         inline app::SeinInteraction_ThrowKeystoneSettings__Class* get_class() {
             return il2cpp::get_nested_class<app::SeinInteraction_ThrowKeystoneSettings__Class>(type_info, "", "SeinInteraction", "ThrowKeystoneSettings");
         }

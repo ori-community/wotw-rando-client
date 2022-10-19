@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NvnMemoryDebugger_NvnDataCache {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NvnMemoryDebugger_NvnDataCache__Class** type_info;
+        inline app::NvnMemoryDebugger_NvnDataCache__Class** type_info = (app::NvnMemoryDebugger_NvnDataCache__Class**)(modloader::win::memory::resolve_rva(0x0472DB20));
         inline app::NvnMemoryDebugger_NvnDataCache__Class* get_class() {
             return il2cpp::get_nested_class<app::NvnMemoryDebugger_NvnDataCache__Class>(type_info, "UberShader.optimizations.gc", "NvnMemoryDebugger", "NvnDataCache");
         }

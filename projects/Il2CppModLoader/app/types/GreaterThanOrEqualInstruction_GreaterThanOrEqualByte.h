@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GreaterThanOrEqualInstruction_GreaterThanOrEqualByte {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GreaterThanOrEqualInstruction_GreaterThanOrEqualByte__Class** type_info;
+        inline app::GreaterThanOrEqualInstruction_GreaterThanOrEqualByte__Class** type_info = (app::GreaterThanOrEqualInstruction_GreaterThanOrEqualByte__Class**)(modloader::win::memory::resolve_rva(0x04706CC0));
         inline app::GreaterThanOrEqualInstruction_GreaterThanOrEqualByte__Class* get_class() {
             return il2cpp::get_nested_class<app::GreaterThanOrEqualInstruction_GreaterThanOrEqualByte__Class>(type_info, "System.Linq.Expressions.Interpreter", "GreaterThanOrEqualInstruction", "GreaterThanOrEqualByte");
         }

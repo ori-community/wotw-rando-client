@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GroupEnumerator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GroupEnumerator__Class** type_info;
+        inline app::GroupEnumerator__Class** type_info = (app::GroupEnumerator__Class**)(modloader::win::memory::resolve_rva(0x0478D938));
         inline app::GroupEnumerator__Class* get_class() {
             return il2cpp::get_class<app::GroupEnumerator__Class>(type_info, "System.Text.RegularExpressions", "GroupEnumerator");
         }

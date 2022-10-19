@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SmoothLinesPlugin_NodeMetaData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SmoothLinesPlugin_NodeMetaData__Class** type_info;
+        inline app::SmoothLinesPlugin_NodeMetaData__Class** type_info = (app::SmoothLinesPlugin_NodeMetaData__Class**)(modloader::win::memory::resolve_rva(0x0472E290));
         inline app::SmoothLinesPlugin_NodeMetaData__Class* get_class() {
             return il2cpp::get_nested_class<app::SmoothLinesPlugin_NodeMetaData__Class>(type_info, "", "SmoothLinesPlugin", "NodeMetaData");
         }

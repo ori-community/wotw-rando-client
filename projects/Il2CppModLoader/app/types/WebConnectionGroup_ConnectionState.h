@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WebConnectionGroup_ConnectionState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WebConnectionGroup_ConnectionState__Class** type_info;
+        inline app::WebConnectionGroup_ConnectionState__Class** type_info = (app::WebConnectionGroup_ConnectionState__Class**)(modloader::win::memory::resolve_rva(0x0478AB68));
         inline app::WebConnectionGroup_ConnectionState__Class* get_class() {
             return il2cpp::get_nested_class<app::WebConnectionGroup_ConnectionState__Class>(type_info, "System.Net", "WebConnectionGroup", "ConnectionState");
         }

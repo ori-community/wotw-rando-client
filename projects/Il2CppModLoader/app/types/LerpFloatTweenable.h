@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LerpFloatTweenable {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LerpFloatTweenable__Class** type_info;
+        inline app::LerpFloatTweenable__Class** type_info = (app::LerpFloatTweenable__Class**)(modloader::win::memory::resolve_rva(0x0471BA38));
         inline app::LerpFloatTweenable__Class* get_class() {
             return il2cpp::get_class<app::LerpFloatTweenable__Class>(type_info, "Moon", "LerpFloatTweenable");
         }

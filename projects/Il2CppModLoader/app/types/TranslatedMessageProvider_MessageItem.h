@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TranslatedMessageProvider_MessageItem {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TranslatedMessageProvider_MessageItem__Class** type_info;
+        inline app::TranslatedMessageProvider_MessageItem__Class** type_info = (app::TranslatedMessageProvider_MessageItem__Class**)(modloader::win::memory::resolve_rva(0x04782BC8));
         inline app::TranslatedMessageProvider_MessageItem__Class* get_class() {
             return il2cpp::get_nested_class<app::TranslatedMessageProvider_MessageItem__Class>(type_info, "", "TranslatedMessageProvider", "MessageItem");
         }

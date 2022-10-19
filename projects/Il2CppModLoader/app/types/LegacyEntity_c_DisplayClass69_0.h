@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LegacyEntity_c_DisplayClass69_0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LegacyEntity_c_DisplayClass69_0__Class** type_info;
+        inline app::LegacyEntity_c_DisplayClass69_0__Class** type_info = (app::LegacyEntity_c_DisplayClass69_0__Class**)(modloader::win::memory::resolve_rva(0x0470B640));
         inline app::LegacyEntity_c_DisplayClass69_0__Class* get_class() {
             return il2cpp::get_nested_class<app::LegacyEntity_c_DisplayClass69_0__Class>(type_info, "", "LegacyEntity", "<>c__DisplayClass69_0");
         }

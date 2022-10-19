@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LessThanOrEqualInstruction {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LessThanOrEqualInstruction__Class** type_info;
+        inline app::LessThanOrEqualInstruction__Class** type_info = (app::LessThanOrEqualInstruction__Class**)(modloader::win::memory::resolve_rva(0x047611F8));
         inline app::LessThanOrEqualInstruction__Class* get_class() {
             return il2cpp::get_class<app::LessThanOrEqualInstruction__Class>(type_info, "System.Linq.Expressions.Interpreter", "LessThanOrEqualInstruction");
         }

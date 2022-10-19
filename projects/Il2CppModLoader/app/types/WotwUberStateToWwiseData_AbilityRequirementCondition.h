@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WotwUberStateToWwiseData_AbilityRequirementCondition {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WotwUberStateToWwiseData_AbilityRequirementCondition__Class** type_info;
+        inline app::WotwUberStateToWwiseData_AbilityRequirementCondition__Class** type_info = (app::WotwUberStateToWwiseData_AbilityRequirementCondition__Class**)(modloader::win::memory::resolve_rva(0x0474B230));
         inline app::WotwUberStateToWwiseData_AbilityRequirementCondition__Class* get_class() {
             return il2cpp::get_nested_class<app::WotwUberStateToWwiseData_AbilityRequirementCondition__Class>(type_info, "", "WotwUberStateToWwiseData", "AbilityRequirementCondition");
         }

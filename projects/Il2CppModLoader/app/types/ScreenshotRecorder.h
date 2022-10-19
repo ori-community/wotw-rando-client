@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ScreenshotRecorder {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ScreenshotRecorder__Class** type_info;
+        inline app::ScreenshotRecorder__Class** type_info = (app::ScreenshotRecorder__Class**)(modloader::win::memory::resolve_rva(0x04768C00));
         inline app::ScreenshotRecorder__Class* get_class() {
             return il2cpp::get_class<app::ScreenshotRecorder__Class>(type_info, "moonTools.recording", "ScreenshotRecorder");
         }

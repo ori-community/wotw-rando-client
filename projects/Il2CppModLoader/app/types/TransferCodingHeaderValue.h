@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TransferCodingHeaderValue {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TransferCodingHeaderValue__Class** type_info;
+        inline app::TransferCodingHeaderValue__Class** type_info = (app::TransferCodingHeaderValue__Class**)(modloader::win::memory::resolve_rva(0x0476CB00));
         inline app::TransferCodingHeaderValue__Class* get_class() {
             return il2cpp::get_class<app::TransferCodingHeaderValue__Class>(type_info, "System.Net.Http.Headers", "TransferCodingHeaderValue");
         }

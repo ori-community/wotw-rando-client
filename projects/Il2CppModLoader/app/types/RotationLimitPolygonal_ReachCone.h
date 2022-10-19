@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RotationLimitPolygonal_ReachCone {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RotationLimitPolygonal_ReachCone__Class** type_info;
+        inline app::RotationLimitPolygonal_ReachCone__Class** type_info = (app::RotationLimitPolygonal_ReachCone__Class**)(modloader::win::memory::resolve_rva(0x04712228));
         inline app::RotationLimitPolygonal_ReachCone__Class* get_class() {
             return il2cpp::get_nested_class<app::RotationLimitPolygonal_ReachCone__Class>(type_info, "RootMotion.FinalIK", "RotationLimitPolygonal", "ReachCone");
         }

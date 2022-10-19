@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ObjectWriter {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ObjectWriter__Class** type_info;
+        inline app::ObjectWriter__Class** type_info = (app::ObjectWriter__Class**)(modloader::win::memory::resolve_rva(0x04720FC8));
         inline app::ObjectWriter__Class* get_class() {
             return il2cpp::get_class<app::ObjectWriter__Class>(type_info, "System.Runtime.Serialization.Formatters.Binary", "ObjectWriter");
         }

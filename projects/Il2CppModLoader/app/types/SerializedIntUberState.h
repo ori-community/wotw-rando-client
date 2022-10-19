@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SerializedIntUberState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SerializedIntUberState__Class** type_info;
+        inline app::SerializedIntUberState__Class** type_info = (app::SerializedIntUberState__Class**)(modloader::win::memory::resolve_rva(0x0471C838));
         inline app::SerializedIntUberState__Class* get_class() {
             return il2cpp::get_class<app::SerializedIntUberState__Class>(type_info, "Moon", "SerializedIntUberState");
         }

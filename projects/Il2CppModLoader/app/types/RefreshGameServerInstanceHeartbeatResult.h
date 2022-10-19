@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RefreshGameServerInstanceHeartbeatResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RefreshGameServerInstanceHeartbeatResult__Class** type_info;
+        inline app::RefreshGameServerInstanceHeartbeatResult__Class** type_info = (app::RefreshGameServerInstanceHeartbeatResult__Class**)(modloader::win::memory::resolve_rva(0x0471F7D8));
         inline app::RefreshGameServerInstanceHeartbeatResult__Class* get_class() {
             return il2cpp::get_class<app::RefreshGameServerInstanceHeartbeatResult__Class>(type_info, "PlayFab.ServerModels", "RefreshGameServerInstanceHeartbeatResult");
         }

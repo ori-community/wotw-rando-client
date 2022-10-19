@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PetrifiedOwlBossFeatherFlurryBehaviour {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PetrifiedOwlBossFeatherFlurryBehaviour__Class** type_info;
+        inline app::PetrifiedOwlBossFeatherFlurryBehaviour__Class** type_info = (app::PetrifiedOwlBossFeatherFlurryBehaviour__Class**)(modloader::win::memory::resolve_rva(0x047842F8));
         inline app::PetrifiedOwlBossFeatherFlurryBehaviour__Class* get_class() {
             return il2cpp::get_class<app::PetrifiedOwlBossFeatherFlurryBehaviour__Class>(type_info, "", "PetrifiedOwlBossFeatherFlurryBehaviour");
         }

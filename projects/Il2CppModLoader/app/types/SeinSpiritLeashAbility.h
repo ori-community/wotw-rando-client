@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SeinSpiritLeashAbility {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SeinSpiritLeashAbility__Class** type_info;
+        inline app::SeinSpiritLeashAbility__Class** type_info = (app::SeinSpiritLeashAbility__Class**)(modloader::win::memory::resolve_rva(0x04797FD8));
         inline app::SeinSpiritLeashAbility__Class* get_class() {
             return il2cpp::get_class<app::SeinSpiritLeashAbility__Class>(type_info, "", "SeinSpiritLeashAbility");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GoldenSein_UndrainRoutine_d_60 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GoldenSein_UndrainRoutine_d_60__Class** type_info;
+        inline app::GoldenSein_UndrainRoutine_d_60__Class** type_info = (app::GoldenSein_UndrainRoutine_d_60__Class**)(modloader::win::memory::resolve_rva(0x0475B110));
         inline app::GoldenSein_UndrainRoutine_d_60__Class* get_class() {
             return il2cpp::get_nested_class<app::GoldenSein_UndrainRoutine_d_60__Class>(type_info, "", "GoldenSein", "<UndrainRoutine>d__60");
         }

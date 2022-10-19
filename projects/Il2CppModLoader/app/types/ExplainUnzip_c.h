@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ExplainUnzip_c {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ExplainUnzip_c__Class** type_info;
+        inline app::ExplainUnzip_c__Class** type_info = (app::ExplainUnzip_c__Class**)(modloader::win::memory::resolve_rva(0x0476B580));
         inline app::ExplainUnzip_c__Class* get_class() {
             return il2cpp::get_nested_class<app::ExplainUnzip_c__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "ExplainUnzip", "<>c");
         }

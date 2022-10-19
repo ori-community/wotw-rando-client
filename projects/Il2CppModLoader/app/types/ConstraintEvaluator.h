@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ConstraintEvaluator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ConstraintEvaluator__Class** type_info;
+        inline app::ConstraintEvaluator__Class** type_info = (app::ConstraintEvaluator__Class**)(modloader::win::memory::resolve_rva(0x04793188));
         inline app::ConstraintEvaluator__Class* get_class() {
             return il2cpp::get_class<app::ConstraintEvaluator__Class>(type_info, "Moon.Timeline.Constraints", "ConstraintEvaluator");
         }

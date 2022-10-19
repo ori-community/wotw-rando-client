@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TypeInformation {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TypeInformation__Class** type_info;
+        inline app::TypeInformation__Class** type_info = (app::TypeInformation__Class**)(modloader::win::memory::resolve_rva(0x047404F8));
         inline app::TypeInformation__Class* get_class() {
             return il2cpp::get_class<app::TypeInformation__Class>(type_info, "System.Runtime.Serialization.Formatters.Binary", "TypeInformation");
         }

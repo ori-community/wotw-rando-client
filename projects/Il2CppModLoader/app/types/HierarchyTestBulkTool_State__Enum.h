@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HierarchyTestBulkTool_State__Enum {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::HierarchyTestBulkTool_State__Enum__Class** type_info;
+        inline app::HierarchyTestBulkTool_State__Enum__Class** type_info = (app::HierarchyTestBulkTool_State__Enum__Class**)(modloader::win::memory::resolve_rva(0x0473CEF8));
         inline app::HierarchyTestBulkTool_State__Enum__Class* get_class() {
             return il2cpp::get_nested_class<app::HierarchyTestBulkTool_State__Enum__Class>(type_info, "Moon.HierarchyPerformanceTest", "HierarchyTestBulkTool", "State");
         }

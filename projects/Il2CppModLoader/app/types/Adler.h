@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Adler {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Adler__Class** type_info;
+        inline app::Adler__Class** type_info = (app::Adler__Class**)(modloader::win::memory::resolve_rva(0x04704C78));
         inline app::Adler__Class* get_class() {
             return il2cpp::get_class<app::Adler__Class>(type_info, "Ionic.Zlib", "Adler");
         }

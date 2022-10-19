@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IGreanade {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IGreanade__Class** type_info;
+        inline app::IGreanade__Class** type_info = (app::IGreanade__Class**)(modloader::win::memory::resolve_rva(0x047961B8));
         inline app::IGreanade__Class* get_class() {
             return il2cpp::get_class<app::IGreanade__Class>(type_info, "", "IGreanade");
         }

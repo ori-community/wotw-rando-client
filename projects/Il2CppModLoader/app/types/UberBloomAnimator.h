@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberBloomAnimator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberBloomAnimator__Class** type_info;
+        inline app::UberBloomAnimator__Class** type_info = (app::UberBloomAnimator__Class**)(modloader::win::memory::resolve_rva(0x0476CFC8));
         inline app::UberBloomAnimator__Class* get_class() {
             return il2cpp::get_class<app::UberBloomAnimator__Class>(type_info, "", "UberBloomAnimator");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CleverMenuItemGroup {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CleverMenuItemGroup__Class** type_info;
+        inline app::CleverMenuItemGroup__Class** type_info = (app::CleverMenuItemGroup__Class**)(modloader::win::memory::resolve_rva(0x04738A10));
         inline app::CleverMenuItemGroup__Class* get_class() {
             return il2cpp::get_class<app::CleverMenuItemGroup__Class>(type_info, "", "CleverMenuItemGroup");
         }

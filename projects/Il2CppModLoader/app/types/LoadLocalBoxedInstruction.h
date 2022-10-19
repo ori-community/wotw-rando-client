@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LoadLocalBoxedInstruction {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LoadLocalBoxedInstruction__Class** type_info;
+        inline app::LoadLocalBoxedInstruction__Class** type_info = (app::LoadLocalBoxedInstruction__Class**)(modloader::win::memory::resolve_rva(0x04720A38));
         inline app::LoadLocalBoxedInstruction__Class* get_class() {
             return il2cpp::get_class<app::LoadLocalBoxedInstruction__Class>(type_info, "System.Linq.Expressions.Interpreter", "LoadLocalBoxedInstruction");
         }

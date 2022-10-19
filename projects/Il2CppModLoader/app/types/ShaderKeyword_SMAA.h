@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ShaderKeyword_SMAA {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ShaderKeyword_SMAA__Class** type_info;
+        inline app::ShaderKeyword_SMAA__Class** type_info = (app::ShaderKeyword_SMAA__Class**)(modloader::win::memory::resolve_rva(0x04749250));
         inline app::ShaderKeyword_SMAA__Class* get_class() {
             return il2cpp::get_class<app::ShaderKeyword_SMAA__Class>(type_info, "UnityStandardAssets.CinematicEffects", "ShaderKeyword_SMAA");
         }

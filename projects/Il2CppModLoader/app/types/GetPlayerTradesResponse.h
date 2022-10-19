@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GetPlayerTradesResponse {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GetPlayerTradesResponse__Class** type_info;
+        inline app::GetPlayerTradesResponse__Class** type_info = (app::GetPlayerTradesResponse__Class**)(modloader::win::memory::resolve_rva(0x0478EBB8));
         inline app::GetPlayerTradesResponse__Class* get_class() {
             return il2cpp::get_class<app::GetPlayerTradesResponse__Class>(type_info, "PlayFab.ClientModels", "GetPlayerTradesResponse");
         }

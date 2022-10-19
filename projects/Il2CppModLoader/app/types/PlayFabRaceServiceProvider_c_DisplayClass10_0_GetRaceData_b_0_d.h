@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayFabRaceServiceProvider_c_DisplayClass10_0_GetRaceData_b_0_d {
         namespace {
-            app::PlayFabRaceServiceProvider_c_DisplayClass10_0_GetRaceData_b_0_d__Class* type_info_ref = nullptr;
+            inline app::PlayFabRaceServiceProvider_c_DisplayClass10_0_GetRaceData_b_0_d__Class* type_info_ref = nullptr;
         }
-        app::PlayFabRaceServiceProvider_c_DisplayClass10_0_GetRaceData_b_0_d__Class** type_info = &type_info_ref;
+        inline app::PlayFabRaceServiceProvider_c_DisplayClass10_0_GetRaceData_b_0_d__Class** type_info = &type_info_ref;
         inline app::PlayFabRaceServiceProvider_c_DisplayClass10_0_GetRaceData_b_0_d__Class* get_class() {
             return il2cpp::get_nested_class<app::PlayFabRaceServiceProvider_c_DisplayClass10_0_GetRaceData_b_0_d__Class>(type_info, "SystemIntegration.Races", "PlayFabRaceServiceProvider+<>c__DisplayClass10_0", "<<GetRaceData>b__0>d");
         }

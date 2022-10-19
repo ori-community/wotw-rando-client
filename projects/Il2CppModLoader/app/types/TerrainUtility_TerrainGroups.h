@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TerrainUtility_TerrainGroups {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TerrainUtility_TerrainGroups__Class** type_info;
+        inline app::TerrainUtility_TerrainGroups__Class** type_info = (app::TerrainUtility_TerrainGroups__Class**)(modloader::win::memory::resolve_rva(0x04789B80));
         inline app::TerrainUtility_TerrainGroups__Class* get_class() {
             return il2cpp::get_nested_class<app::TerrainUtility_TerrainGroups__Class>(type_info, "UnityEngine.Experimental.TerrainAPI", "TerrainUtility", "TerrainGroups");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GetPlayFabIDsFromSteamIDsResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GetPlayFabIDsFromSteamIDsResult__Class** type_info;
+        inline app::GetPlayFabIDsFromSteamIDsResult__Class** type_info = (app::GetPlayFabIDsFromSteamIDsResult__Class**)(modloader::win::memory::resolve_rva(0x04736E50));
         inline app::GetPlayFabIDsFromSteamIDsResult__Class* get_class() {
             return il2cpp::get_class<app::GetPlayFabIDsFromSteamIDsResult__Class>(type_info, "PlayFab.ClientModels", "GetPlayFabIDsFromSteamIDsResult");
         }

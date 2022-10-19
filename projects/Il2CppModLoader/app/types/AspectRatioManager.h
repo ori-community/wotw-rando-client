@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AspectRatioManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AspectRatioManager__Class** type_info;
+        inline app::AspectRatioManager__Class** type_info = (app::AspectRatioManager__Class**)(modloader::win::memory::resolve_rva(0x047568B0));
         inline app::AspectRatioManager__Class* get_class() {
             return il2cpp::get_class<app::AspectRatioManager__Class>(type_info, "", "AspectRatioManager");
         }

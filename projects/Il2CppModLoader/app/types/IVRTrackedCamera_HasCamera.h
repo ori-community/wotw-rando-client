@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IVRTrackedCamera_HasCamera {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IVRTrackedCamera_HasCamera__Class** type_info;
+        inline app::IVRTrackedCamera_HasCamera__Class** type_info = (app::IVRTrackedCamera_HasCamera__Class**)(modloader::win::memory::resolve_rva(0x04740668));
         inline app::IVRTrackedCamera_HasCamera__Class* get_class() {
             return il2cpp::get_nested_class<app::IVRTrackedCamera_HasCamera__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "IVRTrackedCamera", "_HasCamera");
         }

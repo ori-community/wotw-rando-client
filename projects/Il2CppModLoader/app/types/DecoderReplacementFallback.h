@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DecoderReplacementFallback {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DecoderReplacementFallback__Class** type_info;
+        inline app::DecoderReplacementFallback__Class** type_info = (app::DecoderReplacementFallback__Class**)(modloader::win::memory::resolve_rva(0x047891B0));
         inline app::DecoderReplacementFallback__Class* get_class() {
             return il2cpp::get_class<app::DecoderReplacementFallback__Class>(type_info, "System.Text", "DecoderReplacementFallback");
         }

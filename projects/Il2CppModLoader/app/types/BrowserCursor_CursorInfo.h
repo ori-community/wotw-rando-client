@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BrowserCursor_CursorInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BrowserCursor_CursorInfo__Class** type_info;
+        inline app::BrowserCursor_CursorInfo__Class** type_info = (app::BrowserCursor_CursorInfo__Class**)(modloader::win::memory::resolve_rva(0x04789DE8));
         inline app::BrowserCursor_CursorInfo__Class* get_class() {
             return il2cpp::get_nested_class<app::BrowserCursor_CursorInfo__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "BrowserCursor", "CursorInfo");
         }

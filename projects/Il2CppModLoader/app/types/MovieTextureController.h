@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MovieTextureController {
         namespace {
-            app::MovieTextureController__Class* type_info_ref = nullptr;
+            inline app::MovieTextureController__Class* type_info_ref = nullptr;
         }
-        app::MovieTextureController__Class** type_info = &type_info_ref;
+        inline app::MovieTextureController__Class** type_info = &type_info_ref;
         inline app::MovieTextureController__Class* get_class() {
             return il2cpp::get_class<app::MovieTextureController__Class>(type_info, "", "MovieTextureController");
         }

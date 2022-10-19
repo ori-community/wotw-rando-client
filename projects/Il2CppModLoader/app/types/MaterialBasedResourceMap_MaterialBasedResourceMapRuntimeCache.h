@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Class** type_info;
+        inline app::MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Class** type_info = (app::MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Class**)(modloader::win::memory::resolve_rva(0x0471B370));
         inline app::MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Class* get_class() {
             return il2cpp::get_nested_class<app::MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Class>(type_info, "", "MaterialBasedResourceMap", "MaterialBasedResourceMapRuntimeCache");
         }

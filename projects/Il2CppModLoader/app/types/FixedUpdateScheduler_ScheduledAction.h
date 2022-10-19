@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FixedUpdateScheduler_ScheduledAction {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FixedUpdateScheduler_ScheduledAction__Class** type_info;
+        inline app::FixedUpdateScheduler_ScheduledAction__Class** type_info = (app::FixedUpdateScheduler_ScheduledAction__Class**)(modloader::win::memory::resolve_rva(0x04778558));
         inline app::FixedUpdateScheduler_ScheduledAction__Class* get_class() {
             return il2cpp::get_nested_class<app::FixedUpdateScheduler_ScheduledAction__Class>(type_info, "", "FixedUpdateScheduler", "ScheduledAction");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ListMatchmakingQueuesResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ListMatchmakingQueuesResult__Class** type_info;
+        inline app::ListMatchmakingQueuesResult__Class** type_info = (app::ListMatchmakingQueuesResult__Class**)(modloader::win::memory::resolve_rva(0x047921E0));
         inline app::ListMatchmakingQueuesResult__Class* get_class() {
             return il2cpp::get_class<app::ListMatchmakingQueuesResult__Class>(type_info, "PlayFab.MultiplayerModels", "ListMatchmakingQueuesResult");
         }

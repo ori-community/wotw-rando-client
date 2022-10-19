@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TextDebugMenuItem {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TextDebugMenuItem__Class** type_info;
+        inline app::TextDebugMenuItem__Class** type_info = (app::TextDebugMenuItem__Class**)(modloader::win::memory::resolve_rva(0x04788750));
         inline app::TextDebugMenuItem__Class* get_class() {
             return il2cpp::get_class<app::TextDebugMenuItem__Class>(type_info, "", "TextDebugMenuItem");
         }

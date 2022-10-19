@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PlayFabEmitEventResponse {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PlayFabEmitEventResponse__Class** type_info;
+        inline app::PlayFabEmitEventResponse__Class** type_info = (app::PlayFabEmitEventResponse__Class**)(modloader::win::memory::resolve_rva(0x04712848));
         inline app::PlayFabEmitEventResponse__Class* get_class() {
             return il2cpp::get_class<app::PlayFabEmitEventResponse__Class>(type_info, "PlayFab", "PlayFabEmitEventResponse");
         }

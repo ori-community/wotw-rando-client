@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SceneOperation {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SceneOperation__Class** type_info;
+        inline app::SceneOperation__Class** type_info = (app::SceneOperation__Class**)(modloader::win::memory::resolve_rva(0x047295A0));
         inline app::SceneOperation__Class* get_class() {
             return il2cpp::get_class<app::SceneOperation__Class>(type_info, "", "SceneOperation");
         }

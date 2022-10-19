@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MonoRemoteCertificateValidationCallback {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MonoRemoteCertificateValidationCallback__Class** type_info;
+        inline app::MonoRemoteCertificateValidationCallback__Class** type_info = (app::MonoRemoteCertificateValidationCallback__Class**)(modloader::win::memory::resolve_rva(0x0470BB88));
         inline app::MonoRemoteCertificateValidationCallback__Class* get_class() {
             return il2cpp::get_class<app::MonoRemoteCertificateValidationCallback__Class>(type_info, "Mono.Security.Interface", "MonoRemoteCertificateValidationCallback");
         }

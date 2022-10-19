@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SeinSpiritSpearSpell_FlyingSpear {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SeinSpiritSpearSpell_FlyingSpear__Class** type_info;
+        inline app::SeinSpiritSpearSpell_FlyingSpear__Class** type_info = (app::SeinSpiritSpearSpell_FlyingSpear__Class**)(modloader::win::memory::resolve_rva(0x047406D8));
         inline app::SeinSpiritSpearSpell_FlyingSpear__Class* get_class() {
             return il2cpp::get_nested_class<app::SeinSpiritSpearSpell_FlyingSpear__Class>(type_info, "", "SeinSpiritSpearSpell", "FlyingSpear");
         }

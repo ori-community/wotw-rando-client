@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IDrivable {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IDrivable__Class** type_info;
+        inline app::IDrivable__Class** type_info = (app::IDrivable__Class**)(modloader::win::memory::resolve_rva(0x0478D738));
         inline app::IDrivable__Class* get_class() {
             return il2cpp::get_class<app::IDrivable__Class>(type_info, "Moon", "IDrivable");
         }

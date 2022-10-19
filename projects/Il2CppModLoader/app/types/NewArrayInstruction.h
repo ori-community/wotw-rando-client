@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NewArrayInstruction {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NewArrayInstruction__Class** type_info;
+        inline app::NewArrayInstruction__Class** type_info = (app::NewArrayInstruction__Class**)(modloader::win::memory::resolve_rva(0x0476B9C0));
         inline app::NewArrayInstruction__Class* get_class() {
             return il2cpp::get_class<app::NewArrayInstruction__Class>(type_info, "System.Linq.Expressions.Interpreter", "NewArrayInstruction");
         }

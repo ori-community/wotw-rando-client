@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PointerUIBase_PointerState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PointerUIBase_PointerState__Class** type_info;
+        inline app::PointerUIBase_PointerState__Class** type_info = (app::PointerUIBase_PointerState__Class**)(modloader::win::memory::resolve_rva(0x04733928));
         inline app::PointerUIBase_PointerState__Class* get_class() {
             return il2cpp::get_nested_class<app::PointerUIBase_PointerState__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "PointerUIBase", "PointerState");
         }

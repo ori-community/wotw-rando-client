@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GroundEnemy {
         namespace {
-            app::GroundEnemy__Class* type_info_ref = nullptr;
+            inline app::GroundEnemy__Class* type_info_ref = nullptr;
         }
-        app::GroundEnemy__Class** type_info = &type_info_ref;
+        inline app::GroundEnemy__Class** type_info = &type_info_ref;
         inline app::GroundEnemy__Class* get_class() {
             return il2cpp::get_class<app::GroundEnemy__Class>(type_info, "", "GroundEnemy");
         }

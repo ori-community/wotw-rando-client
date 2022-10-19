@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MemberDescriptor {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MemberDescriptor__Class** type_info;
+        inline app::MemberDescriptor__Class** type_info = (app::MemberDescriptor__Class**)(modloader::win::memory::resolve_rva(0x04774F78));
         inline app::MemberDescriptor__Class* get_class() {
             return il2cpp::get_class<app::MemberDescriptor__Class>(type_info, "System.ComponentModel", "MemberDescriptor");
         }

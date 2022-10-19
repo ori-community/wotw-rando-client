@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PinnedBufferMemoryStream {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PinnedBufferMemoryStream__Class** type_info;
+        inline app::PinnedBufferMemoryStream__Class** type_info = (app::PinnedBufferMemoryStream__Class**)(modloader::win::memory::resolve_rva(0x0475F920));
         inline app::PinnedBufferMemoryStream__Class* get_class() {
             return il2cpp::get_class<app::PinnedBufferMemoryStream__Class>(type_info, "System.IO", "PinnedBufferMemoryStream");
         }

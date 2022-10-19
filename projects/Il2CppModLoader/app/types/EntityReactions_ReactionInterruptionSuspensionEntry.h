@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace EntityReactions_ReactionInterruptionSuspensionEntry {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::EntityReactions_ReactionInterruptionSuspensionEntry__Class** type_info;
+        inline app::EntityReactions_ReactionInterruptionSuspensionEntry__Class** type_info = (app::EntityReactions_ReactionInterruptionSuspensionEntry__Class**)(modloader::win::memory::resolve_rva(0x04762468));
         inline app::EntityReactions_ReactionInterruptionSuspensionEntry__Class* get_class() {
             return il2cpp::get_nested_class<app::EntityReactions_ReactionInterruptionSuspensionEntry__Class>(type_info, "", "EntityReactions", "ReactionInterruptionSuspensionEntry");
         }

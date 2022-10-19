@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HttpListener_ExtendedProtectionSelector {
         namespace {
-            app::HttpListener_ExtendedProtectionSelector__Class* type_info_ref = nullptr;
+            inline app::HttpListener_ExtendedProtectionSelector__Class* type_info_ref = nullptr;
         }
-        app::HttpListener_ExtendedProtectionSelector__Class** type_info = &type_info_ref;
+        inline app::HttpListener_ExtendedProtectionSelector__Class** type_info = &type_info_ref;
         inline app::HttpListener_ExtendedProtectionSelector__Class* get_class() {
             return il2cpp::get_nested_class<app::HttpListener_ExtendedProtectionSelector__Class>(type_info, "System.Net", "HttpListener", "ExtendedProtectionSelector");
         }

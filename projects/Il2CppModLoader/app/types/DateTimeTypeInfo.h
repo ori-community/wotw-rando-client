@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DateTimeTypeInfo {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DateTimeTypeInfo__Class** type_info;
+        inline app::DateTimeTypeInfo__Class** type_info = (app::DateTimeTypeInfo__Class**)(modloader::win::memory::resolve_rva(0x0477B6A0));
         inline app::DateTimeTypeInfo__Class* get_class() {
             return il2cpp::get_class<app::DateTimeTypeInfo__Class>(type_info, "System.Diagnostics.Tracing", "DateTimeTypeInfo");
         }

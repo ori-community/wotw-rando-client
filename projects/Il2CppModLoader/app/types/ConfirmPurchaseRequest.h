@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ConfirmPurchaseRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ConfirmPurchaseRequest__Class** type_info;
+        inline app::ConfirmPurchaseRequest__Class** type_info = (app::ConfirmPurchaseRequest__Class**)(modloader::win::memory::resolve_rva(0x04743EB8));
         inline app::ConfirmPurchaseRequest__Class* get_class() {
             return il2cpp::get_class<app::ConfirmPurchaseRequest__Class>(type_info, "PlayFab.ClientModels", "ConfirmPurchaseRequest");
         }

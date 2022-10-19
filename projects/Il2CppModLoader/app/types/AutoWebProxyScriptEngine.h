@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AutoWebProxyScriptEngine {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AutoWebProxyScriptEngine__Class** type_info;
+        inline app::AutoWebProxyScriptEngine__Class** type_info = (app::AutoWebProxyScriptEngine__Class**)(modloader::win::memory::resolve_rva(0x04769600));
         inline app::AutoWebProxyScriptEngine__Class* get_class() {
             return il2cpp::get_class<app::AutoWebProxyScriptEngine__Class>(type_info, "System.Net", "AutoWebProxyScriptEngine");
         }

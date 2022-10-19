@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ContextSet {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ContextSet__Class** type_info;
+        inline app::ContextSet__Class** type_info = (app::ContextSet__Class**)(modloader::win::memory::resolve_rva(0x04708F30));
         inline app::ContextSet__Class* get_class() {
             return il2cpp::get_class<app::ContextSet__Class>(type_info, "", "ContextSet");
         }

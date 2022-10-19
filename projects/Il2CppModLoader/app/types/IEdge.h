@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IEdge {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IEdge__Class** type_info;
+        inline app::IEdge__Class** type_info = (app::IEdge__Class**)(modloader::win::memory::resolve_rva(0x0477B708));
         inline app::IEdge__Class* get_class() {
             return il2cpp::get_class<app::IEdge__Class>(type_info, "TriangleNet.Geometry", "IEdge");
         }

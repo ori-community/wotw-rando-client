@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IPrewarmable {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IPrewarmable__Class** type_info;
+        inline app::IPrewarmable__Class** type_info = (app::IPrewarmable__Class**)(modloader::win::memory::resolve_rva(0x0475C378));
         inline app::IPrewarmable__Class* get_class() {
             return il2cpp::get_class<app::IPrewarmable__Class>(type_info, "", "IPrewarmable");
         }

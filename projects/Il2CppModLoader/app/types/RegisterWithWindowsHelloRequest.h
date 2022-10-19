@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RegisterWithWindowsHelloRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RegisterWithWindowsHelloRequest__Class** type_info;
+        inline app::RegisterWithWindowsHelloRequest__Class** type_info = (app::RegisterWithWindowsHelloRequest__Class**)(modloader::win::memory::resolve_rva(0x04746990));
         inline app::RegisterWithWindowsHelloRequest__Class* get_class() {
             return il2cpp::get_class<app::RegisterWithWindowsHelloRequest__Class>(type_info, "PlayFab.ClientModels", "RegisterWithWindowsHelloRequest");
         }

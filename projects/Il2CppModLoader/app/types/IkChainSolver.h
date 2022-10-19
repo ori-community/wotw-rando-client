@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IkChainSolver {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IkChainSolver__Class** type_info;
+        inline app::IkChainSolver__Class** type_info = (app::IkChainSolver__Class**)(modloader::win::memory::resolve_rva(0x04747410));
         inline app::IkChainSolver__Class* get_class() {
             return il2cpp::get_class<app::IkChainSolver__Class>(type_info, "Moon", "IkChainSolver");
         }

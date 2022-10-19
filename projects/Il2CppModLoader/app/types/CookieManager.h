@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CookieManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CookieManager__Class** type_info;
+        inline app::CookieManager__Class** type_info = (app::CookieManager__Class**)(modloader::win::memory::resolve_rva(0x0475F190));
         inline app::CookieManager__Class* get_class() {
             return il2cpp::get_class<app::CookieManager__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "CookieManager");
         }

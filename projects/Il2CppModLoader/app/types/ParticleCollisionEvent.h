@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ParticleCollisionEvent {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ParticleCollisionEvent__Class** type_info;
+        inline app::ParticleCollisionEvent__Class** type_info = (app::ParticleCollisionEvent__Class**)(modloader::win::memory::resolve_rva(0x04754D60));
         inline app::ParticleCollisionEvent__Class* get_class() {
             return il2cpp::get_class<app::ParticleCollisionEvent__Class>(type_info, "UnityEngine", "ParticleCollisionEvent");
         }

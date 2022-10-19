@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CADMethodCallMessage {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CADMethodCallMessage__Class** type_info;
+        inline app::CADMethodCallMessage__Class** type_info = (app::CADMethodCallMessage__Class**)(modloader::win::memory::resolve_rva(0x0475F090));
         inline app::CADMethodCallMessage__Class* get_class() {
             return il2cpp::get_class<app::CADMethodCallMessage__Class>(type_info, "System.Runtime.Remoting.Messaging", "CADMethodCallMessage");
         }

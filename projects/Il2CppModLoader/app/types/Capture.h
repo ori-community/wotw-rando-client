@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Capture {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Capture__Class** type_info;
+        inline app::Capture__Class** type_info = (app::Capture__Class**)(modloader::win::memory::resolve_rva(0x04719EA8));
         inline app::Capture__Class* get_class() {
             return il2cpp::get_class<app::Capture__Class>(type_info, "System.Text.RegularExpressions", "Capture");
         }

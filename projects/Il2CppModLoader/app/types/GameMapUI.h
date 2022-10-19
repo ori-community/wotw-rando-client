@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GameMapUI {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GameMapUI__Class** type_info;
+        inline app::GameMapUI__Class** type_info = (app::GameMapUI__Class**)(modloader::win::memory::resolve_rva(0x0477F820));
         inline app::GameMapUI__Class* get_class() {
             return il2cpp::get_class<app::GameMapUI__Class>(type_info, "", "GameMapUI");
         }

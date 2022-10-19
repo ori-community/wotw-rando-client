@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DateTimeStorage {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DateTimeStorage__Class** type_info;
+        inline app::DateTimeStorage__Class** type_info = (app::DateTimeStorage__Class**)(modloader::win::memory::resolve_rva(0x04781280));
         inline app::DateTimeStorage__Class* get_class() {
             return il2cpp::get_class<app::DateTimeStorage__Class>(type_info, "System.Data.Common", "DateTimeStorage");
         }

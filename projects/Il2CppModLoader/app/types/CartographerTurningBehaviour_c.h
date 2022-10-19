@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CartographerTurningBehaviour_c {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CartographerTurningBehaviour_c__Class** type_info;
+        inline app::CartographerTurningBehaviour_c__Class** type_info = (app::CartographerTurningBehaviour_c__Class**)(modloader::win::memory::resolve_rva(0x0474ACA8));
         inline app::CartographerTurningBehaviour_c__Class* get_class() {
             return il2cpp::get_nested_class<app::CartographerTurningBehaviour_c__Class>(type_info, "", "CartographerTurningBehaviour", "<>c");
         }

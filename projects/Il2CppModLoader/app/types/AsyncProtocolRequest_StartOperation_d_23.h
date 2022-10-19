@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AsyncProtocolRequest_StartOperation_d_23 {
         namespace {
-            app::AsyncProtocolRequest_StartOperation_d_23__Class* type_info_ref = nullptr;
+            inline app::AsyncProtocolRequest_StartOperation_d_23__Class* type_info_ref = nullptr;
         }
-        app::AsyncProtocolRequest_StartOperation_d_23__Class** type_info = &type_info_ref;
+        inline app::AsyncProtocolRequest_StartOperation_d_23__Class** type_info = &type_info_ref;
         inline app::AsyncProtocolRequest_StartOperation_d_23__Class* get_class() {
             return il2cpp::get_nested_class<app::AsyncProtocolRequest_StartOperation_d_23__Class>(type_info, "Mono.Net.Security", "AsyncProtocolRequest", "<StartOperation>d__23");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MonoIO {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MonoIO__Class** type_info;
+        inline app::MonoIO__Class** type_info = (app::MonoIO__Class**)(modloader::win::memory::resolve_rva(0x0476F4D8));
         inline app::MonoIO__Class* get_class() {
             return il2cpp::get_class<app::MonoIO__Class>(type_info, "System.IO", "MonoIO");
         }

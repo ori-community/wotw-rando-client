@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WaterPoisonCloud_Blob {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WaterPoisonCloud_Blob__Class** type_info;
+        inline app::WaterPoisonCloud_Blob__Class** type_info = (app::WaterPoisonCloud_Blob__Class**)(modloader::win::memory::resolve_rva(0x047157B0));
         inline app::WaterPoisonCloud_Blob__Class* get_class() {
             return il2cpp::get_nested_class<app::WaterPoisonCloud_Blob__Class>(type_info, "", "WaterPoisonCloud", "Blob");
         }

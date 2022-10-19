@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SceneSample {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SceneSample__Class** type_info;
+        inline app::SceneSample__Class** type_info = (app::SceneSample__Class**)(modloader::win::memory::resolve_rva(0x047716C8));
         inline app::SceneSample__Class* get_class() {
             return il2cpp::get_class<app::SceneSample__Class>(type_info, "Moon.HierarchyPerformanceTest", "SceneSample");
         }

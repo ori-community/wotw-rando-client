@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ConstNode {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ConstNode__Class** type_info;
+        inline app::ConstNode__Class** type_info = (app::ConstNode__Class**)(modloader::win::memory::resolve_rva(0x04746638));
         inline app::ConstNode__Class* get_class() {
             return il2cpp::get_class<app::ConstNode__Class>(type_info, "System.Data", "ConstNode");
         }

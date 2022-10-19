@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace KamikazeSootEnemyDropState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::KamikazeSootEnemyDropState__Class** type_info;
+        inline app::KamikazeSootEnemyDropState__Class** type_info = (app::KamikazeSootEnemyDropState__Class**)(modloader::win::memory::resolve_rva(0x047157C8));
         inline app::KamikazeSootEnemyDropState__Class* get_class() {
             return il2cpp::get_class<app::KamikazeSootEnemyDropState__Class>(type_info, "", "KamikazeSootEnemyDropState");
         }

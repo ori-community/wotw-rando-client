@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XGameSaveBlob {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XGameSaveBlob__Class** type_info;
+        inline app::XGameSaveBlob__Class** type_info = (app::XGameSaveBlob__Class**)(modloader::win::memory::resolve_rva(0x04766EC8));
         inline app::XGameSaveBlob__Class* get_class() {
             return il2cpp::get_class<app::XGameSaveBlob__Class>(type_info, "XGamingRuntime", "XGameSaveBlob");
         }

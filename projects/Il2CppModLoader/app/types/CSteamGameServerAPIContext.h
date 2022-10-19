@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CSteamGameServerAPIContext {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CSteamGameServerAPIContext__Class** type_info;
+        inline app::CSteamGameServerAPIContext__Class** type_info = (app::CSteamGameServerAPIContext__Class**)(modloader::win::memory::resolve_rva(0x0478CA70));
         inline app::CSteamGameServerAPIContext__Class* get_class() {
             return il2cpp::get_class<app::CSteamGameServerAPIContext__Class>(type_info, "Steamworks", "CSteamGameServerAPIContext");
         }

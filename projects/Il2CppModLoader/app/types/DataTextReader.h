@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DataTextReader {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DataTextReader__Class** type_info;
+        inline app::DataTextReader__Class** type_info = (app::DataTextReader__Class**)(modloader::win::memory::resolve_rva(0x04756CD0));
         inline app::DataTextReader__Class* get_class() {
             return il2cpp::get_class<app::DataTextReader__Class>(type_info, "System.Data", "DataTextReader");
         }

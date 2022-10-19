@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberMotionBlurInterestZone {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberMotionBlurInterestZone__Class** type_info;
+        inline app::UberMotionBlurInterestZone__Class** type_info = (app::UberMotionBlurInterestZone__Class**)(modloader::win::memory::resolve_rva(0x04751CF8));
         inline app::UberMotionBlurInterestZone__Class* get_class() {
             return il2cpp::get_class<app::UberMotionBlurInterestZone__Class>(type_info, "", "UberMotionBlurInterestZone");
         }

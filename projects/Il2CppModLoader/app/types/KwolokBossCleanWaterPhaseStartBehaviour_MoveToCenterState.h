@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace KwolokBossCleanWaterPhaseStartBehaviour_MoveToCenterState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::KwolokBossCleanWaterPhaseStartBehaviour_MoveToCenterState__Class** type_info;
+        inline app::KwolokBossCleanWaterPhaseStartBehaviour_MoveToCenterState__Class** type_info = (app::KwolokBossCleanWaterPhaseStartBehaviour_MoveToCenterState__Class**)(modloader::win::memory::resolve_rva(0x04782D88));
         inline app::KwolokBossCleanWaterPhaseStartBehaviour_MoveToCenterState__Class* get_class() {
             return il2cpp::get_nested_class<app::KwolokBossCleanWaterPhaseStartBehaviour_MoveToCenterState__Class>(type_info, "", "KwolokBossCleanWaterPhaseStartBehaviour", "MoveToCenterState");
         }

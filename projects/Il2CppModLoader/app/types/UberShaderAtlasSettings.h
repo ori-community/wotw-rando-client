@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberShaderAtlasSettings {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberShaderAtlasSettings__Class** type_info;
+        inline app::UberShaderAtlasSettings__Class** type_info = (app::UberShaderAtlasSettings__Class**)(modloader::win::memory::resolve_rva(0x0478A688));
         inline app::UberShaderAtlasSettings__Class* get_class() {
             return il2cpp::get_class<app::UberShaderAtlasSettings__Class>(type_info, "", "UberShaderAtlasSettings");
         }

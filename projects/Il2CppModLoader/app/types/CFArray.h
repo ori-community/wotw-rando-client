@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CFArray {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CFArray__Class** type_info;
+        inline app::CFArray__Class** type_info = (app::CFArray__Class**)(modloader::win::memory::resolve_rva(0x0477FA38));
         inline app::CFArray__Class* get_class() {
             return il2cpp::get_class<app::CFArray__Class>(type_info, "Mono.Net", "CFArray");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DateTimeParser {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DateTimeParser__Class** type_info;
+        inline app::DateTimeParser__Class** type_info = (app::DateTimeParser__Class**)(modloader::win::memory::resolve_rva(0x0474B170));
         inline app::DateTimeParser__Class* get_class() {
             return il2cpp::get_class<app::DateTimeParser__Class>(type_info, "Newtonsoft.Json.Utilities", "DateTimeParser");
         }

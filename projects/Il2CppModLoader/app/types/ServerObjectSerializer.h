@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ServerObjectSerializer {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ServerObjectSerializer__Class** type_info;
+        inline app::ServerObjectSerializer__Class** type_info = (app::ServerObjectSerializer__Class**)(modloader::win::memory::resolve_rva(0x047166A0));
         inline app::ServerObjectSerializer__Class* get_class() {
             return il2cpp::get_class<app::ServerObjectSerializer__Class>(type_info, "", "ServerObjectSerializer");
         }

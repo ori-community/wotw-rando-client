@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Directory_SearchData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Directory_SearchData__Class** type_info;
+        inline app::Directory_SearchData__Class** type_info = (app::Directory_SearchData__Class**)(modloader::win::memory::resolve_rva(0x0477AE98));
         inline app::Directory_SearchData__Class* get_class() {
             return il2cpp::get_nested_class<app::Directory_SearchData__Class>(type_info, "System.IO", "Directory", "SearchData");
         }

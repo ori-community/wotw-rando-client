@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CameraVideoStreamFrameHeader_t {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CameraVideoStreamFrameHeader_t__Class** type_info;
+        inline app::CameraVideoStreamFrameHeader_t__Class** type_info = (app::CameraVideoStreamFrameHeader_t__Class**)(modloader::win::memory::resolve_rva(0x0473F730));
         inline app::CameraVideoStreamFrameHeader_t__Class* get_class() {
             return il2cpp::get_class<app::CameraVideoStreamFrameHeader_t__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "CameraVideoStreamFrameHeader_t");
         }

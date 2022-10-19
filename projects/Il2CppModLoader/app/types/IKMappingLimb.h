@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IKMappingLimb {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IKMappingLimb__Class** type_info;
+        inline app::IKMappingLimb__Class** type_info = (app::IKMappingLimb__Class**)(modloader::win::memory::resolve_rva(0x0472F378));
         inline app::IKMappingLimb__Class* get_class() {
             return il2cpp::get_class<app::IKMappingLimb__Class>(type_info, "RootMotion.FinalIK", "IKMappingLimb");
         }

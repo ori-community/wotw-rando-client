@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace HierarchyDebugMenu_CompareType__Enum {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::HierarchyDebugMenu_CompareType__Enum__Class** type_info;
+        inline app::HierarchyDebugMenu_CompareType__Enum__Class** type_info = (app::HierarchyDebugMenu_CompareType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04724D68));
         inline app::HierarchyDebugMenu_CompareType__Enum__Class* get_class() {
             return il2cpp::get_nested_class<app::HierarchyDebugMenu_CompareType__Enum__Class>(type_info, "", "HierarchyDebugMenu", "CompareType");
         }

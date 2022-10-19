@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PublicKey {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PublicKey__Class** type_info;
+        inline app::PublicKey__Class** type_info = (app::PublicKey__Class**)(modloader::win::memory::resolve_rva(0x047401E8));
         inline app::PublicKey__Class* get_class() {
             return il2cpp::get_class<app::PublicKey__Class>(type_info, "System.Security.Cryptography.X509Certificates", "PublicKey");
         }

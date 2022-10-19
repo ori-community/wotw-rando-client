@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace EnvironmentLightingManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::EnvironmentLightingManager__Class** type_info;
+        inline app::EnvironmentLightingManager__Class** type_info = (app::EnvironmentLightingManager__Class**)(modloader::win::memory::resolve_rva(0x0477C950));
         inline app::EnvironmentLightingManager__Class* get_class() {
             return il2cpp::get_class<app::EnvironmentLightingManager__Class>(type_info, "", "EnvironmentLightingManager");
         }

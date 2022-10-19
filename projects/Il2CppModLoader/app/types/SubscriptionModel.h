@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SubscriptionModel {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SubscriptionModel__Class** type_info;
+        inline app::SubscriptionModel__Class** type_info = (app::SubscriptionModel__Class**)(modloader::win::memory::resolve_rva(0x04792C00));
         inline app::SubscriptionModel__Class* get_class() {
             return il2cpp::get_class<app::SubscriptionModel__Class>(type_info, "PlayFab.ClientModels", "SubscriptionModel");
         }

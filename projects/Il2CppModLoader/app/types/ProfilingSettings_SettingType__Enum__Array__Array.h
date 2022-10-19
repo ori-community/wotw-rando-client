@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ProfilingSettings_SettingType__Enum__Array__Array {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ProfilingSettings_SettingType__Enum__Array__Array__Class** type_info;
+        inline app::ProfilingSettings_SettingType__Enum__Array__Array__Class** type_info = (app::ProfilingSettings_SettingType__Enum__Array__Array__Class**)(modloader::win::memory::resolve_rva(0x0476FC60));
         inline app::ProfilingSettings_SettingType__Enum__Array__Array__Class* get_class() {
             return il2cpp::get_class<app::ProfilingSettings_SettingType__Enum__Array__Array__Class>(type_info, "Moon.Telemetry.Performance", "ProfilingSettings+SettingType[][]");
         }

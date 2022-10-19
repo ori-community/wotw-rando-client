@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GhostCharacterAbilitiesData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GhostCharacterAbilitiesData__Class** type_info;
+        inline app::GhostCharacterAbilitiesData__Class** type_info = (app::GhostCharacterAbilitiesData__Class**)(modloader::win::memory::resolve_rva(0x0475A658));
         inline app::GhostCharacterAbilitiesData__Class* get_class() {
             return il2cpp::get_class<app::GhostCharacterAbilitiesData__Class>(type_info, "", "GhostCharacterAbilitiesData");
         }

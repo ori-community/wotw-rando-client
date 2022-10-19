@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FpsTcTestOutput {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FpsTcTestOutput__Class** type_info;
+        inline app::FpsTcTestOutput__Class** type_info = (app::FpsTcTestOutput__Class**)(modloader::win::memory::resolve_rva(0x0471F6D8));
         inline app::FpsTcTestOutput__Class* get_class() {
             return il2cpp::get_class<app::FpsTcTestOutput__Class>(type_info, "", "FpsTcTestOutput");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RuntimeGuidMapping {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RuntimeGuidMapping__Class** type_info;
+        inline app::RuntimeGuidMapping__Class** type_info = (app::RuntimeGuidMapping__Class**)(modloader::win::memory::resolve_rva(0x04700EF0));
         inline app::RuntimeGuidMapping__Class* get_class() {
             return il2cpp::get_class<app::RuntimeGuidMapping__Class>(type_info, "", "RuntimeGuidMapping");
         }

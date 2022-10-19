@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MicroProfiler_SampleStats {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MicroProfiler_SampleStats__Class** type_info;
+        inline app::MicroProfiler_SampleStats__Class** type_info = (app::MicroProfiler_SampleStats__Class**)(modloader::win::memory::resolve_rva(0x04773B28));
         inline app::MicroProfiler_SampleStats__Class* get_class() {
             return il2cpp::get_nested_class<app::MicroProfiler_SampleStats__Class>(type_info, "", "MicroProfiler", "SampleStats");
         }

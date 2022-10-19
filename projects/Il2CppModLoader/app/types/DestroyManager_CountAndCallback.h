@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DestroyManager_CountAndCallback {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DestroyManager_CountAndCallback__Class** type_info;
+        inline app::DestroyManager_CountAndCallback__Class** type_info = (app::DestroyManager_CountAndCallback__Class**)(modloader::win::memory::resolve_rva(0x047352B0));
         inline app::DestroyManager_CountAndCallback__Class* get_class() {
             return il2cpp::get_nested_class<app::DestroyManager_CountAndCallback__Class>(type_info, "", "DestroyManager", "CountAndCallback");
         }

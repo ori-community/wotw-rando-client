@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ReaderWriterLockSlim_TimeoutTracker {
         namespace {
-            app::ReaderWriterLockSlim_TimeoutTracker__Class* type_info_ref = nullptr;
+            inline app::ReaderWriterLockSlim_TimeoutTracker__Class* type_info_ref = nullptr;
         }
-        app::ReaderWriterLockSlim_TimeoutTracker__Class** type_info = &type_info_ref;
+        inline app::ReaderWriterLockSlim_TimeoutTracker__Class** type_info = &type_info_ref;
         inline app::ReaderWriterLockSlim_TimeoutTracker__Class* get_class() {
             return il2cpp::get_nested_class<app::ReaderWriterLockSlim_TimeoutTracker__Class>(type_info, "System.Threading", "ReaderWriterLockSlim", "TimeoutTracker");
         }

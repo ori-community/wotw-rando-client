@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CVROverlay_PollNextOverlayEventUnion {
         namespace {
-            app::CVROverlay_PollNextOverlayEventUnion__Class* type_info_ref = nullptr;
+            inline app::CVROverlay_PollNextOverlayEventUnion__Class* type_info_ref = nullptr;
         }
-        app::CVROverlay_PollNextOverlayEventUnion__Class** type_info = &type_info_ref;
+        inline app::CVROverlay_PollNextOverlayEventUnion__Class** type_info = &type_info_ref;
         inline app::CVROverlay_PollNextOverlayEventUnion__Class* get_class() {
             return il2cpp::get_nested_class<app::CVROverlay_PollNextOverlayEventUnion__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "CVROverlay", "PollNextOverlayEventUnion");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ArgumentException {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ArgumentException__Class** type_info;
+        inline app::ArgumentException__Class** type_info = (app::ArgumentException__Class**)(modloader::win::memory::resolve_rva(0x04749B38));
         inline app::ArgumentException__Class* get_class() {
             return il2cpp::get_class<app::ArgumentException__Class>(type_info, "System", "ArgumentException");
         }

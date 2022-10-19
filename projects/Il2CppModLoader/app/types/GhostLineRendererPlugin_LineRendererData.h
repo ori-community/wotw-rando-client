@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GhostLineRendererPlugin_LineRendererData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GhostLineRendererPlugin_LineRendererData__Class** type_info;
+        inline app::GhostLineRendererPlugin_LineRendererData__Class** type_info = (app::GhostLineRendererPlugin_LineRendererData__Class**)(modloader::win::memory::resolve_rva(0x0471BF30));
         inline app::GhostLineRendererPlugin_LineRendererData__Class* get_class() {
             return il2cpp::get_nested_class<app::GhostLineRendererPlugin_LineRendererData__Class>(type_info, "", "GhostLineRendererPlugin", "LineRendererData");
         }

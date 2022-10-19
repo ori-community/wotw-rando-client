@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CameraFilterPack_Vision_AuraDistortion {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CameraFilterPack_Vision_AuraDistortion__Class** type_info;
+        inline app::CameraFilterPack_Vision_AuraDistortion__Class** type_info = (app::CameraFilterPack_Vision_AuraDistortion__Class**)(modloader::win::memory::resolve_rva(0x0476B300));
         inline app::CameraFilterPack_Vision_AuraDistortion__Class* get_class() {
             return il2cpp::get_class<app::CameraFilterPack_Vision_AuraDistortion__Class>(type_info, "", "CameraFilterPack_Vision_AuraDistortion");
         }

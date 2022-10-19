@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Vertex_1 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Vertex_1__Class** type_info;
+        inline app::Vertex_1__Class** type_info = (app::Vertex_1__Class**)(modloader::win::memory::resolve_rva(0x04796FC8));
         inline app::Vertex_1__Class* get_class() {
             return il2cpp::get_class<app::Vertex_1__Class>(type_info, "TriangleNet.Topology.DCEL", "Vertex");
         }

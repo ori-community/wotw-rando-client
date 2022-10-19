@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberShaderAnimatorStrategyExperimental_FloatRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberShaderAnimatorStrategyExperimental_FloatRequest__Class** type_info;
+        inline app::UberShaderAnimatorStrategyExperimental_FloatRequest__Class** type_info = (app::UberShaderAnimatorStrategyExperimental_FloatRequest__Class**)(modloader::win::memory::resolve_rva(0x047725D8));
         inline app::UberShaderAnimatorStrategyExperimental_FloatRequest__Class* get_class() {
             return il2cpp::get_nested_class<app::UberShaderAnimatorStrategyExperimental_FloatRequest__Class>(type_info, "Moon.Timeline", "UberShaderAnimatorStrategyExperimental", "FloatRequest");
         }

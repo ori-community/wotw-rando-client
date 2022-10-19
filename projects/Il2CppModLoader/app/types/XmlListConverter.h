@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlListConverter {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlListConverter__Class** type_info;
+        inline app::XmlListConverter__Class** type_info = (app::XmlListConverter__Class**)(modloader::win::memory::resolve_rva(0x0472AB88));
         inline app::XmlListConverter__Class* get_class() {
             return il2cpp::get_class<app::XmlListConverter__Class>(type_info, "System.Xml.Schema", "XmlListConverter");
         }

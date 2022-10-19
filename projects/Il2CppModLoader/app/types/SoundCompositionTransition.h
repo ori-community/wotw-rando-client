@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SoundCompositionTransition {
         namespace {
-            app::SoundCompositionTransition__Class* type_info_ref = nullptr;
+            inline app::SoundCompositionTransition__Class* type_info_ref = nullptr;
         }
-        app::SoundCompositionTransition__Class** type_info = &type_info_ref;
+        inline app::SoundCompositionTransition__Class** type_info = &type_info_ref;
         inline app::SoundCompositionTransition__Class* get_class() {
             return il2cpp::get_class<app::SoundCompositionTransition__Class>(type_info, "", "SoundCompositionTransition");
         }

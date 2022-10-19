@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PetrifiedOwlBossDiveBombVerticalBehaviour_BackgroundFlightState {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PetrifiedOwlBossDiveBombVerticalBehaviour_BackgroundFlightState__Class** type_info;
+        inline app::PetrifiedOwlBossDiveBombVerticalBehaviour_BackgroundFlightState__Class** type_info = (app::PetrifiedOwlBossDiveBombVerticalBehaviour_BackgroundFlightState__Class**)(modloader::win::memory::resolve_rva(0x0478FD48));
         inline app::PetrifiedOwlBossDiveBombVerticalBehaviour_BackgroundFlightState__Class* get_class() {
             return il2cpp::get_nested_class<app::PetrifiedOwlBossDiveBombVerticalBehaviour_BackgroundFlightState__Class>(type_info, "", "PetrifiedOwlBossDiveBombVerticalBehaviour", "BackgroundFlightState");
         }

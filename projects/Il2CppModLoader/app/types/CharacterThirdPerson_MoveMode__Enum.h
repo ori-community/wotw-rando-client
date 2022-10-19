@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CharacterThirdPerson_MoveMode__Enum {
         namespace {
-            app::CharacterThirdPerson_MoveMode__Enum__Class* type_info_ref = nullptr;
+            inline app::CharacterThirdPerson_MoveMode__Enum__Class* type_info_ref = nullptr;
         }
-        app::CharacterThirdPerson_MoveMode__Enum__Class** type_info = &type_info_ref;
+        inline app::CharacterThirdPerson_MoveMode__Enum__Class** type_info = &type_info_ref;
         inline app::CharacterThirdPerson_MoveMode__Enum__Class* get_class() {
             return il2cpp::get_nested_class<app::CharacterThirdPerson_MoveMode__Enum__Class>(type_info, "RootMotion.Demos", "CharacterThirdPerson", "MoveMode");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MoonAnimator_TransformData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MoonAnimator_TransformData__Class** type_info;
+        inline app::MoonAnimator_TransformData__Class** type_info = (app::MoonAnimator_TransformData__Class**)(modloader::win::memory::resolve_rva(0x047010E0));
         inline app::MoonAnimator_TransformData__Class* get_class() {
             return il2cpp::get_nested_class<app::MoonAnimator_TransformData__Class>(type_info, "Moon", "MoonAnimator", "TransformData");
         }

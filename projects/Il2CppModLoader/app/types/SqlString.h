@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SqlString {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SqlString__Class** type_info;
+        inline app::SqlString__Class** type_info = (app::SqlString__Class**)(modloader::win::memory::resolve_rva(0x0477AE58));
         inline app::SqlString__Class* get_class() {
             return il2cpp::get_class<app::SqlString__Class>(type_info, "System.Data.SqlTypes", "SqlString");
         }

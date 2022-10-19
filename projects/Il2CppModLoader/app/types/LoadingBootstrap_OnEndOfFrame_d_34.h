@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LoadingBootstrap_OnEndOfFrame_d_34 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LoadingBootstrap_OnEndOfFrame_d_34__Class** type_info;
+        inline app::LoadingBootstrap_OnEndOfFrame_d_34__Class** type_info = (app::LoadingBootstrap_OnEndOfFrame_d_34__Class**)(modloader::win::memory::resolve_rva(0x04751070));
         inline app::LoadingBootstrap_OnEndOfFrame_d_34__Class* get_class() {
             return il2cpp::get_nested_class<app::LoadingBootstrap_OnEndOfFrame_d_34__Class>(type_info, "", "LoadingBootstrap", "<OnEndOfFrame>d__34");
         }

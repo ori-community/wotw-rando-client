@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WeaponmasterItem {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WeaponmasterItem__Class** type_info;
+        inline app::WeaponmasterItem__Class** type_info = (app::WeaponmasterItem__Class**)(modloader::win::memory::resolve_rva(0x04779410));
         inline app::WeaponmasterItem__Class* get_class() {
             return il2cpp::get_class<app::WeaponmasterItem__Class>(type_info, "", "WeaponmasterItem");
         }

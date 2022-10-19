@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace LegacyTimelineSequence {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::LegacyTimelineSequence__Class** type_info;
+        inline app::LegacyTimelineSequence__Class** type_info = (app::LegacyTimelineSequence__Class**)(modloader::win::memory::resolve_rva(0x0470F4B8));
         inline app::LegacyTimelineSequence__Class* get_class() {
             return il2cpp::get_class<app::LegacyTimelineSequence__Class>(type_info, "", "LegacyTimelineSequence");
         }

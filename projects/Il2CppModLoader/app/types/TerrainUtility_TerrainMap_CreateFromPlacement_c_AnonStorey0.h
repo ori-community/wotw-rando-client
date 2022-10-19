@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class** type_info;
+        inline app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class** type_info = (app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class**)(modloader::win::memory::resolve_rva(0x04726A58));
         inline app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class* get_class() {
             return il2cpp::get_nested_class<app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class>(type_info, "UnityEngine.Experimental.TerrainAPI", "TerrainUtility+TerrainMap", "<CreateFromPlacement>c__AnonStorey0");
         }

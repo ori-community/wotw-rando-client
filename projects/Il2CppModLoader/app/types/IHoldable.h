@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace IHoldable {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::IHoldable__Class** type_info;
+        inline app::IHoldable__Class** type_info = (app::IHoldable__Class**)(modloader::win::memory::resolve_rva(0x04795670));
         inline app::IHoldable__Class* get_class() {
             return il2cpp::get_class<app::IHoldable__Class>(type_info, "", "IHoldable");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Record {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Record__Class** type_info;
+        inline app::Record__Class** type_info = (app::Record__Class**)(modloader::win::memory::resolve_rva(0x0476BD98));
         inline app::Record__Class* get_class() {
             return il2cpp::get_class<app::Record__Class>(type_info, "PhysicsDebugTools", "Record");
         }

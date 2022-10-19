@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberStateCondition {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberStateCondition__Class** type_info;
+        inline app::UberStateCondition__Class** type_info = (app::UberStateCondition__Class**)(modloader::win::memory::resolve_rva(0x0472FA90));
         inline app::UberStateCondition__Class* get_class() {
             return il2cpp::get_class<app::UberStateCondition__Class>(type_info, "", "UberStateCondition");
         }

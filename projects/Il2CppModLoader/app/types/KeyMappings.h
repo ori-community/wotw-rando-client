@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace KeyMappings {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::KeyMappings__Class** type_info;
+        inline app::KeyMappings__Class** type_info = (app::KeyMappings__Class**)(modloader::win::memory::resolve_rva(0x0473C698));
         inline app::KeyMappings__Class* get_class() {
             return il2cpp::get_class<app::KeyMappings__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "KeyMappings");
         }

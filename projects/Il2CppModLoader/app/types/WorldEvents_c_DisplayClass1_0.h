@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace WorldEvents_c_DisplayClass1_0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::WorldEvents_c_DisplayClass1_0__Class** type_info;
+        inline app::WorldEvents_c_DisplayClass1_0__Class** type_info = (app::WorldEvents_c_DisplayClass1_0__Class**)(modloader::win::memory::resolve_rva(0x047539E0));
         inline app::WorldEvents_c_DisplayClass1_0__Class* get_class() {
             return il2cpp::get_nested_class<app::WorldEvents_c_DisplayClass1_0__Class>(type_info, "", "WorldEvents", "<>c__DisplayClass1_0");
         }

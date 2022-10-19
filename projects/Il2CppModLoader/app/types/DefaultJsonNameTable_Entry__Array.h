@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DefaultJsonNameTable_Entry__Array {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DefaultJsonNameTable_Entry__Array__Class** type_info;
+        inline app::DefaultJsonNameTable_Entry__Array__Class** type_info = (app::DefaultJsonNameTable_Entry__Array__Class**)(modloader::win::memory::resolve_rva(0x0471E048));
         inline app::DefaultJsonNameTable_Entry__Array__Class* get_class() {
             return il2cpp::get_class<app::DefaultJsonNameTable_Entry__Array__Class>(type_info, "Newtonsoft.Json", "DefaultJsonNameTable+Entry[]");
         }

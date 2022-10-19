@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DateTime {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DateTime__Class** type_info;
+        inline app::DateTime__Class** type_info = (app::DateTime__Class**)(modloader::win::memory::resolve_rva(0x04706D38));
         inline app::DateTime__Class* get_class() {
             return il2cpp::get_class<app::DateTime__Class>(type_info, "System", "DateTime");
         }

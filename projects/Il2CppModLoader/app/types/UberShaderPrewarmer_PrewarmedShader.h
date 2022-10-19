@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberShaderPrewarmer_PrewarmedShader {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberShaderPrewarmer_PrewarmedShader__Class** type_info;
+        inline app::UberShaderPrewarmer_PrewarmedShader__Class** type_info = (app::UberShaderPrewarmer_PrewarmedShader__Class**)(modloader::win::memory::resolve_rva(0x0476F1F0));
         inline app::UberShaderPrewarmer_PrewarmedShader__Class* get_class() {
             return il2cpp::get_nested_class<app::UberShaderPrewarmer_PrewarmedShader__Class>(type_info, "", "UberShaderPrewarmer", "PrewarmedShader");
         }

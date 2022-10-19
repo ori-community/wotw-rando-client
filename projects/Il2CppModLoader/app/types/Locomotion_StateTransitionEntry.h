@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Locomotion_StateTransitionEntry {
         namespace {
-            app::Locomotion_StateTransitionEntry__Class* type_info_ref = nullptr;
+            inline app::Locomotion_StateTransitionEntry__Class* type_info_ref = nullptr;
         }
-        app::Locomotion_StateTransitionEntry__Class** type_info = &type_info_ref;
+        inline app::Locomotion_StateTransitionEntry__Class** type_info = &type_info_ref;
         inline app::Locomotion_StateTransitionEntry__Class* get_class() {
             return il2cpp::get_nested_class<app::Locomotion_StateTransitionEntry__Class>(type_info, "Moon", "Locomotion", "StateTransitionEntry");
         }

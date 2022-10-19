@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XPathNavigator {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XPathNavigator__Class** type_info;
+        inline app::XPathNavigator__Class** type_info = (app::XPathNavigator__Class**)(modloader::win::memory::resolve_rva(0x04734C68));
         inline app::XPathNavigator__Class* get_class() {
             return il2cpp::get_class<app::XPathNavigator__Class>(type_info, "System.Xml.XPath", "XPathNavigator");
         }

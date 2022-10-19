@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Text {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Text__Class** type_info;
+        inline app::Text__Class** type_info = (app::Text__Class**)(modloader::win::memory::resolve_rva(0x04798E98));
         inline app::Text__Class* get_class() {
             return il2cpp::get_class<app::Text__Class>(type_info, "UnityEngine.UI", "Text");
         }

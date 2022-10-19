@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CVROverlay {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::CVROverlay__Class** type_info;
+        inline app::CVROverlay__Class** type_info = (app::CVROverlay__Class**)(modloader::win::memory::resolve_rva(0x0475A408));
         inline app::CVROverlay__Class* get_class() {
             return il2cpp::get_class<app::CVROverlay__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "CVROverlay");
         }

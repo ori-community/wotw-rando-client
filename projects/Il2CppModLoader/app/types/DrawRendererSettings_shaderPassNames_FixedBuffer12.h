@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DrawRendererSettings_shaderPassNames_FixedBuffer12 {
         namespace {
-            app::DrawRendererSettings_shaderPassNames_FixedBuffer12__Class* type_info_ref = nullptr;
+            inline app::DrawRendererSettings_shaderPassNames_FixedBuffer12__Class* type_info_ref = nullptr;
         }
-        app::DrawRendererSettings_shaderPassNames_FixedBuffer12__Class** type_info = &type_info_ref;
+        inline app::DrawRendererSettings_shaderPassNames_FixedBuffer12__Class** type_info = &type_info_ref;
         inline app::DrawRendererSettings_shaderPassNames_FixedBuffer12__Class* get_class() {
             return il2cpp::get_nested_class<app::DrawRendererSettings_shaderPassNames_FixedBuffer12__Class>(type_info, "UnityEngine.Experimental.Rendering", "DrawRendererSettings", "<shaderPassNames>__FixedBuffer12");
         }

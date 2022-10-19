@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MoonTrailSystem_SimulateJob {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MoonTrailSystem_SimulateJob__Class** type_info;
+        inline app::MoonTrailSystem_SimulateJob__Class** type_info = (app::MoonTrailSystem_SimulateJob__Class**)(modloader::win::memory::resolve_rva(0x0476C9D8));
         inline app::MoonTrailSystem_SimulateJob__Class* get_class() {
             return il2cpp::get_nested_class<app::MoonTrailSystem_SimulateJob__Class>(type_info, "Moon", "MoonTrailSystem", "SimulateJob");
         }

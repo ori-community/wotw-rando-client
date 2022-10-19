@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AudioEmitterZoneReference {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AudioEmitterZoneReference__Class** type_info;
+        inline app::AudioEmitterZoneReference__Class** type_info = (app::AudioEmitterZoneReference__Class**)(modloader::win::memory::resolve_rva(0x04725E10));
         inline app::AudioEmitterZoneReference__Class* get_class() {
             return il2cpp::get_class<app::AudioEmitterZoneReference__Class>(type_info, "Moon.Wwise", "AudioEmitterZoneReference");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MeshTrail {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MeshTrail__Class** type_info;
+        inline app::MeshTrail__Class** type_info = (app::MeshTrail__Class**)(modloader::win::memory::resolve_rva(0x047010D0));
         inline app::MeshTrail__Class* get_class() {
             return il2cpp::get_class<app::MeshTrail__Class>(type_info, "", "MeshTrail");
         }

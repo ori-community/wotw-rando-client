@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Kickback {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Kickback__Class** type_info;
+        inline app::Kickback__Class** type_info = (app::Kickback__Class**)(modloader::win::memory::resolve_rva(0x0478BF20));
         inline app::Kickback__Class* get_class() {
             return il2cpp::get_class<app::Kickback__Class>(type_info, "", "Kickback");
         }

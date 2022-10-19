@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TimeZone {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TimeZone__Class** type_info;
+        inline app::TimeZone__Class** type_info = (app::TimeZone__Class**)(modloader::win::memory::resolve_rva(0x04746EC8));
         inline app::TimeZone__Class* get_class() {
             return il2cpp::get_class<app::TimeZone__Class>(type_info, "System", "TimeZone");
         }

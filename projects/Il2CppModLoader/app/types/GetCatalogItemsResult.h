@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace GetCatalogItemsResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::GetCatalogItemsResult__Class** type_info;
+        inline app::GetCatalogItemsResult__Class** type_info = (app::GetCatalogItemsResult__Class**)(modloader::win::memory::resolve_rva(0x047281F8));
         inline app::GetCatalogItemsResult__Class* get_class() {
             return il2cpp::get_class<app::GetCatalogItemsResult__Class>(type_info, "PlayFab.ClientModels", "GetCatalogItemsResult");
         }

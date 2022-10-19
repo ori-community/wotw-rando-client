@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ActionTimer_DoThings_d_4 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ActionTimer_DoThings_d_4__Class** type_info;
+        inline app::ActionTimer_DoThings_d_4__Class** type_info = (app::ActionTimer_DoThings_d_4__Class**)(modloader::win::memory::resolve_rva(0x04763458));
         inline app::ActionTimer_DoThings_d_4__Class* get_class() {
             return il2cpp::get_nested_class<app::ActionTimer_DoThings_d_4__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "ActionTimer", "<DoThings>d__4");
         }

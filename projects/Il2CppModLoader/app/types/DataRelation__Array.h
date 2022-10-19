@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DataRelation__Array {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DataRelation__Array__Class** type_info;
+        inline app::DataRelation__Array__Class** type_info = (app::DataRelation__Array__Class**)(modloader::win::memory::resolve_rva(0x0476F728));
         inline app::DataRelation__Array__Class* get_class() {
             return il2cpp::get_class<app::DataRelation__Array__Class>(type_info, "System.Data", "DataRelation[]");
         }

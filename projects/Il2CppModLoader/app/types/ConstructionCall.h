@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ConstructionCall {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ConstructionCall__Class** type_info;
+        inline app::ConstructionCall__Class** type_info = (app::ConstructionCall__Class**)(modloader::win::memory::resolve_rva(0x04780F30));
         inline app::ConstructionCall__Class* get_class() {
             return il2cpp::get_class<app::ConstructionCall__Class>(type_info, "System.Runtime.Remoting.Messaging", "ConstructionCall");
         }

@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SneezeSlugBurrowBehaviour_UnburrowPointRate {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Class** type_info;
+        inline app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Class** type_info = (app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Class**)(modloader::win::memory::resolve_rva(0x04784538));
         inline app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Class* get_class() {
             return il2cpp::get_nested_class<app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Class>(type_info, "", "SneezeSlugBurrowBehaviour", "UnburrowPointRate");
         }

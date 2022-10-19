@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ManifestBuilder_c_DisplayClass22_0 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ManifestBuilder_c_DisplayClass22_0__Class** type_info;
+        inline app::ManifestBuilder_c_DisplayClass22_0__Class** type_info = (app::ManifestBuilder_c_DisplayClass22_0__Class**)(modloader::win::memory::resolve_rva(0x047092E8));
         inline app::ManifestBuilder_c_DisplayClass22_0__Class* get_class() {
             return il2cpp::get_nested_class<app::ManifestBuilder_c_DisplayClass22_0__Class>(type_info, "System.Diagnostics.Tracing", "ManifestBuilder", "<>c__DisplayClass22_0");
         }

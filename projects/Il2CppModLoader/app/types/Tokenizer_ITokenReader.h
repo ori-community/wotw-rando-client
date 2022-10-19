@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace Tokenizer_ITokenReader {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::Tokenizer_ITokenReader__Class** type_info;
+        inline app::Tokenizer_ITokenReader__Class** type_info = (app::Tokenizer_ITokenReader__Class**)(modloader::win::memory::resolve_rva(0x0478A5D0));
         inline app::Tokenizer_ITokenReader__Class* get_class() {
             return il2cpp::get_nested_class<app::Tokenizer_ITokenReader__Class>(type_info, "System.Security.Util", "Tokenizer", "ITokenReader");
         }

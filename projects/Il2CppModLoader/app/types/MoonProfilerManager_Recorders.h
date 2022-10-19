@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MoonProfilerManager_Recorders {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MoonProfilerManager_Recorders__Class** type_info;
+        inline app::MoonProfilerManager_Recorders__Class** type_info = (app::MoonProfilerManager_Recorders__Class**)(modloader::win::memory::resolve_rva(0x0477AD60));
         inline app::MoonProfilerManager_Recorders__Class* get_class() {
             return il2cpp::get_nested_class<app::MoonProfilerManager_Recorders__Class>(type_info, "Moon", "MoonProfilerManager", "Recorders");
         }

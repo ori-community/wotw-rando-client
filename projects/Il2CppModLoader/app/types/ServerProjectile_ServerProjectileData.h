@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ServerProjectile_ServerProjectileData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ServerProjectile_ServerProjectileData__Class** type_info;
+        inline app::ServerProjectile_ServerProjectileData__Class** type_info = (app::ServerProjectile_ServerProjectileData__Class**)(modloader::win::memory::resolve_rva(0x04710660));
         inline app::ServerProjectile_ServerProjectileData__Class* get_class() {
             return il2cpp::get_nested_class<app::ServerProjectile_ServerProjectileData__Class>(type_info, "", "ServerProjectile", "ServerProjectileData");
         }

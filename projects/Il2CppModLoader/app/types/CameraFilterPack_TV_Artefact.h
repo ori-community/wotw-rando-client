@@ -1,13 +1,14 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace CameraFilterPack_TV_Artefact {
         namespace {
-            app::CameraFilterPack_TV_Artefact__Class* type_info_ref = nullptr;
+            inline app::CameraFilterPack_TV_Artefact__Class* type_info_ref = nullptr;
         }
-        app::CameraFilterPack_TV_Artefact__Class** type_info = &type_info_ref;
+        inline app::CameraFilterPack_TV_Artefact__Class** type_info = &type_info_ref;
         inline app::CameraFilterPack_TV_Artefact__Class* get_class() {
             return il2cpp::get_class<app::CameraFilterPack_TV_Artefact__Class>(type_info, "", "CameraFilterPack_TV_Artefact");
         }

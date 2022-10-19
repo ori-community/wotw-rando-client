@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NtlmSettings {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NtlmSettings__Class** type_info;
+        inline app::NtlmSettings__Class** type_info = (app::NtlmSettings__Class**)(modloader::win::memory::resolve_rva(0x04746D88));
         inline app::NtlmSettings__Class* get_class() {
             return il2cpp::get_class<app::NtlmSettings__Class>(type_info, "Mono.Security.Protocol.Ntlm", "NtlmSettings");
         }

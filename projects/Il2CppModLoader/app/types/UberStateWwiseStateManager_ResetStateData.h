@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberStateWwiseStateManager_ResetStateData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberStateWwiseStateManager_ResetStateData__Class** type_info;
+        inline app::UberStateWwiseStateManager_ResetStateData__Class** type_info = (app::UberStateWwiseStateManager_ResetStateData__Class**)(modloader::win::memory::resolve_rva(0x04729380));
         inline app::UberStateWwiseStateManager_ResetStateData__Class* get_class() {
             return il2cpp::get_nested_class<app::UberStateWwiseStateManager_ResetStateData__Class>(type_info, "Moon.Wwise", "UberStateWwiseStateManager", "ResetStateData");
         }

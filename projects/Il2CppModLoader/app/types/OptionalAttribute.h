@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace OptionalAttribute {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::OptionalAttribute__Class** type_info;
+        inline app::OptionalAttribute__Class** type_info = (app::OptionalAttribute__Class**)(modloader::win::memory::resolve_rva(0x04731170));
         inline app::OptionalAttribute__Class* get_class() {
             return il2cpp::get_class<app::OptionalAttribute__Class>(type_info, "System.Runtime.InteropServices", "OptionalAttribute");
         }

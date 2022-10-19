@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlQualifiedName {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlQualifiedName__Class** type_info;
+        inline app::XmlQualifiedName__Class** type_info = (app::XmlQualifiedName__Class**)(modloader::win::memory::resolve_rva(0x047858F0));
         inline app::XmlQualifiedName__Class* get_class() {
             return il2cpp::get_class<app::XmlQualifiedName__Class>(type_info, "System.Xml", "XmlQualifiedName");
         }

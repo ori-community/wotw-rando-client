@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ICullingCategoryManager {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ICullingCategoryManager__Class** type_info;
+        inline app::ICullingCategoryManager__Class** type_info = (app::ICullingCategoryManager__Class**)(modloader::win::memory::resolve_rva(0x0478C070));
         inline app::ICullingCategoryManager__Class* get_class() {
             return il2cpp::get_class<app::ICullingCategoryManager__Class>(type_info, "Moon.Rendering", "ICullingCategoryManager");
         }

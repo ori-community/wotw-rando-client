@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace DiscriminatedUnionConverter_UnionCase {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::DiscriminatedUnionConverter_UnionCase__Class** type_info;
+        inline app::DiscriminatedUnionConverter_UnionCase__Class** type_info = (app::DiscriminatedUnionConverter_UnionCase__Class**)(modloader::win::memory::resolve_rva(0x0477F1C8));
         inline app::DiscriminatedUnionConverter_UnionCase__Class* get_class() {
             return il2cpp::get_nested_class<app::DiscriminatedUnionConverter_UnionCase__Class>(type_info, "Newtonsoft.Json.Converters", "DiscriminatedUnionConverter", "UnionCase");
         }

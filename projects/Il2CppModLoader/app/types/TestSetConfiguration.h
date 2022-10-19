@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TestSetConfiguration {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TestSetConfiguration__Class** type_info;
+        inline app::TestSetConfiguration__Class** type_info = (app::TestSetConfiguration__Class**)(modloader::win::memory::resolve_rva(0x04790568));
         inline app::TestSetConfiguration__Class* get_class() {
             return il2cpp::get_class<app::TestSetConfiguration__Class>(type_info, "", "TestSetConfiguration");
         }

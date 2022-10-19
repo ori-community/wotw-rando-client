@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace BinaryReader {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::BinaryReader__Class** type_info;
+        inline app::BinaryReader__Class** type_info = (app::BinaryReader__Class**)(modloader::win::memory::resolve_rva(0x0476A6C8));
         inline app::BinaryReader__Class* get_class() {
             return il2cpp::get_class<app::BinaryReader__Class>(type_info, "System.IO", "BinaryReader");
         }

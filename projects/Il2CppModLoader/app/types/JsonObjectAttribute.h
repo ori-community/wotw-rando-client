@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace JsonObjectAttribute {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::JsonObjectAttribute__Class** type_info;
+        inline app::JsonObjectAttribute__Class** type_info = (app::JsonObjectAttribute__Class**)(modloader::win::memory::resolve_rva(0x04758A30));
         inline app::JsonObjectAttribute__Class* get_class() {
             return il2cpp::get_class<app::JsonObjectAttribute__Class>(type_info, "Newtonsoft.Json", "JsonObjectAttribute");
         }

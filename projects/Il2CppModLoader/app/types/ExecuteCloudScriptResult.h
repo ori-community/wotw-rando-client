@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ExecuteCloudScriptResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ExecuteCloudScriptResult__Class** type_info;
+        inline app::ExecuteCloudScriptResult__Class** type_info = (app::ExecuteCloudScriptResult__Class**)(modloader::win::memory::resolve_rva(0x04764EA8));
         inline app::ExecuteCloudScriptResult__Class* get_class() {
             return il2cpp::get_class<app::ExecuteCloudScriptResult__Class>(type_info, "PlayFab.ClientModels", "ExecuteCloudScriptResult");
         }

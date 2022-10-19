@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace SeinInteraction_ThrownKeystone {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::SeinInteraction_ThrownKeystone__Class** type_info;
+        inline app::SeinInteraction_ThrownKeystone__Class** type_info = (app::SeinInteraction_ThrownKeystone__Class**)(modloader::win::memory::resolve_rva(0x047734A8));
         inline app::SeinInteraction_ThrownKeystone__Class* get_class() {
             return il2cpp::get_nested_class<app::SeinInteraction_ThrownKeystone__Class>(type_info, "", "SeinInteraction", "ThrownKeystone");
         }

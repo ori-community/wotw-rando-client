@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace StateOverrideSystem_UberStateOverride {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::StateOverrideSystem_UberStateOverride__Class** type_info;
+        inline app::StateOverrideSystem_UberStateOverride__Class** type_info = (app::StateOverrideSystem_UberStateOverride__Class**)(modloader::win::memory::resolve_rva(0x0476AED8));
         inline app::StateOverrideSystem_UberStateOverride__Class* get_class() {
             return il2cpp::get_nested_class<app::StateOverrideSystem_UberStateOverride__Class>(type_info, "", "StateOverrideSystem", "UberStateOverride");
         }

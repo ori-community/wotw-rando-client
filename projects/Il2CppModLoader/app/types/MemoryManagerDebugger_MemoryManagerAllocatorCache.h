@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace MemoryManagerDebugger_MemoryManagerAllocatorCache {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::MemoryManagerDebugger_MemoryManagerAllocatorCache__Class** type_info;
+        inline app::MemoryManagerDebugger_MemoryManagerAllocatorCache__Class** type_info = (app::MemoryManagerDebugger_MemoryManagerAllocatorCache__Class**)(modloader::win::memory::resolve_rva(0x047234F8));
         inline app::MemoryManagerDebugger_MemoryManagerAllocatorCache__Class* get_class() {
             return il2cpp::get_nested_class<app::MemoryManagerDebugger_MemoryManagerAllocatorCache__Class>(type_info, "UberShader.optimizations.gc", "MemoryManagerDebugger", "MemoryManagerAllocatorCache");
         }

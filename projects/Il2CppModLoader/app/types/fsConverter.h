@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace fsConverter {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::fsConverter__Class** type_info;
+        inline app::fsConverter__Class** type_info = (app::fsConverter__Class**)(modloader::win::memory::resolve_rva(0x04795230));
         inline app::fsConverter__Class* get_class() {
             return il2cpp::get_class<app::fsConverter__Class>(type_info, "FullSerializer", "fsConverter");
         }

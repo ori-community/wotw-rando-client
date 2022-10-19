@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace TaskToApm_TaskWrapperAsyncResult {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::TaskToApm_TaskWrapperAsyncResult__Class** type_info;
+        inline app::TaskToApm_TaskWrapperAsyncResult__Class** type_info = (app::TaskToApm_TaskWrapperAsyncResult__Class**)(modloader::win::memory::resolve_rva(0x04733CD8));
         inline app::TaskToApm_TaskWrapperAsyncResult__Class* get_class() {
             return il2cpp::get_nested_class<app::TaskToApm_TaskWrapperAsyncResult__Class>(type_info, "System.Threading.Tasks", "TaskToApm", "TaskWrapperAsyncResult");
         }

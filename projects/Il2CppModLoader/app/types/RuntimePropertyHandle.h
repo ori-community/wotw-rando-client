@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace RuntimePropertyHandle {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::RuntimePropertyHandle__Class** type_info;
+        inline app::RuntimePropertyHandle__Class** type_info = (app::RuntimePropertyHandle__Class**)(modloader::win::memory::resolve_rva(0x0471F998));
         inline app::RuntimePropertyHandle__Class* get_class() {
             return il2cpp::get_class<app::RuntimePropertyHandle__Class>(type_info, "Mono", "RuntimePropertyHandle");
         }

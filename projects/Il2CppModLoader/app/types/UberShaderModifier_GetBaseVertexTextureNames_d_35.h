@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace UberShaderModifier_GetBaseVertexTextureNames_d_35 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::UberShaderModifier_GetBaseVertexTextureNames_d_35__Class** type_info;
+        inline app::UberShaderModifier_GetBaseVertexTextureNames_d_35__Class** type_info = (app::UberShaderModifier_GetBaseVertexTextureNames_d_35__Class**)(modloader::win::memory::resolve_rva(0x04732310));
         inline app::UberShaderModifier_GetBaseVertexTextureNames_d_35__Class* get_class() {
             return il2cpp::get_nested_class<app::UberShaderModifier_GetBaseVertexTextureNames_d_35__Class>(type_info, "", "UberShaderModifier", "<GetBaseVertexTextureNames>d__35");
         }

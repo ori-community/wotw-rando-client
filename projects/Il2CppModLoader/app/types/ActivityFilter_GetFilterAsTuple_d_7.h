@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace ActivityFilter_GetFilterAsTuple_d_7 {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::ActivityFilter_GetFilterAsTuple_d_7__Class** type_info;
+        inline app::ActivityFilter_GetFilterAsTuple_d_7__Class** type_info = (app::ActivityFilter_GetFilterAsTuple_d_7__Class**)(modloader::win::memory::resolve_rva(0x0470CD00));
         inline app::ActivityFilter_GetFilterAsTuple_d_7__Class* get_class() {
             return il2cpp::get_nested_class<app::ActivityFilter_GetFilterAsTuple_d_7__Class>(type_info, "System.Diagnostics.Tracing", "ActivityFilter", "<GetFilterAsTuple>d__7");
         }

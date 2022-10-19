@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NegativeScaleFixer {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NegativeScaleFixer__Class** type_info;
+        inline app::NegativeScaleFixer__Class** type_info = (app::NegativeScaleFixer__Class**)(modloader::win::memory::resolve_rva(0x04741C90));
         inline app::NegativeScaleFixer__Class* get_class() {
             return il2cpp::get_class<app::NegativeScaleFixer__Class>(type_info, "", "NegativeScaleFixer");
         }

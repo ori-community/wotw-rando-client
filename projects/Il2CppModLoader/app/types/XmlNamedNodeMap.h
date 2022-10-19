@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace XmlNamedNodeMap {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::XmlNamedNodeMap__Class** type_info;
+        inline app::XmlNamedNodeMap__Class** type_info = (app::XmlNamedNodeMap__Class**)(modloader::win::memory::resolve_rva(0x047251B0));
         inline app::XmlNamedNodeMap__Class* get_class() {
             return il2cpp::get_class<app::XmlNamedNodeMap__Class>(type_info, "System.Xml", "XmlNamedNodeMap");
         }

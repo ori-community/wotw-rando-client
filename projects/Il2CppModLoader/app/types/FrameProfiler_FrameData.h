@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace FrameProfiler_FrameData {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::FrameProfiler_FrameData__Class** type_info;
+        inline app::FrameProfiler_FrameData__Class** type_info = (app::FrameProfiler_FrameData__Class**)(modloader::win::memory::resolve_rva(0x0478E098));
         inline app::FrameProfiler_FrameData__Class* get_class() {
             return il2cpp::get_nested_class<app::FrameProfiler_FrameData__Class>(type_info, "", "FrameProfiler", "FrameData");
         }

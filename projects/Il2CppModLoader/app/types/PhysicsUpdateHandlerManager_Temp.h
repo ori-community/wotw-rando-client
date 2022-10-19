@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace PhysicsUpdateHandlerManager_Temp {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::PhysicsUpdateHandlerManager_Temp__Class** type_info;
+        inline app::PhysicsUpdateHandlerManager_Temp__Class** type_info = (app::PhysicsUpdateHandlerManager_Temp__Class**)(modloader::win::memory::resolve_rva(0x04705EA0));
         inline app::PhysicsUpdateHandlerManager_Temp__Class* get_class() {
             return il2cpp::get_nested_class<app::PhysicsUpdateHandlerManager_Temp__Class>(type_info, "Moon", "PhysicsUpdateHandlerManager", "Temp");
         }

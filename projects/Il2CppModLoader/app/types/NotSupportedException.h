@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace NotSupportedException {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::NotSupportedException__Class** type_info;
+        inline app::NotSupportedException__Class** type_info = (app::NotSupportedException__Class**)(modloader::win::memory::resolve_rva(0x047603B0));
         inline app::NotSupportedException__Class* get_class() {
             return il2cpp::get_class<app::NotSupportedException__Class>(type_info, "System", "NotSupportedException");
         }

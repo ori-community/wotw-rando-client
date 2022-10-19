@@ -1,10 +1,11 @@
 #pragma once
 #include <Il2CppModLoader/il2cpp_helpers.h>
 #include <Il2CppModLoader/macros.h>
+#include <Il2CppModLoader/windows_api/memory.h>
 
 namespace app::classes::types {
     namespace AddCharacterVirtualCurrencyRequest {
-        extern IL2CPP_MODLOADER_DLLEXPORT app::AddCharacterVirtualCurrencyRequest__Class** type_info;
+        inline app::AddCharacterVirtualCurrencyRequest__Class** type_info = (app::AddCharacterVirtualCurrencyRequest__Class**)(modloader::win::memory::resolve_rva(0x0476AC18));
         inline app::AddCharacterVirtualCurrencyRequest__Class* get_class() {
             return il2cpp::get_class<app::AddCharacterVirtualCurrencyRequest__Class>(type_info, "PlayFab.ServerModels", "AddCharacterVirtualCurrencyRequest");
         }
