@@ -58,6 +58,7 @@ namespace game {
             game_event_bus.trigger_event(GameEvent::Update, EventTiming::End);
         }
 
+        bool disabled_simple_fps = false;
         IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
             game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::Start);
             next::GameController::FixedUpdate(this_ptr);
@@ -68,8 +69,11 @@ namespace game {
             }
 
             // TODO: Probably should move this somewhere else.
-            auto simple_fps = types::SimpleFPS::get_class()->static_fields->Instance;
-            UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(simple_fps), false);
+            if (!disabled_simple_fps) {
+                auto simple_fps = types::SimpleFPS::get_class()->static_fields->Instance;
+                UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(simple_fps), false);
+                disabled_simple_fps = true;
+            }
         }
 
         IL2CPP_INTERCEPT(GameController, void, OnApplicationFocus, (app::GameController * this_ptr, bool focusStatus)) {
