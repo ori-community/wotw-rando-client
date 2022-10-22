@@ -3,14 +3,14 @@
 #include <game/game.h>
 #include <macros.h>
 
-#include <Il2CppModLoader/common.h>
-#include <Il2CppModLoader/app/methods/SeinCharacter.h>
-#include <Il2CppModLoader/app/methods/PlayerAbilities.h>
-#include <Il2CppModLoader/app/methods/SpellInventory.h>
 #include <Il2CppModLoader/app/methods/GameController.h>
-#include <Il2CppModLoader/app/methods/SeinHealthController.h>
+#include <Il2CppModLoader/app/methods/PlayerAbilities.h>
+#include <Il2CppModLoader/app/methods/SeinCharacter.h>
 #include <Il2CppModLoader/app/methods/SeinEnergy.h>
+#include <Il2CppModLoader/app/methods/SeinHealthController.h>
+#include <Il2CppModLoader/app/methods/SpellInventory.h>
 #include <Il2CppModLoader/app/types/Characters.h>
+#include <Il2CppModLoader/common.h>
 
 #include <Il2CppModLoader/app/methods/GameplayCamera.h>
 #include <Il2CppModLoader/app/methods/ScenesManager.h>
@@ -23,7 +23,7 @@ using namespace app::classes;
 
 namespace game {
     namespace player {
-        app::SeinCharacter *sein() {
+        app::SeinCharacter* sein() {
             return types::Characters::get_class()->static_fields->m_sein;
         }
 
@@ -61,7 +61,7 @@ namespace game {
         }
 
         void unbind_all() {
-            for (auto entry: magic_enum::enum_entries<app::EquipmentType__Enum>())
+            for (auto entry : magic_enum::enum_entries<app::EquipmentType__Enum>())
                 SpellInventory::UnbindItem(sein()->fields.PlayerSpells, entry.first);
         }
 
@@ -70,35 +70,57 @@ namespace game {
             return !(GameController::get_InputLocked(gcip) ||
                      GameController::get_LockInput(gcip) ||
                      GameController::get_IsSuspended(gcip)) &&
-                   GameController::get_SecondaryMapAndInventoryCanBeOpened(gcip);
+                    GameController::get_SecondaryMapAndInventoryCanBeOpened(gcip);
         }
 
         app::Vector3 get_position() {
             auto sein = game::player::sein();
-            return sein != nullptr ? SeinCharacter::get_Position(sein) : app::Vector3{0, 0, 0};
+            return sein != nullptr ? SeinCharacter::get_Position(sein) : app::Vector3{ 0, 0, 0 };
+        }
+
+        app::Vector2 get_velocity() {
+            auto sein = game::player::sein();
+            if (sein != nullptr) {
+                auto& speed = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed;
+                return app::Vector2{ speed.x, speed.y };
+            }
+
+            return app::Vector2{ 0.f, 0.f };
         }
 
         void set_position(float x, float y, bool wait_for_load) {
-            set_position(app::Vector3{x, y, 0.f}, wait_for_load);
+            set_position(app::Vector3{ x, y, 0.f }, wait_for_load);
         }
 
         void set_position(app::Vector3 value, bool wait_for_load) {
             auto sein = game::player::sein();
             if (sein != nullptr) {
                 if (wait_for_load) {
-                    ScenesManager::LoadScenesAtPosition(scenes::get_scenes_manager(), value, false, true, false, true,
-                                                        true);
+                    ScenesManager::LoadScenesAtPosition(scenes::get_scenes_manager(), value, false, true, false, true, true);
                 }
 
                 SeinCharacter::set_Position(sein, value);
             }
         }
 
+        void set_velocity(float x, float y) {
+            auto sein = game::player::sein();
+            if (sein != nullptr) {
+                auto& speed = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed;
+                speed.x = x;
+                speed.y = y;
+            }
+        }
+
+        void set_velocity(const app::Vector2& velocity) {
+            set_velocity(velocity.x, velocity.y);
+        }
+
         void snap_camera() {
-            auto *const cameras = types::UI_Cameras::get_class();
+            auto* const cameras = types::UI_Cameras::get_class();
             if (cameras != nullptr && cameras->static_fields->Current != nullptr) {
                 // We need to do this on the next frame to allow state to update without causing flickering.
-                auto *const camera = cameras->static_fields->Current;
+                auto* const camera = cameras->static_fields->Current;
                 GameplayCamera::MoveCameraToTargetInstantly(camera, true);
             }
         }

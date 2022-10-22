@@ -14,8 +14,11 @@ namespace game {
         bool can_move();
 
         app::Vector3 get_position();
+        app::Vector2 get_velocity();
         void set_position(float x, float y, bool wait_for_load = false);
         void set_position(app::Vector3 value, bool wait_for_load = false);
+        void set_velocity(float x, float y);
+        void set_velocity(const app::Vector2& value);
         void snap_camera();
 
         void refill_energy(bool instantly = false);

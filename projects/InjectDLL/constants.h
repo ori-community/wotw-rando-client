@@ -30,6 +30,7 @@ constexpr int CHAOS_TRIGGER_MIN_ID = 500;
 constexpr int CHAOS_TRIGGER_MAX_ID = 501;
 constexpr int PREVENT_PICKUP_ID = 8;
 constexpr int STOMP_THROUGH_PORTALS_ID = 9;
+constexpr int STOMP_INTO_WATER_ID = 10;
 constexpr int FORCE_AIR_NO_DECELERATION_ID = 301;
 constexpr int ICON_TRANSPARENCY_ID = 1000;
 #pragma endregion

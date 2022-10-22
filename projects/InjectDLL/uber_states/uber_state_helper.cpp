@@ -250,23 +250,11 @@ INJECT_C_DLLEXPORT void set_position(app::Vector2 position) {
 }
 
 INJECT_C_DLLEXPORT app::Vector2 get_velocity() {
-    auto sein = game::player::sein();
-    if (sein != nullptr) {
-        auto& speed = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed;
-        return app::Vector2{ speed.x, speed.y };
-    }
-
-    return app::Vector2{ 0.f, 0.f };
+    return game::player::get_velocity();
 }
 
 INJECT_C_DLLEXPORT void set_velocity(app::Vector2 velocity) {
-    auto sein = game::player::sein();
-    if (sein != nullptr) {
-        auto& speed = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed;
-        speed.x = velocity.x;
-        speed.y = velocity.y;
-        speed.z = 0.f;
-    }
+    game::player::set_velocity(velocity.x, velocity.y);
 }
 
 INJECT_C_DLLEXPORT app::GameStateMachine_State__Enum get_game_state() {
