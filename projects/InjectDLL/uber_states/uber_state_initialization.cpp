@@ -221,6 +221,9 @@ namespace {
             add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "Grenade charge time modifier", 44, 1.0f),
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Grenade multishot", 45, 0),
 
+            add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Sentry Shots", 46, 3),
+            add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "Sentry Fire Rate Speed", 47, 1.0),
+
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Hammer Speed", 50, 0),
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Sword Speed", 51, 0),
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Blaze Efficiency", 52, 0),

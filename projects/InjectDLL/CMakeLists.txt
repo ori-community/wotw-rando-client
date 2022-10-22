@@ -93,7 +93,7 @@ set(
         "game/pickups/bonus/bow_attack_speed.cpp"
         "game/pickups/bonus/energy_cost_upgrades.cpp"
         "game/pickups/bonus/extra_ability_activations.cpp"
-        "game/pickups/bonus/extra_sentries.cpp"
+        "game/pickups/bonus/sentry_upgrades.cpp"
         "game/pickups/bonus/extra_shurikens.cpp"
         "game/pickups/bonus/hammer_attack_speed.cpp"
         "game/pickups/bonus/regenerate_speed.cpp"
