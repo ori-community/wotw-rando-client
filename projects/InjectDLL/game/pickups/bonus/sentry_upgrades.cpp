@@ -18,6 +18,10 @@ namespace {
     constexpr float DEFAULT_FIRE_RATE = 0.15f;
 
     IL2CPP_INTERCEPT(SpiritTurret, void, UpdateShooting, (app::SpiritTurret* this_ptr)) {
+        if (sentry_shots.get<int>() == 0) {
+            return;
+        }
+
         this_ptr->fields.BalancingData->fields.m_timeBetweenBurstShots = DEFAULT_FIRE_RATE / sentry_fire_rate.get<float>();
         return next::SpiritTurret::UpdateShooting(this_ptr);
     }
