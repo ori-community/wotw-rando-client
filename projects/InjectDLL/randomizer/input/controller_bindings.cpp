@@ -219,6 +219,8 @@ namespace randomizer::input {
                         if (input != nullptr) {
                             return il2cpp::invoke<app::Boolean__Boxed>(input, "GetValue")->fields;
                         }
+
+                        return false;
                     })
             ) {
                 return true;
