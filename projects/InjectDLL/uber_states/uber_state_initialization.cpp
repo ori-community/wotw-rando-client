@@ -212,6 +212,7 @@ namespace {
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Extra Double Jumps", 35, 0),
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Extra Dashes", 36, 0),
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Extra Sentries", 37, 0),
+            add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Extra Shurikens", 38, 0),
 
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Extra Grenades", 40, 0),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoUpgrade, "Grenades explode on collision", 41, true),
