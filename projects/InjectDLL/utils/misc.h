@@ -29,4 +29,7 @@ namespace utils {
     app::MoonGuid* moon_guid(int a, int b, int c, int d);
 
     app::UberShaderColor* uber_shader_color(app::Color& color);
+
+    void clamp_vector(app::Vector2& vector, float value);
+    void clamp_vector(app::Vector3& vector, float value);
 }

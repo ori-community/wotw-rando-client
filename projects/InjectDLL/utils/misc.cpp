@@ -46,4 +46,25 @@ namespace utils {
         UberShaderColor::ctor_2(shader_color, color);
         return shader_color;
     }
+
+    void clamp_vector(app::Vector2& vector, float value) {
+        float max = std::max(std::abs(vector.x), std::abs(vector.y));
+
+        if (max > value) {
+            auto factor = value / max;
+            vector.x *= factor;
+            vector.y *= factor;
+        }
+    }
+
+    void clamp_vector(app::Vector3& vector, float value) {
+        float max = std::max(std::abs(vector.x), std::max(std::abs(vector.y), std::abs(vector.z)));
+
+        if (max > value) {
+            auto factor = value / max;
+            vector.x *= factor;
+            vector.y *= factor;
+            vector.z *= factor;
+        }
+    }
 } // namespace utils

@@ -6,6 +6,7 @@
 #include <Il2CppModLoader/app/methods/Portal.h>
 #include <Il2CppModLoader/app/methods/SeinController.h>
 #include <Il2CppModLoader/interception_macros.h>
+#include <utils/misc.h>
 
 using namespace modloader;
 
@@ -18,17 +19,11 @@ namespace {
 
     StompThroughPortalsState state = None;
     app::Vector3 portal_speed;
-
-    IL2CPP_INTERCEPT(MeleeComboMoveHammerStomp, void, OnHitWater, (app::MeleeComboMoveHammerStomp * this_ptr)) {
-        next::MeleeComboMoveHammerStomp::OnHitWater(this_ptr);
-
-        if (this_ptr->fields.m_currentState == app::MeleeComboMoveHammerStomp_State__Enum::Fall) {
-            game::player::set_velocity(0.f, -this_ptr->fields.Speed);
-        }
-    }
+    float stomp_speed = 60.f;
 
     IL2CPP_INTERCEPT(MeleeComboMoveHammerStomp, void, InterruptMove, (app::MeleeComboMoveHammerStomp * this_ptr)) {
         next::MeleeComboMoveHammerStomp::InterruptMove(this_ptr);
+        stomp_speed = this_ptr->fields.Speed;
         state = HammerInterrupted;
     }
 
@@ -41,8 +36,11 @@ namespace {
 
     IL2CPP_INTERCEPT(SeinController, void, FixedUpdate, (app::SeinController * this_ptr)) {
         next::SeinController::FixedUpdate(this_ptr);
+
         if (state == CarryVelocityThroughPortal) {
             auto sein = game::player::sein();
+
+            utils::clamp_vector(portal_speed, stomp_speed);
             sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed = portal_speed;
         }
 
