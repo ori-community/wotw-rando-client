@@ -94,6 +94,7 @@ set(
         "game/pickups/bonus/energy_cost_upgrades.cpp"
         "game/pickups/bonus/extra_ability_activations.cpp"
         "game/pickups/bonus/hammer_attack_speed.cpp"
+        "game/pickups/bonus/regenerate_speed.cpp"
         "game/pickups/bonus/spear_attack_speed.cpp"
         "game/pickups/bonus/sword_attack_speed.cpp"
         "game/pickups/bonus/velocity.cpp"

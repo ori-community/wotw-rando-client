@@ -181,7 +181,7 @@ namespace {
             add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "Houses C", 40448, 0),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "Remove Thorns", 18751, 0),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "Open Cave", 16586, 0),
-            add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "Beutify", 15068, 0),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::GromShop, "Beautify", 15068, 0),
 
             add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "Spirit Well cost", 116825, 0),
             add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "Shard Shop cost", 107528, 0),
@@ -190,7 +190,7 @@ namespace {
             add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "Houses C cost", 140448, 0),
             add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "Remove Thorns cost", 118751, 0),
             add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "Open Cave cost", 116586, 0),
-            add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "Beutify cost", 115068, 0),
+            add_state<app::SerializedIntUberState>(UberStateGroup::GromShop, "Beautify cost", 115068, 0),
 
             add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "Hammer speed multiplier", 0, 1),
             add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "Sword speed multiplier", 1, 1),
@@ -248,6 +248,7 @@ namespace {
             add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "Wall Jump Strength", 88, 1.0),
             add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "Double Jump Strength", 89, 1.0),
             add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "Grapple Speed", 90, 1.0),
+            add_state<app::SerializedFloatUberState>(UberStateGroup::RandoUpgrade, "Regenerate Speed", 91, 1.0),
 
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Exploding Spike", 95, 0),
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Shock Smash", 96, 0),
@@ -255,6 +256,7 @@ namespace {
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Charge Blaze", 98, 0),
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Rapid Sentry", 99, 0),
 
+            // What are these doing here??
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Marsh Relic", 100, 0),
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Hollow Relic", 101, 0),
             add_state<app::SerializedByteUberState>(UberStateGroup::RandoUpgrade, "Glades Relic", 102, 0),
