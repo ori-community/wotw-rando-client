@@ -541,9 +541,6 @@ namespace RandoMainDLL {
         InterOp.Player.fill_energy();
         InterOp.System.save();
       }
-      // should happen in both branches
-      if (SeedController.Flags.Contains(Flag.ALL_WISPS))
-        HintsController.ProgressWithHints();
     }
     private static bool ShouldRevert(UberState uber_state, UberValue old) {
       if (NeedsNewGameInit || SkipListeners)
