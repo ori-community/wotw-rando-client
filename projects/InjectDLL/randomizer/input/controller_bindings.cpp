@@ -216,7 +216,7 @@ namespace randomizer::input {
             if (
                     std::all_of(buttons.begin(), buttons.end(), [](ControllerButton button) {
                         auto input = il2cpp::gchandle_target(buttons_map[button]);
-                        return SmartInput::ControllerButtonInput::GetValue(reinterpret_cast<app::ControllerButtonInput*>(input));
+                        return il2cpp::invoke<app::Boolean__Boxed>(input, "GetValue")->fields;
                     })
             ) {
                 return true;
