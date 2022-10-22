@@ -91,7 +91,6 @@ namespace RandoMainDLL {
           UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
           UberStateDefaults.finishedWatermillEscape.GetUberId().Refresh();
           UberStateDefaults.watermillEscapeState.GetUberId().Refresh();
-          UberStateController.QueueSyncedStateUpdate();
           DidWeJustDie = false;
         } else {
           ShopSlot.ResetSlotData();
@@ -100,6 +99,8 @@ namespace RandoMainDLL {
         }
         BonusItemController.Refresh();
         MapController.QueueReachCheck();
+
+        UberStateController.QueueSyncedStateUpdate();
       }
       catch (Exception e) { Randomizer.Error("SaveCont.OnLoad", e); }
     }
