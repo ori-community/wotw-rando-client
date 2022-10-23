@@ -153,6 +153,7 @@ namespace RandoMainDLL {
         WebSocketClient.FixedUpdate(delta);
         Multiplayer.FixedUpdate();
         HideAndSeek.FixedUpdate(delta);
+        Infection.FixedUpdate(delta);
         StatsTracking.FixedUpdate(gs, delta);
       }
       catch (Exception e) {

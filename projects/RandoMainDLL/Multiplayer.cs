@@ -66,6 +66,7 @@ namespace RandoMainDLL {
 
     private static void clearGameHandlers() {
       HideAndSeek.ClearInfo();
+      Infection.ClearInfo();
     }
 
     public static void ClearMultiverse() {
@@ -152,10 +153,16 @@ namespace RandoMainDLL {
       switch (multiverse.HandlerType) {
         case MultiverseInfoMessage.Types.GameHandlerType.Normal:
           break;
-        case MultiverseInfoMessage.Types.GameHandlerType.HideAndSeek:
+        case MultiverseInfoMessage.Types.GameHandlerType.HideAndSeek: {
           var info = HideAndSeekGameHandlerClientInfo.Parser.ParseFrom(multiverse.HandlerInfo);
           HideAndSeek.ParseHandlerInfo(info);
           break;
+        }
+        case MultiverseInfoMessage.Types.GameHandlerType.Infection: {
+          var info = InfectionGameHandlerClientInfo.Parser.ParseFrom(multiverse.HandlerInfo);
+          Infection.ParseHandlerInfo(info);
+          break;
+        }
       }
     }
 

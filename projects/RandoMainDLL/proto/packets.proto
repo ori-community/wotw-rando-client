@@ -28,6 +28,7 @@ message Packet {
     UpdatePlayerWorldPositionMessage = 21;
     UpdatePlayerMapPositionMessage = 22;
     ResourceRequestMessage = 23;
+    PlayerTeleportMessage = 24;
 
     TrackerUpdate = 100;
     ResetTracker = 101;
@@ -164,6 +165,7 @@ message MultiverseInfoMessage {
   enum GameHandlerType {
     Normal = 0;
     HideAndSeek = 1;
+    Infection = 2;
   }
 
   int64 id = 1;
@@ -189,6 +191,16 @@ message SeekerWorldInfo {
 
 message HideAndSeekGameHandlerClientInfo {
   repeated SeekerWorldInfo seekerWorlds = 1;
+}
+
+message InfectedWorldInfo {
+  int64 id = 1;
+  float radius = 2;
+  float cooldown = 3;
+}
+
+message InfectionGameHandlerClientInfo {
+  repeated InfectedWorldInfo infectedWorlds = 1;
 }
 
 message PlayerUseCatchingAbilityMessage {}
@@ -224,3 +236,5 @@ message ResourceRequestMessage {
   int32 amount = 3;
   optional SpendResourceTarget target = 4;
 }
+
+message PlayerTeleportMessage {}

@@ -334,7 +334,12 @@ namespace RandoMainDLL {
             break;
           case Packet.Types.PacketID.PlayerUsedCatchingAbility:
           case Packet.Types.PacketID.PlayerCaught:
-            HideAndSeek.Queue.Add(packet);
+            if (Multiplayer.GameType == MultiverseInfoMessage.Types.GameHandlerType.HideAndSeek) {
+              HideAndSeek.Queue.Add(packet);
+            }
+            else {
+              Infection.Queue.Add(packet);
+            }
             break;
           default:
             break;
