@@ -19,7 +19,7 @@ namespace RandoMainDLL {
     private static GCHandle AbilityDelegateHandle;
 
     public static bool IsPlaying {
-      get { return Multiplayer.GameType == MultiverseInfoMessage.Types.GameHandlerType.HideAndSeek; }
+      get { return Multiplayer.GameType == MultiverseInfoMessage.Types.GameHandlerType.Infection; }
     }
 
     private static bool _isInfected = false;

@@ -37,6 +37,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TimelineEntryType, {
                                                         { TimelineEntryType::Rotation, "Rotation" },
                                                         { TimelineEntryType::Scale, "Scale" },
                                                         { TimelineEntryType::LerpPosition, "LerpPosition" },
+                                                        { TimelineEntryType::Color, "Color" },
                                                 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TimelineObjectType, {

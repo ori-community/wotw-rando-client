@@ -27,7 +27,7 @@ namespace randomizer {
         void attach(app::GameObject* go) { m_attached = go; }
         void attach_offset(app::Vector3 value) { m_attach_offset = value; }
 
-        TimelineVariable* variable(std::string name);
+        VariableValue* variable(std::string name, bool create_if_not_exists = true);
 
     private:
         std::vector<std::shared_ptr<timeline_entries::Base>> m_entries;

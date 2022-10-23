@@ -10,7 +10,7 @@
 #include <variant>
 
 namespace randomizer {
-    struct TimelineVariable {
+    struct VariableValue {
         std::optional<
                 std::variant<
                         bool,
@@ -27,7 +27,7 @@ namespace randomizer {
     struct TimelineState {
         float time = 0;
         app::GameObject* root = nullptr;
-        std::unordered_map<std::string, TimelineVariable> variables;
+        std::unordered_map<std::string, VariableValue> variable_values;
         std::unordered_map<int, std::shared_ptr<Animation>> active_animations;
         std::unordered_map<int, std::shared_ptr<SoundActor>> active_sounds;
         std::unordered_map<int, std::shared_ptr<TextBox>> active_text;

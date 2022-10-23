@@ -11,11 +11,12 @@
 
 #include <Common/ext.h>
 
+#include <Il2CppModLoader/app/methods/UnityEngine/Transform.h>
+#include <Il2CppModLoader/app/types/GameObject.h>
 #include <Il2CppModLoader/common.h>
 #include <Il2CppModLoader/il2cpp_math.h>
 #include <Il2CppModLoader/interception_macros.h>
 #include <Il2CppModLoader/windows_api/console.h>
-#include <Il2CppModLoader/app/types/GameObject.h>
 
 #include <nlohmann/json.hpp>
 

@@ -96,7 +96,7 @@ namespace randomizer {
 
     Timeline::Timeline(Timeline const& other) :
             m_entries(other.m_entries), m_entry(0), m_started(false), m_attached(nullptr), m_attach_offset{ 0, 0, 0 } {
-        m_state.variables = other.m_state.variables;
+        m_state.variable_values = other.m_state.variable_values;
         m_state.root = types::GameObject::create();
         il2cpp::invoke(m_state.root, ".ctor");
         il2cpp::invoke(m_state.root, "set_name", il2cpp::string_new("rando_timeline"));
@@ -156,9 +156,19 @@ namespace randomizer {
         m_started = false;
     }
 
-    TimelineVariable* Timeline::variable(std::string name) {
-        auto it = m_state.variables.find(name);
-        return it != m_state.variables.end() ? &it->second : nullptr;
+    VariableValue* Timeline::variable(std::string name, bool create_if_not_exists) {
+        auto it = m_state.variable_values.find(name);
+
+        if (it == m_state.variable_values.end()) {
+            if (create_if_not_exists) {
+                m_state.variable_values[name] = VariableValue();
+                return &m_state.variable_values[name];
+            } else {
+                return nullptr;
+            }
+        }
+
+        return &it->second;
     }
 } // namespace randomizer
 

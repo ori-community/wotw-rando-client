@@ -5,9 +5,9 @@
 namespace randomizer {
     namespace timeline_entries {
         struct Lerper : Target {
-            Variable<app::Vector3> start;
-            Variable<app::Vector3> end;
-            Variable<float> duration;
+            VariableDeclaration<app::Vector3> start;
+            VariableDeclaration<app::Vector3> end;
+            VariableDeclaration<float> duration;
 
             virtual void parse(TimelineState& state, nlohmann::json const& j) override;
         };
