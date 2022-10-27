@@ -294,7 +294,10 @@ namespace multiplayer {
             auto target = il2cpp::gchandle_target(info.map_avatar.handle);
             if (il2cpp::unity::is_valid(target)) {
                 auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
-                IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, info.map_avatar.root);
+                if (il2cpp::unity::is_valid(area_map)) {
+                    IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, info.map_avatar.root);
+                }
+
                 il2cpp::unity::destroy_object(target);
             }
 
