@@ -21,9 +21,9 @@
 
 #include <array>
 #include <iostream>
-#include <nlohmann/json.hpp>
 #include <memory>
 #include <mutex>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
 
@@ -36,12 +36,13 @@ namespace randomizer {
     namespace ipc {
         namespace {
             constexpr int MESSAGE_SIZE = 8192;
-            constexpr int MAX_HANDLED_MESSAGES = 300;
+            constexpr int MAX_MESSAGES_PER_QUEUE = 300;
+
             std::unique_ptr<std::thread> ipc_thread;
-            std::mutex message_mutex;
-            std::mutex send_mutex;
-            std::vector<std::string> sends;
-            std::vector<std::string> messages;
+            std::mutex outgoing_messages_mutex;
+            std::mutex incoming_messages_mutex;
+            std::vector<nlohmann::json> outgoing_messages;
+            std::vector<nlohmann::json> incoming_messages;
             std::atomic<bool> shutdown_ipc_thread;
 
             HANDLE connect(int buffer_size) {
@@ -79,8 +80,8 @@ namespace randomizer {
             void pipe_handler() {
                 DWORD bytes_read = 0;
                 DWORD bytes_written = 0;
-                std::array<char, MESSAGE_SIZE> message;
-                HANDLE pipe = connect(message.size() - 1);
+                std::array<char, MESSAGE_SIZE> raw_message;
+                HANDLE pipe = connect(raw_message.size() - 1);
                 if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE)
                     return;
 
@@ -93,7 +94,7 @@ namespace randomizer {
                             error == ERROR_INVALID_HANDLE) {
                             warn("ipc", format("Failed to peek at pipe (%d).", error));
                             disconnect(pipe);
-                            pipe = connect(message.size() - 1);
+                            pipe = connect(raw_message.size() - 1);
                             if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE) {
                                 warn("ipc", "Failed to reconnect pipe, returning.");
                                 return;
@@ -104,8 +105,8 @@ namespace randomizer {
                     if (bytes_available != 0) {
                         auto result = ReadFile(
                                 pipe,
-                                message.data(),
-                                message.size() - 1,
+                                raw_message.data(),
+                                raw_message.size() - 1,
                                 &bytes_read,
                                 nullptr
                         );
@@ -114,23 +115,34 @@ namespace randomizer {
                             auto error = GetLastError();
                             warn("ipc", format("Failed to read data (%d).", error));
                         } else {
-                            message[bytes_read] = '\0';
-                            std::string str = message.data();
+                            raw_message[bytes_read] = '\0';
+                            std::string str = raw_message.data();
                             trim(str);
-                            message_mutex.lock();
-                            messages.push_back(std::move(str));
-                            message_mutex.unlock();
+
+                            try {
+                                auto message = nlohmann::json::parse(str);
+
+                                incoming_messages_mutex.lock();
+                                incoming_messages.push_back(std::move(message));
+                                incoming_messages_mutex.unlock();
+                            } catch (std::exception ex) {
+                                warn("ipc", "Error parsing ipc message.");
+                                info("ipc", ex.what());
+                                info("ipc", str);
+                            }
                         }
                     } else {
-                        send_mutex.lock();
-                        auto local_sends = sends;
-                        sends.clear();
-                        send_mutex.unlock();
+                        outgoing_messages_mutex.lock();
+                        auto local_sends = outgoing_messages;
+                        outgoing_messages.clear();
+                        outgoing_messages_mutex.unlock();
                         for (auto message : local_sends) {
+                            auto string_message = message.dump();
+
                             auto result = WriteFile(
                                     pipe,
-                                    message.data(),
-                                    message.size(),
+                                    string_message.c_str(),
+                                    string_message.size(),
                                     &bytes_written,
                                     nullptr
                             );
@@ -156,36 +168,29 @@ namespace randomizer {
 
             std::unordered_map<std::string, request_handler> handlers;
             void update_pipe(GameEvent game_event, EventTiming timing) {
-                std::vector<std::string> local_messages;
+                std::vector<nlohmann::json> local_messages;
                 {
-                    std::scoped_lock lock(message_mutex);
-                    auto message_count = std::min(MAX_HANDLED_MESSAGES, static_cast<int>(messages.size()));
-                    auto begin = std::make_move_iterator(messages.begin());
-                    auto end = std::make_move_iterator(messages.begin() + message_count);
+                    std::scoped_lock lock(incoming_messages_mutex);
+                    auto message_count = std::min(MAX_MESSAGES_PER_QUEUE, static_cast<int>(incoming_messages.size()));
+                    auto begin = std::make_move_iterator(incoming_messages.begin());
+                    auto end = std::make_move_iterator(incoming_messages.begin() + message_count);
                     local_messages.insert(local_messages.end(), begin, end);
-                    messages.erase(messages.begin(), messages.begin() + message_count);
+                    incoming_messages.erase(incoming_messages.begin(), incoming_messages.begin() + message_count);
                 }
 
-                for (auto const& message : local_messages) {
-                    try {
-                        auto j = nlohmann::json::parse(message);
-                        auto it = handlers.find(j.at("method").get<std::string>());
-                        if (it != handlers.end())
-                            it->second(j);
-                        else
-                            info("ipc", format("Received unknown action request: %s", message.c_str()));
-                    } catch (std::exception ex) {
-                        warn("ipc", "Error parsing ipc message.");
-                        info("ipc", ex.what());
-                        info("ipc", message);
-                    }
+                for (auto const& j : local_messages) {
+                    auto it = handlers.find(j.at("method").get<std::string>());
+                    if (it != handlers.end())
+                        it->second(j);
+                    else
+                        info("ipc", format("Received unknown action request: %s", j.dump().c_str()));
                 }
             }
         } // namespace
 
-        void send_message(std::string_view message) {
-            std::scoped_lock lock(send_mutex);
-            sends.push_back(std::string(message));
+        void send_message(const nlohmann::json& message) {
+            std::scoped_lock lock(outgoing_messages_mutex);
+            outgoing_messages.push_back(message);
         }
 
         void register_request_handler(std::string_view name, request_handler handler) {

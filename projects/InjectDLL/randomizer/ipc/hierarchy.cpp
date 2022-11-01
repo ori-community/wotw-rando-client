@@ -581,7 +581,7 @@ namespace randomizer::ipc {
                 j["payload"] = visualize(game_object, il2cpp::unity::get_object_name(game_object), true);
         }
 
-        void destroy_game_object(nlohmann::json& j) {
+        void destroy_game_object(const nlohmann::json& j) {
             std::vector<float> values;
             auto id = j.at("id").get<int>();
             auto& payload = j.at("payload");
@@ -591,7 +591,7 @@ namespace randomizer::ipc {
                 il2cpp::unity::destroy_object(go);
         }
 
-        void set_game_object_active(nlohmann::json& j) {
+        void set_game_object_active(const nlohmann::json& j) {
             std::vector<float> values;
             auto id = j.at("id").get<int>();
             auto& payload = j.at("payload");
@@ -602,7 +602,7 @@ namespace randomizer::ipc {
                 il2cpp::unity::set_active(go, value);
         }
 
-        void get_game_object(nlohmann::json& j) {
+        void get_game_object(const nlohmann::json& j) {
             std::vector<float> values;
             auto id = j.at("id").get<int>();
             nlohmann::json response;
@@ -615,10 +615,10 @@ namespace randomizer::ipc {
             else
                 report_game_object(response, path, false);
 
-            ipc::send_message(response.dump());
+            ipc::send_message(std::move(response));
         }
 
-        void get_children(nlohmann::json& j) {
+        void get_children(const nlohmann::json& j) {
             std::vector<float> values;
             auto id = j.at("id").get<int>();
             nlohmann::json response;
@@ -631,7 +631,7 @@ namespace randomizer::ipc {
             else
                 report_game_object(response, path, true);
 
-            ipc::send_message(response.dump());
+            ipc::send_message(std::move(response));
         }
 
         void initialize() {

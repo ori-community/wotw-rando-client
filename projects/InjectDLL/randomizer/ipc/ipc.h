@@ -7,9 +7,9 @@
 
 namespace randomizer {
     namespace ipc {
-        using request_handler = void (*)(nlohmann::json& j);
+        using request_handler = void (*)(const nlohmann::json& j);
 
-        void send_message(std::string_view message);
+        void send_message(const nlohmann::json& message);
         void register_request_handler(std::string_view name, request_handler handler);
     } // namespace ipc
 } // namespace randomizer

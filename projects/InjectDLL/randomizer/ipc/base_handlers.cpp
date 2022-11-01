@@ -23,12 +23,12 @@ using namespace modloader;
 namespace randomizer {
     namespace ipc {
         namespace {
-            void reload(nlohmann::json& j) {
+            void reload(const nlohmann::json& j) {
                 info("ipc", "Received reload action request.");
                 csharp_bridge::on_action_triggered(Action::Reload);
             }
 
-            void get_flags(nlohmann::json& j) {
+            void get_flags(const nlohmann::json& j) {
                 std::vector<std::string> values;
                 auto count = csharp_bridge::get_flag_count();
                 constexpr int size = 256;
@@ -43,10 +43,10 @@ namespace randomizer {
                 response["type"] = "response";
                 response["id"] = j.at("id").get<int>();
                 response["payload"] = values;
-                send_message(response.dump());
+                send_message(std::move(response));
             }
 
-            void get_uberstates(nlohmann::json& j) {
+            void get_uberstates(const nlohmann::json& j) {
                 std::vector<float> values;
                 for (auto entry : j.at("payload")) {
                     auto group = entry.at("group").get<int>();
@@ -58,10 +58,10 @@ namespace randomizer {
                 response["type"] = "response";
                 response["id"] = j.at("id").get<int>();
                 response["payload"] = values;
-                send_message(response.dump());
+                send_message(std::move(response));
             }
 
-            void set_uberstate(nlohmann::json& j) {
+            void set_uberstate(const nlohmann::json& j) {
                 auto p = j.at("payload");
                 auto group = p.at("group").get<int>();
                 auto state = p.at("state").get<int>();
@@ -69,7 +69,7 @@ namespace randomizer {
                 uber_states::UberState(static_cast<UberStateGroup>(group), state).set(value);
             }
 
-            void action(nlohmann::json& j) {
+            void action(const nlohmann::json& j) {
                 auto p = j.at("payload");
                 auto id = p.at("action_id").get<Action>();
                 auto pressed = p.at("pressed").get<bool>();
@@ -79,7 +79,7 @@ namespace randomizer {
                     set_action_released(id);
             }
 
-            void set_velocity(nlohmann::json& j) {
+            void set_velocity(const nlohmann::json& j) {
                 auto p = j.at("payload");
                 auto x = p.at("x").get<float>();
                 auto y = p.at("y").get<float>();
@@ -93,7 +93,7 @@ namespace randomizer {
                 }
             }
 
-            void get_velocity(nlohmann::json& j) {
+            void get_velocity(const nlohmann::json& j) {
                 app::Vector3 v;
                 nlohmann::json response;
                 response["type"] = "response";
@@ -106,10 +106,10 @@ namespace randomizer {
                 response["payload"]["x"] = v.x;
                 response["payload"]["y"] = v.y;
                 response["payload"]["z"] = v.z;
-                send_message(response.dump());
+                send_message(std::move(response));
             }
 
-            void message(nlohmann::json& j) {
+            void message(const nlohmann::json& j) {
                 auto p = j.at("payload");
                 auto message_id = 0;
                 if (!p.contains("message_id")) {
@@ -125,7 +125,7 @@ namespace randomizer {
                     response["type"] = "response";
                     response["id"] = j.at("id").get<int>();
                     response["message_id"] = message_id;
-                    send_message(response.dump());
+                    send_message(std::move(response));
                 } else {
                     message_id = p.at("message_id").get<int>();
                     if (p.contains("destroy") && p.at("destroy").get<bool>()) {
@@ -164,7 +164,7 @@ namespace randomizer {
                 nlohmann::json response;
                 response["type"] = "request";
                 response["method"] = "notify_on_load";
-                ipc::send_message(response.dump());
+                ipc::send_message(std::move(response));
             }
 
             std::unordered_map<GameEvent, std::string> event_to_method{
@@ -176,7 +176,7 @@ namespace randomizer {
                 nlohmann::json response;
                 response["type"] = "request";
                 response["method"] = event_to_method.find(game_event)->second;
-                ipc::send_message(response.dump());
+                ipc::send_message(std::move(response));
             }
 
             void initialize() {
@@ -213,7 +213,7 @@ INJECT_C_DLLEXPORT void report_seed_reload() {
     nlohmann::json response;
     response["type"] = "request";
     response["method"] = "notify_on_reload";
-    randomizer::ipc::send_message(response.dump());
+    randomizer::ipc::send_message(std::move(response));
 }
 
 INJECT_C_DLLEXPORT void report_uber_state_change(UberStateGroup group, int state, double value) {
@@ -223,7 +223,7 @@ INJECT_C_DLLEXPORT void report_uber_state_change(UberStateGroup group, int state
     response["payload"]["group"] = static_cast<int>(group);
     response["payload"]["state"] = state;
     response["payload"]["value"] = value;
-    randomizer::ipc::send_message(response.dump());
+    randomizer::ipc::send_message(std::move(response));
 }
 
 INJECT_C_DLLEXPORT void report_input(Action type, bool pressed) {
@@ -232,5 +232,5 @@ INJECT_C_DLLEXPORT void report_input(Action type, bool pressed) {
     response["method"] = "notify_input";
     response["payload"]["type"] = type;
     response["payload"]["pressed"] = pressed;
-    randomizer::ipc::send_message(response.dump());
+    randomizer::ipc::send_message(std::move(response));
 }
