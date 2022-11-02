@@ -27,7 +27,7 @@
         modloader::interception::intercept method_name##_intercept(                                                                                  \
                 reinterpret_cast<void**>(&app::classes::method_namespace::method_name),                                                              \
                 reinterpret_cast<void**>(&next::method_namespace::method_name),                                                                      \
-                method_name,                                                                                                                         \
+                reinterpret_cast<void*>(method_name),                                                                                                                         \
                 #method_namespace "::" #method_name                                                                                                   \
         ); \
     }                                                                                                                                                \

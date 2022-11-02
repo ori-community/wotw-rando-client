@@ -233,6 +233,7 @@ set(
         "randomizer/render/shaders.h"
         "randomizer/render/sprite.h"
         "randomizer/render/textures.h"
+        "tas/tas.h"
         "uber_states/uber_state_interface.h"
         "uber_states/uber_state_helper.h"
         "uber_states/uber_state_virtual.h"
