@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace EventLocation {
+        namespace {
+            inline app::EventLocation__Class* type_info_ref = nullptr;
+        }
+        inline app::EventLocation__Class** type_info = &type_info_ref;
+        inline app::EventLocation__Class* get_class() {
+            return il2cpp::get_class<app::EventLocation__Class>(type_info, "PlayFab.PlayStreamModels", "EventLocation");
+        }
+        inline app::EventLocation* create() {
+            return il2cpp::create_object<app::EventLocation>(get_class());
+        }
+    } // namespace EventLocation
+} // namespace app::classes::types

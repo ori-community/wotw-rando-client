@@ -1,7 +1,0 @@
-#pragma once
-#include <Il2CppModLoader/interception_macros.h>
-
-namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__KeyCollection_UnityEngine_GameObject_LeashMarkEffect_ {
-    IL2CPP_REGISTER_METHOD(0x01A729A0, app::Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_UnityEngine_GameObject_LeashMarkEffect_, GetEnumerator, (app::Dictionary_2_TKey_TValue_KeyCollection_UnityEngine_GameObject_LeashMarkEffect_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04791660, Dictionary_2_TKey_TValue_KeyCollection_UnityEngine_GameObject_LeashMarkEffect__GetEnumerator__MethodInfo)
-} // namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__KeyCollection_UnityEngine_GameObject_LeashMarkEffect_

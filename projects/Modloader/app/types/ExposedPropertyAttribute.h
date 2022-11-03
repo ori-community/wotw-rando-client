@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace ExposedPropertyAttribute {
+        namespace {
+            inline app::ExposedPropertyAttribute__Class* type_info_ref = nullptr;
+        }
+        inline app::ExposedPropertyAttribute__Class** type_info = &type_info_ref;
+        inline app::ExposedPropertyAttribute__Class* get_class() {
+            return il2cpp::get_class<app::ExposedPropertyAttribute__Class>(type_info, "Moon.ExposedPropertiesInspector", "ExposedPropertyAttribute");
+        }
+        inline app::ExposedPropertyAttribute* create() {
+            return il2cpp::create_object<app::ExposedPropertyAttribute>(get_class());
+        }
+    } // namespace ExposedPropertyAttribute
+} // namespace app::classes::types

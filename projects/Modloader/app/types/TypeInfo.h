@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace TypeInfo {
+        namespace {
+            inline app::TypeInfo__Class* type_info_ref = nullptr;
+        }
+        inline app::TypeInfo__Class** type_info = &type_info_ref;
+        inline app::TypeInfo__Class* get_class() {
+            return il2cpp::get_class<app::TypeInfo__Class>(type_info, "System.Reflection", "TypeInfo");
+        }
+        inline app::TypeInfo* create() {
+            return il2cpp::create_object<app::TypeInfo>(get_class());
+        }
+    } // namespace TypeInfo
+} // namespace app::classes::types

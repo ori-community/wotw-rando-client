@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace UberWaterReflectionView_AutomaticGroup__Array {
+        namespace {
+            inline app::UberWaterReflectionView_AutomaticGroup__Array__Class* type_info_ref = nullptr;
+        }
+        inline app::UberWaterReflectionView_AutomaticGroup__Array__Class** type_info = &type_info_ref;
+        inline app::UberWaterReflectionView_AutomaticGroup__Array__Class* get_class() {
+            return il2cpp::get_class<app::UberWaterReflectionView_AutomaticGroup__Array__Class>(type_info, "", "UberWaterReflectionView+AutomaticGroup[]");
+        }
+        inline app::UberWaterReflectionView_AutomaticGroup__Array* create() {
+            return il2cpp::create_object<app::UberWaterReflectionView_AutomaticGroup__Array>(get_class());
+        }
+    } // namespace UberWaterReflectionView_AutomaticGroup__Array
+} // namespace app::classes::types

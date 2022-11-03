@@ -1,0 +1,16 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace DataTableConverter {
+        inline app::DataTableConverter__Class** type_info = (app::DataTableConverter__Class**)(modloader::win::memory::resolve_rva(0x04765830));
+        inline app::DataTableConverter__Class* get_class() {
+            return il2cpp::get_class<app::DataTableConverter__Class>(type_info, "Newtonsoft.Json.Converters", "DataTableConverter");
+        }
+        inline app::DataTableConverter* create() {
+            return il2cpp::create_object<app::DataTableConverter>(get_class());
+        }
+    } // namespace DataTableConverter
+} // namespace app::classes::types

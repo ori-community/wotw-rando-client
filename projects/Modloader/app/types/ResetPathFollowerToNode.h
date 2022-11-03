@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace ResetPathFollowerToNode {
+        namespace {
+            inline app::ResetPathFollowerToNode__Class* type_info_ref = nullptr;
+        }
+        inline app::ResetPathFollowerToNode__Class** type_info = &type_info_ref;
+        inline app::ResetPathFollowerToNode__Class* get_class() {
+            return il2cpp::get_class<app::ResetPathFollowerToNode__Class>(type_info, "", "ResetPathFollowerToNode");
+        }
+        inline app::ResetPathFollowerToNode* create() {
+            return il2cpp::create_object<app::ResetPathFollowerToNode>(get_class());
+        }
+    } // namespace ResetPathFollowerToNode
+} // namespace app::classes::types

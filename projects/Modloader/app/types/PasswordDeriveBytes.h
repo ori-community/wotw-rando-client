@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace PasswordDeriveBytes {
+        namespace {
+            inline app::PasswordDeriveBytes__Class* type_info_ref = nullptr;
+        }
+        inline app::PasswordDeriveBytes__Class** type_info = &type_info_ref;
+        inline app::PasswordDeriveBytes__Class* get_class() {
+            return il2cpp::get_class<app::PasswordDeriveBytes__Class>(type_info, "System.Security.Cryptography", "PasswordDeriveBytes");
+        }
+        inline app::PasswordDeriveBytes* create() {
+            return il2cpp::create_object<app::PasswordDeriveBytes>(get_class());
+        }
+    } // namespace PasswordDeriveBytes
+} // namespace app::classes::types

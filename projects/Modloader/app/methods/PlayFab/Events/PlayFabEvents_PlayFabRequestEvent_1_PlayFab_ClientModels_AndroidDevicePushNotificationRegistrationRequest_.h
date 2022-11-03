@@ -1,0 +1,7 @@
+#pragma once
+#include <Modloader/interception_macros.h>
+
+namespace app::classes::PlayFab::Events::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_AndroidDevicePushNotificationRegistrationRequest_ {
+    IL2CPP_REGISTER_METHOD(0x00673B90, void, Invoke, (app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_AndroidDevicePushNotificationRegistrationRequest_ * this_ptr, app::AndroidDevicePushNotificationRegistrationRequest* request))
+    IL2CPP_REGISTER_METHODINFO(0x0471CF28, PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_AndroidDevicePushNotificationRegistrationRequest__Invoke__MethodInfo)
+} // namespace app::classes::PlayFab::Events::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_AndroidDevicePushNotificationRegistrationRequest_

@@ -1,0 +1,13 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace IEndDragHandler {
+        inline app::IEndDragHandler__Class** type_info = (app::IEndDragHandler__Class**)(modloader::win::memory::resolve_rva(0x0471ACC0));
+        inline app::IEndDragHandler__Class* get_class() {
+            return il2cpp::get_class<app::IEndDragHandler__Class>(type_info, "UnityEngine.EventSystems", "IEndDragHandler");
+        }
+    } // namespace IEndDragHandler
+} // namespace app::classes::types

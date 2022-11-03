@@ -1,9 +1,0 @@
-#pragma once
-#include <Il2CppModLoader/interception_macros.h>
-
-namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__Enumerator_SurfaceMaterialType_UnityEngine_ParticleSystem_ {
-    IL2CPP_REGISTER_METHOD(0x00136440, app::KeyValuePair_2_SurfaceMaterialType_UnityEngine_ParticleSystem_, get_Current, (app::Dictionary_2_TKey_TValue_Enumerator_SurfaceMaterialType_UnityEngine_ParticleSystem___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472BB88, Dictionary_2_TKey_TValue_Enumerator_SurfaceMaterialType_UnityEngine_ParticleSystem__get_Current__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x001B86F0, bool, MoveNext, (app::Dictionary_2_TKey_TValue_Enumerator_SurfaceMaterialType_UnityEngine_ParticleSystem___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04754E20, Dictionary_2_TKey_TValue_Enumerator_SurfaceMaterialType_UnityEngine_ParticleSystem__MoveNext__MethodInfo)
-} // namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__Enumerator_SurfaceMaterialType_UnityEngine_ParticleSystem_

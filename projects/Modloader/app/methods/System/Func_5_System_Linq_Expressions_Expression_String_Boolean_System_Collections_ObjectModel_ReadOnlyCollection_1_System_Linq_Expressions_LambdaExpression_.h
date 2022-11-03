@@ -1,0 +1,7 @@
+#pragma once
+#include <Modloader/interception_macros.h>
+
+namespace app::classes::System::Func_5_System_Linq_Expressions_Expression_String_Boolean_System_Collections_ObjectModel_ReadOnlyCollection_1_System_Linq_Expressions_LambdaExpression_ {
+    IL2CPP_REGISTER_METHOD(0x02FAB580, app::LambdaExpression*, Invoke, (app::Func_5_System_Linq_Expressions_Expression_String_Boolean_System_Collections_ObjectModel_ReadOnlyCollection_1_System_Linq_Expressions_LambdaExpression_ * this_ptr, app::Expression* arg1, app::String* arg2, bool arg3, app::ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_* arg4))
+    IL2CPP_REGISTER_METHODINFO(0x0479A080, Func_5_System_Linq_Expressions_Expression_String_Boolean_System_Collections_ObjectModel_ReadOnlyCollection_1_System_Linq_Expressions_LambdaExpression__Invoke__MethodInfo)
+} // namespace app::classes::System::Func_5_System_Linq_Expressions_Expression_String_Boolean_System_Collections_ObjectModel_ReadOnlyCollection_1_System_Linq_Expressions_LambdaExpression_

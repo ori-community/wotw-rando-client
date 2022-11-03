@@ -15,7 +15,7 @@ std::string log_path = "loader_log.txt";
 
 // Load order is top to bottom.
 std::array<std::string, 1> dll_paths = {
-    "Il2CppModLoader.dll"
+    "Modloader.dll"
 };
 
 bool find_base_path(std::string& output_path) {
@@ -76,8 +76,8 @@ int load_inject_dlls() {
         }
     }
 
-    auto injectdll_handle = loaded_libraries[0];
-    auto proc_address = GetProcAddress(injectdll_handle, "injection_entry");
+    auto randomizer_handle = loaded_libraries[0];
+    auto proc_address = GetProcAddress(randomizer_handle, "injection_entry");
     if (proc_address == nullptr) {
         log << "failed to get address of injection_entry: " << GetLastError() << std::endl;
         load_state = 0;
@@ -85,7 +85,7 @@ int load_inject_dlls() {
         return -3;
     }
 
-    log << "starting InjectDLL main function." << std::endl;
+    log << "starting Randomizer main function." << std::endl;
     log.close();
     load_state = 2;
     auto injection_entry = reinterpret_cast<void (*)(std::string)>(proc_address);

@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace CounterAction {
+        namespace {
+            inline app::CounterAction__Class* type_info_ref = nullptr;
+        }
+        inline app::CounterAction__Class** type_info = &type_info_ref;
+        inline app::CounterAction__Class* get_class() {
+            return il2cpp::get_class<app::CounterAction__Class>(type_info, "", "CounterAction");
+        }
+        inline app::CounterAction* create() {
+            return il2cpp::create_object<app::CounterAction>(get_class());
+        }
+    } // namespace CounterAction
+} // namespace app::classes::types

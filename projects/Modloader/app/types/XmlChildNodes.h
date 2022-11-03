@@ -1,0 +1,16 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace XmlChildNodes {
+        inline app::XmlChildNodes__Class** type_info = (app::XmlChildNodes__Class**)(modloader::win::memory::resolve_rva(0x04769768));
+        inline app::XmlChildNodes__Class* get_class() {
+            return il2cpp::get_class<app::XmlChildNodes__Class>(type_info, "System.Xml", "XmlChildNodes");
+        }
+        inline app::XmlChildNodes* create() {
+            return il2cpp::create_object<app::XmlChildNodes>(get_class());
+        }
+    } // namespace XmlChildNodes
+} // namespace app::classes::types

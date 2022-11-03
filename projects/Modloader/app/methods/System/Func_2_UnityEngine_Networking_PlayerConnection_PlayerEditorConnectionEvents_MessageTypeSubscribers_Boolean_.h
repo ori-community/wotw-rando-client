@@ -1,0 +1,7 @@
+#pragma once
+#include <Modloader/interception_macros.h>
+
+namespace app::classes::System::Func_2_UnityEngine_Networking_PlayerConnection_PlayerEditorConnectionEvents_MessageTypeSubscribers_Boolean_ {
+    IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::Func_2_UnityEngine_Networking_PlayerConnection_PlayerEditorConnectionEvents_MessageTypeSubscribers_Boolean_ * this_ptr, app::Object* object, void* method_1))
+    IL2CPP_REGISTER_METHODINFO(0x0470D7C0, Func_2_UnityEngine_Networking_PlayerConnection_PlayerEditorConnectionEvents_MessageTypeSubscribers_Boolean___ctor__MethodInfo)
+} // namespace app::classes::System::Func_2_UnityEngine_Networking_PlayerConnection_PlayerEditorConnectionEvents_MessageTypeSubscribers_Boolean_

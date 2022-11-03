@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace BlendAnimationEventMode__Enum {
+        namespace {
+            inline app::BlendAnimationEventMode__Enum__Class* type_info_ref = nullptr;
+        }
+        inline app::BlendAnimationEventMode__Enum__Class** type_info = &type_info_ref;
+        inline app::BlendAnimationEventMode__Enum__Class* get_class() {
+            return il2cpp::get_class<app::BlendAnimationEventMode__Enum__Class>(type_info, "Moon", "BlendAnimationEventMode");
+        }
+        inline app::BlendAnimationEventMode__Enum* create() {
+            return il2cpp::create_object<app::BlendAnimationEventMode__Enum>(get_class());
+        }
+    } // namespace BlendAnimationEventMode__Enum
+} // namespace app::classes::types

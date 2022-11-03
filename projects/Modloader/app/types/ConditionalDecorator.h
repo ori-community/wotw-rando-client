@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace ConditionalDecorator {
+        namespace {
+            inline app::ConditionalDecorator__Class* type_info_ref = nullptr;
+        }
+        inline app::ConditionalDecorator__Class** type_info = &type_info_ref;
+        inline app::ConditionalDecorator__Class* get_class() {
+            return il2cpp::get_class<app::ConditionalDecorator__Class>(type_info, "Moon.BehaviourSystem", "ConditionalDecorator");
+        }
+        inline app::ConditionalDecorator* create() {
+            return il2cpp::create_object<app::ConditionalDecorator>(get_class());
+        }
+    } // namespace ConditionalDecorator
+} // namespace app::classes::types

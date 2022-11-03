@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace CrabClawThreeHitAttackBehaviour {
+        namespace {
+            inline app::CrabClawThreeHitAttackBehaviour__Class* type_info_ref = nullptr;
+        }
+        inline app::CrabClawThreeHitAttackBehaviour__Class** type_info = &type_info_ref;
+        inline app::CrabClawThreeHitAttackBehaviour__Class* get_class() {
+            return il2cpp::get_class<app::CrabClawThreeHitAttackBehaviour__Class>(type_info, "Moon", "CrabClawThreeHitAttackBehaviour");
+        }
+        inline app::CrabClawThreeHitAttackBehaviour* create() {
+            return il2cpp::create_object<app::CrabClawThreeHitAttackBehaviour>(get_class());
+        }
+    } // namespace CrabClawThreeHitAttackBehaviour
+} // namespace app::classes::types

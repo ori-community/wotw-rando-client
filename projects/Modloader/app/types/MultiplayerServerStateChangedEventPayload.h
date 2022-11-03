@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace MultiplayerServerStateChangedEventPayload {
+        namespace {
+            inline app::MultiplayerServerStateChangedEventPayload__Class* type_info_ref = nullptr;
+        }
+        inline app::MultiplayerServerStateChangedEventPayload__Class** type_info = &type_info_ref;
+        inline app::MultiplayerServerStateChangedEventPayload__Class* get_class() {
+            return il2cpp::get_class<app::MultiplayerServerStateChangedEventPayload__Class>(type_info, "PlayFab.PlayStreamModels", "MultiplayerServerStateChangedEventPayload");
+        }
+        inline app::MultiplayerServerStateChangedEventPayload* create() {
+            return il2cpp::create_object<app::MultiplayerServerStateChangedEventPayload>(get_class());
+        }
+    } // namespace MultiplayerServerStateChangedEventPayload
+} // namespace app::classes::types

@@ -1,0 +1,25 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace UberStateConditionType__Enum {
+        namespace {
+            inline app::UberStateConditionType__Enum__Class* type_info_ref = nullptr;
+        }
+        inline app::UberStateConditionType__Enum__Class** type_info = &type_info_ref;
+        inline app::UberStateConditionType__Enum__Class* get_class() {
+            return il2cpp::get_class<app::UberStateConditionType__Enum__Class>(type_info, "", "UberStateConditionType");
+        }
+        inline app::UberStateConditionType__Enum* create() {
+            return il2cpp::create_object<app::UberStateConditionType__Enum>(get_class());
+        }
+        inline app::UberStateConditionType__Enum__Array* create_array(int size) {
+            return il2cpp::array_new<app::UberStateConditionType__Enum__Array>(get_class(), size);
+        }
+        inline app::UberStateConditionType__Enum__Array* create_array(const std::vector<app::UberStateConditionType__Enum*>& items) {
+            return il2cpp::array_new<app::UberStateConditionType__Enum__Array>(get_class(), items);
+        }
+    } // namespace UberStateConditionType__Enum
+} // namespace app::classes::types

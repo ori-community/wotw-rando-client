@@ -1,11 +1,12 @@
 {
 	"cpp": [
-		"InjectDLL.dll"
+		"Core.dll",
+		"Randomizer.dll"
 	],
 	"csharp": [
 		{
-			"dll": "RandoMainDLL.dll",
-			"class": "RandoMainDLL.Randomizer",
+			"dll": "RandomizerManaged.dll",
+			"class": "RandomizerManaged.Randomizer",
 			"method": "Bootstrap"
 		}
 	],

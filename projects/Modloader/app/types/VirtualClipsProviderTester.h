@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace VirtualClipsProviderTester {
+        namespace {
+            inline app::VirtualClipsProviderTester__Class* type_info_ref = nullptr;
+        }
+        inline app::VirtualClipsProviderTester__Class** type_info = &type_info_ref;
+        inline app::VirtualClipsProviderTester__Class* get_class() {
+            return il2cpp::get_class<app::VirtualClipsProviderTester__Class>(type_info, "", "VirtualClipsProviderTester");
+        }
+        inline app::VirtualClipsProviderTester* create() {
+            return il2cpp::create_object<app::VirtualClipsProviderTester>(get_class());
+        }
+    } // namespace VirtualClipsProviderTester
+} // namespace app::classes::types

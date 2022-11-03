@@ -1,0 +1,11 @@
+#pragma once
+#include <Modloader/interception_macros.h>
+
+namespace app::classes::System::Nullable_1_Newtonsoft_Json_Serialization_JsonSerializerInternalReader_PropertyPresence_ {
+    IL2CPP_REGISTER_METHOD(0x0010DB80, void, ctor, (app::Nullable_1_Newtonsoft_Json_Serialization_JsonSerializerInternalReader_PropertyPresence___Boxed * this_ptr, app::JsonSerializerInternalReader_PropertyPresence__Enum value))
+    IL2CPP_REGISTER_METHODINFO(0x0473D188, Nullable_1_Newtonsoft_Json_Serialization_JsonSerializerInternalReader_PropertyPresence___ctor__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x001F6090, bool, get_HasValue, (app::Nullable_1_Newtonsoft_Json_Serialization_JsonSerializerInternalReader_PropertyPresence___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x0477BA58, Nullable_1_Newtonsoft_Json_Serialization_JsonSerializerInternalReader_PropertyPresence__get_HasValue__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x0010E170, app::JsonSerializerInternalReader_PropertyPresence__Enum, GetValueOrDefault, (app::Nullable_1_Newtonsoft_Json_Serialization_JsonSerializerInternalReader_PropertyPresence___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04711700, Nullable_1_Newtonsoft_Json_Serialization_JsonSerializerInternalReader_PropertyPresence__GetValueOrDefault__MethodInfo)
+} // namespace app::classes::System::Nullable_1_Newtonsoft_Json_Serialization_JsonSerializerInternalReader_PropertyPresence_

@@ -1,0 +1,22 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace IPCFailure_t {
+        namespace {
+            inline app::IPCFailure_t__Class* type_info_ref = nullptr;
+        }
+        inline app::IPCFailure_t__Class** type_info = &type_info_ref;
+        inline app::IPCFailure_t__Class* get_class() {
+            return il2cpp::get_class<app::IPCFailure_t__Class>(type_info, "Steamworks", "IPCFailure_t");
+        }
+        inline app::IPCFailure_t* create() {
+            return il2cpp::create_object<app::IPCFailure_t>(get_class());
+        }
+        inline app::IPCFailure_t__Boxed* box(app::IPCFailure_t value) {
+            return il2cpp::box_value<app::IPCFailure_t__Boxed>(get_class(), value);
+        }
+    } // namespace IPCFailure_t
+} // namespace app::classes::types

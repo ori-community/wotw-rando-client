@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace ISkipCutscene__Array {
+        namespace {
+            inline app::ISkipCutscene__Array__Class* type_info_ref = nullptr;
+        }
+        inline app::ISkipCutscene__Array__Class** type_info = &type_info_ref;
+        inline app::ISkipCutscene__Array__Class* get_class() {
+            return il2cpp::get_class<app::ISkipCutscene__Array__Class>(type_info, "", "ISkipCutscene[]");
+        }
+        inline app::ISkipCutscene__Array* create() {
+            return il2cpp::create_object<app::ISkipCutscene__Array>(get_class());
+        }
+    } // namespace ISkipCutscene__Array
+} // namespace app::classes::types

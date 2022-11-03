@@ -1,0 +1,25 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace IKSolver_Point {
+        namespace {
+            inline app::IKSolver_Point__Class* type_info_ref = nullptr;
+        }
+        inline app::IKSolver_Point__Class** type_info = &type_info_ref;
+        inline app::IKSolver_Point__Class* get_class() {
+            return il2cpp::get_nested_class<app::IKSolver_Point__Class>(type_info, "RootMotion.FinalIK", "IKSolver", "Point");
+        }
+        inline app::IKSolver_Point* create() {
+            return il2cpp::create_object<app::IKSolver_Point>(get_class());
+        }
+        inline app::IKSolver_Point__Array* create_array(int size) {
+            return il2cpp::array_new<app::IKSolver_Point__Array>(get_class(), size);
+        }
+        inline app::IKSolver_Point__Array* create_array(const std::vector<app::IKSolver_Point*>& items) {
+            return il2cpp::array_new<app::IKSolver_Point__Array>(get_class(), items);
+        }
+    } // namespace IKSolver_Point
+} // namespace app::classes::types

@@ -1,0 +1,14 @@
+#pragma once
+#include <Modloader/interception_macros.h>
+
+namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_TKey_TValue__Enumerator_System_ByteEnum_System_Int64Enum_ {
+    IL2CPP_REGISTER_METHOD(0x001438F0, void, ctor, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_ByteEnum_System_Int64Enum___Boxed * this_ptr, app::Dictionary_2_System_ByteEnum_System_Int64Enum_* dictionary))
+    IL2CPP_REGISTER_METHOD(0x00002890, void, Dispose, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_ByteEnum_System_Int64Enum___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0018ABE0, bool, MoveNext, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_ByteEnum_System_Int64Enum___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04738958, Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_ByteEnum_System_Int64Enum__MoveNext__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x00107C20, app::Int64Enum__Enum, get_Current, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_ByteEnum_System_Int64Enum___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0018ABF0, app::Object*, IEnumerator_get_Current, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_ByteEnum_System_Int64Enum___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04759E48, Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_ByteEnum_System_Int64Enum__System_Collections_IEnumerator_get_Current__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x0018AD10, void, IEnumerator_Reset, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_ByteEnum_System_Int64Enum___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04720290, Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_ByteEnum_System_Int64Enum__System_Collections_IEnumerator_Reset__MethodInfo)
+} // namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_TKey_TValue__Enumerator_System_ByteEnum_System_Int64Enum_

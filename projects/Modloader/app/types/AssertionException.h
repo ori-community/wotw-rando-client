@@ -1,0 +1,16 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace AssertionException {
+        inline app::AssertionException__Class** type_info = (app::AssertionException__Class**)(modloader::win::memory::resolve_rva(0x0474B030));
+        inline app::AssertionException__Class* get_class() {
+            return il2cpp::get_class<app::AssertionException__Class>(type_info, "UnityEngine.Assertions", "AssertionException");
+        }
+        inline app::AssertionException* create() {
+            return il2cpp::create_object<app::AssertionException>(get_class());
+        }
+    } // namespace AssertionException
+} // namespace app::classes::types

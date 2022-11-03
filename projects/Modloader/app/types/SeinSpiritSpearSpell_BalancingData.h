@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace SeinSpiritSpearSpell_BalancingData {
+        namespace {
+            inline app::SeinSpiritSpearSpell_BalancingData__Class* type_info_ref = nullptr;
+        }
+        inline app::SeinSpiritSpearSpell_BalancingData__Class** type_info = &type_info_ref;
+        inline app::SeinSpiritSpearSpell_BalancingData__Class* get_class() {
+            return il2cpp::get_class<app::SeinSpiritSpearSpell_BalancingData__Class>(type_info, "", "SeinSpiritSpearSpell_BalancingData");
+        }
+        inline app::SeinSpiritSpearSpell_BalancingData* create() {
+            return il2cpp::create_object<app::SeinSpiritSpearSpell_BalancingData>(get_class());
+        }
+    } // namespace SeinSpiritSpearSpell_BalancingData
+} // namespace app::classes::types

@@ -1,0 +1,22 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace ObjectHolder {
+        inline app::ObjectHolder__Class** type_info = (app::ObjectHolder__Class**)(modloader::win::memory::resolve_rva(0x0478E500));
+        inline app::ObjectHolder__Class* get_class() {
+            return il2cpp::get_class<app::ObjectHolder__Class>(type_info, "System.Runtime.Serialization", "ObjectHolder");
+        }
+        inline app::ObjectHolder* create() {
+            return il2cpp::create_object<app::ObjectHolder>(get_class());
+        }
+        inline app::ObjectHolder__Array* create_array(int size) {
+            return il2cpp::array_new<app::ObjectHolder__Array>(get_class(), size);
+        }
+        inline app::ObjectHolder__Array* create_array(const std::vector<app::ObjectHolder*>& items) {
+            return il2cpp::array_new<app::ObjectHolder__Array>(get_class(), items);
+        }
+    } // namespace ObjectHolder
+} // namespace app::classes::types

@@ -1,0 +1,16 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace Oid {
+        inline app::Oid__Class** type_info = (app::Oid__Class**)(modloader::win::memory::resolve_rva(0x04792188));
+        inline app::Oid__Class* get_class() {
+            return il2cpp::get_class<app::Oid__Class>(type_info, "System.Security.Cryptography", "Oid");
+        }
+        inline app::Oid* create() {
+            return il2cpp::create_object<app::Oid>(get_class());
+        }
+    } // namespace Oid
+} // namespace app::classes::types

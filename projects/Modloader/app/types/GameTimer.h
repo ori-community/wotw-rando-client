@@ -1,0 +1,16 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace GameTimer {
+        inline app::GameTimer__Class** type_info = (app::GameTimer__Class**)(modloader::win::memory::resolve_rva(0x0476FCF8));
+        inline app::GameTimer__Class* get_class() {
+            return il2cpp::get_class<app::GameTimer__Class>(type_info, "", "GameTimer");
+        }
+        inline app::GameTimer* create() {
+            return il2cpp::create_object<app::GameTimer>(get_class());
+        }
+    } // namespace GameTimer
+} // namespace app::classes::types

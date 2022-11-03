@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace TransformRecordable__Array {
+        namespace {
+            inline app::TransformRecordable__Array__Class* type_info_ref = nullptr;
+        }
+        inline app::TransformRecordable__Array__Class** type_info = &type_info_ref;
+        inline app::TransformRecordable__Array__Class* get_class() {
+            return il2cpp::get_class<app::TransformRecordable__Array__Class>(type_info, "", "TransformRecordable[]");
+        }
+        inline app::TransformRecordable__Array* create() {
+            return il2cpp::create_object<app::TransformRecordable__Array>(get_class());
+        }
+    } // namespace TransformRecordable__Array
+} // namespace app::classes::types

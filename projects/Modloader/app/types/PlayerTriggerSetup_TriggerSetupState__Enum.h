@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace PlayerTriggerSetup_TriggerSetupState__Enum {
+        namespace {
+            inline app::PlayerTriggerSetup_TriggerSetupState__Enum__Class* type_info_ref = nullptr;
+        }
+        inline app::PlayerTriggerSetup_TriggerSetupState__Enum__Class** type_info = &type_info_ref;
+        inline app::PlayerTriggerSetup_TriggerSetupState__Enum__Class* get_class() {
+            return il2cpp::get_nested_class<app::PlayerTriggerSetup_TriggerSetupState__Enum__Class>(type_info, "", "PlayerTriggerSetup", "TriggerSetupState");
+        }
+        inline app::PlayerTriggerSetup_TriggerSetupState__Enum* create() {
+            return il2cpp::create_object<app::PlayerTriggerSetup_TriggerSetupState__Enum>(get_class());
+        }
+    } // namespace PlayerTriggerSetup_TriggerSetupState__Enum
+} // namespace app::classes::types

@@ -1,0 +1,11 @@
+#pragma once
+#include <Modloader/interception_macros.h>
+
+namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__Enumerator_System_Int32_IconPlacementScaler_IconOffsetPosition_ {
+    IL2CPP_REGISTER_METHOD(0x00136440, app::KeyValuePair_2_System_Int32_IconPlacementScaler_IconOffsetPosition_, get_Current, (app::Dictionary_2_TKey_TValue_Enumerator_System_Int32_IconPlacementScaler_IconOffsetPosition___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04740F50, Dictionary_2_TKey_TValue_Enumerator_System_Int32_IconPlacementScaler_IconOffsetPosition__get_Current__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x001B58E0, bool, MoveNext, (app::Dictionary_2_TKey_TValue_Enumerator_System_Int32_IconPlacementScaler_IconOffsetPosition___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04781570, Dictionary_2_TKey_TValue_Enumerator_System_Int32_IconPlacementScaler_IconOffsetPosition__MoveNext__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x00002890, void, Dispose, (app::Dictionary_2_TKey_TValue_Enumerator_System_Int32_IconPlacementScaler_IconOffsetPosition___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x047617D0, Dictionary_2_TKey_TValue_Enumerator_System_Int32_IconPlacementScaler_IconOffsetPosition__Dispose__MethodInfo)
+} // namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__Enumerator_System_Int32_IconPlacementScaler_IconOffsetPosition_

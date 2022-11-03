@@ -109,7 +109,7 @@ add_custom_target(
         INSTALL_RUNTIME
         ALL
         cmake -DCOMPONENT=runtime -DBUILD_TYPE=$<CONFIG> -P ${CMAKE_BUILD_DIRECTORY}/cmake_install.cmake
-        DEPENDS Il2CppModLoader InjectDLL WinNetwork InjectLoader Injector RandoMainDLL TraceClientManaged SeedGenCli
+        DEPENDS Modloader Randomizer TAS InjectLoader Injector RandomizerManaged
 )
 
 set_target_properties(

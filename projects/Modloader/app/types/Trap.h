@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace Trap {
+        namespace {
+            inline app::Trap__Class* type_info_ref = nullptr;
+        }
+        inline app::Trap__Class** type_info = &type_info_ref;
+        inline app::Trap__Class* get_class() {
+            return il2cpp::get_class<app::Trap__Class>(type_info, "", "Trap");
+        }
+        inline app::Trap* create() {
+            return il2cpp::create_object<app::Trap>(get_class());
+        }
+    } // namespace Trap
+} // namespace app::classes::types

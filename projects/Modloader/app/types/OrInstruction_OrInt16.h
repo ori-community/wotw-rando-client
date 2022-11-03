@@ -1,0 +1,16 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace OrInstruction_OrInt16 {
+        inline app::OrInstruction_OrInt16__Class** type_info = (app::OrInstruction_OrInt16__Class**)(modloader::win::memory::resolve_rva(0x047482B0));
+        inline app::OrInstruction_OrInt16__Class* get_class() {
+            return il2cpp::get_nested_class<app::OrInstruction_OrInt16__Class>(type_info, "System.Linq.Expressions.Interpreter", "OrInstruction", "OrInt16");
+        }
+        inline app::OrInstruction_OrInt16* create() {
+            return il2cpp::create_object<app::OrInstruction_OrInt16>(get_class());
+        }
+    } // namespace OrInstruction_OrInt16
+} // namespace app::classes::types

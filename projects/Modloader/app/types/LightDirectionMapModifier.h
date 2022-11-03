@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace LightDirectionMapModifier {
+        namespace {
+            inline app::LightDirectionMapModifier__Class* type_info_ref = nullptr;
+        }
+        inline app::LightDirectionMapModifier__Class** type_info = &type_info_ref;
+        inline app::LightDirectionMapModifier__Class* get_class() {
+            return il2cpp::get_class<app::LightDirectionMapModifier__Class>(type_info, "", "LightDirectionMapModifier");
+        }
+        inline app::LightDirectionMapModifier* create() {
+            return il2cpp::create_object<app::LightDirectionMapModifier>(get_class());
+        }
+    } // namespace LightDirectionMapModifier
+} // namespace app::classes::types

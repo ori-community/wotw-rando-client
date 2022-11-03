@@ -1,0 +1,25 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace MessageControllerB_NpcMessageStyle__Enum {
+        namespace {
+            inline app::MessageControllerB_NpcMessageStyle__Enum__Class* type_info_ref = nullptr;
+        }
+        inline app::MessageControllerB_NpcMessageStyle__Enum__Class** type_info = &type_info_ref;
+        inline app::MessageControllerB_NpcMessageStyle__Enum__Class* get_class() {
+            return il2cpp::get_nested_class<app::MessageControllerB_NpcMessageStyle__Enum__Class>(type_info, "", "MessageControllerB", "NpcMessageStyle");
+        }
+        inline app::MessageControllerB_NpcMessageStyle__Enum* create() {
+            return il2cpp::create_object<app::MessageControllerB_NpcMessageStyle__Enum>(get_class());
+        }
+        inline app::MessageControllerB_NpcMessageStyle__Enum__Array* create_array(int size) {
+            return il2cpp::array_new<app::MessageControllerB_NpcMessageStyle__Enum__Array>(get_class(), size);
+        }
+        inline app::MessageControllerB_NpcMessageStyle__Enum__Array* create_array(const std::vector<app::MessageControllerB_NpcMessageStyle__Enum*>& items) {
+            return il2cpp::array_new<app::MessageControllerB_NpcMessageStyle__Enum__Array>(get_class(), items);
+        }
+    } // namespace MessageControllerB_NpcMessageStyle__Enum
+} // namespace app::classes::types

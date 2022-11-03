@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace ElectricFieldSlugBehaviour_SwellTarget__Array {
+        namespace {
+            inline app::ElectricFieldSlugBehaviour_SwellTarget__Array__Class* type_info_ref = nullptr;
+        }
+        inline app::ElectricFieldSlugBehaviour_SwellTarget__Array__Class** type_info = &type_info_ref;
+        inline app::ElectricFieldSlugBehaviour_SwellTarget__Array__Class* get_class() {
+            return il2cpp::get_class<app::ElectricFieldSlugBehaviour_SwellTarget__Array__Class>(type_info, "", "ElectricFieldSlugBehaviour+SwellTarget[]");
+        }
+        inline app::ElectricFieldSlugBehaviour_SwellTarget__Array* create() {
+            return il2cpp::create_object<app::ElectricFieldSlugBehaviour_SwellTarget__Array>(get_class());
+        }
+    } // namespace ElectricFieldSlugBehaviour_SwellTarget__Array
+} // namespace app::classes::types

@@ -1,0 +1,21 @@
+#pragma once
+#include <Modloader/interception_macros.h>
+
+namespace app::classes::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ {
+    IL2CPP_REGISTER_METHOD(0x02261250, void, OnBeforeSerialize, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x02261530, void, OnAfterDeserialize, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0225D7A0, app::Dictionary_2_TKey_TValue_ValueCollection_System_Object_UnityEngine_Vector2_*, get_Values, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0225D7D0, app::Dictionary_2_TKey_TValue_KeyCollection_System_Object_UnityEngine_Vector2_*, get_Keys, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0225D800, app::IEnumerator_1_KeyValuePair_2_System_Object_UnityEngine_Vector2_*, System_Collections_Generic_IEnumerable_System_Collections_Generic_KeyValuePair_TK_TV___GetEnumerator, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0225D800, app::IEnumerator*, IEnumerable_GetEnumerator, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0225D880, int32_t, get_Count, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0225D8B0, void, Clear, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0225D8E0, app::Vector2, get_Item, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr, app::Object* index))
+    IL2CPP_REGISTER_METHOD(0x02261AA0, void, set_Item, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr, app::Object* index, app::Vector2 value))
+    IL2CPP_REGISTER_METHOD(0x0225D940, bool, ContainsKey, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr, app::Object* key))
+    IL2CPP_REGISTER_METHOD(0x0225D970, bool, TryGetValue, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr, app::Object* key, app::Vector2* value))
+    IL2CPP_REGISTER_METHOD(0x02261AE0, void, Add, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr, app::Object* key, app::Vector2 value))
+    IL2CPP_REGISTER_METHOD(0x0225DAE0, void, Remove, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr, app::Object* key))
+    IL2CPP_REGISTER_METHOD(0x02261C20, void, SetOrReplace, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr, app::Object* key, app::Vector2 value))
+    IL2CPP_REGISTER_METHOD(0x0225DBC0, void, ctor, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_ * this_ptr))
+} // namespace app::classes::UberShaderDictionary_2_System_Object_UnityEngine_Vector2_

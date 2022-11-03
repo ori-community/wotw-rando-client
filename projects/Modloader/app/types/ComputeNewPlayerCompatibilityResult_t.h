@@ -1,0 +1,22 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace ComputeNewPlayerCompatibilityResult_t {
+        namespace {
+            inline app::ComputeNewPlayerCompatibilityResult_t__Class* type_info_ref = nullptr;
+        }
+        inline app::ComputeNewPlayerCompatibilityResult_t__Class** type_info = &type_info_ref;
+        inline app::ComputeNewPlayerCompatibilityResult_t__Class* get_class() {
+            return il2cpp::get_class<app::ComputeNewPlayerCompatibilityResult_t__Class>(type_info, "Steamworks", "ComputeNewPlayerCompatibilityResult_t");
+        }
+        inline app::ComputeNewPlayerCompatibilityResult_t* create() {
+            return il2cpp::create_object<app::ComputeNewPlayerCompatibilityResult_t>(get_class());
+        }
+        inline app::ComputeNewPlayerCompatibilityResult_t__Boxed* box(app::ComputeNewPlayerCompatibilityResult_t value) {
+            return il2cpp::box_value<app::ComputeNewPlayerCompatibilityResult_t__Boxed>(get_class(), value);
+        }
+    } // namespace ComputeNewPlayerCompatibilityResult_t
+} // namespace app::classes::types

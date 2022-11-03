@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace PoisonousCloud {
+        namespace {
+            inline app::PoisonousCloud__Class* type_info_ref = nullptr;
+        }
+        inline app::PoisonousCloud__Class** type_info = &type_info_ref;
+        inline app::PoisonousCloud__Class* get_class() {
+            return il2cpp::get_class<app::PoisonousCloud__Class>(type_info, "", "PoisonousCloud");
+        }
+        inline app::PoisonousCloud* create() {
+            return il2cpp::create_object<app::PoisonousCloud>(get_class());
+        }
+    } // namespace PoisonousCloud
+} // namespace app::classes::types

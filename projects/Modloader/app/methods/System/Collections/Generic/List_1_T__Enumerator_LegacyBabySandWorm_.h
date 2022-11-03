@@ -1,0 +1,11 @@
+#pragma once
+#include <Modloader/interception_macros.h>
+
+namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_LegacyBabySandWorm_ {
+    IL2CPP_REGISTER_METHOD(0x00107C20, app::LegacyBabySandWorm*, get_Current, (app::List_1_T_Enumerator_LegacyBabySandWorm___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x0470C330, List_1_T_Enumerator_LegacyBabySandWorm__get_Current__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x0014EA20, bool, MoveNext, (app::List_1_T_Enumerator_LegacyBabySandWorm___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x0472DC38, List_1_T_Enumerator_LegacyBabySandWorm__MoveNext__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x00002890, void, Dispose, (app::List_1_T_Enumerator_LegacyBabySandWorm___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x0470BE48, List_1_T_Enumerator_LegacyBabySandWorm__Dispose__MethodInfo)
+} // namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_LegacyBabySandWorm_

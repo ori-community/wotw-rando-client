@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace Texture2DArray {
+        namespace {
+            inline app::Texture2DArray__Class* type_info_ref = nullptr;
+        }
+        inline app::Texture2DArray__Class** type_info = &type_info_ref;
+        inline app::Texture2DArray__Class* get_class() {
+            return il2cpp::get_class<app::Texture2DArray__Class>(type_info, "UnityEngine", "Texture2DArray");
+        }
+        inline app::Texture2DArray* create() {
+            return il2cpp::create_object<app::Texture2DArray>(get_class());
+        }
+    } // namespace Texture2DArray
+} // namespace app::classes::types

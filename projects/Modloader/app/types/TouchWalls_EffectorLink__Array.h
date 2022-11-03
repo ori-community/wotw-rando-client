@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace TouchWalls_EffectorLink__Array {
+        namespace {
+            inline app::TouchWalls_EffectorLink__Array__Class* type_info_ref = nullptr;
+        }
+        inline app::TouchWalls_EffectorLink__Array__Class** type_info = &type_info_ref;
+        inline app::TouchWalls_EffectorLink__Array__Class* get_class() {
+            return il2cpp::get_class<app::TouchWalls_EffectorLink__Array__Class>(type_info, "RootMotion.Demos", "TouchWalls+EffectorLink[]");
+        }
+        inline app::TouchWalls_EffectorLink__Array* create() {
+            return il2cpp::create_object<app::TouchWalls_EffectorLink__Array>(get_class());
+        }
+    } // namespace TouchWalls_EffectorLink__Array
+} // namespace app::classes::types

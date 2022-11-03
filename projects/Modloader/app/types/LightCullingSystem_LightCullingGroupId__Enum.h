@@ -1,0 +1,16 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace LightCullingSystem_LightCullingGroupId__Enum {
+        inline app::LightCullingSystem_LightCullingGroupId__Enum__Class** type_info = (app::LightCullingSystem_LightCullingGroupId__Enum__Class**)(modloader::win::memory::resolve_rva(0x047921D0));
+        inline app::LightCullingSystem_LightCullingGroupId__Enum__Class* get_class() {
+            return il2cpp::get_nested_class<app::LightCullingSystem_LightCullingGroupId__Enum__Class>(type_info, "", "LightCullingSystem", "LightCullingGroupId");
+        }
+        inline app::LightCullingSystem_LightCullingGroupId__Enum* create() {
+            return il2cpp::create_object<app::LightCullingSystem_LightCullingGroupId__Enum>(get_class());
+        }
+    } // namespace LightCullingSystem_LightCullingGroupId__Enum
+} // namespace app::classes::types

@@ -1,0 +1,16 @@
+#pragma once
+#include <Modloader/interception_macros.h>
+
+namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_TKey_TValue__Enumerator_System_Int32_System_Int32_ {
+    IL2CPP_REGISTER_METHOD(0x00114150, int32_t, get_Current, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_System_Int32___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04706348, Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_System_Int32__get_Current__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x0018BFA0, bool, MoveNext, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_System_Int32___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04728F50, Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_System_Int32__MoveNext__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x00002890, void, Dispose, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_System_Int32___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x047735F8, Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_System_Int32__Dispose__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x00144B50, void, ctor, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_System_Int32___Boxed * this_ptr, app::Dictionary_2_System_Int32_System_Int32_* dictionary))
+    IL2CPP_REGISTER_METHOD(0x0018BFB0, app::Object*, IEnumerator_get_Current, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_System_Int32___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x0477BDA0, Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_System_Int32__System_Collections_IEnumerator_get_Current__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x0018C0D0, void, IEnumerator_Reset, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_System_Int32___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x0477C298, Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_System_Int32__System_Collections_IEnumerator_Reset__MethodInfo)
+} // namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_TKey_TValue__Enumerator_System_Int32_System_Int32_

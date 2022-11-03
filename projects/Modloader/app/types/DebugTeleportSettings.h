@@ -1,0 +1,25 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace DebugTeleportSettings {
+        namespace {
+            inline app::DebugTeleportSettings__Class* type_info_ref = nullptr;
+        }
+        inline app::DebugTeleportSettings__Class** type_info = &type_info_ref;
+        inline app::DebugTeleportSettings__Class* get_class() {
+            return il2cpp::get_class<app::DebugTeleportSettings__Class>(type_info, "", "DebugTeleportSettings");
+        }
+        inline app::DebugTeleportSettings* create() {
+            return il2cpp::create_object<app::DebugTeleportSettings>(get_class());
+        }
+        inline app::DebugTeleportSettings__Array* create_array(int size) {
+            return il2cpp::array_new<app::DebugTeleportSettings__Array>(get_class(), size);
+        }
+        inline app::DebugTeleportSettings__Array* create_array(const std::vector<app::DebugTeleportSettings*>& items) {
+            return il2cpp::array_new<app::DebugTeleportSettings__Array>(get_class(), items);
+        }
+    } // namespace DebugTeleportSettings
+} // namespace app::classes::types

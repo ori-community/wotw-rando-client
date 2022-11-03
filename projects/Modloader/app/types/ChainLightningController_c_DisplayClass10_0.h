@@ -1,0 +1,16 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace ChainLightningController_c_DisplayClass10_0 {
+        inline app::ChainLightningController_c_DisplayClass10_0__Class** type_info = (app::ChainLightningController_c_DisplayClass10_0__Class**)(modloader::win::memory::resolve_rva(0x047758A8));
+        inline app::ChainLightningController_c_DisplayClass10_0__Class* get_class() {
+            return il2cpp::get_nested_class<app::ChainLightningController_c_DisplayClass10_0__Class>(type_info, "", "ChainLightningController", "<>c__DisplayClass10_0");
+        }
+        inline app::ChainLightningController_c_DisplayClass10_0* create() {
+            return il2cpp::create_object<app::ChainLightningController_c_DisplayClass10_0>(get_class());
+        }
+    } // namespace ChainLightningController_c_DisplayClass10_0
+} // namespace app::classes::types

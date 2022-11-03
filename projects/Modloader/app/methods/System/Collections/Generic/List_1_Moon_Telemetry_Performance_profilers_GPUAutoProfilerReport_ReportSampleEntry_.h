@@ -1,0 +1,11 @@
+#pragma once
+#include <Modloader/interception_macros.h>
+
+namespace app::classes::System::Collections::Generic::List_1_Moon_Telemetry_Performance_profilers_GPUAutoProfilerReport_ReportSampleEntry_ {
+    IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_Moon_Telemetry_Performance_profilers_GPUAutoProfilerReport_ReportSampleEntry_ * this_ptr, app::GPUAutoProfilerReport_ReportSampleEntry* item))
+    IL2CPP_REGISTER_METHODINFO(0x04763248, List_1_Moon_Telemetry_Performance_profilers_GPUAutoProfilerReport_ReportSampleEntry__Add__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_Moon_Telemetry_Performance_profilers_GPUAutoProfilerReport_ReportSampleEntry_ * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04720560, List_1_Moon_Telemetry_Performance_profilers_GPUAutoProfilerReport_ReportSampleEntry___ctor__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_Moon_Telemetry_Performance_profilers_GPUAutoProfilerReport_ReportSampleEntry_, GetEnumerator, (app::List_1_Moon_Telemetry_Performance_profilers_GPUAutoProfilerReport_ReportSampleEntry_ * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x0472E168, List_1_Moon_Telemetry_Performance_profilers_GPUAutoProfilerReport_ReportSampleEntry__GetEnumerator__MethodInfo)
+} // namespace app::classes::System::Collections::Generic::List_1_Moon_Telemetry_Performance_profilers_GPUAutoProfilerReport_ReportSampleEntry_

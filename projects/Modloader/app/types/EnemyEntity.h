@@ -1,0 +1,22 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace EnemyEntity {
+        inline app::EnemyEntity__Class** type_info = (app::EnemyEntity__Class**)(modloader::win::memory::resolve_rva(0x0478CFE8));
+        inline app::EnemyEntity__Class* get_class() {
+            return il2cpp::get_class<app::EnemyEntity__Class>(type_info, "Moon", "EnemyEntity");
+        }
+        inline app::EnemyEntity* create() {
+            return il2cpp::create_object<app::EnemyEntity>(get_class());
+        }
+        inline app::EnemyEntity__Array* create_array(int size) {
+            return il2cpp::array_new<app::EnemyEntity__Array>(get_class(), size);
+        }
+        inline app::EnemyEntity__Array* create_array(const std::vector<app::EnemyEntity*>& items) {
+            return il2cpp::array_new<app::EnemyEntity__Array>(get_class(), items);
+        }
+    } // namespace EnemyEntity
+} // namespace app::classes::types

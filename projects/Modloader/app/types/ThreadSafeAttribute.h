@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace ThreadSafeAttribute {
+        namespace {
+            inline app::ThreadSafeAttribute__Class* type_info_ref = nullptr;
+        }
+        inline app::ThreadSafeAttribute__Class** type_info = &type_info_ref;
+        inline app::ThreadSafeAttribute__Class* get_class() {
+            return il2cpp::get_class<app::ThreadSafeAttribute__Class>(type_info, "UnityEngine.Bindings", "ThreadSafeAttribute");
+        }
+        inline app::ThreadSafeAttribute* create() {
+            return il2cpp::create_object<app::ThreadSafeAttribute>(get_class());
+        }
+    } // namespace ThreadSafeAttribute
+} // namespace app::classes::types

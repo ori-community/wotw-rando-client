@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace VertexColorModifier {
+        namespace {
+            inline app::VertexColorModifier__Class* type_info_ref = nullptr;
+        }
+        inline app::VertexColorModifier__Class** type_info = &type_info_ref;
+        inline app::VertexColorModifier__Class* get_class() {
+            return il2cpp::get_class<app::VertexColorModifier__Class>(type_info, "", "VertexColorModifier");
+        }
+        inline app::VertexColorModifier* create() {
+            return il2cpp::create_object<app::VertexColorModifier>(get_class());
+        }
+    } // namespace VertexColorModifier
+} // namespace app::classes::types

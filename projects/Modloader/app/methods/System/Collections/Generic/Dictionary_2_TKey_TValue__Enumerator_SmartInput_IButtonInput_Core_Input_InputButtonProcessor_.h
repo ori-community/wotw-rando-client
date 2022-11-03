@@ -1,0 +1,11 @@
+#pragma once
+#include <Modloader/interception_macros.h>
+
+namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__Enumerator_SmartInput_IButtonInput_Core_Input_InputButtonProcessor_ {
+    IL2CPP_REGISTER_METHOD(0x00136440, app::KeyValuePair_2_SmartInput_IButtonInput_Core_Input_InputButtonProcessor_, get_Current, (app::Dictionary_2_TKey_TValue_Enumerator_SmartInput_IButtonInput_Core_Input_InputButtonProcessor___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x04793290, Dictionary_2_TKey_TValue_Enumerator_SmartInput_IButtonInput_Core_Input_InputButtonProcessor__get_Current__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x001BD350, bool, MoveNext, (app::Dictionary_2_TKey_TValue_Enumerator_SmartInput_IButtonInput_Core_Input_InputButtonProcessor___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x0475F6B0, Dictionary_2_TKey_TValue_Enumerator_SmartInput_IButtonInput_Core_Input_InputButtonProcessor__MoveNext__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x00002890, void, Dispose, (app::Dictionary_2_TKey_TValue_Enumerator_SmartInput_IButtonInput_Core_Input_InputButtonProcessor___Boxed * this_ptr))
+    IL2CPP_REGISTER_METHODINFO(0x0471C8B8, Dictionary_2_TKey_TValue_Enumerator_SmartInput_IButtonInput_Core_Input_InputButtonProcessor__Dispose__MethodInfo)
+} // namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__Enumerator_SmartInput_IButtonInput_Core_Input_InputButtonProcessor_

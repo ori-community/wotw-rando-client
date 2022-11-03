@@ -1,0 +1,28 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace MeshTrail_MeshTrailTurbulence {
+        namespace {
+            inline app::MeshTrail_MeshTrailTurbulence__Class* type_info_ref = nullptr;
+        }
+        inline app::MeshTrail_MeshTrailTurbulence__Class** type_info = &type_info_ref;
+        inline app::MeshTrail_MeshTrailTurbulence__Class* get_class() {
+            return il2cpp::get_nested_class<app::MeshTrail_MeshTrailTurbulence__Class>(type_info, "", "MeshTrail", "MeshTrailTurbulence");
+        }
+        inline app::MeshTrail_MeshTrailTurbulence* create() {
+            return il2cpp::create_object<app::MeshTrail_MeshTrailTurbulence>(get_class());
+        }
+        inline app::MeshTrail_MeshTrailTurbulence__Boxed* box(app::MeshTrail_MeshTrailTurbulence value) {
+            return il2cpp::box_value<app::MeshTrail_MeshTrailTurbulence__Boxed>(get_class(), value);
+        }
+        inline app::MeshTrail_MeshTrailTurbulence__Array* create_array(int size) {
+            return il2cpp::array_new<app::MeshTrail_MeshTrailTurbulence__Array>(get_class(), size);
+        }
+        inline app::MeshTrail_MeshTrailTurbulence__Array* create_array(const std::vector<app::MeshTrail_MeshTrailTurbulence>& items) {
+            return il2cpp::array_new<app::MeshTrail_MeshTrailTurbulence__Array>(get_class(), items);
+        }
+    } // namespace MeshTrail_MeshTrailTurbulence
+} // namespace app::classes::types

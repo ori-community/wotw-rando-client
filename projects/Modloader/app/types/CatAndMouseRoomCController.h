@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace CatAndMouseRoomCController {
+        namespace {
+            inline app::CatAndMouseRoomCController__Class* type_info_ref = nullptr;
+        }
+        inline app::CatAndMouseRoomCController__Class** type_info = &type_info_ref;
+        inline app::CatAndMouseRoomCController__Class* get_class() {
+            return il2cpp::get_class<app::CatAndMouseRoomCController__Class>(type_info, "", "CatAndMouseRoomCController");
+        }
+        inline app::CatAndMouseRoomCController* create() {
+            return il2cpp::create_object<app::CatAndMouseRoomCController>(get_class());
+        }
+    } // namespace CatAndMouseRoomCController
+} // namespace app::classes::types

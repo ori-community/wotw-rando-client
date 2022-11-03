@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace TimeSpanParse_TimeSpanStandardStyles__Enum {
+        namespace {
+            inline app::TimeSpanParse_TimeSpanStandardStyles__Enum__Class* type_info_ref = nullptr;
+        }
+        inline app::TimeSpanParse_TimeSpanStandardStyles__Enum__Class** type_info = &type_info_ref;
+        inline app::TimeSpanParse_TimeSpanStandardStyles__Enum__Class* get_class() {
+            return il2cpp::get_nested_class<app::TimeSpanParse_TimeSpanStandardStyles__Enum__Class>(type_info, "System.Globalization", "TimeSpanParse", "TimeSpanStandardStyles");
+        }
+        inline app::TimeSpanParse_TimeSpanStandardStyles__Enum* create() {
+            return il2cpp::create_object<app::TimeSpanParse_TimeSpanStandardStyles__Enum>(get_class());
+        }
+    } // namespace TimeSpanParse_TimeSpanStandardStyles__Enum
+} // namespace app::classes::types

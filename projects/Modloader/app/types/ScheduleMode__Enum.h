@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace ScheduleMode__Enum {
+        namespace {
+            inline app::ScheduleMode__Enum__Class* type_info_ref = nullptr;
+        }
+        inline app::ScheduleMode__Enum__Class** type_info = &type_info_ref;
+        inline app::ScheduleMode__Enum__Class* get_class() {
+            return il2cpp::get_class<app::ScheduleMode__Enum__Class>(type_info, "Unity.Jobs.LowLevel.Unsafe", "ScheduleMode");
+        }
+        inline app::ScheduleMode__Enum* create() {
+            return il2cpp::create_object<app::ScheduleMode__Enum>(get_class());
+        }
+    } // namespace ScheduleMode__Enum
+} // namespace app::classes::types

@@ -1,0 +1,19 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace RecordableObject__Array {
+        namespace {
+            inline app::RecordableObject__Array__Class* type_info_ref = nullptr;
+        }
+        inline app::RecordableObject__Array__Class** type_info = &type_info_ref;
+        inline app::RecordableObject__Array__Class* get_class() {
+            return il2cpp::get_class<app::RecordableObject__Array__Class>(type_info, "", "RecordableObject[]");
+        }
+        inline app::RecordableObject__Array* create() {
+            return il2cpp::create_object<app::RecordableObject__Array>(get_class());
+        }
+    } // namespace RecordableObject__Array
+} // namespace app::classes::types

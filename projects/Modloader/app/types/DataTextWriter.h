@@ -1,0 +1,16 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace DataTextWriter {
+        inline app::DataTextWriter__Class** type_info = (app::DataTextWriter__Class**)(modloader::win::memory::resolve_rva(0x0472A768));
+        inline app::DataTextWriter__Class* get_class() {
+            return il2cpp::get_class<app::DataTextWriter__Class>(type_info, "System.Data", "DataTextWriter");
+        }
+        inline app::DataTextWriter* create() {
+            return il2cpp::create_object<app::DataTextWriter>(get_class());
+        }
+    } // namespace DataTextWriter
+} // namespace app::classes::types

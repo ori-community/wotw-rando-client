@@ -1,0 +1,16 @@
+#pragma once
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
+#include <Modloader/windows_api/memory.h>
+
+namespace app::classes::types {
+    namespace Axis_AxisType__Enum {
+        inline app::Axis_AxisType__Enum__Class** type_info = (app::Axis_AxisType__Enum__Class**)(modloader::win::memory::resolve_rva(0x04744908));
+        inline app::Axis_AxisType__Enum__Class* get_class() {
+            return il2cpp::get_nested_class<app::Axis_AxisType__Enum__Class>(type_info, "MS.Internal.Xml.XPath", "Axis", "AxisType");
+        }
+        inline app::Axis_AxisType__Enum* create() {
+            return il2cpp::create_object<app::Axis_AxisType__Enum>(get_class());
+        }
+    } // namespace Axis_AxisType__Enum
+} // namespace app::classes::types
