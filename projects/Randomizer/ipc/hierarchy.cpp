@@ -18,6 +18,8 @@
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
 
+using namespace core::ipc;
+
 namespace randomizer::ipc {
     namespace {
         std::string_view get_klass_name(void* klass) {
@@ -615,7 +617,7 @@ namespace randomizer::ipc {
             else
                 report_game_object(response, path, false);
 
-            ipc::send_message(std::move(response));
+            send_message(std::move(response));
         }
 
         void get_children(const nlohmann::json& j) {
@@ -631,7 +633,7 @@ namespace randomizer::ipc {
             else
                 report_game_object(response, path, true);
 
-            ipc::send_message(std::move(response));
+            send_message(std::move(response));
         }
 
         void initialize() {

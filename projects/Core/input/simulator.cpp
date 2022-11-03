@@ -20,11 +20,22 @@ using namespace app::classes;
 using namespace app::classes::SmartInput;
 
 namespace core::input {
+    struct SimulatedButtonEntry {
+        app::CompoundButtonInput* input = nullptr;
+        SimulatedButton simulator;
+    };
+
+    struct SimulatedAxisEntry {
+        app::CompoundAxisInput* input = nullptr;
+        SimulatedAxis simulator;
+    };
+
     std::unordered_map<app::CompoundButtonInput*, Action> button_inputs;
     std::unordered_map<app::CompoundAxisInput*, ControllerAxis> axis_inputs;
 
-    std::unordered_map<Action, SimulatedButton> simulated_buttons;
-    std::unordered_map<ControllerAxis, SimulatedAxis> simulated_axes;
+    std::unordered_map<Action, SimulatedButtonEntry> simulated_buttons;
+    std::unordered_map<ControllerAxis, SimulatedAxisEntry> simulated_axes;
+
     SimulatedPosition simulated_mouse_position;
 
     Action* get_button_input_action(app::CompoundButtonInput* input) {
@@ -41,7 +52,7 @@ namespace core::input {
         IL2CPP_INTERCEPT(SmartInput::CompoundButtonInput, bool, GetValue, (app::CompoundButtonInput * this_ptr)) {
             auto action = get_button_input_action(this_ptr);
             if (action != nullptr) {
-                auto& simulator = simulated_buttons[*action];
+                auto& simulator = simulated_buttons[*action].simulator;
 
                 if (simulator.enabled) {
                     return simulator.pressed;
@@ -54,7 +65,7 @@ namespace core::input {
         IL2CPP_INTERCEPT(SmartInput::CachedButtonInput, bool, GetButton, (app::CachedButtonInput * this_ptr)) {
             auto action = get_button_input_action(reinterpret_cast<app::CompoundButtonInput*>(this_ptr));
             if (action != nullptr) {
-                auto& simulator = simulated_buttons[*action];
+                auto& simulator = simulated_buttons[*action].simulator;
 
                 if (simulator.enabled) {
                     return simulator.pressed;
@@ -67,7 +78,7 @@ namespace core::input {
         IL2CPP_INTERCEPT(SmartInput::CompoundAxisInput, float, GetValue, (app::CompoundAxisInput * this_ptr)) {
             auto axis = get_axis_input_axis(this_ptr);
             if (axis != nullptr) {
-                auto& simulator = simulated_axes[*axis];
+                auto& simulator = simulated_axes[*axis].simulator;
 
                 if (simulator.enabled) {
                     return simulator.value;
@@ -80,7 +91,7 @@ namespace core::input {
         IL2CPP_INTERCEPT(SmartInput::CachedAxisInput, float, AxisValue, (app::CachedAxisInput * this_ptr)) {
             auto axis = get_axis_input_axis(reinterpret_cast<app::CompoundAxisInput*>(this_ptr));
             if (axis != nullptr) {
-                auto& simulator = simulated_axes[*axis];
+                auto& simulator = simulated_axes[*axis].simulator;
 
                 if (simulator.enabled) {
                     return simulator.value;
@@ -101,6 +112,18 @@ namespace core::input {
         IL2CPP_INTERCEPT(PlayerInput, void, FixedUpdate, (app::PlayerInput * this_ptr)) {
             auto previous_mouse_position = types::Input_1::get_class()->static_fields->CursorPosition;
 
+            for (const auto& item : simulated_buttons) {
+                if (item.second.simulator.enabled) {
+                    item.second.input->fields._._.m_cache = item.second.simulator.pressed;
+                }
+            }
+
+            for (const auto& item : simulated_axes) {
+                if (item.second.simulator.enabled) {
+                    item.second.input->fields._._.m_cache = item.second.simulator.value;
+                }
+            }
+
             next::PlayerInput::FixedUpdate(this_ptr);
 
             if (simulated_mouse_position.enabled) {
@@ -118,8 +141,8 @@ namespace core::input {
             core::input::clear_simulators();
         }
 
-        IL2CPP_INTERCEPT(PlayerInput, void, AddKeyboardControls, (app::PlayerInput * this_ptr)) {
-            next::PlayerInput::AddKeyboardControls(this_ptr);
+        IL2CPP_INTERCEPT(PlayerInput, void, InitInputCache, (app::PlayerInput * this_ptr)) {
+            next::PlayerInput::InitInputCache(this_ptr);
 
             game::event_bus().trigger_event(GameEvent::RegisteringInputSimulators, EventTiming::Before);
             core::input::register_simulators(this_ptr);
@@ -129,17 +152,17 @@ namespace core::input {
 
     void register_button_simulator(app::CompoundButtonInput* input, Action action) {
         button_inputs[input] = action;
+        simulated_buttons[action].input = input;
     }
 
     void register_axis_simulator(app::CompoundAxisInput* input, ControllerAxis axis) {
         axis_inputs[input] = axis;
+        simulated_axes[axis].input = input;
     }
 
     void clear_simulators() {
         button_inputs.clear();
         axis_inputs.clear();
-        simulated_buttons.clear();
-        simulated_axes.clear();
     }
 
     void register_simulators(app::PlayerInput* input) {
@@ -181,6 +204,10 @@ namespace core::input {
         register_button_simulator(input->fields.MapDetails, Action::MapDetails);
         register_button_simulator(input->fields.MapFocusOri, Action::MapFocusOri);
         register_button_simulator(input->fields.MapFocusObjective, Action::MapFocusObjective);
+        register_button_simulator(input->fields.Left, Action::Left);
+        register_button_simulator(input->fields.Right, Action::Right);
+        register_button_simulator(input->fields.Up, Action::Up);
+        register_button_simulator(input->fields.Down, Action::Down);
 
         register_axis_simulator(input->fields.HorizontalAnalogLeft, ControllerAxis::HorizontalAnalogLeft);
         register_axis_simulator(input->fields.VerticalAnalogLeft, ControllerAxis::VerticalAnalogLeft);
@@ -196,7 +223,7 @@ namespace core::input {
             return nullptr;
         }
 
-        return &it->second;
+        return &it->second.simulator;
     }
 
     SimulatedAxis* get_simulator_for(ControllerAxis axis) {
@@ -205,7 +232,7 @@ namespace core::input {
             return nullptr;
         }
 
-        return &it->second;
+        return &it->second.simulator;
     }
 
     SimulatedPosition* get_mouse_position_simulator() {
@@ -214,18 +241,18 @@ namespace core::input {
 
     void enable_all_simulators(bool reset) {
         for (auto& simulator : simulated_buttons) {
-            simulator.second.enabled = true;
+            simulator.second.simulator.enabled = true;
 
             if (reset) {
-                simulator.second.pressed = false;
+                simulator.second.simulator.pressed = false;
             }
         }
 
         for (auto& simulator : simulated_axes) {
-            simulator.second.enabled = true;
+            simulator.second.simulator.enabled = true;
 
             if (reset) {
-                simulator.second.value = 0.f;
+                simulator.second.simulator.value = 0.f;
             }
         }
 
@@ -239,11 +266,11 @@ namespace core::input {
 
     void disable_all_simulators() {
         for (auto& simulator : simulated_buttons) {
-            simulator.second.enabled = false;
+            simulator.second.simulator.enabled = false;
         }
 
         for (auto& simulator : simulated_axes) {
-            simulator.second.enabled = false;
+            simulator.second.simulator.enabled = false;
         }
 
         simulated_mouse_position.enabled = false;

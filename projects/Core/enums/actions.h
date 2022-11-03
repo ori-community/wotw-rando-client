@@ -41,6 +41,10 @@ enum class Action {
     MapDetails,
     MapFocusOri,
     MapFocusObjective,
+    Left,
+    Right,
+    Up,
+    Down,
 
     RANDO_ACTIONS_START,
 

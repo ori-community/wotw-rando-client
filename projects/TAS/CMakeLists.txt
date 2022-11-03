@@ -9,11 +9,23 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 set(
         SOURCE_FILES
         "tas.cpp"
+        "runtime/runtime.cpp"
+        "runtime/timeline.cpp"
+        "runtime/timeline_entries/action.cpp"
+        "runtime/timeline_entries_base.cpp"
+        "runtime/timeline_entries/axis.cpp"
+        "runtime/timeline_entries/mouse_position.cpp"
 )
 
 set(
-         PUBLIC_HEADER_FILES
+        PUBLIC_HEADER_FILES
         "tas.h"
+        "runtime/runtime.h"
+        "runtime/timeline.h"
+        "runtime/timeline_entries/action.h"
+        "runtime/timeline_entries_base.h"
+        "runtime/timeline_entries/axis.h"
+        "runtime/timeline_entries/mouse_position.h"
 )
 
 set(
@@ -84,7 +96,7 @@ source_group("_precompiled_headers"
         ${PROJECT_BINARY_DIR}/CMakeFiles/TAS.dir/RelWithDebInfo/cmake_pch.hxx
         ${PROJECT_BINARY_DIR}/CMakeFiles/TAS.dir/Release/cmake_pch.hxx
         ${PROJECT_BINARY_DIR}/CMakeFiles/TAS.dir/cmake_pch.cxx
-)
+        )
 
 install(
         TARGETS ${PROJECT_NAME}

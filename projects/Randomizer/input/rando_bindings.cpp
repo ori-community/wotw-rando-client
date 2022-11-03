@@ -51,7 +51,7 @@ namespace randomizer::input {
             bool is_just_pressed = false;
         };
 
-        std::unordered_map<Action, ControlInfo> bindings;
+        std::unordered_map<Action, ControlInfo> rando_bindings;
 
         void add_keyboard_binding(Action action, const KeyboardMouseInput& input) {
             if (action < Action::RANDO_ACTIONS_START)
@@ -60,7 +60,7 @@ namespace randomizer::input {
             if (input.codes.empty() && input.mouse_buttons.empty())
                 return;
 
-            bindings[action].kbm_bindings.push_back(input);
+            rando_bindings[action].kbm_bindings.push_back(input);
         }
 
         void on_binding_read(Action action, std::vector<int> const& buttons, bool respects_modifiers) {
@@ -84,7 +84,7 @@ namespace randomizer::input {
 
         IL2CPP_INTERCEPT(PlayerInput, void, ClearControls, (app::PlayerInput * this_ptr)) {
             next::PlayerInput::ClearControls(this_ptr);
-            for (auto& binding : bindings)
+            for (auto& binding : rando_bindings)
                 binding.second.kbm_bindings.clear();
         }
 
@@ -120,7 +120,7 @@ namespace randomizer::input {
         IL2CPP_INTERCEPT(PlayerInput, void, RefreshControls, (app::PlayerInput * this_ptr)) {
             next::PlayerInput::RefreshControls(this_ptr);
 
-            for (auto& binding : bindings) {
+            for (auto& binding : rando_bindings) {
                 auto pressed = false;
 
                 if (binding.second.simulator.enabled) {
@@ -155,18 +155,18 @@ namespace randomizer::input {
         if (action < Action::RANDO_ACTIONS_START)
             return;
 
-        bindings[action].on_pressed_actions.push_back(callback);
+        rando_bindings[action].on_pressed_actions.push_back(callback);
     }
 
     void add_on_released_callback(Action action, rando_input_callback callback) {
         if (action < Action::RANDO_ACTIONS_START)
             return;
 
-        bindings[action].on_release_actions.push_back(callback);
+        rando_bindings[action].on_release_actions.push_back(callback);
     }
 
     void simulate_action(Action action, bool value) {
-        auto& binding = input::bindings[action];
+        auto& binding = input::rando_bindings[action];
         binding.simulator.pressed = value;
 
         // TODO: Handle releasing and disabling the simulator separately

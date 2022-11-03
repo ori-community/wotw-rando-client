@@ -564,28 +564,28 @@ namespace {
         const int PLANDO_FLOAT_COUNT = 25;
         for (int i = 0; i < PLANDO_INT_COUNT; ++i)
             states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, fmt::format("%3d_int", i), PLANDO_INT_START + i, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, fmt::format("{}_int", PLANDO_INT_START + i), PLANDO_INT_START + i, 0)
             );
 
         for (int i = 0; i < PLANDO_BOOL_COUNT; ++i)
             states.push_back(
-                    add_state<app::SerializedBooleanUberState>(UberStateGroup::PlandoVars, fmt::format("%3d_bool", i), PLANDO_BOOL_START + i, false)
+                    add_state<app::SerializedBooleanUberState>(UberStateGroup::PlandoVars, fmt::format("{}_bool", PLANDO_BOOL_START + i), PLANDO_BOOL_START + i, false)
             );
 
         for (int i = 0; i < PLANDO_FLOAT_COUNT; ++i)
             states.push_back(
-                    add_state<app::SerializedFloatUberState>(UberStateGroup::PlandoVars, fmt::format("%3d_float", i), PLANDO_FLOAT_START + i, false)
+                    add_state<app::SerializedFloatUberState>(UberStateGroup::PlandoVars, fmt::format("{}_float", PLANDO_FLOAT_START + i), PLANDO_FLOAT_START + i, false)
             );
 
         // Saved appliers.
         const int APPLIERS_GROUP_COUNT = 50;
         for (int i = 0; i < APPLIERS_GROUP_COUNT; ++i) {
             states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, fmt::format("%3d_id", i * 2), i * 2, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, fmt::format("{}_id", i * 2), i * 2, 0)
             );
 
             states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, fmt::format("%3d_value", i * 2 + 1), i * 2 + 1, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, fmt::format("{}_value", i * 2 + 1), i * 2 + 1, 0)
             );
         }
 
