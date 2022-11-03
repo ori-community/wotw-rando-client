@@ -237,7 +237,7 @@ namespace uber_states {
         else {
             auto uber_state = ptr();
             if (!il2cpp::unity::is_valid(uber_state)) {
-                trace(MessageType::Warning, 2, "uber_state", format("uber state (%d, %d) doesn't exist", m_group, m_state));
+                trace(MessageType::Warning, 2, "uber_state", fmt::format("uber state ({}, {}) doesn't exist", static_cast<int>(m_group), m_state));
                 return;
             }
 
@@ -260,7 +260,7 @@ namespace uber_states {
             else if (il2cpp::is_assignable(uber_state, types::SavePedestalUberState::get_class())) {
                 next::Moon::uberSerializationWisp::SavePedestalUberState::set_IsTeleporterActive(reinterpret_cast<app::SavePedestalUberState*>(uber_state), value > 0.5);
             } else {
-                trace(MessageType::Warning, 2, "uber_state", format("unable to get value of uber state (%d, %d)", m_group, m_state));
+                trace(MessageType::Warning, 2, "uber_state", fmt::format("unable to get value of uber state ({}, {})", static_cast<int>(m_group), m_state));
                 return;
             }
         }
@@ -275,7 +275,7 @@ namespace uber_states {
 
         auto uber_state = ptr();
         if (!il2cpp::unity::is_valid(uber_state)) {
-            trace(MessageType::Warning, 2, "uber_state", format("uber state (%d, %d) doesn't exist", m_group, m_state));
+            trace(MessageType::Warning, 2, "uber_state", fmt::format("uber state ({}, {}) doesn't exist", static_cast<int>(m_group), m_state));
             return 0.0;
         }
 
@@ -307,7 +307,7 @@ namespace uber_states {
             return SavePedestalUberState::get_IsTeleporterActive(reinterpret_cast<app::SavePedestalUberState*>(uber_state)) ? 1.0 : 0.0;
         }
 
-        trace(MessageType::Warning, 2, "uber_state", format("unable to get value of uber state (%d, %d)", m_group, m_state));
+        trace(MessageType::Warning, 2, "uber_state", fmt::format("unable to get value of uber state ({}, {})", static_cast<int>(m_group), m_state));
         return 0.0;
     }
 

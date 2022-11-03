@@ -119,7 +119,7 @@ namespace {
     bool initialized = false;
     int current_filter = 0;
     std::string stringify_guid(app::MoonGuid* guid) {
-        return format(
+        return fmt::format(
                 "%08x, %08x, %08x, %08x",
                 guid->fields.A,
                 guid->fields.B,
@@ -467,7 +467,7 @@ namespace {
         for (auto i = 0; i < area->fields.Icons->fields._size; ++i) {
             auto item = area->fields.Icons->fields._items->vector[i];
             if (item->fields.Icon == app::WorldMapIconType__Enum::AbilityPedestal) {
-                std::string key = format(
+                std::string key = fmt::format(
                         "%08x, %08x, %08x, %08x",
                         item->fields.Guid->fields.A,
                         item->fields.Guid->fields.B,
@@ -481,8 +481,8 @@ namespace {
                     item->fields.IsCollectedState = it->second.ptr<app::SerializedBooleanUberState>();
                 } else {
                     // This should no longer be called as we have overridden every single tree icon.
-                    console::console_send(format(
-                            "tree icon { guid: [%0x, %0x, %0x, %0x], pos: [%f, %f] }",
+                    console::console_send(fmt::format(
+                            "tree icon {{ guid: [{:x}, {:x}, {:x}, {:x}], pos: [{}, {}] }}",
                             item->fields.Guid->fields.A,
                             item->fields.Guid->fields.B,
                             item->fields.Guid->fields.C,

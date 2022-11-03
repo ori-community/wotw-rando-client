@@ -431,7 +431,7 @@ CORE_C_DLLEXPORT bool text_box_color(int id, int r, int g, int b, int a) {
         return false;
 
     if (r < 0 || 255 < r || g < 0 || 255 < g || b < 0 || 255 < b || a < 0 || 255 < a) {
-        warn("wheel", format("invalid color passed to text box: (%d, %d, %d, %d)", r, g, b, a));
+        warn("wheel", fmt::format("invalid color passed to text box: ({}, {}, {}, {})", r, g, b, a));
         r = std::max(std::min(r, 255), 0);
         g = std::max(std::min(g, 255), 0);
         b = std::max(std::min(b, 255), 0);

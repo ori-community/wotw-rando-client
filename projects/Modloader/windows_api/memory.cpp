@@ -1,9 +1,9 @@
 #include "Modloader/windows_api/memory.h"
 #include "Modloader/windows_api/console.h"
 #include "Modloader/common.h"
-#include "Common/ext.h"
 
 #include <Modloader/windows_api/windows.h>
+#include <fmt/core.h>
 
 using namespace modloader::win;
 
@@ -16,12 +16,12 @@ namespace modloader::win::memory {
             if (!cache) {
                 auto handle = GetModuleHandleA(assembly_name.c_str());
                 if (handle == nullptr) {
-                    trace(MessageType::Error, 1, "initialize", format("Failed to get handle of %s", assembly_name.c_str()));
+                    trace(MessageType::Error, 1, "initialize", fmt::format("Failed to get handle of {}", assembly_name));
                     return 0;
                 }
 
                 cache = reinterpret_cast<uint64_t>(handle);
-                console::console_send(format("%s: %#018x", assembly_name.c_str(), cache));
+                console::console_send(fmt::format("{}: {:#18x}", assembly_name, cache));
             }
 
             return cache;

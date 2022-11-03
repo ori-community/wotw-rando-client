@@ -55,7 +55,7 @@ namespace {
 
         std::string hex = "";
         for (const auto& item : frame_data) {
-            hex += format("%02X ", static_cast<unsigned int>(item));
+            hex += fmt::format("%02X ", static_cast<unsigned int>(item));
         }
         console_send(hex);
         console_flush();

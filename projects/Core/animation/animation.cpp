@@ -78,7 +78,7 @@ namespace core::animation {
                 frame_definition.params = std::optional(mat_params);
             }
         } catch (std::exception& ex) {
-            trace(MessageType::Warning, 3, "anim_renderer", format("failed to read '%s%s' error '%s'", base_path.c_str(), path.c_str(), ex.what()));
+            trace(MessageType::Warning, 3, "anim_renderer", fmt::format("failed to read '{}{}' error '{}'", base_path, path, ex.what()));
         }
 
         return anim;

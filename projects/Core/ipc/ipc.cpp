@@ -88,7 +88,7 @@ namespace randomizer {
                         if (error == ERROR_BROKEN_PIPE ||
                             error == ERROR_PIPE_NOT_CONNECTED ||
                             error == ERROR_INVALID_HANDLE) {
-                            warn("ipc", format("Failed to peek at pipe (%d).", error));
+                            warn("ipc", fmt::format("Failed to peek at pipe ({}).", error));
                             disconnect(pipe);
                             pipe = connect(raw_message.size() - 1);
                             if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE) {
@@ -109,7 +109,7 @@ namespace randomizer {
 
                         if (!result || bytes_read == 0) {
                             auto error = GetLastError();
-                            warn("ipc", format("Failed to read data (%d).", error));
+                            warn("ipc", fmt::format("Failed to read data ({}).", error));
                         } else {
                             raw_message[bytes_read] = '\0';
                             std::string str = raw_message.data();
@@ -145,7 +145,7 @@ namespace randomizer {
 
                             if (!result || bytes_written == 0) {
                                 auto error = GetLastError();
-                                warn("ipc", format("Failed to write data (%d).", error));
+                                warn("ipc", fmt::format("Failed to write data ({}).", error));
                             }
                         }
                     }
@@ -179,7 +179,7 @@ namespace randomizer {
                     if (it != handlers.end())
                         it->second(j);
                     else
-                        info("ipc", format("Received unknown action request: %s", j.dump().c_str()));
+                        info("ipc", fmt::format("Received unknown action request: {}", j.dump()));
                 }
             }
         } // namespace

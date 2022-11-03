@@ -1,9 +1,8 @@
-#include "Common/ext.h"
-#include "Modloader/common.h"
 #include "Modloader/windows_api/detours.h"
+#include "Modloader/common.h"
 #include "Modloader/windows_api/windows.h"
 #include <detours/detours.h>
-
+#include <fmt/core.h>
 
 namespace modloader::win::detours {
     void start_transaction() {
@@ -13,7 +12,7 @@ namespace modloader::win::detours {
     }
 
     void* do_intercept(const std::string& debug, void** original_pointer, void* intercept_pointer) {
-        trace(MessageType::Debug, 3, "initialize", format("Intercepting (il2cpp): %s @ %d -> %d", debug.c_str(),
+        trace(MessageType::Debug, 3, "initialize", fmt::format("Intercepting (il2cpp): {} @ {} -> {}", debug,
             reinterpret_cast<uint64_t>(*original_pointer), reinterpret_cast<uint64_t>(intercept_pointer)));
         PDETOUR_TRAMPOLINE trampoline = nullptr;
         void* target = nullptr;
@@ -27,10 +26,10 @@ namespace modloader::win::detours {
         );
 
         if (result) {
-            trace(MessageType::Error, 3, "initialize", format("Error attaching %s : %d", debug.c_str(), result));
+            trace(MessageType::Error, 3, "initialize", fmt::format("Error attaching {} : {}", debug, result));
             return nullptr;
         } else {
-            trace(MessageType::Debug, 3, "initialize", format("Attach success (%d, %d, %d)", trampoline, target, detour));
+            trace(MessageType::Debug, 3, "initialize", fmt::format("Attach success ({}, {}, {})", (void*)trampoline, target, detour));
             return detour;
         }
     }
@@ -42,8 +41,8 @@ namespace modloader::win::detours {
     void commit(std::string_view what) {
         const auto result = DetourTransactionCommit();
         if (result)
-            trace(MessageType::Error, 3, "initialize", format("Error while committing '%s': %d", what, result));
+            trace(MessageType::Error, 3, "initialize", fmt::format("Error while committing '{}': {}", what, result));
         else
-            trace(MessageType::Debug, 3, "initialize", format("Completed commit: '%s'", what));
+            trace(MessageType::Debug, 3, "initialize", fmt::format("Completed commit: '{}'", what));
     }
 }

@@ -198,7 +198,7 @@ namespace ghosts {
     }
 
     void RandoGhost::set_name(const std::string& name) const {
-        std::wstring name_text = convert_string_to_wstring(format("<s_1.5>%s</>", name.c_str()));
+        std::wstring name_text = convert_string_to_wstring(fmt::format("<s_1.5>{}</>", name));
         text_style::create_styles(ghost_player->fields.Name, name_text);
         GhostPlayer::SetDisplayName(this->ghost_player, il2cpp::string_new(name_text));
     }
@@ -489,7 +489,7 @@ RANDOMIZER_C_DLLEXPORT char* get_current_ghost_frame_data(int& size) {
     ghosts::last_frame_data_new = false;
     size = ghosts::last_frame_data.size();
 
-    // modloader::win::console::console_send(format("B %d bytes", size));
+    // modloader::win::console::console_send(fmt::format("B {} bytes", size));
 
     return reinterpret_cast<char*>(ghosts::last_frame_data.data());
 }

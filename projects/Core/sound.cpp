@@ -79,8 +79,8 @@ namespace core::sound {
     }
 
     void initialize() {
-        modloader::info("sound", format("WWise version '%d.%d'", AkSoundEngine::GetMajorMinorVersion(), AkSoundEngine::GetSubminorBuildVersion()));
-        modloader::info("sound", format("WWise soundbank version '%d'", AkSoundEngine::get_AK_SOUNDBANK_VERSION()));
+        modloader::info("sound", fmt::format("WWise version '{}.{}'", AkSoundEngine::GetMajorMinorVersion(), AkSoundEngine::GetSubminorBuildVersion()));
+        modloader::info("sound", fmt::format("WWise soundbank version '{}'", AkSoundEngine::get_AK_SOUNDBANK_VERSION()));
 
         load_bank("WotwRando", modloader::base_path + "assets/sounds/WotwRando.bnk");
     }

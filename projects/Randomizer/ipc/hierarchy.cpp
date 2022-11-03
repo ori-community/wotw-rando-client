@@ -25,7 +25,7 @@ namespace randomizer::ipc {
             if (std::string_view(cast->namespaze).empty())
                 return cast->name;
             else
-                return format("%s.%s", cast->namespaze, cast->name);
+                return fmt::format("{}.{}", cast->namespaze, cast->name);
         }
 
         using visualizer = void (*)(nlohmann::json& j, void* obj, bool verbose);

@@ -55,7 +55,7 @@ namespace core::animation {
                     entry->parse(state, jentry);
                     frames.push_back(entry);
                 } else
-                    trace(MessageType::Warning, 3, "timeline", format("unknown timeline entry in '%s%s'", base_path.c_str(), path.c_str()));
+                    trace(MessageType::Warning, 3, "timeline", fmt::format("unknown timeline entry in '{}{}'", base_path, path));
             }
         }
     }
@@ -68,7 +68,7 @@ namespace core::animation {
             try {
                 parse_entries(path, state, frames, j);
             } catch (...) {
-                trace(MessageType::Warning, 3, "timeline", format("failed to parse timeline '%s%s'", base_path.c_str(), path.c_str()));
+                trace(MessageType::Warning, 3, "timeline", fmt::format("failed to parse timeline '{}{}'", base_path, path));
                 return std::move(std::unique_ptr<Timeline>());
             }
         }

@@ -45,12 +45,12 @@ namespace modloader {
                     auto it = intercept_cache.find(*current->binding_pointer);
                     if (it != intercept_cache.end())
                     {
-                        trace(MessageType::Debug, 3, "initialize", format("Changing intercept address (%d, %d)", *current->original_pointer, it->second));
+                        trace(MessageType::Debug, 3, "initialize", fmt::format("Changing intercept address ({}, {})", *current->original_pointer, it->second));
                         *current->original_pointer = it->second;
                     }
 
                     void* detour = detours::do_intercept(
-                            format("%s (%d, %d)", current->name.data(), memory::get_game_assembly_address(), reinterpret_cast<uint64_t>(*current->binding_pointer)),
+                            fmt::format("{} ({}, {})", current->name.data(), memory::get_game_assembly_address(), reinterpret_cast<uint64_t>(*current->binding_pointer)),
                             current->original_pointer,
                             current->intercept_pointer
                     );

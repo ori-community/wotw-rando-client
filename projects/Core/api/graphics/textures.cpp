@@ -316,7 +316,7 @@ namespace core::textures {
                     auto shard_icons = types::SpiritShardSettings::get_class()->static_fields->Instance->fields.Icons;
                     auto icons = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(shard_icons, "GetValue", &icon);
                     texture = il2cpp::gchandle_new_weak(icons->fields.InventoryIcon, true);
-                    modloader::warn("textures", format("failed to load texture %s (%s).", texture_path.c_str(), stbi_failure_reason()));
+                    modloader::warn("textures", fmt::format("failed to load texture {} ({}).", texture_path, stbi_failure_reason()));
                     return;
                 }
 
@@ -332,10 +332,10 @@ namespace core::textures {
                 dont_unload_texture(reinterpret_cast<app::Texture*>(texture_ptr));
             } else {
                 auto stype = convert_wstring_to_string(type);
-                modloader::warn("textures", format("unknown texture protocol used when loading texture '%s'.", stype.c_str()));
+                modloader::warn("textures", fmt::format("unknown texture protocol used when loading texture '{}'.", stype));
             }
         } catch (std::exception e) {
-            modloader::warn("textures", format("Fatal error fetching texture (%s)", e.what()));
+            modloader::warn("textures", fmt::format("Fatal error fetching texture ({})", e.what()));
         }
     }
 

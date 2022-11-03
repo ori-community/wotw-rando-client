@@ -153,7 +153,7 @@ namespace {
         console::console_send("start visualizing.");
         auto list = uber_state_controller->static_fields->AllStateAppliers;
         for (auto i = 0; i < list->fields._size; ++i) {
-            console::console_send(format("visualizing applier (%d / %d)", i + 1, list->fields._size));
+            console::console_send(fmt::format("visualizing applier ({} / {})", i + 1, list->fields._size));
             console::console_flush();
 
             auto item = list->fields._items->vector[i];
@@ -171,7 +171,7 @@ namespace {
         auto count = il2cpp::unity::get_scene_count();
         console::console_send("start visualizing.");
         for (auto i = 0; i < count; ++i) {
-            console::console_send(format("visualizing scene (%d / %d)", i + 1, count));
+            console::console_send(fmt::format("visualizing scene ({} / {})", i + 1, count));
             console::console_flush();
 
             auto scene = il2cpp::unity::get_scene_at(i);

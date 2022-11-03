@@ -7,6 +7,7 @@
 #include <common.h>
 
 #include <nlohmann/json.hpp>
+#include <fmt/core.h>
 
 #include <fstream>
 #include <string>
@@ -38,10 +39,10 @@ namespace modloader {
             bool cpp_bootstrap() {
                 bool failed = false;
                 for (auto dll : cpp_dlls) {
-                    trace(MessageType::Info, 5, "initialize", format("Loading dll '%s'", dll.c_str()));
+                    trace(MessageType::Info, 5, "initialize", fmt::format("Loading dll '{}'", dll));
                     auto handle = LoadLibraryA(dll.c_str());
                     if (handle == nullptr) {
-                        trace(MessageType::Error, 1, "initialize", format("Failed to load library, aborting: %d", GetLastError()));
+                        trace(MessageType::Error, 1, "initialize", fmt::format("Failed to load library, aborting: {}", GetLastError()));
                         failed = true;
                         break;
                     } else {
@@ -71,7 +72,7 @@ namespace modloader {
                 if (hr != S_OK) {
                     _com_error err(hr);
                     LPCTSTR err_msg = err.ErrorMessage();
-                    trace(MessageType::Error, 2, "initialize", format("failed to create clr instance (%s)", err_msg));
+                    trace(MessageType::Error, 2, "initialize", fmt::format("failed to create clr instance ({})", err_msg));
                     return false;
                 }
 
@@ -79,7 +80,7 @@ namespace modloader {
                 if (hr != S_OK) {
                     _com_error err(hr);
                     LPCTSTR err_msg = err.ErrorMessage();
-                    trace(MessageType::Error, 2, "initialize", format("failed to find csharp runtime (%s)", err_msg));
+                    trace(MessageType::Error, 2, "initialize", fmt::format("failed to find csharp runtime ({})", err_msg));
                     return false;
                 }
 
@@ -87,7 +88,7 @@ namespace modloader {
                 if (hr != S_OK) {
                     _com_error err(hr);
                     LPCTSTR err_msg = err.ErrorMessage();
-                    trace(MessageType::Error, 2, "initialize", format("failed get runtime interface (%s)", err_msg));
+                    trace(MessageType::Error, 2, "initialize", fmt::format("failed get runtime interface ({})", err_msg));
                     return false;
                 }
 
@@ -95,16 +96,21 @@ namespace modloader {
                 if (hr != S_OK) {
                     _com_error err(hr);
                     LPCTSTR err_msg = err.ErrorMessage();
-                    trace(MessageType::Error, 2, "initialize", format("failed to start csharp runtime (%s).", err_msg));
+                    trace(MessageType::Error, 2, "initialize", fmt::format("failed to start csharp runtime ({}).", err_msg));
                     return false;
                 }
 
                 for (auto dll : csharp_dlls) {
                     DWORD return_value = 0;
-                    trace(MessageType::Info, 5, "initialize", format("Loading dll '%ls' entry 'int %ls.%ls(string param)'", dll.path.c_str(), dll.klass.c_str(), dll.method.c_str()));
+                    trace(MessageType::Info, 5, "initialize",fmt::format(
+                                                                      "Loading dll '{}' entry 'int {}.{}(string param)'",
+                                                                      convert_wstring_to_string(dll.path),
+                                                                      convert_wstring_to_string(dll.klass),
+                                                                      convert_wstring_to_string(dll.method)
+                                                                      ));
                     hr = runtime_host->ExecuteInDefaultAppDomain(dll.path.c_str(), dll.klass.c_str(), dll.method.c_str(), L"", &return_value);
                     if (hr != S_OK) {
-                        trace(MessageType::Error, 1, "initialize", format("'%ls' returned %d", dll.path.c_str(), hr));
+                        trace(MessageType::Error, 1, "initialize", fmt::format("'{}' returned {}", convert_wstring_to_string(dll.path), hr));
                         trace(MessageType::Error, 1, "initialize", "CSharp Mod Loading failed.");
                         return false;
                     }
@@ -122,7 +128,7 @@ namespace modloader {
                 try {
                     stream >> j;
                 } catch (nlohmann::json::parse_error& ex) {
-                    trace(MessageType::Debug, 3, "initialize", format("failed to parse '%s%s' error '%d' at byte '%d'", base_path.c_str(), modloader_path.c_str(), ex.id, ex.byte));
+                    trace(MessageType::Debug, 3, "initialize", fmt::format("failed to parse '{}{}' error '{}' at byte '{}'", base_path, modloader_path, ex.id, ex.byte));
                 }
 
                 if (j.contains("cpp") && j["cpp"].is_array()) {

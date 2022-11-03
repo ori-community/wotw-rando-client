@@ -76,7 +76,7 @@ namespace {
         const auto sein = game::player::sein();
         if (sein != nullptr) {
             const auto position = SeinCharacter::get_Position(sein);
-            console::console_send(format("sein pos: {%f, %f, %f}", position.x, position.y, position.z));
+            console::console_send(fmt::format("sein pos: {}, {}, {}", position.x, position.y, position.z));
         } else
             console::console_send("sein not available.");
     }

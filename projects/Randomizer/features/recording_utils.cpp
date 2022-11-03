@@ -71,17 +71,17 @@ namespace {
         float b = 0.f;
 
         if (!console::try_get_float(params[0], r)) {
-            console::console_send(format("Invalid argument. Expected float, got '%s'", params[0].value.data()));
+            console::console_send(fmt::format("Invalid argument. Expected float, got '{}'", params[0].value.data()));
             return;
         }
 
         if (!console::try_get_float(params[1], r)) {
-            console::console_send(format("Invalid argument. Expected float, got '%s'", params[1].value.data()));
+            console::console_send(fmt::format("Invalid argument. Expected float, got '{}'", params[1].value.data()));
             return;
         }
 
         if (!console::try_get_float(params[2], r)) {
-            console::console_send(format("Invalid argument. Expected float, got '%s'", params[2].value.data()));
+            console::console_send(fmt::format("Invalid argument. Expected float, got '{}'", params[2].value.data()));
             return;
         }
 
@@ -102,7 +102,7 @@ namespace {
             auto uber_post_process = camera_post_processing->fields.UberPostProcess;
             UberPostProcess::ApplySettings_2(uber_post_process, CameraPostProcessing::get_CameraSettingsToUse(camera_post_processing));
 
-            console::console_send(format("Vignette %s", enable_vignette ? "enabled" : "disabled"));
+            console::console_send(fmt::format("Vignette {}", enable_vignette ? "enabled" : "disabled"));
         }
     }
 
@@ -110,13 +110,13 @@ namespace {
         bool enable = false;
         if (read_single_bool_from_command(params, enable)) {
             Moon::Rendering::ShaderTime::set_freezeCameraSwaying(!enable);
-            console::console_send(format("Camera swaying %s", enable ? "enabled" : "disabled"));
+            console::console_send(fmt::format("Camera swaying {}", enable ? "enabled" : "disabled"));
         }
     }
 
     void set_camera_locked_command(std::string const& command, std::vector<console::CommandParam> const& params) {
         if (read_single_bool_from_command(params, camera_locked)) {
-            console::console_send(format("Camera %s", camera_locked ? "locked" : "unlocked"));
+            console::console_send(fmt::format("Camera {}", camera_locked ? "locked" : "unlocked"));
         }
     }
 

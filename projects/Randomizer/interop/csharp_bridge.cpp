@@ -215,7 +215,7 @@ namespace csharp_bridge {
             try {
                 update(game::delta_time());
             } catch (int error) {
-                trace(MessageType::Info, 3, "csharp_bridge", format("got error code $d", error));
+                trace(MessageType::Info, 3, "csharp_bridge", fmt::format("got error code $d", error));
             }
         }
 
@@ -223,7 +223,7 @@ namespace csharp_bridge {
             try {
                 fixed_update(game::fixed_delta_time());
             } catch (int error) {
-                trace(MessageType::Info, 3, "csharp_bridge", format("got error code $d", error));
+                trace(MessageType::Info, 3, "csharp_bridge", fmt::format("got error code $d", error));
             }
         }
 

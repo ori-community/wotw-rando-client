@@ -149,7 +149,7 @@ namespace {
             auto slot_info = SaveSlotsManager::SlotByIndex(index);
 
             if (slot_info == nullptr) {
-                console_send(format("Selected empty index %d", index));
+                console_send(fmt::format("Selected empty index {}", index));
 
                 auto save_slots_ui = get_save_slots_ui();
 

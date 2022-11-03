@@ -490,7 +490,7 @@ namespace {
 
 RANDOMIZER_C_DLLEXPORT bool set_wheel_item_name(int wheel, int item, const wchar_t* name) {
     if (!is_valid_wheel_index(wheel, item)) {
-        warn("wheel", format("invalid wheel index [%d, %d] in command", wheel, item));
+        warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
         return false;
     }
 
@@ -500,7 +500,7 @@ RANDOMIZER_C_DLLEXPORT bool set_wheel_item_name(int wheel, int item, const wchar
 
 RANDOMIZER_C_DLLEXPORT bool set_wheel_item_description(int wheel, int item, const wchar_t* description) {
     if (!is_valid_wheel_index(wheel, item)) {
-        warn("wheel", format("invalid wheel index [%d, %d] in command", wheel, item));
+        warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
         return false;
     }
 
@@ -510,7 +510,7 @@ RANDOMIZER_C_DLLEXPORT bool set_wheel_item_description(int wheel, int item, cons
 
 RANDOMIZER_C_DLLEXPORT bool set_wheel_item_texture(int wheel, int item, const wchar_t* texture) {
     if (!is_valid_wheel_index(wheel, item)) {
-        warn("wheel", format("invalid wheel index [%d, %d] in command", wheel, item));
+        warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
         return false;
     }
 
@@ -522,7 +522,7 @@ RANDOMIZER_C_DLLEXPORT bool set_wheel_item_texture(int wheel, int item, const wc
         entry.texture_data = core::textures::get_texture(texture);
         if (entry.texture_data == nullptr) {
             auto texture_str = convert_wstring_to_string(texture);
-            warn("wheel", format("failed to find texture %s", texture_str.c_str()));
+            warn("wheel", fmt::format("failed to find texture {}", texture_str));
             return false;
         } else
             entry.texture_data->set_color(entry.color);
@@ -533,12 +533,12 @@ RANDOMIZER_C_DLLEXPORT bool set_wheel_item_texture(int wheel, int item, const wc
 
 RANDOMIZER_C_DLLEXPORT bool set_wheel_item_color(int wheel, int item, int r, int g, int b, int a) {
     if (!is_valid_wheel_index(wheel, item)) {
-        warn("wheel", format("invalid wheel index [%d, %d] in command", wheel, item));
+        warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
         return false;
     }
 
     if (r < 0 || 255 < r || g < 0 || 255 < g || b < 0 || 255 < b || a < 0 || 255 < a) {
-        warn("wheel", format("invalid color passed to wheel [%d, %d]: (%d, %d, %d, %d)", wheel, item, r, g, b, a));
+        warn("wheel", fmt::format("invalid color passed to wheel [{}, {}]: ({}, {}, {}, {})", wheel, item, r, g, b, a));
         r = std::max(std::min(r, 255), 0);
         g = std::max(std::min(g, 255), 0);
         b = std::max(std::min(b, 255), 0);
@@ -555,7 +555,7 @@ RANDOMIZER_C_DLLEXPORT bool set_wheel_item_color(int wheel, int item, int r, int
 
 RANDOMIZER_C_DLLEXPORT bool set_wheel_item_enabled(int wheel, int item, bool enabled) {
     if (!is_valid_wheel_index(wheel, item)) {
-        warn("wheel", format("invalid wheel index [%d, %d] in command", wheel, item));
+        warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
         return false;
     }
 
@@ -565,7 +565,7 @@ RANDOMIZER_C_DLLEXPORT bool set_wheel_item_enabled(int wheel, int item, bool ena
 
 RANDOMIZER_C_DLLEXPORT bool set_wheel_item_callback(int wheel, int item, uint64_t callback) {
     if (!is_valid_wheel_index(wheel, item)) {
-        warn("wheel", format("invalid wheel index [%d, %d] in command", wheel, item));
+        warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
         return false;
     }
 
@@ -577,7 +577,7 @@ RANDOMIZER_C_DLLEXPORT bool set_wheel_item_callback(int wheel, int item, uint64_
 
 RANDOMIZER_C_DLLEXPORT bool clear_wheel_item(int wheel, int item) {
     if (!is_valid_wheel_index(wheel, item)) {
-        warn("wheel", format("invalid wheel index [%d, %d] in command", wheel, item));
+        warn("wheel", fmt::format("invalid wheel index [{}, {}] in command", wheel, item));
         return false;
     }
 
@@ -608,7 +608,7 @@ RANDOMIZER_C_DLLEXPORT void refresh_wheel() {
 RANDOMIZER_C_DLLEXPORT bool set_active_wheel(int wheel) {
     auto it = wheels.find(wheel);
     if (it == wheels.end()) {
-        warn("wheel", format("Wheel [%d] does not exist", wheel));
+        warn("wheel", fmt::format("Wheel [{}] does not exist", wheel));
         return false;
     }
 

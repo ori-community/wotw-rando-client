@@ -110,7 +110,7 @@ namespace {
     void print_time(std::chrono::time_point<std::chrono::steady_clock> start, std::string_view tag) {
         auto now = std::chrono::high_resolution_clock::now();
         auto time_span = duration_cast<std::chrono::microseconds>(now - start);
-        modloader::win::console::console_send(format("%.2f ms  %s", time_span.count() / 1000.f, tag.data()));
+        modloader::win::console::console_send(fmt::format("%.2f ms  {}", time_span.count() / 1000.f, tag.data()));
         modloader::win::console::console_flush();
     }
 
@@ -542,17 +542,17 @@ namespace {
         const int GAME_MODES_FLOAT_COUNT = 5;
         for (int i = 0; i < GAME_MODES_INT_COUNT; ++i)
             states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::RandoGameModes, format("%3d_int", i), GAME_MODES_INT_START + i, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::RandoGameModes, fmt::format("%3d_int", i), GAME_MODES_INT_START + i, 0)
             );
 
         for (int i = 0; i < GAME_MODES_BOOL_COUNT; ++i)
             states.push_back(
-                    add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoGameModes, format("%3d_bool", i), GAME_MODES_BOOL_START + i, false)
+                    add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoGameModes, fmt::format("%3d_bool", i), GAME_MODES_BOOL_START + i, false)
             );
 
         for (int i = 0; i < GAME_MODES_FLOAT_COUNT; ++i)
             states.push_back(
-                    add_state<app::SerializedFloatUberState>(UberStateGroup::RandoGameModes, format("%3d_float", i), GAME_MODES_FLOAT_START + i, false)
+                    add_state<app::SerializedFloatUberState>(UberStateGroup::RandoGameModes, fmt::format("%3d_float", i), GAME_MODES_FLOAT_START + i, false)
             );
 
         // Plando states
@@ -564,28 +564,28 @@ namespace {
         const int PLANDO_FLOAT_COUNT = 25;
         for (int i = 0; i < PLANDO_INT_COUNT; ++i)
             states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, format("%3d_int", i), PLANDO_INT_START + i, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, fmt::format("%3d_int", i), PLANDO_INT_START + i, 0)
             );
 
         for (int i = 0; i < PLANDO_BOOL_COUNT; ++i)
             states.push_back(
-                    add_state<app::SerializedBooleanUberState>(UberStateGroup::PlandoVars, format("%3d_bool", i), PLANDO_BOOL_START + i, false)
+                    add_state<app::SerializedBooleanUberState>(UberStateGroup::PlandoVars, fmt::format("%3d_bool", i), PLANDO_BOOL_START + i, false)
             );
 
         for (int i = 0; i < PLANDO_FLOAT_COUNT; ++i)
             states.push_back(
-                    add_state<app::SerializedFloatUberState>(UberStateGroup::PlandoVars, format("%3d_float", i), PLANDO_FLOAT_START + i, false)
+                    add_state<app::SerializedFloatUberState>(UberStateGroup::PlandoVars, fmt::format("%3d_float", i), PLANDO_FLOAT_START + i, false)
             );
 
         // Saved appliers.
         const int APPLIERS_GROUP_COUNT = 50;
         for (int i = 0; i < APPLIERS_GROUP_COUNT; ++i) {
             states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, format("%3d_id", i * 2), i * 2, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, fmt::format("%3d_id", i * 2), i * 2, 0)
             );
 
             states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, format("%3d_value", i * 2 + 1), i * 2 + 1, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, fmt::format("%3d_value", i * 2 + 1), i * 2 + 1, 0)
             );
         }
 
@@ -593,7 +593,7 @@ namespace {
 
         for (int i = 0; i < 2000; ++i) {
             states.push_back(
-                    add_state<app::SerializedBooleanUberState>(UberStateGroup::MultiVars, format("%3d_multi", i), i, false)
+                    add_state<app::SerializedBooleanUberState>(UberStateGroup::MultiVars, fmt::format("%3d_multi", i), i, false)
             );
         }
 

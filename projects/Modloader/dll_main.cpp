@@ -75,12 +75,12 @@ namespace modloader {
         std::string sanitized_group = csv::sanitize_csv_field(group);
         std::string sanitized_message = csv::sanitize_csv_field(message);
 
-        std::string line = format(
-                "%d, [%s], %d, %s,",
-                type,
-                sanitized_group.c_str(),
+        std::string line = fmt::format(
+                "{}, [{}], {}, {},",
+                static_cast<int>(type),
+                sanitized_group,
                 level,
-                sanitized_message.c_str()
+                sanitized_message
         );
 
         csv_mutex.lock();
@@ -147,7 +147,7 @@ namespace modloader {
         auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
         auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());
         auto unity_version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_unityVersion());
-        trace(MessageType::Info, 5, "initialize", format("Application %s injected (%s)[%s].", product.c_str(), version.c_str(), unity_version.c_str()));
+        trace(MessageType::Info, 5, "initialize", fmt::format("Application {} injected ({})[{}].", product, version, unity_version));
 
         while (!shutdown_thread) {
             console::console_poll();

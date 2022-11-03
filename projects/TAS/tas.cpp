@@ -22,7 +22,7 @@ using namespace app::classes;
 
 namespace tas {
     namespace {
-        constexpr int FRAMERATE = 30;
+        constexpr int FRAMERATE = 60;
         constexpr float DELTA_TIME = 1.f / FRAMERATE;
 
         IL2CPP_INTERCEPT(UnityEngine::Time, float, get_deltaTime, ()) {

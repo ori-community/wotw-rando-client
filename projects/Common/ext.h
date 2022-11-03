@@ -1,5 +1,6 @@
 #pragma once
 
+#include <fmt/format.h>
 #include <algorithm>
 #include <array>
 #include <cctype>
@@ -26,10 +27,6 @@ struct array_hash {
         return hash;
     }
 };
-
-// Calls to these methods are destructive to pointers returned previously.
-const char* format(const char* str, ...);
-const char* format(const char* str, va_list ls);
 
 // trim from start (in place)
 static inline std::string& ltrim(std::string& s) {

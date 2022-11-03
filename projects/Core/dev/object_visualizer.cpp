@@ -35,7 +35,7 @@ namespace dev::visualize {
             if (std::string(klass->namespaze).empty())
                 return klass->name;
             else
-                return format("%s.%s", klass->namespaze, klass->name);
+                return fmt::format("{}.{}", klass->namespaze, klass->name);
         }
 
         std::string get_full_name(void *obj) {
@@ -43,7 +43,7 @@ namespace dev::visualize {
             if (std::string(cast->Il2CppClass.klass->namespaze).empty())
                 return cast->Il2CppClass.klass->name;
             else
-                return format("%s.%s", cast->Il2CppClass.klass->namespaze, cast->Il2CppClass.klass->name);
+                return fmt::format("{}.{}", cast->Il2CppClass.klass->namespaze, cast->Il2CppClass.klass->name);
         }
 
         void indent(Visualizer &visualizer, int pre = 0, int post = 0) {
@@ -683,7 +683,7 @@ namespace dev::visualize {
         indent(visualizer, 0, 1);
         visualizer.stream << "scene (" << roots.size() << "):" << visualizer.new_line;
         for (auto i = 0; i < roots.size(); ++i) {
-            console::console_send(format("root_object (%d / %d)", i + 1, roots.size()));
+            console::console_send(fmt::format("root_object ({} / {})", i + 1, roots.size()));
             console::console_flush();
 
             dev::visualize::visualize_object(visualizer, roots[i], indent_start + 1, depth_start - 1);

@@ -1,5 +1,5 @@
-#include <csv.h>
 #include <ext.h>
+#include <csv.h>
 
 #include <assert.h>
 #include <fstream>
@@ -119,7 +119,7 @@ namespace csv {
             return str;
 
         str_replace(str, "\"", "\"\"");
-        return format("\"%s\"", str.c_str());
+        return fmt::format("\"{}\"", str);
     }
 
     void csv_save_file(CSV& csv) {

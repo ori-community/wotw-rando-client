@@ -50,7 +50,7 @@ namespace scenes {
             auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(scenes_manager, scene_meta);
 
             if (scene_loader_debug_logging) {
-                console::console_send(format("%d -> %s", state, scene_name.c_str()));
+                console::console_send(fmt::format("{} -> {}", scene_name, static_cast<int>(state)));
             }
 
             SceneLoadEventMetadata event{
@@ -289,7 +289,7 @@ namespace scenes {
             return;
         }
 
-        console::console_send(format("Debug logging %s", scene_loader_debug_logging ? "enabled" : "disabled"));
+        console::console_send(fmt::format("Debug logging {}", scene_loader_debug_logging ? "enabled" : "disabled"));
     }
 
     void initialize() {

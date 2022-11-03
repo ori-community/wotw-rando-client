@@ -17,13 +17,13 @@ namespace randomizer {
             std::vector<int> handle_keys(std::string const& path, std::string const& name, const nlohmann::json& keys) {
                 std::vector<int> buttons;
                 if (!keys.is_array()) {
-                    warn("input", format("failed to parse '%s' entry %s keys not an array, skipping.", path.c_str(), name.c_str()));
+                    warn("input", fmt::format("failed to parse '{}' entry {} keys not an array, skipping.", path, name));
                     return {};
                 }
 
                 for (auto const& key : keys) {
                     if (!key.is_number_integer()) {
-                        warn("input", format("failed to parse '%s' entry %s key not a string, skipping.", path.c_str(), name.c_str()));
+                        warn("input", fmt::format("failed to parse '{}' entry {} key not a string, skipping.", path, name));
                         return {};
                     }
 
@@ -41,12 +41,12 @@ namespace randomizer {
                 try {
                     file >> j;
                 } catch (nlohmann::json::parse_error& ex) {
-                    warn("input", format("failed to parse '%s' error '%d' at byte '%d'", path.c_str(), ex.id, ex.byte));
+                    warn("input", fmt::format("failed to parse '{}' error '{}' at byte '{}'", path, ex.id, ex.byte));
                     return false;
                 }
 
                 if (!j.is_object()) {
-                    warn("input", format("failed to parse '%s' top most object not an object", path.c_str()));
+                    warn("input", fmt::format("failed to parse '{}' top most object not an object", path));
                     return false;
                 }
 
@@ -54,12 +54,12 @@ namespace randomizer {
                     auto const& name = entry.key();
                     auto action = magic_enum::enum_cast<Action>(entry.key());
                     if (!action.has_value()) {
-                        warn("input", format("failed to parse '%s' entry %s not valid action, skipping.", path.c_str(), name.c_str()));
+                        warn("input", fmt::format("failed to parse '{}' entry {} not valid action, skipping.", path, name));
                         continue;
                     }
 
                     if (!entry.value().is_array()) {
-                        warn("input", format("failed to parse '%s' entry %s not an array, skipping.", path.c_str(), name.c_str()));
+                        warn("input", fmt::format("failed to parse '{}' entry {} not an array, skipping.", path, name));
                         continue;
                     }
 
@@ -71,27 +71,27 @@ namespace randomizer {
                         else if (bind.is_object()) {
                             auto keys = bind.find("keys");
                             if (keys == bind.end()) {
-                                warn("input", format("failed to parse '%s' entry %s keys doesn't exist, skipping.", path.c_str(), name.c_str()));
+                                warn("input", fmt::format("failed to parse '{}' entry {} keys doesn't exist, skipping.", path, name));
                                 continue;
                             }
 
                             auto respects_modifiers = bind.find("respects_modifiers");
                             if (respects_modifiers != bind.end() && !respects_modifiers->is_boolean()) {
-                                warn("input", format("failed to parse '%s' entry %s respects_modifiers not a bool, skipping.", path.c_str(), name.c_str()));
+                                warn("input", fmt::format("failed to parse '{}' entry {} respects_modifiers not a bool, skipping.", path, name));
                                 continue;
                             }
 
                             does_respect_modifiers = respects_modifiers != bind.end() && respects_modifiers->get<bool>();
                             buttons = handle_keys(path, name, keys.value());
                         } else
-                            warn("input", format("failed to parse '%s' entry %s bind not an object or an array, skipping.", path.c_str(), name.c_str()));
+                            warn("input", fmt::format("failed to parse '{}' entry {} bind not an object or an array, skipping.", path, name));
 
                         if (!buttons.empty())
                             callback(action.value(), buttons, does_respect_modifiers);
                     }
                 }
             } else {
-                warn("input", format("failed to open '%s%s'", path.c_str()));
+                warn("input", fmt::format("failed to open '{}'", path));
                 return false;
             }
 

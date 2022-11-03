@@ -378,12 +378,12 @@ namespace multiplayer {
         for (auto const& player : players) {
             console::console_send("_______________________");
             auto id = convert_wstring_to_string(player.id);
-            console::console_send(format("player: %s", id.c_str()));
-            // console::console_send(format("position: %d, %d", player.world_avatar.position.x, player.world_avatar.position.y));
-            console::console_send(format("map_position: %d, %d", player.map_avatar.position.x, player.map_avatar.position.y));
-            console::console_send(format("visible: %d", player.world_visible));
-            console::console_send(format("map_visible: %d", player.map_visible));
-            console::console_send(format("online: %d", player.online));
+            console::console_send(fmt::format("player: {}", id));
+            // console::console_send(fmt::format("position: {}, {}", player.world_avatar.position.x, player.world_avatar.position.y));
+            console::console_send(fmt::format("map_position: {}, {}", player.map_avatar.position.x, player.map_avatar.position.y));
+            console::console_send(fmt::format("visible: {}", player.world_visible));
+            console::console_send(fmt::format("map_visible: {}", player.map_visible));
+            console::console_send(fmt::format("online: {}", player.online));
         }
     }
 
