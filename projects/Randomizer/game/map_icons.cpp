@@ -54,19 +54,19 @@ namespace {
 
     std::mt19937 generator(40500);
     const std::unordered_map<std::string, uber_states::UberState> TREE_OVERRIDES = {
-        { "64590ed6, 476b6885, 8993bbb3, 7d01ee6d", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::DoubleJump) },
+        { "64590ed6, 476b6885, -766c444d, 7d01ee6d", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::DoubleJump) },
         { "2093882f, 41284e46, 284565b7, 3b59fe87", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::MeditateSpell) },
-        { "409f9b9c, 4875095f, 605e3d99, 8793aba7", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeB) },
-        { "b14a658b, 47ae6c64, c545e4a0, 5ec56dc1", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::DashNew) },
-        { "9a3ba1c4, 44f761c3, 3e220da0, 5df0873f", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bash) },
-        { "0301d83a, 4bf5928c, f5dd648f, ced61561", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::WaterDash) },
-        { "7e686e64, 4fdc6a7a, 8c545381, c27e91d0", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::GlowSpell) },
-        { "c4631bfe, 4805c6ee, cdefd19f, 9acfe6d8", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::ChargeJump) },
-        { "9372586a, 48214636, 9c57548d, 182b410d", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::SpiritLeash) },
-        { "e0eda584, 48cbb5c7, cb914bab, fa693844", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeA) },
-        { "1c2f12f9, 4b5ac685, ff9bd6a4, cbe66a48", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::Digging) },
-        { "1f79d15a, 4192137e, a40d0c9e, 3e289606", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::Grenade) },
-        { "718c895b, 431b8c79, fdc0efa5, a0709f87", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bow) },
+        { "409f9b9c, 4875095f, 605e3d99, -786c5459", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeB) },
+        { "-4eb59a75, 47ae6c64, -3aba1b60, 5ec56dc1", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::DashNew) },
+        { "-65c45e3c, 44f761c3, 3e220da0, 5df0873f", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bash) },
+        { "0301d83a, 4bf5928c, -a229b71, -3129ea9f", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::WaterDash) },
+        { "7e686e64, 4fdc6a7a, -73abac7f, -3d816e30", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::GlowSpell) },
+        { "-3b9ce402, 4805c6ee, -32102e61, -65301928", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::ChargeJump) },
+        { "-6c8da796, 48214636, -63a8ab73, 182b410d", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::SpiritLeash) },
+        { "-1f125a7c, 48cbb5c7, -346eb455, -596c7bc", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::DamageUpgradeA) },
+        { "1c2f12f9, 4b5ac685, -064295c, -341995b8", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::Digging) },
+        { "1f79d15a, 4192137e, -5bf2f362, 3e289606", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::Grenade) },
+        { "718c895b, 431b8c79, -23f105b, -5f8f6079", uber_states::UberState(UberStateGroup::Tree, app::AbilityType__Enum::Bow) },
         // Sword Tree has no icon in the base game, we add that manually
     };
 
@@ -120,7 +120,7 @@ namespace {
     int current_filter = 0;
     std::string stringify_guid(app::MoonGuid* guid) {
         return fmt::format(
-                "%08x, %08x, %08x, %08x",
+                "{:08x}, {:08x}, {:08x}, {:08x}",
                 guid->fields.A,
                 guid->fields.B,
                 guid->fields.C,
@@ -468,7 +468,7 @@ namespace {
             auto item = area->fields.Icons->fields._items->vector[i];
             if (item->fields.Icon == app::WorldMapIconType__Enum::AbilityPedestal) {
                 std::string key = fmt::format(
-                        "%08x, %08x, %08x, %08x",
+                        "{:08x}, {:08x}, {:08x}, {:08x}",
                         item->fields.Guid->fields.A,
                         item->fields.Guid->fields.B,
                         item->fields.Guid->fields.C,
@@ -482,7 +482,7 @@ namespace {
                 } else {
                     // This should no longer be called as we have overridden every single tree icon.
                     console::console_send(fmt::format(
-                            "tree icon {{ guid: [{:x}, {:x}, {:x}, {:x}], pos: [{}, {}] }}",
+                            "tree icon {{ guid: [{:08x}, {:08x}, {:08x}, {:08x}], pos: [{}, {}] }}",
                             item->fields.Guid->fields.A,
                             item->fields.Guid->fields.B,
                             item->fields.Guid->fields.C,
@@ -843,8 +843,8 @@ namespace {
     }
 
     void initialize() {
-        game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::Start, &on_area_map_open);
-        game::event_bus().register_handler(GameEvent::NewGame, EventTiming::Start, &on_new_game);
+        game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, &on_area_map_open);
+        game::event_bus().register_handler(GameEvent::NewGame, EventTiming::Before, &on_new_game);
     }
 
     CALL_ON_INIT(initialize);

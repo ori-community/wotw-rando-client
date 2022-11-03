@@ -200,9 +200,9 @@ namespace randomizer {
         }
 
         void initialize() {
-            game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::End, &update_pipe);
-            game::event_bus().register_handler(GameEvent::TASUpdate, EventTiming::End, &update_pipe);
-            game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::End, &on_shutdown);
+            game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &update_pipe);
+            game::event_bus().register_handler(GameEvent::TASUpdate, EventTiming::After, &update_pipe);
+            game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, &on_shutdown);
         }
 
         CALL_ON_INIT(initialize);

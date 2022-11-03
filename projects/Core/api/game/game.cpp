@@ -53,16 +53,16 @@ namespace game {
         }
 
         IL2CPP_INTERCEPT(GameController, void, Update, (app::GameController * this_ptr)) {
-            game_event_bus.trigger_event(GameEvent::Update, EventTiming::Start);
+            game_event_bus.trigger_event(GameEvent::Update, EventTiming::Before);
             next::GameController::Update(this_ptr);
-            game_event_bus.trigger_event(GameEvent::Update, EventTiming::End);
+            game_event_bus.trigger_event(GameEvent::Update, EventTiming::After);
         }
 
         bool disabled_simple_fps = false;
         IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
-            game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::Start);
+            game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::Before);
             next::GameController::FixedUpdate(this_ptr);
-            game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::End);
+            game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::After);
 
             if (save_requested && can_save()) {
                 save(false, save_request_options);
@@ -78,16 +78,16 @@ namespace game {
 
         IL2CPP_INTERCEPT(GameController, void, OnApplicationFocus, (app::GameController * this_ptr, bool focusStatus)) {
             auto evt = focusStatus ? GameEvent::GainedFocus : GameEvent::LostFocus;
-            game_event_bus.trigger_event(evt, EventTiming::Start);
+            game_event_bus.trigger_event(evt, EventTiming::Before);
             this_ptr->fields._PreventFocusPause_k__BackingField = true;
             next::GameController::OnApplicationFocus(this_ptr, focusStatus);
-            game_event_bus.trigger_event(evt, EventTiming::End);
+            game_event_bus.trigger_event(evt, EventTiming::After);
         }
 
         IL2CPP_INTERCEPT(GameController, void, OnApplicationQuit, (app::GameController * this_ptr)) {
-            game_event_bus.trigger_event(GameEvent::Shutdown, EventTiming::Start);
+            game_event_bus.trigger_event(GameEvent::Shutdown, EventTiming::Before);
             next::GameController::OnApplicationQuit(this_ptr);
-            game_event_bus.trigger_event(GameEvent::Shutdown, EventTiming::End);
+            game_event_bus.trigger_event(GameEvent::Shutdown, EventTiming::After);
 
             modloader::win::console::console_free();
             modloader::shutdown();

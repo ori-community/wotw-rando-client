@@ -56,7 +56,9 @@ int load_inject_dlls() {
         for (auto const& dll : dll_paths) {
             auto handle = LoadLibraryA((base_path + dll).c_str());
             if (handle == nullptr) {
-                log << "failed to load library, aborting: " << GetLastError() << std::endl;
+                auto error_code = GetLastError();
+                log << "failed to load library '" << dll << "', aborting: " << error_code << std::endl;
+                log << std::system_category().message(error_code) << std::endl;
                 failed = true;
                 break;
             } else {

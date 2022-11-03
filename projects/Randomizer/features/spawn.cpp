@@ -252,8 +252,8 @@ namespace {
 
     void initialize() {
         scenes::event_bus().register_handler(&on_scene_load);
-        game::event_bus().register_handler(GameEvent::NewGame, EventTiming::End, &on_new_game);
-        game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, &on_finished_loading_save);
+        game::event_bus().register_handler(GameEvent::NewGame, EventTiming::After, &on_new_game);
+        game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, &on_finished_loading_save);
     }
 
     CALL_ON_INIT(initialize);

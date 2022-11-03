@@ -1,0 +1,251 @@
+#include <Core/input/simulator.h>
+
+#include <Common/ext.h>
+#include <Core/api/game/game.h>
+#include <Core/enums/controller_axis.h>
+#include <Modloader/app/methods/MoonInput.h>
+#include <Modloader/app/methods/PlayerInput.h>
+#include <Modloader/app/methods/SmartInput/CachedAxisInput.h>
+#include <Modloader/app/methods/SmartInput/CachedButtonInput.h>
+#include <Modloader/app/methods/SmartInput/CompoundAxisInput.h>
+#include <Modloader/app/methods/SmartInput/CompoundButtonInput.h>
+#include <Modloader/app/methods/UnityEngine/Input.h>
+#include <Modloader/app/types/Input_1.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/interception_macros.h>
+
+#include <unordered_map>
+
+using namespace app::classes;
+using namespace app::classes::SmartInput;
+
+namespace core::input {
+    std::unordered_map<app::CompoundButtonInput*, Action> button_inputs;
+    std::unordered_map<app::CompoundAxisInput*, ControllerAxis> axis_inputs;
+
+    std::unordered_map<Action, SimulatedButton> simulated_buttons;
+    std::unordered_map<ControllerAxis, SimulatedAxis> simulated_axes;
+    SimulatedPosition simulated_mouse_position;
+
+    Action* get_button_input_action(app::CompoundButtonInput* input) {
+        auto it = button_inputs.find(input);
+        return it != button_inputs.end() ? &it->second : nullptr;
+    }
+
+    ControllerAxis* get_axis_input_axis(app::CompoundAxisInput* input) {
+        auto it = axis_inputs.find(input);
+        return it != axis_inputs.end() ? &it->second : nullptr;
+    }
+
+    namespace {
+        IL2CPP_INTERCEPT(SmartInput::CompoundButtonInput, bool, GetValue, (app::CompoundButtonInput * this_ptr)) {
+            auto action = get_button_input_action(this_ptr);
+            if (action != nullptr) {
+                auto& simulator = simulated_buttons[*action];
+
+                if (simulator.enabled) {
+                    return simulator.pressed;
+                }
+            }
+
+            return next::SmartInput::CompoundButtonInput::GetValue(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(SmartInput::CachedButtonInput, bool, GetButton, (app::CachedButtonInput * this_ptr)) {
+            auto action = get_button_input_action(reinterpret_cast<app::CompoundButtonInput*>(this_ptr));
+            if (action != nullptr) {
+                auto& simulator = simulated_buttons[*action];
+
+                if (simulator.enabled) {
+                    return simulator.pressed;
+                }
+            }
+
+            return next::SmartInput::CachedButtonInput::GetButton(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(SmartInput::CompoundAxisInput, float, GetValue, (app::CompoundAxisInput * this_ptr)) {
+            auto axis = get_axis_input_axis(this_ptr);
+            if (axis != nullptr) {
+                auto& simulator = simulated_axes[*axis];
+
+                if (simulator.enabled) {
+                    return simulator.value;
+                }
+            }
+
+            return next::SmartInput::CompoundAxisInput::GetValue(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(SmartInput::CachedAxisInput, float, AxisValue, (app::CachedAxisInput * this_ptr)) {
+            auto axis = get_axis_input_axis(reinterpret_cast<app::CompoundAxisInput*>(this_ptr));
+            if (axis != nullptr) {
+                auto& simulator = simulated_axes[*axis];
+
+                if (simulator.enabled) {
+                    return simulator.value;
+                }
+            }
+
+            return next::SmartInput::CachedAxisInput::AxisValue(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(UnityEngine::Input, app::Vector3, get_mousePosition, ()) {
+            if (simulated_mouse_position.enabled) {
+                return app::Vector3{ simulated_mouse_position.x, simulated_mouse_position.y, 0.f };
+            }
+
+            return next::UnityEngine::Input::get_mousePosition();
+        }
+
+        IL2CPP_INTERCEPT(PlayerInput, void, FixedUpdate, (app::PlayerInput * this_ptr)) {
+            auto previous_mouse_position = types::Input_1::get_class()->static_fields->CursorPosition;
+
+            next::PlayerInput::FixedUpdate(this_ptr);
+
+            if (simulated_mouse_position.enabled) {
+                types::Input_1::get_class()->static_fields->CursorPosition.x = simulated_mouse_position.x;
+                types::Input_1::get_class()->static_fields->CursorPosition.y = simulated_mouse_position.y;
+
+                types::Input_1::get_class()->static_fields->CursorMoved =
+                        !eps_equals(simulated_mouse_position.x, previous_mouse_position.x) ||
+                        !eps_equals(simulated_mouse_position.y, previous_mouse_position.y);
+            }
+        }
+
+        IL2CPP_INTERCEPT(PlayerInput, void, ClearControls, (app::PlayerInput * this_ptr)) {
+            next::PlayerInput::ClearControls(this_ptr);
+            core::input::clear_simulators();
+        }
+
+        IL2CPP_INTERCEPT(PlayerInput, void, AddKeyboardControls, (app::PlayerInput * this_ptr)) {
+            next::PlayerInput::AddKeyboardControls(this_ptr);
+
+            game::event_bus().trigger_event(GameEvent::RegisteringInputSimulators, EventTiming::Before);
+            core::input::register_simulators(this_ptr);
+            game::event_bus().trigger_event(GameEvent::RegisteringInputSimulators, EventTiming::After);
+        }
+    } // namespace
+
+    void register_button_simulator(app::CompoundButtonInput* input, Action action) {
+        button_inputs[input] = action;
+    }
+
+    void register_axis_simulator(app::CompoundAxisInput* input, ControllerAxis axis) {
+        axis_inputs[input] = axis;
+    }
+
+    void clear_simulators() {
+        button_inputs.clear();
+        axis_inputs.clear();
+        simulated_buttons.clear();
+        simulated_axes.clear();
+    }
+
+    void register_simulators(app::PlayerInput* input) {
+        register_button_simulator(input->fields.MainMenuSaveCopy, Action::MainMenuSaveCopy);
+        register_button_simulator(input->fields.MainMenuSaveDelete, Action::MainMenuSaveDelete);
+        register_button_simulator(input->fields.Interact, Action::Interact);
+        register_button_simulator(input->fields.Jump, Action::Jump);
+        register_button_simulator(input->fields.Ability1, Action::Ability1);
+        register_button_simulator(input->fields.Ability2, Action::Ability2);
+        register_button_simulator(input->fields.Ability3, Action::Ability3);
+        register_button_simulator(input->fields.Glide, Action::Glide);
+        register_button_simulator(input->fields.Grab, Action::Grab);
+        register_button_simulator(input->fields.Dash, Action::Dash);
+        register_button_simulator(input->fields.Burrow, Action::Burrow);
+        register_button_simulator(input->fields.Bash, Action::Bash);
+        register_button_simulator(input->fields.Grapple, Action::Grapple);
+        register_button_simulator(input->fields.DialogueAdvance, Action::DialogueAdvance);
+        register_button_simulator(input->fields.DialogueOption1, Action::DialogueOption1);
+        register_button_simulator(input->fields.DialogueOption2, Action::DialogueOption2);
+        register_button_simulator(input->fields.DialogueOption3, Action::DialogueOption3);
+        register_button_simulator(input->fields.DialogueExit, Action::DialogueExit);
+        register_button_simulator(input->fields.OpenMapsShardsInventory, Action::OpenMapsShardsInventory);
+        register_button_simulator(input->fields.OpenWeaponWheel, Action::OpenWeaponWheel);
+        register_button_simulator(input->fields.PauseScreen, Action::PauseScreen);
+        register_button_simulator(input->fields.LiveSignIn, Action::LiveSignIn);
+        register_button_simulator(input->fields.MapZoomIn, Action::MapZoomIn);
+        register_button_simulator(input->fields.MapZoomOut, Action::MapZoomOut);
+        register_button_simulator(input->fields.MenuSelect, Action::MenuSelect);
+        register_button_simulator(input->fields.MenuBack, Action::MenuBack);
+        register_button_simulator(input->fields.MenuClose, Action::MenuClose);
+        register_button_simulator(input->fields.MenuDown, Action::MenuDown);
+        register_button_simulator(input->fields.MenuUp, Action::MenuUp);
+        register_button_simulator(input->fields.MenuLeft, Action::MenuLeft);
+        register_button_simulator(input->fields.MenuRight, Action::MenuRight);
+        register_button_simulator(input->fields.MenuPageLeft, Action::MenuPageLeft);
+        register_button_simulator(input->fields.MenuPageRight, Action::MenuPageRight);
+        register_button_simulator(input->fields.LeaderboardCycleFilter, Action::LeaderboardCycleFilter);
+        register_button_simulator(input->fields.MapFilter, Action::MapFilter);
+        register_button_simulator(input->fields.MapDetails, Action::MapDetails);
+        register_button_simulator(input->fields.MapFocusOri, Action::MapFocusOri);
+        register_button_simulator(input->fields.MapFocusObjective, Action::MapFocusObjective);
+
+        register_axis_simulator(input->fields.HorizontalAnalogLeft, ControllerAxis::HorizontalAnalogLeft);
+        register_axis_simulator(input->fields.VerticalAnalogLeft, ControllerAxis::VerticalAnalogLeft);
+        register_axis_simulator(input->fields.HorizontalAnalogRight, ControllerAxis::HorizontalAnalogRight);
+        register_axis_simulator(input->fields.VerticalAnalogRight, ControllerAxis::VerticalAnalogRight);
+        register_axis_simulator(input->fields.HorizontalDigiPad, ControllerAxis::HorizontalDigiPad);
+        register_axis_simulator(input->fields.VerticalDigiPad, ControllerAxis::VerticalDigiPad);
+    }
+
+    SimulatedButton* get_simulator_for(Action action) {
+        auto it = simulated_buttons.find(action);
+        if (it == simulated_buttons.end()) {
+            return nullptr;
+        }
+
+        return &it->second;
+    }
+
+    SimulatedAxis* get_simulator_for(ControllerAxis axis) {
+        auto it = simulated_axes.find(axis);
+        if (it == simulated_axes.end()) {
+            return nullptr;
+        }
+
+        return &it->second;
+    }
+
+    SimulatedPosition* get_mouse_position_simulator() {
+        return &simulated_mouse_position;
+    }
+
+    void enable_all_simulators(bool reset) {
+        for (auto& simulator : simulated_buttons) {
+            simulator.second.enabled = true;
+
+            if (reset) {
+                simulator.second.pressed = false;
+            }
+        }
+
+        for (auto& simulator : simulated_axes) {
+            simulator.second.enabled = true;
+
+            if (reset) {
+                simulator.second.value = 0.f;
+            }
+        }
+
+        simulated_mouse_position.enabled = true;
+
+        if (reset) {
+            simulated_mouse_position.x = 0.f;
+            simulated_mouse_position.y = 0.f;
+        }
+    }
+
+    void disable_all_simulators() {
+        for (auto& simulator : simulated_buttons) {
+            simulator.second.enabled = false;
+        }
+
+        for (auto& simulator : simulated_axes) {
+            simulator.second.enabled = false;
+        }
+
+        simulated_mouse_position.enabled = false;
+    }
+} // namespace core::input

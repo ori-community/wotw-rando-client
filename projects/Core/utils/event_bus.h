@@ -4,8 +4,8 @@
 #include <vector>
 
 enum class EventTiming {
-    Start,
-    End,
+    Before,
+    After,
 };
 
 template <typename T>
@@ -22,7 +22,7 @@ public:
 
     void register_handler(T value, event_handler handler) {
         auto& handlers = event_handlers[value];
-        handlers.get(EventTiming::End).push_back(handler);
+        handlers.get(EventTiming::After).push_back(handler);
     }
 
     void register_handler(T value, EventTiming timing, event_handler handler) {
@@ -32,8 +32,8 @@ public:
 
     void trigger_event(T value) {
         auto const& handlers = event_handlers[value];
-        for (auto const& handler : handlers.get(EventTiming::End))
-            handler(value, EventTiming::End);
+        for (auto const& handler : handlers.get(EventTiming::After))
+            handler(value, EventTiming::After);
     }
 
     void trigger_event(T value, EventTiming timing) {
@@ -47,8 +47,8 @@ private:
         std::vector<event_handler> start;
         std::vector<event_handler> end;
 
-        std::vector<event_handler>& get(EventTiming timing) { return timing == EventTiming::Start ? start : end; }
-        std::vector<event_handler> const& get(EventTiming timing) const { return timing == EventTiming::Start ? start : end; }
+        std::vector<event_handler>& get(EventTiming timing) { return timing == EventTiming::Before ? start : end; }
+        std::vector<event_handler> const& get(EventTiming timing) const { return timing == EventTiming::Before ? start : end; }
     };
 
     std::unordered_map<T, Handlers> event_handlers;
@@ -67,7 +67,7 @@ public:
     }
 
     void register_handler(event_handler handler) {
-        event_handlers.get(EventTiming::End).push_back(handler);
+        event_handlers.get(EventTiming::After).push_back(handler);
     }
 
     void register_handler(T value, EventTiming timing, event_handler handler) {
@@ -75,8 +75,8 @@ public:
     }
 
     void trigger_event(T value) {
-        for (auto const& handler : event_handlers.get(EventTiming::End))
-            handler(value, EventTiming::End);
+        for (auto const& handler : event_handlers.get(EventTiming::After))
+            handler(value, EventTiming::After);
     }
 
     void trigger_event(T value, EventTiming timing) {
@@ -89,8 +89,8 @@ private:
         std::vector<event_handler> start;
         std::vector<event_handler> end;
 
-        std::vector<event_handler>& get(EventTiming timing) { return timing == EventTiming::Start ? start : end; }
-        std::vector<event_handler> const& get(EventTiming timing) const { return timing == EventTiming::Start ? start : end; }
+        std::vector<event_handler>& get(EventTiming timing) { return timing == EventTiming::Before ? start : end; }
+        std::vector<event_handler> const& get(EventTiming timing) const { return timing == EventTiming::Before ? start : end; }
     };
 
     Handlers event_handlers;

@@ -484,8 +484,8 @@ namespace multiplayer {
         console::register_command({ "multiplayer", "spawn_player" }, &spawn_player, true);
         console::register_command({ "multiplayer", "show_icon_prefabs" }, &show_icon_prefabs, true);
 
-        game::event_bus().register_handler(GameEvent::Update, EventTiming::End, update);
-        game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, on_load);
+        game::event_bus().register_handler(GameEvent::Update, EventTiming::After, update);
+        game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, on_load);
     }
 
     CALL_ON_INIT(initialize);

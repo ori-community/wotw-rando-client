@@ -207,8 +207,12 @@ namespace csharp_bridge {
             csharp_bridge::on_load(SaveSlotsManager::get_CurrentSlotIndex(), SaveSlotsManager::get_BackupIndex());
         }
 
-        void on_area_map(GameEvent game_event, EventTiming timing) {
-            csharp_bridge::on_map_state(timing == EventTiming::Start);
+        void on_open_area_map(GameEvent game_event, EventTiming timing) {
+            csharp_bridge::on_map_state(true);
+        }
+
+        void on_close_area_map(GameEvent game_event, EventTiming timing) {
+            csharp_bridge::on_map_state(false);
         }
 
         void on_update(GameEvent game_event, EventTiming timing) {
@@ -235,17 +239,18 @@ namespace csharp_bridge {
         void initialize() {
             uber_states::register_value_intercept(&resource_intercept);
 
-            game::event_bus().register_handler(GameEvent::Update, EventTiming::End, &on_update);
-            game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::End, &on_fixed_update);
-            game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::End, &on_shutdown);
-            game::event_bus().register_handler(GameEvent::CreateBackup, EventTiming::Start, &on_save_handler);
-            game::event_bus().register_handler(GameEvent::CreateSave, EventTiming::Start, &on_save_handler);
-            game::event_bus().register_handler(GameEvent::CreateCheckpoint, EventTiming::Start, &on_checkpoint_handler);
-            game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, &on_load_handler);
-            game::event_bus().register_handler(GameEvent::FinishedLoadingCheckpoint, EventTiming::End, &on_load_handler);
-            game::event_bus().register_handler(GameEvent::Respawn, EventTiming::End, &on_load_handler);
-            game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::Start, &on_area_map);
-            game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::End, &on_area_map);
+            game::event_bus().register_handler(GameEvent::Update, EventTiming::After, &on_update);
+            game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
+            game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, &on_shutdown);
+            game::event_bus().register_handler(GameEvent::CreateBackup, EventTiming::Before, &on_save_handler);
+            game::event_bus().register_handler(GameEvent::CreateSave, EventTiming::Before, &on_save_handler);
+            game::event_bus().register_handler(GameEvent::CreateCheckpoint, EventTiming::Before, &on_checkpoint_handler);
+            game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, &on_load_handler);
+            game::event_bus().register_handler(GameEvent::FinishedLoadingCheckpoint, EventTiming::After, &on_load_handler);
+            game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, &on_load_handler);
+            game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, &on_open_area_map);
+            game::event_bus().register_handler(GameEvent::CloseAreaMap, EventTiming::After, &on_close_area_map);
+
             if (post_initialize != nullptr)
                 post_initialize();
         }

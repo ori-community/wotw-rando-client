@@ -189,7 +189,7 @@ namespace {
     }
 
     void initialize() {
-        game::event_bus().register_handler(GameEvent::Update, EventTiming::End, update_csharp_timelines);
+        game::event_bus().register_handler(GameEvent::Update, EventTiming::After, update_csharp_timelines);
     }
 
     CALL_ON_INIT(initialize);

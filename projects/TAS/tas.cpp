@@ -8,7 +8,6 @@
 #include <Modloader/windows_api/memory.h>
 
 #include <Core/ipc/ipc.h>
-#include <Randomizer/input/simulator.h>
 
 #include "tas.h"
 #include <Modloader/common.h>
@@ -53,9 +52,9 @@ namespace tas {
         void unityplayer_update() {
             if (framestepping_enabled) {
                 while (!framestep_requested && framestepping_enabled) {
-                    game::event_bus().trigger_event(GameEvent::TASUpdate, EventTiming::Start);
+                    game::event_bus().trigger_event(GameEvent::TASUpdate, EventTiming::Before);
                     std::this_thread::sleep_for(std::chrono::nanoseconds (static_cast<unsigned long long>(DELTA_TIME * 1000000000ULL)));
-                    game::event_bus().trigger_event(GameEvent::TASUpdate, EventTiming::End);
+                    game::event_bus().trigger_event(GameEvent::TASUpdate, EventTiming::After);
                 }
 
                 // TODO: Run tas

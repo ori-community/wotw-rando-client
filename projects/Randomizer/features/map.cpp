@@ -277,7 +277,7 @@ namespace {
     }
 
     void initialize() {
-        game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::Start, &on_area_map);
+        game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, &on_area_map);
     }
 
     CALL_ON_INIT(initialize);

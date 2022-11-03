@@ -76,7 +76,7 @@ namespace {
 
     void initialize() {
         scenes::event_bus().register_handler(&on_scene_load);
-        game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::End, &on_fixed_update);
+        game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
 
         auto cutscene_skip = custom_cutscene_skips::CustomCutsceneSkip{
                 .is_available = &skip_available,

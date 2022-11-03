@@ -106,8 +106,8 @@ namespace {
     }
 
     void initialize() {
-        game::event_bus().register_handler(GameEvent::Respawn, EventTiming::End, &on_respawn);
-        game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::End, &on_update);
+        game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, &on_respawn);
+        game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_update);
         scenes::event_bus().register_handler(&on_scene_load);
     }
 

@@ -22,9 +22,12 @@ enum class GameEvent {
     FinishedLoadingSave,
     Respawn,
 
-    AreaMap,
+    OpenAreaMap,
+    CloseAreaMap,
 
     Teleport,
     TrialStart,
-    TrialEnd
+    TrialEnd,
+
+    RegisteringInputSimulators,
 };

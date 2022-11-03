@@ -2,7 +2,6 @@
 #include <Core/api/game/player.h>
 #include <interop/csharp_bridge.h>
 #include <randomizer/input/rando_bindings.h>
-#include <randomizer/input/simulator.h>
 #include <Randomizer/ipc/base_handlers.h>
 #include <Core/ipc/ipc.h>
 #include <Core/api/messages/messages.h>
@@ -180,14 +179,14 @@ namespace randomizer {
             }
 
             void initialize() {
-                game::event_bus().register_handler(GameEvent::NewGame, EventTiming::End, &report_load);
-                game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, &report_load);
-                game::event_bus().register_handler(GameEvent::FinishedLoadingCheckpoint, EventTiming::End, &report_load);
-                game::event_bus().register_handler(GameEvent::Respawn, EventTiming::End, &report_load);
+                game::event_bus().register_handler(GameEvent::NewGame, EventTiming::After, &report_load);
+                game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, &report_load);
+                game::event_bus().register_handler(GameEvent::FinishedLoadingCheckpoint, EventTiming::After, &report_load);
+                game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, &report_load);
 
-                game::event_bus().register_handler(GameEvent::GainedFocus, EventTiming::End, &report_game_event);
-                game::event_bus().register_handler(GameEvent::LostFocus, EventTiming::End, &report_game_event);
-                game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::End, &report_game_event);
+                game::event_bus().register_handler(GameEvent::GainedFocus, EventTiming::After, &report_game_event);
+                game::event_bus().register_handler(GameEvent::LostFocus, EventTiming::After, &report_game_event);
+                game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, &report_game_event);
 
                 register_request_handler("reload", reload);
                 register_request_handler("get_uberstates", get_uberstates);

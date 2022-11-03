@@ -1,19 +1,20 @@
 #include <randomizer/input/rando_bindings.h>
 
 #include <Common/ext.h>
+#include <Core/input/simulator.h>
+#include <Core/api/game/game.h>
+#include <Randomizer/macros.h>
+#include <interop/csharp_bridge.h>
 #include <randomizer/input/controller_bindings.h>
 #include <randomizer/input/helpers.h>
-#include <randomizer/input/simulator.h>
-#include <interop/csharp_bridge.h>
-#include <Randomizer/macros.h>
 
-#include <Modloader/common.h>
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/interception_macros.h>
 #include <Modloader/app/methods/PlayerInput.h>
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/methods/UnityEngine/Input.h>
 #include <Modloader/app/types/PlayerInput.h>
+#include <Modloader/common.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/interception_macros.h>
 
 #include <fstream>
 #include <unordered_map>
@@ -44,7 +45,7 @@ namespace randomizer::input {
             std::vector<rando_input_callback> on_pressed_actions;
             std::vector<rando_input_callback> on_release_actions;
             std::vector<KeyboardMouseInput> kbm_bindings;
-            bool simulated_state = false;
+            core::input::SimulatedButton simulator;
 
             bool is_pressed = false;
             bool is_just_pressed = false;
@@ -83,15 +84,8 @@ namespace randomizer::input {
 
         IL2CPP_INTERCEPT(PlayerInput, void, ClearControls, (app::PlayerInput * this_ptr)) {
             next::PlayerInput::ClearControls(this_ptr);
-            clear_simulators();
             for (auto& binding : bindings)
                 binding.second.kbm_bindings.clear();
-        }
-
-        IL2CPP_INTERCEPT(PlayerInput, void, AddKeyboardControls, (app::PlayerInput * this_ptr)) {
-            next::PlayerInput::AddKeyboardControls(this_ptr);
-            read_bindings(base_path + KEYBOARD_REBIND_FILE, on_binding_read);
-            register_simulators(this_ptr);
         }
 
         bool is_kbm_pressed(KeyboardMouseInput const& input) {
@@ -127,17 +121,21 @@ namespace randomizer::input {
             next::PlayerInput::RefreshControls(this_ptr);
 
             for (auto& binding : bindings) {
-                auto pressed = is_controller_pressed(binding.first);
-                if (!pressed) {
-                    for (auto const& input : binding.second.kbm_bindings) {
-                        if (is_kbm_pressed(input)) {
-                            pressed = true;
-                            break;
+                auto pressed = false;
+
+                if (binding.second.simulator.enabled) {
+                    pressed = binding.second.simulator.pressed;
+                } else {
+                    pressed = is_controller_pressed(binding.first);
+                    if (!pressed) {
+                        for (auto const& input : binding.second.kbm_bindings) {
+                            if (is_kbm_pressed(input)) {
+                                pressed = true;
+                                break;
+                            }
                         }
                     }
                 }
-
-                pressed |= binding.second.simulated_state;
 
                 auto is_just_released = !pressed && binding.second.is_pressed;
                 binding.second.is_just_pressed = pressed && !binding.second.is_pressed;
@@ -169,7 +167,11 @@ namespace randomizer::input {
 
     void simulate_action(Action action, bool value) {
         auto& binding = input::bindings[action];
-        binding.simulated_state = value;
+        binding.simulator.pressed = value;
+
+        // TODO: Handle releasing and disabling the simulator separately
+        binding.simulator.enabled = value;
+
         if (binding.is_pressed != value) {
             binding.is_pressed = value;
             binding.is_just_pressed = value;
@@ -181,6 +183,10 @@ namespace randomizer::input {
 
     void csharp_callback(Action action, bool pressed) {
         csharp_bridge::on_action_triggered(action);
+    }
+
+    void on_before_register_input_simulators(GameEvent game_event, EventTiming timing) {
+        read_bindings(base_path + KEYBOARD_REBIND_FILE, on_binding_read);
     }
 
     void initialize() {
@@ -203,25 +209,33 @@ namespace randomizer::input {
         add_on_pressed_callback(Action::UnlockSpoilers, csharp_callback);
         add_on_pressed_callback(Action::TogglePickupNamesOnSpoiler, csharp_callback);
         add_on_pressed_callback(Action::ForceExit, csharp_callback);
+
+        game::event_bus().register_handler(GameEvent::RegisteringInputSimulators, EventTiming::Before, &on_before_register_input_simulators);
     }
 
     CALL_ON_INIT(initialize);
 } // namespace randomizer::input
 
 RANDOMIZER_C_DLLEXPORT bool set_action_pressed(Action action) {
-    if (action < Action::RANDO_ACTIONS_START)
-        randomizer::input::simulate(action, true);
-    else
+    if (action < Action::RANDO_ACTIONS_START) {
+        auto simulator = core::input::get_simulator_for(action);
+        simulator->pressed = true;
+        simulator->enabled = true;
+    } else {
         randomizer::input::simulate_action(action, true);
+    }
 
     return true;
 }
 
 RANDOMIZER_C_DLLEXPORT bool set_action_released(Action action) {
-    if (action < Action::RANDO_ACTIONS_START)
-        randomizer::input::simulate(action, false);
-    else
+    if (action < Action::RANDO_ACTIONS_START) {
+        auto simulator = core::input::get_simulator_for(action);
+        simulator->pressed = false;
+        simulator->enabled = false;
+    } else {
         randomizer::input::simulate_action(action, false);
+    }
 
     return true;
 }

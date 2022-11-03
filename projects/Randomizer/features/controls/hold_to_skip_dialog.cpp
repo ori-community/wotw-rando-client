@@ -46,7 +46,7 @@ namespace {
     }
 
     void initialize() {
-        game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Start, &on_fixed_update);
+        game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, &on_fixed_update);
     }
 
     CALL_ON_INIT(initialize);

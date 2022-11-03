@@ -16,13 +16,13 @@ namespace game::ui {
         bool is_area_map_open = false;
         bool manually_shaking_resource_ui = false;
 
-        void on_area_map_open(GameEvent game_event, EventTiming timing) {
-            is_area_map_open = timing == EventTiming::Start;
-        }
-
         void initialize() {
-            game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::Start, &on_area_map_open);
-            game::event_bus().register_handler(GameEvent::AreaMap, EventTiming::End, &on_area_map_open);
+            game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, [](auto game_event, auto timing) {
+                is_area_map_open = true;
+            });
+            game::event_bus().register_handler(GameEvent::CloseAreaMap, EventTiming::After, [](auto game_event, auto timing) {
+                is_area_map_open = false;
+            });
         }
 
         CALL_ON_INIT(initialize);
