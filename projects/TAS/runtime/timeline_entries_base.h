@@ -1,11 +1,22 @@
 #pragma once
 
+#include <nlohmann/json.hpp>
+
 namespace tas::runtime::timeline::entries {
     enum class TimelineEntryType {
         Action,
         Axis,
         MousePosition,
     };
+
+    NLOHMANN_JSON_SERIALIZE_ENUM(
+            TimelineEntryType,
+            {
+                    { TimelineEntryType::Action, "Action" },
+                    { TimelineEntryType::Axis, "Axis" },
+                    { TimelineEntryType::MousePosition, "MousePosition" },
+            }
+    );
 
     class TimelineEntry {
     public:

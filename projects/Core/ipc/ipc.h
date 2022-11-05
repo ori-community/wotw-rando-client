@@ -9,4 +9,6 @@ namespace core::ipc {
 
     CORE_DLLEXPORT void send_message(const nlohmann::json& message);
     CORE_DLLEXPORT void register_request_handler(std::string_view name, request_handler handler);
+    CORE_DLLEXPORT nlohmann::json respond_to(const nlohmann::json& request);
+    CORE_DLLEXPORT nlohmann::json make_request(std::string request);
 } // namespace core::ipc

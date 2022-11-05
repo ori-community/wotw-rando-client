@@ -122,6 +122,12 @@ NLOHMANN_JSON_SERIALIZE_ENUM(
                 { Action::MapDetails, "MapDetails" },
                 { Action::MapFocusOri, "MapFocusOri" },
                 { Action::MapFocusObjective, "MapFocusObjective" },
+                { Action::Left, "Left" },
+                { Action::Right, "Right" },
+                { Action::Up, "Up" },
+                { Action::Down, "Down" },
+
+
                 { Action::OpenRandoWheel, "OpenRandoWheel" },
                 { Action::QuickBuy, "QuickBuy" },
                 { Action::Binding1, "Binding1" },

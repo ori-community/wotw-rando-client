@@ -26,9 +26,10 @@ namespace tas::runtime::timeline {
         void deactivate_all_entries();
         void deactivate_done_entries(unsigned long frame);
         void activate_entries_starting_on_frame(unsigned long frame);
-        void activate_entries_starting_before_frame(unsigned long frame);
+        void activate_entries_starting_on_or_before_frame(unsigned long frame);
 
     public:
+        unsigned long get_current_frame();
         unsigned int get_fps();
         float get_delta_time();
         void set_fps(unsigned int value);

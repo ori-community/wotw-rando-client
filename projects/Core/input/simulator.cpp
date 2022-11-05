@@ -3,8 +3,7 @@
 #include <Common/ext.h>
 #include <Core/api/game/game.h>
 #include <Core/enums/controller_axis.h>
-#include <Modloader/app/methods/MoonInput.h>
-#include <Modloader/app/methods/PlayerInput.h>
+#include <Modloader/app/methods/PlayerInputs.h>
 #include <Modloader/app/methods/SmartInput/CachedAxisInput.h>
 #include <Modloader/app/methods/SmartInput/CachedButtonInput.h>
 #include <Modloader/app/methods/SmartInput/CompoundAxisInput.h>

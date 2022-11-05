@@ -55,17 +55,21 @@ namespace tas::runtime::timeline {
         }
     }
 
-    void Timeline::activate_entries_starting_before_frame(unsigned long frame) {
+    void Timeline::activate_entries_starting_on_or_before_frame(unsigned long frame) {
         for (auto it = this->timeline_entries.by_last_frame().upper_bound(frame); it != this->timeline_entries.by_last_frame().end(); ++it) {
             auto entry = it->second;
 
-            if (entry->frame >= frame) {
+            if (entry->frame <= frame) {
                 entry->activate();
                 entry->process(frame);
 
                 active_timeline_entries.push_back(entry);
             }
         }
+    }
+
+    unsigned long Timeline::get_current_frame() {
+        return this->current_frame;
     }
 
     unsigned int Timeline::get_fps() {
@@ -98,7 +102,6 @@ namespace tas::runtime::timeline {
 
     void Timeline::seek(unsigned long frame) {
         this->deactivate_all_entries();
-        this->activate_entries_starting_on_frame(frame);
-        this->activate_entries_starting_before_frame(frame);
+        this->activate_entries_starting_on_or_before_frame(frame);
     }
 }

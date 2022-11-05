@@ -196,6 +196,20 @@ namespace core::ipc {
         handlers[std::string(name)] = handler;
     }
 
+    nlohmann::json respond_to(const nlohmann::json& request) {
+        nlohmann::json response;
+        response["type"] = "response";
+        response["id"] = request.at("id").get<int>();
+        return std::move(response);
+    }
+
+    nlohmann::json make_request(std::string request) {
+        nlohmann::json response;
+        response["type"] = "request";
+        response["method"] = request;
+        return std::move(response);
+    }
+
     void on_shutdown(GameEvent game_event, EventTiming timing) {
         shutdown_ipc_thread = true;
         if (ipc_thread != nullptr && ipc_thread->joinable())
