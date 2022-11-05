@@ -15,6 +15,8 @@
 
 #include <Modloader/common.h>
 
+#include <thread>
+
 using namespace app::classes;
 
 namespace tas::runtime {
