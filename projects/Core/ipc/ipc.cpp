@@ -132,19 +132,23 @@ namespace core::ipc {
                     outgoing_messages.clear();
                     outgoing_messages_mutex.unlock();
                     for (auto message : local_sends) {
-                        auto string_message = message.dump();
+                        try {
+                            auto string_message = message.dump();
 
-                        auto result = WriteFile(
-                                pipe,
-                                string_message.c_str(),
-                                string_message.size(),
-                                &bytes_written,
-                                nullptr
-                        );
+                            auto result = WriteFile(
+                                    pipe,
+                                    string_message.c_str(),
+                                    string_message.size(),
+                                    &bytes_written,
+                                    nullptr
+                            );
 
-                        if (!result || bytes_written == 0) {
-                            auto error = GetLastError();
-                            warn("ipc", fmt::format("Failed to write data ({}).", error));
+                            if (!result || bytes_written == 0) {
+                                auto error = GetLastError();
+                                warn("ipc", fmt::format("Failed to write data ({}).", error));
+                            }
+                        } catch (std::exception e) {
+                            warn("ipc", fmt::format("Failed to serialize data ({}).", e.what()));
                         }
                     }
                 }

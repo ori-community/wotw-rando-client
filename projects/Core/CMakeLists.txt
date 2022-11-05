@@ -27,6 +27,7 @@ set(
         "dev/object_visualizer.cpp"
         "dev/fast_load.cpp"
         "enums/uber_state.cpp"
+        "console_update.cpp"
         "input/simulator.cpp"
         "ipc/ipc.cpp"
         "settings.cpp"

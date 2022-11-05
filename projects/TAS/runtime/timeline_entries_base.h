@@ -9,6 +9,7 @@ namespace tas::runtime::timeline::entries {
 
     class TimelineEntry {
     public:
+        unsigned long index = 0;
         unsigned long frame = 0;
         virtual TimelineEntryType type() = 0;
 
@@ -17,18 +18,25 @@ namespace tas::runtime::timeline::entries {
 
         virtual void activate(){};
         virtual void process(unsigned long next_frame){};
-        virtual bool is_still_active(unsigned long next_frame) { return false; };
+        virtual bool is_active_on_frame(unsigned long f) { return f == frame; };
         virtual void deactivate(){};
+
+        /**
+         * Returns the last frame this entry should play on.
+         * The return value must not change.
+         * @return
+         */
+        virtual unsigned long last_frame() { return frame; };
     };
 
     class FixedDurationTimelineEntry : public TimelineEntry {
     public:
         unsigned long duration = 1;
-        unsigned long last_frame();
 
         FixedDurationTimelineEntry(unsigned long frame, unsigned long duration) :
                 duration(duration), TimelineEntry(frame) {}
 
-        bool is_still_active(unsigned long next_frame) override;
+        bool is_active_on_frame(unsigned long f) override;
+        unsigned long last_frame() override;
     };
 } // namespace tas::runtime::timeline::entries

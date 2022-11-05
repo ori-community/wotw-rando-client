@@ -19,7 +19,6 @@ set(
         "dll_main.cpp"
         "il2cpp_helpers.cpp"
         "interception.cpp"
-        "console_update.cpp"
 )
 
 set(
