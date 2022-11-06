@@ -23,6 +23,15 @@ namespace tas::runtime::timeline {
                         )));
                     } break;
 
+                    case TimelineEntryType::Angle: {
+                        entries.push_back(std::move(std::make_shared<AngleTimelineEntry>(
+                                j_entry.at("frame").get<unsigned long>(),
+                                j_entry.at("duration").get<unsigned long>(),
+                                j_entry.at("angle").get<ControllerAngle>(),
+                                j_entry.at("degrees").get<float>()
+                        )));
+                    } break;
+
                     case TimelineEntryType::Axis: {
                         entries.push_back(std::move(std::make_shared<AxisTimelineEntry>(
                                 j_entry.at("frame").get<unsigned long>(),

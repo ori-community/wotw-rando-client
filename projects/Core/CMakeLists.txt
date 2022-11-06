@@ -70,6 +70,7 @@ set(
         "enums/actions.h"
         "enums/buttons.h"
         "enums/comparison.h"
+        "enums/controller_angle.h"
         "enums/controller_axis.h"
         "enums/game_event.h"
         "enums/layer.h"
@@ -97,7 +98,7 @@ set(
         "utils/operations.h"
         "utils/position_converter.h"
         "utils/stb_image.h"
-)
+        constants.h)
 
 set(
         MISC_FILES

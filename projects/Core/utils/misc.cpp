@@ -1,4 +1,5 @@
 #include <Core/utils/misc.h>
+#include <Core/constants.h>
 
 #include <Modloader/app/methods/MoonGuid.h>
 #include <Modloader/app/methods/UberShaderAPI.h>
@@ -66,5 +67,9 @@ namespace utils {
             vector.y *= factor;
             vector.z *= factor;
         }
+    }
+
+    float deg2rad(float degrees) {
+        return degrees * (PI / 180.f);
     }
 } // namespace utils

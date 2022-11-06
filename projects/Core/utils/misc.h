@@ -31,4 +31,6 @@ namespace utils {
 
     CORE_DLLEXPORT void clamp_vector(app::Vector2& vector, float value);
     CORE_DLLEXPORT void clamp_vector(app::Vector3& vector, float value);
+
+    CORE_DLLEXPORT float deg2rad(float degrees);
 } // namespace utils

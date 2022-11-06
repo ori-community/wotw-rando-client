@@ -5,6 +5,7 @@
 namespace tas::runtime::timeline::entries {
     enum class TimelineEntryType {
         Action,
+        Angle,
         Axis,
         MousePosition,
     };
@@ -13,6 +14,7 @@ namespace tas::runtime::timeline::entries {
             TimelineEntryType,
             {
                     { TimelineEntryType::Action, "Action" },
+                    { TimelineEntryType::Angle, "Angle" },
                     { TimelineEntryType::Axis, "Axis" },
                     { TimelineEntryType::MousePosition, "MousePosition" },
             }
