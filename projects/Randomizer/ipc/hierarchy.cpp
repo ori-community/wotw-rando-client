@@ -9,6 +9,7 @@
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/methods/UnityEngine/Quaternion.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
+#include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/Quaternion.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
@@ -435,9 +436,7 @@ namespace randomizer::ipc {
             auto layer = il2cpp::invoke<app::Int32__Boxed>(go, "get_layer")->fields;
             j["instance_id"] = id;
             j["active"] = il2cpp::unity::get_active(go);
-            ;
             j["active_self"] = il2cpp::unity::get_active_self(go);
-            ;
             j["path"] = il2cpp::unity::get_path(go);
             if (verbose) {
                 nlohmann::json arr;
@@ -543,6 +542,28 @@ namespace randomizer::ipc {
             return j;
         }
 
+        app::GameObject* find_game_object(const std::string& path, std::optional<int>& instance_id) {
+            if (instance_id.has_value()) {
+                auto game_object = UnityEngine::Object::FindObjectFromInstanceID(instance_id.value());
+
+                if (il2cpp::unity::is_valid(game_object) && il2cpp::is_assignable(game_object, types::GameObject::get_class())) {
+                    return reinterpret_cast<app::GameObject*>(game_object);
+                }
+            }
+
+            return scenes::get_game_object(path);
+        }
+
+        std::optional<int> get_optional_instance_id(const nlohmann::json& j) {
+            std::optional<int> instance_id;
+
+            if (!j.is_null()) {
+                instance_id.emplace(j.get<int>());
+            }
+
+            return instance_id;
+        }
+
         void report_roots(nlohmann::json& j, bool children) {
             auto game_objects = scenes::get_roots_from_active();
             if (children) {
@@ -565,10 +586,9 @@ namespace randomizer::ipc {
             }
         }
 
-        void report_game_object(nlohmann::json& j, std::string path, bool children) {
-            auto game_object = scenes::get_game_object(path);
-            if (children) {
-                auto children = il2cpp::unity::get_children(game_object);
+        void report_game_object(nlohmann::json& j, app::GameObject* go, bool visualize_children) {
+            if (visualize_children) {
+                auto children = il2cpp::unity::get_children(go);
                 std::sort(children.begin(), children.end(), [](auto a, auto b) {
                     auto name_a = il2cpp::unity::get_object_name(a);
                     auto name_b = il2cpp::unity::get_object_name(b);
@@ -581,26 +601,29 @@ namespace randomizer::ipc {
 
                 j["payload"] = payload;
             } else
-                j["payload"] = visualize(game_object, il2cpp::unity::get_object_name(game_object), true);
+                j["payload"] = visualize(go, il2cpp::unity::get_object_name(go), true);
         }
 
         void destroy_game_object(const nlohmann::json& j) {
             std::vector<float> values;
-            auto id = j.at("id").get<int>();
+
             auto& payload = j.at("payload");
             auto path = payload.value("path", "");
-            auto go = scenes::get_game_object(path);
+            auto object_instance_id = get_optional_instance_id(j.at("payload").at("instance_id"));
+            auto go = find_game_object(path, object_instance_id);
+
             if (il2cpp::unity::is_valid(go))
                 il2cpp::unity::destroy_object(go);
         }
 
         void set_game_object_active(const nlohmann::json& j) {
             std::vector<float> values;
-            auto id = j.at("id").get<int>();
             auto& payload = j.at("payload");
             auto path = payload.value("path", "");
+            auto object_instance_id = get_optional_instance_id(j.at("payload").at("instance_id"));
             auto value = payload.value("value", true);
-            auto go = scenes::get_game_object(path);
+
+            auto go = find_game_object(path, object_instance_id);
             if (il2cpp::unity::is_valid(go))
                 il2cpp::unity::set_active(go, value);
         }
@@ -612,11 +635,15 @@ namespace randomizer::ipc {
             response["type"] = "response";
             response["id"] = id;
             response["method"] = "get_game_object";
+
             auto path = j.at("payload").value("path", "");
-            if (path == "")
+            auto object_instance_id = get_optional_instance_id(j.at("payload").at("instance_id"));
+
+            if (path == "") {
                 report_roots(response, false);
-            else
-                report_game_object(response, path, false);
+            } else {
+                report_game_object(response, find_game_object(path, object_instance_id), false);
+            }
 
             send_message(std::move(response));
         }
@@ -628,11 +655,15 @@ namespace randomizer::ipc {
             response["type"] = "response";
             response["id"] = id;
             response["method"] = "get_children";
+
             auto path = j.at("payload").value("path", "");
-            if (path == "")
+            auto object_instance_id = get_optional_instance_id(j.at("payload").at("instance_id"));
+
+            if (path == "") {
                 report_roots(response, true);
-            else
-                report_game_object(response, path, true);
+            } else {
+                report_game_object(response, find_game_object(path, object_instance_id), true);
+            }
 
             send_message(std::move(response));
         }

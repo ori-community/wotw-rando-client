@@ -256,9 +256,14 @@ namespace scenes {
         std::vector<std::string> split_path;
         std::string str(path);
         split_str(str, split_path, '/');
-        auto game_object = get_root(split_path.front());
+        auto root_go = get_root(split_path.front());
         split_path.erase(split_path.begin());
-        return split_path.empty() ? game_object : il2cpp::unity::find_child(game_object, split_path);
+
+        if (split_path.empty()) {
+            return root_go;
+        }
+
+        return il2cpp::unity::find_child(root_go, split_path);
     }
 
     gchandle initial_values_handle = 0;
