@@ -10,7 +10,7 @@
 int load_state = 0;
 
 std::string process_name = "oriwotw.exe";
-std::string base_path = "C:\\moon\\";
+std::string base_path = "C:\\moon\\randomizer\\";
 std::string log_path = "loader_log.txt";
 
 // Load order is top to bottom.
