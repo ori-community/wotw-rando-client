@@ -2,6 +2,7 @@
 
 #include <Common/ext.h>
 #include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
 #include <Core/api/graphics/sprite.h>
 #include <Core/enums/controller_axis.h>
 #include <Modloader/app/methods/PlayerInput.h>
@@ -39,7 +40,7 @@ namespace core::input {
     std::unordered_map<Action, SimulatedButtonEntry> simulated_buttons;
     std::unordered_map<ControllerAxis, SimulatedAxisEntry> simulated_axes;
 
-    MousePositionSimulationMode mouse_simulation_mode = MousePositionSimulationMode::ScreenRelative;
+    MousePositionSimulationMode mouse_simulation_mode = MousePositionSimulationMode::OriRelative;
     SimulatedPosition simulated_mouse_position;
 
     app::Vector2 real_mouse_position;
@@ -54,6 +55,42 @@ namespace core::input {
     ControllerAxis* get_axis_input_axis(app::CompoundAxisInput* input) {
         auto it = axis_inputs.find(input);
         return it != axis_inputs.end() ? &it->second : nullptr;
+    }
+
+    app::Vector2 get_simulated_mouse_position_in_viewport_space() {
+        app::Vector2 position{ simulated_mouse_position.x, simulated_mouse_position.y };
+
+        auto ui_cameras = types::UI_Cameras::get_class();
+        auto ui_camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
+
+        switch (mouse_simulation_mode) {
+            case MousePositionSimulationMode::ViewportRelative: {
+                return position;
+            }
+
+            case MousePositionSimulationMode::OriRelative: {
+                auto sein_position = game::player::get_position();
+                auto main_camera = UnityEngine::Camera::get_main();
+
+                // Sein Position...
+                auto position_ui_space = UnityEngine::Camera::ScreenToWorldPoint_2(ui_camera, UnityEngine::Camera::WorldToScreenPoint_2(main_camera, sein_position));
+
+                // ...and add offset
+                position_ui_space.x += position.x;
+                position_ui_space.y += position.y;
+
+                auto position_viewport_space = UnityEngine::Camera::WorldToViewportPoint_2(ui_camera, position_ui_space);
+                return app::Vector2{ position_viewport_space.x, position_viewport_space.y };
+            }
+
+            case MousePositionSimulationMode::UI: {
+                app::Vector3 position_ui_space { simulated_mouse_position.x, simulated_mouse_position.y, 0.f };
+                auto position_viewport_space = UnityEngine::Camera::WorldToViewportPoint_2(ui_camera, position_ui_space);
+                return app::Vector2{ position_viewport_space.x, position_viewport_space.y };
+            }
+        }
+
+        return app::Vector2{ 0.f, 0.f };
     }
 
     namespace {
@@ -113,7 +150,8 @@ namespace core::input {
             if (simulated_mouse_position.enabled) {
                 auto ui_cameras = types::UI_Cameras::get_class();
                 auto camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
-                return UnityEngine::Camera::ViewportToScreenPoint(camera, app::Vector3{ simulated_mouse_position.x, simulated_mouse_position.y, 0.f });
+                auto position_in_viewport_space = get_simulated_mouse_position_in_viewport_space();
+                return UnityEngine::Camera::ViewportToScreenPoint(camera, app::Vector3{ position_in_viewport_space.x, position_in_viewport_space.y, 0.f });
             }
 
             return next::UnityEngine::Input::get_mousePosition();
@@ -139,12 +177,14 @@ namespace core::input {
             real_mouse_position = types::Input_1::get_class()->static_fields->CursorPosition;
 
             if (simulated_mouse_position.enabled) {
-                types::Input_1::get_class()->static_fields->CursorPosition.x = simulated_mouse_position.x;
-                types::Input_1::get_class()->static_fields->CursorPosition.y = simulated_mouse_position.y;
+                auto position_in_viewport_space = get_simulated_mouse_position_in_viewport_space();
+
+                types::Input_1::get_class()->static_fields->CursorPosition.x = position_in_viewport_space.x;
+                types::Input_1::get_class()->static_fields->CursorPosition.y = position_in_viewport_space.y;
 
                 types::Input_1::get_class()->static_fields->CursorMoved =
-                        !eps_equals(simulated_mouse_position.x, previous_mouse_position.x) ||
-                        !eps_equals(simulated_mouse_position.y, previous_mouse_position.y);
+                        !eps_equals(position_in_viewport_space.x, previous_mouse_position.x) ||
+                        !eps_equals(position_in_viewport_space.y, previous_mouse_position.y);
             }
         }
 
@@ -182,20 +222,11 @@ namespace core::input {
 
             simulated_mouse_position_indicator->enabled(true);
 
-            app::Vector3 screen_position{ simulated_mouse_position.x, simulated_mouse_position.y };
+            auto viewport_position = get_simulated_mouse_position_in_viewport_space();
             auto ui_cameras = types::UI_Cameras::get_class();
 
-            if (!il2cpp::unity::is_valid(ui_cameras)) {
-                return;
-            }
-
             auto camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
-
-            if (!il2cpp::unity::is_valid(camera)) {
-                return;
-            }
-
-            auto ui_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, screen_position);
+            auto ui_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, app::Vector3 {viewport_position.x, viewport_position.y, 0.f});
 
             simulated_mouse_position_indicator->local_position(ui_position);
         }

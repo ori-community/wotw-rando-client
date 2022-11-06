@@ -10,7 +10,7 @@ namespace core::input {
          * Position relative to the screen
          * (0|0) is bottom left, (1|1) is top right.
          */
-        ScreenRelative,
+        ViewportRelative,
 
         /**
          * Position relative to Ori's position
@@ -18,7 +18,21 @@ namespace core::input {
          * as world space.
          */
         OriRelative,
+
+        /**
+         * Absolute position in UI space
+         */
+        UI,
     };
+
+    NLOHMANN_JSON_SERIALIZE_ENUM(
+            MousePositionSimulationMode,
+            {
+                    { MousePositionSimulationMode::ViewportRelative, "ViewportRelative" },
+                    { MousePositionSimulationMode::OriRelative, "OriRelative" },
+                    { MousePositionSimulationMode::UI, "UI" },
+            }
+    );
 
     struct SimulatedInput {
         bool enabled = false;
