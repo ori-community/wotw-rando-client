@@ -40,11 +40,10 @@ namespace core::input {
     std::unordered_map<Action, SimulatedButtonEntry> simulated_buttons;
     std::unordered_map<ControllerAxis, SimulatedAxisEntry> simulated_axes;
 
-    MousePositionSimulationMode mouse_simulation_mode = MousePositionSimulationMode::OriRelative;
+    MousePositionSimulationMode mouse_position_simulation_mode = MousePositionSimulationMode::UI;
     SimulatedPosition simulated_mouse_position;
 
     app::Vector2 real_mouse_position;
-
     std::unique_ptr<core::Sprite> simulated_mouse_position_indicator;
 
     Action* get_button_input_action(app::CompoundButtonInput* input) {
@@ -63,7 +62,7 @@ namespace core::input {
         auto ui_cameras = types::UI_Cameras::get_class();
         auto ui_camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
 
-        switch (mouse_simulation_mode) {
+        switch (mouse_position_simulation_mode) {
             case MousePositionSimulationMode::ViewportRelative: {
                 return position;
             }
@@ -360,10 +359,18 @@ namespace core::input {
         simulated_mouse_position.enabled = false;
     }
 
-    const app::Vector2& get_real_mouse_position_in_ui_space() {
+    void set_mouse_position_simulation_mode(MousePositionSimulationMode mode) {
+        mouse_position_simulation_mode = mode;
+    }
+
+    MousePositionSimulationMode get_mouse_position_simulation_mode() {
+        return mouse_position_simulation_mode;
+    }
+
+    const app::Vector2 get_real_mouse_position_in_ui_space() {
         auto ui_cameras = types::UI_Cameras::get_class();
         auto camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
         auto ui_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, app::Vector3{ real_mouse_position.x, real_mouse_position.y, 0.f });
-        return app::Vector2{ ui_position.x, ui_position.y };
+        return std::move(app::Vector2{ ui_position.x, ui_position.y });
     }
 } // namespace core::input
