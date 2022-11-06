@@ -2,14 +2,18 @@
 
 #include <Common/ext.h>
 #include <Core/api/game/game.h>
+#include <Core/api/graphics/sprite.h>
 #include <Core/enums/controller_axis.h>
 #include <Modloader/app/methods/PlayerInput.h>
 #include <Modloader/app/methods/SmartInput/CachedAxisInput.h>
 #include <Modloader/app/methods/SmartInput/CachedButtonInput.h>
 #include <Modloader/app/methods/SmartInput/CompoundAxisInput.h>
 #include <Modloader/app/methods/SmartInput/CompoundButtonInput.h>
+#include <Modloader/app/methods/UnityEngine/Camera.h>
 #include <Modloader/app/methods/UnityEngine/Input.h>
 #include <Modloader/app/types/Input_1.h>
+#include <Modloader/app/types/UI_Cameras.h>
+#include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 
@@ -35,9 +39,12 @@ namespace core::input {
     std::unordered_map<Action, SimulatedButtonEntry> simulated_buttons;
     std::unordered_map<ControllerAxis, SimulatedAxisEntry> simulated_axes;
 
+    MousePositionSimulationMode mouse_simulation_mode = MousePositionSimulationMode::ScreenRelative;
     SimulatedPosition simulated_mouse_position;
 
     app::Vector2 real_mouse_position;
+
+    std::unique_ptr<core::Sprite> simulated_mouse_position_indicator;
 
     Action* get_button_input_action(app::CompoundButtonInput* input) {
         auto it = button_inputs.find(input);
@@ -104,7 +111,9 @@ namespace core::input {
 
         IL2CPP_INTERCEPT(UnityEngine::Input, app::Vector3, get_mousePosition, ()) {
             if (simulated_mouse_position.enabled) {
-                return app::Vector3{ simulated_mouse_position.x, simulated_mouse_position.y, 0.f };
+                auto ui_cameras = types::UI_Cameras::get_class();
+                auto camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
+                return UnityEngine::Camera::ViewportToScreenPoint(camera, app::Vector3{ simulated_mouse_position.x, simulated_mouse_position.y, 0.f });
             }
 
             return next::UnityEngine::Input::get_mousePosition();
@@ -151,6 +160,51 @@ namespace core::input {
             core::input::register_simulators(this_ptr);
             game::event_bus().trigger_event(GameEvent::RegisteringInputSimulators, EventTiming::After);
         }
+
+        void update_simulated_mouse_position_indicator(GameEvent event, EventTiming timing) {
+            if (!simulated_mouse_position.enabled) {
+                if (simulated_mouse_position_indicator != nullptr) {
+                    simulated_mouse_position_indicator->enabled(false);
+                }
+                return;
+            }
+
+            if (simulated_mouse_position_indicator == nullptr) {
+                simulated_mouse_position_indicator = std::make_unique<core::Sprite>();
+
+                core::textures::MaterialParams params;
+                params.uvs = std::optional<app::Vector4>({ 0.f, 0.f, 1.f, 1.f });
+
+                simulated_mouse_position_indicator->texture(core::textures::get_texture(L"file:assets/icons/crosshair.png"), std::make_optional(params));
+                simulated_mouse_position_indicator->set_parent(game::container(game::RandoContainer::Randomizer));
+                simulated_mouse_position_indicator->layer(Layer::UI);
+            }
+
+            simulated_mouse_position_indicator->enabled(true);
+
+            app::Vector3 screen_position{ simulated_mouse_position.x, simulated_mouse_position.y };
+            auto ui_cameras = types::UI_Cameras::get_class();
+
+            if (!il2cpp::unity::is_valid(ui_cameras)) {
+                return;
+            }
+
+            auto camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
+
+            if (!il2cpp::unity::is_valid(camera)) {
+                return;
+            }
+
+            auto ui_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, screen_position);
+
+            simulated_mouse_position_indicator->local_position(ui_position);
+        }
+
+        void initialize() {
+            game::event_bus().register_handler(GameEvent::Update, &update_simulated_mouse_position_indicator);
+        }
+
+        CALL_ON_INIT(initialize);
     } // namespace
 
     void register_button_simulator(app::CompoundButtonInput* input, Action action) {

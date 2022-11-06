@@ -7,7 +7,7 @@
 namespace core {
     class CORE_DLLEXPORT Sprite {
     public:
-        Sprite(app::GameObject* parent = nullptr);
+        explicit Sprite(app::GameObject* parent = nullptr);
         ~Sprite();
 
         Sprite(Sprite const&) = delete;

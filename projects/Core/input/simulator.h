@@ -5,6 +5,21 @@
 #include <Core/enums/controller_axis.h>
 
 namespace core::input {
+    enum class MousePositionSimulationMode {
+        /**
+         * Position relative to the screen
+         * (0|0) is bottom left, (1|1) is top right.
+         */
+        ScreenRelative,
+
+        /**
+         * Position relative to Ori's position
+         * (0|0) is Ori's position. Scaling is the same
+         * as world space.
+         */
+        OriRelative,
+    };
+
     struct SimulatedInput {
         bool enabled = false;
     };

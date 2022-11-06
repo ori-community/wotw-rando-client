@@ -21,6 +21,8 @@ namespace tas::runtime::timeline::entries {
                     core::input::get_simulator_for(ControllerAxis::VerticalAnalogRight),
                 };
         }
+
+        return AngleSimulators { nullptr, nullptr };
     }
 
     void AngleTimelineEntry::activate() {
