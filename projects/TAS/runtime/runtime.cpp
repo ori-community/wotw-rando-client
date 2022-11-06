@@ -152,7 +152,7 @@ namespace tas::runtime {
             core::ipc::register_request_handler("tas.set_timeline_playback_active", &ipc_handlers::set_timeline_playback_active);
             core::ipc::register_request_handler("tas.rewind_timeline", &ipc_handlers::rewind_timeline);
             core::ipc::register_request_handler("tas.get_state", &ipc_handlers::get_state);
-            core::ipc::register_request_handler("tas.get_real_mouse_position_in_ui_space", &ipc_handlers::get_real_mouse_position);
+            core::ipc::register_request_handler("tas.get_real_mouse_position", &ipc_handlers::get_real_mouse_position);
         }
 
         CALL_ON_INIT(initialize);
