@@ -44,7 +44,7 @@ namespace tas::runtime::timeline {
                     case TimelineEntryType::MousePosition: {
                         entries.push_back(std::move(std::make_shared<MousePositionTimelineEntry>(
                                 j_entry.at("frame").get<unsigned long>(),
-                                j_entry.value<core::input::MousePositionSimulationMode>("mode", core::input::MousePositionSimulationMode::OriRelative),
+                                j_entry.value<core::input::MousePositionSimulationMode>("mode", core::input::MousePositionSimulationMode::UI),
                                 j_entry.at("x").get<float>(),
                                 j_entry.at("y").get<float>()
                         )));
