@@ -5,10 +5,10 @@
 
 #include <Common/ext.h>
 
+#include <Modloader/app/methods/AK/Wwise/BaseType.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/methods/UnityEngine/Quaternion.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
-#include <Modloader/app/methods/AK/Wwise/BaseType.h>
 #include <Modloader/app/types/Quaternion.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
@@ -22,12 +22,13 @@ using namespace core::ipc;
 
 namespace randomizer::ipc {
     namespace {
-        std::string_view get_klass_name(void* klass) {
+        std::string get_klass_name(void* klass) {
             auto cast = reinterpret_cast<Il2CppClass*>(klass);
-            if (std::string_view(cast->namespaze).empty())
+            if (std::string_view(cast->namespaze).empty()) {
                 return cast->name;
-            else
-                return fmt::format("{}.{}", cast->namespaze, cast->name);
+            }
+
+            return fmt::format("{}.{}", cast->namespaze, cast->name);
         }
 
         using visualizer = void (*)(nlohmann::json& j, void* obj, bool verbose);
