@@ -81,7 +81,7 @@ namespace core::input {
             }
 
             case MousePositionSimulationMode::UI: {
-                app::Vector3 position_ui_space { simulated_mouse_position.x, simulated_mouse_position.y, 0.f };
+                app::Vector3 position_ui_space{ simulated_mouse_position.x, simulated_mouse_position.y, 0.f };
                 auto position_viewport_space = UnityEngine::Camera::WorldToViewportPoint_2(ui_camera, position_ui_space);
                 return app::Vector2{ position_viewport_space.x, position_viewport_space.y };
             }
@@ -221,9 +221,8 @@ namespace core::input {
 
             auto viewport_position = get_simulated_mouse_position_in_viewport_space();
             auto ui_cameras = types::UI_Cameras::get_class();
-
             auto camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
-            auto ui_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, app::Vector3 {viewport_position.x, viewport_position.y, 0.f});
+            auto ui_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, app::Vector3{ viewport_position.x, viewport_position.y, 0.f });
 
             simulated_mouse_position_indicator->local_position(ui_position);
         }
@@ -361,7 +360,10 @@ namespace core::input {
         simulated_mouse_position.enabled = false;
     }
 
-    const app::Vector2& get_real_mouse_position() {
-        return real_mouse_position;
+    const app::Vector2& get_real_mouse_position_in_ui_space() {
+        auto ui_cameras = types::UI_Cameras::get_class();
+        auto camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
+        auto ui_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, app::Vector3{ real_mouse_position.x, real_mouse_position.y, 0.f });
+        return app::Vector2{ ui_position.x, ui_position.y };
     }
 } // namespace core::input

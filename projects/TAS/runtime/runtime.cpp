@@ -134,8 +134,13 @@ namespace tas::runtime {
 
             void get_real_mouse_position(const nlohmann::json& j) {
                 auto response = core::ipc::respond_to(j);
-                response["payload"]["x"] = core::input::get_real_mouse_position().x;
-                response["payload"]["y"] = core::input::get_real_mouse_position().y;
+
+                auto real_mouse_position_in_ui_space = core::input::get_real_mouse_position_in_ui_space();
+
+                response["payload"]["x"] = real_mouse_position_in_ui_space.x;
+                response["payload"]["y"] = real_mouse_position_in_ui_space.y;
+                response["payload"]["space"] = "UI"; // Hardcoded for now
+
                 core::ipc::send_message(response);
             }
         } // namespace ipc_handlers
@@ -147,7 +152,7 @@ namespace tas::runtime {
             core::ipc::register_request_handler("tas.set_timeline_playback_active", &ipc_handlers::set_timeline_playback_active);
             core::ipc::register_request_handler("tas.rewind_timeline", &ipc_handlers::rewind_timeline);
             core::ipc::register_request_handler("tas.get_state", &ipc_handlers::get_state);
-            core::ipc::register_request_handler("tas.get_real_mouse_position", &ipc_handlers::get_real_mouse_position);
+            core::ipc::register_request_handler("tas.get_real_mouse_position_in_ui_space", &ipc_handlers::get_real_mouse_position);
         }
 
         CALL_ON_INIT(initialize);
