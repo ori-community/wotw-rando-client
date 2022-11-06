@@ -37,6 +37,8 @@ namespace core::input {
 
     SimulatedPosition simulated_mouse_position;
 
+    app::Vector2 real_mouse_position;
+
     Action* get_button_input_action(app::CompoundButtonInput* input) {
         auto it = button_inputs.find(input);
         return it != button_inputs.end() ? &it->second : nullptr;
@@ -124,6 +126,8 @@ namespace core::input {
             }
 
             next::PlayerInput::FixedUpdate(this_ptr);
+
+            real_mouse_position = types::Input_1::get_class()->static_fields->CursorPosition;
 
             if (simulated_mouse_position.enabled) {
                 types::Input_1::get_class()->static_fields->CursorPosition.x = simulated_mouse_position.x;
@@ -273,5 +277,9 @@ namespace core::input {
         }
 
         simulated_mouse_position.enabled = false;
+    }
+
+    const app::Vector2& get_real_mouse_position() {
+        return real_mouse_position;
     }
 } // namespace core::input

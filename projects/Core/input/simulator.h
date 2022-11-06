@@ -31,4 +31,6 @@ namespace core::input {
 
     CORE_DLLEXPORT void enable_all_simulators(bool reset = true);
     CORE_DLLEXPORT void disable_all_simulators();
+
+    CORE_DLLEXPORT const app::Vector2& get_real_mouse_position();
 } // namespace core::input

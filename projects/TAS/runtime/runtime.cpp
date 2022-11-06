@@ -97,7 +97,7 @@ namespace tas::runtime {
                 }
 
                 auto request = core::ipc::make_request("notify_tas_timeline_loaded");
-                core::ipc::send_message(std::move(request));
+                core::ipc::send_message(request);
             }
 
             void set_framestepping_enabled(const nlohmann::json& j) {
@@ -129,7 +129,14 @@ namespace tas::runtime {
                 response["payload"]["timeline_current_frame"] = state.current_timeline.get_current_frame();
                 response["payload"]["timeline_playback_active"] = state.timeline_playback_active;
                 response["payload"]["framestepping_enabled"] = state.framestepping_enabled;
-                core::ipc::send_message(std::move(response));
+                core::ipc::send_message(response);
+            }
+
+            void get_real_mouse_position(const nlohmann::json& j) {
+                auto response = core::ipc::respond_to(j);
+                response["payload"]["x"] = core::input::get_real_mouse_position().x;
+                response["payload"]["y"] = core::input::get_real_mouse_position().y;
+                core::ipc::send_message(response);
             }
         } // namespace ipc_handlers
 
@@ -140,6 +147,7 @@ namespace tas::runtime {
             core::ipc::register_request_handler("tas.set_timeline_playback_active", &ipc_handlers::set_timeline_playback_active);
             core::ipc::register_request_handler("tas.rewind_timeline", &ipc_handlers::rewind_timeline);
             core::ipc::register_request_handler("tas.get_state", &ipc_handlers::get_state);
+            core::ipc::register_request_handler("tas.get_real_mouse_position", &ipc_handlers::get_real_mouse_position);
         }
 
         CALL_ON_INIT(initialize);
