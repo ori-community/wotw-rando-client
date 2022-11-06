@@ -63,5 +63,5 @@ namespace core::input {
 
     CORE_DLLEXPORT void set_mouse_position_simulation_mode(MousePositionSimulationMode mode);
     CORE_DLLEXPORT MousePositionSimulationMode get_mouse_position_simulation_mode();
-    CORE_DLLEXPORT const app::Vector2 get_real_mouse_position_in_ui_space();
+    CORE_DLLEXPORT app::Vector2 get_real_mouse_position_in_ui_space();
 } // namespace core::input

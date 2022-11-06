@@ -367,10 +367,10 @@ namespace core::input {
         return mouse_position_simulation_mode;
     }
 
-    const app::Vector2 get_real_mouse_position_in_ui_space() {
+    app::Vector2 get_real_mouse_position_in_ui_space() {
         auto ui_cameras = types::UI_Cameras::get_class();
         auto camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
         auto ui_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, app::Vector3{ real_mouse_position.x, real_mouse_position.y, 0.f });
-        return std::move(app::Vector2{ ui_position.x, ui_position.y });
+        return app::Vector2{ ui_position.x, ui_position.y };
     }
 } // namespace core::input
