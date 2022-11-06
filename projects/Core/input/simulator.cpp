@@ -69,17 +69,14 @@ namespace core::input {
             }
 
             case MousePositionSimulationMode::OriRelative: {
-                auto sein_position = game::player::get_position();
+                auto position_world_space = game::player::get_position();
+
+                position_world_space.x += position.x;
+                position_world_space.y += position.y;
+
                 auto main_camera = UnityEngine::Camera::get_main();
 
-                // Sein Position...
-                auto position_ui_space = UnityEngine::Camera::ScreenToWorldPoint_2(ui_camera, UnityEngine::Camera::WorldToScreenPoint_2(main_camera, sein_position));
-
-                // ...and add offset
-                position_ui_space.x += position.x;
-                position_ui_space.y += position.y;
-
-                auto position_viewport_space = UnityEngine::Camera::WorldToViewportPoint_2(ui_camera, position_ui_space);
+                auto position_viewport_space = UnityEngine::Camera::WorldToViewportPoint_2(main_camera, position_world_space);
                 return app::Vector2{ position_viewport_space.x, position_viewport_space.y };
             }
 
