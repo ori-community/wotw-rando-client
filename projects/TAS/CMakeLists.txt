@@ -19,6 +19,7 @@ set(
         "runtime/timeline_entries/mouse_angle.cpp"
         "runtime/timeline_entries/mouse_position.cpp"
         "runtime/timeline_entries/position.cpp"
+        "runtime/timeline_entries/rng_seed.cpp"
         "runtime/timeline_json_loader.cpp"
 )
 
@@ -35,6 +36,7 @@ set(
         "runtime/timeline_entries/mouse_angle.h"
         "runtime/timeline_entries/mouse_position.h"
         "runtime/timeline_entries/position.h"
+        "runtime/timeline_entries/rng_seed.h"
         "runtime/timeline_json_loader.h"
 )
 

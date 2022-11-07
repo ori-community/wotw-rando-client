@@ -10,6 +10,7 @@ namespace tas::runtime::timeline::entries {
         MouseAngle,
         MousePosition,
         Position,
+        RNGSeed,
     };
 
     NLOHMANN_JSON_SERIALIZE_ENUM(
@@ -21,6 +22,7 @@ namespace tas::runtime::timeline::entries {
                     { TimelineEntryType::MouseAngle, "MouseAngle" },
                     { TimelineEntryType::MousePosition, "MousePosition" },
                     { TimelineEntryType::Position, "Position" },
+                    { TimelineEntryType::RNGSeed, "RNGSeed" },
             }
     );
 

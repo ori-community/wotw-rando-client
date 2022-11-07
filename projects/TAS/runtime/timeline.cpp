@@ -72,6 +72,10 @@ namespace tas::runtime::timeline {
         return this->current_frame;
     }
 
+    unsigned long Timeline::get_next_frame() {
+        return this->next_frame;
+    }
+
     unsigned int Timeline::get_fps() {
         return this->fps;
     }

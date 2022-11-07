@@ -65,6 +65,13 @@ namespace tas::runtime::timeline {
                                 j_entry.at("y").get<float>()
                         )));
                     } break;
+
+                    case TimelineEntryType::RNGSeed: {
+                        entries.push_back(std::move(std::make_shared<RNGSeedTimelineEntry>(
+                                j_entry.at("frame").get<unsigned long>(),
+                                j_entry.at("seed").get<int>()
+                        )));
+                    } break;
                 }
             }
 

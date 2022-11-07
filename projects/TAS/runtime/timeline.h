@@ -30,6 +30,7 @@ namespace tas::runtime::timeline {
 
     public:
         unsigned long get_current_frame();
+        unsigned long get_next_frame();
         unsigned int get_fps();
         float get_delta_time();
         float get_current_time();
