@@ -49,22 +49,17 @@ namespace tas::runtime {
             return state.current_timeline.get_delta_time();
         }
 
-        // Make camera movement depend on TAS time
         IL2CPP_INTERCEPT(SinMovement, void, UpdateMovement, (app::SinMovement* this_ptr, float time)) {
-            if (state.timeline_playback_active) {
-                next::SinMovement::UpdateMovement(this_ptr, state.current_timeline.get_current_time());
-            } else {
-                next::SinMovement::UpdateMovement(this_ptr, time);
-            }
+            // Disable camera swaying
         }
 
-        unsigned long last_frame = 0;
+        unsigned long last_notified_frame = 0;
         void notify_current_timeline_current_frame_changed() {
-            if (state.current_timeline.get_current_frame() != last_frame) {
+            if (state.current_timeline.get_current_frame() != last_notified_frame) {
                 auto request = core::ipc::make_request("notify_tas_current_frame_updated");
                 request["payload"]["current_frame"] = state.current_timeline.get_current_frame();
                 core::ipc::send_message(std::move(request));
-                last_frame = state.current_timeline.get_current_frame();
+                last_notified_frame = state.current_timeline.get_current_frame();
             }
         }
 
