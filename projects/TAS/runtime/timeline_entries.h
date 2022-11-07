@@ -5,3 +5,4 @@
 #include <TAS/runtime/timeline_entries/axis.h>
 #include <TAS/runtime/timeline_entries/mouse_angle.h>
 #include <TAS/runtime/timeline_entries/mouse_position.h>
+#include <TAS/runtime/timeline_entries/position.h>

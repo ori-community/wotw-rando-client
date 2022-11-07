@@ -57,6 +57,14 @@ namespace tas::runtime::timeline {
                                 j_entry.at("y").get<float>()
                         )));
                     } break;
+
+                    case TimelineEntryType::Position: {
+                        entries.push_back(std::move(std::make_shared<PositionTimelineEntry>(
+                                j_entry.at("frame").get<unsigned long>(),
+                                j_entry.at("x").get<float>(),
+                                j_entry.at("y").get<float>()
+                        )));
+                    } break;
                 }
             }
 
