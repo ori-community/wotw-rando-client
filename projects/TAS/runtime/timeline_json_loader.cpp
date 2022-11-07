@@ -41,6 +41,14 @@ namespace tas::runtime::timeline {
                         )));
                     } break;
 
+                    case TimelineEntryType::MouseAngle: {
+                        entries.push_back(std::move(std::make_shared<MouseAngleTimelineEntry>(
+                                j_entry.at("frame").get<unsigned long>(),
+                                j_entry.at("degrees").get<float>(),
+                                j_entry.value<float>("distance", 3.f),
+                        )));
+                    } break;
+
                     case TimelineEntryType::MousePosition: {
                         entries.push_back(std::move(std::make_shared<MousePositionTimelineEntry>(
                                 j_entry.at("frame").get<unsigned long>(),

@@ -7,6 +7,7 @@ namespace tas::runtime::timeline::entries {
         Action,
         Angle,
         Axis,
+        MouseAngle,
         MousePosition,
     };
 
@@ -16,6 +17,7 @@ namespace tas::runtime::timeline::entries {
                     { TimelineEntryType::Action, "Action" },
                     { TimelineEntryType::Angle, "Angle" },
                     { TimelineEntryType::Axis, "Axis" },
+                    { TimelineEntryType::MouseAngle, "MouseAngle" },
                     { TimelineEntryType::MousePosition, "MousePosition" },
             }
     );
