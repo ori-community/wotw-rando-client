@@ -4,6 +4,7 @@
 #include <Modloader/app/methods/UnityEngine/Application.h>
 #include <Modloader/app/methods/UnityEngine/QualitySettings.h>
 #include <Modloader/app/methods/UnityEngine/Time.h>
+#include <Modloader/app/methods/SinMovement.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/memory.h>
@@ -46,6 +47,15 @@ namespace tas::runtime {
 
         IL2CPP_INTERCEPT(UnityEngine::Time, float, get_fixedDeltaTime, ()) {
             return state.current_timeline.get_delta_time();
+        }
+
+        // Make camera movement depend on TAS time
+        IL2CPP_INTERCEPT(SinMovement, void, UpdateMovement, (app::SinMovement* this_ptr, float time)) {
+            if (state.timeline_playback_active) {
+                next::SinMovement::UpdateMovement(this_ptr, state.current_timeline.get_current_time());
+            } else {
+                next::SinMovement::UpdateMovement(this_ptr, time);
+            }
         }
 
         unsigned long last_frame = 0;

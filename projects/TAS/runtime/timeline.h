@@ -32,6 +32,7 @@ namespace tas::runtime::timeline {
         unsigned long get_current_frame();
         unsigned int get_fps();
         float get_delta_time();
+        float get_current_time();
         void set_fps(unsigned int value);
         void load_entries(std::vector<std::shared_ptr<TimelineEntry>> entries);
         void rewind();

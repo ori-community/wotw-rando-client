@@ -80,6 +80,10 @@ namespace tas::runtime::timeline {
         return this->delta_time;
     }
 
+    float Timeline::get_current_time() {
+        return this->current_frame * delta_time;
+    }
+
     void Timeline::set_fps(unsigned int value) {
         this->fps = value;
         this->delta_time = 1.f / (float)value;
