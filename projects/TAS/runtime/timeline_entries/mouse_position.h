@@ -15,6 +15,6 @@ namespace tas::runtime::timeline::entries {
         MousePositionTimelineEntry(unsigned long frame, core::input::MousePositionSimulationMode mode, float x, float y) :
                 mode(mode), x(x), y(y), TimelineEntry(frame) {}
 
-        void activate() override;
+        void activate(TimelineState& timeline_state) override;
     };
 }

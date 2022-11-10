@@ -72,10 +72,10 @@ namespace tas::runtime::timeline {
                         )));
                     } break;
 
-                    case TimelineEntryType::RNGSeed: {
-                        entries.push_back(std::move(std::make_shared<RNGSeedTimelineEntry>(
+                    case TimelineEntryType::RNGState: {
+                        entries.push_back(std::move(std::make_shared<RNGStateTimelineEntry>(
                                 j_entry.at("frame").get<unsigned long>(),
-                                j_entry.at("seed").get<int>()
+                                j_entry.at("state").get<int>()
                         )));
                     } break;
                 }

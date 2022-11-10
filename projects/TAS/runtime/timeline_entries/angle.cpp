@@ -25,7 +25,7 @@ namespace tas::runtime::timeline::entries {
         return AngleSimulators { nullptr, nullptr };
     }
 
-    void AngleTimelineEntry::activate() {
+    void AngleTimelineEntry::activate(TimelineState& timeline_state) {
         auto simulators = get_simulators_for(this->angle);
 
         auto radians = utils::deg2rad(this->degrees);
@@ -34,7 +34,7 @@ namespace tas::runtime::timeline::entries {
         simulators.y->value = std::sin(radians);
     }
 
-    void AngleTimelineEntry::deactivate() {
+    void AngleTimelineEntry::deactivate(TimelineState& timeline_state) {
         auto simulators = get_simulators_for(this->angle);
         simulators.x->value = 0.f;
         simulators.y->value = 0.f;

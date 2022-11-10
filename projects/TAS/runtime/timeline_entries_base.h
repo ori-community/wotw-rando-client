@@ -1,5 +1,6 @@
 #pragma once
 
+#include <TAS/runtime/timeline_state.h>
 #include <nlohmann/json.hpp>
 
 namespace tas::runtime::timeline::entries {
@@ -11,7 +12,7 @@ namespace tas::runtime::timeline::entries {
         MouseAngle,
         MousePosition,
         Position,
-        RNGSeed,
+        RNGState,
     };
 
     NLOHMANN_JSON_SERIALIZE_ENUM(
@@ -24,7 +25,7 @@ namespace tas::runtime::timeline::entries {
                     { TimelineEntryType::MouseAngle, "MouseAngle" },
                     { TimelineEntryType::MousePosition, "MousePosition" },
                     { TimelineEntryType::Position, "Position" },
-                    { TimelineEntryType::RNGSeed, "RNGSeed" },
+                    { TimelineEntryType::RNGState, "RNGState" },
             }
     );
 
@@ -37,10 +38,10 @@ namespace tas::runtime::timeline::entries {
         explicit TimelineEntry(unsigned long frame) :
                 frame(frame) {}
 
-        virtual void activate(){};
-        virtual void process(unsigned long next_frame){};
+        virtual void activate(TimelineState& timeline_state){};
+        virtual void process(TimelineState& timeline_state, unsigned long next_frame){};
         virtual bool is_active_on_frame(unsigned long f) { return f == frame; };
-        virtual void deactivate(){};
+        virtual void deactivate(TimelineState& timeline_state){};
 
         /**
          * Returns the last frame this entry should play on.

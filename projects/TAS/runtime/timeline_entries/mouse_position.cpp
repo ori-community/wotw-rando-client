@@ -2,7 +2,7 @@
 #include <Core/input/simulator.h>
 
 namespace tas::runtime::timeline::entries {
-    void MousePositionTimelineEntry::activate() {
+    void MousePositionTimelineEntry::activate(TimelineState& timeline_state) {
         auto simulator = core::input::get_mouse_position_simulator();
         simulator->x = this->x;
         simulator->y = this->y;

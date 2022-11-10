@@ -87,11 +87,10 @@ namespace tas::runtime {
             }
 
             if (state.timeline_playback_active) {
-                // Update the FixedUpdateIndex before running the timeline to allow
-                // RNGSeed entries to override it
-                types::FixedRandom::get_class()->static_fields->FixedUpdateIndex = state.current_timeline.get_next_frame();
-
                 state.current_timeline.advance();
+
+                types::FixedRandom::get_class()->static_fields->FixedUpdateIndex = state.current_timeline.get_state().current_rng_state;
+
                 notify_current_timeline_current_frame_changed();
             }
 

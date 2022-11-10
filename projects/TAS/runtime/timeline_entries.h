@@ -6,4 +6,4 @@
 #include <TAS/runtime/timeline_entries/mouse_angle.h>
 #include <TAS/runtime/timeline_entries/mouse_position.h>
 #include <TAS/runtime/timeline_entries/position.h>
-#include <TAS/runtime/timeline_entries/rng_seed.h>
+#include <TAS/runtime/timeline_entries/rng_state.h>

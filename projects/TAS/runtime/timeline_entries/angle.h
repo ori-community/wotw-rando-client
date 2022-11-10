@@ -13,7 +13,7 @@ namespace tas::runtime::timeline::entries {
         AngleTimelineEntry(unsigned long frame, unsigned long duration, ControllerAngle angle, float degrees) :
                 angle(angle), degrees(degrees), FixedDurationTimelineEntry(frame, duration) {}
 
-        void activate() override;
-        void deactivate() override;
+        void activate(TimelineState& timeline_state) override;
+        void deactivate(TimelineState& timeline_state) override;
     };
 }

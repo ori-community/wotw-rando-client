@@ -3,7 +3,7 @@
 #include <Common/ext.h>
 
 namespace tas::runtime::timeline {
-    void Timeline::load_entries(std::vector<std::shared_ptr<TimelineEntry>> entries) {
+    void Timeline::load_entries(const std::vector<std::shared_ptr<TimelineEntry>>& entries) {
         this->deactivate_all_entries();
 
         this->active_timeline_entries.clear();
@@ -21,7 +21,7 @@ namespace tas::runtime::timeline {
 
         while (iterator != this->active_timeline_entries.end()) {
             auto entry = *iterator;
-            entry->deactivate();
+            entry->deactivate(this->state);
             iterator = this->active_timeline_entries.erase(iterator);
         }
     }
@@ -33,10 +33,10 @@ namespace tas::runtime::timeline {
             auto entry = *iterator;
 
             if (!entry->is_active_on_frame(frame)) {
-                entry->deactivate();
+                entry->deactivate(this->state);
                 iterator = this->active_timeline_entries.erase(iterator);
             } else {
-                entry->process(frame);
+                entry->process(this->state, frame);
                 ++iterator;
             }
         }
@@ -48,8 +48,8 @@ namespace tas::runtime::timeline {
         for (auto it = current_frame_items_range.first; it != current_frame_items_range.second; ++it) {
             auto entry = it->second;
 
-            entry->activate();
-            entry->process(frame);
+            entry->activate(this->state);
+            entry->process(this->state, frame);
 
             active_timeline_entries.push_back(entry);
         }
@@ -60,32 +60,52 @@ namespace tas::runtime::timeline {
             auto entry = it->second;
 
             if (entry->frame <= frame) {
-                entry->activate();
-                entry->process(frame);
+                entry->activate(this->state);
+                entry->process(this->state, frame);
 
                 active_timeline_entries.push_back(entry);
             }
         }
     }
 
-    unsigned long Timeline::get_current_frame() {
+    void Timeline::seek_rng_state_on_frame(unsigned long frame) {
+        auto rng_state_entries_by_frame = this->timeline_entries.rng_state_entries_by_frame();
+
+        std::map<unsigned long, std::shared_ptr<RNGStateTimelineEntry>>::const_reverse_iterator last_rng_state_entry_it(rng_state_entries_by_frame.upper_bound(frame));
+
+        if (last_rng_state_entry_it == rng_state_entries_by_frame.rend()) {
+            // There is no preceding RNGState entry...
+            this->state.current_rng_state = static_cast<int>(frame);
+            return;
+        }
+
+        // ...we found a preceding entry, calculate the RNG state off of that
+        auto last_rng_state_entry = last_rng_state_entry_it->second;
+        this->state.current_rng_state = last_rng_state_entry->state + static_cast<int>(frame - last_rng_state_entry->frame);
+    }
+
+    unsigned long Timeline::get_current_frame() const {
         return this->current_frame;
     }
 
-    unsigned long Timeline::get_next_frame() {
+    unsigned long Timeline::get_next_frame() const {
         return this->next_frame;
     }
 
-    unsigned int Timeline::get_fps() {
+    unsigned int Timeline::get_fps() const {
         return this->fps;
     }
 
-    float Timeline::get_delta_time() {
+    float Timeline::get_delta_time() const {
         return this->delta_time;
     }
 
-    float Timeline::get_current_time() {
-        return this->current_frame * delta_time;
+    float Timeline::get_current_time() const {
+        return static_cast<float>(this->current_frame) * delta_time;
+    }
+
+    const TimelineState& Timeline::get_state() const {
+        return this->state;
     }
 
     void Timeline::set_fps(unsigned int value) {
@@ -103,13 +123,17 @@ namespace tas::runtime::timeline {
 
     void Timeline::advance() {
         this->current_frame = this->next_frame;
+        ++this->state.current_rng_state;
         this->deactivate_done_entries(this->current_frame);
         this->activate_entries_starting_on_frame(this->current_frame);
         ++this->next_frame;
     }
 
     void Timeline::seek(unsigned long frame) {
+        this->current_frame = frame;
         this->deactivate_all_entries();
         this->activate_entries_starting_on_or_before_frame(frame);
+        this->seek_rng_state_on_frame(frame);
+        this->next_frame = frame + 1;
     }
 }
