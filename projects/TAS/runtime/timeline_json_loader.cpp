@@ -3,6 +3,8 @@
 #include <Modloader/common.h>
 #include <TAS/runtime/timeline_json_loader.h>
 
+#include <utility>
+
 namespace tas::runtime::timeline {
     void load_from_json(Timeline& timeline, const nlohmann::json& j) {
         try {
@@ -15,6 +17,10 @@ namespace tas::runtime::timeline {
                 auto type = j_entry.at("type").get<TimelineEntryType>();
 
                 switch (type) {
+                    case TimelineEntryType::Invalid: {
+                        modloader::warn(fmt::format("Encountered unknown entry type '{}', ignoring entry", j_entry.at("type").get<std::string>()));
+                    } break;
+
                     case TimelineEntryType::Action: {
                         entries.push_back(std::move(std::make_shared<ActionTimelineEntry>(
                                 j_entry.at("frame").get<unsigned long>(),
@@ -84,7 +90,7 @@ namespace tas::runtime::timeline {
     void load_from_json_file(Timeline& timeline, std::string path) {
         nlohmann::json j;
 
-        if (load_json_file(path, j)) {
+        if (load_json_file(std::move(path), j)) {
             load_from_json(timeline, j);
         }
     }

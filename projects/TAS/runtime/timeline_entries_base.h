@@ -4,6 +4,7 @@
 
 namespace tas::runtime::timeline::entries {
     enum class TimelineEntryType {
+        Invalid = -1,
         Action,
         Angle,
         Axis,
@@ -16,6 +17,7 @@ namespace tas::runtime::timeline::entries {
     NLOHMANN_JSON_SERIALIZE_ENUM(
             TimelineEntryType,
             {
+                    { TimelineEntryType::Invalid, nullptr },
                     { TimelineEntryType::Action, "Action" },
                     { TimelineEntryType::Angle, "Angle" },
                     { TimelineEntryType::Axis, "Axis" },
