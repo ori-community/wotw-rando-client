@@ -18,7 +18,7 @@ namespace tas::runtime::timeline {
 
                 switch (type) {
                     case TimelineEntryType::Invalid: {
-                        modloader::warn(fmt::format("Encountered unknown entry type '{}', ignoring entry", j_entry.at("type").get<std::string>()));
+                        modloader::warn("TAS", fmt::format("Encountered unknown entry type '{}', ignoring entry", j_entry.at("type").get<std::string>()));
                     } break;
 
                     case TimelineEntryType::Action: {
