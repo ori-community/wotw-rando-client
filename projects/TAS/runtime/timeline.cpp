@@ -117,7 +117,7 @@ namespace tas::runtime::timeline {
         this->deactivate_all_entries();
         this->active_timeline_entries.clear();
 
-        this->state.current_rng_state = 1;
+        this->state.current_rng_state = 0;
         this->current_frame = 0;
         this->next_frame = 1;
     }
