@@ -16,7 +16,7 @@ namespace app::classes::System::IO::Path {
     IL2CPP_REGISTER_METHOD(0x02376C10, app::String*, GetFileNameWithoutExtension, (app::String * path))
     IL2CPP_REGISTER_METHOD(0x02376CC0, app::String*, GetFullPath, (app::String * path))
     IL2CPP_REGISTER_METHOD(0x02376D60, app::String*, GetFullPathInternal, (app::String * path))
-    IL2CPP_REGISTER_METHOD(0x02376E00, int32_t, GetFullPathName_1, (app::String * path, int32_t num_buffer_chars, app::StringBuilder* buffer, app::void** lp_file_part_or_null))
+    IL2CPP_REGISTER_METHOD(0x02376E00, int32_t, GetFullPathName_1, (app::String * path, int32_t num_buffer_chars, app::StringBuilder* buffer, void** lp_file_part_or_null))
     IL2CPP_REGISTER_METHOD(0x02377050, app::String*, GetFullPathName_2, (app::String * path))
     IL2CPP_REGISTER_METHODINFO(0x0472C060, Path_GetFullPathName_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x023773A0, app::String*, WindowsDriveAdjustment, (app::String * path))

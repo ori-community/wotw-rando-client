@@ -3,7 +3,7 @@
 
 namespace {
     void initialize() {
-        game::trials::add_ghosts_directory_suffix("randomizer");
+        game::trials::add_ghosts_directory_suffix("tas");
     }
 
     CALL_AFTER_INJECT(initialize);

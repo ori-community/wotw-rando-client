@@ -9,10 +9,17 @@ namespace modloader {
     using shutdown_handler = void (*)();
     extern IL2CPP_MODLOADER_DLLEXPORT std::string base_path;
 
+    enum class InitializationType {
+        OnInjectionComplete,
+        OnGameReady,
+    };
+
     struct IL2CPP_MODLOADER_DLLEXPORT Initialization {
         using init = void (*)();
-        Initialization(init p_call);
 
+        Initialization(init p_call, InitializationType when);
+
+        InitializationType when;
         init call;
         Initialization* next;
     };
@@ -60,4 +67,5 @@ namespace modloader {
     IL2CPP_MODLOADER_DLLEXPORT extern bool shutdown_thread;
 } // namespace modloader
 
-#define CALL_ON_INIT(func) modloader::Initialization func##_init_struct(&func)
+#define CALL_ON_INIT(func) modloader::Initialization func##_init_struct(&func, modloader::InitializationType::OnGameReady)
+#define CALL_AFTER_INJECT(func) modloader::Initialization func##_init_struct(&func, modloader::InitializationType::OnInjectionComplete)

@@ -8,7 +8,6 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
 set(
         SOURCE_FILES
-        "tas.cpp"
         "runtime/runtime.cpp"
         "runtime/timeline.cpp"
         "runtime/timeline_entry_collection.cpp"
@@ -21,6 +20,8 @@ set(
         "runtime/timeline_entries/position.cpp"
         "runtime/timeline_entries/rng_state.cpp"
         "runtime/timeline_json_loader.cpp"
+        "tas.cpp"
+        "trials_config.cpp"
 )
 
 set(
