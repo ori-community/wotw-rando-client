@@ -117,13 +117,14 @@ namespace tas::runtime::timeline {
         this->deactivate_all_entries();
         this->active_timeline_entries.clear();
 
+        this->state.current_rng_state = 1;
         this->current_frame = 0;
-        this->next_frame = 0;
+        this->next_frame = 1;
     }
 
     void Timeline::advance() {
         this->current_frame = this->next_frame;
-        ++this->state.current_rng_state;
+        this->state.current_rng_state = static_cast<int>(this->next_frame);
         this->deactivate_done_entries(this->current_frame);
         this->activate_entries_starting_on_frame(this->current_frame);
         ++this->next_frame;

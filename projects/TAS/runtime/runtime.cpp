@@ -67,6 +67,7 @@ namespace tas::runtime {
             j["timeline_fps"] = state.current_timeline.get_fps();
             j["timeline_current_frame"] = state.current_timeline.get_current_frame();
             j["timeline_playback_active"] = state.timeline_playback_active;
+            j["timeline_current_rng_state"] = state.current_timeline.get_state().current_rng_state;
             j["framestepping_enabled"] = state.framestepping_enabled;
             j["game_loading"] = game::loading_detection::is_loading();
 
@@ -171,6 +172,7 @@ namespace tas::runtime {
             void reload_everything(std::string const& command, std::vector<console::CommandParam> const& params) {
                 game::reload_everything();
             }
+
             void load(std::string const& command, std::vector<console::CommandParam> const& params) {
                 game::load();
             }
