@@ -12,6 +12,8 @@
 #include <Modloader/windows_api/memory.h>
 
 #include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
+#include <Core/api/game/loading_detection.h>
 #include <Core/input/simulator.h>
 #include <Core/ipc/ipc.h>
 
@@ -61,14 +63,22 @@ namespace tas::runtime {
             return true;
         }
 
-        unsigned long last_notified_frame = 0;
-        void notify_current_timeline_current_frame_changed() {
-            if (state.current_timeline.get_current_frame() != last_notified_frame) {
-                auto request = core::ipc::make_request("notify_tas_current_frame_updated");
-                request["payload"]["current_frame"] = state.current_timeline.get_current_frame();
-                core::ipc::send_message(std::move(request));
-                last_notified_frame = state.current_timeline.get_current_frame();
-            }
+        void serialize_state(nlohmann::json& j) {
+            j["timeline_fps"] = state.current_timeline.get_fps();
+            j["timeline_current_frame"] = state.current_timeline.get_current_frame();
+            j["timeline_playback_active"] = state.timeline_playback_active;
+            j["framestepping_enabled"] = state.framestepping_enabled;
+            j["game_loading"] = game::loading_detection::is_loading();
+
+            auto position = game::player::get_position();
+            j["ori_position"]["x"] = position.x;
+            j["ori_position"]["y"] = position.y;
+        }
+
+        void notify_state_changed() {
+            auto request = core::ipc::make_request("notify_tas_state_changed");
+            serialize_state(request["payload"]);
+            core::ipc::send_message(request);
         }
 
         void (*(next_unityplayer_update))() = nullptr;
@@ -94,14 +104,16 @@ namespace tas::runtime {
             }
 
             if (state.timeline_playback_active) {
-                state.current_timeline.advance();
+                if (!game::loading_detection::is_loading()) {
+                    state.current_timeline.advance();
+                }
 
                 types::FixedRandom::get_class()->static_fields->FixedUpdateIndex = state.current_timeline.get_state().current_rng_state;
-
-                notify_current_timeline_current_frame_changed();
             }
 
             next_unityplayer_update();
+
+            notify_state_changed();
         }
 
         namespace ipc_handlers {
@@ -114,6 +126,8 @@ namespace tas::runtime {
 
                 auto request = core::ipc::make_request("notify_tas_timeline_loaded");
                 core::ipc::send_message(request);
+
+                notify_state_changed();
             }
 
             void set_framestepping_enabled(const nlohmann::json& j) {
@@ -132,19 +146,18 @@ namespace tas::runtime {
                 } else {
                     core::input::disable_all_simulators();
                 }
+
+                notify_state_changed();
             }
 
             void rewind_timeline(const nlohmann::json& j) {
                 state.current_timeline.rewind();
-                notify_current_timeline_current_frame_changed();
+                notify_state_changed();
             }
 
             void get_state(const nlohmann::json& j) {
                 auto response = core::ipc::respond_to(j);
-                response["payload"]["timeline_fps"] = state.current_timeline.get_fps();
-                response["payload"]["timeline_current_frame"] = state.current_timeline.get_current_frame();
-                response["payload"]["timeline_playback_active"] = state.timeline_playback_active;
-                response["payload"]["framestepping_enabled"] = state.framestepping_enabled;
+                serialize_state(response["payload"]);
                 core::ipc::send_message(response);
             }
 
