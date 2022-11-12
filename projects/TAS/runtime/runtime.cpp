@@ -5,6 +5,7 @@
 #include <Modloader/app/methods/UnityEngine/QualitySettings.h>
 #include <Modloader/app/methods/UnityEngine/Time.h>
 #include <Modloader/app/methods/SinMovement.h>
+#include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/types/FixedRandom.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -15,10 +16,12 @@
 #include <Core/ipc/ipc.h>
 
 #include <Modloader/common.h>
+#include <Modloader/windows_api/console.h>
 
 #include <thread>
 
 using namespace app::classes;
+using namespace modloader::win;
 
 namespace tas::runtime {
     using namespace timeline;
@@ -52,6 +55,10 @@ namespace tas::runtime {
 
         IL2CPP_INTERCEPT(SinMovement, void, UpdateMovement, (app::SinMovement* this_ptr, float time)) {
             // Disable camera swaying
+        }
+
+        IL2CPP_INTERCEPT(ScenesManager, bool, get_InstantLoadScenes, (app::ScenesManager* this_ptr)) {
+            return true;
         }
 
         unsigned long last_notified_frame = 0;
@@ -154,6 +161,15 @@ namespace tas::runtime {
             }
         } // namespace ipc_handlers
 
+        namespace cli_handlers {
+            void reload_everything(std::string const& command, std::vector<console::CommandParam> const& params) {
+                game::reload_everything();
+            }
+            void load(std::string const& command, std::vector<console::CommandParam> const& params) {
+                game::load();
+            }
+        }
+
         void initialize() {
             core::ipc::register_request_handler("tas.load_timeline_from_file", &ipc_handlers::load_timeline_from_file);
             core::ipc::register_request_handler("tas.set_framestepping_enabled", &ipc_handlers::set_framestepping_enabled);
@@ -162,6 +178,9 @@ namespace tas::runtime {
             core::ipc::register_request_handler("tas.rewind_timeline", &ipc_handlers::rewind_timeline);
             core::ipc::register_request_handler("tas.get_state", &ipc_handlers::get_state);
             core::ipc::register_request_handler("tas.get_real_mouse_position", &ipc_handlers::get_real_mouse_position);
+
+            console::register_command({ "tas", "game", "reload" }, &cli_handlers::reload_everything, true);
+            console::register_command({ "tas", "game", "load" }, &cli_handlers::load, true);
         }
 
         CALL_ON_INIT(initialize);
