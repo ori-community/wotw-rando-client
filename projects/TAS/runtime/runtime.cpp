@@ -123,16 +123,19 @@ namespace tas::runtime {
 
         namespace ipc_handlers {
             void load_timeline_from_file(const nlohmann::json& j) {
-                load_from_json_file(state.current_timeline, j.value("path", "tas.json"));
+                nlohmann::json tas_config;
 
-                if (state.timeline_playback_active) {
-                    state.current_timeline.seek(state.current_timeline.get_current_frame());
+                if (load_from_json_file(state.current_timeline, j.value("path", "tas.json"), tas_config)) {
+                    if (state.timeline_playback_active) {
+                        state.current_timeline.seek(state.current_timeline.get_current_frame());
+                    }
+
+                    auto request = core::ipc::make_request("notify_tas_timeline_loaded");
+                    request["payload"]["tas_config"] = tas_config;
+                    core::ipc::send_message(request);
+
+                    notify_state_changed();
                 }
-
-                auto request = core::ipc::make_request("notify_tas_timeline_loaded");
-                core::ipc::send_message(request);
-
-                notify_state_changed();
             }
 
             void set_framestepping_enabled(const nlohmann::json& j) {

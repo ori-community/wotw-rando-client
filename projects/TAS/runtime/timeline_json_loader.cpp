@@ -6,7 +6,7 @@
 #include <utility>
 
 namespace tas::runtime::timeline {
-    void load_from_json(Timeline& timeline, const nlohmann::json& j) {
+    bool load_from_json(Timeline& timeline, const nlohmann::json& j) {
         try {
             timeline.set_fps(j.value<unsigned int>("fps", 60));
 
@@ -87,17 +87,21 @@ namespace tas::runtime::timeline {
                 }
             }
 
-            timeline.load_entries(std::move(entries));
+            timeline.load_entries(entries);
+
+            return true;
         } catch (std::exception& e) {
             modloader::warn("TAS", fmt::format("Failed to load TAS timeline: {}", e.what()));
         }
+
+        return false;
     }
 
-    void load_from_json_file(Timeline& timeline, std::string path) {
-        nlohmann::json j;
-
+    bool load_from_json_file(Timeline& timeline, std::string path, nlohmann::json& j) {
         if (load_json_file(std::move(path), j)) {
-            load_from_json(timeline, j);
+            return load_from_json(timeline, j);
         }
+
+        return false;
     }
 } // namespace tas::runtime::timeline
