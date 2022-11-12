@@ -47,6 +47,12 @@ namespace tas::runtime::timeline {
                         )));
                     } break;
 
+                    case TimelineEntryType::GameReload: {
+                        entries.push_back(std::move(std::make_shared<GameReloadTimelineEntry>(
+                                j_entry.at("frame").get<unsigned long>()
+                        )));
+                    } break;
+
                     case TimelineEntryType::MouseAngle: {
                         entries.push_back(std::move(std::make_shared<MouseAngleTimelineEntry>(
                                 j_entry.at("frame").get<unsigned long>(),
