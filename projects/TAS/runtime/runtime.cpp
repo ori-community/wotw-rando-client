@@ -73,6 +73,10 @@ namespace tas::runtime {
             auto position = game::player::get_position();
             j["ori_position"]["x"] = position.x;
             j["ori_position"]["y"] = position.y;
+
+            auto real_mouse_position_in_ui_space = core::input::get_real_mouse_position_in_ui_space();
+            j["real_mouse_position"]["x"] = real_mouse_position_in_ui_space.x;
+            j["real_mouse_position"]["y"] = real_mouse_position_in_ui_space.y;
         }
 
         void notify_state_changed() {
@@ -132,6 +136,7 @@ namespace tas::runtime {
 
             void set_framestepping_enabled(const nlohmann::json& j) {
                 state.framestepping_enabled = j.at("payload").at("enabled").get<bool>();
+                notify_state_changed();
             }
 
             void framestep(const nlohmann::json& j) {
@@ -160,18 +165,6 @@ namespace tas::runtime {
                 serialize_state(response["payload"]);
                 core::ipc::send_message(response);
             }
-
-            void get_real_mouse_position(const nlohmann::json& j) {
-                auto response = core::ipc::respond_to(j);
-
-                auto real_mouse_position_in_ui_space = core::input::get_real_mouse_position_in_ui_space();
-
-                response["payload"]["x"] = real_mouse_position_in_ui_space.x;
-                response["payload"]["y"] = real_mouse_position_in_ui_space.y;
-                response["payload"]["space"] = "UI"; // Hardcoded for now
-
-                core::ipc::send_message(response);
-            }
         } // namespace ipc_handlers
 
         namespace cli_handlers {
@@ -190,7 +183,6 @@ namespace tas::runtime {
             core::ipc::register_request_handler("tas.set_timeline_playback_active", &ipc_handlers::set_timeline_playback_active);
             core::ipc::register_request_handler("tas.rewind_timeline", &ipc_handlers::rewind_timeline);
             core::ipc::register_request_handler("tas.get_state", &ipc_handlers::get_state);
-            core::ipc::register_request_handler("tas.get_real_mouse_position", &ipc_handlers::get_real_mouse_position);
 
             console::register_command({ "tas", "game", "reload" }, &cli_handlers::reload_everything, true);
             console::register_command({ "tas", "game", "load" }, &cli_handlers::load, true);
