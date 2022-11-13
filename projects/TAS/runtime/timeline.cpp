@@ -88,10 +88,6 @@ namespace tas::runtime::timeline {
         return this->current_frame;
     }
 
-    unsigned long Timeline::get_next_frame() const {
-        return this->next_frame;
-    }
-
     unsigned int Timeline::get_fps() const {
         return this->fps;
     }
@@ -119,15 +115,13 @@ namespace tas::runtime::timeline {
 
         this->state.current_rng_state = 0;
         this->current_frame = 0;
-        this->next_frame = 1;
     }
 
     void Timeline::advance() {
-        this->current_frame = this->next_frame;
-        this->state.current_rng_state = static_cast<int>(this->next_frame);
+        ++this->current_frame;
+        ++this->state.current_rng_state;
         this->deactivate_done_entries(this->current_frame);
         this->activate_entries_starting_on_frame(this->current_frame);
-        ++this->next_frame;
     }
 
     void Timeline::seek(unsigned long frame) {
@@ -135,6 +129,5 @@ namespace tas::runtime::timeline {
         this->deactivate_all_entries();
         this->activate_entries_starting_on_or_before_frame(frame);
         this->seek_rng_state_on_frame(frame);
-        this->next_frame = frame + 1;
     }
 }

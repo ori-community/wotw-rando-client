@@ -15,7 +15,6 @@ namespace tas::runtime::timeline {
         TimelineState state;
 
         unsigned long current_frame = 0;
-        unsigned long next_frame = 0;
         unsigned int fps = 60;
         float delta_time = 1.f / (float)fps;
 
@@ -34,7 +33,6 @@ namespace tas::runtime::timeline {
 
     public:
         unsigned long get_current_frame() const;
-        unsigned long get_next_frame() const;
         unsigned int get_fps() const;
         float get_delta_time() const;
         float get_current_time() const;

@@ -41,7 +41,7 @@ namespace tas::runtime::timeline::entries {
                 frame(frame) {}
 
         virtual void activate(TimelineState& timeline_state){};
-        virtual void process(TimelineState& timeline_state, unsigned long next_frame){};
+        virtual void process(TimelineState& timeline_state){};
         virtual bool is_active_on_frame(unsigned long f) { return f == frame; };
         virtual void deactivate(TimelineState& timeline_state){};
 
