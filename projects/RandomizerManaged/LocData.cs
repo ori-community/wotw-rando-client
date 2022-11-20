@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using RandomizerManaged.Memory;
@@ -62,7 +63,7 @@ namespace RandomizerManaged {
       var PositionY = lineParts[10];
 
       if (PositionX != "0" && PositionY != "0") {
-        Position = new Vector2(float.Parse(PositionX), float.Parse(PositionY));
+        Position = new Vector2(float.Parse(PositionX, NumberStyles.Float, CultureInfo.InvariantCulture), float.Parse(PositionY, NumberStyles.Float, CultureInfo.InvariantCulture));
       }
 
       Area = nameParts[0];
