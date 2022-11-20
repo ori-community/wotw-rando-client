@@ -16,7 +16,9 @@ set(
         "animation/timeline_entries/setters.cpp"
         "api/faderb.cpp"
         "api/game/game.cpp"
+        "api/game/loading_detection.cpp"
         "api/game/player.cpp"
+        "api/game/trials.cpp"
         "api/game/ui.cpp"
         "api/graphics/shaders.cpp"
         "api/graphics/sprite.cpp"
@@ -37,6 +39,7 @@ set(
         "uber_states/uber_state_dev.cpp"
         "uber_states/uber_state_interface.cpp"
         "uber_states/uber_state_virtual.cpp"
+        "uber_states/uber_states.cpp"
         "utils/byte_stream.cpp"
         "utils/json_serializers.cpp"
         "utils/misc.cpp"
@@ -57,7 +60,9 @@ set(
         "animation/timeline_state.h"
         "api/faderb.h"
         "api/game/game.h"
+        "api/game/loading_detection.h"
         "api/game/player.h"
+        "api/game/trials.h"
         "api/game/ui.h"
         "api/graphics/shaders.h"
         "api/graphics/sprite.h"
@@ -66,6 +71,7 @@ set(
         "api/scenes/create_objects.h"
         "api/scenes/scene_load.h"
         "api/system/message_provider.h"
+        "constants.h"
         "dev/object_visualizer.h"
         "enums/actions.h"
         "enums/buttons.h"
@@ -88,6 +94,7 @@ set(
         "text_style.h"
         "uber_states/uber_state_interface.h"
         "uber_states/uber_state_virtual.h"
+        "uber_states/uber_states.h"
         "utils/byte_stream.h"
         "utils/cached_loader.h"
         "utils/dirty_value.h"
@@ -98,7 +105,7 @@ set(
         "utils/operations.h"
         "utils/position_converter.h"
         "utils/stb_image.h"
-        constants.h)
+)
 
 set(
         MISC_FILES

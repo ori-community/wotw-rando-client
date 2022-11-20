@@ -369,7 +369,24 @@ namespace core::input {
 
     app::Vector2 get_real_mouse_position_in_ui_space() {
         auto ui_cameras = types::UI_Cameras::get_class();
-        auto camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
+        auto camera_system = ui_cameras->static_fields->System;
+
+        if (camera_system == nullptr) {
+            return app::Vector2{ 0.f, 0.f };
+        }
+
+        auto gui_camera = camera_system->fields.GUICamera;
+
+        if (gui_camera == nullptr) {
+            return app::Vector2{ 0.f, 0.f };
+        }
+
+        auto camera = gui_camera->fields.Camera;
+
+        if (camera == nullptr) {
+            return app::Vector2{ 0.f, 0.f };
+        }
+
         auto ui_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, app::Vector3{ real_mouse_position.x, real_mouse_position.y, 0.f });
         return app::Vector2{ ui_position.x, ui_position.y };
     }

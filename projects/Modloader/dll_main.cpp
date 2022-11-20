@@ -59,10 +59,12 @@ namespace modloader {
         }
 
         Initialization* start = nullptr;
-        void initialization_callbacks() {
+        void run_initialization_callbacks(InitializationType type) {
             auto it = start;
             while (it != nullptr) {
-                it->call();
+                if (it->when == type) {
+                    it->call();
+                }
                 it = it->next;
             }
         }
@@ -107,8 +109,8 @@ namespace modloader {
         trace(MessageType::Debug, 5, group, message);
     }
 
-    Initialization::Initialization(Initialization::init p_call) :
-            next(start), call(p_call) {
+    Initialization::Initialization(Initialization::init p_call, InitializationType when) :
+            next(start), call(p_call), when(when) {
         start = this;
     }
 
@@ -143,6 +145,8 @@ namespace modloader {
         interception::interception_init();
 
         il2cpp::load_all_types();
+
+        run_initialization_callbacks(InitializationType::OnInjectionComplete);
 
         auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
         auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());
@@ -183,7 +187,7 @@ namespace modloader {
     IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
         if (!initialized) {
             trace(MessageType::Info, 5, "initialize", "Calling initialization callbacks.");
-            initialization_callbacks();
+            run_initialization_callbacks(InitializationType::OnGameReady);
             initialized = true;
         }
 

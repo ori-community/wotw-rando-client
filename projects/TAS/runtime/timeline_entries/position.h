@@ -13,6 +13,6 @@ namespace tas::runtime::timeline::entries {
         PositionTimelineEntry(unsigned long frame, float x, float y) :
                 x(x), y(y), TimelineEntry(frame) {}
 
-        void activate() override;
+        void activate(TimelineState& timeline_state) override;
     };
 }

@@ -5,20 +5,25 @@
 #include <Modloader/app/methods/UnityEngine/QualitySettings.h>
 #include <Modloader/app/methods/UnityEngine/Time.h>
 #include <Modloader/app/methods/SinMovement.h>
+#include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/types/FixedRandom.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/memory.h>
 
 #include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
+#include <Core/api/game/loading_detection.h>
 #include <Core/input/simulator.h>
 #include <Core/ipc/ipc.h>
 
 #include <Modloader/common.h>
+#include <Modloader/windows_api/console.h>
 
 #include <thread>
 
 using namespace app::classes;
+using namespace modloader::win;
 
 namespace tas::runtime {
     using namespace timeline;
@@ -54,14 +59,31 @@ namespace tas::runtime {
             // Disable camera swaying
         }
 
-        unsigned long last_notified_frame = 0;
-        void notify_current_timeline_current_frame_changed() {
-            if (state.current_timeline.get_current_frame() != last_notified_frame) {
-                auto request = core::ipc::make_request("notify_tas_current_frame_updated");
-                request["payload"]["current_frame"] = state.current_timeline.get_current_frame();
-                core::ipc::send_message(std::move(request));
-                last_notified_frame = state.current_timeline.get_current_frame();
-            }
+        IL2CPP_INTERCEPT(ScenesManager, bool, get_InstantLoadScenes, (app::ScenesManager* this_ptr)) {
+            return true;
+        }
+
+        void serialize_state(nlohmann::json& j) {
+            j["timeline_fps"] = state.current_timeline.get_fps();
+            j["timeline_current_frame"] = state.current_timeline.get_current_frame();
+            j["timeline_playback_active"] = state.timeline_playback_active;
+            j["timeline_current_rng_state"] = state.current_timeline.get_state().current_rng_state;
+            j["framestepping_enabled"] = state.framestepping_enabled;
+            j["game_loading"] = game::loading_detection::is_loading();
+
+            auto position = game::player::get_position();
+            j["ori_position"]["x"] = position.x;
+            j["ori_position"]["y"] = position.y;
+
+            auto real_mouse_position_in_ui_space = core::input::get_real_mouse_position_in_ui_space();
+            j["real_mouse_position"]["x"] = real_mouse_position_in_ui_space.x;
+            j["real_mouse_position"]["y"] = real_mouse_position_in_ui_space.y;
+        }
+
+        void notify_state_changed() {
+            auto request = core::ipc::make_request("notify_tas_state_changed");
+            serialize_state(request["payload"]);
+            core::ipc::send_message(request);
         }
 
         void (*(next_unityplayer_update))() = nullptr;
@@ -87,31 +109,38 @@ namespace tas::runtime {
             }
 
             if (state.timeline_playback_active) {
-                // Update the FixedUpdateIndex before running the timeline to allow
-                // RNGSeed entries to override it
-                types::FixedRandom::get_class()->static_fields->FixedUpdateIndex = state.current_timeline.get_next_frame();
+                if (!game::loading_detection::is_loading()) {
+                    state.current_timeline.advance();
+                }
 
-                state.current_timeline.advance();
-                notify_current_timeline_current_frame_changed();
+                types::FixedRandom::get_class()->static_fields->FixedUpdateIndex = state.current_timeline.get_state().current_rng_state;
             }
 
             next_unityplayer_update();
+
+            notify_state_changed();
         }
 
         namespace ipc_handlers {
             void load_timeline_from_file(const nlohmann::json& j) {
-                load_from_json_file(state.current_timeline, j.value("path", "tas.json"));
+                nlohmann::json tas_config;
 
-                if (state.timeline_playback_active) {
-                    state.current_timeline.seek(state.current_timeline.get_current_frame());
+                if (load_from_json_file(state.current_timeline, j.value("path", "tas.json"), tas_config)) {
+                    if (state.timeline_playback_active) {
+                        state.current_timeline.seek(state.current_timeline.get_current_frame());
+                    }
+
+                    auto request = core::ipc::make_request("notify_tas_timeline_loaded");
+                    request["payload"]["tas_config"] = tas_config;
+                    core::ipc::send_message(request);
+
+                    notify_state_changed();
                 }
-
-                auto request = core::ipc::make_request("notify_tas_timeline_loaded");
-                core::ipc::send_message(request);
             }
 
             void set_framestepping_enabled(const nlohmann::json& j) {
                 state.framestepping_enabled = j.at("payload").at("enabled").get<bool>();
+                notify_state_changed();
             }
 
             void framestep(const nlohmann::json& j) {
@@ -126,34 +155,31 @@ namespace tas::runtime {
                 } else {
                     core::input::disable_all_simulators();
                 }
+
+                notify_state_changed();
             }
 
             void rewind_timeline(const nlohmann::json& j) {
                 state.current_timeline.rewind();
-                notify_current_timeline_current_frame_changed();
+                notify_state_changed();
             }
 
             void get_state(const nlohmann::json& j) {
                 auto response = core::ipc::respond_to(j);
-                response["payload"]["timeline_fps"] = state.current_timeline.get_fps();
-                response["payload"]["timeline_current_frame"] = state.current_timeline.get_current_frame();
-                response["payload"]["timeline_playback_active"] = state.timeline_playback_active;
-                response["payload"]["framestepping_enabled"] = state.framestepping_enabled;
-                core::ipc::send_message(response);
-            }
-
-            void get_real_mouse_position(const nlohmann::json& j) {
-                auto response = core::ipc::respond_to(j);
-
-                auto real_mouse_position_in_ui_space = core::input::get_real_mouse_position_in_ui_space();
-
-                response["payload"]["x"] = real_mouse_position_in_ui_space.x;
-                response["payload"]["y"] = real_mouse_position_in_ui_space.y;
-                response["payload"]["space"] = "UI"; // Hardcoded for now
-
+                serialize_state(response["payload"]);
                 core::ipc::send_message(response);
             }
         } // namespace ipc_handlers
+
+        namespace cli_handlers {
+            void reload_everything(std::string const& command, std::vector<console::CommandParam> const& params) {
+                game::reload_everything();
+            }
+
+            void load(std::string const& command, std::vector<console::CommandParam> const& params) {
+                game::load();
+            }
+        }
 
         void initialize() {
             core::ipc::register_request_handler("tas.load_timeline_from_file", &ipc_handlers::load_timeline_from_file);
@@ -162,7 +188,9 @@ namespace tas::runtime {
             core::ipc::register_request_handler("tas.set_timeline_playback_active", &ipc_handlers::set_timeline_playback_active);
             core::ipc::register_request_handler("tas.rewind_timeline", &ipc_handlers::rewind_timeline);
             core::ipc::register_request_handler("tas.get_state", &ipc_handlers::get_state);
-            core::ipc::register_request_handler("tas.get_real_mouse_position", &ipc_handlers::get_real_mouse_position);
+
+            console::register_command({ "tas", "game", "reload" }, &cli_handlers::reload_everything, true);
+            console::register_command({ "tas", "game", "load" }, &cli_handlers::load, true);
         }
 
         CALL_ON_INIT(initialize);

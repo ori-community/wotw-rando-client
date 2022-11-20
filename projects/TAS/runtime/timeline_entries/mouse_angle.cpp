@@ -3,7 +3,7 @@
 #include <Core/utils/misc.h>
 
 namespace tas::runtime::timeline::entries {
-    void MouseAngleTimelineEntry::activate() {
+    void MouseAngleTimelineEntry::activate(TimelineState& timeline_state) {
         auto simulator = core::input::get_mouse_position_simulator();
 
         simulator->x = std::cos(utils::deg2rad(this->degrees)) * this->distance;

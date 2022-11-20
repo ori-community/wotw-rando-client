@@ -8,7 +8,6 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
 set(
         SOURCE_FILES
-        "tas.cpp"
         "runtime/runtime.cpp"
         "runtime/timeline.cpp"
         "runtime/timeline_entry_collection.cpp"
@@ -16,11 +15,14 @@ set(
         "runtime/timeline_entries_base.cpp"
         "runtime/timeline_entries/angle.cpp"
         "runtime/timeline_entries/axis.cpp"
+        "runtime/timeline_entries/game_reload.cpp"
         "runtime/timeline_entries/mouse_angle.cpp"
         "runtime/timeline_entries/mouse_position.cpp"
         "runtime/timeline_entries/position.cpp"
-        "runtime/timeline_entries/rng_seed.cpp"
+        "runtime/timeline_entries/rng_state.cpp"
         "runtime/timeline_json_loader.cpp"
+        "tas.cpp"
+        "trials_config.cpp"
 )
 
 set(
@@ -33,12 +35,13 @@ set(
         "runtime/timeline_entries_base.h"
         "runtime/timeline_entries/angle.h"
         "runtime/timeline_entries/axis.h"
+        "runtime/timeline_entries/game_reload.h"
         "runtime/timeline_entries/mouse_angle.h"
         "runtime/timeline_entries/mouse_position.h"
         "runtime/timeline_entries/position.h"
-        "runtime/timeline_entries/rng_seed.h"
+        "runtime/timeline_entries/rng_state.h"
         "runtime/timeline_json_loader.h"
-)
+        runtime/timeline_state.h)
 
 set(
         MISC_FILES

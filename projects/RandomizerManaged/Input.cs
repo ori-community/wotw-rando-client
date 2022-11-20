@@ -48,6 +48,10 @@ namespace RandomizerManaged {
       MapDetails,
       MapFocusOri,
       MapFocusObjective,
+      Left,
+      Right,
+      Up,
+      Down,
 
       RANDO_ACTIONS_START,
 
@@ -77,6 +81,9 @@ namespace RandomizerManaged {
       UnlockSpoilers,
       TogglePickupNamesOnSpoiler,
       ForceExit,
+
+      // Passthrough actions. Used by the Launcher
+      ToggleBingoBoardOverlay,
 
       TOTAL
     }

@@ -1,5 +1,6 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/ui.h>
+#include <Core/api/scenes/scene_load.h>
 #include <Core/macros.h>
 
 #include <Common/ext.h>
@@ -12,9 +13,20 @@
 #include <Modloader/app/methods/UnityEngine/Behaviour.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
+#include <Modloader/app/methods/ScenesManager.h>
+#include <Modloader/app/methods/GameplayCamera.h>
+#include <Modloader/app/methods/GameStateMachine.h>
+#include <Modloader/app/methods/SeinPlaceholder.h>
+#include <Modloader/app/methods/LoadFromMasterAtStart.h>
+#include <Modloader/app/methods/InstantLoadScenesController.h>
+#include <Modloader/app/methods/Game/Characters.h>
+#include <Modloader/app/methods/ScenesManagerSettings.h>
 #include <Modloader/app/types/GameController.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/SimpleFPS.h>
+#include <Modloader/app/types/UI_Cameras.h>
+#include <Modloader/app/types/GameSettings.h>
+#include <Modloader/app/types/InstantLoadScenesController.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -183,6 +195,56 @@ namespace game {
             energy->fields.MinVisual = health_and_energy_to_restore.energy;
             energy->fields.MaxVisual = health_and_energy_to_restore.energy;
         }
+    }
+
+    void load(bool immediate) {
+        if (immediate) {
+            SaveGameController::PerformLoad(game::save_controller());
+        } else {
+            SaveGameController::PerformLoadWithoutCheckpointRestore(game::save_controller());
+            GameController::RestoreCheckpointImmediate_1(game::controller());
+        }
+    }
+
+    /**
+     * Simulates a QTM
+     */
+    void reload_everything() {
+        auto game_controller = game::controller();
+        auto scenes_manager = scenes::get_scenes_manager();
+
+        scenes_manager->fields.Settings->fields.AutoLoadingUnloading = false;
+        scenes_manager->fields.Settings->fields.AllowDestroying = true;
+
+        ScenesManager::ClearPreventUnloading(scenes_manager);
+        ScenesManager::AllowUnloadingOnAllScenes(scenes_manager);
+        ScenesManager::UnloadAllScenes(scenes_manager);
+
+        scenes_manager->fields.Settings->fields.AllowDestroying = false;
+
+        types::GameSettings::get_class()->static_fields->Instance->fields.HasLoadedGameSettingsOnce = false;
+        game_controller->fields.RequireInitialValues = true;
+
+        auto instant_load_scenes_controller = types::InstantLoadScenesController::get_class()->static_fields->Instance;
+
+        instant_load_scenes_controller->fields.OnScenesEnabledCallback = nullptr;
+        InstantLoadScenesController::set_LockFinishingLoading(instant_load_scenes_controller, false);
+
+        if (instant_load_scenes_controller->fields.m_isLoading) {
+            instant_load_scenes_controller->fields.m_isLoading = false;
+            InstantLoadScenesController::UnfreezeIfFrozen(instant_load_scenes_controller);
+            instant_load_scenes_controller->fields.m_onFinishedLoading = nullptr;
+        }
+
+        GameController::RemoveGameplayObjects(game_controller);
+        Game::Characters::ClearCurrentCharacter();
+
+        ScenesManager::ClearCameraPuppetPositions(scenes_manager);
+        ScenesManager::UpdatePosition(scenes_manager);
+        ScenesManager::ResetDistanceCaches(scenes_manager);
+
+        GameStateMachine::SetToGame(GameStateMachine::get_Instance());
+        load(true);
     }
 } // namespace game
 

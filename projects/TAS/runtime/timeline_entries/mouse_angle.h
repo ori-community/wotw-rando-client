@@ -14,6 +14,6 @@ namespace tas::runtime::timeline::entries {
         MouseAngleTimelineEntry(unsigned long frame, float degrees, float distance) :
                 degrees(degrees), distance(distance), TimelineEntry(frame) {}
 
-        void activate() override;
+        void activate(TimelineState& timeline_state) override;
     };
 }

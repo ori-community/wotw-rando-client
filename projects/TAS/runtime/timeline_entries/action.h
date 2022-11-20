@@ -12,7 +12,7 @@ namespace tas::runtime::timeline::entries {
         ActionTimelineEntry(unsigned long frame, unsigned long duration, Action action) :
                 action(action), FixedDurationTimelineEntry(frame, duration) {}
 
-        void activate() override;
-        void deactivate() override;
+        void activate(TimelineState& timeline_state) override;
+        void deactivate(TimelineState& timeline_state) override;
     };
 }

@@ -3,8 +3,10 @@
 #include <Modloader/common.h>
 #include <TAS/runtime/timeline_json_loader.h>
 
+#include <utility>
+
 namespace tas::runtime::timeline {
-    void load_from_json(Timeline& timeline, const nlohmann::json& j) {
+    bool load_from_json(Timeline& timeline, const nlohmann::json& j) {
         try {
             timeline.set_fps(j.value<unsigned int>("fps", 60));
 
@@ -15,6 +17,10 @@ namespace tas::runtime::timeline {
                 auto type = j_entry.at("type").get<TimelineEntryType>();
 
                 switch (type) {
+                    case TimelineEntryType::Invalid: {
+                        modloader::warn("TAS", fmt::format("Encountered unknown entry type '{}', ignoring entry", j_entry.at("type").get<std::string>()));
+                    } break;
+
                     case TimelineEntryType::Action: {
                         entries.push_back(std::move(std::make_shared<ActionTimelineEntry>(
                                 j_entry.at("frame").get<unsigned long>(),
@@ -38,6 +44,12 @@ namespace tas::runtime::timeline {
                                 j_entry.at("duration").get<unsigned long>(),
                                 j_entry.at("axis").get<ControllerAxis>(),
                                 j_entry.at("value").get<float>()
+                        )));
+                    } break;
+
+                    case TimelineEntryType::GameReload: {
+                        entries.push_back(std::move(std::make_shared<GameReloadTimelineEntry>(
+                                j_entry.at("frame").get<unsigned long>()
                         )));
                     } break;
 
@@ -66,26 +78,30 @@ namespace tas::runtime::timeline {
                         )));
                     } break;
 
-                    case TimelineEntryType::RNGSeed: {
-                        entries.push_back(std::move(std::make_shared<RNGSeedTimelineEntry>(
+                    case TimelineEntryType::RNGState: {
+                        entries.push_back(std::move(std::make_shared<RNGStateTimelineEntry>(
                                 j_entry.at("frame").get<unsigned long>(),
-                                j_entry.at("seed").get<int>()
+                                j_entry.at("state").get<int>()
                         )));
                     } break;
                 }
             }
 
-            timeline.load_entries(std::move(entries));
+            timeline.load_entries(entries);
+
+            return true;
         } catch (std::exception& e) {
             modloader::warn("TAS", fmt::format("Failed to load TAS timeline: {}", e.what()));
         }
+
+        return false;
     }
 
-    void load_from_json_file(Timeline& timeline, std::string path) {
-        nlohmann::json j;
-
-        if (load_json_file(path, j)) {
-            load_from_json(timeline, j);
+    bool load_from_json_file(Timeline& timeline, std::string path, nlohmann::json& j) {
+        if (load_json_file(std::move(path), j)) {
+            return load_from_json(timeline, j);
         }
+
+        return false;
     }
 } // namespace tas::runtime::timeline

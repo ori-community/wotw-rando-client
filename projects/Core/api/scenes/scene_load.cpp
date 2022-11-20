@@ -27,16 +27,10 @@ namespace scenes {
 
     std::unordered_map<std::string, PendingScene> scenes_to_load;
     EventBus<SceneLoadEventMetadata*> scenes_event_bus;
-    app::ScenesManager* scenes_manager_instance = nullptr;
     bool scene_loader_debug_logging = false;
 
     app::ScenesManager* get_scenes_manager() {
-        if (scenes_manager_instance == nullptr) {
-            const auto scenes = types::Scenes::get_class();
-            scenes_manager_instance = scenes->static_fields->Manager;
-        }
-
-        return scenes_manager_instance;
+        return types::Scenes::get_class()->static_fields->Manager;
     }
 
     namespace {

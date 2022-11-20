@@ -1,28 +1,33 @@
 #pragma once
 
+#include <TAS/runtime/timeline_state.h>
 #include <nlohmann/json.hpp>
 
 namespace tas::runtime::timeline::entries {
     enum class TimelineEntryType {
+        Invalid = -1,
         Action,
         Angle,
         Axis,
+        GameReload,
         MouseAngle,
         MousePosition,
         Position,
-        RNGSeed,
+        RNGState,
     };
 
     NLOHMANN_JSON_SERIALIZE_ENUM(
             TimelineEntryType,
             {
+                    { TimelineEntryType::Invalid, nullptr },
                     { TimelineEntryType::Action, "Action" },
                     { TimelineEntryType::Angle, "Angle" },
                     { TimelineEntryType::Axis, "Axis" },
+                    { TimelineEntryType::GameReload, "GameReload" },
                     { TimelineEntryType::MouseAngle, "MouseAngle" },
                     { TimelineEntryType::MousePosition, "MousePosition" },
                     { TimelineEntryType::Position, "Position" },
-                    { TimelineEntryType::RNGSeed, "RNGSeed" },
+                    { TimelineEntryType::RNGState, "RNGState" },
             }
     );
 
@@ -35,10 +40,10 @@ namespace tas::runtime::timeline::entries {
         explicit TimelineEntry(unsigned long frame) :
                 frame(frame) {}
 
-        virtual void activate(){};
-        virtual void process(unsigned long next_frame){};
+        virtual void activate(TimelineState& timeline_state){};
+        virtual void process(TimelineState& timeline_state){};
         virtual bool is_active_on_frame(unsigned long f) { return f == frame; };
-        virtual void deactivate(){};
+        virtual void deactivate(TimelineState& timeline_state){};
 
         /**
          * Returns the last frame this entry should play on.
