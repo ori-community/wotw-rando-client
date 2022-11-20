@@ -36,7 +36,7 @@ namespace tas::runtime::timeline {
                 entry->deactivate(this->state);
                 iterator = this->active_timeline_entries.erase(iterator);
             } else {
-                entry->process(this->state, frame);
+                entry->process(this->state);
                 ++iterator;
             }
         }
@@ -49,7 +49,7 @@ namespace tas::runtime::timeline {
             auto entry = it->second;
 
             entry->activate(this->state);
-            entry->process(this->state, frame);
+            entry->process(this->state);
 
             active_timeline_entries.push_back(entry);
         }
@@ -61,7 +61,7 @@ namespace tas::runtime::timeline {
 
             if (entry->frame <= frame) {
                 entry->activate(this->state);
-                entry->process(this->state, frame);
+                entry->process(this->state);
 
                 active_timeline_entries.push_back(entry);
             }
