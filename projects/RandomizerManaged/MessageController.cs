@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using RandomizerManaged.Memory;
 
 namespace RandomizerManaged {
@@ -218,8 +219,9 @@ namespace RandomizerManaged {
     }
 
     public static void LimitPickupQueue() {
-      if (pickupQueue.Normal.Count > MAX_PICKUP_MESSAGES_QUEUED)
-        pickupQueue.Normal.Dequeue();
+      if (pickupQueue.Normal.Count > MAX_PICKUP_MESSAGES_QUEUED && activePickupTextMessages.Count > 0) {
+        activePickupTextMessages[0].Destroyed = true;
+      }
     }
 
     public static void ShowLastPickup() {
