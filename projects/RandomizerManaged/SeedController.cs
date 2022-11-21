@@ -259,12 +259,22 @@ namespace RandomizerManaged {
 
           var extras = frags.Skip(4).ToList();
           bool needsMute = false;
-          if (pickupType != PickupType.Message && extras.Contains("mute")) {
+          
+          if (extras.Contains("mute")) {
             extras.Remove("mute");
             needsMute = true;
           }
+          
           var pickup = BuildPickup(pickupType, frags[3], extras, cond);
-          pickup.Muted = needsMute;
+
+          // oriTif
+          if (pickup.InnerPickup() is Message message) {
+            message.Mute = needsMute;
+          }
+          else {
+            pickup.Muted = needsMute;
+          }
+          
           PickupMap.Add(cond, pickup);
         }
         catch (Exception e) {
@@ -583,10 +593,9 @@ namespace RandomizerManaged {
           List<string> msgs = new List<string>();
           int frames = 240;
           float? pos = null;
-          bool squelch = false;
           bool clear = true;
           bool immediate = false;
-          bool mute = false;
+          bool quiet = false;
           bool prepend = false;
           foreach (string extra in extras.Prepend(messageParts[0])) {
             if (extra.StartsWith("f=")) {
@@ -600,10 +609,6 @@ namespace RandomizerManaged {
                 Randomizer.Warn("SeedParse.Message.p=", $"Failed to parse a float from {p}");
               continue;
             }
-            else if (extra.ToLowerInvariant() == "mute") {
-              squelch = true;
-              continue;
-            }
             else if (extra.ToLowerInvariant() == "noclear") {
               clear = false;
               continue;
@@ -613,7 +618,7 @@ namespace RandomizerManaged {
               continue;
             }
             else if (extra.ToLowerInvariant() == "quiet") {
-              mute = true;
+              quiet = true;
               continue;
             }
             else if (extra.ToLowerInvariant() == "prepend") {
@@ -638,10 +643,6 @@ namespace RandomizerManaged {
                   Randomizer.Warn("SeedParse.Message.p=", $"Failed to parse a float from {p}");
                 continue;
               }
-              else if (cmd.ToLowerInvariant() == "mute") {
-                squelch = true;
-                continue;
-              }
               else if (cmd.ToLowerInvariant() == "noclear") {
                 clear = false;
                 continue;
@@ -651,7 +652,7 @@ namespace RandomizerManaged {
                 continue;
               }
               else if (cmd.ToLowerInvariant() == "quiet") {
-                mute = true;
+                quiet = true;
                 continue;
               }
               else if (cmd.ToLowerInvariant() == "prepend") {
@@ -660,7 +661,9 @@ namespace RandomizerManaged {
               }
             }
           }
-          return new Message(msg, frames, squelch, pos, clear, immediate, mute, prepend);
+          
+          // Mute is set after parsing in SeedController somewhere
+          return new Message(msg, frames, false, pos, clear, immediate, quiet, prepend);
         case PickupType.Wheel:
           var w = (WheelCommandType)pickupData.ParseToByte();
           switch (w) {

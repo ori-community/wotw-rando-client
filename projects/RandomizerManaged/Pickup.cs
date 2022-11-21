@@ -175,6 +175,8 @@ namespace RandomizerManaged {
     public virtual WorldMapIconType Icon { get => WorldMapIconType.QuestItem; }
     public virtual int DefaultCost() => 1;
 
+    public virtual Pickup InnerPickup() => this;
+
     public virtual void Grant(int framesOverride, bool skipBase = false) {
       var origFrames = Frames;
       Frames = framesOverride;
@@ -276,19 +278,49 @@ namespace RandomizerManaged {
     public List<Pickup> Children;
     public override PickupType Type => PickupType.Multi;
     private string nameAfterGrant = null;
+
+    struct QueuedPickupMessage {
+      public readonly Pickup Pickup;
+      public readonly string Message;
+
+      public QueuedPickupMessage(Pickup pickup, string message) {
+        Pickup = pickup;
+        Message = message;
+      }
+    }
+    
     public override void Grant(bool skipBase = false, Vector2? position = null) {
       if (!NonEmpty) return;
+      
       nameAfterGrant = "";
-      bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
+      
+      bool multiPickupContainsMutingMessage = false;
+      List<QueuedPickupMessage> queuedPickupMessages = new();
+
       foreach (var child in Children) {
         if (child is ConditionalStop s && s.StopActive())
           break;
 
-        child.Grant(true, position);
-        if (child.Muted || child.DisplayName == Pickup.DisplayNameEmpty || child.DisplayName == "" || child.Frames == 0 || squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
-          continue;
+        //                             do not touch
+        var pickupHasMessage = !(child.Muted || child.DisplayName == Pickup.DisplayNameEmpty ||
+                                 child.DisplayName == "" ||
+                                 child.Frames == 0 ||
+                                 child.InnerPickup() is Message {Prepend: true});
+        var childDisplayNameBeforeGrant = child.DisplayName;
 
-        nameAfterGrant += child.DisplayName + (child.DisplayName.EndsWith("<\\>") ? "" : "\n");
+        child.Grant(true, position);
+
+        if (pickupHasMessage) {
+          queuedPickupMessages.Add(new QueuedPickupMessage(child, childDisplayNameBeforeGrant));
+        }
+      }
+
+      multiPickupContainsMutingMessage = queuedPickupMessages.Any(q => q.Pickup.InnerPickup() is Message {Mute: true});
+
+      foreach (var queuedPickupMessage in queuedPickupMessages) {
+        if (!multiPickupContainsMutingMessage || queuedPickupMessage.Pickup.InnerPickup() is Message {Mute: true}) {
+          nameAfterGrant += queuedPickupMessage.Message + (queuedPickupMessage.Message.EndsWith("<\\>") ? "" : "\n");
+        }
       }
 
       if (nameAfterGrant == string.Empty)
@@ -303,14 +335,14 @@ namespace RandomizerManaged {
         if (nameAfterGrant != null)
           return nameAfterGrant.TrimEnd('\n');
 
-        bool squelchActive = Children.Exists(p => p is Message msg && msg.Squelch);
+        bool muteActive = Children.Exists(p => p is Message msg && msg.Mute);
         var ret = "";
         foreach (var child in Children) {
           if (child is ConditionalStop s && s.StopActive())
             break;
 
           if (child.Muted || child.DisplayName == DisplayNameEmpty || child.DisplayName == "" || child.Frames == 0 ||
-            squelchActive && !(child is Message m && m.Squelch) || child is Message _m && _m.Prepend)
+            muteActive && !(child is Message m && m.Mute) || child is Message _m && _m.Prepend)
             continue;
 
           ret += child.DisplayName + (child.DisplayName.EndsWith("<\\>") ? "" : "\n");
@@ -334,7 +366,7 @@ namespace RandomizerManaged {
     public override bool Immediate { get; }
     public override bool Quiet { get; }
     public override float? Pos { get; }
-    public Message(string msg, int frames = 240, bool squelch = false, float? pos = null, bool clear = true, bool immediate = false, bool quiet = false, bool prepend = false) {
+    public Message(string msg, int frames = 240, bool mute = false, float? pos = null, bool clear = true, bool immediate = false, bool quiet = false, bool prepend = false) {
       MessageStr = msg;
       Frames = frames;
       Clear = clear;
@@ -342,11 +374,11 @@ namespace RandomizerManaged {
       Immediate = immediate;
       Quiet = quiet;
       Prepend = prepend;
-      Squelch = squelch;
+      Mute = mute;
     }
     public bool Prepend { get; }
     public string MessageStr;
-    public bool Squelch = false;
+    public bool Mute = false;
     public override void Grant(bool skipBase = false, Vector2? position = null) {
       if (Prepend)
         MessageController.PrependText(DisplayName);
@@ -823,6 +855,7 @@ namespace RandomizerManaged {
     public override bool Clear => IsCondMet() ? Pickup.Clear : base.Clear;
     public override bool Immediate => IsCondMet() ? Pickup.Immediate : base.Immediate;
     public override bool Quiet => IsCondMet() ? Pickup.Quiet : base.Quiet;
+    public override Pickup InnerPickup() => Pickup.InnerPickup();
   }
 
   public class GrantIfVal : GrantIf {
@@ -1376,6 +1409,8 @@ namespace RandomizerManaged {
 
       public readonly ActionKey key;
       public readonly Pickup pickup;
+      
+      public override Pickup InnerPickup() => pickup.InnerPickup();
 
       static ActionCommand() {
         linkedPickups = new Dictionary<ActionKey, Pickup>();
