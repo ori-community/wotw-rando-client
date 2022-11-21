@@ -69,7 +69,7 @@ namespace tas::runtime {
             j["timeline_playback_active"] = state.timeline_playback_active;
             j["timeline_current_rng_state"] = state.current_timeline.get_state().current_rng_state;
             j["framestepping_enabled"] = state.framestepping_enabled;
-            j["game_loading"] = game::loading_detection::is_loading();
+            j["loading_state"] = game::loading_detection::get_loading_state();
 
             auto position = game::player::get_position();
             j["ori_position"]["x"] = position.x;
@@ -109,7 +109,7 @@ namespace tas::runtime {
             }
 
             if (state.timeline_playback_active) {
-                if (!game::loading_detection::is_loading()) {
+                if (game::loading_detection::get_loading_state() == LoadingState::NotLoading) {
                     state.current_timeline.advance();
                 }
 

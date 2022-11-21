@@ -81,6 +81,7 @@ set(
         "enums/game_event.h"
         "enums/layer.h"
         "enums/sound.h"
+        "enums/loading_state.h"
         "enums/shard_type.h"
         "enums/static_text_entries.h"
         "enums/timeline_entries.h"
@@ -111,7 +112,7 @@ set(
         MISC_FILES
         ".editorconfig"
         "CMakeLists.txt"
-)
+        enums/loading_state.h)
 
 add_library(
         ${PROJECT_NAME}

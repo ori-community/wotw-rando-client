@@ -13,6 +13,7 @@
 #include <Modloader/app/methods/UnityEngine/Camera.h>
 #include <Modloader/app/methods/UnityEngine/Input.h>
 #include <Modloader/app/methods/UnityEngine/Vector3.h>
+#include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/types/Input_1.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/common.h>
@@ -44,9 +45,13 @@ namespace core::input {
 
     MousePositionSimulationMode mouse_position_simulation_mode = MousePositionSimulationMode::UI;
     SimulatedPosition simulated_mouse_position;
+    app::Vector2 last_mouse_position;
 
     app::Vector2 real_mouse_position;
     std::unique_ptr<core::Sprite> simulated_mouse_position_indicator;
+
+    constexpr float HIDE_MOUSE_IDLE_TIME = 2.f;
+    float mouse_idle_time = 0.f;
 
     Action* get_button_input_action(app::CompoundButtonInput* input) {
         auto it = button_inputs.find(input);
@@ -199,13 +204,33 @@ namespace core::input {
             game::event_bus().trigger_event(GameEvent::RegisteringInputSimulators, EventTiming::After);
         }
 
+        void hide_mouse_position_indicator_if_active() {
+            if (simulated_mouse_position_indicator != nullptr) {
+                simulated_mouse_position_indicator->enabled(false);
+            }
+        }
+
         void update_simulated_mouse_position_indicator(GameEvent event, EventTiming timing) {
             if (!simulated_mouse_position.enabled) {
-                if (simulated_mouse_position_indicator != nullptr) {
-                    simulated_mouse_position_indicator->enabled(false);
-                }
+                hide_mouse_position_indicator_if_active();
                 return;
             }
+
+            if (last_mouse_position.x == simulated_mouse_position.x && last_mouse_position.y == simulated_mouse_position.y) {
+                mouse_idle_time += TimeUtility::get_deltaTime();
+            } else {
+                mouse_idle_time = 0.f;
+                last_mouse_position.x = simulated_mouse_position.x;
+                last_mouse_position.y = simulated_mouse_position.y;
+            }
+
+            if (mouse_idle_time > HIDE_MOUSE_IDLE_TIME) {
+                hide_mouse_position_indicator_if_active();
+                return;
+            }
+
+            constexpr float indicator_scale = 0.33f;
+            constexpr float indicator_position_offset = 0.5f * indicator_scale;
 
             if (simulated_mouse_position_indicator == nullptr) {
                 simulated_mouse_position_indicator = std::make_unique<core::Sprite>();
@@ -216,6 +241,8 @@ namespace core::input {
                 simulated_mouse_position_indicator->texture(core::textures::get_texture(L"file:assets/icons/cursor.png"), std::make_optional(params));
                 simulated_mouse_position_indicator->set_parent(game::container(game::RandoContainer::Randomizer));
                 simulated_mouse_position_indicator->layer(Layer::UI);
+
+                simulated_mouse_position_indicator->local_scale(app::Vector3{ indicator_scale, indicator_scale, 1.f });
             }
 
             simulated_mouse_position_indicator->enabled(true);
@@ -225,10 +252,7 @@ namespace core::input {
             auto camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
             auto ui_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, app::Vector3{ viewport_position.x, viewport_position.y, 0.f });
 
-            constexpr float scale = 0.33f;
-            constexpr float position_offset = 0.5f * scale;
-            simulated_mouse_position_indicator->local_scale(app::Vector3{ scale, scale, 1.f });
-            simulated_mouse_position_indicator->local_position(ui_position + app::Vector3{ position_offset, -position_offset, 0.f });
+            simulated_mouse_position_indicator->local_position(ui_position + app::Vector3{ indicator_position_offset, -indicator_position_offset, 0.f });
         }
 
         void initialize() {
