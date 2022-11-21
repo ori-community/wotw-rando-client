@@ -12,6 +12,7 @@
 #include <Modloader/app/methods/SmartInput/CompoundButtonInput.h>
 #include <Modloader/app/methods/UnityEngine/Camera.h>
 #include <Modloader/app/methods/UnityEngine/Input.h>
+#include <Modloader/app/methods/UnityEngine/Vector3.h>
 #include <Modloader/app/types/Input_1.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/common.h>
@@ -22,6 +23,7 @@
 
 using namespace app::classes;
 using namespace app::classes::SmartInput;
+using namespace UnityEngine::Vector3::operators;
 
 namespace core::input {
     struct SimulatedButtonEntry {
@@ -211,7 +213,7 @@ namespace core::input {
                 core::textures::MaterialParams params;
                 params.uvs = std::optional<app::Vector4>({ 0.f, 0.f, 1.f, 1.f });
 
-                simulated_mouse_position_indicator->texture(core::textures::get_texture(L"file:assets/icons/crosshair.png"), std::make_optional(params));
+                simulated_mouse_position_indicator->texture(core::textures::get_texture(L"file:assets/icons/cursor.png"), std::make_optional(params));
                 simulated_mouse_position_indicator->set_parent(game::container(game::RandoContainer::Randomizer));
                 simulated_mouse_position_indicator->layer(Layer::UI);
             }
@@ -223,7 +225,10 @@ namespace core::input {
             auto camera = ui_cameras->static_fields->System->fields.GUICamera->fields.Camera;
             auto ui_position = UnityEngine::Camera::ViewportToWorldPoint_2(camera, app::Vector3{ viewport_position.x, viewport_position.y, 0.f });
 
-            simulated_mouse_position_indicator->local_position(ui_position);
+            constexpr float scale = 0.33f;
+            constexpr float position_offset = 0.5f * scale;
+            simulated_mouse_position_indicator->local_scale(app::Vector3{ scale, scale, 1.f });
+            simulated_mouse_position_indicator->local_position(ui_position + app::Vector3{ position_offset, -position_offset, 0.f });
         }
 
         void initialize() {

@@ -64,28 +64,31 @@ namespace app::classes::UnityEngine::Vector3 {
     IL2CPP_REGISTER_METHOD(0x02C77C30, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x02C77E40, void, Slerp_Injected, (app::Vector3 * a, app::Vector3* b, float t, app::Vector3* ret))
     IL2CPP_REGISTER_METHOD(0x02C77EC0, void, RotateTowards_Injected, (app::Vector3 * current, app::Vector3* target, float max_radians_delta, float max_magnitude_delta, app::Vector3* ret))
-    inline app::Vector3 operator+(app::Vector3 a, app::Vector3 b) {
-        return op_Addition(a, b);
-    }
-    inline app::Vector3 operator-(app::Vector3 a, app::Vector3 b) {
-        return op_Subtraction(a, b);
-    }
-    inline app::Vector3 operator-(app::Vector3 a) {
-        return op_UnaryNegation(a);
-    }
-    inline app::Vector3 operator*(app::Vector3 a, float d) {
-        return op_Multiply_1(a, d);
-    }
-    inline app::Vector3 operator*(float d, app::Vector3 a) {
-        return op_Multiply_2(d, a);
-    }
-    inline app::Vector3 operator/(app::Vector3 a, float d) {
-        return op_Division(a, d);
-    }
-    inline bool operator==(app::Vector3 lhs, app::Vector3 rhs) {
-        return op_Equality(lhs, rhs);
-    }
-    inline bool operator!=(app::Vector3 lhs, app::Vector3 rhs) {
-        return op_Inequality(lhs, rhs);
-    }
+
+    namespace operators {
+        inline app::Vector3 operator+(app::Vector3 a, app::Vector3 b) {
+            return op_Addition(a, b);
+        }
+        inline app::Vector3 operator-(app::Vector3 a, app::Vector3 b) {
+            return op_Subtraction(a, b);
+        }
+        inline app::Vector3 operator-(app::Vector3 a) {
+            return op_UnaryNegation(a);
+        }
+        inline app::Vector3 operator*(app::Vector3 a, float d) {
+            return op_Multiply_1(a, d);
+        }
+        inline app::Vector3 operator*(float d, app::Vector3 a) {
+            return op_Multiply_2(d, a);
+        }
+        inline app::Vector3 operator/(app::Vector3 a, float d) {
+            return op_Division(a, d);
+        }
+        inline bool operator==(app::Vector3 lhs, app::Vector3 rhs) {
+            return op_Equality(lhs, rhs);
+        }
+        inline bool operator!=(app::Vector3 lhs, app::Vector3 rhs) {
+            return op_Inequality(lhs, rhs);
+        }
+    } // namespace operators
 } // namespace app::classes::UnityEngine::Vector3
