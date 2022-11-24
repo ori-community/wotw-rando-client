@@ -13,7 +13,7 @@ class MultiEventBus {
 public:
     using event_handler = void (*)(T, EventTiming);
 
-    MultiEventBus() {}
+    MultiEventBus() = default;
     MultiEventBus(MultiEventBus const& other) = delete;
 
     void clear() {
@@ -32,14 +32,16 @@ public:
 
     void trigger_event(T value) {
         auto const& handlers = event_handlers[value];
-        for (auto const& handler : handlers.get(EventTiming::After))
+        for (auto const& handler : handlers.get(EventTiming::After)) {
             handler(value, EventTiming::After);
+        }
     }
 
     void trigger_event(T value, EventTiming timing) {
         auto const& handlers = event_handlers[value];
-        for (auto const& handler : handlers.get(timing))
+        for (auto const& handler : handlers.get(timing)) {
             handler(value, timing);
+        }
     }
 
 private:
@@ -55,12 +57,12 @@ private:
 };
 
 template <typename T>
-class EventBus {
+class TimedEventBus {
 public:
     using event_handler = void (*)(T, EventTiming);
 
-    EventBus() {}
-    EventBus(EventBus const& other) = delete;
+    TimedEventBus() = default;
+    TimedEventBus(TimedEventBus const& other) = delete;
 
     void clear() {
         event_handlers.clear();
@@ -70,18 +72,20 @@ public:
         event_handlers.get(EventTiming::After).push_back(handler);
     }
 
-    void register_handler(T value, EventTiming timing, event_handler handler) {
+    void register_handler(EventTiming timing, event_handler handler) {
         event_handlers.get(timing).push_back(handler);
     }
 
     void trigger_event(T value) {
-        for (auto const& handler : event_handlers.get(EventTiming::After))
+        for (auto const& handler : event_handlers.get(EventTiming::After)) {
             handler(value, EventTiming::After);
+        }
     }
 
     void trigger_event(T value, EventTiming timing) {
-        for (auto const& handler : event_handlers.get(timing))
+        for (auto const& handler : event_handlers.get(timing)) {
             handler(value, timing);
+        }
     }
 
 private:
@@ -94,4 +98,30 @@ private:
     };
 
     Handlers event_handlers;
+};
+
+template <typename T>
+class EventBus {
+public:
+    using event_handler = void (*)(T, EventTiming);
+
+    EventBus() = default;
+    EventBus(EventBus const& other) = delete;
+
+    void clear() {
+        event_handlers.clear();
+    }
+
+    void register_handler(event_handler handler) {
+        event_handlers.push_back(handler);
+    }
+
+    void trigger_event(T value) {
+        for (auto const& handler : event_handlers) {
+            handler(value);
+        }
+    }
+
+private:
+    std::vector<event_handler> event_handlers;
 };

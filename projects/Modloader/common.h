@@ -64,7 +64,7 @@ namespace modloader {
     IL2CPP_MODLOADER_DLLEXPORT void add_shutdown_handler(shutdown_handler handler);
     IL2CPP_MODLOADER_DLLEXPORT void shutdown();
 
-    IL2CPP_MODLOADER_DLLEXPORT extern bool shutdown_thread;
+    IL2CPP_MODLOADER_DLLEXPORT extern bool shutdown_requested;
 } // namespace modloader
 
 #define CALL_ON_INIT(func) modloader::Initialization func##_init_struct(&func, modloader::InitializationType::OnGameReady)

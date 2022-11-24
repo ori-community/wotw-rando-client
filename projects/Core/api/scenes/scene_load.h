@@ -18,7 +18,7 @@ namespace scenes {
 
     CORE_DLLEXPORT app::ScenesManager* get_scenes_manager();
 
-    CORE_DLLEXPORT EventBus<SceneLoadEventMetadata*>& event_bus();
+    CORE_DLLEXPORT TimedEventBus<SceneLoadEventMetadata*>& event_bus();
 
     CORE_DLLEXPORT app::RuntimeSceneMetaData* get_scene_metadata(std::string_view scene);
 

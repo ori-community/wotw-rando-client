@@ -1,21 +1,22 @@
 #include <TAS/runtime/timeline.h>
 #include <TAS/runtime/timeline_json_loader.h>
 
+#include <Modloader/app/methods/ScenesManager.h>
+#include <Modloader/app/methods/SinMovement.h>
 #include <Modloader/app/methods/UnityEngine/Application.h>
 #include <Modloader/app/methods/UnityEngine/QualitySettings.h>
 #include <Modloader/app/methods/UnityEngine/Time.h>
-#include <Modloader/app/methods/SinMovement.h>
-#include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/types/FixedRandom.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/memory.h>
 
 #include <Core/api/game/game.h>
-#include <Core/api/game/player.h>
 #include <Core/api/game/loading_detection.h>
+#include <Core/api/game/player.h>
 #include <Core/input/simulator.h>
 #include <Core/ipc/ipc.h>
+#include <Core/async_update.h>
 
 #include <Modloader/common.h>
 #include <Modloader/windows_api/console.h>
@@ -55,12 +56,35 @@ namespace tas::runtime {
             return state.current_timeline.get_delta_time();
         }
 
-        IL2CPP_INTERCEPT(SinMovement, void, UpdateMovement, (app::SinMovement* this_ptr, float time)) {
+        IL2CPP_INTERCEPT(SinMovement, void, UpdateMovement, (app::SinMovement * this_ptr, float time)) {
             // Disable camera swaying
         }
 
-        IL2CPP_INTERCEPT(ScenesManager, bool, get_InstantLoadScenes, (app::ScenesManager* this_ptr)) {
+        IL2CPP_INTERCEPT(ScenesManager, bool, get_InstantLoadScenes, (app::ScenesManager * this_ptr)) {
             return true;
+        }
+
+        /**
+         * This is a separate IPC call because it is called from a different
+         * thread. get_loading_state() is atomic.
+         */
+        void notify_loading_state_changed() {
+            auto request = core::ipc::make_request("notify_loading_state_changed");
+            request["payload"] = game::loading_detection::get_loading_state();
+            core::ipc::send_message(request);
+        }
+
+        namespace loading_state_detection {
+            std::atomic<LoadingState> last_notified_loading_state = LoadingState::NotLoading;
+
+            void on_async_update(float delta, EventTiming timing) {
+                auto current_state = game::loading_detection::get_loading_state();
+
+                if (last_notified_loading_state != current_state) {
+                    last_notified_loading_state = current_state;
+                    notify_loading_state_changed();
+                }
+            }
         }
 
         void serialize_state(nlohmann::json& j) {
@@ -69,7 +93,9 @@ namespace tas::runtime {
             j["timeline_playback_active"] = state.timeline_playback_active;
             j["timeline_current_rng_state"] = state.current_timeline.get_state().current_rng_state;
             j["framestepping_enabled"] = state.framestepping_enabled;
-            j["loading_state"] = game::loading_detection::get_loading_state();
+
+            loading_state_detection::last_notified_loading_state = game::loading_detection::get_loading_state();
+            j["loading_state"] = loading_state_detection::last_notified_loading_state;
 
             auto position = game::player::get_position();
             j["ori_position"]["x"] = position.x;
@@ -100,9 +126,9 @@ namespace tas::runtime {
         void unityplayer_update() {
             if (state.framestepping_enabled) {
                 while (!framestep_requested && state.framestepping_enabled) {
-                    game::event_bus().trigger_event(GameEvent::TASUpdate, EventTiming::Before);
-                    std::this_thread::sleep_for(std::chrono::nanoseconds(static_cast<unsigned long long>(state.current_timeline.get_delta_time() * 1000000000ULL)));
-                    game::event_bus().trigger_event(GameEvent::TASUpdate, EventTiming::After);
+                    game::event_bus().trigger_event(GameEvent::TASPausedUpdate, EventTiming::Before);
+                    std::this_thread::sleep_for(std::chrono::nanoseconds(static_cast<unsigned long long>(state.current_timeline.get_delta_time() * 1000000000.f)));
+                    game::event_bus().trigger_event(GameEvent::TASPausedUpdate, EventTiming::After);
                 }
 
                 framestep_requested = false;
@@ -179,7 +205,7 @@ namespace tas::runtime {
             void load(std::string const& command, std::vector<console::CommandParam> const& params) {
                 game::load();
             }
-        }
+        } // namespace cli_handlers
 
         void initialize() {
             core::ipc::register_request_handler("tas.load_timeline_from_file", &ipc_handlers::load_timeline_from_file);
@@ -188,6 +214,8 @@ namespace tas::runtime {
             core::ipc::register_request_handler("tas.set_timeline_playback_active", &ipc_handlers::set_timeline_playback_active);
             core::ipc::register_request_handler("tas.rewind_timeline", &ipc_handlers::rewind_timeline);
             core::ipc::register_request_handler("tas.get_state", &ipc_handlers::get_state);
+
+            core::async_update::event_bus().register_handler(&loading_state_detection::on_async_update);
 
             console::register_command({ "tas", "game", "reload" }, &cli_handlers::reload_everything, true);
             console::register_command({ "tas", "game", "load" }, &cli_handlers::load, true);

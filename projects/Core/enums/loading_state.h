@@ -4,7 +4,6 @@
 
 enum class LoadingState {
     NotLoading,
-    FixedDurationSceneEntityLoading,
     InstantLoadScenesControllerNonexistent,
     InstantLoadScenesControllerLoading,
     InstantLoadScenesControllerLockFinishLoading,
@@ -17,13 +16,15 @@ enum class LoadingState {
     MenuScreenManagerNonexistent,
     MenusLoading,
     ShardShopLoading,
+    UberGC,
+    DestroyManagerDestroying,
+    FaderB,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(
         LoadingState,
         {
                 { LoadingState::NotLoading, "NotLoading" },
-                { LoadingState::FixedDurationSceneEntityLoading, "FixedDurationSceneEntityLoading" },
                 { LoadingState::InstantLoadScenesControllerNonexistent, "InstantLoadScenesControllerNonexistent" },
                 { LoadingState::InstantLoadScenesControllerLoading, "InstantLoadScenesControllerLoading" },
                 { LoadingState::InstantLoadScenesControllerLockFinishLoading, "InstantLoadScenesControllerLockFinishLoading" },
@@ -36,5 +37,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(
                 { LoadingState::MenuScreenManagerNonexistent, "MenuScreenManagerNonexistent" },
                 { LoadingState::MenusLoading, "MenusLoading" },
                 { LoadingState::ShardShopLoading, "ShardShopLoading" },
+                { LoadingState::UberGC, "UberGC" },
+                { LoadingState::DestroyManagerDestroying, "DestroyManagerDestroying" },
+                { LoadingState::FaderB, "FaderB" },
         }
 );

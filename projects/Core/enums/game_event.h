@@ -7,7 +7,7 @@ enum class GameEvent {
     /**
      * Called when TAS framestepping is enabled, TAS runs its update loop.
      */
-    TASUpdate,
+    TASPausedUpdate,
 
     GainedFocus,
     LostFocus,

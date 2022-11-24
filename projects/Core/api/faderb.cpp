@@ -9,24 +9,22 @@
 using namespace app::classes;
 
 namespace faderb {
-    namespace {
-        app::FaderB* faderb_cache = nullptr;
+    app::FaderB* faderb_cache = nullptr;
 
-        app::FaderB* get_faderb() {
-            if (faderb_cache == nullptr) {
-                auto ui = types::UI::get_class();
-                faderb_cache = ui->static_fields->Fader;
-            }
-
-            return faderb_cache;
+    app::FaderB* get() {
+        if (!il2cpp::unity::is_valid(faderb_cache)) {
+            auto ui = types::UI::get_class();
+            faderb_cache = ui->static_fields->Fader;
         }
-    } // namespace
+
+        return faderb_cache;
+    }
 
     void fade_in(float duration) {
-        FaderB::FadeIn_2(get_faderb(), duration);
+        FaderB::FadeIn_2(get(), duration);
     }
 
     void fade_out(float duration) {
-        FaderB::FadeOut_2(get_faderb(), duration);
+        FaderB::FadeOut_2(get(), duration);
     }
 } // namespace faderb

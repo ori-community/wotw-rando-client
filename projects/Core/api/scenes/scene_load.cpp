@@ -26,7 +26,7 @@ namespace scenes {
     };
 
     std::unordered_map<std::string, PendingScene> scenes_to_load;
-    EventBus<SceneLoadEventMetadata*> scenes_event_bus;
+    TimedEventBus<SceneLoadEventMetadata*> scenes_event_bus;
     bool scene_loader_debug_logging = false;
 
     app::ScenesManager* get_scenes_manager() {
@@ -95,7 +95,7 @@ namespace scenes {
         }
     } // namespace
 
-    EventBus<SceneLoadEventMetadata*>& event_bus() {
+    TimedEventBus<SceneLoadEventMetadata*>& event_bus() {
         return scenes_event_bus;
     }
 

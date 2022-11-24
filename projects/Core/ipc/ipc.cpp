@@ -218,7 +218,7 @@ namespace core::ipc {
 
     void initialize() {
         game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &update_pipe);
-        game::event_bus().register_handler(GameEvent::TASUpdate, EventTiming::After, &update_pipe);
+        game::event_bus().register_handler(GameEvent::TASPausedUpdate, EventTiming::After, &update_pipe);
         game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, &on_shutdown);
     }
 

@@ -10,7 +10,7 @@ namespace {
 
     void initialize() {
         game::event_bus().register_handler(GameEvent::FixedUpdate, &console_update);
-        game::event_bus().register_handler(GameEvent::TASUpdate, &console_update);
+        game::event_bus().register_handler(GameEvent::TASPausedUpdate, &console_update);
     }
 
     CALL_ON_INIT(initialize);

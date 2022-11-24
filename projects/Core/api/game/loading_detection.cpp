@@ -1,107 +1,163 @@
 #include <Core/api/game/player.h>
 #include <Core/api/game/loading_detection.h>
+#include <Core/api/faderb.h>
 
+#include <Modloader/common.h>
 #include <Modloader/app/types/InstantLoadScenesController.h>
 #include <Modloader/app/types/UI.h>
 #include <Modloader/app/methods/Moon/Timeline/FixedDurationSceneEntity.h>
 #include <Modloader/app/methods/MenuScreenManager.h>
+#include <Modloader/app/methods/ScenesManager.h>
+#include <Modloader/app/methods/DestroyManager.h>
+#include <Modloader/app/methods/UberGCManager.h>
+#include <Modloader/app/methods/UnityEngine/SceneManagement/SceneManager.h>
 #include <Modloader/app/methods/System/Action.h>
 
 #include "game.h"
 #include <Core/api/scenes/scene_load.h>
-#include <Modloader/app/methods/ScenesManager.h>
 
 using namespace modloader;
 using namespace app::classes;
 
 namespace game::loading_detection {
-    auto loading_scene_in_timeline = false;
+    std::atomic<LoadingState> current_loading_state = LoadingState::NotLoading;
+
+    auto loading_scene_synchronously = false;
     auto loading_menus = false;
+    auto uber_gc_running = false;
+    auto destroy_manager_destroying = false;
 
-    IL2CPP_INTERCEPT(Moon::Timeline::FixedDurationSceneEntity, void, LoadScene, (app::FixedDurationSceneEntity* this_ptr, app::IContext* context)) {
-        loading_scene_in_timeline = true;
-        next::Moon::Timeline::FixedDurationSceneEntity::LoadScene(this_ptr, context);
-        loading_scene_in_timeline = false;
-    }
-
-    std::set<gchandle> on_menus_loaded_actions;
-    IL2CPP_INTERCEPT(System::Action, void, Invoke, (app::Action* this_ptr)) {
-        for (const auto& gchandle : on_menus_loaded_actions) {
-            auto action = il2cpp::gchandle_target<app::Action>(gchandle);
-            if (action == this_ptr) {
-                loading_menus = false;
-                il2cpp::gchandle_free(gchandle);
-                on_menus_loaded_actions.erase(gchandle);
-                break;
+    namespace {
+        LoadingState detect_current_loading_state() {
+            if (loading_scene_synchronously) {
+                return LoadingState::ScenesManagerLoading;
             }
+
+            if (loading_menus) {
+                return LoadingState::MenusLoading;
+            }
+
+            if (uber_gc_running) {
+                return LoadingState::UberGC;
+            }
+
+            auto instant_load_scenes_controller = types::InstantLoadScenesController::get_class()->static_fields->Instance;
+
+            if (instant_load_scenes_controller == nullptr) {
+                return LoadingState::InstantLoadScenesControllerNonexistent;
+            }
+
+            if (instant_load_scenes_controller->fields.m_isLoading) {
+                return LoadingState::InstantLoadScenesControllerLoading;
+            }
+
+            if (instant_load_scenes_controller->fields.m_lockFinishLoading) {
+                return LoadingState::InstantLoadScenesControllerLockFinishLoading;
+            }
+
+            if (instant_load_scenes_controller->fields.m_entireGameFrozen) {
+                return LoadingState::InstantLoadScenesControllerEntireGameFrozen;
+            }
+
+            auto scenes_manager = scenes::get_scenes_manager();
+
+            if (scenes_manager == nullptr) {
+                return LoadingState::ScenesManagerNonexistent;
+            }
+
+            auto game_controller = game::controller();
+
+            if (game_controller == nullptr) {
+                return LoadingState::GameControllerNonexistent;
+            }
+
+            if (game_controller->fields.m_isLoadingGame) {
+                return LoadingState::GameControllerLoading;
+            }
+
+            auto position = game::player::get_position();
+            if (ScenesManager::PositionInsideSceneStillLoading_2(scenes_manager, position)) {
+                return LoadingState::PositionInsideSceneStillLoading;
+            }
+
+            auto menu_screen_manager = types::UI::get_class()->static_fields->m_sMenu;
+
+            if (menu_screen_manager == nullptr) {
+                return LoadingState::MenuScreenManagerNonexistent;
+            }
+
+            if (menu_screen_manager->fields.ShardShopLoading) {
+                return LoadingState::ShardShopLoading;
+            }
+
+            auto fader = faderb::get();
+            if (fader != nullptr && fader->fields.CurrentState == app::FaderB_State__Enum::FadeStay) {
+                return LoadingState::FaderB;
+            }
+
+            return LoadingState::NotLoading;
         }
 
-        next::System::Action::Invoke(this_ptr);
-    }
+        void update_loading_state_cache() {
+            current_loading_state = detect_current_loading_state();
+        }
 
-    IL2CPP_INTERCEPT(MenuScreenManager, void, LoadMenus, (app::MenuScreenManager* this_ptr, app::Action* on_menus_loaded)) {
-        on_menus_loaded_actions.insert(il2cpp::gchandle_new(on_menus_loaded));
-        next::MenuScreenManager::LoadMenus(this_ptr, on_menus_loaded);
+        IL2CPP_INTERCEPT(UnityEngine::SceneManagement::SceneManager, app::Scene, LoadScene_3, (app::String* scene_name, app::LoadSceneParameters parameters)) {
+            modloader::ScopedSetter setter(loading_scene_synchronously, true);
+            update_loading_state_cache();
+            return next::UnityEngine::SceneManagement::SceneManager::LoadScene_3(scene_name, parameters);
+        }
+
+        std::set<gchandle> on_menus_loaded_actions;
+        IL2CPP_INTERCEPT(System::Action, void, Invoke, (app::Action* this_ptr)) {
+            for (const auto& gchandle : on_menus_loaded_actions) {
+                auto action = il2cpp::gchandle_target<app::Action>(gchandle);
+                if (action == this_ptr) {
+                    loading_menus = false;
+                    il2cpp::gchandle_free(gchandle);
+                    on_menus_loaded_actions.erase(gchandle);
+                    break;
+                }
+            }
+
+            next::System::Action::Invoke(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(MenuScreenManager, void, LoadMenus, (app::MenuScreenManager* this_ptr, app::Action* on_menus_loaded)) {
+            on_menus_loaded_actions.insert(il2cpp::gchandle_new(on_menus_loaded));
+            next::MenuScreenManager::LoadMenus(this_ptr, on_menus_loaded);
+        }
+
+        IL2CPP_INTERCEPT(UberGCManager, void, OnCleanupOutsideOfGameplay, (app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum trigger)) {
+            modloader::ScopedSetter setter(uber_gc_running, true);
+            update_loading_state_cache();
+            next::UberGCManager::OnCleanupOutsideOfGameplay(trigger);
+        }
+
+        IL2CPP_INTERCEPT(UberGCManager, void, RunGC, (bool is_debug)) {
+            modloader::ScopedSetter setter(uber_gc_running, true);
+            update_loading_state_cache();
+            next::UberGCManager::RunGC(is_debug);
+        }
+
+        IL2CPP_INTERCEPT(DestroyManager, void, DestroyAll, (app::DestroyManager* this_ptr)) {
+            modloader::ScopedSetter setter(destroy_manager_destroying, true);
+            update_loading_state_cache();
+            next::DestroyManager::DestroyAll(this_ptr);
+        }
+
+        void on_fixed_update(GameEvent game_event, EventTiming timing) {
+            update_loading_state_cache();
+        }
+
+        void initialize() {
+            game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
+        }
+
+        CALL_ON_INIT(initialize);
     }
 
     LoadingState get_loading_state() {
-        if (loading_scene_in_timeline) {
-            return LoadingState::FixedDurationSceneEntityLoading;
-        }
-
-        if (loading_menus) {
-            return LoadingState::MenusLoading;
-        }
-
-        auto instant_load_scenes_controller = types::InstantLoadScenesController::get_class()->static_fields->Instance;
-
-        if (instant_load_scenes_controller == nullptr) {
-            return LoadingState::InstantLoadScenesControllerNonexistent;
-        }
-
-        if (instant_load_scenes_controller->fields.m_isLoading) {
-            return LoadingState::InstantLoadScenesControllerLoading;
-        }
-
-        if (instant_load_scenes_controller->fields.m_lockFinishLoading) {
-            return LoadingState::InstantLoadScenesControllerLockFinishLoading;
-        }
-
-        if (instant_load_scenes_controller->fields.m_entireGameFrozen) {
-            return LoadingState::InstantLoadScenesControllerEntireGameFrozen;
-        }
-
-        auto scenes_manager = scenes::get_scenes_manager();
-
-        if (scenes_manager == nullptr) {
-            return LoadingState::ScenesManagerNonexistent;
-        }
-
-        auto game_controller = game::controller();
-
-        if (game_controller == nullptr) {
-            return LoadingState::GameControllerNonexistent;
-        }
-
-        if (game_controller->fields.m_isLoadingGame) {
-            return LoadingState::GameControllerLoading;
-        }
-
-        auto position = game::player::get_position();
-        if (ScenesManager::PositionInsideSceneStillLoading_2(scenes_manager, position)) {
-            return LoadingState::PositionInsideSceneStillLoading;
-        }
-
-        auto menu_screen_manager = types::UI::get_class()->static_fields->m_sMenu;
-
-        if (menu_screen_manager == nullptr) {
-            return LoadingState::MenuScreenManagerNonexistent;
-        }
-
-        if (menu_screen_manager->fields.ShardShopLoading) {
-            return LoadingState::ShardShopLoading;
-        }
-
-        return LoadingState::NotLoading;
+        return current_loading_state;
     }
 } // namespace game::loading_detector

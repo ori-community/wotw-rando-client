@@ -33,7 +33,7 @@ namespace modloader {
     std::string base_path = "C:\\moon\\";
     std::string modloader_path = "modloader_config.json";
     std::string csv_path = "inject_log.csv";
-    bool shutdown_thread = false;
+    bool shutdown_requested = false;
 
     namespace {
         bool write_to_csv = true;
@@ -93,19 +93,19 @@ namespace modloader {
         csv_mutex.unlock();
     }
 
-    IL2CPP_MODLOADER_DLLEXPORT void trace(MessageType type, int level, std::string const& group, std::string const& message) {
+    void trace(MessageType type, int level, std::string const& group, std::string const& message) {
         write_trace(type, level, group, message);
     }
 
-    IL2CPP_MODLOADER_DLLEXPORT void info(std::string const& group, std::string const& message) {
+    void info(std::string const& group, std::string const& message) {
         trace(MessageType::Info, 4, group, message);
     }
 
-    IL2CPP_MODLOADER_DLLEXPORT void warn(std::string const& group, std::string const& message) {
+    void warn(std::string const& group, std::string const& message) {
         trace(MessageType::Warning, 3, group, message);
     }
 
-    IL2CPP_MODLOADER_DLLEXPORT void debug(std::string const& group, std::string const& message) {
+    void debug(std::string const& group, std::string const& message) {
         trace(MessageType::Debug, 5, group, message);
     }
 
@@ -137,7 +137,7 @@ namespace modloader {
         if (!bootstrap::bootstrap()) {
             trace(MessageType::Info, 5, "initialize", "Failed to bootstrap, shutting down.");
             csv_file.close();
-            shutdown_thread = true;
+            shutdown_requested = true;
             common::free_library_and_exit_thread("Modloader.dll");
         }
 
@@ -153,7 +153,7 @@ namespace modloader {
         auto unity_version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_unityVersion());
         trace(MessageType::Info, 5, "initialize", fmt::format("Application {} injected ({})[{}].", product, version, unity_version));
 
-        while (!shutdown_thread) {
+        while (!shutdown_requested) {
             console::console_poll();
         }
 
@@ -179,8 +179,8 @@ namespace modloader {
         return base_path.c_str();
     }
 
-    IL2CPP_MODLOADER_DLLEXPORT void shutdown() {
-        shutdown_thread = true;
+    void shutdown() {
+        shutdown_requested = true;
     }
 
     bool initialized = false;
