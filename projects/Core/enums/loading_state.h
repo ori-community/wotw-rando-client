@@ -7,11 +7,16 @@ enum class LoadingState {
     FixedDurationSceneEntityLoading,
     InstantLoadScenesControllerNonexistent,
     InstantLoadScenesControllerLoading,
+    InstantLoadScenesControllerLockFinishLoading,
+    InstantLoadScenesControllerEntireGameFrozen,
     ScenesManagerNonexistent,
     ScenesManagerLoading,
     GameControllerNonexistent,
     GameControllerLoading,
     PositionInsideSceneStillLoading,
+    MenuScreenManagerNonexistent,
+    MenusLoading,
+    ShardShopLoading,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(
@@ -21,10 +26,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(
                 { LoadingState::FixedDurationSceneEntityLoading, "FixedDurationSceneEntityLoading" },
                 { LoadingState::InstantLoadScenesControllerNonexistent, "InstantLoadScenesControllerNonexistent" },
                 { LoadingState::InstantLoadScenesControllerLoading, "InstantLoadScenesControllerLoading" },
+                { LoadingState::InstantLoadScenesControllerLockFinishLoading, "InstantLoadScenesControllerLockFinishLoading" },
+                { LoadingState::InstantLoadScenesControllerEntireGameFrozen, "InstantLoadScenesControllerEntireGameFrozen" },
                 { LoadingState::ScenesManagerNonexistent, "ScenesManagerNonexistent" },
                 { LoadingState::ScenesManagerLoading, "ScenesManagerLoading" },
                 { LoadingState::GameControllerNonexistent, "GameControllerNonexistent" },
                 { LoadingState::GameControllerLoading, "GameControllerLoading" },
                 { LoadingState::PositionInsideSceneStillLoading, "PositionInsideSceneStillLoading" },
+                { LoadingState::MenuScreenManagerNonexistent, "MenuScreenManagerNonexistent" },
+                { LoadingState::MenusLoading, "MenusLoading" },
+                { LoadingState::ShardShopLoading, "ShardShopLoading" },
         }
 );
