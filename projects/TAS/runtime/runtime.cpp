@@ -219,6 +219,15 @@ namespace tas::runtime {
 
             console::register_command({ "tas", "game", "reload" }, &cli_handlers::reload_everything, true);
             console::register_command({ "tas", "game", "load" }, &cli_handlers::load, true);
+
+            state.current_timeline.event_bus().register_handler(EventTiming::After, [](timeline::TimelineEvent event, EventTiming timing) {
+                switch (event) {
+                    case timeline::TimelineEvent::Rewind:
+                    case timeline::TimelineEvent::Seek: {
+                        game::save_controller()->fields.m_lastSavedFrameIndex = -1;
+                    }
+                }
+            });
         }
 
         CALL_ON_INIT(initialize);
