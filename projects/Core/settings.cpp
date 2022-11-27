@@ -58,4 +58,8 @@ namespace core::settings {
     float map_icon_transparency() {
         return ini_settings.value("Values", "MapIconTransparency", 0.f);
     }
+
+    float camera_shake_intensity() {
+        return ini_settings.value("Values", "CameraShakeIntensity", 1.f);
+    }
 } // namespace core::settings

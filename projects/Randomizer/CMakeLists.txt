@@ -77,6 +77,7 @@ set(
         "game/event_handlers/on_save.cpp"
         "game/event_handlers/on_teleport.cpp"
         "game/event_handlers/on_trial.cpp"
+        "game/camera_shake.cpp"
         "game/map_icons.cpp"
         "game/pickups/bonus/bow_attack_speed.cpp"
         "game/pickups/bonus/energy_cost_upgrades.cpp"

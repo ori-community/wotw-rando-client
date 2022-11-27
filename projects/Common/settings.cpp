@@ -333,5 +333,9 @@ IniSettings create_randomizer_settings(const std::string& path) {
     option.value.f = 0.25f;
     file.options.push_back(option);
 
+    option.name = "CameraShakeIntensity";
+    option.value.f = 1.f;
+    file.options.push_back(option);
+
     return file;
 }
