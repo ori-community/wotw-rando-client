@@ -62,4 +62,8 @@ namespace core::settings {
     float camera_shake_intensity() {
         return ini_settings.value("Values", "CameraShakeIntensity", 1.f);
     }
+
+    bool shriek_is_shrek() {
+        return ini_settings.value("Flags", "ShriekIsShrek", false);
+    }
 } // namespace core::settings
