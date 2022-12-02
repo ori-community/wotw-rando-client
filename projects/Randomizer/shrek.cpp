@@ -10,6 +10,8 @@
 #include <Modloader/common.h>
 #include <Modloader/interception_macros.h>
 
+using namespace app::classes;
+
 namespace {
     struct ShrekState {
         const std::wstring texture_path;
