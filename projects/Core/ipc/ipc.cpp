@@ -22,6 +22,7 @@
 #include <mutex>
 #include <string>
 #include <vector>
+#include <chrono>
 
 #undef max
 #undef min
@@ -30,7 +31,7 @@ using namespace modloader;
 
 namespace core::ipc {
     namespace {
-        constexpr int MESSAGE_SIZE = 8192;
+        constexpr int MAX_MESSAGE_SIZE = 8192;
         constexpr int MAX_MESSAGES_PER_QUEUE = 300;
 
         std::unique_ptr<std::thread> ipc_thread;
@@ -40,27 +41,34 @@ namespace core::ipc {
         std::vector<nlohmann::json> incoming_messages;
         std::atomic<bool> shutdown_ipc_thread;
 
-        HANDLE connect(int buffer_size) {
-            HANDLE pipe = CreateNamedPipeA(
-                    "\\\\.\\pipe\\wotw_rando",
-                    PIPE_ACCESS_DUPLEX | FILE_FLAG_FIRST_PIPE_INSTANCE,
-                    PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT | PIPE_REJECT_REMOTE_CLIENTS,
-                    1,
+        HANDLE connect() {
+            constexpr LPCSTR PIPE_FILE = "\\\\.\\pipe\\wotw_rando";
+
+            HANDLE pipe = CreateFileA(
+                    PIPE_FILE,
+                    GENERIC_READ | GENERIC_WRITE,
                     0,
-                    buffer_size * sizeof(char),
+                    NULL,
+                    OPEN_EXISTING,
                     0,
                     nullptr
             );
 
             if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE) {
-                warn("ipc", "Failed to create pipe.");
+                warn("ipc", fmt::format("Failed to connect to pipe, error: {}", GetLastError()));
                 CloseHandle(pipe);
                 return nullptr;
             }
 
-            auto result = ConnectNamedPipe(pipe, nullptr);
-            if (!result) {
-                warn("ipc", "Failed to connect to pipe.");
+            if (!WaitNamedPipeA(PIPE_FILE, 10000)) {
+                warn("ipc", "Pipe timeout after 10s");
+                CloseHandle(pipe);
+                return nullptr;
+            }
+
+            unsigned long mode = PIPE_READMODE_BYTE;
+            if (!SetNamedPipeHandleState(pipe, &mode, 0, 0)) {
+                warn("ipc", fmt::format("Could not switch to read mode, error: {}", GetLastError()));
                 CloseHandle(pipe);
                 return nullptr;
             }
@@ -75,13 +83,20 @@ namespace core::ipc {
         void pipe_handler() {
             DWORD bytes_read = 0;
             DWORD bytes_written = 0;
-            std::array<char, MESSAGE_SIZE> raw_message;
-            HANDLE pipe = connect(raw_message.size() - 1);
+
+            std::array<char, MAX_MESSAGE_SIZE> message_part_buffer;
+            std::array<char, MAX_MESSAGE_SIZE> message_buffer;
+            unsigned int message_buffer_cursor = 0;
+            auto discard_current_message = false;
+
+            HANDLE pipe = connect();
+
             if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE)
                 return;
 
             while (!shutdown_ipc_thread) {
                 DWORD bytes_available = 0;
+
                 if (!PeekNamedPipe(pipe, nullptr, 0, nullptr, &bytes_available, nullptr)) {
                     auto error = GetLastError();
                     if (error == ERROR_BROKEN_PIPE ||
@@ -89,10 +104,11 @@ namespace core::ipc {
                         error == ERROR_INVALID_HANDLE) {
                         warn("ipc", fmt::format("Failed to peek at pipe ({}).", error));
                         disconnect(pipe);
-                        pipe = connect(raw_message.size() - 1);
+                        pipe = connect();
                         if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE) {
-                            warn("ipc", "Failed to reconnect pipe, returning.");
-                            return;
+                            warn("ipc", "Failed to reconnect pipe, waiting for 5 seconds.");
+                            std::this_thread::sleep_for(std::chrono::seconds(5));
+                            continue;
                         }
                     }
                 }
@@ -100,8 +116,8 @@ namespace core::ipc {
                 if (bytes_available != 0) {
                     auto result = ReadFile(
                             pipe,
-                            raw_message.data(),
-                            raw_message.size() - 1,
+                            message_part_buffer.data(),
+                            message_part_buffer.size() - 1,
                             &bytes_read,
                             nullptr
                     );
@@ -110,20 +126,45 @@ namespace core::ipc {
                         auto error = GetLastError();
                         warn("ipc", fmt::format("Failed to read data ({}).", error));
                     } else {
-                        raw_message[bytes_read] = '\0';
-                        std::string str = raw_message.data();
-                        trim(str);
+                        for (auto message_part_buffer_cursor = 0; message_part_buffer_cursor < bytes_read; message_part_buffer_cursor++) {
+                            auto byte = message_part_buffer[message_part_buffer_cursor];
 
-                        try {
-                            auto message = nlohmann::json::parse(str);
+                            if (discard_current_message) {
+                                if (byte == '\0') {
+                                    discard_current_message = false;
+                                    message_buffer_cursor = 0;
+                                }
+                                continue;
+                            }
 
-                            incoming_messages_mutex.lock();
-                            incoming_messages.push_back(std::move(message));
-                            incoming_messages_mutex.unlock();
-                        } catch (std::exception ex) {
-                            warn("ipc", "Error parsing ipc message.");
-                            info("ipc", ex.what());
-                            info("ipc", str);
+                            if (message_buffer_cursor >= MAX_MESSAGE_SIZE) {
+                                warn("ipc", "Message exceeded max size. Discarding bytes...");
+                                discard_current_message = true;
+                                continue;
+                            }
+
+                            message_buffer[message_buffer_cursor] = byte;
+                            ++message_buffer_cursor;
+
+                            // Got the end of a full message, process message buffer
+                            if (byte == '\0') {
+                                std::string str = message_buffer.data();
+                                trim(str);
+
+                                try {
+                                    auto message = nlohmann::json::parse(str);
+
+                                    incoming_messages_mutex.lock();
+                                    incoming_messages.push_back(std::move(message));
+                                    incoming_messages_mutex.unlock();
+                                } catch (std::exception ex) {
+                                    warn("ipc", "Error parsing ipc message.");
+                                    info("ipc", ex.what());
+                                    info("ipc", str);
+                                }
+
+                                message_buffer_cursor = 0;
+                            }
                         }
                     }
                 } else {
@@ -133,7 +174,7 @@ namespace core::ipc {
                     outgoing_messages_mutex.unlock();
                     for (auto message : local_sends) {
                         try {
-                            auto string_message = message.dump();
+                            auto string_message = message.dump() + '\0';
 
                             auto result = WriteFile(
                                     pipe,
