@@ -120,6 +120,7 @@ set(
         "pickups/pickup.cpp"
         "pickups/pickup_collection.cpp"
         "seed_parser/parser.cpp"
+        "shrek.cpp"
         "timer.cpp"
         "uber_states/uber_state_helper.cpp"
         "uber_states/uber_state_initialization.cpp"

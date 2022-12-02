@@ -337,5 +337,9 @@ IniSettings create_randomizer_settings(const std::string& path) {
     option.value.f = 1.f;
     file.options.push_back(option);
 
+    option.name = "ShriekIsShrek";
+    option.value.b = false;
+    file.options.push_back(option);
+
     return file;
 }
