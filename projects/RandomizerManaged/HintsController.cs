@@ -80,25 +80,21 @@ namespace RandomizerManaged {
       float duration = justUnlocked ? 5f : 4f;
       if (pp.NonEmpty) {
         Vector2? pos = pp.Pos.HasValue ? new Vector2?(new Vector2() { X = 0.0f, Y = pp.Pos.Value }) : null;
-        MessageController.ShowMessage(
+        MessageController.ShowPickup(
           text: pp.DisplayName,
           time: duration,
-          position: pos,
-          screen: ScreenPosition.TopCenter,
-          vertical: VerticalAnchor.Top,
-          muted: pp.Quiet,
-          log: justUnlocked
+          pickupPosition: pos,
+          log: justUnlocked,
+          priority: true
         );
       }
       else if (InterOp.Utils.get_game_state() != GameState.Game && !justUnlocked) {
-        Vector2? pos = pp.Pos.HasValue ? new Vector2?(new Vector2() { X = 0.0f, Y = pp.Pos.Value }) : null;
-        MessageController.ShowMessage(
+        MessageController.ShowPickup(
           text: SeedController.Progress,
-          position: pos,
-          screen: ScreenPosition.TopCenter,
           time: duration,
-          muted: pp.Quiet,
-          log: justUnlocked
+          pickupPosition: null,
+          log: justUnlocked,
+          priority: true
         );
       }
     }
