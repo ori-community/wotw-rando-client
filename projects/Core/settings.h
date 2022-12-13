@@ -3,6 +3,8 @@
 #include <Core/macros.h>
 
 namespace core::settings {
+    CORE_DLLEXPORT void reload();
+
     CORE_DLLEXPORT bool burrow_mouse_control();
     CORE_DLLEXPORT bool grapple_mouse_control();
     CORE_DLLEXPORT bool water_dash_mouse_control();

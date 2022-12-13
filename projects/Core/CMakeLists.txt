@@ -163,6 +163,9 @@ target_link_libraries(${PROJECT_NAME} magic_enum::magic_enum)
 find_package(fmt)
 target_link_libraries(${PROJECT_NAME} fmt::fmt)
 
+find_package(inih)
+target_link_libraries(${PROJECT_NAME} inih::inih)
+
 message(STATUS "Assigning source groups.")
 
 set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES}")

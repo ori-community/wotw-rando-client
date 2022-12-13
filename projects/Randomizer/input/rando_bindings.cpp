@@ -16,6 +16,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 
+#include <Core/settings.h>
+
 #include <fstream>
 #include <unordered_map>
 #include <unordered_set>
@@ -185,6 +187,11 @@ namespace randomizer::input {
         csharp_bridge::on_action_triggered(action);
     }
 
+    void on_reload(Action action, bool pressed) {
+        csharp_bridge::on_action_triggered(action);
+        core::settings::reload();
+    }
+
     void on_before_register_input_simulators(GameEvent game_event, EventTiming timing) {
         read_bindings(base_path + KEYBOARD_REBIND_FILE, on_binding_read);
     }
@@ -195,7 +202,7 @@ namespace randomizer::input {
         add_on_pressed_callback(Action::Binding3, csharp_callback);
         add_on_pressed_callback(Action::Binding4, csharp_callback);
         add_on_pressed_callback(Action::Binding5, csharp_callback);
-        add_on_pressed_callback(Action::Reload, csharp_callback);
+        add_on_pressed_callback(Action::Reload, on_reload);
         add_on_pressed_callback(Action::ShowLastPickup, csharp_callback);
         add_on_pressed_callback(Action::ShowProgressWithHints, csharp_callback);
         add_on_pressed_callback(Action::WarpCredits, csharp_callback);

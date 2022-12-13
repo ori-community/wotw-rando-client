@@ -9,19 +9,22 @@
 // Order is important because reasons
 #include <Windows.h>
 #include <TlHelp32.h>
-// clang-format on
+#include <INIReader.h>
 
-#include <Common/settings.h>
+#define NO_MODLOADER
+#include <Common/settings_reader.h>
+#undef NO_MODLOADER
+// clang-format on
 
 bool nowait = false;
 bool shutting_down = false;
 std::ostream& logstream = std::cout;
 
-std::string steam_process_name = "oriwotw.exe";
-std::string store_process_name = "oriandthewillofthewisps-pc.exe";
 std::string base_path = R"(C:\moon\randomizer\)";
-std::string dll_name = "InjectLoader.dll";
-std::string settings_name = "settings.ini";
+const std::string steam_process_name = "oriwotw.exe";
+const std::string store_process_name = "oriandthewillofthewisps-pc.exe";
+const std::string dll_name = "InjectLoader.dll";
+const std::string settings_name = "settings.ini";
 
 bool find_base_path(std::string& output_path) {
     wchar_t path[MAX_PATH];
@@ -138,13 +141,10 @@ void listen_for_ori() {
 int actual_main() {
     find_base_path(base_path);
 
-    IniSettings settings(create_randomizer_settings(base_path));
-    settings.path = base_path + "\\" + settings_name;
-    load_settings_from_file(settings);
+    auto settings = read_utf16_ini(base_path + settings_name);
 
-    auto use_win_store = check_option(settings, "Flags", "UseWinStore", false);
-
-    auto inject_delay = check_option(settings, "Values", "InjectDelay", 0);
+    auto use_win_store = settings->GetBoolean("Flags", "UseWinStore", false);
+    auto inject_delay = settings->GetInteger("Values", "InjectDelay", 0);
 
     auto i = 0;
     for (; i < 300; i++) {

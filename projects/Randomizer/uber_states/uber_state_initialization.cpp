@@ -1,10 +1,8 @@
 #include <Common/ext.h>
-#include <Common/settings.h>
 #include <Core/enums/uber_state.h>
 #include <Core/uber_states/uber_state_virtual.h>
 #include <Core/uber_states/uber_state_interface.h>
 #include <constants.h>
-#include <Core/enums/uber_state.h>
 
 #include <Modloader/app/methods/Moon/UberStateCollection.h>
 #include <Modloader/app/types/BooleanUberState.h>

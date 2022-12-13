@@ -17,10 +17,11 @@
 
 #include <Common/csv.h>
 #include <Common/ext.h>
-#include <Common/settings.h>
+#include <Common/settings_reader.h>
 #include <app/methods/GameController.h>
 #include <app/methods/UnityEngine/Application.h>
 #include <app/methods/UnityEngine/Cursor.h>
+#include <INIReader.h>
 
 //---------------------------------------------------Globals-----------------------------------------------------
 
@@ -119,16 +120,17 @@ namespace modloader {
     IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string path) {
         base_path = path;
         trace(MessageType::Info, 5, "initialize", "Loading settings.");
-        auto settings = create_randomizer_settings(base_path);
-        load_settings_from_file(settings);
-        auto wait_for_debugger = check_option(settings, "Flags", "WaitForDebugger", false);
+
+        auto settings = read_utf16_ini(base_path + "settings.ini");
+
+        auto wait_for_debugger = settings->GetBoolean("Flags", "WaitForDebugger", false);
         while (wait_for_debugger && !common::is_debugger_present())
             common::sleep(100); // to avoid 100% CPU load
 
         initialize_trace_file();
         trace(MessageType::Info, 5, "initialize", "Mod Loader initialization.");
 
-        if (check_option(settings, "Flags", "Dev", false)) {
+        if (settings->GetBoolean("Flags", "Dev", false)) {
             trace(MessageType::Info, 5, "initialize", "Initializing console.");
             console::console_initialize();
         }

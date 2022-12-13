@@ -12,6 +12,7 @@ conan_cmake_configure(
             magic_enum/0.8.1
             nlohmann_json/3.11.2
             antlr4-cppruntime/4.11.1
+            inih/56
         GENERATORS
             cmake_find_package
 )

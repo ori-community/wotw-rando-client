@@ -111,6 +111,9 @@ target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 find_package(fmt)
 target_link_libraries(${PROJECT_NAME} fmt::fmt)
 
+find_package(inih)
+target_link_libraries(${PROJECT_NAME} inih::inih)
+
 target_precompile_headers(
         ${PROJECT_NAME}
         PRIVATE <cstdint>
