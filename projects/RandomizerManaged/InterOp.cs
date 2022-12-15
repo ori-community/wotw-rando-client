@@ -237,7 +237,7 @@ namespace RandomizerManaged {
       public extern static Vector2 get_velocity();
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_velocity(Vector2 velocity);
-      [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
+      [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void teleport(float x, float y, bool wait_for_load);
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_start_position(float x, float y);
