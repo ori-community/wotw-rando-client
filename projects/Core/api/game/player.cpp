@@ -15,6 +15,7 @@
 #include <Modloader/app/methods/GameplayCamera.h>
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/types/UI_Cameras.h>
+#include <Modloader/app/types/GameWorld.h>
 #include <Core/api/scenes/scene_load.h>
 #include <magic_enum.hpp>
 
@@ -122,6 +123,13 @@ namespace game::player {
             auto* const camera = cameras->static_fields->Current;
             GameplayCamera::MoveCameraToTargetInstantly(camera, true);
         }
+    }
+
+    GameArea get_current_area() {
+        app::GameWorld* game_world = types::GameWorld::get_class()->static_fields->Instance;
+        if (game_world == nullptr || game_world->fields.CurrentArea == nullptr || game_world->fields.CurrentArea->fields.Area == nullptr)
+            return convert_to_game_area(app::GameWorldAreaID__Enum::None);
+        return convert_to_game_area(game_world->fields.CurrentArea->fields.Area->fields.WorldMapAreaUniqueID);
     }
 } // namespace game::player
 

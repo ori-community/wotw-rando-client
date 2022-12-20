@@ -17,7 +17,6 @@ enum class GameEvent {
     CreateSave,
     CreateBackup,
     CreateCheckpoint,
-    LoadCheckpoint,
     FinishedLoadingCheckpoint,
     FinishedLoadingSave,
     Respawn,

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string_view>
 #include <vector>
 #include <Core/macros.h>
 
@@ -20,9 +21,20 @@ namespace utils {
             this->write(reinterpret_cast<std::byte*>(&data), sizeof(T));
         }
 
+        void write_string(std::string& string) {
+            this->write(reinterpret_cast<std::byte*>(string.data()), string.length());
+        }
+
         template <typename T = std::byte>
         T peek() {
             return *reinterpret_cast<T*>(&this->buffer[this->position]);
+        }
+
+        std::string peek_string(unsigned long length) {
+            return std::string(
+                    reinterpret_cast<const char*>(&this->buffer[this->position]),
+                    reinterpret_cast<const char*>(&this->buffer[this->position + length])
+            );
         }
 
         template <typename T = std::byte>
@@ -34,6 +46,12 @@ namespace utils {
         T read() {
             auto value = peek<T>();
             skip<T>();
+            return value;
+        }
+
+        std::string read_string(unsigned long length) {
+            auto value = peek_string(length);
+            skip(length);
             return value;
         }
 

@@ -149,7 +149,7 @@ namespace RandomizerManaged {
       public extern static void discover_everything();
 
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static AreaType get_player_area();
+      public extern static ZoneType get_player_area();
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void refresh_map();
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -392,6 +392,9 @@ namespace RandomizerManaged {
 
     [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void register_delegate([MarshalAs(UnmanagedType.LPStr)] string s, IntPtr del);
+    
+    [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
+    public extern static void notify_pickup_collected(ZoneType zoneType);
 
     private static List<GCHandle> handles;
     public static void RegisterCSharpBindings() {

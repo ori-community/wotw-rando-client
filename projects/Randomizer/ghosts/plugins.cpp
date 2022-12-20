@@ -2,7 +2,6 @@
 #include "plugins/update_active_animations_plugin.h"
 
 #include <map>
-#include <sstream>
 #include <memory>
 
 namespace ghosts::plugins {

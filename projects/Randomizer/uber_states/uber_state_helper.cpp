@@ -336,11 +336,8 @@ RANDOMIZER_C_DLLEXPORT void set_ability_level(app::AbilityType__Enum type, int v
     PlayerUberStateAbilities::SetAbilityLevel(abilities, type, value);
 }
 
-RANDOMIZER_C_DLLEXPORT app::GameWorldAreaID__Enum get_player_area() {
-    app::GameWorld* game_world = types::GameWorld::get_class()->static_fields->Instance;
-    if (game_world == nullptr || game_world->fields.CurrentArea == nullptr || game_world->fields.CurrentArea->fields.Area == nullptr)
-        return app::GameWorldAreaID__Enum::None;
-    return game_world->fields.CurrentArea->fields.Area->fields.WorldMapAreaUniqueID;
+RANDOMIZER_C_DLLEXPORT GameArea get_player_area() {
+    return game::player::get_current_area();
 }
 
 RANDOMIZER_C_DLLEXPORT bool is_loading_game() {

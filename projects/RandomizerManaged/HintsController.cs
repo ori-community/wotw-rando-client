@@ -75,7 +75,7 @@ namespace RandomizerManaged {
     }
 
     public static void ProgressWithHints(ZoneType _zone = ZoneType.Void, bool justUnlocked = false) {
-      var zone = _zone == ZoneType.Void ? StatsTracking.CurrentZone : _zone;
+      var zone = _zone == ZoneType.Void ? InterOp.Map.get_player_area() : _zone;
       var pp = new UberId(13, (int)zone).Pickup(1);
       float duration = justUnlocked ? 5f : 4f;
       if (pp.NonEmpty) {

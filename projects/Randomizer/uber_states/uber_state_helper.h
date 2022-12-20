@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/enums/shard_type.h>
+#include <Core/enums/game_areas.h>
 #include <Randomizer/macros.h>
 
 RANDOMIZER_C_DLLEXPORT void set_debug_controls(bool value);
@@ -31,5 +32,5 @@ RANDOMIZER_C_DLLEXPORT void set_position(app::Vector2 position);
 RANDOMIZER_C_DLLEXPORT app::Vector2 get_velocity();
 RANDOMIZER_C_DLLEXPORT void set_velocity(app::Vector2 velocity);
 RANDOMIZER_C_DLLEXPORT app::GameStateMachine_State__Enum get_game_state();
-RANDOMIZER_C_DLLEXPORT app::GameWorldAreaID__Enum get_player_area();
+RANDOMIZER_C_DLLEXPORT GameArea get_player_area();
 RANDOMIZER_C_DLLEXPORT bool is_loading_game();

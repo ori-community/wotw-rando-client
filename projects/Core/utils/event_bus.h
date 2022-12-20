@@ -103,7 +103,7 @@ private:
 template <typename T>
 class EventBus {
 public:
-    using event_handler = void (*)(T, EventTiming);
+    using event_handler = void (*)(T);
 
     EventBus() = default;
     EventBus(EventBus const& other) = delete;

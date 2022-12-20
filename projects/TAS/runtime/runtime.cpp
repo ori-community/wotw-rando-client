@@ -77,7 +77,7 @@ namespace tas::runtime {
         namespace loading_state_detection {
             std::atomic<LoadingState> last_notified_loading_state = LoadingState::NotLoading;
 
-            void on_async_update(float delta, EventTiming timing) {
+            void on_async_update(float delta) {
                 auto current_state = game::loading_detection::get_loading_state();
 
                 if (last_notified_loading_state != current_state) {

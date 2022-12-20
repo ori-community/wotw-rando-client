@@ -158,10 +158,6 @@ namespace RandomizerManaged {
             CallbackName = "on_enemy_death"
           },
           new Method() {
-            Delegate = new f_void_str_dt(StatsTracking.OnDeath),
-            CallbackName = "on_player_death"
-          },
-          new Method() {
             Delegate = new f_void(UberStateController.OnRaceStart),
             CallbackName = "on_race_start"
           },
@@ -213,6 +209,14 @@ namespace RandomizerManaged {
             Delegate = new f_bool(() => WebSocketClient.WantConnection),
             CallbackName = "is_multiplayer"
           },
+          new Method() {
+            Delegate = new f_int(SeedController.GetTotalPickupCount),
+            CallbackName = "get_total_pickup_count"
+          },
+          new Method() {
+            Delegate = new f_int_zt(SeedController.GetPickupCountByArea),
+            CallbackName = "get_pickup_count_by_area"
+          },
         };
       }
     }
@@ -249,6 +253,7 @@ namespace RandomizerManaged {
     public delegate int f_int_int_int_int(int i, int j, int k);
     public delegate int f_int_st(ShardType st);
     public delegate int f_int_bool(bool b);
+    public delegate int f_int_zt(ZoneType zt);
     public delegate ulong f_ull();
     public delegate ulong f_ull_str_bool([MarshalAs(UnmanagedType.LPStr)] string str, bool b);
   }

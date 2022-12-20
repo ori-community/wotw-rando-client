@@ -54,7 +54,7 @@ set(
         "features/shrine_states.cpp"
         "features/spawn.cpp"
         "features/trackers/ability_tracker.cpp"
-        "features/trackers/death_listener.cpp"
+        "features/trackers/death_listener_csharp_bridge.cpp"
         "features/trackers/goal_mode_check.cpp"
         "features/water.cpp"
         "features/wheel.cpp"
@@ -122,6 +122,8 @@ set(
         "seed_parser/parser.cpp"
         "shrek.cpp"
         "timer.cpp"
+        "timing/game_stats.cpp"
+        "timing/game_timer.cpp"
         "uber_states/uber_state_helper.cpp"
         "uber_states/uber_state_initialization.cpp"
 )
@@ -141,7 +143,6 @@ set(
         "features/credits.h"
         "features/cutscene_skips/custom_cutscene_skips.h"
         "features/spawn.h"
-        "features/trackers/death_listener.h"
         "game/pickups/pickups.h"
         "game/pickups/quests.h"
         "game/pickups/shops/general.h"
@@ -159,6 +160,8 @@ set(
         "pickups/pickup_collection.h"
         "seed_parser/parser.h"
         "timer.h"
+        "timing/game_stats.h"
+        "timing/game_timer.h"
         "uber_states/uber_state_helper.h"
 )
 

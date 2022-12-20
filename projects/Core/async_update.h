@@ -4,5 +4,5 @@
 #include <Core/utils/event_bus.h>
 
 namespace core::async_update {
-    CORE_DLLEXPORT TimedEventBus<float>& event_bus();
+    CORE_DLLEXPORT EventBus<float>& event_bus();
 }

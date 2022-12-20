@@ -38,104 +38,14 @@ namespace RandomizerManaged {
   }
 
   public static class StatsTracking {
-    public static ZoneType CurrentZone {
-      get {
-        try {
-          return InterOp.Map.get_player_area().toZone();
-        }
-        catch (Exception e) {
-          Randomizer.Error("Hints.CurrentZone", e, false);
-          return ZoneType.Void;
-        }
-      }
-    }
-
-    public static bool ShouldLog(UberId id) {
-      return id.GroupID != 14;
-    }
-
-    public static UberId TimeState(this ZoneType zone) => new UberId(14, (int)zone);
-    public static UberId DeathState(this ZoneType zone) => new UberId(14, 20 + (int)zone);
-    public static UberId PickupState(this ZoneType zone) => new UberId(14, 40 + (int)zone);
-    public static UberId TotalPickupsState(this ZoneType zone) => new UberId(14, 60 + (int)zone);
-
-    public static UberId Time = new UberId(14, 100);
-    public static UberId Deaths = new UberId(14, 101);
-    public static UberId Drought = new UberId(14, 102);
-    public static UberId MaxDrought = new UberId(14, 103);
-    public static UberId TimeSinceLastSave = new UberId(14, 104);
-    public static UberId TimeLostToDeaths = new UberId(14, 105);
-    public static UberId WarpsUsed = new UberId(14, 106);
-    public static UberId BestPPMTime = new UberId(14, 107);
-    public static UberId BestPPMCount = new UberId(14, 108);
-    public static UberId TotalPickupCount = new UberId(14, 109);
-    public static UberId GameFinished = new UberId(34543, 11226);
-
-    public static void OnNewGame() {
-      if(SavedUberStates.Count > 0) {
-        Randomizer.Log($"stats.OnNewGame: Clearing {SavedUberStates.Count} stats", false, "DEBUG");
-        SavedUberStates.Clear();
-      }
-      foreach (var uid in SaveThroughDeath) {
-        var val = UberGet.AsDouble(uid);
-        if (val > 0) {
-          Randomizer.Debug($"stats.OnNewGame: {uid} needed reset: was {val}", false);
-          UberSet.Raw(uid, 0);
-        }
-      }
-
-      UberSet.Int(TotalPickupCount, SeedController.Total);
-      foreach (ZoneType z in Enum.GetValues(typeof(ZoneType))) {
-        UberSet.Int(z.TotalPickupsState(), SeedController.CountByZone[z]);
-      }
-    }
-    public static void FixedUpdate(GameState gs, float delta) {
-      if (gs == GameState.Game && !UberGet.Bool(GameFinished)) {
-        UberInc.Float(CurrentZone.TimeState(), delta);
-        UberInc.Float(Time, delta);
-        UberInc.Float(TimeSinceLastSave, delta);
-        UberInc.Float(Drought, delta);
-      } 
-    }
-    public static Dictionary<UberId, double> SavedUberStates = new Dictionary<UberId, double>();
-    public static void OnLoad(bool deathLoad) {
-      if(deathLoad) {
-        foreach (var kp in SavedUberStates) UberSet.Raw(kp.Key, kp.Value);
-      }
-      SavedUberStates.Clear();
-    }
-    public static void OnSave(bool deathSave) {
-      if(deathSave) {
-        UberInc.Float(TimeLostToDeaths, UberGet.Float(TimeSinceLastSave));
-        SavedUberStates[TimeLostToDeaths] = UberGet.AsDouble(TimeLostToDeaths);
-      } else {
-        SavedUberStates.Clear();
-      }
-      UberSet.Float(TimeSinceLastSave, 0);
-    }
     public static void OnPickup(LocData loc) {
-      var fc = ++SaveController.FoundCount;
-      UberInc.Byte(loc.Zone.PickupState());
-      var thisDrought = UberGet.Float(Drought);
-      if (thisDrought > UberGet.Float(MaxDrought))
-        UberSet.Float(MaxDrought, thisDrought);
-      UberSet.Float(Drought, 0f);
-
-      if(fc >= 20) { // only start updating peak PPM once the game has been going for a bit
-        var time = UberGet.Float(Time);
-        var currentPPM = fc / (double)time; // march, march!
-        if(currentPPM > UberGet.Int(BestPPMCount) / (UberGet.AsDouble(BestPPMTime) + 1)) {
-          UberSet.Int(BestPPMCount, fc);
-          UberSet.Float(BestPPMTime, time);
-        }
-      }
-    }
-    public static void OnDeath(string perpetrator, DamageType dt) {
-      UberInc.Byte(CurrentZone.DeathState());
-      UberInc.Int(Deaths);
-      SavedUberStates = SaveThroughDeath.ToDictionary(a => a, a => UberGet.AsDouble(a));
+      ++SaveController.FoundCount;
+      InterOp.notify_pickup_collected(loc.Zone);
     }
 
+    /**
+     * Still used for bingo tracking........
+     */
     public static void OnKill(string name, DamageType dt) {
       name = name.Replace("(Clone)", "");
       var et = EnemyFromName(name);
@@ -306,18 +216,6 @@ namespace RandomizerManaged {
         default:
           return EnemyType.Unknown;
       }
-    }
-    public static HashSet<UberId> SaveThroughDeath = new HashSet<UberId>();
-    static StatsTracking() {
-      foreach(ZoneType z in Enum.GetValues(typeof(ZoneType))) {
-        SaveThroughDeath.Add(z.TimeState());
-        SaveThroughDeath.Add(z.DeathState());
-      }
-      SaveThroughDeath.Add(Time);
-      SaveThroughDeath.Add(Deaths);
-      SaveThroughDeath.Add(Drought);
-      SaveThroughDeath.Add(TimeLostToDeaths);
-
     }
   }
 }

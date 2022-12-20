@@ -36,7 +36,6 @@ namespace RandomizerManaged {
       try {
         // overwrite the message log TODO: save a backup maybe?
         File.WriteAllText(MessageLog, "");
-        StatsTracking.OnNewGame();
         // SeedController.ReadSeed();
         UberStateController.NeedsNewGameInit = true;
         UberStateController.UberStates.Clear();
@@ -154,7 +153,6 @@ namespace RandomizerManaged {
         Multiplayer.FixedUpdate();
         HideAndSeek.FixedUpdate(delta);
         Infection.FixedUpdate(delta);
-        StatsTracking.FixedUpdate(gs, delta);
       }
       catch (Exception e) {
         Log($"FixedUpdate error: {e.Message}\n{e.StackTrace}");

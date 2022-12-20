@@ -396,7 +396,9 @@ namespace RandomizerManaged {
     private static readonly Regex uberNameFrag = new Regex(@"\$\[\(([0-9]+)\|(.*?)\)\]", RegexOptions.Compiled);
     private static readonly Regex dbStringFrag = new Regex(@"\$\{([0-9]+)}", RegexOptions.Compiled);
     private static readonly Func<double, String> secToStr = (double sec) => (sec < 3600) ? TimeSpan.FromSeconds(sec).ToString(@"mm\:ss\.f") : TimeSpan.FromSeconds(sec).ToString(@"hh\:mm\:ss\.f");
-    public override string DisplayName { get {
+
+    public override string DisplayName {
+      get {
         var withDbStringRepl = MessageStr;
         bool isMatch;
         do {
@@ -408,46 +410,30 @@ namespace RandomizerManaged {
               Randomizer.Warn("MessageDisplay", $"No entry in text database found for {{{id}}}");
               return "";
             }
-            var text = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.TextDatabase.text_database_get_text(id, true));
+
+            var text = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(
+              InterOp.TextDatabase.text_database_get_text(id, true));
             return text;
           });
         } while (isMatch);
 
-        var withUberNameRepl = uberNameFrag.Replace(withDbStringRepl, (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup().DisplayName);
+        var withUberNameRepl = uberNameFrag.Replace(withDbStringRepl,
+          (Match m) => new UberStateCondition(m.Groups[1].Value.ParseToInt("uberNameGroup"), m.Groups[2].Value).Pickup()
+            .DisplayName);
         var withStateRepl = uberMsg.Replace(withUberNameRepl, (Match m) => {
-        var uid = new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt());
-        switch (m.Groups.Count > 3 ? m.Groups[3].Value : "") {
-          case "tsec":
-            return secToStr(UberGet.AsDouble(uid));
-          // this is maybe insane
-          case "ppm": // the format here is $(14|<Zone Number>,ppm)) so uber_state() is time
-            if (uid.GroupID == 14) {
-              // yes yes this is obviously horrible
-              var val = UberGet.AsDouble(uid);
-              if (val < 0.5) return "N/A"; // if you were in a zone for less than half a second, PPM is not meaningful
-              if (uid.ID == 100) return Math.Round(UberGet.Int(6, 2) / (val / 60f), 2).ToString(CultureInfo.InvariantCulture);  // total PPM (6|2 is total pickup count)
-              if (uid.ID == 107) return Math.Round(UberGet.Int(14, 108) / (val / 60f), 2).ToString(CultureInfo.InvariantCulture); // peak PPM (14|108 is peak PPM count)
-              return Math.Round(((ZoneType)uid.ID).PickupState().GetValue().Byte / (val / 60f), 2).ToString(CultureInfo.InvariantCulture);
-            }
-            return $"@Invalid PPM uber_state {uid}@";
-          case "pcnt":
-            if (uid.GroupID == 6 && uid.ID == 2) return $"{UberGet.Int(6, 2)}/{SeedController.Total}";
-            if (uid.GroupID != 14 || uid.ID > 13) return $"@Invalid pcnt uber_state {uid}";
-            var z = (ZoneType)uid.ID;
-            return $"{UberGet.Byte(z.PickupState())}/{SeedController.CountByZone[z]}";
-          default:
-            return uid.GetValue().FmtVal(uid.UberType());
-          }
+          var uid = new UberId(m.Groups[1].Value.ParseToInt(), m.Groups[2].Value.ParseToInt());
+          return uid.GetValue().FmtVal(uid.UberType());
         });
 
         return nameFrag.Replace(withStateRepl, (Match m) => {
           var ptype = (PickupType)m.Groups[1].Value.ParseToByte("rawName type");
           var rest = m.Groups[2].Value.Split('|').ToList();
-          if(rest.Last() == "nocolor") {
+          if (rest.Last() == "nocolor") {
             rest.RemoveAt(rest.Count - 1);
             return SeedController.BuildPickup(ptype, rest[0], rest.Skip(1).ToList(), null).Name;
           }
-            return SeedController.BuildPickup(ptype, rest[0], rest.Skip(1).ToList(), null).DisplayName;
+
+          return SeedController.BuildPickup(ptype, rest[0], rest.Skip(1).ToList(), null).DisplayName;
         });
       }
     }

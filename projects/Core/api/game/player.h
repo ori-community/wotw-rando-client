@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/macros.h>
+#include <Core/enums/game_areas.h>
 
 namespace game {
     namespace player {
@@ -25,5 +26,7 @@ namespace game {
 
         CORE_DLLEXPORT void refill_energy(bool instantly = false);
         CORE_DLLEXPORT void refill_health(bool instantly = false);
+
+        CORE_DLLEXPORT GameArea get_current_area();
     } // namespace player
 } // namespace game

@@ -6,7 +6,7 @@
 #include <chrono>
 
 namespace core::async_update {
-    TimedEventBus<float> bus;
+    EventBus<float> bus;
 
     namespace {
         constexpr long INTERVAL_US = 1000000L / 60L; // 60 Hz
@@ -29,7 +29,7 @@ namespace core::async_update {
         CALL_ON_INIT(initialize);
     }
 
-    TimedEventBus<float>& event_bus() {
+    EventBus<float>& event_bus() {
         return bus;
     }
 }

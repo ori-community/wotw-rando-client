@@ -111,7 +111,6 @@ namespace RandomizerManaged {
     }
 
     public static void OnTeleporting() {
-      UberInc.Int(StatsTracking.WarpsUsed);
       PsuedoLocs.ON_TELEPORT.OnCollect();
       WebSocketClient.SendEmptyPacket(Network.Packet.Types.PacketID.NotifyTeleport);
     }
@@ -300,10 +299,6 @@ namespace RandomizerManaged {
       if (uber_state.GroupName == "statsUberStateGroup" || uber_state.GroupName == "achievementsGroup" || uber_state.GroupID == 8 || uber_state.GroupID == 10)
         return false;
 
-      // Don't log our own StatTracking.
-      if (!StatsTracking.ShouldLog(uber_state.GetUberId()))
-        return false;
-
       return true;
     }
 
@@ -371,7 +366,7 @@ namespace RandomizerManaged {
         BonusItemController.OnUberState(uber_state);
         var zone = ZoneType.Void;
         if (InterOp.Utils.get_game_state() == GameState.Game)
-          zone = InterOp.Map.get_player_area().toZone();
+          zone = InterOp.Map.get_player_area();
 
         if (shouldLogStateChange(uber_state, found)) {
           var pos = InterOp.Player.get_position();

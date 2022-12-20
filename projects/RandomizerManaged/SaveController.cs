@@ -85,7 +85,6 @@ namespace RandomizerManaged {
         UberStateController.SkipListeners = true;
         UberStateController.UberStates.Clear();
         UberStateController.TimerUberStates.Clear();
-        StatsTracking.OnLoad(DidWeJustDie);
         if (DidWeJustDie) {
           MessageController.Clear();
           UberStateDefaults.cleanseWellspringQuestUberState.GetUberId().Refresh();
@@ -108,7 +107,6 @@ namespace RandomizerManaged {
     public static void OnSave(int slot, int backupSlot = -1) {
       ResetUntilSave = false;
       DidWeJustDie = InterOp.Player.get_health() == 0;
-      StatsTracking.OnSave(DidWeJustDie);
       if (DidWeJustDie) return;
 
       if (slot == -1) {
