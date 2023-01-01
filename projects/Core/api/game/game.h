@@ -36,7 +36,7 @@ namespace game {
                 health(0.f), energy(0.f) {}
     };
 
-    CORE_DLLEXPORT MultiEventBus<GameEvent>& event_bus();
+    CORE_DLLEXPORT TimedMultiEventBus<GameEvent>& event_bus();
 
     CORE_DLLEXPORT float delta_time();
     CORE_DLLEXPORT float fixed_delta_time();

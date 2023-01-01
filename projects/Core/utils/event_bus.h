@@ -8,13 +8,14 @@ enum class EventTiming {
     After,
 };
 
+
 template <typename T>
-class MultiEventBus {
+class TimedMultiEventBus {
 public:
     using event_handler = void (*)(T, EventTiming);
 
-    MultiEventBus() = default;
-    MultiEventBus(MultiEventBus const& other) = delete;
+    TimedMultiEventBus() = default;
+    TimedMultiEventBus(TimedMultiEventBus const& other) = delete;
 
     void clear() {
         event_handlers.clear();
@@ -120,6 +121,35 @@ public:
         for (auto const& handler : event_handlers) {
             handler(value);
         }
+    }
+
+private:
+    std::vector<event_handler> event_handlers;
+};
+
+
+template <typename T>
+class CollectingEventBus {
+public:
+    using event_handler = T (*)();
+
+    CollectingEventBus() = default;
+    CollectingEventBus(CollectingEventBus const& other) = delete;
+
+    void clear() {
+        event_handlers.clear();
+    }
+
+    void register_handler(event_handler handler) {
+        event_handlers.push_back(handler);
+    }
+
+    std::vector<T> trigger_event() {
+        std::vector<T> return_values;
+        for (auto const& handler : event_handlers) {
+            return_values.push_back(handler());
+        }
+        return return_values;
     }
 
 private:

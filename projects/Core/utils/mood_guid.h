@@ -2,6 +2,7 @@
 
 #include <functional>
 #include <Core/macros.h>
+#include <nlohmann/json.hpp>
 
 namespace utils {
     struct CORE_DLLEXPORT MoodGuid {
@@ -10,11 +11,14 @@ namespace utils {
         int C;
         int D;
 
+        MoodGuid();
         MoodGuid(int a, int b, int c, int d);
         MoodGuid(app::MoonGuid* moon_guid);
 
         app::MoonGuid* to_moon_guid();
     };
+
+    NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(MoodGuid, A, B, C, D);
 
     CORE_DLLEXPORT bool operator==(const MoodGuid& a, const MoodGuid& b);
     CORE_DLLEXPORT bool operator==(const MoodGuid& a, const app::MoonGuid& b);

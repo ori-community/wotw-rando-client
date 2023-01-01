@@ -40,7 +40,7 @@ using namespace app::classes;
 
 namespace game {
     namespace {
-        MultiEventBus<GameEvent> game_event_bus;
+        TimedMultiEventBus<GameEvent> game_event_bus;
 
         std::unordered_map<RandoContainer, app::GameObject*> containers;
         app::GameObject* main_container_object = nullptr;
@@ -109,7 +109,7 @@ namespace game {
         }
     } // namespace
 
-    MultiEventBus<GameEvent>& event_bus() {
+    TimedMultiEventBus<GameEvent>& event_bus() {
         return game_event_bus;
     }
 

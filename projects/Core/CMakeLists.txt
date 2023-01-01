@@ -89,6 +89,8 @@ set(
         "enums/layer.h"
         "enums/sound.h"
         "enums/loading_state.h"
+        "enums/save_meta_slot.h"
+        "enums/save_meta_slot_persistence.h"
         "enums/shard_type.h"
         "enums/static_text_entries.h"
         "enums/timeline_entries.h"

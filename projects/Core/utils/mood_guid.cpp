@@ -1,11 +1,11 @@
-//
-// Created by Timo on 29/07/2022.
-//
-
 #include "mood_guid.h"
 #include "misc.h"
+#include <random>
 
 namespace utils {
+    std::random_device random_device;
+    std::mt19937 rng(random_device());
+
     MoodGuid::MoodGuid(int a, int b, int c, int d) :
             A(a), B(b), C(c), D(d) {}
 
@@ -14,6 +14,12 @@ namespace utils {
 
     app::MoonGuid* MoodGuid::to_moon_guid() {
         return moon_guid(A, B, C, D);
+    }
+    MoodGuid::MoodGuid() {
+        this->A = rng();
+        this->B = rng();
+        this->C = rng();
+        this->D = rng();
     }
 
     bool operator==(const MoodGuid& a, const app::MoonGuid& b) {
