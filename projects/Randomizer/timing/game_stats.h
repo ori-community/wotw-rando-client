@@ -6,10 +6,47 @@
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 
+NLOHMANN_JSON_NAMESPACE_BEGIN
+        template <typename T>
+        struct adl_serializer<std::unordered_map<GameArea, T>> {
+            static void to_json(nlohmann::json &j, const std::unordered_map<GameArea, T>& v) {
+                j = nlohmann::json::object();
+
+                for (const auto &item: v) {
+                    j[std::to_string(static_cast<int>(item.first))] = item.second;
+                }
+            }
+
+            static void from_json(const nlohmann::json &j, std::unordered_map<GameArea, T>& v) {
+                for (const auto &[key, value]: j.items()) {
+                    v[static_cast<GameArea>(std::stoi(key))] = value.get<T>();
+                }
+            }
+        };
+
+        template <typename T>
+        struct adl_serializer<std::map<app::AbilityType__Enum, T>> {
+            static void to_json(nlohmann::json &j, const std::map<app::AbilityType__Enum, T>& v) {
+                j = nlohmann::json::object();
+
+                for (const auto &item: v) {
+                    j[std::to_string(static_cast<int>(item.first))] = item.second;
+                }
+            }
+
+            static void from_json(const nlohmann::json &j, std::map<app::AbilityType__Enum, T>& v) {
+                for (const auto &[key, value]: j.items()) {
+                    v[static_cast<app::AbilityType__Enum>(std::stoi(key))] = value.get<T>();
+                }
+            }
+        };
+NLOHMANN_JSON_NAMESPACE_END
+
 namespace core::timing {
     constexpr float PPM_TIMESPAN = 60.f * 10.f; // 10 Minutes
 
-    class GameStats : public save_meta::JsonSaveMetaSerializable {};
+    class GameStats : public save_meta::JsonSaveMetaSerializable {
+    };
 
     class CheckpointGameStats : public GameStats {
     public:
@@ -31,12 +68,13 @@ namespace core::timing {
 
         nlohmann::json json_serialize() override;
 
-        void json_deserialize(nlohmann::json& j) override;
+        void json_deserialize(nlohmann::json &j) override;
     };
 
     class SaveFileGameStats : public GameStats {
     protected:
         float get_current_ppm_over_timespan();
+
         void recalculate_max_ppm_over_timespan();
 
     public:
@@ -86,6 +124,8 @@ namespace core::timing {
                 time_since_last_checkpoint,
                 total_time,
                 recent_pickup_timers,
+                collected_pickups,
+                ability_timestamps,
                 max_ppm_over_timespan,
                 max_ppm_over_timespan_at,
                 time_lost_to_deaths,
@@ -97,7 +137,7 @@ namespace core::timing {
         // Methods
         void report_time_spent(GameArea area, float time);
 
-        void report_pickup(GameArea area, const std::string& location_name);
+        void report_pickup(GameArea area, const std::string &location_name);
 
         void report_ability_acquired(app::AbilityType__Enum ability);
 
@@ -111,6 +151,6 @@ namespace core::timing {
 
         nlohmann::json json_serialize() override;
 
-        void json_deserialize(nlohmann::json& j) override;
+        void json_deserialize(nlohmann::json &j) override;
     };
 } // namespace core::timing
