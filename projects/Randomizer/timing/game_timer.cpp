@@ -5,6 +5,7 @@
 #include <Core/api/game/loading_detection.h>
 #include <Core/save_meta/save_meta.h>
 #include <Core/async_update.h>
+#include <Core/ipc/ipc.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/common.h>
 #include <Modloader/windows_api/console.h>
@@ -88,6 +89,17 @@ namespace core::timing {
 
             async_update::event_bus().register_handler(&on_async_update);
             reset_stats();
+
+            core::ipc::register_request_handler("timer.get_stats", [](const nlohmann::json& j) {
+                auto response = core::ipc::respond_to(j);
+
+                stats_mutex.lock();
+                response["save"] = *save_stats;
+                response["checkpoint"] = *checkpoint_stats;
+                stats_mutex.unlock();
+
+                core::ipc::send_message(response);
+            });
         }
 
         CALL_ON_INIT(initialize);
