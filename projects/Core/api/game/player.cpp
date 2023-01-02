@@ -6,8 +6,6 @@
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/PlayerAbilities.h>
 #include <Modloader/app/methods/SeinCharacter.h>
-#include <Modloader/app/methods/SeinEnergy.h>
-#include <Modloader/app/methods/SeinHealthController.h>
 #include <Modloader/app/methods/SpellInventory.h>
 #include <Modloader/app/types/Characters.h>
 #include <Modloader/common.h>

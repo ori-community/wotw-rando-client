@@ -1,20 +1,28 @@
 #include <Randomizer/timing/game_stats.h>
 
 namespace core::timing {
-    const utils::MoodGuid& GameStats::get_guid() {
-        return this->guid;
-    }
-
     void SaveFileGameStats::report_time_spent(GameArea area, float time) {
-        this->time_per_area[area] += time;
+        this->area_stats[area].time_spent += time;
         this->total_time += time;
-        this->time_since_last_pickup += time;
-        this->time_since_last_save += time;
+        this->time_since_last_checkpoint += time;
+
+        auto it = recent_pickup_timers.begin();
+        while (it != recent_pickup_timers.end()) {
+            *it -= time;
+
+            if (*it <= 0.f) {
+                it = recent_pickup_timers.erase(it);
+                continue;
+            }
+
+            ++it;
+        }
     }
 
     void SaveFileGameStats::report_death(GameArea area) {
+        this->time_lost_to_deaths += this->time_since_last_checkpoint;
         ++this->total_deaths;
-        ++this->deaths_per_area[area];
+        ++this->area_stats[area].deaths;
     }
 
     nlohmann::json SaveFileGameStats::json_serialize() {
@@ -26,18 +34,47 @@ namespace core::timing {
         j.get_to(*this);
     }
 
-    void CheckpointGameStats::report_time_spent(float time) {
-        auto it = recent_pickups.begin();
-        while (it != recent_pickups.end()) {
-            *it -= time;
-            if (*it <= 0.f) {
-                it = recent_pickups.erase(it);
-            }
+    void SaveFileGameStats::report_checkpoint_created() {
+        this->time_since_last_checkpoint = 0.f;
+    }
+
+    void SaveFileGameStats::report_respawn() {
+        this->time_since_last_checkpoint = 0.f;
+    }
+
+    void SaveFileGameStats::report_teleport() {
+        ++this->teleport_count;
+    }
+
+    void SaveFileGameStats::report_pickup(GameArea area, const std::string& location_name) {
+        if (!this->collected_pickups.contains(location_name)) {
+            this->recent_pickup_timers.push_back(PPM_TIMESPAN);
+            this->collected_pickups[location_name] = this->total_time;
+
+            this->recalculate_max_ppm_over_timespan();
+        }
+    }
+
+    void SaveFileGameStats::report_ability_acquired(app::AbilityType__Enum ability) {
+        if (!this->ability_timestamps.contains(ability)) {
+            this->ability_timestamps[ability] = this->total_time;
+        }
+    }
+
+    float SaveFileGameStats::get_current_ppm_over_timespan() {
+        auto recent_pickup_count = this->recent_pickup_timers.size();
+        return static_cast<float>(recent_pickup_count) / PPM_TIMESPAN * 60.f;
+    }
+
+    void SaveFileGameStats::recalculate_max_ppm_over_timespan() {
+        auto current_ppm_over_timespan = this->get_current_ppm_over_timespan();
+        if (current_ppm_over_timespan > this->max_ppm_over_timespan) {
+            this->max_ppm_over_timespan = current_ppm_over_timespan;
+            this->max_ppm_over_timespan_at = this->total_time;
         }
     }
 
     void CheckpointGameStats::report_pickup(GameArea area) {
-        this->recent_pickups.push_back(RECENT_PICKUPS_TIMESPAN);
         ++this->pickups_per_area[area];
         ++this->total_pickups;
     }

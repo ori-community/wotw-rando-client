@@ -1,14 +1,18 @@
 #include <Randomizer/timing/game_timer.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
+#include <Core/api/game/death_listener.h>
 #include <Core/api/game/loading_detection.h>
 #include <Core/save_meta/save_meta.h>
 #include <Core/async_update.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/common.h>
 #include <Modloader/windows_api/console.h>
+#include <Modloader/app/methods/PlayerAbilities.h>
 #include <fmt/format.h>
 #include <mutex>
+
+using namespace app::classes;
 
 namespace core::timing {
     std::mutex stats_mutex;
@@ -32,34 +36,77 @@ namespace core::timing {
             reset_stats();
         }
 
+        void on_create_checkpoint(GameEvent event, EventTiming timing) {
+            stats_mutex.lock();
+            save_stats->report_checkpoint_created();
+            stats_mutex.unlock();
+        }
+
+        void on_respawn(GameEvent event, EventTiming timing) {
+            stats_mutex.lock();
+            save_stats->report_respawn();
+            stats_mutex.unlock();
+        }
+
+        void on_teleport(GameEvent event, EventTiming timing) {
+            stats_mutex.lock();
+            save_stats->report_teleport();
+            stats_mutex.unlock();
+        }
+
+        void on_before_death(api::death_listener::PlayerDeath death, EventTiming timing) {
+            stats_mutex.lock();
+            save_stats->report_death(game::player::get_current_area());
+            stats_mutex.unlock();
+        }
+
         float time_to_next_debug_print = 0.f;
         void on_async_update(float delta) {
             if (game::loading_detection::get_loading_state() == LoadingState::NotLoading) {
                 stats_mutex.lock();
-                checkpoint_stats->report_time_spent(delta);
                 save_stats->report_time_spent(game::player::get_current_area(), delta);
                 stats_mutex.unlock();
             }
 
             time_to_next_debug_print -= delta;
             if (time_to_next_debug_print <= 0.f) {
-                modloader::win::console::console_send(fmt::format("{}, pickups = {}", save_stats->total_time, checkpoint_stats->total_pickups));
+                modloader::win::console::console_send("");
+                modloader::win::console::console_send(fmt::format("time = {}, pickups = {}", save_stats->total_time, checkpoint_stats->total_pickups));
+                modloader::win::console::console_send(fmt::format("max_ppm = {}, at = {}", save_stats->max_ppm_over_timespan, save_stats->max_ppm_over_timespan_at));
+                modloader::win::console::console_send(fmt::format("time_lost_to_deaths = {}", save_stats->time_lost_to_deaths));
+                modloader::win::console::console_send(fmt::format("got bash at = {}", save_stats->ability_timestamps.contains(app::AbilityType__Enum::Bash) ? save_stats->ability_timestamps.at(app::AbilityType__Enum::Bash) : -1.f));
                 time_to_next_debug_print = 0.5f;
             }
         }
 
         void initialize() {
             game::event_bus().register_handler(GameEvent::NewGame, EventTiming::Before, &on_before_new_game);
+            game::event_bus().register_handler(GameEvent::CreateCheckpoint, &on_create_checkpoint);
+            game::event_bus().register_handler(GameEvent::Respawn, &on_respawn);
+            game::event_bus().register_handler(GameEvent::Teleport, &on_teleport);
+            core::api::death_listener::player_death_event_bus().register_handler(EventTiming::Before, &on_before_death);
+
             async_update::event_bus().register_handler(&on_async_update);
             reset_stats();
         }
 
         CALL_ON_INIT(initialize);
+
+        IL2CPP_INTERCEPT(PlayerAbilities, void, SetAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability, bool value)) {
+            if (value) {
+                stats_mutex.lock();
+                save_stats->report_ability_acquired(ability);
+                stats_mutex.unlock();
+            }
+
+            next::PlayerAbilities::SetAbility(this_ptr, ability, value);
+        }
     }
 }
 
-void notify_pickup_collected(GameArea area) {
+void notify_pickup_collected(GameArea area, const char* location_name) {
     core::timing::stats_mutex.lock();
     core::timing::checkpoint_stats->report_pickup(area);
+    core::timing::save_stats->report_pickup(area, std::string(location_name));
     core::timing::stats_mutex.unlock();
 }

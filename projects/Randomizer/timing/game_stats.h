@@ -7,48 +7,26 @@
 #include <unordered_map>
 
 namespace core::timing {
-    constexpr float RECENT_PICKUPS_TIMESPAN = 60.f * 5.f; // 5 Minutes
+    constexpr float PPM_TIMESPAN = 60.f * 10.f; // 10 Minutes
 
-    class GameStats : public save_meta::JsonSaveMetaSerializable {
-    protected:
-        // ID for this stats collection
-        utils::MoodGuid guid;
-
-    public:
-        const utils::MoodGuid& get_guid();
-    };
+    class GameStats : public save_meta::JsonSaveMetaSerializable {};
 
     class CheckpointGameStats : public GameStats {
     public:
         // Tracking
         int total_pickups = 0;
 
-        /**
-         * Countdowns for recent pickups. For each pickup collected, a value of RECENT_PICKUPS_TIMESPAN
-         * is added to this vector. For each reported time spent, all values are decreased by the time spent
-         * and all <=0 values are removed. This is used for PPM-over-timespan calculation
-         */
-        std::vector<float> recent_pickups;
-
         // Stats
-        float max_ppm_over_timespan = 0.f;
-        float max_ppm_over_timespan_at = 0.f;
         std::unordered_map<GameArea, int> pickups_per_area;
 
         // JSON
         NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
                 CheckpointGameStats,
-                guid,
                 total_pickups,
-                recent_pickups,
-                max_ppm_over_timespan,
-                max_ppm_over_timespan_at,
                 pickups_per_area
         );
 
         // Methods
-        void report_time_spent(float time);
-
         void report_pickup(GameArea area);
 
         nlohmann::json json_serialize() override;
@@ -57,37 +35,79 @@ namespace core::timing {
     };
 
     class SaveFileGameStats : public GameStats {
+    protected:
+        float get_current_ppm_over_timespan();
+        void recalculate_max_ppm_over_timespan();
+
     public:
+        struct AreaStats {
+            int deaths = 0;
+            float time_spent = 0.f;
+
+            NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+                    AreaStats,
+                    deaths,
+                    time_spent
+            );
+        };
+
         // Tracking
-        float time_since_last_pickup = 0.f;
-        float time_since_last_save = 0.f;
+        float time_since_last_checkpoint = 0.f;
         float total_time = 0.f;
 
+        /**
+         * Countdowns for recent pickups. For each pickup collected, a value of PPM_TIMESPAN
+         * is added to this vector. For each reported time spent, all values are decreased by the time spent
+         * and all <=0 values are removed. This is used for PPM-over-timespan calculation
+         */
+        std::vector<float> recent_pickup_timers;
+
+        /**
+         * location_name -> collected_at
+         */
+        std::map<std::string, float> collected_pickups;
+
+        /**
+         * AbilityType -> collected_at
+         */
+        std::map<app::AbilityType__Enum, float> ability_timestamps;
+
         // Stats
+        float max_ppm_over_timespan = 0.f;
+        float max_ppm_over_timespan_at = 0.f;
         float time_lost_to_deaths = 0.f;
-        int warps_used = 0;
+        int teleport_count = 0;
         int total_deaths = 0;
-        std::unordered_map<GameArea, float> time_per_area;
-        std::unordered_map<GameArea, int> deaths_per_area;
+        std::unordered_map<GameArea, AreaStats> area_stats;
 
         // JSON
         NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
                 SaveFileGameStats,
-                guid,
-                time_since_last_pickup,
-                time_since_last_save,
+                time_since_last_checkpoint,
                 total_time,
+                recent_pickup_timers,
+                max_ppm_over_timespan,
+                max_ppm_over_timespan_at,
                 time_lost_to_deaths,
-                warps_used,
+                teleport_count,
                 total_deaths,
-                time_per_area,
-                deaths_per_area
+                area_stats
         );
 
         // Methods
         void report_time_spent(GameArea area, float time);
 
+        void report_pickup(GameArea area, const std::string& location_name);
+
+        void report_ability_acquired(app::AbilityType__Enum ability);
+
         void report_death(GameArea area);
+
+        void report_checkpoint_created();
+
+        void report_respawn();
+
+        void report_teleport();
 
         nlohmann::json json_serialize() override;
 

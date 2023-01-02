@@ -40,7 +40,7 @@ namespace RandomizerManaged {
   public static class StatsTracking {
     public static void OnPickup(LocData loc) {
       ++SaveController.FoundCount;
-      InterOp.notify_pickup_collected(loc.Zone);
+      InterOp.notify_pickup_collected(loc.Zone, loc.FullName);
     }
 
     /**
