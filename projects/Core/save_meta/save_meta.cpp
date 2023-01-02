@@ -10,6 +10,7 @@
 #include <Modloader/common.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
+#include <Core/utils/mood_guid.h>
 #include <fmt/format.h>
 #include <unordered_map>
 
@@ -22,7 +23,8 @@ namespace core::save_meta {
      * Magic number a save file with attached SaveMeta data starts with.
      * Normal Ori save files start with a 12 integer (as of patch 3).
      */
-    constexpr int SAVE_META_FILE_MAGIC = 0;
+    constexpr int SAVE_META_FILE_MAGIC = 1;
+    constexpr int SAVE_META_FILE_VERSION = 1; // Reserved for future upgrades
 
     struct SaveMetaSlotConfiguration {
         std::shared_ptr<SaveMetaHandler> handler;
@@ -71,10 +73,24 @@ namespace core::save_meta {
 
     namespace {
         bool is_loading_save_file = false;
-        bool is_loading_different_save_file = false;
         bool is_loading_backup = false;
         bool is_dying = false;
-        int last_loaded_save_slot_index = -1;
+        utils::MoodGuid previous_save_guid;
+        utils::MoodGuid current_save_guid;
+
+        utils::MoodGuid read_guid_from_save(app::Byte__Array* data) {
+            utils::ByteStream stream(data);
+
+            if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
+                stream.skip<int>();
+                stream.skip<int>(); // VERSION unused for now
+
+                return stream.read<utils::MoodGuid>();
+            }
+
+            // Non-rando save, return random GUID
+            return utils::MoodGuid();
+        }
 
         /**
          * Reads SaveMeta data from a byte array and returns remaining bytes.
@@ -89,10 +105,12 @@ namespace core::save_meta {
 
             if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
                 stream.skip<int>();
+                stream.skip<int>(); // VERSION unused for now
 
+                auto guid = stream.read<utils::MoodGuid>();
                 auto slot_count = stream.read<int>();
 
-                console_send(fmt::format("Reading {} SaveMeta slots from save file", slot_count));
+                console_send(fmt::format("Reading {} SaveMeta slots from save file {},{},{},{}", slot_count, guid.A, guid.B, guid.C, guid.D));
 
                 for (int i = 0; i < slot_count; ++i) {
                     auto slot = stream.read<SaveMetaSlot>();
@@ -130,6 +148,11 @@ namespace core::save_meta {
                     utils::ByteStream slot_data(buffer);
                     slots[slot].handler->load(slot_data);
                 }
+
+                if (load) {
+                    previous_save_guid = current_save_guid;
+                    current_save_guid = guid;
+                }
             } else {
                 console_send("Save file did not start with magic byte. Skipping.");
             }
@@ -140,9 +163,12 @@ namespace core::save_meta {
 
         utils::ByteStream get_save_meta_data(SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None) {
             utils::ByteStream stream;
-            stream.write<int>(SAVE_META_FILE_MAGIC);
 
+            stream.write<int>(SAVE_META_FILE_MAGIC);
+            stream.write<int>(SAVE_META_FILE_VERSION);
+            stream.write<utils::MoodGuid>(current_save_guid);
             stream.write<int>(slots.size());
+
             for (auto& item : slots) {
                 stream.write<SaveMetaSlot>(item.first);
 
@@ -171,7 +197,9 @@ namespace core::save_meta {
             }
 
             if (is_loading_save_file) {
-                if (is_loading_different_save_file) {
+                auto new_guid = read_guid_from_save(data);
+
+                if (new_guid != current_save_guid) {
                     return read_save_meta_from_byte_array(data, true);
                 }
 
@@ -219,7 +247,7 @@ namespace core::save_meta {
 
                 // ...and then load SaveMeta with the ThroughDeathsAndBackup persistence
                 // level from the main save file if we're on a new/different save slot
-                if (last_loaded_save_slot_index != save_slot_index) {
+                if (current_save_guid != previous_save_guid) {
                     auto save_info = SaveGameController::GetSaveFileInfo(this_ptr, save_slot_index, backup_slot);
                     auto path = save_info->fields.m_FullSaveFilePath;
                     auto path_str = il2cpp::convert_csstring(path);
@@ -227,12 +255,9 @@ namespace core::save_meta {
                     read_save_meta_from_byte_array(bytes, true, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups);
                 }
 
-                last_loaded_save_slot_index = save_slot_index;
                 return return_value;
             }
 
-            ScopedSetter setter(is_loading_different_save_file, last_loaded_save_slot_index != save_slot_index);
-            last_loaded_save_slot_index = save_slot_index;
             return next::SaveGameController::PerformLoad(this_ptr);
         }
 
@@ -255,7 +280,7 @@ namespace core::save_meta {
         }
 
         void on_new_game(GameEvent event, EventTiming timing) {
-            last_loaded_save_slot_index = SaveSlotsManager::get_CurrentSlotIndex();
+            current_save_guid = utils::MoodGuid();
         }
 
         void initialize() {
