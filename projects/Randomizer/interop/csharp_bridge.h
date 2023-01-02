@@ -3,6 +3,7 @@
 #include <Core/enums/actions.h>
 #include <Core/enums/comparison.h>
 #include <Core/enums/shard_type.h>
+#include <Core/enums/game_areas.h>
 
 #include <string>
 
@@ -40,6 +41,7 @@ namespace csharp_bridge {
         using f_bool_str = bool (*)(const char*);
         using f_int = int (*)();
         using f_int_at = int (*)(app::AbilityType__Enum);
+        using f_int_ga = int (*)(GameArea);
         using f_int_int = int (*)(int);
         using f_int_int_int = int (*)(int, int);
         using f_int_int_int_int = int (*)(int, int, int);
@@ -104,4 +106,6 @@ namespace csharp_bridge {
     extern signatures::f_int get_flag_count;
     extern signatures::f_void_int_ptr_int get_flag;
     extern signatures::f_int_bool get_relic_count;
+    extern signatures::f_int get_total_pickup_count;
+    extern signatures::f_int_ga get_pickup_count_by_area;
 } // namespace csharp_bridge

@@ -395,7 +395,7 @@ namespace RandomizerManaged {
     
     [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
     public extern static void notify_pickup_collected(ZoneType zoneType, [MarshalAs(UnmanagedType.LPStr)] string location_name);
-
+    
     private static List<GCHandle> handles;
     public static void RegisterCSharpBindings() {
       handles = new List<GCHandle>();

@@ -160,6 +160,34 @@ namespace randomizer::ipc {
                 text_box_visibility(message_id, p.at("visible").get<bool>());
         }
 
+        void get_total_pickup_count(const nlohmann::json& j) {
+            auto response = core::ipc::respond_to(j);
+            response["count"] = csharp_bridge::get_total_pickup_count();
+            core::ipc::send_message(std::move(response));
+        }
+
+        void get_pickup_count_by_area(const nlohmann::json& j) {
+            auto response = core::ipc::respond_to(j);
+            response["count"] = csharp_bridge::get_pickup_count_by_area(j.at("area").get<GameArea>());
+            core::ipc::send_message(std::move(response));
+        }
+
+        void get_pickup_counts(const nlohmann::json& j) {
+            auto response = core::ipc::respond_to(j);
+
+            response["total"] = csharp_bridge::get_total_pickup_count();
+
+            nlohmann::json areas;
+            for (auto i = 1; i < static_cast<int>(GameArea::TOTAL); ++i) {
+                auto area = static_cast<GameArea>(i);
+                areas[static_cast<nlohmann::json>(area)] = csharp_bridge::get_pickup_count_by_area(area);
+            }
+
+            response["areas"] = areas;
+
+            core::ipc::send_message(std::move(response));
+        }
+
         void report_load(GameEvent game_event, EventTiming timing) {
             nlohmann::json response;
             response["type"] = "request";
@@ -197,6 +225,9 @@ namespace randomizer::ipc {
             register_request_handler("set_velocity", set_velocity);
             register_request_handler("get_velocity", get_velocity);
             register_request_handler("message", message);
+            register_request_handler("get_total_pickup_count", get_total_pickup_count);
+            register_request_handler("get_pickup_count_by_area", get_pickup_count_by_area);
+            register_request_handler("get_pickup_counts", get_pickup_counts);
 
             for (auto action = static_cast<Action>(0); action < Action::TOTAL; action = static_cast<Action>(static_cast<int>(action) + 1)) {
                 randomizer::input::add_on_pressed_callback(action, report_input);

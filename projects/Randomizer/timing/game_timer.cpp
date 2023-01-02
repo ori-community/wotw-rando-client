@@ -102,7 +102,7 @@ namespace core::timing {
                 response["checkpoint"] = *checkpoint_stats;
                 stats_mutex.unlock();
 
-                core::ipc::send_message(response);
+                core::ipc::send_message(std::move(response));
             });
         }
 

@@ -307,7 +307,7 @@ namespace RandomizerManaged {
         if (z != ZoneType.Void)
           Total += CountByZone[z];
       }
-
+      
       if (init || connect) {
         if (Settings.NetcodeEnabled) {
           if (RandomizerManaged.Settings.IniFlag("DisableNetcode"))
