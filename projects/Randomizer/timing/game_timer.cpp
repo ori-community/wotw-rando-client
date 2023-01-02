@@ -98,8 +98,8 @@ namespace core::timing {
                 auto response = core::ipc::respond_to(j);
 
                 stats_mutex.lock();
-                response["save"] = *save_stats;
-                response["checkpoint"] = *checkpoint_stats;
+                response["payload"]["save"] = *save_stats;
+                response["payload"]["checkpoint"] = *checkpoint_stats;
                 stats_mutex.unlock();
 
                 core::ipc::send_message(std::move(response));
