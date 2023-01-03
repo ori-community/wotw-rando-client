@@ -1,3 +1,5 @@
+#pragma once
+
 #include "macros.h"
 
 #include <string>

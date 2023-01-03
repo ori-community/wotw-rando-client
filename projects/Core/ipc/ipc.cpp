@@ -31,7 +31,7 @@ using namespace modloader;
 
 namespace core::ipc {
     namespace {
-        constexpr int MAX_MESSAGE_SIZE = 8192;
+        constexpr int MAX_MESSAGE_SIZE = 1024 * 64;
         constexpr int MAX_MESSAGES_PER_QUEUE = 300;
 
         std::unique_ptr<std::thread> ipc_thread;
@@ -84,8 +84,8 @@ namespace core::ipc {
             DWORD bytes_read = 0;
             DWORD bytes_written = 0;
 
-            std::array<char, MAX_MESSAGE_SIZE> message_part_buffer;
-            std::array<char, MAX_MESSAGE_SIZE> message_buffer;
+            std::vector<char> message_part_buffer;
+            std::vector<char> message_buffer;
             unsigned int message_buffer_cursor = 0;
             auto discard_current_message = false;
 
@@ -111,10 +111,26 @@ namespace core::ipc {
                 }
 
                 if (bytes_available != 0) {
+                    auto size = GetFileSize(pipe, nullptr);
+
+                    if (size == INVALID_FILE_SIZE) {
+                        auto error = GetLastError();
+                        warn("ipc", fmt::format("Failed to read data ({}).", error));
+                        continue;
+                    }
+
+                    if (message_part_buffer.size() < size) {
+                        message_part_buffer.resize(size);
+                    }
+
+                    if (message_buffer.size() < message_buffer_cursor + size) {
+                        message_buffer.resize(message_buffer_cursor + size);
+                    }
+
                     auto result = ReadFile(
                             pipe,
                             message_part_buffer.data(),
-                            message_part_buffer.size() - 1,
+                            size,
                             &bytes_read,
                             nullptr
                     );

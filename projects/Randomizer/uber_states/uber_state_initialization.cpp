@@ -2,6 +2,7 @@
 #include <Core/enums/uber_state.h>
 #include <Core/uber_states/uber_state_virtual.h>
 #include <Core/uber_states/uber_state_interface.h>
+#include <Core/dev/timing.h>
 #include <constants.h>
 
 #include <Modloader/app/methods/Moon/UberStateCollection.h>
@@ -103,13 +104,6 @@ namespace {
         state->fields._VolitileGenericOverrideValue_k__BackingField.has_value = false;
 
         return reinterpret_cast<app::IUberState*>(state);
-    }
-
-    void print_time(std::chrono::time_point<std::chrono::steady_clock> start, std::string_view tag) {
-        auto now = std::chrono::high_resolution_clock::now();
-        auto time_span = duration_cast<std::chrono::microseconds>(now - start);
-        modloader::win::console::console_send(fmt::format("{:.2f} ms  {}", time_span.count() / 1000.f, tag));
-        modloader::win::console::console_flush();
     }
 
     IL2CPP_INTERCEPT(Moon::UberStateCollection, void, PrepareRuntimeDataType, (app::UberStateCollection * this_ptr)) {
@@ -529,7 +523,7 @@ namespace {
             add_state<app::SerializedBooleanUberState>(UberStateGroup::npcsStateGroup, "Has bought everything", 20000, false),
         };
 
-        print_time(start_time, "Built state list");
+        dev::print_time(start_time, "Built state list");
 
         // Game states
         const int GAME_MODES_INT_START = 0;
@@ -587,7 +581,7 @@ namespace {
             );
         }
 
-        print_time(start_time, "Built custom state list");
+        dev::print_time(start_time, "Built custom state list");
 
         for (int i = 0; i < 2000; ++i) {
             states.push_back(
@@ -595,12 +589,12 @@ namespace {
             );
         }
 
-        print_time(start_time, "Built multi state list");
+        dev::print_time(start_time, "Built multi state list");
 
         for (auto* state : states)
             il2cpp::invoke(this_ptr->fields.m_descriptors, "Add", state);
 
-        print_time(start_time, "Added states");
+        dev::print_time(start_time, "Added states");
 
         trace(MessageType::Info, 5, "initialize", "Custom uber states initialized.");
         next::Moon::UberStateCollection::PrepareRuntimeDataType(this_ptr);
@@ -724,8 +718,8 @@ namespace {
                   } }
         );
 
-        print_time(start_time, "Virtual states initialized");
+        dev::print_time(start_time, "Virtual states initialized");
 
-        print_time(start_time, "Uber states initialized");
+        dev::print_time(start_time, "Uber states initialized");
     }
 } // namespace
