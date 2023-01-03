@@ -18,6 +18,31 @@ using namespace app::classes;
 namespace core::timing {
     constexpr bool ENABLE_DEBUG_LOGGING = false;
 
+    const std::set<app::AbilityType__Enum> TRACKED_ABILITIES {
+            app::AbilityType__Enum::Bash,
+            app::AbilityType__Enum::DoubleJump,
+            app::AbilityType__Enum::ChargeJump,       // Launch
+            app::AbilityType__Enum::Glide,
+            app::AbilityType__Enum::WaterBreath,
+            app::AbilityType__Enum::Grenade,
+            app::AbilityType__Enum::SpiritLeash,      // Grapple
+            app::AbilityType__Enum::GlowSpell,        // Flash
+            app::AbilityType__Enum::SpiritSpearSpell, // Spear
+            app::AbilityType__Enum::Regenerate,
+            app::AbilityType__Enum::Bow,
+            app::AbilityType__Enum::Hammer,
+            app::AbilityType__Enum::Sword,
+            app::AbilityType__Enum::Digging,          // Burrow
+            app::AbilityType__Enum::DashNew,          // Dash
+            app::AbilityType__Enum::WaterDash,
+            app::AbilityType__Enum::ChakramSpell,     // Shuriken
+            app::AbilityType__Enum::Blaze,
+            app::AbilityType__Enum::TurretSpell,      // Sentry
+            app::AbilityType__Enum::FeatherFlap,      // Flap
+            app::AbilityType__Enum::DamageUpgradeA,   // Ancestral Light 1
+            app::AbilityType__Enum::DamageUpgradeB,   // Ancestral Light 2
+    };
+
     std::mutex stats_mutex;
     std::shared_ptr<CheckpointGameStats> checkpoint_stats = std::make_shared<CheckpointGameStats>();
     std::shared_ptr<SaveFileGameStats> save_stats = std::make_shared<SaveFileGameStats>();
@@ -109,7 +134,7 @@ namespace core::timing {
         CALL_ON_INIT(initialize);
 
         IL2CPP_INTERCEPT(PlayerAbilities, void, SetAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability, bool value)) {
-            if (value) {
+            if (value && TRACKED_ABILITIES.contains(ability)) {
                 stats_mutex.lock();
                 save_stats->report_ability_acquired(ability);
                 stats_mutex.unlock();
