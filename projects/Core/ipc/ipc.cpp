@@ -91,9 +91,6 @@ namespace core::ipc {
 
             HANDLE pipe = connect();
 
-            if (pipe == nullptr || pipe == INVALID_HANDLE_VALUE)
-                return;
-
             while (!shutdown_ipc_thread) {
                 DWORD bytes_available = 0;
 
