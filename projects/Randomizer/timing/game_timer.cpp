@@ -12,13 +12,14 @@
 #include <Modloader/app/methods/PlayerAbilities.h>
 #include <fmt/format.h>
 #include <mutex>
+#include <unordered_set>
 
 using namespace app::classes;
 
 namespace core::timing {
     constexpr bool ENABLE_DEBUG_LOGGING = false;
 
-    const std::set<app::AbilityType__Enum> TRACKED_ABILITIES {
+    const std::unordered_set<app::AbilityType__Enum> TRACKED_ABILITIES {
             app::AbilityType__Enum::Bash,
             app::AbilityType__Enum::DoubleJump,
             app::AbilityType__Enum::ChargeJump,       // Launch
