@@ -1,6 +1,6 @@
 #include <Randomizer/timing/game_stats.h>
 
-namespace core::timing {
+namespace randomizer::timing {
     void SaveFileGameStats::report_time_spent(GameArea area, float time) {
         this->area_stats[area].time_spent += time;
         this->total_time += time;

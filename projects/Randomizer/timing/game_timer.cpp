@@ -16,7 +16,7 @@
 
 using namespace app::classes;
 
-namespace core::timing {
+namespace randomizer::timing {
     constexpr bool ENABLE_DEBUG_LOGGING = false;
 
     const std::unordered_set<app::AbilityType__Enum> TRACKED_ABILITIES {
@@ -43,6 +43,9 @@ namespace core::timing {
             app::AbilityType__Enum::DamageUpgradeA,   // Ancestral Light 1
             app::AbilityType__Enum::DamageUpgradeB,   // Ancestral Light 2
     };
+
+    // This is set to true by some rando routines which grant abilities temporarily
+    bool disable_ability_tracking = false;
 
     std::mutex stats_mutex;
     std::shared_ptr<CheckpointGameStats> checkpoint_stats = std::make_shared<CheckpointGameStats>();
@@ -83,7 +86,7 @@ namespace core::timing {
             stats_mutex.unlock();
         }
 
-        void on_before_death(api::death_listener::PlayerDeath death, EventTiming timing) {
+        void on_before_death(core::api::death_listener::PlayerDeath death, EventTiming timing) {
             stats_mutex.lock();
             save_stats->report_death(game::player::get_current_area());
             stats_mutex.unlock();
@@ -117,7 +120,7 @@ namespace core::timing {
             game::event_bus().register_handler(GameEvent::Teleport, &on_teleport);
             core::api::death_listener::player_death_event_bus().register_handler(EventTiming::Before, &on_before_death);
 
-            async_update::event_bus().register_handler(&on_async_update);
+            core::async_update::event_bus().register_handler(&on_async_update);
             reset_stats();
 
             core::ipc::register_request_handler("timer.get_stats", [](const nlohmann::json& j) {
@@ -135,7 +138,7 @@ namespace core::timing {
         CALL_ON_INIT(initialize);
 
         IL2CPP_INTERCEPT(PlayerAbilities, void, SetAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability, bool value)) {
-            if (value && TRACKED_ABILITIES.contains(ability)) {
+            if (value && !disable_ability_tracking && TRACKED_ABILITIES.contains(ability)) {
                 stats_mutex.lock();
                 save_stats->report_ability_acquired(ability);
                 stats_mutex.unlock();
@@ -147,8 +150,8 @@ namespace core::timing {
 }
 
 void notify_pickup_collected(GameArea area, const char* location_name) {
-    core::timing::stats_mutex.lock();
-    core::timing::checkpoint_stats->report_pickup(area);
-    core::timing::save_stats->report_pickup(area, std::string(location_name));
-    core::timing::stats_mutex.unlock();
+    randomizer::timing::stats_mutex.lock();
+    randomizer::timing::checkpoint_stats->report_pickup(area);
+    randomizer::timing::save_stats->report_pickup(area, std::string(location_name));
+    randomizer::timing::stats_mutex.unlock();
 }

@@ -7,9 +7,9 @@
 #include <unordered_map>
 
 NLOHMANN_JSON_NAMESPACE_BEGIN
-        template <typename T>
+        template<typename T>
         struct adl_serializer<std::unordered_map<GameArea, T>> {
-            static void to_json(nlohmann::json &j, const std::unordered_map<GameArea, T>& v) {
+            static void to_json(nlohmann::json &j, const std::unordered_map<GameArea, T> &v) {
                 j = nlohmann::json::object();
 
                 for (const auto &item: v) {
@@ -17,16 +17,16 @@ NLOHMANN_JSON_NAMESPACE_BEGIN
                 }
             }
 
-            static void from_json(const nlohmann::json &j, std::unordered_map<GameArea, T>& v) {
+            static void from_json(const nlohmann::json &j, std::unordered_map<GameArea, T> &v) {
                 for (const auto &[key, value]: j.items()) {
                     v[static_cast<GameArea>(std::stoi(key))] = value.get<T>();
                 }
             }
         };
 
-        template <typename T>
+        template<typename T>
         struct adl_serializer<std::map<app::AbilityType__Enum, T>> {
-            static void to_json(nlohmann::json &j, const std::map<app::AbilityType__Enum, T>& v) {
+            static void to_json(nlohmann::json &j, const std::map<app::AbilityType__Enum, T> &v) {
                 j = nlohmann::json::object();
 
                 for (const auto &item: v) {
@@ -34,7 +34,7 @@ NLOHMANN_JSON_NAMESPACE_BEGIN
                 }
             }
 
-            static void from_json(const nlohmann::json &j, std::map<app::AbilityType__Enum, T>& v) {
+            static void from_json(const nlohmann::json &j, std::map<app::AbilityType__Enum, T> &v) {
                 for (const auto &[key, value]: j.items()) {
                     v[static_cast<app::AbilityType__Enum>(std::stoi(key))] = value.get<T>();
                 }
@@ -42,10 +42,10 @@ NLOHMANN_JSON_NAMESPACE_BEGIN
         };
 NLOHMANN_JSON_NAMESPACE_END
 
-namespace core::timing {
+namespace randomizer::timing {
     constexpr float PPM_TIMESPAN = 60.f * 10.f; // 10 Minutes
 
-    class GameStats : public save_meta::JsonSaveMetaSerializable {
+    class GameStats : public core::save_meta::JsonSaveMetaSerializable {
     };
 
     class CheckpointGameStats : public GameStats {
