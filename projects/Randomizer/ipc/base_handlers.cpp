@@ -162,13 +162,13 @@ namespace randomizer::ipc {
 
         void get_total_pickup_count(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
-            response["count"] = csharp_bridge::get_total_pickup_count();
+            response["payload"]["count"] = csharp_bridge::get_total_pickup_count();
             core::ipc::send_message(std::move(response));
         }
 
         void get_pickup_count_by_area(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
-            response["count"] = csharp_bridge::get_pickup_count_by_area(j.at("area").get<GameArea>());
+            response["payload"]["count"] = csharp_bridge::get_pickup_count_by_area(j.at("area").get<GameArea>());
             core::ipc::send_message(std::move(response));
         }
 
@@ -178,9 +178,9 @@ namespace randomizer::ipc {
             response["payload"]["total"] = csharp_bridge::get_total_pickup_count();
 
             nlohmann::json areas;
-            for (auto i = 1; i < static_cast<int>(GameArea::TOTAL); ++i) {
+            for (auto i = 0; i < static_cast<int>(GameArea::TOTAL); ++i) {
                 auto area = static_cast<GameArea>(i);
-                areas[static_cast<nlohmann::json>(area)] = csharp_bridge::get_pickup_count_by_area(area);
+                areas[std::to_string(static_cast<int>(area))] = csharp_bridge::get_pickup_count_by_area(area);
             }
 
             response["payload"]["areas"] = areas;
