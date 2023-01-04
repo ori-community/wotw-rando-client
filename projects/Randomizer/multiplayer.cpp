@@ -314,9 +314,11 @@ namespace multiplayer {
         }
 
         auto area_map = types::AreaMapUI::get_class()->static_fields->Instance;
-        for (auto const& dot : info.dots) {
-            IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, dot.dot);
-            il2cpp::unity::destroy_object(dot.dot);
+        if (il2cpp::unity::is_valid(area_map)) {
+            for (auto const& dot : info.dots) {
+                IconPlacementScaler::RemoveIcon(area_map->fields._IconScaler_k__BackingField, dot.dot);
+                il2cpp::unity::destroy_object(dot.dot);
+            }
         }
 
         info.dots.clear();
