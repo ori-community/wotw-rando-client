@@ -92,6 +92,12 @@ namespace core::save_meta {
             return utils::MoodGuid();
         }
 
+        struct SaveMetaReadResult {
+            unsigned long vanilla_data_size;
+            unsigned long save_meta_data_size;
+            app::Byte__Array* vanilla_data;
+        };
+
         /**
          * Reads SaveMeta data from a byte array and returns remaining bytes.
          * @param data
@@ -100,7 +106,7 @@ namespace core::save_meta {
          * @param exclude_persistences Whether to exclude persistence levels >= minimum_persistence instead of including
          * @return
          */
-        app::Byte__Array* read_save_meta_from_byte_array(app::Byte__Array* data, bool load, SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None, bool exclude_persistences = false) {
+        SaveMetaReadResult read_save_meta_from_byte_array(app::Byte__Array* data, bool load, SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None, bool exclude_persistences = false) {
             utils::ByteStream stream(data);
 
             if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
@@ -158,7 +164,11 @@ namespace core::save_meta {
             }
 
             auto remaining_bytes = stream.peek_to_end();
-            return types::Byte::create_array(remaining_bytes);
+            return SaveMetaReadResult {
+                static_cast<unsigned long>(remaining_bytes.size()),
+                stream.position,
+                types::Byte::create_array(remaining_bytes)
+            };
         }
 
         utils::ByteStream get_save_meta_data(SaveMetaSlotPersistence minimum_persistence = SaveMetaSlotPersistence::None) {
@@ -187,7 +197,7 @@ namespace core::save_meta {
             return std::move(stream);
         }
 
-        app::Byte__Array* read_save_meta_from_byte_array_with_current_parameters(app::Byte__Array* data) {
+        SaveMetaReadResult read_save_meta_from_byte_array_with_current_parameters(app::Byte__Array* data) {
             if (is_loading_backup) {
                 return read_save_meta_from_byte_array(data, true, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, true);
             }
@@ -210,11 +220,12 @@ namespace core::save_meta {
         }
 
         IL2CPP_INTERCEPT(Moon::UberStateValueStore, void, ctor_2, (app::UberStateValueStore * this_ptr, app::Byte__Array* data)) {
-            next::Moon::UberStateValueStore::ctor_2(this_ptr, read_save_meta_from_byte_array_with_current_parameters(data));
+            next::Moon::UberStateValueStore::ctor_2(this_ptr, read_save_meta_from_byte_array_with_current_parameters(data).vanilla_data);
         }
 
         IL2CPP_INTERCEPT(Moon::UberStateValueStore, void, ctor_3, (app::UberStateValueStore * this_ptr, app::Byte__Array* data, int actual_size)) {
-            next::Moon::UberStateValueStore::ctor_3(this_ptr, read_save_meta_from_byte_array_with_current_parameters(data), actual_size);
+            auto result = read_save_meta_from_byte_array_with_current_parameters(data);
+            next::Moon::UberStateValueStore::ctor_3(this_ptr, result.vanilla_data, result.vanilla_data_size);
         }
 
         IL2CPP_INTERCEPT(SaveGameController, void, LoadUberState_1, (app::SaveGameController * this_ptr, app::String* file_name)) {
