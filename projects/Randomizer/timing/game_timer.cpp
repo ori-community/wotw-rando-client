@@ -13,13 +13,14 @@
 #include <fmt/format.h>
 #include <mutex>
 #include <unordered_set>
+#include <Core/uber_states/uber_state_interface.h>
 
 using namespace app::classes;
 
 namespace randomizer::timing {
     constexpr bool ENABLE_DEBUG_LOGGING = false;
 
-    const std::unordered_set<app::AbilityType__Enum> TRACKED_ABILITIES {
+    const std::unordered_set<app::AbilityType__Enum> TRACKED_ABILITIES{
             app::AbilityType__Enum::Bash,
             app::AbilityType__Enum::DoubleJump,
             app::AbilityType__Enum::ChargeJump,       // Launch
@@ -44,6 +45,10 @@ namespace randomizer::timing {
             app::AbilityType__Enum::DamageUpgradeB,   // Ancestral Light 2
     };
 
+    const std::unordered_map<uber_states::UberState, WorldEvent> TRACKED_WORLD_EVENTS{
+            {uber_states::UberState(UberStateGroup::RandoState, 2000), WorldEvent::CleanWater},
+    };
+
     // This is set to true by some rando routines which grant abilities temporarily
     bool disable_ability_tracking = false;
 
@@ -58,8 +63,10 @@ namespace randomizer::timing {
             checkpoint_stats = std::make_shared<CheckpointGameStats>();
             save_stats = std::make_shared<SaveFileGameStats>();
 
-            core::save_meta::register_slot(SaveMetaSlot::CheckpointGameStats, SaveMetaSlotPersistence::None, checkpoint_stats);
-            core::save_meta::register_slot(SaveMetaSlot::SaveFileGameStats, SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, save_stats);
+            core::save_meta::register_slot(SaveMetaSlot::CheckpointGameStats, SaveMetaSlotPersistence::None,
+                                           checkpoint_stats);
+            core::save_meta::register_slot(SaveMetaSlot::SaveFileGameStats,
+                                           SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups, save_stats);
 
             stats_mutex.unlock();
         }
@@ -93,6 +100,7 @@ namespace randomizer::timing {
         }
 
         float time_to_next_debug_print = 0.f;
+
         void on_async_update(float delta) {
             if (game::loading_detection::get_loading_state() == LoadingState::NotLoading) {
                 stats_mutex.lock();
@@ -104,10 +112,18 @@ namespace randomizer::timing {
                 time_to_next_debug_print -= delta;
                 if (time_to_next_debug_print <= 0.f) {
                     modloader::win::console::console_send("");
-                    modloader::win::console::console_send(fmt::format("time = {}, pickups = {}", save_stats->total_time, checkpoint_stats->total_pickups));
-                    modloader::win::console::console_send(fmt::format("max_ppm = {}, at = {}", save_stats->max_ppm_over_timespan, save_stats->max_ppm_over_timespan_at));
-                    modloader::win::console::console_send(fmt::format("time_lost_to_deaths = {}", save_stats->time_lost_to_deaths));
-                    modloader::win::console::console_send(fmt::format("got bash at = {}", save_stats->ability_timestamps.contains(app::AbilityType__Enum::Bash) ? save_stats->ability_timestamps.at(app::AbilityType__Enum::Bash) : -1.f));
+                    modloader::win::console::console_send(fmt::format("time = {}, pickups = {}", save_stats->total_time,
+                                                                      checkpoint_stats->total_pickups));
+                    modloader::win::console::console_send(
+                            fmt::format("max_ppm = {}, at = {}", save_stats->max_ppm_over_timespan,
+                                        save_stats->max_ppm_over_timespan_at));
+                    modloader::win::console::console_send(
+                            fmt::format("time_lost_to_deaths = {}", save_stats->time_lost_to_deaths));
+                    modloader::win::console::console_send(fmt::format("got bash at = {}",
+                                                                      save_stats->ability_timestamps.contains(
+                                                                              app::AbilityType__Enum::Bash)
+                                                                      ? save_stats->ability_timestamps.at(
+                                                                              app::AbilityType__Enum::Bash) : -1.f));
                     time_to_next_debug_print = 0.5f;
                 }
             }
@@ -123,7 +139,7 @@ namespace randomizer::timing {
             core::async_update::event_bus().register_handler(&on_async_update);
             reset_stats();
 
-            core::ipc::register_request_handler("timer.get_stats", [](const nlohmann::json& j) {
+            core::ipc::register_request_handler("timer.get_stats", [](const nlohmann::json &j) {
                 auto response = core::ipc::respond_to(j);
 
                 stats_mutex.lock();
@@ -133,11 +149,25 @@ namespace randomizer::timing {
 
                 core::ipc::send_message(std::move(response));
             });
+
+            uber_states::register_value_notify([](auto state, auto previous_value) {
+                if (!state.get<bool>()) {
+                    return;
+                }
+
+                auto world_event_it = TRACKED_WORLD_EVENTS.find(state);
+                if (world_event_it != TRACKED_WORLD_EVENTS.end()) {
+                    stats_mutex.lock();
+                    save_stats->report_world_event(world_event_it->second);
+                    stats_mutex.unlock();
+                }
+            });
         }
 
         CALL_ON_INIT(initialize);
 
-        IL2CPP_INTERCEPT(PlayerAbilities, void, SetAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability, bool value)) {
+        IL2CPP_INTERCEPT(PlayerAbilities, void, SetAbility,
+                         (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability, bool value)) {
             if (value && !disable_ability_tracking && TRACKED_ABILITIES.contains(ability)) {
                 stats_mutex.lock();
                 save_stats->report_ability_acquired(ability);
@@ -149,7 +179,7 @@ namespace randomizer::timing {
     }
 }
 
-void notify_pickup_collected(GameArea area, const char* location_name) {
+void notify_pickup_collected(GameArea area, const char *location_name) {
     randomizer::timing::stats_mutex.lock();
     randomizer::timing::checkpoint_stats->report_pickup(area);
     randomizer::timing::save_stats->report_pickup(area, std::string(location_name));

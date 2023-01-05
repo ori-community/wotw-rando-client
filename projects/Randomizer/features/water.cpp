@@ -13,23 +13,18 @@ using namespace modloader;
 using namespace modloader::win;
 
 namespace {
-    bool water_cheat_purified = false;
     bool water_damage_override = false;
     uber_states::UberState clean_water_state(UberStateGroup::RandoState, 2000);
 
     IL2CPP_INTERCEPT(Sein::World::Events, bool, get_WaterPurified, ()) {
-        return !water_damage_override && (clean_water_state.get<bool>() || water_cheat_purified);
-    }
-
-    void toggle_clear_water(std::string const &command, std::vector<console::CommandParam> const &params) {
-        water_cheat_purified = !water_cheat_purified;
+        return !water_damage_override && clean_water_state.get<bool>();
     }
 
     void initialize_water() {
         std::function < randomizer::conditions::applier_intercept(int32_t, int32_t) > ai_create = [](int32_t corrupted,
                                                                                                      int32_t clean) -> randomizer::conditions::applier_intercept {
             return [corrupted, clean](auto, auto, auto, auto) -> int32_t {
-                return (clean_water_state.get<bool>() || water_cheat_purified) ? clean : corrupted;
+                return clean_water_state.get<bool>() ? clean : corrupted;
             };
         };
 
@@ -127,8 +122,6 @@ namespace {
 
                                                                  return state;
                                                              });
-
-        console::register_command({"cheat", "toggle_clear_water"}, toggle_clear_water);
     }
 
     CALL_ON_INIT(initialize_water);

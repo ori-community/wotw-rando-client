@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/enums/game_areas.h>
+#include <Core/enums/world_events.h>
 #include <Core/save_meta/save_meta.h>
 #include <Core/utils/mood_guid.h>
 #include <nlohmann/json.hpp>
@@ -37,6 +38,23 @@ NLOHMANN_JSON_NAMESPACE_BEGIN
             static void from_json(const nlohmann::json &j, std::map<app::AbilityType__Enum, T> &v) {
                 for (const auto &[key, value]: j.items()) {
                     v[static_cast<app::AbilityType__Enum>(std::stoi(key))] = value.get<T>();
+                }
+            }
+        };
+
+        template<typename T>
+        struct adl_serializer<std::map<WorldEvent, T>> {
+            static void to_json(nlohmann::json &j, const std::map<WorldEvent, T> &v) {
+                j = nlohmann::json::object();
+
+                for (const auto &item: v) {
+                    j[std::to_string(static_cast<int>(item.first))] = item.second;
+                }
+            }
+
+            static void from_json(const nlohmann::json &j, std::map<WorldEvent, T> &v) {
+                for (const auto &[key, value]: j.items()) {
+                    v[static_cast<WorldEvent>(std::stoi(key))] = value.get<T>();
                 }
             }
         };
@@ -110,6 +128,11 @@ namespace randomizer::timing {
          */
         std::map<app::AbilityType__Enum, float> ability_timestamps;
 
+        /**
+         * WorldEvent -> collected_at
+         */
+        std::map<WorldEvent, float> world_event_timestamps;
+
         // Stats
         float max_ppm_over_timespan = 0.f;
         float max_ppm_over_timespan_at = 0.f;
@@ -126,6 +149,7 @@ namespace randomizer::timing {
                 recent_pickup_timers,
                 collected_pickups,
                 ability_timestamps,
+                world_event_timestamps,
                 max_ppm_over_timespan,
                 max_ppm_over_timespan_at,
                 time_lost_to_deaths,
@@ -140,6 +164,8 @@ namespace randomizer::timing {
         void report_pickup(GameArea area, const std::string &location_name);
 
         void report_ability_acquired(app::AbilityType__Enum ability);
+
+        void report_world_event(WorldEvent event);
 
         void report_death(GameArea area);
 

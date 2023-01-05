@@ -97,6 +97,7 @@ set(
         "enums/static_text_entries.h"
         "enums/timeline_entries.h"
         "enums/uber_state.h"
+        "enums/world_events.h"
         "input/simulator.h"
         "ipc/ipc.h"
         "macros.h"

@@ -61,6 +61,12 @@ namespace randomizer::timing {
         }
     }
 
+    void SaveFileGameStats::report_world_event(WorldEvent event) {
+        if (!this->world_event_timestamps.contains(event)) {
+            this->world_event_timestamps[event] = this->total_time;
+        }
+    }
+
     float SaveFileGameStats::get_current_ppm_over_timespan() {
         auto recent_pickup_count = this->recent_pickup_timers.size();
         return static_cast<float>(recent_pickup_count) / PPM_TIMESPAN * 60.f;
