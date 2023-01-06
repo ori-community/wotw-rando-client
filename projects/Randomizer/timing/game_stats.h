@@ -110,6 +110,7 @@ namespace randomizer::timing {
         // Tracking
         float time_since_last_checkpoint = 0.f;
         float total_time = 0.f;
+        float total_loading_time = 0.f;
 
         /**
          * Countdowns for recent pickups. For each pickup collected, a value of PPM_TIMESPAN
@@ -146,6 +147,7 @@ namespace randomizer::timing {
                 SaveFileGameStats,
                 time_since_last_checkpoint,
                 total_time,
+                total_loading_time,
                 recent_pickup_timers,
                 collected_pickups,
                 ability_timestamps,
@@ -160,6 +162,8 @@ namespace randomizer::timing {
 
         // Methods
         void report_time_spent(GameArea area, float time);
+
+        void report_loading_time(float time);
 
         void report_pickup(GameArea area, const std::string &location_name);
 

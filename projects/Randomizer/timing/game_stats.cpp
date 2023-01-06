@@ -23,6 +23,10 @@ namespace randomizer::timing {
         }
     }
 
+    void SaveFileGameStats::report_loading_time(float time) {
+        this->total_loading_time += time;
+    }
+
     void SaveFileGameStats::report_death(GameArea area) {
         this->time_lost_to_deaths += this->time_since_last_checkpoint;
         ++this->total_deaths;

@@ -122,11 +122,17 @@ namespace randomizer::timing {
         float time_to_next_debug_print = 0.f;
 
         void on_async_update(float delta) {
-            if (game::loading_detection::get_loading_state() == LoadingState::NotLoading && !game_finished_uber_state.get<bool>()) {
-                stats_mutex.lock();
-                save_stats->report_time_spent(game::player::get_current_area(), delta);
-                stats_mutex.unlock();
+            if (game_finished_uber_state.get<bool>()) {
+                return;
             }
+
+            stats_mutex.lock();
+            if (game::loading_detection::get_loading_state() == LoadingState::NotLoading) {
+                save_stats->report_time_spent(game::player::get_current_area(), delta);
+            } else {
+                save_stats->report_loading_time(delta);
+            }
+            stats_mutex.unlock();
 
             if (ENABLE_DEBUG_LOGGING) {
                 time_to_next_debug_print -= delta;
