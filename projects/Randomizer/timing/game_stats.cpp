@@ -17,6 +17,10 @@ namespace randomizer::timing {
 
             ++it;
         }
+
+        if (this->max_ppm_over_timespan_at == 0 && this->total_time >= PPM_TIMESPAN) {
+            this->recalculate_max_ppm_over_timespan();
+        }
     }
 
     void SaveFileGameStats::report_death(GameArea area) {
@@ -74,7 +78,7 @@ namespace randomizer::timing {
 
     void SaveFileGameStats::recalculate_max_ppm_over_timespan() {
         auto current_ppm_over_timespan = this->get_current_ppm_over_timespan();
-        if (current_ppm_over_timespan > this->max_ppm_over_timespan) {
+        if (current_ppm_over_timespan > this->max_ppm_over_timespan && this->total_time >= PPM_TIMESPAN) {
             this->max_ppm_over_timespan = current_ppm_over_timespan;
             this->max_ppm_over_timespan_at = this->total_time;
         }
