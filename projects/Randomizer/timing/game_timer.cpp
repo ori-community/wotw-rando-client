@@ -14,6 +14,7 @@
 #include <fmt/format.h>
 #include <mutex>
 #include <unordered_set>
+#include <atomic>
 
 using namespace app::classes;
 
@@ -50,6 +51,10 @@ namespace randomizer::timing {
     };
 
     const uber_states::UberState game_finished_uber_state(34543, 11226);
+
+    // Caches for values that are processed in multiple threads
+    std::atomic<bool> game_finished_cache = false;
+    std::atomic<GameArea> current_game_area_cache = GameArea::Void;
 
     // This is set to true by some rando routines which grant abilities temporarily
     bool disable_ability_tracking = false;
@@ -121,14 +126,19 @@ namespace randomizer::timing {
 
         float time_to_next_debug_print = 0.f;
 
+        void on_fixed_update(GameEvent event, EventTiming timing) {
+            game_finished_cache.store(game_finished_uber_state.get<bool>());
+            current_game_area_cache.store(game::player::get_current_area());
+        }
+
         void on_async_update(float delta) {
-            if (game_finished_uber_state.get<bool>()) {
+            if (game_finished_cache.load()) {
                 return;
             }
 
             stats_mutex.lock();
             if (game::loading_detection::get_loading_state() == LoadingState::NotLoading) {
-                save_stats->report_time_spent(game::player::get_current_area(), delta);
+                save_stats->report_time_spent(current_game_area_cache.load(), delta);
             } else {
                 save_stats->report_loading_time(delta);
             }
@@ -156,6 +166,7 @@ namespace randomizer::timing {
             game::event_bus().register_handler(GameEvent::CreateCheckpoint, &on_create_checkpoint);
             game::event_bus().register_handler(GameEvent::Respawn, &on_respawn);
             game::event_bus().register_handler(GameEvent::Teleport, &on_teleport);
+            game::event_bus().register_handler(GameEvent::FixedUpdate, &on_fixed_update);
             core::api::death_listener::player_death_event_bus().register_handler(EventTiming::Before, &on_before_death);
 
             core::async_update::event_bus().register_handler(&on_async_update);
