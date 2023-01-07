@@ -6,15 +6,16 @@
 #include <Core/ipc/ipc.h>
 #include <Core/save_meta/save_meta.h>
 #include <Core/uber_states/uber_state_interface.h>
+#include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/PlayerAbilities.h>
 #include <Modloader/common.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
 #include <Randomizer/timing/game_timer.h>
 #include <fmt/format.h>
+#include <atomic>
 #include <mutex>
 #include <unordered_set>
-#include <atomic>
 
 using namespace app::classes;
 
@@ -53,8 +54,8 @@ namespace randomizer::timing {
     const uber_states::UberState game_finished_uber_state(34543, 11226);
 
     // Caches for values that are processed in multiple threads
-    std::atomic<bool> game_finished_cache = false;
-    std::atomic<GameArea> current_game_area_cache = GameArea::Void;
+    std::atomic<bool> game_finished = false;
+    std::atomic<GameArea> current_game_area = GameArea::Void;
 
     // This is set to true by some rando routines which grant abilities temporarily
     bool disable_ability_tracking = false;
@@ -89,8 +90,9 @@ namespace randomizer::timing {
         }
 
         void on_create_checkpoint(GameEvent event, EventTiming timing) {
-            if (game_finished_uber_state.get<bool>())
+            if (game_finished.load()) {
                 return;
+            }
 
             stats_mutex.lock();
             save_stats->report_checkpoint_created();
@@ -98,8 +100,9 @@ namespace randomizer::timing {
         }
 
         void on_respawn(GameEvent event, EventTiming timing) {
-            if (game_finished_uber_state.get<bool>())
+            if (game_finished.load()) {
                 return;
+            }
 
             stats_mutex.lock();
             save_stats->report_respawn();
@@ -107,8 +110,9 @@ namespace randomizer::timing {
         }
 
         void on_teleport(GameEvent event, EventTiming timing) {
-            if (game_finished_uber_state.get<bool>())
+            if (game_finished.load()) {
                 return;
+            }
 
             stats_mutex.lock();
             save_stats->report_teleport();
@@ -116,8 +120,9 @@ namespace randomizer::timing {
         }
 
         void on_before_death(core::api::death_listener::PlayerDeath death, EventTiming timing) {
-            if (game_finished_uber_state.get<bool>())
+            if (game_finished.load()) {
                 return;
+            }
 
             stats_mutex.lock();
             save_stats->report_death(game::player::get_current_area());
@@ -127,18 +132,21 @@ namespace randomizer::timing {
         float time_to_next_debug_print = 0.f;
 
         void on_fixed_update(GameEvent event, EventTiming timing) {
-            game_finished_cache.store(game_finished_uber_state.get<bool>());
-            current_game_area_cache.store(game::player::get_current_area());
+            // Only set these values when in game because the main menu sets some wonky states
+            if (GameStateMachine::get_IsGame()) {
+                game_finished.store(game_finished_uber_state.get<bool>());
+                current_game_area.store(game::player::get_current_area());
+            }
         }
 
         void on_async_update(float delta) {
-            if (game_finished_cache.load()) {
+            if (game_finished.load()) {
                 return;
             }
 
             stats_mutex.lock();
             if (game::loading_detection::get_loading_state() == LoadingState::NotLoading) {
-                save_stats->report_time_spent(current_game_area_cache.load(), delta);
+                save_stats->report_time_spent(current_game_area.load(), delta);
             } else {
                 save_stats->report_loading_time(delta);
             }
@@ -212,7 +220,7 @@ namespace randomizer::timing {
 } // namespace randomizer::timing
 
 void notify_pickup_collected(GameArea area, const char* location_name) {
-    if (randomizer::timing::game_finished_uber_state.get<bool>()) {
+    if (randomizer::timing::game_finished.load()) {
         return;
     }
 
