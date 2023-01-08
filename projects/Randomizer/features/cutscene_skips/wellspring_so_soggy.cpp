@@ -1,4 +1,5 @@
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
+#include <Modloader/app/types/TimelineEntity.h>
 #include <Modloader/il2cpp_helpers.h>
 
 #include "custom_cutscene_skips.h"
@@ -33,7 +34,7 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(timeline_go)) {
-                wellspring_so_soggy_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, "Moon.Timeline", "MoonTimeline"));
+                wellspring_so_soggy_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, types::TimelineEntity::get_class()));
             }
         }
     }

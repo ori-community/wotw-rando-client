@@ -36,6 +36,9 @@
 #include <Modloader/app/types/SpellSettings.h>
 #include <Modloader/app/types/UI.h>
 #include <Modloader/app/types/EquipmentWheel.h>
+#include <Modloader/app/types/MessageBox.h>
+#include <Modloader/app/types/TextBox.h>
+#include <Modloader/app/types/Renderer.h>
 #include <Common/ext.cpp>
 
 #include <unordered_map>
@@ -309,9 +312,9 @@ namespace {
 
     IL2CPP_INTERCEPT(EquipmentWheelUIDetails, void, UpdateContext, (app::EquipmentWheelUIDetails * this_ptr, bool to_right)) {
         if (custom_wheel_on) {
-            auto* name_message_box = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox")[0];
-            auto* description_message_box = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.DescriptionGO, "", "MessageBox")[0];
-            auto* description_text_box = il2cpp::unity::get_components<app::TextBox>(this_ptr->fields.DescriptionGO, "CatlikeCoding.TextBox", "TextBox")[0];
+            auto* name_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
+            auto* description_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
+            auto* description_text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.DescriptionGO, types::TextBox::get_class());
             description_text_box->fields.maxHeight = 4.00000000;
 
             CustomWheelEntry* entry = nullptr;
@@ -335,7 +338,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SpellUIItem, void, UpdateSpellIcon, (app::SpellUIItem * this_ptr)) {
-        auto* renderer = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer")[0];
+        auto* renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
         if (custom_wheel_on) {
             CustomWheelEntry* entry = this_ptr->fields.m_spell != nullptr ? get_wheel_entry(this_ptr->fields.m_spell->fields.m_type) : nullptr;
             if (entry == nullptr) {

@@ -19,6 +19,11 @@
 #include <Modloader/app/types/UI.h>
 #include <Modloader/app/types/Vector2.h>
 #include <Modloader/app/types/Vector3.h>
+#include <Modloader/app/types/MeshFilter.h>
+#include <Modloader/app/types/MeshRenderer.h>
+#include <Modloader/app/types/UberShaderRuntimeRenderOrder.h>
+#include <Modloader/app/types/MessageBox.h>
+#include <Modloader/app/types/Renderer.h>
 #include <Modloader/il2cpp_helpers.h>
 
 using namespace app::classes;
@@ -48,21 +53,21 @@ namespace core {
             app::MeshFilter* mesh_filter = nullptr;
             if (use_prefab) {
                 auto controller = types::UI::get_class()->static_fields->MessageController;
-                auto message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(controller->fields.HintSmallMessage, "", "MessageBox");
+                auto message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(controller->fields.HintSmallMessage, types::MessageBox::get_class());
                 auto icon_renderer = reinterpret_cast<app::MoonIconRenderer*>(
                         message_box->fields.TextBox->fields.styleCollection->fields.styles->vector[1]->fields.renderer
                 );
                 auto icon_obj = icon_renderer->fields.Icons->fields.Icons->fields._items->vector[0]->fields.Icon;
                 auto prefab = il2cpp::unity::get_children(icon_obj)[0];
                 icon = il2cpp::unity::instantiate_object(il2cpp::unity::get_children(icon_obj)[0]);
-                mesh_filter = il2cpp::unity::get_component<app::MeshFilter>(icon, "UnityEngine", "MeshFilter");
-                renderer = il2cpp::unity::get_component<app::Renderer>(icon, "UnityEngine", "MeshRenderer");
+                mesh_filter = il2cpp::unity::get_component<app::MeshFilter>(icon, types::MeshFilter::get_class());
+                renderer = il2cpp::unity::get_component<app::Renderer>(icon, types::MeshRenderer::get_class());
             } else {
                 icon = types::GameObject::create();
                 il2cpp::invoke(icon, ".ctor");
-                mesh_filter = il2cpp::unity::add_component<app::MeshFilter>(icon, "UnityEngine", "MeshFilter");
-                renderer = il2cpp::unity::add_component<app::Renderer>(icon, "UnityEngine", "MeshRenderer");
-                auto order = il2cpp::unity::add_component<app::UberShaderRuntimeRenderOrder>(icon, "", "UberShaderRuntimeRenderOrder");
+                mesh_filter = il2cpp::unity::add_component<app::MeshFilter>(icon, types::MeshFilter::get_class());
+                renderer = il2cpp::unity::add_component<app::Renderer>(icon, types::MeshRenderer::get_class());
+                auto order = il2cpp::unity::add_component<app::UberShaderRuntimeRenderOrder>(icon, types::UberShaderRuntimeRenderOrder::get_class());
                 order->fields.m_isInScene = true;
                 bool enabled = true;
                 il2cpp::invoke(renderer, "set_enabled", &enabled);
@@ -111,7 +116,7 @@ namespace core {
 
     Sprite::Sprite(app::GameObject* parent) {
         m_root = reinterpret_cast<app::GameObject*>(il2cpp::unity::instantiate_object(find_prefab()));
-        m_renderer = il2cpp::unity::get_component<app::Renderer>(m_root, "UnityEngine", "Renderer");
+        m_renderer = il2cpp::unity::get_component<app::Renderer>(m_root, types::Renderer::get_class());
         il2cpp::unity::set_active(m_root, false);
         if (parent == nullptr)
             game::add_to_container(game::RandoContainer::GameObjects, m_root);

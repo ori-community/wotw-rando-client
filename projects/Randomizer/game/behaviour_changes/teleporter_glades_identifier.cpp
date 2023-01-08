@@ -3,8 +3,11 @@
 #include <Common/ext.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/common.h>
+#include <Modloader/app/types/SavePedestal.h>
 #include <Core/utils/event_bus.h>
 #include <Core/api/scenes/scene_load.h>
+
+using namespace app::classes;
 
 namespace {
     void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
@@ -25,7 +28,7 @@ namespace {
                             "savePedestal" }
             );
 
-            auto save_pedestal = il2cpp::unity::get_component<app::SavePedestal>(save_pedestal_go, "", "SavePedestal");
+            auto save_pedestal = il2cpp::unity::get_component<app::SavePedestal>(save_pedestal_go, types::SavePedestal::get_class());
             save_pedestal->fields.Identifier = il2cpp::string_new("wellspringGladesHub");
         }
     }

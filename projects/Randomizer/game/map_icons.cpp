@@ -26,6 +26,7 @@
 #include <Modloader/app/types/RuntimeWorldMapIcon.h>
 #include <Modloader/app/types/MoonGuid.h>
 #include <Modloader/app/types/AreaMapIconManager.h>
+#include <Modloader/app/types/Renderer.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -676,7 +677,7 @@ namespace {
         if (!il2cpp::unity::is_valid(icon->fields.IconGameObject))
             return;
 
-        auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(icon->fields.IconGameObject, "UnityEngine", "Renderer");
+        auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(icon->fields.IconGameObject, types::Renderer::get_class());
         for (auto renderer : renderers) {
             auto it = original_color.find(renderer);
             if (it == original_color.end()) {

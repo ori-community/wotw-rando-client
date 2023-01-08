@@ -30,6 +30,11 @@
 #include <Modloader/app/types/MapmakerScreen.h>
 #include <Modloader/app/types/ShardUpgradeScreen.h>
 #include <Modloader/app/types/WeaponmasterScreen.h>
+#include <Modloader/app/types/Renderer.h>
+#include <Modloader/app/types/MessageBox.h>
+#include <Modloader/app/types/CleverMenuItem.h>
+#include <Modloader/app/types/TextBox.h>
+#include <Modloader/app/types/ShopkeeperUISubItem.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -128,14 +133,9 @@ namespace {
         auto open_shop = shops::get_open_shop();
         shops::set_providers(open_shop, this_ptr->fields.m_item, name_provider, description_provider);
 
-        auto renderer_components = il2cpp::unity::get_components<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
-        auto* const renderer = renderer_components[0];
-
-        auto message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
-        auto* const name_box = message_box_components[0];
-
-        message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.DescriptionGO, "", "MessageBox");
-        auto* const description_box = message_box_components[0];
+        auto* const renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
+        auto* const name_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
+        auto* const description_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
 
         const auto is_visible = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsVisible")->fields;
         const auto is_locked = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsLocked")->fields;
@@ -190,8 +190,8 @@ namespace {
             const auto is_locked = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsLocked")->fields;
             const auto is_max_level = il2cpp::invoke<app::Boolean__Boxed>(this_ptr->fields.m_item, "get_IsMaxLevel")->fields;
 
-            auto menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(this_ptr, "", "CleverMenuItem");
-            auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+            auto menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(this_ptr, types::CleverMenuItem::get_class());
+            auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
             auto texture_data = shops::get_icon(get_open_shop(), this_ptr->fields.m_item);
             texture_data->apply(renderer);
             if (this_ptr->fields.m_item == nullptr) {
@@ -233,7 +233,7 @@ namespace {
 
             if (il2cpp::unity::is_valid(this_ptr->fields.CostGO) && GameObject::get_activeSelf(this_ptr->fields.CostGO)) {
                 auto text = il2cpp::string_new(std::to_string(cost));
-                auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, "CatlikeCoding.TextBox", "TextBox");
+                auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, types::TextBox::get_class());
                 TextBox::SetText_2(text_box, text);
                 TextBox::RenderText(text_box);
             }
@@ -257,19 +257,19 @@ namespace {
             GameObject::SetActive(this_ptr->fields.AvailableToBuyGO, is_visible && available && is_affordable);
             GameObject::SetActive(this_ptr->fields.TooExpensiveGO, is_visible && !is_max_level && (!is_affordable || is_locked));
 
-            auto ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.LockedGO, "", "ShopkeeperUISubItem");
+            auto ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.LockedGO, types::ShopkeeperUISubItem::get_class());
             ui_sub_item->fields.m_item = item;
             ShopkeeperUISubItem::UpdateItem(ui_sub_item);
 
-            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AlreadyOwnedGO, "", "ShopkeeperUISubItem");
+            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AlreadyOwnedGO, types::ShopkeeperUISubItem::get_class());
             ui_sub_item->fields.m_item = item;
             ShopkeeperUISubItem::UpdateItem(ui_sub_item);
 
-            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AvailableToBuyGO, "", "ShopkeeperUISubItem");
+            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.AvailableToBuyGO, types::ShopkeeperUISubItem::get_class());
             ui_sub_item->fields.m_item = item;
             ShopkeeperUISubItem::UpdateItem(ui_sub_item);
 
-            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.TooExpensiveGO, "", "ShopkeeperUISubItem");
+            ui_sub_item = il2cpp::unity::get_component<app::ShopkeeperUISubItem>(this_ptr->fields.TooExpensiveGO, types::ShopkeeperUISubItem::get_class());
             ui_sub_item->fields.m_item = item;
             ShopkeeperUISubItem::UpdateItem(ui_sub_item);
         } else

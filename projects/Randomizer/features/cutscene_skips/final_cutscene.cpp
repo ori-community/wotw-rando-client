@@ -1,4 +1,5 @@
 #include <Modloader/app/methods/Moon/Timeline/TimelineEntity.h>
+#include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/il2cpp_helpers.h>
 
 #include "custom_cutscene_skips.h"
@@ -43,7 +44,7 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(death_reaction_timeline_go)) {
-                shriek_death_reaction_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(death_reaction_timeline_go, "Moon.Timeline", "MoonTimeline"));
+                shriek_death_reaction_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(death_reaction_timeline_go, types::MoonTimeline::get_class()));
             }
 
         } else if (metadata->scene_name == "epilogueMaster") {
@@ -56,7 +57,7 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(epilogue_master_timeline_go)) {
-                epilogue_master_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(epilogue_master_timeline_go, "Moon.Timeline", "MoonTimeline"));
+                epilogue_master_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(epilogue_master_timeline_go, types::MoonTimeline::get_class()));
             }
         }
     }

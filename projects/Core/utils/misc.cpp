@@ -6,6 +6,7 @@
 #include <Modloader/app/methods/UberShaderColor.h>
 #include <Modloader/app/types/MoonGuid.h>
 #include <Modloader/app/types/UberShaderColor.h>
+#include <Modloader/app/types/Renderer.h>
 #include <Modloader/il2cpp_helpers.h>
 
 using namespace app::classes;
@@ -14,7 +15,7 @@ namespace utils {
     constexpr float COLOR_DIVIDER = 3.0f;
 
     void set_color(app::GameObject* go, app::Color& color, app::UberShaderProperty_Color__Enum shader_property, bool skip_first) {
-        auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(go, "UnityEngine", "Renderer");
+        auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(go, types::Renderer::get_class());
         for (auto renderer : renderers) {
             auto prev_color = UberShaderAPI::GetColor_1(renderer, shader_property);
             app::Color actual_color = color;

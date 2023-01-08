@@ -126,6 +126,7 @@ set(
         "timing/game_timer.cpp"
         "uber_states/uber_state_helper.cpp"
         "uber_states/uber_state_initialization.cpp"
+        "ui/online_mode_switcher.cpp"
 )
 
 set(

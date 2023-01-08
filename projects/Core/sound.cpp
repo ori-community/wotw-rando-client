@@ -13,6 +13,7 @@
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/Wwise.h>
 #include <Modloader/app/types/WwiseEventSystem_SoundHandle.h>
+#include <Modloader/app/types/SoundHost.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -90,7 +91,7 @@ namespace core::sound {
     SoundActor::SoundActor(app::GameObject* parent) {
         m_root = types::GameObject::create();
         il2cpp::invoke(m_root, ".ctor");
-        m_host = il2cpp::unity::add_component<app::SoundHost>(m_root, "Moon.Wwise", "SoundHost");
+        m_host = il2cpp::unity::add_component<app::SoundHost>(m_root, types::SoundHost::get_class());
         m_host->fields.m_gameObject = m_root;
         m_host->fields.m_transform = il2cpp::unity::get_transform(m_root);
         m_host->fields.m_isListener = false;

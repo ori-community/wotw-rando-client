@@ -2,6 +2,7 @@
 #include <Modloader/app/methods/NewSetupStateController.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
+#include <Modloader/app/types/NewSetupStateController.h>
 #include <Modloader/il2cpp_helpers.h>
 
 #include <Modloader/common.h>
@@ -78,7 +79,7 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(door_container_go) && il2cpp::unity::is_valid(door_go)) {
-                door_controller = il2cpp::unity::get_component<app::NewSetupStateController>(door_container_go, "", "NewSetupStateController");
+                door_controller = il2cpp::unity::get_component<app::NewSetupStateController>(door_container_go, types::NewSetupStateController::get_class());
 
                 auto left_door_go = il2cpp::unity::find_child(door_go, "lagoonEnemyDoorLeft");
                 auto right_door_go = il2cpp::unity::find_child(door_go, "lagoonEnemyDoorRight");

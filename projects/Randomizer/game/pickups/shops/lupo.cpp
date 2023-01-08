@@ -20,6 +20,11 @@
 #include <Modloader/app/methods/UberShaderAPI.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/types/Input_Cmd.h>
+#include <Modloader/app/types/Renderer.h>
+#include <Modloader/app/types/TextBox.h>
+#include <Modloader/app/types/CleverMenuItem.h>
+#include <Modloader/app/types/MessageBox.h>
+#include <Modloader/app/types/MapmakerUISubItem.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -67,7 +72,7 @@ namespace {
         if (it != lupo_overrides.end() && !it->second.is_visible)
             texture = shops::get_icon(shops::ShopType::Lupo, nullptr);
 
-        auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+        auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
         if (texture != nullptr)
             texture->apply(renderer);
         else {
@@ -134,7 +139,7 @@ namespace {
             GameObject::SetActive(this_ptr->fields.SpiritLightGO, show_cost);
 
         if (show_cost) {
-            auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, "CatlikeCoding.TextBox", "TextBox");
+            auto text_box = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.CostGO, types::TextBox::get_class());
 
             if (owned)
                 TextBox::SetText_2(text_box, il2cpp::string_new(""));
@@ -150,13 +155,13 @@ namespace {
             TextBox::RenderText(text_box);
         }
 
-        auto menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(this_ptr, "", "CleverMenuItem");
+        auto menu_item = il2cpp::unity::get_component<app::CleverMenuItem>(this_ptr, types::CleverMenuItem::get_class());
         CleverMenuItem::set_IsDisabled(menu_item, !can_purchase);
     }
 
     IL2CPP_INTERCEPT(MapmakerUIDetails, void, UpdateDetails, (app::MapmakerUIDetails * this_ptr)) {
         auto item = this_ptr->fields.m_item;
-        auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+        auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
 
         const auto key = get_key(item);
         const auto it = lupo_overrides.find(key);
@@ -203,14 +208,14 @@ namespace {
             description = text_database::get_provider(*static_text_entry::Empty);
         }
 
-        auto name_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
-        auto name_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.NameGO, "CatlikeCoding.TextBox", "TextBox");
+        auto name_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
+        auto name_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.NameGO, types::TextBox::get_class());
         name_text_component->fields.color = color;
         name_message_box->fields.MessageProvider = name;
         MessageBox::RefreshText_1(name_message_box);
 
-        auto description_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, "", "MessageBox");
-        auto description_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.DescriptionGO, "CatlikeCoding.TextBox", "TextBox");
+        auto description_message_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
+        auto description_text_component = il2cpp::unity::get_component<app::TextBox>(this_ptr->fields.DescriptionGO, types::TextBox::get_class());
         description_text_component->fields.color = color;
         description_message_box->fields.MessageProvider = description;
         MessageBox::RefreshText_1(description_message_box);
@@ -260,16 +265,16 @@ namespace {
         GameObject::SetActive(this_ptr->fields.LockedGO, !is_visible || is_locked);
 
         MapmakerUISubItem::SetUpgradeItem(
-                il2cpp::unity::get_component<app::MapmakerUISubItem>(this_ptr->fields.AvailableToBuyGO, "", "MapmakerUISubItem"), item, nullptr
+                il2cpp::unity::get_component<app::MapmakerUISubItem>(this_ptr->fields.AvailableToBuyGO, types::MapmakerUISubItem::get_class()), item, nullptr
         );
         MapmakerUISubItem::SetUpgradeItem(
-                il2cpp::unity::get_component<app::MapmakerUISubItem>(this_ptr->fields.AlreadyOwnedGO, "", "MapmakerUISubItem"), item, nullptr
+                il2cpp::unity::get_component<app::MapmakerUISubItem>(this_ptr->fields.AlreadyOwnedGO, types::MapmakerUISubItem::get_class()), item, nullptr
         );
         MapmakerUISubItem::SetUpgradeItem(
-                il2cpp::unity::get_component<app::MapmakerUISubItem>(this_ptr->fields.TooExpensiveGO, "", "MapmakerUISubItem"), item, nullptr
+                il2cpp::unity::get_component<app::MapmakerUISubItem>(this_ptr->fields.TooExpensiveGO, types::MapmakerUISubItem::get_class()), item, nullptr
         );
         MapmakerUISubItem::SetUpgradeItem(
-                il2cpp::unity::get_component<app::MapmakerUISubItem>(this_ptr->fields.LockedGO, "", "MapmakerUISubItem"), item, nullptr
+                il2cpp::unity::get_component<app::MapmakerUISubItem>(this_ptr->fields.LockedGO, types::MapmakerUISubItem::get_class()), item, nullptr
         );
     }
 } // namespace

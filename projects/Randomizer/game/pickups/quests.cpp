@@ -6,6 +6,7 @@
 #include <Modloader/app/methods/RuntimeQuest.h>
 #include <Modloader/app/types/QuestsController.h>
 #include <Modloader/app/types/SeinWorldState.h>
+#include <Modloader/app/types/SerializedIntUberState.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -263,7 +264,7 @@ namespace game::pickups::quests {
         IL2CPP_INTERCEPT(QuestsController, void, CompleteQuest, (app::QuestsController * this_ptr, app::Quest* quest)) {
             if (quest_reporting) {
                 auto uber_state = Quest::get_UberState(quest);
-                auto cast_uber_state = il2cpp::safe_il2cpp_cast<app::SerializedIntUberState>(uber_state, "Moon", "SerializedIntUberState");
+                auto cast_uber_state = il2cpp::safe_il2cpp_cast<app::SerializedIntUberState>(uber_state, types::SerializedIntUberState::get_class());
                 if (cast_uber_state != nullptr && cast_uber_state->fields._.m_id != nullptr && cast_uber_state->fields.Group != nullptr)
                     send_state(cast_uber_state);
             }

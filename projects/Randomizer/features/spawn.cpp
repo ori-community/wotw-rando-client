@@ -25,6 +25,7 @@
 #include <Modloader/app/types/SaveSlotsUI.h>
 #include <Modloader/app/types/QuestsUI.h>
 #include <Modloader/app/types/AreaMapUI.h>
+#include <Modloader/app/types/WaitAction.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
@@ -215,7 +216,7 @@ namespace {
 
             // We shorten the wait time to 0.4s. We use that time to fade to black.
             auto empty_slot_pressed_wait_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "emptySlotPressed(newGame)", "04. Wait 1.5 seconds" });
-            empty_slot_pressed_wait = il2cpp::unity::get_component<app::WaitAction>(empty_slot_pressed_wait_go, "", "WaitAction");
+            empty_slot_pressed_wait = il2cpp::unity::get_component<app::WaitAction>(empty_slot_pressed_wait_go, types::WaitAction::get_class());
             empty_slot_pressed_wait->fields.Duration = 0.4f;
         }
     }

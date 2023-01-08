@@ -23,6 +23,10 @@
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/types/OnScreenPositions.h>
 #include <Modloader/app/types/UI.h>
+#include <Modloader/app/types/ScaleToTextBox.h>
+#include <Modloader/app/types/DestroyOnRestoreCheckpoint.h>
+#include <Modloader/app/types/MessageBox.h>
+#include <Modloader/app/types/SoundSource.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -77,7 +81,7 @@ namespace {
         if (!message.should_show_box || message.obj == nullptr)
             return;
 
-        auto scaler = il2cpp::unity::get_component_in_children<app::ScaleToTextBox>(message.obj, "", "ScaleToTextBox");
+        auto scaler = il2cpp::unity::get_component_in_children<app::ScaleToTextBox>(message.obj, types::ScaleToTextBox::get_class());
         scaler->fields.TopLeftPadding.y = message.box_top_padding;
         scaler->fields.TopLeftPadding.x = message.box_left_padding;
         scaler->fields.BottomRightPadding.y = message.box_bottom_padding;
@@ -138,10 +142,10 @@ namespace {
         auto go = reinterpret_cast<app::GameObject*>(Object::Instantiate_3(reinterpret_cast<app::Object_1*>(controller->fields.HintSmallMessage)));
         game::add_to_container(game::RandoContainer::Messages, go);
 
-        auto destroy_on_restore = il2cpp::unity::get_component_in_children<app::DestroyOnRestoreCheckpoint>(go, "", "DestroyOnRestoreCheckpoint");
+        auto destroy_on_restore = il2cpp::unity::get_component_in_children<app::DestroyOnRestoreCheckpoint>(go, types::DestroyOnRestoreCheckpoint::get_class());
         il2cpp::unity::destroy_object(destroy_on_restore);
 
-        auto message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(go, "", "MessageBox");
+        auto message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(go, types::MessageBox::get_class());
         message_box->fields.ShouldWriteOut = true;
 
         message_box->fields.Visibility->fields.TransitionInDuration = message.fadein;
@@ -182,7 +186,7 @@ namespace {
             GameObject::SetActive(background, false);
         }
 
-        auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(go, "", "SoundSource");
+        auto sound_source = il2cpp::unity::get_component_in_children<app::SoundSource>(go, types::SoundSource::get_class());
         sound_source->fields.PlayAtStart = message.should_play_sound && !instant;
 
         Transform::set_position(transform, message.pos);
@@ -248,7 +252,7 @@ namespace {
                 continue;
             }
 
-            auto message_box = reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(message.second.obj, "", "MessageBox"));
+            auto message_box = reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(message.second.obj, types::MessageBox::get_class()));
             if (message.second.should_refresh)
                 do_refresh(message.second, message_box);
             else if (message.second.use_in_game_coordinates)
@@ -318,7 +322,7 @@ app::MessageBox* get_message_box(RandoMessage& message) {
     if (!il2cpp::unity::is_valid(message.obj) || message.recreate)
         return nullptr;
 
-    return reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(message.obj, "", "MessageBox"));
+    return reinterpret_cast<app::MessageBox*>(il2cpp::unity::get_component_in_children(message.obj, types::MessageBox::get_class()));
 }
 
 app::GameObject* text_box_get_go(int id) {

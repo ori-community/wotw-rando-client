@@ -24,6 +24,8 @@
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UpgradableShardItem.h>
 #include <Modloader/app/types/SpiritShardSettings.h>
+#include <Modloader/app/types/Renderer.h>
+#include <Modloader/app/types/MessageBox.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 
@@ -163,7 +165,7 @@ namespace {
             type = app::SpiritShardType__Enum::None;
 
         if (settings != nullptr) {
-            auto* const renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, "UnityEngine", "Renderer");
+            auto* const renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
             if (overwrite_shard) {
                 auto texture = shops::get_icon(shops::ShopType::Twillen, item);
                 texture->apply(renderer);
@@ -183,11 +185,8 @@ namespace {
                 it->second->apply(renderer);
             }
 
-            auto message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.NameGO, "", "MessageBox");
-            auto* const name_box = message_box_components[0];
-
-            message_box_components = il2cpp::unity::get_components<app::MessageBox>(this_ptr->fields.DescriptionGO, "", "MessageBox");
-            auto* const description_box = message_box_components[0];
+            auto* const name_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.NameGO, types::MessageBox::get_class());
+            auto* const description_box = il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.DescriptionGO, types::MessageBox::get_class());
 
             if (overwrite_shard) {
                 name_box->fields.MessageProvider = name_provider;
@@ -246,9 +245,7 @@ namespace {
     bool not_found = false;
     IL2CPP_INTERCEPT(SpiritShardUIItem, void, UpdateShardIcon, (app::SpiritShardUIItem * this_ptr)) {
         if (shops::is_in_shop(shops::ShopType::Twillen)) {
-            auto renderer = il2cpp::unity::get_components<app::Renderer>(
-                    this_ptr->fields.IconGO, "UnityEngine", "Renderer"
-            )[0];
+            auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
             auto shard = this_ptr->fields.m_spiritShard != nullptr ? this_ptr->fields.m_spiritShard->fields.m_type : app::SpiritShardType__Enum::None;
             auto is_visible = this_ptr->fields.m_spiritShard != nullptr && Moon::uberSerializationWisp::PlayerUberStateShards_Shard::get_VisibleInShop(this_ptr->fields.m_spiritShard);
             auto is_locked = this_ptr->fields.m_spiritShard == nullptr || !Moon::uberSerializationWisp::PlayerUberStateShards_Shard::get_PurchasableInShop(this_ptr->fields.m_spiritShard);
@@ -260,9 +257,7 @@ namespace {
 
             texture->apply(renderer);
         } else {
-            auto renderer = il2cpp::unity::get_components<app::Renderer>(
-                    this_ptr->fields.IconGO, "UnityEngine", "Renderer"
-            )[0];
+            auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.IconGO, types::Renderer::get_class());
             core::textures::apply_default(renderer);
             next::SpiritShardUIItem::UpdateShardIcon(this_ptr);
         }
@@ -283,8 +278,8 @@ namespace {
             auto purchasable = Moon::uberSerializationWisp::PlayerUberStateShards_Shard::get_PurchasableInShop(shard);
 
             auto affordable = get_experience() >= cost;
-            auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.IconGO, "UnityEngine", "Renderer");
-            auto background_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.Background, "UnityEngine", "Renderer");
+            auto renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.IconGO, types::Renderer::get_class());
+            auto background_renderer = il2cpp::unity::get_component<app::Renderer>(this_ptr->fields.Shard->fields.Background, types::Renderer::get_class());
             if (purchasable && affordable && !owned) {
                 UberShaderAPI::SetColor_1(renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.PurchasableColor);
                 UberShaderAPI::SetColor_1(background_renderer, app::UberShaderProperty_Color__Enum::MainColor, this_ptr->fields.PurchasableColor);
@@ -299,7 +294,7 @@ namespace {
             app::MessageDescriptor descriptor = { 0 };
             descriptor.Message = il2cpp::string_new(std::to_string(cost));
             auto empty = il2cpp::string_new("");
-            MessageBox::SetMessage(il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.CostGO, "", "MessageBox"), descriptor, empty, empty);
+            MessageBox::SetMessage(il2cpp::unity::get_component<app::MessageBox>(this_ptr->fields.CostGO, types::MessageBox::get_class()), descriptor, empty, empty);
 
             auto enabled = purchasable && !owned && affordable;
             GameObject::SetActive(this_ptr->fields.PurchasableGO, visible && enabled);

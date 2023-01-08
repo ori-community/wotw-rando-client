@@ -5,6 +5,7 @@
 #include <Modloader/app/methods/UnityEngine/Material.h>
 #include <Modloader/app/methods/UnityEngine/Shader.h>
 #include <Modloader/app/types/Material.h>
+#include <Modloader/app/types/Renderer.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/il2cpp_math.h>
 
@@ -20,7 +21,7 @@ namespace core::shaders {
     }
 
     void duplicate_materials(app::GameObject* go) {
-        auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(go, "UnityEngine", "Renderer");
+        auto renderers = il2cpp::unity::get_components_in_children<app::Renderer>(go, types::Renderer::get_class());
         for (auto renderer : renderers) {
             auto mat = UberShaderAPI::GetEditableMaterial(renderer);
             il2cpp::invoke(renderer, "set_sharedMaterial", core::shaders::copy_material(mat));

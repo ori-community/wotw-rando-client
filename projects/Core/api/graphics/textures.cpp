@@ -14,6 +14,7 @@
 #include <Modloader/app/types/Texture.h>
 #include <Modloader/app/types/Texture2D.h>
 #include <Modloader/app/types/WeaponmasterScreen.h>
+#include <Modloader/app/types/SpiritShardUIShardBackdrop.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/windows_api/console.h>
@@ -211,7 +212,7 @@ namespace core::textures {
         il2cpp::invoke(texture_holder, "set_name", il2cpp::string_new("TextureHolder"));
         game::add_to_container(game::RandoContainer::Randomizer, texture_holder);
         // TODO: Use UberShaderPrefabWarmer if we can figure out how to instantiate the List<Texture> class.
-        auto holder = il2cpp::unity::add_component<app::SpiritShardUIShardBackdrop>(texture_holder, "", "SpiritShardUIShardBackdrop");
+        auto holder = il2cpp::unity::add_component<app::SpiritShardUIShardBackdrop>(texture_holder, types::SpiritShardUIShardBackdrop::get_class());
         il2cpp::invoke(holder, ".ctor");
         holder->fields.Socket_0 = types::Texture::create_array(HOLDER_SIZE);
         return texture_holder;
@@ -219,7 +220,7 @@ namespace core::textures {
 
     void dont_unload_texture(app::Texture* texture) {
         auto go = get_or_create_texture_holder();
-        auto holder = il2cpp::unity::get_component<app::SpiritShardUIShardBackdrop>(go, "", "SpiritShardUIShardBackdrop");
+        auto holder = il2cpp::unity::get_component<app::SpiritShardUIShardBackdrop>(go, types::SpiritShardUIShardBackdrop::get_class());
         if (texture_count_0 >= HOLDER_SIZE)
             return;
 
@@ -228,7 +229,7 @@ namespace core::textures {
 
     void clear_holder() {
         auto go = get_or_create_texture_holder();
-        auto holder = il2cpp::unity::get_component<app::SpiritShardUIShardBackdrop>(go, "", "SpiritShardUIShardBackdrop");
+        auto holder = il2cpp::unity::get_component<app::SpiritShardUIShardBackdrop>(go, types::SpiritShardUIShardBackdrop::get_class());
         for (auto i = 0; i < HOLDER_SIZE; ++i)
             holder->fields.Socket_0->vector[i] = nullptr;
     }

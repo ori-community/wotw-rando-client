@@ -8,6 +8,7 @@
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/types/Scenes.h>
+#include <Modloader/app/types/SceneRoot.h>
 #include <Modloader/common.h>
 #include <Modloader/interception_macros.h>
 
@@ -272,7 +273,7 @@ namespace scenes {
 
     void on_load_spawn(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root) {
         if (state == app::SceneState__Enum::Loaded && scene_root != nullptr) {
-            auto root = il2cpp::unity::get_component<app::SceneRoot>(scene_root, "", "SceneRoot");
+            auto root = il2cpp::unity::get_component<app::SceneRoot>(scene_root, types::SceneRoot::get_class());
             initial_values_handle = il2cpp::gchandle_new(root->fields.MetaData->fields.InitialValuesWisp, false);
         }
     }

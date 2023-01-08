@@ -3,6 +3,7 @@
 
 #include "custom_cutscene_skips.h"
 #include <Modloader/app/methods/UnityEngine/Transform.h>
+#include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/common.h>
 #include <Core/utils/event_bus.h>
 #include <Core/api/scenes/scene_load.h>
@@ -46,7 +47,7 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(start_timeline_go)) {
-                wellspring_escape_start_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(start_timeline_go, "Moon.Timeline", "MoonTimeline"));
+                wellspring_escape_start_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(start_timeline_go, types::MoonTimeline::get_class()));
             }
 
             auto effect_timeline_go = il2cpp::unity::find_child(
@@ -60,7 +61,7 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(effect_timeline_go)) {
-                wellspring_escape_effect_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(effect_timeline_go, "Moon.Timeline", "MoonTimeline"));
+                wellspring_escape_effect_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(effect_timeline_go, types::MoonTimeline::get_class()));
             }
 
             kill_hitbox_transform.set_reference(

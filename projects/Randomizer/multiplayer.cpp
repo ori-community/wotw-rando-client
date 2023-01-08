@@ -17,6 +17,9 @@
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/types/AreaMapUI.h>
+#include <Modloader/app/types/Renderer.h>
+#include <Modloader/app/types/TextBox.h>
+#include <Modloader/app/types/AreaMapIcon.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/il2cpp_math.h>
@@ -82,9 +85,7 @@ namespace multiplayer {
             auto& dot = player.dots.emplace_back();
             dot.dot = reinterpret_cast<app::GameObject*>(Object::Instantiate_3(reinterpret_cast<app::Object_1*>(area_map->fields.TrailPrefab)));
             dot.transform = il2cpp::unity::get_transform(dot.dot);
-            dot.renderer = il2cpp::unity::get_components<app::Renderer>(
-                    il2cpp::unity::get_children(dot.dot)[0], "UnityEngine", "Renderer"
-            )[0];
+            dot.renderer = il2cpp::unity::get_component<app::Renderer>(il2cpp::unity::get_children(dot.dot)[0], types::Renderer::get_class());
             il2cpp::unity::set_active(dot.dot, player.map_avatar.visible);
             app::Vector3 pos{ player.map_avatar.position.x, player.map_avatar.position.y, 0.0f };
             IconPlacementScaler::PlaceIcon(area_map->fields._IconScaler_k__BackingField, dot.dot, pos, false);
@@ -145,7 +146,7 @@ namespace multiplayer {
     void set_avatar_active(PlayerInfo& info, PlayerInfo::Icon& icon, bool value) {
         il2cpp::unity::set_active(icon.root, value);
         if (value) {
-            auto text_box = il2cpp::unity::get_component<app::TextBox>(icon.text, "CatlikeCoding.TextBox", "TextBox");
+            auto text_box = il2cpp::unity::get_component<app::TextBox>(icon.text, types::TextBox::get_class());
             if (info.name_handle == 0)
                 info.name_handle = il2cpp::gchandle_new(il2cpp::string_new(info.name), false);
 
@@ -193,7 +194,7 @@ namespace multiplayer {
 
         il2cpp::invoke(icon.root, "set_name", il2cpp::string_new(info.id + postfix));
         il2cpp::unity::set_active(icon.text, true);
-        auto area_map_icon = il2cpp::unity::get_component(icon.root, "", "AreaMapIcon");
+        auto area_map_icon = il2cpp::unity::get_component(icon.root, types::AreaMapIcon::get_class());
         if (area_map_icon != nullptr)
             il2cpp::unity::destroy_object(area_map_icon);
 
@@ -217,7 +218,7 @@ namespace multiplayer {
         //     Transform::set_position(transform, pos);
         //     utils::set_color(info.world_avatar.icon, info.color);
         //
-        //     auto text_box = il2cpp::unity::get_component<app::TextBox>(info.world_avatar.text, "CatlikeCoding.TextBox", "TextBox");
+        //     auto text_box = il2cpp::unity::get_component<app::TextBox>(info.world_avatar.text, types::TextBox::get_class());
         //     text_box->fields.color = { 1.f, 1.f, 1.f, 1.f };
         //
         //     pos = { 0.f, SPRITE_OFFSET, 0.f };

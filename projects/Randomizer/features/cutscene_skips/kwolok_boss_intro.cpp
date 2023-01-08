@@ -3,6 +3,7 @@
 
 #include "custom_cutscene_skips.h"
 #include <Modloader/app/methods/GameController.h>
+#include <Modloader/app/types/MoonTimeline.h>
 #include <Modloader/common.h>
 #include <Core/utils/event_bus.h>
 #include <Core/api/scenes/scene_load.h>
@@ -33,7 +34,7 @@ namespace {
             );
 
             if (il2cpp::unity::is_valid(timeline_go)) {
-                kwolok_boss_intro_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, "Moon.Timeline", "MoonTimeline"));
+                kwolok_boss_intro_timeline.set_reference(il2cpp::unity::get_component<app::MoonTimeline>(timeline_go, types::MoonTimeline::get_class()));
             }
 
         }

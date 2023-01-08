@@ -32,6 +32,10 @@
 #include <Modloader/app/types/GhostCharacterPlugin.h>
 #include <Modloader/app/types/GhostRecorderData.h>
 #include <Modloader/app/types/Byte.h>
+#include <Modloader/app/types/GhostPlayer.h>
+#include <Modloader/app/types/MoonAnimator.h>
+#include <Modloader/app/types/SkinnedMeshRenderer.h>
+#include <Modloader/app/types/MeshRenderer.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <constants.h>
 #include <Core/api/game/game.h>
@@ -136,7 +140,7 @@ namespace ghosts {
         }
 
         auto ghost_go = il2cpp::unity::instantiate_object(ghost_manager->fields.GhostPrefab);
-        this->ghost_player = il2cpp::unity::get_component<app::GhostPlayer>(ghost_go, "", "GhostPlayer");
+        this->ghost_player = il2cpp::unity::get_component<app::GhostPlayer>(ghost_go, types::GhostPlayer::get_class());
 
         UnityEngine::GameObject::set_tag(ghost_go, il2cpp::string_new(RANDO_GHOST_TAG));
 
@@ -168,7 +172,7 @@ namespace ghosts {
         il2cpp::unity::set_active(ghost_trail, false);
 
         auto ori_rig = il2cpp::unity::find_child(this->ghost_player->fields.m_oriRig, std::vector<std::string_view>{ "mirrorHolder", "rigHolder", "oriRig" });
-        auto ori_rig_animator = il2cpp::unity::get_component<app::MoonAnimator>(ori_rig, "Moon", "MoonAnimator");
+        auto ori_rig_animator = il2cpp::unity::get_component<app::MoonAnimator>(ori_rig, types::MoonAnimator::get_class());
 
         Moon::SuspensionManager::Unregister(reinterpret_cast<app::ISuspendable*>(ori_rig_animator));
 
@@ -280,11 +284,11 @@ namespace ghosts {
                 std::vector<std::string_view>{ "mirrorHolder", "rigHolder", "oriRig", "trails", "trail" }
         );
 
-        auto emissivity_mesh_renderer = il2cpp::unity::get_component<app::SkinnedMeshRenderer>(emissivity_model_go, "UnityEngine", "SkinnedMeshRenderer");
+        auto emissivity_mesh_renderer = il2cpp::unity::get_component<app::SkinnedMeshRenderer>(emissivity_model_go, types::SkinnedMeshRenderer::get_class());
         auto emissivity_material = UnityEngine::Renderer::GetMaterial(reinterpret_cast<app::Renderer*>(emissivity_mesh_renderer));
         UnityEngine::Material::SetColor_1(emissivity_material, il2cpp::string_new("_EmissivityColor"), color_emissivity);
 
-        auto trail_renderer = il2cpp::unity::get_component<app::MeshRenderer>(trail_go, "UnityEngine", "MeshRenderer");
+        auto trail_renderer = il2cpp::unity::get_component<app::MeshRenderer>(trail_go, types::MeshRenderer::get_class());
         auto trail_material = UnityEngine::Renderer::GetMaterial(reinterpret_cast<app::Renderer*>(trail_renderer));
         UnityEngine::Material::SetColor_1(trail_material, il2cpp::string_new("_Color"), color_trail);
         UnityEngine::Material::SetColor_1(trail_material, il2cpp::string_new("_EmissivityColor"), color_trail);

@@ -13,6 +13,8 @@
 #include <app/methods/UnityEngine/SceneManagement/SceneManager.h>
 #include <app/methods/UnityEngine/ScriptableObject.h>
 #include <app/methods/UnityEngine/Transform.h>
+#include <app/types/GameObject.h>
+#include <app/types/Component_1.h>
 #include <app/types/Quaternion.h>
 
 #include <Common/ext.h>
@@ -26,6 +28,16 @@ using namespace modloader::win;
 using namespace app::classes;
 
 namespace il2cpp {
+    namespace internal {
+        Il2CppClass* get_game_object_class() {
+            return reinterpret_cast<Il2CppClass*>(types::GameObject::get_class());
+        }
+
+        Il2CppClass* get_component_class() {
+            return reinterpret_cast<Il2CppClass*>(types::Component_1::get_class());
+        }
+    }
+
     namespace {
         std::unordered_map<std::string, Il2CppClass*> resolved_classes;
         std::unordered_map<Il2CppClass*, std::vector<MethodOverloadInfo>> resolved_klass_overloads;
@@ -339,44 +351,31 @@ namespace il2cpp {
             return UnityEngine::Object::op_Inequality(reinterpret_cast<app::Object_1*>(o1), reinterpret_cast<app::Object_1*>(o2));
         }
 
-        std::vector<app::Component_1*> get_components_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name) {
+        std::vector<app::Component_1*> get_components_untyped(app::GameObject* game_object, Il2CppClass* klass) {
             std::vector<app::Component_1*> components;
-            auto qualified = get_qualified(namezpace, name);
-            auto type_str = il2cpp::string_new(qualified);
-            auto runtime_type = System::Type::GetType_6(type_str, false);
-            auto c_array = UnityEngine::GameObject::GetComponents_1(game_object, runtime_type);
+            auto c_array = UnityEngine::GameObject::GetComponents_1(game_object, get_runtime_type(klass));
             for (auto i = 0; i < c_array->max_length; ++i)
                 components.push_back(reinterpret_cast<app::Component_1*>(c_array->vector[i]));
 
             return components;
         }
 
-        std::vector<app::Component_1*> get_components_in_children_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name) {
+        std::vector<app::Component_1*> get_components_in_children_untyped(app::GameObject* game_object, Il2CppClass* klass) {
             std::vector<app::Component_1*> components;
-            auto qualified = get_qualified(namezpace, name);
-            auto type_str = il2cpp::string_new(qualified);
-            auto runtime_type = System::Type::GetType_6(type_str, false);
-            auto c_array = UnityEngine::GameObject::GetComponentsInChildren_1(game_object, runtime_type);
+            auto c_array = UnityEngine::GameObject::GetComponentsInChildren_1(game_object, get_runtime_type(klass));
             for (auto i = 0; i < c_array->max_length; ++i)
                 components.push_back(reinterpret_cast<app::Component_1*>(c_array->vector[i]));
 
             return components;
         }
 
-        app::Component_1* get_component_in_children_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name) {
-            auto qualified = get_qualified(namezpace, name);
-            auto type_str = il2cpp::string_new(qualified);
-            auto runtime_type = System::Type::GetType_6(type_str, false);
-            return reinterpret_cast<app::Component_1*>(UnityEngine::GameObject::GetComponentInChildren_2(game_object, runtime_type));
+        app::Component_1* get_component_in_children_untyped(app::GameObject* game_object, Il2CppClass* klass) {
+            return reinterpret_cast<app::Component_1*>(UnityEngine::GameObject::GetComponentInChildren_2(game_object, get_runtime_type(klass)));
         }
 
         app::ScriptableObject* create_scriptable_object_untyped(Il2CppClass* klass) {
             if (!resolved_class_types.contains(klass)) {
-                auto type = il2cpp_class_get_type(klass);
-                auto qualified = il2cpp_type_get_assembly_qualified_name(type);
-                auto type_str = il2cpp::string_new(qualified);
-                auto runtime_type = System::Type::GetType_6(type_str, false);
-                resolved_class_types[klass] = runtime_type;
+                resolved_class_types[klass] = get_runtime_type(klass);
             }
 
             return UnityEngine::ScriptableObject::CreateInstance_1(resolved_class_types[klass]);
@@ -394,11 +393,8 @@ namespace il2cpp {
             return convert(component);
         }
 
-        app::Component_1* add_component_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name) {
-            auto qualified = get_qualified(namezpace, name);
-            auto type_str = il2cpp::string_new(qualified);
-            auto runtime_type = System::Type::GetType_6(type_str, false);
-            return UnityEngine::GameObject::AddComponent_1(game_object, runtime_type);
+        app::Component_1* add_component_untyped(app::GameObject* game_object, Il2CppClass* klass) {
+            return UnityEngine::GameObject::AddComponent_1(game_object, get_runtime_type(klass));
         }
 
         std::string get_object_name(void* object) {
@@ -939,5 +935,25 @@ namespace il2cpp {
 
     std::string convert_csstring_fast(app::String* str) {
         return convert_csstring_fast(reinterpret_cast<Il2CppString*>(str));
+    }
+
+    const Il2CppType* get_type(Il2CppClass* klass) {
+        return il2cpp_class_get_type(klass);
+    }
+
+    const Il2CppType* get_type(void* klass) {
+        return get_type(reinterpret_cast<Il2CppClass*>(klass));
+    }
+
+    app::Type* get_runtime_type(const Il2CppType* type) {
+        return System::Type::internal_from_handle((void*)type);
+    }
+
+    app::Type* get_runtime_type(Il2CppClass* klass) {
+        return get_runtime_type(get_type(klass));
+    }
+
+    app::Type* get_runtime_type(void* klass) {
+        return get_runtime_type(get_type(klass));
     }
 } // namespace il2cpp

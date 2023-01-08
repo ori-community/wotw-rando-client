@@ -12,6 +12,7 @@
 #include <Modloader/app/methods/NewSetupStateController.h>
 #include <Modloader/app/types/PlayerStateMap.h>
 #include <Modloader/app/types/PlayerStateMap_Mapping.h>
+#include <Modloader/app/types/NewSetupStateController.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -147,7 +148,7 @@ namespace randomizer {
                 if (game_object == nullptr)
                     return;
 
-                auto nssc = il2cpp::unity::get_component(game_object, "", "NewSetupStateController");
+                auto nssc = il2cpp::unity::get_component(game_object, types::NewSetupStateController::get_class());
                 if (nssc == nullptr)
                     return;
 
@@ -162,7 +163,7 @@ namespace randomizer {
                 while (!roots.empty()) {
                     auto go = roots.back();
                     roots.pop_back();
-                    auto nssc = il2cpp::unity::get_component(go, "", "NewSetupStateController");
+                    auto nssc = il2cpp::unity::get_component(go, types::NewSetupStateController::get_class());
                     if (nssc != nullptr)
                         console::console_send(il2cpp::unity::get_path(go));
 

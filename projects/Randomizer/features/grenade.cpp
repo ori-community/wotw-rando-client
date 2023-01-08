@@ -48,7 +48,7 @@ namespace {
     // IL2CPP_BINDING(UnityEngine, Collision, app::GameObject*, get_gameObject, (app::Collision* this_ptr))
     // IL2CPP_INTERCEPT(, SpiritGrenade, void, OnCollisionEnter, (app::SpiritGrenade* this_ptr, app::Collision* collision)) {
     //     auto* go = Collision::get_gameObject(collision);
-    //     auto grenades = il2cpp::unity::get_components(go, "", "SpiritGrenade");
+    //     auto grenades = il2cpp::unity::get_components(go, types::SpiritGrenade::get_class());
     //     if (!grenades.empty())
     //         return;
     //
@@ -56,7 +56,7 @@ namespace {
     // }
     //
     // IL2CPP_INTERCEPT(, SpiritGrenade, bool, ShouldDealDamage, (app::SpiritGrenade* this_ptr, app::GameObject* go)) {
-    //     auto grenades = il2cpp::unity::get_components(go, "", "SpiritGrenade");
+    //     auto grenades = il2cpp::unity::get_components(go, types::SpiritGrenade::get_class());
     //     if (grenades.empty())
     //         return false;
     //

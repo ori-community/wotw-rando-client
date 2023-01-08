@@ -20,6 +20,11 @@ namespace il2cpp {
         Il2CppClass* klass;
     };
 
+    namespace internal {
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppClass* get_game_object_class();
+        IL2CPP_MODLOADER_DLLEXPORT Il2CppClass* get_component_class();
+    }
+
     namespace untyped {
         IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* create_object(std::string_view namezpace, std::string_view klass, std::string_view nested);
         IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* create_object(std::string_view namezpace, std::string_view name);
@@ -38,7 +43,7 @@ namespace il2cpp {
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring_fast(app::String* str);
     IL2CPP_MODLOADER_DLLEXPORT gchandle gchandle_new(void* obj, bool pinned = false);
-    IL2CPP_MODLOADER_DLLEXPORT gchandle gchandle_new_weak(void* obj, bool track_ressurection);
+    IL2CPP_MODLOADER_DLLEXPORT gchandle gchandle_new_weak(void* obj, bool track_resurrection);
     IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* gchandle_target(gchandle handle);
     IL2CPP_MODLOADER_DLLEXPORT void gchandle_free(gchandle handle);
 
@@ -50,6 +55,13 @@ namespace il2cpp {
     IL2CPP_MODLOADER_DLLEXPORT MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<KlassDescriptor> const& params);
 
     IL2CPP_MODLOADER_DLLEXPORT void free_obj(void* obj);
+
+    IL2CPP_MODLOADER_DLLEXPORT const Il2CppType* get_type(Il2CppClass* klass);
+    IL2CPP_MODLOADER_DLLEXPORT const Il2CppType* get_type(void* klass);
+
+    IL2CPP_MODLOADER_DLLEXPORT app::Type* get_runtime_type(const Il2CppType* type);
+    IL2CPP_MODLOADER_DLLEXPORT app::Type* get_runtime_type(Il2CppClass* klass);
+    IL2CPP_MODLOADER_DLLEXPORT app::Type* get_runtime_type(void* klass);
 
     IL2CPP_MODLOADER_DLLEXPORT app::String* string_new(std::string_view str);
     IL2CPP_MODLOADER_DLLEXPORT app::String* string_new(std::string_view str, uint32_t len);
@@ -107,9 +119,9 @@ namespace il2cpp {
         IL2CPP_MODLOADER_DLLEXPORT void set_parent(void* child, void* parent, bool keep_local = false);
         IL2CPP_MODLOADER_DLLEXPORT app::Transform* get_transform(void* object);
         IL2CPP_MODLOADER_DLLEXPORT app::GameObject* get_game_object(void* component);
-        IL2CPP_MODLOADER_DLLEXPORT app::Component_1* add_component_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
-        IL2CPP_MODLOADER_DLLEXPORT app::Component_1* get_component_in_children_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
-        IL2CPP_MODLOADER_DLLEXPORT std::vector<app::Component_1*> get_components_in_children_untyped(app::GameObject* game_object, std::string_view namezpace, std::string_view name);
+        IL2CPP_MODLOADER_DLLEXPORT app::Component_1* add_component_untyped(app::GameObject* game_object, Il2CppClass* klass);
+        IL2CPP_MODLOADER_DLLEXPORT app::Component_1* get_component_in_children_untyped(app::GameObject* game_object, Il2CppClass* klass);
+        IL2CPP_MODLOADER_DLLEXPORT std::vector<app::Component_1*> get_components_in_children_untyped(app::GameObject* game_object, Il2CppClass* klass);
         IL2CPP_MODLOADER_DLLEXPORT std::string get_path(void* object);
         IL2CPP_MODLOADER_DLLEXPORT std::vector<std::string> get_path_v(void* object);
 
@@ -136,7 +148,7 @@ namespace il2cpp {
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> find_children(void* obj, std::string_view name);
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> find_children(void* obj, std::vector<std::string_view> const& path);
         IL2CPP_MODLOADER_DLLEXPORT std::vector<app::GameObject*> find_children(void* obj, std::vector<std::string> const& path);
-        IL2CPP_MODLOADER_DLLEXPORT std::vector<app::Component_1*> get_components_untyped(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component");
+        IL2CPP_MODLOADER_DLLEXPORT std::vector<app::Component_1*> get_components_untyped(app::GameObject* game_object, Il2CppClass* klass);
         IL2CPP_MODLOADER_DLLEXPORT int32_t get_scene_count();
         IL2CPP_MODLOADER_DLLEXPORT app::Scene get_scene_at(int32_t i);
         IL2CPP_MODLOADER_DLLEXPORT app::Scene get_active_scene();
@@ -154,13 +166,18 @@ namespace il2cpp {
         }
 
         template <typename Return = app::Component_1>
-        Return* add_component(app::GameObject* game_object, std::string_view namezpace, std::string_view name) {
-            return reinterpret_cast<Return*>(add_component_untyped(game_object, namezpace, name));
+        Return* add_component(app::GameObject* game_object, Il2CppClass* klass) {
+            return reinterpret_cast<Return*>(add_component_untyped(game_object, klass));
         }
 
         template <typename Return = app::Component_1>
-        std::vector<Return*> get_components(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component") {
-            auto components = get_components_untyped(game_object, namezpace, name);
+        Return* add_component(app::GameObject* game_object, void* klass) {
+            return add_component<Return>(game_object, reinterpret_cast<Il2CppClass*>(klass));
+        }
+
+        template <typename Return = app::Component_1>
+        std::vector<Return*> get_components(app::GameObject* game_object, Il2CppClass* klass) {
+            auto components = get_components_untyped(game_object, klass);
             std::vector<Return*> output;
             for (auto component : components)
                 output.push_back(reinterpret_cast<Return*>(component));
@@ -169,52 +186,71 @@ namespace il2cpp {
         }
 
         template <typename Return = app::Component_1>
-        Return* get_component(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component") {
-            auto components = get_components_untyped(game_object, namezpace, name);
+        Return* get_component(app::GameObject* game_object, Il2CppClass* klass) {
+            auto components = get_components_untyped(game_object, klass);
             return components.size() > 0 ? reinterpret_cast<Return*>(components.front()) : nullptr;
         }
 
         template <typename Return = app::Component_1>
-        std::vector<Return*> get_components(void* obj, std::string_view namezpace = "UnityEngine", std::string_view name = "Component") {
+        std::vector<Return*> get_components(void* obj, Il2CppClass* klass = nullptr) {
+            if (klass == nullptr) {
+                klass = internal::get_component_class();
+            }
+
             Il2CppObject* il2cpp_object = reinterpret_cast<Il2CppObject*>(obj);
-            if (is_assignable(il2cpp_object, "UnityEngine", "GameObject"))
-                return get_components<Return>(obj, namezpace, name);
-            else if (is_assignable(il2cpp_object, "UnityEngine", "Component"))
-                return get_components<Return>(get_game_object(obj), namezpace, name);
+            if (is_assignable(il2cpp_object, internal::get_game_object_class()))
+                return get_components<Return>(reinterpret_cast<app::GameObject*>(obj), klass);
+            else if (is_assignable(il2cpp_object, internal::get_component_class()))
+                return get_components<Return>(get_game_object(obj), klass);
             else
                 return {};
         }
 
         template <typename Return = app::Component_1>
-        Return* get_component(void* obj, std::string_view namezpace = "UnityEngine", std::string_view name = "Component") {
+        Return* get_component(void* obj, Il2CppClass* klass) {
             Il2CppObject* il2cpp_object = reinterpret_cast<Il2CppObject*>(obj);
-            if (is_assignable(il2cpp_object, "UnityEngine", "GameObject"))
-                return get_component<Return>(obj, namezpace, name);
-            else if (is_assignable(il2cpp_object, "UnityEngine", "Component"))
-                return get_component<Return>(get_game_object(obj), namezpace, name);
+            if (is_assignable(il2cpp_object, internal::get_game_object_class()))
+                return get_component<Return>(reinterpret_cast<app::GameObject*>(obj), klass);
+            else if (is_assignable(il2cpp_object, internal::get_component_class()))
+                return get_component<Return>(get_game_object(obj), klass);
             else
                 return nullptr;
         }
 
         template <typename Return = app::Component_1>
-        Return* get_component_in_children(app::GameObject* game_object, std::string_view namezpace = "UnityEngine", std::string_view name = "Component") {
-            return reinterpret_cast<Return*>(get_component_in_children_untyped(game_object, namezpace, name));
+        Return* get_component(void* obj, void* klass) {
+            return get_component<Return>(obj, reinterpret_cast<Il2CppClass*>(klass));
         }
 
         template <typename Return = app::Component_1>
-        std::vector<Return*> get_components_in_children(void* obj, std::string_view namezpace = "UnityEngine", std::string_view name = "Component") {
+        Return* get_component_in_children(app::GameObject* game_object, Il2CppClass* klass) {
+            return reinterpret_cast<Return*>(get_component_in_children_untyped(game_object, klass));
+        }
+
+        template <typename Return = app::Component_1>
+        Return* get_component_in_children(app::GameObject* game_object, void* klass) {
+            return get_component_in_children<Return>(game_object, reinterpret_cast<Il2CppClass*>(klass));
+        }
+
+        template <typename Return = app::Component_1>
+        std::vector<Return*> get_components_in_children(void* obj, Il2CppClass* klass) {
             Il2CppObject* il2cpp_object = reinterpret_cast<Il2CppObject*>(obj);
-            if (is_assignable(il2cpp_object, "UnityEngine", "GameObject")) {
-                auto components = get_components_in_children_untyped(reinterpret_cast<app::GameObject*>(obj), namezpace, name);
+            if (is_assignable(il2cpp_object, internal::get_game_object_class())) {
+                auto components = get_components_in_children_untyped(reinterpret_cast<app::GameObject*>(obj), klass);
                 std::vector<Return*> output;
                 for (auto component : components)
                     output.push_back(reinterpret_cast<Return*>(component));
 
                 return output;
-            } else if (is_assignable(il2cpp_object, "UnityEngine", "Component"))
-                return get_components_in_children<Return>(get_game_object(obj), namezpace, name);
+            } else if (is_assignable(il2cpp_object, internal::get_component_class()))
+                return get_components_in_children<Return>(get_game_object(obj), klass);
             else
                 return {};
+        }
+
+        template <typename Return = app::Component_1>
+        std::vector<Return*> get_components_in_children(void* obj, void* klass) {
+            return get_components_in_children<Return>(obj, reinterpret_cast<Il2CppClass*>(klass));
         }
 
         template <typename Return = app::ScriptableObject, typename Clazz = Il2CppClass>
@@ -253,12 +289,17 @@ namespace il2cpp {
 
     // Templates
 
-    template <typename TObject>
-    TObject* safe_il2cpp_cast(void* obj, std::string_view namezpace, std::string_view name) {
-        if (!is_assignable(obj, namezpace, name))
+    template <typename Return>
+    Return* safe_il2cpp_cast(void* obj, Il2CppClass* klass) {
+        if (!is_assignable(obj, klass))
             return nullptr;
 
-        return reinterpret_cast<TObject*>(obj);
+        return reinterpret_cast<Return*>(obj);
+    }
+
+    template <typename Return>
+    Return* safe_il2cpp_cast(void* obj, void* klass) {
+        return safe_il2cpp_cast<Return>(obj, klass);
     }
 
     template <typename T>
