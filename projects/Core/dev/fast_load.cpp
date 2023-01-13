@@ -2,9 +2,7 @@
 ///  zre's fast loader, only use in dev env  ///
 ////////////////////////////////////////////////
 
-#define ENABLE_FAST_LOAD false
-
-#if ENABLE_FAST_LOAD
+#ifdef ENABLE_FAST_LOAD
 
 #include <Modloader/app/methods/Frameworks/loading/Prewarmers/AtlasPrewarmOperation.h>
 #include <Modloader/app/methods/Frameworks/loading/Prewarmers/LoadIntroLogosPrewarmOperation.h>
