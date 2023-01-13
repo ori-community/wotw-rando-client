@@ -52,11 +52,13 @@ namespace randomizer::online_indicator {
                     il2cpp::unity::destroy_object(il2cpp::unity::find_child(online_ui_go, "onlineHint"));
                     il2cpp::unity::destroy_object(il2cpp::unity::find_child(online_ui_go, "offlineHint"));
 
+                    /*
                     auto handle_textbox_go = il2cpp::unity::find_child(online_ui_go, "handle");
                     handle_textbox = il2cpp::unity::get_component<app::TextBox>(handle_textbox_go, types::TextBox::get_class());
 
                     auto online_status_textbox_go = il2cpp::unity::find_child(online_ui_go, std::vector<std::string>{"onlineStatus", "onlineStatus"});
                     online_status_textbox = il2cpp::unity::get_component<app::TextBox>(online_status_textbox_go, types::TextBox::get_class());
+                    */
 
                     is_in_main_menu = true;
                     break;
