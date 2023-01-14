@@ -1,36 +1,30 @@
+#include <input/controller_bindings.h>
+#include <input/helpers.h>
+
 #include <Core/enums/actions.h>
 #include <Core/enums/buttons.h>
-#include <randomizer/input/controller_bindings.h>
-#include <randomizer/input/helpers.h>
-#include <randomizer/input/rando_bindings.h>
-
-#include <constants.h>
 
 #include <Modloader/app/methods/PlayerInput.h>
 #include <Modloader/app/methods/SmartInput/AxisButtonInput.h>
-#include <Modloader/app/methods/SmartInput/CachedInput_1_System_Boolean_.h>
-#include <Modloader/app/methods/SmartInput/CachedInput_1_System_Single_.h>
 #include <Modloader/app/methods/SmartInput/CompoundAxisInput.h>
 #include <Modloader/app/methods/SmartInput/CompoundButtonInput.h>
 #include <Modloader/app/methods/SmartInput/ControllerAxisInput.h>
 #include <Modloader/app/methods/SmartInput/ControllerButtonInput.h>
+#include <Modloader/app/structs/Boolean__Boxed.h>
 #include <Modloader/app/types/AxisButtonInput.h>
 #include <Modloader/app/types/ControllerAxisInput.h>
 #include <Modloader/app/types/ControllerButtonInput.h>
 #include <Modloader/app/types/PlayerInputRebinding.h>
-#include <Modloader/app/structs/Boolean__Boxed.h>
-#include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 
-#include <Common/ext.h>
 #include <algorithm>
+#include <magic_enum.hpp>
+#include <nlohmann/json.hpp>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-
-#include <magic_enum.hpp>
-#include <nlohmann/json.hpp>
 
 using namespace modloader;
 using namespace app::classes;
@@ -215,14 +209,14 @@ namespace randomizer::input {
         auto& entries = bindings[action];
         for (auto const& buttons : entries) {
             if (
-                    std::all_of(buttons.begin(), buttons.end(), [](ControllerButton button) {
-                        auto input = il2cpp::gchandle_target(buttons_map[button]);
-                        if (input != nullptr) {
-                            return il2cpp::invoke<app::Boolean__Boxed>(input, "GetValue")->fields;
-                        }
+                std::all_of(buttons.begin(), buttons.end(), [](ControllerButton button) {
+                    auto input = il2cpp::gchandle_target(buttons_map[button]);
+                    if (input != nullptr) {
+                        return il2cpp::invoke<app::Boolean__Boxed>(input, "GetValue")->fields;
+                    }
 
-                        return false;
-                    })
+                    return false;
+                })
             ) {
                 return true;
             }

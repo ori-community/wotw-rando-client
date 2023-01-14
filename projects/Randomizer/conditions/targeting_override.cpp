@@ -1,13 +1,13 @@
-#include <randomizer/conditions/targeting_override.h>
+#include <conditions/targeting_override.h>
 
 #include <Common/ext.h>
 
 #include <Modloader/app/methods/EntityTargetting.h>
-#include <Modloader/common.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 
-#include <Modloader/app/structs/IAttackable.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/IAttackable.h>
 
 #include <optional>
 #include <unordered_map>
@@ -32,9 +32,9 @@ namespace randomizer::conditions {
             switch (type) {
                 case app::AbilityType__Enum::TurretSpell:
                     return &et->fields.SpiritSentryTarget;
+                default:
+                    return nullptr;
             }
-
-            return nullptr;
         }
 
         void refresh_values(app::EntityTargetting* et) {
@@ -73,15 +73,7 @@ namespace randomizer::conditions {
             return next::EntityTargetting::OnUpdate(this_ptr, dt);
         }
 
-        bool targetable(void* attacker, app::IAttackable* attackable, std::string const& path) {
-            return true;
-        }
-        bool untargetable(void* attacker, app::IAttackable* attackable, std::string const& path) {
-            return false;
-        }
-
-        void initialize() {
-            // TODO: Add all the wellspring corruption blobs.
+        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             register_targetable("waterMillPool__clone0/interactives/wheelASetup/shootableTentacleCreepA/creep", app::AbilityType__Enum::TurretSpell, true);
             register_targetable("waterMillPool__clone0/interactives/wheelASetup/shootableTentacleCreepB/creep", app::AbilityType__Enum::TurretSpell, true);
             register_targetable("waterMillAExit/interactives/fastWheelsSetup/shootableTentacleCreepC/creep", app::AbilityType__Enum::TurretSpell, true);
@@ -91,9 +83,7 @@ namespace randomizer::conditions {
             register_targetable("waterMillBEntrance/art/flattened/BigCell12/activationSetup/shootableTentacleCreepF/creep", app::AbilityType__Enum::TurretSpell, true);
             register_targetable("waterMillEntrance/interactives/fallingDiscSetup/shootableTentacleCreepH/creep", app::AbilityType__Enum::TurretSpell, true);
             register_targetable("waterMillEntrance/interactives/doorStateController/shootableTentacleCreepG/creep", app::AbilityType__Enum::TurretSpell, true);
-        }
-
-        CALL_ON_INIT(initialize);
+        });
     } // namespace
 
     void register_targetable_intercept(std::string_view path, targetable_intercept intercept) {

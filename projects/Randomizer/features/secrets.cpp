@@ -1,8 +1,8 @@
+#include <Core/api/uber_states/uber_state.h>
 #include <Core/settings.h>
-#include <Core/uber_states/uber_state_interface.h>
 
-#include <Modloader/interception_macros.h>
 #include <Modloader/app/methods/PlayerSpiritShards.h>
+#include <Modloader/interception_macros.h>
 
 using namespace app::classes;
 

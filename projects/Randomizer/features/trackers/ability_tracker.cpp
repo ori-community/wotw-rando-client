@@ -1,77 +1,77 @@
 #include <Randomizer/macros.h>
 
-#include <Modloader/common.h>
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/SeinJump.h>
-#include <Modloader/app/methods/SeinDoubleJump.h>
-#include <Modloader/app/methods/SeinBashAttack.h>
-#include <Modloader/app/methods/SeinGlide.h>
-#include <Modloader/app/methods/Moon/MeleeComboMoveSwordCharge.h>
-#include <Modloader/app/methods/MeleeComboMoveSwordAirDown.h>
-#include <Modloader/app/methods/MeleeComboMoveSword.h>
-#include <Modloader/app/methods/MeleeComboMoveHammerSimple.h>
+#include <Core/api/uber_states/uber_state.h>
 #include <Modloader/app/methods/MeleeComboMoveHammer.h>
 #include <Modloader/app/methods/MeleeComboMoveHammerChargeable.h>
+#include <Modloader/app/methods/MeleeComboMoveHammerSimple.h>
 #include <Modloader/app/methods/MeleeComboMoveHammerStomp.h>
-#include <Modloader/app/methods/SeinSpiritSpearSpell.h>
-#include <Modloader/app/methods/SeinChakramSpell.h>
-#include <Modloader/app/methods/SeinGrenadeAttack.h>
-#include <Modloader/app/methods/SeinBowAttack.h>
+#include <Modloader/app/methods/MeleeComboMoveSword.h>
+#include <Modloader/app/methods/MeleeComboMoveSwordAirDown.h>
+#include <Modloader/app/methods/Moon/MeleeComboMoveSwordCharge.h>
+#include <Modloader/app/methods/SeinBashAttack.h>
 #include <Modloader/app/methods/SeinBlazeSpell.h>
-#include <Modloader/app/methods/SeinTurretSpell.h>
-#include <Modloader/app/methods/SeinGlowSpell.h>
+#include <Modloader/app/methods/SeinBowAttack.h>
+#include <Modloader/app/methods/SeinChakramSpell.h>
 #include <Modloader/app/methods/SeinChargeJump.h>
-#include <Modloader/app/methods/SeinWallJump.h>
 #include <Modloader/app/methods/SeinDashNew.h>
 #include <Modloader/app/methods/SeinDigging.h>
-#include <Modloader/app/methods/SeinSwimming.h>
+#include <Modloader/app/methods/SeinDoubleJump.h>
 #include <Modloader/app/methods/SeinFeatherFlap.h>
+#include <Modloader/app/methods/SeinGlide.h>
+#include <Modloader/app/methods/SeinGlowSpell.h>
+#include <Modloader/app/methods/SeinGrenadeAttack.h>
+#include <Modloader/app/methods/SeinJump.h>
 #include <Modloader/app/methods/SeinMeditateSpell.h>
-#include <Modloader/app/types/SeinFeatherFlap.h>
-#include <Modloader/app/types/SeinDigging.h>
-#include <Modloader/app/types/SeinDashNew.h>
-#include <Modloader/app/types/SeinChargeJump.h>
-#include <Modloader/app/types/SeinGlowSpell.h>
-#include <Modloader/app/types/SeinChakramSpell.h>
-#include <Modloader/app/types/SeinSpiritSpearSpell.h>
-#include <Modloader/app/types/MeleeComboMoveHammerStomp.h>
-#include <Modloader/app/types/MeleeComboMoveHammerChargeable.h>
+#include <Modloader/app/methods/SeinSpiritSpearSpell.h>
+#include <Modloader/app/methods/SeinSwimming.h>
+#include <Modloader/app/methods/SeinTurretSpell.h>
+#include <Modloader/app/methods/SeinWallJump.h>
 #include <Modloader/app/types/MeleeComboMoveHammer.h>
+#include <Modloader/app/types/MeleeComboMoveHammerChargeable.h>
 #include <Modloader/app/types/MeleeComboMoveHammerSimple.h>
+#include <Modloader/app/types/MeleeComboMoveHammerStomp.h>
 #include <Modloader/app/types/MeleeComboMoveSword.h>
 #include <Modloader/app/types/MeleeComboMoveSwordAirDown.h>
 #include <Modloader/app/types/MeleeComboMoveSwordCharge.h>
-#include <Modloader/app/types/SeinGlide.h>
 #include <Modloader/app/types/SeinBashAttack.h>
+#include <Modloader/app/types/SeinChakramSpell.h>
+#include <Modloader/app/types/SeinChargeJump.h>
+#include <Modloader/app/types/SeinDashNew.h>
+#include <Modloader/app/types/SeinDigging.h>
 #include <Modloader/app/types/SeinDoubleJump.h>
+#include <Modloader/app/types/SeinFeatherFlap.h>
+#include <Modloader/app/types/SeinGlide.h>
+#include <Modloader/app/types/SeinGlowSpell.h>
 #include <Modloader/app/types/SeinJump.h>
-#include <Core/uber_states/uber_state_interface.h>
+#include <Modloader/app/types/SeinSpiritSpearSpell.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 
 using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    uber_states::UberState on_jump(UberStateGroup::GameState, 30);
-    uber_states::UberState on_double_jump(UberStateGroup::GameState, 31);
-    uber_states::UberState on_dash(UberStateGroup::GameState, 32);
-    uber_states::UberState on_bash(UberStateGroup::GameState, 33);
-    uber_states::UberState on_glide(UberStateGroup::GameState, 34);
-    uber_states::UberState on_sword(UberStateGroup::GameState, 35);
-    uber_states::UberState on_hammer(UberStateGroup::GameState, 36);
-    uber_states::UberState on_spear(UberStateGroup::GameState, 37);
-    uber_states::UberState on_shuriken(UberStateGroup::GameState, 38);
-    uber_states::UberState on_grenade(UberStateGroup::GameState, 39);
-    uber_states::UberState on_bow(UberStateGroup::GameState, 40);
-    uber_states::UberState on_blaze(UberStateGroup::GameState, 41);
-    uber_states::UberState on_sentry(UberStateGroup::GameState, 42);
-    uber_states::UberState on_flash(UberStateGroup::GameState, 43);
-    uber_states::UberState on_launch(UberStateGroup::GameState, 44);
-    uber_states::UberState on_wall_jump(UberStateGroup::GameState, 45);
-    uber_states::UberState on_burrow(UberStateGroup::GameState, 46);
-    uber_states::UberState on_water_dash(UberStateGroup::GameState, 47);
-    uber_states::UberState on_flap(UberStateGroup::GameState, 48);
-    uber_states::UberState on_regenerate(UberStateGroup::GameState, 49);
+    core::api::uber_states::UberState on_jump(UberStateGroup::GameState, 30);
+    core::api::uber_states::UberState on_double_jump(UberStateGroup::GameState, 31);
+    core::api::uber_states::UberState on_dash(UberStateGroup::GameState, 32);
+    core::api::uber_states::UberState on_bash(UberStateGroup::GameState, 33);
+    core::api::uber_states::UberState on_glide(UberStateGroup::GameState, 34);
+    core::api::uber_states::UberState on_sword(UberStateGroup::GameState, 35);
+    core::api::uber_states::UberState on_hammer(UberStateGroup::GameState, 36);
+    core::api::uber_states::UberState on_spear(UberStateGroup::GameState, 37);
+    core::api::uber_states::UberState on_shuriken(UberStateGroup::GameState, 38);
+    core::api::uber_states::UberState on_grenade(UberStateGroup::GameState, 39);
+    core::api::uber_states::UberState on_bow(UberStateGroup::GameState, 40);
+    core::api::uber_states::UberState on_blaze(UberStateGroup::GameState, 41);
+    core::api::uber_states::UberState on_sentry(UberStateGroup::GameState, 42);
+    core::api::uber_states::UberState on_flash(UberStateGroup::GameState, 43);
+    core::api::uber_states::UberState on_launch(UberStateGroup::GameState, 44);
+    core::api::uber_states::UberState on_wall_jump(UberStateGroup::GameState, 45);
+    core::api::uber_states::UberState on_burrow(UberStateGroup::GameState, 46);
+    core::api::uber_states::UberState on_water_dash(UberStateGroup::GameState, 47);
+    core::api::uber_states::UberState on_flap(UberStateGroup::GameState, 48);
+    core::api::uber_states::UberState on_regenerate(UberStateGroup::GameState, 49);
 
     IL2CPP_INTERCEPT(SeinJump, void, PerformJump, (app::SeinJump * this_ptr)) {
         auto is_ability = il2cpp::is_assignable(this_ptr, types::SeinJump::get_class());
@@ -185,8 +185,7 @@ namespace {
             on_hammer.set(0);
     }
 
-    IL2CPP_INTERCEPT(MeleeComboMoveHammerChargeable, void, EnterMove,
-                     (app::MeleeComboMoveHammerChargeable * this_ptr)) {
+    IL2CPP_INTERCEPT(MeleeComboMoveHammerChargeable, void, EnterMove, (app::MeleeComboMoveHammerChargeable * this_ptr)) {
         if (il2cpp::is_assignable(this_ptr, types::MeleeComboMoveHammerChargeable::get_class()))
             on_hammer.set(1);
         next::MeleeComboMoveHammerChargeable::EnterMove(this_ptr);
@@ -274,8 +273,7 @@ namespace {
         on_blaze.set(0);
     }
 
-    IL2CPP_INTERCEPT(SeinTurretSpell, void, ChangeState,
-                     (app::SeinTurretSpell * this_ptr, app::SeinTurretSpell_State__Enum state)) {
+    IL2CPP_INTERCEPT(SeinTurretSpell, void, ChangeState, (app::SeinTurretSpell * this_ptr, app::SeinTurretSpell_State__Enum state)) {
         if (state == app::SeinTurretSpell_State__Enum::StartReleasing)
             on_sentry.set(1);
 
@@ -354,8 +352,7 @@ namespace {
             on_burrow.set(0);
     }
 
-    IL2CPP_INTERCEPT(SeinSwimming, void, ChangeState,
-                     (app::SeinSwimming * this_ptr, app::SeinSwimming_State__Enum state)) {
+    IL2CPP_INTERCEPT(SeinSwimming, void, ChangeState, (app::SeinSwimming * this_ptr, app::SeinSwimming_State__Enum state)) {
         out_of_water = state == app::SeinSwimming_State__Enum::OutOfWater;
         swimming_on_surface = state == app::SeinSwimming_State__Enum::SwimmingOnSurface;
         switch (state) {

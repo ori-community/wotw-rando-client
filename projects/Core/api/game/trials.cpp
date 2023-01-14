@@ -1,19 +1,18 @@
 #include <Core/api/game/trials.h>
 
+#include <Modloader/app/methods/GhostManager.h>
 #include <Modloader/app/methods/Moon/Race/LeaderBoardService.h>
 #include <Modloader/app/methods/Moon/Race/Networking/WebService.h>
-#include <Modloader/app/methods/GhostManager.h>
 #include <Modloader/app/methods/OutputFolder.h>
-#include <Modloader/app/methods/System/IO/Path.h>
 #include <Modloader/app/methods/System/IO/Directory.h>
+#include <Modloader/app/methods/System/IO/Path.h>
 #include <Modloader/interception_macros.h>
 
 #include <set>
 
-
 using namespace app::classes;
 
-namespace game::trials {
+namespace core::api::game::trials {
     std::set<std::string> ghosts_directory_suffixes;
 
     namespace {
@@ -63,11 +62,11 @@ namespace game::trials {
             // NOOP
         }
 
-        IL2CPP_INTERCEPT(GhostManager, app::String*, GetRaceDirectory, (app::String* race_id)) {
+        IL2CPP_INTERCEPT(GhostManager, app::String*, GetRaceDirectory, (app::String * race_id)) {
             return get_suffixed_ghost_directory("ghosts", race_id);
         }
 
-        IL2CPP_INTERCEPT(GhostManager, app::String*, GetOfflineRaceDirectory, (app::String* race_id)) {
+        IL2CPP_INTERCEPT(GhostManager, app::String*, GetOfflineRaceDirectory, (app::String * race_id)) {
             return get_suffixed_ghost_directory("offlineGhosts", race_id);
         }
     } // namespace
@@ -75,4 +74,4 @@ namespace game::trials {
     void add_ghosts_directory_suffix(std::string suffix) {
         ghosts_directory_suffixes.insert(std::move(suffix));
     }
-} // namespace game::trials
+} // namespace core::api::game::trials

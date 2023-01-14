@@ -1,10 +1,10 @@
 #pragma once
 
+#include <Core/animation/animation.h>
+#include <Core/animation/timeline_entries/base.h>
 #include <Core/enums/sound.h>
-#include <animation/animation.h>
-#include <animation/timeline_entries/base.h>
-#include <Core/utils/json_serializers.h>
 #include <Core/macros.h>
+#include <Core/utils/json_serializers.h>
 
 namespace core::animation::timeline_entries {
     struct CORE_DLLEXPORT Animation : Base {

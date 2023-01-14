@@ -1,13 +1,13 @@
-#include <randomizer/input/helpers.h>
+#include <input/helpers.h>
 
 #include <Common/ext.h>
-#include <Modloader/common.h>
+
+#include <Modloader/modloader.h>
 
 #include <fstream>
-#include <string>
-
-#include <nlohmann/json.hpp>
 #include <magic_enum.hpp>
+#include <nlohmann/json.hpp>
+#include <string>
 
 using namespace modloader;
 

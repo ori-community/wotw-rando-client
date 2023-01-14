@@ -1,12 +1,12 @@
-#include <Core/utils/misc.h>
 #include <Core/constants.h>
+#include <Core/utils/misc.h>
 
 #include <Modloader/app/methods/MoonGuid.h>
 #include <Modloader/app/methods/UberShaderAPI.h>
 #include <Modloader/app/methods/UberShaderColor.h>
 #include <Modloader/app/types/MoonGuid.h>
-#include <Modloader/app/types/UberShaderColor.h>
 #include <Modloader/app/types/Renderer.h>
+#include <Modloader/app/types/UberShaderColor.h>
 #include <Modloader/il2cpp_helpers.h>
 
 using namespace app::classes;
@@ -71,6 +71,6 @@ namespace utils {
     }
 
     float deg2rad(float degrees) {
-        return degrees * (PI / 180.f);
+        return degrees * (core::PI / 180.f);
     }
 } // namespace utils

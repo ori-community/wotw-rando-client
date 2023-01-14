@@ -1,7 +1,7 @@
 #pragma once
 
-#include <TAS/runtime/timeline_entries_base.h>
 #include <Core/input/simulator.h>
+#include <TAS/runtime/timeline_entries_base.h>
 
 namespace tas::runtime::timeline::entries {
     class MousePositionTimelineEntry : public TimelineEntry {
@@ -12,9 +12,12 @@ namespace tas::runtime::timeline::entries {
         float x;
         float y;
 
-        MousePositionTimelineEntry(unsigned long frame, core::input::MousePositionSimulationMode mode, float x, float y) :
-                mode(mode), x(x), y(y), TimelineEntry(frame) {}
+        MousePositionTimelineEntry(unsigned long frame, core::input::MousePositionSimulationMode mode, float x, float y)
+                : TimelineEntry(frame)
+                , mode(mode)
+                , x(x)
+                , y(y) {}
 
         void activate(TimelineState& timeline_state) override;
     };
-}
+} // namespace tas::runtime::timeline::entries

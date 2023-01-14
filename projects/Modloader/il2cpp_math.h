@@ -2,15 +2,29 @@
 
 #include <cmath>
 
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+
+inline app::Vector2 operator+(app::Vector2 const& a, app::Vector2 const& b) {
+    return app::Vector2{
+        a.x + b.x,
+        a.y + b.y,
+    };
+}
 
 inline app::Vector2 operator-(app::Vector2 const& a, app::Vector2 const& b) {
     return app::Vector2{
         a.x - b.x,
         a.y - b.y,
+    };
+}
+
+inline app::Vector2 operator*(app::Vector2 const& a, float const& b) {
+    return app::Vector2{
+        a.x * b,
+        a.y * b,
     };
 }
 
@@ -94,13 +108,22 @@ namespace modloader::math {
 
     inline app::Vector3 direction(app::Vector3 a, app::Vector3 b, bool ignore_z = false) {
         auto distance_v = b - a;
-        if (ignore_z)
+        if (ignore_z) {
             distance_v.z = 0;
+        }
 
         return normalize(distance_v);
     }
 
+    inline app::Vector2 lerp(app::Vector2 a, app::Vector2 b, float weight) {
+        return a + (a - b) * weight;
+    }
+
     inline app::Vector3 lerp(app::Vector3 a, app::Vector3 b, float weight) {
         return a + (a - b) * weight;
+    }
+
+    inline float lerp(float a, float b, float weight) {
+        return a * (1 - weight) + b * weight;
     }
 } // namespace modloader::math

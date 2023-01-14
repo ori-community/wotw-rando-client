@@ -38,3 +38,4 @@ projects/wotw-server/gradlew
 projects/wotw-server/gradlew.bat
 projects/wotw-server/.sessions*
 projects/SeedGen/src/main/scala/Version.scala
+cmake-*

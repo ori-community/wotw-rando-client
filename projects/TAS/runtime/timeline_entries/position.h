@@ -10,9 +10,11 @@ namespace tas::runtime::timeline::entries {
         float x;
         float y;
 
-        PositionTimelineEntry(unsigned long frame, float x, float y) :
-                x(x), y(y), TimelineEntry(frame) {}
+        PositionTimelineEntry(unsigned long frame, float x, float y)
+                : TimelineEntry(frame)
+                , x(x)
+                , y(y) {}
 
         void activate(TimelineState& timeline_state) override;
     };
-}
+} // namespace tas::runtime::timeline::entries

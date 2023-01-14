@@ -1,17 +1,17 @@
+#include <Common/event_bus.h>
 #include <Common/ext.h>
+#include <Core/api/scenes/scene_load.h>
 #include <Modloader/app/methods/Moon/ScalableAnimationPlayer_ScalingInterval.h>
 #include <Modloader/app/types/ScalableAnimationPlayer.h>
 #include <Modloader/app/types/ScalableAnimationPlayer_ScalingInterval.h>
-#include <Modloader/common.h>
 #include <Modloader/interception_macros.h>
-#include <Core/utils/event_bus.h>
-#include <Core/api/scenes/scene_load.h>
+#include <Modloader/modloader.h>
 
 using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
+    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
         if (metadata->state != app::SceneState__Enum::Loaded) {
             return;
         }
@@ -20,13 +20,13 @@ namespace {
             auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
 
             auto timeline_go = il2cpp::unity::find_child(
-                    scene_root_go,
-                    std::vector<std::string>{
-                            "kwolokBossSetup",
-                            "kwolok",
-                            "timelines",
-                            "escape",
-                            "stinkSpiritScalableAnimation" }
+                scene_root_go,
+                std::vector<std::string>{
+                    "kwolokBossSetup",
+                    "kwolok",
+                    "timelines",
+                    "escape",
+                    "stinkSpiritScalableAnimation" }
             );
 
             if (il2cpp::unity::is_valid(timeline_go)) {
@@ -43,9 +43,5 @@ namespace {
         }
     }
 
-    void initialize() {
-        scenes::event_bus().register_handler(&on_scene_load);
-    }
-
-    CALL_ON_INIT(initialize);
+    auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
 } // namespace

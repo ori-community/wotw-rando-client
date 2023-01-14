@@ -1,20 +1,20 @@
+#include <Core/api/game/game.h>
+#include <Core/api/scenes/scene_load.h>
+#include <Core/cached_loader.h>
+#include <Core/utils/json_serializers.h>
 #include <animation/timeline.h>
 #include <animation/timeline_entries/base.h>
 #include <animation/timeline_entries/lerpers.h>
 #include <animation/timeline_entries/objects.h>
 #include <animation/timeline_entries/setters.h>
-#include <Core/api/game/game.h>
-#include <Core/api/scenes/scene_load.h>
-#include <Core/utils/cached_loader.h>
-#include <Core/utils/json_serializers.h>
 
 #include <Common/ext.h>
 
 #include <Modloader/app/methods/UnityEngine/Quaternion.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/types/GameObject.h>
-#include <Modloader/common.h>
 #include <Modloader/il2cpp_math.h>
+#include <Modloader/modloader.h>
 
 using namespace modloader;
 using namespace app::classes;
@@ -80,12 +80,17 @@ namespace core::animation {
         return std::unique_ptr<Timeline>(new Timeline(*value.get()));
     }
 
-    Timeline::Timeline(std::vector<std::shared_ptr<timeline_entries::Base>> entries, TimelineState state) :
-            m_entries(entries), m_state(state), m_entry(0), m_started(false), m_attached(nullptr), m_attach_offset{ 0, 0, 0 } {
+    Timeline::Timeline(std::vector<std::shared_ptr<timeline_entries::Base>> entries, TimelineState state)
+            : m_entries(entries)
+            , m_attached(nullptr)
+            , m_attach_offset{ 0, 0, 0 }
+            , m_state(state)
+            , m_entry(0)
+            , m_started(false) {
         m_state.root = types::GameObject::create();
         il2cpp::invoke(m_state.root, ".ctor");
         il2cpp::invoke(m_state.root, "set_name", il2cpp::string_new("rando_timeline"));
-        game::add_to_container(game::RandoContainer::GameObjects, m_state.root);
+        core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, m_state.root);
         std::sort(m_entries.begin(), m_entries.end(), [](auto const& a, auto const& b) {
             if (a->start_time == b->start_time)
                 return a->type < b->type;
@@ -94,13 +99,17 @@ namespace core::animation {
         });
     }
 
-    Timeline::Timeline(Timeline const& other) :
-            m_entries(other.m_entries), m_entry(0), m_started(false), m_attached(nullptr), m_attach_offset{ 0, 0, 0 } {
+    Timeline::Timeline(Timeline const& other)
+            : m_entries(other.m_entries)
+            , m_attached(nullptr)
+            , m_attach_offset{ 0, 0, 0 }
+            , m_entry(0)
+            , m_started(false) {
         m_state.variable_values = other.m_state.variable_values;
         m_state.root = types::GameObject::create();
         il2cpp::invoke(m_state.root, ".ctor");
         il2cpp::invoke(m_state.root, "set_name", il2cpp::string_new("rando_timeline"));
-        game::add_to_container(game::RandoContainer::GameObjects, m_state.root);
+        core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, m_state.root);
     }
 
     Timeline::~Timeline() {
@@ -171,105 +180,3 @@ namespace core::animation {
         return &it->second;
     }
 } // namespace core::animation
-
-// TODO: Everything below here should be removed when we move to using only C++ as we can use the timeline_cache directly.
-namespace {
-    int next_timeline_id = 1;
-    std::unordered_map<int, std::unique_ptr<core::animation::Timeline>> csharp_timelines;
-
-    void update_csharp_timelines(GameEvent game_event, EventTiming timing) {
-        for (auto it = csharp_timelines.begin(); it != csharp_timelines.end();) {
-            if (it->second->is_finished())
-                it = csharp_timelines.erase(it);
-            else {
-                it->second->update(game::delta_time());
-                ++it;
-            }
-        }
-    }
-
-    void initialize() {
-        game::event_bus().register_handler(GameEvent::Update, EventTiming::After, update_csharp_timelines);
-    }
-
-    CALL_ON_INIT(initialize);
-} // namespace
-
-CORE_C_DLLEXPORT void timeline_preload(const char* path) {
-    core::animation::timeline_cache.load(path);
-}
-
-CORE_C_DLLEXPORT int timeline_create(const char* path) {
-    csharp_timelines[next_timeline_id] = core::animation::timeline_cache.get(path);
-    return next_timeline_id++;
-}
-
-CORE_C_DLLEXPORT void timeline_destroy(int id) {
-    csharp_timelines.erase(id);
-}
-
-CORE_C_DLLEXPORT void timeline_start(int id) {
-    auto it = csharp_timelines.find(id);
-    if (it != csharp_timelines.end()) {
-        it->second->start();
-    }
-}
-
-CORE_C_DLLEXPORT void timeline_attach(int id, const char* path) {
-    auto it = csharp_timelines.find(id);
-    if (it != csharp_timelines.end()) {
-        auto go = scenes::get_game_object(path);
-        it->second->attach(go);
-    }
-}
-
-CORE_C_DLLEXPORT void timeline_position(int id, app::Vector3 value) {
-    auto it = csharp_timelines.find(id);
-    if (it != csharp_timelines.end()) {
-        auto transform = il2cpp::unity::get_transform(it->second->root());
-        Transform::set_position(transform, value);
-    }
-}
-
-CORE_C_DLLEXPORT void timeline_rotation(int id, app::Vector3 value) {
-    auto it = csharp_timelines.find(id);
-    if (it != csharp_timelines.end()) {
-        auto transform = il2cpp::unity::get_transform(it->second->root());
-        auto quat = Quaternion::Euler_1(value.x, value.y, value.z);
-        Transform::set_rotation(transform, quat);
-    }
-}
-
-CORE_C_DLLEXPORT void timeline_local_position(int id, app::Vector3 value) {
-    auto it = csharp_timelines.find(id);
-    if (it != csharp_timelines.end()) {
-        it->second->attach_offset(value);
-        auto transform = il2cpp::unity::get_transform(it->second->root());
-        Transform::set_localPosition(transform, value);
-    }
-}
-
-CORE_C_DLLEXPORT void timeline_local_scale(int id, app::Vector3 value) {
-    auto it = csharp_timelines.find(id);
-    if (it != csharp_timelines.end()) {
-        auto transform = il2cpp::unity::get_transform(it->second->root());
-        Transform::set_localScale(transform, value);
-    }
-}
-
-CORE_C_DLLEXPORT void timeline_local_rotation(int id, app::Vector3 value) {
-    auto it = csharp_timelines.find(id);
-    if (it != csharp_timelines.end()) {
-        auto transform = il2cpp::unity::get_transform(it->second->root());
-        auto quat = Quaternion::Euler_1(value.x, value.y, value.z);
-        Transform::set_localRotation(transform, quat);
-    }
-}
-
-CORE_C_DLLEXPORT void timeline_variable_float(int id, const char* name, float value) {
-    auto it = csharp_timelines.find(id);
-    if (it != csharp_timelines.end()) {
-        auto variable = it->second->variable(name);
-        variable->value = value;
-    }
-}

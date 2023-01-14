@@ -1,17 +1,17 @@
 #include <Core/api/scenes/create_objects.h>
 
 // #include <constants.h>
-#include <Core/api/scenes/scene_load.h>
 #include <Core/api/game/game.h>
 #include <Core/api/graphics/shaders.h>
+#include <Core/api/scenes/scene_load.h>
 
 #include <Common/ext.h>
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/UnityEngine/Quaternion.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
-#include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 
 #include <algorithm>
@@ -27,7 +27,7 @@ using namespace modloader;
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
 
-namespace scenes {
+namespace core::api::scenes {
     namespace {
         struct ObjectSpawn {
             std::string name;
@@ -55,7 +55,7 @@ namespace scenes {
 
                     spawn->game_object = il2cpp::unity::instantiate_object(prefab);
                     il2cpp::invoke(spawn->game_object, "set_name", il2cpp::string_new(spawn->name));
-                    game::add_to_container(game::RandoContainer::GameObjects, spawn->game_object);
+                    core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, spawn->game_object);
                     auto transform = il2cpp::unity::get_transform(spawn->game_object);
                     Transform::set_position(transform, spawn->position);
                     if (spawn->scale.has_value())
@@ -94,4 +94,4 @@ namespace scenes {
         obj.path = std::move(path);
         pending_object_spawns_by_scene[obj.scene].emplace(&obj);
     }
-} // namespace scenes
+} // namespace core::api::scenes

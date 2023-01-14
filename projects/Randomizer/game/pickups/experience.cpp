@@ -1,6 +1,6 @@
-#include <Modloader/interception_macros.h>
 #include <Modloader/app/methods/Game/Orbs_OrbDisplayText.h>
 #include <Modloader/app/methods/SeinLevel.h>
+#include <Modloader/interception_macros.h>
 #include <game/pickups/pickups.h>
 
 namespace {
@@ -9,7 +9,8 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinLevel, void, set_Experience, (app::SeinLevel * this_ptr, int32_t value)) {
-        if (game::pickups::should_collect_pickup())
+        if (game::pickups::should_collect_pickup()) {
             next::SeinLevel::set_Experience(this_ptr, value);
+        }
     }
-}
+} // namespace

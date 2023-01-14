@@ -8,7 +8,7 @@
 
 using namespace app::classes;
 
-namespace utils {
+namespace core::api::system {
     template <typename T>
     void add_to_message_provider(app::TranslatedMessageProvider* provider, T message) {
         auto il2cpp_str = il2cpp::string_new(message);

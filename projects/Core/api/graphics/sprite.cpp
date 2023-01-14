@@ -11,20 +11,20 @@
 #include <Modloader/app/methods/UnityEngine/Renderer.h>
 #include <Modloader/app/methods/UnityEngine/Shader.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
+#include <Modloader/app/structs/MoonIconRenderer.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/Int32.h>
 #include <Modloader/app/types/Material.h>
 #include <Modloader/app/types/Mesh.h>
-#include <Modloader/app/types/String.h>
-#include <Modloader/app/types/UI.h>
-#include <Modloader/app/types/Vector2.h>
-#include <Modloader/app/types/Vector3.h>
 #include <Modloader/app/types/MeshFilter.h>
 #include <Modloader/app/types/MeshRenderer.h>
-#include <Modloader/app/types/UberShaderRuntimeRenderOrder.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/Renderer.h>
-#include <Modloader/app/structs/MoonIconRenderer.h>
+#include <Modloader/app/types/String.h>
+#include <Modloader/app/types/UI.h>
+#include <Modloader/app/types/UberShaderRuntimeRenderOrder.h>
+#include <Modloader/app/types/Vector2.h>
+#include <Modloader/app/types/Vector3.h>
 #include <Modloader/il2cpp_helpers.h>
 
 using namespace app::classes;
@@ -34,17 +34,16 @@ namespace core {
     namespace {
         app::Vector2__Array* make_uvs(float x = 0, float y = 0, float w = 1, float h = 1) {
             return types::Vector2::create_array(
-                    std::vector<app::Vector2>{
-                            { x, y },
-                            { x + w, y },
-                            { x, y + h },
-                            { x + w, y + h } }
+                std::vector<app::Vector2>{
+                    { x, y },
+                    { x + w, y },
+                    { x, y + h },
+                    { x + w, y + h } }
             );
         }
 
         bool use_prefab = true;
         bool custom_shader = false;
-        float dst_blend = 1;
         app::GameObject* find_prefab() {
             static app::GameObject* icon = nullptr;
             if (il2cpp::unity::is_valid(icon))
@@ -56,11 +55,11 @@ namespace core {
                 auto controller = types::UI::get_class()->static_fields->MessageController;
                 auto message_box = il2cpp::unity::get_component_in_children<app::MessageBox>(controller->fields.HintSmallMessage, types::MessageBox::get_class());
                 auto icon_renderer = reinterpret_cast<app::MoonIconRenderer*>(
-                        message_box->fields.TextBox->fields.styleCollection->fields.styles->vector[1]->fields.renderer
+                    message_box->fields.TextBox->fields.styleCollection->fields.styles->vector[1]->fields.renderer
                 );
                 auto icon_obj = icon_renderer->fields.Icons->fields.Icons->fields._items->vector[0]->fields.Icon;
                 auto prefab = il2cpp::unity::get_children(icon_obj)[0];
-                icon = il2cpp::unity::instantiate_object(il2cpp::unity::get_children(icon_obj)[0]);
+                icon = il2cpp::unity::instantiate_object(prefab);
                 mesh_filter = il2cpp::unity::get_component<app::MeshFilter>(icon, types::MeshFilter::get_class());
                 renderer = il2cpp::unity::get_component<app::Renderer>(icon, types::MeshRenderer::get_class());
             } else {
@@ -75,7 +74,7 @@ namespace core {
             }
 
             il2cpp::unity::set_active(icon, false);
-            game::add_to_container(game::RandoContainer::GameObjects, icon);
+            core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, icon);
             auto mesh = types::Mesh::create();
             il2cpp::invoke(mesh, ".ctor");
             il2cpp::invoke(icon, "set_name", il2cpp::string_new("rando_sprite"));
@@ -109,8 +108,6 @@ namespace core {
                 il2cpp::invoke(renderer, "set_sharedMaterial", mat);
             }
 
-            auto test = Renderer::get_bounds(renderer);
-
             return icon;
         }
     } // namespace
@@ -120,7 +117,7 @@ namespace core {
         m_renderer = il2cpp::unity::get_component<app::Renderer>(m_root, types::Renderer::get_class());
         il2cpp::unity::set_active(m_root, false);
         if (parent == nullptr)
-            game::add_to_container(game::RandoContainer::GameObjects, m_root);
+            core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, m_root);
         else
             il2cpp::unity::set_parent(m_root, parent);
     }

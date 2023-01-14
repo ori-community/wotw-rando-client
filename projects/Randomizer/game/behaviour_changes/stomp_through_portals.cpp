@@ -1,12 +1,12 @@
-#include <constants.h>
 #include <Core/api/game/player.h>
-#include <Core/uber_states/uber_state_interface.h>
+#include <Core/api/uber_states/uber_state.h>
+#include <constants.h>
 
+#include <Core/utils/misc.h>
 #include <Modloader/app/methods/MeleeComboMoveHammerStomp.h>
 #include <Modloader/app/methods/Portal.h>
 #include <Modloader/app/methods/SeinController.h>
 #include <Modloader/interception_macros.h>
-#include <Core/utils/misc.h>
 
 using namespace modloader;
 
@@ -27,7 +27,7 @@ namespace {
         state = HammerInterrupted;
     }
 
-    uber_states::UberState stomp_through_portals(UberStateGroup::RandoConfig, 9);
+    core::api::uber_states::UberState stomp_through_portals(UberStateGroup::RandoConfig, 9);
     IL2CPP_INTERCEPT(SeinController, void, OnGoThroughPortal, (app::SeinController * this_ptr)) {
         next::SeinController::OnGoThroughPortal(this_ptr);
         if (state == HammerInterrupted && stomp_through_portals.get<bool>())
@@ -38,7 +38,7 @@ namespace {
         next::SeinController::FixedUpdate(this_ptr);
 
         if (state == CarryVelocityThroughPortal) {
-            auto sein = game::player::sein();
+            auto sein = core::api::game::player::sein();
 
             utils::clamp_vector(portal_speed, stomp_speed);
             sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed = portal_speed;

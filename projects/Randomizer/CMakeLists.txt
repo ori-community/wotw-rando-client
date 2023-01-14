@@ -13,7 +13,6 @@ set(
         "conditions/condition_uber_state.cpp"
         "conditions/new_setup_state_override.cpp"
         "conditions/targeting_override.cpp"
-        "custom_skin.cpp"
         "features/better_menus.cpp"
         "features/chaos.cpp"
         "features/controls/ability_overrides.cpp"
@@ -52,11 +51,8 @@ set(
         "features/scenes/modifications/load_wellspring_bottom_floor_center_path_earlier.cpp"
         "features/scenes/modifications/luma_fight_room_door_always_open.cpp"
         "features/secrets.cpp"
-        "features/sein_ui.cpp"
         "features/shrine_states.cpp"
-        "features/spawn.cpp"
         "features/trackers/ability_tracker.cpp"
-        "features/trackers/death_listener_csharp_bridge.cpp"
         "features/trackers/goal_mode_check.cpp"
         "features/water.cpp"
         "features/wheel.cpp"
@@ -81,12 +77,20 @@ set(
         "game/event_handlers/on_teleport.cpp"
         "game/event_handlers/on_trial.cpp"
         "game/camera_shake.cpp"
-        "game/map_icons.cpp"
+        "game/map/filter.cpp"
+        "game/map/icon.cpp"
+        "game/map/map.cpp"
+        "game/map/map_initialization.cpp"
+        "game/map/player_color.cpp"
+        "game/map/teleport_anywhere.cpp"
+        "game/map/tree_visibility_fix.cpp"
         "game/pickups/bonus/bow_attack_speed.cpp"
         "game/pickups/bonus/energy_cost_upgrades.cpp"
+        "game/pickups/bonus/energy_regeneration.cpp"
         "game/pickups/bonus/extra_ability_activations.cpp"
         "game/pickups/bonus/extra_shurikens.cpp"
         "game/pickups/bonus/hammer_attack_speed.cpp"
+        "game/pickups/bonus/health_regeneration.cpp"
         "game/pickups/bonus/regenerate_speed.cpp"
         "game/pickups/bonus/sentry_upgrades.cpp"
         "game/pickups/bonus/spear_attack_speed.cpp"
@@ -99,40 +103,77 @@ set(
         "game/pickups/ore.cpp"
         "game/pickups/pickups.cpp"
         "game/pickups/quests.cpp"
-        "game/pickups/shops/general.cpp"
-        "game/pickups/shops/grom.cpp"
-        "game/pickups/shops/lupo.cpp"
-        "game/pickups/shops/opher.cpp"
-        "game/pickups/shops/tuley.cpp"
-        "game/pickups/shops/twillen.cpp"
         "game/pickups/spirit_shard.cpp"
         "game/pickups/tree.cpp"
+        "game/shops/fast_purchase.cpp"
+        "game/shops/general.cpp"
+        "game/shops/grom.cpp"
+        "game/shops/lupo.cpp"
+        "game/shops/lupo_dont_open_map.cpp"
+        "game/shops/opher.cpp"
+        "game/shops/shop.cpp"
+        "game/shops/spirit_light_spent.cpp"
+        "game/shops/tuley.cpp"
+        "game/shops/twillen.cpp"
+        "game/teleport.cpp"
         "ghosts/plugins/update_active_animations_plugin.cpp"
         "ghosts/plugins.cpp"
         "ghosts.cpp"
         "ghosts_playground.cpp"
+        "input/action_registration.cpp"
         "input/controller_bindings.cpp"
         "input/helpers.cpp"
         "input/rando_bindings.cpp"
-        "interop/csharp_bridge.cpp"
         "ipc/base_handlers.cpp"
         "ipc/hierarchy.cpp"
-        "messages/hint_offset.cpp"
+        "location_data/location_collection.cpp"
+        "location_data/parser.cpp"
+        "messages/credits_controller.cpp"
+        "messages/credit_entries/base_entry.cpp"
+        "messages/credit_entries/text_entry.cpp"
+        "messages/credit_entries/move_entry.cpp"
         "messages/messages.cpp"
-        "multiplayer.cpp"
-        "pickups/pickup.cpp"
-        "pickups/pickup_collection.cpp"
+        "messages/progress_hint.cpp"
+        "online/multiplayer.cpp"
+        "online/network.cpp"
+        "online/player.cpp"
+        "online/player_icon.cpp"
+        "online/uber_state_handler.cpp"
+        "randomizer.cpp"
+        "seed/items/apply_uber_state.cpp"
+        "seed/items/call.cpp"
+        "seed/items/call_procedure.cpp"
+        "seed/items/counting_message.cpp"
+        "seed/items/icon.cpp"
+        "seed/items/message.cpp"
+        "seed/items/refill.cpp"
+        "seed/items/skip_state.cpp"
+        "seed/legacy_parser/parser.cpp"
+        "seed/reach_check.cpp"
+        "seed/seed.cpp"
         "shrek.cpp"
+        "stats/enemies.cpp"
+        "stats/game_stats.cpp"
+        "text_processors/ability.cpp"
+        "text_processors/control.cpp"
+        "text_processors/helpers.cpp"
+        "text_processors/legacy.cpp"
+        "text_processors/location.cpp"
+        "text_processors/shard.cpp"
+        "text_processors/uber_state.cpp"
         "timer.cpp"
-        "timing/game_stats.cpp"
         "timing/game_timer.cpp"
-        "uber_states/uber_state_helper.cpp"
+        "uber_states/ability_handlers.cpp"
+        "uber_states/misc_handlers.cpp"
+        "uber_states/trigger_reach_check.cpp"
         "uber_states/uber_state_initialization.cpp"
+        "uber_states/uber_state_intercepts.cpp"
+        "ui/always_show_keystones.cpp"
         "ui/online_mode_switcher.cpp"
 )
 
 set(
-         PUBLIC_HEADER_FILES
+        PUBLIC_HEADER_FILES
         "collision.h"
         "conditions/condition_override.h"
         "conditions/condition_uber_state.h"
@@ -145,33 +186,71 @@ set(
         "features/controls/mouse_control.h"
         "features/credits.h"
         "features/cutscene_skips/custom_cutscene_skips.h"
-        "features/spawn.h"
+        "game/map/filter.h"
+        "game/map/icon.h"
+        "game/map/teleport_anywhere.h"
         "game/pickups/pickups.h"
         "game/pickups/quests.h"
-        "game/pickups/shops/general.h"
+        "game/shops/shop.h"
+        "game/shops/shop_data.h"
+        "game/teleport.h"
         "ghosts/plugins/update_active_animations_plugin.h"
         "ghosts/plugins.h"
         "ghosts.h"
         "input/controller_bindings.h"
         "input/helpers.h"
         "input/rando_bindings.h"
-        "interop/csharp_bridge.h"
         "ipc/base_handlers.h"
+        "location_data/location.h"
+        "location_data/location_collection.h"
+        "location_data/parser.h"
         "macros.h"
-        "multiplayer.h"
-        "pickups/pickup.h"
-        "pickups/pickup_collection.h"
+        "messages/credits_controller.h"
+        "messages/credit_entries/base_entry.h"
+        "messages/credit_entries/text_entry.h"
+        "messages/credit_entries/move_entry.h"
+        "online/multiplayer.h"
+        "online/network.h"
+        "online/player.h"
+        "online/player_icon.h"
+        "online/uber_state_handler.h"
+        "randomizer.h"
+        "seed/items/apply_uber_state.h"
+        "seed/items/call.h"
+        "seed/items/call_procedure.h"
+        "seed/items/counting_message.h"
+        "seed/items/empty.h"
+        "seed/items/icon.h"
+        "seed/items/message.h"
+        "seed/items/refill.h"
+        "seed/items/skip_state.h"
+        "seed/items/value_modifier.h"
+        "seed/legacy_parser/parser.h"
+        "seed/item_data.h"
+        "seed/reach_check.h"
+        "seed/seed.h"
+        "stats/game_stats.h"
+        "text_processors/ability.h"
+        "text_processors/control.h"
+        "text_processors/helpers.h"
+        "text_processors/legacy.h"
+        "text_processors/location.h"
+        "text_processors/shard.h"
+        "text_processors/uber_state.h"
         "timer.h"
-        "timing/game_stats.h"
         "timing/game_timer.h"
-        "uber_states/uber_state_helper.h"
 )
 
 set(
         MISC_FILES
+        "proto/packets.proto"
         ".editorconfig"
         "CMakeLists.txt"
 )
+
+find_package(Protobuf REQUIRED)
+
+protobuf_generate_cpp(PROTO_SRC PROTO_HDR proto/packets.proto)
 
 add_library(
         ${PROJECT_NAME}
@@ -179,7 +258,12 @@ add_library(
         ${SOURCE_FILES}
         ${PUBLIC_HEADER_FILES}
         ${MISC_FILES}
+        ${PROTO_SRC}
+        ${PROTO_HDR}
 )
+
+target_link_libraries(${PROJECT_NAME} ${Protobuf_LIBRARIES})
+set_source_files_properties(${PROTO_SRC} ${PROTO_HDR} PROPERTIES GENERATED TRUE)
 
 target_compile_definitions(
         ${PROJECT_NAME}
@@ -203,6 +287,9 @@ target_include_directories(
         ${CMAKE_ENGINE_DIRECTORY}
         ${WOTWR_LIB_INCLUDE_DIR}
         ${WOTWR_BASE_INCLUDES}
+        ${PROJECT_BINARY_DIR}
+        ${CMAKE_CURRENT_BINARY_DIR}
+        ${protobuf_INCLUDE_DIR}
 )
 
 target_link_libraries(
@@ -210,23 +297,25 @@ target_link_libraries(
         Common
         Modloader
         Core
+        protobuf::protobuf
 )
 
-find_package(nlohmann_json)
+find_package(nlohmann_json REQUIRED)
 target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 
-find_package(magic_enum)
+find_package(magic_enum REQUIRED)
 target_link_libraries(${PROJECT_NAME} magic_enum::magic_enum)
 
-find_package(fmt)
+find_package(fmt REQUIRED)
 target_link_libraries(${PROJECT_NAME} fmt::fmt)
+
+find_package(ixwebsocket REQUIRED)
+target_link_libraries(${PROJECT_NAME} ixwebsocket::ixwebsocket)
 
 message(STATUS "Assigning source groups.")
 
 set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES}")
 set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
-
-message(STATUS "TESTING ${PROJECT_BINARY_DIR}")
 
 source_group("_precompiled_headers"
         FILES
@@ -235,7 +324,7 @@ source_group("_precompiled_headers"
         ${PROJECT_BINARY_DIR}/CMakeFiles/Randomizer.dir/RelWithDebInfo/cmake_pch.hxx
         ${PROJECT_BINARY_DIR}/CMakeFiles/Randomizer.dir/Release/cmake_pch.hxx
         ${PROJECT_BINARY_DIR}/CMakeFiles/Randomizer.dir/cmake_pch.cxx
-)
+        )
 
 install(
         TARGETS ${PROJECT_NAME}

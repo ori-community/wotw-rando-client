@@ -1,25 +1,26 @@
-#include <Core/api/scenes/scene_load.h>
-
 #include <Core/api/game/game.h>
+#include <Core/api/scenes/scene_load.h>
 
 #include <Common/ext.h>
 
 #include <Modloader/app/methods/SceneManagerScene.h>
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
-#include <Modloader/app/types/Scenes.h>
+#include <Modloader/app/types/GameController.h>
+#include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/app/types/SceneRoot.h>
-#include <Modloader/common.h>
+#include <Modloader/app/types/Scenes.h>
 #include <Modloader/interception_macros.h>
-
+#include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
+
 #include <set>
 #include <unordered_set>
 
 using namespace app::classes;
 using namespace modloader::win;
 
-namespace scenes {
+namespace core::api::scenes {
     struct PendingScene {
         std::string scene_name;
         std::vector<scene_loading_callback> scene_loading_callbacks;
@@ -27,7 +28,6 @@ namespace scenes {
     };
 
     std::unordered_map<std::string, PendingScene> scenes_to_load;
-    TimedEventBus<SceneLoadEventMetadata*> scenes_event_bus;
     bool scene_loader_debug_logging = false;
 
     app::ScenesManager* get_scenes_manager() {
@@ -53,7 +53,9 @@ namespace scenes {
                 .state = state,
                 .scene = scene_manager_scene,
             };
-            scenes_event_bus.trigger_event(&event);
+
+            event_bus().trigger_event(&event);
+            single_event_bus().trigger_event(scene_name, &event);
 
             if (scenes_to_load.contains(scene_name)) {
                 auto pending_scene = scenes_to_load[scene_name];
@@ -61,19 +63,19 @@ namespace scenes {
                 app::GameObject* scene_root_go = nullptr;
 
                 if (
-                        state == app::SceneState__Enum::Loaded ||
-                        state == app::SceneState__Enum::Enabling ||
-                        state == app::SceneState__Enum::Enabled ||
-                        state == app::SceneState__Enum::Disabling ||
-                        state == app::SceneState__Enum::Disabled
+                    state == app::SceneState__Enum::Loaded ||
+                    state == app::SceneState__Enum::Enabling ||
+                    state == app::SceneState__Enum::Enabled ||
+                    state == app::SceneState__Enum::Disabling ||
+                    state == app::SceneState__Enum::Disabled
                 ) {
                     scene_root_go = il2cpp::unity::get_game_object(scene_manager_scene->fields.SceneRoot);
                     scene_manager_scene->fields.PreventUnloading = pending_scene.keep_preloaded;
                 }
 
                 if (
-                        state == app::SceneState__Enum::Loaded ||
-                        state == app::SceneState__Enum::LoadingCancelled
+                    state == app::SceneState__Enum::Loaded ||
+                    state == app::SceneState__Enum::LoadingCancelled
                 ) {
                     scenes_to_load.erase(scene_name);
                 }
@@ -96,14 +98,45 @@ namespace scenes {
         }
     } // namespace
 
-    TimedEventBus<SceneLoadEventMetadata*>& event_bus() {
-        return scenes_event_bus;
+    common::EventBus<SceneLoadEventMetadata*>& event_bus() {
+        static common::EventBus<SceneLoadEventMetadata*> bus;
+        return bus;
+    }
+
+    common::EventBus<SceneLoadEventMetadata*, std::string>& single_event_bus() {
+        static common::EventBus<SceneLoadEventMetadata*, std::string> bus;
+        return bus;
     }
 
     app::RuntimeSceneMetaData* get_scene_metadata(std::string_view scene) {
         auto scenes_manager = get_scenes_manager();
         auto scene_name_csstring = il2cpp::string_new(scene);
         return ScenesManager::GetSceneInformation(scenes_manager, scene_name_csstring);
+    }
+
+    std::string current_scene() {
+        auto scenes_manager = types::Scenes::get_class()->static_fields->Manager;
+        auto scene = scenes_manager->fields.m_currentScene;
+        return scene == nullptr ? "" : il2cpp::convert_csstring(scene->fields.Scene);
+    }
+
+    bool is_in_game() {
+        auto controller_klass = types::GameController::get_class();
+        auto controller = controller_klass->static_fields->Instance;
+        if (controller_klass->static_fields->FreezeFixedUpdate || controller->fields.m_isLoadingGame) {
+            return false;
+        }
+
+        auto scenes_manager = types::Scenes::get_class()->static_fields->Manager;
+        auto scene = scenes_manager->fields.m_currentScene;
+        if (scene == nullptr) {
+            return false;
+        }
+
+        auto scene_name = il2cpp::convert_csstring(scene->fields.Scene);
+        auto game_state_machine = types::GameStateMachine::get_class()->static_fields->m_instance;
+        return game_state_machine->fields._CurrentState_k__BackingField != app::GameStateMachine_State__Enum::Game ||
+            (scene_name != "wotwTitleScreen" && scene_name != "kuFlyAway");
     }
 
     bool scene_is_loading(std::string_view scene) {
@@ -148,8 +181,9 @@ namespace scenes {
         scene_to_load.scene_name = std::string(scene);
         scene_to_load.keep_preloaded = scene_to_load.keep_preloaded || keep_preloaded;
 
-        if (callback != nullptr)
+        if (callback != nullptr) {
             scene_to_load.scene_loading_callbacks.push_back(callback);
+        }
 
         auto scenes_manager = get_scenes_manager();
         auto scene_name_csstring = il2cpp::string_new(scene_to_load.scene_name);
@@ -216,12 +250,14 @@ namespace scenes {
         auto cname = il2cpp::string_new(name);
         auto meta = ScenesManager::GetSceneInformation(manager, cname);
         if (meta == nullptr || !ScenesManager::SceneIsLoaded(manager, meta->fields.SceneMoonGuid)) {
-            auto container = game::container(game::RandoContainer::Randomizer);
+            auto container = core::api::game::container(core::api::game::RandoContainer::Randomizer);
             auto scene = UnityEngine::GameObject::get_scene(container);
             auto dont_destroy_on_load = il2cpp::unity::get_root_game_objects(scene);
-            for (auto game_object : dont_destroy_on_load)
-                if (il2cpp::unity::get_object_name(game_object) == name)
+            for (auto game_object : dont_destroy_on_load) {
+                if (il2cpp::unity::get_object_name(game_object) == name) {
                     return game_object;
+                }
+            }
 
             return nullptr;
         }
@@ -239,7 +275,7 @@ namespace scenes {
             game_objects.push_back(il2cpp::unity::get_game_object(scene->fields.SceneRoot));
         }
 
-        auto container = game::container(game::RandoContainer::Randomizer);
+        auto container = core::api::game::container(core::api::game::RandoContainer::Randomizer);
         auto scene = UnityEngine::GameObject::get_scene(container);
         auto dont_destroy_on_load = il2cpp::unity::get_root_game_objects(scene);
         game_objects.insert(game_objects.end(), dont_destroy_on_load.begin(), dont_destroy_on_load.end());
@@ -248,8 +284,9 @@ namespace scenes {
     }
 
     app::GameObject* get_game_object(std::string_view path) {
-        if (path.empty())
+        if (path.empty()) {
             return nullptr;
+        }
 
         std::vector<std::string> split_path;
         std::string str(path);
@@ -268,10 +305,11 @@ namespace scenes {
 
     void load_default_values() {
         auto initial_values = il2cpp::gchandle_target<app::SceneMetaData_SeinInitialValuesWotW>(initial_values_handle);
-        if (il2cpp::unity::is_valid(initial_values))
+        if (il2cpp::unity::is_valid(initial_values)) {
             il2cpp::invoke(initial_values, "ApplyInitialValues");
-        else
+        } else {
             modloader::warn("scene_load", "Failed to set default wotw values.");
+        }
     }
 
     void on_load_spawn(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root) {
@@ -295,10 +333,8 @@ namespace scenes {
         console::console_send(fmt::format("Debug logging {}", scene_loader_debug_logging ? "enabled" : "disabled"));
     }
 
-    void initialize() {
+    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         force_load_scene("swampIntroTop", &on_load_spawn);
         console::register_command({ "scenes", "set_debug" }, set_debug_logging);
-    }
-
-    CALL_ON_INIT(initialize);
-} // namespace scenes
+    });
+} // namespace core::api::scenes

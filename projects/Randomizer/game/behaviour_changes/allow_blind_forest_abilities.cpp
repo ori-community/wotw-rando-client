@@ -1,7 +1,7 @@
-#include <Modloader/common.h>
-#include <Modloader/interception_macros.h>
 #include <Modloader/app/methods/PlayerAbilities.h>
 #include <Modloader/app/types/DebugValues.h>
+#include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 
 using namespace app::classes;
 using namespace modloader;

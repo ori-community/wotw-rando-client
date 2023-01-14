@@ -1,15 +1,17 @@
 #include <constants.h>
 
-#include <Modloader/interception.h>
-#include <Modloader/app/methods/SeinDashNew.h>
+#include <Core/api/uber_states/uber_state.h>
+
 #include <Modloader/app/methods/GeneralDebugMenuPage.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAbilities.h>
-
-#include <interop/csharp_bridge.h>
+#include <Modloader/app/methods/SeinDashNew.h>
+#include <Modloader/interception.h>
 
 using namespace app::classes;
 
 namespace {
+    core::api::uber_states::UberState dash_state(6, 1000 + static_cast<int>(app::AbilityType__Enum::DashNew));
+
     void update_dash_state(app::PlayerUberStateAbilities* this_ptr);
 
     IL2CPP_INTERCEPT(Moon::uberSerializationWisp::PlayerUberStateAbilities, void, SetAbility, (app::PlayerUberStateAbilities * this_ptr, app::AbilityType__Enum ability, bool value)) {
@@ -26,7 +28,7 @@ namespace {
     }
 
     bool has_dash() {
-        return csharp_bridge::get_ability(app::AbilityType__Enum::DashNew);
+        return dash_state.get<bool>();
     }
 
     void update_dash_state(app::PlayerUberStateAbilities* this_ptr) {
@@ -65,7 +67,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(GeneralDebugMenuPage, void, SetAbility, (app::GeneralDebugMenuPage * this_ptr, app::AbilityType__Enum ability, bool value)) {
-        csharp_bridge::set_ability(ability, value);
+        dash_state.set(value ? 1.0 : 0.0);
         next::GeneralDebugMenuPage::SetAbility(this_ptr, ability, value);
     }
 

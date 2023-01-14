@@ -1,35 +1,30 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/ui.h>
 #include <Core/api/scenes/scene_load.h>
-#include <Core/macros.h>
 
-#include <Common/ext.h>
-
+#include <Modloader/app/methods/Game/Characters.h>
 #include <Modloader/app/methods/GameController.h>
+#include <Modloader/app/methods/GameStateMachine.h>
+#include <Modloader/app/methods/InstantLoadScenesController.h>
 #include <Modloader/app/methods/SaveGameController.h>
+#include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/SeinEnergy.h>
 #include <Modloader/app/methods/SeinHealthController.h>
 #include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/methods/UnityEngine/Behaviour.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
-#include <Modloader/app/methods/ScenesManager.h>
-#include <Modloader/app/methods/GameplayCamera.h>
-#include <Modloader/app/methods/GameStateMachine.h>
-#include <Modloader/app/methods/SeinPlaceholder.h>
-#include <Modloader/app/methods/LoadFromMasterAtStart.h>
-#include <Modloader/app/methods/InstantLoadScenesController.h>
-#include <Modloader/app/methods/Game/Characters.h>
-#include <Modloader/app/methods/ScenesManagerSettings.h>
+#include <Modloader/app/types/CheatsHandler.h>
+#include <Modloader/app/types/DebugValues.h>
 #include <Modloader/app/types/GameController.h>
 #include <Modloader/app/types/GameObject.h>
-#include <Modloader/app/types/SimpleFPS.h>
-#include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/app/types/GameSettings.h>
+#include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/app/types/InstantLoadScenesController.h>
-#include <Modloader/common.h>
+#include <Modloader/app/types/SimpleFPS.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 #include <Modloader/windows_api/common.h>
 
@@ -39,9 +34,10 @@
 using namespace modloader;
 using namespace app::classes;
 
-namespace game {
+namespace core::api::game {
     namespace {
-        TimedMultiEventBus<GameEvent> game_event_bus;
+        bool initialized = false;
+        common::TimedEventBus<void, GameEvent> game_event_bus;
 
         std::unordered_map<RandoContainer, app::GameObject*> containers;
         app::GameObject* main_container_object = nullptr;
@@ -49,7 +45,7 @@ namespace game {
         bool save_requested = false;
         SaveOptions save_request_options{};
 
-        void make_container(RandoContainer container) {
+        void make_container(RandoContainer container) { // NOLINT
             auto obj = types::GameObject::create();
             UnityEngine::GameObject::ctor_1(obj, il2cpp::string_new(magic_enum::enum_name(container)));
 
@@ -58,36 +54,46 @@ namespace game {
                 UnityEngine::Object::DontDestroyOnLoad(reinterpret_cast<app::Object_1*>(obj));
                 main_container_object = obj;
             } else {
-                if (main_container_object == nullptr)
+                if (main_container_object == nullptr) {
                     make_container(RandoContainer::Randomizer);
+                }
 
                 il2cpp::unity::set_parent(obj, main_container_object);
             }
         }
 
         IL2CPP_INTERCEPT(GameController, void, Update, (app::GameController * this_ptr)) {
+            if (!initialized) {
+                return;
+            }
+
             game_event_bus.trigger_event(GameEvent::Update, EventTiming::Before);
             next::GameController::Update(this_ptr);
             game_event_bus.trigger_event(GameEvent::Update, EventTiming::After);
         }
 
-        bool disabled_simple_fps = false;
         IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
+            if (!initialized) {
+                return;
+            }
+
             game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::Before);
             next::GameController::FixedUpdate(this_ptr);
             game_event_bus.trigger_event(GameEvent::FixedUpdate, EventTiming::After);
-
             if (save_requested && can_save()) {
                 save(false, save_request_options);
             }
-
-            // TODO: Probably should move this somewhere else.
-            if (!disabled_simple_fps) {
-                auto simple_fps = types::SimpleFPS::get_class()->static_fields->Instance;
-                UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(simple_fps), false);
-                disabled_simple_fps = true;
-            }
         }
+
+        common::registration_handle on_title_screen_loaded = scenes::single_event_bus().register_handler("wotwTitleScreen", [](auto, auto) {
+            initialized = true;
+            on_title_screen_loaded = nullptr;
+        });
+
+        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+            auto simple_fps = types::SimpleFPS::get_class()->static_fields->Instance;
+            UnityEngine::Behaviour::set_enabled(reinterpret_cast<app::Behaviour*>(simple_fps), false);
+        });
 
         IL2CPP_INTERCEPT(GameController, void, OnApplicationFocus, (app::GameController * this_ptr, bool focusStatus)) {
             auto evt = focusStatus ? GameEvent::GainedFocus : GameEvent::LostFocus;
@@ -111,7 +117,7 @@ namespace game {
         }
     } // namespace
 
-    TimedMultiEventBus<GameEvent>& event_bus() {
+    common::TimedEventBus<void, GameEvent>& event_bus() {
         return game_event_bus;
     }
 
@@ -121,6 +127,17 @@ namespace game {
 
     float fixed_delta_time() {
         return TimeUtility::get_deltaTime();
+    }
+
+    app::GameStateMachine_State__Enum game_state() {
+        return types::GameStateMachine::get_class()
+            ->static_fields->m_instance->fields._CurrentState_k__BackingField;
+    }
+
+    bool in_game() {
+        return game_state() != app::GameStateMachine_State__Enum::TitleScreen &&
+            game_state() != app::GameStateMachine_State__Enum::Logos &&
+            game_state() != app::GameStateMachine_State__Enum::StartScreen;
     }
 
     app::GameController* controller() {
@@ -148,13 +165,13 @@ namespace game {
     bool is_paused() {
         auto instance = ui::get();
         return !il2cpp::unity::is_valid(instance) ||
-                !il2cpp::unity::is_valid(instance->static_fields->m_sMenu) ||
-                instance->static_fields->m_sMenu->fields.m_isPaused;
+            !il2cpp::unity::is_valid(instance->static_fields->m_sMenu) ||
+            instance->static_fields->m_sMenu->fields.m_isPaused;
     }
 
     bool can_save() {
         return !controller()->fields.DisableCheckpoints &&
-                SaveGameController::CanPerformSave(save_controller());
+            SaveGameController::CanPerformSave(save_controller());
     }
 
     void checkpoint(bool refill, bool refill_instantly, bool restore_instantly) {
@@ -248,8 +265,19 @@ namespace game {
         GameStateMachine::SetToGame(GameStateMachine::get_Instance());
         load(true);
     }
-} // namespace game
 
-CORE_C_DLLEXPORT float get_fixed_delta_time() {
-    return game::fixed_delta_time();
-}
+    bool debug_controls() {
+        auto cheats = types::CheatsHandler::get_class()->static_fields;
+        return cheats->Instance->fields.DebugEnabled;
+    }
+
+    void debug_controls(bool value) {
+        auto cheats = types::CheatsHandler::get_class()->static_fields;
+        if (cheats->Instance->fields.DebugEnabled != value) {
+            cheats->Instance->fields.DebugEnabled = value;
+            cheats->DebugWasEnabled = value;
+            cheats->DebugAlwaysEnabled = value;
+            types::DebugValues::get_class()->static_fields->DebugControlsEnabled = value;
+        }
+    }
+} // namespace core::api::game

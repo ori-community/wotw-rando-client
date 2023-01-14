@@ -14,11 +14,11 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/loading_detection.h>
 #include <Core/api/game/player.h>
+#include <Core/events/async_update.h>
 #include <Core/input/simulator.h>
 #include <Core/ipc/ipc.h>
-#include <Core/async_update.h>
 
-#include <Modloader/common.h>
+#include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 
 #include <thread>
@@ -70,22 +70,22 @@ namespace tas::runtime {
          */
         void notify_loading_state_changed() {
             auto request = core::ipc::make_request("notify_loading_state_changed");
-            request["payload"] = game::loading_detection::get_loading_state();
+            request["payload"] = core::api::game::loading_detection::get_loading_state();
             core::ipc::send_message(request);
         }
 
         namespace loading_state_detection {
             std::atomic<LoadingState> last_notified_loading_state = LoadingState::NotLoading;
 
-            void on_async_update(float delta) {
-                auto current_state = game::loading_detection::get_loading_state();
+            auto on_async_update_handle = core::events::async_update_bus().register_handler([](float delta) {
+                auto current_state = core::api::game::loading_detection::get_loading_state();
 
                 if (last_notified_loading_state != current_state) {
                     last_notified_loading_state = current_state;
                     notify_loading_state_changed();
                 }
-            }
-        }
+            });
+        } // namespace loading_state_detection
 
         void serialize_state(nlohmann::json& j) {
             j["timeline_fps"] = state.current_timeline.get_fps();
@@ -94,10 +94,10 @@ namespace tas::runtime {
             j["timeline_current_rng_state"] = state.current_timeline.get_state().current_rng_state;
             j["framestepping_enabled"] = state.framestepping_enabled;
 
-            loading_state_detection::last_notified_loading_state = game::loading_detection::get_loading_state();
+            loading_state_detection::last_notified_loading_state = core::api::game::loading_detection::get_loading_state();
             j["loading_state"] = loading_state_detection::last_notified_loading_state;
 
-            auto position = game::player::get_position();
+            auto position = core::api::game::player::get_position();
             j["ori_position"]["x"] = position.x;
             j["ori_position"]["y"] = position.y;
 
@@ -110,30 +110,6 @@ namespace tas::runtime {
             auto request = core::ipc::make_request("notify_tas_state_changed");
             serialize_state(request["payload"]);
             core::ipc::send_message(request);
-        }
-
-        void on_before_unity_loop(GameEvent event, EventTiming timing) {
-            if (state.framestepping_enabled) {
-                while (!framestep_requested && state.framestepping_enabled) {
-                    game::event_bus().trigger_event(GameEvent::TASPausedUpdate, EventTiming::Before);
-                    std::this_thread::sleep_for(std::chrono::nanoseconds(static_cast<unsigned long long>(state.current_timeline.get_delta_time() * 1000000000.f)));
-                    game::event_bus().trigger_event(GameEvent::TASPausedUpdate, EventTiming::After);
-                }
-
-                framestep_requested = false;
-            }
-
-            if (state.timeline_playback_active) {
-                if (game::loading_detection::get_loading_state() == LoadingState::NotLoading) {
-                    state.current_timeline.advance();
-                }
-
-                types::FixedRandom::get_class()->static_fields->FixedUpdateIndex = state.current_timeline.get_state().current_rng_state;
-            }
-        }
-
-        void on_after_unity_loop(GameEvent event, EventTiming timing) {
-            notify_state_changed();
         }
 
         namespace ipc_handlers {
@@ -188,15 +164,48 @@ namespace tas::runtime {
 
         namespace cli_handlers {
             void reload_everything(std::string const& command, std::vector<console::CommandParam> const& params) {
-                game::reload_everything();
+                core::api::game::reload_everything();
             }
 
             void load(std::string const& command, std::vector<console::CommandParam> const& params) {
-                game::load();
+                core::api::game::load();
             }
         } // namespace cli_handlers
 
-        void initialize() {
+        auto on_before_unity_loop_handle = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, [](auto, auto) {
+            if (state.framestepping_enabled) {
+                while (!framestep_requested && state.framestepping_enabled) {
+                    core::api::game::event_bus().trigger_event(GameEvent::TASPausedUpdate, EventTiming::Before);
+                    std::this_thread::sleep_for(std::chrono::nanoseconds(static_cast<unsigned long long>(state.current_timeline.get_delta_time() * 1000000000.f)));
+                    core::api::game::event_bus().trigger_event(GameEvent::TASPausedUpdate, EventTiming::After);
+                }
+
+                framestep_requested = false;
+            }
+
+            if (state.timeline_playback_active) {
+                if (core::api::game::loading_detection::get_loading_state() == LoadingState::NotLoading) {
+                    state.current_timeline.advance();
+                }
+
+                types::FixedRandom::get_class()->static_fields->FixedUpdateIndex = state.current_timeline.get_state().current_rng_state;
+            }
+        });
+
+        auto on_after_unity_loop_handle = core::api::game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
+            notify_state_changed();
+        });
+
+        auto on_after_current_timeline = state.current_timeline.event_bus().register_handler(EventTiming::After, [](auto event, auto) {
+            switch (event) {
+                case timeline::TimelineEvent::Rewind:
+                case timeline::TimelineEvent::Seek: {
+                    core::api::game::save_controller()->fields.m_lastSavedFrameIndex = -1;
+                }
+            }
+        });
+
+        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             core::ipc::register_request_handler("tas.load_timeline_from_file", &ipc_handlers::load_timeline_from_file);
             core::ipc::register_request_handler("tas.set_framestepping_enabled", &ipc_handlers::set_framestepping_enabled);
             core::ipc::register_request_handler("tas.framestep", &ipc_handlers::framestep);
@@ -204,23 +213,8 @@ namespace tas::runtime {
             core::ipc::register_request_handler("tas.rewind_timeline", &ipc_handlers::rewind_timeline);
             core::ipc::register_request_handler("tas.get_state", &ipc_handlers::get_state);
 
-            core::async_update::event_bus().register_handler(&loading_state_detection::on_async_update);
-            game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, &on_before_unity_loop);
-            game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, &on_after_unity_loop);
-
             console::register_command({ "tas", "game", "reload" }, &cli_handlers::reload_everything, true);
             console::register_command({ "tas", "game", "load" }, &cli_handlers::load, true);
-
-            state.current_timeline.event_bus().register_handler(EventTiming::After, [](timeline::TimelineEvent event, EventTiming timing) {
-                switch (event) {
-                    case timeline::TimelineEvent::Rewind:
-                    case timeline::TimelineEvent::Seek: {
-                        game::save_controller()->fields.m_lastSavedFrameIndex = -1;
-                    }
-                }
-            });
-        }
-
-        CALL_ON_INIT(initialize);
+        });
     } // namespace
 } // namespace tas::runtime

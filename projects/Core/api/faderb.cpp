@@ -8,7 +8,7 @@
 
 using namespace app::classes;
 
-namespace faderb {
+namespace core::api::faderb {
     app::FaderB* faderb_cache = nullptr;
 
     app::FaderB* get() {
@@ -27,4 +27,4 @@ namespace faderb {
     void fade_out(float duration) {
         FaderB::FadeOut_2(get(), duration);
     }
-} // namespace faderb
+} // namespace core::api::faderb

@@ -1,14 +1,13 @@
-#include <constants.h>
-#include <interop/csharp_bridge.h>
 #include <Randomizer/macros.h>
+#include <constants.h>
 
 #include <Common/ext.h>
 
 #include <Modloader/app/methods/Moon/uberSerializationWisp/PlayerUberStateAreaMapInformation.h>
 #include <Modloader/app/types/PlayerUberStateGroup.h>
-#include <Modloader/common.h>
 #include <Modloader/interception.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 
 #include <unordered_map>
 
@@ -40,22 +39,19 @@ namespace {
 
     IL2CPP_INTERCEPT(Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation, void, SetAreaState, (app::PlayerUberStateAreaMapInformation * this_ptr, app::GameWorldAreaID__Enum area_id, int index, app::WorldMapAreaState__Enum state, app::Vector3 position)) {
         next::Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::SetAreaState(this_ptr, area_id, index, state, position);
-        if (state != app::WorldMapAreaState__Enum::Visited)
+        if (state != app::WorldMapAreaState__Enum::Visited) {
             return;
+        }
 
         auto it = area_to_tp.find(std::make_pair(area_id, index));
-        if (it == area_to_tp.end())
+        if (it == area_to_tp.end()) {
             return;
+        }
 
-        csharp_bridge::on_found_tp(it->second);
+        // TODO: Implement this.
+        // if (type == TeleporterType.EastPools && !UberGet.Bool(5377, 63173))
+        //     return;
+        //
+        // GrantOnNextUpdate.Add(type);
     }
 } // namespace
-
-RANDOMIZER_C_DLLEXPORT bool is_visited(app::GameWorldAreaID__Enum area, int index) {
-    auto player_group = types::PlayerUberStateGroup::get_class()->static_fields->Instance;
-    if (!il2cpp::unity::is_valid(player_group))
-        return false;
-
-    auto area_map_info = player_group->fields.PlayerUberState->fields.m_state->fields.AreaMapInfo;
-    return Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation::GetAreaState(area_map_info, area, index) == app::WorldMapAreaState__Enum::Visited;
-}

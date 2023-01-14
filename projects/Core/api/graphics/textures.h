@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Core/macros.h>
 #include <Core/api/graphics/shaders.h>
+#include <Core/macros.h>
 #include <Modloader/app/structs/Texture2D.h>
 
 #include <memory>
@@ -40,11 +40,11 @@ namespace core::textures {
         void set_color(app::Color color);
         void clear_overrides();
 
-        std::wstring const& get_path() { return path; }
+        std::string const& get_path() { return path; }
 
     private:
         bool initialized = true;
-        std::wstring path;
+        std::string path;
         std::optional<gchandle> texture;
         MaterialParams local;
 
@@ -52,11 +52,11 @@ namespace core::textures {
         void reload_file_texture();
 
         CORE_DLLEXPORT friend std::shared_ptr<TextureData> create_texture();
-        CORE_DLLEXPORT friend std::shared_ptr<TextureData> get_texture(std::wstring_view path);
+        CORE_DLLEXPORT friend std::shared_ptr<TextureData> get_texture(std::string_view path);
         CORE_DLLEXPORT friend void reload_all_file_textures();
     };
 
     CORE_DLLEXPORT std::shared_ptr<TextureData> create_texture();
-    CORE_DLLEXPORT std::shared_ptr<TextureData> get_texture(std::wstring_view path);
+    CORE_DLLEXPORT std::shared_ptr<TextureData> get_texture(std::string_view path);
     CORE_DLLEXPORT void apply_default(app::Renderer* renderer);
 } // namespace core::textures

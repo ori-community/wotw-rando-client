@@ -13,12 +13,13 @@ set(
         "windows_api/console.cpp"
         "windows_api/memory.cpp"
         "windows_api/detours.cpp"
-        "windows_api/common.cpp"
+        "windows_api/modloader.cpp"
         "windows_api/sleep.cpp"
         "app/il2cpp_init.cpp"
-        "dll_main.cpp"
+        "modloader.cpp"
         "il2cpp_helpers.cpp"
         "interception.cpp"
+        "udp_socket.cpp"
 )
 
 set(
@@ -31,10 +32,11 @@ set(
         "windows_api/memory.h"
         "windows_api/sleep.h"
         "windows_api/windows.h"
-        "common.h"
+        "modloader.h"
         "constants.h"
         "il2cpp_helpers.h"
         "app/il2cpp_internals.h"
+        "udp_socket.h"
 )
 
 # message("Resolving methods")
@@ -100,6 +102,8 @@ target_link_libraries(
         ${PROJECT_NAME}
         "${WOTWR_LIB_DIR}/detours.lib"
         Common
+        wsock32
+        ws2_32
 )
 
 find_package(nlohmann_json)
@@ -126,7 +130,7 @@ set_source_files_properties(windows_api/console.cpp PROPERTIES SKIP_PRECOMPILE_H
 set_source_files_properties(windows_api/memory.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 set_source_files_properties(windows_api/bootstrap.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 set_source_files_properties(windows_api/detours.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
-set_source_files_properties(windows_api/common.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+set_source_files_properties(windows_api/modloader.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
 message(STATUS "Assigning source groups.")
 

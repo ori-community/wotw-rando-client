@@ -1,7 +1,8 @@
-#include <randomizer/collision.h>
+#include <collision.h>
 
 #include <quadtree/quadtree.h>
 
+#include <google/protobuf/port.h>
 #include <algorithm>
 #include <iterator>
 #include <unordered_map>
@@ -35,8 +36,8 @@ RANDOMIZER_C_DLLEXPORT int collision_reserve_id() {
 
 RANDOMIZER_C_DLLEXPORT int collision_query(app::Vector2 position, app::Vector2 size) {
     quadtree::Box<float> box(
-            quadtree::Vector2(position.x, position.y),
-            quadtree::Vector2(size.x, size.y)
+        quadtree::Vector2(position.x, position.y),
+        quadtree::Vector2(size.x, size.y)
     );
 
     auto output = tree.query(box);
@@ -55,15 +56,15 @@ RANDOMIZER_C_DLLEXPORT void collision_add_rect(int id, app::Vector2 position, ap
         collision_remove(id);
 
     quadtree::Box<float> box(
-            quadtree::Vector2(position.x, position.y),
-            quadtree::Vector2(size.x, size.y)
+        quadtree::Vector2(position.x, position.y),
+        quadtree::Vector2(size.x, size.y)
     );
 
     auto node = std::make_unique<Node>();
     node->id = id;
     node->box = quadtree::Box<float>(
-            quadtree::Vector2(position.x, position.y),
-            quadtree::Vector2(size.x, size.y)
+        quadtree::Vector2(position.x, position.y),
+        quadtree::Vector2(size.x, size.y)
     );
 
     tree.add(node.get());

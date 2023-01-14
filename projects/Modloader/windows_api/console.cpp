@@ -1,16 +1,18 @@
 #include <Common/ext.h>
 #include <Modloader/windows_api/console.h>
 #include <Modloader/windows_api/windows.h>
-#include <common.h>
+#include <modloader.h>
 
-#include <algorithm>
 #include <fmt/core.h>
+#include <algorithm>
+#include <cctype>
 #include <future>
 #include <iostream>
 #include <map>
 #include <mutex>
 #include <regex>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace modloader::win::console {
@@ -46,18 +48,20 @@ namespace modloader::win::console {
 
     void register_command(std::vector<std::string> const& path, dev_command command, bool should_run_on_game_thread) {
         Command* current = &root;
-        for (const auto& entry : path)
+        for (const auto& entry : path) {
             current = &current->sub_commands[entry];
+        }
 
-        current->actions.push_back(Action{ should_run_on_game_thread, command });
+        current->actions.push_back(Action{ should_run_on_game_thread, std::move(command) });
     }
 
     Command* find_command(std::vector<std::string> const& path) {
         Command* current = &root;
         for (const auto& entry : path) {
             auto it = current->sub_commands.find(entry);
-            if (it == current->sub_commands.end())
+            if (it == current->sub_commands.end()) {
                 return nullptr;
+            }
 
             current = &it->second;
         }
@@ -80,49 +84,124 @@ namespace modloader::win::console {
         queued_commands.clear();
         command_mutex.unlock();
 
-        for (auto const& command : local)
+        for (auto const& command : local) {
             std::get<2>(command)(std::get<0>(command), std::get<1>(command));
+        }
+    }
+
+    std::string_view get_until(std::string_view text, std::string_view pattern, size_t* pos = nullptr) {
+        auto unparsed = text;
+        while (!unparsed.starts_with(pattern) && !unparsed.empty()) {
+            unparsed.remove_prefix(1);
+        }
+
+        auto i = text.find(pattern);
+        if (pos != nullptr) {
+            *pos = i;
+        }
+
+        return text.substr(0, i);
     }
 
     bool handle_message(std::string const& message) {
-        if (message.empty())
+        if (message.empty()) {
             return false;
+        }
 
-        std::vector<std::string> tokens;
-        split_str(message, tokens);
-
-        const auto path_str = tokens.front();
+        size_t end;
+        const auto path_str = get_until(message, " ", &end);
         std::vector<std::string> path;
         split_str(path_str, path, '.');
 
-        tokens.erase(tokens.begin());
+        enum class State {
+            Whitespace,
+            Name,
+            Value,
+            StringName,
+            StringValue,
+        };
+
         auto* const command = find_command(path);
         if (command != nullptr) {
+            std::string_view unparsed = message;
+            unparsed = end == std::string_view::npos ? "" : unparsed.substr(end);
             std::vector<CommandParam> params;
-            for (auto const& token : tokens) {
-                if (token.empty())
-                    continue;
 
-                CommandParam param;
-                const auto offset = token.find('=');
-                if (offset == std::string::npos) {
-                    param.name = "";
-                    param.value = token;
-                } else {
-                    param.name = token.substr(0, offset);
-                    param.value = token.substr(offset + 1, token.size());
+            char last = '\0';
+            std::string name;
+            std::string value;
+            State state = State::Whitespace;
+            while (!unparsed.empty()) {
+                switch (state) {
+                    case State::Whitespace:
+                        if (!std::isspace(unparsed.front())) {
+                            if (unparsed.front() != '"' && unparsed.front() != '\\') {
+                                state = State::Name;
+                                name = unparsed.front();
+                            } else {
+                                state = State::StringName;
+                                name = "";
+                            }
+                        }
+                        break;
+                    case State::Name:
+                        if (std::isspace(unparsed.front())) {
+                            state = State::Whitespace;
+                            params.push_back(CommandParam{
+                                .name = "",
+                                .value = name,
+                            });
+                        } else if (unparsed.front() == '=') {
+                            state = State::Value;
+                            value = "";
+                        } else if (name.empty() && unparsed.front() == '"' && last != '\\') {
+                            state = State::StringName;
+                        } else if (unparsed.front() != '\\' || last == '\\') {
+                            name += unparsed.front();
+                        }
+                        break;
+                    case State::Value:
+                        if (std::isspace(unparsed.front())) {
+                            state = State::Whitespace;
+                            params.push_back(CommandParam{
+                                .name = name,
+                                .value = value,
+                            });
+                        } else if (value.empty() && unparsed.front() == '"' && last != '\\') {
+                            state = State::StringValue;
+                        } else if (unparsed.front() != '\\' || last == '\\') {
+                            value += unparsed.front();
+                        }
+                        break;
+                    case State::StringName:
+                    case State::StringValue:
+                        if (unparsed.front() == '"' && last != '\\') {
+                            state = state == State::StringValue ? State::Value : State::Name;
+                        } else {
+                            (state == State::StringValue ? value : name) += unparsed.front();
+                        }
+                        break;
                 }
 
-                params.push_back(param);
+                last = unparsed.front();
+                unparsed.remove_prefix(1);
+            }
+
+            if (state != State::Whitespace) {
+                params.push_back(CommandParam{
+                    .name = state == State::Value ? name : "",
+                    .value = state == State::Value ? value : name,
+                });
             }
 
             for (auto const& action : command->actions) {
                 if (action.should_run_on_main_thread) {
                     command_mutex.lock();
-                    queued_commands.push_back(std::make_tuple(path_str, params, action.func));
+                    queued_commands.emplace_back(path_str, params, action.func);
                     command_mutex.unlock();
-                } else
-                    action.func(path_str, params);
+                } else {
+                    action.func(std::string(path_str), params);
+                }
             }
 
             return true;
@@ -135,20 +214,24 @@ namespace modloader::win::console {
         console_file = nullptr;
         initialzed = false;
         failed = true;
-        if (!AllocConsole())
+        if (!AllocConsole()) {
             return;
+        }
 
         auto err = freopen_s(&console_file, "CONOUT$", "w", stdout);
-        if (err != 0)
+        if (err != 0) {
             trace(MessageType::Warning, 4, "initialize", fmt::format("failed to open console output 'stdout': {}", err));
+        }
 
         err = freopen_s(&console_file, "CONOUT$", "w", stderr);
-        if (err != 0)
+        if (err != 0) {
             trace(MessageType::Warning, 4, "initialize", fmt::format("failed to open console output 'stderr': {}", err));
+        }
 
         err = freopen_s(&console_file, "CONIN$", "r", stdin);
-        if (err != 0)
+        if (err != 0) {
             trace(MessageType::Warning, 4, "initialize", fmt::format("failed to open console input 'stdin': {}", err));
+        }
 
         std::cout.clear();
         std::clog.clear();
@@ -164,11 +247,13 @@ namespace modloader::win::console {
     }
 
     void console_free() {
-        if (!initialzed)
+        if (!initialzed) {
             return;
+        }
 
-        if (console_file != nullptr)
+        if (console_file != nullptr) {
             fclose(console_file);
+        }
 
         FreeConsole();
     }
@@ -179,26 +264,30 @@ namespace modloader::win::console {
         console_send("list *");
 
         std::vector<std::tuple<int, std::string, Command*>> commands;
-        commands.push_back(std::make_tuple(-1, "", &root));
+        commands.emplace_back(-1, "", &root);
         while (!commands.empty()) {
             auto entry = commands.back();
             commands.erase(commands.end() - 1);
 
             auto* const command = std::get<2>(entry);
             std::string info;
-            for (auto i = 0; i < std::get<0>(entry); ++i)
+            for (auto i = 0; i < std::get<0>(entry); ++i) {
                 info += "\t";
+            }
 
             info += std::get<1>(entry);
-            if (!command->actions.empty())
+            if (!command->actions.empty()) {
                 info += " *";
+            }
 
-            if (!info.empty())
+            if (!info.empty()) {
                 console_send(info);
+            }
 
-            const int index = commands.size();
-            for (auto& sub_command : command->sub_commands)
+            const int index = static_cast<int>(commands.size());
+            for (auto& sub_command : command->sub_commands) {
                 commands.insert(commands.begin() + index, std::make_tuple(std::get<0>(entry) + 1, sub_command.first, &sub_command.second));
+            }
         }
 
         console_send("");
@@ -209,12 +298,13 @@ namespace modloader::win::console {
 
         if (initialzed && console_input.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
             const auto command = console_input.get();
-            if (command.rfind("echo ", 0) != std::string::npos)
+            if (command.rfind("echo ", 0) != std::string::npos) {
                 std::cout << command.substr(5, command.length()) << std::endl;
-            else if (command == "list")
+            } else if (command == "list") {
                 list_commands();
-            else
+            } else {
                 handle_message(command);
+            }
 
             std::cin.clear();
             console_input = std::async(read_command);
@@ -241,8 +331,9 @@ namespace modloader::win::console {
             messages.clear();
             message_mutex.unlock();
 
-            for (auto const& message : messages_copy)
+            for (auto const& message : messages_copy) {
                 std::cout << message << std::endl;
+            }
         }
     }
 

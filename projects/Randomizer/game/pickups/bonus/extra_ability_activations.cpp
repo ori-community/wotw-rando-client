@@ -1,14 +1,14 @@
+#include <Core/api/uber_states/uber_state.h>
 #include <Randomizer/macros.h>
-#include <Core/uber_states/uber_state_interface.h>
 
-#include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/SeinDoubleJump.h>
 #include <Modloader/app/methods/SeinDashNew.h>
+#include <Modloader/app/methods/SeinDoubleJump.h>
 #include <Modloader/app/methods/SeinLogicCycle.h>
+#include <Modloader/interception_macros.h>
 
 namespace {
-    uber_states::UberState jumps(UberStateGroup::RandoUpgrade, 35);
-    uber_states::UberState dashes(UberStateGroup::RandoUpgrade, 36);
+    core::api::uber_states::UberState jumps(UberStateGroup::RandoUpgrade, 35);
+    core::api::uber_states::UberState dashes(UberStateGroup::RandoUpgrade, 36);
 
     IL2CPP_INTERCEPT(SeinDoubleJump, int32_t, get_ExtraJumpsAvailable, ()) {
         return jumps.get<int>() + next::SeinDoubleJump::get_ExtraJumpsAvailable();
@@ -31,7 +31,7 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinDashNew, void, OnResetAirLimits, (app::SeinDashNew * this_ptr)) {
-    next::SeinDashNew::OnResetAirLimits(this_ptr);
+        next::SeinDashNew::OnResetAirLimits(this_ptr);
         dashes_used = 0;
     }
 

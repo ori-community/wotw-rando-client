@@ -1,7 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
-#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/AKRESULT__Enum.h>
 #include <Modloader/app/structs/AkAcousticSurfaceArray.h>
 #include <Modloader/app/structs/AkActionOnEventType__Enum.h>
@@ -58,6 +57,7 @@
 #include <Modloader/app/structs/AkTriangleArray.h>
 #include <Modloader/app/structs/AkVector.h>
 #include <Modloader/app/structs/AkVertexArray.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Single__Array.h>
@@ -387,10 +387,10 @@ namespace app::classes::AkSoundEngine {
     IL2CPP_REGISTER_METHOD(0x018B31E0, app::AKRESULT__Enum, RegisterGameObjInternal, (app::GameObject * in__game_obj))
     IL2CPP_REGISTER_METHOD(0x018B32B0, app::AKRESULT__Enum, UnregisterGameObjInternal, (app::GameObject * in__game_obj))
     IL2CPP_REGISTER_METHOD(0x018B3380, app::AKRESULT__Enum, RegisterGameObjInternal_WithName, (app::GameObject * in__game_obj, app::String* in_psz_obj_name))
-    IL2CPP_REGISTER_METHOD(0x018B3460, app::AKRESULT__Enum, SetBasePath, (app::String * in_psz_base_path))
+    IL2CPP_REGISTER_METHOD(0x018B3460, app::AKRESULT__Enum, SetBasePath, (app::String * in_psz_base_path()))
     IL2CPP_REGISTER_METHOD(0x018B3590, app::AKRESULT__Enum, SetCurrentLanguage, (app::String * in_psz_audio_src_path))
     IL2CPP_REGISTER_METHOD(0x018B36C0, app::AKRESULT__Enum, LoadFilePackage, (app::String * in_psz_file_package_name, uint32_t* out_u_package_i_d, int32_t in_mem_pool_i_d))
-    IL2CPP_REGISTER_METHOD(0x018B3810, app::AKRESULT__Enum, AddBasePath, (app::String * in_psz_base_path))
+    IL2CPP_REGISTER_METHOD(0x018B3810, app::AKRESULT__Enum, AddBasePath, (app::String * in_psz_base_path()))
     IL2CPP_REGISTER_METHOD(0x018B3940, app::AKRESULT__Enum, SetGameName, (app::String * in__game_name))
     IL2CPP_REGISTER_METHOD(0x018B3A70, app::AKRESULT__Enum, SetDecodedBankPath, (app::String * in__decoded_path))
     IL2CPP_REGISTER_METHOD(0x018B3BA0, app::AKRESULT__Enum, LoadAndDecodeBank, (app::String * in_psz_string, bool in_b_save_decoded_bank, uint32_t* out_bank_i_d))

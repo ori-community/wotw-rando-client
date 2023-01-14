@@ -1,5 +1,8 @@
 #include "pickups.h"
 #include <Common/ext.h>
+#include <Core/enums/static_text_entries.h>
+#include <Core/mood_guid.h>
+#include <Core/text/text_database.h>
 #include <Modloader/app/methods/Quest.h>
 #include <Modloader/app/methods/QuestsController.h>
 #include <Modloader/app/methods/RaceHandler.h>
@@ -7,17 +10,13 @@
 #include <Modloader/app/types/QuestsController.h>
 #include <Modloader/app/types/SeinWorldState.h>
 #include <Modloader/app/types/SerializedIntUberState.h>
-#include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
-#include <Core/enums/static_text_entries.h>
-#include <Core/text_database.h>
-#include <Core/utils/mood_guid.h>
 #include <unordered_set>
 
 using namespace modloader;
-using namespace utils;
 using namespace modloader::win;
 using namespace app::classes;
 
@@ -32,7 +31,7 @@ namespace game::pickups::quests {
         };
 
         struct CustomQuest {
-            MoodGuid guid;
+            core::MoodGuid guid;
 
             int state_offset = 0;
 
@@ -49,11 +48,11 @@ namespace game::pickups::quests {
 
             app::Quest* predicate = nullptr;
 
-            explicit CustomQuest(MoodGuid guid) :
-                    guid(guid) {}
+            explicit CustomQuest(core::MoodGuid guid)
+                    : guid(guid) {}
 
-            CustomQuest(MoodGuid guid, int state_offset) :
-                    guid(guid), state_offset(state_offset) {}
+            CustomQuest(core::MoodGuid guid, int state_offset)
+                    : guid(guid), state_offset(state_offset) {}
 
             CustomQuest& with_state_offset(int o) {
                 this->state_offset = o;
@@ -88,42 +87,42 @@ namespace game::pickups::quests {
             }
         };
 
-        const std::unordered_set<MoodGuid> hidden_quests{
+        const std::unordered_set<core::MoodGuid> hidden_quests{
             /** "The Will of the Wisps" quests */
-            MoodGuid(463964177, 1341936715, 1873994928, -499945615),
-            MoodGuid(1258910534, 1122636955, -1778480234, 133348844),
-            MoodGuid(-710816118, 1277947377, 319140, -1525452841),
-            MoodGuid(-268077221, 1202243572, -852566089, 156978670),
-            MoodGuid(-893057416, 1301390982, 1357684358, 238297567),
-            MoodGuid(1471999638, 1254990963, -2105615190, 222227120),
-            MoodGuid(-463711902, 1078475536, -1306081351, -2097288726),
+            core::MoodGuid(463964177, 1341936715, 1873994928, -499945615),
+            core::MoodGuid(1258910534, 1122636955, -1778480234, 133348844),
+            core::MoodGuid(-710816118, 1277947377, 319140, -1525452841),
+            core::MoodGuid(-268077221, 1202243572, -852566089, 156978670),
+            core::MoodGuid(-893057416, 1301390982, 1357684358, 238297567),
+            core::MoodGuid(1471999638, 1254990963, -2105615190, 222227120),
+            core::MoodGuid(-463711902, 1078475536, -1306081351, -2097288726),
             /** Guardian of the Marsh */
-            MoodGuid(-261606325, 1116232232, -678406985, 1875250207),
+            core::MoodGuid(-261606325, 1116232232, -678406985, 1875250207),
         };
 
-        std::unordered_map<MoodGuid, CustomQuest> custom_quests{
+        std::unordered_map<core::MoodGuid, CustomQuest> custom_quests{
             /** The Missing Key */
-            { MoodGuid(784309430, 1297004301, 1325754012, 600417717), CustomQuest(MoodGuid(1453348213, -184076870, 1758843589, -1206166881), -1).chain(PREPEND).with_descriptions(text_database::StaticTextEntry::QuestMissingKeyStep0) },
+            { core::MoodGuid(784309430, 1297004301, 1325754012, 600417717), CustomQuest(core::MoodGuid(1453348213, -184076870, 1758843589, -1206166881), -1).chain(PREPEND).with_descriptions(core::StaticTextEntry::QuestMissingKeyStep0) },
             /** Hand to hand */
-            { MoodGuid(734014019, 1236148109, -842462836, 1209027896), CustomQuest(MoodGuid(443652096, 862847964, 610815061, 667049562), -1).chain(PREPEND).with_descriptions(text_database::StaticTextEntry::QuestHandToHandStep0) },
+            { core::MoodGuid(734014019, 1236148109, -842462836, 1209027896), CustomQuest(core::MoodGuid(443652096, 862847964, 610815061, 667049562), -1).chain(PREPEND).with_descriptions(core::StaticTextEntry::QuestHandToHandStep0) },
             /** Tree Keeper */
-            { MoodGuid(-444299054, 1208119667, 1590309785, -1080834788), CustomQuest(MoodGuid(-462332515, 714151830, 856820588, 522656270), -1).chain(PREPEND).with_descriptions(text_database::StaticTextEntry::QuestTreeKeeperStep0) },
+            { core::MoodGuid(-444299054, 1208119667, 1590309785, -1080834788), CustomQuest(core::MoodGuid(-462332515, 714151830, 856820588, 522656270), -1).chain(PREPEND).with_descriptions(core::StaticTextEntry::QuestTreeKeeperStep0) },
             /** Into the Burrows */
-            { MoodGuid(1047943550, 1133666609, 582044811, -400025166), CustomQuest(MoodGuid(197166750, 30757628, 788233297, -62356085), -1).chain(PREPEND) },
+            { core::MoodGuid(1047943550, 1133666609, 582044811, -400025166), CustomQuest(core::MoodGuid(197166750, 30757628, 788233297, -62356085), -1).chain(PREPEND) },
             /** The Lost Compass */
-            { MoodGuid(2065713802, 1099864302, 1855243427, 699093402), CustomQuest(MoodGuid(1930774565, -1930601668, 922713885, -1008795977), -1).chain(PREPEND) },
+            { core::MoodGuid(2065713802, 1099864302, 1855243427, 699093402), CustomQuest(core::MoodGuid(1930774565, -1930601668, 922713885, -1008795977), -1).chain(PREPEND) },
             /** A Little Braver */
-            { MoodGuid(1481196127, 1293607637, 981021317, -1136014609), CustomQuest(MoodGuid(119446285, -684518850, -1767375534, -68633018), -1).chain(PREPEND) },
+            { core::MoodGuid(1481196127, 1293607637, 981021317, -1136014609), CustomQuest(core::MoodGuid(119446285, -684518850, -1767375534, -68633018), -1).chain(PREPEND) },
             /** Family Reunion */
-            { MoodGuid(-1601840078, 1103492453, -923271242, 695368384), CustomQuest(MoodGuid(905154132, -1027139671, 1339646969, -1918733152), -1).chain(PREPEND) },
+            { core::MoodGuid(-1601840078, 1103492453, -923271242, 695368384), CustomQuest(core::MoodGuid(905154132, -1027139671, 1339646969, -1918733152), -1).chain(PREPEND) },
             /** A Diamond in the Rough */
-            { MoodGuid(78890316, 1100833699, -747913560, -481508703), CustomQuest(MoodGuid(-1578433137, -457196956, -1785929937, -687959081), -1).chain(PREPEND) },
+            { core::MoodGuid(78890316, 1100833699, -747913560, -481508703), CustomQuest(core::MoodGuid(-1578433137, -457196956, -1785929937, -687959081), -1).chain(PREPEND) },
             /** Into the Darkness */
-            { MoodGuid(1060260356, 1082605953, -1369924430, -603812624), CustomQuest(MoodGuid(-273871809, -1379968594, 1320792014, -961230901), -1).chain(PREPEND) },
+            { core::MoodGuid(1060260356, 1082605953, -1369924430, -603812624), CustomQuest(core::MoodGuid(-273871809, -1379968594, 1320792014, -961230901), -1).chain(PREPEND) },
             /** Kwolok's Wisdom */
-            { MoodGuid(1738768222, 1239000801, 1986669468, 2137801590), CustomQuest(MoodGuid(1535569408, 50382679, 1649450080, -846359187), -1).chain(PREPEND) },
+            { core::MoodGuid(1738768222, 1239000801, 1986669468, 2137801590), CustomQuest(core::MoodGuid(1535569408, 50382679, 1649450080, -846359187), -1).chain(PREPEND) },
             /** Regrowing the Glades */
-            { MoodGuid(-764284553, 1115842333, 1796016546, -1254651281), CustomQuest(MoodGuid(-830522577, 1668948132, 909007598, -64179817), -1).chain(PREPEND) },
+            { core::MoodGuid(-764284553, 1115842333, 1796016546, -1254651281), CustomQuest(core::MoodGuid(-830522577, 1668948132, 909007598, -64179817), -1).chain(PREPEND) },
         };
 
         // noop only - reward triggers on uberstate change.
@@ -134,15 +133,15 @@ namespace game::pickups::quests {
             auto quest = il2cpp::unity::instantiate_object<app::Quest>(custom_quest.predicate);
 
             if (custom_quest.override_name) {
-                quest->fields.NameMessageProvider = text_database::get_provider(*custom_quest.name);
+                quest->fields.NameMessageProvider = core::text::get_provider(*custom_quest.name);
             }
 
             if (custom_quest.override_description) {
-                quest->fields.DescriptionMessageProvider = text_database::get_provider(*custom_quest.description);
+                quest->fields.DescriptionMessageProvider = core::text::get_provider(*custom_quest.description);
             }
 
             if (custom_quest.override_short_description) {
-                quest->fields.ShortDescriptionMessageProvider = text_database::get_provider(*custom_quest.short_description);
+                quest->fields.ShortDescriptionMessageProvider = core::text::get_provider(*custom_quest.short_description);
             }
 
             quest->fields.StateOffset = custom_quest.state_offset;
@@ -323,12 +322,10 @@ namespace game::pickups::quests {
             send_state(state->fields.BaurNpc);
         }
 
-        void add_quest_commands() {
+        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             console::register_command({ "debug", "report_quests_completed" }, report_quests_completed);
             console::register_command({ "debug", "report_world_state" }, report_world_state);
-        }
-
-        CALL_ON_INIT(add_quest_commands);
+        });
     } // namespace
 
     app::QuestsController* controller() {

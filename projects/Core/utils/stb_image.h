@@ -225,7 +225,7 @@ RECENT REVISION HISTORY:
 //    2. easy to maintain
 //    3. good performance
 //
-// Sometimes I let "good performance" creep up in priority over "easy to maintain",
+// Sometimes I let "good performance" creep up in prioritized over "easy to maintain",
 // and for best performance I may provide less-easy-to-use APIs that give higher
 // performance, in addition to the easy-to-use ones. Nevertheless, it's important
 // to keep in mind that from the standpoint of you, a client of this library,
@@ -938,9 +938,9 @@ static int stbi__pnm_is16(stbi__context* s);
 
 static
 #ifdef STBI_THREAD_LOCAL
-        STBI_THREAD_LOCAL
+    STBI_THREAD_LOCAL
 #endif
-        const char* stbi__g_failure_reason;
+    const char* stbi__g_failure_reason;
 
 STBIDEF const char* stbi_failure_reason(void) {
     return stbi__g_failure_reason;
@@ -1000,14 +1000,14 @@ static int stbi__mad2sizes_valid(int a, int b, int add) {
 // returns 1 if "a*b*c + add" has no negative terms/factors and doesn't overflow
 static int stbi__mad3sizes_valid(int a, int b, int c, int add) {
     return stbi__mul2sizes_valid(a, b) && stbi__mul2sizes_valid(a * b, c) &&
-            stbi__addsizes_valid(a * b * c, add);
+        stbi__addsizes_valid(a * b * c, add);
 }
 
 // returns 1 if "a*b*c*d + add" has no negative terms/factors and doesn't overflow
 #if !defined(STBI_NO_LINEAR) || !defined(STBI_NO_HDR) || !defined(STBI_NO_PNM)
 static int stbi__mad4sizes_valid(int a, int b, int c, int d, int add) {
     return stbi__mul2sizes_valid(a, b) && stbi__mul2sizes_valid(a * b, c) &&
-            stbi__mul2sizes_valid(a * b * c, d) && stbi__addsizes_valid(a * b * c * d, add);
+        stbi__mul2sizes_valid(a * b * c, d) && stbi__addsizes_valid(a * b * c * d, add);
 }
 #endif
 
@@ -5549,9 +5549,7 @@ static int stbi__create_png_image(stbi__png* a, stbi_uc* image_data, stbi__uint3
                 for (i = 0; i < x; ++i) {
                     int out_y = j * yspc[p] + yorig[p];
                     int out_x = i * xspc[p] + xorig[p];
-                    memcpy(final + out_y * a->s->img_x * out_bytes + out_x * out_bytes,
-                           a->out + (j * x + i) * out_bytes,
-                           out_bytes);
+                    memcpy(final + out_y * a->s->img_x * out_bytes + out_x * out_bytes, a->out + (j * x + i) * out_bytes, out_bytes);
                 }
             }
             STBI_FREE(a->out);
@@ -6825,7 +6823,7 @@ static void* stbi__tga_load(stbi__context* s, int* x, int* y, int* comp, int req
     //   the things I do to get rid of an error message, and yet keep
     //   Microsoft's C compilers happy... [8^(
     tga_palette_start = tga_palette_len = tga_palette_bits =
-            tga_x_origin = tga_y_origin = 0;
+        tga_x_origin = tga_y_origin = 0;
     STBI_NOTUSED(tga_palette_start);
     //   OK, done
     return tga_data;

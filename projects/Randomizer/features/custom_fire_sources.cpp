@@ -1,11 +1,11 @@
+#include <Modloader/app/methods/AttackableSwitch.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/AttackableSwitch.h>
 
-#include <Core/uber_states/uber_state_interface.h>
+#include <Core/api/uber_states/uber_state.h>
 
-#include <unordered_set>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace {
     const std::unordered_set<std::string> damage_overrides{
@@ -17,13 +17,13 @@ namespace {
         "orbBulb",
     };
 
-    const std::unordered_map<app::DamageType__Enum, uber_states::UberState> damage_override_states{
-        { app::DamageType__Enum::Bow, uber_states::UberState(UberStateGroup::RandoUpgrade, 70) },
-        { app::DamageType__Enum::Blaze, uber_states::UberState(UberStateGroup::RandoUpgrade, 71) },
-        { app::DamageType__Enum::Sword, uber_states::UberState(UberStateGroup::RandoUpgrade, 72) },
-        { app::DamageType__Enum::Hammer, uber_states::UberState(UberStateGroup::RandoUpgrade, 73) },
-        { app::DamageType__Enum::SpiritSpear, uber_states::UberState(UberStateGroup::RandoUpgrade, 74) },
-        { app::DamageType__Enum::Chakram, uber_states::UberState(UberStateGroup::RandoUpgrade, 75) },
+    const std::unordered_map<app::DamageType__Enum, core::api::uber_states::UberState> damage_override_states{
+        { app::DamageType__Enum::Bow, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 70) },
+        { app::DamageType__Enum::Blaze, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 71) },
+        { app::DamageType__Enum::Sword, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 72) },
+        { app::DamageType__Enum::Hammer, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 73) },
+        { app::DamageType__Enum::SpiritSpear, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 74) },
+        { app::DamageType__Enum::Chakram, core::api::uber_states::UberState(UberStateGroup::RandoUpgrade, 75) },
     };
 
     bool is_overridden(const app::DamageType__Enum damage_type) {

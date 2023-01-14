@@ -1,0 +1,152 @@
+#include "text_style.h"
+
+#include <Core/api/game/player.h>
+#include <Core/macros.h>
+#include <Modloader/app/types/TextStyle.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
+
+#include <Common/ext.h>
+#include <unordered_set>
+#include <vector>
+
+using namespace app::classes;
+using namespace modloader;
+
+namespace text_style {
+    bool eat(std::string_view text, int& i, std::string_view food) {
+        if (i + food.size() >= text.size()) {
+            return false;
+        }
+
+        if (text.substr(i, food.size()) == food) {
+            i += static_cast<int>(food.size());
+            return true;
+        }
+
+        return false;
+    }
+
+    std::string_view eat_until(std::string_view text, int& i, std::string_view until) {
+        int j = i;
+        while (j < text.size()) {
+            if (eat(text, j, until)) {
+                std::string_view out(text.data() + i, j - i - until.size());
+                i = j;
+                return out;
+            } else {
+                ++j;
+            }
+        }
+
+        return "";
+    }
+
+    bool check_style(std::string_view text, int& i, std::string_view start, std::string& value) {
+        if (eat(text, i, start)) {
+            value = eat_until(text, i, ">");
+            trim(value);
+            if (!value.empty()) {
+                return true;
+            } else {
+                warn("messages", "missing > in style definition");
+            }
+        }
+
+        return false;
+    }
+
+    app::TextStyle* create_style(std::string_view name) {
+        auto style = types::TextStyle::create();
+        il2cpp::invoke(style, ".ctor");
+        style->fields.name = reinterpret_cast<app::String*>(il2cpp::string_new(name));
+        style->fields.rendererId = -1;
+        return style;
+    }
+
+    std::unordered_set<std::string> created_styles;
+    app::TextStyle* create_color_style(std::string_view text) {
+        auto it = created_styles.find(std::string(text));
+        if (it != created_styles.end() || text.size() != 8) {
+            return nullptr;
+        }
+
+        char* out = nullptr;
+        auto color_channels = std::strtoul(text.data(), &out, 16);
+        if (out != text.data() + text.size()) {
+            return nullptr;
+        }
+
+        auto hex_style = fmt::format("hex_{}", text);
+        auto style = create_style(hex_style);
+        style->fields.hasColor = true;
+        style->fields.color.rgba = static_cast<int>(
+            ((color_channels >> 24u) & 0xffu) |
+            ((color_channels << 8u) & 0xff0000u) |
+            ((color_channels >> 8u) & 0xff00u) |
+            ((color_channels << 24u) & 0xff000000u)
+        );
+
+        return style;
+    }
+
+    app::TextStyle* create_size_style(std::string_view text) {
+        auto it = created_styles.find(std::string(text));
+        if (it != created_styles.end()) {
+            return nullptr;
+        }
+
+        char* out = nullptr;
+        auto font_scale = std::strtod(text.data(), &out);
+        if (out != text.data() + text.size()) {
+            return nullptr;
+        }
+
+        auto size_style = fmt::format("s_{}", text);
+        auto style = create_style(size_style);
+        style->fields.hasFontScale = true;
+        style->fields.fontScale = static_cast<float>(font_scale);
+        style->fields.absoluteFontScale = true;
+
+        return style;
+    }
+
+    void create_styles(app::TextBox* box, std::string_view text) {
+        std::vector<app::TextStyle*> new_styles;
+        std::string value;
+        for (int i = 0; i < text.size();) {
+            app::TextStyle* style = nullptr;
+            if (check_style(text, i, "<hex_", value)) {
+                style = create_color_style(value);
+            } else if (check_style(text, i, "<s_", value)) {
+                style = create_size_style(value);
+            } else {
+                ++i;
+            }
+
+            if (style != nullptr) {
+                created_styles.emplace(value);
+                new_styles.push_back(style);
+            }
+        }
+
+        if (!new_styles.empty()) {
+            auto* styles = box->fields.styleCollection->fields.styles;
+            auto size = styles->max_length + new_styles.size();
+            auto arr = types::TextStyle::create_array(static_cast<int>(size));
+            for (int i = 0; i < styles->max_length; ++i) {
+                arr->vector[i] = styles->vector[i];
+            }
+
+            for (int i = 0; i < new_styles.size(); ++i) {
+                arr->vector[i + styles->max_length] = new_styles.at(i);
+            }
+
+            box->fields.styleCollection->fields.styles = arr;
+            for (auto i = 0; i < box->fields.styleCollection->fields.styles->max_length; ++i) {
+                auto name = il2cpp::convert_csstring(box->fields.styleCollection->fields.styles->vector[i]->fields.name);
+            }
+        }
+    }
+} // namespace text_style

@@ -1,6 +1,5 @@
+#include <Core/api/uber_states/uber_state.h>
 #include <features/controls/invert_swim.h>
-#include <interop/csharp_bridge.h>
-#include <Core/uber_states/uber_state_interface.h>
 
 #include <Common/ext.h>
 
@@ -10,26 +9,27 @@
 #include <Modloader/app/methods/SeinDigging.h>
 #include <Modloader/app/methods/SeinDoubleJump.h>
 #include <Modloader/app/methods/SeinJump.h>
+#include <Modloader/app/methods/SeinSpiritLeashAbility.h>
 #include <Modloader/app/methods/SeinSwimming.h>
 #include <Modloader/app/methods/SeinWallJump.h>
-#include <Modloader/app/methods/SeinSpiritLeashAbility.h>
 #include <Modloader/app/methods/UnityEngine/AnimationCurve.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 
 namespace {
-    uber_states::UberState launch_speed(UberStateGroup::RandoUpgrade, 80);
-    uber_states::UberState dash_distance(UberStateGroup::RandoUpgrade, 81);
-    uber_states::UberState bash_speed(UberStateGroup::RandoUpgrade, 82);
-    uber_states::UberState burrow_speed(UberStateGroup::RandoUpgrade, 83);
-    uber_states::UberState burrow_dash_speed(UberStateGroup::RandoUpgrade, 84);
-    uber_states::UberState grapple_speed(UberStateGroup::RandoUpgrade, 90);
+    core::api::uber_states::UberState launch_speed(UberStateGroup::RandoUpgrade, 80);
+    core::api::uber_states::UberState dash_distance(UberStateGroup::RandoUpgrade, 81);
+    core::api::uber_states::UberState bash_speed(UberStateGroup::RandoUpgrade, 82);
+    core::api::uber_states::UberState burrow_speed(UberStateGroup::RandoUpgrade, 83);
+    core::api::uber_states::UberState burrow_dash_speed(UberStateGroup::RandoUpgrade, 84);
+    core::api::uber_states::UberState grapple_speed(UberStateGroup::RandoUpgrade, 90);
 
-    uber_states::UberState swim_dash_speed(UberStateGroup::RandoUpgrade, 86);
-    uber_states::UberState jump_height(UberStateGroup::RandoUpgrade, 87);
-    uber_states::UberState wall_jump(UberStateGroup::RandoUpgrade, 88);
-    uber_states::UberState double_jump(UberStateGroup::RandoUpgrade, 89);
+    core::api::uber_states::UberState swim_dash_speed(UberStateGroup::RandoUpgrade, 86);
+    core::api::uber_states::UberState jump_height(UberStateGroup::RandoUpgrade, 87);
+    core::api::uber_states::UberState wall_jump(UberStateGroup::RandoUpgrade, 88);
+    core::api::uber_states::UberState double_jump(UberStateGroup::RandoUpgrade, 89);
 
     float initial_jump_speed;
 
@@ -69,9 +69,8 @@ namespace {
     }
 
     IL2CPP_INTERCEPT(SeinBashAttack, void, UpdateCharacterState, (app::SeinBashAttack * this_ptr)) {
-        should_override_animation_curve_speed_for_bash = true;
+        modloader::ScopedSetter setter(should_override_animation_curve_speed_for_bash, true);
         next::SeinBashAttack::UpdateCharacterState(this_ptr);
-        should_override_animation_curve_speed_for_bash = false;
     }
 
     bool spirit_leash_initialized = false;
@@ -96,8 +95,9 @@ namespace {
 
     IL2CPP_INTERCEPT(UnityEngine::AnimationCurve, float, Evaluate, (app::AnimationCurve * this_ptr, float value)) {
         auto output = next::UnityEngine::AnimationCurve::Evaluate(this_ptr, value);
-        if (should_override_animation_curve_speed_for_bash)
+        if (should_override_animation_curve_speed_for_bash) {
             output *= bash_speed.get<float>();
+        }
 
         return output;
     }
@@ -132,23 +132,18 @@ namespace {
         next::SeinSwimming::OnAwake(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(SeinSwimming, void, UpdateCharacterState, (app::SeinSwimming * this_ptr)) {
-        update_invert_swim();
-        next::SeinSwimming::UpdateCharacterState(this_ptr);
-    }
-
     IL2CPP_INTERCEPT(SeinSwimming, void, StartDashing, (app::SeinSwimming * this_ptr)) {
         auto modifier = swim_dash_speed.get<float>();
         this_ptr->fields.DashMaxSpeed = initial_swim_dash * modifier;
         next::SeinSwimming::StartDashing(this_ptr);
     }
 
-    float jump_height_backflip;
-    float jump_height_crouch;
-    float jump_height_idle;
-    float jump_height_first;
-    float jump_height_second;
-    float jump_height_third;
+    float jump_height_backflip = 0.f;
+    float jump_height_crouch = 0.f;
+    float jump_height_idle = 0.f;
+    float jump_height_first = 0.f;
+    float jump_height_second = 0.f;
+    float jump_height_third = 0.f;
 
     IL2CPP_INTERCEPT(SeinJump, void, OnAwake, (app::SeinJump * this_ptr)) {
         next::SeinJump::OnAwake(this_ptr);

@@ -1,16 +1,19 @@
 #pragma once
 
+#include <Common/event_bus.h>
 #include <Core/enums/game_event.h>
-#include <Core/utils/event_bus.h>
 #include <Core/macros.h>
-#include <Modloader/app/structs/GameObject.h>
+
 #include <Modloader/app/structs/GameController.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GameStateMachine_State__Enum.h>
 #include <Modloader/app/structs/SaveGameController.h>
 
-namespace game {
+namespace core::api::game {
     enum class RandoContainer {
         Animation,
         GameObjects,
+        MapIcons,
         Messages,
         Multiplayer,
         Randomizer,
@@ -22,8 +25,8 @@ namespace game {
         bool to_disk = true;
         bool restore_instantly = false;
 
-        SaveOptions(bool refill, bool refill_instantly, bool to_disk, bool restore_instantly) :
-                refill(refill), refill_instantly(refill_instantly), to_disk(to_disk), restore_instantly(restore_instantly) {}
+        SaveOptions(bool refill, bool refill_instantly, bool to_disk, bool restore_instantly)
+                : refill(refill), refill_instantly(refill_instantly), to_disk(to_disk), restore_instantly(restore_instantly) {}
 
         SaveOptions(){};
     };
@@ -32,17 +35,19 @@ namespace game {
         float health;
         float energy;
 
-        StoredHealthAndEnergy(float health, float energy) :
-                health(health), energy(energy) {}
+        StoredHealthAndEnergy(float health, float energy)
+                : health(health), energy(energy) {}
 
-        StoredHealthAndEnergy() :
-                health(0.f), energy(0.f) {}
+        StoredHealthAndEnergy()
+                : health(0.f), energy(0.f) {}
     };
 
-    CORE_DLLEXPORT TimedMultiEventBus<GameEvent>& event_bus();
+    CORE_DLLEXPORT common::TimedMultiEventBus<GameEvent>& event_bus();
 
     CORE_DLLEXPORT float delta_time();
     CORE_DLLEXPORT float fixed_delta_time();
+    CORE_DLLEXPORT app::GameStateMachine_State__Enum game_state();
+    CORE_DLLEXPORT bool in_game();
 
     CORE_DLLEXPORT app::GameObject* container(RandoContainer c);
     CORE_DLLEXPORT void add_to_container(RandoContainer c, app::GameObject* go);
@@ -56,8 +61,11 @@ namespace game {
 
     CORE_DLLEXPORT void load(bool immediate = false);
 
+    CORE_DLLEXPORT bool debug_controls();
+    CORE_DLLEXPORT void debug_controls(bool value);
+
     /**
      * Performs a QTM and load
      */
     CORE_DLLEXPORT void reload_everything();
-} // namespace game
+} // namespace core::api::game

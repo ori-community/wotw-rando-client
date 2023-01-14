@@ -1,11 +1,11 @@
 #include <Modloader/il2cpp_helpers.h>
 
-#include <Modloader/common.h>
-#include <Core/utils/event_bus.h>
+#include <Common/event_bus.h>
 #include <Core/api/scenes/scene_load.h>
+#include <Modloader/modloader.h>
 
 namespace {
-    void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
+    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
         if (metadata->state == app::SceneState__Enum::Loaded && metadata->scene_name == "willowCeremonyIntro") {
             /**
              * Why do we need this?
@@ -24,9 +24,5 @@ namespace {
         }
     }
 
-    void initialize() {
-        scenes::event_bus().register_handler(&on_scene_load);
-    }
-
-    CALL_ON_INIT(initialize);
+    auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
 } // namespace

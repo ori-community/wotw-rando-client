@@ -24,6 +24,7 @@
 #include <Modloader/app/types/CapsuleCollider.h>
 #include <Modloader/common.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
@@ -248,7 +249,7 @@ namespace {
             return;
         }
 
-        set_background_color(app::Color {r, g, b});
+        set_background_color(app::Color{ r, g, b });
 
         console::console_send("Background color set");
     }
@@ -449,7 +450,7 @@ namespace {
         }
     }
 
-    void initialize() {
+    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         auto camera = UnityEngine::Camera::get_main();
         default_background_color = UnityEngine::Camera::get_backgroundColor(camera);
 
@@ -464,7 +465,5 @@ namespace {
 
         game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, on_before_unity_update);
         game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, on_after_unity_update);
-    }
-
-    CALL_ON_INIT(initialize);
+    });
 } // namespace

@@ -2,10 +2,10 @@
 #include <Modloader/app/methods/GenericPuppet.h>
 #include <Modloader/app/methods/Moon/ActiveAnimationHandle.h>
 #include <Modloader/app/methods/System/Collections/Generic/HashSet_1_GenericPuppet_.h>
-#include <Modloader/app/types/MoonAnimator_ActiveAnimation.h>
+#include <Modloader/app/structs/Int32__Boxed.h>
 #include <Modloader/app/types/ActiveAnimationHandle.h>
 #include <Modloader/app/types/GenericPuppet.h>
-#include <Modloader/app/structs/Int32__Boxed.h>
+#include <Modloader/app/types/MoonAnimator_ActiveAnimation.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/windows_api/console.h>
 
@@ -38,8 +38,8 @@ namespace ghosts::plugins {
                 types::ActiveAnimationHandle::box(animation_handle)
             );
             auto attribute = GenericPuppet::GetGhostGenericResourceAttributeForFieldWithValue(
-                    generic_puppet,
-                    reinterpret_cast<app::Object*>(animation)
+                generic_puppet,
+                reinterpret_cast<app::Object*>(animation)
             );
 
             if (attribute != nullptr) {
@@ -50,10 +50,10 @@ namespace ghosts::plugins {
                     priority = active_animation->fields.m_priority;
                 }
 
-                active_animations.emplace_back(ActiveAnimation {
-                        attribute->fields.m_id,
-                        index,
-                        priority,
+                active_animations.emplace_back(ActiveAnimation{
+                    attribute->fields.m_id,
+                    index,
+                    priority,
                 });
             }
         }

@@ -1,14 +1,14 @@
 #pragma once
 
-#include <Modloader/macros.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Scene.h>
+#include <Modloader/app/structs/ScriptableObject.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Component_1.h>
 #include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/ScriptableObject.h>
-#include <Modloader/app/structs/Scene.h>
+#include <Modloader/macros.h>
 
 #include <string_view>
 #include <vector>
@@ -31,7 +31,7 @@ namespace il2cpp {
     namespace internal {
         IL2CPP_MODLOADER_DLLEXPORT Il2CppClass* get_game_object_class();
         IL2CPP_MODLOADER_DLLEXPORT Il2CppClass* get_component_class();
-    }
+    } // namespace internal
 
     namespace untyped {
         IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* create_object(std::string_view namezpace, std::string_view klass, std::string_view nested);
@@ -361,7 +361,7 @@ namespace il2cpp {
 
     template <typename Return>
     Return* safe_il2cpp_cast(void* obj, void* klass) {
-        return safe_il2cpp_cast<Return>(obj, reinterpret_cast<Il2CppClass*>(klass));
+        return safe_il2cpp_cast<Return>(obj, static_cast<Il2CppClass*>(klass));
     }
 
     template <typename T>
@@ -408,7 +408,8 @@ namespace il2cpp {
     Return* box_value(InputKlass* klass, Input value) {
         if (use_internal_box_function) {
             return reinterpret_cast<Return*>(untyped::box_value(
-                    reinterpret_cast<Il2CppClass*>(klass), reinterpret_cast<void*>(&value)
+                reinterpret_cast<Il2CppClass*>(klass),
+                reinterpret_cast<void*>(&value)
             ));
         } else {
             auto boxed_value = create_object<Return>(reinterpret_cast<Il2CppClass*>(klass));

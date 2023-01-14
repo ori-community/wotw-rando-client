@@ -2,11 +2,11 @@
 #include <Randomizer/macros.h>
 
 #include <Common/ext.h>
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/interception_macros.h>
 #include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/types/UI.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/interception_macros.h>
 
 using namespace modloader;
 using namespace app::classes;
@@ -27,7 +27,7 @@ namespace {
                 reset_timer -= TimeUtility::get_deltaTime();
         }
 
-        auto* sein = game::player::sein();
+        auto* sein = core::api::game::player::sein();
         auto* wrapper = sein->fields.Abilities->fields.ChargeJumpWrapper;
         if (wrapper->fields.HasState && wrapper->fields.State->fields.m_state == app::SeinChargeJump_State__Enum::Aiming) {
             aim_timer = NO_AIR_DECELERATION_DURATION;

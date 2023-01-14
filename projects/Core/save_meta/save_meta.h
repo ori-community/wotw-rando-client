@@ -1,13 +1,13 @@
 #pragma once
 
-#include <vector>
-#include <string>
-#include <memory>
-#include <nlohmann/json.hpp>
-#include <Core/utils/byte_stream.h>
-#include <Core/utils/event_bus.h>
+#include <Common/event_bus.h>
 #include <Core/enums/save_meta_slot.h>
 #include <Core/enums/save_meta_slot_persistence.h>
+#include <Core/utils/byte_stream.h>
+#include <memory>
+#include <nlohmann/json.hpp>
+#include <string>
+#include <vector>
 
 namespace core::save_meta {
     /**
@@ -22,7 +22,7 @@ namespace core::save_meta {
         virtual void load(utils::ByteStream& stream) = 0;
     };
 
-    class CORE_DLLEXPORT SaveMetaSerializable : public SaveMetaHandler  {
+    class CORE_DLLEXPORT SaveMetaSerializable : public SaveMetaHandler {
     public:
         virtual ~SaveMetaSerializable() = default;
         virtual std::vector<std::byte> serialize() = 0;
@@ -46,4 +46,4 @@ namespace core::save_meta {
 
     CORE_DLLEXPORT void register_slot(SaveMetaSlot slot, SaveMetaSlotPersistence persistence, std::shared_ptr<SaveMetaHandler> handler);
     CORE_DLLEXPORT void clear_slot(SaveMetaSlot slot);
-}
+} // namespace core::save_meta

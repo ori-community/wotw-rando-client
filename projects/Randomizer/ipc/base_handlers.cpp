@@ -1,16 +1,19 @@
+#include <input/rando_bindings.h>
+#include <ipc/base_handlers.h>
+#include <randomizer.h>
+
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
-#include <Core/api/messages/messages.h>
+#include <Core/api/messages/message_box.h>
+#include <Core/api/uber_states/uber_state.h>
+#include <Core/api/uber_states/uber_state_handlers.h>
+#include <Core/core.h>
 #include <Core/ipc/ipc.h>
-#include <Core/uber_states/uber_state_interface.h>
 #include <Core/utils/json_serializers.h>
-#include <Randomizer/ipc/base_handlers.h>
-#include <interop/csharp_bridge.h>
-#include <randomizer/input/rando_bindings.h>
 
 #include <Common/ext.h>
 
-#include <Modloader/common.h>
+#include <Modloader/modloader.h>
 
 #include <nlohmann/json.hpp>
 #include <string>
@@ -24,24 +27,14 @@ namespace randomizer::ipc {
     namespace {
         void reload(const nlohmann::json& j) {
             info("ipc", "Received reload action request.");
-            csharp_bridge::on_action_triggered(Action::Reload);
+            randomizer::reload();
         }
 
         void get_flags(const nlohmann::json& j) {
-            std::vector<std::string> values;
-            auto count = csharp_bridge::get_flag_count();
-            constexpr int size = 256;
-            wchar_t buffer[size];
-            for (int i = 0; i < count; ++i) {
-                memset(buffer, 0, size);
-                csharp_bridge::get_flag(i, buffer, size - 1);
-                values.push_back(convert_wstring_to_string(buffer));
-            }
-
             nlohmann::json response;
             response["type"] = "response";
             response["id"] = j.at("id").get<int>();
-            response["payload"] = values;
+            response["payload"] = game_seed().info().flags;
             send_message(response);
         }
 
@@ -50,7 +43,7 @@ namespace randomizer::ipc {
             for (auto entry : j.at("payload")) {
                 auto group = entry.at("group").get<int>();
                 auto state = entry.at("state").get<int>();
-                values.push_back(uber_states::UberState(static_cast<UberStateGroup>(group), state).get());
+                values.push_back(core::api::uber_states::UberState(static_cast<UberStateGroup>(group), state).get<float>());
             }
 
             nlohmann::json response;
@@ -65,17 +58,14 @@ namespace randomizer::ipc {
             auto group = p.at("group").get<int>();
             auto state = p.at("state").get<int>();
             auto value = p.at("value").get<double>();
-            uber_states::UberState(static_cast<UberStateGroup>(group), state).set(value);
+            core::api::uber_states::UberState(static_cast<UberStateGroup>(group), state).set(value);
         }
 
         void action(const nlohmann::json& j) {
             auto p = j.at("payload");
             auto id = p.at("action_id").get<Action>();
             auto pressed = p.at("pressed").get<bool>();
-            if (pressed)
-                set_action_pressed(id);
-            else
-                set_action_released(id);
+            input::set_action(id, pressed);
         }
 
         void set_velocity(const nlohmann::json& j) {
@@ -83,7 +73,7 @@ namespace randomizer::ipc {
             auto x = p.at("x").get<float>();
             auto y = p.at("y").get<float>();
             auto z = p.at("z").get<float>();
-            auto sein = game::player::sein();
+            auto sein = core::api::game::player::sein();
             if (sein != nullptr) {
                 auto& speed = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed;
                 speed.x = x;
@@ -93,14 +83,15 @@ namespace randomizer::ipc {
         }
 
         void get_velocity(const nlohmann::json& j) {
-            app::Vector3 v{ 0.f, 0.f, 0.f };
+            app::Vector3 v{};
             nlohmann::json response;
             response["type"] = "response";
             response["id"] = j.at("id").get<int>();
 
-            auto sein = game::player::sein();
-            if (sein != nullptr)
+            auto sein = core::api::game::player::sein();
+            if (sein != nullptr) {
                 v = sein->fields.PlatformBehaviour->fields.PlatformMovement->fields._.m_localSpeed;
+            }
 
             response["payload"]["x"] = v.x;
             response["payload"]["y"] = v.y;
@@ -109,16 +100,17 @@ namespace randomizer::ipc {
         }
 
         void message(const nlohmann::json& j) {
+            auto& message_registry = core::message_registry();
             auto p = j.at("payload");
             auto message_id = 0;
             if (!p.contains("message_id")) {
-                auto message_id = reserve_id();
-                float fadein = p.value("fadein", 0.5f);
-                float fadeout = p.value("fadeout", 0.5f);
-                bool should_show_box = p.value("should_show_box", false);
-                bool should_play_sound = p.value("should_play_sound", false);
-
-                text_box_create(message_id, fadein, fadeout, should_show_box, should_play_sound);
+                message_id = message_registry.reserve();
+                auto& message = message_registry.get(message_id);
+                message = std::make_shared<core::api::messages::MessageBox>();
+                message->fade_in().set(p.value("fadein", 0.5f));
+                message->fade_out().set(p.value("fadeout", 0.5f));
+                message->show_box(p.value("should_show_box", false));
+                // bool should_play_sound = p.value("should_play_sound", false);
 
                 nlohmann::json response;
                 response["type"] = "response";
@@ -128,62 +120,92 @@ namespace randomizer::ipc {
             } else {
                 message_id = p.at("message_id").get<int>();
                 if (p.contains("destroy") && p.at("destroy").get<bool>()) {
-                    text_box_destroy(message_id);
+                    core::message_registry().remove(message_id);
                     return;
                 }
             }
 
-            if (p.contains("text"))
-                text_box_text(message_id, convert_string_to_wstring(p.at("text").get<std::string>()).c_str());
+            auto message_box = message_registry.get(message_id);
+            if (p.contains("text")) {
+                message_box->text().set(p.at("text").get<std::string>());
+            }
+
             if (p.contains("position")) {
                 auto pos = p.at("position");
-                auto screen_position = p.value("screen_position", ScreenPosition::MiddleCenter);
-                app::Vector3 position;
+                auto screen_position = p.value("screen_position", core::api::messages::ScreenPosition::MiddleCenter);
+                app::Vector3 position{};
                 get_screen_position(screen_position, &position);
                 position.x += pos.at("x").get<float>();
                 position.y += pos.at("y").get<float>();
                 position.z += pos.at("z").get<float>();
-                text_box_position(message_id, position.x, position.y, position.z, pos.at("use_in_game_coordinates").get<bool>());
+                message_box->position().set(position);
+                message_box->use_world_coordinates().set(pos.at("use_in_game_coordinates").get<bool>());
             }
+
             if (p.contains("color")) {
                 auto color = p.at("color");
-                text_box_color(message_id, color.at("r").get<int>(), color.at("g").get<int>(), color.at("b").get<int>(), color.at("a").get<int>());
+                message_box->color().set(app::Color{
+                    color.at("r").get<float>() / 255.f,
+                    color.at("g").get<float>() / 255.f,
+                    color.at("b").get<float>() / 255.f,
+                    color.at("a").get<float>() / 255.f,
+                });
             }
-            if (p.contains("alignment"))
-                text_box_alignment(message_id, p.at("text").get<app::AlignmentMode__Enum>());
-            if (p.contains("anchor"))
-                text_box_anchor(message_id, p.value("horizontal", app::HorizontalAnchorMode__Enum::Center), p.value("vertical", app::VerticalAnchorMode__Enum::Middle));
-            if (p.contains("line_spacing"))
-                text_box_line_spacing(message_id, p.at("line_spacing").get<float>());
-            if (p.contains("visible"))
-                text_box_visibility(message_id, p.at("visible").get<bool>());
+
+            if (p.contains("alignment")) {
+                message_box->alignment().set(p.at("text").get<app::AlignmentMode__Enum>());
+            }
+
+            if (p.contains("anchor")) {
+                message_box->horizontal_anchor().set(p.value("horizontal", app::HorizontalAnchorMode__Enum::Center));
+                message_box->vertical_anchor().set(p.value("vertical", app::VerticalAnchorMode__Enum::Middle));
+            }
+
+            if (p.contains("line_spacing")) {
+                message_box->line_spacing().set(p.at("line_spacing").get<float>());
+            }
+
+            if (p.contains("visible")) {
+                if (p.at("visible").get<bool>()) {
+                    // TODO: Change to use sound and instant here instead of on creation.
+                    message_box->show();
+                } else {
+                    message_box->hide();
+                }
+            }
         }
 
         void get_total_pickup_count(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
-            response["payload"]["count"] = csharp_bridge::get_total_pickup_count();
+            response["payload"]["count"] = game_seed().info().total_pickups;
             core::ipc::send_message(response);
         }
 
         void get_pickup_count_by_area(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
-            response["payload"]["count"] = csharp_bridge::get_pickup_count_by_area(j.at("area").get<GameArea>());
+            const auto area = j.at("area").get<GameArea>();
+            const auto& pickup_count_by_area = game_seed().info().pickup_count_by_area;
+            auto it = pickup_count_by_area.find(area);
+            const auto count = it != pickup_count_by_area.end() ? it->second : 0;
+            response["payload"]["count"] = count;
             core::ipc::send_message(response);
         }
 
         void get_pickup_counts(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
-
-            response["payload"]["total"] = csharp_bridge::get_total_pickup_count();
+            const auto& info = game_seed().info();
 
             nlohmann::json areas;
             for (auto i = 0; i < static_cast<int>(GameArea::TOTAL); ++i) {
                 auto area = static_cast<GameArea>(i);
-                areas[std::to_string(static_cast<int>(area))] = csharp_bridge::get_pickup_count_by_area(area);
+                auto it = info.pickup_count_by_area.find(area);
+                if (it != info.pickup_count_by_area.end()) {
+                    areas[std::to_string(static_cast<int>(area))] = it->second;
+                }
             }
 
+            response["payload"]["total"] = info.total_pickups;
             response["payload"]["areas"] = areas;
-
             core::ipc::send_message(response);
         }
 
@@ -201,20 +223,20 @@ namespace randomizer::ipc {
             send_message(core::ipc::make_request(event_to_method.find(game_event)->second));
         }
 
-        void initialize() {
-            game::event_bus().register_handler(GameEvent::UberStateValueStoreLoaded, EventTiming::After, &report_load);
-            game::event_bus().register_handler(GameEvent::GainedFocus, EventTiming::After, &report_game_event);
-            game::event_bus().register_handler(GameEvent::LostFocus, EventTiming::After, &report_game_event);
-            game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, &report_game_event);
+        auto on_value_store_loaded = core::api::game::event_bus().register_handler(GameEvent::UberStateValueStoreLoaded, EventTiming::After, &report_load);
+        auto on_gained_focus = core::api::game::event_bus().register_handler(GameEvent::GainedFocus, EventTiming::After, &report_game_event);
+        auto on_lost_focus = core::api::game::event_bus().register_handler(GameEvent::LostFocus, EventTiming::After, &report_game_event);
+        auto on_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, &report_game_event);
 
-            uber_states::event_bus().register_handler([](auto event) {
-                nlohmann::json request = core::ipc::make_request("notify_on_uber_state_changed");
-                request["payload"]["group"] = static_cast<int>(event.state.group());
-                request["payload"]["state"] = event.state.state();
-                request["payload"]["value"] = event.value;
-                core::ipc::send_message(request);
-            });
+        auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto const& event) {
+            nlohmann::json request = core::ipc::make_request("notify_on_uber_state_changed");
+            request["payload"]["group"] = static_cast<int>(event.state.group());
+            request["payload"]["state"] = event.state.state();
+            request["payload"]["value"] = event.value;
+            core::ipc::send_message(request);
+        });
 
+        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             register_request_handler("reload", reload);
             register_request_handler("get_uberstates", get_uberstates);
             register_request_handler("set_uberstate", set_uberstate);
@@ -226,24 +248,40 @@ namespace randomizer::ipc {
             register_request_handler("get_total_pickup_count", get_total_pickup_count);
             register_request_handler("get_pickup_count_by_area", get_pickup_count_by_area);
             register_request_handler("get_pickup_counts", get_pickup_counts);
-
-            for (auto action = static_cast<Action>(0); action < Action::TOTAL; action = static_cast<Action>(static_cast<int>(action) + 1)) {
-                randomizer::input::add_on_pressed_callback(action, report_input);
-                randomizer::input::add_on_released_callback(action, report_input);
-            }
-        }
-
-        CALL_ON_INIT(initialize);
+        });
     } // namespace
+
+    auto on_seed_reloaded = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
+        nlohmann::json response;
+        response["type"] = "request";
+        response["method"] = "notify_on_reload";
+        core::ipc::send_message(response);
+    });
+
+    auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
+        nlohmann::json response;
+        response["type"] = "request";
+        response["method"] = "notify_on_uber_state_changed";
+        response["payload"]["group"] = static_cast<int>(params.state.group());
+        response["payload"]["state"] = params.state.state();
+        response["payload"]["value"] = params.state.get();
+        core::ipc::send_message(response);
+    });
+
+    void on_action(Action action, bool pressed) {
+        nlohmann::json response;
+        response["type"] = "request";
+        response["method"] = "notify_input";
+        response["payload"]["type"] = action;
+        response["payload"]["pressed"] = pressed;
+        core::ipc::send_message(response);
+    }
+
+    auto on_before_action = input::input_bus().register_handler(EventTiming::Before, [](auto action, auto) {
+        on_action(action, true);
+    });
+
+    auto on_after_action = input::input_bus().register_handler(EventTiming::Before, [](auto action, auto) {
+        on_action(action, false);
+    });
 } // namespace randomizer::ipc
-
-RANDOMIZER_C_DLLEXPORT void report_seed_reload() {
-    core::ipc::send_message(core::ipc::make_request("notify_on_reload"));
-}
-
-RANDOMIZER_C_DLLEXPORT void report_input(Action type, bool pressed) {
-    nlohmann::json request = core::ipc::make_request("notify_input");
-    request["payload"]["type"] = type;
-    request["payload"]["pressed"] = pressed;
-    core::ipc::send_message(request);
-}

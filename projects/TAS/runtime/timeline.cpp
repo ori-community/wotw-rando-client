@@ -110,7 +110,7 @@ namespace tas::runtime::timeline {
     }
 
     void Timeline::rewind() {
-        this->event_bus().trigger_event(TimelineEvent::Rewind, EventTiming::Before);
+        this->event_bus().trigger_event(EventTiming::Before, TimelineEvent::Rewind);
 
         this->deactivate_all_entries();
         this->active_timeline_entries.clear();
@@ -118,7 +118,7 @@ namespace tas::runtime::timeline {
         this->state.current_rng_state = 0;
         this->current_frame = 0;
 
-        this->event_bus().trigger_event(TimelineEvent::Rewind, EventTiming::After);
+        this->event_bus().trigger_event(EventTiming::After, TimelineEvent::Rewind);
     }
 
     void Timeline::advance() {
@@ -129,15 +129,15 @@ namespace tas::runtime::timeline {
     }
 
     void Timeline::seek(unsigned long frame) {
-        this->event_bus().trigger_event(TimelineEvent::Seek, EventTiming::Before);
+        this->event_bus().trigger_event(EventTiming::Before, TimelineEvent::Seek);
         this->current_frame = frame;
         this->deactivate_all_entries();
         this->activate_entries_starting_on_or_before_frame(frame);
         this->seek_rng_state_on_frame(frame);
-        this->event_bus().trigger_event(TimelineEvent::Seek, EventTiming::After);
+        this->event_bus().trigger_event(EventTiming::After, TimelineEvent::Seek);
     }
 
-    TimedEventBus<TimelineEvent>& Timeline::event_bus() {
+    common::TimedEventBus<TimelineEvent>& Timeline::event_bus() {
         return this->_event_bus;
     }
-}
+} // namespace tas::runtime::timeline

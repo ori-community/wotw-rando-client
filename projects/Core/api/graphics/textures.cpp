@@ -5,20 +5,20 @@
 #include <Modloader/app/methods/UberShaderAPI.h>
 #include <Modloader/app/methods/UnityEngine/Material.h>
 #include <Modloader/app/methods/UnityEngine/Texture2D.h>
+#include <Modloader/app/structs/SpellIconsCollection_Icons__Boxed.h>
+#include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Boxed.h>
 #include <Modloader/app/types/BuilderScreen.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/GardenerScreen.h>
 #include <Modloader/app/types/MapmakerScreen.h>
 #include <Modloader/app/types/SpellSettings.h>
 #include <Modloader/app/types/SpiritShardSettings.h>
+#include <Modloader/app/types/SpiritShardUIShardBackdrop.h>
 #include <Modloader/app/types/Texture.h>
 #include <Modloader/app/types/Texture2D.h>
 #include <Modloader/app/types/WeaponmasterScreen.h>
-#include <Modloader/app/types/SpiritShardUIShardBackdrop.h>
-#include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Boxed.h>
-#include <Modloader/app/structs/SpellIconsCollection_Icons__Boxed.h>
-#include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
+#include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 
 #include <Core/api/game/game.h>
@@ -34,8 +34,8 @@ using namespace app::classes::UnityEngine;
 
 namespace core::textures {
     namespace {
-        std::unordered_map<std::wstring, gchandle> files;
-        std::unordered_map<std::wstring, std::vector<std::weak_ptr<TextureData>>> file_instances;
+        std::unordered_map<std::string, gchandle> files;
+        std::unordered_map<std::string, std::vector<std::weak_ptr<TextureData>>> file_instances;
         std::unordered_map<app::Renderer*, std::pair<gchandle, MaterialParams>> default_params;
     } // namespace
 
@@ -55,6 +55,10 @@ namespace core::textures {
     void TextureData::apply(app::Material* mat) {
         if (!initialized) {
             load_texture();
+            if (texture == 0) {
+                return;
+            }
+
             initialized = true;
         }
 
@@ -71,11 +75,16 @@ namespace core::textures {
     }
 
     void TextureData::apply_texture(app::Renderer* renderer) {
-        if (default_params.find(renderer) == default_params.end())
+        if (default_params.find(renderer) == default_params.end()) {
             add_default_param(renderer);
+        }
 
         if (!initialized) {
             load_texture();
+            if (texture == 0) {
+                return;
+            }
+
             initialized = true;
         }
 
@@ -104,6 +113,10 @@ namespace core::textures {
     void TextureData::apply_texture_unity(app::Renderer* renderer) {
         if (!initialized) {
             load_texture();
+            if (texture == 0) {
+                return;
+            }
+
             initialized = true;
         }
 
@@ -131,7 +144,7 @@ namespace core::textures {
             return nullptr;
 
         auto texture_ptr = il2cpp::gchandle_target<app::Texture2D>(texture.value());
-        if (!il2cpp::unity::is_valid(texture_ptr) && path._Starts_with(L"file:")) {
+        if (!il2cpp::unity::is_valid(texture_ptr) && path.starts_with("file:")) {
             info("textures", "had to reload file texture.");
             reload_file_texture();
             texture_ptr = il2cpp::gchandle_target<app::Texture2D>(texture.value());
@@ -197,7 +210,7 @@ namespace core::textures {
 
     std::shared_ptr<TextureData> create_texture() {
         auto data = std::make_shared<TextureData>();
-        data->path = L"custom";
+        data->path = "custom";
         data->initialized = true;
         return data;
     }
@@ -212,7 +225,7 @@ namespace core::textures {
         texture_holder = types::GameObject::create();
         il2cpp::invoke(texture_holder, ".ctor");
         il2cpp::invoke(texture_holder, "set_name", il2cpp::string_new("TextureHolder"));
-        game::add_to_container(game::RandoContainer::Randomizer, texture_holder);
+        core::api::game::add_to_container(core::api::game::RandoContainer::Randomizer, texture_holder);
         // TODO: Use UberShaderPrefabWarmer if we can figure out how to instantiate the List<Texture> class.
         auto holder = il2cpp::unity::add_component<app::SpiritShardUIShardBackdrop>(texture_holder, types::SpiritShardUIShardBackdrop::get_class());
         il2cpp::invoke(holder, ".ctor");
@@ -240,66 +253,73 @@ namespace core::textures {
         try {
             texture = 0;
             auto separator = path.find(':', 0);
-            auto type = std::wstring(path.substr(0, separator));
-            auto value = std::wstring(path.substr(separator + 1));
+            auto type = std::string(path.substr(0, separator));
+            auto value = std::string(path.substr(separator + 1));
             if (type.empty())
                 return;
 
-            if (type == L"shard") {
+            if (type == "shard") {
                 auto actual_value = static_cast<app::SpiritShardType__Enum>(std::stoi(value));
                 auto settings = types::SpiritShardSettings::get_class()->static_fields->Instance;
                 if (settings != nullptr) {
                     auto item = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
-                    if (item != nullptr)
+                    if (item != nullptr) {
                         texture = il2cpp::gchandle_new_weak(item->fields.InventoryIcon, true);
+                    }
                 }
-            } else if (type == L"ability") {
+            } else if (type == "ability") {
                 auto actual_value = static_cast<app::AbilityType__Enum>(std::stoi(value));
                 auto settings = types::SpellSettings::get_class()->static_fields->Instance;
                 if (settings != nullptr) {
                     auto item = il2cpp::invoke<app::Texture2D>(settings->fields.CustomAbilityIcons, "GetValue", &actual_value);
-                    if (item != nullptr)
+                    if (item != nullptr) {
                         texture = il2cpp::gchandle_new_weak(item, true);
+                    }
                 }
-            } else if (type == L"spell") {
+            } else if (type == "spell") {
                 auto actual_value = static_cast<app::EquipmentType__Enum>(std::stoi(value));
                 auto settings = types::SpellSettings::get_class()->static_fields->Instance;
                 auto item = il2cpp::invoke<app::SpellIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
-                if (item != nullptr)
+                if (item != nullptr) {
                     texture = il2cpp::gchandle_new_weak(item->fields.InventoryIcon, true);
-            } else if (type == L"opher") {
+                }
+            } else if (type == "opher") {
                 auto actual_value = std::stoi(value);
                 auto screen = types::WeaponmasterScreen::get_class()->static_fields->_Instance_k__BackingField;
                 if (screen != nullptr) {
                     auto items = screen->fields.WeaponmasterItems;
-                    if (actual_value >= 0 && actual_value < items->max_length)
+                    if (actual_value >= 0 && actual_value < items->max_length) {
                         texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Upgrade->fields.Icon, true);
+                    }
                 }
-            } else if (type == L"lupo") {
+            } else if (type == "lupo") {
                 auto actual_value = std::stoi(value);
                 auto screen = types::MapmakerScreen::get_class()->static_fields->Instance;
                 if (screen != nullptr) {
                     auto items = screen->fields.Purchases;
-                    if (actual_value >= 0 && actual_value < items->max_length)
+                    if (actual_value >= 0 && actual_value < items->max_length) {
                         texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Icon, true);
+                    }
                 }
-            } else if (type == L"grom") {
+            } else if (type == "grom") {
                 auto actual_value = std::stoi(value);
                 auto screen = types::BuilderScreen::get_class()->static_fields->_Instance_k__BackingField;
                 if (screen != nullptr) {
                     auto items = screen->fields.BuilderItems;
-                    if (actual_value >= 0 && actual_value < items->max_length)
+                    if (actual_value >= 0 && actual_value < items->max_length) {
                         texture = il2cpp::gchandle_new_weak(items->vector[actual_value]->fields.Project->fields.Icon, true);
+                    }
                 }
-            } else if (type == L"tuley") {
+            } else if (type == "tuley") {
                 auto actual_value = std::stoi(value);
                 auto screen = types::GardenerScreen::get_class()->static_fields->_Instance_k__BackingField;
                 if (screen != nullptr) {
                     auto items = screen->fields.GardenerItems;
-                    if (actual_value >= 0 && actual_value < items->max_length)
+                    if (actual_value >= 0 && actual_value < items->max_length) {
                         texture = il2cpp::gchandle_new(items->vector[actual_value]->fields.Project->fields.Icon, true);
+                    }
                 }
-            } else if (type == L"file") {
+            } else if (type == "file") {
                 auto it = files.find(path);
                 if (it != files.end()) {
                     texture = it->second;
@@ -333,72 +353,73 @@ namespace core::textures {
                 files[path] = texture.value();
                 dont_unload_texture(reinterpret_cast<app::Texture*>(texture_ptr));
             } else {
-                auto stype = convert_wstring_to_string(type);
-                modloader::warn("textures", fmt::format("unknown texture protocol used when loading texture '{}'.", stype));
+                modloader::warn("textures", fmt::format("unknown texture protocol used when loading texture '{}'.", type));
             }
         } catch (std::exception e) {
             modloader::warn("textures", fmt::format("Fatal error fetching texture ({})", e.what()));
         }
     }
 
-    bool validate_path(std::wstring_view path) {
+    bool validate_path(std::string_view path) {
         auto separator = path.find(':', 0);
         if (separator == -1)
             return false;
 
-        auto type = std::wstring(path.substr(0, separator));
-        auto value = std::wstring(path.substr(separator + 1));
-        if (type == L"shard") {
+        auto type = std::string(path.substr(0, separator));
+        auto value = std::string(path.substr(separator + 1));
+        if (type == "shard") {
             auto actual_value = static_cast<app::SpiritShardType__Enum>(std::stoi(value));
             auto settings = types::SpiritShardSettings::get_class()->static_fields->Instance;
             auto item = il2cpp::invoke<app::SpiritShardIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
             return item != nullptr;
-        } else if (type == L"ability") {
+        } else if (type == "ability") {
             auto actual_value = static_cast<app::AbilityType__Enum>(std::stoi(value));
             auto settings = types::SpellSettings::get_class()->static_fields->Instance;
             auto item = il2cpp::invoke<app::Texture2D>(settings->fields.CustomAbilityIcons, "GetValue", &actual_value);
             return item != nullptr;
-        } else if (type == L"spell") {
+        } else if (type == "spell") {
             auto actual_value = static_cast<app::EquipmentType__Enum>(std::stoi(value));
             auto settings = types::SpellSettings::get_class()->static_fields->Instance;
             auto item = il2cpp::invoke<app::SpellIconsCollection_Icons__Boxed>(settings->fields.Icons, "GetValue", &actual_value);
             return item != nullptr;
-        } else if (type == L"opher") {
+        } else if (type == "opher") {
             auto actual_value = std::stoi(value);
             auto screen = types::WeaponmasterScreen::get_class()->static_fields->_Instance_k__BackingField;
             auto items = screen->fields.WeaponmasterItems;
             return actual_value >= 0 && actual_value < items->max_length;
-        } else if (type == L"lupo") {
+        } else if (type == "lupo") {
             auto actual_value = std::stoi(value);
             auto screen = types::MapmakerScreen::get_class()->static_fields->Instance;
             auto items = screen->fields.Purchases;
             return actual_value >= 0 && actual_value < items->max_length;
-        } else if (type == L"grom") {
+        } else if (type == "grom") {
             auto actual_value = std::stoi(value);
             auto screen = types::BuilderScreen::get_class()->static_fields->_Instance_k__BackingField;
             auto items = screen->fields.BuilderItems;
             return actual_value >= 0 && actual_value < items->max_length;
-        } else if (type == L"tuley") {
+        } else if (type == "tuley") {
             auto actual_value = std::stoi(value);
             auto screen = types::GardenerScreen::get_class()->static_fields->_Instance_k__BackingField;
             auto items = screen->fields.GardenerItems;
             return actual_value >= 0 && actual_value < items->max_length;
-        } else if (type == L"file")
+        } else if (type == "file")
             return true;
 
         return false;
     }
 
-    std::shared_ptr<TextureData> get_texture(std::wstring_view path) {
+    std::shared_ptr<TextureData> get_texture(std::string_view path) {
         auto data = std::make_shared<TextureData>();
-        data->path = std::wstring(path);
-        data->initialized = true;
+        data->path = std::string(path);
         data->load_texture();
-        if (path._Starts_with(L"file:"))
-            file_instances[data->path].push_back(data);
+        if (data->texture == 0) {
+            return data;
+        }
 
-        if (data->texture == 0)
-            return nullptr;
+        data->initialized = true;
+        if (path.starts_with("file:")) {
+            file_instances[data->path].push_back(data);
+        }
 
         return data;
     }
@@ -410,8 +431,9 @@ namespace core::textures {
 
         for (auto collection : file_instances) {
             for (auto it = collection.second.begin(); it != collection.second.end(); ++it) {
-                if ((*it).expired())
+                if ((*it).expired()) {
                     continue;
+                }
 
                 auto data = it->lock();
                 data->reload_file_texture();

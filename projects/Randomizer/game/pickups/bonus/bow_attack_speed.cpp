@@ -1,8 +1,8 @@
-#include <Core/uber_states/uber_state_interface.h>
+#include <Core/api/uber_states/uber_state.h>
 
+#include <Modloader/app/methods/SeinBowAttack.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/SeinBowAttack.h>
 
 #include <vector>
 
@@ -14,7 +14,7 @@ namespace {
         rapid_fire_cooldown = this_ptr->fields.RapidFireCooldown;
     }
 
-    uber_states::UberState rapid_fire_upgrade(UberStateGroup::RandoUpgrade, 10);
+    core::api::uber_states::UberState rapid_fire_upgrade(UberStateGroup::RandoUpgrade, 10);
     IL2CPP_INTERCEPT(SeinBowAttack, void, UpdateCharacterState, (app::SeinBowAttack * this_ptr)) {
         this_ptr->fields.RapidFireCooldown = rapid_fire_cooldown * rapid_fire_upgrade.get<float>();
         next::SeinBowAttack::UpdateCharacterState(this_ptr);

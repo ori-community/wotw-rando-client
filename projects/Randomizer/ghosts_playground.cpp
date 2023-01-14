@@ -1,6 +1,8 @@
 /*
+#include <Common/ext.h>
 #include <Modloader/app/methods/GhostCharacterAbilitiesPlugin.h>
 #include <Modloader/app/methods/GhostCharacterPlugin.h>
+#include <Modloader/app/methods/GhostFrame.h>
 #include <Modloader/app/methods/GhostGenericEventsPlugin.h>
 #include <Modloader/app/methods/GhostManager.h>
 #include <Modloader/app/methods/GhostPlayer.h>
@@ -9,23 +11,21 @@
 #include <Modloader/app/methods/GhostStateMachinePlugin.h>
 #include <Modloader/app/methods/GhostTimelineEventsPlugin.h>
 #include <Modloader/app/methods/GhostWorldObjectsLifetimePlugin.h>
-#include <Modloader/app/methods/GhostFrame.h>
-#include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/methods/System/IO/BinaryReader.h>
 #include <Modloader/app/methods/System/IO/BinaryWriter.h>
 #include <Modloader/app/methods/System/IO/MemoryStream.h>
+#include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/windows_api/console.h>
-#include <constants.h>
-#include <Common/ext.h>
 #include <Randomizer/macros.h>
+#include <constants.h>
 
 #include "ghosts.h"
 
-#include <Modloader/common.h>
-#include <Core/enums/game_event.h>
-#include <event_bus.h>
 #include <Core/api/game/game.h>
+#include <Core/enums/game_event.h>
+#include <Modloader/common.h>
+#include <event_bus.h>
 #include <random>
 
 using namespace modloader::win::console;
@@ -92,12 +92,8 @@ namespace {
         recorder = ghosts::create_recorder();
     }
 
-    void initialize() {
-        game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::End, &on_fixed_update);
-        game::event_bus().register_handler(GameEvent::Update, EventTiming::End, &on_update);
-        game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::End, &on_finished_loading_save);
-    }
-
-    CALL_ON_INIT(initialize);
+    auto on_fixed_update_handle = game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
+    auto on_fixed_update_handle = game::event_bus().register_handler(GameEvent::Update, EventTiming::After, &on_update);
+    auto on_fixed_update_handle = game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, &on_finished_loading_save);
 }
 */

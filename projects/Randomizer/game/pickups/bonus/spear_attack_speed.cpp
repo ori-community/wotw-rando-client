@@ -1,11 +1,11 @@
-#include <Core/uber_states/uber_state_interface.h>
+#include <Core/api/uber_states/uber_state.h>
 
+#include <Modloader/app/methods/SeinSpiritSpearSpell.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/SeinSpiritSpearSpell.h>
 
 namespace {
-    uber_states::UberState spear_speed(UberStateGroup::RandoUpgrade, 11);
+    core::api::uber_states::UberState spear_speed(UberStateGroup::RandoUpgrade, 11);
     bool initialized = false;
 
     float charge_duration = 1.0f;

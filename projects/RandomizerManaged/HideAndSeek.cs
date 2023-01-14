@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace RandomizerManaged {
   public static class HideAndSeek {
-    public static BlockingCollection<Packet> Queue = new BlockingCollection<Packet>();
+    /*public static BlockingCollection<Packet> Queue = new BlockingCollection<Packet>();
 
     private static readonly string COOLDOWN_TIMELINE = "assets/timelines/cooldown.json";
     private static readonly string CATCHING_TIMELINE = "assets/timelines/catching.json";
@@ -161,6 +161,6 @@ namespace RandomizerManaged {
           InterOp.Multiplayer.set_player_icon(player.User.Id, InterOp.Multiplayer.PlayerIcon.Kii);
         }
       }
-    }
+    }*/
   }
 }

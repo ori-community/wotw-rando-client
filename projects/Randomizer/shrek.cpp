@@ -1,26 +1,26 @@
 #include <Core/api/game/game.h>
-#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/app/methods/PetrifiedOwlBossEntity.h>
 #include <Modloader/app/methods/TimeUtility.h>
+#include <Modloader/il2cpp_helpers.h>
 #include <constants.h>
 
 #include <Core/api/graphics/sprite.h>
 #include <Core/api/scenes/scene_load.h>
 #include <Core/settings.h>
-#include <Modloader/common.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 
 using namespace app::classes;
 
 namespace {
     struct ShrekState {
-        const std::wstring texture_path;
+        const std::string texture_path;
         const float scale;
     };
 
     std::vector<ShrekState> states{
-        ShrekState{ L"file:assets/shrek/0.png", 9.f },
-        ShrekState{ L"file:assets/shrek/1.png", 8.f },
+        ShrekState{ "file:assets/shrek/0.png", 9.f },
+        ShrekState{ "file:assets/shrek/1.png", 8.f },
     };
 
     std::unique_ptr<core::Sprite> shrek;
@@ -34,7 +34,7 @@ namespace {
         shrek->local_scale(app::Vector3{ state.scale, state.scale, state.scale });
     }
 
-    IL2CPP_INTERCEPT(PetrifiedOwlBossEntity, void, OnDamageReceived, (app::PetrifiedOwlBossEntity* this_ptr, app::DamageResult damage)) {
+    IL2CPP_INTERCEPT(PetrifiedOwlBossEntity, void, OnDamageReceived, (app::PetrifiedOwlBossEntity * this_ptr, app::DamageResult damage)) {
         next::PetrifiedOwlBossEntity::OnDamageReceived(this_ptr, damage);
 
         if (core::settings::shriek_is_shrek()) {
@@ -43,7 +43,7 @@ namespace {
         }
     }
 
-    void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
+    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
         if (metadata->state != app::SceneState__Enum::Loaded) {
             return;
         }
@@ -52,22 +52,22 @@ namespace {
             auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
 
             auto head_c1_skn_go = il2cpp::unity::find_child(
-                    scene_root_go,
-                    std::vector<std::string>{
-                            "petrifiedOwlBossSetup",
-                            "petrifiedOwlBossEntity",
-                            "petrifiedOwlEntity",
-                            "petrifiedOwlRig",
-                            "Skeleton_GRP",
-                            "root_JNT",
-                            "spineC1_mainJoint1_JNT",
-                            "spineC1_mainJoint2_JNT",
-                            "spineC1_mainJoint3_JNT",
-                            "spineC1_mainJoint4_JNT",
-                            "spineC1_mainJoint5_JNT",
-                            "neckC1_base1_JNT",
-                            "headC1_base1_JNT",
-                            "headC1_base1_SKN" }
+                scene_root_go,
+                std::vector<std::string>{
+                    "petrifiedOwlBossSetup",
+                    "petrifiedOwlBossEntity",
+                    "petrifiedOwlEntity",
+                    "petrifiedOwlRig",
+                    "Skeleton_GRP",
+                    "root_JNT",
+                    "spineC1_mainJoint1_JNT",
+                    "spineC1_mainJoint2_JNT",
+                    "spineC1_mainJoint3_JNT",
+                    "spineC1_mainJoint4_JNT",
+                    "spineC1_mainJoint5_JNT",
+                    "neckC1_base1_JNT",
+                    "headC1_base1_JNT",
+                    "headC1_base1_SKN" }
             );
 
             shrek = std::make_unique<core::Sprite>();
@@ -78,13 +78,13 @@ namespace {
             shrek->enabled(true);
 
             auto model_grp_go = il2cpp::unity::find_child(
-                    scene_root_go,
-                    std::vector<std::string>{
-                            "petrifiedOwlBossSetup",
-                            "petrifiedOwlBossEntity",
-                            "petrifiedOwlEntity",
-                            "petrifiedOwlRig",
-                            "model_GRP" }
+                scene_root_go,
+                std::vector<std::string>{
+                    "petrifiedOwlBossSetup",
+                    "petrifiedOwlBossEntity",
+                    "petrifiedOwlEntity",
+                    "petrifiedOwlRig",
+                    "model_GRP" }
             );
 
             il2cpp::unity::destroy_object(il2cpp::unity::find_child(model_grp_go, "EyeL_MDL"));
@@ -109,12 +109,6 @@ namespace {
         }
     }
 
-    void initialize() {
-        if (core::settings::shriek_is_shrek()) {
-            scenes::event_bus().register_handler(&on_scene_load);
-            game::event_bus().register_handler(GameEvent::Update, EventTiming::After, &on_update);
-        }
-    }
-
-    CALL_ON_INIT(initialize);
+    auto scene_load_handle = core::settings::shriek_is_shrek() ? core::api::scenes::event_bus().register_handler(&on_scene_load) : nullptr;
+    auto on_update_handle = core::settings::shriek_is_shrek() ? core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, &on_update) : nullptr;
 } // namespace

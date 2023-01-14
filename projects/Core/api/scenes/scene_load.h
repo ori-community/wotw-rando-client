@@ -1,17 +1,17 @@
 #pragma once
 
+#include <Common/event_bus.h>
 #include <Core/macros.h>
 
-#include <Modloader/app/structs/SceneState__Enum.h>
 #include <Modloader/app/structs/SceneManagerScene.h>
+#include <Modloader/app/structs/SceneState__Enum.h>
 #include <Modloader/app/structs/ScenesManager.h>
 
-#include <Core/utils/event_bus.h>
 #include <set>
 #include <string>
 #include <unordered_map>
 
-namespace scenes {
+namespace core::api::scenes {
     struct CORE_DLLEXPORT SceneLoadEventMetadata {
         std::string scene_name;
         app::SceneState__Enum state;
@@ -22,9 +22,13 @@ namespace scenes {
 
     CORE_DLLEXPORT app::ScenesManager* get_scenes_manager();
 
-    CORE_DLLEXPORT TimedEventBus<SceneLoadEventMetadata*>& event_bus();
+    CORE_DLLEXPORT common::EventBus<SceneLoadEventMetadata*>& event_bus();
+    CORE_DLLEXPORT common::EventBus<SceneLoadEventMetadata*, std::string>& single_event_bus();
 
     CORE_DLLEXPORT app::RuntimeSceneMetaData* get_scene_metadata(std::string_view scene);
+
+    CORE_DLLEXPORT bool is_in_game();
+    CORE_DLLEXPORT std::string current_scene();
 
     CORE_DLLEXPORT bool scene_is_loading(std::string_view scene);
     CORE_DLLEXPORT bool scene_is_loaded(std::string_view scene);
@@ -44,4 +48,4 @@ namespace scenes {
     CORE_DLLEXPORT std::vector<app::GameObject*> get_roots_from_active();
     CORE_DLLEXPORT app::GameObject* get_game_object(std::string_view path);
     CORE_DLLEXPORT void load_default_values();
-} // namespace scenes
+} // namespace core::api::scenes

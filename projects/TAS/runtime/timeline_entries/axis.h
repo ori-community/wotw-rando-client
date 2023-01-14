@@ -10,10 +10,12 @@ namespace tas::runtime::timeline::entries {
         ControllerAxis axis;
         float value;
 
-        AxisTimelineEntry(unsigned long frame, unsigned long duration, ControllerAxis axis, float value) :
-                axis(axis), value(value), FixedDurationTimelineEntry(frame, duration) {}
+        AxisTimelineEntry(unsigned long frame, unsigned long duration, ControllerAxis axis, float value)
+                : FixedDurationTimelineEntry(frame, duration)
+                , axis(axis)
+                , value(value) {}
 
         void activate(TimelineState& timeline_state) override;
         void deactivate(TimelineState& timeline_state) override;
     };
-}
+} // namespace tas::runtime::timeline::entries

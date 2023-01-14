@@ -10,15 +10,15 @@
 #include <Modloader/app/methods/SmartInput/CachedButtonInput.h>
 #include <Modloader/app/methods/SmartInput/CompoundAxisInput.h>
 #include <Modloader/app/methods/SmartInput/CompoundButtonInput.h>
+#include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/methods/UnityEngine/Camera.h>
 #include <Modloader/app/methods/UnityEngine/Input.h>
 #include <Modloader/app/methods/UnityEngine/Vector3.h>
-#include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/types/Input_1.h>
 #include <Modloader/app/types/UI_Cameras.h>
-#include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 
 #include <unordered_map>
 
@@ -75,7 +75,7 @@ namespace core::input {
             }
 
             case MousePositionSimulationMode::OriRelative: {
-                auto position_world_space = game::player::get_position();
+                auto position_world_space = api::game::player::get_position();
 
                 position_world_space.x += position.x;
                 position_world_space.y += position.y;
@@ -186,8 +186,8 @@ namespace core::input {
                 types::Input_1::get_class()->static_fields->CursorPosition.y = position_in_viewport_space.y;
 
                 types::Input_1::get_class()->static_fields->CursorMoved =
-                        !eps_equals(position_in_viewport_space.x, previous_mouse_position.x) ||
-                        !eps_equals(position_in_viewport_space.y, previous_mouse_position.y);
+                    !eps_equals(position_in_viewport_space.x, previous_mouse_position.x) ||
+                    !eps_equals(position_in_viewport_space.y, previous_mouse_position.y);
             }
         }
 
@@ -199,9 +199,9 @@ namespace core::input {
         IL2CPP_INTERCEPT(PlayerInput, void, InitInputCache, (app::PlayerInput * this_ptr)) {
             next::PlayerInput::InitInputCache(this_ptr);
 
-            game::event_bus().trigger_event(GameEvent::RegisteringInputSimulators, EventTiming::Before);
+            api::game::event_bus().trigger_event(GameEvent::RegisteringInputSimulators, EventTiming::Before);
             core::input::register_simulators(this_ptr);
-            game::event_bus().trigger_event(GameEvent::RegisteringInputSimulators, EventTiming::After);
+            api::game::event_bus().trigger_event(GameEvent::RegisteringInputSimulators, EventTiming::After);
         }
 
         void hide_mouse_position_indicator_if_active() {
@@ -238,8 +238,8 @@ namespace core::input {
                 core::textures::MaterialParams params;
                 params.uvs = std::optional<app::Vector4>({ 0.f, 0.f, 1.f, 1.f });
 
-                simulated_mouse_position_indicator->texture(core::textures::get_texture(L"file:assets/icons/cursor.png"), std::make_optional(params));
-                simulated_mouse_position_indicator->set_parent(game::container(game::RandoContainer::Randomizer));
+                simulated_mouse_position_indicator->texture(core::textures::get_texture("file:assets/icons/cursor.png"), std::make_optional(params));
+                simulated_mouse_position_indicator->set_parent(api::game::container(api::game::RandoContainer::Randomizer));
                 simulated_mouse_position_indicator->layer(Layer::UI);
 
                 simulated_mouse_position_indicator->local_scale(app::Vector3{ indicator_scale, indicator_scale, 1.f });
@@ -255,11 +255,11 @@ namespace core::input {
             simulated_mouse_position_indicator->local_position(ui_position + app::Vector3{ indicator_position_offset, -indicator_position_offset, 0.f });
         }
 
-        void initialize() {
-            game::event_bus().register_handler(GameEvent::Update, &update_simulated_mouse_position_indicator);
-        }
-
-        CALL_ON_INIT(initialize);
+        auto update_simulated_mouse_position_indicator_handle = api::game::event_bus().register_handler(
+            GameEvent::Update,
+            EventTiming::After,
+            &update_simulated_mouse_position_indicator
+        );
     } // namespace
 
     void register_button_simulator(app::CompoundButtonInput* input, Action action) {

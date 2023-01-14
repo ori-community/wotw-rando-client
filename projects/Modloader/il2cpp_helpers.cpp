@@ -1,5 +1,5 @@
-#include <common.h>
 #include <il2cpp_helpers.h>
+#include <modloader.h>
 #include <windows_api/console.h>
 #include <windows_api/memory.h>
 
@@ -37,7 +37,7 @@ namespace il2cpp {
         Il2CppClass* get_component_class() {
             return reinterpret_cast<Il2CppClass*>(types::Component_1::get_class());
         }
-    }
+    } // namespace internal
 
     namespace {
         std::unordered_map<std::string, Il2CppClass*> resolved_classes;
@@ -61,12 +61,6 @@ namespace il2cpp {
             }
 
             return buffer;
-        }
-
-        char* get_qualified(std::string_view namezpace, std::string_view name) {
-            auto klass = untyped::get_class(namezpace, name);
-            auto type = il2cpp_class_get_type(klass);
-            return il2cpp_type_get_assembly_qualified_name(type);
         }
 
         void resolve_overloads(Il2CppClass* klass) {
@@ -310,7 +304,7 @@ namespace il2cpp {
             auto child_count = UnityEngine::Transform::get_childCount(transform);
 
             for (int i = 0; i < child_count; i++) {
-                if (il2cpp::convert_csstring_fast(UnityEngine::Object::get_name(reinterpret_cast<app::Object_1*>(UnityEngine::Transform::GetChild(transform, i)))) == name) {
+                if (il2cpp::convert_csstring(UnityEngine::Object::get_name(reinterpret_cast<app::Object_1*>(UnityEngine::Transform::GetChild(transform, i)))) == name) {
                     children.push_back(get_game_object(transform));
                 }
             }
@@ -404,7 +398,7 @@ namespace il2cpp {
                 return "nullptr";
 
             auto csstr = UnityEngine::Object::get_name(cast_object);
-            return convert_csstring_fast(csstr);
+            return convert_csstring(csstr);
         }
 
         app::String* get_object_csname(void* object) {
@@ -549,19 +543,19 @@ namespace il2cpp {
     } // namespace untyped
 
     void load_all_types() {
-        size_t size = 0;
-        auto domain = il2cpp_domain_get();
-        trace(modloader::MessageType::Info, 4, "il2cpp", "loading classes");
-        for (auto i = 0; i < size; ++i) {
-            // auto types = Assembly::GetTypes(assemblies[i]);
-            // for (auto j = 0; j < types->max_length; ++j)
-            //{
-            //     auto klass = il2cpp_class_from_type(reinterpret_cast<Il2CppType*>(types->vector[j]));
-            //     auto full_name = std::string(fmt::format("{}.{}", klass->namespaze, klass->name));
-            //     resolved_classes[full_name] = klass;
-            //     trace(modloader::MessageType::Info, 4, "il2cpp", fmt::format(" - {}", full_name));
-            // }
-        }
+        // size_t size = 0;
+        // auto domain = il2cpp_domain_get();
+        // trace(modloader::MessageType::Info, 4, "il2cpp", "loading classes");
+        // for (auto i = 0; i < size; ++i) {
+        //     auto types = Assembly::GetTypes(assemblies[i]);
+        //     for (auto j = 0; j < types->max_length; ++j)
+        //     {
+        //          auto klass = il2cpp_class_from_type(reinterpret_cast<Il2CppType*>(types->vector[j]));
+        //          auto full_name = std::string(fmt::format("{}.{}", klass->namespaze, klass->name));
+        //          resolved_classes[full_name] = klass;
+        //          trace(modloader::MessageType::Info, 4, "il2cpp", fmt::format(" - {}", full_name));
+        //      }
+        // }
     }
 
     void free_obj(void* obj) {
@@ -754,26 +748,28 @@ namespace il2cpp {
     }
 
     MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<Il2CppClass*> const& params) {
-        auto info = get_method_info_internal(klass, method, params.size());
-        if (info == nullptr)
+        auto info = get_method_info_internal(klass, method, static_cast<int>(params.size()));
+        if (info == nullptr) {
             return nullptr;
+        }
 
-        if (info->methods.size() == 1)
+        if (info->methods.size() == 1) {
             return info->methods.front();
-        else {
-            bool first = true;
+        } else {
             for (auto method_info : info->methods) {
                 auto valid = true;
                 for (auto i = 0; valid && i < method_info->parameters_count; ++i) {
                     auto& param = method_info->parameters[i];
                     auto klass_1 = il2cpp_class_from_type(param.parameter_type);
                     auto klass_2 = params.at(param.position);
-                    if (klass_1 != klass_2)
+                    if (klass_1 != klass_2) {
                         valid = false;
+                    }
                 }
 
-                if (valid)
+                if (valid) {
                     return method_info;
+                }
             }
         }
 
@@ -797,13 +793,13 @@ namespace il2cpp {
 
     MethodInfo const* get_method_from_name(Il2CppClass* klass, std::string_view method, std::vector<KlassDescriptor> const& params) {
         auto info = get_method_info_internal(klass, method, params.size());
-        if (info == nullptr)
+        if (info == nullptr) {
             return nullptr;
+        }
 
-        if (info->methods.size() == 1)
+        if (info->methods.size() == 1) {
             return info->methods.front();
-        else {
-            bool first = true;
+        } else {
             for (auto method_info : info->methods) {
                 auto valid = true;
                 for (auto i = 0; valid && i < method_info->parameters_count; ++i) {
@@ -811,14 +807,17 @@ namespace il2cpp {
                     auto klass_1 = il2cpp_class_from_type(param.parameter_type);
                     auto& klass_2 = params.at(param.position);
                     if (klass_2.klass == nullptr) {
-                        if (klass_1->namespaze != klass_2.namezpace || klass_1->name != klass_2.name)
+                        if (klass_1->namespaze != klass_2.namezpace || klass_1->name != klass_2.name) {
                             valid = false;
-                    } else if (klass_1 != klass_2.klass)
+                        }
+                    } else if (klass_1 != klass_2.klass) {
                         valid = false;
+                    }
                 }
 
-                if (valid)
+                if (valid) {
                     return method_info;
+                }
             }
         }
 
@@ -826,15 +825,15 @@ namespace il2cpp {
 
         trace(modloader::MessageType::Info, 3, "il2cpp", "valid parameters are:");
         for (auto method_info : info->methods) {
-            std::string params = " - ";
+            std::string str_params = " - ";
             for (auto i = 0; i < method_info->parameters_count; ++i) {
                 auto& param = method_info->parameters[i];
-                auto klass = il2cpp_class_from_type(param.parameter_type);
-                params += get_full_name(klass->namespaze, klass->name);
-                params += ", ";
+                auto param_klass = il2cpp_class_from_type(param.parameter_type);
+                str_params += get_full_name(param_klass->namespaze, param_klass->name);
+                str_params += ", ";
             }
 
-            trace(modloader::MessageType::Info, 3, "il2cpp", params);
+            trace(modloader::MessageType::Info, 3, "il2cpp", str_params);
         }
 
         return nullptr;
@@ -909,22 +908,13 @@ namespace il2cpp {
         return *reinterpret_cast<MethodInfo**>(memory::resolve_rva(address));
     }
 
-    std::string convert_csstring(Il2CppString* str) {
-        std::u16string u16(reinterpret_cast<const char16_t*>(str->chars));
-        return std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t>{}.to_bytes(u16);
-    }
-
-    std::string convert_csstring(app::String* str) {
-        return convert_csstring(reinterpret_cast<Il2CppString*>(str));
-    }
-
     /**
      * Converts a C# string to std::string by truncating characters.
      * May lose special characters.
      * @param il2cpp_string
      * @return
      */
-    std::string convert_csstring_fast(Il2CppString* il2cpp_string) {
+    std::string convert_csstring(Il2CppString* il2cpp_string) {
         std::string str(il2cpp_string->length, 0);
 
         for (auto i = 0; i < il2cpp_string->length; i++) {
@@ -934,8 +924,8 @@ namespace il2cpp {
         return str;
     }
 
-    std::string convert_csstring_fast(app::String* str) {
-        return convert_csstring_fast(reinterpret_cast<Il2CppString*>(str));
+    std::string convert_csstring(app::String* str) {
+        return convert_csstring(reinterpret_cast<Il2CppString*>(str));
     }
 
     const Il2CppType* get_type(Il2CppClass* klass) {

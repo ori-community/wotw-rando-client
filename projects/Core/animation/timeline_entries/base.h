@@ -1,10 +1,11 @@
 #pragma once
 
+#include <Core/animation/timeline_state.h>
 #include <Core/enums/timeline_entries.h>
-#include <animation/timeline_state.h>
-#include <Core/utils/json_serializers.h>
-#include <nlohmann/json.hpp>
 #include <Core/macros.h>
+#include <Core/utils/json_serializers.h>
+
+#include <nlohmann/json.hpp>
 
 namespace core::animation {
     struct TimelineState;
@@ -12,14 +13,14 @@ namespace core::animation {
     namespace timeline_entries {
         template <typename T>
         struct VariableDeclaration {
-            VariableDeclaration() :
-                    name(""), is_settable(false) {}
+            VariableDeclaration()
+                    : name(""), is_settable(false) {}
 
-            VariableDeclaration(T value) :
-                    name(""), default_value(value), is_settable(false) {}
+            VariableDeclaration(T value)
+                    : name(""), default_value(value), is_settable(false) {}
 
-            VariableDeclaration(std::string name, T default_value) :
-                    name(name), default_value(default_value), is_settable(true) {}
+            VariableDeclaration(std::string name, T default_value)
+                    : name(name), default_value(default_value), is_settable(true) {}
 
             std::string name;
             T default_value;
@@ -58,6 +59,8 @@ namespace core::animation {
         }
 
         struct CORE_DLLEXPORT Base {
+            virtual ~Base() = default;
+
             int id;
             float start_time;
             TimelineEntryType type;

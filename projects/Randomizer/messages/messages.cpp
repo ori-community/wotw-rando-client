@@ -1,9 +1,8 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
-#include <Core/api/system/message_provider.h>
 #include <Core/api/game/ui.h>
-#include <Core/api/messages/messages.h>
-#include <Core/text_style.h>
+#include <Core/api/messages/text_style.h>
+#include <Core/api/system/message_provider.h>
 #include <Core/utils/position_converter.h>
 
 #include <Common/ext.h>
@@ -16,16 +15,16 @@
 #include <Modloader/app/methods/QuestsController.h>
 #include <Modloader/app/methods/ScaleToTextBox.h>
 #include <Modloader/app/methods/SeinLogicCycle.h>
-#include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/methods/SwimBoostHelper.h>
+#include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Object.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
-#include <Modloader/app/types/UI.h>
 #include <Modloader/app/types/OnScreenPositions.h>
-#include <Modloader/common.h>
+#include <Modloader/app/types/UI.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 
 #include <unordered_map>
 #include <unordered_set>
@@ -65,7 +64,7 @@ namespace {
         return nullptr;
     }
 
-    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowHintSmallMessage_1, (app::MessageControllerB * this_ptr, app::MessageProvider * message_provider, app::Vector3 position, float duration)) {
+    IL2CPP_INTERCEPT(MessageControllerB, app::MessageBox*, ShowHintSmallMessage_1, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::Vector3 position, float duration)) {
         return nullptr;
     }
 
@@ -88,4 +87,4 @@ namespace {
 
         return next::MessageControllerB::ShowPickupMessage(this_ptr, message_provider, context, lockInput);
     }
-}
+} // namespace

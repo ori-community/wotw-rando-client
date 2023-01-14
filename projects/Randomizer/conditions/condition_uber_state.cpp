@@ -1,4 +1,4 @@
-#include <randomizer/conditions/condition_uber_state.h>
+#include <conditions/condition_uber_state.h>
 
 #include <Common/ext.h>
 
@@ -24,7 +24,7 @@ namespace randomizer::conditions {
         }
     } // namespace
 
-    void register_condition_uber_state_intercept(uber_states::UberState state, condition_uber_state_intercept intercept) {
+    void register_condition_uber_state_intercept(core::api::uber_states::UberState state, condition_uber_state_intercept intercept) {
         intercepts[std::make_pair(state.group(), state.state())] = intercept;
     }
 } // namespace randomizer::conditions

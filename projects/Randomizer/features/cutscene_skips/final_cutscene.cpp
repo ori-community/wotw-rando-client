@@ -3,14 +3,14 @@
 #include <Modloader/il2cpp_helpers.h>
 
 #include "custom_cutscene_skips.h"
-#include <Modloader/common.h>
-#include <Core/enums/game_event.h>
-#include <Core/utils/event_bus.h>
-#include <features/credits.h>
+#include <Common/event_bus.h>
 #include <Core/api/faderb.h>
-#include <Core/api/scenes/scene_load.h>
 #include <Core/api/game/game.h>
+#include <Core/api/scenes/scene_load.h>
+#include <Core/enums/game_event.h>
 #include <Core/utils/misc.h>
+#include <Modloader/modloader.h>
+#include <features/credits.h>
 
 using namespace utils;
 using namespace app::classes;
@@ -25,7 +25,7 @@ namespace {
     ObjectReference<app::MoonTimeline> epilogue_master_timeline;
     DeferredSkipAction next_frame_action = Idle;
 
-    void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
+    void on_scene_load(core::api::scenes::SceneLoadEventMetadata* metadata) {
         if (metadata->state != app::SceneState__Enum::Loaded) {
             return;
         }
@@ -34,13 +34,13 @@ namespace {
             auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
 
             auto death_reaction_timeline_go = il2cpp::unity::find_child(
-                    scene_root_go,
-                    std::vector<std::string>{
-                            "petrifiedOwlBossSetup",
-                            "petrifiedOwlBossEntity",
-                            "timelines",
-                            "reactions",
-                            "deathReaction" }
+                scene_root_go,
+                std::vector<std::string>{
+                    "petrifiedOwlBossSetup",
+                    "petrifiedOwlBossEntity",
+                    "timelines",
+                    "reactions",
+                    "deathReaction" }
             );
 
             if (il2cpp::unity::is_valid(death_reaction_timeline_go)) {
@@ -51,9 +51,9 @@ namespace {
             auto scene_root_go = il2cpp::unity::get_game_object(metadata->scene->fields.SceneRoot);
 
             auto epilogue_master_timeline_go = il2cpp::unity::find_child(
-                    scene_root_go,
-                    std::vector<std::string>{
-                            "masterTimeline" }
+                scene_root_go,
+                std::vector<std::string>{
+                    "masterTimeline" }
             );
 
             if (il2cpp::unity::is_valid(epilogue_master_timeline_go)) {
@@ -63,10 +63,9 @@ namespace {
     }
 
     bool is_timeline_valid_and_playing(const std::string& scene_name, ObjectReference<app::MoonTimeline> timeline) {
-        return
-                scenes::scene_is_loaded(scene_name) &&
-                timeline.is_valid() &&
-                Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(timeline.ptr));
+        return core::api::scenes::scene_is_loaded(scene_name) &&
+            timeline.is_valid() &&
+            Moon::Timeline::TimelineEntity::IsPlaying(reinterpret_cast<app::TimelineEntity*>(timeline.ptr));
     }
 
     bool skip_available() {
@@ -74,7 +73,7 @@ namespace {
         auto epilogue_master_timeline_playing = is_timeline_valid_and_playing("epilogueMaster", epilogue_master_timeline);
 
         return epilogue_master_timeline_playing &&
-                scenes::scene_state("creditsScreen") != app::SceneState__Enum::Enabled;
+            core::api::scenes::scene_state("creditsScreen") != app::SceneState__Enum::Enabled;
     }
 
     void skip_invoke() {
@@ -86,7 +85,7 @@ namespace {
             Moon::Timeline::TimelineEntity::StopPlayback(reinterpret_cast<app::TimelineEntity*>(epilogue_master_timeline.ptr));
         }
 
-        faderb::fade_out(0.6f);
+        core::api::faderb::fade_out(0.6f);
 
         next_frame_action = StartCredits;
     }
@@ -102,16 +101,14 @@ namespace {
         }
     }
 
-    void initialize() {
-        scenes::event_bus().register_handler(&on_scene_load);
-        game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
+    auto on_scene_load_handle = core::api::scenes::event_bus().register_handler(&on_scene_load);
+    auto on_fixed_update_handle = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
 
+    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         auto cutscene_skip = custom_cutscene_skips::CustomCutsceneSkip{
             .is_available = &skip_available,
             .invoke = &skip_invoke,
         };
         custom_cutscene_skips::register_cutscene_skip(cutscene_skip);
-    }
-
-    CALL_ON_INIT(initialize);
+    });
 } // namespace

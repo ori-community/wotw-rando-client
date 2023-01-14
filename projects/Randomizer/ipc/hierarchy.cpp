@@ -1,6 +1,6 @@
 #include <Core/api/scenes/scene_load.h>
+#include <Core/api/uber_states/uber_state.h>
 #include <Core/ipc/ipc.h>
-#include <Core/uber_states/uber_state_interface.h>
 #include <Core/utils/json_serializers.h>
 
 #include <Common/ext.h>
@@ -11,30 +11,30 @@
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/types/GameObject.h>
 #include <Modloader/app/types/Quaternion.h>
-#include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 
-#include <Modloader/app/structs/VisibleOnWorldMap.h>
-#include <Modloader/app/structs/TranslatedMessageProvider_MessageItem.h>
-#include <Modloader/app/structs/TranslatedMessageProvider.h>
+#include <Modloader/app/structs/ActivateBasedOnCondition.h>
+#include <Modloader/app/structs/AmbienceZone.h>
+#include <Modloader/app/structs/Boolean__Boxed.h>
+#include <Modloader/app/structs/DesiredUberStateGeneric.h>
+#include <Modloader/app/structs/HasAbilityCondition.h>
+#include <Modloader/app/structs/Int32__Boxed.h>
+#include <Modloader/app/structs/NewSetupStateController.h>
+#include <Modloader/app/structs/QuestNodeSetup.h>
 #include <Modloader/app/structs/QuestNodeSetup_QuestInteraction.h>
 #include <Modloader/app/structs/QuestNodeSetup_QuestInteractionSet.h>
 #include <Modloader/app/structs/QuestNodeSetup_QuestInteractionSetup.h>
-#include <Modloader/app/structs/QuestNodeSetup.h>
 #include <Modloader/app/structs/QuestNodeWisps.h>
-#include <Modloader/app/structs/ActivateBasedOnCondition.h>
 #include <Modloader/app/structs/SeinAbilityCondition.h>
-#include <Modloader/app/structs/HasAbilityCondition.h>
-#include <Modloader/app/structs/UberStateConditionWrapper.h>
 #include <Modloader/app/structs/SetupStateModifier.h>
-#include <Modloader/app/structs/Boolean__Boxed.h>
-#include <Modloader/app/structs/NewSetupStateController.h>
-#include <Modloader/app/structs/AmbienceZone.h>
 #include <Modloader/app/structs/SoundZoneTrigger.h>
-#include <Modloader/app/structs/Int32__Boxed.h>
-#include <Modloader/app/structs/DesiredUberStateGeneric.h>
+#include <Modloader/app/structs/TranslatedMessageProvider.h>
+#include <Modloader/app/structs/TranslatedMessageProvider_MessageItem.h>
+#include <Modloader/app/structs/UberStateConditionWrapper.h>
+#include <Modloader/app/structs/VisibleOnWorldMap.h>
 
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
@@ -57,6 +57,7 @@ namespace randomizer::ipc {
 
         template <class...>
         constexpr bool always_false = false;
+
         template <typename T>
         nlohmann::json visualize_struct(std::string_view name, T const& value) {
             static_assert(always_false<T>, "visualize struct not implemented for this type.");
@@ -68,9 +69,9 @@ namespace randomizer::ipc {
                 { "name", name },
                 { "type", "vector_3" },
                 { "value", {
-                                   { "x", value.x },
-                                   { "y", value.y },
-                                   { "z", value.z },
+                               { "x", value.x },
+                               { "y", value.y },
+                               { "z", value.z },
                            } }
             };
         }
@@ -81,8 +82,8 @@ namespace randomizer::ipc {
                 { "name", name },
                 { "type", "vector_2" },
                 { "value", {
-                                   { "x", value.x },
-                                   { "y", value.y },
+                               { "x", value.x },
+                               { "y", value.y },
                            } }
             };
         }
@@ -139,15 +140,15 @@ namespace randomizer::ipc {
         void visualize_visible_on_world_map(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::VisibleOnWorldMap*>(obj);
             j["value"] = nlohmann::json::array({
-                    create_variable("icon", "scalar", cast->fields.Icon),
-                    create_variable("is_secret", "scalar", cast->fields.IsSecret),
-                    create_variable("always_add_to_all", "scalar", cast->fields.m_alwaysAddToAll),
-                    visualize_struct("offset", cast->fields.Offset),
-                    visualize(cast->fields.RevealCondition, "reveal_condition", verbose),
-                    create_variable("reveal_when_on_screen", "scalar", cast->fields.RevealWhenOnScreen),
-                    visualize(cast->fields.VisibilityOverrideCondition, "visibility_override_condition", verbose),
-                    visualize(cast->fields.VisibilityOverrideUberState, "visibility_override_uber_state", verbose),
-                    visualize(cast->fields._.MoonGuid, "guid", verbose),
+                create_variable("icon", "scalar", cast->fields.Icon),
+                create_variable("is_secret", "scalar", cast->fields.IsSecret),
+                create_variable("always_add_to_all", "scalar", cast->fields.m_alwaysAddToAll),
+                visualize_struct("offset", cast->fields.Offset),
+                visualize(cast->fields.RevealCondition, "reveal_condition", verbose),
+                create_variable("reveal_when_on_screen", "scalar", cast->fields.RevealWhenOnScreen),
+                visualize(cast->fields.VisibilityOverrideCondition, "visibility_override_condition", verbose),
+                visualize(cast->fields.VisibilityOverrideUberState, "visibility_override_uber_state", verbose),
+                visualize(cast->fields._.MoonGuid, "guid", verbose),
             });
         }
 
@@ -166,106 +167,106 @@ namespace randomizer::ipc {
         void visualize_desired_uberstate_generic(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::DesiredUberStateGeneric*>(obj);
             j["value"] = nlohmann::json::array({
-                    create_variable("desired", "scalar", cast->fields.DesiredValue),
-                    create_variable("previous_state", "scalar", cast->fields.m_previousState),
-                    visualize(cast->fields.State, "state", verbose),
+                create_variable("desired", "scalar", cast->fields.DesiredValue),
+                create_variable("previous_state", "scalar", cast->fields.m_previousState),
+                visualize(cast->fields.State, "state", verbose),
             });
         }
 
         void visualize_desired_uberstate_bool(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::DesiredUberStateBool*>(obj);
             j["value"] = nlohmann::json::array({
-                    create_variable("desired", "scalar", cast->fields.DesiredValue),
-                    create_variable("previous_state", "scalar", cast->fields._.m_previousState),
-                    visualize(cast->fields._.Descriptor, "state", verbose),
+                create_variable("desired", "scalar", cast->fields.DesiredValue),
+                create_variable("previous_state", "scalar", cast->fields._.m_previousState),
+                visualize(cast->fields._.Descriptor, "state", verbose),
             });
         }
 
         void visualize_desired_uberstate_byte(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::DesiredUberStateByte*>(obj);
             j["value"] = nlohmann::json::array({
-                    create_variable("desired", "scalar", cast->fields.DesiredStateValue),
-                    create_variable("previous_state", "scalar", cast->fields.m_previousState),
-                    visualize(cast->fields.State, "state", verbose),
+                create_variable("desired", "scalar", cast->fields.DesiredStateValue),
+                create_variable("previous_state", "scalar", cast->fields.m_previousState),
+                visualize(cast->fields.State, "state", verbose),
             });
         }
 
         void visualize_desired_uberstate_int(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::DesiredUberStateInt*>(obj);
             j["value"] = nlohmann::json::array({
-                    create_variable("desired", "scalar", cast->fields.DesiredValue),
-                    create_variable("previous_state", "scalar", cast->fields.m_previousState),
-                    visualize(cast->fields.Descriptor, "state", verbose),
+                create_variable("desired", "scalar", cast->fields.DesiredValue),
+                create_variable("previous_state", "scalar", cast->fields.m_previousState),
+                visualize(cast->fields.Descriptor, "state", verbose),
             });
         }
 
         void visualize_desired_uberstate_float(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::DesiredUberStateFloat*>(obj);
             j["value"] = nlohmann::json::array({
-                    create_variable("desired", "scalar", cast->fields.DesiredValue),
-                    create_variable("previous_state", "scalar", cast->fields.m_previousState),
-                    visualize(cast->fields.Descriptor, "state", verbose),
+                create_variable("desired", "scalar", cast->fields.DesiredValue),
+                create_variable("previous_state", "scalar", cast->fields.m_previousState),
+                visualize(cast->fields.Descriptor, "state", verbose),
             });
         }
 
         void visualize_desired_uberstate_composite(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::DesiredUberStateComposite*>(obj);
             j["value"] = nlohmann::json::array({
-                    visualize_list("bool_requirements", cast->fields.BoolRequirements, verbose),
-                    visualize_list("byte_requirements", cast->fields.ByteRequirements, verbose),
-                    visualize_list("int_requirements", cast->fields.IntRequirements, verbose),
-                    visualize_list("float_requirements", cast->fields.FloatRequirements, verbose),
-                    visualize_list("all_descriptors", cast->fields.m_allDescriptors, verbose),
+                visualize_list("bool_requirements", cast->fields.BoolRequirements, verbose),
+                visualize_list("byte_requirements", cast->fields.ByteRequirements, verbose),
+                visualize_list("int_requirements", cast->fields.IntRequirements, verbose),
+                visualize_list("float_requirements", cast->fields.FloatRequirements, verbose),
+                visualize_list("all_descriptors", cast->fields.m_allDescriptors, verbose),
             });
         }
 
         void visualize_generic_data_container(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::GenericDataContainer*>(obj);
             j["value"] = nlohmann::json::array({
-                    create_list("booleans", "scalar", cast->fields.Booleans),
-                    create_list("bytes", "scalar", cast->fields.Bytes),
-                    create_list("ints", "scalar", cast->fields.Ints),
-                    create_list("floats", "scalar", cast->fields.Floats),
-                    visualize_list_struct("vectors", cast->fields.Vectors),
+                create_list("booleans", "scalar", cast->fields.Booleans),
+                create_list("bytes", "scalar", cast->fields.Bytes),
+                create_list("ints", "scalar", cast->fields.Ints),
+                create_list("floats", "scalar", cast->fields.Floats),
+                visualize_list_struct("vectors", cast->fields.Vectors),
             });
         }
 
         void visualize_quest_interaction(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::QuestNodeSetup_QuestInteraction*>(obj);
             j["value"] = nlohmann::json::array({
-                    create_variable("autocontinue", "scalar", cast->fields.Autocontinue),
-                    visualize(cast->fields.Condition, "condition", verbose),
-                    create_variable("increment_quest_uberstate", "scalar", cast->fields.IncrementQuestUberState),
-                    create_variable("invert_condition", "scalar", cast->fields.InvertCondition),
-                    create_variable("location_independant", "scalar", cast->fields.LocationIndependent),
-                    visualize(cast->fields.MessageProvider, "message_provider", verbose),
-                    create_variable("reward", "scalar", cast->fields.Reward),
-                    visualize(cast->fields.StateChange, "state_change", verbose),
-                    create_variable("top_priority", "scalar", cast->fields.TopPriority),
+                create_variable("autocontinue", "scalar", cast->fields.Autocontinue),
+                visualize(cast->fields.Condition, "condition", verbose),
+                create_variable("increment_quest_uberstate", "scalar", cast->fields.IncrementQuestUberState),
+                create_variable("invert_condition", "scalar", cast->fields.InvertCondition),
+                create_variable("location_independant", "scalar", cast->fields.LocationIndependent),
+                visualize(cast->fields.MessageProvider, "message_provider", verbose),
+                create_variable("reward", "scalar", cast->fields.Reward),
+                visualize(cast->fields.StateChange, "state_change", verbose),
+                create_variable("top_priority", "scalar", cast->fields.TopPriority),
             });
         }
 
         void visualize_quest_interaction_set(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::QuestNodeSetup_QuestInteractionSet*>(obj);
             j["value"] = nlohmann::json::array({
-                    visualize_list("interactions", cast->fields.Interactions, verbose),
-                    create_variable("quest_uber_state_value", "scalar", cast->fields.QuestUberStateValue),
+                visualize_list("interactions", cast->fields.Interactions, verbose),
+                create_variable("quest_uber_state_value", "scalar", cast->fields.QuestUberStateValue),
             });
         }
 
         void visualize_quest_interaction_setup(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::QuestNodeSetup_QuestInteractionSetup*>(obj);
             j["value"] = nlohmann::json::array({
-                    visualize_list("interaction_sets", cast->fields.InteractionSets, verbose),
-                    visualize(cast->fields.QuestUberState, "quest_uber_state", verbose),
-                    visualize(cast->fields.SceneMetaData, "scene_meta_data", verbose),
+                visualize_list("interaction_sets", cast->fields.InteractionSets, verbose),
+                visualize(cast->fields.QuestUberState, "quest_uber_state", verbose),
+                visualize(cast->fields.SceneMetaData, "scene_meta_data", verbose),
             });
         }
 
         void visualize_quest_node_setup(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::QuestNodeSetup*>(obj);
             j["value"] = nlohmann::json::array({
-                    visualize_list("quest_interaction_sets", cast->fields.QuestInteractionSets, verbose),
+                visualize_list("quest_interaction_sets", cast->fields.QuestInteractionSets, verbose),
             });
         }
 
@@ -275,38 +276,38 @@ namespace randomizer::ipc {
         }
 
         void visualize_uber_state(nlohmann::json& j, void* obj, bool verbose) {
-            uber_states::UberState state(reinterpret_cast<app::IUberState*>(obj));
+            core::api::uber_states::UberState state(reinterpret_cast<app::IUberState*>(obj));
             j["value"] = nlohmann::json::array({
-                    create_variable("group_id", "scalar", state.group()),
-                    create_variable("state_id", "scalar", state.state()),
-                    create_variable("group_name", "scalar", state.group_name()),
-                    create_variable("state_name", "scalar", state.state_name()),
-                    create_variable("value", "scalar", state.get()),
+                create_variable("group_id", "scalar", state.group()),
+                create_variable("state_id", "scalar", state.state()),
+                create_variable("group_name", "scalar", state.group_name()),
+                create_variable("state_name", "scalar", state.state_name()),
+                create_variable("value", "scalar", state.get()),
             });
         }
 
         void visualize_uber_state_condition(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::UberStateCondition*>(obj);
             auto state = il2cpp::invoke<app::Boolean__Boxed>(cast->fields.Descriptor, "CanResolve", 0)->fields
-                    ? il2cpp::invoke<app::IUberState>(cast->fields.Descriptor, "Resolve", 0)
-                    : nullptr;
+                ? il2cpp::invoke<app::IUberState>(cast->fields.Descriptor, "Resolve", 0)
+                : nullptr;
             j["value"] = nlohmann::json::array({
-                    create_variable("condition_type", "scalar", cast->fields.m_conditionClassID),
-                    visualize(state, "descriptor", verbose),
-                    visualize(cast->fields.Data, "data", verbose),
+                create_variable("condition_type", "scalar", cast->fields.m_conditionClassID),
+                visualize(state, "descriptor", verbose),
+                visualize(cast->fields.Data, "data", verbose),
             });
         }
 
         void visualize_condition_uber_state(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::ConditionUberState*>(obj);
             j["value"] = nlohmann::json::array({
-                    create_variable("check_mode", "scalar", cast->fields.CheckMode),
-                    create_variable("group_id", "scalar", cast->fields.Group->fields._.m_id->fields.m_id),
-                    create_variable("state_id", "scalar", cast->fields._.m_id->fields.m_id),
-                    create_variable("default_value", "scalar", cast->fields._DefaultBooleanValue_k__BackingField),
-                    create_variable("generic_override", "scalar", cast->fields._VolitileGenericOverrideValue_k__BackingField.has_value ? std::to_string(cast->fields._VolitileGenericOverrideValue_k__BackingField.value) : "nullptr"),
-                    visualize_list("descriptors", cast->fields.Descriptors, verbose),
-                    visualize_array("named_values", cast->fields.NamedValues->fields.Entries, verbose),
+                create_variable("check_mode", "scalar", cast->fields.CheckMode),
+                create_variable("group_id", "scalar", cast->fields.Group->fields._.m_id->fields.m_id),
+                create_variable("state_id", "scalar", cast->fields._.m_id->fields.m_id),
+                create_variable("default_value", "scalar", cast->fields._DefaultBooleanValue_k__BackingField),
+                create_variable("generic_override", "scalar", cast->fields._VolitileGenericOverrideValue_k__BackingField.has_value ? std::to_string(cast->fields._VolitileGenericOverrideValue_k__BackingField.value) : "nullptr"),
+                visualize_list("descriptors", cast->fields.Descriptors, verbose),
+                visualize_array("named_values", cast->fields.NamedValues->fields.Entries, verbose),
             });
         }
 
@@ -314,8 +315,8 @@ namespace randomizer::ipc {
             auto cast = reinterpret_cast<app::ActivateBasedOnCondition*>(obj);
             auto condition_path = il2cpp::unity::get_path(cast->fields.Condition);
             auto target = il2cpp::invoke<app::Boolean__Boxed>(cast->fields.MoonTarget, "CanResolve", 0)->fields
-                    ? il2cpp::invoke<app::GameObject>(cast->fields.MoonTarget, "Resolve", 0)
-                    : nullptr;
+                ? il2cpp::invoke<app::GameObject>(cast->fields.MoonTarget, "Resolve", 0)
+                : nullptr;
             auto moon_target_path = il2cpp::unity::get_path(target);
             auto target_path = il2cpp::unity::get_path(cast->fields.Target);
             j["value"] = nlohmann::json::array({ create_variable("activate", "scalar", cast->fields.Activate),
@@ -337,8 +338,8 @@ namespace randomizer::ipc {
         void visualize_uber_state_condition_wrapper(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::UberStateConditionWrapper*>(obj);
             j["value"] = nlohmann::json::array({
-                    visualize(cast->fields.Condition, "condition", verbose),
-                    create_variable("invert", "scalar", cast->fields.Invert),
+                visualize(cast->fields.Condition, "condition", verbose),
+                create_variable("invert", "scalar", cast->fields.Invert),
             });
         }
 
@@ -351,8 +352,8 @@ namespace randomizer::ipc {
         void visualize_setup_state_modifier(nlohmann::json& j, void* obj, bool verbose) {
             auto ssm = reinterpret_cast<app::SetupStateModifier*>(obj);
             auto game_object = il2cpp::invoke<app::Boolean__Boxed>(ssm->fields.Target, "CanResolve", 0)->fields
-                    ? il2cpp::invoke<app::GameObject>(ssm->fields.Target, "Resolve", 0)
-                    : nullptr;
+                ? il2cpp::invoke<app::GameObject>(ssm->fields.Target, "Resolve", 0)
+                : nullptr;
             j["value"] = nlohmann::json::array({ create_variable("modifier_guid", "scalar", ssm->fields.ModifierGUID),
                                                  create_variable("game_object", "game_object", il2cpp::unity::get_path(game_object)) });
         }
@@ -376,8 +377,8 @@ namespace randomizer::ipc {
                 auto state_ref = nssc->fields.StateHolder->fields._._.State;
                 if (il2cpp::unity::is_valid(state_ref))
                     state = il2cpp::invoke<app::Boolean__Boxed>(state_ref, "CanResolve", 0)->fields
-                            ? il2cpp::invoke<app::IUberState>(state_ref, "Resolve", 0)
-                            : nullptr;
+                        ? il2cpp::invoke<app::IUberState>(state_ref, "Resolve", 0)
+                        : nullptr;
 
                 auto mapping = nssc->fields.StateHolder->fields._._.Mapping;
                 j["value"] = {
@@ -422,31 +423,31 @@ namespace randomizer::ipc {
         void visualize_wwise_basetype(nlohmann::json& j, void* obj, bool verbose) {
             auto base_type = reinterpret_cast<app::BaseType*>(obj);
             j["value"] = nlohmann::json::array({
-                    create_variable("id", "scalar", AK::Wwise::BaseType::get_Id(base_type)),
-                    create_variable("name", "scalar", il2cpp::convert_csstring(AK::Wwise::BaseType::get_Name(base_type))),
+                create_variable("id", "scalar", AK::Wwise::BaseType::get_Id(base_type)),
+                create_variable("name", "scalar", il2cpp::convert_csstring(AK::Wwise::BaseType::get_Name(base_type))),
             });
         }
 
         void visualize_ambience_zone(nlohmann::json& j, void* obj, bool verbose) {
             auto zone = reinterpret_cast<app::AmbienceZone*>(obj);
             j["value"] = nlohmann::json::array({
-                    visualize(zone->fields.WiseEvent, "event", verbose),
-                    visualize(zone->fields.WiseEventOnEnter, "event_enter", verbose),
-                    visualize(zone->fields.WiseEventOnExit, "event_exit", verbose),
-                    visualize(zone->fields.StateOnEnter, "state_enter", verbose),
-                    visualize(zone->fields.StateOnExit, "state_exit", verbose),
+                visualize(zone->fields.WiseEvent, "event", verbose),
+                visualize(zone->fields.WiseEventOnEnter, "event_enter", verbose),
+                visualize(zone->fields.WiseEventOnExit, "event_exit", verbose),
+                visualize(zone->fields.StateOnEnter, "state_enter", verbose),
+                visualize(zone->fields.StateOnExit, "state_exit", verbose),
             });
         }
 
         void visualize_sound_zone_trigger(nlohmann::json& j, void* obj, bool verbose) {
             auto trigger = reinterpret_cast<app::SoundZoneTrigger*>(obj);
             j["value"] = nlohmann::json::array({
-                    visualize(trigger->fields.State, "state", verbose),
-                    visualize(trigger->fields.Event, "event", verbose),
-                    visualize(trigger->fields.Trigger, "trigger", verbose),
-                    visualize(trigger->fields.Switch, "switch", verbose),
-                    create_variable("trigger_once", "scalar", trigger->fields.TriggerOnce),
-                    visualize(trigger->fields.TriggerOnceUberState, "trigger_once_uber_state", verbose),
+                visualize(trigger->fields.State, "state", verbose),
+                visualize(trigger->fields.Event, "event", verbose),
+                visualize(trigger->fields.Trigger, "trigger", verbose),
+                visualize(trigger->fields.Switch, "switch", verbose),
+                create_variable("trigger_once", "scalar", trigger->fields.TriggerOnce),
+                visualize(trigger->fields.TriggerOnceUberState, "trigger_once_uber_state", verbose),
             });
         }
 
@@ -465,8 +466,8 @@ namespace randomizer::ipc {
                     arr.push_back(visualize(component, "", verbose));
 
                 j["value"] = nlohmann::json::array({
-                        create_variable("layer", "scalar", layer),
-                        create_variable("components", "components", arr),
+                    create_variable("layer", "scalar", layer),
+                    create_variable("components", "components", arr),
                 });
             } else {
                 auto children = il2cpp::unity::get_children(go);
@@ -571,7 +572,7 @@ namespace randomizer::ipc {
                 }
             }
 
-            return scenes::get_game_object(path);
+            return core::api::scenes::get_game_object(path);
         }
 
         std::optional<int> get_optional_instance_id(const nlohmann::json& j) {
@@ -585,7 +586,7 @@ namespace randomizer::ipc {
         }
 
         void report_roots(nlohmann::json& j, bool children) {
-            auto game_objects = scenes::get_roots_from_active();
+            auto game_objects = core::api::scenes::get_roots_from_active();
             if (children) {
                 auto payload = nlohmann::json::array();
                 std::sort(game_objects.begin(), game_objects.end(), [](auto a, auto b) {
@@ -688,13 +689,11 @@ namespace randomizer::ipc {
             send_message(response);
         }
 
-        void initialize() {
+        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
             register_request_handler("get_game_object", get_game_object);
             register_request_handler("get_children", get_children);
             register_request_handler("destroy_game_object", destroy_game_object);
             register_request_handler("set_game_object_active", set_game_object_active);
-        }
-
-        CALL_ON_INIT(initialize);
+        });
     } // namespace
 } // namespace randomizer::ipc

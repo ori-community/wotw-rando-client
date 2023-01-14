@@ -1,14 +1,8 @@
 {
 	"cpp": [
 		"Core.dll",
-		"Randomizer.dll"
-	],
-	"csharp": [
-		{
-			"dll": "RandomizerManaged.dll",
-			"class": "RandomizerManaged.Randomizer",
-			"method": "Bootstrap"
-		}
+		"Randomizer.dll",
+		"RandomizerTester.dll"
 	],
 	"il2cpp_bindings": [
 		{ "address": "0x277d40", "name": "il2cpp_class_from_name" },

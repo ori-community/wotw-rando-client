@@ -1,0 +1,246 @@
+#include <features/wheel.h>
+#include <game/shops/shop.h>
+#include <randomizer.h>
+#include <seed/legacy_parser/parser.h>
+#include <text_processors/ability.h>
+#include <text_processors/control.h>
+#include <text_processors/legacy.h>
+#include <text_processors/shard.h>
+#include <text_processors/uber_state.h>
+#include <timer.h>
+#include <uber_states/uber_state_intercepts.h>
+
+#include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
+#include <Core/api/scenes/scene_load.h>
+#include <Core/api/uber_states/uber_state_handlers.h>
+#include <Core/core.h>
+#include <Core/settings.h>
+
+#include <Modloader/modloader.h>
+
+#include <fstream>
+
+namespace randomizer {
+    namespace {
+        location_data::LocationCollection randomizer_location_collection;
+        seed::Seed randomizer_seed(randomizer_location_collection);
+        seed::ReachCheckResult reach_check_result;
+        online::NetworkClient client;
+        online::MultiplayerUniverse universe;
+        std::shared_ptr<core::text::CompositeTextProcessor> text_processor;
+
+        bool reach_check_queued = false;
+        bool reach_check_in_progress = false;
+
+        void on_reach_check(seed::ReachCheckResult result) {
+            reach_check_in_progress = false;
+            reach_check_result = result;
+            event_bus().trigger_event(RandomizerEvent::ReachCheck, EventTiming::After);
+        }
+
+        bool do_reach_check() {
+            if (reach_check_in_progress && !core::api::game::in_game()) {
+                return false;
+            }
+
+            reach_check_in_progress = true;
+            event_bus().trigger_event(RandomizerEvent::ReachCheck, EventTiming::Before);
+            seed::reach_check(on_reach_check);
+            return true;
+        }
+
+        void initialize_new_game_uber_states() {
+            core::api::uber_states::UberState(48248, 16489).set(1); // npcsStateGroup.fastTravelEnabledUberState
+            core::api::uber_states::UberState(42178, 16825).set(3); // hubUberStateGroup.builderProjectSpiritWell
+            core::api::uber_states::UberState(42178, 15068).set(3); // hubUberStateGroup.builderProjectBeautify
+            core::api::uber_states::UberState(21786, 47458).set(true); // swampStateGroup.torchHolded
+            core::api::uber_states::UberState(937, 54318).set(true); // kwolokGroupDescriptor.risingPedestals
+            core::api::uber_states::UberState(9593, 3621).set(true); // inkwaterMarshStateGroup.mokiTorchPlayed
+            core::api::uber_states::UberState(21786, 50432).set(true); // swampStateGroup.leverA
+        }
+
+        auto on_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
+            if (reach_check_queued && do_reach_check()) {
+                reach_check_queued = false;
+            }
+        });
+
+        auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
+            timer::clear_uber_state_timers();
+            // TODO: Maybe this should be on seed load instead?
+            universe.uber_state_handler().clear_unsyncables();
+            features::wheel::clear_wheels();
+            features::wheel::initialize_defaults();
+            game::shops::reset_shop_data();
+            core::api::game::player::shard_slots() = 3;
+        });
+
+        std::vector<std::function<void()>> input_unlocked_callbacks;
+        auto on_input_locked_handler = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, [](auto, auto) {
+            if (!core::api::game::player::can_move()) {
+                return;
+            }
+
+            for (auto const& callback : input_unlocked_callbacks) {
+                callback();
+            }
+
+            input_unlocked_callbacks.clear();
+        });
+
+        auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+            initialize_new_game_uber_states();
+            queue_input_unlocked_callback([]() {
+                randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 0), 0);
+                randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 1), 0);
+                core::api::game::save(true);
+                queue_reach_check();
+                uber_states::disable_reverts() = false;
+            });
+
+            core::message_controller().queue_central_message({
+                .text = "*Good Luck! <3*",
+                .prioritized = true,
+            });
+        });
+
+        auto on_after_seed_load = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
+            timer::clear_uber_state_timers();
+            randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 1), 0);
+            queue_reach_check();
+        });
+
+        auto on_uber_state_changed = core::api::uber_states::notification_bus().register_handler([](auto params) {
+            randomizer_seed.grant(params.state, params.value);
+        });
+
+        void load_seed(bool show_message) {
+            // TODO: Check if we need to download/receive the seed from the server.
+            std::ifstream seed_name(modloader::base_path / ".currentseedpath");
+            if (seed_name.is_open()) {
+                std::stringstream seed_name_buffer;
+                seed_name_buffer << seed_name.rdbuf();
+                randomizer_seed.read(seed_name_buffer.str(), seed::legacy_parser::parse, show_message);
+            } else {
+                randomizer_seed.reload(show_message);
+            }
+        }
+
+        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+            universe.register_packet_handlers(client);
+            server_connect();
+
+            // TODO: Don't just do this on game ready.
+            modloader::cursor_lock(core::settings::cursor_locked());
+            core::api::game::debug_controls(core::settings::start_debug_enabled());
+
+            text_processor = std::make_shared<core::text::CompositeTextProcessor>();
+            text_processor->compose(std::make_shared<text_processors::UberStateProcessor>());
+            text_processor->compose(std::make_shared<text_processors::ControlProcessor>());
+            text_processor->compose(std::make_shared<text_processors::AbilityProcessor>());
+            text_processor->compose(std::make_shared<text_processors::ShardProcessor>());
+            text_processor->compose(std::make_shared<text_processors::LegacyProcessor>());
+
+            core::message_controller().central_text_processor(text_processor);
+            load_seed(false);
+        });
+
+        common::registration_handle on_title_screen_handler = core::api::scenes::single_event_bus().register_handler("wotwTitleScreen", [](auto, auto) {
+            std::string flags;
+            for (auto const& flag : randomizer_seed.info().flags) {
+                if (flags.empty()) {
+                    flags += "\nFlags: ";
+                } else {
+                    flags += ", ";
+                }
+
+                flags += flag;
+            }
+
+            std::string version = "0.0.0";
+            std::ifstream version_file(modloader::base_path / "VERSION");
+            if (version_file.is_open()) {
+                std::stringstream version_buffer;
+                version_buffer << version_file.rdbuf();
+                version = version_buffer.str();
+            }
+
+            core::message_controller().queue_central_message({
+                .text = fmt::format("v{} - Loaded {}{}", version, randomizer_seed.info().name, flags),
+                .show_box = true,
+                .prioritized = true,
+            });
+
+            on_title_screen_handler = nullptr;
+        });
+    } // namespace
+
+    void reload() {
+        if (network_client().wants_connection()) {
+            server_disconnect();
+            server_connect();
+        }
+
+        core::settings::reload();
+        load_seed(true);
+    }
+
+    void queue_input_unlocked_callback(std::function<void()> const& callback) {
+        input_unlocked_callbacks.push_back(callback);
+    }
+
+    void queue_reach_check() {
+        if (!do_reach_check()) {
+            reach_check_queued = true;
+        }
+    }
+
+    void server_connect() {
+        if (core::settings::netcode_disabled()) {
+            return;
+        }
+
+        auto insecure = core::settings::insecure();
+        auto host = core::settings::host();
+        auto websocket_port = core::settings::websocket_port();
+        auto udp_port = core::settings::udp_port();
+
+        std::string websocket_url = fmt::format("ws{}://{}:{}/api/game_sync/", insecure ? "" : "s", host, websocket_port);
+        client.websocket_connect(websocket_url);
+        client.udp_open(host, udp_port);
+    }
+
+    void server_disconnect() {
+        client.disconnect();
+    }
+
+    common::TimedMultiEventBus<RandomizerEvent>& event_bus() {
+        static common::TimedMultiEventBus<RandomizerEvent> randomizer_event_bus;
+        return randomizer_event_bus;
+    }
+
+    location_data::LocationCollection& location_collection() {
+        return randomizer_location_collection;
+    }
+
+    seed::Seed& game_seed() {
+        return randomizer_seed;
+    }
+
+    seed::ReachCheckResult const& reach_check() {
+        return reach_check_result;
+    }
+
+    online::NetworkClient& network_client() {
+        return client;
+    }
+
+    online::MultiplayerUniverse& multiplayer_universe() {
+        return universe;
+    }
+
+    std::shared_ptr<core::text::CompositeTextProcessor> general_text_processor() {
+        return text_processor;
+    }
+} // namespace randomizer

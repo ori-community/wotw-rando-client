@@ -15,6 +15,7 @@ enum class GameEvent {
     Shutdown,
 
     NewGame,
+    NewGameInitialized,
     CreateSave,
     CreateBackup,
     CreateCheckpoint,

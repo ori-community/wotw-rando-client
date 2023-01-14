@@ -3,19 +3,19 @@
 #include <Core/api/game/player.h>
 #include <Core/settings.h>
 
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/UnityEngine/Camera.h>
-#include <Modloader/app/methods/UnityEngine/Behaviour.h>
+#include <Modloader/app/methods/Core/Input.h>
 #include <Modloader/app/methods/MoonInput.h>
 #include <Modloader/app/methods/SeinCharacter.h>
 #include <Modloader/app/methods/SeinDashNew.h>
 #include <Modloader/app/methods/SeinDigging.h>
-#include <Modloader/app/methods/SeinSwimming.h>
 #include <Modloader/app/methods/SeinSpiritLeashAbility.h>
-#include <Modloader/app/methods/Core/Input.h>
-#include <Modloader/app/types/PlayerInput.h>
+#include <Modloader/app/methods/SeinSwimming.h>
+#include <Modloader/app/methods/UnityEngine/Behaviour.h>
+#include <Modloader/app/methods/UnityEngine/Camera.h>
 #include <Modloader/app/types/GameSettings.h>
+#include <Modloader/app/types/PlayerInput.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/interception_macros.h>
 
 #include <cmath>
 #include <limits>
@@ -38,8 +38,8 @@ namespace {
 
         settings = types::GameSettings::get_class()->static_fields->Instance;
         return il2cpp::unity::is_valid(settings)
-                ? settings->fields.m_currentControlSchemes
-                : app::ControlScheme__Enum::KeyboardAndMouse;
+            ? settings->fields.m_currentControlSchemes
+            : app::ControlScheme__Enum::KeyboardAndMouse;
     }
 
     bool current_control_scheme_is_kbm() {
@@ -57,7 +57,7 @@ namespace {
                 return app::Vector2{ 0, 0 };
         }
 
-        auto sein = game::player::sein();
+        auto sein = core::api::game::player::sein();
         auto sein_pos = Camera::WorldToScreenPoint_2(camera, sein->fields.PlatformBehaviour->fields.PlatformMovement->fields.m_oldPosition);
         auto pos = MoonInput::get_mousePosition();
         pos.x -= sein_pos.x;

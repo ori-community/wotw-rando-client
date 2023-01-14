@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Modloader/common.h>
+#include <Modloader/modloader.h>
 
 #include <memory>
 

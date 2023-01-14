@@ -40,6 +40,8 @@ namespace tas::runtime::timeline::entries {
         explicit TimelineEntry(unsigned long frame) :
                 frame(frame) {}
 
+        virtual ~TimelineEntry() = default;
+
         virtual void activate(TimelineState& timeline_state){};
         virtual void process(TimelineState& timeline_state){};
         virtual bool is_active_on_frame(unsigned long f) { return f == frame; };

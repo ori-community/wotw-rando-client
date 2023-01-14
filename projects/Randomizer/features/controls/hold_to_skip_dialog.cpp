@@ -1,15 +1,15 @@
+#include <Common/event_bus.h>
 #include <Common/ext.h>
+#include <Core/api/game/game.h>
+#include <Core/enums/game_event.h>
 #include <Modloader/app/methods/InteractiveMessageBox.h>
-#include <Modloader/app/methods/NPCMessageBox.h>
 #include <Modloader/app/methods/MessageBox.h>
+#include <Modloader/app/methods/NPCMessageBox.h>
 #include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/app/types/Input_Cmd.h>
-#include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
-#include <Core/enums/game_event.h>
-#include <Core/utils/event_bus.h>
-#include <Core/api/game/game.h>
+#include <Modloader/modloader.h>
 
 using namespace app::classes;
 
@@ -25,7 +25,7 @@ namespace {
     }
 
     bool should_do_dialogue_skip() {
-        if (next_dialogue_skip_timeout < FLT_EPSILON) {
+        if (can_do_dialogue_skip()) {
             next_dialogue_skip_timeout = DIALOGUE_SKIP_INTERVAL;
             return true;
         }
@@ -33,7 +33,7 @@ namespace {
         return false;
     }
 
-    void on_fixed_update(GameEvent game_event, EventTiming timing) {
+    auto on_before_fixed_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
         auto input_cmd = types::Input_Cmd::get_class();
         auto skip_pressed = input_cmd->static_fields->DialogueAdvance->fields.IsPressed;
 
@@ -43,15 +43,9 @@ namespace {
         }
 
         next_dialogue_skip_timeout = std::max(0.f, next_dialogue_skip_timeout - TimeUtility::get_fixedDeltaTime());
-    }
+    });
 
-    void initialize() {
-        game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, &on_fixed_update);
-    }
-
-    CALL_ON_INIT(initialize);
-
-    IL2CPP_INTERCEPT(NPCMessageBox, void, UpdateWriting, (app::NPCMessageBox* this_ptr)) {
+    IL2CPP_INTERCEPT(NPCMessageBox, void, UpdateWriting, (app::NPCMessageBox * this_ptr)) {
         auto previous_state = this_ptr->fields.m_state;
 
         next::NPCMessageBox::UpdateWriting(this_ptr);
@@ -59,20 +53,19 @@ namespace {
         auto new_state = this_ptr->fields.m_state;
 
         if (
-                previous_state != app::NPCMessageBox_State__Enum::Completed &&
-                new_state == app::NPCMessageBox_State__Enum::Completed &&
-                (
-                        this_ptr->fields.XInteractionBinding != nullptr ||
-                        this_ptr->fields.YInteractionBinding != nullptr ||
-                        this_ptr->fields.AInteractionBinding != nullptr ||
-                        this_ptr->fields.BInteractionBinding != nullptr
-                )
+            previous_state != app::NPCMessageBox_State__Enum::Completed &&
+            new_state == app::NPCMessageBox_State__Enum::Completed &&
+            (this_ptr->fields.XInteractionBinding != nullptr ||
+             this_ptr->fields.YInteractionBinding != nullptr ||
+             this_ptr->fields.AInteractionBinding != nullptr ||
+             this_ptr->fields.BInteractionBinding != nullptr
+            )
         ) {
             next_dialogue_skip_timeout = DIALOGUE_SKIP_INTERACTION_INTERVAL;
         }
     }
 
-    IL2CPP_INTERCEPT(NPCMessageBox, void, FixedUpdate, (app::NPCMessageBox* this_ptr)) {
+    IL2CPP_INTERCEPT(NPCMessageBox, void, FixedUpdate, (app::NPCMessageBox * this_ptr)) {
         if (this_ptr->fields.m_state == app::NPCMessageBox_State__Enum::Writing && should_do_dialogue_skip()) {
             MessageBox::FinishWriting(this_ptr->fields.MessageBox);
         } else if (this_ptr->fields.m_state == app::NPCMessageBox_State__Enum::Completed && should_do_dialogue_skip()) {
@@ -100,7 +93,7 @@ namespace {
         next::NPCMessageBox::FixedUpdate(this_ptr);
     }
 
-    IL2CPP_INTERCEPT(InteractiveMessageBox, void, FixedUpdate, (app::InteractiveMessageBox* this_ptr)) {
+    IL2CPP_INTERCEPT(InteractiveMessageBox, void, FixedUpdate, (app::InteractiveMessageBox * this_ptr)) {
         if (this_ptr->fields.m_state == app::InteractiveMessageBox_State__Enum::Writing && should_do_dialogue_skip()) {
             MessageBox::FinishWriting(this_ptr->fields.MessageBox);
         } else if (this_ptr->fields.m_state == app::InteractiveMessageBox_State__Enum::Completed && should_do_dialogue_skip()) {
@@ -109,4 +102,4 @@ namespace {
 
         next::InteractiveMessageBox::FixedUpdate(this_ptr);
     }
-}
+} // namespace

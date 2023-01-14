@@ -1,31 +1,27 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/ui.h>
-#include <Core/macros.h>
 
 #include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/MenuScreenManager.h>
 #include <Modloader/app/methods/SeinUI.h>
 #include <Modloader/app/types/UI.h>
-#include <Modloader/common.h>
+#include <Modloader/modloader.h>
 
 using namespace modloader;
 using namespace app::classes;
 
-namespace game::ui {
+namespace core::api::game::ui {
     namespace {
         bool is_area_map_open = false;
         bool manually_shaking_resource_ui = false;
 
-        void initialize() {
-            game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, [](auto game_event, auto timing) {
-                is_area_map_open = true;
-            });
-            game::event_bus().register_handler(GameEvent::CloseAreaMap, EventTiming::After, [](auto game_event, auto timing) {
-                is_area_map_open = false;
-            });
-        }
+        auto on_after_open_area_map = game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, [](auto game_event, auto timing) {
+            is_area_map_open = true;
+        });
 
-        CALL_ON_INIT(initialize);
+        auto on_after_close_area_map = game::event_bus().register_handler(GameEvent::CloseAreaMap, EventTiming::After, [](auto game_event, auto timing) {
+            is_area_map_open = false;
+        });
     } // namespace
 
     bool is_manually_shaking_resource_ui() {
@@ -55,58 +51,51 @@ namespace game::ui {
             MenuScreenManager::IsVisible(ui->static_fields->m_sMenu, app::MenuScreenManager_Screens__Enum::RaceScreen) ||
             MenuScreenManager::IsVisible(ui->static_fields->m_sMenu, app::MenuScreenManager_Screens__Enum::MapmakerShop) ||
             MenuScreenManager::IsVisible(ui->static_fields->m_sMenu, app::MenuScreenManager_Screens__Enum::ShardUpgradeShop) ||
-            MenuScreenManager::IsVisible(ui->static_fields->m_sMenu, app::MenuScreenManager_Screens__Enum::Stats))
+            MenuScreenManager::IsVisible(ui->static_fields->m_sMenu, app::MenuScreenManager_Screens__Enum::Stats)) {
             return true;
+        }
 
         if (Game::UI::get_MainMenuVisible() ||
             area_map_open() ||
             world_map_open() ||
-            shop_open())
+            shop_open()) {
             return true;
+        }
 
         return false;
     }
 
     bool shop_open() {
         return Game::UI::get_ShardShopVisible() ||
-                Game::UI::get_WeaponmasterScreenVisible() ||
-                Game::UI::get_BuilderScreenVisible() ||
-                Game::UI::get_GardenerScreenVisible();
+            Game::UI::get_WeaponmasterScreenVisible() ||
+            Game::UI::get_BuilderScreenVisible() ||
+            Game::UI::get_GardenerScreenVisible();
     }
 
-    void shake_spiritlight() {
+    void shake_spirit_light() {
         ScopedSetter setter(manually_shaking_resource_ui, true);
-        if (game::ui::get()->static_fields->SeinUI == nullptr)
+        if (game::ui::get()->static_fields->SeinUI == nullptr) {
             trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
-        else
+        } else {
             SeinUI::ShakeSpiritLight_1(game::ui::get()->static_fields->SeinUI);
+        }
     }
 
     void shake_keystone() {
         ScopedSetter setter(manually_shaking_resource_ui, true);
-        if (game::ui::get()->static_fields->SeinUI == nullptr)
+        if (game::ui::get()->static_fields->SeinUI == nullptr) {
             trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
-        else
+        } else {
             SeinUI::ShakeKeystones(game::ui::get()->static_fields->SeinUI);
+        }
     }
 
     void shake_ore() {
         ScopedSetter setter(manually_shaking_resource_ui, true);
-        if (game::ui::get()->static_fields->SeinUI == nullptr)
+        if (game::ui::get()->static_fields->SeinUI == nullptr) {
             trace(MessageType::Error, 2, "game", "SeinUI is invalid!");
-        else
+        } else {
             SeinUI::ShakeSeeds_1(game::ui::get()->static_fields->SeinUI);
+        }
     }
-} // namespace game::ui
-
-CORE_C_DLLEXPORT void shake_spiritlight() {
-    game::ui::shake_spiritlight();
-}
-
-CORE_C_DLLEXPORT void shake_keystone() {
-    game::ui::shake_keystone();
-}
-
-CORE_C_DLLEXPORT void shake_ore() {
-    game::ui::shake_ore();
-}
+} // namespace core::api::game::ui

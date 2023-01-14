@@ -10,7 +10,7 @@ struct AnimationCurve;
 struct FloatCurveAnimator__Fields {
     struct BaseAnimator__Fields _;
     struct AnimationCurve* valueCurve;
-    int32_t priority;
+    int32_t prioritized;
     float valueFloat;
     float lastSampledTime;
 };

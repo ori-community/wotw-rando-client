@@ -1,7 +1,7 @@
-#include <interop/csharp_bridge.h>
-#include <Randomizer/conditions/new_setup_state_override.h>
+#include <Core/api/uber_states/uber_state.h>
+#include <Core/api/uber_states/uber_state_handlers.h>
 #include <Randomizer/conditions/condition_override.h>
-#include <Core/uber_states/uber_state_interface.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
 
 #include <Modloader/app/methods/PlayerAbilities.h>
 #include <Modloader/app/methods/QuestNodeSetup_QuestInteraction.h>
@@ -9,9 +9,9 @@
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/structs/Boolean__Boxed.h>
-#include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 
 bool disable_has_ability_overwrite = false;
 
@@ -19,8 +19,8 @@ using namespace app::classes;
 
 namespace {
     bool force_day_time = false;
-    uber_states::UberState day_night_state(UberStateGroup::RandoState, 401);
-    uber_states::UberState force_drain_regen_tree_water_state(UberStateGroup::RandoState, 402);
+    core::api::uber_states::UberState day_night_state(UberStateGroup::RandoState, 401);
+    core::api::uber_states::UberState force_drain_regen_tree_water_state(UberStateGroup::RandoState, 402);
 
     bool is_day() {
         if (force_day_time) {
@@ -44,8 +44,8 @@ namespace {
 
     bool can_resolve(app::SetupStateModifier* item) {
         return item->fields.Target != nullptr &&
-                il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "get_HasAReference")->fields &&
-                il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", 0)->fields;
+            il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "get_HasAReference")->fields &&
+            il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", 0)->fields;
     }
 
     void find_day_night(app::List_1_SetupStateModifier___Fields& modifiers, app::GameObject*& day, app::GameObject*& night) {
@@ -152,7 +152,32 @@ namespace {
         return state;
     }
 
-    void initialize_day_night_logic() {
+    auto uber_state_notify = core::api::uber_states::notification_bus().register_handler(
+        [](auto params) {
+            if (params.state == day_night_state || params.state == force_drain_regen_tree_water_state) {
+                randomizer::conditions::apply_all_states();
+            }
+        }
+    );
+
+    IL2CPP_INTERCEPT(SwampNightDayTransition, bool, DayTimeCondition, (app::SwampNightDayTransition * this_ptr)) {
+        return is_day();
+    }
+
+    bool override_has_ability = false;
+    IL2CPP_INTERCEPT(SwampNightDayTransition, void, UpdateStateBasedOnCondition, (app::SwampNightDayTransition * this_ptr)) {
+        modloader::ScopedSetter setter(override_has_ability, true);
+        next::SwampNightDayTransition::UpdateStateBasedOnCondition(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(PlayerAbilities, bool, HasAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability)) {
+        if (override_has_ability)
+            return is_day();
+
+        return next::PlayerAbilities::HasAbility(this_ptr, ability);
+    }
+
+    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         randomizer::conditions::register_new_setup_intercept({ "swampTorchIntroductionA/*setups/*timesOfDay" }, { -1052258879, 1819061226 }, [](auto, auto, auto, auto) -> int32_t {
             return is_day() ? -1052258879 : 1819061226;
         });
@@ -162,8 +187,8 @@ namespace {
         });
 
         randomizer::conditions::register_new_setup_intercept({
-                                                                     "swampIntroTop/timelines/timesOfDayTransition",
-                                                                     "shoreSearchShot/art/timesOfDayTransition",
+                                                                 "swampIntroTop/timelines/timesOfDayTransition",
+                                                                 "shoreSearchShot/art/timesOfDayTransition",
                                                              },
                                                              { -598230906, -1926205078 },
                                                              [](auto, auto, auto, auto) -> int32_t {
@@ -171,15 +196,17 @@ namespace {
                                                              });
 
         randomizer::conditions::register_new_setup_intercept(
-                { "willOfTheWispsLagoonConnection/artSetups/timesOfDayTransition" }, { 1340727368, -76384365 }, [](auto, auto, auto, auto) -> int32_t {
-                    return is_day() ? 1340727368 : -76384365;
-                }
+            { "willOfTheWispsLagoonConnection/artSetups/timesOfDayTransition" },
+            { 1340727368, -76384365 },
+            [](auto, auto, auto, auto) -> int32_t {
+                return is_day() ? 1340727368 : -76384365;
+            }
         );
 
         randomizer::conditions::register_new_setup_intercept({
-                                                                     "swampWalljumpChallengeA/*setups/*timesOfDay",
-                                                                     "swampWalljumpChallengeB/*timesOfDay",
-                                                                     "doubleJumpEscalationB__clone0/*timesOfDay",
+                                                                 "swampWalljumpChallengeA/*setups/*timesOfDay",
+                                                                 "swampWalljumpChallengeB/*timesOfDay",
+                                                                 "doubleJumpEscalationB__clone0/*timesOfDay",
                                                              },
                                                              { -1834135337, -949591271 },
                                                              [](auto, auto, auto, auto) -> int32_t {
@@ -187,18 +214,20 @@ namespace {
                                                              });
 
         randomizer::conditions::register_new_setup_intercept(
-                { "swampNightcrawlerBshortcut/*setups/timesOfDayTransition" }, { 1001861749, 787945376 }, [](auto, auto, auto, auto) -> int32_t {
-                    return is_day() ? 1001861749 : 787945376;
-                }
+            { "swampNightcrawlerBshortcut/*setups/timesOfDayTransition" },
+            { 1001861749, 787945376 },
+            [](auto, auto, auto, auto) -> int32_t {
+                return is_day() ? 1001861749 : 787945376;
+            }
         );
 
         // Sword Cutscene rain
         randomizer::conditions::register_new_setup_intercept(
-                { "swampGetSpiritBlade/timesOfDayController", "swampGetSpiritBlade/timesOfDayTransition" },
-                { -480342150, 907153171 },
-                [](auto, auto, auto, auto) -> int32_t {
-                    return is_day() ? 907153171 : -480342150;
-                }
+            { "swampGetSpiritBlade/timesOfDayController", "swampGetSpiritBlade/timesOfDayTransition" },
+            { -480342150, 907153171 },
+            [](auto, auto, auto, auto) -> int32_t {
+                return is_day() ? 907153171 : -480342150;
+            }
         );
 
         // Remove regen tree water and move day water around (288338807 : day, -1643391836 : night).
@@ -220,30 +249,5 @@ namespace {
         randomizer::conditions::register_condition_intercept("swampIntroTop/enemies/activateBasedOnCondition/enemyActivator", &is_day_condition);
         randomizer::conditions::register_condition_intercept("willOfTheWispsLagoonConnection/enemies/activateAfterSword/enemyActivator", &is_day_condition);
         randomizer::conditions::register_condition_intercept("willOfTheWispsLagoonConnection/enemies/deactivateAfterSword/enemyActivator", &is_day_condition);
-
-        uber_states::register_value_notify([](auto state, auto previous_value) {
-            if (state == day_night_state || state == force_drain_regen_tree_water_state) {
-                randomizer::conditions::apply_all_states();
-            }
-        });
-    }
-
-    IL2CPP_INTERCEPT(SwampNightDayTransition, bool, DayTimeCondition, (app::SwampNightDayTransition * this_ptr)) {
-        return is_day();
-    }
-
-    bool override_has_ability = false;
-    IL2CPP_INTERCEPT(SwampNightDayTransition, void, UpdateStateBasedOnCondition, (app::SwampNightDayTransition * this_ptr)) {
-        modloader::ScopedSetter setter(override_has_ability, true);
-        next::SwampNightDayTransition::UpdateStateBasedOnCondition(this_ptr);
-    }
-
-    IL2CPP_INTERCEPT(PlayerAbilities, bool, HasAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability)) {
-        if (override_has_ability)
-            return is_day();
-
-        return next::PlayerAbilities::HasAbility(this_ptr, ability);
-    }
-
-    CALL_ON_INIT(initialize_day_night_logic);
+    });
 } // namespace

@@ -1,11 +1,11 @@
 #include <Common/ext.h>
 
-#include <Modloader/common.h>
-#include <Modloader/interception_macros.h>
-#include <Modloader/windows_api/console.h>
 #include <Modloader/app/methods/FaderB.h>
 #include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/MenuScreenManager__PostFadeMenuOpen_d__100.h>
+#include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
+#include <Modloader/windows_api/console.h>
 
 using namespace app::classes;
 using namespace modloader;

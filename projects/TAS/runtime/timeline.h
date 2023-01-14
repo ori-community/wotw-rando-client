@@ -1,11 +1,11 @@
 #pragma once
 
+#include <Common/event_bus.h>
 #include <Core/enums/actions.h>
 #include <Core/enums/controller_axis.h>
-#include <Core/utils/event_bus.h>
-#include <TAS/runtime/timeline_state.h>
 #include <TAS/runtime/timeline_entries.h>
 #include <TAS/runtime/timeline_entry_collection.h>
+#include <TAS/runtime/timeline_state.h>
 #include <vector>
 
 namespace tas::runtime::timeline {
@@ -19,7 +19,7 @@ namespace tas::runtime::timeline {
     class Timeline {
     private:
         TimelineState state;
-        TimedEventBus<TimelineEvent> _event_bus;
+        common::TimedEventBus<TimelineEvent> _event_bus;
 
         unsigned long current_frame = 0;
         unsigned int fps = 60;
@@ -49,6 +49,6 @@ namespace tas::runtime::timeline {
         void rewind();
         void advance();
         void seek(unsigned long frame);
-        TimedEventBus<TimelineEvent>& event_bus();
+        common::TimedEventBus<TimelineEvent>& event_bus();
     };
 } // namespace tas::runtime::timeline

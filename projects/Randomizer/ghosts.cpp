@@ -1,4 +1,7 @@
 #include <Common/ext.h>
+#include <Core/api/game/game.h>
+#include <Core/api/game/player.h>
+#include <Core/api/messages/text_style.h>
 #include <Modloader/app/methods/GenericPuppet.h>
 #include <Modloader/app/methods/GhostCharacterAbilitiesPlugin.h>
 #include <Modloader/app/methods/GhostCharacterPlugin.h>
@@ -20,34 +23,33 @@
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Material.h>
 #include <Modloader/app/methods/UnityEngine/Renderer.h>
-#include <Modloader/app/types/GhostManager.h>
-#include <Modloader/app/types/GhostFrame.h>
+#include <Modloader/app/structs/Int32__Boxed.h>
 #include <Modloader/app/types/BinaryReader.h>
 #include <Modloader/app/types/BinaryWriter.h>
-#include <Modloader/app/types/MemoryStream.h>
-#include <Modloader/app/types/OriGhostRigVisuals_GhostVisualSettings.h>
-#include <Modloader/app/types/GhostGenericEventsPlugin.h>
-#include <Modloader/app/types/GhostStateMachinePlugin.h>
+#include <Modloader/app/types/Byte.h>
 #include <Modloader/app/types/GhostCharacterAbilitiesPlugin.h>
 #include <Modloader/app/types/GhostCharacterPlugin.h>
-#include <Modloader/app/types/GhostRecorderData.h>
-#include <Modloader/app/types/Byte.h>
+#include <Modloader/app/types/GhostFrame.h>
+#include <Modloader/app/types/GhostGenericEventsPlugin.h>
+#include <Modloader/app/types/GhostManager.h>
 #include <Modloader/app/types/GhostPlayer.h>
-#include <Modloader/app/types/MoonAnimator.h>
-#include <Modloader/app/types/SkinnedMeshRenderer.h>
+#include <Modloader/app/types/GhostRecorderData.h>
+#include <Modloader/app/types/GhostStateMachinePlugin.h>
+#include <Modloader/app/types/MemoryStream.h>
 #include <Modloader/app/types/MeshRenderer.h>
+#include <Modloader/app/types/MoonAnimator.h>
+#include <Modloader/app/types/OriGhostRigVisuals_GhostVisualSettings.h>
+#include <Modloader/app/types/SkinnedMeshRenderer.h>
 #include <Modloader/il2cpp_helpers.h>
-#include <Core/api/game/player.h>
 #include <Randomizer/ghosts/plugins.h>
-#include <Core/text_style.h>
-#include <Modloader/app/structs/Int32__Boxed.h>
+#include <constants.h>
 
 #include "ghosts.h"
 
-#include <Modloader/common.h>
-#include <Modloader/interception_macros.h>
-#include <Randomizer/macros.h>
 #include <Core/utils/misc.h>
+#include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
+#include <Randomizer/macros.h>
 
 #include <Core/utils/byte_stream.h>
 #include <sstream>
@@ -68,7 +70,7 @@ namespace ghosts {
     IL2CPP_INTERCEPT(GhostPlayer, void, OnEnable, (app::GhostPlayer * this_ptr)) {
         if (intercept_ghost_player_on_enable) {
             this_ptr->fields.m_oriRig = nullptr;
-            this_ptr->fields.OriRig = game::player::sein()->fields.OriRig;
+            this_ptr->fields.OriRig = core::api::game::player::sein()->fields.OriRig;
         }
 
         next::GhostPlayer::OnEnable(this_ptr);
@@ -201,7 +203,7 @@ namespace ghosts {
     }
 
     void RandoGhost::set_name(const std::string& name) const {
-        std::wstring name_text = convert_string_to_wstring(fmt::format("<s_1.5>{}</>", name));
+        std::string name_text = fmt::format("<s_1.5>{}</>", name);
         text_style::create_styles(ghost_player->fields.Name, name_text);
         GhostPlayer::SetDisplayName(this->ghost_player, il2cpp::string_new(name_text));
     }
@@ -275,12 +277,12 @@ namespace ghosts {
         GhostPlayer::InitializeVisualize(this->ghost_player, visual_settings);
 
         auto emissivity_model_go = il2cpp::unity::find_child(
-                this->ghost_player->fields.m_oriRig,
-                std::vector<std::string_view>{ "mirrorHolder", "rigHolder", "oriRig", "Model_GRP", "body_emissivity_MDL" }
+            this->ghost_player->fields.m_oriRig,
+            std::vector<std::string_view>{ "mirrorHolder", "rigHolder", "oriRig", "Model_GRP", "body_emissivity_MDL" }
         );
         auto trail_go = il2cpp::unity::find_child(
-                this->ghost_player->fields.m_oriRig,
-                std::vector<std::string_view>{ "mirrorHolder", "rigHolder", "oriRig", "trails", "trail" }
+            this->ghost_player->fields.m_oriRig,
+            std::vector<std::string_view>{ "mirrorHolder", "rigHolder", "oriRig", "trails", "trail" }
         );
 
         auto emissivity_mesh_renderer = il2cpp::unity::get_component<app::SkinnedMeshRenderer>(emissivity_model_go, types::SkinnedMeshRenderer::get_class());
@@ -476,11 +478,9 @@ namespace ghosts {
         return frame;
     }
 
-    void initialize() {
+    auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
         ghost_recorder = ghosts::create_recorder();
-    }
-
-    CALL_ON_INIT(initialize);
+    });
 } // namespace ghosts
 
 RANDOMIZER_C_DLLEXPORT char* get_current_ghost_frame_data(int& size) {

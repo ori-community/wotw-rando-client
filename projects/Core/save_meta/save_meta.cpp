@@ -1,3 +1,5 @@
+#include <Core/api/game/game.h>
+#include <Core/mood_guid.h>
 #include <Core/save_meta/save_meta.h>
 #include <Core/utils/byte_stream.h>
 #include <Modloader/app/methods/DeathUberStateManager.h>
@@ -5,12 +7,10 @@
 #include <Modloader/app/methods/SaveGameController.h>
 #include <Modloader/app/methods/SaveSlotsManager.h>
 #include <Modloader/app/methods/System/IO/File.h>
-#include <Core/api/game/game.h>
 #include <Modloader/app/types/Byte.h>
-#include <Modloader/common.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
-#include <Core/utils/mood_guid.h>
 #include <fmt/format.h>
 #include <unordered_map>
 
@@ -75,21 +75,21 @@ namespace core::save_meta {
         bool is_loading_save_file = false;
         bool is_loading_backup = false;
         bool is_dying = false;
-        utils::MoodGuid previous_save_guid;
-        utils::MoodGuid current_save_guid;
+        MoodGuid previous_save_guid;
+        MoodGuid current_save_guid;
 
-        utils::MoodGuid read_guid_from_save(app::Byte__Array* data) {
+        MoodGuid read_guid_from_save(app::Byte__Array* data) {
             utils::ByteStream stream(data);
 
             if (stream.peek<int>() == SAVE_META_FILE_MAGIC) {
                 stream.skip<int>();
                 stream.skip<int>(); // VERSION unused for now
 
-                return stream.read<utils::MoodGuid>();
+                return stream.read<MoodGuid>();
             }
 
             // Non-rando save, return random GUID
-            return utils::MoodGuid();
+            return MoodGuid();
         }
 
         struct SaveMetaReadResult {
@@ -113,7 +113,7 @@ namespace core::save_meta {
                 stream.skip<int>();
                 stream.skip<int>(); // VERSION unused for now
 
-                auto guid = stream.read<utils::MoodGuid>();
+                auto guid = stream.read<MoodGuid>();
                 auto slot_count = stream.read<int>();
 
                 console_send(fmt::format("Reading {} SaveMeta slots from save file {},{},{},{}", slot_count, guid.A, guid.B, guid.C, guid.D));
@@ -164,7 +164,7 @@ namespace core::save_meta {
             }
 
             auto remaining_bytes = stream.peek_to_end();
-            return SaveMetaReadResult {
+            return SaveMetaReadResult{
                 static_cast<unsigned long>(remaining_bytes.size()),
                 stream.position,
                 types::Byte::create_array(remaining_bytes)
@@ -176,7 +176,7 @@ namespace core::save_meta {
 
             stream.write<int>(SAVE_META_FILE_MAGIC);
             stream.write<int>(SAVE_META_FILE_VERSION);
-            stream.write<utils::MoodGuid>(current_save_guid);
+            stream.write<MoodGuid>(current_save_guid);
             stream.write<int>(slots.size());
 
             for (auto& item : slots) {
@@ -194,7 +194,7 @@ namespace core::save_meta {
                 item.second.last_saved_data_initialized = true;
             }
 
-            return std::move(stream);
+            return stream;
         }
 
         SaveMetaReadResult read_save_meta_from_byte_array_with_current_parameters(app::Byte__Array* data) {
@@ -273,8 +273,6 @@ namespace core::save_meta {
         }
 
         IL2CPP_INTERCEPT(Moon::UberStateValueStore, app::Byte__Array*, ToByteArray, (app::UberStateValueStore * this_ptr)) {
-            console_send("Serializing uber state value store");
-
             utils::ByteStream game_save_data(next::Moon::UberStateValueStore::ToByteArray(this_ptr));
 
             // Get SaveMeta data
@@ -290,14 +288,8 @@ namespace core::save_meta {
             next::DeathUberStateManager::OnDeath();
         }
 
-        void on_new_game(GameEvent event, EventTiming timing) {
-            current_save_guid = utils::MoodGuid();
-        }
-
-        void initialize() {
-            game::event_bus().register_handler(GameEvent::NewGame, EventTiming::After, &on_new_game);
-        }
-
-        CALL_ON_INIT(initialize);
+        auto on_new_game_handle = api::game::event_bus().register_handler(GameEvent::NewGame, EventTiming::After, [](auto, auto) {
+            current_save_guid = MoodGuid();
+        });
     } // namespace
 } // namespace core::save_meta

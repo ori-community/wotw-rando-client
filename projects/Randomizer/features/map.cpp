@@ -1,8 +1,11 @@
-#include <Core/enums/static_text_entries.h>
+#include <game/pickups/quests.h>
+#include <macros.h>
+
 #include <Core/api/game/game.h>
-#include <interop/csharp_bridge.h>
-#include <Core/text_database.h>
-#include <Core/uber_states/uber_state_interface.h>
+#include <Core/api/uber_states/uber_state.h>
+#include <Core/enums/static_text_entries.h>
+#include <Core/settings.h>
+#include <Core/text/text_database.h>
 
 #include <Modloader/app/methods/AK/Wwise/State.h>
 #include <Modloader/app/methods/AreaMapNavigation.h>
@@ -19,18 +22,14 @@
 #include <Modloader/app/methods/RuntimeGameWorldArea.h>
 #include <Modloader/app/methods/RuntimeWorldMapIcon.h>
 #include <Modloader/app/methods/UnityEngine/Vector3.h>
-#include <Modloader/app/types/Input_Cmd.h>
 #include <Modloader/app/types/GameMapTransitionManager.h>
-#include <Modloader/app/types/QuestsUI.h>
 #include <Modloader/app/types/GameWorld.h>
-#include <Modloader/common.h>
+#include <Modloader/app/types/Input_Cmd.h>
+#include <Modloader/app/types/QuestsUI.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 
-#include <Core/enums/static_text_entries.h>
-#include <game/pickups/quests.h>
-#include <Core/text_database.h>
-#include <Randomizer/macros.h>
 #include <unordered_map>
 
 using namespace modloader;
@@ -65,23 +64,20 @@ namespace {
         this_ptr->fields.MapQuestCompletedMapCostModifier = 1.f;
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
-        return uber_states::UberState(UberStateGroup::LupoGroup, id).get<int>();
+        return core::api::uber_states::UberState(UberStateGroup::LupoGroup, id).get<int>();
     }
 
     using normal_function = app::MessageProvider* (*)(app::CartographerEntity*);
     app::MessageProvider* handle_lupo_message(app::CartographerEntity* this_ptr, LupoSelection selection, normal_function normal) {
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto text_override = *text_overrides[area->fields.WorldMapAreaUniqueID] + static_cast<int>(selection);
-        if (text_database::has_text(text_override))
-            return text_database::get_provider(text_override);
-
-        return normal(this_ptr);
+        return core::text::has_text(text_override) ? core::text::get_provider(text_override) : normal(this_ptr);
     }
 
     IL2CPP_INTERCEPT(CartographerEntity, app::MessageProvider*, get_IntroMessageProvider, (app::CartographerEntity * this_ptr)) {
         auto area = CartographerEntity::get_CurrentArea(this_ptr);
         auto id = static_cast<int>(area->fields.WorldMapAreaUniqueID);
-        auto cost = uber_states::UberState(UberStateGroup::LupoGroup, id).get<int>();
+        auto cost = core::api::uber_states::UberState(UberStateGroup::LupoGroup, id).get<int>();
         area->fields.LupoData.AreaMapSpiritLevelCost = cost;
         area->fields.LupoDataOnCondition.AreaMapSpiritLevelCost = cost;
         return handle_lupo_message(this_ptr, LupoSelection::Intro, next::CartographerEntity::get_IntroMessageProvider);
@@ -112,13 +108,14 @@ namespace {
     IL2CPP_INTERCEPT(GameMapUI, void, FixedUpdate, (app::GameMapUI * this_ptr)) {
         next::GameMapUI::FixedUpdate(this_ptr);
         auto area = GameMapUI::get_CurrentHighlightedArea(this_ptr);
-        if (area == nullptr || area->fields.Area == nullptr)
+        if (area == nullptr || area->fields.Area == nullptr) {
             return;
+        }
 
         auto aid = area->fields.Area->fields.WorldMapAreaUniqueID;
         if (aid != area_id) {
             area_id = aid;
-            csharp_bridge::on_map_pan(area_id);
+            // TODO: Set map hint text based on area.
         }
     }
 
@@ -140,8 +137,7 @@ namespace {
 
         QuestsUI::UpdateDescriptionUI_2(this_ptr, quest);
 
-        auto reward_text = static_cast<static_text_entry>(rand() % 7 + static_cast<int>(static_text_entry::QuestReward1));
-        this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox->fields.MessageProvider = text_database::get_provider(*reward_text);
+        this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox->fields.MessageProvider = core::text::get_random_provider(*static_text_entry::QuestReward);
         MessageBox::RefreshText_1(this_ptr->fields.m_questDetailsUI->fields.QuestRewardMessageBox);
 
         // Moon pls center the thing dammit
@@ -153,7 +149,7 @@ namespace {
         il2cpp::unity::set_active(this_ptr->fields.m_questDetailsUI->fields.Ore, false);
     }
 
-    IL2CPP_INTERCEPT(AreaMapNavigation, void, HandleMapScrolling, (app::AreaMapNavigation* this_ptr)) {
+    IL2CPP_INTERCEPT(AreaMapNavigation, void, HandleMapScrolling, (app::AreaMapNavigation * this_ptr)) {
         auto previous_x = this_ptr->fields.m_scrollPosition.x;
         auto previous_y = this_ptr->fields.m_scrollPosition.y;
 
@@ -167,13 +163,13 @@ namespace {
         }
     }
 
-    IL2CPP_INTERCEPT(QuestsUI, void, UpdateDescriptionUI_1, (app::QuestsUI* this_ptr, app::RuntimeQuest* quest)) {
+    IL2CPP_INTERCEPT(QuestsUI, void, UpdateDescriptionUI_1, (app::QuestsUI * this_ptr, app::RuntimeQuest* quest)) {
         if (allow_showing_description_ui) {
             next::QuestsUI::UpdateDescriptionUI_1(this_ptr, quest);
         }
     }
 
-    IL2CPP_INTERCEPT(QuestsUI, void, UpdateDescriptionUI_2, (app::QuestsUI* this_ptr, app::Quest* quest)) {
+    IL2CPP_INTERCEPT(QuestsUI, void, UpdateDescriptionUI_2, (app::QuestsUI * this_ptr, app::Quest* quest)) {
         if (allow_showing_description_ui || quest == nullptr) {
             next::QuestsUI::UpdateDescriptionUI_2(this_ptr, quest);
         }
@@ -251,8 +247,9 @@ namespace {
             next::Moon::Timeline::DiscoverAreasEntity::ChangeState(this_ptr, app::DiscoverAreasEntity_State__Enum::Reveal);
             next::Moon::Timeline::DiscoverAreasEntity::ChangeState(this_ptr, app::DiscoverAreasEntity_State__Enum::Fade);
             next::Moon::Timeline::DiscoverAreasEntity::ChangeState(this_ptr, app::DiscoverAreasEntity_State__Enum::WaitForInput);
-        } else
+        } else {
             next::Moon::Timeline::DiscoverAreasEntity::ChangeState(this_ptr, value);
+        }
     }
 
     float scaling_factor = 2.0f;
@@ -261,11 +258,14 @@ namespace {
     IL2CPP_INTERCEPT(AreaMapUI, void, Awake, (app::AreaMapUI * this_ptr)) {
         next::AreaMapUI::Awake(this_ptr);
         auto transition = types::GameMapTransitionManager::get_class();
-        transition->static_fields->WorldMapEnabled = csharp_bridge::check_ini("WorldMapEnabled");
-        if (original_zoom < 0.0f)
+        transition->static_fields->WorldMapEnabled = core::settings::world_map_enabled();
+        if (original_zoom < 0.0f) {
             original_zoom = this_ptr->fields._Navigation_k__BackingField->fields.AreaMapZoomLevel;
-        if (original_scale < 0.0f)
+        }
+
+        if (original_scale < 0.0f) {
             original_scale = this_ptr->fields._IconScaler_k__BackingField->fields.MaxScaleFactor;
+        }
 
         this_ptr->fields._Navigation_k__BackingField->fields.AreaMapZoomLevel = original_zoom / scaling_factor;
         this_ptr->fields._Navigation_k__BackingField->fields.WorldMapZoomLevel = original_zoom / scaling_factor;
@@ -276,35 +276,36 @@ namespace {
         area_id = app::GameWorldAreaID__Enum::None;
     }
 
-    void initialize() {
-        game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, &on_area_map);
-    }
+    auto on_area_map_handle = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, &on_area_map);
 
-    CALL_ON_INIT(initialize);
-} // namespace
+    bool discover_everything() {
+        auto game_world = get_game_world();
+        if (game_world) {
+            // 15 is the max value of app::GameWorldAreaID__Enum when this was written.
+            for (int32_t i = 0; i <= 15; i++) {
+                auto area = GameWorld::GetArea(game_world, static_cast<app::GameWorldAreaID__Enum>(i));
+                if (!area) {
+                    // Areas: None, WeepingRidge, GorlekMines, Riverlands would crash the game
+                    continue;
+                }
 
-RANDOMIZER_C_DLLEXPORT bool discover_everything() {
-    auto game_world = get_game_world();
-    if (game_world) {
-        // 15 is the max value of app::GameWorldAreaID__Enum when this was written.
-        for (int32_t i = 0; i <= 15; i++) {
-            auto area = GameWorld::GetArea(game_world, static_cast<app::GameWorldAreaID__Enum>(i));
-            if (!area) {
-                // Areas: None, WeepingRidge, GorlekMines, Riverlands would crash the game
-                continue;
+                const auto runtimeArea = GameWorld::FindRuntimeArea(game_world, area);
+                if (!runtimeArea) {
+                    continue;
+                }
+
+                RuntimeGameWorldArea::DiscoverAllAreas(runtimeArea);
             }
 
-            auto runtimeArea = GameWorld::FindRuntimeArea(game_world, area);
-            if (!runtimeArea)
-                continue;
-
-            RuntimeGameWorldArea::DiscoverAllAreas(runtimeArea);
+            trace(MessageType::Debug, 5, "game", "Map revealed");
+            return true;
+        } else {
+            trace(MessageType::Warning, 3, "game", "Tried to discover all, but haven't found the GameWorld Instance yet :(");
+            return false;
         }
-
-        trace(MessageType::Debug, 5, "game", "Map revealed");
-        return true;
-    } else {
-        trace(MessageType::Warning, 3, "game", "Tried to discover all, but haven't found the GameWorld Instance yet :(");
-        return false;
     }
-}
+
+    auto on_after_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [](auto, auto) {
+        discover_everything();
+    });
+} // namespace

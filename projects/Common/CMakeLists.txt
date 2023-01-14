@@ -15,7 +15,11 @@ set(
 
 set(
         PUBLIC_HEADER_FILES
+        "blocking_queue.h"
         "csv.h"
+        "event_bus.h"
+        "event_bus_data.h"
+        "event_timing.h"
         "ext.h"
         "settings_reader.h"
 )

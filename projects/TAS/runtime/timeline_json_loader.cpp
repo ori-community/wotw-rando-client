@@ -1,6 +1,6 @@
 #include <Common/ext.h>
 #include <Core/utils/json_serializers.h>
-#include <Modloader/common.h>
+#include <Modloader/modloader.h>
 #include <TAS/runtime/timeline_json_loader.h>
 
 #include <utility>
@@ -22,67 +22,67 @@ namespace tas::runtime::timeline {
                     } break;
 
                     case TimelineEntryType::Action: {
-                        entries.push_back(std::move(std::make_shared<ActionTimelineEntry>(
-                                j_entry.at("frame").get<unsigned long>(),
-                                j_entry.at("duration").get<unsigned long>(),
-                                j_entry.at("action").get<Action>()
-                        )));
+                        entries.push_back(std::make_shared<ActionTimelineEntry>(
+                            j_entry.at("frame").get<unsigned long>(),
+                            j_entry.at("duration").get<unsigned long>(),
+                            j_entry.at("action").get<Action>()
+                        ));
                     } break;
 
                     case TimelineEntryType::Angle: {
-                        entries.push_back(std::move(std::make_shared<AngleTimelineEntry>(
-                                j_entry.at("frame").get<unsigned long>(),
-                                j_entry.at("duration").get<unsigned long>(),
-                                j_entry.at("angle").get<ControllerAngle>(),
-                                j_entry.at("degrees").get<float>()
-                        )));
+                        entries.push_back(std::make_shared<AngleTimelineEntry>(
+                            j_entry.at("frame").get<unsigned long>(),
+                            j_entry.at("duration").get<unsigned long>(),
+                            j_entry.at("angle").get<ControllerAngle>(),
+                            j_entry.at("degrees").get<float>()
+                        ));
                     } break;
 
                     case TimelineEntryType::Axis: {
-                        entries.push_back(std::move(std::make_shared<AxisTimelineEntry>(
-                                j_entry.at("frame").get<unsigned long>(),
-                                j_entry.at("duration").get<unsigned long>(),
-                                j_entry.at("axis").get<ControllerAxis>(),
-                                j_entry.at("value").get<float>()
-                        )));
+                        entries.push_back(std::make_shared<AxisTimelineEntry>(
+                            j_entry.at("frame").get<unsigned long>(),
+                            j_entry.at("duration").get<unsigned long>(),
+                            j_entry.at("axis").get<ControllerAxis>(),
+                            j_entry.at("value").get<float>()
+                        ));
                     } break;
 
                     case TimelineEntryType::GameReload: {
-                        entries.push_back(std::move(std::make_shared<GameReloadTimelineEntry>(
-                                j_entry.at("frame").get<unsigned long>()
-                        )));
+                        entries.push_back(std::make_shared<GameReloadTimelineEntry>(
+                            j_entry.at("frame").get<unsigned long>()
+                        ));
                     } break;
 
                     case TimelineEntryType::MouseAngle: {
-                        entries.push_back(std::move(std::make_shared<MouseAngleTimelineEntry>(
-                                j_entry.at("frame").get<unsigned long>(),
-                                j_entry.at("degrees").get<float>(),
-                                j_entry.value<float>("distance", 3.f)
-                        )));
+                        entries.push_back(std::make_shared<MouseAngleTimelineEntry>(
+                            j_entry.at("frame").get<unsigned long>(),
+                            j_entry.at("degrees").get<float>(),
+                            j_entry.value<float>("distance", 3.f)
+                        ));
                     } break;
 
                     case TimelineEntryType::MousePosition: {
-                        entries.push_back(std::move(std::make_shared<MousePositionTimelineEntry>(
-                                j_entry.at("frame").get<unsigned long>(),
-                                j_entry.value<core::input::MousePositionSimulationMode>("mode", core::input::MousePositionSimulationMode::UI),
-                                j_entry.at("x").get<float>(),
-                                j_entry.at("y").get<float>()
-                        )));
+                        entries.push_back(std::make_shared<MousePositionTimelineEntry>(
+                            j_entry.at("frame").get<unsigned long>(),
+                            j_entry.value<core::input::MousePositionSimulationMode>("mode", core::input::MousePositionSimulationMode::UI),
+                            j_entry.at("x").get<float>(),
+                            j_entry.at("y").get<float>()
+                        ));
                     } break;
 
                     case TimelineEntryType::Position: {
-                        entries.push_back(std::move(std::make_shared<PositionTimelineEntry>(
-                                j_entry.at("frame").get<unsigned long>(),
-                                j_entry.at("x").get<float>(),
-                                j_entry.at("y").get<float>()
-                        )));
+                        entries.push_back(std::make_shared<PositionTimelineEntry>(
+                            j_entry.at("frame").get<unsigned long>(),
+                            j_entry.at("x").get<float>(),
+                            j_entry.at("y").get<float>()
+                        ));
                     } break;
 
                     case TimelineEntryType::RNGState: {
-                        entries.push_back(std::move(std::make_shared<RNGStateTimelineEntry>(
-                                j_entry.at("frame").get<unsigned long>(),
-                                j_entry.at("state").get<int>()
-                        )));
+                        entries.push_back(std::make_shared<RNGStateTimelineEntry>(
+                            j_entry.at("frame").get<unsigned long>(),
+                            j_entry.at("state").get<int>()
+                        ));
                     } break;
                 }
             }

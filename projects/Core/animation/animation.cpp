@@ -1,21 +1,21 @@
 #include <animation/animation.h>
 
-#include <dev/object_visualizer.h>
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
-#include <Core/utils/dirty_value.h>
 #include <Core/api/graphics/sprite.h>
 #include <Core/api/graphics/textures.h>
+#include <Core/dirty_value.h>
 #include <Core/utils/json_serializers.h>
 #include <Core/utils/operations.h>
+#include <dev/object_visualizer.h>
 
 #include <Common/ext.h>
 
 #include <Modloader/app/methods/UnityEngine/Transform.h>
 #include <Modloader/app/types/GameObject.h>
-#include <Modloader/common.h>
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 #include <Modloader/windows_api/console.h>
 
 #include <nlohmann/json.hpp>
@@ -44,8 +44,7 @@ namespace core::animation {
                 frame_definition.duration = frame.value("duration", 1.0f);
                 anim->duration += frame_definition.duration;
                 frame_definition.real_duration = anim->duration;
-                auto texture_str = convert_string_to_wstring(frame.value("texture", std::string("")));
-                frame_definition.texture = textures::get_texture(texture_str);
+                frame_definition.texture = textures::get_texture(frame.value("texture", std::string("")));
                 app::Vector2 texture_size;
                 auto has_texture_size = frame.contains("texture_size");
                 if (has_texture_size) {
@@ -88,12 +87,12 @@ namespace core::animation {
         return value;
     }
 
-    Animation::Animation(AnimationDefinition const& definition) :
-            m_sprite(), m_color_modulate{ 1, 1, 1, 1 }, m_duration(definition.duration), m_frame(0), m_frames(definition.frames) {
+    Animation::Animation(AnimationDefinition const& definition)
+            : m_sprite(), m_color_modulate{ 1, 1, 1, 1 }, m_duration(definition.duration), m_frame(0), m_frames(definition.frames) {
         m_root = types::GameObject::create();
         il2cpp::invoke(m_root, ".ctor");
         il2cpp::invoke(m_root, "set_name", il2cpp::string_new("rando_animation"));
-        game::add_to_container(game::RandoContainer::GameObjects, m_root);
+        core::api::game::add_to_container(core::api::game::RandoContainer::GameObjects, m_root);
         m_sprite.set_parent(m_root);
     }
 
@@ -142,8 +141,8 @@ namespace core::animation {
             params = textures::MaterialParams();
 
         params->color = params->color.has_value()
-                ? params->color.value() * m_color_modulate
-                : m_color_modulate;
+            ? params->color.value() * m_color_modulate
+            : m_color_modulate;
 
         m_sprite.texture(frame.texture, frame.params);
     }

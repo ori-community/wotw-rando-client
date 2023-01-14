@@ -3,7 +3,7 @@
 #include <Core/api/graphics/sprite.h>
 #include <Core/enums/layer.h>
 #include <Core/macros.h>
-#include <Core/utils/cached_loader.h>
+#include <Core/cached_loader.h>
 
 namespace core::animation {
     struct CORE_DLLEXPORT AnimationFrame {

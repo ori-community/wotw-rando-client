@@ -2,7 +2,7 @@
 
 #include <Common/ext.h>
 
-#include <Modloader/common.h>
+#include <Modloader/modloader.h>
 
 #include <fstream>
 

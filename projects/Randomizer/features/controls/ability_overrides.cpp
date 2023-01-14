@@ -1,19 +1,19 @@
-#include <features/controls/ability_overrides.h>
 #include <Core/api/game/player.h>
+#include <Core/api/uber_states/uber_state.h>
 #include <Randomizer/macros.h>
-#include <Core/uber_states/uber_state_interface.h>
+#include <features/controls/ability_overrides.h>
 
-#include <Modloader/common.h>
+#include <Modloader/app/methods/SeinBlazeSpell.h>
+#include <Modloader/app/methods/SeinFeatherFlap.h>
+#include <Modloader/app/methods/SeinGlowSpell.h>
+#include <Modloader/app/methods/SeinGrenadeAttack.h>
+#include <Modloader/app/methods/SeinInput.h>
+#include <Modloader/app/methods/SeinLogicCycle.h>
+#include <Modloader/app/methods/SeinMeditateSpell.h>
+#include <Modloader/app/methods/SeinTurretSpell.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/SeinLogicCycle.h>
-#include <Modloader/app/methods/SeinInput.h>
-#include <Modloader/app/methods/SeinGrenadeAttack.h>
-#include <Modloader/app/methods/SeinBlazeSpell.h>
-#include <Modloader/app/methods/SeinTurretSpell.h>
-#include <Modloader/app/methods/SeinGlowSpell.h>
-#include <Modloader/app/methods/SeinFeatherFlap.h>
-#include <Modloader/app/methods/SeinMeditateSpell.h>
+#include <Modloader/modloader.h>
 
 #include <unordered_map>
 
@@ -34,8 +34,7 @@ namespace ability_override {
                 o->second(type);
         }
 
-        IL2CPP_INTERCEPT(SeinLogicCycle, bool, AllowSpell,
-                         (app::SeinLogicCycle * this_ptr, app::AbilityType__Enum type)) {
+        IL2CPP_INTERCEPT(SeinLogicCycle, bool, AllowSpell, (app::SeinLogicCycle * this_ptr, app::AbilityType__Enum type)) {
             if (has_override(type))
                 return true;
 
@@ -43,9 +42,8 @@ namespace ability_override {
         }
 
         bool check_input(app::AbilityType__Enum ability, bool just_pressed = false) {
-            auto sein = game::player::sein();
-            if (SeinLogicCycle::IsCharacterStateBlockedBy(sein->fields.LogicCycle,
-                                                          app::SeinLogicCycle_StateFlags__Enum::BlockInput))
+            auto sein = core::api::game::player::sein();
+            if (SeinLogicCycle::IsCharacterStateBlockedBy(sein->fields.LogicCycle, app::SeinLogicCycle_StateFlags__Enum::BlockInput))
                 return false;
 
             auto processor = SeinInput::GetButton(sein->fields.Input, ability);
@@ -72,7 +70,6 @@ namespace ability_override {
                 next::SeinBlazeSpell::UpdateInput(this_ptr);
         }
 
-        bool started_sentry = false;
         IL2CPP_INTERCEPT(SeinTurretSpell, void, UpdateCharacterState, (app::SeinTurretSpell * this_ptr)) {
             if (has_override(app::AbilityType__Enum::TurretSpell)) {
                 if (check_input(app::AbilityType__Enum::TurretSpell))

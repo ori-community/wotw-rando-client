@@ -1,22 +1,22 @@
-#include <Core/uber_states/uber_state_interface.h>
+#include <Core/api/uber_states/uber_state.h>
 
 #include <Core/api/game/player.h>
 
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
-#include <Modloader/app/methods/MeleeComboMoveHammerSimple.h>
 #include <Modloader/app/methods/MeleeComboMoveHammer.h>
 #include <Modloader/app/methods/MeleeComboMoveHammerChargeable.h>
+#include <Modloader/app/methods/MeleeComboMoveHammerSimple.h>
 #include <Modloader/app/methods/MeleeComboMoveHammerStomp.h>
+#include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/interception_macros.h>
 
 using namespace modloader;
 using namespace app::classes;
 
 namespace {
-    uber_states::UberState hammer_speed(UberStateGroup::RandoUpgrade, 0);
+    core::api::uber_states::UberState hammer_speed(UberStateGroup::RandoUpgrade, 0);
 
-    void set_timeline_time_scale_if_not_null(app::MoonTimeline* timeline, const float &time_scale) {
+    void set_timeline_time_scale_if_not_null(app::MoonTimeline* timeline, const float& time_scale) {
         if (timeline != nullptr)
             Moon::Timeline::MoonTimeline::SetTimeScale(timeline, time_scale);
     }

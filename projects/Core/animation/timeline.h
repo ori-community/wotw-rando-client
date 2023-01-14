@@ -1,11 +1,10 @@
 #pragma once
 
-#include <animation/animation.h>
-#include <animation/timeline_entries/base.h>
-#include <animation/timeline_state.h>
-#include <Core/utils/cached_loader.h>
-#include <Core/api/messages/messages.h>
-#include <sound.h>
+#include <Core/animation/animation.h>
+#include <Core/animation/timeline_entries/base.h>
+#include <Core/animation/timeline_state.h>
+#include <Core/api/sound.h>
+#include <Core/cached_loader.h>
 #include <Core/macros.h>
 
 #include <optional>

@@ -1,17 +1,17 @@
-#include <Core/uber_states/uber_state_interface.h>
+#include <Core/api/uber_states/uber_state.h>
 
-#include <Modloader/interception_macros.h>
+#include <Modloader/app/methods/MeleeComboMoveSword.h>
+#include <Modloader/app/methods/MeleeComboMoveSwordAirDown.h>
 #include <Modloader/app/methods/Moon/MeleeComboMoveSwordCharge.h>
 #include <Modloader/app/methods/Moon/Timeline/MoonTimeline.h>
-#include <Modloader/app/methods/MeleeComboMoveSwordAirDown.h>
-#include <Modloader/app/methods/MeleeComboMoveSword.h>
+#include <Modloader/interception_macros.h>
 
 #include <vector>
 
 using namespace app::classes;
 
 namespace {
-    uber_states::UberState sword_speed(UberStateGroup::RandoUpgrade, 1);
+    core::api::uber_states::UberState sword_speed(UberStateGroup::RandoUpgrade, 1);
 
     float initial_charge_time = -1.f;
     IL2CPP_INTERCEPT(Moon::MeleeComboMoveSwordCharge, void, EnterMove, (app::MeleeComboMoveSwordCharge * this_ptr)) {

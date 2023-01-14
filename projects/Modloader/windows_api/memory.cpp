@@ -1,6 +1,6 @@
 #include "Modloader/windows_api/memory.h"
+#include "Modloader/modloader.h"
 #include "Modloader/windows_api/console.h"
-#include "Modloader/common.h"
 
 #include <Modloader/windows_api/windows.h>
 #include <fmt/core.h>
@@ -26,7 +26,7 @@ namespace modloader::win::memory {
 
             return cache;
         }
-    }
+    } // namespace
 
     uint64_t get_game_assembly_address() {
         return get_assembly_address("GameAssembly.dll", game_assembly_address);
@@ -47,4 +47,4 @@ namespace modloader::win::memory {
     uint64_t resolve_unity_player_rva(uint64_t rva) {
         return get_unity_player_address() + rva;
     }
-}
+} // namespace modloader::win::memory

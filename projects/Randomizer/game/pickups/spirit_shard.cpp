@@ -1,9 +1,9 @@
-#include <Modloader/common.h>
-#include <Modloader/interception_macros.h>
-#include <Modloader/app/methods/SeinPickupProcessor.h>
-#include <Modloader/app/methods/PlayerSpiritShards.h>
-#include <Modloader/app/methods/SpiritShardPickup.h>
 #include <Modloader/app/methods/MenuTabManager.h>
+#include <Modloader/app/methods/PlayerSpiritShards.h>
+#include <Modloader/app/methods/SeinPickupProcessor.h>
+#include <Modloader/app/methods/SpiritShardPickup.h>
+#include <Modloader/interception_macros.h>
+#include <Modloader/modloader.h>
 
 using namespace modloader;
 

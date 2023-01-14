@@ -1,35 +1,32 @@
-#include <Core/api/game/player.h>
-#include <Core/api/game/loading_detection.h>
-#include <Core/api/faderb.h>
+#include <api/game/game.h>
 
-#include <Modloader/common.h>
-#include <Modloader/app/types/InstantLoadScenesController.h>
-#include <Modloader/app/types/UI.h>
-#include <Modloader/app/methods/Moon/Timeline/FixedDurationSceneEntity.h>
+#include <Core/api/faderb.h>
+#include <Core/api/game/loading_detection.h>
+#include <Core/api/game/player.h>
+#include <Core/api/scenes/scene_load.h>
+
+#include <Modloader/app/methods/DestroyManager.h>
+#include <Modloader/app/methods/GameStateMachine.h>
+#include <Modloader/app/methods/LoadGameAction.h>
+#include <Modloader/app/methods/LoadingFinishedCondition.h>
 #include <Modloader/app/methods/MenuScreenManager.h>
 #include <Modloader/app/methods/ScenesManager.h>
-#include <Modloader/app/methods/DestroyManager.h>
-#include <Modloader/app/methods/UberGCManager.h>
-#include <Modloader/app/methods/GameStateMachine.h>
-#include <Modloader/app/methods/LoadingFinishedCondition.h>
 #include <Modloader/app/methods/SelectedSaveValidCondition.h>
-#include <Modloader/app/methods/SceneLoadingQueue.h>
-#include <Modloader/app/methods/LoadGameAction.h>
-#include <Modloader/app/methods/UnityEngine/SceneManagement/SceneManager.h>
 #include <Modloader/app/methods/System/Action.h>
+#include <Modloader/app/methods/UberGCManager.h>
+#include <Modloader/app/methods/UnityEngine/SceneManagement/SceneManager.h>
 #include <Modloader/app/methods/UnityEngine/Time.h>
+#include <Modloader/app/types/InstantLoadScenesController.h>
 #include <Modloader/app/types/SavePedestalController.h>
+#include <Modloader/app/types/UI.h>
+#include <Modloader/modloader.h>
 
 #include <fmt/format.h>
-
-#include "game.h"
-#include <Core/api/scenes/scene_load.h>
-#include <Modloader/windows_api/console.h>
 
 using namespace modloader;
 using namespace app::classes;
 
-namespace game::loading_detection {
+namespace core::api::game::loading_detection {
     std::atomic<LoadingState> current_loading_state = LoadingState::NotLoading;
 
     auto loading_scene_synchronously = false;
@@ -132,7 +129,7 @@ namespace game::loading_detection {
                 return LoadingState::MenuScreenManagerNonexistent;
             }
 
-            auto fader = faderb::get();
+            auto fader = core::api::faderb::get();
             if (fader != nullptr && fader->fields.CurrentState == app::FaderB_State__Enum::FadeStay) {
                 return LoadingState::FaderB;
             }
@@ -144,8 +141,7 @@ namespace game::loading_detection {
             current_loading_state = detect_current_loading_state();
         }
 
-        IL2CPP_INTERCEPT(UnityEngine::SceneManagement::SceneManager, app::Scene, LoadScene_3,
-                         (app::String * scene_name, app::LoadSceneParameters parameters)) {
+        IL2CPP_INTERCEPT(UnityEngine::SceneManagement::SceneManager, app::Scene, LoadScene_3, (app::String * scene_name, app::LoadSceneParameters parameters)) {
             modloader::ScopedSetter setter(loading_scene_synchronously, true);
             update_loading_state_cache();
             return next::UnityEngine::SceneManagement::SceneManager::LoadScene_3(scene_name, parameters);
@@ -153,7 +149,7 @@ namespace game::loading_detection {
 
         std::set<gchandle> on_menus_loaded_actions;
         IL2CPP_INTERCEPT(System::Action, void, Invoke, (app::Action * this_ptr)) {
-            for (const auto &gchandle: on_menus_loaded_actions) {
+            for (const auto& gchandle : on_menus_loaded_actions) {
                 auto action = il2cpp::gchandle_target<app::Action>(gchandle);
                 if (action == this_ptr) {
                     loading_menus = false;
@@ -166,14 +162,12 @@ namespace game::loading_detection {
             next::System::Action::Invoke(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(MenuScreenManager, void, LoadMenus,
-                         (app::MenuScreenManager * this_ptr, app::Action * on_menus_loaded)) {
+        IL2CPP_INTERCEPT(MenuScreenManager, void, LoadMenus, (app::MenuScreenManager * this_ptr, app::Action* on_menus_loaded)) {
             on_menus_loaded_actions.insert(il2cpp::gchandle_new(on_menus_loaded));
             next::MenuScreenManager::LoadMenus(this_ptr, on_menus_loaded);
         }
 
-        IL2CPP_INTERCEPT(UberGCManager, void, OnCleanupOutsideOfGameplay,
-                         (app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum trigger)) {
+        IL2CPP_INTERCEPT(UberGCManager, void, OnCleanupOutsideOfGameplay, (app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum trigger)) {
             modloader::ScopedSetter setter(uber_gc_running, true);
             update_loading_state_cache();
             next::UberGCManager::OnCleanupOutsideOfGameplay(trigger);
@@ -191,31 +185,24 @@ namespace game::loading_detection {
             next::DestroyManager::DestroyAll(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(LoadingFinishedCondition, bool, Validate,
-                         (app::LoadingFinishedCondition * this_ptr, app::IContext * context)) {
+        IL2CPP_INTERCEPT(LoadingFinishedCondition, bool, Validate, (app::LoadingFinishedCondition * this_ptr, app::IContext* context)) {
             auto validation_passed = next::LoadingFinishedCondition::Validate(this_ptr, context);
             loading_finished_condition_is_blocking = !validation_passed;
             return validation_passed;
         }
 
-        IL2CPP_INTERCEPT(LoadGameAction, void, Perform, (app::LoadGameAction * this_ptr, app::IContext * context)) {
+        IL2CPP_INTERCEPT(LoadGameAction, void, Perform, (app::LoadGameAction * this_ptr, app::IContext* context)) {
             modloader::ScopedSetter setter(load_game_action_performing, true);
             update_loading_state_cache();
             next::LoadGameAction::Perform(this_ptr, context);
         }
 
-        void on_unity_update_loop(GameEvent game_event, EventTiming timing) {
+        auto on_after_unity_update_loop = game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, [](auto, auto) {
             update_loading_state_cache();
-        }
-
-        void initialize() {
-            game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, &on_unity_update_loop);
-        }
-
-        CALL_ON_INIT(initialize);
-    }
+        });
+    } // namespace
 
     LoadingState get_loading_state() {
         return current_loading_state;
     }
-} // namespace game::loading_detector
+} // namespace core::api::game::loading_detection

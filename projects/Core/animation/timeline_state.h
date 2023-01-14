@@ -1,28 +1,28 @@
 #pragma once
 
-#include <animation/animation.h>
-#include <Core/utils/cached_loader.h>
-#include <Core/api/messages/messages.h>
-#include <sound.h>
+#include <Core/animation/animation.h>
+#include <Core/api/sound.h>
+#include <Core/cached_loader.h>
+#include <Core/core.h>
+#include <Core/macros.h>
 
 #include <optional>
 #include <unordered_map>
 #include <variant>
-#include <Core/macros.h>
 
 namespace core::animation {
     struct CORE_DLLEXPORT VariableValue {
         std::optional<
-                std::variant<
-                        bool,
-                        int,
-                        float,
-                        std::string,
-                        app::Vector2,
-                        app::Vector3,
-                        app::Color,
-                        SoundEventID>>
-                value;
+            std::variant<
+                bool,
+                int,
+                float,
+                std::string,
+                app::Vector2,
+                app::Vector3,
+                app::Color,
+                SoundEventID>>
+            value;
     };
 
     struct CORE_DLLEXPORT TimelineState {
@@ -30,7 +30,7 @@ namespace core::animation {
         app::GameObject* root = nullptr;
         std::unordered_map<std::string, VariableValue> variable_values;
         std::unordered_map<int, std::shared_ptr<Animation>> active_animations;
-        std::unordered_map<int, std::shared_ptr<core::sound::SoundActor>> active_sounds;
-        std::unordered_map<int, std::shared_ptr<TextBox>> active_text;
+        std::unordered_map<int, std::shared_ptr<api::SoundActor>> active_sounds;
+        std::unordered_map<int, std::shared_ptr<api::messages::MessageBox>> active_text;
     };
 } // namespace core::animation
