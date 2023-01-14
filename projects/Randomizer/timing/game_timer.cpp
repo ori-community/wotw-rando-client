@@ -145,10 +145,11 @@ namespace randomizer::timing {
             }
 
             stats_mutex.lock();
-            if (game::loading_detection::get_loading_state() == LoadingState::NotLoading) {
+            auto loading_state = game::loading_detection::get_loading_state();
+            if (loading_state == LoadingState::NotLoading) {
                 save_stats->report_time_spent(current_game_area.load(), delta);
             } else {
-                save_stats->report_loading_time(delta);
+                save_stats->report_loading_time(delta, loading_state);
             }
             stats_mutex.unlock();
 

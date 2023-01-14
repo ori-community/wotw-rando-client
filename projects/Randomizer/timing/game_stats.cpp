@@ -23,8 +23,8 @@ namespace randomizer::timing {
         }
     }
 
-    void SaveFileGameStats::report_loading_time(float time) {
-        this->total_loading_time += time;
+    void SaveFileGameStats::report_loading_time(float time, LoadingState reason) {
+        this->loading_times[reason] += time;
     }
 
     void SaveFileGameStats::report_death(GameArea area) {
@@ -86,6 +86,14 @@ namespace randomizer::timing {
             this->max_ppm_over_timespan = current_ppm_over_timespan;
             this->max_ppm_over_timespan_at = this->total_time;
         }
+    }
+
+    float SaveFileGameStats::get_total_loading_time() {
+        float total = 0.f;
+        for (const auto& item : this->loading_times) {
+            total += item.second;
+        }
+        return total;
     }
 
     void CheckpointGameStats::report_pickup(GameArea area) {

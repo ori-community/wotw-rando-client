@@ -2,6 +2,7 @@
 
 #include <Core/enums/game_areas.h>
 #include <Core/enums/world_events.h>
+#include <Core/enums/loading_state.h>
 #include <Core/save_meta/save_meta.h>
 #include <Core/utils/mood_guid.h>
 #include <nlohmann/json.hpp>
@@ -110,7 +111,7 @@ namespace randomizer::timing {
         // Tracking
         float time_since_last_checkpoint = 0.f;
         float total_time = 0.f;
-        float total_loading_time = 0.f;
+        std::unordered_map<LoadingState, float> loading_times;
 
         /**
          * Countdowns for recent pickups. For each pickup collected, a value of PPM_TIMESPAN
@@ -147,7 +148,7 @@ namespace randomizer::timing {
                 SaveFileGameStats,
                 time_since_last_checkpoint,
                 total_time,
-                total_loading_time,
+                loading_times,
                 recent_pickup_timers,
                 collected_pickups,
                 ability_timestamps,
@@ -163,7 +164,7 @@ namespace randomizer::timing {
         // Methods
         void report_time_spent(GameArea area, float time);
 
-        void report_loading_time(float time);
+        void report_loading_time(float time, LoadingState reason);
 
         void report_pickup(GameArea area, const std::string &location_name);
 
@@ -178,6 +179,8 @@ namespace randomizer::timing {
         void report_respawn();
 
         void report_teleport();
+
+        float get_total_loading_time();
 
         nlohmann::json json_serialize() override;
 
