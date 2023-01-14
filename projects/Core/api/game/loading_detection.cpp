@@ -86,10 +86,6 @@ namespace game::loading_detection {
                 return LoadingState::MenuScreenManagerNonexistent;
             }
 
-            if (menu_screen_manager->fields.ShardShopLoading) {
-                return LoadingState::ShardShopLoading;
-            }
-
             auto fader = faderb::get();
             if (fader != nullptr && fader->fields.CurrentState == app::FaderB_State__Enum::FadeStay) {
                 return LoadingState::FaderB;
