@@ -108,4 +108,6 @@ namespace csharp_bridge {
     extern signatures::f_int_bool get_relic_count;
     extern signatures::f_int get_total_pickup_count;
     extern signatures::f_int_ga get_pickup_count_by_area;
+
+    extern signatures::f_void_float report_loading_time;
 } // namespace csharp_bridge

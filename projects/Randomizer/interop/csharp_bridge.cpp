@@ -83,6 +83,8 @@ namespace csharp_bridge {
     signatures::f_int get_total_pickup_count = nullptr;
     signatures::f_int_ga get_pickup_count_by_area = nullptr;
 
+    signatures::f_void_float report_loading_time = nullptr;
+
     namespace {
         const std::unordered_map<std::string_view, void**> ptr_map{
             DELEGATE_ENTRY(update),
@@ -135,6 +137,7 @@ namespace csharp_bridge {
             DELEGATE_ENTRY(is_multiplayer),
             DELEGATE_ENTRY(get_total_pickup_count),
             DELEGATE_ENTRY(get_pickup_count_by_area),
+            DELEGATE_ENTRY(report_loading_time),
         };
 
         //private static readonly HashSet<UberId> ResourceIds = new HashSet<UberId>{

@@ -217,6 +217,10 @@ namespace RandomizerManaged {
             Delegate = new f_int_zt(SeedController.GetPickupCountByArea),
             CallbackName = "get_pickup_count_by_area"
           },
+          new Method() {
+            Delegate = new f_void_float(WebSocketClient.ReportLoadingTime),
+            CallbackName = "report_loading_time"
+          },
         };
       }
     }

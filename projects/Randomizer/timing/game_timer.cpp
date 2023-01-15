@@ -8,10 +8,12 @@
 #include <Core/uber_states/uber_state_interface.h>
 #include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/PlayerAbilities.h>
+#include <Modloader/app/methods/TimeUtility.h>
 #include <Modloader/common.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
 #include <Randomizer/timing/game_timer.h>
+#include <Randomizer/interop/csharp_bridge.h>
 #include <fmt/format.h>
 #include <atomic>
 #include <mutex>
@@ -57,6 +59,11 @@ namespace randomizer::timing {
     std::atomic<bool> game_finished = false;
     std::atomic<GameArea> current_game_area = GameArea::Void;
 
+    // Loading time report throttling
+    constexpr float loading_time_reporting_throttle_seconds = 1.f;
+    std::atomic<bool> queue_loading_time_report = false;
+    float loading_time_reporting_throttled_for = 0.f;
+
     // This is set to true by some rando routines which grant abilities temporarily
     bool disable_ability_tracking = false;
 
@@ -81,6 +88,8 @@ namespace randomizer::timing {
                     SaveMetaSlotPersistence::ThroughDeathsAndQTMsAndBackups,
                     save_stats
             );
+
+            queue_loading_time_report = true;
 
             stats_mutex.unlock();
         }
@@ -137,6 +146,16 @@ namespace randomizer::timing {
                 game_finished.store(game_finished_uber_state.get<bool>());
                 current_game_area.store(game::player::get_current_area());
             }
+
+            if (queue_loading_time_report && loading_time_reporting_throttled_for <= 0.f) {
+                loading_time_reporting_throttled_for = loading_time_reporting_throttle_seconds;
+                queue_loading_time_report = false;
+                stats_mutex.lock();
+                csharp_bridge::report_loading_time(save_stats->get_total_loading_time());
+                stats_mutex.unlock();
+            }
+
+            loading_time_reporting_throttled_for -= TimeUtility::get_fixedDeltaTime();
         }
 
         void on_async_update(float delta) {
@@ -150,6 +169,7 @@ namespace randomizer::timing {
                 save_stats->report_time_spent(current_game_area.load(), delta);
             } else {
                 save_stats->report_loading_time(delta, loading_state);
+                queue_loading_time_report = true;
             }
             stats_mutex.unlock();
 

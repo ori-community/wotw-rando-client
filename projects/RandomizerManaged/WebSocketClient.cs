@@ -231,6 +231,22 @@ namespace RandomizerManaged {
       catch (Exception e) { Randomizer.Error("SendPlayerUseCatch", e, false); }
     }
 
+    public static void ReportLoadingTime(float loadingTime) {
+      try {
+        if (!WantConnection)
+          return;
+
+        var reportLoadingTimeMessage = new ReportLoadingTimeMessage();
+        reportLoadingTimeMessage.LoadingTime = loadingTime;
+        Packet packet = new Packet {
+          Id = Packet.Types.PacketID.ReportLoadingTimeMessage,
+          Packet_ = reportLoadingTimeMessage.ToByteString()
+        };
+        SendQueue.Add(packet);
+      }
+      catch (Exception e) { Randomizer.Error("ReportLoadingTime", e, false); }
+    }
+
     public static void SendResourceRequestMessage(Memory.UberId id, int amount, bool relative, SpendResourceTarget target) {
       try {
         if (!WantConnection)

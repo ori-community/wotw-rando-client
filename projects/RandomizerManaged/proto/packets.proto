@@ -29,6 +29,7 @@ message Packet {
     UpdatePlayerMapPositionMessage = 22;
     ResourceRequestMessage = 23;
     PlayerTeleportMessage = 24;
+    ReportLoadingTimeMessage = 25;
 
     TrackerUpdate = 100;
     ResetTracker = 101;
@@ -238,3 +239,7 @@ message ResourceRequestMessage {
 }
 
 message PlayerTeleportMessage {}
+
+message ReportLoadingTimeMessage {
+  float loading_time = 1;
+}
