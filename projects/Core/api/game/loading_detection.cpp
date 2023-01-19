@@ -13,9 +13,13 @@
 #include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/LoadingFinishedCondition.h>
 #include <Modloader/app/methods/SelectedSaveValidCondition.h>
+#include <Modloader/app/methods/SceneLoadingQueue.h>
 #include <Modloader/app/methods/LoadGameAction.h>
 #include <Modloader/app/methods/UnityEngine/SceneManagement/SceneManager.h>
 #include <Modloader/app/methods/System/Action.h>
+#include <Modloader/app/methods/UnityEngine/Time.h>
+#include <Modloader/app/types/SavePedestalController.h>
+
 #include <fmt/format.h>
 
 #include "game.h"
@@ -110,6 +114,18 @@ namespace game::loading_detection {
                 }
             }
 
+            auto save_pedestal_controller = types::SavePedestalController::get_class()->static_fields->Instance;
+
+            if (save_pedestal_controller == nullptr) {
+                return LoadingState::SavePedestalControllerNonexistent;
+            }
+
+            // 7.f constant from SavePedestalController_FixedUpdate
+            if (save_pedestal_controller->fields.m_isTeleporting &&
+                (save_pedestal_controller->fields.m_startTime + 7.f) < UnityEngine::Time::get_time()) {
+                return LoadingState::SavePedestalControllerWaiting;
+            }
+
             auto menu_screen_manager = types::UI::get_class()->static_fields->m_sMenu;
 
             if (menu_screen_manager == nullptr) {
@@ -182,18 +198,18 @@ namespace game::loading_detection {
             return validation_passed;
         }
 
-        IL2CPP_INTERCEPT(LoadGameAction, void, Perform, (app::LoadGameAction* this_ptr, app::IContext* context)) {
+        IL2CPP_INTERCEPT(LoadGameAction, void, Perform, (app::LoadGameAction * this_ptr, app::IContext * context)) {
             modloader::ScopedSetter setter(load_game_action_performing, true);
             update_loading_state_cache();
             next::LoadGameAction::Perform(this_ptr, context);
         }
 
-        void on_fixed_update(GameEvent game_event, EventTiming timing) {
+        void on_unity_update_loop(GameEvent game_event, EventTiming timing) {
             update_loading_state_cache();
         }
 
         void initialize() {
-            game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::After, &on_fixed_update);
+            game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, &on_unity_update_loop);
         }
 
         CALL_ON_INIT(initialize);

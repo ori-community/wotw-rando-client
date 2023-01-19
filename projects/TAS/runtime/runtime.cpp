@@ -112,18 +112,7 @@ namespace tas::runtime {
             core::ipc::send_message(request);
         }
 
-        void (*(next_unityplayer_update))() = nullptr;
-        void* yz = (void*)(modloader::win::memory::resolve_unity_player_rva(0x824700));
-        void unityplayer_update();
-
-        modloader::interception::intercept unityplayer_update_intercept(
-                reinterpret_cast<void**>(&yz),
-                reinterpret_cast<void**>(&next_unityplayer_update),
-                reinterpret_cast<void*>(unityplayer_update),
-                "unityplayer_update"
-        );
-
-        void unityplayer_update() {
+        void on_before_unity_loop(GameEvent event, EventTiming timing) {
             if (state.framestepping_enabled) {
                 while (!framestep_requested && state.framestepping_enabled) {
                     game::event_bus().trigger_event(GameEvent::TASPausedUpdate, EventTiming::Before);
@@ -141,9 +130,9 @@ namespace tas::runtime {
 
                 types::FixedRandom::get_class()->static_fields->FixedUpdateIndex = state.current_timeline.get_state().current_rng_state;
             }
+        }
 
-            next_unityplayer_update();
-
+        void on_after_unity_loop(GameEvent event, EventTiming timing) {
             notify_state_changed();
         }
 
@@ -216,6 +205,8 @@ namespace tas::runtime {
             core::ipc::register_request_handler("tas.get_state", &ipc_handlers::get_state);
 
             core::async_update::event_bus().register_handler(&loading_state_detection::on_async_update);
+            game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::Before, &on_before_unity_loop);
+            game::event_bus().register_handler(GameEvent::UnityUpdateLoop, EventTiming::After, &on_after_unity_loop);
 
             console::register_command({ "tas", "game", "reload" }, &cli_handlers::reload_everything, true);
             console::register_command({ "tas", "game", "load" }, &cli_handlers::load, true);

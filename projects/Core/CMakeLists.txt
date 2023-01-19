@@ -52,6 +52,7 @@ set(
         "utils/operations.cpp"
         "utils/position_converter.cpp"
         "utils/stb_image.cpp"
+        "unity_update_loop.cpp"
 )
 
 set(

@@ -20,6 +20,8 @@ enum class LoadingState {
     GameStateMachineNonexistent,
     WaitingForLoadingFinishedCondition,
     LoadGameActionPerforming,
+    SavePedestalControllerNonexistent,
+    SavePedestalControllerWaiting,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(
@@ -42,5 +44,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(
                 { LoadingState::GameStateMachineNonexistent, "GameStateMachineNonexistent" },
                 { LoadingState::WaitingForLoadingFinishedCondition, "WaitingForLoadingFinishedCondition" },
                 { LoadingState::LoadGameActionPerforming, "LoadGameActionPerforming" },
+                { LoadingState::SavePedestalControllerNonexistent, "SavePedestalControllerNonexistent" },
+                { LoadingState::SavePedestalControllerWaiting, "SavePedestalControllerWaiting" },
         }
 );
