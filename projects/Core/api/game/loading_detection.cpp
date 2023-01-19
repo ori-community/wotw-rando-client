@@ -12,6 +12,8 @@
 #include <Modloader/app/methods/UberGCManager.h>
 #include <Modloader/app/methods/GameStateMachine.h>
 #include <Modloader/app/methods/LoadingFinishedCondition.h>
+#include <Modloader/app/methods/SelectedSaveValidCondition.h>
+#include <Modloader/app/methods/LoadGameAction.h>
 #include <Modloader/app/methods/UnityEngine/SceneManagement/SceneManager.h>
 #include <Modloader/app/methods/System/Action.h>
 #include <fmt/format.h>
@@ -30,6 +32,7 @@ namespace game::loading_detection {
     auto loading_menus = false;
     auto uber_gc_running = false;
     auto destroy_manager_destroying = false;
+    auto load_game_action_performing = false;
     auto loading_finished_condition_is_blocking = false;
 
     namespace {
@@ -44,6 +47,10 @@ namespace game::loading_detection {
 
             if (uber_gc_running) {
                 return LoadingState::UberGC;
+            }
+
+            if (load_game_action_performing) {
+                return LoadingState::LoadGameActionPerforming;
             }
 
             auto instant_load_scenes_controller = types::InstantLoadScenesController::get_class()->static_fields->Instance;
@@ -173,6 +180,12 @@ namespace game::loading_detection {
             auto validation_passed = next::LoadingFinishedCondition::Validate(this_ptr, context);
             loading_finished_condition_is_blocking = !validation_passed;
             return validation_passed;
+        }
+
+        IL2CPP_INTERCEPT(LoadGameAction, void, Perform, (app::LoadGameAction* this_ptr, app::IContext* context)) {
+            modloader::ScopedSetter setter(load_game_action_performing, true);
+            update_loading_state_cache();
+            next::LoadGameAction::Perform(this_ptr, context);
         }
 
         void on_fixed_update(GameEvent game_event, EventTiming timing) {

@@ -19,6 +19,7 @@ enum class LoadingState {
     FaderB,
     GameStateMachineNonexistent,
     WaitingForLoadingFinishedCondition,
+    LoadGameActionPerforming,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(
@@ -40,5 +41,6 @@ NLOHMANN_JSON_SERIALIZE_ENUM(
                 { LoadingState::FaderB, "FaderB" },
                 { LoadingState::GameStateMachineNonexistent, "GameStateMachineNonexistent" },
                 { LoadingState::WaitingForLoadingFinishedCondition, "WaitingForLoadingFinishedCondition" },
+                { LoadingState::LoadGameActionPerforming, "LoadGameActionPerforming" },
         }
 );
