@@ -10,11 +10,15 @@
 #include <Modloader/app/methods/ScenesManager.h>
 #include <Modloader/app/methods/DestroyManager.h>
 #include <Modloader/app/methods/UberGCManager.h>
+#include <Modloader/app/methods/GameStateMachine.h>
+#include <Modloader/app/methods/LoadingFinishedCondition.h>
 #include <Modloader/app/methods/UnityEngine/SceneManagement/SceneManager.h>
 #include <Modloader/app/methods/System/Action.h>
+#include <fmt/format.h>
 
 #include "game.h"
 #include <Core/api/scenes/scene_load.h>
+#include <Modloader/windows_api/console.h>
 
 using namespace modloader;
 using namespace app::classes;
@@ -26,6 +30,7 @@ namespace game::loading_detection {
     auto loading_menus = false;
     auto uber_gc_running = false;
     auto destroy_manager_destroying = false;
+    auto loading_finished_condition_is_blocking = false;
 
     namespace {
         LoadingState detect_current_loading_state() {
@@ -47,12 +52,28 @@ namespace game::loading_detection {
                 return LoadingState::InstantLoadScenesControllerNonexistent;
             }
 
-            if (instant_load_scenes_controller->fields.m_isLoading) {
-                return LoadingState::InstantLoadScenesControllerLoading;
+            auto game_state_machine = GameStateMachine::get_Instance();
+
+            if (game_state_machine == nullptr) {
+                return LoadingState::GameStateMachineNonexistent;
             }
 
-            if (instant_load_scenes_controller->fields.m_lockFinishLoading) {
-                return LoadingState::InstantLoadScenesControllerLockFinishLoading;
+            auto ignore_game_controller_loading = false;
+            auto ignore_position_inside_scene_still_loading = false;
+
+            if (instant_load_scenes_controller->fields.m_isLoading) {
+                // If we are in the main menu, finishing off loading is blocked by the LoadingFinishedCondition and
+                // we need to check this against loading_finished_condition_is_blocking
+                if (instant_load_scenes_controller->fields.m_lockFinishLoading) {
+                    if (loading_finished_condition_is_blocking) {
+                        return LoadingState::WaitingForLoadingFinishedCondition;
+                    }
+
+                    ignore_game_controller_loading = true;
+                    ignore_position_inside_scene_still_loading = true;
+                } else {
+                    return LoadingState::InstantLoadScenesControllerLoading;
+                }
             }
 
             if (instant_load_scenes_controller->fields.m_entireGameFrozen) {
@@ -71,13 +92,15 @@ namespace game::loading_detection {
                 return LoadingState::GameControllerNonexistent;
             }
 
-            if (game_controller->fields.m_isLoadingGame) {
+            if (game_controller->fields.m_isLoadingGame && !ignore_game_controller_loading) {
                 return LoadingState::GameControllerLoading;
             }
 
-            auto position = game::player::get_position();
-            if (ScenesManager::PositionInsideSceneStillLoading_2(scenes_manager, position)) {
-                return LoadingState::PositionInsideSceneStillLoading;
+            if (!ignore_position_inside_scene_still_loading) {
+                auto position = game::player::get_position();
+                if (ScenesManager::PositionInsideSceneStillLoading_2(scenes_manager, position)) {
+                    return LoadingState::PositionInsideSceneStillLoading;
+                }
             }
 
             auto menu_screen_manager = types::UI::get_class()->static_fields->m_sMenu;
@@ -98,15 +121,16 @@ namespace game::loading_detection {
             current_loading_state = detect_current_loading_state();
         }
 
-        IL2CPP_INTERCEPT(UnityEngine::SceneManagement::SceneManager, app::Scene, LoadScene_3, (app::String* scene_name, app::LoadSceneParameters parameters)) {
+        IL2CPP_INTERCEPT(UnityEngine::SceneManagement::SceneManager, app::Scene, LoadScene_3,
+                         (app::String * scene_name, app::LoadSceneParameters parameters)) {
             modloader::ScopedSetter setter(loading_scene_synchronously, true);
             update_loading_state_cache();
             return next::UnityEngine::SceneManagement::SceneManager::LoadScene_3(scene_name, parameters);
         }
 
         std::set<gchandle> on_menus_loaded_actions;
-        IL2CPP_INTERCEPT(System::Action, void, Invoke, (app::Action* this_ptr)) {
-            for (const auto& gchandle : on_menus_loaded_actions) {
+        IL2CPP_INTERCEPT(System::Action, void, Invoke, (app::Action * this_ptr)) {
+            for (const auto &gchandle: on_menus_loaded_actions) {
                 auto action = il2cpp::gchandle_target<app::Action>(gchandle);
                 if (action == this_ptr) {
                     loading_menus = false;
@@ -119,12 +143,14 @@ namespace game::loading_detection {
             next::System::Action::Invoke(this_ptr);
         }
 
-        IL2CPP_INTERCEPT(MenuScreenManager, void, LoadMenus, (app::MenuScreenManager* this_ptr, app::Action* on_menus_loaded)) {
+        IL2CPP_INTERCEPT(MenuScreenManager, void, LoadMenus,
+                         (app::MenuScreenManager * this_ptr, app::Action * on_menus_loaded)) {
             on_menus_loaded_actions.insert(il2cpp::gchandle_new(on_menus_loaded));
             next::MenuScreenManager::LoadMenus(this_ptr, on_menus_loaded);
         }
 
-        IL2CPP_INTERCEPT(UberGCManager, void, OnCleanupOutsideOfGameplay, (app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum trigger)) {
+        IL2CPP_INTERCEPT(UberGCManager, void, OnCleanupOutsideOfGameplay,
+                         (app::UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum trigger)) {
             modloader::ScopedSetter setter(uber_gc_running, true);
             update_loading_state_cache();
             next::UberGCManager::OnCleanupOutsideOfGameplay(trigger);
@@ -136,10 +162,17 @@ namespace game::loading_detection {
             next::UberGCManager::RunGC(is_debug);
         }
 
-        IL2CPP_INTERCEPT(DestroyManager, void, DestroyAll, (app::DestroyManager* this_ptr)) {
+        IL2CPP_INTERCEPT(DestroyManager, void, DestroyAll, (app::DestroyManager * this_ptr)) {
             modloader::ScopedSetter setter(destroy_manager_destroying, true);
             update_loading_state_cache();
             next::DestroyManager::DestroyAll(this_ptr);
+        }
+
+        IL2CPP_INTERCEPT(LoadingFinishedCondition, bool, Validate,
+                         (app::LoadingFinishedCondition * this_ptr, app::IContext * context)) {
+            auto validation_passed = next::LoadingFinishedCondition::Validate(this_ptr, context);
+            loading_finished_condition_is_blocking = !validation_passed;
+            return validation_passed;
         }
 
         void on_fixed_update(GameEvent game_event, EventTiming timing) {

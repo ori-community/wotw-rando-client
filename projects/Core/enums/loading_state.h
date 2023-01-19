@@ -6,7 +6,6 @@ enum class LoadingState {
     NotLoading,
     InstantLoadScenesControllerNonexistent,
     InstantLoadScenesControllerLoading,
-    InstantLoadScenesControllerLockFinishLoading,
     InstantLoadScenesControllerEntireGameFrozen,
     ScenesManagerNonexistent,
     ScenesManagerLoading,
@@ -18,6 +17,8 @@ enum class LoadingState {
     UberGC,
     DestroyManagerDestroying,
     FaderB,
+    GameStateMachineNonexistent,
+    WaitingForLoadingFinishedCondition,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(
@@ -26,7 +27,6 @@ NLOHMANN_JSON_SERIALIZE_ENUM(
                 { LoadingState::NotLoading, "NotLoading" },
                 { LoadingState::InstantLoadScenesControllerNonexistent, "InstantLoadScenesControllerNonexistent" },
                 { LoadingState::InstantLoadScenesControllerLoading, "InstantLoadScenesControllerLoading" },
-                { LoadingState::InstantLoadScenesControllerLockFinishLoading, "InstantLoadScenesControllerLockFinishLoading" },
                 { LoadingState::InstantLoadScenesControllerEntireGameFrozen, "InstantLoadScenesControllerEntireGameFrozen" },
                 { LoadingState::ScenesManagerNonexistent, "ScenesManagerNonexistent" },
                 { LoadingState::ScenesManagerLoading, "ScenesManagerLoading" },
@@ -38,5 +38,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(
                 { LoadingState::UberGC, "UberGC" },
                 { LoadingState::DestroyManagerDestroying, "DestroyManagerDestroying" },
                 { LoadingState::FaderB, "FaderB" },
+                { LoadingState::GameStateMachineNonexistent, "GameStateMachineNonexistent" },
+                { LoadingState::WaitingForLoadingFinishedCondition, "WaitingForLoadingFinishedCondition" },
         }
 );
